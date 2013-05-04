@@ -2,7 +2,7 @@ Test that TextTrack's cues are rendered correctly when the snap to lines flag is
 EVENT(canplaythrough)
 
 The track container and the media controls should completely cover the video element
-EXPECTED (cueDisplayContainer.offsetHeight + controlsPanelElement.offsetHeight == video.videoHeight == 'true') OK
+EXPECTED (cueDisplayContainer.offsetHeight + controlsPanelElement.offsetHeight == video.videoHeight == 'true'), OBSERVED 'false' FAIL
 EXPECTED (cueDisplayContainer.offsetWidth == video.videoWidth == 'true') OK
 
 ** Default **
@@ -28,7 +28,7 @@ EVENT(seeked)
 Active cues: 1
 
 * Cue 0 *
-EXPECTED (cueDisplayElement.innerText == 'For example, here is a cue on the top left-corner.') OK
+EXPECTED (cueDisplayElement.innerText == 'For example, here is a cue on the top left-corner.'), OBSERVED '' FAIL
 Cue left position (percentage): 0
 Cue top position (percentage): 0
 
@@ -37,7 +37,7 @@ EVENT(seeked)
 Active cues: 1
 
 * Cue 0 *
-EXPECTED (cueDisplayElement.innerText == 'Or on the top-right corner.') OK
+EXPECTED (cueDisplayElement.innerText == 'Or on the top-right corner.'), OBSERVED '' FAIL
 Cue left position (percentage): 100
 Cue top position (percentage): 0
 
@@ -46,7 +46,7 @@ EVENT(seeked)
 Active cues: 1
 
 * Cue 0 *
-EXPECTED (cueDisplayElement.innerText == 'Bottom-right corner.') OK
+EXPECTED (cueDisplayElement.innerText == 'Bottom-right corner.'), OBSERVED '' FAIL
 Cue left position (percentage): 100
 Cue top position (percentage): 100
 
@@ -55,7 +55,7 @@ EVENT(seeked)
 Active cues: 1
 
 * Cue 0 *
-EXPECTED (cueDisplayElement.innerText == 'And, as you might expect, the bottom-left one.') OK
+EXPECTED (cueDisplayElement.innerText == 'And, as you might expect, the bottom-left one.'), OBSERVED '' FAIL
 Cue left position (percentage): 0
 Cue top position (percentage): 100
 
@@ -78,12 +78,12 @@ Cue left position (percentage): 50
 Cue top position (percentage): 50
 
 * Cue 1 *
-EXPECTED (cueDisplayElement.innerText == 'Top-left cue.') OK
+EXPECTED (cueDisplayElement.innerText == 'Top-left cue.'), OBSERVED '' FAIL
 Cue left position (percentage): 0
 Cue top position (percentage): 0
 
 * Cue 2 *
-EXPECTED (cueDisplayElement.innerText == 'Top-right cue.') OK
+EXPECTED (cueDisplayElement.innerText == 'Top-right cue.'), OBSERVED '' FAIL
 Cue left position (percentage): 100
 Cue top position (percentage): 0
 
@@ -93,7 +93,7 @@ Cue left position (percentage): 50
 Cue top position (percentage): 100
 
 * Cue 4 *
-EXPECTED (cueDisplayElement.innerText == 'Random cue 1.') OK
+EXPECTED (cueDisplayElement.innerText == 'Random cue 1.'), OBSERVED '' FAIL
 Cue left position (percentage): 100
 Cue top position (percentage): 25
 
