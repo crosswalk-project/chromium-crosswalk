@@ -131,7 +131,6 @@ static void GetNativeIceServers(
     webrtc::PeerConnectionInterface::IceServer server;
     const WebKit::WebRTCICEServer& webkit_server =
         server_configuration.server(i);
-    server.username = UTF16ToUTF8(webkit_server.username());
     server.password = UTF16ToUTF8(webkit_server.credential());
     server.uri = webkit_server.uri().spec();
     servers->push_back(server);
