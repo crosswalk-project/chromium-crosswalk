@@ -663,12 +663,12 @@ static void AdjustRuntimeFeaturesFromArgs(const CommandLine& command_line) {
 #endif
 
 #if defined(OS_ANDROID)
-  if (command_line.HasSwitch(switches::kDisableWebRTC))
+  if (!command_line.HasSwitch(switches::kEnableWebRTC))
     WebRuntimeFeatures::enableMediaStream(false);
 #endif
 
 #if defined(OS_ANDROID)
-  if (command_line.HasSwitch(switches::kDisableWebRTC))
+  if (!command_line.HasSwitch(switches::kEnableWebRTC))
     WebRuntimeFeatures::enablePeerConnection(false);
 #endif
 
@@ -1227,8 +1227,8 @@ GpuChannelHost* RenderThreadImpl::EstablishGpuChannelSync(
 WebKit::WebMediaStreamCenter* RenderThreadImpl::CreateMediaStreamCenter(
     WebKit::WebMediaStreamCenterClient* client) {
 #if defined(OS_ANDROID)
-  if (CommandLine::ForCurrentProcess()->HasSwitch(
-      switches::kDisableWebRTC))
+  if (!CommandLine::ForCurrentProcess()->HasSwitch(
+      switches::kEnableWebRTC))
     return NULL;
 #endif
 
