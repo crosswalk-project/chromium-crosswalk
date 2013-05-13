@@ -513,7 +513,7 @@ FileTasks.prototype.openGalleryInternal_ = function(urls) {
   // changes in the Gallery and popped when the Gallery is closed.
   util.updateAppState(false /*push*/);
 
-  var onClose = function(selectedUrls) {
+  var onBack = function(selectedUrls) {
     fm.directoryModel_.selectUrls(selectedUrls);
     if (util.platform.v2()) {
       fm.closeFilePopup_();  // Will call Gallery.unload.
@@ -523,6 +523,14 @@ FileTasks.prototype.openGalleryInternal_ = function(urls) {
     } else {
       window.history.back(1);  // This will restore document.title.
     }
+  };
+
+  var onClose = function() {
+    fm.onClose();
+  };
+
+  var onMaximize = function() {
+    fm.onMaximize();
   };
 
   galleryFrame.onload = function() {
@@ -551,7 +559,9 @@ FileTasks.prototype.openGalleryInternal_ = function(urls) {
       searchResults: fm.directoryModel_.isSearching(),
       metadataCache: fm.metadataCache_,
       pageState: this.params_,
+      onBack: onBack,
       onClose: onClose,
+      onMaximize: onMaximize,
       onThumbnailError: function(imageURL) {
         fm.metadataCache_.refreshFileMetadata(imageURL);
       },
