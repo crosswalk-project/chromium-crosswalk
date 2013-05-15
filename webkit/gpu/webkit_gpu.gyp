@@ -50,6 +50,8 @@
             'webgraphicscontext3d_in_process_command_buffer_impl.h',
             'webgraphicscontext3d_in_process_impl.cc',
             'webgraphicscontext3d_in_process_impl.h',
+            'webgraphicscontext3d_provider_impl.cc',
+            'webgraphicscontext3d_provider_impl.h',
           ],
           'conditions': [
             ['inside_chromium_build==0', {
