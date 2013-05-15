@@ -14,6 +14,14 @@
 #include "ppapi/cpp/completion_callback.h"
 #include "ppapi/cpp/var.h"
 
+#ifdef WIN32
+#undef min
+#undef max
+
+// Allow 'this' in initializer list
+#pragma warning(disable : 4355)
+#endif
+
 namespace {
 
 // This is called by the browser when the 2D context has been flushed to the
