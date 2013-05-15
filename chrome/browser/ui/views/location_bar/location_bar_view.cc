@@ -209,7 +209,9 @@ LocationBarView::LocationBarView(Browser* browser,
       base::Bind(&LocationBarView::Update,
                  base::Unretained(this),
                  static_cast<content::WebContents*>(NULL)));
-  browser_->toolbar_model()->SetSupportsExtractionOfURLLikeSearchTerms(true);
+
+  if (browser_)
+    browser_->toolbar_model()->SetSupportsExtractionOfURLLikeSearchTerms(true);
 }
 
 LocationBarView::~LocationBarView() {
