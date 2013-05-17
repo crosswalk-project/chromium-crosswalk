@@ -25,7 +25,11 @@ using content::BrowserThread;
 namespace drive {
 
 namespace {
+
 const int kMaxThrottleCount = 5;
+
+const int kMaxRetryCount = kMaxThrottleCount - 1;
+
 }
 
 const int JobScheduler::kMaxJobCount[] = {
@@ -35,7 +39,8 @@ const int JobScheduler::kMaxJobCount[] = {
 
 JobScheduler::QueueEntry::QueueEntry()
     : job_id(-1),
-      context(DriveClientContext(USER_INITIATED)) {
+      context(DriveClientContext(USER_INITIATED)),
+      retry_count(0) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
 }
 
@@ -769,9 +774,12 @@ scoped_ptr<JobScheduler::QueueEntry> JobScheduler::OnJobDone(
   --jobs_running_[queue_type];
 
   // Retry, depending on the error.
-  if (error == FILE_ERROR_THROTTLED) {
+  if (error == FILE_ERROR_THROTTLED &&
+      queue_entry->retry_count < kMaxRetryCount) {
     job_info->state = STATE_RETRY;
     NotifyJobUpdated(*job_info);
+
+    ++queue_entry->retry_count;
 
     // Requeue the job.
     QueueJob(queue_entry.Pass());

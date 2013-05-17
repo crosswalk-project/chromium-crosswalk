@@ -177,6 +177,8 @@ class JobScheduler
     // Context of the job.
     DriveClientContext context;
 
+    int retry_count;
+
     // Resource ID to use for the operation.
     // Used by:
     //   TYPE_GET_RESOURCE_ENTRY
