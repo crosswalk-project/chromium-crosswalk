@@ -17,6 +17,9 @@ namespace ClearWatch = location::ClearWatch;
 namespace extensions {
 
 bool LocationWatchLocationFunction::RunImpl() {
+  return true;
+
+  /*
   scoped_ptr<WatchLocation::Params> params(
       WatchLocation::Params::Create(*args_));
   EXTENSION_FUNCTION_VALIDATE(params.get());
@@ -26,9 +29,13 @@ bool LocationWatchLocationFunction::RunImpl() {
       extension_id(), params->name);
 
   return true;
+  */
 }
 
 bool LocationClearWatchFunction::RunImpl() {
+  return true;
+
+  /*
   scoped_ptr<ClearWatch::Params> params(
       ClearWatch::Params::Create(*args_));
   EXTENSION_FUNCTION_VALIDATE(params.get());
@@ -37,6 +44,7 @@ bool LocationClearWatchFunction::RunImpl() {
       extension_id(), params->name);
 
   return true;
+  */
 }
 
 }  // namespace extensions
