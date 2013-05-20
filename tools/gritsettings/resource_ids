@@ -218,7 +218,7 @@
 
   # Resource ids starting at 31000 are reserved for projects built on Chromium.
 
-  "cameo/src/resources/cameo_resources.grd": {
+  "cameo/src/runtime/resources/cameo_resources.grd": {
     "includes": [31000],
     "structures": [31500],
   },
