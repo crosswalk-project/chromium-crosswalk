@@ -54,8 +54,6 @@ class NativeAppWindowViews : public NativeAppWindow,
   void InitializePanelWindow(const ShellWindow::CreateParams& create_params);
   void OnViewWasResized();
 
-  bool ShouldUseChromeStyleFrame() const;
-
 #if defined(OS_WIN)
   void OnShortcutInfoLoaded(
       const ShellIntegration::ShortcutInfo& shortcut_info);
