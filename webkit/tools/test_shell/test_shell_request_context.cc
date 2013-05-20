@@ -10,6 +10,7 @@
 #include "base/files/file_path.h"
 #include "base/thread_task_runner_handle.h"
 #include "base/threading/worker_pool.h"
+#include "net/base/cache_type.h"
 #include "net/cert/cert_verifier.h"
 #include "net/cookies/cookie_monster.h"
 #include "net/dns/host_resolver.h"
@@ -95,7 +96,8 @@ void TestShellRequestContext::Init(
 
   net::HttpCache::DefaultBackend* backend = new net::HttpCache::DefaultBackend(
       cache_path.empty() ? net::MEMORY_CACHE : net::DISK_CACHE,
-      cache_path, 0, SimpleResourceLoaderBridge::GetCacheThread());
+      net::CACHE_BACKEND_DEFAULT, cache_path, 0,
+      SimpleResourceLoaderBridge::GetCacheThread());
 
   net::HttpNetworkSession::Params network_session_params;
   network_session_params.host_resolver = host_resolver();
