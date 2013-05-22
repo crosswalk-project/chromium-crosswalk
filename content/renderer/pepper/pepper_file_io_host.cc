@@ -425,24 +425,8 @@ int32_t PepperFileIOHost::OnHostMsgWillSetLength(
 
 int32_t PepperFileIOHost::OnHostMsgRequestOSFileHandle(
     ppapi::host::HostMessageContext* context) {
-  if (!is_running_in_process_ &&
-      quota_policy_ != quota::kQuotaLimitTypeUnlimited)
-    return PP_ERROR_FAILED;
-
-  RendererPpapiHost* renderer_ppapi_host =
-      RendererPpapiHost::GetForPPInstance(pp_instance());
-
-  IPC::PlatformFileForTransit file =
-      renderer_ppapi_host->ShareHandleWithRemote(file_, false);
-  if (file == IPC::InvalidPlatformFileForTransit())
-    return PP_ERROR_FAILED;
-  ppapi::host::ReplyMessageContext reply_context =
-      context->MakeReplyMessageContext();
-  reply_context.params.AppendHandle(ppapi::proxy::SerializedHandle(
-      ppapi::proxy::SerializedHandle::FILE, file));
-  host()->SendReply(reply_context,
-                    PpapiPluginMsg_FileIO_RequestOSFileHandleReply());
-  return PP_OK_COMPLETIONPENDING;
+  NOTIMPLEMENTED();
+  return PP_ERROR_FAILED;
 }
 
 int32_t PepperFileIOHost::OnHostMsgGetOSFileDescriptor(
