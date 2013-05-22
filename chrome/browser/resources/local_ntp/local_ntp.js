@@ -552,7 +552,9 @@ function onRestoreAll() {
 
 /**
  * Handles a resize by vertically centering the most visited section
- * and re-rendering the tiles if the number of columns has changed.
+ * and re-rendering the tiles if the number of columns has changed. As a
+ * temporary fix for crbug/240510, updates the width of the fakebox and most
+ * visited tiles container.
  */
 function onResize() {
   // The Google page uses a fixed layout instead.
@@ -562,11 +564,27 @@ function onResize() {
         Math.max(0, (clientHeight - MOST_VISITED_HEIGHT) / 2) + 'px';
   }
 
+  var innerWidth = window.innerWidth;
+
+  // These values should remain in sync with local_ntp.css.
+  // TODO(jeremycho): Delete once the root cause of crbug/240510 is resolved.
+  var setWidths = function(tilesContainerWidth) {
+    tilesContainer.style.width = tilesContainerWidth + 'px';
+    if (fakebox)
+      fakebox.style.width = (tilesContainerWidth - 2) + 'px';
+  };
+  if (innerWidth >= 820 || innerWidth == 0)
+    setWidths(620);
+  else if (innerWidth >= 660)
+    setWidths(460);
+  else
+    setWidths(300);
+
   var tileRequiredWidth = TILE_WIDTH + TILE_MARGIN_START;
   // Adds margin-start to the available width to compensate the extra margin
   // counted above for the first tile (which does not have a margin-start).
-  var availableWidth = document.documentElement.clientWidth +
-      TILE_MARGIN_START - MIN_TOTAL_HORIZONTAL_PADDING;
+  var availableWidth = innerWidth + TILE_MARGIN_START -
+      MIN_TOTAL_HORIZONTAL_PADDING;
   var numColumnsToShow = Math.floor(availableWidth / tileRequiredWidth);
   numColumnsToShow = Math.max(MIN_NUM_COLUMNS,
                               Math.min(MAX_NUM_COLUMNS, numColumnsToShow));
