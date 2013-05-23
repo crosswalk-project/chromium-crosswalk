@@ -541,8 +541,12 @@ void SyncSchedulerImpl::HandleFailure(
   if (IsSyncingCurrentlySilenced()) {
     SDVLOG(2) << "Was throttled during previous sync cycle.";
     RestartWaiting();
-  } else {
-    UpdateExponentialBackoff(model_neutral_state);
+  } else if (!IsBackingOff()) {
+    // Setup our backoff if this is our first such failure.
+    TimeDelta length = delay_provider_->GetDelay(
+        delay_provider_->GetInitialDelay(model_neutral_state));
+    wait_interval_.reset(
+        new WaitInterval(WaitInterval::EXPONENTIAL_BACKOFF, length));
     SDVLOG(2) << "Sync cycle failed.  Will back off for "
         << wait_interval_->length.InMilliseconds() << "ms.";
     RestartWaiting();
@@ -643,20 +647,9 @@ void SyncSchedulerImpl::RestartWaiting() {
     pending_wakeup_timer_.Start(
         FROM_HERE,
         wait_interval_->length,
-        base::Bind(&SyncSchedulerImpl::TryCanaryJob,
+        base::Bind(&SyncSchedulerImpl::ExponentialBackoffRetry,
                    weak_ptr_factory_.GetWeakPtr()));
   }
-}
-
-void SyncSchedulerImpl::UpdateExponentialBackoff(
-    const sessions::ModelNeutralState& model_neutral_state) {
-  DCHECK(CalledOnValidThread());
-
-  TimeDelta length = delay_provider_->GetDelay(
-      IsBackingOff() ? wait_interval_->length :
-          delay_provider_->GetInitialDelay(model_neutral_state));
-  wait_interval_.reset(new WaitInterval(WaitInterval::EXPONENTIAL_BACKOFF,
-                                        length));
 }
 
 void SyncSchedulerImpl::RequestStop(const base::Closure& callback) {
@@ -731,6 +724,22 @@ void SyncSchedulerImpl::Unthrottle() {
   // that we're careful to update routing info (etc) with such potentially
   // stale canary jobs.
   TryCanaryJob();
+}
+
+void SyncSchedulerImpl::ExponentialBackoffRetry() {
+  TryCanaryJob();
+
+  if (IsBackingOff()) {
+    // If we succeeded, our wait interval would have been cleared.  If it hasn't
+    // been cleared, then we should increase our backoff interval and schedule
+    // another retry.
+    TimeDelta length = delay_provider_->GetDelay(wait_interval_->length);
+    wait_interval_.reset(
+      new WaitInterval(WaitInterval::EXPONENTIAL_BACKOFF, length));
+    SDVLOG(2) << "Sync cycle failed.  Will back off for "
+        << wait_interval_->length.InMilliseconds() << "ms.";
+    RestartWaiting();
+  }
 }
 
 void SyncSchedulerImpl::Notify(SyncEngineEvent::EventCause cause) {
