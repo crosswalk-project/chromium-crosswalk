@@ -15,6 +15,7 @@
 #include "ash/display/display_info.h"
 #include "ash/display/display_manager.h"
 #include "ash/shell.h"
+#include "base/hash.h"
 #include "base/message_pump_aurax11.h"
 #include "grit/ash_strings.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -84,13 +85,20 @@ std::string GetDisplayName(XID output_id) {
 
 int64 GetDisplayId(XID output_id, int output_index) {
   uint16 manufacturer_id = 0;
-  uint16 product_code = 0;
-  if (ui::GetOutputDeviceData(
-          output_id, &manufacturer_id, &product_code, NULL) &&
-      manufacturer_id != 0) {
+  std::string product_name;
+
+  // ui::GetOutputDeviceData fails if it doesn't have product_name.
+  ui::GetOutputDeviceData(output_id, &manufacturer_id, NULL, &product_name);
+
+  // Generates product specific value from product_name instead of product code.
+  // See crbug.com/240341
+  uint32 product_code_hash = product_name.empty() ?
+      0 : base::Hash(product_name);
+  if (manufacturer_id != 0) {
     // An ID based on display's index will be assigned later if this call
     // fails.
-    return gfx::Display::GetID(manufacturer_id, product_code, output_index);
+    return gfx::Display::GetID(
+        manufacturer_id, product_code_hash, output_index);
   }
   return gfx::Display::kInvalidDisplayID;
 }
