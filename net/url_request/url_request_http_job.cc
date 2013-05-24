@@ -415,6 +415,7 @@ void URLRequestHttpJob::DestroyTransaction() {
   DoneWithRequest(ABORTED);
   transaction_.reset();
   response_info_ = NULL;
+  receive_headers_end_ = base::TimeTicks();
 }
 
 void URLRequestHttpJob::StartTransaction() {
@@ -818,6 +819,8 @@ void URLRequestHttpJob::OnStartCompleted(int result) {
   if (!transaction_.get())
     return;
 
+  receive_headers_end_ = base::TimeTicks::Now();
+
   // Clear the IO_PENDING status
   SetStatus(URLRequestStatus());
 
@@ -917,6 +920,7 @@ void URLRequestHttpJob::RestartTransactionWithAuth(
 
   // These will be reset in OnStartCompleted.
   response_info_ = NULL;
+  receive_headers_end_ = base::TimeTicks();
   response_cookies_.clear();
 
   ResetTimer();
@@ -981,8 +985,12 @@ void URLRequestHttpJob::GetResponseInfo(HttpResponseInfo* info) {
 
 void URLRequestHttpJob::GetLoadTimingInfo(
     LoadTimingInfo* load_timing_info) const {
-  if (transaction_)
-    transaction_->GetLoadTimingInfo(load_timing_info);
+  // If haven't made it far enough to receive any headers, don't return
+  // anything.  This makes for more consistent behavior in the case of errors.
+  if (!transaction_ || receive_headers_end_.is_null())
+    return;
+  if (transaction_->GetLoadTimingInfo(load_timing_info))
+    load_timing_info->receive_headers_end = receive_headers_end_;
 }
 
 bool URLRequestHttpJob::GetResponseCookies(std::vector<std::string>* cookies) {
@@ -1132,6 +1140,7 @@ void URLRequestHttpJob::CancelAuth() {
 
   // These will be reset in OnStartCompleted.
   response_info_ = NULL;
+  receive_headers_end_ = base::TimeTicks::Now();
   response_cookies_.clear();
 
   ResetTimer();
@@ -1155,6 +1164,7 @@ void URLRequestHttpJob::ContinueWithCertificate(
   DCHECK(transaction_.get());
 
   DCHECK(!response_info_) << "should not have a response yet";
+  receive_headers_end_ = base::TimeTicks();
 
   ResetTimer();
 
@@ -1180,6 +1190,7 @@ void URLRequestHttpJob::ContinueDespiteLastError() {
     return;
 
   DCHECK(!response_info_) << "should not have a response yet";
+  receive_headers_end_ = base::TimeTicks();
 
   ResetTimer();
 
