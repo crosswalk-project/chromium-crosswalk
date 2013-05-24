@@ -41,14 +41,14 @@ class UI_EXPORT Display {
   static bool HasForceDeviceScaleFactor();
 
   // Returns 64-bit persistent ID for the specified manufacturer's ID and
-  // product_code, and the index of the output it is connected to.
+  // product_code_hash, and the index of the output it is connected to.
   // |output_index| is used to distinguish the displays of the same type. For
   // example, swapping two identical display between two outputs will not be
   // treated as swap. The 'serial number' field in EDID isn't used here because
   // it is not guaranteed to have unique number and it may have the same fixed
   // value (like 0).
   static int64 GetID(uint16 manufacturer_id,
-                     uint16 product_code,
+                     uint32 product_code_hash,
                      uint8 output_index);
 
   // Sets/Gets unique identifier associated with the display.

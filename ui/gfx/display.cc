@@ -54,10 +54,10 @@ bool Display::HasForceDeviceScaleFactor() {
 
 // static
 int64 Display::GetID(uint16 manufacturer_id,
-                     uint16 product_code,
+                     uint32 product_code_hash,
                      uint8 output_index) {
-  int64 new_id = ((static_cast<int64>(manufacturer_id) << 24) |
-                  (static_cast<int64>(product_code) << 8) | output_index);
+  int64 new_id = ((static_cast<int64>(manufacturer_id) << 40) |
+                  (static_cast<int64>(product_code_hash) << 8) | output_index);
   DCHECK_NE(kInvalidDisplayID, new_id);
   return new_id;
 }
