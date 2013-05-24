@@ -73,6 +73,7 @@ bool CollectBasicGraphicsInfo(content::GPUInfo* gpu_info) {
   bool is_img = vendor.find("imagination") != std::string::npos;
   bool is_arm = vendor.find("arm") != std::string::npos;
   bool is_qualcomm = vendor.find("qualcomm") != std::string::npos;
+  bool is_broadcom = vendor.find("broadcom") != std::string::npos;
   bool is_mali_t604 = is_arm && renderer.find("mali-t604") != std::string::npos;
   bool is_vivante = vendor.find("vivante") != std::string::npos;
   is_vivante |= vendor.find("hisilicon") != std::string::npos;
@@ -87,7 +88,8 @@ bool CollectBasicGraphicsInfo(content::GPUInfo* gpu_info) {
   // IMG: avoid context switching perf problems, crashes with share groups
   // Mali-T604: http://crbug.com/154715
   // QualComm, NVIDIA: Crashes with share groups
-  if (is_vivante || is_img || is_mali_t604 || is_nexus7 || is_qualcomm) {
+  if (is_vivante || is_img || is_mali_t604 || is_nexus7 || is_qualcomm ||
+      is_broadcom) {
     CommandLine::ForCurrentProcess()->AppendSwitch(
         switches::kEnableVirtualGLContexts);
   }
