@@ -349,11 +349,11 @@ class NET_EXPORT_PRIVATE SpdyStream
   int DoGetDomainBoundCert();
   int DoGetDomainBoundCertComplete(int result);
   int DoSendDomainBoundCert();
-  int DoSendDomainBoundCertComplete();
+  int DoSendDomainBoundCertComplete(int result);
   int DoSendHeaders();
   int DoSendHeadersComplete();
   int DoSendBody();
-  int DoSendBodyComplete();
+  int DoSendBodyComplete(int result);
   int DoReadHeaders();
   int DoReadHeadersComplete(int result);
   int DoOpen();
