@@ -447,11 +447,11 @@ void AsyncPixelTransferDelegateEGL::WaitForTransferCompletion(
   if (state->TransferIsInProgress()) {
 #if defined(OS_ANDROID)
     // TODO(epenner): Move thread priorities to base. (crbug.com/170549)
-    int default_nice_value = 0;  // Default priority.
+    int high_nice_value = -6;  // Default priority.
     int idle_nice_value    = 10; // Idle priority.
     setpriority(PRIO_PROCESS,
                 g_transfer_thread.Pointer()->thread_id(),
-                default_nice_value);
+                high_nice_value);
 #endif
 
     state->WaitForTransferCompletion();
