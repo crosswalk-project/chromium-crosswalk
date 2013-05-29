@@ -689,6 +689,8 @@ void LayerTreeHost::SetVisible(bool visible) {
   if (visible_ == visible)
     return;
   visible_ = visible;
+  if (!visible)
+    ReduceMemoryUsage();
   proxy_->SetVisible(visible);
 }
 
@@ -812,6 +814,21 @@ void LayerTreeHost::TriggerPrepaint() {
   prepaint_callback_.Cancel();
   TRACE_EVENT0("cc", "LayerTreeHost::TriggerPrepaint");
   SetNeedsCommit();
+}
+
+class LayerTreeHostReduceMemoryFunctor {
+ public:
+  void operator()(Layer* layer) {
+    layer->ReduceMemoryUsage();
+  }
+};
+
+void LayerTreeHost::ReduceMemoryUsage() {
+  if (!root_layer())
+    return;
+
+  LayerTreeHostCommon::CallFunctionForSubtree<
+      LayerTreeHostReduceMemoryFunctor, Layer>(root_layer());
 }
 
 void LayerTreeHost::SetPrioritiesForSurfaces(size_t surface_memory_bytes) {
