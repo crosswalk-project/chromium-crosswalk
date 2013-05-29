@@ -474,7 +474,7 @@ void BrowserOptionsHandler::GetLocalizedValues(DictionaryValue* values) {
       CommandLine::ForCurrentProcess()->HasSwitch(
           chromeos::switches::kEnableKioskAppSettings) &&
       !CommandLine::ForCurrentProcess()->HasSwitch(
-          chromeos::switches::kDisableAppMode) &&
+          switches::kDisableAppMode) &&
       (chromeos::UserManager::Get()->IsCurrentUserOwner() ||
        !base::chromeos::IsRunningOnChromeOS()));
 #endif
