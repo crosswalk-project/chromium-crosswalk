@@ -1014,8 +1014,17 @@ void ExistingUserController::InitializeStartUrls() const {
     customization->ApplyCustomization();
   }
 
-  for (size_t i = 0; i < start_urls.size(); ++i) {
-    CommandLine::ForCurrentProcess()->AppendArg(start_urls[i]);
+
+  // Don't open default Chrome window for the first login of a new
+  // user because it will hide the Getting Started App window (which is
+  // launched automatically in that situation).
+  if (UserManager::Get()->IsCurrentUserNew()) {
+    CommandLine::ForCurrentProcess()->AppendSwitchASCII(
+        ::switches::kSilentLaunch, "");
+  } else {
+    for (size_t i = 0; i < start_urls.size(); ++i) {
+      CommandLine::ForCurrentProcess()->AppendArg(start_urls[i]);
+    }
   }
 }
 
