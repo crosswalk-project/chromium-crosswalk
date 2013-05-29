@@ -7065,6 +7065,12 @@ Keep your key file in a safe place. You will need it to create new versions of y
         <message name="IDS_FLAGS_ENABLE_EXPERIMENTAL_BLUETOOTH_DESCRIPTION" desc="Description for the flag to enable experimental Bluetooth features.">
           Enable experimental Bluetooth features.
         </message>
+        <message name="IDS_FLAGS_ENABLE_KIOSK_APP_SETTINGS_NAME" desc="Name for the flag to enable kiosk app settings UI.">
+          Enable kiosk app settings UI.
+        </message>
+        <message name="IDS_FLAGS_ENABLE_KIOSK_APP_SETTINGS_DESCRIPTION" desc="Description for the flag to enable kiosk app settings UI.">
+          Enable kiosk app management in settings.
+        </message>
       </if>
       <message name="IDS_FLAGS_FULL_HISTORY_SYNC_NAME" desc="Name of the flag to disable full history sync.">
         Disable full history sync

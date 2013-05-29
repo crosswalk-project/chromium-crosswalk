@@ -30,6 +30,7 @@ CHROMEOS_EXPORT extern const char kDisableStubEthernet[];
 CHROMEOS_EXPORT extern const char kEnableChromeAudioSwitching[];
 CHROMEOS_EXPORT extern const char kEnableExperimentalBluetooth[];
 CHROMEOS_EXPORT extern const char kDisableNewNetworkChangeNotifier[];
+CHROMEOS_EXPORT extern const char kEnableKioskAppSettings[];
 CHROMEOS_EXPORT extern const char kEnableScreensaverExtensions[];
 CHROMEOS_EXPORT extern const char kEnableStubInteractive[];
 CHROMEOS_EXPORT extern const char kForceLoginManagerInTests[];

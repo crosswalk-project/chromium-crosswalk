@@ -42,6 +42,10 @@ const char kEnableExperimentalBluetooth[] = "enable-experimental-bluetooth";
 const char kDisableNewNetworkChangeNotifier[] =
     "disable-new-network-change-notifier";
 
+// Enable kiosk app settings UI.
+// TODO(xiyuan): Remove this flag after http://crbug.com/228860.
+const char kEnableKioskAppSettings[]        = "enable-kiosk-app-settings";
+
 // Enables screensaver extensions.
 const char kEnableScreensaverExtensions[] = "enable-screensaver-extensions";
 
@@ -89,5 +93,5 @@ const char kSmsTestMessages[] = "sms-test-messages";
 const char kUseNewNetworkConfigurationHandlers[] =
     "use-new-network-configuration-handlers";
 
-} // namespace switches
+}  // namespace switches
 }  // namespace chromeos
