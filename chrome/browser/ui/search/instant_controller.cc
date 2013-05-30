@@ -226,8 +226,10 @@ bool GetURLForMostVisitedItemID(Profile* profile,
 
 template <typename T>
 void DeletePageSoon(scoped_ptr<T> page) {
-  if (page->contents())
-    page->ReleaseContents();
+  if (page->contents()) {
+    base::MessageLoop::current()->DeleteSoon(
+        FROM_HERE, page->ReleaseContents().release());
+  }
 
   MessageLoop::current()->DeleteSoon(FROM_HERE, page.release());
 }
