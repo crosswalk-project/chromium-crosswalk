@@ -59,6 +59,7 @@ bool Textfield::IsViewsTextfieldEnabled() {
   // The new dialog style cannot host native Windows textfield controls.
   if (command_line->HasSwitch(switches::kEnableNewDialogStyle))
     return true;
+  return false;
 #endif
   return true;
 }
