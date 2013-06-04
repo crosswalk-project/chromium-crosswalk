@@ -117,6 +117,13 @@ void InputMethodEngineIBus::Initialize(
     RegisterComponent();
 }
 
+void InputMethodEngineIBus::StartIme() {
+  input_method::InputMethodManager* manager =
+      input_method::GetInputMethodManager();
+  if (manager && ibus_id_ == manager->GetCurrentInputMethod().id())
+    Enable();
+}
+
 bool InputMethodEngineIBus::SetComposition(
     int context_id,
     const char* text,
