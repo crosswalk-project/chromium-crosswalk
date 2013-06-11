@@ -39,6 +39,12 @@
 #include <gdk/gdkx.h>
 #endif
 
+/*
+#if defined(TOOLKIT_EFL)
+// RijuTODO#include <Ecore.h>
+#endif
+*/
+
 namespace base {
 
 namespace {

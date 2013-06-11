@@ -320,6 +320,11 @@
         '../build/linux/system.gyp:gtk',
       ],
     }],
+    ['toolkit_uses_efl == 1', {
+      'dependencies': [
+        '../build/linux/system.gyp:efl',
+      ],
+    }],
     ['OS=="mac"', {
       'sources!': [
         'common/process_watcher_posix.cc',
