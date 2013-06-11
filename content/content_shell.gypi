@@ -40,6 +40,7 @@
         'test_support_content',
         'content_resources.gyp:content_resources',
         '../base/base.gyp:base',
+        '<(DEPTH)/build/linux/system.gyp:efl',
         '../base/third_party/dynamic_annotations/dynamic_annotations.gyp:dynamic_annotations',
         '../build/temp_gyp/googleurl.gyp:googleurl',
         '../ipc/ipc.gyp:ipc',

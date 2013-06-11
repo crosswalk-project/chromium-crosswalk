@@ -245,6 +245,29 @@
         }],
       ],
     },
+
+    # TODO(rakuco): It is cleaner to have a separate target for each library.
+    {
+      'target_name': 'efl',
+      'type': 'none',
+      'variables': {
+        'efl_libs': 'eina evas ecore ecore-evas ecore-file ecore-imf ecore-input ecore-x edje',
+      },
+      'direct_dependent_settings': {
+        'cflags': [
+          '<!@(<(pkg-config) --cflags <(efl_libs))',
+        ],
+      },
+      'link_settings': {
+        'ldflags': [
+          '<!@(<(pkg-config) --libs-only-L --libs-only-other <(efl_libs))',
+        ],
+        'libraries': [
+          '<!@(<(pkg-config) --libs-only-l <(efl_libs))',
+        ],
+      },
+    },
+
     {
       'target_name': 'freetype2',
       'type': 'none',
