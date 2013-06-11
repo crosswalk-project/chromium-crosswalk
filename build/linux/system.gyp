@@ -773,6 +773,50 @@
       ],
     },
     {
+      'target_name': 'efl',
+      'type': 'none',
+      'toolsets': ['host', 'target'],
+      'variables': {
+        'efl_packages': 'eina evas ecore ecore-evas ecore-file ecore-imf ecore-input ecore-x edje',
+      },
+      'conditions': [
+        ['_toolset=="target"', {
+          'direct_dependent_settings': {
+            'cflags': [
+              '<!@(<(pkg-config) --cflags <(efl_packages))',
+            ],
+          },
+          'link_settings': {
+            'ldflags': [
+              '<!@(<(pkg-config) --libs-only-L --libs-only-other <(efl_packages))',
+            ],
+            'libraries': [
+              '<!@(<(pkg-config) --libs-only-l <(efl_packages))',
+            ],
+          },
+        }, {
+          'direct_dependent_settings': {
+            'cflags': [
+              '<!@(pkg-config --cflags <(efl_packages))',
+            ],
+          },
+          'link_settings': {
+            'ldflags': [
+              '<!@(pkg-config --libs-only-L --libs-only-other <(efl_packages))',
+            ],
+            'libraries': [
+              '<!@(pkg-config --libs-only-l <(efl_packages))',
+            ],
+          },
+        }],
+        ['use_x11==1', {
+          'link_settings': {
+            'libraries': [ '-lXtst' ]
+          }
+        }],
+      ],
+    },
+    {
       'target_name': 'pangocairo',
       'type': 'none',
       'toolsets': ['host', 'target'],

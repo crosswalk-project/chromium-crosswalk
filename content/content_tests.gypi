@@ -182,6 +182,11 @@
             '../sandbox/sandbox.gyp:sandbox',
           ],
         }],
+	['OS == "win" or (toolkit_uses_efl == 1 and selinux == 0)', {
+          'dependencies': [
+            '../sandbox/sandbox.gyp:sandbox',
+          ],
+        }],
         ['enable_webrtc==1', {
           'sources': [
             'renderer/media/mock_media_stream_dependency_factory.cc',

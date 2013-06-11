@@ -1154,6 +1154,17 @@
         '../dbus/dbus.gyp:dbus',
       ],
     }],
+    ['toolkit_uses_efl == 1', {
+      'dependencies': [
+        '../build/linux/system.gyp:dbus',
+        # For FcLangSetAdd call in render_sandbox_host_linux.cc
+        '../build/linux/system.gyp:fontconfig',
+        '../build/linux/system.gyp:efl',
+        # For XShm* in backing_store_x.cc
+        '../build/linux/system.gyp:x11',
+        '../dbus/dbus.gyp:dbus',
+      ],
+    }],
     ['OS=="linux"', {
       'dependencies': [
         '../build/linux/system.gyp:udev',

@@ -381,6 +381,16 @@
             '<(DEPTH)/build/linux/system.gyp:gtk',
           ],
         }],  # toolkit_uses_gtk
+	['OS == "win" or (toolkit_uses_efl == 1 and selinux == 0)', {
+          'dependencies': [
+            '../sandbox/sandbox.gyp:sandbox',
+          ],
+        }],  # OS=="win" or (toolkit_uses_efl == 1 and selinux == 0)
+        ['toolkit_uses_efl == 1', {
+          'dependencies': [
+            '<(DEPTH)/build/linux/system.gyp:efl',
+          ],
+        }],  # toolkit_uses_efl
         ['OS=="mac"', {
           'product_name': '<(content_shell_product_name)',
           'dependencies!': [
