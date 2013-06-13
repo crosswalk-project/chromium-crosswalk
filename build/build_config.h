@@ -33,6 +33,7 @@
 // Use TOOLKIT_GTK on linux if TOOLKIT_VIEWS isn't defined.
 #if !defined(TOOLKIT_VIEWS)
 #define TOOLKIT_GTK
+#define TOOLKIT_EFL
 #endif
 #elif defined(_WIN32)
 #define OS_WIN 1
