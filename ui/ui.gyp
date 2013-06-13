@@ -693,7 +693,19 @@
             'gfx/image/cairo_cached_surface.h',
           ],
         }],
+        ['toolkit_uses_efl == 1', {
+          'dependencies': [
+            '../build/linux/system.gyp:efl',
+          ],
+          'sources': [
+            'gfx/efl_util.cc',
+            'gfx/efl_util.h',
+          ],
+        }],
         ['chromeos==1 or (use_aura==1 and OS=="linux" and use_x11==0)', {
+          'sources': [
+            'base/touch/touch_device_aurax11.cc',
+          ],
           'sources!': [
             'base/clipboard/clipboard_aurax11.cc',
             'base/dragdrop/os_exchange_data_provider_aurax11.cc',
