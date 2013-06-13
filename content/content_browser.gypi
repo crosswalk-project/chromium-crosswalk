@@ -1165,6 +1165,15 @@
         '../dbus/dbus.gyp:dbus',
       ],
     }],
+    ['toolkit_uses_efl == 1', {
+      'dependencies': [
+        '../build/linux/system.gyp:efl',
+      ],
+      'sources/': [
+        ['exclude', 'browser/web_contents/web_contents_view_gtk.cc'],
+        ['exclude', 'browser/web_contents/web_contents_view_gtk.h'],
+      ]
+    }],
     ['OS=="linux"', {
       'dependencies': [
         '../build/linux/system.gyp:udev',
