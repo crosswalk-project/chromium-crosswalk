@@ -83,6 +83,7 @@
         'shell/shell.h',
         'shell/shell_android.cc',
         'shell/shell_aura.cc',
+        'shell/shell_efl.cc',
         'shell/shell_gtk.cc',
         'shell/shell_mac.mm',
         'shell/shell_win.cc',
@@ -215,6 +216,14 @@
             ['exclude', 'shell/shell_win.cc'],
           ],
         }],  # use_aura==1
+        ['toolkit_uses_efl == 1', {
+          'dependencies': [
+            '../build/linux/system.gyp:efl',
+          ],
+          'sources/': [
+            ['exclude', 'shell/shell_gtk.cc'],
+          ],
+        }],
         ['chromeos==1', {
           'dependencies': [
             '../ash/ash.gyp:ash',
