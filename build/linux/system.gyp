@@ -250,8 +250,9 @@
     {
       'target_name': 'efl',
       'type': 'none',
+      'toolsets': ['host', 'target'],
       'variables': {
-        'efl_libs': 'eina evas ecore ecore-evas ecore-file ecore-imf ecore-input ecore-x edje',
+        'efl_libs': 'eina evas ecore ecore-evas ecore-file ecore-imf ecore-input ecore-x edje elementary',
       },
       'direct_dependent_settings': {
         'cflags': [

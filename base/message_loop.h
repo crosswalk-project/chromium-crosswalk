@@ -36,6 +36,8 @@
 #include "base/message_pump_aurax11.h"
 #elif defined(USE_MESSAGEPUMP_LINUX) && !defined(OS_NACL)
 #include "base/message_pump_linux.h"
+#elif defined(TOOLKIT_EFL)
+#include "base/message_pump_efl.h"
 #else
 #include "base/message_pump_gtk.h"
 #endif
