@@ -79,6 +79,22 @@
               ['exclude', '_nss\\.cc$'],
             ],
         }],
+        ['toolkit_uses_efl==1', {
+          'dependencies': [
+            '../build/linux/system.gyp:efl',
+          ],
+          'export_dependent_settings': [
+            '../build/linux/system.gyp:efl',
+          ],
+          'sources': [
+            'message_pump_efl.cc',
+            'message_pump_efl.h',
+          ],
+          'sources/': [
+            ['exclude', 'message_pump_gtk.cc'],
+            ['exclude', 'message_pump_gtk.h'],
+          ],
+        }],
         ['use_x11==1', {
           'dependencies': [
             '../build/linux/system.gyp:x11',

@@ -18,7 +18,10 @@
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/size.h"
 
-#if defined(TOOLKIT_GTK)
+#if defined(TOOLKIT_EFL)
+typedef struct _Evas Evas;
+typedef struct _Evas_Object Evas_Object;
+#elif defined(TOOLKIT_GTK)
 #include <gtk/gtk.h>
 #include "ui/base/gtk/gtk_signal.h"
 
@@ -62,7 +65,7 @@ class Shell : public WebContentsDelegate,
   void Close();
   void ShowDevTools();
   void CloseDevTools();
-#if (defined(OS_WIN) && !defined(USE_AURA)) || defined(TOOLKIT_GTK)
+#if (defined(OS_WIN) && !defined(USE_AURA)) || defined(TOOLKIT_GTK) || defined(TOOLKIT_EFL)
   // Resizes the main window to the given dimensions.
   void SizeTo(int width, int height);
 #endif
@@ -194,6 +197,9 @@ class Shell : public WebContentsDelegate,
   static ATOM RegisterWindowClass();
   static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
   static LRESULT CALLBACK EditWndProc(HWND, UINT, WPARAM, LPARAM);
+#elif defined(TOOLKIT_EFL)
+  static void OnMainWindowDel(void* data, Evas* evas, Evas_Object* object,
+                              void* event_info);
 #elif defined(TOOLKIT_GTK)
   CHROMEGTK_CALLBACK_0(Shell, void, OnBackButtonClicked);
   CHROMEGTK_CALLBACK_0(Shell, void, OnForwardButtonClicked);
@@ -227,6 +233,13 @@ class Shell : public WebContentsDelegate,
 #if defined(OS_WIN) && !defined(USE_AURA)
   WNDPROC default_edit_wnd_proc_;
   static HINSTANCE instance_handle_;
+#elif defined(TOOLKIT_EFL)
+  // TODO(rakuco): Once gfx::NativeWindow is set to Evas_Object*, we
+  // can just use window_.
+  Evas_Object* main_window_;
+
+  int content_width_;
+  int content_height_;
 #elif defined(TOOLKIT_GTK)
   GtkWidget* vbox_;
 
