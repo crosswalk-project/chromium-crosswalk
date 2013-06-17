@@ -18,9 +18,6 @@
 #include "ipc/ipc_sender.h"
 #include "ui/base/animation/animation_delegate.h"
 #include "ui/base/animation/slide_animation.h"
-#include "ui/base/gtk/gtk_signal.h"
-#include "ui/base/gtk/gtk_signal_registrar.h"
-#include "ui/base/gtk/owned_widget_gtk.h"
 #include "ui/base/x/active_window_watcher_x_observer.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/point.h"
@@ -32,8 +29,6 @@ typedef struct _GtkClipboard GtkClipboard;
 typedef struct _GtkSelectionData GtkSelectionData;
 
 namespace content {
-class GtkIMContextWrapper;
-class GtkKeyBindingsHandler;
 class RenderWidgetHost;
 class RenderWidgetHostImpl;
 struct NativeWebKeyboardEvent;
@@ -187,11 +182,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   explicit RenderWidgetHostViewEfl(RenderWidgetHost* widget);
 
  private:
-  friend class RenderWidgetHostViewEflWidget;
-
-  CHROMEGTK_CALLBACK_0(RenderWidgetHostViewEfl,
-                       void,
-                       OnDestroy);
+  friend class RenderWidgetHostViewEflEvasObject;
 
   // Returns whether the widget needs an input grab (GTK+ and X) to work
   // properly.
@@ -225,7 +216,8 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   RenderWidgetHostImpl* host_;
 
   // The native UI widget.
-  ui::OwnedWidgetGtk view_;
+  // TODO: Do we need lifetime handling like OwnedWidgetGtk?
+  gfx::NativeView view_;
 
   // This is true when we are currently painting and thus should handle extra
   // paint requests by expanding the invalid rect rather than actually
@@ -253,7 +245,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   base::TimeTicks web_contents_switch_paint_time_;
 
   // The native view of our parent widget.  Used only for popups.
-  GtkWidget* parent_;
+  Evas_Object* parent_;
 
   // We ignore the first mouse release on popups so the popup will remain open.
   bool is_popup_first_mouse_release_;
@@ -294,15 +286,9 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   // so we keep it ID here.
   unsigned long destroy_handler_id_;
 
-  // A convenience wrapper object for GtkIMContext;
-  scoped_ptr<GtkIMContextWrapper> im_context_;
-
-  // A convenience object for handling editor key bindings defined in gtk
-  // keyboard theme.
-  scoped_ptr<GtkKeyBindingsHandler> key_bindings_handler_;
-
+  // TODO: Find a replacement for that on EFL
   // Helper class that lets us allocate plugin containers and move them.
-  webkit::npapi::GtkPluginContainerManager plugin_container_manager_;
+  // webkit::npapi::GtkPluginContainerManager plugin_container_manager_;
 
   // The size that we want the renderer to be.  We keep this in a separate
   // variable because resizing in GTK+ is async.
@@ -327,13 +313,13 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   // The event for the last mouse down we handled. We need this for context
   // menus and drags.
-  GdkEventButton* last_mouse_down_;
+  // GdkEventButton* last_mouse_down_;
 
   // Instance of accessibility information for the root of the AtkObject
   // tree representation of the WebKit render tree.
   scoped_ptr<BrowserAccessibilityManager> browser_accessibility_manager_;
 
-  ui::GtkSignalRegistrar signals_;
+  // ui::GtkSignalRegistrar signals_;
 };
 
 }  // namespace content

@@ -105,14 +105,10 @@ bool MovedToPoint(const WebKit::WebMouseEvent& mouse_event,
 
 // This class is a simple convenience wrapper for Gtk functions. It has only
 // static methods.
-class RenderWidgetHostViewEflWidget {
+class RenderWidgetHostViewEflEvasObject {
  public:
-  static AtkObject* GetAccessible(void* userdata) {
-    return (static_cast<RenderWidgetHostViewEfl*>(userdata))->
-        GetAccessible();
-  }
 
-  static GtkWidget* CreateNewWidget(RenderWidgetHostViewEfl* host_view) {
+  static Evas_Object* CreateNewWidget(RenderWidgetHostViewEfl* host_view) {
     GtkWidget* widget = gtk_preserve_window_new();
     gtk_widget_set_name(widget, "chrome-render-widget-host-view");
     // We manually double-buffer in Paint() because Paint() may or may not be
@@ -532,7 +528,7 @@ class RenderWidgetHostViewEflWidget {
     return FALSE;
   }
 
-  DISALLOW_IMPLICIT_CONSTRUCTORS(RenderWidgetHostViewEflWidget);
+  DISALLOW_IMPLICIT_CONSTRUCTORS(RenderWidgetHostViewEflEvasObject);
 };
 
 RenderWidgetHostViewEfl::RenderWidgetHostViewEfl(RenderWidgetHost* widget_host)
@@ -995,10 +991,11 @@ bool RenderWidgetHostViewEfl::IsPopup() const {
 }
 
 void RenderWidgetHostViewEfl::DoSharedInit() {
-  view_.Own(RenderWidgetHostViewEflWidget::CreateNewWidget(this));
-  im_context_.reset(new GtkIMContextWrapper(this));
-  plugin_container_manager_.set_host_widget(view_.get());
-  key_bindings_handler_.reset(new GtkKeyBindingsHandler(view_.get()));
+  view_.Own(RenderWidgetHostViewEflEvasObject::CreateNewWidget(this));
+  // TODO: Find EFL alternatives for these
+  // im_context_.reset(new GtkIMContextWrapper(this));
+  // plugin_container_manager_.set_host_widget(view_.get());
+  // key_bindings_handler_.reset(new GtkKeyBindingsHandler(view_.get()));
 }
 
 void RenderWidgetHostViewEfl::DoPopupOrFullscreenInit(GtkWindow* window,
