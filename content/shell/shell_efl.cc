@@ -10,6 +10,8 @@
 #include <Elementary.h>
 #include <Evas.h>
 
+#include <gtk/gtk.h>
+
 #include "base/logging.h"
 #include "base/strings/string_piece.h"
 #include "base/utf_string_conversions.h"
@@ -20,6 +22,7 @@
 #include "content/public/common/renderer_preferences.h"
 #include "content/shell/shell_browser_context.h"
 #include "content/shell/shell_content_browser_client.h"
+#include "ui/base/efl/ewk_view_wrapper.h"
 
 namespace content {
 
@@ -61,13 +64,6 @@ void Shell::PlatformCreateWindow(int width, int height) {
   evas_object_event_callback_add(main_window_, EVAS_CALLBACK_DEL,
                                  OnMainWindowDel, this);
 
-  Evas_Object* rect = evas_object_rectangle_add(
-      evas_object_evas_get(main_window_));
-  evas_object_color_set(rect, 255, 0, 0, 255);
-  evas_object_size_hint_weight_set(rect, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-  elm_win_resize_object_add(main_window_, rect);
-  evas_object_show(rect);
-
   evas_object_show(main_window_);
 }
 
@@ -76,7 +72,12 @@ void Shell::PlatformSetContents() {
     return;
 
   WebContentsView* content_view = web_contents_->GetView();
-  // gtk_container_add(GTK_CONTAINER(vbox_), content_view->GetNativeView());
+  ui::EwkViewWrapper* native_view = reinterpret_cast<ui::EwkViewWrapper*>(content_view->GetNativeView());
+
+  native_view->Init(main_window_);
+
+  elm_win_resize_object_add(main_window_, native_view->get());
+  evas_object_show(native_view->get());
 }
 
 void Shell::SizeTo(int width, int height) {

@@ -22,6 +22,7 @@
 #include "content/browser/web_contents/web_drag_source_gtk.h"
 #include "content/public/browser/web_contents_delegate.h"
 #include "content/public/browser/web_contents_view_delegate.h"
+#include "ui/base/efl/ewk_view_wrapper.h"
 #include "ui/base/gtk/gtk_expanded_container.h"
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/point.h"
@@ -89,7 +90,8 @@ WebContentsViewEfl::WebContentsViewEfl(
     WebContentsImpl* web_contents,
     WebContentsViewDelegate* delegate)
     : web_contents_(web_contents),
-      delegate_(delegate) {
+      delegate_(delegate),
+      widget_(new ui::EwkViewWrapper) {
   /*
    * TODO: Connect the evas smart callback signals for size changes to
    * callback functions in this file.
@@ -118,12 +120,7 @@ WebContentsViewEfl::~WebContentsViewEfl() {
 }
 
 gfx::NativeView WebContentsViewEfl::GetNativeView() const {
-  if (delegate_)
-    return delegate_->GetNativeView();
-
-  // TODO: return evas_object
-  // return expanded_.get();
-  return 0;
+  return reinterpret_cast<gfx::NativeView>(widget_);
 }
 
 gfx::NativeView WebContentsViewEfl::GetContentNativeView() const {

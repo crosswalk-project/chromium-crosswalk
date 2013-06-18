@@ -13,6 +13,12 @@
 #include "content/port/browser/render_view_host_delegate_view.h"
 #include "content/port/browser/web_contents_view_port.h"
 
+namespace ui {
+
+class EwkViewWrapper;
+
+}
+
 namespace content {
 
 class WebContents;
@@ -129,6 +135,8 @@ class CONTENT_EXPORT WebContentsViewEfl
   // GetNativeView() and insert |expanded_| as its child in the GtkWidget
   // hierarchy.
   scoped_ptr<WebContentsViewDelegate> delegate_;
+
+  ui::EwkViewWrapper* widget_;
 
   // The size we want the view to be.  We keep this in a separate variable
   // because resizing in GTK+ is async.
