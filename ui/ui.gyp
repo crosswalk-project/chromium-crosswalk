@@ -692,6 +692,8 @@
           'sources': [
             'gfx/efl_util.cc',
             'gfx/efl_util.h',
+            'base/efl/ewk_view_wrapper.cc',
+            'base/efl/ewk_view_wrapper.h',
           ],
         }],
         ['chromeos==1', {
