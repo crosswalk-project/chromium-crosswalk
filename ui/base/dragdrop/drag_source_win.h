@@ -9,6 +9,7 @@
 
 #include "base/basictypes.h"
 #include "base/memory/ref_counted.h"
+#include "ui/base/dragdrop/drag_drop_types.h"
 #include "ui/base/ui_export.h"
 
 namespace ui {
@@ -22,6 +23,7 @@ class UI_EXPORT DragSourceWin
       public base::RefCountedThreadSafe<DragSourceWin> {
  public:
   DragSourceWin();
+  explicit DragSourceWin(DragDropTypes::DragEventSource event_source);
   virtual ~DragSourceWin() {}
 
   // Stop the drag operation at the next chance we get.  This doesn't
@@ -48,6 +50,9 @@ class UI_EXPORT DragSourceWin
  private:
   // Set to true if we want to cancel the drag operation.
   bool cancel_drag_;
+
+  // Indicate the drag initiator, mouse or touch.
+  const DragDropTypes::DragEventSource event_source_;
 
   DISALLOW_COPY_AND_ASSIGN(DragSourceWin);
 };

@@ -6,11 +6,13 @@
 
 #include "base/bind.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
+#include "content/browser/renderer_host/render_widget_host_view_win.h"
 #include "content/browser/web_contents/web_contents_impl.h"
 #include "content/browser/web_contents/web_drag_utils_win.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/notification_source.h"
 #include "content/public/browser/notification_types.h"
+#include "ui/base/dragdrop/drag_drop_types.h"
 #include "ui/base/dragdrop/os_exchange_data.h"
 
 using WebKit::WebDragOperationNone;
@@ -33,8 +35,9 @@ static void GetCursorPositions(gfx::NativeWindow wnd, gfx::Point* client,
 // WebDragSource, public:
 
 WebDragSource::WebDragSource(gfx::NativeWindow source_wnd,
-                             WebContents* web_contents)
-    : ui::DragSourceWin(),
+                             WebContents* web_contents,
+                             ui::DragDropTypes::DragEventSource event_source)
+    : ui::DragSourceWin(event_source),
       source_wnd_(source_wnd),
       web_contents_(static_cast<WebContentsImpl*>(web_contents)),
       effect_(DROPEFFECT_NONE),
@@ -66,6 +69,7 @@ void WebDragSource::OnDragSourceCancel() {
   web_contents_->DragSourceEndedAt(client.x(), client.y(),
                                    screen.x(), screen.y(),
                                    WebDragOperationNone);
+  CancelLongPressGestureIfNeeded();
 }
 
 void WebDragSource::OnDragSourceDrop() {
@@ -84,12 +88,20 @@ void WebDragSource::OnDragSourceDrop() {
 void WebDragSource::DelayedOnDragSourceDrop() {
   if (!web_contents_)
     return;
-
   gfx::Point client;
   gfx::Point screen;
   GetCursorPositions(source_wnd_, &client, &screen);
   web_contents_->DragSourceEndedAt(client.x(), client.y(), screen.x(),
                                    screen.y(), WinDragOpToWebDragOp(effect_));
+  CancelLongPressGestureIfNeeded();
+}
+
+void WebDragSource::CancelLongPressGestureIfNeeded() {
+  RenderWidgetHostViewWin* rwhv =
+      static_cast<RenderWidgetHostViewWin*>(
+          web_contents_->GetRenderWidgetHostView());
+  if (rwhv->in_long_press_gesture())
+    rwhv->CancelLongPressGesture();
 }
 
 void WebDragSource::OnDragSourceMove() {

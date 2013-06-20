@@ -285,6 +285,9 @@ class RenderWidgetHostViewWin
   virtual void ExtendSelectionAndDelete(size_t before, size_t after) OVERRIDE;
   virtual void EnsureCaretInRect(const gfx::Rect& rect) OVERRIDE;
 
+  bool in_long_press_gesture() const { return in_long_press_gesture_; }
+  void CancelLongPressGesture() { in_long_press_gesture_ = false; }
+
  protected:
   friend class RenderWidgetHostView;
 
@@ -594,6 +597,10 @@ class RenderWidgetHostViewWin
 
   // The OS-provided default IAccessible instance for our hwnd.
   base::win::ScopedComPtr<IAccessible> window_iaccessible_;
+
+  // True if the long press gesture is forwarded to renderer process and still
+  // in a valid status, e.g. no mouse up event happens.
+  bool in_long_press_gesture_;
 
   DISALLOW_COPY_AND_ASSIGN(RenderWidgetHostViewWin);
 };
