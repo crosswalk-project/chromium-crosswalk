@@ -9,6 +9,8 @@
 #include <gdk/gdkkeysyms.h>
 #include <gdk/gdkx.h>
 #include <gtk/gtk.h>
+#include <X11/extensions/XInput2.h>
+#include <X11/Xlib.h>
 
 #include <algorithm>
 #include <string>
@@ -46,6 +48,7 @@
 #include "ui/base/gtk/gtk_compat.h"
 #include "ui/base/text/text_elider.h"
 #include "ui/base/x/active_window_watcher_x.h"
+#include "ui/base/x/device_list_cache_x.h"
 #include "ui/base/x/x11_util.h"
 #include "ui/gfx/gtk_native_view_id_manager.h"
 #include "ui/gfx/gtk_preserve_window.h"
@@ -106,6 +109,148 @@ bool MovedToPoint(const WebKit::WebMouseEvent& mouse_event,
   return mouse_event.globalX == center.x() &&
          mouse_event.globalY == center.y();
 }
+
+#if defined(USE_XI2_MT)
+// XInput begins to suport multi touch from 2.2 version,
+// But some Linux distribution begin to support it from 2.1
+// with additional patches, such as: Ubuntu. Anyway, we need
+// XInput after the 2.* version.
+#define XINPUT_MT_MAJOR_VERSION 2
+
+// The variable used for checking whether support xi2 multi-touch event.
+// |0| means NOT; |1| means YES; |-1| means not checking yet.
+int has_xi2_mt = -1;
+
+bool HasXI2() {
+  if (has_xi2_mt == 0)
+    return false;
+  else if (has_xi2_mt == 1)
+    return true;
+
+  Display* display = ui::GetXDisplay();
+  if (!display) {
+    has_xi2_mt = 0;
+    return false;
+  }
+
+  int event, err;
+  int xiopcode = -1;
+  if (!XQueryExtension(display, "XInputExtension", &xiopcode, &event, &err)) {
+    DVLOG(1) << "X Input extension not available.";
+    has_xi2_mt = 0;
+    return false;
+  }
+  // USE_XI2_MT also defines the required XI2 minor minimum version.
+  int major = XINPUT_MT_MAJOR_VERSION, minor = USE_XI2_MT;
+  if (XIQueryVersion(display, &major, &minor) == BadRequest) {
+    DVLOG(1) << "XInput2 not supported in the server.";
+    has_xi2_mt = 0;
+    return false;
+  }
+  if (major < XINPUT_MT_MAJOR_VERSION ||
+      (major == XINPUT_MT_MAJOR_VERSION && minor < USE_XI2_MT)) {
+    DVLOG(1) << "XI version on server is " << major << "." << minor << ". "
+             << "But 2." << USE_XI2_MT << " is required.";
+    has_xi2_mt = 0;
+    return false;
+  }
+  has_xi2_mt = 1;
+  return true;
+}
+
+void SetupXI2ForGdkWindow(GdkWindow *window) {
+  Display* display = GDK_WINDOW_XDISPLAY(window);
+  unsigned char mask[XIMaskLen(XI_LASTEVENT)];
+  memset(mask, 0, sizeof(mask));
+
+  XISetMask(mask, XI_TouchBegin);
+  XISetMask(mask, XI_TouchUpdate);
+  XISetMask(mask, XI_TouchEnd);
+
+  XIEventMask evmask;
+  // Only select event from touch device.
+  ui::TouchFactory* factory = ui::TouchFactory::GetInstance();
+  XIDeviceList xi_dev_list =
+      ui::DeviceListCacheX::GetInstance()->GetXI2DeviceList(display);
+  for (int i = 0; i < xi_dev_list.count; i++) {
+    XIDeviceInfo* devinfo = xi_dev_list.devices + i;
+    if (factory->IsTouchDevice(devinfo->deviceid)) {
+      evmask.deviceid = devinfo->deviceid;
+      evmask.mask_len = sizeof(mask);
+      evmask.mask = mask;
+      XISelectEvents(display, GDK_WINDOW_XID(window), &evmask, 1);
+      XFlush(display);
+      break;
+    }
+  }
+}
+
+// The unsigned int variable used for tracking the touch point number.
+unsigned int touch_point = 0;
+// The simulated mouse down event for touch begin.
+WebKit::WebMouseEvent latest_mouse_down_event;
+
+// For click count tracking.
+int num_clicks = 0;
+double last_click_time = 0.0;
+double last_click_x = 0.0;
+double last_click_y = 0.0;
+
+bool ShouldForgetPreviousClick(double time, double x, double y) {
+    double double_click_time = 250;
+    double double_click_distance = 10;
+    return (time - last_click_time) > double_click_time
+           || abs(x - last_click_x) > double_click_distance
+           || abs(y - last_click_y) > double_click_distance;
+}
+
+WebKit::WebMouseEvent SimulatedMouseEvent(const XIDeviceEvent* event) {
+  WebKit::WebMouseEvent result;
+
+  result.timeStampSeconds = event->time / 1000.0;
+  result.x = static_cast<int>(event->event_x);
+  result.y = static_cast<int>(event->event_y);
+  result.windowX = result.x;
+  result.windowY = result.y;
+  result.globalX = static_cast<int>(event->root_x);
+  result.globalY = static_cast<int>(event->root_y);
+  result.clickCount = 0;
+
+  switch (event->evtype) {
+  case XI_TouchBegin:
+      result.type = WebKit::WebInputEvent::MouseDown;
+      break;
+  case XI_TouchUpdate:
+      result.type = WebKit::WebInputEvent::MouseMove;
+      break;
+  case XI_TouchEnd:
+      result.type = WebKit::WebInputEvent::MouseUp;
+      break;
+  default:
+      NOTREACHED();
+      break;
+  };
+
+  result.button = WebKit::WebMouseEvent::ButtonLeft;
+  if (result.type == WebKit::WebInputEvent::MouseDown) {
+      bool forgetPreviousClick = ShouldForgetPreviousClick(
+          event->time, event->event_x, event->event_y);
+
+      if (!forgetPreviousClick) {
+          ++num_clicks;
+      } else {
+          num_clicks = 1;
+
+          last_click_x = event->event_x;
+          last_click_y = event->event_y;
+      }
+      last_click_time = event->time;
+  }
+  result.clickCount = num_clicks;
+
+  return result;
+}
+#endif  // defined(USE_XI2_MT)
 
 }  // namespace
 
@@ -201,6 +346,22 @@ class RenderWidgetHostViewGtkWidget {
     host_view->signals_.Connect(gtk_widget_get_toplevel(widget),
                                 "configure-event",
                                 G_CALLBACK(OnConfigureEvent), host_view);
+
+#if defined(USE_XI2_MT)
+    // Set up XInput2 for touch event, and add filter for touch.
+    if (HasXI2()) {
+      GdkWindow* window = GTK_WIDGET(widget)->window;
+      SetupXI2ForGdkWindow(window);
+      gdk_window_add_filter(NULL, TouchEventPreFilter, host_view);
+    }
+
+    if (host_view->touch_state_.ReleaseTouchPoints()) {
+      RenderWidgetHostImpl* host =
+          RenderWidgetHostImpl::From(host_view->GetRenderWidgetHost());
+      host->ForwardTouchEvent(host_view->touch_state_.touch_event());
+    }
+#endif
+
     return FALSE;
   }
 
@@ -542,6 +703,77 @@ class RenderWidgetHostViewGtkWidget {
     return FALSE;
   }
 
+#if defined(USE_XI2_MT)
+  static GdkFilterReturn TouchEventPreFilter(GdkXEvent* xevent,
+                                             GdkEvent* event,
+                                             gpointer data) {
+    XEvent* xev = static_cast<XEvent*>(xevent);
+    RenderWidgetHostViewGtk* host_view =
+        reinterpret_cast<RenderWidgetHostViewGtk*>(data);
+    if (!host_view || !host_view->GetNativeView())
+      return GDK_FILTER_CONTINUE;
+
+    // Ignore emulated mouse core event from touch device.
+    // Note that there would several touch point at the same time.
+    if (xev->type == ButtonPress || xev->type == ButtonRelease ||
+        xev->type == MotionNotify) {
+      if (touch_point != 0)
+        return GDK_FILTER_REMOVE;
+      else
+        return GDK_FILTER_CONTINUE;
+    }
+
+    // Gdk would translate event except GenericEvent by default.
+    if (xev->type != GenericEvent)
+      return GDK_FILTER_CONTINUE;
+
+    if (!XGetEventData(xev->xgeneric.display, &xev->xcookie))
+      return GDK_FILTER_CONTINUE;
+
+    switch (xev->xgeneric.evtype) {
+      case XI_TouchBegin:
+      case XI_TouchUpdate:
+      case XI_TouchEnd: {
+        XIDeviceEvent* xiev = static_cast<XIDeviceEvent*>(xev->xcookie.data);
+        // Make sure touch event from current window.
+        Window wid =
+            ui::GetX11WindowFromGtkWidget(host_view->GetNativeView());
+        if (wid != xiev->event)
+          return GDK_FILTER_CONTINUE;
+
+        // Translate native touch event to webtouch event.
+        host_view->touch_state_.UpdateTouchPoints(xev);
+        RenderWidgetHostImpl* host =
+            RenderWidgetHostImpl::From(host_view->GetRenderWidgetHost());
+        if (host_view->touch_state_.is_changed())
+          host->ForwardTouchEvent(host_view->touch_state_.touch_event());
+
+        if (xev->xgeneric.evtype == XI_TouchBegin) {
+          touch_point++;
+          latest_mouse_down_event = SimulatedMouseEvent(xiev);
+        } else if (xev->xgeneric.evtype == XI_TouchEnd) {
+          touch_point--;
+          // Simulate mouse event when touch squence is like a click.
+          double distance = 5.0;
+          if (touch_point == 0 &&
+              abs(xiev->event_x - latest_mouse_down_event.x) < distance &&
+              abs(xiev->event_y - latest_mouse_down_event.y) < distance) {
+            // Forward mouse down event.
+            host->ForwardMouseEvent(latest_mouse_down_event);
+            // Forward mouse up event.
+            host->ForwardMouseEvent(SimulatedMouseEvent(xiev));
+          }
+        }
+
+        XFreeEventData(xev->xgeneric.display, &xev->xcookie);
+        return GDK_FILTER_REMOVE;
+      }
+      default:
+        XFreeEventData(xev->xgeneric.display, &xev->xcookie);
+        return GDK_FILTER_CONTINUE;
+    }
+  }
+#endif  // defined(USE_XI2_MT)
   DISALLOW_IMPLICIT_CONSTRUCTORS(RenderWidgetHostViewGtkWidget);
 };
 
@@ -561,7 +793,8 @@ RenderWidgetHostViewGtk::RenderWidgetHostViewGtk(RenderWidgetHost* widget_host)
       dragged_at_horizontal_edge_(0),
       dragged_at_vertical_edge_(0),
       compositing_surface_(gfx::kNullPluginWindow),
-      last_mouse_down_(NULL) {
+      last_mouse_down_(NULL),
+      touch_state_(this) {
   host_->SetView(this);
 }
 
@@ -1579,6 +1812,132 @@ void RenderWidgetHostViewGtk::OnCreatePluginContainer(
 void RenderWidgetHostViewGtk::OnDestroyPluginContainer(
     gfx::PluginWindowHandle id) {
   plugin_container_manager_.DestroyPluginContainer(id);
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// WebTouchState:
+RenderWidgetHostViewGtk::WebTouchState::WebTouchState(
+    const RenderWidgetHostViewGtk* view)
+    : view_(view) { }
+
+void RenderWidgetHostViewGtk::WebTouchState::UpdateTouchPoints(XEvent* xev) {
+  // First we reset all touch event state. This involves removing any released
+  // touchpoints and marking the rest as stationary. After that we go through
+  // and alter/add touchpoint.
+  WebKit::WebTouchPoint* point = touch_event_.touches;
+  WebKit::WebTouchPoint* end = point + touch_event_.touchesLength;
+  while (point < end) {
+    if (point->state == WebKit::WebTouchPoint::StateReleased) {
+      *point = *(--end);
+      --touch_event_.touchesLength;
+    } else {
+      point->state = WebKit::WebTouchPoint::StateStationary;
+      point++;
+    }
+  }
+  touch_event_.changedTouchesLength = 0;
+
+  XIDeviceEvent* xiev = static_cast<XIDeviceEvent*>(xev->xcookie.data);
+  // With XInput2 MT, Tracking ID is provided in the detail field.
+  int tracking_id = xiev->detail;
+  point = NULL;
+  for (unsigned j = 0; j < touch_event_.touchesLength; ++j) {
+    if (touch_event_.touches[j].id == tracking_id) {
+      point =  &touch_event_.touches[j];
+      break;
+    }
+  }
+
+  switch (xiev->evtype) {
+    case XI_TouchBegin: {
+      // Add a down point to chaneTouch.
+      if (!(point = AddTouchPoint(xev)))
+        return;
+      touch_event_.type = WebKit::WebInputEvent::TouchStart;
+      break;
+    }
+    case XI_TouchEnd: {
+      point->state = WebKit::WebTouchPoint::StateReleased;
+      UpdateTouchPoint(point, xev);
+      touch_event_.type = WebKit::WebInputEvent::TouchEnd;
+      break;
+    }
+    case XI_TouchUpdate: {
+      point->state = WebKit::WebTouchPoint::StateMoved;
+      UpdateTouchPoint(point, xev);
+      touch_event_.type = WebKit::WebInputEvent::TouchMove;
+      break;
+    }
+    default:
+      NOTREACHED();
+      return;
+  }
+  touch_event_.changedTouches[touch_event_.changedTouchesLength++] = *point;
+}
+
+bool RenderWidgetHostViewGtk::WebTouchState::ReleaseTouchPoints() {
+  if (touch_event_.touchesLength == 0)
+    return false;
+
+  // Mark every active touchpoint as released.
+  touch_event_.type = WebKit::WebInputEvent::TouchEnd;
+  touch_event_.changedTouchesLength = touch_event_.touchesLength;
+  for (unsigned int i = 0; i < touch_event_.touchesLength; ++i) {
+    touch_event_.touches[i].state = WebKit::WebTouchPoint::StateReleased;
+    touch_event_.changedTouches[i].state =
+        WebKit::WebTouchPoint::StateReleased;
+  }
+  return true;
+}
+
+WebKit::WebTouchPoint* RenderWidgetHostViewGtk::WebTouchState::AddTouchPoint(
+    XEvent* xev) {
+  if (touch_event_.touchesLength >= WebKit::WebTouchEvent::touchesLengthCap)
+    return NULL;
+  WebKit::WebTouchPoint* point =
+      &touch_event_.touches[touch_event_.touchesLength++];
+  point->state = WebKit::WebTouchPoint::StatePressed;
+  XIDeviceEvent* xiev = static_cast<XIDeviceEvent*>(xev->xcookie.data);
+
+  // With XInput2 MT, Tracking ID is provided in the detail field.
+  point->id = xiev->detail;
+  UpdateTouchPoint(point, xev);
+  return point;
+}
+
+void RenderWidgetHostViewGtk::WebTouchState::UpdateTouchPoint(
+    WebKit::WebTouchPoint* touch_point,
+    XEvent* xev) {
+  XIDeviceEvent* xievent =
+      static_cast<XIDeviceEvent*>(xev->xcookie.data);
+  float radius_x = 2.0;
+  float radius_y = 2.0;
+  float force = 0;
+  float rotationAngle = 2.0;
+  ui::ValuatorTracker* tracker = ui::ValuatorTracker::GetInstance();
+  tracker->ExtractValuator(*xev, ui::ValuatorTracker::VAL_TOUCH_MAJOR,
+                           &radius_x);
+  tracker->ExtractValuator(*xev, ui::ValuatorTracker::VAL_TOUCH_MINOR,
+                           &radius_y);
+  tracker->ExtractValuator(*xev, ui::ValuatorTracker::VAL_PRESSURE,
+                           &force);
+  unsigned int deviceid =
+      static_cast<XIDeviceEvent*>(xev->xcookie.data)->sourceid;
+  // Force is normalized to fall into [0, 1]
+  if (!tracker->NormalizeValuator(
+      deviceid, ui::ValuatorTracker::VAL_PRESSURE, &force))
+    force = 0.0;
+
+  tracker->ExtractValuator(*xev, ui::ValuatorTracker::VAL_ORIENTATION,
+                           &rotationAngle);
+  touch_point->screenPosition.x = xievent->root_x;
+  touch_point->screenPosition.y = xievent->root_y;
+  touch_point->position.x = xievent->event_x;
+  touch_point->position.y = xievent->event_y;
+  touch_point->radiusX = radius_x / 2.0;
+  touch_point->radiusY = radius_y / 2.0;
+  touch_point->force = force;
+  touch_point->rotationAngle = rotationAngle / 2.0;
 }
 
 }  // namespace content
