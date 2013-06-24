@@ -983,6 +983,8 @@
     'browser/web_contents/web_contents_view_aura.h',
     'browser/web_contents/web_contents_view_gtk.cc',
     'browser/web_contents/web_contents_view_gtk.h',
+    'browser/web_contents/web_contents_view_efl.cc',
+    'browser/web_contents/web_contents_view_efl.h',
     'browser/web_contents/web_contents_view_guest.cc',
     'browser/web_contents/web_contents_view_guest.h',
     'browser/web_contents/web_contents_view_mac.h',
@@ -1162,6 +1164,15 @@
         '../build/linux/system.gyp:x11',
         '../dbus/dbus.gyp:dbus',
       ],
+    }],
+    ['toolkit_uses_efl == 1', {
+      'dependencies': [
+        '../build/linux/system.gyp:efl',
+      ],
+      'sources/': [
+        ['exclude', 'browser/web_contents/web_contents_view_gtk.cc'],
+        ['exclude', 'browser/web_contents/web_contents_view_gtk.h'],
+      ]
     }],
     ['OS=="linux"', {
       'dependencies': [

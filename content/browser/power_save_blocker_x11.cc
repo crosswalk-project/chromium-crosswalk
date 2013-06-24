@@ -22,7 +22,9 @@
 #include "base/memory/scoped_ptr.h"
 #include "base/memory/singleton.h"
 #include "base/message_loop_proxy.h"
-#if defined(TOOLKIT_GTK)
+#if defined(TOOLKIT_EFL)
+#include "base/message_pump_efl.h"
+#elif defined(TOOLKIT_GTK)
 #include "base/message_pump_gtk.h"
 #else
 #include "base/message_pump_aurax11.h"
