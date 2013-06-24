@@ -5,6 +5,7 @@
 #ifndef CONTENT_BROWSER_RENDERER_HOST_RENDER_WIDGET_HOST_VIEW_EFL_H_
 #define CONTENT_BROWSER_RENDERER_HOST_RENDER_WIDGET_HOST_VIEW_EFL_H_
 
+#include <Evas.h>
 #include <gdk/gdk.h>
 
 #include <string>
@@ -201,8 +202,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   // Update the display cursor for the render view.
   void ShowCurrentCursor();
-
-  void set_last_mouse_down(GdkEventButton* event);
 
   // Cause the next query for the widget center to recompute the cached value.
   void MarkCachedWidgetCenterStale();

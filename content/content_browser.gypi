@@ -827,6 +827,8 @@
     'browser/renderer_host/render_widget_host_view_aura.h',
     'browser/renderer_host/render_widget_host_view_base.cc',
     'browser/renderer_host/render_widget_host_view_base.h',
+    'browser/renderer_host/render_widget_host_view_efl.cc',
+    'browser/renderer_host/render_widget_host_view_efl.h',
     'browser/renderer_host/render_widget_host_view_gtk.cc',
     'browser/renderer_host/render_widget_host_view_gtk.h',
     'browser/renderer_host/render_widget_host_view_guest.cc',
@@ -1172,6 +1174,8 @@
       'sources/': [
         ['exclude', 'browser/web_contents/web_contents_view_gtk.cc'],
         ['exclude', 'browser/web_contents/web_contents_view_gtk.h'],
+        ['exclude', 'browser/renderer_host/render_widget_host_view_gtk.cc'],
+        ['exclude', 'browser/renderer_host/render_widget_host_view_gtk.h'],
       ]
     }],
     ['OS=="linux"', {

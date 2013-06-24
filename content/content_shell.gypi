@@ -137,6 +137,7 @@
         'shell/shell_web_contents_view_delegate_android.cc',
         'shell/shell_web_contents_view_delegate_creator.h',
         'shell/shell_web_contents_view_delegate_gtk.cc',
+        'shell/shell_web_contents_view_delegate_efl.cc',
         'shell/shell_web_contents_view_delegate_mac.mm',
         'shell/shell_web_contents_view_delegate_win.cc',
         'shell/shell_web_contents_view_delegate.h',
@@ -222,6 +223,7 @@
           ],
           'sources/': [
             ['exclude', 'shell/shell_gtk.cc'],
+            ['exclude', 'shell/shell_web_contents_view_delegate_gtk.cc'],
           ],
         }],
         ['chromeos==1', {
