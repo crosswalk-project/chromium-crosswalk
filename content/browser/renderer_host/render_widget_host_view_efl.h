@@ -22,6 +22,7 @@
 #include "ui/base/x/active_window_watcher_x_observer.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/point.h"
+#include "ui/gfx/preserve_window_delegate_efl.h"
 #include "ui/gfx/rect.h"
 #include "webkit/glue/webcursor.h"
 #include "webkit/plugins/npapi/gtk_plugin_container_manager.h"
@@ -38,12 +39,29 @@ struct NativeWebKeyboardEvent;
 // See comments in render_widget_host_view.h about this class and its members.
 // -----------------------------------------------------------------------------
 class CONTENT_EXPORT RenderWidgetHostViewEfl
-    : public RenderWidgetHostViewBase,
+    : public gfx::PreserveWindowDelegate,
+	  public RenderWidgetHostViewBase,
       public BrowserAccessibilityDelegate,
       public ui::ActiveWindowWatcherXObserver,
       public IPC::Sender {
  public:
   virtual ~RenderWidgetHostViewEfl();
+
+  // PreserveWindowDelegate implementation.
+  virtual bool PreserveWindowMouseDown(Evas_Event_Mouse_Down* event);
+  virtual bool PreserveWindowMouseUp(Evas_Event_Mouse_Up* event);
+  virtual bool PreserveWindowMouseMove(Evas_Event_Mouse_Move* event);
+  virtual bool PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) ;
+  virtual bool PreserveWindowKeyDown(Evas_Event_Key_Down* event);
+  virtual bool PreserveWindowKeyUp(Evas_Event_Key_Up* event);
+  virtual void PreserveWindowFocusIn();
+  virtual void PreserveWindowFocusOut();
+  virtual void PreserveWindowShow();
+  virtual void PreserveWindowHide();
+  virtual void PreserveWindowMove(const gfx::Point& origin);
+  virtual void PreserveWindowResize(const gfx::Size& size);
+  virtual void PreserveWindowRepaint(const gfx::Rect& damage_rect);
+
 
   // RenderWidgetHostView implementation.
   virtual bool OnMessageReceived(const IPC::Message& msg) OVERRIDE;
@@ -183,8 +201,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   explicit RenderWidgetHostViewEfl(RenderWidgetHost* widget);
 
  private:
-  friend class RenderWidgetHostViewEflEvasObject;
-
   // Returns whether the widget needs an input grab (GTK+ and X) to work
   // properly.
   bool NeedsInputGrab();

@@ -4,6 +4,8 @@
 
 #include "content/browser/renderer_host/render_widget_host_view_efl.h"
 
+#include <Elementary.h>
+
 // If this gets included after the gtk headers, then a bunch of compiler
 // errors happen because of a "#define Status int" in Xlib.h, which interacts
 // badly with net::URLRequestStatus::Status.
@@ -44,6 +46,7 @@
 #include "ui/base/text/text_elider.h"
 #include "ui/base/x/active_window_watcher_x.h"
 #include "ui/base/x/x11_util.h"
+#include "ui/gfx/preserve_window_efl.h"
 #include "webkit/glue/webcursor_gtk_data.h"
 #include "webkit/plugins/npapi/webplugin.h"
 
@@ -129,6 +132,64 @@ RenderWidgetHostViewEfl::~RenderWidgetHostViewEfl() {
  // view_.Destroy();
 }
 
+bool RenderWidgetHostViewEfl::PreserveWindowMouseDown(Evas_Event_Mouse_Down* event)
+{
+	return false;
+}
+
+bool RenderWidgetHostViewEfl::PreserveWindowMouseUp(Evas_Event_Mouse_Up* event)
+{
+	return false;
+}
+
+bool RenderWidgetHostViewEfl::PreserveWindowMouseMove(Evas_Event_Mouse_Move* event)
+{
+	return false;
+}
+
+bool RenderWidgetHostViewEfl::PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event)
+{
+	return false;
+}
+
+bool RenderWidgetHostViewEfl::PreserveWindowKeyDown(Evas_Event_Key_Down* event)
+{
+	return false;
+}
+
+bool RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* event)
+{
+	return false;
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowFocusOut()
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowShow()
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowHide()
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowMove(const gfx::Point& origin)
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowResize(const gfx::Size& size)
+{
+}
+
+void RenderWidgetHostViewEfl::PreserveWindowRepaint(const gfx::Rect& damage_rect)
+{
+}
+
 bool RenderWidgetHostViewEfl::OnMessageReceived(const IPC::Message& message) {
   bool handled = true;
   IPC_BEGIN_MESSAGE_MAP(RenderWidgetHostViewEfl, message)
@@ -143,7 +204,14 @@ bool RenderWidgetHostViewEfl::OnMessageReceived(const IPC::Message& message) {
 
 void RenderWidgetHostViewEfl::InitAsChild(
     gfx::NativeView parent_view) {
-  DoSharedInit(reinterpret_cast<Evas_Object*>(parent_view));
+   Evas_Object* elm_box = reinterpret_cast<Evas_Object*>(parent_view);
+   Evas* evas = evas_object_evas_get (elm_box);
+   gfx::PreserveWindow* preserve_window = gfx::PreserveWindow::Create(this, evas);
+   evas_object_size_hint_align_set(preserve_window->SmartObject(), EVAS_HINT_FILL, EVAS_HINT_FILL);
+   evas_object_size_hint_weight_set(preserve_window->SmartObject(), 0.0, EVAS_HINT_EXPAND);
+   elm_box_pack_end(elm_box, preserve_window->SmartObject());
+   evas_object_show(preserve_window->SmartObject());
+  //DoSharedInit(reinterpret_cast<Evas_Object*>(parent_view));
   // gtk_widget_show(view_);
 }
 
@@ -572,10 +640,11 @@ bool RenderWidgetHostViewEfl::IsPopup() const {
 }
 
 void RenderWidgetHostViewEfl::DoSharedInit(Evas_Object* parent) {
-	  view_ = evas_object_rectangle_add(evas_object_evas_get(parent));
+/*	  view_ = evas_object_rectangle_add(evas_object_evas_get(parent));
 	  evas_object_color_set(view_, 0, 255, 0, 255);
 	  evas_object_size_hint_weight_set(view_, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-	  evas_object_show(view_);
+	  evas_object_show(view_);*/
+
   // TODO: (Important) Assign view_ with a newly created EFL widget here.
   // view_.Own(RenderWidgetHostViewEflEvasObject::CreateNewWidget(this));
 
