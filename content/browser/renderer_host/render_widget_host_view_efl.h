@@ -194,7 +194,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   bool IsPopup() const;
 
   // Do initialization needed by all InitAs*() methods.
-  void DoSharedInit();
+  void DoSharedInit(Evas_Object* parent);
 
   // Do initialization needed just by InitAsPopup() and InitAsFullscreen().
   // We move and resize |window| to |bounds| and show it and its contents.
@@ -216,7 +216,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   // The native UI widget.
   // TODO: Do we need lifetime handling like OwnedWidgetGtk?
-  gfx::NativeView view_;
+  //gfx::NativeView view_;
 
   // This is true when we are currently painting and thus should handle extra
   // paint requests by expanding the invalid rect rather than actually
@@ -309,6 +309,8 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   int dragged_at_vertical_edge_;
 
   gfx::PluginWindowHandle compositing_surface_;
+
+  Evas_Object* view_;
 
   // The event for the last mouse down we handled. We need this for context
   // menus and drags.

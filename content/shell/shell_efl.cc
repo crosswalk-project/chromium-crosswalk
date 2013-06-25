@@ -19,6 +19,7 @@
 #include "content/public/browser/native_web_keyboard_event.h"
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_contents_view.h"
+#include "content/browser/web_contents/web_contents_view_efl.h"
 #include "content/public/common/renderer_preferences.h"
 #include "content/shell/shell_browser_context.h"
 #include "content/shell/shell_content_browser_client.h"
@@ -72,12 +73,14 @@ void Shell::PlatformSetContents() {
     return;
 
   WebContentsView* content_view = web_contents_->GetView();
-  ui::EwkViewWrapper* native_view = reinterpret_cast<ui::EwkViewWrapper*>(content_view->GetNativeView());
+  static_cast<WebContentsViewEfl*>(content_view)->SetParentObject(main_window_);
+  elm_win_resize_object_add(main_window_, reinterpret_cast<Evas_Object*>(content_view->GetNativeView()));
+/*  ui::EwkViewWrapper* native_view = reinterpret_cast<ui::EwkViewWrapper*>(content_view->GetNativeView());
 
   native_view->Init(main_window_);
 
   elm_win_resize_object_add(main_window_, native_view->get());
-  evas_object_show(native_view->get());
+  evas_object_show(native_view->get());*/
 }
 
 void Shell::SizeTo(int width, int height) {

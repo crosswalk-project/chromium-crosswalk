@@ -119,7 +119,8 @@ RenderWidgetHostViewEfl::RenderWidgetHostViewEfl(RenderWidgetHost* widget_host)
       destroy_handler_id_(0),
       dragged_at_horizontal_edge_(0),
       dragged_at_vertical_edge_(0),
-      compositing_surface_(gfx::kNullPluginWindow) {
+      compositing_surface_(gfx::kNullPluginWindow),
+      view_(0) {
   host_->SetView(this);
 }
 
@@ -142,7 +143,7 @@ bool RenderWidgetHostViewEfl::OnMessageReceived(const IPC::Message& message) {
 
 void RenderWidgetHostViewEfl::InitAsChild(
     gfx::NativeView parent_view) {
-  DoSharedInit();
+  DoSharedInit(reinterpret_cast<Evas_Object*>(parent_view));
   // gtk_widget_show(view_);
 }
 
@@ -299,7 +300,7 @@ void RenderWidgetHostViewEfl::SetBounds(const gfx::Rect& rect) {
 }
 
 gfx::NativeView RenderWidgetHostViewEfl::GetNativeView() const {
-  return view_;
+  return reinterpret_cast<gfx::NativeView>(view_);
 }
 
 gfx::NativeViewId RenderWidgetHostViewEfl::GetNativeViewId() const {
@@ -337,7 +338,7 @@ bool RenderWidgetHostViewEfl::HasFocus() const {
 }
 
 void RenderWidgetHostViewEfl::ActiveWindowChanged(GdkWindow* window) {
-  GdkWindow* our_window = gtk_widget_get_parent_window(view_);
+/*  GdkWindow* our_window = gtk_widget_get_parent_window(view_);
 
   if (our_window == window)
     made_active_ = true;
@@ -345,7 +346,7 @@ void RenderWidgetHostViewEfl::ActiveWindowChanged(GdkWindow* window) {
   // If the window was previously active, but isn't active anymore, shut it
   // down.
   if (is_fullscreen_ && our_window != window && made_active_)
-    host_->Shutdown();
+    host_->Shutdown();*/
 }
 
 bool RenderWidgetHostViewEfl::Send(IPC::Message* message) {
@@ -495,7 +496,7 @@ void RenderWidgetHostViewEfl::Destroy() {
 }
 
 void RenderWidgetHostViewEfl::SetTooltipText(const string16& tooltip_text) {
-  // Maximum number of characters we allow in a tooltip.
+/*  // Maximum number of characters we allow in a tooltip.
   const int kMaxTooltipLength = 8 << 10;
   // Clamp the tooltip length to kMaxTooltipLength so that we don't
   // accidentally DOS the user with a mega tooltip (since GTK doesn't do
@@ -509,7 +510,7 @@ void RenderWidgetHostViewEfl::SetTooltipText(const string16& tooltip_text) {
   } else {
     gtk_widget_set_tooltip_text(view_,
                                 UTF16ToUTF8(clamped_tooltip).c_str());
-  }
+  }*/
 }
 
 void RenderWidgetHostViewEfl::SelectionChanged(const string16& text,
@@ -570,7 +571,11 @@ bool RenderWidgetHostViewEfl::IsPopup() const {
   return popup_type_ != WebKit::WebPopupTypeNone;
 }
 
-void RenderWidgetHostViewEfl::DoSharedInit() {
+void RenderWidgetHostViewEfl::DoSharedInit(Evas_Object* parent) {
+	  view_ = evas_object_rectangle_add(evas_object_evas_get(parent));
+	  evas_object_color_set(view_, 0, 255, 0, 255);
+	  evas_object_size_hint_weight_set(view_, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+	  evas_object_show(view_);
   // TODO: (Important) Assign view_ with a newly created EFL widget here.
   // view_.Own(RenderWidgetHostViewEflEvasObject::CreateNewWidget(this));
 
@@ -582,7 +587,7 @@ void RenderWidgetHostViewEfl::DoSharedInit() {
 
 void RenderWidgetHostViewEfl::DoPopupOrFullscreenInit(GtkWindow* window,
                                                       const gfx::Rect& bounds) {
-  requested_size_.SetSize(std::min(bounds.width(), kMaxWindowWidth),
+/*  requested_size_.SetSize(std::min(bounds.width(), kMaxWindowWidth),
                           std::min(bounds.height(), kMaxWindowHeight));
   host_->WasResized();
 
@@ -602,7 +607,7 @@ void RenderWidgetHostViewEfl::DoPopupOrFullscreenInit(GtkWindow* window,
     gtk_window_move(window, bounds.x(), bounds.y());
   }
 
-  gtk_widget_show_all(GTK_WIDGET(window));
+  gtk_widget_show_all(GTK_WIDGET(window));*/
 }
 
 BackingStore* RenderWidgetHostViewEfl::AllocBackingStore(
@@ -730,7 +735,7 @@ void RenderWidgetHostViewEfl::ModifyEventForEdgeDragging(
 }
 
 void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
-  TRACE_EVENT0("ui::gtk", "RenderWidgetHostViewEfl::Paint");
+/*  TRACE_EVENT0("ui::gtk", "RenderWidgetHostViewEfl::Paint");
 
   // If the GPU process is rendering directly into the View,
   // call the compositor directly.
@@ -789,7 +794,7 @@ void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
       gdk_window_clear(window);
     if (whiteout_start_time_.is_null())
       whiteout_start_time_ = base::TimeTicks::Now();
-  }
+  }*/
 }
 
 void RenderWidgetHostViewEfl::ShowCurrentCursor() {
@@ -1050,7 +1055,7 @@ void RenderWidgetHostViewEfl::FatalAccessibilityTreeError() {
 
 void RenderWidgetHostViewEfl::OnAccessibilityNotifications(
     const std::vector<AccessibilityHostMsg_NotificationParams>& params) {
-  if (!browser_accessibility_manager_) {
+/*  if (!browser_accessibility_manager_) {
     GtkWidget* parent = gtk_widget_get_parent(view_);
     browser_accessibility_manager_.reset(
         new BrowserAccessibilityManagerGtk(
@@ -1058,7 +1063,7 @@ void RenderWidgetHostViewEfl::OnAccessibilityNotifications(
             BrowserAccessibilityManagerGtk::GetEmptyDocument(),
             this));
   }
-  browser_accessibility_manager_->OnAccessibilityNotifications(params);
+  browser_accessibility_manager_->OnAccessibilityNotifications(params);*/
 }
 
 AtkObject* RenderWidgetHostViewEfl::GetAccessible() {
