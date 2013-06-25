@@ -702,7 +702,11 @@
             'gfx/efl_util.h',
             'base/efl/ewk_view_wrapper.cc',
             'base/efl/ewk_view_wrapper.h',
+	    'gfx/screen_efl.cc',
           ],
+	  'sources!': [
+	    'gfx/screen_gtk.cc',
+	  ],
         }],
         ['chromeos==1 or (use_aura==1 and OS=="linux" and use_x11==0)', {
           'sources': [
