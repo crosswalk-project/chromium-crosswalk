@@ -23,7 +23,6 @@
 #include "content/public/common/renderer_preferences.h"
 #include "content/shell/shell_browser_context.h"
 #include "content/shell/shell_content_browser_client.h"
-#include "ui/base/efl/ewk_view_wrapper.h"
 
 namespace content {
 
@@ -72,15 +71,14 @@ void Shell::PlatformSetContents() {
   if (headless_)
     return;
 
+  Evas_Object* view_box = elm_box_add(main_window_);
+  evas_object_size_hint_weight_set(view_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+  elm_win_resize_object_add(main_window_, view_box);
+  evas_object_show(view_box);
+
   WebContentsView* content_view = web_contents_->GetView();
-  static_cast<WebContentsViewEfl*>(content_view)->SetParentObject(main_window_);
-  elm_win_resize_object_add(main_window_, reinterpret_cast<Evas_Object*>(content_view->GetNativeView()));
-/*  ui::EwkViewWrapper* native_view = reinterpret_cast<ui::EwkViewWrapper*>(content_view->GetNativeView());
-
-  native_view->Init(main_window_);
-
-  elm_win_resize_object_add(main_window_, native_view->get());
-  evas_object_show(native_view->get());*/
+  static_cast<WebContentsViewEfl*>(content_view)->SetViewContainerBox(view_box);
 }
 
 void Shell::SizeTo(int width, int height) {

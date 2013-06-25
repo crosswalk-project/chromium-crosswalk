@@ -85,7 +85,7 @@ class CONTENT_EXPORT WebContentsViewEfl
   virtual void GotFocus() OVERRIDE;
   virtual void TakeFocus(bool reverse) OVERRIDE;
 
-  void SetParentObject(Evas_Object* parent) { parent_ = parent; }
+  void SetViewContainerBox(Evas_Object* container_box) { view_container_box_ = container_box; }
 
  private:
   // Insert the given widget into the content area. Should only be used for
@@ -134,7 +134,7 @@ class CONTENT_EXPORT WebContentsViewEfl
   // hierarchy.
   scoped_ptr<WebContentsViewDelegate> delegate_;
 
-  Evas_Object* parent_;
+  Evas_Object* view_container_box_;
 
   // The size we want the view to be.  We keep this in a separate variable
   // because resizing in GTK+ is async.

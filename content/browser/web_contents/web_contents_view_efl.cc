@@ -91,7 +91,7 @@ WebContentsViewEfl::WebContentsViewEfl(
     WebContentsViewDelegate* delegate)
     : web_contents_(web_contents),
       delegate_(delegate),
-      parent_(0) {
+      view_container_box_(0) {
   /*
    * TODO: Connect the evas smart callback signals for size changes to
    * callback functions in this file.
@@ -229,7 +229,7 @@ RenderWidgetHostView* WebContentsViewEfl::CreateViewForWidget(
 
   RenderWidgetHostView* view =
       RenderWidgetHostView::CreateViewForWidget(render_widget_host);
-  view->InitAsChild(reinterpret_cast<gfx::NativeView>(parent_));
+  view->InitAsChild(reinterpret_cast<gfx::NativeView>(view_container_box_));
   // gfx::NativeView content_view = view->GetNativeView();
 
   // TODO: Connect EFL focus event to self
