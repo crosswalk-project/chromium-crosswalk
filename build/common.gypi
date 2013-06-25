@@ -368,11 +368,8 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
-      # XInput2 multitouch support is disabled by default (use_xi2_mt=0).
-      # Setting to non-zero value enables XI2 MT. When XI2 MT is enabled,
-      # the input value also defines the required XI2 minor minimum version.
-      # For example, use_xi2_mt=2 means XI2.2 or above version is required.
-      'use_xi2_mt%': 0,
+      # XInput2 multitouch support is enabled by default.
+      'disable_xi2_mt%': 0,
 
       # Use of precompiled headers on Windows.
       #
@@ -759,7 +756,7 @@
     'enable_viewport%': '<(enable_viewport)',
     'enable_hidpi%': '<(enable_hidpi)',
     'enable_touch_ui%': '<(enable_touch_ui)',
-    'use_xi2_mt%':'<(use_xi2_mt)',
+    'disable_xi2_mt%':'<(disable_xi2_mt)',
     'file_manager_extension%': '<(file_manager_extension)',
     'image_loader_extension%': '<(image_loader_extension)',
     'inside_chromium_build%': '<(inside_chromium_build)',
@@ -1908,8 +1905,11 @@
       ['google_tv==1', {
         'defines': ['GOOGLE_TV=1'],
       }],
-      ['use_xi2_mt!=0', {
-        'defines': ['USE_XI2_MT=<(use_xi2_mt)'],
+      ['disable_xi2_mt==0', {
+        # Setting to non-zero value enables XI2 MT. When XI2 MT is enabled,
+        # the input value also defines the required XI2 minor minimum version.
+        # For example, USE_XI2_MT=2 means XI2.2 or above version is required.
+        'defines': ['USE_XI2_MT=2'],
       }],
       ['file_manager_extension==1', {
         'defines': ['FILE_MANAGER_EXTENSION=1'],
