@@ -7,13 +7,14 @@
 
 #include "base/basictypes.h"
 #include "base/memory/scoped_ptr.h"
+#include "ui/base/ui_export.h"
 #include "ui/gfx/preserve_window_delegate_efl.h"
 
 #include <Evas.h>
 
 namespace gfx {
 
-class PreserveWindow {
+class UI_EXPORT PreserveWindow {
  public:
   static PreserveWindow* Create(PreserveWindowDelegate*, Evas*);
 

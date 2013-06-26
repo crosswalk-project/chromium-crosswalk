@@ -314,7 +314,7 @@ template <PreserveWindowSmartEventType EventType>
 void SmartObjectSmartHandler<EventType>::HandleEvent(void* data, Evas_Object*, void* event_info)
 {
   PreserveWindowDelegate* delegate = static_cast<PreserveWindowDelegate*>(data);
-  switch (EventType) {
+  switch (EventType) { // Mikhail FIXME: this should be done during compile time!
     case PreserveWindowMoveType: {
       int* position = static_cast<int*>(event_info);
       delegate->PreserveWindowMove(gfx::Point(position[0], position[1]));

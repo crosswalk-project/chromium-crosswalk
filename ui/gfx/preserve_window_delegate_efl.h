@@ -5,6 +5,7 @@
 #ifndef UI_GFX_BROWSER_PRESERVE_WINDOW_DELEGATE_EFL_H_
 #define UI_GFX_BROWSER_PRESERVE_WINDOW_DELEGATE_EFL_H_
 
+#include "ui/base/ui_export.h"
 #include "ui/gfx/point.h"
 #include "ui/gfx/rect.h"
 #include "ui/gfx/size.h"
@@ -14,7 +15,7 @@ namespace gfx {
 
 // A private interface used by RootWindowHost implementations to communicate input events
 // with their owning PreserveWindow.
-class PreserveWindowDelegate {
+class UI_EXPORT PreserveWindowDelegate {
  public:
   virtual bool PreserveWindowMouseDown(Evas_Event_Mouse_Down* event) = 0;
   virtual bool PreserveWindowMouseUp(Evas_Event_Mouse_Up* event) = 0;
