@@ -55,9 +55,10 @@ void Shell::PlatformCreateWindow(int width, int height) {
   if (headless_)
     return;
 
-  main_window_ = elm_win_add(NULL, "Content Shell", ELM_WIN_BASIC);
+  main_window_ = elm_win_util_standard_add("Content Shell", "Content Shell");
+  //main_window_ = elm_win_add(NULL, "Content Shell", ELM_WIN_BASIC);
 
-  elm_win_title_set(main_window_, "Content Shell");
+  //elm_win_title_set(main_window_, "Content Shell");
   elm_win_autodel_set(main_window_, true);
 
   evas_object_resize(main_window_, width, height);
@@ -75,7 +76,7 @@ void Shell::PlatformSetContents() {
   evas_object_size_hint_weight_set(view_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
   elm_win_resize_object_add(main_window_, view_box);
-  evas_object_show(view_box);
+ // evas_object_show(view_box);
 
   WebContentsView* content_view = web_contents_->GetView();
   static_cast<WebContentsViewEfl*>(content_view)->SetViewContainerBox(view_box);

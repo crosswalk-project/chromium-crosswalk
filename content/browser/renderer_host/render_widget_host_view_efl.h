@@ -30,6 +30,10 @@
 typedef struct _GtkClipboard GtkClipboard;
 typedef struct _GtkSelectionData GtkSelectionData;
 
+namespace gfx {
+class PreserveWindow;
+}
+
 namespace content {
 class RenderWidgetHost;
 class RenderWidgetHostImpl;
@@ -326,7 +330,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   gfx::PluginWindowHandle compositing_surface_;
 
-  Evas_Object* view_;
+  gfx::PreserveWindow* preserve_window_;
 
   // The event for the last mouse down we handled. We need this for context
   // menus and drags.

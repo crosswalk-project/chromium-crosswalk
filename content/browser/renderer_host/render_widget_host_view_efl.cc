@@ -16,6 +16,8 @@
 #include <algorithm>
 #include <string>
 
+#include <Ecore_X.h>
+
 #include "base/bind_helpers.h"
 #include "base/command_line.h"
 #include "base/debug/trace_event.h"
@@ -123,7 +125,7 @@ RenderWidgetHostViewEfl::RenderWidgetHostViewEfl(RenderWidgetHost* widget_host)
       dragged_at_horizontal_edge_(0),
       dragged_at_vertical_edge_(0),
       compositing_surface_(gfx::kNullPluginWindow),
-      view_(0) {
+      preserve_window_(0) {
   host_->SetView(this);
 }
 
@@ -184,10 +186,12 @@ void RenderWidgetHostViewEfl::PreserveWindowMove(const gfx::Point& origin)
 
 void RenderWidgetHostViewEfl::PreserveWindowResize(const gfx::Size& size)
 {
+    SetSize(size);
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowRepaint(const gfx::Rect& damage_rect)
 {
+    Paint(damage_rect);
 }
 
 bool RenderWidgetHostViewEfl::OnMessageReceived(const IPC::Message& message) {
@@ -206,13 +210,11 @@ void RenderWidgetHostViewEfl::InitAsChild(
     gfx::NativeView parent_view) {
    Evas_Object* elm_box = reinterpret_cast<Evas_Object*>(parent_view);
    Evas* evas = evas_object_evas_get (elm_box);
-   gfx::PreserveWindow* preserve_window = gfx::PreserveWindow::Create(this, evas);
-   evas_object_size_hint_align_set(preserve_window->SmartObject(), EVAS_HINT_FILL, EVAS_HINT_FILL);
-   evas_object_size_hint_weight_set(preserve_window->SmartObject(), 0.0, EVAS_HINT_EXPAND);
-   elm_box_pack_end(elm_box, preserve_window->SmartObject());
-   evas_object_show(preserve_window->SmartObject());
-  //DoSharedInit(reinterpret_cast<Evas_Object*>(parent_view));
-  // gtk_widget_show(view_);
+   preserve_window_ = gfx::PreserveWindow::Create(this, evas);
+   evas_object_size_hint_align_set(preserve_window_->SmartObject(), EVAS_HINT_FILL, EVAS_HINT_FILL);
+   evas_object_size_hint_weight_set(preserve_window_->SmartObject(), EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+   elm_box_pack_end(elm_box, preserve_window_->SmartObject());
+   evas_object_show(preserve_window_->SmartObject());
 }
 
 void RenderWidgetHostViewEfl::InitAsPopup(
@@ -368,7 +370,7 @@ void RenderWidgetHostViewEfl::SetBounds(const gfx::Rect& rect) {
 }
 
 gfx::NativeView RenderWidgetHostViewEfl::GetNativeView() const {
-  return reinterpret_cast<gfx::NativeView>(view_);
+  return reinterpret_cast<gfx::NativeView>(preserve_window_->SmartObject());
 }
 
 gfx::NativeViewId RenderWidgetHostViewEfl::GetNativeViewId() const {
@@ -401,7 +403,7 @@ void RenderWidgetHostViewEfl::Blur() {
 }
 
 bool RenderWidgetHostViewEfl::HasFocus() const {
-  return false;
+  return true;
   // gtk_widget_has_focus(view_);
 }
 
@@ -487,7 +489,7 @@ void RenderWidgetHostViewEfl::DidUpdateBackingStore(
     const gfx::Rect& scroll_rect,
     const gfx::Vector2d& scroll_delta,
     const std::vector<gfx::Rect>& copy_rects) {
-  TRACE_EVENT0("ui::gtk", "RenderWidgetHostViewEfl::DidUpdateBackingStore");
+  TRACE_EVENT0("ui::efl", "RenderWidgetHostViewEfl::DidUpdateBackingStore");
 
   if (is_hidden_)
     return;
@@ -533,7 +535,7 @@ void RenderWidgetHostViewEfl::Destroy() {
 //    gdk_display_keyboard_ungrab(display, GDK_CURRENT_TIME);
   }
 
-  if (view_) {
+  if (preserve_window_->SmartObject()) {
     // If this is a popup or fullscreen widget, then we need to destroy the
     // window that we created to hold it.
     if (IsPopup() || is_fullscreen_) {
@@ -681,13 +683,13 @@ void RenderWidgetHostViewEfl::DoPopupOrFullscreenInit(GtkWindow* window,
 
 BackingStore* RenderWidgetHostViewEfl::AllocBackingStore(
     const gfx::Size& size) {
-  // TODO: Get screen depth from EFL.
-  // gint depth = gdk_visual_get_depth(gtk_widget_get_visual(view_));
-  // TODO: Initialize BackingStore with correct values.
-//  return new BackingStoreGtk(host_, size,
-//                             ui::GetVisualFromGtkWidget(view_),
-//                             depth);
-  return 0;
+
+  Ecore_X_Display* display = ecore_x_display_get();
+  Ecore_X_Screen* screen = ecore_x_default_screen_get();
+  int depth = ecore_x_default_depth_get(display, screen);
+  Ecore_X_Visual visual = ecore_x_default_visual_get(display, screen);
+
+  return new BackingStoreGtk(host_, size, visual, depth);
 }
 
 // NOTE: |output| is initialized with the size of |src_subrect|, and |dst_size|
@@ -804,22 +806,23 @@ void RenderWidgetHostViewEfl::ModifyEventForEdgeDragging(
 }
 
 void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
-/*  TRACE_EVENT0("ui::gtk", "RenderWidgetHostViewEfl::Paint");
 
   // If the GPU process is rendering directly into the View,
   // call the compositor directly.
-  RenderWidgetHostImpl* render_widget_host =
-      RenderWidgetHostImpl::From(GetRenderWidgetHost());
-  if (render_widget_host->is_accelerated_compositing_active()) {
-    host_->ScheduleComposite();
-    return;
-  }
+//  RenderWidgetHostImpl* render_widget_host =
+//      RenderWidgetHostImpl::From(GetRenderWidgetHost());
+//  if (render_widget_host->is_accelerated_compositing_active()) {
+//    host_->ScheduleComposite();
+//    return;
+//  }
 
-  GdkWindow* window = gtk_widget_get_window(view_);
-  DCHECK(!about_to_validate_and_paint_);
+//  GdkWindow* window = gtk_widget_get_window(view_);
+
+  //DCHECK(!about_to_validate_and_paint_);
 
   invalid_rect_ = damage_rect;
   about_to_validate_and_paint_ = true;
+
 
   // If the size of our canvas is (0,0), then we don't want to block here. We
   // are doing one of our first paints and probably have animations going on.
@@ -836,10 +839,11 @@ void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
     // Only render the widget if it is attached to a window; there's a short
     // period where this object isn't attached to a window but hasn't been
     // Destroy()ed yet and it receives paint messages...
-    if (window) {
+//    if (window) {
+      fprintf(stderr, "ahh %u %u \n", elm_win_xwindow_get(preserve_window_->EvasWindow()), elm_win_xwindow_get(preserve_window_->SmartObject()));
       backing_store->XShowRect(gfx::Point(0, 0),
-          paint_rect, ui::GetX11WindowFromGtkWidget(view_));
-    }
+          paint_rect, elm_win_xwindow_get(preserve_window_->EvasWindow()));
+//    }
     if (!whiteout_start_time_.is_null()) {
       base::TimeDelta whiteout_duration = base::TimeTicks::Now() -
           whiteout_start_time_;
@@ -859,11 +863,11 @@ void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
       web_contents_switch_paint_time_ = base::TimeTicks();
     }
   } else {
-    if (window)
-      gdk_window_clear(window);
+//    if (window)
+//      gdk_window_clear(window);
     if (whiteout_start_time_.is_null())
       whiteout_start_time_ = base::TimeTicks::Now();
-  }*/
+  }
 }
 
 void RenderWidgetHostViewEfl::ShowCurrentCursor() {
@@ -916,7 +920,8 @@ void RenderWidgetHostViewEfl::GetScreenInfo(WebScreenInfo* results) {
 }
 
 gfx::Rect RenderWidgetHostViewEfl::GetBoundsInRootWindow() {
-  return gfx::Rect();
+//  return gfx::Rect();
+    return GetViewBounds();
 //  GtkWidget* toplevel = gtk_widget_get_toplevel(view_);
 //  if (!toplevel)
 //    return GetViewBounds();

@@ -22,7 +22,7 @@ void EflInit() {
 
   // Using Ecore_X leads to a crash. Apparently it makes X lock
   // something that Cairo, Pango and others also want.
-  // ecore_x_init(NULL);
+  ecore_x_init(NULL);
 
   edje_init();
 
@@ -33,7 +33,7 @@ void EflShutdown() {
   edje_shutdown();
 
   // See comment above.
-  // ecore_x_shutdown();
+  ecore_x_shutdown();
 
   ecore_evas_shutdown();
   ecore_shutdown();

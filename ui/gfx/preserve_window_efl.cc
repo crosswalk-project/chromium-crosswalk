@@ -120,6 +120,7 @@ void evas_smart_preserve_window_smart_add(Evas_Object* o) {
 
   smart_data->background_ = evas_object_rectangle_add(evas_object_evas_get(smart_data->window_));
   evas_object_color_set(smart_data->background_, 0, 0, 0, 0);
+  //evas_object_color_set(smart_data->window_, 0, 255, 0, 255);
   evas_object_size_hint_weight_set(smart_data->background_, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
   elm_win_resize_object_add(smart_data->window_, smart_data->background_);
   evas_object_focus_set(smart_data->background_, EINA_TRUE);
