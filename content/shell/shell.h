@@ -19,8 +19,7 @@
 #include "ui/gfx/size.h"
 
 #if defined(TOOLKIT_EFL)
-typedef struct _Evas Evas;
-typedef struct _Evas_Object Evas_Object;
+#include <Evas.h>
 #elif defined(TOOLKIT_GTK)
 #include <gtk/gtk.h>
 #include "ui/base/gtk/gtk_signal.h"

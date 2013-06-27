@@ -4,7 +4,7 @@
 #include "base/basictypes.h"
 #include "ui/base/ui_export.h"
 
-typedef struct _Evas_Object Evas_Object;
+#include <Evas.h>
 
 namespace ui {
 
