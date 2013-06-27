@@ -77,7 +77,7 @@ bool IsThreadedCompositingEnabled() {
 }
 
 bool IsForceCompositingModeEnabled() {
-#if defined(OS_WIN) && defined(USE_AURA)
+#if defined(OS_WIN) && defined(USE_AURA) && defined(TOOLKIT_EFL)
   // We always want compositing on Aura Windows.
   return true;
 #endif
