@@ -10,8 +10,6 @@
 #include <Elementary.h>
 #include <Evas.h>
 
-#include <gtk/gtk.h>
-
 #include "base/logging.h"
 #include "base/strings/string_piece.h"
 #include "base/utf_string_conversions.h"
@@ -86,8 +84,6 @@ void Shell::SizeTo(int width, int height) {
   content_width_ = width;
   content_height_ = height;
   if (web_contents_) {
-    // gtk_widget_set_size_request(web_contents_->GetView()->GetNativeView(),
-    //                             width, height);
   }
 }
 
@@ -101,7 +97,6 @@ void Shell::Close() {
     return;
   }
 
-  // gtk_widget_destroy(GTK_WIDGET(window_));
 }
 
 void Shell::PlatformSetTitle(const string16& title) {
