@@ -110,7 +110,7 @@ void evas_smart_preserve_window_smart_add(Evas_Object* o) {
   int x, y, w, h = 0;
   evas_object_geometry_get(o, &x, &y, &w, &h);
 
-  smart_data->window_ = elm_win_add(o, "preserve-window", ELM_WIN_DOCK);
+  smart_data->window_ = elm_win_add(o, "preserve-window", ELM_WIN_SPLASH); //ELM_WIN_DOCK
   evas_object_resize(smart_data->window_, w, h);
   evas_object_show(smart_data->window_);
 
