@@ -16,8 +16,6 @@
 #include <algorithm>
 #include <string>
 
-#include <Ecore_X.h>
-
 #include "base/bind_helpers.h"
 #include "base/command_line.h"
 #include "base/debug/trace_event.h"
@@ -684,14 +682,9 @@ void RenderWidgetHostViewEfl::DoPopupOrFullscreenInit(GtkWindow* window,
 }
 
 BackingStore* RenderWidgetHostViewEfl::AllocBackingStore(
-    const gfx::Size& size) {
+    const gfx::Size& /*size*/) {
 
-  Ecore_X_Display* display = ecore_x_display_get();
-  Ecore_X_Screen* screen = ecore_x_default_screen_get();
-  int depth = ecore_x_default_depth_get(display, screen);
-  Ecore_X_Visual visual = ecore_x_default_visual_get(display, screen);
-
-  return new BackingStoreGtk(host_, size, visual, depth);
+    return 0; // We're using accelerated path.
 }
 
 // NOTE: |output| is initialized with the size of |src_subrect|, and |dst_size|
@@ -807,69 +800,11 @@ void RenderWidgetHostViewEfl::ModifyEventForEdgeDragging(
   dragged_at_vertical_edge_ = new_dragged_at_vertical_edge;
 }
 
-void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
+void RenderWidgetHostViewEfl::Paint(const gfx::Rect& /*damage_rect*/) {
 
   // If the GPU process is rendering directly into the View,
   // call the compositor directly.
-  RenderWidgetHostImpl* render_widget_host =
-      RenderWidgetHostImpl::From(GetRenderWidgetHost());
-  if (render_widget_host->is_accelerated_compositing_active()) {
-    host_->ScheduleComposite();
-    return;
-  }
-
-//  GdkWindow* window = gtk_widget_get_window(view_);
-
-  //DCHECK(!about_to_validate_and_paint_);
-
-  invalid_rect_ = damage_rect;
-  about_to_validate_and_paint_ = true;
-
-
-  // If the size of our canvas is (0,0), then we don't want to block here. We
-  // are doing one of our first paints and probably have animations going on.
-  bool force_create = !host_->empty();
-  BackingStoreGtk* backing_store = static_cast<BackingStoreGtk*>(
-      host_->GetBackingStore(force_create));
-  // Calling GetBackingStore maybe have changed |invalid_rect_|...
-  about_to_validate_and_paint_ = false;
-
-  gfx::Rect paint_rect = gfx::Rect(0, 0, kMaxWindowWidth, kMaxWindowHeight);
-  paint_rect.Intersect(invalid_rect_);
-
-  if (backing_store) {
-    // Only render the widget if it is attached to a window; there's a short
-    // period where this object isn't attached to a window but hasn't been
-    // Destroy()ed yet and it receives paint messages...
-//    if (window) {
-      fprintf(stderr, "ahh %u %u \n", elm_win_xwindow_get(preserve_window_->EvasWindow()), elm_win_xwindow_get(preserve_window_->SmartObject()));
-      backing_store->XShowRect(gfx::Point(0, 0),
-          paint_rect, elm_win_xwindow_get(preserve_window_->EvasWindow()));
-//    }
-    if (!whiteout_start_time_.is_null()) {
-      base::TimeDelta whiteout_duration = base::TimeTicks::Now() -
-          whiteout_start_time_;
-      UMA_HISTOGRAM_TIMES("MPArch.RWHH_WhiteoutDuration", whiteout_duration);
-
-      // Reset the start time to 0 so that we start recording again the next
-      // time the backing store is NULL...
-      whiteout_start_time_ = base::TimeTicks();
-    }
-    if (!web_contents_switch_paint_time_.is_null()) {
-      base::TimeDelta web_contents_switch_paint_duration =
-          base::TimeTicks::Now() - web_contents_switch_paint_time_;
-      UMA_HISTOGRAM_TIMES("MPArch.RWH_TabSwitchPaintDuration",
-          web_contents_switch_paint_duration);
-      // Reset web_contents_switch_paint_time_ to 0 so future tab selections are
-      // recorded.
-      web_contents_switch_paint_time_ = base::TimeTicks();
-    }
-  } else {
-//    if (window)
-//      gdk_window_clear(window);
-    if (whiteout_start_time_.is_null())
-      whiteout_start_time_ = base::TimeTicks::Now();
-  }
+  host_->ScheduleComposite();
 }
 
 void RenderWidgetHostViewEfl::ShowCurrentCursor() {
