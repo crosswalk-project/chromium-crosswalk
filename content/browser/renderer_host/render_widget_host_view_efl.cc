@@ -33,6 +33,7 @@
 #include "content/browser/renderer_host/backing_store_gtk.h"
 #include "content/browser/renderer_host/render_view_host_delegate.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
+#include "content/browser/renderer_host/window_utils_efl.h"
 #include "content/common/edit_command.h"
 #include "content/common/gpu/gpu_messages.h"
 #include "content/public/browser/browser_context.h"
@@ -910,6 +911,8 @@ void RenderWidgetHostViewEfl::OnAcceleratedCompositingStateChange() {
 }
 
 void RenderWidgetHostViewEfl::GetScreenInfo(WebScreenInfo* results) {
+
+	content::GetScreenInfoEfl(results);
 //  GdkWindow* gdk_window = gtk_widget_get_window(view_);
 //  if (!gdk_window) {
 //    GdkDisplay* display = gdk_display_get_default();
