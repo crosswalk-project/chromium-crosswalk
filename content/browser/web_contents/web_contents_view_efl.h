@@ -13,11 +13,7 @@
 #include "content/port/browser/render_view_host_delegate_view.h"
 #include "content/port/browser/web_contents_view_port.h"
 
-namespace ui {
-
-class EwkViewWrapper;
-
-}
+typedef struct _Evas_Object Evas_Object;
 
 namespace content {
 
@@ -89,6 +85,8 @@ class CONTENT_EXPORT WebContentsViewEfl
   virtual void GotFocus() OVERRIDE;
   virtual void TakeFocus(bool reverse) OVERRIDE;
 
+  void SetViewContainerBox(Evas_Object* container_box) { view_container_box_ = container_box; }
+
  private:
   // Insert the given widget into the content area. Should only be used for
   // web pages and the like (including interstitials and sad tab). Note that
@@ -136,11 +134,12 @@ class CONTENT_EXPORT WebContentsViewEfl
   // hierarchy.
   scoped_ptr<WebContentsViewDelegate> delegate_;
 
-  ui::EwkViewWrapper* widget_;
+  Evas_Object* view_container_box_;
 
   // The size we want the view to be.  We keep this in a separate variable
   // because resizing in GTK+ is async.
   gfx::Size requested_size_;
+
 
   DISALLOW_COPY_AND_ASSIGN(WebContentsViewEfl);
 };

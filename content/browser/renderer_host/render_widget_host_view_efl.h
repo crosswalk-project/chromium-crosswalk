@@ -22,12 +22,17 @@
 #include "ui/base/x/active_window_watcher_x_observer.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/point.h"
+#include "ui/gfx/preserve_window_delegate_efl.h"
 #include "ui/gfx/rect.h"
 #include "webkit/glue/webcursor.h"
 #include "webkit/plugins/npapi/gtk_plugin_container_manager.h"
 
 typedef struct _GtkClipboard GtkClipboard;
 typedef struct _GtkSelectionData GtkSelectionData;
+
+namespace gfx {
+class PreserveWindow;
+}
 
 namespace content {
 class RenderWidgetHost;
@@ -38,12 +43,29 @@ struct NativeWebKeyboardEvent;
 // See comments in render_widget_host_view.h about this class and its members.
 // -----------------------------------------------------------------------------
 class CONTENT_EXPORT RenderWidgetHostViewEfl
-    : public RenderWidgetHostViewBase,
+    : public gfx::PreserveWindowDelegate,
+	  public RenderWidgetHostViewBase,
       public BrowserAccessibilityDelegate,
       public ui::ActiveWindowWatcherXObserver,
       public IPC::Sender {
  public:
   virtual ~RenderWidgetHostViewEfl();
+
+  // PreserveWindowDelegate implementation.
+  virtual bool PreserveWindowMouseDown(Evas_Event_Mouse_Down* event);
+  virtual bool PreserveWindowMouseUp(Evas_Event_Mouse_Up* event);
+  virtual bool PreserveWindowMouseMove(Evas_Event_Mouse_Move* event);
+  virtual bool PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) ;
+  virtual bool PreserveWindowKeyDown(Evas_Event_Key_Down* event);
+  virtual bool PreserveWindowKeyUp(Evas_Event_Key_Up* event);
+  virtual void PreserveWindowFocusIn();
+  virtual void PreserveWindowFocusOut();
+  virtual void PreserveWindowShow();
+  virtual void PreserveWindowHide();
+  virtual void PreserveWindowMove(const gfx::Point& origin);
+  virtual void PreserveWindowResize(const gfx::Size& size);
+  virtual void PreserveWindowRepaint(const gfx::Rect& damage_rect);
+
 
   // RenderWidgetHostView implementation.
   virtual bool OnMessageReceived(const IPC::Message& msg) OVERRIDE;
@@ -183,8 +205,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   explicit RenderWidgetHostViewEfl(RenderWidgetHost* widget);
 
  private:
-  friend class RenderWidgetHostViewEflEvasObject;
-
   // Returns whether the widget needs an input grab (GTK+ and X) to work
   // properly.
   bool NeedsInputGrab();
@@ -194,7 +214,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   bool IsPopup() const;
 
   // Do initialization needed by all InitAs*() methods.
-  void DoSharedInit();
+  void DoSharedInit(Evas_Object* parent);
 
   // Do initialization needed just by InitAsPopup() and InitAsFullscreen().
   // We move and resize |window| to |bounds| and show it and its contents.
@@ -216,7 +236,7 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   // The native UI widget.
   // TODO: Do we need lifetime handling like OwnedWidgetGtk?
-  gfx::NativeView view_;
+  //gfx::NativeView view_;
 
   // This is true when we are currently painting and thus should handle extra
   // paint requests by expanding the invalid rect rather than actually
@@ -309,6 +329,8 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   int dragged_at_vertical_edge_;
 
   gfx::PluginWindowHandle compositing_surface_;
+
+  gfx::PreserveWindow* preserve_window_;
 
   // The event for the last mouse down we handled. We need this for context
   // menus and drags.
