@@ -215,6 +215,7 @@ void RenderWidgetHostViewEfl::InitAsChild(
    evas_object_size_hint_weight_set(preserve_window_->SmartObject(), EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    elm_box_pack_end(elm_box, preserve_window_->SmartObject());
    evas_object_show(preserve_window_->SmartObject());
+   compositing_surface_ = elm_win_xwindow_get(preserve_window_->EvasWindow());
 }
 
 void RenderWidgetHostViewEfl::InitAsPopup(
@@ -809,12 +810,12 @@ void RenderWidgetHostViewEfl::Paint(const gfx::Rect& damage_rect) {
 
   // If the GPU process is rendering directly into the View,
   // call the compositor directly.
-//  RenderWidgetHostImpl* render_widget_host =
-//      RenderWidgetHostImpl::From(GetRenderWidgetHost());
-//  if (render_widget_host->is_accelerated_compositing_active()) {
-//    host_->ScheduleComposite();
-//    return;
-//  }
+  RenderWidgetHostImpl* render_widget_host =
+      RenderWidgetHostImpl::From(GetRenderWidgetHost());
+  if (render_widget_host->is_accelerated_compositing_active()) {
+    host_->ScheduleComposite();
+    return;
+  }
 
 //  GdkWindow* window = gtk_widget_get_window(view_);
 
