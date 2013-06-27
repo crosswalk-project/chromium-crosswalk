@@ -19,10 +19,10 @@
 #include "content/public/browser/native_web_keyboard_event.h"
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_contents_view.h"
+#include "content/browser/web_contents/web_contents_view_efl.h"
 #include "content/public/common/renderer_preferences.h"
 #include "content/shell/shell_browser_context.h"
 #include "content/shell/shell_content_browser_client.h"
-#include "ui/base/efl/ewk_view_wrapper.h"
 
 namespace content {
 
@@ -55,9 +55,10 @@ void Shell::PlatformCreateWindow(int width, int height) {
   if (headless_)
     return;
 
-  main_window_ = elm_win_add(NULL, "Content Shell", ELM_WIN_BASIC);
+  main_window_ = elm_win_util_standard_add("Content Shell", "Content Shell");
+  //main_window_ = elm_win_add(NULL, "Content Shell", ELM_WIN_BASIC);
 
-  elm_win_title_set(main_window_, "Content Shell");
+  //elm_win_title_set(main_window_, "Content Shell");
   elm_win_autodel_set(main_window_, true);
 
   evas_object_resize(main_window_, width, height);
@@ -71,13 +72,14 @@ void Shell::PlatformSetContents() {
   if (headless_)
     return;
 
+  Evas_Object* view_box = elm_box_add(main_window_);
+  evas_object_size_hint_weight_set(view_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+
+  elm_win_resize_object_add(main_window_, view_box);
+ // evas_object_show(view_box);
+
   WebContentsView* content_view = web_contents_->GetView();
-  ui::EwkViewWrapper* native_view = reinterpret_cast<ui::EwkViewWrapper*>(content_view->GetNativeView());
-
-  native_view->Init(main_window_);
-
-  elm_win_resize_object_add(main_window_, native_view->get());
-  evas_object_show(native_view->get());
+  static_cast<WebContentsViewEfl*>(content_view)->SetViewContainerBox(view_box);
 }
 
 void Shell::SizeTo(int width, int height) {
