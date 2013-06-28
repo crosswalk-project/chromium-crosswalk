@@ -703,6 +703,8 @@
           'sources': [
             'gfx/efl_util.cc',
             'gfx/efl_util.h',
+            'base/clipboard/clipboard_efl.cc',
+            'base/resource/resource_bundle_efl.cc',
             'base/efl/ewk_view_wrapper.cc',
             'base/efl/ewk_view_wrapper.h',
             'gfx/screen_efl.cc',
