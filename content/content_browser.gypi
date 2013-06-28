@@ -757,9 +757,9 @@
     'browser/renderer_host/media/webrtc_logging_handler_host.h',
     'browser/renderer_host/native_web_keyboard_event_android.cc',
     'browser/renderer_host/native_web_keyboard_event_aura.cc',
-    'browser/renderer_host/native_web_keyboard_event.cc',
     'browser/renderer_host/native_web_keyboard_event_efl.cc',
-    'browser/renderer_host/native_web_keyboard_event_gtk.cc',
+    'browser/renderer_host/native_web_keyboard_event.cc',
+    'browser/renderer_host/native_web_keyboard_event_gtk.cc'
     'browser/renderer_host/native_web_keyboard_event_mac.mm',
     'browser/renderer_host/native_web_keyboard_event_win.cc',
     'browser/renderer_host/overscroll_configuration.cc',
@@ -1180,6 +1180,7 @@
       'sources/': [
         ['exclude', 'browser/web_contents/web_contents_view_gtk.cc'],
         ['exclude', 'browser/web_contents/web_contents_view_gtk.h'],
+        ['exclude', 'browser/renderer_host/native_web_keyboard_event_gtk.cc'],
         ['exclude', 'browser/renderer_host/render_widget_host_view_gtk.cc'],
         ['exclude', 'browser/renderer_host/render_widget_host_view_gtk.h'],
         ['exclude', 'browser/renderer_host/gtk_im_context_wrapper.cc'],

@@ -701,6 +701,7 @@
             '../build/linux/system.gyp:efl',
           ],
           'sources': [
+            'gfx/efl_event.h',
             'gfx/efl_util.cc',
             'gfx/efl_util.h',
             'base/clipboard/clipboard_efl.cc',

@@ -43,6 +43,7 @@
 #include "ui/base/text/text_elider.h"
 #include "ui/base/x/active_window_watcher_x.h"
 #include "ui/base/x/x11_util.h"
+#include "ui/gfx/efl_event.h"
 #include "ui/gfx/preserve_window_efl.h"
 #include "webkit/plugins/npapi/webplugin.h"
 
@@ -124,12 +125,16 @@ void RenderWidgetHostViewEfl::PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* m
 
 void RenderWidgetHostViewEfl::PreserveWindowKeyDown(Evas_Event_Key_Down* key_down)
 {
-  host_->ForwardKeyboardEvent(content::keyboardEvent(key_down));
+  gfx::EflEvent event = gfx::EflEvent(gfx::EflEvent::EventTypeKeyDown,
+                                           key_down);
+  host_->ForwardKeyboardEvent(NativeWebKeyboardEvent(&event));
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* key_up)
 {
-  host_->ForwardKeyboardEvent(content::keyboardEvent(key_up));
+  gfx::EflEvent event = gfx::EflEvent(gfx::EflEvent::EventTypeKeyUp,
+                                           key_up);
+  host_->ForwardKeyboardEvent(NativeWebKeyboardEvent(&event));
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
