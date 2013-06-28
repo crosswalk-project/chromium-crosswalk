@@ -13,7 +13,7 @@
 #include "content/port/browser/render_view_host_delegate_view.h"
 #include "content/port/browser/web_contents_view_port.h"
 
-typedef struct _Evas_Object Evas_Object;
+#include <Evas.h>
 
 namespace content {
 

@@ -8,7 +8,6 @@
 #include <Ecore_Evas.h>
 #include <Eina.h>
 #include <Elementary.h>
-#include <Evas.h>
 
 #include <gtk/gtk.h>
 
