@@ -14,6 +14,7 @@
         '../chrome/chrome.gyp:*',
         '../content/content.gyp:*',
         '../crypto/crypto.gyp:*',
+        '../efl_webview/efl_webview.gyp:*',
         '../media/media.gyp:*',
         '../net/net.gyp:*',
         '../sdch/sdch.gyp:*',
