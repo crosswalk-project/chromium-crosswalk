@@ -14,7 +14,7 @@
   'targets': [
     {
       'target_name': 'efl_webview',
-      'type': 'static_library',
+      'type': 'shared_library',
       'defines!': ['CONTENT_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
@@ -94,11 +94,6 @@
         'examples/main.cc',
       ],
       'conditions': [
-        ['toolkit_uses_gtk == 1', {
-          'dependencies': [
-            '<(DEPTH)/build/linux/system.gyp:gtk',
-          ],
-        }],  # toolkit_uses_gtk
         ['toolkit_uses_efl == 1', {
           'dependencies': [
             '../build/linux/system.gyp:efl',
