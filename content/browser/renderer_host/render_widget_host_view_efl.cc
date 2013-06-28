@@ -29,6 +29,7 @@
 #include "content/browser/renderer_host/render_view_host_delegate.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
 #include "content/browser/renderer_host/window_utils_efl.h"
+#include "content/browser/renderer_host/web_input_event_factory_efl.h"
 #include "content/common/edit_command.h"
 #include "content/common/gpu/gpu_messages.h"
 #include "content/public/browser/browser_context.h"
@@ -101,34 +102,34 @@ RenderWidgetHostViewEfl::~RenderWidgetHostViewEfl() {
  // view_.Destroy();
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowMouseDown(Evas_Event_Mouse_Down* event)
+void RenderWidgetHostViewEfl::PreserveWindowMouseDown(Evas_Event_Mouse_Down* mouse_down)
 {
-	return false;
+  host_->ForwardMouseEvent(content::mouseEvent(mouse_down));
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowMouseUp(Evas_Event_Mouse_Up* event)
+void RenderWidgetHostViewEfl::PreserveWindowMouseUp(Evas_Event_Mouse_Up* mouse_up)
 {
-	return false;
+  host_->ForwardMouseEvent(content::mouseEvent(mouse_up));
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowMouseMove(Evas_Event_Mouse_Move* event)
+void RenderWidgetHostViewEfl::PreserveWindowMouseMove(Evas_Event_Mouse_Move* mouse_move)
 {
-	return false;
+  host_->ForwardMouseEvent(content::mouseEvent(mouse_move));
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event)
+void RenderWidgetHostViewEfl::PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* mouse_wheel)
 {
-	return false;
+  host_->ForwardWheelEvent(content::mouseWheelEvent(mouse_wheel));
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowKeyDown(Evas_Event_Key_Down* event)
+void RenderWidgetHostViewEfl::PreserveWindowKeyDown(Evas_Event_Key_Down* key_down)
 {
-	return false;
+  host_->ForwardKeyboardEvent(content::keyboardEvent(key_down));
 }
 
-bool RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* event)
+void RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* key_up)
 {
-	return false;
+  host_->ForwardKeyboardEvent(content::keyboardEvent(key_up));
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
@@ -137,10 +138,12 @@ void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusOut()
 {
+//  root_window_host_delegate_->OnHostLostMouseGrab();
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowShow()
 {
+//  root_window_host_delegate_->OnHostActivated();
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowHide()

@@ -47,12 +47,12 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   virtual ~RenderWidgetHostViewEfl();
 
   // PreserveWindowDelegate implementation.
-  virtual bool PreserveWindowMouseDown(Evas_Event_Mouse_Down* event);
-  virtual bool PreserveWindowMouseUp(Evas_Event_Mouse_Up* event);
-  virtual bool PreserveWindowMouseMove(Evas_Event_Mouse_Move* event);
-  virtual bool PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) ;
-  virtual bool PreserveWindowKeyDown(Evas_Event_Key_Down* event);
-  virtual bool PreserveWindowKeyUp(Evas_Event_Key_Up* event);
+  virtual void PreserveWindowMouseDown(Evas_Event_Mouse_Down* event);
+  virtual void PreserveWindowMouseUp(Evas_Event_Mouse_Up* event);
+  virtual void PreserveWindowMouseMove(Evas_Event_Mouse_Move* event);
+  virtual void PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) ;
+  virtual void PreserveWindowKeyDown(Evas_Event_Key_Down* event);
+  virtual void PreserveWindowKeyUp(Evas_Event_Key_Up* event);
   virtual void PreserveWindowFocusIn();
   virtual void PreserveWindowFocusOut();
   virtual void PreserveWindowShow();

@@ -873,6 +873,8 @@
     'browser/renderer_host/web_input_event_aura.h',
     'browser/renderer_host/web_input_event_aurawin.cc',
     'browser/renderer_host/web_input_event_aurax11.cc',
+    'browser/renderer_host/web_input_event_factory_efl.h',
+    'browser/renderer_host/web_input_event_factory_efl.cc',
     'browser/renderer_host/window_utils_efl.h',
     'browser/renderer_host/window_utils_efl.cc',
     'browser/resolve_proxy_msg_helper.cc',
