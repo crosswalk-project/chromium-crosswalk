@@ -188,6 +188,10 @@ class AutofillDialogControllerTest : public InProcessBrowserTest {
   AutofillDialogControllerTest() {}
   virtual ~AutofillDialogControllerTest() {}
 
+  virtual void SetUpCommandLine(CommandLine* cl) OVERRIDE {
+    cl->AppendSwitch(autofill::switches::kEnableInteractiveAutocomplete);
+  }
+
   void InitializeControllerOfType(DialogType dialog_type) {
     FormData form;
     form.name = ASCIIToUTF16("TestForm");
