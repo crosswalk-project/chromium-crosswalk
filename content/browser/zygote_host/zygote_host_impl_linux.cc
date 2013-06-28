@@ -70,6 +70,9 @@ void ZygoteHostImpl::Init(const std::string& sandbox_cmd) {
 
   base::FilePath chrome_path;
   CHECK(PathService::Get(base::FILE_EXE, &chrome_path));
+#if defined(TOOLKIT_EFL)
+  chrome_path = CommandLine::ForCurrentProcess()->GetSwitchValuePath(switches::kBrowserSubprocessPath);
+#endif
   CommandLine cmd_line(chrome_path);
 
   cmd_line.AppendSwitchASCII(switches::kProcessType, switches::kZygoteProcess);
