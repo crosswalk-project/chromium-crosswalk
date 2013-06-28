@@ -1032,7 +1032,7 @@ TransportDIB* RenderProcessHostImpl::MapTransportDIB(
                   STANDARD_RIGHTS_REQUIRED | FILE_MAP_READ | FILE_MAP_WRITE,
                   FALSE, 0);
   return TransportDIB::Map(section);
-#elif defined(TOOLKIT_GTK) || (defined(OS_LINUX) && defined(USE_AURA))
+#elif defined(TOOLKIT_GTK) || defined(TOOLKIT_EFL) || (defined(OS_LINUX) && defined(USE_AURA))
   return TransportDIB::Map(dib_id.shmkey);
 #elif defined(OS_ANDROID)
   return TransportDIB::Map(dib_id);

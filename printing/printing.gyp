@@ -207,6 +207,11 @@
             'printing_context_gtk.h',
           ],
         }],
+        ['toolkit_uses_efl==1 and chromeos==0', {
+          'sources': [
+            'printing_context_efl.cc',
+          ],
+        }],
       ],
     },
     {

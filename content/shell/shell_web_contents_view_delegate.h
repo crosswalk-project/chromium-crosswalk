@@ -53,7 +53,7 @@ class ShellWebContentsViewDelegate : public WebContentsViewDelegate {
   WebContents* web_contents_;
   ContextMenuParams params_;
 
-#if defined(TOOLKIT_GTK) && !defined(TOOLKIT_EFL)
+#if defined(TOOLKIT_GTK)
   ui::OwnedWidgetGtk floating_;
   GtkWidget* expanded_container_;
 

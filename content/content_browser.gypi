@@ -758,6 +758,7 @@
     'browser/renderer_host/native_web_keyboard_event_android.cc',
     'browser/renderer_host/native_web_keyboard_event_aura.cc',
     'browser/renderer_host/native_web_keyboard_event.cc',
+    'browser/renderer_host/native_web_keyboard_event_efl.cc',
     'browser/renderer_host/native_web_keyboard_event_gtk.cc',
     'browser/renderer_host/native_web_keyboard_event_mac.mm',
     'browser/renderer_host/native_web_keyboard_event_win.cc',

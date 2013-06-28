@@ -835,7 +835,7 @@ void BrowserMainLoop::InitializeToolkit() {
   g_type_init();
 #endif
 
-#if !defined(USE_AURA)
+#if !defined(USE_AURA) && !defined(TOOLKIT_EFL)
   gfx::GtkInitFromCommandLine(parsed_command_line_);
 #endif
 
