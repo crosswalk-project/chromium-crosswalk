@@ -1,7 +1,5 @@
 #include "ui/base/efl/ewk_view_wrapper.h"
 
-#include <Evas.h>
-
 namespace ui {
 
 EwkViewWrapper::EwkViewWrapper()
