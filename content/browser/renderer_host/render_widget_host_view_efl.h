@@ -6,7 +6,6 @@
 #define CONTENT_BROWSER_RENDERER_HOST_RENDER_WIDGET_HOST_VIEW_EFL_H_
 
 #include <Evas.h>
-#include <gdk/gdk.h>
 
 #include <string>
 #include <vector>
@@ -19,16 +18,13 @@
 #include "ipc/ipc_sender.h"
 #include "ui/base/animation/animation_delegate.h"
 #include "ui/base/animation/slide_animation.h"
-#include "ui/base/x/active_window_watcher_x_observer.h"
+//#include "ui/base/x/active_window_watcher_x_observer.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/point.h"
 #include "ui/gfx/preserve_window_delegate_efl.h"
 #include "ui/gfx/rect.h"
 #include "webkit/glue/webcursor.h"
-#include "webkit/plugins/npapi/gtk_plugin_container_manager.h"
-
-typedef struct _GtkClipboard GtkClipboard;
-typedef struct _GtkSelectionData GtkSelectionData;
+//#include "webkit/plugins/npapi/gtk_plugin_container_manager.h"
 
 namespace gfx {
 class PreserveWindow;
@@ -46,7 +42,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
     : public gfx::PreserveWindowDelegate,
 	  public RenderWidgetHostViewBase,
       public BrowserAccessibilityDelegate,
-      public ui::ActiveWindowWatcherXObserver,
       public IPC::Sender {
  public:
   virtual ~RenderWidgetHostViewEfl();
@@ -82,7 +77,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   virtual void Hide() OVERRIDE;
   virtual bool IsShowing() OVERRIDE;
   virtual gfx::Rect GetViewBounds() const OVERRIDE;
-  virtual GdkEventButton* GetLastMouseDown() OVERRIDE;
   virtual gfx::NativeView BuildInputMethodsGtkMenu() OVERRIDE;
   virtual void SetBackground(const SkBitmap& background) OVERRIDE;
 
@@ -154,17 +148,8 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
       const std::vector<AccessibilityHostMsg_NotificationParams>& params)
       OVERRIDE;
 
-  // ActiveWindowWatcherXObserver implementation.
-  virtual void ActiveWindowChanged(GdkWindow* active_window) OVERRIDE;
-
   // IPC::Sender implementation:
   virtual bool Send(IPC::Message* message) OVERRIDE;
-
-  // If the widget is aligned with an edge of the monitor its on and the user
-  // attempts to drag past that edge we track the number of times it has
-  // occurred, so that we can force the widget to scroll when it otherwise
-  // would be unable to.
-  void ModifyEventForEdgeDragging(GtkWidget* widget, GdkEventMotion* event);
 
   // Mouse events always provide a movementX/Y which needs to be computed.
   // Also, mouse lock requires knowledge of last unlocked cursor coordinates.
@@ -195,9 +180,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
   virtual gfx::Point GetLastTouchEventLocation() const OVERRIDE;
   virtual void FatalAccessibilityTreeError() OVERRIDE;
 
-  // Get the root of the AtkObject* tree for accessibility.
-  AtkObject* GetAccessible();
-
  protected:
   friend class RenderWidgetHostView;
 
@@ -215,10 +197,6 @@ class CONTENT_EXPORT RenderWidgetHostViewEfl
 
   // Do initialization needed by all InitAs*() methods.
   void DoSharedInit(Evas_Object* parent);
-
-  // Do initialization needed just by InitAsPopup() and InitAsFullscreen().
-  // We move and resize |window| to |bounds| and show it and its contents.
-  void DoPopupOrFullscreenInit(GtkWindow* window, const gfx::Rect& bounds);
 
   // Update the display cursor for the render view.
   void ShowCurrentCursor();

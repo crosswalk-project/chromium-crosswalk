@@ -703,13 +703,26 @@
           'sources': [
             'gfx/efl_util.cc',
             'gfx/efl_util.h',
+            'base/clipboard/clipboard_efl.cc',
+            'base/resource/resource_bundle_efl.cc',
             'base/efl/ewk_view_wrapper.cc',
             'base/efl/ewk_view_wrapper.h',
-	    'gfx/screen_efl.cc',
+            'gfx/screen_efl.cc',
           ],
-	  'sources!': [
-	    'gfx/screen_gtk.cc',
-	  ],
+          'sources/': [
+            ['exclude', 'gfx/gtk_'],
+            ['exclude', 'gfx/gtk_util.cc'],
+            ['exclude', 'gfx/gtk_util.h'],
+            ['exclude', 'gfx/screen_gtk.cc'],
+            ['exclude', 'base/work_area_watcher_observer.h'],
+            ['exclude', 'base/x/active_window_watcher_x.cc'],
+            ['exclude', 'base/x/active_window_watcher_x.h'],
+            ['exclude', 'base/x/active_window_watcher_x_observer.h'],
+            ['exclude', 'base/x/root_window_property_watcher_x.cc'],
+            ['exclude', 'base/x/root_window_property_watcher_x.h'],
+            ['exclude', 'base/x/work_area_watcher_x.cc'],
+            ['exclude', 'base/x/work_area_watcher_x.h'],
+           ],
         }],
         ['chromeos==1 or (use_aura==1 and OS=="linux" and use_x11==0)', {
           'sources': [

@@ -31,6 +31,7 @@
         'native_theme_aura.h',
         'native_theme_base.cc',
         'native_theme_base.h',
+        'native_theme_efl.cc',
         'native_theme_gtk.cc',
         'native_theme_gtk.h',
         'native_theme_mac.h',

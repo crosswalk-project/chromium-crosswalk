@@ -113,6 +113,7 @@ class UI_EXPORT Clipboard : NON_EXPORTED_BASE(public base::ThreadChecker) {
     explicit FormatType(const GdkAtom& native_format);
     const GdkAtom& ToGdkAtom() const { return data_; }
     GdkAtom data_;
+#elif defined(TOOLKIT_EFL) // Mikhail FIXME: Implementation is required.
 #elif defined(OS_ANDROID)
     explicit FormatType(const std::string& native_format);
     const std::string& data() const { return data_; }

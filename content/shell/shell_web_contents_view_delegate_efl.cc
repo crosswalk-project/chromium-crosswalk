@@ -19,8 +19,6 @@
 #include "content/shell/shell_switches.h"
 #include "content/shell/shell_web_contents_view_delegate_creator.h"
 #include "third_party/WebKit/Source/WebKit/chromium/public/WebContextMenuData.h"
-#include "ui/base/gtk/focus_store_gtk.h"
-#include "ui/base/gtk/gtk_floating_container.h"
 
 using WebKit::WebContextMenuData;
 
@@ -48,29 +46,6 @@ void ShellWebContentsViewDelegate::ShowContextMenu(
 
 WebDragDestDelegate* ShellWebContentsViewDelegate::GetDragDestDelegate() {
   return NULL;
-}
-
-void ShellWebContentsViewDelegate::Initialize(GtkWidget* expanded_container,
-                                              ui::FocusStoreGtk* focus_store) {
-//  expanded_container_ = expanded_container;
-//
-//  gtk_container_add(GTK_CONTAINER(floating_.get()), expanded_container_);
-//  gtk_widget_show(floating_.get());
-}
-
-gfx::NativeView ShellWebContentsViewDelegate::GetNativeView() const {
-  // return floating_.get();
-  return 0;
-}
-
-void ShellWebContentsViewDelegate::Focus() {
-}
-
-gboolean ShellWebContentsViewDelegate::OnNativeViewFocusEvent(
-    GtkWidget* widget,
-    GtkDirectionType type,
-    gboolean* return_value) {
-  return false;
 }
 
 

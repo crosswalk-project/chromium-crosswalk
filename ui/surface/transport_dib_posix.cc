@@ -6,7 +6,7 @@
 
 // Desktop GTK Linux builds use the old-style SYSV SHM based DIBs.
 // Linux Aura and Chrome OS do too. This will change very soon.
-#if !defined(TOOLKIT_GTK) && !(defined(OS_LINUX) && defined(USE_AURA))
+#if !defined(TOOLKIT_GTK) && !defined(TOOLKIT_EFL) && !(defined(OS_LINUX) && defined(USE_AURA))
 
 #include <sys/stat.h>
 #include <unistd.h>
