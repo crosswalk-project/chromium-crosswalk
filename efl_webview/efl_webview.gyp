@@ -15,7 +15,7 @@
     {
       'target_name': 'efl_webview',
       'type': 'shared_library',
-      'defines!': ['CONTENT_IMPLEMENTATION'],
+      'defines': ['CONTENT_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
       },
@@ -92,6 +92,28 @@
       ],
       'sources': [
         'examples/main.cc',
+      ],
+      'conditions': [
+        ['toolkit_uses_efl == 1', {
+          'dependencies': [
+            '../build/linux/system.gyp:efl',
+          ],
+        }],
+      ],
+    },
+    {
+      'target_name': 'efl_process',
+      'type': 'executable',
+      'defines': ['EFL_PROCESS=efl_process'],
+      'defines': ['CONTENT_IMPLEMENTATION'],
+      'dependencies': [
+        'efl_webview',
+      ],
+      'include_dirs': [
+        '..',
+      ],
+      'sources': [
+        'process/main.cc',
       ],
       'conditions': [
         ['toolkit_uses_efl == 1', {
