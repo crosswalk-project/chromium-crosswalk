@@ -6,6 +6,8 @@
 #include <Ecore_Evas.h>
 #include <Elementary.h>
 
+#include "efl_webview/lib/process_main.h"
+
 static const char APP_NAME[] = "EFL WebView Example";
 
 static int window_width = 800;
@@ -75,6 +77,10 @@ static void window_create()
 
 int main(int argc, char *argv[])
 {
+  // FIXME: this function will be removed after implementing sub process launcher.
+  if (int exit_code = xwalk::process_main(argc, argv) <= 0)
+    return exit_code;
+
   elm_init(argc, argv);
 
   elm_policy_set(ELM_POLICY_QUIT, ELM_POLICY_QUIT_LAST_WINDOW_CLOSED);
