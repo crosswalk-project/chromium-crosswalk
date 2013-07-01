@@ -71,7 +71,8 @@ void ZygoteHostImpl::Init(const std::string& sandbox_cmd) {
   base::FilePath chrome_path;
   CHECK(PathService::Get(base::FILE_EXE, &chrome_path));
 #if defined(TOOLKIT_EFL)
-  chrome_path = CommandLine::ForCurrentProcess()->GetSwitchValuePath(switches::kBrowserSubprocessPath);
+  //TODO(rakuco): make subprocess laucher
+  // chrome_path = CommandLine::ForCurrentProcess()->GetSwitchValuePath(switches::kBrowserSubprocessPath);
 #endif
   CommandLine cmd_line(chrome_path);
 
