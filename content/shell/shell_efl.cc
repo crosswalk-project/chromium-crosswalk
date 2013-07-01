@@ -52,27 +52,27 @@ void Shell::PlatformCreateWindow(int width, int height) {
   if (headless_)
     return;
 
-  main_window_ = elm_win_util_standard_add("Content Shell", "Content Shell");
+  window_ = elm_win_util_standard_add("Content Shell", "Content Shell");
   //main_window_ = elm_win_add(NULL, "Content Shell", ELM_WIN_BASIC);
 
   //elm_win_title_set(main_window_, "Content Shell");
-  elm_win_autodel_set(main_window_, true);
+  elm_win_autodel_set(window_, true);
 
-  evas_object_resize(main_window_, width, height);
-  evas_object_event_callback_add(main_window_, EVAS_CALLBACK_DEL,
+  evas_object_resize(window_, width, height);
+  evas_object_event_callback_add(window_, EVAS_CALLBACK_DEL,
                                  OnMainWindowDel, this);
 
-  evas_object_show(main_window_);
+  evas_object_show(window_);
 }
 
 void Shell::PlatformSetContents() {
   if (headless_)
     return;
 
-  Evas_Object* view_box = elm_box_add(main_window_);
+  Evas_Object* view_box = elm_box_add(window_);
   evas_object_size_hint_weight_set(view_box, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
 
-  elm_win_resize_object_add(main_window_, view_box);
+  elm_win_resize_object_add(window_, view_box);
  // evas_object_show(view_box);
 
   WebContentsView* content_view = web_contents_->GetView();
@@ -95,7 +95,6 @@ void Shell::Close() {
     delete this;
     return;
   }
-
 }
 
 void Shell::PlatformSetTitle(const string16& title) {
@@ -103,7 +102,7 @@ void Shell::PlatformSetTitle(const string16& title) {
     return;
 
   std::string title_utf8 = UTF16ToUTF8(title);
-  elm_win_title_set(main_window_, title_utf8.c_str());
+  elm_win_title_set(window_, title_utf8.c_str());
 }
 
 void Shell::OnMainWindowDel(void* data, Evas* evas, Evas_Object* object,

@@ -233,10 +233,6 @@ class Shell : public WebContentsDelegate,
   WNDPROC default_edit_wnd_proc_;
   static HINSTANCE instance_handle_;
 #elif defined(TOOLKIT_EFL)
-  // TODO(rakuco): Once gfx::NativeWindow is set to Evas_Object*, we
-  // can just use window_.
-  Evas_Object* main_window_;
-
   int content_width_;
   int content_height_;
 #elif defined(TOOLKIT_GTK)
