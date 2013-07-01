@@ -10,9 +10,17 @@
 
 namespace ui {
 
-bool GrabViewSnapshot(gfx::NativeView view_handle,
+bool GrabViewSnapshot(gfx::NativeView view,
+                      std::vector<unsigned char>* png_representation,
+                      const gfx::Rect& snapshot_bounds) {
+  // TODO implement EFL snapshot
+  return true;
+}
+
+bool GrabWindowSnapshot(gfx::NativeWindow window,
                         std::vector<unsigned char>* png_representation,
                         const gfx::Rect& snapshot_bounds) {
+  // TODO implement EFL snapshot
   return true;
 }
 
