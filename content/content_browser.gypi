@@ -1173,6 +1173,7 @@
     ['toolkit_uses_efl == 1', {
       'dependencies': [
         '../build/linux/system.gyp:efl',
+        '../dbus/dbus.gyp:dbus',
       ],
       'sources/': [
         ['exclude', 'browser/web_contents/web_contents_view_gtk.cc'],
