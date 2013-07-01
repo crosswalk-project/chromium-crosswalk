@@ -14,8 +14,8 @@
   'targets': [
     {
       'target_name': 'efl_webview',
-      'type': 'static_library',
-      'defines!': ['CONTENT_IMPLEMENTATION'],
+      'type': 'shared_library',
+      'defines': ['CONTENT_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
       },
@@ -94,11 +94,28 @@
         'examples/main.cc',
       ],
       'conditions': [
-        ['toolkit_uses_gtk == 1', {
+        ['toolkit_uses_efl == 1', {
           'dependencies': [
-            '<(DEPTH)/build/linux/system.gyp:gtk',
+            '../build/linux/system.gyp:efl',
           ],
-        }],  # toolkit_uses_gtk
+        }],
+      ],
+    },
+    {
+      'target_name': 'efl_process',
+      'type': 'executable',
+      'defines': ['EFL_PROCESS=efl_process'],
+      'defines': ['CONTENT_IMPLEMENTATION'],
+      'dependencies': [
+        'efl_webview',
+      ],
+      'include_dirs': [
+        '..',
+      ],
+      'sources': [
+        'process/main.cc',
+      ],
+      'conditions': [
         ['toolkit_uses_efl == 1', {
           'dependencies': [
             '../build/linux/system.gyp:efl',
