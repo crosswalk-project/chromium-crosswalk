@@ -107,7 +107,7 @@ typedef struct _GdkRegion GdkRegion;
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
 #elif defined(TOOLKIT_EFL)
-#include <Evas.h>
+typedef struct _Evas_Object Evas_Object;
 #elif defined(OS_ANDROID)
 struct ANativeWindow;
 namespace ui {
