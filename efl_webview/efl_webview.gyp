@@ -49,7 +49,9 @@
         '..',
       ],
       'sources': [
-        'lib/dummy.cc'
+        'lib/dummy.cc',
+        'lib/process_main.cc',
+        'lib/process_main.h',
       ],
       'conditions': [
         ['OS=="linux"', {
