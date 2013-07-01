@@ -393,6 +393,11 @@
             '<(DEPTH)/build/linux/system.gyp:gtk',
           ],
         }],  # toolkit_uses_gtk
+        ['toolkit_uses_efl == 1', {
+          'dependencies': [
+            '../build/linux/system.gyp:efl',
+          ],
+        }],
         ['OS=="mac"', {
           'product_name': '<(content_shell_product_name)',
           'dependencies!': [
