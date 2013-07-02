@@ -17,6 +17,11 @@ class BrowserContextXWalk : public content::ShellBrowserContext {
   { }
   virtual ~BrowserContextXWalk() {}
 
+  net::URLRequestContextGetter* CreateRequestContext(
+      content::ProtocolHandlerMap* protocol_handlers) {
+    return content::ShellBrowserContext::CreateRequestContext(protocol_handlers);
+  }
+
  private:
   DISALLOW_COPY_AND_ASSIGN(BrowserContextXWalk);
 };

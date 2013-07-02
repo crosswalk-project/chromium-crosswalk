@@ -7,6 +7,8 @@
 
 #include "content/public/browser/browser_main_parts.h"
 #include "content/public/common/main_function_params.h"
+#include "efl_webview/lib/browser_context_xwalk.h"
+#include "efl_webview/lib/web_runtime_context.h"
 
 namespace xwalk {
 
@@ -44,9 +46,16 @@ class BrowserMainPartsXWalk : public content::BrowserMainParts
   DISALLOW_COPY_AND_ASSIGN(BrowserMainPartsXWalk);
 };
 
-content::BrowserMainParts *ContentBrowserClientXWalk::CreateBrowserMainParts(const content::MainFunctionParams &parameters)
-{
-    return new BrowserMainPartsXWalk(parameters);
+content::BrowserMainParts *ContentBrowserClientXWalk::CreateBrowserMainParts(
+    const content::MainFunctionParams &parameters) {
+  return new BrowserMainPartsXWalk(parameters);
+}
+
+net::URLRequestContextGetter* ContentBrowserClientXWalk::CreateRequestContext(
+    content::BrowserContext* content_browser_context,
+    content::ProtocolHandlerMap* protocol_handlers) {
+  DCHECK(content_browser_context == WebRuntimeContext::current()->BrowserContext());
+  return static_cast<BrowserContextXWalk*>(content_browser_context)->CreateRequestContext(protocol_handlers);
 }
 
 } // namespace xwalk
