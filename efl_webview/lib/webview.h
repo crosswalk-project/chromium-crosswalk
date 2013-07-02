@@ -8,6 +8,7 @@
 #include "base/basictypes.h"
 #include "base/memory/scoped_ptr.h"
 #include "content/common/content_export.h"
+#include "googleurl/src/gurl.h"
 
 #include <Evas.h>
 
@@ -16,6 +17,7 @@ namespace xwalk {
 class CONTENT_EXPORT WebView {
  public:
   CONTENT_EXPORT static WebView* Create(Evas_Object* root_window);
+  CONTENT_EXPORT static void CommandLineInit(int argc, char** argv);
 
   ~WebView();
 
@@ -23,6 +25,7 @@ class CONTENT_EXPORT WebView {
 
   CONTENT_EXPORT void Forward();
   CONTENT_EXPORT void Back();
+  CONTENT_EXPORT void LoadURL(const GURL&);
 
  private:
   explicit WebView(Evas_Object*);

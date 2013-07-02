@@ -83,6 +83,8 @@ static void window_create()
 
 int main(int argc, char *argv[])
 {
+  // FIXME: Handle chrome command line and url. It is needed only in development stage.
+  xwalk::WebView::CommandLineInit(argc, argv);
   // FIXME: this function will be removed after implementing sub process launcher.
   if (int exit_code = xwalk::process_main(argc, argv) <= 0)
     return exit_code;

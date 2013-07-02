@@ -5,16 +5,21 @@
 #include "efl_webview/lib/webview.h"
 
 #include <Elementary.h>
+#include "base/command_line.h"
+#include "base/file_util.h"
+#include "base/files/file_path.h"
 #include "content/browser/web_contents/web_contents_view_efl.h"
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_contents_delegate.h"
 #include "efl_webview/lib/web_runtime_context.h"
+#include "net/base/net_util.h"
 
 namespace xwalk {
 
 namespace {
 const int g_window_width = 800;
 const int g_window_height = 600;
+GURL* g_startup_url = NULL;
 
 class WebContentsDelegateXWalk : public content::WebContentsDelegate
 {
@@ -42,15 +47,40 @@ struct WebView::Private {
   Evas_Object* view_box;
   scoped_refptr<WebRuntimeContext> context;
   scoped_ptr<WebContentsDelegateXWalk> webContentsDelegate;
+  static GURL s_startup_url;
 };
+
+GURL WebView::Private::s_startup_url = GURL();
 
 // static
 WebView* WebView::Create(Evas_Object* root_window) {
   return new WebView(root_window);
 }
 
+// static
+void WebView::CommandLineInit(int argc, char** argv) {
+  CommandLine::Init(argc, argv);
+
+  CommandLine* command_line = CommandLine::ForCurrentProcess();
+  const CommandLine::StringVector& args = command_line->GetArgs();
+
+  if (args.empty())
+    return;
+
+  GURL url(args[0]);
+  if (!(url.is_valid() && url.has_scheme()))
+    url = net::FilePathToFileURL(base::FilePath(args[0]));
+
+  WebView::Private::s_startup_url = GURL(url);
+}
+
 WebView::WebView(Evas_Object* root_window)
     : private_(new Private) {
+  {
+    if (!WebView::Private::s_startup_url.is_valid())
+      WebView::Private::s_startup_url = GURL("about:blank");
+  }
+
   private_->root_window = root_window;
   private_->context = WebRuntimeContext::current();
   content::BrowserContext* browser_context = private_->context->BrowserContext();
@@ -59,6 +89,8 @@ WebView::WebView(Evas_Object* root_window)
   private_->view_box = elm_box_add(private_->root_window);
   content::WebContentsView* content_view = private_->webContentsDelegate->WebContents()->GetView();
   static_cast<content::WebContentsViewEfl*>(content_view)->SetViewContainerBox(private_->view_box);
+
+  LoadURL(WebView::Private::s_startup_url);
 }
 
 WebView::~WebView() {
@@ -71,6 +103,15 @@ void WebView::Forward() {
 
 void WebView::Back() {
   private_->webContentsDelegate->WebContents()->GetController().GoBack();
+}
+
+void WebView::LoadURL(const GURL& url) {
+  content::NavigationController::LoadURLParams params(url);
+  params.transition_type = content::PageTransitionFromInt(
+      content::PAGE_TRANSITION_TYPED |
+      content::PAGE_TRANSITION_FROM_ADDRESS_BAR);
+  private_->webContentsDelegate->WebContents()->GetController().LoadURLWithParams(params);
+  private_->webContentsDelegate->WebContents()->GetView()->Focus();
 }
 
 Evas_Object* WebView::EvasObject() {
