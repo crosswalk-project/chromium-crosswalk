@@ -26,6 +26,7 @@ class CONTENT_EXPORT WebView {
 
   CONTENT_EXPORT void Forward();
   CONTENT_EXPORT void Back();
+  CONTENT_EXPORT void Reload();
   CONTENT_EXPORT void LoadURL(const GURL&);
 
  private:

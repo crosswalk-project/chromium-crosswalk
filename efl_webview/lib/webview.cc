@@ -110,6 +110,10 @@ void WebView::Back() {
   private_->webContentsDelegate->WebContents()->GetController().GoBack();
 }
 
+void WebView::Reload() {
+  private_->webContentsDelegate->WebContents()->GetController().Reload(false);
+}
+
 void WebView::LoadURL(const GURL& url) {
   content::NavigationController::LoadURLParams params(url);
   params.transition_type = content::PageTransitionFromInt(
