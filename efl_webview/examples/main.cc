@@ -28,6 +28,13 @@ on_forward_button_clicked(void *user_data, Evas_Object *forward_button, void *ev
   webview->Forward();
 }
 
+static void
+on_reload_button_clicked(void *user_data, Evas_Object *forward_button, void *event_info)
+{
+  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
+  webview->Reload();
+}
+
 static void window_create()
 {
   /* Create window */
@@ -65,6 +72,14 @@ static void window_create()
   elm_box_pack_end(horizontal_layout, forward_button);
   evas_object_show(forward_button);
 
+  /* Create Reload button */
+  Evas_Object* reload_button = elm_button_add(elm_window);
+  elm_object_text_set(reload_button, "RELOAD");
+  evas_object_size_hint_weight_set(reload_button, 0.0, EVAS_HINT_EXPAND);
+  evas_object_size_hint_align_set(reload_button, 0.0, 0.5);
+  elm_box_pack_end(horizontal_layout, reload_button);
+  evas_object_show(reload_button);
+
   /* Create WebView */
   xwalk::WebView* webview_object = xwalk::WebView::Create(elm_window);
   Evas_Object* webview = webview_object->EvasObject();
@@ -76,6 +91,7 @@ static void window_create()
 
   evas_object_smart_callback_add(back_button, "clicked", on_back_button_clicked, webview_object);
   evas_object_smart_callback_add(forward_button, "clicked", on_forward_button_clicked, webview_object);
+  evas_object_smart_callback_add(reload_button, "clicked", on_reload_button_clicked, webview_object);
 
   evas_object_resize(elm_window, window_width, window_height);
   evas_object_show(elm_window);
