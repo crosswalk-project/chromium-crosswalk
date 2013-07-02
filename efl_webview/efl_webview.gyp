@@ -32,6 +32,8 @@
         '../content/content.gyp:content_renderer',
         '../content/content.gyp:content_utility',
         '../content/content.gyp:content_worker',
+        # ContentBrowserClientXWalk and BrowserContextXWalk depend on content_shell_lib
+        '../content/content.gyp:content_shell_lib',
         '../content/content_resources.gyp:content_resources',
         '../ipc/ipc.gyp:ipc',
         '../media/media.gyp:media',
@@ -49,9 +51,15 @@
         '..',
       ],
       'sources': [
-        'lib/dummy.cc',
+        'lib/content_browser_client_xwalk.cc',
+        'lib/content_browser_client_xwalk.h',
+        'lib/browser_context_xwalk.h',
         'lib/process_main.cc',
         'lib/process_main.h',
+        'lib/web_runtime_context.cc',
+        'lib/web_runtime_context.h',
+        'lib/webview.cc',
+        'lib/webview.h',
       ],
       'conditions': [
         ['OS=="linux"', {
