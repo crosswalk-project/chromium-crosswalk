@@ -9,8 +9,7 @@
 
 namespace xwalk {
 
-// FIXME: this function will be removed after implementing sub process launcher.
-CONTENT_EXPORT int process_main(int argc, char** argv);
+CONTENT_EXPORT int ProcessMain(int argc, char** argv);
 
 }  // namespace xwalk
 
