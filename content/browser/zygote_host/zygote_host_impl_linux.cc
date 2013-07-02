@@ -29,6 +29,7 @@
 #include "content/browser/renderer_host/render_sandbox_host_linux.h"
 #include "content/common/zygote_commands_linux.h"
 #include "content/public/browser/content_browser_client.h"
+#include "content/public/common/child_process_host.h"
 #include "content/public/common/content_switches.h"
 #include "content/public/common/result_codes.h"
 #include "sandbox/linux/suid/client/setuid_sandbox_client.h"
@@ -68,12 +69,9 @@ void ZygoteHostImpl::Init(const std::string& sandbox_cmd) {
   DCHECK(!init_);
   init_ = true;
 
-  base::FilePath chrome_path;
-  CHECK(PathService::Get(base::FILE_EXE, &chrome_path));
-#if defined(TOOLKIT_EFL)
-  //TODO(rakuco): make subprocess laucher
-  // chrome_path = CommandLine::ForCurrentProcess()->GetSwitchValuePath(switches::kBrowserSubprocessPath);
-#endif
+  int child_flags = ChildProcessHost::CHILD_NORMAL;
+  base::FilePath chrome_path = ChildProcessHost::GetChildPath(child_flags);
+  CHECK(!chrome_path.empty());
   CommandLine cmd_line(chrome_path);
 
   cmd_line.AppendSwitchASCII(switches::kProcessType, switches::kZygoteProcess);

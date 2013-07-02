@@ -5,6 +5,7 @@
 #include "efl_webview/lib/process_main.h"
 
 #include "base/command_line.h"
+#include "base/logging.h"
 #include "content/public/app/content_main.h"
 #include "content/public/common/content_switches.h"
 
@@ -15,8 +16,7 @@ int ProcessMain(int argc, char** argv) {
   const CommandLine& command_line = *CommandLine::ForCurrentProcess();
   std::string process_type =
       command_line.GetSwitchValueASCII(switches::kProcessType);
-  if (process_type == "")
-    return 1;
+  CHECK(process_type != "");
 
   return content::ContentMain(argc, const_cast<const char**>(argv), 0);
 }

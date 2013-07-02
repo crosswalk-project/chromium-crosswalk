@@ -4,10 +4,13 @@
 
 #include "efl_webview/lib/web_runtime_context.h"
 
+#include "base/base_paths.h"
 #include "base/command_line.h"
+#include "base/path_service.h"
 #include "content/public/app/content_main_delegate.h"
 #include "content/public/app/content_main_runner.h"
 #include "content/public/browser/browser_main_runner.h"
+#include "content/public/common/content_switches.h"
 #include "content/public/common/main_function_params.h"
 #include "efl_webview/lib/browser_context_xwalk.h"
 #include "efl_webview/lib/content_browser_client_xwalk.h"
@@ -32,7 +35,22 @@ class ContentMainDelegateXWalk : public content::ContentMainDelegate {
   DISALLOW_COPY_AND_ASSIGN(ContentMainDelegateXWalk);
 };
 
-static WebRuntimeContext* g_context = 0;
+WebRuntimeContext* g_context = 0;
+// TODO: it should be passed via build system.
+const char g_sub_process_name[] = "efl_process";
+
+void SubprocessPathInit() {
+  base::FilePath current_directory;
+  CHECK(PathService::Get(base::FILE_EXE, &current_directory));
+  current_directory = current_directory.DirName();
+
+  // TODO: use more elegant way.
+  base::FilePath subprocess_path(
+      current_directory.value() + "/" + g_sub_process_name);
+
+  CommandLine::ForCurrentProcess()->
+      AppendSwitchPath(switches::kBrowserSubprocessPath, subprocess_path);
+}
 
 base::MessagePump* MessagePumpFactory()
 {
@@ -53,6 +71,8 @@ WebRuntimeContext::WebRuntimeContext() {
     runner = content::ContentMainRunner::Create();
     runner->Initialize(0, 0, new ContentMainDelegateXWalk);
   }
+
+  SubprocessPathInit();
 
   static content::BrowserMainRunner *browserRunner = 0;
   if (!browserRunner) {
