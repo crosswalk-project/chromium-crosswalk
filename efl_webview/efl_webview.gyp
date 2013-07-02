@@ -32,7 +32,7 @@
         '../content/content.gyp:content_renderer',
         '../content/content.gyp:content_utility',
         '../content/content.gyp:content_worker',
-        # ContentBrowserClientXWalk and BrowserContextXWalk depend on content_shell_lib
+        # BrowserContextXWalk depend on content_shell_lib
         '../content/content.gyp:content_shell_lib',
         '../content/content_resources.gyp:content_resources',
         '../ipc/ipc.gyp:ipc',
