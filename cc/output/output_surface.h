@@ -179,7 +179,13 @@ class CC_EXPORT OutputSurface : public FrameRateControllerClient {
 
   void SetContext3D(scoped_ptr<WebKit::WebGraphicsContext3D> context3d);
 
+  // This stores a BeginFrame that we couldn't process immediately, but might
+  // process retroactively in the near future.
   BeginFrameArgs skipped_begin_frame_args_;
+
+  // check_for_retroactive_begin_frame_pending_ is used to avoid posting
+  // redundant checks for a retroactive BeginFrame.
+  bool check_for_retroactive_begin_frame_pending_;
 
   DISALLOW_COPY_AND_ASSIGN(OutputSurface);
 };
