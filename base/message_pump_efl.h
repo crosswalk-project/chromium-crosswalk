@@ -47,9 +47,6 @@ public:
 protected:
   virtual ~MessagePumpEfl();
 
-  // Returns the dispatcher for the current run state (|state_->dispatcher|).
-  MessagePumpDispatcher* GetDispatcher();
-
   ObserverList<MessagePumpObserver>& observers();
 
 private:

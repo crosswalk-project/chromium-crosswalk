@@ -26,122 +26,76 @@ void WakeUpEvent(void* data, void*, unsigned int)
 
 namespace base {
 
-// We may make recursive calls to Run, so we save state that needs to be
-// separate between them in this structure type.
-struct RunState {
+struct MessagePumpEfl::Private {
   MessagePump::Delegate* delegate;
-  MessagePumpDispatcher* dispatcher;
 
-  // Used to flag that the current Run() invocation should return ASAP.
   bool should_quit;
 
-  // Used to count how many Run() invocations are on the stack.
-  int run_depth;
-};
-
-struct MessagePumpEfl::Private {
-  RunState* state_;
-
   // This is the time when we need to do delayed work.
-  TimeTicks delayed_work_time_;
+  TimeTicks delayed_work_time;
 
   // List of observers.
-  ObserverList<MessagePumpObserver> observers_;
+  ObserverList<MessagePumpObserver> observers;
 
-  Ecore_Pipe* wakeup_pipe_;
+  Ecore_Pipe* wakeup_pipe;
 };
 
 MessagePumpEfl::MessagePumpEfl()
     : private_(new Private) {
-  private_->state_ = NULL;
-  private_->wakeup_pipe_ = ecore_pipe_add(WakeUpEvent, this);
+  private_->wakeup_pipe = ecore_pipe_add(WakeUpEvent, this);
+  private_->delegate = base::MessageLoopForUI::current();
+  private_->should_quit = false;
 }
 
 MessagePumpEfl::~MessagePumpEfl() {
-  ecore_pipe_del(private_->wakeup_pipe_);
+  ecore_pipe_del(private_->wakeup_pipe);
 }
 
 void MessagePumpEfl::RunWithDispatcher(Delegate* delegate,
                                        MessagePumpDispatcher* dispatcher) {
-#ifndef NDEBUG
-  // Make sure we only run this on one thread. X/GTK only has one message pump
-  // so we can only have one UI loop per process.
-  static base::PlatformThreadId thread_id = base::PlatformThread::CurrentId();
-  DCHECK(thread_id == base::PlatformThread::CurrentId()) <<
-      "Running MessagePumpEfl on two different threads; "
-      "this is unsupported by Ecore!";
-#endif
-
-  RunState state;
-  state.delegate = delegate;
-  state.dispatcher = dispatcher;
-  state.should_quit = false;
-  state.run_depth = private_->state_ ? private_->state_->run_depth + 1 : 1;
-
-  RunState* previous_state = private_->state_;
-  private_->state_ = &state;
-
-  bool more_work_is_plausible = true;
-
-  for (;;) {
-    ecore_main_loop_iterate();
-    more_work_is_plausible = false;
-    if (private_->state_->should_quit)
-      break;
-
-    more_work_is_plausible |= private_->state_->delegate->DoWork();
-    if (private_->state_->should_quit)
-      break;
-
-    more_work_is_plausible |=
-        private_->state_->delegate->DoDelayedWork(&private_->delayed_work_time_);
-    if (private_->state_->should_quit)
-      break;
-
-    if (more_work_is_plausible)
-      continue;
-
-    more_work_is_plausible = private_->state_->delegate->DoIdleWork();
-    if (private_->state_->should_quit)
-      break;
-  }
-
-  private_->state_ = previous_state;
+  NOTREACHED();
 }
 
 void MessagePumpEfl::HandleDispatch() {
-  private_->state_->delegate->DoWork();
-  if (private_->state_->should_quit)
+  // FIXME: dshwang does not have confidence about this implementation. Need to check by efl experts.
+  ecore_main_loop_iterate();
+
+  bool more_work_is_plausible = private_->delegate->DoWork();
+  if (private_->should_quit)
     return;
 
-  private_->state_->delegate->DoDelayedWork(&private_->delayed_work_time_);
+  more_work_is_plausible |= private_->delegate->DoDelayedWork(&private_->delayed_work_time);
+  if (private_->should_quit)
+    return;
+
+  if (!more_work_is_plausible)
+    more_work_is_plausible |= private_->delegate->DoIdleWork();
+
+  if (more_work_is_plausible)
+    ScheduleWork();
 }
 
 void MessagePumpEfl::AddObserver(MessagePumpObserver* observer) {
-  private_->observers_.AddObserver(observer);
+  private_->observers.AddObserver(observer);
 }
 
 void MessagePumpEfl::RemoveObserver(MessagePumpObserver* observer) {
-  private_->observers_.RemoveObserver(observer);
+  private_->observers.RemoveObserver(observer);
 }
 
 void MessagePumpEfl::Run(Delegate* delegate) {
-  RunWithDispatcher(delegate, NULL);
+  NOTREACHED();
 }
 
 void MessagePumpEfl::Quit() {
-  if (private_->state_) {
-    private_->state_->should_quit = true;
-  } else {
-    NOTREACHED() << "Quit called outside Run!";
-  }
+  private_->should_quit = true;
 }
 
 void MessagePumpEfl::ScheduleWork() {
   // This can be called on any thread, so we don't want to touch any state
   // variables as we would then need locks all over.  This ensures that if
   // we are sleeping in a poll that we will wake up.
-  if (HANDLE_EINTR(ecore_pipe_write(private_->wakeup_pipe_, wakupEcorePipeMessage, ecorePipeMessageSize)) != 1) {
+  if (HANDLE_EINTR(ecore_pipe_write(private_->wakeup_pipe, wakupEcorePipeMessage, ecorePipeMessageSize)) != 1) {
     NOTREACHED() << "Could not write to the UI message loop wakeup pipe!";
   }
 }
@@ -149,16 +103,12 @@ void MessagePumpEfl::ScheduleWork() {
 void MessagePumpEfl::ScheduleDelayedWork(const TimeTicks& delayed_work_time) {
   // We need to wake up the loop in case the poll timeout needs to be
   // adjusted.  This will cause us to try to do work, but that's ok.
-  private_->delayed_work_time_ = delayed_work_time;
+  private_->delayed_work_time = delayed_work_time;
   ScheduleWork();
 }
 
-MessagePumpDispatcher* MessagePumpEfl::GetDispatcher() {
-  return private_->state_ ? private_->state_->dispatcher : NULL;
-}
-
 ObserverList<MessagePumpObserver>& MessagePumpEfl::observers() {
-  return private_->observers_;
+  return private_->observers;
 }
 
 // static
