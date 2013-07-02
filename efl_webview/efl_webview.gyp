@@ -107,6 +107,12 @@
       'defines': ['EFL_PROCESS=efl_process'],
       'defines': ['CONTENT_IMPLEMENTATION'],
       'dependencies': [
+        '../content/content.gyp:content_app',
+        '../content/content.gyp:content_browser',
+        '../content/content.gyp:content_plugin',
+        '../content/content.gyp:content_ppapi_plugin',
+        '../content/content.gyp:content_utility',
+        '../content/content.gyp:content_worker',
         'efl_webview',
       ],
       'include_dirs': [
