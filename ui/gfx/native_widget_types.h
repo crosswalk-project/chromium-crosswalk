@@ -107,6 +107,9 @@ typedef struct _GdkRegion GdkRegion;
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
 #elif defined(TOOLKIT_EFL)
+namespace gfx {
+class EflEvent;
+}
 typedef struct _Evas_Object Evas_Object;
 #elif defined(OS_ANDROID)
 struct ANativeWindow;
@@ -152,7 +155,7 @@ typedef void* NativeCursor;
 typedef Evas_Object* NativeView;
 typedef void* NativeRegion;
 typedef Evas_Object* NativeWindow;
-typedef void* NativeEvent;
+typedef EflEvent* NativeEvent;
 #elif defined(OS_ANDROID)
 typedef void* NativeCursor;
 typedef ui::ViewAndroid* NativeView;

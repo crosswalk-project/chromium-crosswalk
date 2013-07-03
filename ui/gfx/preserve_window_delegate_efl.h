@@ -17,12 +17,12 @@ namespace gfx {
 // with their owning PreserveWindow.
 class UI_EXPORT PreserveWindowDelegate {
  public:
-  virtual bool PreserveWindowMouseDown(Evas_Event_Mouse_Down* event) = 0;
-  virtual bool PreserveWindowMouseUp(Evas_Event_Mouse_Up* event) = 0;
-  virtual bool PreserveWindowMouseMove(Evas_Event_Mouse_Move* event) = 0;
-  virtual bool PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) = 0;
-  virtual bool PreserveWindowKeyDown(Evas_Event_Key_Down* event) = 0;
-  virtual bool PreserveWindowKeyUp(Evas_Event_Key_Up* event) = 0;
+  virtual void PreserveWindowMouseDown(Evas_Event_Mouse_Down* event) = 0;
+  virtual void PreserveWindowMouseUp(Evas_Event_Mouse_Up* event) = 0;
+  virtual void PreserveWindowMouseMove(Evas_Event_Mouse_Move* event) = 0;
+  virtual void PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) = 0;
+  virtual void PreserveWindowKeyDown(Evas_Event_Key_Down* event) = 0;
+  virtual void PreserveWindowKeyUp(Evas_Event_Key_Up* event) = 0;
 
   // Called when the windowing system activates the window.
   virtual void PreserveWindowFocusIn() = 0;
