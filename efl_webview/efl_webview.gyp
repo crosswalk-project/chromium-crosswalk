@@ -54,6 +54,8 @@
         'lib/content_browser_client_xwalk.cc',
         'lib/content_browser_client_xwalk.h',
         'lib/browser_context_xwalk.h',
+        'lib/message_pump_xwalk.cc',
+        'lib/message_pump_xwalk.h',
         'lib/process_main.cc',
         'lib/process_main.h',
         'lib/web_runtime_context.cc',

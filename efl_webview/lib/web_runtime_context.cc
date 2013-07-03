@@ -11,6 +11,7 @@
 #include "content/public/common/main_function_params.h"
 #include "efl_webview/lib/browser_context_xwalk.h"
 #include "efl_webview/lib/content_browser_client_xwalk.h"
+#include "efl_webview/lib/message_pump_xwalk.h"
 
 namespace xwalk {
 
@@ -33,11 +34,19 @@ class ContentMainDelegateXWalk : public content::ContentMainDelegate {
 
 static WebRuntimeContext* g_context = 0;
 
+base::MessagePump* MessagePumpFactory()
+{
+    return new MessagePumpXWalk;
+}
+
 } // namespace
 
 WebRuntimeContext::WebRuntimeContext() {
   DCHECK(!g_context);
   g_context = this;
+
+  // Inject MessagePumpFacotry for embedder.
+  base::MessageLoop::InitMessagePumpForUIFactory(MessagePumpFactory);
 
   static content::ContentMainRunner *runner = 0;
   if (!runner) {

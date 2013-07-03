@@ -19,7 +19,8 @@ class BrowserContextXWalk : public content::ShellBrowserContext {
 
   net::URLRequestContextGetter* CreateRequestContext(
       content::ProtocolHandlerMap* protocol_handlers) {
-    return content::ShellBrowserContext::CreateRequestContext(protocol_handlers);
+    return content::ShellBrowserContext::CreateRequestContext(
+        protocol_handlers);
   }
 
  private:

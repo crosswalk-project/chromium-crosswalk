@@ -54,8 +54,10 @@ content::BrowserMainParts *ContentBrowserClientXWalk::CreateBrowserMainParts(
 net::URLRequestContextGetter* ContentBrowserClientXWalk::CreateRequestContext(
     content::BrowserContext* content_browser_context,
     content::ProtocolHandlerMap* protocol_handlers) {
-  DCHECK(content_browser_context == WebRuntimeContext::current()->BrowserContext());
-  return static_cast<BrowserContextXWalk*>(content_browser_context)->CreateRequestContext(protocol_handlers);
+  DCHECK(content_browser_context ==
+      WebRuntimeContext::current()->BrowserContext());
+  return static_cast<BrowserContextXWalk*>(content_browser_context)->
+      CreateRequestContext(protocol_handlers);
 }
 
 } // namespace xwalk
