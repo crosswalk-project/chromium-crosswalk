@@ -15,7 +15,7 @@
     {
       'target_name': 'efl_webview',
       'type': 'shared_library',
-      'defines': ['CONTENT_IMPLEMENTATION'],
+      'defines': ['XWALK_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
       },
@@ -95,7 +95,6 @@
     {
       'target_name': 'efl_webview_example',
       'type': 'executable',
-      'defines!': ['CONTENT_IMPLEMENTATION'],
       'dependencies': [
         'efl_webview',
         'efl_process',
@@ -117,7 +116,6 @@
     {
       'target_name': 'efl_process',
       'type': 'executable',
-      'defines!': ['CONTENT_IMPLEMENTATION'],
       'dependencies': [
         'efl_webview',
       ],

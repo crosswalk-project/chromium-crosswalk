@@ -9,25 +9,24 @@
 
 #include "base/basictypes.h"
 #include "base/memory/scoped_ptr.h"
-#include "content/common/content_export.h"
+#include "efl_webview/lib/xwalk_export.h"
 #include "googleurl/src/gurl.h"
-
 
 namespace xwalk {
 
-class CONTENT_EXPORT WebView {
+class XWALK_EXPORT WebView {
  public:
-  CONTENT_EXPORT static WebView* Create(Evas_Object* root_window);
-  CONTENT_EXPORT static void CommandLineInit(int argc, char** argv);
+  XWALK_EXPORT static WebView* Create(Evas_Object* root_window);
+  XWALK_EXPORT static void CommandLineInit(int argc, char** argv);
 
   ~WebView();
 
-  CONTENT_EXPORT Evas_Object* EvasObject();
+  XWALK_EXPORT Evas_Object* EvasObject();
 
-  CONTENT_EXPORT void Forward();
-  CONTENT_EXPORT void Back();
-  CONTENT_EXPORT void Reload();
-  CONTENT_EXPORT void LoadURL(const GURL&);
+  XWALK_EXPORT void Forward();
+  XWALK_EXPORT void Back();
+  XWALK_EXPORT void Reload();
+  XWALK_EXPORT void LoadURL(const GURL&);
 
  private:
   explicit WebView(Evas_Object*);
