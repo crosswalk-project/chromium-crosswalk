@@ -339,12 +339,16 @@ void SmartObjectSmartHandler<EventType>::HandleEvent(void* data, Evas_Object*, v
 } // namespace
 
 // static
-PreserveWindow* PreserveWindow::Create(PreserveWindowDelegate* delegate, Evas* evas) {
-  return new PreserveWindow(delegate, evas);
+PreserveWindow* PreserveWindow::Create(
+    PreserveWindowDelegate* delegate, Evas_Object* object) {
+  return new PreserveWindow(delegate, object);
 }
 
-PreserveWindow::PreserveWindow(PreserveWindowDelegate* delegate, Evas* evas)
-    : delegate_(delegate) {
+PreserveWindow::PreserveWindow(
+    PreserveWindowDelegate* delegate, Evas_Object* object)
+    : delegate_(delegate)
+    , container_object_(object) {
+  Evas* evas = evas_object_evas_get (container_object_);
   smart_object_ = evas_object_smart_add(evas, evas_smart_preserve_window_smart_class_new());
   evas_object_show(smart_object_);
 
@@ -363,6 +367,15 @@ PreserveWindow::PreserveWindow(PreserveWindowDelegate* delegate, Evas* evas)
   SmartObjectEventHandler<EVAS_CALLBACK_FOCUS_OUT>::Subscribe(smart_data->background_, delegate_);
   SmartObjectEventHandler<EVAS_CALLBACK_SHOW>::Subscribe(smart_data->background_, delegate_);
   SmartObjectEventHandler<EVAS_CALLBACK_HIDE>::Subscribe(smart_data->background_, delegate_);
+
+  // FIXME: presever_window creates Evas_Object,
+  // not elm_object, so this ugly focus handling is needed.
+  SmartObjectEventHandler<EVAS_CALLBACK_MOUSE_DOWN>::
+      Subscribe(smart_data->background_, this);
+  SmartObjectEventHandler<EVAS_CALLBACK_FOCUS_IN>::
+      Subscribe(container_object_, this);
+  SmartObjectEventHandler<EVAS_CALLBACK_FOCUS_OUT>::
+      Subscribe(container_object_, this);
 
   // FIXME: After creation, request redraw.
   evas_object_smart_changed(smart_object_);
@@ -385,6 +398,13 @@ PreserveWindow::~PreserveWindow() {
   SmartObjectEventHandler<EVAS_CALLBACK_SHOW>::Unsubscribe(smart_data->background_);
   SmartObjectEventHandler<EVAS_CALLBACK_HIDE>::Unsubscribe(smart_data->background_);
 
+  SmartObjectEventHandler<EVAS_CALLBACK_MOUSE_DOWN>::
+      Unsubscribe(smart_data->background_);
+  SmartObjectEventHandler<EVAS_CALLBACK_FOCUS_IN>::
+      Unsubscribe(container_object_);
+  SmartObjectEventHandler<EVAS_CALLBACK_FOCUS_OUT>::
+      Unsubscribe(container_object_);
+
   evas_object_del(smart_object_);
 }
 
@@ -392,6 +412,64 @@ PreserveWindow::~PreserveWindow() {
 Evas_Object* PreserveWindow::EvasWindow() {
   PreserveWindowData* smart_data = ToSmartData(smart_object_);
   return smart_data->window_;
+}
+
+void PreserveWindow::PreserveWindowMouseDown(Evas_Event_Mouse_Down* event) {
+  // FIXME: elm_box is not focusable although setting true via
+  // elm_object_focus_allow_set. If we find focusable elm container,
+  // PreserveWindowFocusIn() can be removed.
+  PreserveWindowFocusIn();
+  //elm_object_focus_set(container_object_, EINA_TRUE);
+}
+
+void PreserveWindow::PreserveWindowMouseUp(Evas_Event_Mouse_Up* event) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowMouseMove(Evas_Event_Mouse_Move* event) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowMouseWheel(Evas_Event_Mouse_Wheel* event) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowKeyDown(Evas_Event_Key_Down* event) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowKeyUp(Evas_Event_Key_Up* event) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowFocusIn() {
+  PreserveWindowData* smart_data = ToSmartData(smart_object_);
+  evas_object_focus_set(smart_data->background_, EINA_TRUE);
+}
+
+void PreserveWindow::PreserveWindowFocusOut() {
+  PreserveWindowData* smart_data = ToSmartData(smart_object_);
+  evas_object_focus_set(smart_data->background_, EINA_FALSE);
+}
+
+void PreserveWindow::PreserveWindowShow() {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowHide() {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowMove(const gfx::Point& origin) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowResize(const gfx::Size& size) {
+  NOTIMPLEMENTED();
+}
+
+void PreserveWindow::PreserveWindowRepaint(const gfx::Rect& damage_rect) {
+  NOTIMPLEMENTED();
 }
 
 }  // namespace gfx
