@@ -14,7 +14,7 @@
   'targets': [
     {
       'target_name': 'efl_webview',
-      'type': 'shared_library',
+      'type': '<(component)',
       'defines': ['XWALK_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
