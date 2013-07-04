@@ -41,6 +41,8 @@ static void window_create()
   /* Create window */
   Evas_Object* elm_window = elm_win_util_standard_add("efl-webview-window", APP_NAME);
   elm_win_autodel_set(elm_window, EINA_TRUE);
+  elm_object_focus_allow_set(elm_window, EINA_TRUE);
+  elm_win_focus_highlight_enabled_set(elm_window, EINA_TRUE);
 
   /* Create vertical layout */
   Evas_Object* vertical_layout = elm_box_add(elm_window);
@@ -87,7 +89,7 @@ static void window_create()
   evas_object_size_hint_weight_set(webview, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
   evas_object_size_hint_align_set(webview, EVAS_HINT_FILL, EVAS_HINT_FILL);
   elm_box_pack_end(vertical_layout, webview);
-  evas_object_focus_set(webview, EINA_TRUE);
+  elm_object_focus_set(webview, EINA_TRUE);
   evas_object_show(webview);
 
   evas_object_smart_callback_add(back_button, "clicked",

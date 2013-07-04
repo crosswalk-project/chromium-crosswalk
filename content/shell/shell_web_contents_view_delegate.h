@@ -26,6 +26,7 @@ class ShellWebContentsViewDelegate : public WebContentsViewDelegate {
   virtual void ShowContextMenu(const ContextMenuParams& params,
                                ContextMenuSourceType type) OVERRIDE;
   virtual WebDragDestDelegate* GetDragDestDelegate() OVERRIDE;
+  virtual void Focus() OVERRIDE;
 
 #if defined(TOOLKIT_GTK)
   virtual void Initialize(GtkWidget* expanded_container,

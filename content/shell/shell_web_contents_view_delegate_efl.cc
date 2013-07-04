@@ -4,7 +4,9 @@
 
 #include "content/shell/shell_web_contents_view_delegate.h"
 
+#include <Elementary.h>
 #include "base/command_line.h"
+#include "content/browser/web_contents/web_contents_view_efl.h"
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/render_view_host.h"
 #include "content/public/browser/render_widget_host_view.h"
@@ -48,5 +50,11 @@ WebDragDestDelegate* ShellWebContentsViewDelegate::GetDragDestDelegate() {
   return NULL;
 }
 
+void ShellWebContentsViewDelegate::Focus() {
+  WebContentsView* content_view = web_contents_->GetView();
+  Evas_Object* view_box =
+      static_cast<WebContentsViewEfl*>(content_view)->ViewContainerBox();
+  elm_object_focus_set(view_box, EINA_TRUE);
+}
 
 }  // namespace content

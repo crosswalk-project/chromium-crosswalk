@@ -144,6 +144,8 @@ class Shell : public WebContentsDelegate,
   virtual void RendererUnresponsive(WebContents* source) OVERRIDE;
   virtual void ActivateContents(WebContents* contents) OVERRIDE;
   virtual void DeactivateContents(WebContents* contents) OVERRIDE;
+  virtual bool TakeFocus(content::WebContents* source,
+                         bool reverse) OVERRIDE;
 
  private:
   enum UIControl {
