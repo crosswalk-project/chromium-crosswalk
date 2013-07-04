@@ -15,7 +15,7 @@
     {
       'target_name': 'efl_webview',
       'type': 'shared_library',
-      'defines': ['CONTENT_IMPLEMENTATION'],
+      'defines': ['XWALK_IMPLEMENTATION'],
       'variables': {
         'chromium_code': 1,
       },
@@ -32,6 +32,8 @@
         '../content/content.gyp:content_renderer',
         '../content/content.gyp:content_utility',
         '../content/content.gyp:content_worker',
+        # BrowserContextXWalk depend on content_shell_lib
+        '../content/content.gyp:content_shell_lib',
         '../content/content_resources.gyp:content_resources',
         '../ipc/ipc.gyp:ipc',
         '../media/media.gyp:media',
@@ -49,7 +51,17 @@
         '..',
       ],
       'sources': [
-        'lib/dummy.cc'
+        'lib/content_browser_client_xwalk.cc',
+        'lib/content_browser_client_xwalk.h',
+        'lib/browser_context_xwalk.h',
+        'lib/message_pump_xwalk.cc',
+        'lib/message_pump_xwalk.h',
+        'lib/process_main.cc',
+        'lib/process_main.h',
+        'lib/web_runtime_context.cc',
+        'lib/web_runtime_context.h',
+        'lib/webview.cc',
+        'lib/webview.h',
       ],
       'conditions': [
         ['OS=="linux"', {
@@ -83,9 +95,9 @@
     {
       'target_name': 'efl_webview_example',
       'type': 'executable',
-      'defines!': ['CONTENT_IMPLEMENTATION'],
       'dependencies': [
         'efl_webview',
+        'efl_process',
       ],
       'include_dirs': [
         '..',
@@ -104,15 +116,7 @@
     {
       'target_name': 'efl_process',
       'type': 'executable',
-      'defines': ['EFL_PROCESS=efl_process'],
-      'defines': ['CONTENT_IMPLEMENTATION'],
       'dependencies': [
-        '../content/content.gyp:content_app',
-        '../content/content.gyp:content_browser',
-        '../content/content.gyp:content_plugin',
-        '../content/content.gyp:content_ppapi_plugin',
-        '../content/content.gyp:content_utility',
-        '../content/content.gyp:content_worker',
         'efl_webview',
       ],
       'include_dirs': [

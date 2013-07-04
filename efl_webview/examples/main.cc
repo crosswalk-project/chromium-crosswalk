@@ -6,6 +6,9 @@
 #include <Ecore_Evas.h>
 #include <Elementary.h>
 
+#include "efl_webview/lib/process_main.h"
+#include "efl_webview/lib/webview.h"
+
 static const char APP_NAME[] = "EFL WebView Example";
 
 static int window_width = 800;
@@ -14,11 +17,23 @@ static int window_height = 600;
 static void
 on_back_button_clicked(void *user_data, Evas_Object *back_button, void *event_info)
 {
+  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
+  webview->Back();
 }
 
 static void
 on_forward_button_clicked(void *user_data, Evas_Object *forward_button, void *event_info)
 {
+  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
+  webview->Forward();
+}
+
+static void
+on_reload_button_clicked(void *user_data,
+                         Evas_Object *forward_button, void *event_info)
+{
+  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
+  webview->Reload();
 }
 
 static void window_create()
@@ -45,7 +60,6 @@ static void window_create()
   /* Create Back button */
   Evas_Object* back_button = elm_button_add(elm_window);
   elm_object_text_set(back_button, "BACK");
-  evas_object_smart_callback_add(back_button, "clicked", on_back_button_clicked, 0 /* webview */);
   evas_object_size_hint_weight_set(back_button, 0.0, EVAS_HINT_EXPAND);
   evas_object_size_hint_align_set(back_button, 0.0, 0.5);
   elm_box_pack_end(horizontal_layout, back_button);
@@ -54,20 +68,34 @@ static void window_create()
   /* Create Forward button */
   Evas_Object* forward_button = elm_button_add(elm_window);
   elm_object_text_set(forward_button, "FORWARD");
-  evas_object_smart_callback_add(forward_button, "clicked", on_forward_button_clicked, 0 /* webview */);
   evas_object_size_hint_weight_set(forward_button, 0.0, EVAS_HINT_EXPAND);
   evas_object_size_hint_align_set(forward_button, 0.0, 0.5);
   elm_box_pack_end(horizontal_layout, forward_button);
   evas_object_show(forward_button);
 
-  /* Create Dummy WebView */
-  Evas_Object* webview = evas_object_rectangle_add(evas_object_evas_get(elm_window));
-  evas_object_color_set(webview, 255, 0, 0, 255);
+  /* Create Reload button */
+  Evas_Object* reload_button = elm_button_add(elm_window);
+  elm_object_text_set(reload_button, "RELOAD");
+  evas_object_size_hint_weight_set(reload_button, 0.0, EVAS_HINT_EXPAND);
+  evas_object_size_hint_align_set(reload_button, 0.0, 0.5);
+  elm_box_pack_end(horizontal_layout, reload_button);
+  evas_object_show(reload_button);
+
+  /* Create WebView */
+  xwalk::WebView* webview_object = xwalk::WebView::Create(elm_window);
+  Evas_Object* webview = webview_object->EvasObject();
   evas_object_size_hint_weight_set(webview, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
   evas_object_size_hint_align_set(webview, EVAS_HINT_FILL, EVAS_HINT_FILL);
   elm_box_pack_end(vertical_layout, webview);
   evas_object_focus_set(webview, EINA_TRUE);
   evas_object_show(webview);
+
+  evas_object_smart_callback_add(back_button, "clicked",
+                                 on_back_button_clicked, webview_object);
+  evas_object_smart_callback_add(forward_button, "clicked",
+                                 on_forward_button_clicked, webview_object);
+  evas_object_smart_callback_add(reload_button, "clicked",
+                                 on_reload_button_clicked, webview_object);
 
   evas_object_resize(elm_window, window_width, window_height);
   evas_object_show(elm_window);
@@ -75,6 +103,10 @@ static void window_create()
 
 int main(int argc, char *argv[])
 {
+  // FIXME: Handle chrome command line and url.
+  // It is needed only in development stage.
+  xwalk::WebView::CommandLineInit(argc, argv);
+
   elm_init(argc, argv);
 
   elm_policy_set(ELM_POLICY_QUIT, ELM_POLICY_QUIT_LAST_WINDOW_CLOSED);
