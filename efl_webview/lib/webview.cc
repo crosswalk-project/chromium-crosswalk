@@ -81,11 +81,11 @@ WebView::~WebView() {
 }
 
 void WebView::Forward() {
-  private_->webContentsDelegate->WebContents()->GetController().GoForward();
+  private_->webContentsDelegate->WebContents()->GetController().GoToOffset(1);
 }
 
 void WebView::Back() {
-  private_->webContentsDelegate->WebContents()->GetController().GoBack();
+  private_->webContentsDelegate->WebContents()->GetController().GoToOffset(-1);
 }
 
 void WebView::Reload() {
