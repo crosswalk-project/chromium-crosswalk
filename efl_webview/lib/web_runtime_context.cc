@@ -7,43 +7,17 @@
 #include "base/base_paths.h"
 #include "base/command_line.h"
 #include "base/path_service.h"
-#include "content/public/app/content_main_delegate.h"
 #include "content/public/app/content_main_runner.h"
 #include "content/public/browser/browser_main_runner.h"
 #include "content/public/common/content_switches.h"
 #include "content/public/common/main_function_params.h"
 #include "efl_webview/lib/browser_context_xwalk.h"
-#include "efl_webview/lib/content_browser_client_xwalk.h"
-#include "efl_webview/lib/content_client_xwalk.h"
+#include "efl_webview/lib/content_main_delegate_xwalk.h"
 #include "efl_webview/lib/message_pump_xwalk.h"
-#include "ui/base/resource/resource_bundle.h"
 
 namespace xwalk {
 
 namespace {
-
-class ContentMainDelegateXWalk : public content::ContentMainDelegate {
- public:
-  ContentMainDelegateXWalk() { }
-
-  virtual void PreSandboxStartup() OVERRIDE {
-    ui::ResourceBundle::InitSharedInstanceWithLocale("en-US", NULL);
-  }
-  virtual bool BasicStartupComplete(int* exit_code) OVERRIDE {
-    content::SetContentClient(&content_client_);
-    return false;
-  }
-  virtual content::ContentBrowserClient* CreateContentBrowserClient() OVERRIDE {
-    browser_client_.reset(new ContentBrowserClientXWalk);
-    return browser_client_.get();
-  }
-
- private:
-  scoped_ptr<ContentBrowserClientXWalk> browser_client_;
-  ContentClientXWalk content_client_;
-
-  DISALLOW_COPY_AND_ASSIGN(ContentMainDelegateXWalk);
-};
 
 WebRuntimeContext* g_context = 0;
 // TODO: it should be passed via build system.

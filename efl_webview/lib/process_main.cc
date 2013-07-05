@@ -8,6 +8,7 @@
 #include "base/logging.h"
 #include "content/public/app/content_main.h"
 #include "content/public/common/content_switches.h"
+#include "efl_webview/lib/content_main_delegate_xwalk.h"
 
 namespace xwalk {
 
@@ -18,7 +19,8 @@ int ProcessMain(int argc, char** argv) {
       command_line.GetSwitchValueASCII(switches::kProcessType);
   CHECK(process_type != "");
 
-  return content::ContentMain(argc, const_cast<const char**>(argv), 0);
+  ContentMainDelegateXWalk delegate;
+  return content::ContentMain(argc, const_cast<const char**>(argv), &delegate);
 }
 
 }  // namespace xwalk
