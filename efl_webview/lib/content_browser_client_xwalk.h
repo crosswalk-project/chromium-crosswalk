@@ -20,6 +20,8 @@ class ContentBrowserClientXWalk : public content::ContentBrowserClient {
   virtual net::URLRequestContextGetter* CreateRequestContext(
       content::BrowserContext* browser_context,
       content::ProtocolHandlerMap* protocol_handlers) OVERRIDE;
+  virtual content::WebContentsViewDelegate* GetWebContentsViewDelegate(
+      content::WebContents* web_contents) OVERRIDE;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(ContentBrowserClientXWalk);

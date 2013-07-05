@@ -111,4 +111,14 @@ void Shell::OnMainWindowDel(void* data, Evas* evas, Evas_Object* object,
   delete shell;
 }
 
+bool Shell::TakeFocus(WebContents* source, bool reverse) {
+  DCHECK(source == web_contents_.get());
+  WebContentsView* content_view = web_contents_->GetView();
+  Evas_Object* view_box =
+      static_cast<WebContentsViewEfl*>(content_view)->ViewContainerBox();
+  elm_object_focus_next(view_box,
+                        reverse ? ELM_FOCUS_PREVIOUS : ELM_FOCUS_NEXT);
+  return true;
+}
+
 }  // namespace content

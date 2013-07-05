@@ -93,7 +93,9 @@ void WebContentsViewEfl::OnTabCrashed(base::TerminationStatus status,
 }
 
 void WebContentsViewEfl::Focus() {
-  // TODO: Focus.
+  if (delegate_) {
+    delegate_->Focus();
+  }
 }
 
 void WebContentsViewEfl::SetInitialFocus() {
@@ -208,8 +210,9 @@ void WebContentsViewEfl::GotFocus() {
 // This is called when the renderer asks us to take focus back (i.e., it has
 // iterated past the last focusable element on the page).
 void WebContentsViewEfl::TakeFocus(bool reverse) {
-
-  /* TODO: Assign Focus to EFL evas_object */
+  if (!web_contents_->GetDelegate())
+    return;
+  DCHECK(web_contents_->GetDelegate()->TakeFocus(web_contents_, reverse));
 }
 
 void WebContentsViewEfl::UpdateDragDest(RenderViewHost* host) {

@@ -86,6 +86,7 @@ class CONTENT_EXPORT WebContentsViewEfl
   virtual void TakeFocus(bool reverse) OVERRIDE;
 
   void SetViewContainerBox(Evas_Object* container_box) { view_container_box_ = container_box; }
+  Evas_Object* ViewContainerBox() { return view_container_box_; }
 
  private:
   // Insert the given widget into the content area. Should only be used for

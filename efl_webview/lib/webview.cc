@@ -10,38 +10,12 @@
 #include "base/files/file_path.h"
 #include "content/browser/web_contents/web_contents_view_efl.h"
 #include "content/public/browser/web_contents.h"
-#include "content/public/browser/web_contents_delegate.h"
+#include "efl_webview/lib/web_contents_delegate_xwalk.h"
+#include "efl_webview/lib/web_contents_view_delegate_xwalk.h"
 #include "efl_webview/lib/web_runtime_context.h"
 #include "net/base/net_util.h"
 
 namespace xwalk {
-
-namespace {
-const int g_window_width = 800;
-const int g_window_height = 600;
-GURL* g_startup_url = NULL;
-
-class WebContentsDelegateXWalk : public content::WebContentsDelegate
-{
- public:
-  explicit WebContentsDelegateXWalk(content::BrowserContext*);
-  content::WebContents* WebContents() { return web_contents_.get(); }
-
- private:
-  scoped_ptr<content::WebContents> web_contents_;
-};
-
-WebContentsDelegateXWalk::WebContentsDelegateXWalk(
-    content::BrowserContext* browser_context)
-{
-  content::WebContents::CreateParams create_params(browser_context, 0);
-  create_params.initial_size = gfx::Size(g_window_width, g_window_height);
-
-  web_contents_.reset(content::WebContents::Create(create_params));
-  web_contents_->SetDelegate(this);
-}
-
-} // namespace
 
 struct WebView::Private {
   Evas_Object* root_window;
@@ -83,16 +57,20 @@ WebView::WebView(Evas_Object* root_window)
   }
 
   private_->root_window = root_window;
+  private_->view_box = elm_box_add(private_->root_window);
+  elm_object_focus_allow_set(private_->view_box, EINA_TRUE);
+
   private_->context = WebRuntimeContext::current();
   content::BrowserContext* browser_context =
       private_->context->BrowserContext();
   private_->webContentsDelegate.reset(
-      new WebContentsDelegateXWalk(browser_context));
+      new WebContentsDelegateXWalk(browser_context, private_->view_box));
 
-  private_->view_box = elm_box_add(private_->root_window);
-  content::WebContentsView* content_view =
-      private_->webContentsDelegate->WebContents()->GetView();
-  static_cast<content::WebContentsViewEfl*>(content_view)->
+  content::WebContentsViewEfl* content_view =
+      static_cast<content::WebContentsViewEfl*>(private_->
+          webContentsDelegate->WebContents()->GetView());
+  content_view->SetViewContainerBox(private_->view_box);
+  static_cast<WebContentsViewDelegateXWalk*>(content_view->delegate())->
       SetViewContainerBox(private_->view_box);
 
   LoadURL(WebView::Private::s_startup_url);

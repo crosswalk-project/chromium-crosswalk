@@ -139,11 +139,17 @@ void RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* key_up)
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
 {
+  ShowCurrentCursor();
+  host_->GotFocus();
+  host_->SetActive(true);
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusOut()
 {
-//  root_window_host_delegate_->OnHostLostMouseGrab();
+  if (!IsShowingContextMenu()) {
+    host_->SetActive(false);
+    host_->Blur();
+  }
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowShow()
@@ -184,8 +190,7 @@ bool RenderWidgetHostViewEfl::OnMessageReceived(const IPC::Message& message) {
 void RenderWidgetHostViewEfl::InitAsChild(
     gfx::NativeView parent_view) {
    Evas_Object* elm_box = reinterpret_cast<Evas_Object*>(parent_view);
-   Evas* evas = evas_object_evas_get (elm_box);
-   preserve_window_ = gfx::PreserveWindow::Create(this, evas);
+   preserve_window_ = gfx::PreserveWindow::Create(this, elm_box);
    evas_object_size_hint_align_set(preserve_window_->SmartObject(), EVAS_HINT_FILL, EVAS_HINT_FILL);
    evas_object_size_hint_weight_set(preserve_window_->SmartObject(), EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
    elm_box_pack_end(elm_box, preserve_window_->SmartObject());

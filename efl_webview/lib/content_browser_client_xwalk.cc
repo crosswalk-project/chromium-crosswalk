@@ -6,8 +6,10 @@
 #include "efl_webview/lib/content_browser_client_xwalk.h"
 
 #include "content/public/browser/browser_main_parts.h"
+#include "content/public/browser/web_contents.h"
 #include "content/public/common/main_function_params.h"
 #include "efl_webview/lib/browser_context_xwalk.h"
+#include "efl_webview/lib/web_contents_view_delegate_xwalk.h"
 #include "efl_webview/lib/web_runtime_context.h"
 
 namespace xwalk {
@@ -58,6 +60,12 @@ net::URLRequestContextGetter* ContentBrowserClientXWalk::CreateRequestContext(
       WebRuntimeContext::current()->BrowserContext());
   return static_cast<BrowserContextXWalk*>(content_browser_context)->
       CreateRequestContext(protocol_handlers);
+}
+
+content::WebContentsViewDelegate*
+    ContentBrowserClientXWalk::GetWebContentsViewDelegate(
+    content::WebContents* web_contents) {
+  return new WebContentsViewDelegateXWalk(web_contents);
 }
 
 } // namespace xwalk
