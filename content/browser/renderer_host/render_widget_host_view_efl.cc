@@ -140,13 +140,16 @@ void RenderWidgetHostViewEfl::PreserveWindowKeyUp(Evas_Event_Key_Up* key_up)
 void RenderWidgetHostViewEfl::PreserveWindowFocusIn()
 {
   ShowCurrentCursor();
+  if (!host_)
+      return;
+
   host_->GotFocus();
   host_->SetActive(true);
 }
 
 void RenderWidgetHostViewEfl::PreserveWindowFocusOut()
 {
-  if (!IsShowingContextMenu()) {
+  if (host_ && !IsShowingContextMenu()) {
     host_->SetActive(false);
     host_->Blur();
   }
