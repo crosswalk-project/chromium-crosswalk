@@ -9,6 +9,7 @@
 #include "base/file_util.h"
 #include "base/files/file_path.h"
 #include "content/browser/web_contents/web_contents_view_efl.h"
+#include "content/public/browser/navigation_controller.h"
 #include "content/public/browser/web_contents.h"
 #include "efl_webview/lib/web_contents_delegate_xwalk.h"
 #include "efl_webview/lib/web_contents_view_delegate_xwalk.h"
@@ -81,11 +82,15 @@ WebView::~WebView() {
 }
 
 void WebView::Forward() {
-  private_->webContentsDelegate->WebContents()->GetController().GoForward();
+  content::NavigationController& controller = private_->webContentsDelegate->WebContents()->GetController();
+  if (controller.CanGoForward())
+    controller.GoForward();
 }
 
 void WebView::Back() {
-  private_->webContentsDelegate->WebContents()->GetController().GoBack();
+  content::NavigationController& controller = private_->webContentsDelegate->WebContents()->GetController();
+  if (controller.CanGoBack())
+    controller.GoBack();
 }
 
 void WebView::Reload() {
