@@ -14,7 +14,9 @@
 #include "content/public/common/main_function_params.h"
 #include "efl_webview/lib/browser_context_xwalk.h"
 #include "efl_webview/lib/content_browser_client_xwalk.h"
+#include "efl_webview/lib/content_client_xwalk.h"
 #include "efl_webview/lib/message_pump_xwalk.h"
+#include "ui/base/resource/resource_bundle.h"
 
 namespace xwalk {
 
@@ -24,13 +26,21 @@ class ContentMainDelegateXWalk : public content::ContentMainDelegate {
  public:
   ContentMainDelegateXWalk() { }
 
-  content::ContentBrowserClient* CreateContentBrowserClient()   {
+  virtual void PreSandboxStartup() OVERRIDE {
+    ui::ResourceBundle::InitSharedInstanceWithLocale("en-US", NULL);
+  }
+  virtual bool BasicStartupComplete(int* exit_code) OVERRIDE {
+    content::SetContentClient(&content_client_);
+    return false;
+  }
+  virtual content::ContentBrowserClient* CreateContentBrowserClient() OVERRIDE {
     browser_client_.reset(new ContentBrowserClientXWalk);
     return browser_client_.get();
   }
 
  private:
   scoped_ptr<ContentBrowserClientXWalk> browser_client_;
+  ContentClientXWalk content_client_;
 
   DISALLOW_COPY_AND_ASSIGN(ContentMainDelegateXWalk);
 };
