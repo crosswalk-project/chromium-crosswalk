@@ -67,75 +67,53 @@ void KernelProxy::Init(PepperInterface* ppapi) {
 int KernelProxy::open(const char* path, int oflags) {
   Path rel;
 
-  Mount* mnt;
+  ScopedMount mnt;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
     errno = error;
     return -1;
   }
 
-  MountNode* node = NULL;
+  ScopedMountNode node;
   error = mnt->Open(rel, oflags, &node);
   if (error) {
     errno = error;
-    ReleaseMount(mnt);
     return -1;
   }
 
-  KernelHandle* handle = new KernelHandle(mnt, node);
+  ScopedKernelHandle handle(new KernelHandle(mnt, node));
   error = handle->Init(oflags);
   if (error) {
     errno = error;
-    ReleaseMount(mnt);
     return -1;
   }
 
-  int fd = AllocateFD(handle);
-  mnt->AcquireNode(node);
-
-  ReleaseHandle(handle);
-  ReleaseMount(mnt);
-
-  return fd;
+  return AllocateFD(handle);
 }
 
+
 int KernelProxy::close(int fd) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  Mount* mount = handle->mount_;
-  // Acquire the mount to ensure FreeFD doesn't prematurely destroy it.
-  mount->Acquire();
-
-  // FreeFD will release the handle/mount held by this fd.
+  // Remove the FD from the process open file descriptor map
   FreeFD(fd);
-
-  // If this handle is the last reference to its node, releasing it will close
-  // the node.
-  ReleaseHandle(handle);
-
-  // Finally, release the mount.
-  mount->Release();
-
   return 0;
 }
 
 int KernelProxy::dup(int oldfd) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(oldfd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  int newfd = AllocateFD(handle);
-  ReleaseHandle(handle);
-
-  return newfd;
+  return AllocateFD(handle);
 }
 
 int KernelProxy::dup2(int oldfd, int newfd) {
@@ -143,7 +121,7 @@ int KernelProxy::dup2(int oldfd, int newfd) {
   if (oldfd == newfd)
     return newfd;
 
-  KernelHandle* old_handle;
+  ScopedKernelHandle old_handle;
   Error error = AcquireHandle(oldfd, &old_handle);
   if (error) {
     errno = error;
@@ -151,7 +129,6 @@ int KernelProxy::dup2(int oldfd, int newfd) {
   }
 
   FreeAndReassignFD(newfd, old_handle);
-  ReleaseHandle(old_handle);
   return newfd;
 }
 
@@ -200,7 +177,7 @@ int KernelProxy::chmod(const char* path, mode_t mode) {
 }
 
 int KernelProxy::mkdir(const char* path, mode_t mode) {
-  Mount* mnt;
+  ScopedMount mnt;
   Path rel;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
@@ -208,19 +185,17 @@ int KernelProxy::mkdir(const char* path, mode_t mode) {
     return -1;
   }
 
-  int result = 0;
   error = mnt->Mkdir(rel, mode);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseMount(mnt);
-  return result;
+  return 0;
 }
 
 int KernelProxy::rmdir(const char* path) {
-  Mount* mnt;
+  ScopedMount mnt;
   Path rel;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
@@ -228,15 +203,13 @@ int KernelProxy::rmdir(const char* path) {
     return -1;
   }
 
-  int result = 0;
   error = mnt->Rmdir(rel);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseMount(mnt);
-  return result;
+  return 0;
 }
 
 int KernelProxy::stat(const char* path, struct stat* buf) {
@@ -313,14 +286,12 @@ int KernelProxy::mount(const char* source,
     free(str);
   }
 
-  Mount* mnt = NULL;
-  Error error = factory->second(dev_++, smap, ppapi_, &mnt);
+  Error error = factory->second(dev_++, smap, ppapi_, &mounts_[abs_targ]);
   if (error) {
     errno = error;
     return -1;
   }
 
-  mounts_[abs_targ] = mnt;
   return 0;
 }
 
@@ -346,13 +317,12 @@ int KernelProxy::umount(const char* path) {
     return -1;
   }
 
-  it->second->Release();
   mounts_.erase(it);
   return 0;
 }
 
 ssize_t KernelProxy::read(int fd, void* buf, size_t nbytes) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
@@ -370,12 +340,11 @@ ssize_t KernelProxy::read(int fd, void* buf, size_t nbytes) {
   if (cnt > 0)
     handle->offs_ += cnt;
 
-  ReleaseHandle(handle);
   return cnt;
 }
 
 ssize_t KernelProxy::write(int fd, const void* buf, size_t nbytes) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
@@ -393,31 +362,28 @@ ssize_t KernelProxy::write(int fd, const void* buf, size_t nbytes) {
   if (cnt > 0)
     handle->offs_ += cnt;
 
-  ReleaseHandle(handle);
   return cnt;
 }
 
 int KernelProxy::fstat(int fd, struct stat* buf) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  int result = 0;
   error = handle->node_->GetStat(buf);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseHandle(handle);
-  return result;
+  return 0;
 }
 
 int KernelProxy::getdents(int fd, void* buf, unsigned int count) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
@@ -434,69 +400,62 @@ int KernelProxy::getdents(int fd, void* buf, unsigned int count) {
   if (cnt > 0)
     handle->offs_ += cnt;
 
-  ReleaseHandle(handle);
   return cnt;
 }
 
 int KernelProxy::ftruncate(int fd, off_t length) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  int result = 0;
   error = handle->node_->FTruncate(length);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseHandle(handle);
-  return result;
+  return 0;
 }
 
 int KernelProxy::fsync(int fd) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  int result = 0;
   error = handle->node_->FSync();
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseHandle(handle);
-  return result;
+  return 0;
 }
 
 int KernelProxy::isatty(int fd) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
     return -1;
   }
 
-  int result = 0;
   error = handle->node_->IsaTTY();
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseHandle(handle);
-  return result;
+  return 0;
 }
 
 off_t KernelProxy::lseek(int fd, off_t offset, int whence) {
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
@@ -508,15 +467,14 @@ off_t KernelProxy::lseek(int fd, off_t offset, int whence) {
   error = handle->Seek(offset, whence, &new_offset);
   if (error) {
     errno = error;
-    new_offset = -1;
+    return -1;
   }
 
-  ReleaseHandle(handle);
   return new_offset;
 }
 
 int KernelProxy::unlink(const char* path) {
-  Mount* mnt;
+  ScopedMount mnt;
   Path rel;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
@@ -524,19 +482,17 @@ int KernelProxy::unlink(const char* path) {
     return -1;
   }
 
-  int result = 0;
   error = mnt->Unlink(rel);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseMount(mnt);
-  return result;
+  return 0;
 }
 
 int KernelProxy::remove(const char* path) {
-  Mount* mnt;
+  ScopedMount mnt;
   Path rel;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
@@ -544,15 +500,13 @@ int KernelProxy::remove(const char* path) {
     return -1;
   }
 
-  int result = 0;
   error = mnt->Remove(rel);
   if (error) {
     errno = error;
-    result = -1;
+    return -1;
   }
 
-  ReleaseMount(mnt);
-  return result;
+  return 0;
 }
 
 // TODO(noelallen): Needs implementation.
@@ -564,7 +518,7 @@ int KernelProxy::fchmod(int fd, int mode) {
 int KernelProxy::access(const char* path, int amode) {
   Path rel;
 
-  Mount* mnt;
+  ScopedMount mnt;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
     errno = error;
@@ -572,7 +526,6 @@ int KernelProxy::access(const char* path, int amode) {
   }
 
   error = mnt->Access(rel, amode);
-  ReleaseMount(mnt);
   if (error) {
     errno = error;
     return -1;
@@ -601,7 +554,7 @@ void* KernelProxy::mmap(void* addr,
   assert((flags & MAP_ANONYMOUS) == 0);
   assert(fd != -1);
 
-  KernelHandle* handle;
+  ScopedKernelHandle handle;
   Error error = AcquireHandle(fd, &handle);
   if (error) {
     errno = error;
@@ -609,17 +562,13 @@ void* KernelProxy::mmap(void* addr,
   }
 
   void* new_addr;
-  {
-    AutoLock lock(&handle->lock_);
-    error = handle->node_->MMap(addr, length, prot, flags, offset, &new_addr);
-    if (error) {
-      errno = error;
-      ReleaseHandle(handle);
-      return MAP_FAILED;
-    }
+  AutoLock lock(&handle->lock_);
+  error = handle->node_->MMap(addr, length, prot, flags, offset, &new_addr);
+  if (error) {
+    errno = error;
+    return MAP_FAILED;
   }
 
-  ReleaseHandle(handle);
   return new_addr;
 }
 
@@ -659,7 +608,7 @@ int KernelProxy::munmap(void* addr, size_t length) {
 }
 
 int KernelProxy::open_resource(const char* path) {
-  Mount* mnt;
+  ScopedMount mnt;
   Path rel;
   Error error = AcquireMountAndPath(path, &mnt, &rel);
   if (error) {
@@ -667,31 +616,24 @@ int KernelProxy::open_resource(const char* path) {
     return -1;
   }
 
-  MountNode* node = NULL;
+  ScopedMountNode node;
   error = mnt->OpenResource(rel, &node);
   if (error) {
     // OpenResource failed, try Open().
     error = mnt->Open(rel, O_RDONLY, &node);
     if (error) {
       errno = error;
-      ReleaseMount(mnt);
       return -1;
     }
   }
 
-  KernelHandle* handle = new KernelHandle(mnt, node);
+  ScopedKernelHandle handle(new KernelHandle(mnt, node));
   error = handle->Init(O_RDONLY);
   if (error) {
     errno = error;
-    ReleaseMount(mnt);
     return -1;
   }
 
-  int fd = AllocateFD(handle);
-  mnt->AcquireNode(node);
-
-  ReleaseHandle(handle);
-  ReleaseMount(mnt);
-
-  return fd;
+  return AllocateFD(handle);
 }
+
