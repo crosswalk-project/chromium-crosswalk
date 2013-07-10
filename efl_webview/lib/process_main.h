@@ -5,11 +5,11 @@
 #ifndef EFL_WEBVIEW_LIB_PROCESS_MAIN_H_
 #define EFL_WEBVIEW_LIB_PROCESS_MAIN_H_
 
-#include "efl_webview/lib/xwalk_export.h"
+#include <Eina.h>
 
 namespace xwalk {
 
-XWALK_EXPORT int ProcessMain(int argc, char** argv);
+EAPI int ProcessMain(int argc, char** argv);
 
 }  // namespace xwalk
 
