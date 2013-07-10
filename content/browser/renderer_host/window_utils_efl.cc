@@ -12,7 +12,11 @@
 namespace content {
 
 namespace {
-static int depthPerComponent(int depth)
+
+// Length of an inch in CSS's 1px unit.
+const int kPixelsPerInch = 96;
+
+int depthPerComponent(int depth)
 {
     switch (depth) {
     case 0:
@@ -25,25 +29,23 @@ static int depthPerComponent(int depth)
         return depth / 3;
     }
 }
-} // namespace
+
+}
 
 void GetScreenInfoEfl(WebKit::WebScreenInfo* results)
 {
-	Ecore_X_Display* display = ecore_x_display_get();
-    Ecore_X_Screen* screen = ecore_x_default_screen_get();
-    int width, height;
-    ecore_x_screen_size_get(screen, &width, &height);
-    int depth = ecore_x_default_depth_get(display, screen);
-
-    // FIXME: initialise scale factor.
-    results->deviceScaleFactor = 1;
-    results->isMonochrome = depth == 1;
-    results->depth = depth;
-    results->depthPerComponent = depthPerComponent(depth);
-
-    // FIXME: not sure how to get available rect.
-    results->rect = WebKit::WebRect(0, 0, width, height);
-    results->availableRect = results->rect;
+  Ecore_X_Display* display = ecore_x_display_get();
+  Ecore_X_Screen* screen = ecore_x_default_screen_get();
+  int width, height;
+  ecore_x_screen_size_get(screen, &width, &height);
+  int depth = ecore_x_default_depth_get(display, screen);
+  results->deviceScaleFactor = ecore_x_dpi_get() / kPixelsPerInch;
+  results->isMonochrome = depth == 1;
+  results->depth = depth;
+  results->depthPerComponent = depthPerComponent(depth);
+  // FIXME: not sure how to get available rect.
+  results->rect = WebKit::WebRect(0, 0, width, height);
+  results->availableRect = results->rect;
 }
 
 } // namespace content
