@@ -6,6 +6,7 @@
 #include "base/time.h"
 #include "base/string_number_conversions.h"
 #include "base/string_util.h"
+#include "base/utf_string_conversions.h"
 #include "content/browser/renderer_host/web_input_event_factory_efl.h"
 #include "content/public/browser/native_web_keyboard_event.h"
 #include "third_party/WebKit/Source/WebKit/chromium/public/WebInputEvent.h"
@@ -266,10 +267,13 @@ static int locationModifiersFromWindowsKeyCode(ui::KeyboardCode keycode)
     }
 }
 
-static void setKeyText(ui::KeyboardCode code,
+static bool setKeyText(ui::KeyboardCode code,
                        WebKit::WebKeyboardEvent& webkit_event,
                        const char* efl_event_string)
 {
+
+  bool rawKeyEvent = true;
+
   switch (code) {
     case ui::VKEY_RETURN:
       webkit_event.unmodifiedText[0] = '\r';
@@ -281,9 +285,17 @@ static void setKeyText(ui::KeyboardCode code,
       webkit_event.unmodifiedText[0] = '\t';
       break;
     default:
-      if (efl_event_string)
-        webkit_event.unmodifiedText[0] = efl_event_string[0];
+      if (efl_event_string) {
+        base::string16 out_str;
+        bool success = UTF8ToUTF16(efl_event_string, strlen(efl_event_string), &out_str);
+        if (success) {
+          webkit_event.unmodifiedText[0] = out_str[0];
+          rawKeyEvent = false;
+        }
+      }
   }
+
+  return rawKeyEvent;
 }
 
 ui::KeyboardCode windowsKeyboardCodeFromEvasKeyEventName(const char* eventName)
@@ -305,14 +317,17 @@ WebKit::WebKeyboardEvent toWebKeyboardEvent(T* event,
 
   result.timeStampSeconds = event->timestamp / 1000;
   result.modifiers = eflModifierToWebEventModifiers(event->modifiers);
-  result.type = type == gfx::EflEvent::EventTypeKeyUp ? WebKit::WebInputEvent::KeyUp :
-                                                        WebKit::WebInputEvent::KeyDown;
-
-  ui::KeyboardCode windowsKeyCode = windowsKeyboardCodeFromEvasKeyEventName(event->key);
+  ui::KeyboardCode windowsKeyCode = windowsKeyboardCodeFromEvasKeyEventName(event->keyname);
   result.windowsKeyCode = windowsKeyCodeWithoutLocation(windowsKeyCode);
   result.modifiers |= locationModifiersFromWindowsKeyCode(windowsKeyCode);
+  bool is_raw_key = setKeyText(windowsKeyCode, result, event->string);
 
-  setKeyText(windowsKeyCode, result, event->string);
+  if (type == gfx::EflEvent::EventTypeKeyDown) {
+    result.type = is_raw_key ? WebKit::WebInputEvent::RawKeyDown :
+                               WebKit::WebInputEvent::KeyDown;
+  } else {
+    result.type = WebKit::WebInputEvent::KeyUp;
+  }
 
   result.text[0] = result.unmodifiedText[0];
 
