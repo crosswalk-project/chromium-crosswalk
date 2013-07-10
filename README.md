@@ -1,8 +1,8 @@
-This is the Chromium repository used by Cameo.
+This is the Chromium repository used by Crosswalk.
 
-Development of Cameo : http://linux.intel.com/mailman/listinfo/cameo-dev
+Development of Crosswalk : http://linux.intel.com/mailman/listinfo/cameo-dev
 
-We are also on IRC : #cameo on otcirc.jf.intel.com:6697
+We are also on IRC : #crosswalk on otcirc.jf.intel.com:6697
 
 ## How to update this repository with upstream Chromium
 * clone it
