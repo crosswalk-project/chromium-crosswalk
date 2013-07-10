@@ -6,7 +6,10 @@
 
 namespace cc {
 
-GLFrameData::GLFrameData() : sync_point(0) {}
+GLFrameData::GLFrameData()
+    : sync_point(0),
+      partial_swap_allowed(false) {
+}
 
 GLFrameData::~GLFrameData() {}
 

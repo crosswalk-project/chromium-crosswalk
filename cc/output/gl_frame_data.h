@@ -24,6 +24,7 @@ class CC_EXPORT GLFrameData {
   uint32 sync_point;
   gfx::Size size;
   gfx::Rect sub_buffer_rect;
+  bool partial_swap_allowed;
 };
 
 }  // namespace cc
