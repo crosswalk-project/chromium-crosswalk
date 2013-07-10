@@ -15,11 +15,9 @@
 #include "efl_webview/lib/content_main_delegate_xwalk.h"
 #include "efl_webview/lib/message_pump_xwalk.h"
 
-namespace xwalk {
-
 namespace {
 
-WebRuntimeContext* g_context = 0;
+xwalk::WebRuntimeContext* g_context = 0;
 // TODO: it should be passed via build system.
 const char g_sub_process_name[] = "efl_process";
 
@@ -38,10 +36,12 @@ void SubprocessPathInit() {
 
 base::MessagePump* MessagePumpFactory()
 {
-    return new MessagePumpXWalk;
+  return new xwalk::MessagePumpXWalk;
 }
 
 } // namespace
+
+namespace xwalk {
 
 WebRuntimeContext::WebRuntimeContext() {
   DCHECK(!g_context);

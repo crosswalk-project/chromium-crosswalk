@@ -17,14 +17,18 @@
 
 #include <map>
 
-using std::map;
+namespace {
 
-namespace xwalk {
+typedef std::map<Evas_Object*, xwalk::WebView*> EvasWebViewMap;
 
-static inline map<Evas_Object*, WebView*>& EvasObjectToWebViewMap() { // FIXME: Temporary solution until web view has its own smart class.
-  static map<Evas_Object*, WebView*> map;
+inline EvasWebViewMap& EvasObjectToWebViewMap() { // FIXME: Temporary solution until web view has its own smart class.
+  static EvasWebViewMap map;
   return map;
 }
+
+} // namespace
+
+namespace xwalk {
 
 struct WebView::Private {
   Evas_Object* root_window;
@@ -129,7 +133,7 @@ Evas_Object* WebView::EvasObject() {
 }
 
 WebView* ToWebView(Evas_Object* evas_object) {
-  map<Evas_Object*, WebView*>::iterator found = EvasObjectToWebViewMap().find(evas_object);
+  EvasWebViewMap::iterator found = EvasObjectToWebViewMap().find(evas_object);
   if (found != EvasObjectToWebViewMap().end())
     return found->second;
   return 0;

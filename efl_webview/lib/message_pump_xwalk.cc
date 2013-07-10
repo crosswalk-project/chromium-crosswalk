@@ -12,8 +12,6 @@
 #include "base/posix/eintr_wrapper.h"
 #include "base/threading/platform_thread.h"
 
-namespace xwalk {
-
 namespace {
 
 const int ecorePipeMessageSize = 1;
@@ -21,10 +19,12 @@ const char wakupEcorePipeMessage[] = "W";
 
 void WakeUpEvent(void* data, void*, unsigned int)
 {
-  static_cast<MessagePumpXWalk*>(data)->HandleDispatch();
+  static_cast<xwalk::MessagePumpXWalk*>(data)->HandleDispatch();
 }
 
 }  // namespace
+
+namespace xwalk {
 
 struct MessagePumpXWalk::Private {
   MessagePump::Delegate* delegate;
