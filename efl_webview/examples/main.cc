@@ -8,6 +8,7 @@
 
 #include "efl_webview/lib/process_main.h"
 #include "efl_webview/lib/webview.h"
+#include "efl_webview/public/xwalk_view.h"
 
 static const char APP_NAME[] = "EFL WebView Example";
 
@@ -17,23 +18,20 @@ static int window_height = 600;
 static void
 on_back_button_clicked(void *user_data, Evas_Object *back_button, void *event_info)
 {
-  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
-  webview->Back();
+  xwalk_view_back((Evas_Object*)user_data);
 }
 
 static void
 on_forward_button_clicked(void *user_data, Evas_Object *forward_button, void *event_info)
 {
-  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
-  webview->Forward();
+  xwalk_view_forward((Evas_Object*)user_data);
 }
 
 static void
 on_reload_button_clicked(void *user_data,
                          Evas_Object *forward_button, void *event_info)
 {
-  xwalk::WebView* webview = static_cast<xwalk::WebView*>(user_data);
-  webview->Reload();
+  xwalk_view_reload((Evas_Object*)user_data);
 }
 
 static void window_create()
@@ -84,8 +82,7 @@ static void window_create()
   evas_object_show(reload_button);
 
   /* Create WebView */
-  xwalk::WebView* webview_object = xwalk::WebView::Create(elm_window);
-  Evas_Object* webview = webview_object->EvasObject();
+  Evas_Object* webview = xwalk_view_add(elm_window);
   evas_object_size_hint_weight_set(webview, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
   evas_object_size_hint_align_set(webview, EVAS_HINT_FILL, EVAS_HINT_FILL);
   elm_box_pack_end(vertical_layout, webview);
@@ -93,11 +90,11 @@ static void window_create()
   evas_object_show(webview);
 
   evas_object_smart_callback_add(back_button, "clicked",
-                                 on_back_button_clicked, webview_object);
+                                 on_back_button_clicked, webview);
   evas_object_smart_callback_add(forward_button, "clicked",
-                                 on_forward_button_clicked, webview_object);
+                                 on_forward_button_clicked, webview);
   evas_object_smart_callback_add(reload_button, "clicked",
-                                 on_reload_button_clicked, webview_object);
+                                 on_reload_button_clicked, webview);
 
   evas_object_resize(elm_window, window_width, window_height);
   evas_object_show(elm_window);

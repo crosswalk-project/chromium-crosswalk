@@ -15,7 +15,16 @@
 #include "efl_webview/lib/web_runtime_context.h"
 #include "net/base/net_util.h"
 
+#include <map>
+
+using std::map;
+
 namespace xwalk {
+
+static inline map<Evas_Object*, WebView*>& EvasObjectToWebViewMap() { // FIXME: Temporary solution until web view has its own smart class.
+  static map<Evas_Object*, WebView*> map;
+  return map;
+}
 
 struct WebView::Private {
   Evas_Object* root_window;
@@ -58,6 +67,10 @@ WebView::WebView(Evas_Object* root_window)
 
   private_->root_window = root_window;
   private_->view_box = elm_box_add(private_->root_window);
+  // FIXME: In future this has to be a separate Smart Class representing web view.
+  // 'this' should be set as smart_data->priv
+  EvasObjectToWebViewMap()[private_->view_box] = this;
+
   elm_object_focus_allow_set(private_->view_box, EINA_TRUE);
 
   private_->context = WebRuntimeContext::current();
@@ -76,16 +89,25 @@ WebView::WebView(Evas_Object* root_window)
   LoadURL(WebView::Private::s_startup_url);
 }
 
-WebView::~WebView() {
-  evas_object_del(private_->view_box);
+WebView::~WebView() { // FIXME : And by the way who will invoke it?
+  EvasObjectToWebViewMap().erase(private_->view_box);
+  evas_object_del(private_->view_box);  
 }
 
-void WebView::Forward() {
-  private_->webContentsDelegate->WebContents()->GetController().GoToOffset(1);
+bool WebView::CanGoBack() const {
+  return private_->webContentsDelegate->WebContents()->GetController().CanGoBack();
 }
 
-void WebView::Back() {
-  private_->webContentsDelegate->WebContents()->GetController().GoToOffset(-1);
+bool WebView::CanGoForward() const {
+  return private_->webContentsDelegate->WebContents()->GetController().CanGoForward();
+}
+
+void WebView::GoForward() {
+  private_->webContentsDelegate->WebContents()->GetController().GoForward();
+}
+
+void WebView::GoBack() {
+  private_->webContentsDelegate->WebContents()->GetController().GoBack();
 }
 
 void WebView::Reload() {
@@ -104,6 +126,13 @@ void WebView::LoadURL(const GURL& url) {
 
 Evas_Object* WebView::EvasObject() {
   return private_->view_box;
+}
+
+WebView* ToWebView(Evas_Object* evas_object) {
+  map<Evas_Object*, WebView*>::iterator found = EvasObjectToWebViewMap().find(evas_object);
+  if (found != EvasObjectToWebViewMap().end())
+    return found->second;
+  return 0;
 }
 
 }  // namespace xwalk
