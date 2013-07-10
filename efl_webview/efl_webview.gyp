@@ -70,6 +70,8 @@
         'lib/web_runtime_context.h',
         'lib/webview.cc',
         'lib/webview.h',
+        'public/xwalk_view.cc',
+        'public/xwalk_view.h',
       ],
       'conditions': [
         ['OS=="linux"', {

@@ -23,8 +23,10 @@ class XWALK_EXPORT WebView {
 
   XWALK_EXPORT Evas_Object* EvasObject();
 
-  XWALK_EXPORT void Forward();
-  XWALK_EXPORT void Back();
+  XWALK_EXPORT bool CanGoBack() const;
+  XWALK_EXPORT bool CanGoForward() const;
+  XWALK_EXPORT void GoForward();
+  XWALK_EXPORT void GoBack();
   XWALK_EXPORT void Reload();
   XWALK_EXPORT void LoadURL(const GURL&);
 
@@ -36,6 +38,8 @@ class XWALK_EXPORT WebView {
 
   DISALLOW_COPY_AND_ASSIGN(WebView);
 };
+
+XWALK_EXPORT WebView* ToWebView(Evas_Object*);
 
 }  // namespace xwalk
 
