@@ -17,9 +17,9 @@
 
 #include <map>
 
-namespace xwalk {
-
 using std::map;
+
+namespace xwalk {
 
 static inline map<Evas_Object*, WebView*>& EvasObjectToWebViewMap() // FIXME: Temporary solution until web view has its own smart class.
 {
