@@ -21,8 +21,7 @@ using std::map;
 
 namespace xwalk {
 
-static inline map<Evas_Object*, WebView*>& EvasObjectToWebViewMap() // FIXME: Temporary solution until web view has its own smart class.
-{
+static inline map<Evas_Object*, WebView*>& EvasObjectToWebViewMap() { // FIXME: Temporary solution until web view has its own smart class.
   static map<Evas_Object*, WebView*> map;
   return map;
 }
@@ -95,13 +94,11 @@ WebView::~WebView() { // FIXME : And by the way who will invoke it?
   evas_object_del(private_->view_box);  
 }
 
-bool WebView::CanGoBack() const
-{
+bool WebView::CanGoBack() const {
   return private_->webContentsDelegate->WebContents()->GetController().CanGoBack();
 }
 
-bool WebView::CanGoForward() const
-{
+bool WebView::CanGoForward() const {
   return private_->webContentsDelegate->WebContents()->GetController().CanGoForward();
 }
 
@@ -131,8 +128,7 @@ Evas_Object* WebView::EvasObject() {
   return private_->view_box;
 }
 
-WebView* ToWebView(Evas_Object* evas_object)
-{
+WebView* ToWebView(Evas_Object* evas_object) {
   map<Evas_Object*, WebView*>::iterator found = EvasObjectToWebViewMap().find(evas_object);
   if (found != EvasObjectToWebViewMap().end())
     return found->second;
