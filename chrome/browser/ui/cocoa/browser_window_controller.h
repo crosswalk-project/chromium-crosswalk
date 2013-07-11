@@ -164,8 +164,8 @@ class WebContents;
   // to push the web contents below the bookmark bar.
   CGFloat toolbarToWebContentsOffset_;
 
-  // The number of history overlay views being shown.
-  NSUInteger historyOverlayCount_;
+  // The number of overlapped views being shown.
+  NSUInteger overlappedViewCount_;
 }
 
 // A convenience class method which gets the |BrowserWindowController| for a
@@ -352,13 +352,15 @@ class WebContents;
 // allowOverlappingViews state.
 - (void)onFindBarVisibilityChanged;
 
-// Called when a history overlay is shown. This is used to update the
-// allowOverlappingViews state.
-- (void)onHistoryOverlayShown;
+// Called when an overlapped view is shown. This is used to update the
+// allowOverlappingViews state. Currently used for history overlay and
+// confirm bubble.
+- (void)onOverlappedViewShown;
 
 // Called when a history overlay is hidden. This is used to update the
-// allowOverlappingViews state.
-- (void)onHistoryOverlayHidden;
+// allowOverlappingViews state. Currently used for history overlay and
+// confirm bubble.
+- (void)onOverlappedViewHidden;
 
 @end  // @interface BrowserWindowController
 

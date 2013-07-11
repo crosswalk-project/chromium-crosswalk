@@ -1028,7 +1028,7 @@ willPositionSheet:(NSWindow*)sheet
     return YES;
   }
 
-  if (historyOverlayCount_)
+  if (overlappedViewCount_)
     return YES;
 
   return NO;
