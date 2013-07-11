@@ -491,6 +491,8 @@ const CGFloat kTrayBottomMargin = 75;
       defaultImage);
   pauseButton_.reset([[HoverImageButton alloc] initWithFrame:pauseButtonFrame]);
   [self updateQuietModeButtonImage];
+  [pauseButton_ setHoverImage: rb.GetNativeImageNamed(
+      IDR_NOTIFICATION_PAUSE_HOVER).ToNSImage()];
   [pauseButton_ setToolTip:
       l10n_util::GetNSString(IDS_MESSAGE_CENTER_QUIET_MODE_BUTTON_TOOLTIP)];
   [[pauseButton_ cell]
