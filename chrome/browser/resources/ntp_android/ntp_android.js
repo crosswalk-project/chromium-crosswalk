@@ -2203,7 +2203,7 @@ cr.define('ntp', function() {
     // 'natural' height and width of the thumbnail
     var thumbHeight = 72;
     var thumbWidth = 108;
-    var labelHeight = 20;
+    var labelHeight = 25;
     var labelWidth = thumbWidth + 20;
     var labelLeft = (thumbWidth - labelWidth) / 2;
     var itemHeight = thumbHeight + labelHeight;
@@ -2215,9 +2215,6 @@ cr.define('ntp', function() {
     var itemMarginRight = 20;
 
     var listHeight = 0;
-    // set it to the unscaled size so centerGrid works correctly
-    modifyCssRule('body[device="phone"] .thumbnail-cell',
-        'width', thumbWidth + 'px');
 
     var screenHeight =
         document.documentElement.offsetHeight -
@@ -2226,7 +2223,9 @@ cr.define('ntp', function() {
     if (isPortrait()) {
       mostVisitedList.setAttribute(GRID_COLUMNS, '2');
       listHeight = screenHeight * .85;
-      listHeight = listHeight >= 420 ? 420 : listHeight;
+      // Ensure that listHeight is not too small and not too big.
+      listHeight = Math.max(listHeight, (itemHeight * 3) + 20);
+      listHeight = Math.min(listHeight, 420);
       // Size for 3 rows (4 gutters)
       itemMarginTop = (listHeight - (itemHeight * 3)) / 4;
     } else {
@@ -2242,8 +2241,8 @@ cr.define('ntp', function() {
         var scale = (screenHeight - 2 * labelHeight -
             targetRemainder) / (2 * thumbHeight);
         // update values based on scale
-        thumbWidth *= scale;
-        thumbHeight *= scale;
+        thumbWidth = Math.round(thumbWidth * scale);
+        thumbHeight = Math.round(thumbHeight * scale);
         labelWidth = thumbWidth + 20;
         itemHeight = thumbHeight + labelHeight;
       }
