@@ -8,12 +8,14 @@
 #include "content/public/browser/web_contents.h"
 #include "efl_webview/lib/web_contents_view_delegate_xwalk.h"
 
-namespace xwalk {
-
 namespace {
+
 const int g_window_width = 800;
 const int g_window_height = 600;
+
 } // namespace
+
+namespace xwalk {
 
 WebContentsDelegateXWalk::WebContentsDelegateXWalk(
     content::BrowserContext* browser_context, Evas_Object* view_box)
