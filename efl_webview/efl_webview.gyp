@@ -72,6 +72,8 @@
         'lib/webview.h',
         'public/xwalk_view.cc',
         'public/xwalk_view.h',
+        'public/xwalk_main.cc',
+        'public/xwalk_main.h',
       ],
       'conditions': [
         ['OS=="linux"', {

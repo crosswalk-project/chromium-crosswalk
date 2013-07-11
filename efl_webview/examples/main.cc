@@ -8,6 +8,7 @@
 
 #include "efl_webview/lib/process_main.h"
 #include "efl_webview/lib/webview.h"
+#include "efl_webview/public/xwalk_main.h"
 #include "efl_webview/public/xwalk_view.h"
 
 static const char APP_NAME[] = "EFL WebView Example";
@@ -104,7 +105,7 @@ int main(int argc, char *argv[])
 {
   // FIXME: Handle chrome command line and url.
   // It is needed only in development stage.
-  xwalk::WebView::CommandLineInit(argc, argv);
+  xwalk_init(argc, argv);
 
   elm_init(argc, argv);
 
