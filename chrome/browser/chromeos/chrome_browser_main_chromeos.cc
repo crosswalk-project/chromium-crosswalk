@@ -70,7 +70,6 @@
 #include "chrome/browser/chromeos/settings/device_oauth2_token_service_factory.h"
 #include "chrome/browser/chromeos/settings/device_settings_service.h"
 #include "chrome/browser/chromeos/settings/owner_key_util.h"
-#include "chrome/browser/chromeos/system/device_change_handler.h"
 #include "chrome/browser/chromeos/system/statistics_provider.h"
 #include "chrome/browser/chromeos/system_key_event_listener.h"
 #include "chrome/browser/chromeos/upgrade_detector_chromeos.h"
@@ -696,9 +695,6 @@ void ChromeBrowserMainPartsChromeos::PostProfileInit() {
   // This observer cannot be created earlier because it requires the shell to be
   // available.
   idle_action_warning_observer_.reset(new IdleActionWarningObserver());
-
-  // Listen to changes in device hierarchy.
-  device_change_handler_.reset(new system::DeviceChangeHandler());
 
   ChromeBrowserMainPartsLinux::PostProfileInit();
 }
