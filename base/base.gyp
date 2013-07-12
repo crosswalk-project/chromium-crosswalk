@@ -87,6 +87,8 @@
             '../build/linux/system.gyp:efl',
           ],
           'sources': [
+            'strings/efl/eina_shared_string.cc',
+            'strings/efl/eina_shared_string.h',
             'message_pump_efl.cc',
             'message_pump_efl.h',
           ],
