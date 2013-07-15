@@ -17,10 +17,11 @@
 namespace cc {
 
 class PicturePileImpl;
-class Tile;
 
 class CC_EXPORT Tile : public base::RefCounted<Tile> {
  public:
+  typedef uint64 Id;
+
   Tile(TileManager* tile_manager,
        PicturePileImpl* picture_pile,
        gfx::Size tile_size,
@@ -29,6 +30,10 @@ class CC_EXPORT Tile : public base::RefCounted<Tile> {
        float contents_scale,
        int layer_id,
        int source_frame_number);
+
+  Id id() const {
+    return id_;
+  }
 
   PicturePileImpl* picture_pile() {
     return picture_pile_.get();
@@ -142,6 +147,9 @@ class CC_EXPORT Tile : public base::RefCounted<Tile> {
   ManagedTileState managed_state_;
   int layer_id_;
   int source_frame_number_;
+
+  Id id_;
+  static Id s_next_id_;
 
   DISALLOW_COPY_AND_ASSIGN(Tile);
 };

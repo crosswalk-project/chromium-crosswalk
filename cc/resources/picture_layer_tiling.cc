@@ -452,9 +452,8 @@ void PictureLayerTiling::SetLiveTilesRect(
     TileMap::iterator found = tiles_.find(key);
     // If the tile was outside of the recorded region, it won't exist even
     // though it was in the live rect.
-    if (found == tiles_.end())
-      continue;
-    tiles_.erase(found);
+    if (found != tiles_.end())
+      tiles_.erase(found);
   }
 
   const PictureLayerTiling* twin_tiling = client_->GetTwinTiling(this);
