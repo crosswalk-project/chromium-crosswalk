@@ -13,6 +13,10 @@ extern "C" {
 
 EAPI Evas_Object *xwalk_view_add(Evas_Object *root_window);
 
+EAPI Eina_Bool xwalk_view_url_set(Evas_Object *obj, const char *url);
+
+EAPI const char *xwalk_view_url_get(const Evas_Object *obj);
+
 EAPI Eina_Bool xwalk_view_reload(Evas_Object *obj);
 
 EAPI Eina_Bool xwalk_view_back(Evas_Object *obj);

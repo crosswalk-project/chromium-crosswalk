@@ -17,9 +17,24 @@ using namespace xwalk;
   } while (0)
 
 
-Evas_Object *xwalk_view_add(Evas_Object* root_window)
+Evas_Object* xwalk_view_add(Evas_Object* root_window)
 {
   return WebView::Create(root_window)->EvasObject();
+}
+
+Eina_Bool xwalk_view_url_set(Evas_Object* evas_object, const char* url)
+{
+  XWALK_VIEW_GET_IMPL_OR_RETURN(evas_object, impl, false);
+  EINA_SAFETY_ON_NULL_RETURN_VAL(url, false);
+
+  impl->LoadURL(GURL(url));
+  return true;
+}
+
+const char* xwalk_view_url_get(const Evas_Object* evas_object)
+{
+  XWALK_VIEW_GET_IMPL_OR_RETURN(evas_object, impl, "");
+  return impl->url();
 }
 
 Eina_Bool xwalk_view_reload(Evas_Object* evas_object)

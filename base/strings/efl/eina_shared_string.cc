@@ -12,6 +12,10 @@ EinaSharedString::EinaSharedString(const char* str)
   : string_(eina_stringshare_add(str)) {
 }
 
+EinaSharedString::EinaSharedString(const std::string& str)
+  : string_(eina_stringshare_add(str.c_str())) {
+}
+
 EinaSharedString::~EinaSharedString() {
   if (string_)
     eina_stringshare_del(string_);
