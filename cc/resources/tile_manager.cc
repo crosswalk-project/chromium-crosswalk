@@ -748,19 +748,6 @@ RasterWorkerPool::Task TileManager::CreateImageDecodeTask(
                  base::Unretained(pixel_ref)));
 }
 
-RasterTaskMetadata TileManager::GetRasterTaskMetadata(
-    const Tile& tile) const {
-  RasterTaskMetadata metadata;
-  const ManagedTileState& mts = tile.managed_state();
-  metadata.is_tile_in_pending_tree_now_bin =
-      mts.tree_bin[PENDING_TREE] == NOW_BIN;
-  metadata.tile_resolution = mts.resolution;
-  metadata.layer_id = tile.layer_id();
-  metadata.tile_id = &tile;
-  metadata.source_frame_number = tile.source_frame_number();
-  return metadata;
-}
-
 RasterWorkerPool::RasterTask TileManager::CreateRasterTask(Tile* tile) {
   ManagedTileState& mts = tile->managed_state();
 
@@ -793,7 +780,6 @@ RasterWorkerPool::RasterTask TileManager::CreateRasterTask(Tile* tile) {
     existing_pixel_refs[id] = decode_task;
   }
 
-  RasterTaskMetadata metadata = GetRasterTaskMetadata(*tile);
   return RasterWorkerPool::CreateRasterTask(
       const_resource,
       tile->picture_pile(),
@@ -801,7 +787,11 @@ RasterWorkerPool::RasterTask TileManager::CreateRasterTask(Tile* tile) {
       tile->contents_scale(),
       mts.raster_mode,
       use_color_estimator_,
-      metadata,
+      mts.tree_bin[PENDING_TREE] == NOW_BIN,
+      mts.resolution,
+      tile->layer_id(),
+      &tile,
+      tile->source_frame_number(),
       rendering_stats_instrumentation_,
       base::Bind(&TileManager::OnRasterTaskCompleted,
                  base::Unretained(this),

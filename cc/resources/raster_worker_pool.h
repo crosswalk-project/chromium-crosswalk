@@ -10,7 +10,7 @@
 #include "base/containers/hash_tables.h"
 #include "cc/debug/rendering_stats_instrumentation.h"
 #include "cc/resources/picture_pile_impl.h"
-#include "cc/resources/resource_provider.h"
+#include "cc/resources/raster_mode.h"
 #include "cc/resources/tile_priority.h"
 #include "cc/resources/worker_pool.h"
 
@@ -24,6 +24,7 @@ namespace cc {
 class PicturePileImpl;
 class PixelBufferRasterWorkerPool;
 class Resource;
+class ResourceProvider;
 
 namespace internal {
 
@@ -75,29 +76,6 @@ template <> struct hash<cc::internal::RasterWorkerPoolTask*> {
 #endif  // COMPILER
 
 namespace cc {
-
-// Low quality implies no lcd test;
-// high quality implies lcd text.
-// Note that the order of these matters, from "better" to "worse" in terms of
-// quality.
-// TODO(vmpstr): Find a better place for this.
-enum RasterMode {
-  HIGH_QUALITY_RASTER_MODE = 0,
-  HIGH_QUALITY_NO_LCD_RASTER_MODE = 1,
-  LOW_QUALITY_RASTER_MODE = 2,
-  NUM_RASTER_MODES = 3
-};
-
-// Data that is passed to raster tasks.
-// TODO(vmpstr): Find a better place for this.
-struct RasterTaskMetadata {
-    scoped_ptr<base::Value> AsValue() const;
-    bool is_tile_in_pending_tree_now_bin;
-    TileResolution tile_resolution;
-    int layer_id;
-    const void* tile_id;
-    int source_frame_number;
-};
 
 class CC_EXPORT RasterWorkerPoolClient {
  public:
@@ -204,7 +182,7 @@ class CC_EXPORT RasterWorkerPool : public WorkerPool {
   // even if they later get canceled by another call to ScheduleTasks().
   virtual void ScheduleTasks(RasterTask::Queue* queue) = 0;
 
-  // TODO(vmpstr): Try to elimiate some variables.
+  // TODO(vmpstr): Figure out an elegant way to not pass this many parameters.
   static RasterTask CreateRasterTask(
       const Resource* resource,
       PicturePileImpl* picture_pile,
@@ -212,7 +190,11 @@ class CC_EXPORT RasterWorkerPool : public WorkerPool {
       float contents_scale,
       RasterMode raster_mode,
       bool use_color_estimator,
-      const RasterTaskMetadata& metadata,
+      bool is_tile_in_pending_tree_now_bin,
+      TileResolution tile_resolution,
+      int layer_id,
+      const void* tile_id,
+      int source_frame_number,
       RenderingStatsInstrumentation* rendering_stats,
       const RasterTask::Reply& reply,
       Task::Set* dependencies);
