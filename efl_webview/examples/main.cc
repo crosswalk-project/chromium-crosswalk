@@ -83,22 +83,24 @@ static void window_create()
   evas_object_show(reload_button);
 
   /* Create WebView */
-  Evas_Object* webview = xwalk_view_add(elm_window);
-  evas_object_size_hint_weight_set(webview, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
-  evas_object_size_hint_align_set(webview, EVAS_HINT_FILL, EVAS_HINT_FILL);
-  elm_box_pack_end(vertical_layout, webview);
-  elm_object_focus_set(webview, EINA_TRUE);
-  evas_object_show(webview);
+  Evas_Object* web_view = xwalk_view_add(elm_window);
+  evas_object_size_hint_weight_set(web_view, EVAS_HINT_EXPAND, EVAS_HINT_EXPAND);
+  evas_object_size_hint_align_set(web_view, EVAS_HINT_FILL, EVAS_HINT_FILL);
+  elm_box_pack_end(vertical_layout, web_view);
+  elm_object_focus_set(web_view, EINA_TRUE);
+  evas_object_show(web_view);
 
   evas_object_smart_callback_add(back_button, "clicked",
-                                 on_back_button_clicked, webview);
+                                 on_back_button_clicked, web_view);
   evas_object_smart_callback_add(forward_button, "clicked",
-                                 on_forward_button_clicked, webview);
+                                 on_forward_button_clicked, web_view);
   evas_object_smart_callback_add(reload_button, "clicked",
-                                 on_reload_button_clicked, webview);
+                                 on_reload_button_clicked, web_view);
 
   evas_object_resize(elm_window, window_width, window_height);
   evas_object_show(elm_window);
+
+  xwalk_view_url_set(web_view, "http://google.com");
 }
 
 int main(int argc, char *argv[])

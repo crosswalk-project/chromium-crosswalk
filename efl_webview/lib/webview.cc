@@ -19,7 +19,7 @@
 
 namespace {
 
-typedef std::map<Evas_Object*, xwalk::WebView*> EvasWebViewMap;
+typedef std::map<const Evas_Object*, xwalk::WebView*> EvasWebViewMap;
 
 inline EvasWebViewMap& EvasObjectToWebViewMap() { // FIXME: Temporary solution until web view has its own smart class.
   static EvasWebViewMap map;
@@ -119,6 +119,7 @@ void WebView::Reload() {
 }
 
 void WebView::LoadURL(const GURL& url) {
+  url_ = EinaSharedString(url.spec());
   content::NavigationController::LoadURLParams params(url);
   params.transition_type = content::PageTransitionFromInt(
       content::PAGE_TRANSITION_TYPED |
@@ -132,7 +133,7 @@ Evas_Object* WebView::EvasObject() {
   return private_->view_box;
 }
 
-WebView* ToWebView(Evas_Object* evas_object) {
+WebView* ToWebView(const Evas_Object* evas_object) {
   EvasWebViewMap::iterator found = EvasObjectToWebViewMap().find(evas_object);
   if (found != EvasObjectToWebViewMap().end())
     return found->second;

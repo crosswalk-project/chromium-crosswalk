@@ -9,6 +9,7 @@
 
 #include "base/basictypes.h"
 #include "base/memory/scoped_ptr.h"
+#include "base/strings/efl/eina_shared_string.h"
 #include "googleurl/src/gurl.h"
 
 namespace xwalk {
@@ -29,16 +30,19 @@ class WebView {
   void Reload();
   void LoadURL(const GURL&);
 
+  const char* url() const { return url_; }
+
  private:
   explicit WebView(Evas_Object*);
 
   struct Private;
   scoped_ptr<Private> private_;
+  EinaSharedString url_;
 
   DISALLOW_COPY_AND_ASSIGN(WebView);
 };
 
-WebView* ToWebView(Evas_Object*);
+WebView* ToWebView(const Evas_Object*);
 
 }  // namespace xwalk
 

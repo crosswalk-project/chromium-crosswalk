@@ -9,6 +9,8 @@
 
 #include <Eina.h>
 
+#include <string>
+
 namespace base {
 
 class BASE_EXPORT EinaSharedString {
@@ -16,6 +18,7 @@ public:
   EinaSharedString() : string_(0) { }
   EinaSharedString(const EinaSharedString& other);
   EinaSharedString(const char* str);
+  explicit EinaSharedString(const std::string&);
 
   ~EinaSharedString();
 
