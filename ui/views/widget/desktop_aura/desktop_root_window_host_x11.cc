@@ -289,7 +289,22 @@ aura::RootWindow* DesktopRootWindowHostX11::InitRootWindow(
   // TODO(erg): Unify this code once the other consumer goes away.
   x11_window_event_filter_.reset(
       new X11WindowEventFilter(root_window_, activation_client_.get()));
-  x11_window_event_filter_->SetUseHostWindowBorders(false);
+  
+  // We reuse the |remove_standard_frame| in to tell if the window border is
+  // used. Note the |remove_standard_frame| is originally designed for
+  // Windows, see comments in ui/views/widget.h.
+  bool use_os_border = params.remove_standard_frame ? false : true;
+  x11_window_event_filter_->SetUseHostWindowBorders(use_os_border);
+  
+  // DesktopRootWindowHost should handle the close event emitted by
+  // window manager, e.g. press close button.
+  //
+  // For a frameless window (not use os border), the custom frame
+  // view will draw the border and handle the close event by hit
+  // test.
+  if (use_os_border)
+    root_window_->AddRootWindowObserver(this);
+
   desktop_native_widget_aura_->root_window_event_filter()->AddHandler(
       x11_window_event_filter_.get());
 
@@ -1190,6 +1205,12 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
     }
   }
   return true;
+}
+
+void DesktopRootWindowHostX11::OnRootWindowHostCloseRequested(
+    const aura::RootWindow* root) {
+  DCHECK(root == root_window_);
+  Close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
