@@ -53,12 +53,6 @@ class ScreenEfl : public gfx::Screen {
   }
 
   virtual gfx::Display GetPrimaryDisplay() const OVERRIDE {
-    static bool initialized = false;
-    if (!initialized) {
-      ecore_x_init(NULL);
-      initialized = true;
-    }
-
     int width = 0, height = 0;
     Ecore_X_Screen* screen = ecore_x_default_screen_get();
     ecore_x_screen_size_get(screen, &width, &height);
