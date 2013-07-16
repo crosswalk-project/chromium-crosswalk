@@ -106,6 +106,11 @@ typedef struct _GdkPixbuf GdkPixbuf;
 typedef struct _GdkRegion GdkRegion;
 typedef struct _GtkWidget GtkWidget;
 typedef struct _GtkWindow GtkWindow;
+#elif defined(TOOLKIT_EFL)
+namespace gfx {
+class EflEvent;
+}
+typedef struct _Evas_Object Evas_Object;
 #elif defined(OS_ANDROID)
 struct ANativeWindow;
 namespace ui {
@@ -145,6 +150,12 @@ typedef GtkWidget* NativeView;
 typedef GtkWindow* NativeWindow;
 typedef GdkRegion* NativeRegion;
 typedef GdkEvent* NativeEvent;
+#elif defined(TOOLKIT_EFL) // FIXME: Check the types here.
+typedef void* NativeCursor;
+typedef Evas_Object* NativeView;
+typedef void* NativeRegion;
+typedef Evas_Object* NativeWindow;
+typedef EflEvent* NativeEvent;
 #elif defined(OS_ANDROID)
 typedef void* NativeCursor;
 typedef ui::ViewAndroid* NativeView;
@@ -170,6 +181,11 @@ typedef void* NativeViewAccessible;
 #elif defined(TOOLKIT_GTK)
 typedef PangoFontDescription* NativeFont;
 typedef GtkWidget* NativeEditView;
+typedef cairo_t* NativeDrawingContext;
+typedef void* NativeViewAccessible;
+#elif defined(TOOLKIT_EFL)
+typedef PangoFontDescription* NativeFont;
+typedef Evas_Object* NativeEditView;
 typedef cairo_t* NativeDrawingContext;
 typedef void* NativeViewAccessible;
 #elif defined(USE_AURA)

@@ -211,7 +211,7 @@ bool GpuProcessHostUIShim::OnControlMessageReceived(
                         OnUpdateVSyncParameters)
     IPC_MESSAGE_HANDLER(GpuHostMsg_FrameDrawn, OnFrameDrawn)
 
-#if defined(TOOLKIT_GTK) || defined(OS_WIN)
+#if defined(TOOLKIT_GTK) || defined(TOOLKIT_EFL) || defined(OS_WIN)
     IPC_MESSAGE_HANDLER(GpuHostMsg_ResizeView, OnResizeView)
 #endif
 
@@ -256,7 +256,7 @@ void GpuProcessHostUIShim::OnGraphicsInfoCollected(const GPUInfo& gpu_info) {
   GpuDataManagerImpl::GetInstance()->UpdateGpuInfo(gpu_info);
 }
 
-#if defined(TOOLKIT_GTK) || defined(OS_WIN)
+#if defined(TOOLKIT_GTK) || defined(TOOLKIT_EFL) || defined(OS_WIN)
 
 void GpuProcessHostUIShim::OnResizeView(int32 surface_id,
                                         int32 route_id,
@@ -286,6 +286,8 @@ void GpuProcessHostUIShim::OnResizeView(int32 surface_id,
     gdk_window_resize(window, size.width(), size.height());
     XSync(display, False);
   }
+#elif defined(TOOLKIT_EFL)
+  (void)surface; // FIXME : Resize the window?
 #elif defined(OS_WIN)
   // Ensure window does not have zero area because D3D cannot create a zero
   // area swap chain.

@@ -60,7 +60,7 @@ CONTENT_EXPORT void SetContentClient(ContentClient* client);
 
 #if defined(CONTENT_IMPLEMENTATION)
 // Content's embedder API should only be used by content.
-ContentClient* GetContentClient();
+CONTENT_EXPORT ContentClient* GetContentClient();
 #endif
 
 // Used for tests to override the relevant embedder interfaces. Each method

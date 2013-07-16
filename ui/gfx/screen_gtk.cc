@@ -117,7 +117,9 @@ class ScreenGtk : public gfx::Screen {
   // Returns the display nearest the specified window.
   virtual gfx::Display GetDisplayNearestWindow(
       gfx::NativeView view) const OVERRIDE {
-    gfx::Rect bounds = GetMonitorAreaNearestWindow(view);
+    // gfx::Rect bounds = GetMonitorAreaNearestWindow(view);
+    // TODO: Remove this hack that avoids a crash.
+    gfx::Rect bounds(1000,1000);
     // Do not use the _NET_WORKAREA here, this is supposed to be an area on a
     // specific monitor, and _NET_WORKAREA is a hint from the WM that
     // generally spans across all monitors.  This would make the work area

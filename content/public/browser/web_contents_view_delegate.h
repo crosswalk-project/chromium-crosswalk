@@ -81,6 +81,8 @@ class CONTENT_EXPORT WebContentsViewDelegate {
   virtual NSObject<RenderWidgetHostViewMacDelegate>*
       CreateRenderWidgetHostViewDelegate(
           RenderWidgetHost* render_widget_host) = 0;
+#elif defined(TOOLKIT_EFL)
+  virtual void Focus() = 0;
 #endif
 };
 

@@ -138,8 +138,10 @@
 
           # Set toolkit_uses_gtk for the Chromium browser on Linux.
           ['(OS=="linux" or OS=="freebsd" or OS=="openbsd" or OS=="solaris") and use_aura==0 and use_ozone==0', {
-            'toolkit_uses_gtk%': 1,
+            'toolkit_uses_efl%': 1,
+            'toolkit_uses_gtk%': 0,
           }, {
+            'toolkit_uses_efl%': 0,
             'toolkit_uses_gtk%': 0,
           }],
 
@@ -188,6 +190,7 @@
       'host_arch%': '<(host_arch)',
       'target_arch%': '<(target_arch)',
       'toolkit_views%': '<(toolkit_views)',
+      'toolkit_uses_efl%': '<(toolkit_uses_efl)',
       'toolkit_uses_gtk%': '<(toolkit_uses_gtk)',
       'use_aura%': '<(use_aura)',
       'use_ash%': '<(use_ash)',
@@ -751,6 +754,7 @@
     'os_posix%': '<(os_posix)',
     'use_glib%': '<(use_glib)',
     'use_ozone%': '<(use_ozone)',
+    'toolkit_uses_efl%': '<(toolkit_uses_efl)',
     'toolkit_uses_gtk%': '<(toolkit_uses_gtk)',
     'use_x11%': '<(use_x11)',
     'use_gnome_keyring%': '<(use_gnome_keyring)',

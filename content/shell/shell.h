@@ -18,7 +18,9 @@
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/size.h"
 
-#if defined(TOOLKIT_GTK)
+#if defined(TOOLKIT_EFL)
+#include <Evas.h>
+#elif defined(TOOLKIT_GTK)
 #include <gtk/gtk.h>
 #include "ui/base/gtk/gtk_signal.h"
 
@@ -62,7 +64,7 @@ class Shell : public WebContentsDelegate,
   void Close();
   void ShowDevTools();
   void CloseDevTools();
-#if (defined(OS_WIN) && !defined(USE_AURA)) || defined(TOOLKIT_GTK)
+#if (defined(OS_WIN) && !defined(USE_AURA)) || defined(TOOLKIT_GTK) || defined(TOOLKIT_EFL)
   // Resizes the main window to the given dimensions.
   void SizeTo(int width, int height);
 #endif
@@ -142,6 +144,8 @@ class Shell : public WebContentsDelegate,
   virtual void RendererUnresponsive(WebContents* source) OVERRIDE;
   virtual void ActivateContents(WebContents* contents) OVERRIDE;
   virtual void DeactivateContents(WebContents* contents) OVERRIDE;
+  virtual bool TakeFocus(content::WebContents* source,
+                         bool reverse) OVERRIDE;
 
  private:
   enum UIControl {
@@ -194,6 +198,9 @@ class Shell : public WebContentsDelegate,
   static ATOM RegisterWindowClass();
   static LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
   static LRESULT CALLBACK EditWndProc(HWND, UINT, WPARAM, LPARAM);
+#elif defined(TOOLKIT_EFL)
+  static void OnMainWindowDel(void* data, Evas* evas, Evas_Object* object,
+                              void* event_info);
 #elif defined(TOOLKIT_GTK)
   CHROMEGTK_CALLBACK_0(Shell, void, OnBackButtonClicked);
   CHROMEGTK_CALLBACK_0(Shell, void, OnForwardButtonClicked);
@@ -227,6 +234,9 @@ class Shell : public WebContentsDelegate,
 #if defined(OS_WIN) && !defined(USE_AURA)
   WNDPROC default_edit_wnd_proc_;
   static HINSTANCE instance_handle_;
+#elif defined(TOOLKIT_EFL)
+  int content_width_;
+  int content_height_;
 #elif defined(TOOLKIT_GTK)
   GtkWidget* vbox_;
 
