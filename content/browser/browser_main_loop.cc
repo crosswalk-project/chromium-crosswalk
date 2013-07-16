@@ -88,6 +88,10 @@
 #include "ui/gfx/gtk_util.h"
 #endif
 
+#if defined(TOOLKIT_EFL)
+#include "ui/gfx/efl_util.h"
+#endif
+
 #if defined(OS_POSIX) && !defined(OS_MACOSX)
 #include <sys/stat.h>
 
@@ -289,6 +293,9 @@ BrowserMainLoop::~BrowserMainLoop() {
 #if !defined(OS_IOS)
   ui::Clipboard::DestroyClipboardForCurrentThread();
 #endif  // !defined(OS_IOS)
+#if defined(TOOLKIT_EFL)
+  gfx::EflShutdown();
+#endif
   g_current_browser_main_loop = NULL;
 }
 
@@ -828,8 +835,12 @@ void BrowserMainLoop::InitializeToolkit() {
   g_type_init();
 #endif
 
-#if !defined(USE_AURA)
+#if !defined(USE_AURA) && !defined(TOOLKIT_EFL)
   gfx::GtkInitFromCommandLine(parsed_command_line_);
+#endif
+
+#if defined(TOOLKIT_EFL)
+  gfx::EflInit();
 #endif
 
   SetUpGLibLogHandler();

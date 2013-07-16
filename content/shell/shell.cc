@@ -309,6 +309,12 @@ void Shell::DeactivateContents(WebContents* contents) {
   contents->GetRenderViewHost()->Blur();
 }
 
+#if !defined(TOOLKIT_EFL)
+bool Shell::TakeFocus(WebContents* source, bool reverse) {
+  return false;
+}
+#endif
+
 void Shell::Observe(int type,
                     const NotificationSource& source,
                     const NotificationDetails& details) {
