@@ -183,7 +183,8 @@ class VIEWS_EXPORT DesktopRootWindowHostX11 :
   virtual bool Dispatch(const base::NativeEvent& event) OVERRIDE;
 
   // Overriden from aura::RootWindowObserver:
-  virtual void OnRootWindowHostCloseRequested(const aura::RootWindow* root) OVERRIDE;
+  virtual void OnRootWindowHostCloseRequested(
+      const aura::RootWindow* root) OVERRIDE;
 
   base::WeakPtrFactory<DesktopRootWindowHostX11> close_widget_factory_;
 
