@@ -506,7 +506,8 @@ bool DesktopRootWindowHostX11::IsAlwaysOnTop() const {
 }
 
 void DesktopRootWindowHostX11::SetWindowTitle(const string16& title) {
-  XStoreName(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str());
+  XmbSetWMProperties(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str(), NULL,
+      NULL, 0, NULL, NULL, NULL);
 }
 
 void DesktopRootWindowHostX11::ClearNativeFocus() {
