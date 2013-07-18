@@ -121,7 +121,7 @@ void TouchFactory::UpdateDeviceList(Display* display) {
       DeviceListCacheX11::GetInstance()->GetXI2DeviceList(display);
   for (int i = 0; i < xi_dev_list.count; i++) {
     XIDeviceInfo* devinfo = xi_dev_list.devices + i;
-    if (devinfo->use == XIFloatingSlave || devinfo->use == XIMasterPointer) {
+    if (devinfo->use == XIFloatingSlave || devinfo->use == XISlavePointer) {
       for (int k = 0; k < devinfo->num_classes; ++k) {
         XIAnyClassInfo* xiclassinfo = devinfo->classes[k];
         if (xiclassinfo->type == XITouchClass) {
