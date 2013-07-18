@@ -575,8 +575,10 @@ void DesktopNativeWidgetAura::GetWindowPlacement(
 }
 
 void DesktopNativeWidgetAura::SetWindowTitle(const string16& title) {
-  if (content_window_)
+  if (content_window_) {
+    content_window_->set_title(title);
     desktop_root_window_host_->SetWindowTitle(title);
+  }
 }
 
 void DesktopNativeWidgetAura::SetWindowIcons(const gfx::ImageSkia& window_icon,
