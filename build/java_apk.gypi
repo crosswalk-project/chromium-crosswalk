@@ -120,6 +120,7 @@
       ],
     },
     'apk_package_native_libs_dir': '<(apk_package_native_libs_dir)',
+    'package_native_libs%': 1,
   },
   # Pass the jar path to the apk's "fake" jar target.  This would be better as
   # direct_dependent_settings, but a variable set by a direct_dependent_settings
@@ -570,6 +571,15 @@
     {
       'action_name': 'ant_package_<(_target_name)',
       'message': 'Packaging <(_target_name).',
+      'variables': {
+        'conditions': [
+          ['package_native_libs == 1', {
+            'native_lib_arg': '-DNATIVE_LIBS_DIR=<(apk_package_native_libs_dir)',
+          }, {
+            'native_lib_arg': '-DNATIVE_LIBS_DIR=<(apk_package_native_libs_dir)/path/not/exist',
+          }],
+        ],
+      },
       'inputs': [
         '<(DEPTH)/build/android/ant/apk-package.xml',
         '<(DEPTH)/build/android/gyp/util/build_utils.py',
@@ -589,7 +599,7 @@
         '-DANDROID_SDK_ROOT=<(android_sdk_root)',
         '-DAPK_NAME=<(apk_name)',
         '-DCONFIGURATION_NAME=<(CONFIGURATION_NAME)',
-        '-DNATIVE_LIBS_DIR=<(apk_package_native_libs_dir)',
+        '<(native_lib_arg)',
         '-DOUT_DIR=<(intermediate_dir)',
         '-DSOURCE_DIR=<(source_dir)',
         '-DUNSIGNED_APK_PATH=<(unsigned_apk_path)',
