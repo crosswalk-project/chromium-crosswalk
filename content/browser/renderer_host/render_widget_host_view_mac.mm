@@ -1688,7 +1688,22 @@ void RenderWidgetHostViewMac::GotSoftwareFrame() {
     else {
       if (compositing_iosurface_ &&
           compositing_iosurface_->HasIOSurface()) {
-        compositing_iosurface_->ClearDrawable();
+        if (allow_overlapping_views_) {
+          // If overlapping views are allowed, then don't unbind the context
+          // from the view (that is, don't call clearDrawble -- just delete the
+          // texture an IOSurface). Rather, let it sit behind the software frame
+          // that will be put up in front. This will prevent transparent
+          // flashes.
+          // http://crbug.com/154531
+          compositing_iosurface_->UnrefIOSurface();
+        } else {
+          // If overlapping views are not allowed, then the window will not be
+          // transparent, so there are no concerns about transparent flashes.
+          // It is necessary that clearDrawable be called in this situation,
+          // e.g, for content shell.
+          // http://crbug.com/178408
+          compositing_iosurface_->ClearDrawable();
+        }
       }
     }
   }
