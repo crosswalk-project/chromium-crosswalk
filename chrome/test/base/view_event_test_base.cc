@@ -20,6 +20,7 @@
 
 #if defined(USE_ASH)
 #include "ash/shell.h"
+#include "ash/test/test_session_state_delegate.h"
 #include "ash/test/test_shell_delegate.h"
 #endif
 
@@ -110,7 +111,11 @@ void ViewEventTestBase::SetUp() {
   chromeos::CrasAudioHandler::InitializeForTesting();
   chromeos::PowerManagerHandler::Initialize();
 #endif
-  ash::Shell::CreateInstance(new ash::test::TestShellDelegate());
+  ash::test::TestShellDelegate* shell_delegate =
+      new ash::test::TestShellDelegate();
+  ash::Shell::CreateInstance(shell_delegate);
+  shell_delegate->test_session_state_delegate()
+      ->SetActiveUserSessionStarted(true);
   context = ash::Shell::GetPrimaryRootWindow();
 #endif
 #elif defined(USE_AURA)
