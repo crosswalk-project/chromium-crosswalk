@@ -44,7 +44,6 @@ ChildProcess::ChildProcess()
     : ref_count_(0),
       shutdown_event_(true, false),
       io_thread_("Chrome_ChildIOThread") {
-  DCHECK(!child_process_);
   child_process_ = this;
 
   base::StatisticsRecorder::Initialize();
@@ -61,8 +60,6 @@ ChildProcess::ChildProcess()
 }
 
 ChildProcess::~ChildProcess() {
-  DCHECK(child_process_ == this);
-
   // Signal this event before destroying the child process.  That way all
   // background threads can cleanup.
   // For example, in the renderer the RenderThread instances will be able to
