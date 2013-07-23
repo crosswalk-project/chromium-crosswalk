@@ -2064,31 +2064,30 @@ HostResolverImpl::Key HostResolverImpl::GetEffectiveKeyForRequest(
   AddressFamily effective_address_family = info.address_family();
 
   if (info.address_family() == ADDRESS_FAMILY_UNSPECIFIED) {
-    if (ipv6_probe_monitoring_) {
-      base::TimeTicks start_time = base::TimeTicks::Now();
-      // Google DNS address.
-      const uint8 kIPv6Address[] =
-          { 0x20, 0x01, 0x48, 0x60, 0x48, 0x60, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x88, 0x88 };
-      IPAddressNumber address(kIPv6Address,
-                              kIPv6Address + arraysize(kIPv6Address));
-      bool rv6 = IsGloballyReachable(address);
+    base::TimeTicks start_time = base::TimeTicks::Now();
+    // Google DNS address.
+    const uint8 kIPv6Address[] =
+        { 0x20, 0x01, 0x48, 0x60, 0x48, 0x60, 0x00, 0x00,
+          0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x88, 0x88 };
+    bool rv6 = IsGloballyReachable(
+        IPAddressNumber(kIPv6Address, kIPv6Address + arraysize(kIPv6Address)));
 
-      UMA_HISTOGRAM_TIMES("Net.IPv6ConnectDuration",
-                          base::TimeTicks::Now() - start_time);
-      if (rv6) {
-        UMA_HISTOGRAM_BOOLEAN("Net.IPv6ConnectSuccessMatch",
-            default_address_family_ == ADDRESS_FAMILY_UNSPECIFIED);
-      } else {
-        UMA_HISTOGRAM_BOOLEAN("Net.IPv6ConnectFailureMatch",
-            default_address_family_ != ADDRESS_FAMILY_UNSPECIFIED);
-
-        effective_address_family = ADDRESS_FAMILY_IPV4;
-        effective_flags |= HOST_RESOLVER_DEFAULT_FAMILY_SET_DUE_TO_NO_IPV6;
-      }
+    UMA_HISTOGRAM_TIMES("Net.IPv6ConnectDuration",
+                        base::TimeTicks::Now() - start_time);
+    if (rv6) {
+      UMA_HISTOGRAM_BOOLEAN("Net.IPv6ConnectSuccessMatch",
+          default_address_family_ == ADDRESS_FAMILY_UNSPECIFIED);
     } else {
-      effective_address_family = default_address_family_;
+      UMA_HISTOGRAM_BOOLEAN("Net.IPv6ConnectFailureMatch",
+          default_address_family_ != ADDRESS_FAMILY_UNSPECIFIED);
     }
+  }
+
+  if (effective_address_family == ADDRESS_FAMILY_UNSPECIFIED &&
+      default_address_family_ != ADDRESS_FAMILY_UNSPECIFIED) {
+    effective_address_family = default_address_family_;
+    if (ipv6_probe_monitoring_)
+      effective_flags |= HOST_RESOLVER_DEFAULT_FAMILY_SET_DUE_TO_NO_IPV6;
   }
 
   return Key(info.hostname(), effective_address_family, effective_flags);
