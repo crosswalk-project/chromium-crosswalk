@@ -1232,6 +1232,9 @@ void RenderWidgetHostViewAura::CopyFromCompositingSurfaceToVideoFrame(
                               region_in_frame.y() & ~1,
                               region_in_frame.width() & ~1,
                               region_in_frame.height() & ~1);
+  if (region_in_frame.IsEmpty())
+    return;
+
   ImageTransportFactory* factory = ImageTransportFactory::GetInstance();
   GLHelper* gl_helper = factory->GetGLHelper();
   if (!gl_helper) {
@@ -1244,6 +1247,8 @@ void RenderWidgetHostViewAura::CopyFromCompositingSurfaceToVideoFrame(
   gfx::Rect src_subrect_in_pixel =
       ConvertRectToPixel(current_surface_->device_scale_factor(),
                          src_subrect_in_gl);
+  if (src_subrect_in_pixel.IsEmpty())
+    return;
 
   if (!yuv_readback_pipeline_ ||
       yuv_readback_pipeline_->scaler()->SrcSize() != current_surface_->size() ||
