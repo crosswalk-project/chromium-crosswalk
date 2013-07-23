@@ -1001,6 +1001,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     cc::switches::kBackgroundColorInsteadOfCheckerboard,
     cc::switches::kCompositeToMailbox,
     cc::switches::kDisableColorEstimator,
+    cc::switches::kDisableCompositedAntialiasing,
     cc::switches::kDisableImplSidePainting,
     cc::switches::kDisableThreadedAnimation,
     cc::switches::kEnableImplSidePainting,
