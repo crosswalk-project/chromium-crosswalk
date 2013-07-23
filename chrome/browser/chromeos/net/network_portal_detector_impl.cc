@@ -202,6 +202,8 @@ void NetworkPortalDetectorImpl::DisableLazyDetection() {
   if (!lazy_detection_enabled())
     return;
   lazy_detection_enabled_ = false;
+  if (attempt_count_ == kMaxRequestAttempts && IsPortalCheckPending())
+    CancelPortalDetection();
   VLOG(1) << "Lazy detection mode disabled.";
 }
 
