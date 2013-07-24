@@ -71,6 +71,10 @@ void SetContentCommandLineFlags(int max_render_process_count,
   parsed_command_line->AppendSwitch(switches::kEnableFixedLayout);
   parsed_command_line->AppendSwitch(switches::kEnableViewport);
 
+  // Disable anti-aliasing.
+  parsed_command_line->AppendSwitch(
+      cc::switches::kDisableCompositedAntialiasing);
+
   if (!plugin_descriptor.empty()) {
     parsed_command_line->AppendSwitchNative(
       switches::kRegisterPepperPlugins, plugin_descriptor);
