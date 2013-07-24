@@ -18,10 +18,13 @@
 #include "ipc/ipc_sender.h"
 #include "ui/base/animation/animation_delegate.h"
 #include "ui/base/animation/slide_animation.h"
+#include "ui/base/events/event.h"
 #include "ui/base/gtk/gtk_signal.h"
 #include "ui/base/gtk/gtk_signal_registrar.h"
 #include "ui/base/gtk/owned_widget_gtk.h"
+#include "ui/base/touch/touch_factory_x11.h"
 #include "ui/base/x/active_window_watcher_x_observer.h"
+#include "ui/base/x/valuators.h"
 #include "ui/gfx/native_widget_types.h"
 #include "ui/gfx/point.h"
 #include "ui/gfx/rect.h"
@@ -30,6 +33,11 @@
 
 typedef struct _GtkClipboard GtkClipboard;
 typedef struct _GtkSelectionData GtkSelectionData;
+typedef union _XEvent XEvent;
+
+namespace WebKit {
+class WebTouchEvent;
+}
 
 namespace content {
 class GtkIMContextWrapper;
@@ -334,6 +342,43 @@ class CONTENT_EXPORT RenderWidgetHostViewGtk
   scoped_ptr<BrowserAccessibilityManager> browser_accessibility_manager_;
 
   ui::GtkSignalRegistrar signals_;
+
+  class WebTouchState {
+   public:
+    explicit WebTouchState(const RenderWidgetHostViewGtk* view);
+
+    // Updates the current touchpoint state with the supplied touches.
+    // Touches will be consumed only if they are of the same type (e.g. down,
+    // up, move). Returns the number of consumed touches.
+    void UpdateTouchPoints(XEvent* xev);
+
+    // Marks all active touchpoints as released.
+    bool ReleaseTouchPoints();
+
+    // The contained WebTouchEvent.
+    const WebKit::WebTouchEvent& touch_event() { return touch_event_; }
+
+    // Returns if any touches are modified in the event.
+    bool is_changed() { return touch_event_.changedTouchesLength != 0; }
+
+   private:
+    // Adds a touch point or returns NULL if there's not enough space.
+    WebKit::WebTouchPoint* AddTouchPoint(XEvent* xev);
+
+    // Copy details from a native event to an existing WebTouchPoint
+    void UpdateTouchPoint(WebKit::WebTouchPoint* touch_point,
+                          XEvent* xev);
+
+    WebKit::WebTouchEvent touch_event_;
+    const RenderWidgetHostViewGtk* view_;
+
+    DISALLOW_COPY_AND_ASSIGN(WebTouchState);
+  };
+
+  // The touch-state. Its touch-points are updated as necessary. A new
+  // touch-point is added from an XI_TouchBegin event, and a touch-point
+  // is removed from the list on an XI_TouchEnd event.
+  WebTouchState touch_state_;
 };
 
 }  // namespace content
