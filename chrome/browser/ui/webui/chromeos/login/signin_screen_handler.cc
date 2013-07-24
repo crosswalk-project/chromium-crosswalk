@@ -1429,8 +1429,8 @@ void SigninScreenHandler::HandleOpenProxySettings() {
 
 void SigninScreenHandler::HandleLoginVisible(const std::string& source) {
   TRACE_EVENT_ASYNC_END0("ui", "ShowLoginWebUI", this);
-  LOG(INFO) << "Login WebUI >> LoginVisible, source: " << source << ", "
-            << "webui_visible_: " << webui_visible_;
+  LOG(WARNING) << "Login WebUI >> loginVisible, src: " << source << ", "
+               << "webui_visible_: " << webui_visible_;
   if (!webui_visible_) {
     // There might be multiple messages from OOBE UI so send notifications after
     // the first one only.
