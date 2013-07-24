@@ -93,11 +93,17 @@ void MediaSourceDelegate::Destroy() {
   update_network_state_cb_.Reset();
   media_source_.reset();
   proxy_ = NULL;
-
   demuxer_ = NULL;
-  if (chunk_demuxer_)
-    chunk_demuxer_->Stop(
-        BIND_TO_RENDER_LOOP(&MediaSourceDelegate::OnDemuxerStopDone));
+
+  weak_this_.InvalidateWeakPtrs();
+  DCHECK(!weak_this_.HasWeakPtrs());
+
+  if (chunk_demuxer_) {
+    // The callback OnDemuxerStopDone() owns |this| and will delete it when
+    // called. Hence using base::Unretained(this) is safe here.
+    chunk_demuxer_->Stop(base::Bind(&MediaSourceDelegate::OnDemuxerStopDone,
+                                    base::Unretained(this)));
+  }
 }
 
 void MediaSourceDelegate::InitializeMediaSource(
@@ -114,8 +120,8 @@ void MediaSourceDelegate::InitializeMediaSource(
   chunk_demuxer_.reset(new media::ChunkDemuxer(
       BIND_TO_RENDER_LOOP(&MediaSourceDelegate::OnDemuxerOpened),
       BIND_TO_RENDER_LOOP_1(&MediaSourceDelegate::OnNeedKey, ""),
-      base::Bind(&MediaSourceDelegate::OnAddTextTrack,
-                 base::Unretained(this)),
+      // WeakPtrs can only bind to methods without return values.
+      base::Bind(&MediaSourceDelegate::OnAddTextTrack, base::Unretained(this)),
       base::Bind(&LogMediaSourceError, media_log_)));
   chunk_demuxer_->Initialize(this,
       BIND_TO_RENDER_LOOP(&MediaSourceDelegate::OnDemuxerInitDone));
@@ -237,6 +243,8 @@ void MediaSourceDelegate::OnBufferReady(
   DCHECK(status == DemuxerStream::kAborted ||
          index < params->access_units.size());
   bool is_audio = stream->type() == DemuxerStream::AUDIO;
+  DCHECK(demuxer_);
+
   if (status != DemuxerStream::kAborted &&
       index >= params->access_units.size()) {
     LOG(ERROR) << "The internal state inconsistency onBufferReady: "
@@ -327,10 +335,11 @@ void MediaSourceDelegate::OnDemuxerError(
     update_network_state_cb_.Run(PipelineErrorToNetworkState(status));
 }
 
-void MediaSourceDelegate::OnDemuxerInitDone(
-    media::PipelineStatus status) {
+void MediaSourceDelegate::OnDemuxerInitDone media::PipelineStatus status) {
   DVLOG(1) << "MediaSourceDelegate::OnDemuxerInitDone(" << status << ") : "
            << player_id_;
+  DCHECK(demuxer_);
+
   if (status != media::PIPELINE_OK) {
     OnDemuxerError(status);
     return;
