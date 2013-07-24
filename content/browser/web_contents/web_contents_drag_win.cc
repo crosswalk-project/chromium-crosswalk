@@ -18,6 +18,7 @@
 #include "base/utf_string_conversions.h"
 #include "content/browser/download/drag_download_file.h"
 #include "content/browser/download/drag_download_util.h"
+#include "content/browser/renderer_host/render_widget_host_view_win.h"
 #include "content/browser/web_contents/web_drag_dest_win.h"
 #include "content/browser/web_contents/web_drag_source_win.h"
 #include "content/browser/web_contents/web_drag_utils_win.h"
@@ -51,6 +52,8 @@ bool run_do_drag_drop = true;
 HHOOK msg_hook = NULL;
 DWORD drag_out_thread_id = 0;
 bool mouse_up_received = false;
+// True if the drag-drop is initiated by touch event.
+bool touch_initiated_drag_drop = false;
 
 LRESULT CALLBACK MsgFilterProc(int code, WPARAM wparam, LPARAM lparam) {
   if (code == base::MessagePumpForUI::kMessageFilterCode &&
@@ -58,18 +61,28 @@ LRESULT CALLBACK MsgFilterProc(int code, WPARAM wparam, LPARAM lparam) {
     MSG* msg = reinterpret_cast<MSG*>(lparam);
     // We do not care about WM_SYSKEYDOWN and WM_SYSKEYUP because when ALT key
     // is pressed down on drag-and-drop, it means to create a link.
-    if (msg->message == WM_MOUSEMOVE || msg->message == WM_LBUTTONUP ||
-        msg->message == WM_KEYDOWN || msg->message == WM_KEYUP) {
+    if ((!touch_initiated_drag_drop && msg->message == WM_LBUTTONUP) ||
+        (touch_initiated_drag_drop && msg->message == WM_RBUTTONUP) ||
+        msg->message == WM_MOUSEMOVE || msg->message == WM_KEYDOWN ||
+        msg->message == WM_KEYUP) {
       // Forward the message from the UI thread to the drag-and-drop thread.
       PostThreadMessage(drag_out_thread_id,
                         msg->message,
                         msg->wParam,
                         msg->lParam);
 
-      // If the left button is up, we do not need to forward the message any
-      // more.
-      if (msg->message == WM_LBUTTONUP || !(GetKeyState(VK_LBUTTON) & 0x8000))
-        mouse_up_received = true;
+      if (!touch_initiated_drag_drop) {
+        // If the left button is up, we do not need to forward the message
+        // any more.
+        if (msg->message == WM_LBUTTONUP || !(GetKeyState(VK_LBUTTON) & 0x8000))
+          mouse_up_received = true;
+      } else {
+        // In case of touch-initiated drag, we need to take care of right
+        // mouse up event since a mouse right button down event is triggered
+        // programmatically for DoDragDrop running.
+        if (msg->message == WM_RBUTTONUP || !(GetKeyState(VK_RBUTTON) & 0x8000))
+          mouse_up_received = true;
+      }
 
       return TRUE;
     }
@@ -161,7 +174,21 @@ void WebContentsDragWin::StartDragging(const WebDropData& drop_data,
                                        const gfx::Vector2d& image_offset) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
 
-  drag_source_ = new WebDragSource(source_window_, web_contents_);
+  RenderWidgetHostViewWin* rwhv =
+      static_cast<RenderWidgetHostViewWin*>(
+          web_contents_->GetRenderWidgetHostView());
+
+  ui::DragDropTypes::DragEventSource event_source;
+  if (rwhv->in_long_press_gesture()) {
+    event_source = ui::DragDropTypes::DRAG_EVENT_SOURCE_TOUCH;
+    touch_initiated_drag_drop = true;
+  }
+  else {
+    event_source = ui::DragDropTypes::DRAG_EVENT_SOURCE_MOUSE;
+    touch_initiated_drag_drop = false;
+  }
+
+  drag_source_ = new WebDragSource(source_window_, web_contents_, event_source);
 
   const GURL& page_url = web_contents_->GetURL();
   const std::string& page_encoding = web_contents_->GetEncoding();
@@ -315,6 +342,16 @@ bool WebContentsDragWin::DoDragging(const WebDropData& drop_data,
                                     const gfx::Vector2d& image_offset) {
   ui::OSExchangeData data;
 
+  RenderWidgetHostViewWin* rwhv =
+      static_cast<RenderWidgetHostViewWin*>(
+          web_contents_->GetRenderWidgetHostView());
+  // If RWHV has a valid long press gesture, since DoDragDrop will run into
+  // itself loop and start a dragging session if and only if a mouse button
+  // is down and then moves, so we need to programmatically send out
+  // mouse down event and adjust the cursor position for DoDragDrop.
+  if (rwhv->in_long_press_gesture())
+    SendMouseEventForTouchDnD();
+
   if (!drop_data.download_metadata.empty()) {
     PrepareDragForDownload(drop_data, &data, page_url, page_encoding);
 
@@ -411,6 +448,46 @@ void WebContentsDragWin::CloseThread() {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
 
   drag_drop_thread_.reset();
+}
+
+void WebContentsDragWin::SendMouseEventForTouchDnD() {
+  static const int kMaxAbsoluteCoordinate = 65535;
+
+  RenderWidgetHostViewWin* rwhv =
+      static_cast<RenderWidgetHostViewWin*>(
+          web_contents_->GetRenderWidgetHostView());
+
+  if (!rwhv)
+    return;
+
+  gfx::Point last_touch_position = rwhv->GetLastTouchEventLocation();
+  gfx::Screen* screen = gfx::Screen::GetScreenFor(rwhv->GetNativeView());
+  gfx::Display display = screen->GetDisplayNearestPoint(last_touch_position);
+  int screen_width = display.size().width();
+  int screen_height = display.size().height();
+
+  // Map the screen coordinate to the normalized absolute coordinate.
+  int absolute_x =
+      last_touch_position.x() * kMaxAbsoluteCoordinate / screen_width;
+  int absolute_y =
+      last_touch_position.y() * kMaxAbsoluteCoordinate / screen_height;
+
+  // Send MOUSEEVENTF_RIGHTDOWN event followed by MOUSEEVENTF_MOVE event.
+  // The reason why not to merge these 2 mouse events into one is, we don't
+  // want DoDragDrop to get mouse event firstly which lead to drop the drag
+  // source. Once a touch point is removed from screen after long press,
+  // a MOUSEEVENTF_RIGHTUP event will be sent out, so we send the down event
+  // paired with it to complete DoDragDrop session.
+  INPUT input = { 0 };
+  input.type = INPUT_MOUSE;
+  input.mi.dwFlags = MOUSEEVENTF_RIGHTDOWN | MOUSEEVENTF_ABSOLUTE;
+  input.mi.dx = absolute_x;
+  input.mi.dy = absolute_y;
+  ::SendInput(1, &input, sizeof(input));
+
+  // Send MOUSEEVENTF_MOVE input event to set cursor to the right position.
+  input.mi.dwFlags = MOUSEEVENTF_MOVE | MOUSEEVENTF_ABSOLUTE;
+  ::SendInput(1, &input, sizeof(input));
 }
 
 void WebContentsDragWin::OnWaitForData() {

@@ -6,7 +6,14 @@
 
 namespace ui {
 
-DragSourceWin::DragSourceWin() : cancel_drag_(false) {
+DragSourceWin::DragSourceWin()
+    : cancel_drag_(false),
+      event_source_(DragDropTypes::DRAG_EVENT_SOURCE_MOUSE) {
+}
+
+DragSourceWin::DragSourceWin(DragDropTypes::DragEventSource event_source)
+    : cancel_drag_(false),
+      event_source_(event_source) {
 }
 
 HRESULT DragSourceWin::QueryContinueDrag(BOOL escape_pressed, DWORD key_state) {
@@ -18,7 +25,12 @@ HRESULT DragSourceWin::QueryContinueDrag(BOOL escape_pressed, DWORD key_state) {
     return DRAGDROP_S_CANCEL;
   }
 
-  if (!(key_state & MK_LBUTTON)) {
+  // On Windows, the touch-initiated drag-drop is driven by mouse right down
+  // event programmatically.
+  if ((event_source_ == DragDropTypes::DRAG_EVENT_SOURCE_MOUSE &&
+      !(key_state & MK_LBUTTON)) ||
+      (event_source_ == DragDropTypes::DRAG_EVENT_SOURCE_TOUCH &&
+      !(key_state && MK_RBUTTON))) {
     OnDragSourceDrop();
     return DRAGDROP_S_DROP;
   }

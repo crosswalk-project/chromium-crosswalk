@@ -410,7 +410,8 @@ RenderWidgetHostViewWin::RenderWidgetHostViewWin(RenderWidgetHost* widget)
       pointer_down_context_(false),
       last_touch_location_(-1, -1),
       touch_events_enabled_(false),
-      gesture_recognizer_(ui::GestureRecognizer::Create(this)) {
+      gesture_recognizer_(ui::GestureRecognizer::Create(this)),
+      in_long_press_gesture_(false) {
   render_widget_host_->SetView(this);
   registrar_.Add(this,
                  NOTIFICATION_RENDERER_PROCESS_TERMINATED,
@@ -1746,6 +1747,12 @@ LRESULT RenderWidgetHostViewWin::OnMouseEvent(UINT message, WPARAM wparam,
   TRACE_EVENT0("browser", "RenderWidgetHostViewWin::OnMouseEvent");
   handled = TRUE;
 
+  // Invalidate the long press gesture once mouse up event is received.
+  // On Windows 8, a mouse up event gets triggered once a touch point is
+  // removed from screen.
+  if (message == WM_RBUTTONUP)
+    in_long_press_gesture_ = false;
+
   if (message == WM_MOUSELEAVE)
     ignore_mouse_movement_ = true;
 
@@ -2820,6 +2827,10 @@ bool RenderWidgetHostViewWin::ForwardGestureEventToRenderer(
         CreateFlingCancelEvent(gesture->time_stamp().InSecondsF()));
   }
   render_widget_host_->ForwardGestureEvent(web_gesture);
+
+  if (web_gesture.type == WebKit::WebGestureEvent::GestureLongPress)
+    in_long_press_gesture_ = true;
+
   return true;
 }
 

@@ -29,7 +29,9 @@ class WebDragSource : public ui::DragSourceWin,
                       public NotificationObserver {
  public:
   // Create a new DragSource for a given HWND and WebContents.
-  WebDragSource(gfx::NativeWindow source_wnd, WebContents* web_contents);
+  WebDragSource(gfx::NativeWindow source_wnd,
+                WebContents* web_contents,
+                ui::DragDropTypes::DragEventSource event_source);
   virtual ~WebDragSource();
 
   // NotificationObserver implementation.
@@ -56,6 +58,8 @@ class WebDragSource : public ui::DragSourceWin,
   // OnDragSourceDrop schedules its main work to be done after IDropTarget::Drop
   // by posting a task to this function.
   void DelayedOnDragSourceDrop();
+
+  void CancelLongPressGestureIfNeeded();
 
   // Keep a reference to the window so we can translate the cursor position.
   gfx::NativeWindow source_wnd_;

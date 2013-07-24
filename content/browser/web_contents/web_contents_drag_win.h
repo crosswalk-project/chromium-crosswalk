@@ -91,6 +91,9 @@ class CONTENT_EXPORT WebContentsDragWin
   void EndDragging();
   void CloseThread();
 
+  // Programmatically send mouse down event for touch-initiated drag and drop.
+  void SendMouseEventForTouchDnD();
+
   // For debug check only. Access only on drag-and-drop thread.
   base::PlatformThreadId drag_drop_thread_id_;
 
