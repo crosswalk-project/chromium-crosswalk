@@ -10,6 +10,7 @@
 #include "chrome/browser/android/chrome_web_contents_delegate_android.h"
 #include "chrome/browser/android/content_view_util.h"
 #include "chrome/browser/android/dev_tools_server.h"
+#include "chrome/browser/android/field_trial_helper.h"
 #include "chrome/browser/android/intent_helper.h"
 #include "chrome/browser/android/provider/chrome_browser_provider.h"
 #include "chrome/browser/android/tab_android.h"
@@ -59,6 +60,7 @@ static base::android::RegistrationMethod kChromeRegisteredMethods[] = {
     RegisterChromeWebContentsDelegateAndroid },
   { "ContentViewUtil", RegisterContentViewUtil },
   { "DevToolsServer", RegisterDevToolsServer },
+  { "FieldTrialHelper", RegisterFieldTrialHelper },
   { "IntentHelper", RegisterIntentHelper },
   { "JavascriptAppModalDialog",
     JavascriptAppModalDialogAndroid::RegisterJavascriptAppModalDialog },
