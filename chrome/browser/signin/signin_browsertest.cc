@@ -224,7 +224,7 @@ IN_PROC_BROWSER_TEST_F(SigninBrowserTest, SigninSkipForNowAndGoBack) {
   // OneClickSigninHelper initiates immediately a navigation to the NTP.
   // Thus, we expect the visible URL to be the NTP.
   EXPECT_EQ(skip_url, web_contents->GetLastCommittedURL());
-  EXPECT_EQ(ntp_url, web_contents->GetVisibleURL());
+  EXPECT_EQ(ntp_url, web_contents->GetActiveURL());
 
   content::WindowedNotificationObserver observer(
       content::NOTIFICATION_LOAD_STOP,
