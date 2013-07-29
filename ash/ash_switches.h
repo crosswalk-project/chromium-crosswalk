@@ -38,6 +38,7 @@ ASH_EXPORT extern const char kAshDisableDragAndDropAppListToLauncher[];
 #if defined(OS_CHROMEOS)
 ASH_EXPORT extern const char kAshDisableSoftwareMirroring[];
 ASH_EXPORT extern const char kAshDisableUsbChargerNotification[];
+ASH_EXPORT extern const char kAshEnableAudioDeviceMenu[];
 #endif
 ASH_EXPORT extern const char kAshEnableAudioDeviceMenu[];
 ASH_EXPORT extern const char kAshEnableAdvancedGestures[];
@@ -47,6 +48,9 @@ ASH_EXPORT extern const char kAshEnableDockedWindows[];
 ASH_EXPORT extern const char kAshEnableMemoryMonitor[];
 #endif
 ASH_EXPORT extern const char kAshEnableImmersiveFullscreen[];
+#if defined(OS_CHROMEOS)
+ASH_EXPORT extern const char kAshEnableNewAudioHandler[];
+#endif
 ASH_EXPORT extern const char kAshEnableOak[];
 ASH_EXPORT extern const char kAshEnableStickyEdges[];
 ASH_EXPORT extern const char kAshEnableTrayDragging[];
