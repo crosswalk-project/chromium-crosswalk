@@ -11,6 +11,7 @@
 #include "base/message_pump_aurax11.h"
 #include "base/stringprintf.h"
 #include "base/utf_string_conversions.h"
+#include "ui/aura/client/aura_constants.h"
 #include "ui/aura/client/screen_position_client.h"
 #include "ui/aura/client/user_action_client.h"
 #include "ui/aura/focus_manager.h"
@@ -232,6 +233,7 @@ aura::RootWindow* DesktopRootWindowHostX11::InitRootWindow(
   root_window_->SetLayoutManager(new DesktopLayoutManager(root_window_));
   root_window_->SetProperty(kViewsWindowForRootWindow, content_window_);
   root_window_->SetProperty(kHostForRootWindow, this);
+  root_window_->SetProperty(aura::client::kShowStateKey, params.show_state);
   root_window_host_delegate_ = root_window_;
 
   // If we're given a parent, we need to mark ourselves as transient to another
@@ -719,6 +721,13 @@ void DesktopRootWindowHostX11::Show() {
     // asynchronous.
     base::MessagePumpAuraX11::Current()->BlockUntilWindowMapped(xwindow_);
     window_mapped_ = true;
+
+    // In some window managers, the window state change only takes effect after
+    // the window gets mapped.
+    ui::WindowShowState show_state =
+        root_window_->GetProperty(aura::client::kShowStateKey);
+    if (show_state == ui::SHOW_STATE_FULLSCREEN)
+      SetFullscreen(true);
   }
 }
 
