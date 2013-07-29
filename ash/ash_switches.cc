@@ -78,12 +78,13 @@ const char kAshDisableSoftwareMirroring[] = "ash-disable-software-mirroring";
 // Disable the notification when a low-power USB charger is connected.
 const char kAshDisableUsbChargerNotification[] =
     "ash-disable-usb-charger-notification";
+#endif
 
-// TODO(jamescook): Remove this unused flag. It exists only to allow the
-// "Enable audio device menu" about:flags item to have the tri-state
-// default/enabled/disabled UI.
-const char kAshEnableAudioDeviceMenu[] = "ash-enable-audio-device-menu";
-#endif  // defined(OS_CHROMEOS)
+// Extend the status tray volume item to allow the user to choose an audio
+// input and output device.
+const char kAshEnableAudioDeviceMenu[] =
+    "ash-enable-audio-device-menu";
+
 // Enable advanced gestures (e.g. for window management).
 const char kAshEnableAdvancedGestures[] = "ash-enable-advanced-gestures";
 
@@ -100,13 +101,6 @@ const char kAshEnableImmersiveFullscreen[] = "ash-enable-immersive-fullscreen";
 #if defined(OS_LINUX)
 // Enable memory monitoring.
 const char kAshEnableMemoryMonitor[] = "ash-enable-memory-monitor";
-#endif
-
-#if defined(OS_CHROMEOS)
-// TODO(jamescook): Remove this unused flag. It exists only to allow the
-// "Enable new audio handler" about:flags item to have the tri-state
-// default/enabled/disabled UI.
-const char kAshEnableNewAudioHandler[] = "ash-enable-new-audio-handler";
 #endif
 
 // Enables the Oak tree viewer.
