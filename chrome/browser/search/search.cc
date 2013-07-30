@@ -31,6 +31,10 @@
 #include "grit/generated_resources.h"
 #include "ui/base/l10n/l10n_util.h"
 
+#if defined(OS_MACOSX)
+#include "base/mac/mac_util.h"
+#endif
+
 namespace chrome {
 
 namespace {
@@ -255,6 +259,11 @@ uint64 EmbeddedSearchPageVersion() {
   // No server-side changes if the local-only Instant Extended is enabled.
   if (IsLocalOnlyInstantExtendedAPIEnabled())
     return kEmbeddedPageVersionDisabled;
+
+#if defined(OS_MACOSX)
+  if (base::mac::IsOSLionOrEarlier())
+    return kEmbeddedPageVersionDisabled;
+#endif
 
   // Check the command-line/about:flags setting first, which should have
   // precedence and allows the trial to not be reported (if it's never queried).
