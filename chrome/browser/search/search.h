@@ -53,6 +53,9 @@ extern const int kDisableStartMargin;
 // Returns whether the Instant Extended API is enabled.
 bool IsInstantExtendedAPIEnabled();
 
+// Returns whether the suggest is enabled for the given |profile|.
+bool IsSuggestPrefEnabled(Profile* profile);
+
 // Returns the value to pass to the &espv CGI parameter when loading the
 // embedded search page from the user's default search provider. Will be
 // 0 if the Instant Extended API is not enabled, or if the local-only Instant
