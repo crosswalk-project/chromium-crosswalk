@@ -103,6 +103,11 @@ const char kAshEnableImmersiveFullscreen[] = "ash-enable-immersive-fullscreen";
 const char kAshEnableMemoryMonitor[] = "ash-enable-memory-monitor";
 #endif
 
+// TODO(jamescook): Remove this unused flag. It exists only to allow the
+// "Enable audio device menu" about:flags item to have the tri-state
+// default/enabled/disabled UI.
+const char kAshEnableNewAudioHandler[] = "ash-enable-new-audio-handler";
+
 // Enables the Oak tree viewer.
 const char kAshEnableOak[] = "ash-enable-oak";
 

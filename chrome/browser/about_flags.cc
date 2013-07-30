@@ -1219,7 +1219,8 @@ const Experiment kExperiments[] = {
     IDS_FLAGS_ASH_ENABLE_NEW_AUDIO_HANDLER_NAME,
     IDS_FLAGS_ASH_ENABLE_NEW_AUDIO_HANDLER_DESCRIPTION,
     kOsCrOS,
-    ENABLE_DISABLE_VALUE_TYPE("", ash::switches::kAshDisableNewAudioHandler)
+    ENABLE_DISABLE_VALUE_TYPE(ash::switches::kAshEnableNewAudioHandler,
+                              ash::switches::kAshDisableNewAudioHandler)
   },
   {
     "ash-audio-device-menu",
