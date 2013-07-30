@@ -601,7 +601,7 @@ bool SyncSetupHandler::PrepareSyncSetup() {
   // If the wizard is already visible, just focus that one.
   if (FocusExistingWizardIfPresent()) {
     if (!IsActiveLogin())
-      CloseOverlay();
+      CloseSyncSetup();
     return false;
   }
 
@@ -652,7 +652,7 @@ void SyncSetupHandler::RecordSignin() {
 }
 
 void SyncSetupHandler::OnDidClosePage(const ListValue* args) {
-  CloseOverlay();
+  CloseSyncSetup();
 }
 
 void SyncSetupHandler::SyncStartupFailed() {
@@ -661,7 +661,7 @@ void SyncSetupHandler::SyncStartupFailed() {
 
   // Just close the sync overlay (the idea is that the base settings page will
   // display the current err
-  CloseOverlay();
+  CloseSyncSetup();
 }
 
 void SyncSetupHandler::SyncStartupCompleted() {
@@ -680,7 +680,7 @@ void SyncSetupHandler::SigninFailed(const GoogleServiceAuthError& error) {
 #if defined(OS_CHROMEOS)
   // TODO(peria): Show error dialog for prompting sign in and out on
   // Chrome OS. http://crbug.com/128692
-  CloseOverlay();
+  CloseSyncSetup();
 #else
   last_signin_error_ = error;
 
@@ -713,7 +713,7 @@ void SyncSetupHandler::SigninSuccess() {
   // rather than forcing the user to go through sync configuration.
   if (!service || service->HasSyncSetupCompleted()) {
     RecordSignin();
-    CloseOverlay();
+    CloseSyncSetup();
   } else {
     DisplayConfigureSync(false, false);
   }
@@ -747,7 +747,7 @@ void SyncSetupHandler::HandleConfigure(const ListValue* args) {
   // If the sync engine has shutdown for some reason, just close the sync
   // dialog.
   if (!service || !service->sync_initialized()) {
-    CloseOverlay();
+    CloseSyncSetup();
     return;
   }
 
@@ -758,7 +758,7 @@ void SyncSetupHandler::HandleConfigure(const ListValue* args) {
   if (configuration.sync_nothing) {
     ProfileSyncService::SyncEvent(
         ProfileSyncService::STOP_FROM_ADVANCED_DIALOG);
-    CloseOverlay();
+    CloseSyncSetup();
     service->OnStopSyncingPermanently();
     service->SetSetupInProgress(false);
     return;
@@ -859,7 +859,7 @@ void SyncSetupHandler::HandleShowSetupUI(const ListValue* args) {
     // signin) or by directly navigating to settings/syncSetup
     // (http://crbug.com/229836). So just exit.
     DLOG(WARNING) << "Cannot display sync setup UI when not signed in";
-    CloseOverlay();
+    CloseSyncSetup();
     return;
   }
   OpenSyncSetup();
@@ -997,7 +997,7 @@ void SyncSetupHandler::OpenSyncSetup() {
   if (!GetSyncService()) {
     // This can happen if the user directly navigates to /settings/syncSetup.
     DLOG(WARNING) << "Cannot display sync UI when sync is disabled";
-    CloseOverlay();
+    CloseSyncSetup();
     return;
   }
 
@@ -1029,7 +1029,7 @@ void SyncSetupHandler::FocusUI() {
 
 void SyncSetupHandler::CloseUI() {
   DCHECK(IsActiveLogin());
-  CloseOverlay();
+  CloseSyncSetup();
 }
 
 #if !defined(OS_CHROMEOS)
@@ -1059,14 +1059,14 @@ void SyncSetupHandler::DidStopLoading(
           continue_url.ReplaceComponents(replacements)) {
     content::WebContentsObserver::Observe(NULL);
     active_gaia_signin_tab_ = NULL;
-    CloseOverlay();
+    CloseSyncSetup();
   }
 }
 
 void SyncSetupHandler::WebContentsDestroyed(
     content::WebContents* web_contents) {
   DCHECK(active_gaia_signin_tab_);
-  CloseOverlay();
+  CloseSyncSetup();
 }
 
 // Private member functions.
@@ -1098,9 +1098,4 @@ bool SyncSetupHandler::FocusExistingWizardIfPresent() {
 
 LoginUIService* SyncSetupHandler::GetLoginUIService() const {
   return LoginUIServiceFactory::GetForProfile(GetProfile());
-}
-
-void SyncSetupHandler::CloseOverlay() {
-  CloseSyncSetup();
-  web_ui()->CallJavascriptFunction("OptionsPage.closeOverlay");
 }

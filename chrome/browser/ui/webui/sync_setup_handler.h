@@ -172,10 +172,6 @@ class SyncSetupHandler : public options::OptionsPageUIHandler,
   // If a wizard already exists, focus it and return true.
   bool FocusExistingWizardIfPresent();
 
-  // Invokes the javascript call to close the setup overlay, and terminates the
-  // sync setup flow.
-  void CloseOverlay();
-
 #if !defined(OS_CHROMEOS)
   // When using web-flow, closes the Gaia page used to collection user
   // credentials.

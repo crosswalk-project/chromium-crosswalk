@@ -20,7 +20,7 @@ SyncSetupWebUITest.prototype = {
   /** @inheritDoc */
   preLoad: function() {
     this.makeAndRegisterMockHandler(['stopSyncing',
-                                     'SyncSetupDidClosePage',
+                                     'SyncSetupConfigure',
                                      'SyncSetupSubmitAuth',
                                      'SyncSetupConfigure',
                                      'SyncSetupPassphrase',
@@ -104,8 +104,8 @@ TEST_F('SyncSetupWebUITestAsync', 'DISABLED_VerifySignIn', function() {
             SyncSetupOverlay.showSuccessAndClose();
             expectEquals(loginSuccess, signInButton.value);
           }));
-  // The test completes after the asynchronous close.
-  this.mockHandler.expects(once()).SyncSetupDidClosePage().
+  // The test completes after the sync config is sent out.
+  this.mockHandler.expects(once()).SyncSetupConfigure(ANYTHING).
       will(callFunction(testDone));
 
   // Set the email & password, then sign in.
