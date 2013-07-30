@@ -41,7 +41,7 @@ class ExternalProcessImporterHost : public ImporterHost {
   ExternalProcessImporterClient* client_;
 
   // Information about a profile needed for importing.
-  const importer::SourceProfile* source_profile_;
+  importer::SourceProfile source_profile_;
 
   // Bitmask of items to be imported (see importer::ImportItem enum).
   uint16 items_;

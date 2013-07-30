@@ -11,7 +11,6 @@
 
 ExternalProcessImporterHost::ExternalProcessImporterHost()
     : client_(NULL),
-      source_profile_(NULL),
       items_(0),
       cancelled_(false),
       import_process_launched_(false) {
@@ -37,7 +36,7 @@ void ExternalProcessImporterHost::StartImportSettings(
 
   profile_ = target_profile;
   writer_ = writer;
-  source_profile_ = &source_profile;
+  source_profile_ = source_profile;
   items_ = items;
 
   if (!CheckForFirefoxLock(source_profile)) {
@@ -63,7 +62,7 @@ void ExternalProcessImporterHost::InvokeTaskIfDone() {
   InProcessImporterBridge* bridge =
       new InProcessImporterBridge(writer_.get(),
                                   weak_ptr_factory_.GetWeakPtr());
-  client_ = new ExternalProcessImporterClient(this, *source_profile_, items_,
+  client_ = new ExternalProcessImporterClient(this, source_profile_, items_,
                                               bridge);
   import_process_launched_ = true;
   client_->Start();
