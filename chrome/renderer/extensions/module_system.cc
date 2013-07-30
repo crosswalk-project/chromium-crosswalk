@@ -45,17 +45,9 @@ void Fatal(const std::string& extension_id, const std::string& message) {
   // Only crash web pages in dev channel.
   // Always crash extension processes, or when in single process mode (since
   // typically it's used to debug renderer crashes).
-  bool is_fatal = false;
-  const CommandLine* command_line = CommandLine::ForCurrentProcess();
-  if (command_line->HasSwitch(switches::kExtensionProcess) ||
-      command_line->HasSwitch(switches::kSingleProcess)) {
-    is_fatal = true;
-  } else {
-    // <= dev means dev, canary, and trunk.
-    is_fatal = Feature::GetCurrentChannel() <= chrome::VersionInfo::CHANNEL_DEV;
-  }
   std::string with_extension_id = PrependExtensionID(extension_id, message);
-  if (is_fatal)
+  // <= dev means dev, canary, and trunk.
+  if (Feature::GetCurrentChannel() <= chrome::VersionInfo::CHANNEL_DEV)
     console::Fatal(v8::Context::GetCalling(), with_extension_id);
   else
     console::Error(v8::Context::GetCalling(), with_extension_id);
