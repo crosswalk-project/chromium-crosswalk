@@ -46,4 +46,7 @@ public final class R {
     public static final class drawable {
         public static int color_picker_advanced_select_handle;
     }
+    public static final class color {
+        public static int color_picker_border_color;
+    }
 }
