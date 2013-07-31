@@ -19,6 +19,7 @@
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
 #include "base/time.h"
+#include "chrome/browser/extensions/extension_service.h"
 #include "chrome/browser/google/google_url_tracker.h"
 #include "chrome/browser/history/history_notifications.h"
 #include "chrome/browser/history/history_service.h"
@@ -36,6 +37,7 @@
 #include "chrome/common/chrome_notification_types.h"
 #include "chrome/common/chrome_switches.h"
 #include "chrome/common/env_vars.h"
+#include "chrome/common/extensions/api/omnibox/omnibox_handler.h"
 #include "chrome/common/pref_names.h"
 #include "chrome/common/url_constants.h"
 #include "content/public/browser/notification_service.h"
@@ -244,7 +246,51 @@ void LogDuplicatesHistogram(
   UMA_HISTOGRAM_COUNTS_100("Search.SearchEngineDuplicateCounts", num_dupes);
 }
 
+typedef std::vector<TemplateURLService::ExtensionKeyword> ExtensionKeywords;
+
+#if !defined(OS_ANDROID)
+// Extract all installed Omnibox Extensions.
+ExtensionKeywords GetExtensionKeywords(Profile* profile) {
+  DCHECK(profile);
+  ExtensionService* extension_service = profile->GetExtensionService();
+  DCHECK(extension_service);
+  const ExtensionSet* extensions = extension_service->extensions();
+  ExtensionKeywords extension_keywords;
+  for (ExtensionSet::const_iterator it = extensions->begin();
+       it != extensions->end(); ++it) {
+    const std::string& keyword = extensions::OmniboxInfo::GetKeyword(*it);
+    if (!keyword.empty()) {
+      extension_keywords.push_back(TemplateURLService::ExtensionKeyword(
+          (*it)->id(), (*it)->name(), keyword));
+    }
+  }
+  return extension_keywords;
+}
+#else
+// Extensions are not supported.
+ExtensionKeywords GetExtensionKeywords(Profile* profile) {
+  return ExtensionKeywords();
+}
+#endif
+
 }  // namespace
+
+
+// TemplateURLService::ExtensionKeyword ---------------------------------------
+
+TemplateURLService::ExtensionKeyword::ExtensionKeyword(
+    const std::string& id,
+    const std::string& name,
+    const std::string& keyword)
+    : extension_id(id),
+      extension_name(name),
+      extension_keyword(keyword) {
+}
+
+TemplateURLService::ExtensionKeyword::~ExtensionKeyword() {}
+
+
+// TemplateURLService::LessWithPrefix -----------------------------------------
 
 class TemplateURLService::LessWithPrefix {
  public:
@@ -268,6 +314,9 @@ class TemplateURLService::LessWithPrefix {
   }
 };
 
+
+// TemplateURLService ---------------------------------------------------------
+
 TemplateURLService::TemplateURLService(Profile* profile)
     : provider_map_(new SearchHostToURLsMap),
       profile_(profile),
@@ -281,7 +330,7 @@ TemplateURLService::TemplateURLService(Profile* profile)
       models_associated_(false),
       processing_syncer_changes_(false),
       pending_synced_default_search_(false),
-      dsp_change_origin_(DSP_CHANGE_NOT_SYNC) {
+      dsp_change_origin_(DSP_CHANGE_OTHER) {
   DCHECK(profile_);
   Init(NULL, 0);
 }
@@ -301,7 +350,7 @@ TemplateURLService::TemplateURLService(const Initializer* initializers,
       models_associated_(false),
       processing_syncer_changes_(false),
       pending_synced_default_search_(false),
-      dsp_change_origin_(DSP_CHANGE_NOT_SYNC) {
+      dsp_change_origin_(DSP_CHANGE_OTHER) {
   Init(initializers, count);
 }
 
@@ -542,14 +591,8 @@ void TemplateURLService::RegisterExtensionKeyword(
   DCHECK(loaded_);
 
   if (!GetTemplateURLForExtension(extension_id)) {
-    TemplateURLData data;
-    data.short_name = UTF8ToUTF16(extension_name);
-    data.SetKeyword(UTF8ToUTF16(keyword));
-    // This URL is not actually used for navigation. It holds the extension's
-    // ID, as well as forcing the TemplateURL to be treated as a search keyword.
-    data.SetURL(std::string(extensions::kExtensionScheme) + "://" +
-        extension_id + "/?q={searchTerms}");
-    Add(new TemplateURL(profile_, data));
+    ExtensionKeyword extension_url(extension_id, extension_name, keyword);
+    Add(CreateTemplateURLForExtension(extension_url));
   }
 }
 
@@ -667,30 +710,20 @@ TemplateURL* TemplateURLService::FindNewDefaultSearchProvider() {
   return FirstPotentialDefaultEngine(template_urls_);
 }
 
-void TemplateURLService::ResetNonExtensionURLs() {
+void TemplateURLService::ResetURLs() {
   // Can't clean DB if it hasn't been loaded.
   DCHECK(loaded());
+  DCHECK(service_);
   ClearDefaultProviderFromPrefs();
 
-  // Preserve all extension URLs, as they should not be reset.
-  TemplateURLVector entries_to_process;
-  for (TemplateURLVector::const_iterator i = template_urls_.begin();
-       i != template_urls_.end(); ++i) {
-    if (!(*i)->IsExtensionKeyword())
-      entries_to_process.push_back(*i);
-  }
+  TemplateURLVector entries_to_process = template_urls_;
   // Clear default provider to be able to delete it.
   default_search_provider_ = NULL;
   for (TemplateURLVector::const_iterator i = entries_to_process.begin();
        i != entries_to_process.end(); ++i)
     RemoveNoNotify(*i);
 
-  // Store the remaining engines in entries_to_process and merge them with
-  // prepopulated ones. NOTE: Because this class owns the pointers stored in
-  // |template_urls_|, the swap() call below means this function is taking
-  // ownership of all these pointers; see comments below.
   entries_to_process.clear();
-  entries_to_process.swap(template_urls_);
   provider_map_.reset(new SearchHostToURLsMap);
   UIThreadSearchTermsData search_terms_data(profile_);
   provider_map_->Init(TemplateURLVector(), search_terms_data);
@@ -705,21 +738,20 @@ void TemplateURLService::ResetNonExtensionURLs() {
                                        &default_search_provider,
                                        &new_resource_keyword_version,
                                        &pre_sync_deletes_);
-  // We don't want to pass any extension URLs to
-  // AddTemplateURLsAndSetupDefaultEngine(), since they were never removed
-  // from the model to begin with.
-  TemplateURLVector::iterator extensions(std::partition(
-      entries_to_process.begin(), entries_to_process.end(),
-      std::not1(std::mem_fun(&TemplateURL::IsExtensionKeyword))));
-  // Right now we own all pointers in |entries_to_process| (see above).
-  // AddTemplateURLsAndSetupDefaultEngine() will take ownership of all
-  // passed-in TemplateURLs (generally by passing them to AddNoNotify()). Any
-  // URLs we aren't going to pass to it have to be freed here.
-  STLDeleteContainerPointers(extensions, entries_to_process.end());
-  entries_to_process.erase(extensions, entries_to_process.end());
   // Setup search engines and a default one.
+  base::AutoReset<DefaultSearchChangeOrigin> change_origin(
+      &dsp_change_origin_, DSP_CHANGE_PROFILE_RESET);
   AddTemplateURLsAndSetupDefaultEngine(&entries_to_process,
                                        default_search_provider);
+
+  // Repopulate extension keywords.
+  std::vector<ExtensionKeyword> extension_keywords =
+      GetExtensionKeywords(profile());
+  for (size_t i = 0; i < extension_keywords.size(); ++i) {
+    TemplateURL* extension_url =
+        CreateTemplateURLForExtension(extension_keywords[i]);
+    AddNoNotify(extension_url, true);
+  }
 
   if (new_resource_keyword_version)
     service_->SetBuiltinKeywordVersion(new_resource_keyword_version);
@@ -1991,9 +2023,10 @@ void TemplateURLService::UpdateDefaultSearch() {
       base::AutoReset<DefaultSearchChangeOrigin> change_origin(
           &dsp_change_origin_, DSP_CHANGE_SYNC_NOT_MANAGED);
       pending_synced_default_search_ = false;
+      SetDefaultSearchProviderNoNotify(synced_default);
+    } else {
+      SetDefaultSearchProviderNoNotify(FindNewDefaultSearchProvider());
     }
-    SetDefaultSearchProviderNoNotify(synced_default ? synced_default :
-        FindNewDefaultSearchProvider());
   }
   NotifyObservers();
 }
@@ -2530,4 +2563,16 @@ void TemplateURLService::EnsureDefaultSearchProviderExists() {
           TemplateURLPrepopulateData::kMaxPrepopulatedEngineID);
     }
   }
+}
+
+TemplateURL* TemplateURLService::CreateTemplateURLForExtension(
+    const ExtensionKeyword& extension_keyword) const {
+  TemplateURLData data;
+  data.short_name = UTF8ToUTF16(extension_keyword.extension_name);
+  data.SetKeyword(UTF8ToUTF16(extension_keyword.extension_keyword));
+  // This URL is not actually used for navigation. It holds the extension's
+  // ID, as well as forcing the TemplateURL to be treated as a search keyword.
+  data.SetURL(std::string(extensions::kExtensionScheme) + "://" +
+      extension_keyword.extension_id + "/?q={searchTerms}");
+  return new TemplateURL(profile_, data);
 }
