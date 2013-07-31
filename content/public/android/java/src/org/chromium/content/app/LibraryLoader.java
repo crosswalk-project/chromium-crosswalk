@@ -41,6 +41,8 @@ public class LibraryLoader {
     // by calling nativeLibraryLoaded, which forwards to LibraryLoaded(...) in
     // library_loader_hooks.cc).
     private static boolean sInitialized = false;
+    
+    private static String altLibraryPath = null;
 
     // TODO(cjhopman): Remove this once it's unused.
     /**
@@ -48,6 +50,17 @@ public class LibraryLoader {
      */
     @Deprecated
     public static void setLibraryToLoad(String library) {
+    }
+
+    /**
+     * This method setup alternative path to load library.
+     * 
+     * @param altLibraryPath
+     */
+    public static void setAltLibraryPath(String altLibraryPath) {
+        if (!altLibraryPath.endsWith("/"))
+            altLibraryPath += "/";
+        LibraryLoader.altLibraryPath = altLibraryPath;
     }
 
     /**
@@ -102,7 +115,14 @@ public class LibraryLoader {
                 assert !sInitialized;
                 for (String sLibrary : NativeLibraries.libraries) {
                     Log.i(TAG, "loading: " + sLibrary);
-                    System.loadLibrary(sLibrary);
+                    try {
+                        System.loadLibrary(sLibrary);
+                    } catch (UnsatisfiedLinkError e) {
+                        if (altLibraryPath != null)
+                            System.load(altLibraryPath + "lib" + sLibrary + ".so");
+                        else
+                            throw e;
+                    }
                     Log.i(TAG, "loaded: " + sLibrary);
                 }
                 sLoaded = true;
