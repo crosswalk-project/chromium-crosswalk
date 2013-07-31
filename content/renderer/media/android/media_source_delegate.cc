@@ -229,8 +229,10 @@ void MediaSourceDelegate::ReadFromDemuxerStream(
     DemuxerStream* stream,
     MediaPlayerHostMsg_ReadFromDemuxerAck_Params* params,
     size_t index) {
-  stream->Read(BIND_TO_RENDER_LOOP_3(&MediaSourceDelegate::OnBufferReady,
-                                     stream, params, index));
+  DCHECK(!seeking_);
+  // DemuxerStream::Read() always returns the read callback asynchronously.
+  stream->Read(base::Bind(&MediaSourceDelegate::OnBufferReady,
+                          weak_this_.GetWeakPtr(), stream, params, index));
 }
 
 void MediaSourceDelegate::OnBufferReady(
@@ -239,9 +241,16 @@ void MediaSourceDelegate::OnBufferReady(
     size_t index,
     DemuxerStream::Status status,
     const scoped_refptr<media::DecoderBuffer>& buffer) {
-  DVLOG(1) << "MediaSourceDelegate::OnBufferReady() : " << player_id_;
-  DCHECK(status == DemuxerStream::kAborted ||
-         index < params->access_units.size());
+  DVLOG(1) << "OnBufferReady() : " << player_id_;
+
+  // No new OnReadFromDemuxer() will be called during seeking. So this callback
+  // must be from previous OnReadFromDemuxer() call and should be ignored.
+  if (seeking_) {
+     DVLOG(1) << "OnBufferReady(): Ignore previous read during seeking.";
+     params->access_units.clear();
+     return;
+  }
+
   bool is_audio = stream->type() == DemuxerStream::AUDIO;
   DCHECK(demuxer_);
 
