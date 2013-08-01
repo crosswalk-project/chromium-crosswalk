@@ -11,7 +11,6 @@
 #include "base/message_pump_aurax11.h"
 #include "base/stringprintf.h"
 #include "base/utf_string_conversions.h"
-#include "ui/aura/client/aura_constants.h"
 #include "ui/aura/client/screen_position_client.h"
 #include "ui/aura/client/user_action_client.h"
 #include "ui/aura/focus_manager.h"
@@ -144,7 +143,7 @@ ui::NativeTheme* DesktopRootWindowHost::GetNativeTheme(aura::Window* window) {
 
 void DesktopRootWindowHostX11::InitX11Window(
     const Widget::InitParams& params) {
-  unsigned long attribute_mask = CWBackPixmap;
+  unsigned long attribute_mask = CWBackPixmap; // NOLINT(*)
   XSetWindowAttributes swa;
   memset(&swa, 0, sizeof(swa));
   swa.background_pixmap = None;
@@ -168,7 +167,7 @@ void DesktopRootWindowHostX11::InitX11Window(
 
   // TODO(erg): Maybe need to set a ViewProp here like in RWHL::RWHL().
 
-  long event_mask = ButtonPressMask | ButtonReleaseMask | FocusChangeMask |
+  long event_mask = ButtonPressMask | ButtonReleaseMask | FocusChangeMask | // NOLINT(*)
                     KeyPressMask | KeyReleaseMask |
                     EnterWindowMask | LeaveWindowMask |
                     ExposureMask | VisibilityChangeMask |
@@ -236,7 +235,6 @@ aura::RootWindow* DesktopRootWindowHostX11::InitRootWindow(
   root_window_->SetLayoutManager(new DesktopLayoutManager(root_window_));
   root_window_->SetProperty(kViewsWindowForRootWindow, content_window_);
   root_window_->SetProperty(kHostForRootWindow, this);
-  root_window_->SetProperty(aura::client::kShowStateKey, params.show_state);
   root_window_host_delegate_ = root_window_;
 
   // If we're given a parent, we need to mark ourselves as transient to another
@@ -294,22 +292,7 @@ aura::RootWindow* DesktopRootWindowHostX11::InitRootWindow(
   // TODO(erg): Unify this code once the other consumer goes away.
   x11_window_event_filter_.reset(
       new X11WindowEventFilter(root_window_, activation_client_.get()));
-
-  // We reuse the |remove_standard_frame| in to tell if the window border is
-  // used. Note the |remove_standard_frame| is originally designed for
-  // Windows, see comments in ui/views/widget.h.
-  bool use_os_border = params.remove_standard_frame ? false : true;
-  x11_window_event_filter_->SetUseHostWindowBorders(use_os_border);
-
-  // DesktopRootWindowHost should handle the close event emitted by
-  // window manager, e.g. press close button.
-  //
-  // For a frameless window (not use os border), the custom frame
-  // view will draw the border and handle the close event by hit
-  // test.
-  if (use_os_border)
-    root_window_->AddRootWindowObserver(this);
-
+  x11_window_event_filter_->SetUseHostWindowBorders(false);
   desktop_native_widget_aura_->root_window_event_filter()->AddHandler(
       x11_window_event_filter_.get());
 
@@ -596,8 +579,7 @@ void DesktopRootWindowHostX11::SetAlwaysOnTop(bool always_on_top) {
 }
 
 void DesktopRootWindowHostX11::SetWindowTitle(const string16& title) {
-  XmbSetWMProperties(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str(), NULL,
-      NULL, 0, NULL, NULL, NULL);
+  XStoreName(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str());
 }
 
 void DesktopRootWindowHostX11::ClearNativeFocus() {
@@ -724,13 +706,6 @@ void DesktopRootWindowHostX11::Show() {
     // asynchronous.
     base::MessagePumpAuraX11::Current()->BlockUntilWindowMapped(xwindow_);
     window_mapped_ = true;
-
-    // In some window managers, the window state change only takes effect after
-    // the window gets mapped.
-    ui::WindowShowState show_state =
-        root_window_->GetProperty(aura::client::kShowStateKey);
-    if (show_state == ui::SHOW_STATE_FULLSCREEN)
-      SetFullscreen(true);
   }
 }
 
@@ -1033,13 +1008,17 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
       int num_coalesced = 0;
 
       switch (type) {
-        case ui::ET_TOUCH_MOVED:
-        case ui::ET_TOUCH_PRESSED:
-        case ui::ET_TOUCH_RELEASED: {
-          ui::TouchEvent touchev(xev);
-          root_window_host_delegate_->OnHostTouchEvent(&touchev);
-          break;
-        }
+        // case ui::ET_TOUCH_MOVED:
+        //   num_coalesced = CoalescePendingMotionEvents(xev, &last_event);
+        //   if (num_coalesced > 0)
+        //     xev = &last_event;
+        //   // fallthrough
+        // case ui::ET_TOUCH_PRESSED:
+        // case ui::ET_TOUCH_RELEASED: {
+        //   ui::TouchEvent touchev(xev);
+        //   root_window_host_delegate_->OnHostTouchEvent(&touchev);
+        //   break;
+        // }
         case ui::ET_MOUSE_MOVED:
         case ui::ET_MOUSE_DRAGGED:
         case ui::ET_MOUSE_PRESSED:
@@ -1180,11 +1159,11 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
       // Get our new window property state if the WM has told us its changed.
       ::Atom state = atom_cache_.GetAtom("_NET_WM_STATE");
 
-      std::vector< ::Atom> atom_list;
+      std::vector< ::Atom> atom_list; // NOLINT(*)
       if (xev->xproperty.atom == state &&
           ui::GetAtomArrayProperty(xwindow_, "_NET_WM_STATE", &atom_list)) {
         window_properties_.clear();
-        std::copy(atom_list.begin(), atom_list.end(),
+        std::copy(atom_list.begin(), atom_list.end(), // NOLINT(*)
                   inserter(window_properties_, window_properties_.begin()));
 
         // Now that we have different window properties, we may need to
@@ -1214,12 +1193,6 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
     }
   }
   return true;
-}
-
-void DesktopRootWindowHostX11::OnRootWindowHostCloseRequested(
-    const aura::RootWindow* root) {
-  DCHECK(root == root_window_);
-  Close();
 }
 
 ////////////////////////////////////////////////////////////////////////////////
