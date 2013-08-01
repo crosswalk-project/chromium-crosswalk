@@ -6,12 +6,14 @@
 #define UI_VIEWS_WIDGET_DESKTOP_AURA_DESKTOP_CURSOR_LOADER_UPDATER_AURAX11_H_
 
 #include "base/compiler_specific.h"
+#include "ui/views/views_export.h"
 #include "ui/views/widget/desktop_aura/desktop_cursor_loader_updater.h"
 
 namespace views {
 
 // Loads the subset of aura cursors that X11 doesn't provide.
-class DesktopCursorLoaderUpdaterAuraX11 : public DesktopCursorLoaderUpdater {
+class VIEWS_EXPORT DesktopCursorLoaderUpdaterAuraX11 :
+    public DesktopCursorLoaderUpdater {
  public:
   DesktopCursorLoaderUpdaterAuraX11();
   virtual ~DesktopCursorLoaderUpdaterAuraX11();
