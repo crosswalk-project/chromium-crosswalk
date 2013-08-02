@@ -71,8 +71,6 @@ class DeviceOAuth2TokenService : public OAuth2TokenService {
   bool refresh_token_is_valid_;
   int max_refresh_token_validation_retries_;
 
-  scoped_ptr<std::set<ValidatingConsumer*> > pending_validators_;
-
   // Cache the decrypted refresh token, so we only decrypt once.
   std::string refresh_token_;
   PrefService* local_state_;
