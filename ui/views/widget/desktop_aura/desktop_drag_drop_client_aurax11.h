@@ -31,6 +31,7 @@ class Point;
 }
 
 namespace ui {
+class DesktopSelectionProviderAuraX11;
 class DragSource;
 class DropTargetEvent;
 class OSExchangeData;
@@ -38,7 +39,6 @@ class RootWindow;
 }
 
 namespace views {
-class DesktopRootWindowHostX11;
 
 // Implements drag and drop on X11 for aura. On one side, this class takes raw
 // X11 events forwarded from DesktopRootWindowHostLinux, while on the other, it
@@ -48,7 +48,7 @@ class VIEWS_EXPORT DesktopDragDropClientAuraX11
       public aura::WindowObserver {
  public:
   DesktopDragDropClientAuraX11(
-      views::DesktopRootWindowHostX11* root_window_host,
+      ui::DesktopSelectionProviderAuraX11* provider,
       aura::RootWindow* root_window,
       Display* xdisplay,
       ::Window xwindow);
@@ -101,7 +101,7 @@ class VIEWS_EXPORT DesktopDragDropClientAuraX11
   // server.
   void SendXClientEvent(unsigned long xid, XEvent* xev);
 
-  views::DesktopRootWindowHostX11* root_window_host_;
+  ui::DesktopSelectionProviderAuraX11* selection_event_provider_;
   aura::RootWindow* root_window_;
 
   Display* xdisplay_;
