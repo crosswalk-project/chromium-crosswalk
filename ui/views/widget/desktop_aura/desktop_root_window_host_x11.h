@@ -14,7 +14,6 @@
 #include "base/memory/weak_ptr.h"
 #include "ui/aura/client/cursor_client.h"
 #include "ui/aura/root_window_host.h"
-#include "ui/aura/root_window_observer.h"
 #include "ui/base/cursor/cursor_loader_x11.h"
 #include "ui/base/dragdrop/desktop_selection_provider_aurax11.h"
 #include "ui/base/x/x11_atom_cache.h"
@@ -23,7 +22,6 @@
 #include "ui/views/widget/desktop_aura/desktop_root_window_host.h"
 
 namespace aura {
-class RootWindow;
 namespace client {
 class FocusClient;
 class ScreenPositionClient;
@@ -42,10 +40,9 @@ namespace corewm {
 class CursorManager;
 }
 
-class VIEWS_EXPORT DesktopRootWindowHostX11 :
+class VIEWS_EXPORT DesktopRootWindowHostX11 : // NOLINT(*)
     public DesktopRootWindowHost,
     public aura::RootWindowHost,
-    public aura::RootWindowObserver,
     public ui::DesktopSelectionProviderAuraX11,
     public base::MessageLoop::Dispatcher {
  public:
@@ -182,10 +179,6 @@ class VIEWS_EXPORT DesktopRootWindowHostX11 :
   // Overridden from Dispatcher:
   virtual bool Dispatch(const base::NativeEvent& event) OVERRIDE;
 
-  // Overriden from aura::RootWindowObserver:
-  virtual void OnRootWindowHostCloseRequested(
-      const aura::RootWindow* root) OVERRIDE;
-
   base::WeakPtrFactory<DesktopRootWindowHostX11> close_widget_factory_;
 
   // X11 things
@@ -208,7 +201,7 @@ class VIEWS_EXPORT DesktopRootWindowHostX11 :
   bool focus_when_shown_;
 
   // The window manager state bits.
-  std::set< ::Atom> window_properties_;
+  std::set< ::Atom> window_properties_; // NOLINT(*)
 
   // We are owned by the RootWindow, but we have to have a back pointer to it.
   aura::RootWindow* root_window_;

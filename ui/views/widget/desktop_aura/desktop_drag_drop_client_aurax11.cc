@@ -17,7 +17,6 @@
 #include "ui/base/dragdrop/os_exchange_data_provider_aurax11.h"
 #include "ui/base/events/event.h"
 #include "ui/base/x/x11_util.h"
-#include "ui/views/widget/desktop_aura/desktop_root_window_host_x11.h"
 
 using aura::client::DragDropDelegate;
 using ui::OSExchangeData;
@@ -174,11 +173,11 @@ bool DesktopDragDropClientAuraX11::X11DragContext::Dispatch(
 ///////////////////////////////////////////////////////////////////////////////
 
 DesktopDragDropClientAuraX11::DesktopDragDropClientAuraX11(
-    views::DesktopRootWindowHostX11* root_window_host,
+    ui::DesktopSelectionProviderAuraX11* provider,
     aura::RootWindow* root_window,
     Display* xdisplay,
     ::Window xwindow)
-    : root_window_host_(root_window_host),
+    : selection_event_provider_(provider),
       root_window_(root_window),
       xdisplay_(xdisplay),
       xwindow_(xwindow),
@@ -286,7 +285,7 @@ void DesktopDragDropClientAuraX11::OnXdndDrop(
         aura::client::GetDragDropDelegate(target_window_);
     if (delegate) {
       ui::OSExchangeData data(new ui::OSExchangeDataProviderAuraX11(
-          root_window_host_, xwindow_, current_context_->targets()));
+          selection_event_provider_, xwindow_, current_context_->targets()));
       ui::DropTargetEvent event(data,
                                 target_window_location_,
                                 target_window_root_location_,
@@ -374,7 +373,7 @@ void DesktopDragDropClientAuraX11::DragTranslate(
     return;
 
   data->reset(new OSExchangeData(new ui::OSExchangeDataProviderAuraX11(
-      root_window_host_, xwindow_, current_context_->targets())));
+      selection_event_provider_, xwindow_, current_context_->targets())));
   gfx::Point location = root_location;
   aura::Window::ConvertPointToTarget(root_window_, target_window_, &location);
 
