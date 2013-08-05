@@ -565,7 +565,7 @@ public class ContentVideoView extends FrameLayout implements MediaPlayerControl,
     }
 
     public void exitFullscreen(boolean relaseMediaPlayer) {
-        destroyContentVideoView();
+        destroyContentVideoView(false);
         if (mNativeContentVideoView != 0) {
             nativeExitFullscreen(mNativeContentVideoView, relaseMediaPlayer);
             mNativeContentVideoView = 0;
@@ -585,12 +585,15 @@ public class ContentVideoView extends FrameLayout implements MediaPlayerControl,
      * To exit fullscreen, use exitFullscreen in Java.
      */
     @CalledByNative
-    private void destroyContentVideoView() {
+    private void destroyContentVideoView(boolean nativeViewDestroyed) {
         if (mVideoSurfaceView != null) {
             mClient.onDestroyContentVideoView();
             removeMediaController();
             removeSurfaceView();
             setVisibility(View.GONE);
+        }
+        if (nativeViewDestroyed) {
+            mNativeContentVideoView = 0;
         }
     }
 
