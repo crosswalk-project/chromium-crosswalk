@@ -8,6 +8,7 @@
 #include <string>
 
 #include "build/build_config.h"
+#include "content/common/content_export.h"
 
 #if defined(OS_WIN)
 #include <windows.h>
@@ -22,7 +23,7 @@ namespace content {
 class ContentMainDelegate;
 
 // This class is responsible for content initialization, running and shutdown.
-class ContentMainRunner {
+class CONTENT_EXPORT ContentMainRunner {
  public:
   virtual ~ContentMainRunner() {}
 
