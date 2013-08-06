@@ -99,8 +99,6 @@ const char* GetDangerTypeString(content::DownloadDangerType danger_type) {
       return "UNCOMMON_CONTENT";
     case content::DOWNLOAD_DANGER_TYPE_DANGEROUS_HOST:
       return "DANGEROUS_HOST";
-    case content::DOWNLOAD_DANGER_TYPE_POTENTIALLY_UNWANTED:
-      return "POTENTIALLY_UNWANTED";
     default:
       // Don't return a danger type string if it is NOT_DANGEROUS or
       // MAYBE_DANGEROUS_CONTENT.
@@ -163,9 +161,7 @@ DictionaryValue* CreateDownloadItemValue(
                download_item->GetDangerType() ==
                    content::DOWNLOAD_DANGER_TYPE_UNCOMMON_CONTENT ||
                download_item->GetDangerType() ==
-                   content::DOWNLOAD_DANGER_TYPE_DANGEROUS_HOST ||
-               download_item->GetDangerType() ==
-                   content::DOWNLOAD_DANGER_TYPE_POTENTIALLY_UNWANTED);
+                   content::DOWNLOAD_DANGER_TYPE_DANGEROUS_HOST);
         const char* danger_type_value =
             GetDangerTypeString(download_item->GetDangerType());
         file_value->SetString("danger_type", danger_type_value);

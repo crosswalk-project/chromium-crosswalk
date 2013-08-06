@@ -417,10 +417,6 @@ class DownloadProtectionService::CheckClientDownloadRequest
       } else if (response.verdict() == ClientDownloadResponse::DANGEROUS_HOST) {
         reason = REASON_DOWNLOAD_DANGEROUS_HOST;
         result = DANGEROUS_HOST;
-      } else if (
-          response.verdict() == ClientDownloadResponse::POTENTIALLY_UNWANTED) {
-        reason = REASON_DOWNLOAD_POTENTIALLY_UNWANTED;
-        result = POTENTIALLY_UNWANTED;
       } else {
         LOG(DFATAL) << "Unknown download response verdict: "
                     << response.verdict();
@@ -868,12 +864,8 @@ void DownloadProtectionService::RequestFinished(
 void DownloadProtectionService::ShowDetailsForDownload(
     const content::DownloadItem& item,
     content::PageNavigator* navigator) {
-  GURL learn_more_url(chrome::kDownloadScanningLearnMoreURL);
-  if (item.GetDangerType() ==
-      content::DOWNLOAD_DANGER_TYPE_POTENTIALLY_UNWANTED)
-    learn_more_url = GURL(chrome::kDownloadPotentiallyUnwantedLearnMoreURL);
   navigator->OpenURL(
-      content::OpenURLParams(learn_more_url,
+      content::OpenURLParams(GURL(chrome::kDownloadScanningLearnMoreURL),
                              content::Referrer(),
                              NEW_FOREGROUND_TAB,
                              content::PAGE_TRANSITION_LINK,

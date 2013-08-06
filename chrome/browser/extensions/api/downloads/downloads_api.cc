@@ -107,7 +107,6 @@ const char kDangerFile[] = "file";
 const char kDangerKey[] = "danger";
 const char kDangerSafe[] = "safe";
 const char kDangerUncommon[] = "uncommon";
-const char kDangerUnwanted[] = "unwanted";
 const char kDangerAccepted[] = "accepted";
 const char kDangerHost[] = "host";
 const char kDangerUrl[] = "url";
@@ -148,7 +147,6 @@ const char* kDangerStrings[] = {
   kDangerUncommon,
   kDangerAccepted,
   kDangerHost,
-  kDangerUnwanted
 };
 COMPILE_ASSERT(arraysize(kDangerStrings) == content::DOWNLOAD_DANGER_TYPE_MAX,
                download_danger_type_enum_changed);

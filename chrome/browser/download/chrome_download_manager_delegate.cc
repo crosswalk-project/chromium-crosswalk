@@ -493,28 +493,23 @@ void ChromeDownloadManagerDelegate::CheckClientDownloadDone(
   if (item->GetDangerType() == content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS ||
       item->GetDangerType() ==
       content::DOWNLOAD_DANGER_TYPE_MAYBE_DANGEROUS_CONTENT) {
-    content::DownloadDangerType danger_type =
-        content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS;
     switch (result) {
       case DownloadProtectionService::SAFE:
         // Do nothing.
         break;
       case DownloadProtectionService::DANGEROUS:
-        danger_type = content::DOWNLOAD_DANGER_TYPE_DANGEROUS_CONTENT;
+        item->OnContentCheckCompleted(
+            content::DOWNLOAD_DANGER_TYPE_DANGEROUS_CONTENT);
         break;
       case DownloadProtectionService::UNCOMMON:
-        danger_type = content::DOWNLOAD_DANGER_TYPE_UNCOMMON_CONTENT;
+        item->OnContentCheckCompleted(
+            content::DOWNLOAD_DANGER_TYPE_UNCOMMON_CONTENT);
         break;
       case DownloadProtectionService::DANGEROUS_HOST:
-        danger_type = content::DOWNLOAD_DANGER_TYPE_DANGEROUS_HOST;
-        break;
-      case DownloadProtectionService::POTENTIALLY_UNWANTED:
-        danger_type = content::DOWNLOAD_DANGER_TYPE_POTENTIALLY_UNWANTED;
+        item->OnContentCheckCompleted(
+            content::DOWNLOAD_DANGER_TYPE_DANGEROUS_HOST);
         break;
     }
-
-    if (danger_type != content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS)
-      item->OnContentCheckCompleted(danger_type);
   }
 
   SafeBrowsingState* state = static_cast<SafeBrowsingState*>(
