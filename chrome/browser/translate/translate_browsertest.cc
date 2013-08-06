@@ -72,7 +72,9 @@ class TranslateBrowserTest : public InProcessBrowserTest {
   DISALLOW_COPY_AND_ASSIGN(TranslateBrowserTest);
 };
 
-IN_PROC_BROWSER_TEST_F(TranslateBrowserTest, Translate) {
+// TODO(toyoshim): This test should be changed to work in an isolated world.
+// See also http://crbug.com/164547 .
+IN_PROC_BROWSER_TEST_F(TranslateBrowserTest, DISABLED_Translate) {
   ASSERT_TRUE(test_server()->Start());
 
   content::WebContents* web_contents =
