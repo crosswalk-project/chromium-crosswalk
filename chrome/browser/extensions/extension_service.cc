@@ -773,6 +773,15 @@ bool ExtensionService::UninstallExtension(
     UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEvent",
                               EXTERNAL_EXTENSION_UNINSTALLED,
                               EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    if (extensions::ManifestURL::UpdatesFromGallery(extension.get())) {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventWebstore",
+                                EXTERNAL_EXTENSION_UNINSTALLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    } else {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventNonWebstore",
+                                EXTERNAL_EXTENSION_UNINSTALLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    }
   }
   UMA_HISTOGRAM_ENUMERATION("Extensions.UninstallType",
                             extension->GetType(), 100);
@@ -893,6 +902,15 @@ void ExtensionService::EnableExtension(const std::string& extension_id) {
     UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEvent",
                               EXTERNAL_EXTENSION_REENABLED,
                               EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    if (extensions::ManifestURL::UpdatesFromGallery(extension)) {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventWebstore",
+                                EXTERNAL_EXTENSION_REENABLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    } else {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventNonWebstore",
+                                EXTERNAL_EXTENSION_REENABLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    }
     AcknowledgeExternalExtension(extension->id());
   }
 
@@ -1809,6 +1827,17 @@ void ExtensionService::UpdateExternalExtensionAlert() {
         UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEvent",
                                   EXTERNAL_EXTENSION_IGNORED,
                                   EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+        if (extensions::ManifestURL::UpdatesFromGallery(extension)) {
+          UMA_HISTOGRAM_ENUMERATION(
+              "Extensions.ExternalExtensionEventWebstore",
+              EXTERNAL_EXTENSION_IGNORED,
+              EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+        } else {
+          UMA_HISTOGRAM_ENUMERATION(
+              "Extensions.ExternalExtensionEventNonWebstore",
+              EXTERNAL_EXTENSION_IGNORED,
+              EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+        }
         return;
       }
       if (is_first_run_)
@@ -2520,6 +2549,15 @@ void ExtensionService::FinishInstallation(const Extension* extension) {
     UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEvent",
                               EXTERNAL_EXTENSION_INSTALLED,
                               EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    if (extensions::ManifestURL::UpdatesFromGallery(extension)) {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventWebstore",
+                                EXTERNAL_EXTENSION_INSTALLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    } else {
+      UMA_HISTOGRAM_ENUMERATION("Extensions.ExternalExtensionEventNonWebstore",
+                                EXTERNAL_EXTENSION_INSTALLED,
+                                EXTERNAL_EXTENSION_BUCKET_BOUNDARY);
+    }
   }
 
   // Check extensions that may have been delayed only because this shared module
