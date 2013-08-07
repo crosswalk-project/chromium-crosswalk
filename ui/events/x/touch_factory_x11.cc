@@ -8,6 +8,7 @@
 #include <X11/extensions/XInput.h>
 #include <X11/extensions/XInput2.h>
 #include <X11/extensions/XIproto.h>
+#include <string>
 
 #include "base/basictypes.h"
 #include "base/command_line.h"
@@ -89,10 +90,17 @@ void TouchFactory::UpdateDeviceList(Display* display) {
   // old version of query function (XListInputDevices) is used instead.
   // If XInput2 is not supported, this will return null (with count of -1) so
   // we assume there cannot be any touch devices.
-  // With XI2.1 or older, we allow only single touch devices.
+  // With XI2.1 or older, we allow only single touch devices unless
+  // |enable_xi2_mt| is turned on.
   XDeviceList dev_list =
       DeviceListCacheX::GetInstance()->GetXDeviceList(display);
+#if !defined(ENABLE_XI21_MT)
   Atom xi_touchscreen = XInternAtom(display, XI_TOUCHSCREEN, false);
+#else
+  // Certain Samsung and Intel devices support multi-touch with XInput2.1
+  // using the device type "MULTITOUCHSCREEN".
+  Atom xi_touchscreen = XInternAtom(display, "MULTITOUCHSCREEN", false);
+#endif
   for (int i = 0; i < dev_list.count; i++) {
     if (dev_list[i].type == xi_touchscreen) {
       touch_device_lookup_[dev_list[i].id] = true;

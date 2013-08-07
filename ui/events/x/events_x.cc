@@ -551,6 +551,12 @@ void ClearTouchIdIfReleased(const base::NativeEvent& xev) {
 
 int GetTouchId(const base::NativeEvent& xev) {
   double slot = 0;
+#if defined(ENABLE_XI21_MT)
+  // If using XInput2.1 for multi-touch support, the slot is tracked by the
+  // source id of each device event.
+  XIDeviceEvent* xievent = static_cast<XIDeviceEvent*>(xev->xcookie.data);
+  slot = xievent->sourceid;
+#endif
   ui::DeviceDataManager* manager = ui::DeviceDataManager::GetInstance();
   double tracking_id;
   if (!manager->GetEventData(
