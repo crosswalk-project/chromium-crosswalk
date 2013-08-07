@@ -93,24 +93,24 @@ void TouchFactory::UpdateDeviceList(Display* display) {
   // old version of query function (XListInputDevices) is used instead.
   // If XInput2 is not supported, this will return null (with count of -1) so
   // we assume there cannot be any touch devices.
-  // With XI2.1 or older, we allow only single touch devices unless 
-  // |enable_xi2_mt| is turned on.
+  // With XI2.1 or older, we allow only single touch devices unless
+  // |enable_tizen21_mt| is turned on.
   XDeviceList dev_list =
       DeviceListCacheX::GetInstance()->GetXDeviceList(display);
   for (int i = 0; i < dev_list.count; i++) {
     if (dev_list[i].type) {
       XScopedString devtype(XGetAtomName(display, dev_list[i].type));
-#if !defined(ENABLE_XI21_MT)
+#if !defined(ENABLE_TIZEN21_MT)
       if (devtype.string() && !strcmp(devtype.string(), XI_TOUCHSCREEN)) {
 #else
-      // Certain Samsung and Intel devices support multi-touch with XInput2.1
-      // using the device type "MULTITOUCHSCREEN".
+      // Certain Samsung and Intel devices support multi-touch with using the
+      // device type "MULTITOUCHSCREEN".
       if (devtype.string() && !strcmp(devtype.string(), "MULTITOUCHSCREEN")) {
 #endif
         touch_device_lookup_[dev_list[i].id] = true;
         // We still think it as a single touch device although it is of
-        // 'MULTITOUCHSCREEN' device type since one touch screen device is
-        // only for one touch point.
+        // 'MULTITOUCHSCREEN' device type since a touch event is simulated by
+        // a normal mouse event from one 'touchscreen' device.
         touch_device_list_[dev_list[i].id] = false;
         touch_device_available_ = true;
       }
