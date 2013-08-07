@@ -103,9 +103,8 @@ void TouchFactory::UpdateDeviceList(Display* display) {
 #if !defined(ENABLE_XI21_MT)
       if (devtype.string() && !strcmp(devtype.string(), XI_TOUCHSCREEN)) {
 #else
-      // If XInput2.1 based multi-touch is enabled, the device type name is
-      // "MULTITOUCHSCREEN", which is specific to Tizen 2.1 case, not defined
-      // by XInput extension.
+      // Certain Samsung and Intel devices support multi-touch with XInput2.1
+      // using the device type "MULTITOUCHSCREEN".
       if (devtype.string() && !strcmp(devtype.string(), "MULTITOUCHSCREEN")) {
 #endif
         touch_device_lookup_[dev_list[i].id] = true;
