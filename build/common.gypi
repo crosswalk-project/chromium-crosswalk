@@ -387,8 +387,14 @@
       # For example, use_xi2_mt=2 means XI2.2 or above version is required.
       'use_xi2_mt%': 2,
 
-      # Enable multi-touch support based on XInput2.1 in which one touch screen
-      # device for one touch point.
+      # Enable multitouch support with XInput2.1. When it is enabled, unlike
+      # XInput2.2, there are no XI_TouchBegin, XI_TouchUpdate and XI_TouchEnd
+      # raw touch events emitted from touch device. Instead, the touch event is
+      # simulated by a normal mouse event, since X server maintains multiple
+      # virtual touch screen devices as floating device, each of them can
+      # simulate a touch event tracked by the device id of event source, as a
+      # result, multi-touch support works with these simulated touch events
+      # dispatched from floating device.
       'enable_xi21_mt%': 0,
 
       # Use of precompiled headers on Windows.
