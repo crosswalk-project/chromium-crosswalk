@@ -591,7 +591,7 @@ int GetTouchId(const base::NativeEvent& xev) {
   ui::TouchFactory* factory = ui::TouchFactory::GetInstance();
   XIDeviceEvent* xievent = static_cast<XIDeviceEvent*>(xev->xcookie.data);
 #if defined(ENABLE_XI21_MT)
-  // If using XInput2.1 for multi-touch support, the slot is tracked by the
+  // When using XInput2.1 multi-touch support, the slot is tracked by the
   // source id of each device event.
   slot = xievent->sourceid;
 #endif
