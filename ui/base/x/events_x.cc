@@ -590,6 +590,11 @@ int GetTouchId(const base::NativeEvent& xev) {
   double slot = 0;
   ui::TouchFactory* factory = ui::TouchFactory::GetInstance();
   XIDeviceEvent* xievent = static_cast<XIDeviceEvent*>(xev->xcookie.data);
+#if defined(ENABLE_XI21_MT)
+  // If using XInput2.1 for multi-touch support, the slot is tracked by the
+  // source id of each device event.
+  slot = xievent->sourceid;
+#endif
   if (!factory->IsMultiTouchDevice(xievent->sourceid)) {
     // TODO(sad): Come up with a way to generate touch-ids for multi-touch
     // events when touch-events are generated from a single-touch device.
