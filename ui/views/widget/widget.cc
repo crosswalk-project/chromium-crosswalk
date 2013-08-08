@@ -505,6 +505,10 @@ void Widget::CenterWindow(const gfx::Size& size) {
 }
 
 void Widget::SetBoundsConstrained(const gfx::Rect& bounds) {
+#if defined(OS_TIZEN_MOBILE)
+  // A mobile app does not need to constrain bounds.
+  return;
+#endif
   gfx::Rect work_area =
       gfx::Screen::GetScreenFor(GetNativeView())->GetDisplayNearestPoint(
           bounds.origin()).work_area();
