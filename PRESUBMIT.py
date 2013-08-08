@@ -177,6 +177,7 @@ _VALID_OS_MACROS = (
     'OS_OPENBSD',
     'OS_POSIX',
     'OS_SOLARIS',
+    'OS_TIZEN',
     'OS_WIN',
 )
 
