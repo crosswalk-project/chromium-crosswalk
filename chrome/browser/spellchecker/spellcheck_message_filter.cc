@@ -95,7 +95,8 @@ void SpellCheckMessageFilter::OnNotifyChecked(const string16& word,
   Profile* profile = Profile::FromBrowserContext(host->GetBrowserContext());
   SpellcheckService* spellcheck_service =
       SpellcheckServiceFactory::GetForProfile(profile);
-  DCHECK(spellcheck_service);
+  if (!spellcheck_service)
+    return;
   if (spellcheck_service->GetMetrics())
     spellcheck_service->GetMetrics()->RecordCheckedWordStats(word, misspelled);
 }
@@ -139,7 +140,8 @@ void SpellCheckMessageFilter::OnTextCheckComplete(
     const std::vector<SpellCheckResult>& results) {
   SpellcheckService* spellcheck =
       SpellcheckServiceFactory::GetForRenderProcessId(render_process_id_);
-  DCHECK(spellcheck);
+  if (!spellcheck)
+    return;
   std::vector<SpellCheckResult> results_copy = results;
   spellcheck->GetFeedbackSender()->OnSpellcheckResults(
       &results_copy, render_process_id_, text, markers);
