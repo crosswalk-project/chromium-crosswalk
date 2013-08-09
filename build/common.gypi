@@ -387,16 +387,6 @@
       # For example, use_xi2_mt=2 means XI2.2 or above version is required.
       'use_xi2_mt%': 2,
 
-      # Enable multitouch support with XInput2.1. When it is enabled, unlike
-      # XInput2.2, there are no XI_TouchBegin, XI_TouchUpdate and XI_TouchEnd
-      # raw touch events emitted from touch device. Instead, the touch event is
-      # simulated by a normal mouse event, since X server maintains multiple
-      # virtual touch screen devices as floating device, each of them can
-      # simulate a touch event tracked by the device id of event source, as a
-      # result, multi-touch support works with these simulated touch events
-      # dispatched from floating device.
-      'enable_xi21_mt%': 0,
-
       # Use of precompiled headers on Windows.
       #
       # This variable may be explicitly set to 1 (enabled) or 0
@@ -826,7 +816,6 @@
     'enable_hidpi%': '<(enable_hidpi)',
     'enable_touch_ui%': '<(enable_touch_ui)',
     'use_xi2_mt%':'<(use_xi2_mt)',
-    'enable_xi21_mt%':'<(enable_xi21_mt)',
     'file_manager_extension%': '<(file_manager_extension)',
     'image_loader_extension%': '<(image_loader_extension)',
     'fastbuild%': '<(fastbuild)',
@@ -2024,9 +2013,6 @@
       }],
       ['use_xi2_mt!=0 and use_x11==1', {
         'defines': ['USE_XI2_MT=<(use_xi2_mt)'],
-      }],
-      ['enable_xi21_mt==1', {
-        'defines': ['ENABLE_XI21_MT=1'],
       }],
       ['file_manager_extension==1', {
         'defines': ['FILE_MANAGER_EXTENSION=1'],
