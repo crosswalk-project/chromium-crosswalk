@@ -684,8 +684,6 @@ void Dispatcher::AddOrRemoveBindingsForContext(ChromeV8Context* context) {
       }
       if (runtime_is_available)
         RegisterBinding("runtime", context);
-      else
-        DeregisterBinding("runtime", context);
       break;
     }
 
