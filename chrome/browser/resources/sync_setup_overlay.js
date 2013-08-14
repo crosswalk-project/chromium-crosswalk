@@ -545,7 +545,8 @@ cr.define('options', function() {
         this.useEncryptEverything_ = args.encryptAllData;
 
         // Determine whether to display the 'OK, sync everything' confirmation
-        // dialog or the advanced sync settings dialog.
+        // dialog or the advanced sync settings dialog, and assign focus to the
+        // OK button, or to the passphrase field if a passphrase is required.
         this.usePassphrase_ = args.usePassphrase;
         this.keystoreEncryptionEnabled_ = args.keystoreEncryptionEnabled;
         if (args.showSyncEverythingPage == false || this.usePassphrase_ ||
@@ -554,8 +555,13 @@ cr.define('options', function() {
                           DataTypeSelection.SYNC_EVERYTHING :
                           DataTypeSelection.CHOOSE_WHAT_TO_SYNC;
           this.showCustomizePage_(args, index);
+          if (args.showPassphrase)
+            $('passphrase').focus();
+          else
+            $('choose-datatypes-ok').focus();
         } else {
           this.showSyncEverythingPage_();
+          $('confirm-everything-ok').focus();
         }
       }
     },
@@ -594,8 +600,6 @@ cr.define('options', function() {
 
       if (!this.useEncryptEverything_ && !this.usePassphrase_)
         $('basic-encryption-option').checked = true;
-
-      $('confirm-everything-ok').focus();
     },
 
     /**
@@ -658,7 +662,6 @@ cr.define('options', function() {
           !(args.usePassphrase && args.passphraseFailed);
 
       $('sync-passphrase-warning').hidden = false;
-      $('passphrase').focus();
     },
 
     /**
@@ -689,10 +692,6 @@ cr.define('options', function() {
       $('sync-select-datatypes').selectedIndex = index;
       this.setDataTypeCheckboxesEnabled_(
           index == DataTypeSelection.CHOOSE_WHAT_TO_SYNC);
-
-      // The passphrase input may need to take over focus from the OK button, so
-      // set focus before that logic.
-      $('choose-datatypes-ok').focus();
 
       if (args && args.showPassphrase) {
         this.showPassphraseContainer_(args);
