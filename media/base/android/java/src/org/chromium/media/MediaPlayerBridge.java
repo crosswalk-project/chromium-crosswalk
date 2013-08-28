@@ -5,6 +5,7 @@
 package org.chromium.media;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.text.TextUtils;
@@ -14,11 +15,13 @@ import android.view.Surface;
 import org.chromium.base.CalledByNative;
 import org.chromium.base.JNINamespace;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 // A wrapper around android.media.MediaPlayer that allows the native code to use it.
@@ -114,7 +117,24 @@ public class MediaPlayerBridge {
         if (!TextUtils.isEmpty(cookies))
             headersMap.put("Cookie", cookies);
         try {
-            getLocalPlayer().setDataSource(context, uri, headersMap);
+            String scheme = uri.getScheme();
+            List<String> segments = uri.getPathSegments();
+            if (scheme.equals("file") && segments.size() > 0 &&
+                    segments.get(0).equals("android_asset")) {
+                // For media resources in file:///android_asset, handle it with
+                // AssetFileDescriptor instead of default uri.
+                StringBuilder pathBuilder = new StringBuilder();
+                for (int i = 1; i < segments.size(); i++) {
+                    pathBuilder.append(segments.get(i));
+                    if (i != (segments.size() - 1))
+                        pathBuilder.append(File.separator);
+                }
+
+                AssetFileDescriptor afd = context.getAssets().openFd(pathBuilder.toString());
+                getLocalPlayer().setDataSource(afd.getFileDescriptor(), afd.getStartOffset(), afd.getLength());
+            } else {
+                getLocalPlayer().setDataSource(context, uri, headersMap);
+            }
             return true;
         } catch (Exception e) {
             return false;
