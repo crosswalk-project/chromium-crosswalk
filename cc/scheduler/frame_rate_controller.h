@@ -15,6 +15,7 @@ namespace cc {
 
 class Thread;
 class TimeSource;
+class LayerTreeHostImpl;
 
 class CC_EXPORT FrameRateControllerClient {
  public:
@@ -33,7 +34,9 @@ class CC_EXPORT FrameRateController {
     DEFAULT_MAX_FRAMES_PENDING = 2
   };
 
-  explicit FrameRateController(scoped_refptr<TimeSource> timer);
+  explicit FrameRateController(scoped_refptr<TimeSource> timer,
+                               Thread* thread = NULL,
+                               LayerTreeHostImpl* layerTreeHostImpl = NULL);
   // Alternate form of FrameRateController with unthrottled frame-rate.
   explicit FrameRateController(Thread* thread);
   virtual ~FrameRateController();
@@ -83,7 +86,9 @@ class CC_EXPORT FrameRateController {
   bool is_time_source_throttling_;
   base::WeakPtrFactory<FrameRateController> weak_factory_;
   Thread* thread_;
-
+  bool retroactive_tick_;
+  LayerTreeHostImpl* layer_tree_host_impl_;
+  double max_fps_;
   DISALLOW_COPY_AND_ASSIGN(FrameRateController);
 };
 
