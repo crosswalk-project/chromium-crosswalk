@@ -1120,11 +1120,16 @@ void ThreadProxy::InitializeImplOnImplThread(
               this,
               synchronously_disable_vsync_ ?
                   VSyncTimeSource::DISABLE_SYNCHRONOUSLY :
-                  VSyncTimeSource::DISABLE_ON_NEXT_TICK)));
+                  VSyncTimeSource::DISABLE_ON_NEXT_TICK),
+              Proxy::ImplThread(),
+              layer_tree_host_impl_.get()));
     } else {
       frame_rate_controller.reset(
-          new FrameRateController(DelayBasedTimeSource::Create(
-              display_refresh_interval, Proxy::ImplThread())));
+          new FrameRateController(
+              DelayBasedTimeSource::Create(
+                  display_refresh_interval, Proxy::ImplThread()),
+              Proxy::ImplThread(),
+              layer_tree_host_impl_.get()));
     }
   } else {
     frame_rate_controller.reset(new FrameRateController(Proxy::ImplThread()));
