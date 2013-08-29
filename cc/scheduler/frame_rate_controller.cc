@@ -7,19 +7,30 @@
 #include "base/debug/trace_event.h"
 #include "base/logging.h"
 #include "cc/base/thread.h"
+#include "cc/debug/frame_rate_counter.h"
 #include "cc/scheduler/delay_based_time_source.h"
 #include "cc/scheduler/time_source.h"
 #include "cc/trees/layer_tree_host_impl.h"
-#include "cc/debug/frame_rate_counter.h"
 
-// Assume the default Maximum FPS is 60
-const double defaultFPS = 60.0;
-// When using vsync, we switch to manual tick if the FPS
-// drops below 57 (60*0.950)
-const double defaultFPSManualTickLimit = 0.950;
-// When not using vsync, we switch back to vsync if the
-// FPS goes above 58 (60*0.966)
-const double defaultFPSTimeSourceThrottlingLimit = 0.966;
+namespace {
+
+// Assume the default Maximum FPS is 60.
+static const double kDefaultMaxFPS = 60.0;
+
+// kRetroactiveTickThreshold is a threshold to determine whether it needs to
+// switch to non-throttle ticking from throttle ticking mode. For example,
+// when the current average FPS is less than MaxFPS*kRetroactiveTickThreshold,
+// it will need to switch to non-throttle ticking mode.
+static const double kRetroactiveTickThreshold = 0.950;
+
+// kThrottlingTickThreshold is a threshold to determine whether it needs to
+// switch back to throttle ticking mode from non-throttle ticking mode.
+// For example, when the current average FPS is bigger than
+// MaxFPS*kThrottlingTickThreshold, it will need to switch back to throttle
+// ticking mode.
+static const double kThrottlingTickThreshold = 0.966;
+
+}  // namespace
 
 namespace cc {
 
@@ -56,7 +67,7 @@ FrameRateController::FrameRateController(scoped_refptr<TimeSource> timer,
       thread_(thread),
       retroactive_tick_(false),
       layer_tree_host_impl_(layerTreeHostImpl),
-      max_fps_(defaultFPS) {
+      max_fps_(kDefaultMaxFPS) {
   time_source_client_adapter_ =
       FrameRateControllerTimeSourceAdapter::Create(this);
   time_source_->SetClient(time_source_client_adapter_.get());
@@ -73,7 +84,7 @@ FrameRateController::FrameRateController(Thread* thread)
       thread_(thread),
       retroactive_tick_(false),
       layer_tree_host_impl_(NULL),
-      max_fps_(defaultFPS) {}
+      max_fps_(kDefaultMaxFPS) {}
 
 FrameRateController::~FrameRateController() {
   if (is_time_source_throttling_)
@@ -106,11 +117,8 @@ void FrameRateController::SetTimebaseAndInterval(base::TimeTicks timebase,
   if (is_time_source_throttling_)
     time_source_->SetTimebaseAndInterval(timebase, interval);
 
-  double delta = interval.InSecondsF();
-  if (delta > 0.0)
-    max_fps_ = 1.0 / delta;
-  else
-    max_fps_ = defaultFPS;
+  double time_interval = interval.InSecondsF();
+  max_fps_ = (time_interval > 0.0) ? 1.0 / time_interval : kDefaultMaxFPS;
 }
 
 void FrameRateController::SetSwapBuffersCompleteSupported(bool supported) {
@@ -130,10 +138,12 @@ void FrameRateController::OnTimerTick() {
 
   if (is_time_source_throttling_ && layer_tree_host_impl_) {
     double fps = layer_tree_host_impl_->fps_counter()->GetAverageFPS();
-    if (!retroactive_tick_ && fps > 0 && fps < (max_fps_ * defaultFPSManualTickLimit)) {
+    if (!retroactive_tick_ && fps > 0.0
+        && fps < (max_fps_ * kRetroactiveTickThreshold)) {
       time_source_->SetActive(false);
       retroactive_tick_ = true;
-    } else if (retroactive_tick_ && fps > (max_fps_ * defaultFPSTimeSourceThrottlingLimit)) {
+    } else if (retroactive_tick_
+               && fps > (max_fps_ * kThrottlingTickThreshold)) {
       time_source_->SetActive(true);
       retroactive_tick_ = false;
     }
