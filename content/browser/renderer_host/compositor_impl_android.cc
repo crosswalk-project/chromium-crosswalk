@@ -25,9 +25,9 @@
 #include "content/browser/gpu/browser_gpu_channel_host_factory.h"
 #include "content/browser/gpu/gpu_surface_tracker.h"
 #include "content/browser/renderer_host/image_transport_factory_android.h"
-#include "content/common/gpu/client/gl_helper.h"
+#include "content/common/gpu/client/gl_helper_browser.h"
 #include "content/common/gpu/client/gpu_channel_host.h"
-#include "content/common/gpu/client/webgraphicscontext3d_command_buffer_impl.h"
+#include "content/common/gpu/client/webgraphicscontext3d_command_buffer_browser_impl.h"
 #include "content/common/gpu/gpu_process_launch_causes.h"
 #include "content/public/common/content_switches.h"
 #include "third_party/WebKit/public/platform/WebGraphicsContext3D.h"
@@ -339,7 +339,8 @@ bool CompositorImpl::CopyTextureToBitmap(WebKit::WebGLId texture_id,
   DCHECK(bitmap.size() == sub_rect.size());
   if (bitmap.size() != sub_rect.size() || texture_id == 0) return false;
 
-  GLHelper* helper = ImageTransportFactoryAndroid::GetInstance()->GetGLHelper();
+  GLHelperBrowser* helper =
+      ImageTransportFactoryAndroid::GetInstance()->GetGLHelperBrowser();
   helper->ReadbackTextureSync(texture_id,
                               sub_rect,
                               static_cast<unsigned char*> (bitmap.pixels()));
@@ -365,11 +366,12 @@ scoped_ptr<cc::OutputSurface> CompositorImpl::CreateOutputSurface() {
     DCHECK(window_ && surface_id_);
     GpuChannelHostFactory* factory = BrowserGpuChannelHostFactory::instance();
     GURL url("chrome://gpu/Compositor::createContext3D");
-    scoped_ptr<WebGraphicsContext3DCommandBufferImpl> context(
-        new WebGraphicsContext3DCommandBufferImpl(surface_id_,
-                                                  url,
-                                                  factory,
-                                                  weak_factory_.GetWeakPtr()));
+    scoped_ptr<WebGraphicsContext3DCommandBufferBrowserImpl> context(
+        new WebGraphicsContext3DCommandBufferBrowserImpl(
+            surface_id_,
+            url,
+            factory,
+            weak_factory_.GetWeakPtr()));
     static const size_t kBytesPerPixel = 4;
     gfx::DeviceDisplayInfo display_info;
     size_t full_screen_texture_size_in_bytes =

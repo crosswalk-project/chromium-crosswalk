@@ -17,7 +17,7 @@ class WebGraphicsContext3D;
 }
 
 namespace content {
-class GLHelper;
+class GLHelperBrowser;
 
 class ImageTransportFactoryAndroid {
  public:
@@ -33,7 +33,7 @@ class ImageTransportFactoryAndroid {
       uint32 texture_id, const signed char* mailbox_name) = 0;
 
   virtual WebKit::WebGraphicsContext3D* GetContext3D() = 0;
-  virtual GLHelper* GetGLHelper() = 0;
+  virtual GLHelperBrowser* GetGLHelperBrowser() = 0;
 
 protected:
   ImageTransportFactoryAndroid();
