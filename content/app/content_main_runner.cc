@@ -755,7 +755,7 @@ class ContentMainRunnerImpl : public ContentMainRunner {
     if (delegate)
       delegate->SandboxInitialized(process_type);
 
-#if defined(OS_POSIX) && !defined(OS_IOS)
+#if defined(OS_POSIX) && !defined(OS_IOS) && !defined(OS_TIZEN_MOBILE)
     SetProcessTitleFromCommandLine(argv);
 #endif
 
