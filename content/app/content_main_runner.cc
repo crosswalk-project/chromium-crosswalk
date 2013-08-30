@@ -766,7 +766,12 @@ class ContentMainRunnerImpl : public ContentMainRunner {
     if (delegate)
       delegate->SandboxInitialized(process_type);
 
-#if defined(OS_POSIX) && !defined(OS_IOS)
+#if defined(OS_TIZEN_MOBILE)
+    if (process_type.empty())
+      StoreArgvPointerAddress(argv);
+    else
+      SetProcessTitleFromCommandLine(argv);
+#elif defined(OS_POSIX) && !defined(OS_IOS)
     SetProcessTitleFromCommandLine(argv);
 #endif
 
