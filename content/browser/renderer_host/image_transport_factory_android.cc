@@ -8,8 +8,8 @@
 #include "base/strings/stringprintf.h"
 #include "content/browser/gpu/browser_gpu_channel_host_factory.h"
 #include "content/browser/renderer_host/compositor_impl_android.h"
-#include "content/common/gpu/client/gl_helper.h"
-#include "content/common/gpu/client/webgraphicscontext3d_command_buffer_impl.h"
+#include "content/common/gpu/client/gl_helper_browser.h"
+#include "content/common/gpu/client/webgraphicscontext3d_command_buffer_browser_impl.h"
 #include "content/common/gpu/gpu_process_launch_causes.h"
 #include "third_party/WebKit/public/platform/WebGraphicsContext3D.h"
 #include "third_party/khronos/GLES2/gl2.h"
@@ -42,7 +42,7 @@ class DirectGLImageTransportFactory : public ImageTransportFactoryAndroid {
   virtual WebKit::WebGraphicsContext3D* GetContext3D() OVERRIDE {
     return context_.get();
   }
-  virtual GLHelper* GetGLHelper() OVERRIDE { return NULL; }
+  virtual GLHelperBrowser* GetGLHelperBrowser() OVERRIDE { return NULL; }
 
  private:
   scoped_ptr<WebKit::WebGraphicsContext3D> context_;
@@ -78,11 +78,11 @@ class CmdBufferImageTransportFactory : public ImageTransportFactoryAndroid {
   virtual WebKit::WebGraphicsContext3D* GetContext3D() OVERRIDE {
     return context_.get();
   }
-  virtual GLHelper* GetGLHelper() OVERRIDE;
+  virtual GLHelperBrowser* GetGLHelperBrowser() OVERRIDE;
 
  private:
-  scoped_ptr<WebGraphicsContext3DCommandBufferImpl> context_;
-  scoped_ptr<GLHelper> gl_helper_;
+  scoped_ptr<WebGraphicsContext3DCommandBufferBrowserImpl> context_;
+  scoped_ptr<GLHelperBrowser> gl_helper_;
 
   DISALLOW_COPY_AND_ASSIGN(CmdBufferImageTransportFactory);
 };
@@ -93,10 +93,11 @@ CmdBufferImageTransportFactory::CmdBufferImageTransportFactory() {
   GpuChannelHostFactory* factory = BrowserGpuChannelHostFactory::instance();
   GURL url("chrome://gpu/ImageTransportFactoryAndroid");
   base::WeakPtr<WebGraphicsContext3DSwapBuffersClient> swap_client;
-  context_.reset(new WebGraphicsContext3DCommandBufferImpl(0, // offscreen
-                                                           url,
-                                                           factory,
-                                                           swap_client));
+  context_.reset(
+      new WebGraphicsContext3DCommandBufferBrowserImpl(0, // offscreen
+                                                       url,
+                                                       factory,
+                                                       swap_client));
   static const size_t kBytesPerPixel = 4;
   gfx::DeviceDisplayInfo display_info;
   size_t full_screen_texture_size_in_bytes =
@@ -165,9 +166,9 @@ void CmdBufferImageTransportFactory::AcquireTexture(
   context_->flush();
 }
 
-GLHelper* CmdBufferImageTransportFactory::GetGLHelper() {
+GLHelperBrowser* CmdBufferImageTransportFactory::GetGLHelperBrowser() {
   if (!gl_helper_)
-    gl_helper_.reset(new GLHelper(context_.get()));
+    gl_helper_.reset(new GLHelperBrowser(context_.get()));
 
   return gl_helper_.get();
 }
