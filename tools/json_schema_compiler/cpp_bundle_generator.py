@@ -13,16 +13,7 @@ import os
 import re
 
 # TODO(miket/asargent) - parameterize this.
-SOURCE_BASE_PATH = 'xwalk/jsapi'
-
-# FIXME(tmpsantos): This is a hack for generating the correct
-# includes for the unit tests API. What we should really do is
-# parametrize SOURCE_BASE_PATH.
-def _BasePath(namespace):
-    if namespace.name == "test":
-      return "xwalk/extensions/test"
-    else:
-      return SOURCE_BASE_PATH
+SOURCE_BASE_PATH = 'chrome/common/extensions/api'
 
 def _RemoveDescriptions(node):
   """Returns a copy of |schema| with "description" fields removed.
@@ -251,7 +242,7 @@ class _SchemasCCGenerator(object):
     c = code.Code()
     c.Append(cpp_util.CHROMIUM_LICENSE)
     c.Append()
-    c.Append('#include "%s"' % (os.path.join(_BasePath(namespace),
+    c.Append('#include "%s"' % (os.path.join(SOURCE_BASE_PATH,
                                              'generated_schemas.h')))
     c.Append()
     c.Append('#include "base/lazy_instance.h"')
