@@ -90,4 +90,10 @@ void SetProcessTitleFromCommandLine(const char** /* main_argv */) {
 
 #endif
 
+#if defined(OS_TIZEN_MOBILE)
+void StoreArgvPointerAddress(const char** main_argv) {
+  setproctitle_init(main_argv);
+}
+#endif
+
 } // namespace content
