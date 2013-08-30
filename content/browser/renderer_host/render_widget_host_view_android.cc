@@ -28,7 +28,7 @@
 #include "content/browser/renderer_host/render_widget_host_impl.h"
 #include "content/browser/renderer_host/surface_texture_transport_client_android.h"
 #include "content/browser/renderer_host/touch_smooth_scroll_gesture_android.h"
-#include "content/common/gpu/client/gl_helper.h"
+#include "content/common/gpu/client/gl_helper_browser.h"
 #include "content/common/gpu/gpu_messages.h"
 #include "content/common/input_messages.h"
 #include "content/common/view_messages.h"
@@ -223,12 +223,13 @@ WebKit::WebGLId RenderWidgetHostViewAndroid::GetScaledContentTexture(
   if (out_size)
     *out_size = size;
 
-  GLHelper* helper = ImageTransportFactoryAndroid::GetInstance()->GetGLHelper();
+  GLHelperBrowser* helper =
+      ImageTransportFactoryAndroid::GetInstance()->GetGLHelperBrowser();
   return helper->CopyAndScaleTexture(texture_id_in_layer_,
                                      texture_size_in_layer_,
                                      size,
                                      true,
-                                     GLHelper::SCALER_QUALITY_FAST);
+                                     GLHelperBrowser::SCALER_QUALITY_FAST);
 }
 
 bool RenderWidgetHostViewAndroid::PopulateBitmapWithContents(jobject jbitmap) {
@@ -242,14 +243,15 @@ bool RenderWidgetHostViewAndroid::PopulateBitmapWithContents(jobject jbitmap) {
   // TODO(dtrainor): Eventually add support for multiple formats here.
   DCHECK(bitmap.format() == ANDROID_BITMAP_FORMAT_RGBA_8888);
 
-  GLHelper* helper = ImageTransportFactoryAndroid::GetInstance()->GetGLHelper();
+  GLHelperBrowser* helper =
+      ImageTransportFactoryAndroid::GetInstance()->GetGLHelperBrowser();
 
   WebKit::WebGLId texture = helper->CopyAndScaleTexture(
       texture_id_in_layer_,
       texture_size_in_layer_,
       bitmap.size(),
       true,
-      GLHelper::SCALER_QUALITY_FAST);
+      GLHelperBrowser::SCALER_QUALITY_FAST);
   if (texture == 0)
     return false;
 

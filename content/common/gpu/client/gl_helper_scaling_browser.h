@@ -8,17 +8,17 @@
 #include <vector>
 
 #include "content/common/gpu/client/gl_helper.h"
+#include "content/common/gpu/client/gl_helper_browser.h"
 
 namespace content {
 
-class ShaderProgram;
+class ShaderProgramBrowser;
 class ScalerImpl;
-class GLHelperTest;
 
 // Implements GPU texture scaling methods.
 // Note that you should probably not use this class directly.
 // See gl_helper.cc::CreateScaler instead.
-class CONTENT_EXPORT GLHelperScaling {
+class CONTENT_EXPORT GLHelperScalingBrowser {
  public:
   enum ShaderType {
     SHADER_BILINEAR,
@@ -45,22 +45,22 @@ class CONTENT_EXPORT GLHelperScaling {
                          const std::vector<WebKit::WebGLId>& dest_textures) = 0;
   };
 
-  typedef std::pair<ShaderType, bool> ShaderProgramKeyType;
+  typedef std::pair<ShaderType, bool> ShaderProgramBrowserKeyType;
 
-  GLHelperScaling(WebKit::WebGraphicsContext3D* context,
-                  GLHelper* helper);
-  ~GLHelperScaling();
+  GLHelperScalingBrowser(WebKit::WebGraphicsContext3D* context,
+                         GLHelperBrowser* helper);
+  ~GLHelperScalingBrowser();
   void InitBuffer();
 
-  GLHelper::ScalerInterface* CreateScaler(
-      GLHelper::ScalerQuality quality,
+  GLHelperBrowser::ScalerInterface* CreateScaler(
+      GLHelperBrowser::ScalerQuality quality,
       gfx::Size src_size,
       gfx::Rect src_subrect,
       const gfx::Size& dst_size,
       bool vertically_flip_texture,
       bool swizzle);
 
-  GLHelper::ScalerInterface* CreatePlanarScaler(
+  GLHelperBrowser::ScalerInterface* CreatePlanarScaler(
       const gfx::Size& src_size,
       const gfx::Rect& src_subrect,
       const gfx::Size& dst_size,
@@ -155,7 +155,7 @@ class CONTENT_EXPORT GLHelperScaling {
 
   // Compute a vector of scaler stages for a particular
   // set of input/output parameters.
-  void ComputeScalerStages(GLHelper::ScalerQuality quality,
+  void ComputeScalerStages(GLHelperBrowser::ScalerQuality quality,
                            const gfx::Size& src_size,
                            const gfx::Rect& src_subrect,
                            const gfx::Size& dst_size,
@@ -167,40 +167,40 @@ class CONTENT_EXPORT GLHelperScaling {
   // vector of scaler stages. This is the second half of
   // ComputeScalerStages.
   void ConvertScalerOpsToScalerStages(
-      GLHelper::ScalerQuality quality,
+      GLHelperBrowser::ScalerQuality quality,
       gfx::Size src_size,
       gfx::Rect src_subrect,
       const gfx::Size& dst_size,
       bool vertically_flip_texture,
       bool swizzle,
-      std::deque<GLHelperScaling::ScaleOp>* x_ops,
-      std::deque<GLHelperScaling::ScaleOp>* y_ops,
+      std::deque<GLHelperScalingBrowser::ScaleOp>* x_ops,
+      std::deque<GLHelperScalingBrowser::ScaleOp>* y_ops,
       std::vector<ScalerStage> *scaler_stages);
 
 
-  scoped_refptr<ShaderProgram> GetShaderProgram(ShaderType type, bool swizzle);
+  scoped_refptr<ShaderProgramBrowser> GetShaderProgramBrowser(
+      ShaderType type, bool swizzle);
 
   // Interleaved array of 2-dimentional vertex positions (x, y) and
   // 2-dimentional texture coordinates (s, t).
   static const WebKit::WGC3Dfloat kVertexAttributes[];
 
   WebKit::WebGraphicsContext3D* context_;
-  GLHelper* helper_;
+  GLHelperBrowser* helper_;
 
   // The buffer that holds the vertices and the texture coordinates data for
   // drawing a quad.
   ScopedBuffer vertex_attributes_buffer_;
 
-  std::map<ShaderProgramKeyType,
-           scoped_refptr<ShaderProgram> > shader_programs_;
+  std::map<ShaderProgramBrowserKeyType,
+           scoped_refptr<ShaderProgramBrowser> > shader_programs_;
 
-  friend class ShaderProgram;
+  friend class ShaderProgramBrowser;
   friend class ScalerImpl;
-  friend class GLHelperTest;
-  DISALLOW_COPY_AND_ASSIGN(GLHelperScaling);
+  DISALLOW_COPY_AND_ASSIGN(GLHelperScalingBrowser);
 };
 
 
 }  // namespace content
 
-#endif  // CONTENT_COMMON_GPU_CLIENT_GL_HELPER_SCALING_BROWSER_H_
+#endif  // CONTENT_COMMON_GPU_CLIENT_GL_HELPER_SCALING_H_
