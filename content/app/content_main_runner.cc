@@ -776,6 +776,15 @@ class ContentMainRunnerImpl : public ContentMainRunner {
     if (delegate_)
       delegate_->SandboxInitialized(process_type);
 
+#if defined(OS_TIZEN_MOBILE)
+    if (process_type.empty())
+      StoreArgvPointerAddress(argv);
+    else
+      SetProcessTitleFromCommandLine(argv);
+#elif defined(OS_POSIX) && !defined(OS_IOS) && !defined(OS_ANDROID)
+    SetProcessTitleFromCommandLine(argv);
+#endif
+
     // Return -1 to indicate no early termination.
     return -1;
   }
