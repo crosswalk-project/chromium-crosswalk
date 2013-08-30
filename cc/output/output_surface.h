@@ -100,6 +100,17 @@ class CC_EXPORT OutputSurface : public FrameRateControllerClient {
       bool throttle_frame_production,
       base::TimeDelta interval);
 
+  virtual void SetSafeToProactiveBeginFrame(
+      bool safe_to_proactive_begin_frame) {
+      safe_to_proactive_begin_frame_ = safe_to_proactive_begin_frame;
+  }
+
+  virtual bool SafeToProactiveBeginFrame() {
+    return safe_to_proactive_begin_frame_;
+  }
+
+  virtual void PostProactiveBeginFrame();
+
   void SetMaxFramesPending(int max_frames_pending);
 
   virtual void EnsureBackbuffer();
@@ -173,6 +184,8 @@ class CC_EXPORT OutputSurface : public FrameRateControllerClient {
   virtual void PostCheckForRetroactiveBeginFrame();
   void CheckForRetroactiveBeginFrame();
 
+  void ProactiveBeginFrame();
+
  private:
   OutputSurfaceClient* client_;
   friend class OutputSurfaceCallbacks;
@@ -186,6 +199,8 @@ class CC_EXPORT OutputSurface : public FrameRateControllerClient {
   // check_for_retroactive_begin_frame_pending_ is used to avoid posting
   // redundant checks for a retroactive BeginFrame.
   bool check_for_retroactive_begin_frame_pending_;
+  bool safe_to_proactive_begin_frame_;
+  bool proactive_begin_frame_pending_;
 
   DISALLOW_COPY_AND_ASSIGN(OutputSurface);
 };
