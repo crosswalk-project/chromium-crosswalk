@@ -22,6 +22,10 @@ namespace content {
 // will try to fix it so the "effective" command line shows up instead.
 void SetProcessTitleFromCommandLine(const char** main_argv);
 
+#if defined(OS_TIZEN_MOBILE)
+void StoreArgvPointerAddress(const char** main_argv);
+#endif
+
 }  // namespace content
 
 #endif  // CONTENT_COMMON_SET_PROCESS_TITLE_H_
