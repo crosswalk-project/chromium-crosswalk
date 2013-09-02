@@ -6657,7 +6657,13 @@ bool RenderViewImpl::didTapMultipleTargets(
           device_scale_factor_ * webview()->pageScaleFactor(), &zoom_rect);
   if (!new_total_scale)
     return false;
-
+// TODO(shouqun): Official way of disable disambiguation popup already in
+// Chromium upstream, refer to CLs:
+//   https://chromiumcodereview.appspot.com/19256012
+//   https://chromiumcodereview.appspot.com/23436003
+//   https://chromiumcodereview.appspot.com/23453011
+// We don't want to back port all of them, so currently simply disable it now.
+#if 0
   gfx::Size canvas_size = gfx::ToCeiledSize(gfx::ScaleSize(zoom_rect.size(),
                                                            new_total_scale));
   TransportDIB* transport_dib = NULL;
@@ -6687,7 +6693,7 @@ bool RenderViewImpl::didTapMultipleTargets(
                                                physical_window_zoom_rect,
                                                canvas_size,
                                                transport_dib->id()));
-
+#endif
   return true;
 }
 
