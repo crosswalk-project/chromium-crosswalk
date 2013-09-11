@@ -37,6 +37,10 @@
 #include "third_party/skia/include/ports/SkFontConfigInterface.h"
 #include "ui/gfx/font_render_params_linux.h"
 
+#if defined(OS_TIZEN_MOBILE)
+#include "content/common/set_process_title.h"
+#endif
+
 using WebKit::WebCString;
 using WebKit::WebFontInfo;
 using WebKit::WebUChar;
@@ -70,6 +74,10 @@ class SandboxIPCProcess  {
     // positioning, so we pass the current setting through to WebKit.
     WebFontInfo::setSubpixelPositioning(
         gfx::GetDefaultWebkitSubpixelPositioning());
+
+#if defined(OS_TIZEN_MOBILE)
+    SetProcessTitleFromCommandLine(NULL);
+#endif
   }
 
   ~SandboxIPCProcess();
