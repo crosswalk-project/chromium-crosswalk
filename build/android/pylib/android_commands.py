@@ -508,8 +508,10 @@ class AndroidCommands(object):
     install_cmd = ' '.join(install_cmd)
 
     self._LogShell(install_cmd)
+    # FIXME(wang16): Change the timeout here to five minutes. Revert
+    # the change when slaves can run kvm enabled x86 android emulators.
     return self._adb.SendCommand(install_cmd,
-                                 timeout_time=2 * 60,
+                                 timeout_time=5 * 60,
                                  retry_count=0)
 
   def ManagedInstall(self, apk_path, keep_data=False, package_name=None,
