@@ -9,6 +9,7 @@
 import optparse
 import os
 import sys
+import time
 
 from pylib import constants
 from pylib.device import device_utils
@@ -70,14 +71,25 @@ def main(argv):
   constants.SetBuildType(options.build_type)
   ValidateInstallAPKOption(parser, options, args)
 
-  devices = device_utils.DeviceUtils.HealthyDevices()
+  retry_times = 5
+  retry_interval = 15
+  while retry_times > 0:
+    devices = device_utils.DeviceUtils.HealthyDevices()
+    if options.device:
+      if options.device not in devices:
+        raise Exception('Error: %s not in attached devices %s' % \
+                        (options.device, ','.join(devices)))
+      devices = [options.device]
 
-  if options.device:
-    device_serials = [d.adb.GetDeviceSerial() for d in devices]
-    if options.device not in device_serials:
-      raise Exception('Error: %s not in attached devices %s' % (options.device,
-                      ','.join(device_serials)))
-    devices = [options.device]
+    if not devices:
+      print 'No connected devices found, '\
+            'kill adb server and retry in %d seconds...' % retry_interval
+      android_commands.AndroidCommands().KillAdbServer()
+      time.sleep(retry_interval)
+      retry_interval *= 2
+      retry_times -= 1
+    else:
+      break
 
   if not devices:
     raise Exception('Error: no connected devices')
