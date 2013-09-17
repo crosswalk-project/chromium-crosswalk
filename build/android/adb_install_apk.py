@@ -8,6 +8,7 @@ import multiprocessing
 import optparse
 import os
 import sys
+import time
 
 from pylib import android_commands
 from pylib import constants
@@ -31,7 +32,20 @@ def main(argv):
   if len(args) > 1:
     raise Exception('Error: Unknown argument:', args[1:])
 
-  devices = android_commands.GetAttachedDevices()
+  retry_times = 5
+  retry_interval = 15
+  while retry_times > 0:
+    devices = android_commands.GetAttachedDevices()
+    if not devices:
+      print 'No connected devices found, '\
+            'kill adb server and retry in %d seconds...' % retry_interval
+      android_commands.AndroidCommands().KillAdbServer()
+      time.sleep(retry_interval)
+      retry_interval *= 2
+      retry_times -= 1
+    else:
+      break
+
   if not devices:
     raise Exception('Error: no connected devices')
 
