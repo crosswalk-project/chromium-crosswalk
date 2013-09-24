@@ -182,6 +182,7 @@ LayerTreeHostImpl::LayerTreeHostImpl(
           0,
           ManagedMemoryPolicy::CUTOFF_ALLOW_NOTHING),
       pinch_gesture_active_(false),
+      animate_layers_active_(false),
       fps_counter_(FrameRateCounter::Create(proxy_->HasImplThread())),
       paint_time_counter_(PaintTimeCounter::Create()),
       memory_history_(MemoryHistory::Create()),
@@ -347,6 +348,8 @@ void LayerTreeHostImpl::StartPageScaleAnimation(gfx::Vector2d target_offset,
                                  scaled_scrollable_size,
                                  start_time_seconds,
                                  timing_function.Pass());
+  if (output_surface_)
+    output_surface_->SetSafeToProactiveBeginFrame(false);
 
   if (anchor_point) {
     gfx::Vector2dF anchor(target_offset);
@@ -1711,6 +1714,8 @@ InputHandler::ScrollStatus LayerTreeHostImpl::ScrollBegin(
     rendering_stats_instrumentation_->IncrementImplThreadScrolls();
     client_->RenewTreePriority();
     UMA_HISTOGRAM_BOOLEAN("TryScroll.SlowScroll", false);
+    if (output_surface_)
+      output_surface_->SetSafeToProactiveBeginFrame(false);
     return ScrollStarted;
   }
   return ScrollIgnored;
@@ -1980,6 +1985,8 @@ void LayerTreeHostImpl::NotifyCurrentFlingVelocity(gfx::Vector2dF velocity) {
 
 void LayerTreeHostImpl::PinchGestureBegin() {
   pinch_gesture_active_ = true;
+  if (output_surface_)
+    output_surface_->SetSafeToProactiveBeginFrame(false);
   previous_pinch_anchor_ = gfx::Point();
   client_->RenewTreePriority();
 }
@@ -2090,8 +2097,14 @@ void LayerTreeHostImpl::AnimateLayers(base::TimeTicks monotonic_time,
                                       base::Time wall_clock_time) {
   if (!settings_.accelerated_animation_enabled ||
       animation_registrar_->active_animation_controllers().empty() ||
-      !active_tree_->root_layer())
+      !active_tree_->root_layer()) {
+    animate_layers_active_ = false;
     return;
+  }
+
+  animate_layers_active_ = true;
+  if (output_surface_)
+    output_surface_->SetSafeToProactiveBeginFrame(false);
 
   TRACE_EVENT0("cc", "LayerTreeHostImpl::AnimateLayers");
 

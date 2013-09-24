@@ -61,7 +61,9 @@ OutputSurface::OutputSurface(
       needs_begin_frame_(false),
       begin_frame_pending_(false),
       client_(NULL),
-      check_for_retroactive_begin_frame_pending_(false) {
+      check_for_retroactive_begin_frame_pending_(false),
+      safe_to_proactive_begin_frame_(false),
+      proactive_begin_frame_pending_(false) {
 }
 
 OutputSurface::OutputSurface(
@@ -76,7 +78,9 @@ OutputSurface::OutputSurface(
       needs_begin_frame_(false),
       begin_frame_pending_(false),
       client_(NULL),
-      check_for_retroactive_begin_frame_pending_(false) {
+      check_for_retroactive_begin_frame_pending_(false),
+      safe_to_proactive_begin_frame_(false),
+      proactive_begin_frame_pending_(false) {
 }
 
 OutputSurface::OutputSurface(
@@ -93,7 +97,9 @@ OutputSurface::OutputSurface(
       needs_begin_frame_(false),
       begin_frame_pending_(false),
       client_(NULL),
-      check_for_retroactive_begin_frame_pending_(false) {
+      check_for_retroactive_begin_frame_pending_(false),
+      safe_to_proactive_begin_frame_(false),
+      proactive_begin_frame_pending_(false) {
 }
 
 void OutputSurface::InitializeBeginFrameEmulation(
@@ -184,6 +190,18 @@ base::TimeDelta OutputSurface::RetroactiveBeginFramePeriod() {
   return BeginFrameArgs::DefaultRetroactiveBeginFramePeriod();
 }
 
+void OutputSurface::PostProactiveBeginFrame() {
+  if (!safe_to_proactive_begin_frame_
+      || proactive_begin_frame_pending_)
+    return;
+
+  base::MessageLoop::current()->PostTask(
+     FROM_HERE,
+     base::Bind(&OutputSurface::ProactiveBeginFrame,
+                weak_ptr_factory_.GetWeakPtr()));
+  proactive_begin_frame_pending_ = true;
+}
+
 void OutputSurface::PostCheckForRetroactiveBeginFrame() {
   if (!skipped_begin_frame_args_.IsValid() ||
       check_for_retroactive_begin_frame_pending_)
@@ -194,6 +212,16 @@ void OutputSurface::PostCheckForRetroactiveBeginFrame() {
      base::Bind(&OutputSurface::CheckForRetroactiveBeginFrame,
                 weak_ptr_factory_.GetWeakPtr()));
   check_for_retroactive_begin_frame_pending_ = true;
+}
+
+void OutputSurface::ProactiveBeginFrame() {
+  TRACE_EVENT0("cc", "OutputSurface::ProactiveBeginFrame");
+  proactive_begin_frame_pending_ = false;
+  if (safe_to_proactive_begin_frame_)
+    BeginFrame(BeginFrameArgs::Create(
+      base::TimeTicks::Now(),
+      base::TimeTicks(),
+      BeginFrameArgs::DefaultInterval()));
 }
 
 void OutputSurface::CheckForRetroactiveBeginFrame() {
@@ -217,6 +245,7 @@ void OutputSurface::DidSwapBuffers() {
   if (frame_rate_controller_)
     frame_rate_controller_->DidSwapBuffers();
   PostCheckForRetroactiveBeginFrame();
+  PostProactiveBeginFrame();
 }
 
 void OutputSurface::OnSwapBuffersComplete(const CompositorFrameAck* ack) {
@@ -227,6 +256,7 @@ void OutputSurface::OnSwapBuffersComplete(const CompositorFrameAck* ack) {
   if (frame_rate_controller_)
     frame_rate_controller_->DidSwapBuffersComplete();
   PostCheckForRetroactiveBeginFrame();
+  PostProactiveBeginFrame();
 }
 
 void OutputSurface::DidLoseOutputSurface() {
