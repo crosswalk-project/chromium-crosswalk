@@ -358,6 +358,7 @@ class CC_EXPORT LayerTreeHostImpl
   }
 
   bool pinch_gesture_active() const { return pinch_gesture_active_; }
+  bool animate_layers_active() const { return animate_layers_active_; }
 
   void SetTreePriority(TreePriority priority);
 
@@ -479,6 +480,7 @@ class CC_EXPORT LayerTreeHostImpl
   // This is set by AnimateLayers() and used by UpdateAnimationState()
   // when sending animation events to the main thread.
   base::Time last_animation_time_;
+  bool animate_layers_active_;
 
   scoped_ptr<TopControlsManager> top_controls_manager_;
 

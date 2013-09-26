@@ -776,6 +776,10 @@ void ThreadProxy::BeginFrameOnMainThread(
 
   layer_tree_host_->CommitComplete();
   layer_tree_host_->DidBeginFrame();
+  Proxy::ImplThreadTaskRunner()->PostTask(
+        FROM_HERE,
+        base::Bind(&ThreadProxy::ProactiveBeginFrameOnImplThread,
+                   impl_thread_weak_ptr_));
 }
 
 void ThreadProxy::StartCommitOnImplThread(
@@ -834,6 +838,27 @@ void ThreadProxy::BeginFrameAbortedByMainThreadOnImplThread() {
   DCHECK(scheduler_on_impl_thread_->CommitPending());
 
   scheduler_on_impl_thread_->BeginFrameAbortedByMainThread();
+}
+
+void ThreadProxy::ProactiveBeginFrameOnImplThread() {
+  TRACE_EVENT0("cc", "ThreadProxy::ProactiveBeginFrameOnImplThread");
+  DCHECK(IsImplThread());
+  OutputSurface* output_surface = layer_tree_host_impl_->output_surface();
+  if (output_surface) {
+    bool safe_to_proactive_begin_frame =
+           !layer_tree_host_impl_->pinch_gesture_active() &&
+           !layer_tree_host_impl_->CurrentlyScrollingLayer() &&
+           !layer_tree_host_impl_->page_scale_animation_active() &&
+           !layer_tree_host_impl_->animate_layers_active();
+    if (output_surface->SafeToProactiveBeginFrame() !=
+      safe_to_proactive_begin_frame) {
+      output_surface->SetSafeToProactiveBeginFrame(
+        safe_to_proactive_begin_frame);
+    }
+
+    if (safe_to_proactive_begin_frame)
+      output_surface->PostProactiveBeginFrame();
+  }
 }
 
 void ThreadProxy::ScheduledActionCommit() {

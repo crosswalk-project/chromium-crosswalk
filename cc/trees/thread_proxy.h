@@ -179,6 +179,7 @@ class ThreadProxy : public Proxy,
   void DidSwapUseIncompleteTileOnImplThread();
   void StartScrollbarAnimationOnImplThread();
   void MainThreadHasStoppedFlingingOnImplThread();
+  void ProactiveBeginFrameOnImplThread();
 
   // Accessed on main thread only.
 
