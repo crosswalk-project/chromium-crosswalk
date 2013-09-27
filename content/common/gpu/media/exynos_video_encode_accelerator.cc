@@ -1334,7 +1334,7 @@ bool ExynosVideoEncodeAccelerator::SetMfcFormats() {
   format.fmt.pix_mp.num_planes  = 1;
   IOCTL_OR_ERROR_RETURN_FALSE(mfc_fd_, VIDIOC_S_FMT, &format);
 
-  struct v4l2_ext_control ctrls[7];
+  struct v4l2_ext_control ctrls[8];
   struct v4l2_ext_controls control;
   memset(&ctrls, 0, sizeof(ctrls));
   memset(&control, 0, sizeof(control));
@@ -1361,6 +1361,9 @@ bool ExynosVideoEncodeAccelerator::SetMfcFormats() {
   // Enable macroblock-level bitrate control.
   ctrls[6].id    = V4L2_CID_MPEG_VIDEO_MB_RC_ENABLE;
   ctrls[6].value = 1;
+  // Disable periodic key frames.
+  ctrls[7].id    = V4L2_CID_MPEG_VIDEO_GOP_SIZE;
+  ctrls[7].value = 0;
   control.ctrl_class = V4L2_CTRL_CLASS_MPEG;
   control.count = arraysize(ctrls);
   control.controls = ctrls;
