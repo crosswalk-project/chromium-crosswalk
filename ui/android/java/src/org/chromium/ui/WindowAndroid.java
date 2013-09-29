@@ -34,7 +34,6 @@ public class WindowAndroid {
 
     private int mNextRequestCode = 0;
     protected Activity mActivity;
-    protected Context mContext;
     protected SparseArray<IntentCallback> mOutstandingIntents;
     protected HashMap<Integer, String> mIntentErrors;
 
@@ -42,16 +41,7 @@ public class WindowAndroid {
      * @param activity
      */
     public WindowAndroid(Activity activity) {
-        this(activity, activity);
-    }
-
-    /**
-     * @param activity
-     * @param context
-     */
-    public WindowAndroid(Activity activity, Context context) {
         mActivity = activity;
-        mContext = context;
         mOutstandingIntents = new SparseArray<IntentCallback>();
         mIntentErrors = new HashMap<Integer, String>();
 
@@ -110,7 +100,7 @@ public class WindowAndroid {
      * @return Activity context.
      */
     public Context getContext() {
-        return mContext;
+        return mActivity;
     }
 
     /**
