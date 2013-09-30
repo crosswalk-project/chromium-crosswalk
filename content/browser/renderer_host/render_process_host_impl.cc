@@ -930,6 +930,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
 #endif
     switches::kEnableMP3StreamParser,
     switches::kEnableMemoryBenchmarking,
+    switches::kEnableOverlayFullscreenVideo,
     switches::kEnableOverlayScrollbars,
     switches::kEnableSkiaBenchmarking,
     switches::kEnableLogging,
