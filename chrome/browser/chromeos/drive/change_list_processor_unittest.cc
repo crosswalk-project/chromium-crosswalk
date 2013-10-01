@@ -80,8 +80,13 @@ class ChangeListProcessorTest : public testing::Test {
   // Applies the |changes| to |metadata_| as a delta update. Delta changelists
   // should contain their changestamp in themselves.
   std::set<base::FilePath> ApplyChangeList(ScopedVector<ChangeList> changes) {
+    scoped_ptr<google_apis::AboutResource> about_resource(
+        new google_apis::AboutResource);
+    about_resource->set_largest_change_id(kBaseResourceListChangestamp);
+    about_resource->set_root_folder_id(kRootId);
+
     ChangeListProcessor processor(metadata_.get());
-    processor.Apply(scoped_ptr<google_apis::AboutResource>(),
+    processor.Apply(about_resource.Pass(),
                     changes.Pass(),
                     true /* is_delta_update */);
     return processor.changed_dirs();

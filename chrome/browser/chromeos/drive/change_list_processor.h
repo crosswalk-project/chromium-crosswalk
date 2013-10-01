@@ -124,6 +124,7 @@ class ChangeListProcessor {
   // metadata. If this is not delta update (i.e. |is_delta_update| is false),
   // |about_resource| must not be null.
   void ApplyEntryMap(bool is_delta_update,
+                     int64 changestamp,
                      scoped_ptr<google_apis::AboutResource> about_resource);
 
   // Apply the next item from entry_map_ to the file system. The async
