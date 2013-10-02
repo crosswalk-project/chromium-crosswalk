@@ -134,6 +134,11 @@ const User* FakeUserManager::FindLocallyManagedUser(
   return NULL;
 }
 
+const User* FakeUserManager::FindLocallyManagedUserBySyncId(
+    const std::string& sync_id) const {
+  return NULL;
+}
+
 const User* FakeUserManager::GetLoggedInUser() const {
   return NULL;
 }
