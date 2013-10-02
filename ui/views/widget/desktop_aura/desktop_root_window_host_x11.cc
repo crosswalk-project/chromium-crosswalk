@@ -55,9 +55,6 @@ DEFINE_WINDOW_PROPERTY_KEY(
 
 namespace {
 
-DesktopRootWindowHost::DesktopRootWindowHostFactory*
-    desktop_root_window_host_factory_ = NULL;
-
 // Standard Linux mouse buttons for going back and forward.
 const int kBackMouseButton = 8;
 const int kForwardMouseButton = 9;
@@ -1201,23 +1198,9 @@ DesktopRootWindowHost* DesktopRootWindowHost::Create(
     internal::NativeWidgetDelegate* native_widget_delegate,
     DesktopNativeWidgetAura* desktop_native_widget_aura,
     const gfx::Rect& initial_bounds) {
-  if (desktop_root_window_host_factory_)
-    return desktop_root_window_host_factory_(native_widget_delegate,
-                                             desktop_native_widget_aura,
-                                             initial_bounds);
   return new DesktopRootWindowHostX11(native_widget_delegate,
                                         desktop_native_widget_aura,
                                         initial_bounds);
-}
-
-// static
-bool DesktopRootWindowHost::InitDesktopRootWindowHostFactory(
-    DesktopRootWindowHostFactory* factory) {
-  if (desktop_root_window_host_factory_)
-    return false;
-
-  desktop_root_window_host_factory_ = factory;
-  return true;
 }
 
 }  // namespace views

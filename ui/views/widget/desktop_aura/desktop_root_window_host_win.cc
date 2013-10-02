@@ -875,10 +875,4 @@ DesktopRootWindowHost* DesktopRootWindowHost::Create(
                                       initial_bounds);
 }
 
-// static
-bool DesktopRootWindowHost::InitDesktopRootWindowHostFactory(
-    DesktopRootWindowHostFactory* factory) {
-  return true;
-}
-
 }  // namespace views

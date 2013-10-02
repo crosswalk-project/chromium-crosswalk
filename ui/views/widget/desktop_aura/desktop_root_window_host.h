@@ -38,16 +38,6 @@ class VIEWS_EXPORT DesktopRootWindowHost {
       DesktopNativeWidgetAura* desktop_native_widget_aura,
       const gfx::Rect& initial_bounds);
 
-  typedef DesktopRootWindowHost* (DesktopRootWindowHostFactory)(
-      internal::NativeWidgetDelegate* native_widget_delegate,
-      DesktopNativeWidgetAura* desktop_native_widget_aura,
-      const gfx::Rect& initial_bounds);
-  // Uses the given DesktopRootWindowHostFactory to override the default
-  // DesktopRootWindowHost implementation for embedder.
-  // Returns true if the factory was successfully registered.
-  static bool InitDesktopRootWindowHostFactory(
-      DesktopRootWindowHostFactory* factory);
-
   // Return the NativeTheme to use for |window|.
   static ui::NativeTheme* GetNativeTheme(aura::Window* window);
 
