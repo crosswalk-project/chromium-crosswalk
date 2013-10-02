@@ -64,6 +64,8 @@ struct {
     webrtc::MediaConstraintsInterface::kValueTrue },
   { webrtc::MediaConstraintsInterface::kAutoGainControl,
     webrtc::MediaConstraintsInterface::kValueTrue },
+  { webrtc::MediaConstraintsInterface::kExperimentalAutoGainControl,
+    webrtc::MediaConstraintsInterface::kValueTrue },
   { webrtc::MediaConstraintsInterface::kNoiseSuppression,
     webrtc::MediaConstraintsInterface::kValueTrue },
   { webrtc::MediaConstraintsInterface::kHighpassFilter,
