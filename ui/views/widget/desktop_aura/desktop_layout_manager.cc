@@ -48,9 +48,7 @@ void DesktopLayoutManager::SetChildBounds(aura::Window* child,
 }
 
 void DesktopLayoutManager::SetMainWindowSize() {
-  gfx::Rect bounds;
-  bounds.set_size(root_window_->GetHostSize());
-  SetChildBoundsDirect(main_window_, bounds);
+  SetChildBoundsDirect(main_window_, root_window_->bounds());
 }
 
 }  // namespace views
