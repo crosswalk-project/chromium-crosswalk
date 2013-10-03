@@ -101,6 +101,11 @@ void MediaSourcePlayer::SetVideoSurface(gfx::ScopedJavaSurface surface) {
   }
 
   surface_ =  surface.Pass();
+
+  // If there is a pending surface change event, just wait for it to be
+  // processed.
+  if (IsEventPending(SURFACE_CHANGE_EVENT_PENDING))
+    return;
   SetPendingEvent(SURFACE_CHANGE_EVENT_PENDING);
   if (IsEventPending(SEEK_EVENT_PENDING)) {
     // Waiting for the seek to finish.
