@@ -82,7 +82,8 @@ MediaSourcePlayer::MediaSourcePlayer(
       reconfig_audio_decoder_(false),
       reconfig_video_decoder_(false),
       weak_this_(this),
-      drm_bridge_(NULL) {
+      drm_bridge_(NULL),
+      is_waiting_for_key_(false) {
   demuxer_->AddDemuxerClient(demuxer_client_id_, this);
 }
 
@@ -212,6 +213,10 @@ void MediaSourcePlayer::SetVolume(double volume) {
 
 void MediaSourcePlayer::OnKeyAdded() {
   DVLOG(1) << __FUNCTION__;
+  if (!is_waiting_for_key_)
+    return;
+
+  is_waiting_for_key_ = false;
   if (playing_)
     StartInternal();
 }
@@ -237,6 +242,11 @@ void MediaSourcePlayer::StartInternal() {
   // If there are pending events, wait for them finish.
   if (pending_event_ != NO_EVENT_PENDING)
     return;
+
+  // When we start, we'll have new demuxed data coming in. This new data could
+  // be clear (not encrypted) or encrypted with different keys. So
+  // |is_waiting_for_key_| condition may not be true anymore.
+  is_waiting_for_key_ = false;
 
   // Create decoder jobs if they are not created
   ConfigureAudioDecoderJob();
@@ -449,6 +459,7 @@ void MediaSourcePlayer::MediaDecoderCallback(
     bool is_audio, MediaCodecStatus status,
     const base::TimeDelta& presentation_timestamp, size_t audio_output_bytes) {
   DVLOG(1) << __FUNCTION__ << ": " << is_audio << ", " << status;
+  DCHECK(!is_waiting_for_key_);
 
   bool is_clock_manager = is_audio || !HasAudio();
 
@@ -480,8 +491,10 @@ void MediaSourcePlayer::MediaDecoderCallback(
     return;
   }
 
-  if (status == MEDIA_CODEC_NO_KEY)
+  if (status == MEDIA_CODEC_NO_KEY) {
+    is_waiting_for_key_ = true;
     return;
+  }
 
   // If the status is MEDIA_CODEC_STOPPED, stop decoding new data. The player is
   // in the middle of a seek or stop event and needs to wait for the IPCs to
