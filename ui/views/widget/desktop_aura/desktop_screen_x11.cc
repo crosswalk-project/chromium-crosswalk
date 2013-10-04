@@ -30,6 +30,18 @@ gfx::Size GetPrimaryDisplaySize() {
   return gfx::Size(width, height);
 }
 
+const int kCSSPixelsPerInch = 96;
+const float kMillimetersPerInch = 25.4f;
+
+int GetPrimaryDisplayDPI() {
+  ::Display* display = ui::GetXDisplay();
+  ::Screen* screen = DefaultScreenOfDisplay(display);
+  float result = (WidthOfScreen(screen) * kMillimetersPerInch)
+          / WidthMMOfScreen(screen);
+
+  return static_cast<int>(result + 0.5);
+}
+
 class DesktopScreenX11 : public gfx::Screen {
  public:
   DesktopScreenX11();
@@ -67,7 +79,7 @@ DesktopScreenX11::~DesktopScreenX11() {
 // DesktopScreenX11, gfx::Screen implementation:
 
 bool DesktopScreenX11::IsDIPEnabled() {
-  return false;
+  return true;
 }
 
 gfx::Point DesktopScreenX11::GetCursorScreenPoint() {
@@ -104,24 +116,32 @@ int DesktopScreenX11::GetNumDisplays() {
 gfx::Display DesktopScreenX11::GetDisplayNearestWindow(
     gfx::NativeView window) const {
   // TODO(erg): Do the right thing once we know what that is.
-  return gfx::Display(0, gfx::Rect(GetPrimaryDisplaySize()));
+  return GetPrimaryDisplay();
 }
 
 gfx::Display DesktopScreenX11::GetDisplayNearestPoint(
     const gfx::Point& point) const {
   // TODO(erg): Do the right thing once we know what that is.
-  return gfx::Display(0, gfx::Rect(GetPrimaryDisplaySize()));
+  return GetPrimaryDisplay();
 }
 
 gfx::Display DesktopScreenX11::GetDisplayMatching(
     const gfx::Rect& match_rect) const {
   // TODO(erg): Do the right thing once we know what that is.
-  return gfx::Display(0, gfx::Rect(GetPrimaryDisplaySize()));
+  return GetPrimaryDisplay();
 }
 
 gfx::Display DesktopScreenX11::GetPrimaryDisplay() const {
   // TODO(erg): Do the right thing once we know what that is.
-  return gfx::Display(0, gfx::Rect(GetPrimaryDisplaySize()));
+  gfx::Rect bounds_in_pixels(GetPrimaryDisplaySize());
+
+  gfx::Display display(0, bounds_in_pixels);
+  if (!gfx::Display::HasForceDeviceScaleFactor()) {
+    float device_scale_factor = GetPrimaryDisplayDPI() / kCSSPixelsPerInch;
+    display.SetScaleAndBounds(device_scale_factor, bounds_in_pixels);
+  }
+
+  return display;
 }
 
 void DesktopScreenX11::AddObserver(gfx::DisplayObserver* observer) {
