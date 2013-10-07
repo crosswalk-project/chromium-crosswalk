@@ -2596,15 +2596,19 @@ import java.util.Map;
     @SuppressWarnings("unused")
     @CalledByNative
     private void onWebContentsConnected() {
-        if (mImeAdapter != null &&
-                !mImeAdapter.isNativeImeAdapterAttached() && mNativeContentViewCore != 0) {
-            mImeAdapter.attach(nativeGetNativeImeAdapter(mNativeContentViewCore));
-        }
+        attachImeAdapter();
     }
 
     @SuppressWarnings("unused")
     @CalledByNative
     private void onWebContentsSwapped() {
+        attachImeAdapter();
+    }
+
+    /**
+     * Attaches the native ImeAdapter object to the java ImeAdapter to allow communication via JNI.
+     */
+    public void attachImeAdapter() {
         if (mImeAdapter != null && mNativeContentViewCore != 0) {
             mImeAdapter.attach(nativeGetNativeImeAdapter(mNativeContentViewCore));
         }
