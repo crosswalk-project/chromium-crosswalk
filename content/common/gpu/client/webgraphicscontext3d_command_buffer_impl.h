@@ -92,7 +92,8 @@ class WebGraphicsContext3DCommandBufferImpl
       const base::WeakPtr<WebGraphicsContext3DSwapBuffersClient>& swap_client,
       const Attributes& attributes,
       bool bind_generates_resources,
-      const SharedMemoryLimits& limits);
+      const SharedMemoryLimits& limits,
+      bool context_for_browser_compositor = false);
 
   virtual ~WebGraphicsContext3DCommandBufferImpl();
 
@@ -752,6 +753,8 @@ class WebGraphicsContext3DCommandBufferImpl
   bool bind_generates_resources_;
   bool use_echo_for_swap_ack_;
   SharedMemoryLimits mem_limits_;
+
+  bool context_for_browser_compositor_;
 
   uint32_t flush_id_;
 };
