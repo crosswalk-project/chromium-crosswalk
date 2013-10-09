@@ -44,6 +44,11 @@ static base::LazyInstance<base::Lock>::Leaky
 static base::LazyInstance<std::set<WebGraphicsContext3DCommandBufferImpl*> >
     g_all_shared_contexts = LAZY_INSTANCE_INITIALIZER;
 
+static base::LazyInstance<base::Lock>::Leaky
+    g_all_shared_contexts_browser_lock = LAZY_INSTANCE_INITIALIZER;
+static base::LazyInstance<std::set<WebGraphicsContext3DCommandBufferImpl*> >
+    g_all_shared_contexts_browser = LAZY_INSTANCE_INITIALIZER;
+
 namespace {
 
 void ClearSharedContextsIfInShareSet(
@@ -57,6 +62,26 @@ void ClearSharedContextsIfInShareSet(
   base::AutoLock lock(g_all_shared_contexts_lock.Get());
   std::set<WebGraphicsContext3DCommandBufferImpl*>* share_set =
       g_all_shared_contexts.Pointer();
+  for (std::set<WebGraphicsContext3DCommandBufferImpl*>::iterator iter =
+           share_set->begin(); iter != share_set->end(); ++iter) {
+    if (context == *iter) {
+      share_set->clear();
+      return;
+    }
+  }
+}
+
+void ClearSharedContextsIfInShareSetBrowser(
+    WebGraphicsContext3DCommandBufferImpl* context) {
+  // If the given context isn't in the share set, that means that it
+  // or another context it was previously sharing with already
+  // provoked a lost context. Other contexts might have since been
+  // successfully created and added to the share set, so do not clear
+  // out the share set unless we know that all the contexts in there
+  // are supposed to be lost simultaneously.
+  base::AutoLock lock(g_all_shared_contexts_browser_lock.Get());
+  std::set<WebGraphicsContext3DCommandBufferImpl*>* share_set =
+      g_all_shared_contexts_browser.Pointer();
   for (std::set<WebGraphicsContext3DCommandBufferImpl*>::iterator iter =
            share_set->begin(); iter != share_set->end(); ++iter) {
     if (context == *iter) {
@@ -231,7 +256,8 @@ WebGraphicsContext3DCommandBufferImpl::WebGraphicsContext3DCommandBufferImpl(
     const base::WeakPtr<WebGraphicsContext3DSwapBuffersClient>& swap_client,
     const Attributes& attributes,
     bool bind_generates_resources,
-    const SharedMemoryLimits& limits)
+    const SharedMemoryLimits& limits,
+    bool context_for_browser_compositor)
     : initialize_failed_(false),
       visible_(false),
       free_command_buffer_when_invisible_(false),
@@ -253,6 +279,7 @@ WebGraphicsContext3DCommandBufferImpl::WebGraphicsContext3DCommandBufferImpl(
       bind_generates_resources_(bind_generates_resources),
       use_echo_for_swap_ack_(true),
       mem_limits_(limits),
+      context_for_browser_compositor_(context_for_browser_compositor),
       flush_id_(0) {
 #if (defined(OS_MACOSX) || defined(OS_WIN)) && !defined(USE_AURA)
   // Get ViewMsg_SwapBuffers_ACK from browser for single-threaded path.
@@ -268,7 +295,10 @@ WebGraphicsContext3DCommandBufferImpl::
     real_gl_->SetErrorMessageCallback(NULL);
   }
 
-  {
+  if (context_for_browser_compositor_) {
+    base::AutoLock lock(g_all_shared_contexts_browser_lock.Get());
+    g_all_shared_contexts_browser.Pointer()->erase(this);
+  } else {
     base::AutoLock lock(g_all_shared_contexts_lock.Get());
     g_all_shared_contexts.Pointer()->erase(this);
   }
@@ -343,14 +373,23 @@ bool WebGraphicsContext3DCommandBufferImpl::InitializeCommandBuffer(
   // We need to lock g_all_shared_contexts to ensure that the context we picked
   // for our share group isn't deleted.
   // (There's also a lock in our destructor.)
-  base::AutoLock lock(g_all_shared_contexts_lock.Get());
   CommandBufferProxyImpl* share_group = NULL;
   if (attributes_.shareResources) {
-    WebGraphicsContext3DCommandBufferImpl* share_group_context =
-        g_all_shared_contexts.Pointer()->empty() ?
-            NULL : *g_all_shared_contexts.Pointer()->begin();
-    share_group = share_group_context ?
-        share_group_context->command_buffer_.get() : NULL;
+    if (context_for_browser_compositor_) {
+      base::AutoLock lock(g_all_shared_contexts_browser_lock.Get());
+      WebGraphicsContext3DCommandBufferImpl* share_group_context =
+          g_all_shared_contexts_browser.Pointer()->empty() ?
+              NULL : *g_all_shared_contexts_browser.Pointer()->begin();
+      share_group = share_group_context ?
+          share_group_context->command_buffer_.get() : NULL;
+    } else {
+      base::AutoLock lock(g_all_shared_contexts_lock.Get());
+      WebGraphicsContext3DCommandBufferImpl* share_group_context =
+          g_all_shared_contexts.Pointer()->empty() ?
+              NULL : *g_all_shared_contexts.Pointer()->begin();
+      share_group = share_group_context ?
+          share_group_context->command_buffer_.get() : NULL;
+    }
   }
 
   std::vector<int32> attribs;
@@ -417,11 +456,20 @@ bool WebGraphicsContext3DCommandBufferImpl::CreateContext(
   if (attributes_.shareResources) {
     // Make sure two clients don't try to create a new ShareGroup
     // simultaneously.
-    lock.reset(new base::AutoLock(g_all_shared_contexts_lock.Get()));
-    if (!g_all_shared_contexts.Pointer()->empty()) {
-      share_group = (*g_all_shared_contexts.Pointer()->begin())
-          ->GetImplementation()->share_group();
-      DCHECK(share_group);
+    if (context_for_browser_compositor_) {
+      lock.reset(new base::AutoLock(g_all_shared_contexts_browser_lock.Get()));
+      if (!g_all_shared_contexts_browser.Pointer()->empty()) {
+        share_group = (*g_all_shared_contexts_browser.Pointer()->begin())
+            ->GetImplementation()->share_group();
+        DCHECK(share_group);
+      }
+    } else {
+      lock.reset(new base::AutoLock(g_all_shared_contexts_lock.Get()));
+      if (!g_all_shared_contexts.Pointer()->empty()) {
+        share_group = (*g_all_shared_contexts.Pointer()->begin())
+            ->GetImplementation()->share_group();
+        DCHECK(share_group);
+      }
     }
   }
 
@@ -436,7 +484,11 @@ bool WebGraphicsContext3DCommandBufferImpl::CreateContext(
 
   if (attributes_.shareResources) {
     // Don't add ourselves to the list before others can get to our ShareGroup.
-    g_all_shared_contexts.Pointer()->insert(this);
+    if (context_for_browser_compositor_) {
+      g_all_shared_contexts_browser.Pointer()->insert(this);
+    } else {
+      g_all_shared_contexts.Pointer()->insert(this);
+    }
     lock.reset();
   }
 
@@ -1456,8 +1508,13 @@ void WebGraphicsContext3DCommandBufferImpl::OnContextLost() {
   if (context_lost_callback_) {
     context_lost_callback_->onContextLost();
   }
-  if (attributes_.shareResources)
-    ClearSharedContextsIfInShareSet(this);
+  if (attributes_.shareResources) {
+    if (context_for_browser_compositor_) {
+      ClearSharedContextsIfInShareSetBrowser(this);
+    } else {
+      ClearSharedContextsIfInShareSet(this);
+    }
+  }
   if (ShouldUseSwapClient())
     swap_client_->OnViewContextSwapBuffersAborted();
 }

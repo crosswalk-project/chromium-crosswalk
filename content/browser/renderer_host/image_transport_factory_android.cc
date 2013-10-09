@@ -86,7 +86,8 @@ CmdBufferImageTransportFactory::CmdBufferImageTransportFactory() {
                                                 swap_client,
                                                 attrs,
                                                 false,
-                                                limits));
+                                                limits,
+                                                true));
   context_->setContextLostCallback(context_lost_listener_.get());
   if (context_->makeContextCurrent())
     context_->pushGroupMarkerEXT(
