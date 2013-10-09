@@ -388,7 +388,8 @@ CreateGpuProcessViewContext(
                                                 compositor_impl,
                                                 attributes,
                                                 false,
-                                                limits));
+                                                limits,
+                                                true));
 }
 
 scoped_ptr<cc::OutputSurface> CompositorImpl::CreateOutputSurface(
