@@ -83,7 +83,8 @@ class WebGraphicsContext3DCommandBufferImpl
       int surface_id,
       const GURL& active_url,
       GpuChannelHostFactory* factory,
-      const base::WeakPtr<WebGraphicsContext3DSwapBuffersClient>& swap_client);
+      const base::WeakPtr<WebGraphicsContext3DSwapBuffersClient>& swap_client,
+      bool context_for_browser_compositor = false);
 
   virtual ~WebGraphicsContext3DCommandBufferImpl();
 
@@ -765,6 +766,8 @@ class WebGraphicsContext3DCommandBufferImpl
   size_t min_transfer_buffer_size_;
   size_t max_transfer_buffer_size_;
   size_t mapped_memory_limit_;
+
+  bool context_for_browser_compositor_;
 
   uint32_t flush_id_;
 };

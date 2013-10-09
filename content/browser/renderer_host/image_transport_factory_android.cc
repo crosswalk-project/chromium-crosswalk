@@ -112,7 +112,8 @@ CmdBufferImageTransportFactory::CmdBufferImageTransportFactory() {
   context_.reset(new WebGraphicsContext3DCommandBufferImpl(0, // offscreen
                                                            url,
                                                            factory,
-                                                           swap_client));
+                                                           swap_client,
+                                                           true));
   static const size_t kBytesPerPixel = 4;
   gfx::DeviceDisplayInfo display_info;
   size_t full_screen_texture_size_in_bytes =
