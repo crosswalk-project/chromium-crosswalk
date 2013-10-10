@@ -916,6 +916,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     switches::kDisableLegacyEncryptedMedia,
     switches::kOverrideEncryptedMediaCanPlayType,
 #if defined(OS_ANDROID)
+    switches::kEnableMediaDrm,
     switches::kMediaDrmEnableNonCompositing,
 #endif
     switches::kEnableExperimentalWebPlatformFeatures,
