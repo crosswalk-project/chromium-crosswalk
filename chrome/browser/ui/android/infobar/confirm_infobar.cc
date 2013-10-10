@@ -47,6 +47,9 @@ ScopedJavaLocalRef<jobject> ConfirmInfoBar::CreateRenderInfoBar(JNIEnv* env) {
 
 void ConfirmInfoBar::ProcessButton(int action,
                                    const std::string& action_value) {
+  if (!owner())
+    return; // We're closing; don't call anything, it might access the owner.
+
   DCHECK(action == InfoBarAndroid::ACTION_OK ||
          action == InfoBarAndroid::ACTION_CANCEL);
   if ((action == InfoBarAndroid::ACTION_OK) ? delegate_->Accept()
