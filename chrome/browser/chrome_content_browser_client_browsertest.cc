@@ -97,7 +97,7 @@ IN_PROC_BROWSER_TEST_F(ChromeContentBrowserClientBrowserTest,
 IN_PROC_BROWSER_TEST_F(ChromeContentBrowserClientBrowserTest,
                        UberURLHandler_InstantExtendedNewTabPage) {
   const GURL url_original("chrome://newtab");
-  const GURL url_rewritten("http://example.com/newtab");
+  const GURL url_rewritten("https://example.com/newtab");
   InstallTemplateURLWithNewTabPage(url_rewritten);
   ASSERT_TRUE(base::FieldTrialList::CreateFieldTrial("InstantExtended",
       "Group1 use_cacheable_ntp:1"));
@@ -114,7 +114,7 @@ IN_PROC_BROWSER_TEST_F(ChromeContentBrowserClientBrowserTest,
 IN_PROC_BROWSER_TEST_F(ChromeContentBrowserClientBrowserTest,
                        UberURLHandler_InstantExtendedNewTabPageDisabled) {
   const GURL url_original("chrome://newtab");
-  const GURL url_rewritten("http://example.com/newtab");
+  const GURL url_rewritten("https://example.com/newtab");
   InstallTemplateURLWithNewTabPage(url_rewritten);
   ASSERT_TRUE(base::FieldTrialList::CreateFieldTrial("InstantExtended",
       "Group1 use_cacheable_ntp:1"));
