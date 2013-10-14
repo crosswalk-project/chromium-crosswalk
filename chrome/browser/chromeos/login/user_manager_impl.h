@@ -80,6 +80,7 @@ class UserManagerImpl
   virtual const User* GetActiveUser() const OVERRIDE;
   virtual User* GetActiveUser() OVERRIDE;
   virtual const User* GetPrimaryUser() const OVERRIDE;
+  virtual User* GetUserByProfile(Profile* profile) const OVERRIDE;
   virtual void SaveUserOAuthStatus(
       const std::string& username,
       User::OAuthTokenStatus oauth_token_status) OVERRIDE;
@@ -307,6 +308,8 @@ class UserManagerImpl
 
   // Sends metrics in response to a regular user logging in.
   void SendRegularUserLoginMetrics(const std::string& email);
+
+  Profile* GetProfileByUser(const User* user) const;
 
   // MultiProfileUserControllerDelegate implementation:
   virtual void OnUserNotAllowed() OVERRIDE;

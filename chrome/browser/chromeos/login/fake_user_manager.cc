@@ -160,6 +160,10 @@ const User* FakeUserManager::GetPrimaryUser() const {
   return primary_user_;
 }
 
+User* FakeUserManager::GetUserByProfile(Profile* profile) const {
+  return primary_user_;
+}
+
 string16 FakeUserManager::GetUserDisplayName(
     const std::string& username) const {
   return string16();
