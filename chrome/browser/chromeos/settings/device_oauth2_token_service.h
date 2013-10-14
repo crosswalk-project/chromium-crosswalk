@@ -11,6 +11,7 @@
 #include "base/basictypes.h"
 #include "base/gtest_prod_util.h"
 #include "base/memory/scoped_ptr.h"
+#include "base/memory/weak_ptr.h"
 #include "base/stl_util.h"
 #include "base/time/time.h"
 #include "google_apis/gaia/gaia_oauth_client.h"
@@ -87,6 +88,8 @@ class DeviceOAuth2TokenService : public OAuth2TokenService {
   // Cache the decrypted refresh token, so we only decrypt once.
   std::string refresh_token_;
   PrefService* local_state_;
+  base::WeakPtrFactory<DeviceOAuth2TokenService> weak_ptr_factory_;
+
   DISALLOW_COPY_AND_ASSIGN(DeviceOAuth2TokenService);
 };
 

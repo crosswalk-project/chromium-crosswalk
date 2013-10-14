@@ -162,6 +162,8 @@ TEST_F(DeviceOAuth2TokenServiceTest, SaveEncryptedToken) {
               DecryptWithSystemSalt(StrEq("encrypted")))
       .Times(1)
       .WillOnce(Return("test-token"));
+  EXPECT_CALL(mock_cryptohome_library, GetSystemSalt())
+      .WillRepeatedly(Return("mock-system-salt"));
 
   ASSERT_EQ("", oauth2_service_.GetRefreshToken(
                     oauth2_service_.GetRobotAccountId()));

@@ -214,7 +214,8 @@ DeviceOAuth2TokenService::DeviceOAuth2TokenService(
     : refresh_token_is_valid_(false),
       max_refresh_token_validation_retries_(3),
       url_request_context_getter_(getter),
-      local_state_(local_state) {
+      local_state_(local_state),
+      weak_ptr_factory_(this) {
 }
 
 DeviceOAuth2TokenService::~DeviceOAuth2TokenService() {
@@ -256,6 +257,21 @@ void DeviceOAuth2TokenService::RegisterPrefs(PrefRegistrySimple* registry) {
 void DeviceOAuth2TokenService::SetAndSaveRefreshToken(
     const std::string& refresh_token) {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
+
+  // TODO(xiyuan): Use async GetSystemSalt after merging to M31.
+  const std::string system_salt = CryptohomeLibrary::Get()->GetSystemSalt();
+  if (system_salt.empty()) {
+    const int64 kRequestSystemSaltDelayMs = 500;
+    content::BrowserThread::PostDelayedTask(
+        content::BrowserThread::UI,
+        FROM_HERE,
+        base::Bind(&DeviceOAuth2TokenService::SetAndSaveRefreshToken,
+                   weak_ptr_factory_.GetWeakPtr(),
+                   refresh_token),
+        base::TimeDelta::FromMilliseconds(kRequestSystemSaltDelayMs));
+    return;
+  }
+
   std::string encrypted_refresh_token =
       CryptohomeLibrary::Get()->EncryptWithSystemSalt(refresh_token);
 
@@ -269,6 +285,10 @@ std::string DeviceOAuth2TokenService::GetRefreshToken(
   if (refresh_token_.empty()) {
     std::string encrypted_refresh_token =
         local_state_->GetString(prefs::kDeviceRobotAnyApiRefreshToken);
+
+    // TODO(xiyuan): This needs a proper fix after M31.
+    LOG_IF(ERROR, CryptohomeLibrary::Get()->GetSystemSalt().empty())
+        << "System salt is not available for decryption";
 
     refresh_token_ = CryptohomeLibrary::Get()->DecryptWithSystemSalt(
         encrypted_refresh_token);
