@@ -45,10 +45,6 @@ const User* MockUserManager::GetPrimaryUser() const {
   return user_;
 }
 
-User* MockUserManager::GetUserByProfile(Profile* profile) const {
-  return user_;
-}
-
 UserImageManager* MockUserManager::GetUserImageManager() {
   return user_image_manager_.get();
 }

@@ -193,17 +193,6 @@ void ParseUserList(const ListValue& users_list,
   }
 }
 
-class UserHashMatcher {
- public:
-  explicit UserHashMatcher(const std::string& h) : username_hash(h) {}
-  bool operator()(const User* user) const {
-    return user->username_hash() == username_hash;
-  }
-
- private:
-  const std::string& username_hash;
-};
-
 }  // namespace
 
 // static
@@ -693,22 +682,6 @@ const User* UserManagerImpl::GetPrimaryUser() const {
   return primary_user_;
 }
 
-User* UserManagerImpl::GetUserByProfile(Profile* profile) const {
-  DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
-  if (ProfileHelper::IsSigninProfile(profile))
-    return NULL;
-
-  if (IsMultipleProfilesAllowed()) {
-    const std::string username_hash =
-        ProfileHelper::GetUserIdHashFromProfile(profile);
-    const UserList& users = GetUsers();
-    const UserList::const_iterator pos = std::find_if(
-        users.begin(), users.end(), UserHashMatcher(username_hash));
-    return (pos != users.end()) ? *pos : NULL;
-  }
-  return active_user_;
-}
-
 void UserManagerImpl::SaveUserOAuthStatus(
     const std::string& username,
     User::OAuthTokenStatus oauth_token_status) {
@@ -827,12 +800,6 @@ std::string UserManagerImpl::GetUserDisplayEmail(
     const std::string& username) const {
   const User* user = FindUser(username);
   return user ? user->display_email() : username;
-}
-
-Profile* UserManagerImpl::GetProfileByUser(const User* user) const {
-  if (IsMultipleProfilesAllowed())
-    return ProfileHelper::GetProfileByUserIdHash(user->username_hash());
-  return g_browser_process->profile_manager()->GetDefaultProfile();
 }
 
 void UserManagerImpl::Observe(int type,
