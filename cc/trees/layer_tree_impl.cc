@@ -333,6 +333,15 @@ void LayerTreeImpl::UpdateDrawProperties() {
     UpdateSolidColorScrollbars();
   }
 
+  // Hack for M31 release branch for http://crbug.com/303976.
+  // Removing the root layer clipping causes large FBO memory allocations
+  // and platforms that don't set solid_color_scrollbars can safely clip.
+  if (!settings().solid_color_scrollbars &&
+      IsActiveTree() &&
+      RootContainerLayer()) {
+    RootContainerLayer()->SetMasksToBounds(true);
+  }
+
   needs_update_draw_properties_ = false;
   render_surface_layer_list_.clear();
 
