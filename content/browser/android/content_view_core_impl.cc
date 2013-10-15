@@ -825,12 +825,7 @@ jint ContentViewCoreImpl::GetCurrentRenderProcessId(JNIEnv* env, jobject obj) {
 
 ScopedJavaLocalRef<jstring> ContentViewCoreImpl::GetURL(
     JNIEnv* env, jobject) const {
-  // The current users of the Java API expect to use the active entry
-  // rather than the visible entry, which is exposed by WebContents::GetURL.
-  content::NavigationEntry* entry =
-      web_contents_->GetController().GetActiveEntry();
-  GURL url = entry ? entry->GetVirtualURL() : GURL::EmptyGURL();
-  return ConvertUTF8ToJavaString(env, url.spec());
+  return ConvertUTF8ToJavaString(env, GetWebContents()->GetURL().spec());
 }
 
 ScopedJavaLocalRef<jstring> ContentViewCoreImpl::GetTitle(
@@ -1438,7 +1433,7 @@ void ContentViewCoreImpl::GetDirectedNavigationHistory(JNIEnv* env,
 ScopedJavaLocalRef<jstring>
 ContentViewCoreImpl::GetOriginalUrlForActiveNavigationEntry(JNIEnv* env,
                                                             jobject obj) {
-  NavigationEntry* entry = web_contents_->GetController().GetActiveEntry();
+  NavigationEntry* entry = web_contents_->GetController().GetVisibleEntry();
   if (entry == NULL)
     return ScopedJavaLocalRef<jstring>(env, NULL);
   return ConvertUTF8ToJavaString(env, entry->GetOriginalRequestURL().spec());
@@ -1513,7 +1508,7 @@ void ContentViewCoreImpl::EvaluateJavaScript(JNIEnv* env,
 
 bool ContentViewCoreImpl::GetUseDesktopUserAgent(
     JNIEnv* env, jobject obj) {
-  NavigationEntry* entry = web_contents_->GetController().GetActiveEntry();
+  NavigationEntry* entry = web_contents_->GetController().GetVisibleEntry();
   return entry && entry->GetIsOverridingUserAgent();
 }
 
@@ -1562,7 +1557,7 @@ void ContentViewCoreImpl::SetUseDesktopUserAgent(
     return;
 
   // Make sure the navigation entry actually exists.
-  NavigationEntry* entry = web_contents_->GetController().GetActiveEntry();
+  NavigationEntry* entry = web_contents_->GetController().GetVisibleEntry();
   if (!entry)
     return;
 
