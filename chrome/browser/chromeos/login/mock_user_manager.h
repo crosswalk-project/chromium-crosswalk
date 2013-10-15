@@ -111,6 +111,7 @@ class MockUserManager : public UserManager {
   virtual const User* GetActiveUser() const OVERRIDE;
   virtual User* GetActiveUser() OVERRIDE;
   virtual const User* GetPrimaryUser() const OVERRIDE;
+  virtual User* GetUserByProfile(Profile* profile) const OVERRIDE;
 
   virtual UserImageManager* GetUserImageManager() OVERRIDE;
 

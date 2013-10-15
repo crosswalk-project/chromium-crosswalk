@@ -36,6 +36,7 @@
 #include "chrome/browser/chromeos/login/user_image_manager_impl.h"
 #include "chrome/browser/chromeos/login/wizard_controller.h"
 #include "chrome/browser/chromeos/policy/device_local_account.h"
+#include "chrome/browser/chromeos/profiles/profile_helper.h"
 #include "chrome/browser/chromeos/session_length_limiter.h"
 #include "chrome/browser/chromeos/settings/cros_settings_names.h"
 #include "chrome/browser/lifetime/application_lifetime.h"
@@ -192,6 +193,17 @@ void ParseUserList(const ListValue& users_list,
     users_vector->push_back(email);
   }
 }
+
+class UserHashMatcher {
+ public:
+  explicit UserHashMatcher(const std::string& h) : username_hash(h) {}
+  bool operator()(const User* user) const {
+    return user->username_hash() == username_hash;
+  }
+
+ private:
+  const std::string& username_hash;
+};
 
 }  // namespace
 
@@ -680,6 +692,22 @@ User* UserManagerImpl::GetActiveUser() {
 const User* UserManagerImpl::GetPrimaryUser() const {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
   return primary_user_;
+}
+
+User* UserManagerImpl::GetUserByProfile(Profile* profile) const {
+  DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
+  if (ProfileHelper::IsSigninProfile(profile))
+    return NULL;
+
+  if (IsMultipleProfilesAllowed()) {
+    const std::string username_hash =
+        ProfileHelper::GetUserIdHashFromProfile(profile);
+    const UserList& users = GetUsers();
+    const UserList::const_iterator pos = std::find_if(
+        users.begin(), users.end(), UserHashMatcher(username_hash));
+    return (pos != users.end()) ? *pos : NULL;
+  }
+  return active_user_;
 }
 
 void UserManagerImpl::SaveUserOAuthStatus(
