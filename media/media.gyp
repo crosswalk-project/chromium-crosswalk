@@ -574,6 +574,19 @@
             ],
           },
           'conditions': [
+            ['tizen_mobile==1', {
+             'cflags': [
+                '<!@(<(pkg-config) --cflags gstreamer-0.10 gstreamer-atomisphal-0.10)',
+                # __user macro is used in mfld driver header atomisp.h, and it needs to be
+                # defined for Tizen environment, otherwise there are compiler errors.
+                '-D__user=',
+              ],
+              'link_settings': {
+                'libraries': [
+                  '<!@(<(pkg-config) --libs gstreamer-0.10 gstreamer-atomisphal-0.10)',
+                ],
+              },
+            }],
             ['use_x11==1', {
               'link_settings': {
                 'libraries': [
