@@ -18,6 +18,12 @@
 #include "ui/webui/web_ui_util.h"
 #include "url/url_util.h"
 
+namespace {
+
+char kFeedbackExtensionId[] = "gfdkimpbcpahaombhbimeihdjnejgicl";
+
+}
+
 namespace extensions {
 
 namespace feedback_private = api::feedback_private;
@@ -53,6 +59,8 @@ void FeedbackPrivateAPI::RequestFeedback(
     const std::string& category_tag,
     const GURL& page_url,
     const gfx::Rect& screen_size) {
+  // TODO(rkc): Remove logging once crbug.com/284662 is closed.
+  LOG(WARNING) << "FEEDBACK_DEBUG: Feedback requested.";
   if (profile_ && ExtensionSystem::Get(profile_)->event_router()) {
     FeedbackInfo info;
     info.description = description_template;
@@ -76,7 +84,10 @@ void FeedbackPrivateAPI::RequestFeedback(
 
     scoped_ptr<Event> event(new Event(
         feedback_private::OnFeedbackRequested::kEventName, args.Pass()));
-    ExtensionSystem::Get(profile_)->event_router()->BroadcastEvent(
+    // TODO(rkc): Remove logging once crbug.com/284662 is closed.
+    LOG(WARNING) << "FEEDBACK_DEBUG: Dispatching onFeedbackRequested event.";
+    ExtensionSystem::Get(profile_)->event_router()->DispatchEventToExtension(
+        kFeedbackExtensionId,
         event.Pass());
   }
 }
@@ -109,6 +120,8 @@ bool FeedbackPrivateGetStringsFunction::RunImpl() {
 }
 
 bool FeedbackPrivateGetUserEmailFunction::RunImpl() {
+  // TODO(rkc): Remove logging once crbug.com/284662 is closed.
+  LOG(WARNING) << "FEEDBACK_DEBUG: User e-mail requested.";
   FeedbackService* service =
       FeedbackPrivateAPI::GetFactoryInstance()->GetForProfile(
           profile())->GetService();
@@ -118,6 +131,8 @@ bool FeedbackPrivateGetUserEmailFunction::RunImpl() {
 }
 
 bool FeedbackPrivateGetSystemInformationFunction::RunImpl() {
+  // TODO(rkc): Remove logging once crbug.com/284662 is closed.
+  LOG(WARNING) << "FEEDBACK_DEBUG: System information requested.";
   FeedbackService* service =
       FeedbackPrivateAPI::GetFactoryInstance()->GetForProfile(
           profile())->GetService();
