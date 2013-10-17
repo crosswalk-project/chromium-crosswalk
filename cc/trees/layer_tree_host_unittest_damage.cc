@@ -614,7 +614,7 @@ class LayerTreeHostDamageTestScrollbarDoesDamage
 
 MULTI_THREAD_TEST_F(LayerTreeHostDamageTestScrollbarDoesDamage);
 
-class LayerTreeHostDamageTestScrollbarCommitDoesNoDamage
+class DISABLED_LayerTreeHostDamageTestScrollbarCommitDoesNoDamage
     : public LayerTreeHostScrollbarDamageTest {
   virtual void BeginTest() OVERRIDE {
     did_swaps_ = 0;
@@ -687,7 +687,8 @@ class LayerTreeHostDamageTestScrollbarCommitDoesNoDamage
   int did_swaps_;
 };
 
-MULTI_THREAD_TEST_F(LayerTreeHostDamageTestScrollbarCommitDoesNoDamage);
+MULTI_THREAD_TEST_F(
+    DISABLED_LayerTreeHostDamageTestScrollbarCommitDoesNoDamage);
 
 class LayerTreeHostDamageTestVisibleTilesStillTriggerDraws
     : public LayerTreeHostDamageTest {

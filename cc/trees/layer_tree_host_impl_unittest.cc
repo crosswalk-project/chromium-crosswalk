@@ -1103,7 +1103,7 @@ class LayerTreeHostImplOverridePhysicalTime : public LayerTreeHostImpl {
   base::TimeTicks fake_current_physical_time_;
 };
 
-TEST_F(LayerTreeHostImplTest, ScrollbarLinearFadeScheduling) {
+TEST_F(LayerTreeHostImplTest, DISABLED_ScrollbarLinearFadeScheduling) {
   LayerTreeSettings settings;
   settings.scrollbar_animator = LayerTreeSettings::LinearFade;
   settings.scrollbar_linear_fade_delay_ms = 20;
