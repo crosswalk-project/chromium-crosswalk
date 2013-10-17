@@ -108,7 +108,7 @@ ATOM ClassRegistrar::RetrieveClassAtom(const ClassInfo& class_info) {
       0,
       0,
       NULL,
-      reinterpret_cast<HBRUSH>(GetStockObject(BLACK_BRUSH)),
+      NULL,
       NULL,
       class_info.icon,
       class_info.icon,
