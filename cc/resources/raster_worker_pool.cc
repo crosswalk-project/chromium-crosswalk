@@ -261,7 +261,7 @@ class ImageDecodeWorkerPoolTaskImpl : public internal::WorkerPoolTask {
                                 int layer_id,
                                 RenderingStatsInstrumentation* rendering_stats,
                                 const RasterWorkerPool::Task::Reply& reply)
-      : pixel_ref_(pixel_ref),
+      : pixel_ref_(skia::SharePtr(pixel_ref)),
         layer_id_(layer_id),
         rendering_stats_(rendering_stats),
         reply_(reply) {}
@@ -270,7 +270,7 @@ class ImageDecodeWorkerPoolTaskImpl : public internal::WorkerPoolTask {
   virtual void RunOnWorkerThread(unsigned thread_index) OVERRIDE {
     TRACE_EVENT0("cc", "ImageDecodeWorkerPoolTaskImpl::RunOnWorkerThread");
     devtools_instrumentation::ScopedImageDecodeTask image_decode_task(
-        pixel_ref_);
+        pixel_ref_.get());
     base::TimeTicks start_time = rendering_stats_->StartRecording();
     pixel_ref_->Decode();
     base::TimeDelta duration = rendering_stats_->EndRecording(start_time);
@@ -284,7 +284,7 @@ class ImageDecodeWorkerPoolTaskImpl : public internal::WorkerPoolTask {
   virtual ~ImageDecodeWorkerPoolTaskImpl() {}
 
  private:
-  skia::LazyPixelRef* pixel_ref_;
+  skia::RefPtr<skia::LazyPixelRef> pixel_ref_;
   int layer_id_;
   RenderingStatsInstrumentation* rendering_stats_;
   const RasterWorkerPool::Task::Reply reply_;
