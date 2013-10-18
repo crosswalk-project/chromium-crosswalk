@@ -363,7 +363,10 @@ IndexedDBBackingStore::IndexedDBBackingStore(
     const std::string& identifier,
     scoped_ptr<LevelDBDatabase> db,
     scoped_ptr<LevelDBComparator> comparator)
-    : identifier_(identifier), db_(db.Pass()), comparator_(comparator.Pass()) {}
+    : identifier_(identifier),
+      db_(db.Pass()),
+      comparator_(comparator.Pass()),
+      weak_factory_(this) {}
 
 IndexedDBBackingStore::~IndexedDBBackingStore() {
   // db_'s destructor uses comparator_. The order of destruction is important.

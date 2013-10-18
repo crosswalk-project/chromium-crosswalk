@@ -16,14 +16,14 @@ IndexedDBConnection::~IndexedDBConnection() {}
 void IndexedDBConnection::Close() {
   if (!callbacks_)
     return;
-  database_->Close(this, false /* forced */);
+  database_->Close(this);
   callbacks_ = NULL;
 }
 
 void IndexedDBConnection::ForceClose() {
   if (!callbacks_)
     return;
-  database_->Close(this, true /* forced */);
+  database_->Close(this);
   callbacks_->OnForcedClose();
   callbacks_ = NULL;
 }

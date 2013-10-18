@@ -6,7 +6,6 @@
 
 #include "base/logging.h"
 #include "base/strings/utf_string_conversions.h"
-#include "base/time/time.h"
 #include "content/browser/indexed_db/indexed_db_backing_store.h"
 #include "content/browser/indexed_db/indexed_db_tracing.h"
 #include "content/browser/indexed_db/indexed_db_transaction_coordinator.h"
@@ -14,7 +13,18 @@
 
 namespace content {
 
-const int64 kBackingStoreGracePeriodMs = 2000;
+template <typename K, typename M>
+static void CleanWeakMap(std::map<K, base::WeakPtr<M> >* map) {
+  std::map<K, base::WeakPtr<M> > other;
+  other.swap(*map);
+
+  typename std::map<K, base::WeakPtr<M> >::const_iterator iter = other.begin();
+  while (iter != other.end()) {
+    if (iter->second.get())
+      (*map)[iter->first] = iter->second;
+    ++iter;
+  }
+}
 
 static std::string ComputeFileIdentifier(const std::string& origin_identifier) {
   return origin_identifier + "@1";
@@ -24,60 +34,10 @@ IndexedDBFactory::IndexedDBFactory() {}
 
 IndexedDBFactory::~IndexedDBFactory() {}
 
-void IndexedDBFactory::ReleaseDatabase(
-    const IndexedDBDatabase::Identifier& identifier,
-    bool forcedClose) {
-  DCHECK(database_map_.find(identifier) != database_map_.end());
-  std::string backing_store_identifier =
-      database_map_[identifier]->backing_store()->identifier();
-  database_map_.erase(identifier);
-
-  // No grace period on a forced-close, as the initiator is
-  // assuming the backing store will be released once all
-  // connections are closed.
-  ReleaseBackingStore(backing_store_identifier, forcedClose);
-}
-
-void IndexedDBFactory::ReleaseBackingStore(const std::string& identifier,
-                                           bool immediate) {
-  // Only close if this is the last reference.
-  if (!HasLastBackingStoreReference(identifier))
-    return;
-
-  if (immediate) {
-    CloseBackingStore(identifier);
-    return;
-  }
-
-  DCHECK(!backing_store_map_[identifier]->close_timer()->IsRunning());
-  backing_store_map_[identifier]->close_timer()->Start(
-      FROM_HERE,
-      base::TimeDelta::FromMilliseconds(kBackingStoreGracePeriodMs),
-      base::Bind(&IndexedDBFactory::MaybeCloseBackingStore, this, identifier));
-}
-
-void IndexedDBFactory::MaybeCloseBackingStore(const std::string& identifier) {
-  // Another reference may have opened since the maybe-close was posted,
-  // so it is necessary to check again.
-  if (HasLastBackingStoreReference(identifier))
-    CloseBackingStore(identifier);
-}
-
-void IndexedDBFactory::CloseBackingStore(const std::string& identifier) {
-  backing_store_map_.erase(identifier);
-}
-
-bool IndexedDBFactory::HasLastBackingStoreReference(
-    const std::string& identifier) const {
-  IndexedDBBackingStore* ptr;
-  {
-    // Scope so that the implicit scoped_refptr<> is freed.
-    IndexedDBBackingStoreMap::const_iterator it =
-        backing_store_map_.find(identifier);
-    DCHECK(it != backing_store_map_.end());
-    ptr = it->second.get();
-  }
-  return ptr->HasOneRef();
+void IndexedDBFactory::RemoveIDBDatabaseBackend(
+    const IndexedDBDatabase::Identifier& unique_identifier) {
+  DCHECK(database_map_.find(unique_identifier) != database_map_.end());
+  database_map_.erase(unique_identifier);
 }
 
 void IndexedDBFactory::GetDatabaseNames(
@@ -156,10 +116,8 @@ scoped_refptr<IndexedDBBackingStore> IndexedDBFactory::OpenBackingStore(
 
   IndexedDBBackingStoreMap::iterator it2 =
       backing_store_map_.find(file_identifier);
-  if (it2 != backing_store_map_.end()) {
-    it2->second->close_timer()->Stop();
-    return it2->second;
-  }
+  if (it2 != backing_store_map_.end() && it2->second.get())
+    return it2->second.get();
 
   scoped_refptr<IndexedDBBackingStore> backing_store;
   if (open_in_memory) {
@@ -173,7 +131,8 @@ scoped_refptr<IndexedDBBackingStore> IndexedDBFactory::OpenBackingStore(
   }
 
   if (backing_store.get()) {
-    backing_store_map_[file_identifier] = backing_store;
+    CleanWeakMap(&backing_store_map_);
+    backing_store_map_[file_identifier] = backing_store->GetWeakPtr();
     // If an in-memory database, bind lifetime to this factory instance.
     if (open_in_memory)
       session_only_backing_stores_.insert(backing_store);
