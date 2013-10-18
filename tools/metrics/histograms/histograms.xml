@@ -24566,6 +24566,7 @@ other types of suffix sets.
   <int value="40" label="OPEN_URL"/>
   <int value="41" label="WOULD_HAVE_BEEN_USED"/>
   <int value="42" label="REGISTER_PROTOCOL_HANDLER"/>
+  <int value="46" label="NAVIGATION_UNCOMMITTED"/>
 </enum>
 
 <enum name="PrerenderHoverEvent" type="int">
