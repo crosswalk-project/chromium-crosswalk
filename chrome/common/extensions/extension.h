@@ -89,6 +89,8 @@ class Extension : public base::RefCountedThreadSafe<Extension> {
     DISABLE_UNSUPPORTED_REQUIREMENT = 1 << 3,
     DISABLE_SIDELOAD_WIPEOUT = 1 << 4,
     DISABLE_UNKNOWN_FROM_SYNC = 1 << 5,
+    // Entry 6 is introduced in M32.
+    DISABLE_KNOWN_DISABLED = 1 << 7,
   };
 
   enum InstallType {
