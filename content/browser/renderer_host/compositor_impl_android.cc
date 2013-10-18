@@ -398,7 +398,8 @@ CreateGpuProcessViewContext(
       new WebGraphicsContext3DCommandBufferImpl(surface_id,
                                                 url,
                                                 factory,
-                                                compositor_impl));
+                                                compositor_impl,
+                                                true));
   static const size_t kBytesPerPixel = 4;
   gfx::DeviceDisplayInfo display_info;
   size_t full_screen_texture_size_in_bytes =
