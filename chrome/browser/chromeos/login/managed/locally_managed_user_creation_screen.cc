@@ -76,6 +76,8 @@ LocallyManagedUserCreationScreen::~LocallyManagedUserCreationScreen() {
     actor_->SetDelegate(NULL);
   if (image_decoder_.get())
     image_decoder_->set_delegate(NULL);
+  if (NetworkPortalDetector::GetInstance())
+    NetworkPortalDetector::GetInstance()->RemoveObserver(this);
 }
 
 void LocallyManagedUserCreationScreen::PrepareToShow() {
