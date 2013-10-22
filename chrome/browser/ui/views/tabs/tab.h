@@ -251,8 +251,9 @@ class Tab : public gfx::AnimationDelegate,
   void DisplayCrashedFavicon();
   void ResetCrashedFavicon();
 
-  void StopIconAnimation();
+  void StopCrashAnimation();
   void StartCrashAnimation();
+  void StopRecordingAnimation();
   void StartRecordingAnimation();
 
   // Returns true if the crash animation is currently running.

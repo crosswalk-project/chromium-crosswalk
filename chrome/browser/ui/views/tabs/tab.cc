@@ -518,10 +518,8 @@ void Tab::SetData(const TabRendererData& data) {
   if (data_.IsCrashed()) {
     if (!should_display_crashed_favicon_ && !IsPerformingCrashAnimation()) {
       // Crash animation overrides the other icon animations.
-      old.audio_state = TabRendererData::AUDIO_STATE_NONE;
       data_.audio_state = TabRendererData::AUDIO_STATE_NONE;
       data_.capture_state = TabRendererData::CAPTURE_STATE_NONE;
-      old.capture_state = TabRendererData::CAPTURE_STATE_NONE;
 #if defined(OS_CHROMEOS)
       // On Chrome OS, we reload killed tabs automatically when the user
       // switches to them.  Don't display animations for these unless they're
@@ -534,15 +532,16 @@ void Tab::SetData(const TabRendererData& data) {
       StartCrashAnimation();
 #endif
     }
-  } else if (!data_.CaptureActive() && old.CaptureActive()) {
-    StopIconAnimation();
-  } else if (data_.CaptureActive() && !old.CaptureActive()) {
-    StartRecordingAnimation();
   } else {
     if (IsPerformingCrashAnimation())
-      StopIconAnimation();
+      StopCrashAnimation();
     ResetCrashedFavicon();
   }
+
+  if (!data_.CaptureActive() && old.CaptureActive())
+    StopRecordingAnimation();
+  else if (data_.CaptureActive() && !old.CaptureActive())
+    StartRecordingAnimation();
 
   if (old.mini != data_.mini) {
     if (tab_animation_.get() && tab_animation_->is_animating()) {
@@ -1745,19 +1744,20 @@ void Tab::ResetCrashedFavicon() {
   should_display_crashed_favicon_ = false;
 }
 
-void Tab::StopIconAnimation() {
+void Tab::StopCrashAnimation() {
   crash_icon_animation_.reset();
-  capture_icon_animation_.reset();
 }
 
 void Tab::StartCrashAnimation() {
-  capture_icon_animation_.reset();
   crash_icon_animation_.reset(new FaviconCrashAnimation(this));
   crash_icon_animation_->Start();
 }
 
+void Tab::StopRecordingAnimation() {
+  capture_icon_animation_.reset();
+}
+
 void Tab::StartRecordingAnimation() {
-  crash_icon_animation_.reset();
   capture_icon_animation_ = chrome::CreateTabRecordingIndicatorAnimation();
   capture_icon_animation_->set_delegate(this);
   capture_icon_animation_->Start();
