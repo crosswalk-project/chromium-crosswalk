@@ -2312,11 +2312,6 @@ WebView* RenderViewImpl::createView(
       transferred_preferences.accelerated_compositing_enabled = true;
   }
 
-  // The initial hidden state for the RenderViewImpl here has to match what the
-  // browser will eventually decide for the given disposition. Since we have to
-  // return from this call synchronously, we just have to make our best guess
-  // and rely on the browser sending a WasHidden / WasShown message if it
-  // disagrees.
   RenderViewImpl* view = RenderViewImpl::Create(
       routing_id_,
       renderer_preferences_,
@@ -2328,7 +2323,7 @@ WebView* RenderViewImpl::createView(
       string16(),  // WebCore will take care of setting the correct name.
       true,  // is_renderer_created
       false, // swapped_out
-      params.disposition == NEW_BACKGROUND_TAB, // hidden
+      false, // hidden
       1,     // next_page_id
       screen_info_,
       accessibility_mode_,
