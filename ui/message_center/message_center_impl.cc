@@ -493,7 +493,17 @@ void MessageCenterImpl::RemoveAllNotifications(bool by_user) {
 
 void MessageCenterImpl::SetNotificationIcon(const std::string& notification_id,
                                         const gfx::Image& image) {
-  if (notification_list_->SetNotificationIcon(notification_id, image)) {
+  std::list<internal::NotificationQueueItem>::iterator iter = std::find_if(
+      notification_queue_.begin(),
+      notification_queue_.end(),
+      internal::NotificationFinder(notification_id));
+  bool found = iter != notification_queue_.end();
+  if (found)
+    iter->notification->set_icon(image);
+  else
+    found = notification_list_->SetNotificationIcon(notification_id, image);
+
+  if (found) {
     FOR_EACH_OBSERVER(MessageCenterObserver, observer_list_,
                       OnNotificationUpdated(notification_id));
   }

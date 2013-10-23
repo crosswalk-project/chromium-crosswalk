@@ -9,6 +9,9 @@
 #include "base/run_loop.h"
 #include "base/strings/utf_string_conversions.h"
 #include "testing/gtest/include/gtest/gtest.h"
+#include "ui/base/layout.h"
+#include "ui/gfx/canvas.h"
+#include "ui/gfx/size.h"
 #include "ui/message_center/message_center.h"
 #include "ui/message_center/message_center_types.h"
 #include "ui/message_center/notification_blocker.h"
@@ -41,6 +44,20 @@ class MessageCenterImplTest : public testing::Test,
   base::RunLoop* run_loop() const { return run_loop_.get(); }
   base::Closure closure() const { return closure_; }
 
+  Notification* CreateNotification(const std::string& id) {
+    RichNotificationData optional_fields;
+    optional_fields.buttons.push_back(ButtonInfo(UTF8ToUTF16("foo")));
+    optional_fields.buttons.push_back(ButtonInfo(UTF8ToUTF16("foo")));
+    return new Notification(NOTIFICATION_TYPE_SIMPLE,
+                            id,
+                            UTF8ToUTF16("title"),
+                            UTF8ToUTF16(id),
+                            gfx::Image() /* icon */,
+                            base::string16() /* display_source */,
+                            NotifierId(NotifierId::APPLICATION, "app1"),
+                            optional_fields,
+                            NULL);
+  }
  private:
   MessageCenter* message_center_;
   scoped_ptr<base::MessageLoop> loop_;
@@ -484,6 +501,52 @@ TEST_F(MessageCenterImplTest, QueueUpdatesWithCenterVisible) {
   message_center()->SetVisibility(VISIBILITY_TRANSIENT);
   EXPECT_FALSE(message_center()->HasNotification(id2));
   EXPECT_TRUE(message_center()->HasNotification(id));
+}
+
+TEST_F(MessageCenterImplTest, QueuedDirectUpdates) {
+  std::string id("id1");
+  std::string id2("id2");
+  NotifierId notifier_id1(NotifierId::APPLICATION, "app1");
+
+  gfx::Size original_size(0, 0);
+  // Open the message center to prevent adding notifications
+  message_center()->SetVisibility(VISIBILITY_MESSAGE_CENTER);
+
+  // Create new notification to be added to the queue; images all have the same
+  // original size.
+  scoped_ptr<Notification> notification(CreateNotification(id));
+
+  // Double-check that sizes all match.
+  EXPECT_EQ(original_size, notification->icon().Size());
+
+  message_center()->AddNotification(notification.Pass());
+
+  // The notification should be in the queue.
+  EXPECT_FALSE(message_center()->HasNotification(id));
+
+  // Now try setting the icon to a different size.
+  gfx::Size new_size(16, 16);
+  EXPECT_NE(original_size, new_size);
+
+  gfx::Canvas canvas(new_size, ui::SCALE_FACTOR_100P, true);
+  canvas.DrawColor(SK_ColorBLUE);
+  gfx::Image testImage(gfx::Image(gfx::ImageSkia(canvas.ExtractImageRep())));
+  message_center()->SetNotificationIcon(id, testImage);
+  message_center()->SetNotificationButtonIcon(id, 0, testImage);
+  message_center()->SetNotificationButtonIcon(id, 1, testImage);
+
+  // The notification should be in the queue.
+  EXPECT_FALSE(message_center()->HasNotification(id));
+
+  // Close the message center; then the update should have propagated.
+  message_center()->SetVisibility(VISIBILITY_TRANSIENT);
+  // The notification should no longer be in the queue.
+  EXPECT_TRUE(message_center()->HasNotification(id));
+
+  Notification* mc_notification =
+      *(message_center()->GetNotifications().begin());
+
+  EXPECT_EQ(new_size, mc_notification->icon().Size());
 }
 
 }  // namespace internal
