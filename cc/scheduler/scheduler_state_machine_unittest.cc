@@ -1648,5 +1648,31 @@ TEST(SchedulerStateMachineTest,
   EXPECT_TRUE(state.ShouldTriggerBeginFrameDeadlineEarly());
 }
 
+TEST(SchedulerStateMachineTest, TestTriggerDeadlineEarlyForSmoothness) {
+  SchedulerSettings settings;
+  settings.deadline_scheduling_enabled = true;
+  settings.impl_side_painting = true;
+  StateMachine state(settings);
+  state.SetCanStart();
+  state.UpdateState(state.NextAction());
+  state.CreateAndInitializeOutputSurfaceWithActivatedCommit();
+  state.SetVisible(true);
+  state.SetCanDraw(true);
+
+  // This test ensures that impl-draws are prioritized over main thread updates
+  // in prefer smoothness mode.
+  state.OnBeginFrame(BeginFrameArgs::CreateForTesting());
+  state.SetNeedsRedraw(true);
+  state.SetNeedsCommit();
+  EXPECT_ACTION_UPDATE_STATE(
+      SchedulerStateMachine::ACTION_SEND_BEGIN_FRAME_TO_MAIN_THREAD);
+  EXPECT_ACTION_UPDATE_STATE(SchedulerStateMachine::ACTION_NONE);
+
+  // The deadline is not triggered early until we enter prefer smoothness mode.
+  EXPECT_FALSE(state.ShouldTriggerBeginFrameDeadlineEarly());
+  state.SetSmoothnessTakesPriority(true);
+  EXPECT_TRUE(state.ShouldTriggerBeginFrameDeadlineEarly());
+}
+
 }  // namespace
 }  // namespace cc
