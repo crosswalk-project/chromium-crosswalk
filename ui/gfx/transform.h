@@ -176,8 +176,7 @@ class UI_EXPORT Transform {
   //
   void FlattenTo2d();
 
-  // Returns the translation components of the matrix. It is an error to call
-  // this function if the transform does not represent only a 2d translation.
+  // Returns the x and y translation components of the matrix.
   Vector2dF To2dTranslation() const;
 
   // Applies the transformation on the point. Returns true if the point is
