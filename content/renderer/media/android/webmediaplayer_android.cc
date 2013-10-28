@@ -101,7 +101,8 @@ WebMediaPlayerAndroid::WebMediaPlayerAndroid(
       player_type_(MEDIA_PLAYER_TYPE_URL),
       proxy_(proxy),
       current_time_(0),
-      media_log_(media_log) {
+      media_log_(media_log),
+      weak_factory_(this) {
   DCHECK(proxy_);
   DCHECK(manager_);
 
@@ -243,15 +244,15 @@ void WebMediaPlayerAndroid::load(LoadType load_type,
     if (player_type_ == MEDIA_PLAYER_TYPE_MEDIA_SOURCE) {
       media_source_delegate_->InitializeMediaSource(
           base::Bind(&WebMediaPlayerAndroid::OnMediaSourceOpened,
-                     base::Unretained(this)),
+                     weak_factory_.GetWeakPtr()),
           base::Bind(&WebMediaPlayerAndroid::OnNeedKey, base::Unretained(this)),
           set_decryptor_ready_cb,
           base::Bind(&WebMediaPlayerAndroid::UpdateNetworkState,
-                     base::Unretained(this)),
+                     weak_factory_.GetWeakPtr()),
           base::Bind(&WebMediaPlayerAndroid::OnDurationChanged,
-                     base::Unretained(this)),
+                     weak_factory_.GetWeakPtr()),
           base::Bind(&WebMediaPlayerAndroid::OnTimeUpdate,
-                     base::Unretained(this)));
+                     weak_factory_.GetWeakPtr()));
     }
 #if defined(GOOGLE_TV)
     // TODO(xhwang): Pass set_decryptor_ready_cb in InitializeMediaStream() to
@@ -260,7 +261,7 @@ void WebMediaPlayerAndroid::load(LoadType load_type,
       media_source_delegate_->InitializeMediaStream(
           demuxer_,
           base::Bind(&WebMediaPlayerAndroid::UpdateNetworkState,
-                     base::Unretained(this)));
+                     weak_factory_.GetWeakPtr()));
       audio_renderer_ = media_stream_client_->GetAudioRenderer(url);
       if (audio_renderer_)
         audio_renderer_->Start();

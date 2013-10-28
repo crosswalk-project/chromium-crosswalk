@@ -426,6 +426,8 @@ class WebMediaPlayerAndroid
   // The decryptor that manages decryption keys and decrypts encrypted frames.
   scoped_ptr<ProxyDecryptor> decryptor_;
 
+  base::WeakPtrFactory<WebMediaPlayerAndroid> weak_factory_;
+
   DISALLOW_COPY_AND_ASSIGN(WebMediaPlayerAndroid);
 };
 
