@@ -17,10 +17,26 @@
 #include <list>
 #include <string>
 
+#if defined(OS_TIZEN_MOBILE)
+extern "C" {
+#include <mfld_cam.h>
+} // extern "C"
+#endif
+
 #include "base/bind.h"
 #include "base/file_util.h"
 #include "base/files/file_enumerator.h"
 #include "base/strings/stringprintf.h"
+
+#if defined(OS_TIZEN_MOBILE)
+namespace {
+
+enum { kCameraSensorSecondary, kCameraSensorPrimary };
+GstV4l2MFLDAdvCI mfld_adv_ci;
+bool has_mfld_camera_driver_initialized = false;
+
+}  //namespace
+#endif
 
 namespace media {
 
@@ -113,8 +129,14 @@ void VideoCaptureDevice::GetDeviceNames(Names* device_names) {
   device_names->clear();
 
   base::FilePath path("/dev/");
+#if defined(OS_TIZEN_MOBILE)
+  // Supposedly to use "/dev/video0" only
+  const char *device_wildcards = "video0";
+#else
+  const char *device_wildcards = "video*";
+#endif
   base::FileEnumerator enumerator(
-      path, false, base::FileEnumerator::FILES, "video*");
+      path, false, base::FileEnumerator::FILES, device_wildcards);
 
   while (!enumerator.Next().empty()) {
     base::FileEnumerator::FileInfo info = enumerator.GetInfo();
@@ -127,8 +149,13 @@ void VideoCaptureDevice::GetDeviceNames(Names* device_names) {
     // Test if this is a V4L2 capture device.
     v4l2_capability cap;
     if ((ioctl(fd, VIDIOC_QUERYCAP, &cap) == 0) &&
-        (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) &&
-        !(cap.capabilities & V4L2_CAP_VIDEO_OUTPUT)) {
+        (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE)) {
+#if !defined(OS_TIZEN_MOBILE)
+      // Here chromium was expecting any capture, but not output video device.
+      // Unfortunately on Tizen camera is both a capture and output device.
+      if (cap.capabilities & V4L2_CAP_VIDEO_OUTPUT)
+        continue;
+#endif
       // This is a V4L2 video capture device
       if (HasUsableFormats(fd)) {
         Name device_name(base::StringPrintf("%s", cap.card), unique_id);
@@ -180,6 +207,13 @@ VideoCaptureDevice* VideoCaptureDevice::Create(const Name& device_name) {
   VideoCaptureDeviceLinux* self = new VideoCaptureDeviceLinux(device_name);
   if (!self)
     return NULL;
+#if defined(OS_TIZEN_MOBILE)
+  if (!has_mfld_camera_driver_initialized) {
+    has_mfld_camera_driver_initialized = true;
+    wrapper_default_link_functions_init(&mfld_adv_ci);
+    libmfld_cam_init(&mfld_adv_ci);
+  }
+#endif
   // Test opening the device driver. This is to make sure it is available.
   // We will reopen it again in our worker thread when someone
   // allocates the camera.
@@ -288,16 +322,66 @@ void VideoCaptureDeviceLinux::OnAllocate(int width,
 
   // Test if this is a V4L2 capture device.
   v4l2_capability cap;
-  if (!((ioctl(device_fd_, VIDIOC_QUERYCAP, &cap) == 0) &&
-      (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE) &&
-      !(cap.capabilities & V4L2_CAP_VIDEO_OUTPUT))) {
-    // This is not a V4L2 video capture device.
-    close(device_fd_);
-    device_fd_ = -1;
-    SetErrorState("This is not a V4L2 video capture device");
-    return;
+  bool is_capture_device = (ioctl(device_fd_, VIDIOC_QUERYCAP, &cap) == 0) &&
+                           (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE);
+  bool is_output_device = cap.capabilities & V4L2_CAP_VIDEO_OUTPUT;
+  if (!is_capture_device || is_output_device) {
+#if defined(OS_TIZEN_MOBILE)
+    if (!is_capture_device) {
+#endif
+      // This is not a V4L2 video capture device.
+      close(device_fd_);
+      device_fd_ = -1;
+      SetErrorState("This is not a V4L2 video capture device");
+      return;
+#if defined(OS_TIZEN_MOBILE)
+    }
+#endif
   }
 
+#if defined(OS_TIZEN_MOBILE)
+  int camera_sensor = kCameraSensorSecondary;
+  if (ioctl(device_fd_, VIDIOC_S_INPUT, &camera_sensor) < 0) {
+    SetErrorState("Cannot select camera sensor");
+    return;
+  }
+  struct v4l2_input input;
+  memset(&input, 0, sizeof(input));
+  input.index = camera_sensor;
+  if (ioctl(device_fd_, VIDIOC_ENUMINPUT, &input) < 0) {
+    SetErrorState("Cannot enumerate camera input");
+    return;
+  }
+  char *name = (char *)input.name;
+  char *space = strchr(name, ' ');
+  if (space > name) {
+    name[space - name] = '\0';
+  }
+  if (cam_driver_init(device_fd_, name) != CAM_ERR_NONE) {
+    SetErrorState("Cannot initialize libmfldcam");
+    return;
+  }
+  struct v4l2_control control;
+  memset(&control, 0, sizeof(control));
+  control.id = V4L2_CID_VFLIP;
+  control.value = 0;
+  if (ioctl (device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+    SetErrorState("Cannot set vflip");
+    return;
+  }
+  control.id = V4L2_CID_HFLIP;
+  control.value = 0;
+  if (ioctl (device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+    SetErrorState("Cannot set hflip");
+    return;
+  }
+  control.id = V4L2_CID_POWER_LINE_FREQUENCY;
+  control.value = CAM_GENERAL_FLICKER_REDUCTION_MODE_50HZ;
+  if (ioctl (device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+    SetErrorState("Cannot set power line frequency");;
+    return;
+  }
+#endif
   // Get supported video formats in preferred order.
   // For large resolutions, favour mjpeg over raw formats.
   std::list<int> v4l2_formats;
@@ -333,6 +417,9 @@ void VideoCaptureDeviceLinux::OnAllocate(int width,
     SetErrorState("Failed to set camera format");
     return;
   }
+#if defined(OS_TIZEN_MOBILE)
+  cam_set_capture_fmt(device_fd_, width, height, *best);
+#endif
 
   // Set capture framerate in the form of capture interval.
   v4l2_streamparm streamparm;
@@ -385,6 +472,9 @@ void VideoCaptureDeviceLinux::OnDeAllocate() {
     state_ = kIdle;
   }
 
+#if defined(OS_TIZEN_MOBILE)
+  cam_driver_deinit(device_fd_);
+#endif
   // We need to close and open the device if we want to change the settings
   // Otherwise VIDIOC_S_FMT will return error
   // Sad but true.
@@ -405,6 +495,9 @@ void VideoCaptureDeviceLinux::OnStart() {
     return;
   }
 
+#if defined(OS_TIZEN_MOBILE)
+  cam_driver_set_mipi_interrupt(device_fd_, 1);
+#endif
   // Start UVC camera.
   v4l2_buf_type type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl(device_fd_, VIDIOC_STREAMON, &type) == -1) {
@@ -430,6 +523,10 @@ void VideoCaptureDeviceLinux::OnStop() {
     SetErrorState("VIDIOC_STREAMOFF failed");
     return;
   }
+#if defined(OS_TIZEN_MOBILE)
+  cam_driver_set_mipi_interrupt(device_fd_, 0);
+#endif
+
   // We don't dare to deallocate the buffers if we can't stop
   // the capture device.
   DeAllocateVideoBuffers();
