@@ -455,6 +455,31 @@ public abstract class TabBase implements NavigationClient {
         destroyContentView(true);
     }
 
+    /**
+     * @return The url associated with the tab.
+     */
+    @CalledByNative
+    public String getUrl() {
+        return mContentView != null ? mContentView.getUrl() : "";
+    }
+
+    /**
+     * @return The tab title.
+     */
+    @CalledByNative
+    public String getTitle() {
+        return getPageInfo() != null ? getPageInfo().getTitle() : "";
+    }
+
+    /**
+     * Restores the tab if it is frozen or crashed.
+     * @return true iff tab restore was triggered.
+     */
+    @CalledByNative
+    public boolean restoreIfNeeded() {
+        return false;
+    }
+
     private void destroyNativePageInternal() {
         if (mNativePage == null) return;
 
