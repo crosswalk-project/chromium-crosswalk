@@ -226,17 +226,16 @@ void RootWindow::RepostEvent(const ui::LocatedEvent& event) {
             static_cast<const ui::MouseEvent&>(event),
             static_cast<aura::Window*>(event.target()),
             static_cast<aura::Window*>(this)));
+    base::MessageLoop::current()->PostTask(
+        FROM_HERE,
+        base::Bind(&RootWindow::DispatchHeldEvents,
+                   repostable_event_factory_.GetWeakPtr()));
   } else {
-    held_repostable_event_.reset(
-        new ui::GestureEvent(
-            static_cast<const ui::GestureEvent&>(event),
-            static_cast<aura::Window*>(event.target()),
-            static_cast<aura::Window*>(this)));
+    DCHECK(event.type() == ui::ET_GESTURE_TAP_DOWN);
+    held_repostable_event_.reset();
+    // TODO(rbyers): Reposing of gestures is tricky to get
+    // right, so it's not yet supported.  crbug.com/170987.
   }
-  base::MessageLoop::current()->PostTask(
-      FROM_HERE,
-      base::Bind(&RootWindow::DispatchHeldEvents,
-                  repostable_event_factory_.GetWeakPtr()));
 }
 
 RootWindowHostDelegate* RootWindow::AsRootWindowHostDelegate() {
@@ -1196,11 +1195,8 @@ void RootWindow::DispatchHeldEvents() {
       held_repostable_event_.reset();  // must be reset before dispatch
       DispatchMouseEventRepost(&mouse_event);
     } else {
-      DCHECK(held_repostable_event_->type() == ui::ET_GESTURE_TAP_DOWN);
-      ui::GestureEvent gesture_event(
-          static_cast<const ui::GestureEvent&>(*held_repostable_event_.get()));
-      held_repostable_event_.reset();  // must be reset before dispatch
-      DispatchGestureEventRepost(&gesture_event);
+      // TODO(rbyers): GESTURE_TAP_DOWN not yet supported: crbug.com/170987.
+      NOTREACHED();
     }
     held_repostable_event_.reset();
   }
