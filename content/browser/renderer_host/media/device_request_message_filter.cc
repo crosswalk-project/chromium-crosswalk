@@ -192,7 +192,13 @@ bool DeviceRequestMessageFilter::DoesRawIdMatchGuid(
   bool result = hmac.Init(security_origin.spec());
   DCHECK(result);
   std::vector<uint8> converted_guid;
-  base::HexStringToBytes(device_guid, &converted_guid);
+  // |device_guid| is not guaranteed to be a hex string, so check for success.
+  bool success = base::HexStringToBytes(device_guid, &converted_guid);
+
+  if (!success)
+    return false;
+
+  DCHECK_GT(converted_guid.size(), 0u);
   return hmac.Verify(
       raw_device_id,
       base::StringPiece(reinterpret_cast<const char*>(&converted_guid[0]),

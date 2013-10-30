@@ -301,4 +301,20 @@ TEST_F(DeviceRequestMessageFilterTest, TestGetSources_AllowMicAllowCamera) {
   EXPECT_TRUE(AreLabelsPresent(MEDIA_DEVICE_VIDEO_CAPTURE));
 }
 
+TEST_F(DeviceRequestMessageFilterTest, TestRawIdMatchGuid_EmptyGuid) {
+  GURL origin("https://test.com");
+  const std::string device_guid = "";
+  const std::string raw_device_id = "device";
+  EXPECT_FALSE(DeviceRequestMessageFilter::DoesRawIdMatchGuid(
+      origin, device_guid, raw_device_id));
+}
+
+TEST_F(DeviceRequestMessageFilterTest, TestRawIdMatchGuid_NonHexGuid) {
+  GURL origin("https://test.com");
+  const std::string device_guid = "garbage";
+  const std::string raw_device_id = "device";
+  EXPECT_FALSE(DeviceRequestMessageFilter::DoesRawIdMatchGuid(
+      origin, device_guid, raw_device_id));
+}
+
 };  // namespace content
