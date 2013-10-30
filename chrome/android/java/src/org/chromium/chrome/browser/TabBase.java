@@ -455,6 +455,13 @@ public abstract class TabBase implements NavigationClient {
         destroyContentView(true);
     }
 
+    /**
+     * @return The url associated with the tab.
+     */
+    public String getUrl() {
+        return mContentView != null ? mContentView.getUrl() : "";
+    }
+
     private void destroyNativePageInternal() {
         if (mNativePage == null) return;
 
