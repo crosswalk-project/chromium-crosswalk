@@ -34,9 +34,8 @@ bool RepostLocatedEvent(gfx::NativeWindow window,
     const ui::MouseEvent& orig = static_cast<const ui::MouseEvent&>(event);
     relocated.reset(new ui::MouseEvent(orig));
   } else if (event.IsGestureEvent()) {
-    // TODO(rbyers): Gesture event repost is tricky to get right
-    // crbug.com/170987.
-    return false;
+    const ui::GestureEvent& orig = static_cast<const ui::GestureEvent&>(event);
+    relocated.reset(new ui::GestureEvent(orig));
   } else {
     NOTREACHED();
     return false;

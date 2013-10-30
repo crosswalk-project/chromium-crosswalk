@@ -2134,9 +2134,8 @@ void MenuController::RepostEvent(SubmenuView* source,
   if (event.IsMouseEvent()) {
     clone.reset(new ui::MouseEvent(static_cast<const ui::MouseEvent&>(event)));
   } else if (event.IsGestureEvent()) {
-    // TODO(rbyers): Gesture event repost is tricky to get right
-    // crbug.com/170987.
-    return;
+    const ui::GestureEvent& ge = static_cast<const ui::GestureEvent&>(event);
+    clone.reset(new ui::GestureEvent(ge));
   } else {
     NOTREACHED();
     return;
