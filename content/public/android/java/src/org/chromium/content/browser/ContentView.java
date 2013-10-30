@@ -111,14 +111,12 @@ public class ContentView extends FrameLayout
                 ContentViewCore.INPUT_EVENTS_DELIVERED_IMMEDIATELY);
     }
 
-    /**
-     * @return The URL of the page.
-     */
+    // PageInfo implementation.
+
+    @Override
     public String getUrl() {
         return mContentViewCore.getUrl();
     }
-
-    // PageInfo implementation.
 
     @Override
     public String getTitle() {
