@@ -172,9 +172,12 @@ bool ExternalCache::GetExtensionExistingVersion(const std::string& id,
                                                 std::string* version) {
   DictionaryValue* extension_dictionary = NULL;
   if (cached_extensions_->GetDictionary(id, &extension_dictionary)) {
-    return extension_dictionary->GetString(
-        extensions::ExternalProviderImpl::kExternalVersion,
-        version);
+    if (extension_dictionary->GetString(
+            extensions::ExternalProviderImpl::kExternalVersion, version)) {
+      return true;
+    }
+    *version = delegate_->GetInstalledExtensionVersion(id);
+    return !version->empty();
   }
   return false;
 }
@@ -367,10 +370,11 @@ void ExternalCache::OnCacheUpdated(scoped_ptr<base::DictionaryValue> prefs) {
       continue;
     }
 
+    bool keep_if_present =
+        entry->HasKey(extensions::ExternalProviderImpl::kKeepIfPresent);
     // Check for updates for all extensions configured except for extensions
     // marked as keep_if_present.
-    if (downloader_ &&
-        !entry->HasKey(extensions::ExternalProviderImpl::kKeepIfPresent)) {
+    if (downloader_ && !keep_if_present) {
       GURL update_url;
       std::string external_update_url;
       if (entry->GetString(extensions::ExternalProviderImpl::kExternalUpdateUrl,
@@ -385,12 +389,12 @@ void ExternalCache::OnCacheUpdated(scoped_ptr<base::DictionaryValue> prefs) {
 
     base::DictionaryValue* cached_entry = NULL;
     if (prefs->GetDictionary(it.key(), &cached_entry)) {
-      std::string crx_path;
-      if (!downloader_ ||
-          cached_entry->GetString(
-              extensions::ExternalProviderImpl::kExternalCrx, &crx_path) ||
-          cached_entry->HasKey(
-              extensions::ExternalProviderImpl::kKeepIfPresent)) {
+      bool has_external_crx = cached_entry->HasKey(
+          extensions::ExternalProviderImpl::kExternalCrx);
+      bool is_already_installed =
+          !delegate_->GetInstalledExtensionVersion(it.key()).empty();
+      if (!downloader_ || keep_if_present || has_external_crx ||
+          is_already_installed) {
         scoped_ptr<base::Value> value;
         prefs->Remove(it.key(), &value);
         cached_extensions_->Set(it.key(), value.release());
@@ -490,6 +494,11 @@ void ExternalCache::PostBlockingTask(const tracked_objects::Location& location,
       PostSequencedWorkerTaskWithShutdownBehavior(
           worker_pool_token_, location, task,
           base::SequencedWorkerPool::SKIP_ON_SHUTDOWN);
+}
+
+std::string ExternalCache::Delegate::GetInstalledExtensionVersion(
+    const std::string& id) {
+  return std::string();
 }
 
 }  // namespace chromeos
