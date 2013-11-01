@@ -426,7 +426,8 @@ void DesktopRootWindowHostX11::SetAlwaysOnTop(bool always_on_top) {
 }
 
 void DesktopRootWindowHostX11::SetWindowTitle(const string16& title) {
-  XStoreName(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str());
+  XmbSetWMProperties(xdisplay_, xwindow_, UTF16ToUTF8(title).c_str(), NULL,
+      NULL, 0, NULL, NULL, NULL);
 }
 
 void DesktopRootWindowHostX11::ClearNativeFocus() {
@@ -1128,17 +1129,13 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
       int num_coalesced = 0;
 
       switch (type) {
-        // case ui::ET_TOUCH_MOVED:
-        //   num_coalesced = CoalescePendingMotionEvents(xev, &last_event);
-        //   if (num_coalesced > 0)
-        //     xev = &last_event;
-        //   // fallthrough
-        // case ui::ET_TOUCH_PRESSED:
-        // case ui::ET_TOUCH_RELEASED: {
-        //   ui::TouchEvent touchev(xev);
-        //   root_window_host_delegate_->OnHostTouchEvent(&touchev);
-        //   break;
-        // }
+        case ui::ET_TOUCH_MOVED:
+        case ui::ET_TOUCH_PRESSED:
+        case ui::ET_TOUCH_RELEASED: {
+          ui::TouchEvent touchev(xev);
+          root_window_host_delegate_->OnHostTouchEvent(&touchev);
+          break;
+        }
         case ui::ET_MOUSE_MOVED:
         case ui::ET_MOUSE_DRAGGED:
         case ui::ET_MOUSE_PRESSED:
