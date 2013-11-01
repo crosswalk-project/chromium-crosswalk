@@ -87,7 +87,7 @@ void TouchFactory::UpdateDeviceList(Display* display) {
   touch_device_lookup_.reset();
   touch_device_list_.clear();
 
-#if defined(USE_XI2_MT)
+#if !defined(USE_XI2_MT)
   // NOTE: The new API for retrieving the list of devices (XIQueryDevice) does
   // not provide enough information to detect a touch device. As a result, the
   // old version of query function (XListInputDevices) is used instead.
