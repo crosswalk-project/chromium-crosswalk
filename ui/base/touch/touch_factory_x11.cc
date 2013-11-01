@@ -87,7 +87,7 @@ void TouchFactory::UpdateDeviceList(Display* display) {
   touch_device_lookup_.reset();
   touch_device_list_.clear();
 
-#if !defined(USE_XI2_MT)
+#if defined(USE_XI2_MT)
   // NOTE: The new API for retrieving the list of devices (XIQueryDevice) does
   // not provide enough information to detect a touch device. As a result, the
   // old version of query function (XListInputDevices) is used instead.
@@ -97,23 +97,18 @@ void TouchFactory::UpdateDeviceList(Display* display) {
   // |enable_xi2_mt| is turned on.
   XDeviceList dev_list =
       DeviceListCacheX::GetInstance()->GetXDeviceList(display);
-  for (int i = 0; i < dev_list.count; i++) {
-    if (dev_list[i].type) {
-      XScopedString devtype(XGetAtomName(display, dev_list[i].type));
 #if !defined(ENABLE_XI21_MT)
-      if (devtype.string() && !strcmp(devtype.string(), XI_TOUCHSCREEN)) {
+  Atom xi_touchscreen = XInternAtom(display, XI_TOUCHSCREEN, false);
 #else
-      // Certain Samsung and Intel devices support multi-touch with XInput2.1
-      // using the device type "MULTITOUCHSCREEN".
-      if (devtype.string() && !strcmp(devtype.string(), "MULTITOUCHSCREEN")) {
+  // Certain Samsung and Intel devices support multi-touch with XInput2.1
+  // using the device type "MULTITOUCHSCREEN".
+  Atom xi_touchscreen = XInternAtom(display, "MULTITOUCHSCREEN", false);
 #endif
-        touch_device_lookup_[dev_list[i].id] = true;
-        // We still think it as a single touch device although it is of
-        // 'MULTITOUCHSCREEN' device type since one touch screen device is
-        // only for one touch point.
-        touch_device_list_[dev_list[i].id] = false;
-        touch_device_available_ = true;
-      }
+  for (int i = 0; i < dev_list.count; i++) {
+    if (dev_list[i].type == xi_touchscreen) {
+      touch_device_lookup_[dev_list[i].id] = true;
+      touch_device_list_[dev_list[i].id] = false;
+      touch_device_available_ = true;
     }
   }
 #endif
