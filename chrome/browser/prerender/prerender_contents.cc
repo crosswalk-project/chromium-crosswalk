@@ -34,6 +34,7 @@
 #include "content/public/browser/web_contents_delegate.h"
 #include "content/public/browser/web_contents_view.h"
 #include "content/public/common/favicon_url.h"
+#include "content/public/common/frame_navigate_params.h"
 #include "ui/gfx/rect.h"
 
 using content::DownloadItem;
@@ -407,7 +408,7 @@ void PrerenderContents::Observe(int type,
       CHECK(resource_redirect_details);
       if (resource_redirect_details->resource_type ==
           ResourceType::MAIN_FRAME) {
-        if (!AddAliasURL(resource_redirect_details->new_url))
+        if (!CheckURL(resource_redirect_details->new_url))
           return;
       }
       break;
@@ -503,7 +504,7 @@ void PrerenderContents::DidUpdateFaviconURL(
   }
 }
 
-bool PrerenderContents::AddAliasURL(const GURL& url) {
+bool PrerenderContents::CheckURL(const GURL& url) {
   const bool http = url.SchemeIs(content::kHttpScheme);
   const bool https = url.SchemeIs(content::kHttpsScheme);
   if (!http && !https) {
@@ -521,6 +522,12 @@ bool PrerenderContents::AddAliasURL(const GURL& url) {
     Destroy(FINAL_STATUS_RECENTLY_VISITED);
     return false;
   }
+  return true;
+}
+
+bool PrerenderContents::AddAliasURL(const GURL& url) {
+  if (!CheckURL(url))
+    return false;
 
   alias_urls_.push_back(url);
 
@@ -565,7 +572,7 @@ void PrerenderContents::DidStartProvisionalLoadForFrame(
     bool is_iframe_srcdoc,
     RenderViewHost* render_view_host) {
   if (is_main_frame) {
-    if (!AddAliasURL(validated_url))
+    if (!CheckURL(validated_url))
       return;
 
     // Usually, this event fires if the user clicks or enters a new URL.
@@ -584,6 +591,20 @@ void PrerenderContents::DidFinishLoad(int64 frame_id,
                                       RenderViewHost* render_view_host) {
   if (is_main_frame)
     has_finished_loading_ = true;
+}
+
+void PrerenderContents::DidNavigateMainFrame(
+    const content::LoadCommittedDetails& details,
+    const content::FrameNavigateParams& params) {
+  // Add each redirect as an alias. |params.url| is included in
+  // |params.redirects|.
+  //
+  // TODO(davidben): We do not correctly patch up history for renderer-initated
+  // navigations which add history entries. http://crbug.com/305660.
+  for (size_t i = 0; i < params.redirects.size(); i++) {
+    if (!AddAliasURL(params.redirects[i]))
+      return;
+  }
 }
 
 void PrerenderContents::Destroy(FinalStatus final_status) {
