@@ -4226,13 +4226,15 @@ bool RenderViewImpl::willCheckAndDispatchMessageEvent(
   if (!target_origin.isNull())
     params.target_origin = target_origin.toString();
 
-  // Include the routing ID for the source frame, which the browser process
-  // will translate into the routing ID for the equivalent frame in the target
-  // process.
+  // Include the routing ID for the source frame (if one exists), which the
+  // browser process will translate into the routing ID for the equivalent
+  // frame in the target process.
   params.source_routing_id = MSG_ROUTING_NONE;
-  RenderViewImpl* source_view = FromWebView(sourceFrame->view());
-  if (source_view)
-    params.source_routing_id = source_view->routing_id();
+  if (sourceFrame) {
+    RenderViewImpl* source_view = FromWebView(sourceFrame->view());
+    if (source_view)
+      params.source_routing_id = source_view->routing_id();
+  }
 
   Send(new ViewHostMsg_RouteMessageEvent(routing_id_, params));
   return true;
