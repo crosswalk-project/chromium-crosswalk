@@ -99,6 +99,8 @@ class CONTENT_EXPORT DataFetcherImplAndroid {
   bool is_motion_buffer_ready_;
   bool is_orientation_buffer_ready_;
 
+  base::Lock motion_buffer_lock_;
+
   DISALLOW_COPY_AND_ASSIGN(DataFetcherImplAndroid);
 };
 
