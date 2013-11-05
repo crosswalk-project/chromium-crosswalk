@@ -11,11 +11,6 @@
       'target_name': 'extensions_common',
       'type': 'static_library',
       'dependencies': [
-        # TODO(benwells): figure out what to do with the api target and
-        # api resources compiled into the chrome resource bundle.
-        # http://crbug.com/162530
-        '../chrome/chrome_resources.gyp:chrome_resources',
-        '../chrome/common/extensions/api/api.gyp:api',
         '../content/content.gyp:content_common',
         '../third_party/re2/re2.gyp:re2',
       ],
@@ -36,9 +31,6 @@
         'common/event_filtering_info.h',
         'common/event_matcher.cc',
         'common/event_matcher.h',
-        'common/extension_api.cc',
-        'common/extension_api.h',
-        'common/extension_api_stub.cc',
         'common/extension_paths.cc',
         'common/extension_paths.h',
         'common/extension_resource.cc',
@@ -103,17 +95,6 @@
       ],
       # Disable c4267 warnings until we fix size_t to int truncations.
       'msvs_disabled_warnings': [ 4267, ],
-      'conditions': [
-        ['enable_extensions==1', {
-          'sources!': [
-            'common/extension_api_stub.cc',
-          ],
-        }, {  # enable_extensions == 0
-          'sources!': [
-            'common/extension_api.cc',
-          ],
-        }],
-      ],
     },
     {
       'target_name': 'extensions_browser',
