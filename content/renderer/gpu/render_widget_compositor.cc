@@ -432,7 +432,11 @@ void RenderWidgetCompositor::Initialize() {
 
 #elif !defined(OS_MACOSX)
   if (ui::IsOverlayScrollbarEnabled()) {
+#if defined(OS_TIZEN_MOBILE)
+    settings.scrollbar_animator = cc::LayerTreeSettings::LINEAR_FADE;
+#else
     settings.scrollbar_animator = cc::LayerTreeSettings::THINNING;
+#endif
     settings.solid_color_scrollbar_color = SkColorSetARGB(128, 128, 128, 128);
   } else if (settings.use_pinch_virtual_viewport) {
     settings.scrollbar_animator = cc::LayerTreeSettings::LINEAR_FADE;
