@@ -264,7 +264,11 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
       !cmd->HasSwitch(cc::switches::kDisable4444Textures);
 #elif !defined(OS_MACOSX)
   if (IsOverlayScrollbarEnabled()) {
+#if defined(OS_TIZEN_MOBILE)
+    settings.scrollbar_animator = cc::LayerTreeSettings::LinearFade;
+#else
     settings.scrollbar_animator = cc::LayerTreeSettings::Thinning;
+#endif
   }
   if (cmd->HasSwitch(cc::switches::kEnablePinchVirtualViewport) ||
       IsOverlayScrollbarEnabled()) {
