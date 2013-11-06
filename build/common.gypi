@@ -387,6 +387,8 @@
       # For example, use_xi2_mt=2 means XI2.2 or above version is required.
       'use_xi2_mt%': 2,
 
+      'tizen_mobile%': 0,
+
       # Use of precompiled headers on Windows.
       #
       # This variable may be explicitly set to 1 (enabled) or 0
@@ -816,6 +818,7 @@
     'enable_hidpi%': '<(enable_hidpi)',
     'enable_touch_ui%': '<(enable_touch_ui)',
     'use_xi2_mt%':'<(use_xi2_mt)',
+    'tizen_mobile%':'<(tizen_mobile)',
     'file_manager_extension%': '<(file_manager_extension)',
     'image_loader_extension%': '<(image_loader_extension)',
     'fastbuild%': '<(fastbuild)',
@@ -2013,6 +2016,9 @@
       }],
       ['use_xi2_mt!=0 and use_x11==1', {
         'defines': ['USE_XI2_MT=<(use_xi2_mt)'],
+      }],
+      ['tizen_mobile==1', {
+        'defines': ['OS_TIZEN_MOBILE=1'],
       }],
       ['file_manager_extension==1', {
         'defines': ['FILE_MANAGER_EXTENSION=1'],
