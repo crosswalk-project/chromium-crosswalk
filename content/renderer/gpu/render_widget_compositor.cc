@@ -399,7 +399,11 @@ void RenderWidgetCompositor::Initialize() {
 
 #elif !defined(OS_MACOSX)
   if (ui::IsOverlayScrollbarEnabled()) {
+#if defined(OS_TIZEN_MOBILE)
+    settings.scrollbar_animator = cc::LayerTreeSettings::LINEAR_FADE;
+#else
     settings.scrollbar_animator = cc::LayerTreeSettings::THINNING;
+#endif
     settings.solid_color_scrollbar_color = SkColorSetARGB(128, 128, 128, 128);
   } else if (cmd->HasSwitch(cc::switches::kEnablePinchVirtualViewport)) {
     // use_pinch_zoom_scrollbars is only true on desktop when non-overlay
