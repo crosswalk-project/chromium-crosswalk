@@ -9,8 +9,6 @@
 #include "base/metrics/histogram.h"
 #include "base/prefs/pref_service.h"
 #include "base/time/time.h"
-#include "chrome/browser/apps/shortcut_manager.h"
-#include "chrome/browser/apps/shortcut_manager_factory.h"
 #include "chrome/browser/browser_process.h"
 #include "chrome/browser/profiles/profile_manager.h"
 #include "chrome/common/chrome_constants.h"
@@ -185,8 +183,6 @@ void AppListServiceImpl::EnableAppList(Profile* initial_profile) {
 
   SetAppListEnabledPreference(true);
   CreateShortcut();
-  AppShortcutManagerFactory::GetForProfile(initial_profile)->
-      OnceOffCreateShortcuts();
 }
 
 Profile* AppListServiceImpl::GetCurrentAppListProfile() {
