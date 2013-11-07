@@ -314,7 +314,8 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
 
 #elif !defined(OS_MACOSX)
   if (ui::IsOverlayScrollbarEnabled()) {
-#if defined(OS_TIZEN_MOBILE)
+#if defined(OS_TIZEN)
+    // Tizen fades out the scrollbar after contents interaction ends.
     settings.scrollbar_animator = cc::LayerTreeSettings::LinearFade;
 #else
     settings.scrollbar_animator = cc::LayerTreeSettings::Thinning;
