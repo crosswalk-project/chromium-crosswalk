@@ -1073,6 +1073,17 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
       prefs.default_minimum_page_scale_factor,
       prefs.default_maximum_page_scale_factor);
 
+#if defined(OS_TIZEN)
+  // Scrollbars should not be stylable.
+  settings->setAllowCustomScrollbarInMainFrame(false);
+
+  // IME support
+  settings->setAutoZoomFocusedNodeToLegibleScale(true);
+
+  // Enable double tap to zoom when zoomable.
+  settings->setDoubleTapToZoomEnabled(true);
+#endif
+
 #if defined(OS_ANDROID)
   settings->setAllowCustomScrollbarInMainFrame(false);
   settings->setTextAutosizingEnabled(prefs.text_autosizing_enabled);
