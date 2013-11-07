@@ -1073,6 +1073,20 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 
   settings->setV8ScriptStreamingEnabled(prefs.v8_script_streaming_enabled);
 
+#if defined(OS_TIZEN)
+  // Scrollbars should not be stylable.
+  settings->setAllowCustomScrollbarInMainFrame(false);
+
+  // Don't auto play music on Tizen devices.
+  settings->setMediaPlaybackRequiresUserGesture(true);
+
+  // IME support
+  settings->setAutoZoomFocusedNodeToLegibleScale(true);
+
+  // Enable double tap to zoom when zoomable.
+  settings->setDoubleTapToZoomEnabled(true);
+#endif
+
 #if defined(OS_ANDROID)
   settings->setAllowCustomScrollbarInMainFrame(false);
   settings->setTextAutosizingEnabled(prefs.text_autosizing_enabled);
