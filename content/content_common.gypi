@@ -537,6 +537,32 @@
         '<(DEPTH)/third_party/libva',
       ],
     }],
+    ['target_arch != "arm" and tizen_mobile == 1 and use_x11 == 1', {
+      'dependencies': [
+        '../media/media.gyp:media',
+      ],
+      'sources': [
+        'common/gpu/media/h264_dpb.cc',
+        'common/gpu/media/h264_dpb.h',
+        'common/gpu/media/va_surface.h',
+        'common/gpu/media/vaapi_h264_decoder.cc',
+        'common/gpu/media/vaapi_h264_decoder.h',
+        'common/gpu/media/vaapi_video_decode_accelerator_tizen.cc',
+        'common/gpu/media/vaapi_video_decode_accelerator_tizen.h',
+        'common/gpu/media/vaapi_wrapper.cc',
+        'common/gpu/media/vaapi_wrapper.h',
+      ],
+      'include_dirs': [
+        '<(DEPTH)/third_party/libva',
+        '<(DEPTH)/third_party/khronos',
+      ],
+      'link_settings': {
+        'libraries': [
+          '-lEGL',
+          '-lGLESv2',
+        ],
+      },
+    }],
     ['OS=="win"', {
       'dependencies': [
         '../media/media.gyp:media',
