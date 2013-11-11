@@ -209,7 +209,7 @@ void ParamTraits<skia::RefPtr<SkImageFilter> >::Write(
     Message* m, const param_type& p) {
   SkImageFilter* filter = p.get();
   const CommandLine& command_line = *CommandLine::ForCurrentProcess();
-  if (filter && !command_line.HasSwitch(switches::kDisableFiltersOverIPC)) {
+  if (filter && command_line.HasSwitch(switches::kAllowFiltersOverIPC)) {
     skia::RefPtr<SkData> data = skia::AdoptRef(SkSerializeFlattenable(filter));
     m->WriteData(static_cast<const char*>(data->data()), data->size());
   } else {
@@ -224,8 +224,7 @@ bool ParamTraits<skia::RefPtr<SkImageFilter> >::Read(
   if (!m->ReadData(iter, &data, &length))
     return false;
   const CommandLine& command_line = *CommandLine::ForCurrentProcess();
-  if ((length > 0) &&
-      !command_line.HasSwitch(switches::kDisableFiltersOverIPC)) {
+  if ((length > 0) && command_line.HasSwitch(switches::kAllowFiltersOverIPC)) {
     SkFlattenable* flattenable = SkDeserializeFlattenable(data, length);
     *r = skia::AdoptRef(static_cast<SkImageFilter*>(flattenable));
   } else {

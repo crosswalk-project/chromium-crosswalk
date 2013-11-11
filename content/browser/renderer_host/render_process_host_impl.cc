@@ -874,6 +874,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
   // Propagate the following switches to the renderer command line (along
   // with any associated values) if present in the browser command line.
   static const char* const kSwitchNames[] = {
+    switches::kAllowFiltersOverIPC,
     switches::kAudioBufferSize,
     switches::kAuditAllHandles,
     switches::kAuditHandles,
@@ -899,7 +900,6 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     switches::kDisableDeviceOrientation,
     switches::kDisableDirectNPAPIRequests,
     switches::kDisableFileSystem,
-    switches::kDisableFiltersOverIPC,
     switches::kDisableFullScreen,
     switches::kDisableGeolocation,
     switches::kDisableGLMultisampling,
