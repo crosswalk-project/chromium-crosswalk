@@ -440,6 +440,9 @@
     'SK_GDI_ALWAYS_USE_TEXTMETRICS_FOR_FONT_METRICS',
 
     'SK_DEFAULT_FONT_CACHE_LIMIT=<(default_font_cache_limit)',
+
+     # http://crbug.com/314387
+    'SK_DEFAULT_FONT_CACHE_COUNT_LIMIT=64',
   ],
 
   'direct_dependent_settings': {
