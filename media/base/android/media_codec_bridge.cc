@@ -155,10 +155,10 @@ MediaCodecBridge::~MediaCodecBridge() {
     Java_MediaCodecBridge_release(env, j_media_codec_.obj());
 }
 
-void MediaCodecBridge::StartInternal() {
+bool MediaCodecBridge::StartInternal() {
   JNIEnv* env = AttachCurrentThread();
-  Java_MediaCodecBridge_start(env, j_media_codec_.obj());
-  GetOutputBuffers();
+  return Java_MediaCodecBridge_start(env, j_media_codec_.obj()) &&
+         GetOutputBuffers();
 }
 
 MediaCodecStatus MediaCodecBridge::Reset() {
@@ -283,9 +283,9 @@ void MediaCodecBridge::ReleaseOutputBuffer(int index, bool render) {
       env, j_media_codec_.obj(), index, render);
 }
 
-void MediaCodecBridge::GetOutputBuffers() {
+bool MediaCodecBridge::GetOutputBuffers() {
   JNIEnv* env = AttachCurrentThread();
-  Java_MediaCodecBridge_getOutputBuffers(env, j_media_codec_.obj());
+  return Java_MediaCodecBridge_getOutputBuffers(env, j_media_codec_.obj());
 }
 
 size_t MediaCodecBridge::FillInputBuffer(
@@ -342,8 +342,7 @@ bool AudioCodecBridge::Start(
     return false;
   }
 
-  StartInternal();
-  return true;
+  return StartInternal();
 }
 
 bool AudioCodecBridge::ConfigureMediaFormat(
@@ -495,8 +494,8 @@ bool VideoCodecBridge::Start(
       env, media_codec(), j_format.obj(), surface, media_crypto, 0)) {
     return false;
   }
-  StartInternal();
-  return true;
+
+  return StartInternal();
 }
 
 AudioCodecBridge* AudioCodecBridge::Create(const AudioCodec codec) {
