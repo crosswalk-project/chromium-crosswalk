@@ -747,6 +747,7 @@ void DesktopRootWindowHostWin::HandleClientSizeChanged(
 }
 
 void DesktopRootWindowHostWin::HandleFrameChanged() {
+  SetWindowTransparency();
   // Replace the frame and layout the contents.
   GetWidget()->non_client_view()->UpdateFrame(true);
 }
@@ -886,6 +887,7 @@ void DesktopRootWindowHostWin::SetWindowTransparency() {
   bool transparent = ShouldUseNativeFrame() && !IsFullscreen();
   root_window_->compositor()->SetHostHasTransparentBackground(transparent);
   root_window_->SetTransparent(transparent);
+  content_window_->SetTransparent(transparent);
 }
 
 bool DesktopRootWindowHostWin::IsModalWindowActive() const {
