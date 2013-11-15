@@ -353,12 +353,13 @@ NSDictionary* attributeToMethodNameMap = nil;
 // accessibility children of this object.
 - (NSArray*)children {
   if (!children_) {
-    uint32 childCount = browserAccessibility_->PlatformChildCount();
-    children_.reset([[NSMutableArray alloc] initWithCapacity:childCount]);
-    for (uint32 index = 0; index < childCount; ++index) {
+    children_.reset([[NSMutableArray alloc]
+        initWithCapacity:browserAccessibility_->child_count()] );
+    for (uint32 index = 0;
+         index < browserAccessibility_->child_count();
+         ++index) {
       BrowserAccessibilityCocoa* child =
-          browserAccessibility_->PlatformGetChild(index)->
-              ToBrowserAccessibilityCocoa();
+          browserAccessibility_->GetChild(index)->ToBrowserAccessibilityCocoa();
       if ([child isIgnored])
         [children_ addObjectsFromArray:[child children]];
       else
@@ -1050,9 +1051,9 @@ NSDictionary* attributeToMethodNameMap = nil;
       return nil;
     }
     for (size_t i = 0;
-         i < browserAccessibility_->PlatformChildCount();
+         i < browserAccessibility_->child_count();
          ++i) {
-      BrowserAccessibility* child = browserAccessibility_->PlatformGetChild(i);
+      BrowserAccessibility* child = browserAccessibility_->GetChild(i);
       if (child->role() != WebKit::WebAXRoleRow)
         continue;
       int rowIndex;
@@ -1065,9 +1066,9 @@ NSDictionary* attributeToMethodNameMap = nil;
       if (rowIndex > row)
         break;
       for (size_t j = 0;
-           j < child->PlatformChildCount();
+           j < child->child_count();
            ++j) {
-        BrowserAccessibility* cell = child->PlatformGetChild(j);
+        BrowserAccessibility* cell = child->GetChild(j);
         if (cell->role() != WebKit::WebAXRoleCell)
           continue;
         int colIndex;

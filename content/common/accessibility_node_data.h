@@ -88,10 +88,7 @@ struct CONTENT_EXPORT AccessibilityNodeData {
     // Color value for WebKit::WebAXRoleColorWell, each component is 0..255
     ATTR_COLOR_VALUE_RED,
     ATTR_COLOR_VALUE_GREEN,
-    ATTR_COLOR_VALUE_BLUE,
-
-    // Inline text attributes.
-    ATTR_TEXT_DIRECTION
+    ATTR_COLOR_VALUE_BLUE
   };
 
   enum FloatAttribute {
@@ -148,20 +145,7 @@ struct CONTENT_EXPORT AccessibilityNodeData {
 
     // For a table, the unique cell ids in row-major order of their first
     // occurrence.
-    ATTR_UNIQUE_CELL_IDS,
-
-    // For inline text. This is the pixel position of the end of this
-    // character within the bounding rectangle of this object, in the
-    // direction given by ATTR_TEXT_DIRECTION. For example, for left-to-right
-    // text, the first offset is the right coordinate of the first character
-    // within the object's bounds, the second offset is the right coordinate
-    // of the second character, and so on.
-    ATTR_CHARACTER_OFFSETS,
-
-    // For inline text. These int lists must be the same size; they represent
-    // the start and end character index of each word within this text.
-    ATTR_WORD_STARTS,
-    ATTR_WORD_ENDS,
+    ATTR_UNIQUE_CELL_IDS
   };
 
   AccessibilityNodeData();
@@ -175,11 +159,9 @@ struct CONTENT_EXPORT AccessibilityNodeData {
   void AddIntListAttribute(IntListAttribute attribute,
                            const std::vector<int32>& value);
 
-  // Convenience functions, mainly for writing unit tests.
+  // Convenience function, mainly for writing unit tests.
   // Equivalent to AddStringAttribute(ATTR_NAME, name).
   void SetName(std::string name);
-  // Equivalent to AddStringAttribute(ATTR_VALUE, value).
-  void SetValue(std::string value);
 
   #ifndef NDEBUG
   virtual std::string DebugString(bool recursive) const;

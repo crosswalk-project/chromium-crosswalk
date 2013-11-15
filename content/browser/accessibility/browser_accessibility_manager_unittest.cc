@@ -142,8 +142,7 @@ TEST(BrowserAccessibilityManagerTest, TestNoLeaks) {
       static_cast<CountedBrowserAccessibility*>(manager->GetRoot());
   root_accessible->NativeAddReference();
   CountedBrowserAccessibility* child1_accessible =
-      static_cast<CountedBrowserAccessibility*>(
-          root_accessible->PlatformGetChild(1));
+      static_cast<CountedBrowserAccessibility*>(root_accessible->GetChild(1));
   child1_accessible->NativeAddReference();
 
   // Now delete the manager, and only one of the three nodes in the tree
@@ -234,16 +233,13 @@ TEST(BrowserAccessibilityManagerTest, TestReuseBrowserAccessibilityObjects) {
       static_cast<CountedBrowserAccessibility*>(manager->GetRoot());
   root_accessible->NativeAddReference();
   CountedBrowserAccessibility* child1_accessible =
-      static_cast<CountedBrowserAccessibility*>(
-          root_accessible->PlatformGetChild(0));
+      static_cast<CountedBrowserAccessibility*>(root_accessible->GetChild(0));
   child1_accessible->NativeAddReference();
   CountedBrowserAccessibility* child2_accessible =
-      static_cast<CountedBrowserAccessibility*>(
-          root_accessible->PlatformGetChild(1));
+      static_cast<CountedBrowserAccessibility*>(root_accessible->GetChild(1));
   child2_accessible->NativeAddReference();
   CountedBrowserAccessibility* child3_accessible =
-      static_cast<CountedBrowserAccessibility*>(
-          root_accessible->PlatformGetChild(2));
+      static_cast<CountedBrowserAccessibility*>(root_accessible->GetChild(2));
   child3_accessible->NativeAddReference();
 
   // Check the index in parent.
@@ -411,16 +407,15 @@ TEST(BrowserAccessibilityManagerTest, TestReuseBrowserAccessibilityObjects2) {
       static_cast<CountedBrowserAccessibility*>(manager->GetRoot());
   root_accessible->NativeAddReference();
   CountedBrowserAccessibility* container_accessible =
-      static_cast<CountedBrowserAccessibility*>(
-          root_accessible->PlatformGetChild(0));
+      static_cast<CountedBrowserAccessibility*>(root_accessible->GetChild(0));
   container_accessible->NativeAddReference();
   CountedBrowserAccessibility* child2_accessible =
       static_cast<CountedBrowserAccessibility*>(
-          container_accessible->PlatformGetChild(1));
+          container_accessible->GetChild(1));
   child2_accessible->NativeAddReference();
   CountedBrowserAccessibility* child3_accessible =
       static_cast<CountedBrowserAccessibility*>(
-          container_accessible->PlatformGetChild(2));
+          container_accessible->GetChild(2));
   child3_accessible->NativeAddReference();
 
   // Check the index in parent.

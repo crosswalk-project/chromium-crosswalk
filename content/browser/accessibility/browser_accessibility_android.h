@@ -16,7 +16,7 @@ class BrowserAccessibilityAndroid : public BrowserAccessibility {
   virtual void PostInitialize() OVERRIDE;
   virtual bool IsNative() const OVERRIDE;
 
-  virtual bool PlatformIsLeaf() const OVERRIDE;
+  bool IsLeaf() const;
 
   bool IsCheckable() const;
   bool IsChecked() const;
