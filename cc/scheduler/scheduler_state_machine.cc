@@ -492,6 +492,10 @@ bool SchedulerStateMachine::ShouldCommit() const {
   return commit_state_ == COMMIT_STATE_READY_TO_COMMIT;
 }
 
+bool SchedulerStateMachine::IsCommitStateWaiting() const {
+  return commit_state_ == COMMIT_STATE_FRAME_IN_PROGRESS;
+}
+
 bool SchedulerStateMachine::ShouldManageTiles() const {
   // Limiting to once per-frame is not enough, since we only want to
   // manage tiles _after_ draws. Polling for draw triggers and
