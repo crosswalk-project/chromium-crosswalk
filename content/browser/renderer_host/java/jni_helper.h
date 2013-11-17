@@ -7,6 +7,7 @@
 
 #include <jni.h>
 
+#include "base/android/scoped_java_ref.h"
 #include "content/common/content_export.h"
 
 namespace content {
@@ -21,6 +22,13 @@ CONTENT_EXPORT jmethodID GetMethodIDFromClassName(JNIEnv* env,
                                                   const char* class_name,
                                                   const char* method,
                                                   const char* jni_signature);
+
+// Gets the field ID for a class field.
+// This method triggers a fatal assertion if the field could not be found.
+CONTENT_EXPORT jfieldID GetFieldID(JNIEnv* env,
+                                   const base::android::JavaRef<jclass>& clazz,
+                                   const char* field_name,
+                                   const char* jni_signature);
 
 }  // namespace content
 
