@@ -64,7 +64,8 @@ DesktopRootWindowHostWin::DesktopRootWindowHostWin(
       should_animate_window_close_(false),
       pending_close_(false),
       has_non_client_view_(false),
-      tooltip_(NULL) {
+      tooltip_(NULL),
+      is_cursor_visible_(true) {
 }
 
 DesktopRootWindowHostWin::~DesktopRootWindowHostWin() {
@@ -487,6 +488,9 @@ void DesktopRootWindowHostWin::UnConfineCursor() {
 }
 
 void DesktopRootWindowHostWin::OnCursorVisibilityChanged(bool show) {
+  if (is_cursor_visible_ == show)
+    return;
+  is_cursor_visible_ = show;
   ::ShowCursor(!!show);
 }
 
