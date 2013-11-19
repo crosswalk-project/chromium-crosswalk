@@ -1128,6 +1128,10 @@ bool DesktopRootWindowHostX11::Dispatch(const base::NativeEvent& event) {
 
       switch (type) {
         case ui::ET_TOUCH_MOVED:
+          num_coalesced = ui::CoalescePendingMotionEvents(xev, &last_event);
+          if (num_coalesced > 0)
+            xev = &last_event;
+          // fallthrough
         case ui::ET_TOUCH_PRESSED:
         case ui::ET_TOUCH_RELEASED: {
           ui::TouchEvent touchev(xev);
