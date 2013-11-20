@@ -59,6 +59,7 @@
 #define AXIS_LABEL_ABS_MT_TOUCH_MINOR "Abs MT Touch Minor"
 #define AXIS_LABEL_ABS_MT_ORIENTATION "Abs MT Orientation"
 #define AXIS_LABEL_ABS_MT_PRESSURE    "Abs MT Pressure"
+#define AXIS_LABEL_ABS_MT_SLOT_ID     "Abs MT Slot ID"
 #define AXIS_LABEL_ABS_MT_TRACKING_ID "Abs MT Tracking ID"
 #define AXIS_LABEL_TOUCH_TIMESTAMP    "Touch Timestamp"
 
@@ -83,6 +84,9 @@ const char* kCachedAtoms[] = {
   AXIS_LABEL_ABS_MT_TOUCH_MINOR,
   AXIS_LABEL_ABS_MT_ORIENTATION,
   AXIS_LABEL_ABS_MT_PRESSURE,
+#if !defined(USE_XI2_MT)
+  AXIS_LABEL_ABS_MT_SLOT_ID,
+#endif
   AXIS_LABEL_ABS_MT_TRACKING_ID,
   AXIS_LABEL_TOUCH_TIMESTAMP,
 
@@ -304,18 +308,13 @@ bool DeviceDataManager::GetEventData(const XEvent& xev,
   if (valuator_lookup_[sourceid].empty())
     return false;
 
+#if defined(USE_XI2_MT)
+  // With XInput2 MT, Tracking ID is provided in the detail field.
   if (type == DT_TOUCH_TRACKING_ID) {
-    // With XInput2 MT, Tracking ID is provided in the detail field for touch
-    // events.
-    if (xiev->evtype == XI_TouchBegin ||
-        xiev->evtype == XI_TouchEnd ||
-        xiev->evtype == XI_TouchUpdate) {
-      *value = xiev->detail;
-    } else {
-      *value = 0;
-    }
+    *value = xiev->detail;
     return true;
   }
+#endif
 
   int val_index = valuator_lookup_[sourceid][type];
   int slot = 0;
