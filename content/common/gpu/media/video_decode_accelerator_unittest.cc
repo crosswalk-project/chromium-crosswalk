@@ -54,7 +54,7 @@
 
 #if defined(OS_WIN)
 #include "content/common/gpu/media/dxva_video_decode_accelerator.h"
-#elif defined(OS_CHROMEOS)
+#elif defined(OS_CHROMEOS) || defined(OS_LINUX)
 #if defined(ARCH_CPU_ARMEL)
 #include "content/common/gpu/media/v4l2_video_decode_accelerator.h"
 #include "content/common/gpu/media/v4l2_video_device.h"
@@ -556,7 +556,7 @@ void GLRenderingVDAClient::CreateAndStartDecoder() {
 #if defined(OS_WIN)
   decoder_.reset(
       new DXVAVideoDecodeAccelerator(client, base::Bind(&DoNothingReturnTrue)));
-#elif defined(OS_CHROMEOS)
+#elif defined(OS_CHROMEOS) || defined(OS_LINUX)
 #if defined(ARCH_CPU_ARMEL)
 
   scoped_ptr<V4L2Device> device = V4L2Device::Create();
