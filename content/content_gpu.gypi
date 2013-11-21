@@ -74,7 +74,7 @@
         },
       ],
     }],
-    ['target_arch!="arm" and chromeos == 1', {
+    ['target_arch!="arm" and (chromeos == 1 or tizen_mobile == 1)', {
       'include_dirs': [
         '<(DEPTH)/third_party/libva',
       ],
