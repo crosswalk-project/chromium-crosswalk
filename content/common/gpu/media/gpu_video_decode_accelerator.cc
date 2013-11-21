@@ -29,7 +29,7 @@
 #elif defined(OS_CHROMEOS) && defined(ARCH_CPU_ARMEL) && defined(USE_X11)
 #include "content/common/gpu/media/v4l2_video_decode_accelerator.h"
 #include "content/common/gpu/media/v4l2_video_device.h"
-#elif defined(OS_CHROMEOS) && defined(ARCH_CPU_X86_FAMILY) && defined(USE_X11)
+#elif defined(ARCH_CPU_X86_FAMILY) && defined(USE_X11)
 #include "content/common/gpu/media/vaapi_video_decode_accelerator.h"
 #include "ui/gl/gl_context_glx.h"
 #include "ui/gl/gl_implementation.h"
@@ -264,7 +264,7 @@ void GpuVideoDecodeAccelerator::Initialize(
       make_context_current_,
       device.Pass(),
       io_message_loop_));
-#elif defined(OS_CHROMEOS) && defined(ARCH_CPU_X86_FAMILY) && defined(USE_X11)
+#elif defined(ARCH_CPU_X86_FAMILY) && defined(USE_X11)
   if (gfx::GetGLImplementation() != gfx::kGLImplementationDesktopGL) {
     VLOG(1) << "HW video decode acceleration not available without "
                "DesktopGL (GLX).";
