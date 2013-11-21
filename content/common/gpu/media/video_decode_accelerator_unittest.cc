@@ -57,7 +57,7 @@
 #elif defined(OS_CHROMEOS) && defined(ARCH_CPU_ARMEL)
 #include "content/common/gpu/media/v4l2_video_decode_accelerator.h"
 #include "content/common/gpu/media/v4l2_video_device.h"
-#elif defined(OS_CHROMEOS) && defined(ARCH_CPU_X86_FAMILY)
+#elif (defined(OS_CHROMEOS) || defined(OS_LINUX)) && defined(ARCH_CPU_X86_FAMILY)
 #include "content/common/gpu/media/vaapi_video_decode_accelerator.h"
 #include "content/common/gpu/media/vaapi_wrapper.h"
 #if defined(USE_X11)
@@ -406,7 +406,7 @@ void GLRenderingVDAClient::CreateAndStartDecoder() {
       base::Bind(&DoNothingReturnTrue),
       device.Pass(),
       base::MessageLoopProxy::current()));
-#elif defined(OS_CHROMEOS) && defined(ARCH_CPU_X86_FAMILY)
+#elif (defined(OS_CHROMEOS) || defined(OS_LINUX)) && defined(ARCH_CPU_X86_FAMILY)
   CHECK_EQ(gfx::kGLImplementationDesktopGL, gfx::GetGLImplementation())
       << "Hardware video decode does not work with OSMesa";
   decoder_.reset(new VaapiVideoDecodeAccelerator(
