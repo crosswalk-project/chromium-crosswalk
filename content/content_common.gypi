@@ -625,7 +625,7 @@
         ],
       },
     }],
-    ['target_arch != "arm" and chromeos == 1 and use_x11 == 1', {
+    ['target_arch != "arm" and use_x11 == 1', {
       'dependencies': [
         '../gpu/command_buffer/command_buffer.gyp:gles2_utils',
       ],
