@@ -516,7 +516,10 @@
         ],
       },
     }],
-    ['target_arch != "arm" and chromeos == 1 and use_x11 == 1', {
+    ['target_arch != "arm" and OS == "linux" and use_x11 == 1', {
+      'dependencies': [
+        '../media/media.gyp:media',
+      ],
       'sources': [
         'common/gpu/media/h264_dpb.cc',
         'common/gpu/media/h264_dpb.h',

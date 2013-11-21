@@ -74,7 +74,7 @@
         },
       ],
     }],
-    ['target_arch!="arm" and chromeos == 1', {
+    ['target_arch!="arm" and OS=="linux"', {
       'include_dirs': [
         '<(DEPTH)/third_party/libva',
       ],
