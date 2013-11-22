@@ -4,7 +4,6 @@
 
 package org.chromium.content.browser;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -361,11 +360,6 @@ public class ContentVideoView extends FrameLayout implements SurfaceHolder.Callb
             Context context, long nativeContentVideoView, ContentVideoViewClient client,
             boolean legacy) {
         ThreadUtils.assertOnUiThread();
-        // The context needs be Activity to create the ContentVideoView correctly.
-        if (!(context instanceof Activity)) {
-            Log.w(TAG, "Wrong type of context, can't create fullscreen video");
-            return null;
-        }
         if (legacy) {
             return new ContentVideoViewLegacy(context, nativeContentVideoView, client);
         } else {
