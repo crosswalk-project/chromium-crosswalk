@@ -420,11 +420,6 @@ public class ContentVideoView extends FrameLayout
     private static ContentVideoView createContentVideoView(
             Context context, long nativeContentVideoView, ContentVideoViewClient client) {
         ThreadUtils.assertOnUiThread();
-        // The context needs be Activity to create the ContentVideoView correctly.
-        if (!isActivityContext(context)) {
-            Log.e(TAG, "Wrong type of context, can't create fullscreen video");
-            return null;
-        }
         ContentVideoView videoView = new ContentVideoView(context, nativeContentVideoView, client);
         if (videoView.getContentVideoViewClient().onShowCustomView(videoView)) {
             return videoView;
