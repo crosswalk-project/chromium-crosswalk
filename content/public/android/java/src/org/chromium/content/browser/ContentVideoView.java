@@ -4,7 +4,6 @@
 
 package org.chromium.content.browser;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -576,11 +575,6 @@ public class ContentVideoView
     private static ContentVideoView createContentVideoView(
             Context context, int nativeContentVideoView, ContentVideoViewClient client) {
         ThreadUtils.assertOnUiThread();
-        // The context needs be Activity to create the ContentVideoView correctly.
-        if (!(context instanceof Activity)) {
-            Log.w(TAG, "Wrong type of context, can't create fullscreen video");
-            return null;
-        }
         return new ContentVideoView(context, nativeContentVideoView, client);
     }
 
