@@ -377,11 +377,6 @@ public class ContentVideoView extends FrameLayout
             Context context, long nativeContentVideoView, ContentVideoViewClient client,
             boolean legacy) {
         ThreadUtils.assertOnUiThread();
-        // The context needs be Activity to create the ContentVideoView correctly.
-        if (!isActivityContext(context)) {
-            Log.e(TAG, "Wrong type of context, can't create fullscreen video");
-            return null;
-        }
         ContentVideoView videoView = null;
         if (legacy) {
             videoView = new ContentVideoViewLegacy(context, nativeContentVideoView, client);
