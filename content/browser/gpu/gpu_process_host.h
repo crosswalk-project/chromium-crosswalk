@@ -96,7 +96,7 @@ class GpuProcessHost : public BrowserChildProcessHostDelegate,
   virtual bool Send(IPC::Message* msg) OVERRIDE;
 
   // Adds a message filter to the GpuProcessHost's channel.
-  void AddFilter(IPC::ChannelProxy::MessageFilter* filter);
+  CONTENT_EXPORT void AddFilter(IPC::ChannelProxy::MessageFilter* filter);
 
   // Tells the GPU process to create a new channel for communication with a
   // client. Once the GPU process responds asynchronously with the IPC handle
