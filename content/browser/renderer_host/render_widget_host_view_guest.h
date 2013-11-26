@@ -183,6 +183,7 @@ class CONTENT_EXPORT RenderWidgetHostViewGuest
 #if defined(OS_WIN) && defined(USE_AURA)
   virtual void SetParentNativeViewAccessible(
       gfx::NativeViewAccessible accessible_parent) OVERRIDE;
+  virtual gfx::NativeViewId GetParentForWindowlessPlugin() const OVERRIDE;
 #endif
 
   // Overridden from ui::GestureEventHelper.
