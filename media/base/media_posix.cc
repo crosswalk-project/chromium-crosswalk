@@ -15,6 +15,7 @@
 
 using third_party_ffmpeg::kNumStubModules;
 using third_party_ffmpeg::kModuleFfmpegsumo;
+using third_party_ffmpeg::kModuleXwalk_ffmpegsumo;
 using third_party_ffmpeg::InitializeStubs;
 using third_party_ffmpeg::StubPathMap;
 
@@ -49,8 +50,9 @@ bool InitializeMediaLibraryInternal(const base::FilePath& module_dir) {
   StubPathMap paths;
 
   // First try to initialize with Chrome's sumo library.
-  DCHECK_EQ(kNumStubModules, 1);
+  DCHECK_EQ(kNumStubModules, 2);
   paths[kModuleFfmpegsumo].push_back(module_dir.Append(kSumoLib).value());
+  paths[kModuleXwalk_ffmpegsumo].push_back(module_dir.Append(kSumoLib).value());
 
   // If that fails, see if any system libraries are available.
   paths[kModuleFfmpegsumo].push_back(module_dir.Append(
@@ -58,6 +60,12 @@ bool InitializeMediaLibraryInternal(const base::FilePath& module_dir) {
   paths[kModuleFfmpegsumo].push_back(module_dir.Append(
       FILE_PATH_LITERAL(DSO_NAME("avcodec", AVCODEC_VERSION))).value());
   paths[kModuleFfmpegsumo].push_back(module_dir.Append(
+      FILE_PATH_LITERAL(DSO_NAME("avformat", AVFORMAT_VERSION))).value());
+  paths[kModuleXwalk_ffmpegsumo].push_back(module_dir.Append(
+      FILE_PATH_LITERAL(DSO_NAME("avutil", AVUTIL_VERSION))).value());
+  paths[kModuleXwalk_ffmpegsumo].push_back(module_dir.Append(
+      FILE_PATH_LITERAL(DSO_NAME("avcodec", AVCODEC_VERSION))).value());
+  paths[kModuleXwalk_ffmpegsumo].push_back(module_dir.Append(
       FILE_PATH_LITERAL(DSO_NAME("avformat", AVFORMAT_VERSION))).value());
 
   return InitializeStubs(paths);
