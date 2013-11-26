@@ -381,7 +381,7 @@ def ExtractModuleName(infile_path):
   return basename
 
 
-def ParseSignatures(infile):
+def ParseSignaturesReal(infile):
   """Parses function signatures in the input file.
 
   This function parses a file of signatures into a list of dictionaries that
@@ -422,6 +422,27 @@ def ParseSignatures(infile):
           {'return_type': m.group('return_type').strip(),
            'name': m.group('name').strip(),
            'params': [arg.strip() for arg in m.group('params').split(',')]})
+  return signatures
+
+
+# Sometimes additional signatures other than what is exposed to Chromium are
+# needed, in particular for ffmpeg. If we ever make a fork of ffmpeg, is
+# probably a good idea to remove this patch and add the signatures directly on
+# the .sigs file at the dependency repository. In order to expose additional
+# signatures of a library foobar, just add a .sig file prefixed with "xwalk_" at
+# the root folder of the directory containing this script.
+def ParseSignatures(infile):
+  signatures = ParseSignaturesReal(infile)
+
+  xwalk_sig_dir = os.path.dirname(os.path.realpath(__file__))
+  xwalk_sig_file = os.path.join(xwalk_sig_dir,
+                                'xwalk_' + os.path.basename(infile.name))
+
+  if os.path.exists(xwalk_sig_file):
+    xwalk_infile = open(xwalk_sig_file, 'r')
+    signatures += ParseSignaturesReal(xwalk_infile)
+    xwalk_infile.close()
+
   return signatures
 
 
