@@ -1197,6 +1197,14 @@ cr.define('options', function() {
     },
 
     /**
+     * Enables or disables the Manage SSL Certificates button.
+     * @private
+     */
+    enableCertificateButton_: function(enabled) {
+      $('certificatesManageButton').disabled = !enabled;
+    },
+
+    /**
      * Enables factory reset section.
      * @private
      */
@@ -1506,6 +1514,7 @@ cr.define('options', function() {
   //Forward public APIs to private implementations.
   [
     'addBluetoothDevice',
+    'enableCertificateButton',
     'enableFactoryResetSection',
     'getCurrentProfile',
     'getStartStopSyncButton',
