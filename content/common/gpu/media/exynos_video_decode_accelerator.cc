@@ -1210,7 +1210,7 @@ void ExynosVideoDecodeAccelerator::EnqueueMfc() {
 
 void ExynosVideoDecodeAccelerator::DequeueMfcEvents() {
   DCHECK_EQ(decoder_thread_.message_loop(), base::MessageLoop::current());
-  DCHECK_EQ(decoder_state_, kDecoding);
+  DCHECK_NE(decoder_state_, kUninitialized);
   DVLOG(3) << "DequeueMfcEvents()";
 
   struct v4l2_event ev;
@@ -1726,9 +1726,6 @@ void ExynosVideoDecodeAccelerator::ResetTask() {
   if (!StopDevicePoll(false))
     return;
 
-  DequeueMfcEvents();
-
-  resolution_change_pending_ = false;
   decoder_current_bitstream_buffer_.reset();
   decoder_input_queue_.clear();
 
@@ -1755,6 +1752,12 @@ void ExynosVideoDecodeAccelerator::ResetDoneTask() {
     DVLOG(2) << "ResetDoneTask(): early out: kError state";
     return;
   }
+
+  // We might have received a resolution change event while we were waiting
+  // for the reset to finish. The codec will not post another event if the
+  // resolution after reset remains the same as the one to which were just
+  // about to switch, so preserve the event across reset so we can address
+  // it after resuming.
 
   // Reset format-specific bits.
   if (video_profile_ >= media::H264PROFILE_MIN &&
