@@ -1111,9 +1111,32 @@ def CreatePosixStubsForSigFiles(sig_files, stub_name, out_dir,
     header_file.close()
 
 
+# Sometimes additional signatures other than what is exposed to Chromium are
+# needed, in particular for ffmpeg. If we ever make a fork of ffmpeg, is
+# probably a good idea to remove this patch and add the signatures directly on
+# the .sigs file at the dependency repository. In order to expose additional
+# signatures of a library foobar, just add a .sig file prefixed with "xwalk_" at
+# the root folder of the directory containing this script.
+def AddCrosswalkSignatures(sig_files):
+  crosswalk_sig_dir = os.path.dirname(os.path.realpath(__file__))
+  crosswalk_sig_files = []
+
+  for sig_file in sig_files:
+    sig_file_basename = os.path.basename(sig_file)
+    crosswalk_sig_file = os.path.join(crosswalk_sig_dir,
+                                      'xwalk_' + sig_file_basename)
+
+    if os.path.exists(crosswalk_sig_file):
+      crosswalk_sig_files.append(crosswalk_sig_file)
+
+  sig_files.extend(crosswalk_sig_files)
+
+
 def main():
   options, args = ParseOptions()
   out_dir, intermediate_dir = CreateOutputDirectories(options)
+
+  AddCrosswalkSignatures(args)
 
   if options.type == FILE_TYPE_WIN_X86:
     CreateWindowsLibForSigFiles(args, out_dir, intermediate_dir, 'X86')
