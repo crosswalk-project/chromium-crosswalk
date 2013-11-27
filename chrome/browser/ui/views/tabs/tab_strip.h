@@ -263,6 +263,7 @@ class TabStrip : public views::View,
 
   friend class TabDragController;
   friend class TabDragControllerTest;
+  FRIEND_TEST_ALL_PREFIXES(TabDragControllerTest, GestureEndShouldEndDragTest);
   friend class TabStripTest;
   FRIEND_TEST_ALL_PREFIXES(TabStripTest, TabHitTestMaskWhenStacked);
 
