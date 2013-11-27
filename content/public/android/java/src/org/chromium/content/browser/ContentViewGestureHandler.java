@@ -1143,11 +1143,13 @@ class ContentViewGestureHandler implements LongPressDelegate {
 
     private boolean sendGesture(
             int type, long timeMs, int x, int y, Bundle extraParams) {
+        assert timeMs != 0;
         return mMotionEventDelegate.sendGesture(type, timeMs, x, y, extraParams);
     }
 
     private boolean sendGestureAndRequestVSync(
             int type, long timeMs, int x, int y, Bundle extraParams) {
+        assert timeMs != 0;
         // VSync should only be signalled if the sent gesture was generated from a touch event.
         mSentGestureNeedsVSync = mInputEventsDeliveredAtVSync && mTouchEventHandlingStackDepth > 0;
         mLastVSyncGestureTimeMs = timeMs;
