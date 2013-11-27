@@ -711,7 +711,7 @@ gfx::NativeViewId RenderWidgetHostViewAura::GetNativeViewId() const {
   aura::WindowEventDispatcher* dispatcher = window_->GetDispatcher();
   if (dispatcher)
     return reinterpret_cast<gfx::NativeViewId>(
-        dispatcher->host()->GetAcceleratedWidget());
+        dispatcher->GetAcceleratedWidget());
 #endif
   return static_cast<gfx::NativeViewId>(NULL);
 }
@@ -769,7 +769,7 @@ void RenderWidgetHostViewAura::SetKeyboardFocus() {
   if (CanFocus()) {
     aura::WindowEventDispatcher* dispatcher = window_->GetDispatcher();
     if (dispatcher)
-      ::SetFocus(dispatcher->host()->GetAcceleratedWidget());
+      ::SetFocus(dispatcher->GetAcceleratedWidget());
   }
 #endif
 }
