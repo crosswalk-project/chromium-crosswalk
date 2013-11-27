@@ -7,6 +7,8 @@
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/profiles/profile_manager.h"
 #include "chrome/browser/ui/browser.h"
+#include "chrome/browser/ui/browser_tabstrip.h"
+#include "chrome/browser/ui/tabs/tab_strip_model.h"
 
 #if defined(OS_CHROMEOS)
 #include "chrome/browser/chromeos/login/user_manager.h"
@@ -14,7 +16,8 @@
 
 MultiProfileBrowserStatusMonitor::MultiProfileBrowserStatusMonitor(
     ChromeLauncherController* launcher_controller)
-    : BrowserStatusMonitor(launcher_controller) {
+    : BrowserStatusMonitor(launcher_controller),
+      launcher_controller_(launcher_controller) {
 }
 
 MultiProfileBrowserStatusMonitor::~MultiProfileBrowserStatusMonitor() {
@@ -26,9 +29,9 @@ void MultiProfileBrowserStatusMonitor::ActiveUserChanged(
     bool owned = IsV1AppOwnedByCurrentUser(*it);
     bool shown = IsV1AppInShelf(*it);
     if (owned && !shown)
-      BrowserStatusMonitor::AddV1AppToShelf(*it);
+      ConnectV1AppToLauncher(*it);
     else if (!owned && shown)
-      BrowserStatusMonitor::RemoveV1AppFromShelf(*it);
+      DisconnectV1AppFromLauncher(*it);
   }
 }
 
@@ -62,3 +65,24 @@ bool MultiProfileBrowserStatusMonitor::IsV1AppOwnedByCurrentUser(
   return profile == ProfileManager::GetDefaultProfile();
 #endif
 }
+
+void MultiProfileBrowserStatusMonitor::ConnectV1AppToLauncher(
+    Browser* browser) {
+  // Adding a V1 app to the launcher consists of two actions: Add the browser
+  // (launcher item) and add the content (launcher item status).
+  BrowserStatusMonitor::AddV1AppToShelf(browser);
+  launcher_controller_->UpdateAppState(
+      browser->tab_strip_model()->GetActiveWebContents(),
+      ChromeLauncherController::APP_STATE_INACTIVE);
+}
+
+void MultiProfileBrowserStatusMonitor::DisconnectV1AppFromLauncher(
+    Browser* browser) {
+  // Removing a V1 app from the launcher requires to remove the content and
+  // the launcher item.
+  launcher_controller_->UpdateAppState(
+      browser->tab_strip_model()->GetActiveWebContents(),
+      ChromeLauncherController::APP_STATE_REMOVED);
+  BrowserStatusMonitor::RemoveV1AppFromShelf(browser);
+}
+

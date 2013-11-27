@@ -25,6 +25,15 @@ class MultiProfileBrowserStatusMonitor : public BrowserStatusMonitor {
   // Returns true if app is owned by current user.
   bool IsV1AppOwnedByCurrentUser(Browser* browser);
 
+  // Connect a V1 app to the launcher.
+  void ConnectV1AppToLauncher(Browser* browser);
+
+  // Disconnect a V1 app from the launcher.
+  void DisconnectV1AppFromLauncher(Browser* browser);
+
+  // The launcher controller which is associated with this object.
+  ChromeLauncherController* launcher_controller_;
+
   typedef std::vector<Browser*> AppList;
   AppList app_list_;
 
