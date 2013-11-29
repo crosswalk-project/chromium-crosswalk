@@ -173,7 +173,7 @@ CollectInfoResult CollectContextGraphicsInfo(GPUInfo* gpu_info) {
           switches::kGpuNoContextLost)) {
     gpu_info->can_lose_context = false;
   } else {
-#if defined(OS_CHROMEOS)
+#if defined(OS_CHROMEOS) || defined(OS_TIZEN_MOBILE)
     gpu_info->can_lose_context = false;
 #else
     // TODO(zmo): need to consider the case where we are running on top
