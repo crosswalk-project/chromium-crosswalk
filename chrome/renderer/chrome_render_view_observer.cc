@@ -831,19 +831,6 @@ void ChromeRenderViewObserver::DidClearWindowObject(WebFrame* frame) {
   }
 }
 
-void ChromeRenderViewObserver::DidHandleGestureEvent(
-    const WebGestureEvent& event) {
-  if (event.type != WebKit::WebGestureEvent::GestureTap)
-    return;
-
-  WebKit::WebTextInputType text_input_type =
-      render_view()->GetWebView()->textInputInfo().type;
-
-  render_view()->Send(new ChromeViewHostMsg_FocusedNodeTouched(
-      routing_id(),
-      text_input_type != WebKit::WebTextInputTypeNone));
-}
-
 void ChromeRenderViewObserver::DetailedConsoleMessageAdded(
     const base::string16& message,
     const base::string16& source,
