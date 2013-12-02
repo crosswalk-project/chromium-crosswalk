@@ -65,6 +65,7 @@ class CoreTabHelper : public content::WebContentsObserver,
   virtual void BeforeUnloadDialogCancelled() OVERRIDE;
   virtual bool OnMessageReceived(const IPC::Message& message) OVERRIDE;
 
+  void OnFocusedNodeTouched(bool editable);
   void OnRequestThumbnailForContextNodeACK(const SkBitmap& bitmap,
                                            const gfx::Size& original_size);
 

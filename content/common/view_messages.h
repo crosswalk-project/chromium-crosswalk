@@ -2264,12 +2264,6 @@ IPC_MESSAGE_ROUTED2(ViewHostMsg_UpdateFaviconURL,
 IPC_MESSAGE_ROUTED1(ViewHostMsg_DidFirstVisuallyNonEmptyPaint,
                     int /* page_id */)
 
-// Message sent from renderer to the browser when the element that is focused
-// has been touched. A bool is passed in this message which indicates if the
-// node is editable.
-IPC_MESSAGE_ROUTED1(ViewHostMsg_FocusedNodeTouched,
-                    bool /* editable */)
-
 #if defined(OS_ANDROID)
 // Response to ViewMsg_FindMatchRects.
 //
