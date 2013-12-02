@@ -72,8 +72,6 @@ class ChromeRenderViewObserver : public content::RenderViewObserver,
   virtual void DidCommitProvisionalLoad(WebKit::WebFrame* frame,
                                         bool is_new_navigation) OVERRIDE;
   virtual void DidClearWindowObject(WebKit::WebFrame* frame) OVERRIDE;
-  virtual void DidHandleGestureEvent(
-      const WebKit::WebGestureEvent& event) OVERRIDE;
   virtual void DetailedConsoleMessageAdded(const base::string16& message,
                                            const base::string16& source,
                                            const base::string16& stack_trace,
