@@ -587,11 +587,6 @@
                 # defined for Tizen environment, otherwise there are compiler errors.
                 '-D__user=',
               ],
-              'link_settings': {
-                'libraries': [
-                  '<!@(<(pkg-config) --libs gstreamer-0.10 gstreamer-atomisphal-0.10)',
-                ],
-              },
             }],
             ['use_x11==1', {
               'link_settings': {
