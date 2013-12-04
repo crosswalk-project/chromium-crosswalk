@@ -114,7 +114,7 @@ scoped_refptr<GLSurface> GLSurface::CreateOffscreenGLSurface(
     case kGLImplementationEGLGLES2: {
       scoped_refptr<GLSurface> surface;
       if (GLSurfaceEGL::IsEGLSurfacelessContextSupported() &&
-          (size.width() == 0 && size.height() == 0)) {
+          (size.width() == 1 && size.height() == 1)) {
         surface = new SurfacelessEGL(size);
       } else
         surface = new PbufferGLSurfaceEGL(size);
