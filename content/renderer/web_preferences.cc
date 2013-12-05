@@ -296,6 +296,10 @@ void ApplyWebPreferences(const WebPreferences& prefs, WebView* web_view) {
 
   settings->setSelectionIncludesAltImageText(true);
 
+  // Crosswalk shared settings:
+  settings->setLayoutFallbackWidth(0);
+  settings->setMainFrameClipsContent(false);
+
 #if defined(OS_TIZEN)
   // Scrollbars should not be stylable.
   settings->setAllowCustomScrollbarInMainFrame(false);
