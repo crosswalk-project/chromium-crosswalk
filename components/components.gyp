@@ -22,6 +22,7 @@
     'precache.gypi',
     'signin.gypi',
     'startup_metric_utils.gypi',
+    'storage_monitor.gypi',
     'translate.gypi',
     'url_matcher.gypi',
     'user_prefs.gypi',
