@@ -1067,6 +1067,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
       prefs.default_minimum_page_scale_factor,
       prefs.default_maximum_page_scale_factor);
 
+  // Crosswalk shared settings:
+  settings->setMainFrameClipsContent(false);
+
 #if defined(OS_ANDROID)
   settings->setAllowCustomScrollbarInMainFrame(false);
   settings->setTextAutosizingEnabled(prefs.text_autosizing_enabled);
