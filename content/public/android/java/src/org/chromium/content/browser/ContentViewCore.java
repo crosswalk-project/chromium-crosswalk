@@ -366,7 +366,7 @@ public class ContentViewCore
     // Native pointer to C++ ContentViewCoreImpl object which will be set by nativeInit().
     private int mNativeContentViewCore = 0;
 
-    private boolean mAttachedToWindow = false;
+    private boolean mInForeground = false;
 
     // Pid of the renderer process backing this ContentViewCore.
     private int mPid = 0;
@@ -1465,6 +1465,17 @@ public class ContentViewCore
      * To be called when the ContentView is shown.
      */
     public void onShow() {
+        assert mNativeContentViewCore != 0;
+        if (!mInForeground) {
+            int pid = nativeGetCurrentRenderProcessId(mNativeContentViewCore);
+            ChildProcessLauncher.getBindingManager().bindAsHighPriority(pid);
+            // Normally the initial binding is removed in onRenderProcessSwap(), but it is possible
+            // to construct WebContents and spawn the renderer before passing it to ContentViewCore.
+            // In this case there will be no onRenderProcessSwap() call and the initial binding will
+            // be removed here.
+            ChildProcessLauncher.getBindingManager().removeInitialBinding(pid);
+        }
+        mInForeground = true;
         nativeOnShow(mNativeContentViewCore);
         setAccessibilityState(mAccessibilityManager.isEnabled());
     }
@@ -1473,6 +1484,12 @@ public class ContentViewCore
      * To be called when the ContentView is hidden.
      */
     public void onHide() {
+        assert mNativeContentViewCore != 0;
+        if (mInForeground) {
+            int pid = nativeGetCurrentRenderProcessId(mNativeContentViewCore);
+            ChildProcessLauncher.getBindingManager().unbindAsHighPriority(pid);
+        }
+        mInForeground = false;
         hidePopupDialog();
         setInjectedAccessibility(false);
         nativeOnHide(mNativeContentViewCore);
@@ -1532,16 +1549,6 @@ public class ContentViewCore
      */
     @SuppressWarnings("javadoc")
     public void onAttachedToWindow() {
-        mAttachedToWindow = true;
-        if (mNativeContentViewCore != 0) {
-            assert mPid == nativeGetCurrentRenderProcessId(mNativeContentViewCore);
-            ChildProcessLauncher.getBindingManager().bindAsHighPriority(mPid);
-            // Normally the initial binding is removed in onRenderProcessSwap(), but it is possible
-            // to construct WebContents and spawn the renderer before passing it to ContentViewCore.
-            // In this case there will be no onRenderProcessSwap() call and the initial binding will
-            // be removed here.
-            ChildProcessLauncher.getBindingManager().removeInitialBinding(mPid);
-        }
         setAccessibilityState(mAccessibilityManager.isEnabled());
     }
 
@@ -1550,11 +1557,6 @@ public class ContentViewCore
      */
     @SuppressWarnings("javadoc")
     public void onDetachedFromWindow() {
-        mAttachedToWindow = false;
-        if (mNativeContentViewCore != 0) {
-            assert mPid == nativeGetCurrentRenderProcessId(mNativeContentViewCore);
-            ChildProcessLauncher.getBindingManager().unbindAsHighPriority(mPid);
-        }
         setInjectedAccessibility(false);
         hidePopupDialog();
         mZoomControlsDelegate.dismissZoomPicker();
@@ -2634,7 +2636,7 @@ public class ContentViewCore
     @CalledByNative
     private void onRenderProcessSwap(int oldPid, int newPid) {
         assert mPid == oldPid || mPid == newPid;
-        if (mAttachedToWindow && oldPid != newPid) {
+        if (mInForeground && oldPid != newPid) {
             ChildProcessLauncher.getBindingManager().unbindAsHighPriority(oldPid);
             ChildProcessLauncher.getBindingManager().bindAsHighPriority(newPid);
         }
