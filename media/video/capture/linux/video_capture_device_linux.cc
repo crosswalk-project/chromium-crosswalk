@@ -25,17 +25,81 @@ extern "C" {
 #include "base/bind.h"
 #include "base/file_util.h"
 #include "base/files/file_enumerator.h"
+#include "base/native_library.h"
 #include "base/strings/stringprintf.h"
 
-#if defined(OS_TIZEN_MOBILE)
 namespace {
 
+base::NativeLibrary mfld_library = NULL;
+
+void* mfld_functions = NULL;
+
+typedef void (*mfld_wrapper_default_link_functions_init_t)(void* functions);
+
+typedef void (*mfld_libmfld_cam_init_t)(void* functions);
+
+typedef int (*mfld_cam_driver_init_t)(int fd, const char* sensor_id);
+
+typedef int (*mfld_cam_set_capture_fmt_t)(int fd,
+                                          unsigned int width,
+                                          unsigned int height,
+                                          unsigned int fourcc);
+
+typedef int (*mfld_cam_driver_set_mipi_interrupt_t)(int fd, int enable);
+
+typedef int (*mfld_cam_driver_deinit_t)(int fd);
+
+#define MFLD_DEFINE_SYM(name) mfld_##name##_t mfld_##name = NULL
+MFLD_DEFINE_SYM(wrapper_default_link_functions_init);
+MFLD_DEFINE_SYM(libmfld_cam_init);
+MFLD_DEFINE_SYM(cam_driver_init);
+MFLD_DEFINE_SYM(cam_set_capture_fmt);
+MFLD_DEFINE_SYM(cam_driver_set_mipi_interrupt);
+MFLD_DEFINE_SYM(cam_driver_deinit);
+
+#define MFLD_BIND_SYM(name)                                                    \
+  do {                                                                         \
+    mfld_##name = reinterpret_cast<mfld_##name##_t>(                           \
+        base::GetFunctionPointerFromNativeLibrary(mfld_library, #name));       \
+    if (!mfld_##name) {                                                        \
+      DVLOG(1) << "Failed to bind symbol "#name;                               \
+      base::UnloadNativeLibrary(mfld_library);                                 \
+      mfld_library = NULL;                                                     \
+      return;                                                                  \
+    }                                                                          \
+  } while (0)
+
+void mfld_driver_initialize(void* functions) {
+  static bool is_initialized = false;
+  std::string error;
+
+  if (is_initialized)
+    return;
+
+  is_initialized = true;
+  mfld_library = base::LoadNativeLibrary(
+      base::FilePath("libgstatomisphal-0.10.so.0"), &error);
+  if (!mfld_library) {
+    DVLOG(4) << "Failed to load mfld camera driver: " << error;
+    return;
+  }
+  MFLD_BIND_SYM(wrapper_default_link_functions_init);
+  MFLD_BIND_SYM(libmfld_cam_init);
+  MFLD_BIND_SYM(cam_driver_init);
+  MFLD_BIND_SYM(cam_set_capture_fmt);
+  MFLD_BIND_SYM(cam_driver_set_mipi_interrupt);
+  MFLD_BIND_SYM(cam_driver_deinit);
+  mfld_wrapper_default_link_functions_init(functions);
+  mfld_libmfld_cam_init(functions);
+}
+
 enum { kCameraSensorSecondary, kCameraSensorPrimary };
+
+#if defined(OS_TIZEN_MOBILE)
 GstV4l2MFLDAdvCI mfld_adv_ci;
-bool has_mfld_camera_driver_initialized = false;
+#endif
 
 }  // namespace
-#endif
 
 namespace media {
 
@@ -127,16 +191,16 @@ static bool HasUsableFormats(int fd) {
 void VideoCaptureDevice::GetDeviceNames(Names* device_names) {
   int fd = -1;
 
+#if defined(OS_TIZEN_MOBILE)
+  mfld_functions = &mfld_adv_ci;
+#endif
+  mfld_driver_initialize(mfld_functions);
+
   // Empty the name list.
   device_names->clear();
 
   base::FilePath path("/dev/");
-#if defined(OS_TIZEN_MOBILE)
-  // Supposedly to use "/dev/video0" only
-  const char device_wildcards[] = "video0";
-#else
-  const char device_wildcards[] = "video*";
-#endif
+  const char* device_wildcards = mfld_library ? "video0" : "video*";
   base::FileEnumerator enumerator(
       path, false, base::FileEnumerator::FILES, device_wildcards);
 
@@ -152,12 +216,10 @@ void VideoCaptureDevice::GetDeviceNames(Names* device_names) {
     v4l2_capability cap;
     if ((ioctl(fd, VIDIOC_QUERYCAP, &cap) == 0) &&
         (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE)) {
-#if !defined(OS_TIZEN_MOBILE)
       // Here chromium was expecting any capture, but not output video device.
       // Unfortunately on Tizen camera is both a capture and output device.
-      if (cap.capabilities & V4L2_CAP_VIDEO_OUTPUT)
+      if (!mfld_library && (cap.capabilities & V4L2_CAP_VIDEO_OUTPUT))
         continue;
-#endif
       // This is a V4L2 video capture device
       if (HasUsableFormats(fd)) {
         Name device_name(base::StringPrintf("%s", cap.card), unique_id);
@@ -281,13 +343,7 @@ VideoCaptureDevice* VideoCaptureDevice::Create(const Name& device_name) {
   VideoCaptureDeviceLinux* self = new VideoCaptureDeviceLinux(device_name);
   if (!self)
     return NULL;
-#if defined(OS_TIZEN_MOBILE)
-  if (!has_mfld_camera_driver_initialized) {
-    has_mfld_camera_driver_initialized = true;
-    wrapper_default_link_functions_init(&mfld_adv_ci);
-    libmfld_cam_init(&mfld_adv_ci);
-  }
-#endif
+
   // Test opening the device driver. This is to make sure it is available.
   // We will reopen it again in our worker thread when someone
   // allocates the camera.
@@ -374,62 +430,56 @@ void VideoCaptureDeviceLinux::OnAllocateAndStart(int width,
   bool is_capture_device = (ioctl(device_fd_, VIDIOC_QUERYCAP, &cap) == 0) &&
                            (cap.capabilities & V4L2_CAP_VIDEO_CAPTURE);
   bool is_output_device = cap.capabilities & V4L2_CAP_VIDEO_OUTPUT;
-  if (!is_capture_device || is_output_device) {
-#if defined(OS_TIZEN_MOBILE)
-    if (!is_capture_device) {
-#endif
-      // This is not a V4L2 video capture device.
-      close(device_fd_);
-      device_fd_ = -1;
-      SetErrorState("This is not a V4L2 video capture device");
+  if (!is_capture_device || (!mfld_library && is_output_device)) {
+    // This is not a V4L2 video capture device.
+    close(device_fd_);
+    device_fd_ = -1;
+    SetErrorState("This is not a V4L2 video capture device");
+    return;
+  }
+
+  if (mfld_library) {
+    int camera_sensor = kCameraSensorSecondary;
+    if (ioctl(device_fd_, VIDIOC_S_INPUT, &camera_sensor) < 0) {
+      SetErrorState("Cannot select camera sensor");
       return;
-#if defined(OS_TIZEN_MOBILE)
     }
-#endif
+    struct v4l2_input input;
+    memset(&input, 0, sizeof(input));
+    input.index = camera_sensor;
+    if (ioctl(device_fd_, VIDIOC_ENUMINPUT, &input) < 0) {
+      SetErrorState("Cannot enumerate camera input");
+      return;
+    }
+    char* name = reinterpret_cast<char *>(input.name);
+    if (char* space = strchr(name, ' '))
+      name[space - name] = '\0';
+    if (mfld_cam_driver_init(device_fd_, name)) {
+      SetErrorState("Cannot initialize libmfldcam");
+      return;
+    }
+    struct v4l2_control control;
+    memset(&control, 0, sizeof(control));
+    control.id = V4L2_CID_VFLIP;
+    control.value = 0;
+    if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+      SetErrorState("Cannot set vflip");
+      return;
+    }
+    control.id = V4L2_CID_HFLIP;
+    control.value = 0;
+    if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+      SetErrorState("Cannot set hflip");
+      return;
+    }
+    control.id = V4L2_CID_POWER_LINE_FREQUENCY;
+    // CAM_GENERAL_FLICKER_REDUCTION_MODE_50HZ
+    control.value = 1;
+    if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
+      SetErrorState("Cannot set power line frequency");;
+      return;
+    }
   }
-
-#if defined(OS_TIZEN_MOBILE)
-  int camera_sensor = kCameraSensorSecondary;
-  if (ioctl(device_fd_, VIDIOC_S_INPUT, &camera_sensor) < 0) {
-    SetErrorState("Cannot select camera sensor");
-    return;
-  }
-  struct v4l2_input input;
-  memset(&input, 0, sizeof(input));
-  input.index = camera_sensor;
-  if (ioctl(device_fd_, VIDIOC_ENUMINPUT, &input) < 0) {
-    SetErrorState("Cannot enumerate camera input");
-    return;
-  }
-  char* name = reinterpret_cast<char *>(input.name);
-  if (char* space = strchr(name, ' '))
-    name[space - name] = '\0';
-  if (cam_driver_init(device_fd_, name) != CAM_ERR_NONE) {
-    SetErrorState("Cannot initialize libmfldcam");
-    return;
-  }
-  struct v4l2_control control;
-  memset(&control, 0, sizeof(control));
-  control.id = V4L2_CID_VFLIP;
-  control.value = 0;
-  if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
-    SetErrorState("Cannot set vflip");
-    return;
-  }
-  control.id = V4L2_CID_HFLIP;
-  control.value = 0;
-  if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
-    SetErrorState("Cannot set hflip");
-    return;
-  }
-  control.id = V4L2_CID_POWER_LINE_FREQUENCY;
-  control.value = CAM_GENERAL_FLICKER_REDUCTION_MODE_50HZ;
-  if (ioctl(device_fd_, VIDIOC_S_CTRL, &control) < 0) {
-    SetErrorState("Cannot set power line frequency");;
-    return;
-  }
-#endif
-
   // Get supported video formats in preferred order.
   // For large resolutions, favour mjpeg over raw formats.
   std::list<int> v4l2_formats;
@@ -466,9 +516,8 @@ void VideoCaptureDeviceLinux::OnAllocateAndStart(int width,
     return;
   }
 
-#if defined(OS_TIZEN_MOBILE)
-  cam_set_capture_fmt(device_fd_, width, height, *best);
-#endif
+  if (mfld_library)
+    mfld_cam_set_capture_fmt(device_fd_, width, height, *best);
 
   // Set capture framerate in the form of capture interval.
   v4l2_streamparm streamparm;
@@ -512,9 +561,9 @@ void VideoCaptureDeviceLinux::OnAllocateAndStart(int width,
     return;
   }
 
-#if defined(OS_TIZEN_MOBILE)
-  cam_driver_set_mipi_interrupt(device_fd_, 1);
-#endif
+  if (mfld_library)
+    mfld_cam_driver_set_mipi_interrupt(device_fd_, 1);
+
   // Start UVC camera.
   v4l2_buf_type type = V4L2_BUF_TYPE_VIDEO_CAPTURE;
   if (ioctl(device_fd_, VIDIOC_STREAMON, &type) == -1) {
@@ -539,16 +588,16 @@ void VideoCaptureDeviceLinux::OnStopAndDeAllocate() {
     return;
   }
 
-#if defined(OS_TIZEN_MOBILE)
-  cam_driver_set_mipi_interrupt(device_fd_, 0);
-#endif
+  if (mfld_library)
+    mfld_cam_driver_set_mipi_interrupt(device_fd_, 0);
+
   // We don't dare to deallocate the buffers if we can't stop
   // the capture device.
   DeAllocateVideoBuffers();
 
-#if defined(OS_TIZEN_MOBILE)
-  cam_driver_deinit(device_fd_);
-#endif
+  if (mfld_library)
+    mfld_cam_driver_deinit(device_fd_);
+
   // We need to close and open the device if we want to change the settings
   // Otherwise VIDIOC_S_FMT will return error
   // Sad but true.
