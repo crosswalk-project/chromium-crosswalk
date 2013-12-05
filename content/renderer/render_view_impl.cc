@@ -1126,6 +1126,9 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
   settings->setV8CacheOptions(
       static_cast<WebSettings::V8CacheOptions>(prefs.v8_cache_options));
 
+  // Crosswalk shared settings:
+  settings->setMainFrameClipsContent(false);
+
 #if defined(OS_TIZEN)
   // Scrollbars should not be stylable.
   settings->setAllowCustomScrollbarInMainFrame(false);
