@@ -173,6 +173,11 @@ User* FakeUserManager::GetUserByProfile(Profile* profile) const {
   return primary_user_;
 }
 
+Profile* FakeUserManager::GetProfileByUser(const User* user) const {
+  NOTIMPLEMENTED();
+  return NULL;
+}
+
 string16 FakeUserManager::GetUserDisplayName(
     const std::string& username) const {
   return string16();

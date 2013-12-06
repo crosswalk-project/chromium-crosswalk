@@ -40,6 +40,7 @@ class MockUserManager : public UserManager {
   MOCK_CONST_METHOD1(FindUser, const User*(const std::string&));
   MOCK_METHOD2(SaveUserOAuthStatus, void(const std::string&,
                                          User::OAuthTokenStatus));
+  MOCK_CONST_METHOD1(GetProfileByUser, Profile*(const User*));
   MOCK_METHOD2(SaveUserDisplayName, void(const std::string&,
                                          const string16&));
   MOCK_METHOD3(UpdateUserAccountData,
