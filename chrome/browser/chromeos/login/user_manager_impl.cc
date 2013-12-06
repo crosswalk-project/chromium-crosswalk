@@ -302,8 +302,8 @@ const UserList& UserManagerImpl::GetLRULoggedInUsers() {
 
 UserList UserManagerImpl::GetUnlockUsers() const {
   UserList unlock_users;
-  if (primary_user_)
-    unlock_users.push_back(primary_user_);
+  CHECK(primary_user_);
+  unlock_users.push_back(primary_user_);
   return unlock_users;
 }
 
@@ -589,12 +589,6 @@ User* UserManagerImpl::GetUserByProfile(Profile* profile) const {
   return active_user_;
 }
 
-Profile* UserManagerImpl::GetProfileByUser(const User* user) const {
-  if (IsMultipleProfilesAllowed())
-    return ProfileHelper::GetProfileByUserIdHash(user->username_hash());
-  return g_browser_process->profile_manager()->GetDefaultProfile();
-}
-
 void UserManagerImpl::SaveUserOAuthStatus(
     const std::string& user_id,
     User::OAuthTokenStatus oauth_token_status) {
@@ -813,6 +807,12 @@ void UserManagerImpl::RespectLocalePreference(Profile* profile,
   // that input method preferences are synced, so users can use their
   // farovite input methods as soon as the preferences are synced.
   chromeos::LanguageSwitchMenu::SwitchLanguage(pref_locale);
+}
+
+Profile* UserManagerImpl::GetProfileByUser(const User* user) const {
+  if (IsMultipleProfilesAllowed())
+    return ProfileHelper::GetProfileByUserIdHash(user->username_hash());
+  return g_browser_process->profile_manager()->GetDefaultProfile();
 }
 
 void UserManagerImpl::Observe(int type,

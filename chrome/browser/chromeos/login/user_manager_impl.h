@@ -81,7 +81,6 @@ class UserManagerImpl
   virtual User* GetActiveUser() OVERRIDE;
   virtual const User* GetPrimaryUser() const OVERRIDE;
   virtual User* GetUserByProfile(Profile* profile) const OVERRIDE;
-  virtual Profile* GetProfileByUser(const User* user) const OVERRIDE;
   virtual void SaveUserOAuthStatus(
       const std::string& user_id,
       User::OAuthTokenStatus oauth_token_status) OVERRIDE;
@@ -326,6 +325,8 @@ class UserManagerImpl
   // Decorator to the previous function.
   void UpdateUserAccountDataImplCallbackDecorator(
       const scoped_ptr<UpdateUserAccountDataCallbackData>& data);
+
+  Profile* GetProfileByUser(const User* user) const;
 
   // Implementation for RemoveUser method. This is an asynchronous part of the
   // method, that verifies that owner will not get deleted, and calls
