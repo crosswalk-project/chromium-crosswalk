@@ -270,12 +270,6 @@ ChromeRenderProcessObserver::ChromeRenderProcessObserver(
 #if defined(OS_MACOSX)
   bool enable_autofill = command_line.HasSwitch(
       autofill::switches::kEnableInteractiveAutocomplete);
-  chrome::VersionInfo::Channel channel = chrome::VersionInfo::GetChannel();
-  if (channel != chrome::VersionInfo::CHANNEL_BETA &&
-      channel != chrome::VersionInfo::CHANNEL_STABLE) {
-    enable_autofill = !command_line.HasSwitch(
-        autofill::switches::kDisableInteractiveAutocomplete);
-  }
 #else
   bool enable_autofill = !command_line.HasSwitch(
       autofill::switches::kDisableInteractiveAutocomplete);
