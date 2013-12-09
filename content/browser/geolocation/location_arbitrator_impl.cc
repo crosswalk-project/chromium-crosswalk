@@ -149,7 +149,7 @@ LocationProvider* LocationArbitratorImpl::NewNetworkLocationProvider(
     net::URLRequestContextGetter* context,
     const GURL& url,
     const base::string16& access_token) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) || defined(OS_TIZEN_MOBILE)
   // Android uses its own SystemLocationProvider.
   return NULL;
 #else
@@ -159,7 +159,9 @@ LocationProvider* LocationArbitratorImpl::NewNetworkLocationProvider(
 }
 
 LocationProvider* LocationArbitratorImpl::NewSystemLocationProvider() {
-#if defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
+#if defined(OS_TIZEN_MOBILE)
+  return content::NewSystemLocationProvider();
+#elif defined(OS_WIN) || defined(OS_MACOSX) || defined(OS_LINUX)
   return NULL;
 #else
   return content::NewSystemLocationProvider();
