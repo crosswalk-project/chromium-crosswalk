@@ -50,6 +50,10 @@ class TestViewsDelegate : public ViewsDelegate {
   virtual HICON GetDefaultWindowIcon() const OVERRIDE {
     return NULL;
   }
+
+  virtual bool IsWindowInMetro(gfx::NativeWindow window) const {
+    return false;
+  }
 #endif
   virtual NonClientFrameView* CreateDefaultNonClientFrameView(
       Widget* widget) OVERRIDE;

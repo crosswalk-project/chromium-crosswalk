@@ -151,6 +151,10 @@ void ChromeViewsDelegate::NotifyMenuItemFocused(const string16& menu_name,
 HICON ChromeViewsDelegate::GetDefaultWindowIcon() const {
   return GetAppIcon();
 }
+
+bool ChromeViewsDelegate::IsWindowInMetro(gfx::NativeWindow window) const {
+  return chrome::IsNativeViewInAsh(window);
+}
 #endif
 
 views::NonClientFrameView* ChromeViewsDelegate::CreateDefaultNonClientFrameView(
