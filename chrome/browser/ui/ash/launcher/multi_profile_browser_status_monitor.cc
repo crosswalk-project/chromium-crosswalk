@@ -9,6 +9,7 @@
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/browser_tabstrip.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
+#include "google_apis/gaia/gaia_auth_util.h"
 
 #if defined(OS_CHROMEOS)
 #include "chrome/browser/chromeos/login/user_manager.h"
@@ -59,7 +60,8 @@ bool MultiProfileBrowserStatusMonitor::IsV1AppOwnedByCurrentUser(
     Browser* browser) {
   Profile* profile = browser->profile()->GetOriginalProfile();
 #if defined(OS_CHROMEOS)
-  return profile->GetProfileName() ==
+  return
+     gaia::CanonicalizeEmail(gaia::SanitizeEmail(profile->GetProfileName())) ==
          chromeos::UserManager::Get()->GetActiveUser()->email();
 #else
   return profile == ProfileManager::GetDefaultProfile();
