@@ -25,7 +25,7 @@ bool RepostLocatedEvent(gfx::NativeWindow window,
   if (ViewsDelegate::views_delegate &&
       !ViewsDelegate::views_delegate->IsWindowInMetro(window)) {
     return RepostLocatedEventWin(
-        window->GetDispatcher()->host()->GetAcceleratedWidget(), event);
+        window->GetDispatcher()->GetAcceleratedWidget(), event);
   }
 #endif
   aura::Window* root_window = window->GetRootWindow();
