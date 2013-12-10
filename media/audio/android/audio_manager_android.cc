@@ -41,7 +41,8 @@ AudioManagerAndroid::AudioManagerAndroid() {
   j_audio_manager_.Reset(
       Java_AudioManagerAndroid_createAudioManagerAndroid(
           base::android::AttachCurrentThread(),
-          base::android::GetApplicationContext()));
+          base::android::GetApplicationContext(),
+          reinterpret_cast<intptr_t>(this)));
 }
 
 AudioManagerAndroid::~AudioManagerAndroid() {
@@ -93,6 +94,11 @@ AudioOutputStream* AudioManagerAndroid::MakeAudioOutputStream(
     SetAudioMode(kAudioModeInCommunication);
     RegisterHeadsetReceiver();
   }
+
+  {
+    base::AutoLock lock(streams_lock_);
+    streams_.insert(static_cast<OpenSLESOutputStream*>(stream));
+  }
   return stream;
 }
 
@@ -109,6 +115,8 @@ void AudioManagerAndroid::ReleaseOutputStream(AudioOutputStream* stream) {
     UnregisterHeadsetReceiver();
     SetAudioMode(kAudioModeNormal);
   }
+  base::AutoLock lock(streams_lock_);
+  streams_.erase(static_cast<OpenSLESOutputStream*>(stream));
 }
 
 void AudioManagerAndroid::ReleaseInputStream(AudioInputStream* stream) {
@@ -186,6 +194,23 @@ AudioParameters AudioManagerAndroid::GetPreferredOutputStreamParameters(
 // static
 bool AudioManagerAndroid::RegisterAudioManager(JNIEnv* env) {
   return RegisterNativesImpl(env);
+}
+
+void AudioManagerAndroid::SetMute(JNIEnv* env, jobject obj, jboolean muted) {
+  GetMessageLoop()->PostTask(
+      FROM_HERE,
+      base::Bind(
+          &AudioManagerAndroid::DoSetMuteOnAudioThread,
+          base::Unretained(this),
+          muted));
+}
+
+void AudioManagerAndroid::DoSetMuteOnAudioThread(bool muted) {
+  base::AutoLock lock(streams_lock_);
+  for (OutputStreams::iterator it = streams_.begin();
+       it != streams_.end(); ++it) {
+    (*it)->SetMute(muted);
+  }
 }
 
 void AudioManagerAndroid::SetAudioMode(int mode) {
