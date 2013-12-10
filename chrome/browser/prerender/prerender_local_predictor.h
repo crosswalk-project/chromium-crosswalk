@@ -14,7 +14,6 @@
 #include "base/timer/timer.h"
 #include "chrome/browser/common/cancelable_request.h"
 #include "chrome/browser/history/visit_database.h"
-#include "content/public/browser/session_storage_namespace.h"
 #include "net/url_request/url_fetcher_delegate.h"
 #include "url/gurl.h"
 
@@ -25,6 +24,7 @@ class DictionaryValue;
 }
 
 namespace content {
+class SessionStorageNamespace;
 class WebContents;
 }
 
@@ -120,15 +120,6 @@ class PrerenderLocalPredictor : public history::VisitDatabaseObserver,
     EVENT_CONTINUE_PRERENDER_CHECK_EXAMINE_NEXT_URL_SERVICE = 70,
     EVENT_ADD_VISIT_RELEVANT_TRANSITION_REPEAT_URL = 71,
     EVENT_ADD_VISIT_RELEVANT_TRANSITION_NEW_URL = 72,
-    EVENT_TAB_HELPER_URL_SEEN_NAMESPACE_MISMATCH_NO_NAMESPACE = 73,
-    EVENT_TAB_HELPER_URL_SEEN_NAMESPACE_MISMATCH_MERGE_ISSUED = 74,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_RECEIVED = 75,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_NAMESPACE_NOT_FOUND = 76,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_NOT_LOGGING = 77,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_NO_TRANSACTIONS = 78,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_TOO_MANY_TRANSACTIONS = 79,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_NOT_MERGEABLE = 80,
-    EVENT_NAMESPACE_MISMATCH_MERGE_RESULT_MERGEABLE = 81,
     EVENT_INIT_FAILED_UNENCRYPTED_SYNC_NOT_ENABLED = 82,
     EVENT_CONTINUE_PRERENDER_CHECK_EXAMINE_NEXT_URL_NOT_SKIPPED = 83,
     EVENT_PRERENDER_SERIVCE_RETURNED_HINTING_CANDIDATES = 84,
@@ -193,8 +184,6 @@ class PrerenderLocalPredictor : public history::VisitDatabaseObserver,
       bool* hinting_timed_out,
       bool* hinting_url_lookup_timed_out,
       bool* candidate_url_lookup_timed_out);
-  void ProcessNamespaceMergeResult(
-      content::SessionStorageNamespace::MergeResult result);
   typedef std::map<net::URLFetcher*, CandidatePrerenderInfo*>
       OutstandingFetchers;
   OutstandingFetchers outstanding_prerender_service_requests_;

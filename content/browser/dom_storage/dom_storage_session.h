@@ -9,7 +9,6 @@
 
 #include "base/basictypes.h"
 #include "base/memory/ref_counted.h"
-#include "content/browser/dom_storage/session_storage_namespace_impl.h"
 #include "content/common/content_export.h"
 
 namespace content {
@@ -44,12 +43,6 @@ class CONTENT_EXPORT DOMStorageSession
   // |namespace_id_to_clone|. Allocates new IDs for it.
   static DOMStorageSession* CloneFrom(DOMStorageContextImpl* context,
                                       int64 namepace_id_to_clone);
-
-  void AddTransactionLogProcessId(int process_id);
-  void RemoveTransactionLogProcessId(int process_id);
-  void CanMerge(int process_id,
-                DOMStorageSession* other,
-                const SessionStorageNamespace::MergeResultCallback& callback);
 
  private:
   friend class base::RefCountedThreadSafe<DOMStorageSession>;

@@ -108,13 +108,10 @@ class DomStorageDispatcher::ProxyImpl : public DOMStorageProxy {
 
   // DOMStorageProxy interface for use by DOMStorageCachedArea.
   virtual void LoadArea(int connection_id, DOMStorageValuesMap* values,
-                        bool* send_log_get_messages,
                         const CompletionCallback& callback) OVERRIDE;
   virtual void SetItem(int connection_id, const string16& key,
                        const string16& value, const GURL& page_url,
                        const CompletionCallback& callback) OVERRIDE;
-  virtual void LogGetItem(int connection_id, const string16& key,
-                          const base::NullableString16& value) OVERRIDE;
   virtual void RemoveItem(int connection_id, const string16& key,
                           const GURL& page_url,
                           const CompletionCallback& callback) OVERRIDE;
@@ -224,11 +221,11 @@ void DomStorageDispatcher::ProxyImpl::Shutdown() {
 }
 
 void DomStorageDispatcher::ProxyImpl::LoadArea(
-    int connection_id, DOMStorageValuesMap* values, bool* send_log_get_messages,
+    int connection_id, DOMStorageValuesMap* values,
     const CompletionCallback& callback) {
   PushPendingCallback(callback);
   throttling_filter_->SendThrottled(new DOMStorageHostMsg_LoadStorageArea(
-      connection_id, values, send_log_get_messages));
+      connection_id, values));
 }
 
 void DomStorageDispatcher::ProxyImpl::SetItem(
@@ -238,13 +235,6 @@ void DomStorageDispatcher::ProxyImpl::SetItem(
   PushPendingCallback(callback);
   throttling_filter_->SendThrottled(new DOMStorageHostMsg_SetItem(
       connection_id, key, value, page_url));
-}
-
-void DomStorageDispatcher::ProxyImpl::LogGetItem(
-    int connection_id, const string16& key,
-    const base::NullableString16& value) {
-  throttling_filter_->SendThrottled(new DOMStorageHostMsg_LogGetItem(
-      connection_id, key, value));
 }
 
 void DomStorageDispatcher::ProxyImpl::RemoveItem(
