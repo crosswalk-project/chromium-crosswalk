@@ -5,15 +5,22 @@
 package org.chromium.media;
 
 import android.content.BroadcastReceiver;
+import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.pm.PackageManager;
+import android.database.ContentObserver;
 import android.media.AudioFormat;
 import android.media.AudioManager;
 import android.media.AudioRecord;
 import android.media.AudioTrack;
+import android.net.Uri;
 import android.os.Build;
+import android.os.Handler;
+import android.os.Looper;
+import android.provider.Settings;
+import android.provider.Settings.System;
 import android.util.Log;
 
 import org.chromium.base.CalledByNative;
@@ -33,6 +40,13 @@ class AudioManagerAndroid {
 
     private final AudioManager mAudioManager;
     private final Context mContext;
+    private final int mNativeAudioManagerAndroid;
+
+    private final ContentResolver mContentResolver;
+    private SettingsObserver mSettingsObserver = null;
+    private SettingsObserverThread mSettingsObserverThread = null;
+    private int mCurrentVolume;
+    private final Object mSettingsObserverLock = new Object();
 
     private BroadcastReceiver mReceiver;
     private boolean mOriginalSpeakerStatus;
@@ -48,13 +62,17 @@ class AudioManagerAndroid {
     }
 
     @CalledByNative
-    private static AudioManagerAndroid createAudioManagerAndroid(Context context) {
-        return new AudioManagerAndroid(context);
+    private static AudioManagerAndroid createAudioManagerAndroid(
+            Context context,
+            int nativeAudioManagerAndroid) {
+        return new AudioManagerAndroid(context, nativeAudioManagerAndroid);
     }
 
-    private AudioManagerAndroid(Context context) {
+    private AudioManagerAndroid(Context context, int nativeAudioManagerAndroid) {
         mContext = context;
+        mNativeAudioManagerAndroid = nativeAudioManagerAndroid;
         mAudioManager = (AudioManager)mContext.getSystemService(Context.AUDIO_SERVICE);
+        mContentResolver = mContext.getContentResolver();
     }
 
     @CalledByNative
@@ -81,6 +99,16 @@ class AudioManagerAndroid {
             }
         };
         mContext.registerReceiver(mReceiver, filter);
+
+        mSettingsObserverThread = new SettingsObserverThread();
+        mSettingsObserverThread.start();
+        synchronized(mSettingsObserverLock) {
+            try {
+                mSettingsObserverLock.wait();
+            } catch (InterruptedException e) {
+                Log.e(TAG, "unregisterHeadsetReceiver exception: " + e.getMessage());
+            }
+        }
     }
 
     @CalledByNative
@@ -88,6 +116,14 @@ class AudioManagerAndroid {
         mContext.unregisterReceiver(mReceiver);
         mReceiver = null;
         mAudioManager.setSpeakerphoneOn(mOriginalSpeakerStatus);
+
+        if (mSettingsObserverThread != null ) {
+            mSettingsObserverThread = null;
+        }
+        if (mSettingsObserver != null) {
+            mContentResolver.unregisterContentObserver(mSettingsObserver);
+            mSettingsObserver = null;
+        }
     }
 
     private void logDeviceInfo() {
@@ -162,4 +198,39 @@ class AudioManagerAndroid {
                 DEFAULT_FRAME_PER_BUFFER : Integer.parseInt(framesPerBuffer));
     }
 
+    private class SettingsObserver extends ContentObserver {
+        SettingsObserver() {
+            super(new Handler());
+            mContentResolver.registerContentObserver(Settings.System.CONTENT_URI, true, this);
+        }
+
+        @Override
+        public void onChange(boolean selfChange) {
+            super.onChange(selfChange);
+            int volume = mAudioManager.getStreamVolume(AudioManager.STREAM_VOICE_CALL);
+            nativeSetMute(mNativeAudioManagerAndroid, (volume == 0));
+        }
+    }
+
+    private native void nativeSetMute(int nativeAudioManagerAndroid, boolean muted);
+
+    private class SettingsObserverThread extends Thread {
+        SettingsObserverThread() {
+            super("SettingsObserver");
+        }
+
+        @Override
+        public void run() {
+            // Set this thread up so the handler will work on it.
+            Looper.prepare();
+
+            synchronized(mSettingsObserverLock) {
+                mSettingsObserver = new SettingsObserver();
+                mSettingsObserverLock.notify();
+            }
+
+            // Listen for volume change.
+            Looper.loop();
+        }
+    }
 }
