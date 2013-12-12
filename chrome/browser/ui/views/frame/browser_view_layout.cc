@@ -78,14 +78,6 @@ class BrowserViewLayout::WebContentsModalDialogHostViews
                       OnPositionRequiresUpdate());
   }
 
- private:
-  virtual gfx::NativeView GetHostView() const OVERRIDE {
-    gfx::NativeWindow native_window =
-        browser_view_layout_->browser()->window()->GetNativeWindow();
-    return views::Widget::GetWidgetForNativeWindow(native_window)->
-        GetNativeView();
-  }
-
   // Center horizontally over the content area, with the top overlapping the
   // browser chrome.
   virtual gfx::Point GetDialogPosition(const gfx::Size& size) OVERRIDE {
@@ -94,6 +86,14 @@ class BrowserViewLayout::WebContentsModalDialogHostViews
         browser_view_layout_->browser_view_->GetClientAreaBounds();
     int middle_x = content_area.x() + content_area.width() / 2;
     return gfx::Point(middle_x - size.width() / 2, top_y);
+  }
+
+ private:
+  virtual gfx::NativeView GetHostView() const OVERRIDE {
+    gfx::NativeWindow native_window =
+        browser_view_layout_->browser()->window()->GetNativeWindow();
+    return views::Widget::GetWidgetForNativeWindow(native_window)->
+        GetNativeView();
   }
 
   virtual gfx::Size GetMaximumDialogSize() OVERRIDE {
@@ -380,8 +380,11 @@ void BrowserViewLayout::Layout(views::View* browser_view) {
   if (fullscreen_exit_bubble)
     fullscreen_exit_bubble->RepositionIfVisible();
 
-  // Adjust any web contents modal dialogs.
-  dialog_host_->NotifyPositionRequiresUpdate();
+  // Adjust any hosted dialogs if the browser's dialog positioning has changed.
+  if (dialog_host_->GetDialogPosition(gfx::Size()) != latest_dialog_position_) {
+    latest_dialog_position_ = dialog_host_->GetDialogPosition(gfx::Size());
+    dialog_host_->NotifyPositionRequiresUpdate();
+  }
 }
 
 // Return the preferred size which is the size required to give each
