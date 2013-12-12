@@ -217,7 +217,6 @@ EnsureBrowserContextKeyedServiceFactoriesBuilt() {
   DownloadServiceFactory::GetInstance();
 #if defined(ENABLE_EXTENSIONS)
   AppShortcutManagerFactory::GetInstance();
-  apps::AppKeepAliveServiceFactory::GetInstance();
   apps::AppLoadServiceFactory::GetInstance();
   apps::AppRestoreServiceFactory::GetInstance();
   apps::ShellWindowGeometryCache::Factory::GetInstance();
