@@ -1021,7 +1021,6 @@ WebKit::WebCrypto* RendererWebKitPlatformSupportImpl::crypto() {
 
 //------------------------------------------------------------------------------
 
-#if defined(OS_ANDROID)
 void RendererWebKitPlatformSupportImpl::vibrate(unsigned int milliseconds) {
   RenderThread::Get()->Send(
       new ViewHostMsg_Vibrate(base::checked_numeric_cast<int64>(milliseconds)));
@@ -1030,7 +1029,6 @@ void RendererWebKitPlatformSupportImpl::vibrate(unsigned int milliseconds) {
 void RendererWebKitPlatformSupportImpl::cancelVibration() {
   RenderThread::Get()->Send(new ViewHostMsg_CancelVibration());
 }
-#endif  // defined(OS_ANDROID)
 
 //------------------------------------------------------------------------------
 
