@@ -57,6 +57,7 @@ class BookmarksBridge : public BaseBookmarkModelObserver,
   bool IsEditable(const BookmarkNode* node) const;
   const BookmarkNode* GetParentNode(const BookmarkNode* node);
   int GetBookmarkType(const BookmarkNode* node);
+  bool IsFolderAvailable(const BookmarkNode* folder) const;
 
   // Override BaseBookmarkModelObserver.
   // Called when there are changes to the bookmark model that don't trigger
@@ -87,6 +88,7 @@ class BookmarksBridge : public BaseBookmarkModelObserver,
   // Override ManagedBookmarksShim::Observer
   virtual void OnManagedBookmarksChanged() OVERRIDE;
 
+  Profile* profile_;
   JavaObjectWeakGlobalRef weak_java_ref_;
   BookmarkModel* bookmark_model_;  // weak
 
