@@ -75,6 +75,8 @@ LayerImpl::LayerImpl(LayerTreeImpl* tree_impl, int id)
 LayerImpl::~LayerImpl() {
   DCHECK_EQ(DRAW_MODE_NONE, current_draw_mode_);
 
+  if (!copy_requests_.empty() && layer_tree_impl_->IsActiveTree())
+    layer_tree_impl_->RemoveLayerWithCopyOutputRequest(this);
   layer_tree_impl_->UnregisterLayer(this);
   layer_animation_controller_->RemoveValueObserver(this);
 
