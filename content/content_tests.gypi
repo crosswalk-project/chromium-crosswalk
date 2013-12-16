@@ -752,10 +752,7 @@
         ['use_aura==1', {
           'dependencies': [
             '../ui/aura/aura.gyp:aura',
-          ],
-          'sources!': [
-            'browser/accessibility/browser_accessibility_win_unittest.cc',
-          ],
+          ]
         }],
         ['OS == "android"', {
           'sources': [
