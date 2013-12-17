@@ -273,7 +273,7 @@ Falls die Richtlinie auf &quot;false&quot; gesetzt oder nicht festgelegt wird, t
 
       Wird diese Richtlinie festgelegt, gibt sie an, wie lange der Nutzer inaktiv sein kann, bevor er automatisch in einer öffentlichen Sitzung angemeldet wird, die in der Richtlinie |DeviceLocalAccountAutoLoginId| angegeben ist.
 
-      Wird diese Richtlinie nicht festgelegt, werden 0 Millisekunden als Timeout verwendet.
+      Wird diese Richtlinie nicht festgelegt, werden 0 Millisekunden als Zeitlimit verwendet.
 
       Geben Sie den Richtlinienwert in Millisekunden an.</translation>
 <translation id="7275334191706090484">Verwaltete Lesezeichen</translation>
@@ -710,7 +710,7 @@ Falls die Richtlinie auf &quot;false&quot; gesetzt oder nicht festgelegt wird, k
           Wenn diese Richtlinie auf &quot;true&quot; gesetzt oder nicht konfiguriert ist, wird der Nutzer während der Wiedergabe von Videos als aktiv angesehen. Dadurch wird verhindert, dass die Inaktivitätsspanne und die Spanne für die Abdunkelung, Abschaltung oder Sperre des Bildschirms überschritten und entsprechende Aktionen eingeleitet werden.
 
           Ist diese Richtlinie auf &quot;false&quot; eingestellt, wird der Nutzer trotz Videoaktivität als inaktiv betrachtet.</translation>
-<translation id="3965339130942650562">Timeout bis zur Abmeldung eines inaktiven Nutzers</translation>
+<translation id="3965339130942650562">Zeitlimit bis zur Abmeldung eines inaktiven Nutzers</translation>
 <translation id="5814301096961727113">Standardstatus für das gesprochene Feedback auf der Anmeldeseite festlegen</translation>
 <translation id="9084985621503260744">Angaben zum Einfluss von Videoaktivitäten auf den Energiesparmodus</translation>
 <translation id="7091198954851103976">Führt Plug-ins, die eine Autorisierung erfordern, immer aus</translation>
@@ -1350,7 +1350,7 @@ Falls die Richtlinie auf &quot;false&quot; gesetzt wird, kann eine verzögerungs
 <translation id="7635471475589566552">Konfiguriert das App-Gebietsschema in <ph name="PRODUCT_NAME"/> und verhindert, dass Nutzer das Gebietsschema ändern. Wenn Sie diese Einstellung aktivieren, verwendet <ph name="PRODUCT_NAME"/> das angegebene Gebietsschema. Wird das konfigurierte Gebietsschema nicht unterstützt, kommt stattdessen &quot;en-US&quot; zum Einsatz. Ist diese Einstellung deaktiviert oder nicht konfiguriert, verwendet <ph name="PRODUCT_NAME"/> das vom Nutzer angegebene bevorzugte Gebietsschema (sofern konfiguriert), das Gebietsschema des Systems oder das Ersatz-Gebietsschema &quot;en-US&quot;.</translation>
 <translation id="2948087343485265211">Hiermit wird angegeben, ob Audioaktivitäten Einfluss auf den Energiesparmodus haben.
 
-          Wenn diese Richtlinie auf &quot;True&quot; gesetzt oder nicht konfiguriert ist, wird der Nutzer nicht als inaktiv angesehen, während Audioinhalte wiedergegeben werden. Dadurch wird verhindert, dass das Inaktivitätstimeout erreicht und die entsprechende Aktion eingeleitet wird. Die Abdunkelung, Abschaltung und Sperre des Bildschirms erfolgen jedoch unabhängig von den Audioaktivitäten gemäß den konfigurierten Timeouts.
+          Wenn diese Richtlinie auf &quot;True&quot; gesetzt oder nicht konfiguriert ist, wird der Nutzer nicht als inaktiv angesehen, während Audioinhalte wiedergegeben werden. Dadurch wird verhindert, dass das Inaktivitätstzeitlimit erreicht und die entsprechende Aktion eingeleitet wird. Die Abdunkelung, Abschaltung und Sperre des Bildschirms erfolgen jedoch unabhängig von den Audioaktivitäten gemäß den konfigurierten Zeitlimits.
 
           Ist diese Richtlinie auf &quot;False&quot; eingestellt, wird der Nutzer trotz Audioaktivitäten als inaktiv angesehen.</translation>
 <translation id="7842869978353666042">Optionen von Google Drive konfigurieren</translation>

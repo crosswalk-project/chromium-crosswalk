@@ -22,12 +22,13 @@
           Greifen Sie hier auf die Tabs zu, die Sie auf Ihrem Computer geöffnet haben.
           &lt;/p&gt;
           &lt;p&gt;
-          Öffnen Sie dazu Chrome auf Ihrem Computer und wählen Sie im Schraubenschlüssel-Menü &quot;In Chrome anmelden...&quot; aus.
+          Öffnen Sie dazu Chrome auf Ihrem Computer und wählen Sie im Menü &quot;In Chrome anmelden...&quot; aus.
           &lt;/p&gt;</translation>
 <translation id="8417199120207155527">Wenn diese Option aktiviert ist, können Webanwendungen nicht auf die WebRTC API zugreifen.</translation>
 <translation id="778579833039460630">Keine Daten empfangen</translation>
 <translation id="32279126412636473">Aktualisieren (⌘R)</translation>
 <translation id="1852799913675865625">Beim Versuch, die Datei <ph name="ERROR_TEXT"/> zu lesen, ist ein Fehler aufgetreten.</translation>
+<translation id="6114740317862089559">Weitere Informationen zu unseren Datenschutzpraktiken finden Sie in unserer <ph name="BEGIN_LINK"/>Datenschutzerklärung<ph name="END_LINK"/>.</translation>
 <translation id="3828924085048779000">Eine leere Passphrase ist nicht zulässig.</translation>
 <translation id="1844692022597038441">Diese Datei ist offline nicht verfügbar.</translation>
 <translation id="2709516037105925701">AutoFill</translation>
@@ -160,6 +161,7 @@
 <translation id="8561096986926824116">Die Verbindung zu
         <ph name="HOST_NAME"/>
         wurde aufgrund einer Änderung der Netzwerkverbindung unterbrochen.</translation>
+<translation id="6026631153308084012">Dieses Gerät kann jetzt eingerichtet werden.</translation>
 <translation id="8804398419035066391">Mit zusammenarbeitenden Websites kommunizieren</translation>
 <translation id="7082055294850503883">Feststelltaste ignorieren und standardmäßig Kleinbuchstaben eingeben</translation>
 <translation id="4989966318180235467">&amp;Hintergrundseite prüfen</translation>
@@ -419,6 +421,8 @@
 <translation id="667115622929458276">Momentan werden Inkognito-Downloads durchgeführt. Möchten Sie den Inkognito-Modus beenden und die Downloads abbrechen?</translation>
 <translation id="1528372117901087631">Internetverbindung</translation>
 <translation id="1788636309517085411">Standardeinstellung verwenden</translation>
+<translation id="4159435316791146348">Auf Anraten und mit Genehmigung der CPSC und anderer Regulierungsbehörden rufen Google und HP das Originalladegerät für das HP Chromebook 11 zurück.</translation>
+<translation id="7659660321065362272">Wichtiges Update zu Ihrem HP Chromebook 11</translation>
 <translation id="1228893227497259893">Falsche Entitätskennung</translation>
 <translation id="9177499212658576372">Sie sind derzeit mit dem <ph name="NETWORK_TYPE"/>-Netzwerk verbunden.</translation>
 <translation id="8589311641140863898">Experimentelle Erweiterungs-APIs</translation>
@@ -505,6 +509,7 @@
 <translation id="1194381338562257973">Experimentelle ephemere Apps aktivieren</translation>
 <translation id="5355351445385646029">Zur Auswahl des Kandidaten Leertaste drücken</translation>
 <translation id="5453029940327926427">Tabs schließen</translation>
+<translation id="949088605431823851">Wo haben Sie dieses HP Chromebook 11 gekauft?</translation>
 <translation id="9087353528325876418">URL für automatische Web-Proxy-Erkennung</translation>
 <translation id="2958431318199492670">Die Netzwerkkonfiguration stimmt nicht mit dem ONC-Standard überein. Die Konfiguration wird unter Umständen nicht vollständig importiert.</translation>
 <translation id="4801956050125744859">Beide behalten</translation>
@@ -537,7 +542,6 @@
 <translation id="6522350652862471760">Google-Profilnamen und -symbol aktivieren</translation>
 <translation id="3999508690854143454">Nachfragen, wenn eine Website auf meine Kamera und mein Mikrofon zugreifen möchte (empfohlen)</translation>
 <translation id="919325981389444398">https://chrome.google.com/webstore/signin-helper/<ph name="EXTENSION_ID"/></translation>
-<translation id="7620963836900183250">Sie sind beinahe fertig. Starten Sie das Gerät neu, um mit der Einrichtung fortzufahren.</translation>
 <translation id="8703575177326907206">Die Verbindung zu <ph name="DOMAIN"/> ist nicht verschlüsselt.</translation>
 <translation id="6135622770221372891">Kanal-IDs</translation>
 <translation id="8472623782143987204">Hardwaregestützt</translation>
@@ -560,6 +564,7 @@
 <translation id="479280082949089240">Von dieser Seite gesetzte Cookies</translation>
 <translation id="1984642098429648350">Fenster rechts verankern</translation>
 <translation id="6204930791202015665">Anzeigen...</translation>
+<translation id="1225665357742772033">Möchten Sie den Vorgang wirklich fortsetzen?</translation>
 <translation id="727952162645687754">Fehler beim Herunterladen</translation>
 <translation id="5941343993301164315">Melden Sie sich in <ph name="TOKEN_NAME"/> an.</translation>
 <translation id="1916935104118658523">Dieses Plug-in ausblenden</translation>
@@ -908,6 +913,8 @@ nicht auf unsichere Verbindungen zurück.</translation>
 <translation id="3600456501114769456">Der Zugriff auf lokale Dateien auf Ihrem Gerät wurde von Ihrem Administrator deaktiviert.</translation>
 <translation id="7879478708475862060">Dieselbe Methode wie bei der Eingabe verwenden</translation>
 <translation id="1042174272890264476">Auch die RLZ-Bibliothek von <ph name="SHORT_PRODUCT_NAME"/> ist auf Ihrem Computer vorinstalliert. RLZ sorgt für die Zuweisung von Tags, anhand derer gemessen wird, wie sich einzelne Werbekampagnen auf die Suchanfragen und die Nutzung von <ph name="SHORT_PRODUCT_NAME"/> auswirken. Die Tags sind weder eindeutig, noch personenbezogen und kommen manchmal in Google-Suchanfragen in <ph name="PRODUCT_NAME"/> vor.</translation>
+<translation id="6311841686068461841">Ladegerät überprüfen</translation>
+<translation id="8436138142074894820">Diese Meldung nicht mehr anzeigen</translation>
 <translation id="5301954838959518834">Okay, alles klar</translation>
 <translation id="348780365869651045">Warten auf AppCache...</translation>
 <translation id="817894225563172061">Ethernet-Netzwerke:</translation>
@@ -1122,6 +1129,7 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognito-Modus (<ph name="SHORTCUT_
 <translation id="4887424188275796356">Mit System Viewer öffnen</translation>
 <translation id="5270547718570958938">Google Kalender</translation>
 <translation id="5823933238730612365">PPAPI (ohne Sandbox)</translation>
+<translation id="2071128513678800377">Ihr Ladegerät ist auf dem neuesten Stand.</translation>
 <translation id="5301751748813680278">Anmeldung als Gast</translation>
 <translation id="121827551500866099">Alle Downloads anzeigen...</translation>
 <translation id="5949910269212525572">Die DNS-Adresse des Servers kann nicht aufgelöst werden.</translation>
@@ -1351,6 +1359,7 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognito-Modus (<ph name="SHORTCUT_
 <translation id="273093730430620027">Diese Seite greift auf Ihre Kamera zu.</translation>
 <translation id="5605623530403479164">Andere Suchmaschinen</translation>
 <translation id="657064425229075395">Hintergrundskript &quot;<ph name="BACKGROUND_SCRIPT"/>&quot; konnte nicht geladen werden.</translation>
+<translation id="3345234884557051648">Ich habe telefonisch ein Ersatzladegerät angefordert.</translation>
 <translation id="5710435578057952990">Die Identität dieser Website wurde nicht verifiziert.</translation>
 <translation id="1319997607168632851">Teilen Sie uns Ihre Meinung zum Chrome App Launcher mit.</translation>
 <translation id="1303319084542230573">Drucker hinzufügen</translation>
@@ -1367,8 +1376,10 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognito-Modus (<ph name="SHORTCUT_
 <translation id="5880247576487732437">Token vorhanden</translation>
 <translation id="4689960105160368473">Besuchsdauer für die einzelnen Seiten nachverfolgen</translation>
 <translation id="7157063064925785854">Durch Klicken auf &quot;Weiter&quot; stimmen Sie den <ph name="LEGAL_DOC_LINK_TEXT_1"/>, <ph name="LEGAL_DOC_LINK_TEXT_2"/>, <ph name="LEGAL_DOC_LINK_TEXT_3"/> und der <ph name="LEGAL_DOC_LINK_TEXT_4"/> zu.</translation>
+<translation id="8412498037462710569">Ich bestätige, dass ich kein kostenloses Ersatzladegerät erhalten möchte.</translation>
 <translation id="3368922792935385530">Verbunden</translation>
 <translation id="8340999562596018839">Gesprochenes Feedback</translation>
+<translation id="5431473096922271583">Bitte prüfen Sie, ob Sie ein Originalladegerät verwenden.</translation>
 <translation id="3866443872548686097">Ihr Datenträger für die Wiederherstellung ist fertig. Sie können ihn von Ihrem Computer entfernen.</translation>
 <translation id="6824564591481349393">E-Mail-Adr&amp;esse kopieren</translation>
 <translation id="907148966137935206">Anzeige von Pop-ups für keine Website zulassen (empfohlen)</translation>
@@ -1573,6 +1584,7 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognito-Modus (<ph name="SHORTCUT_
 <translation id="5109044022078737958">Mia</translation>
 <translation id="6291953229176937411">Im Finder &amp;zeigen</translation>
 <translation id="8598687241883907630">Verbindung zum Google-Konto trennen</translation>
+<translation id="3790571977176307462">Wählen Sie das Ladegerät aus, das jetzt an Ihr Chromebook angeschlossen ist:</translation>
 <translation id="2556718757702023317">Wenn Sie &quot;<ph name="FILE_NAME"/>&quot; offline speichern möchten, müssen Sie <ph name="TOTAL_FILE_SIZE"/> zusätzlichen Speicherplatz freigeben:<ph name="MARKUP_1"/>
         <ph name="MARKUP_2"/>Blenden Sie Dateien aus, auf die Sie nicht mehr offline zugreifen müssen.<ph name="MARKUP_3"/>
         <ph name="MARKUP_4"/>Löschen Sie Dateien aus dem Ordner &quot;Downloads&quot;.<ph name="MARKUP_5"/></translation>
@@ -1614,6 +1626,7 @@ Achten Sie darauf, dass dadurch keine vertraulichen Informationen offengelegt we
 <translation id="1886996562706621347">Registrierung von Websites als Standard-Handler für Protokolle zulassen (empfohlen)</translation>
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="8899388739470541164">Vietnamesisch</translation>
+<translation id="2053686653008575655">Weitere Informationen finden Sie auch in den <ph name="BEGIN_LINK"/>häufig gestellten Fragen<ph name="END_LINK"/>. Sie können Ihr HP Chromebook 11 weiterhin mit jedem anderen zertifizierten Micro-USB-Ladegerät nutzen, etwa dem Ladegerät Ihres Tablets oder Smartphones. Für entstandene Unannehmlichkeiten möchten wir uns nochmals entschuldigen. Ihre Sicherheit hat für uns höchste Priorität.</translation>
 <translation id="6423064450797205562">Messwerte in Bezug auf die Geschwindigkeit, mit der <ph name="SHORT_PRODUCT_NAME"/> die geforderten Aktionen durchführt</translation>
 <translation id="5251569607164379446">Aktiviert Inline-Anmeldungen, verwendet weiterhin die bestehende ganzseitige Vorlage für die Google-Anmeldung</translation>
 <translation id="4091434297613116013">Blatt Papier</translation>
@@ -1687,11 +1700,12 @@ Achten Sie darauf, dass dadurch keine vertraulichen Informationen offengelegt we
 <translation id="2367567093518048410">Ebene</translation>
 <translation id="1613703494520735460">Vorhersage der Fingerposition beim Scrollen, sodass genügend Zeit zum Rendern des Frames bleibt</translation>
 <translation id="7977590112176369853">&lt;Suchanfrage eingeben&gt;</translation>
-<translation id="8453482423012550001">$1 Elemente werden kopiert...</translation>
+<translation id="8453482423012550001">$1-Elemente werden kopiert...</translation>
 <translation id="6991665348624301627">Ziel auswählen</translation>
 <translation id="3449839693241009168">Drücken Sie <ph name="SEARCH_KEY"/>, um Befehle an <ph name="EXTENSION_NAME"/> zu senden.</translation>
 <translation id="968174221497644223">Cache</translation>
 <translation id="6352609311795654248">Experimentelle Opus-Wiedergabe für Videoelement aktivieren</translation>
+<translation id="9126999385065535384">Eine kleine Anzahl an Nutzern hat uns berichtet, dass einige Originalladegeräte des HP Chromebook 11 aufgrund von Überhitzung beschädigt wurden. Zur Sicherheit ersetzen wir daher kostenlos alle Originalladegeräte.</translation>
 <translation id="4343792725927556911">Neue Einstellungen für Kamera und Mikrofon werden nach dem Aktualisieren der Seite wirksam.</translation>
 <translation id="3847089579761895589">Ihnen wird geholfen. Möchten Sie fortfahren?</translation>
 <translation id="8452588990572106089">Ungültige Kartennummer. Bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut.</translation>
@@ -1875,6 +1889,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="1000498691615767391">Zu öffnenden Ordner auswählen</translation>
 <translation id="3593152357631900254">Fuzzy-Pinyin-Modus aktivieren</translation>
 <translation id="2570059561924004903">Gesprochenes Feedback deaktivieren</translation>
+<translation id="2462911512468050799">Weitere Informationen erhalten Sie hier:</translation>
 <translation id="2276503375879033601">Weitere Apps hinzufügen</translation>
 <translation id="5015344424288992913">Proxy auflösen...</translation>
 <translation id="4389091756366370506">Nutzer <ph name="VALUE"/></translation>
@@ -2040,7 +2055,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="522907658833767145">Laufzeitfehler:</translation>
 <translation id="5399158067281117682">PINs stimmen nicht überein!</translation>
 <translation id="8494234776635784157">Webinhalte</translation>
-<translation id="6277105963844135994">Netzwerk-Timeout</translation>
+<translation id="6277105963844135994">Zeitüberschreitung im Netzwerk</translation>
 <translation id="6731255991101203740">Fehler beim Erstellen von Verzeichnis zum Entpacken: &quot;<ph name="DIRECTORY_PATH"/>&quot;</translation>
 <translation id="2681441671465314329">Cache leeren</translation>
 <translation id="7317211898702333572">Ermöglicht das Ansehen und Löschen von Verlaufseinträgen Ihrer angemeldeten Geräte unter chrome://history.</translation>
@@ -2048,7 +2063,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="3646789916214779970">Auf Standarddesign zurücksetzen</translation>
 <translation id="5196749479074304034">Verlauf in den Synchronisierungseinstellungen aktivieren. Dadurch werden der Verlauf der von Ihnen eingegebenen URLs sowie der Verlauf Ihrer Navigation mit anderen Clients synchronisiert und können für die automatische Vervollständigung in der Omnibox sowie für die Verlaufsnutzeroberfläche verwendet werden.</translation>
 <translation id="151922265591345427">1024</translation>
-<translation id="3039828483675273919">$1 Elemente werden verschoben...</translation>
+<translation id="3039828483675273919">$1-Elemente werden verschoben...</translation>
 <translation id="7816949580378764503">Identität bestätigt</translation>
 <translation id="8802225912064273574">E-Mail senden</translation>
 <translation id="7585045021385437751">Zielverzeichnis konnte nicht erstellt werden.</translation>
@@ -2072,6 +2087,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 
         &lt;p&gt;Sie können die Konfiguration dennoch über die Befehlszeile vornehmen. Weitere Informationen zu Markierungen und Umgebungsvariablen finden Sie unter &lt;code&gt;man <ph name="PRODUCT_BINARY_NAME"/>&lt;/code&gt;.&lt;/p&gt;</translation>
 <translation id="7205869271332034173">SSID:</translation>
+<translation id="8907701755790961703">Wählen Sie ein Land aus.</translation>
 <translation id="5089703344588164513">&quot;<ph name="EXTENSION_NAME"/>&quot; starten?</translation>
 <translation id="7084579131203911145">Tarifbezeichnung:</translation>
 <translation id="4731351517694976331">Google-Diensten Zugriff auf Ihren Standort erlauben</translation>
@@ -2386,7 +2402,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="6254503684448816922">Kompromittierung des Schlüssels</translation>
 <translation id="5135645570420161604">Eingabeaufforderung anzeigen, wenn eine Website ein Plug-in für den Zugriff auf meinen Computer verwenden möchte (empfohlen)</translation>
 <translation id="6555432686520421228">Entfernen Sie alle Nutzerkonten und setzen Sie Ihr <ph name="IDS_SHORT_PRODUCT_NAME"/>-Gerät auf die Werkseinstellungen zurück.</translation>
-<translation id="1346748346194534595">Nach rechts</translation>
+<translation id="1346748346194534595">Rechts</translation>
 <translation id="7756363132985736290">Das Zertifikat ist bereits vorhanden.</translation>
 <translation id="1181037720776840403">Entfernen</translation>
 <translation id="5261073535210137151">Dieser Ordner enthält <ph name="COUNT"/> Lesezeichen. Möchten Sie ihn wirklich löschen?</translation>
@@ -2430,6 +2446,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="2086712242472027775">Dieses Konto funktioniert nicht bei <ph name="PRODUCT_NAME"/>. Wenden Sie sich an Ihren Domain-Administrator oder melden Sie sich mit einem Google-Standardkonto an.</translation>
 <translation id="1970103697564110434">Google Wallet schützt Ihre Karte</translation>
 <translation id="7222232353993864120">E-Mail-Adresse</translation>
+<translation id="1324451548764108666">Sie können Ihr kostenloses Ersatzladegerät telefonisch unter +44 0800 026 0613 in Großbritannien bzw. +1 866 628-1371 in den USA anfordern.</translation>
 <translation id="2128531968068887769">Native Client</translation>
 <translation id="7175353351958621980">Geladen von:</translation>
 <translation id="7186367841673660872">Diese Seite wurde von<ph name="ORIGINAL_LANGUAGE"/>in<ph name="LANGUAGE_LANGUAGE"/>übersetzt.</translation>
@@ -2474,6 +2491,7 @@ Ihre Details für die Kontoanmeldung sind veraltet.</translation>
 <translation id="6432458268957186486">Über das Dialogfeld <ph name="CLOUD_PRINT_NAME"/> drucken...</translation>
 <translation id="2950186680359523359">Server hat die Verbindung geschlossen. Es wurden keine Daten gesendet.</translation>
 <translation id="4269099019648381197">Aktiviert die Option zur Anforderung der Tablet-Website im Einstellungsmenü</translation>
+<translation id="1645250822384430568">Wir haben Ihre Informationen erhalten und bearbeiten Ihre Anfrage.</translation>
 <translation id="9142623379911037913">Anzeige von Desktop-Benachrichtigungen auf <ph name="SITE"/> zulassen?</translation>
 <translation id="6546686722964485737">Mit WiMAX-Netzwerk verbinden</translation>
 <translation id="266983583785200437">Ereignisse im Zusammenhang mit Abstürzen und Fehlern von <ph name="SHORT_PRODUCT_NAME"/></translation>
@@ -2655,7 +2673,7 @@ Zur Nutzung dieser Funktion müssen Sie jedoch angemeldet sein.</translation>
 <translation id="8282504278393594142">Keine installierten Erweiterungen</translation>
 <translation id="8026334261755873520">Browserdaten löschen</translation>
 <translation id="605011065011551813">Ein Plug-in (<ph name="PLUGIN_NAME"/>) reagiert nicht.</translation>
-<translation id="1467432559032391204">Nach links</translation>
+<translation id="1467432559032391204">Links</translation>
 <translation id="8063712357541802998">Aktiviert die visuelle Überwachung des Speichers im Statusbereich</translation>
 <translation id="1769104665586091481">Link in neuem &amp;Fenster öffnen</translation>
 <translation id="5319782540886810524">Lettische Tastatur</translation>
@@ -2726,6 +2744,7 @@ Zur Nutzung dieser Funktion müssen Sie jedoch angemeldet sein.</translation>
 <translation id="5400640815024374115">Der TPM-Chip (Trusted Platform Module) ist deaktiviert oder fehlt.</translation>
 <translation id="2025623846716345241">Aktualisieren bestätigen</translation>
 <translation id="2151576029659734873">Eingegebener Tabindex ist ungültig.</translation>
+<translation id="496546018524231664">Irland</translation>
 <translation id="1815861158988915678"><ph name="BEGIN_BOLD"/>Vorsicht:<ph name="END_BOLD"/>Hierbei handelt es sich um Temporärdateien, die möglicherweise automatisch gelöscht werden, um Speicherplatz freizugeben. <ph name="BEGIN_LINK"/>Weitere Informationen<ph name="END_LINK"/></translation>
 <translation id="4722920479021006856"><ph name="APP_NAME"/> hat Ihren Bildschirm freigegeben.</translation>
 <translation id="5150254825601720210">SSL-Servername für Netscape-Zertifikat</translation>
@@ -2813,6 +2832,7 @@ Zur Nutzung dieser Funktion müssen Sie jedoch angemeldet sein.</translation>
 <translation id="6571070086367343653">Kreditkarte bearbeiten</translation>
 <translation id="1204242529756846967">Diese Sprache wird für die Rechtschreibprüfung verwendet.</translation>
 <translation id="3981760180856053153">Eingegebener Speichertyp ist ungültig.</translation>
+<translation id="8865709004086313039">Weitere Informationen finden Sie auch in den <ph name="BEGIN_LINK"/>häufig gestellten Fragen<ph name="END_LINK"/>. Sie können Ihr HP Chromebook 11 weiterhin mit jedem anderen zertifizierten Micro-USB-Ladegerät nutzen, etwa dem Ladegerät Ihres Tablets oder Smartphones. Für entstandene Unannehmlichkeiten möchten wir uns nochmals entschuldigen. Ihre Sicherheit hat für uns höchste Priorität.</translation>
 <translation id="4508345242223896011">Optimiertes Scrollen</translation>
 <translation id="6192792657125177640">Ausnahmen</translation>
 <translation id="5622158329259661758">Deaktiviert die Verwendung von GPU für die Ausführung des 2D Canvas-Rendering und verwendet stattdessen Software-Rendering</translation>
@@ -2969,6 +2989,7 @@ Zur Nutzung dieser Funktion müssen Sie jedoch angemeldet sein.</translation>
 <translation id="3655670868607891010">Sollte Ihnen diese Meldung häufiger angezeigt werden, sehen Sie sich unsere <ph name="HELP_LINK"/> an.</translation>
 <translation id="4504940961672722399">Klicken Sie auf dieses Symbol oder drücken Sie <ph name="EXTENSION_SHORTCUT"/>, um diese Erweiterung zu verwenden.</translation>
 <translation id="2523966157338854187">Bestimmte Seite oder Seiten öffnen</translation>
+<translation id="2217349704834771128">Dieses Gerät nur für Remora einrichten?</translation>
 <translation id="4176463684765177261">Deaktiviert</translation>
 <translation id="2483350027598201151">Megabyte</translation>
 <translation id="154603084978752493">Als Suc&amp;hmaschine hinzufügen...</translation>
@@ -2985,7 +3006,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="8493236660459102203">Mikrofon:</translation>
 <translation id="4788968718241181184">Vietnamesische Eingabemethode (TCVN6064)</translation>
 <translation id="3254409185687681395">Lesezeichen für diese Seite erstellen</translation>
-<translation id="5694501201003948907">$1 Elemente werden gezippt...</translation>
+<translation id="5694501201003948907">$1-Elemente werden gezippt...</translation>
 <translation id="1384616079544830839">Die Identität dieser Website wurde von <ph name="ISSUER"/> verifiziert.</translation>
 <translation id="8710160868773349942">E-Mail: <ph name="EMAIL_ADDRESSES"/></translation>
 <translation id="2677924368525077324">Textbearbeitung durch Berühren aktivieren</translation>
@@ -3026,6 +3047,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
           <ph name="BEGIN_LINK"/>Weitere Informationen zum Gastmodus<ph name="END_LINK"/></translation>
 <translation id="8004582292198964060">Browser</translation>
 <translation id="695755122858488207">Deaktiviertes Optionsfeld</translation>
+<translation id="6745625605706446078">Formular zur Anforderung eines HP Chromebook 11-Ladegeräts</translation>
 <translation id="1934636348456381428">Aktiviert die Implementierung der experimentellen Overlay-Bildlaufleisten. Für die Animation der Bildlaufleisten muss auch der Aufbau durch Threads aktiviert werden.</translation>
 <translation id="8666678546361132282">Englisch</translation>
 <translation id="2224551243087462610">Ordnername bearbeiten</translation>
@@ -3148,7 +3170,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="213826338245044447">Mobile Lesezeichen</translation>
 <translation id="8724859055372736596">&amp;In Ordner anzeigen</translation>
 <translation id="2367657048471519165"><ph name="PRODUCT_NAME"/> als Standardbrowser festlegen</translation>
-<translation id="5990198433782424697">Erweiterungen unter URLS, die mit chrome:// beginnen</translation>
+<translation id="5990198433782424697">Erweiterungen unter URLs, die mit chrome:// beginnen</translation>
 <translation id="7456142309650173560">Dev</translation>
 <translation id="4605399136610325267">Keine Internetverbindung</translation>
 <translation id="2075807684181841992">Aktiviert die Verwendung von &quot;adview&quot;-HTML-Elementen in gepackten Apps.</translation>
@@ -3219,6 +3241,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="889901481107108152">Leider steht dieses Experiment auf Ihrer Plattform nicht zur Verfügung.</translation>
 <translation id="2042900667172886929">Lokalen Cache leeren</translation>
 <translation id="3228969707346345236">Die Übersetzung ist fehlgeschlagen, weil die Seite bereits auf <ph name="LANGUAGE"/> ist.</translation>
+<translation id="8238191901674777266">USA</translation>
 <translation id="1873879463550486830">SUID-Sandbox</translation>
 <translation id="8118860139461251237">Downloads verwalten</translation>
 <translation id="5111852801054039429">WebRTC deaktivieren</translation>
@@ -3237,7 +3260,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="8755376271068075440">&amp;Größer</translation>
 <translation id="8132793192354020517">Verbunden mit <ph name="NAME"/></translation>
 <translation id="8187473050234053012">Das Sicherheitszertifikat des Servers wurde widerrufen!</translation>
-<translation id="7052914147756339792">Hintergrund festlegen</translation>
+<translation id="7052914147756339792">Hintergrund ändern</translation>
 <translation id="5865597920301323962">Cookies von <ph name="DOMAIN"/> werden beim Beenden gelöscht.</translation>
 <translation id="2702540957532124911">Tastatur:</translation>
 <translation id="7444983668544353857"><ph name="NETWORKDEVICE"/> deaktivieren</translation>
@@ -3247,6 +3270,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="580886651983547002"><ph name="PRODUCT_NAME"/>
         kann die Website nicht erreichen. Dies wird üblicherweise durch Netzwerkprobleme verursacht, kann jedoch auch das Ergebnis einer falsch konfigurierten Firewall bzw. eines falsch konfigurierten Proxyservers sein.</translation>
 <translation id="5445557969380904478">Über Spracherkennung</translation>
+<translation id="4104400246019119780">Vielen Dank!</translation>
 <translation id="3487007233252413104">Anonyme Funktion</translation>
 <translation id="8965037249707889821">Altes Passwort eingeben</translation>
 <translation id="6410328738210026208">Versionsänderung und Powerwash</translation>
@@ -3381,6 +3405,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="295942452804818007">Statusmenü anzeigen</translation>
 <translation id="3831099738707437457">Rechtschreibung &amp;ausblenden</translation>
 <translation id="4243835228168841140"><ph name="FULLSCREEN_ORIGIN"/> möchte den Mauszeiger deaktivieren.</translation>
+<translation id="8662911384982557515">Startseite zu <ph name="HOME_PAGE"/> ändern</translation>
 <translation id="1040471547130882189">Plug-in reagiert nicht</translation>
 <translation id="5473075389972733037">IBM</translation>
 <translation id="7807711621188256451"><ph name="HOST"/> immer Zugriff auf Ihre Kamera gestatten</translation>
@@ -3561,6 +3586,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="5045550434625856497">Falsches Passwort</translation>
 <translation id="6397592254427394018">Alle Lesezeichen in &amp;Inkognito-Fenster öffnen</translation>
 <translation id="27822970480436970">Die Erweiterung konnte eine Netzwerkanfrage nicht modifizieren, da die Modifikation einen Konflikt mit einer anderen Erweiterung verursacht.</translation>
+<translation id="2453860139492968684">Fertig</translation>
 <translation id="756445078718366910">Browserfenster öffnen</translation>
 <translation id="6132383530370527946">Das Kleingedruckte</translation>
 <translation id="9033780830059217187">Die Proxy-Einstellungen werden durch eine Erweiterung erzwungen.</translation>
@@ -3668,6 +3694,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="7299721129597238157">Lesezeichen löschen</translation>
 <translation id="3031557471081358569">Zu importierende Daten wählen:</translation>
 <translation id="1368832886055348810">Rechtsläufig</translation>
+<translation id="834106456999819211">Ihre Bestellung wird bearbeitet.</translation>
 <translation id="133014027510889724">Leistungsüberwachung aktivieren</translation>
 <translation id="3627320433825461852">Noch weniger als 1 Minute</translation>
 <translation id="3031433885594348982">Die Verbindung zu <ph name="DOMAIN"/> ist schwach verschlüsselt.</translation>
@@ -3731,6 +3758,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="5358016106459232452">Erforderliche Zeit für den vollständigen Start von <ph name="SHORT_PRODUCT_NAME"/> in einer Testumgebung</translation>
 <translation id="7509179828847922845">Die Verbindung zu <ph name="HOST_NAME"/> wurde unterbrochen.</translation>
 <translation id="2911372483530471524">PID-Namespaces</translation>
+<translation id="6030886059850316251">Senden Sie mir ein neues Ladegerät zu.</translation>
 <translation id="4267171000817377500">Plug-ins</translation>
 <translation id="4751716985336283721">Startseite der App-Übersicht aktivieren</translation>
 <translation id="8584134039559266300">Tab 8 aktivieren</translation>
@@ -3902,6 +3930,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="479989351350248267">Suchbegriff eingeben</translation>
 <translation id="472177018469288237">Google Wallet deaktiviert</translation>
 <translation id="7730449930968088409">Inhalt Ihres Bildschirms erfassen</translation>
+<translation id="1431605150566631089">Ladegerät überprüfen</translation>
 <translation id="7714464543167945231">Zertifikat</translation>
 <translation id="8324294541009002530">Deaktivierung des experimentellen WebKitMediaSource-Objekts. Dieses Objekt erlaubt es JavaScript, Mediendaten direkt an Videoelemente zu senden.</translation>
 <translation id="4966802378343010715">Neuen Nutzer erstellen</translation>
@@ -3972,6 +4001,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="1479356886123917758">Auf Fotos, Musik und andere Medien auf meinem Computer zugreifen und diese ändern</translation>
 <translation id="5295309862264981122">Navigation bestätigen</translation>
 <translation id="8249320324621329438">Letzter Abruf:</translation>
+<translation id="718827667662449283">Großbritannien</translation>
 <translation id="7135227867145318028"><ph name="DOMAIN"/> erfordert für die Wiedergabe von HD-Inhalten eine eindeutige Identifizierung Ihres Geräts durch Google. <ph name="LEARN_MORE"/></translation>
 <translation id="5804241973901381774">Berechtigungen</translation>
 <translation id="901834265349196618">E-Mail</translation>
@@ -4006,6 +4036,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="8954894007019320973">(Fortsetzung)</translation>
 <translation id="4441124369922430666">Soll diese App beim Einschalten des Geräts automatisch gestartet werden?</translation>
 <translation id="3748412725338508953">Zu viele Umleitungen.</translation>
+<translation id="7741303706372017829">Ich möchte keinen Ersatz für mein zurückgerufenes Ladegerät erhalten.</translation>
 <translation id="2543440242089979510">Google Cloud Print öffnen</translation>
 <translation id="5833726373896279253">Diese Einstellungen können nur vom Eigentümer geändert werden:</translation>
 <translation id="9203962528777363226">Der Administrator dieses Geräts hat die Funktion zum Hinzufügen neuer Nutzer deaktiviert.</translation>
@@ -4279,6 +4310,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="216169395504480358">WLAN hinzufügen...</translation>
 <translation id="1804251416207250805">Deaktivieren Sie das Senden von Hyperlinks, die Pings überprüfen.</translation>
 <translation id="5116628073786783676">Audio &amp;speichern unter...</translation>
+<translation id="6172346010137455972">Sie können Ihr Ladegerät verwenden.</translation>
 <translation id="2539507112146602356">Alternatives Design für die Schaltflächen zum Minimieren, Maximieren und Schließen</translation>
 <translation id="9166510596677678112">E-Mail an diese Person senden</translation>
 <translation id="2557899542277210112">Platzieren Sie Ihre Lesezeichen hier in der Lesezeichenleiste, um schnell auf sie zugreifen zu können.</translation>
@@ -4323,7 +4355,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="3978267865113951599">(abgestürzt)</translation>
 <translation id="1049926623896334335">Word-Dokument</translation>
 <translation id="8412145213513410671">Abstürze (<ph name="CRASH_COUNT"/>)</translation>
-<translation id="7003257528951459794">Häufigkeit:</translation>
+<translation id="7003257528951459794">Frequenz:</translation>
 <translation id="1248269069727746712"><ph name="PRODUCT_NAME"/> verwendet die System-Proxy-Einstellungen Ihres Geräts, um eine Verbindung mit dem Netzwerk herzustellen.</translation>
 <translation id="3467267818798281173">Vorschläge von Google</translation>
 <translation id="5155386449991325895">Übersichtsmodus deaktivieren</translation>
@@ -4375,6 +4407,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Lesezeichen und Einstellungen importieren</translation>
 <translation id="8518865679229538285">Tamilische Eingabemethode (Typewriter)</translation>
+<translation id="4918745183464912186">Australien</translation>
 <translation id="5257456363153333584">Libelle</translation>
 <translation id="4557136421275541763">Warnung:</translation>
 <translation id="3872687746103784075">GDB-Debugging für Native Client</translation>
@@ -4503,6 +4536,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="7674629440242451245">Interessiert an coolen neuen Chrome-Funktionen? Testen Sie unsere Dev-Version unter chrome.com/dev.</translation>
 <translation id="7568593326407688803">Diese Seite ist auf<ph name="ORIGINAL_LANGUAGE"/>Soll sie übersetzt werden?</translation>
 <translation id="7818135753970109980">Neues Design hinzugefügt (<ph name="EXTENSION_NAME"/>)</translation>
+<translation id="917306543655291301">Weitere Informationen finden Sie außerdem hier:</translation>
 <translation id="5448293924669608770">Hoppla, bei der Anmeldung ist ein Fehler aufgetreten.</translation>
 <translation id="6870130893560916279">Ukrainische Tastatur</translation>
 <translation id="8931394284949551895">Neue Geräte</translation>
@@ -4592,6 +4626,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="4193154014135846272">Google-Dokument</translation>
 <translation id="4771973620359291008">Ein unbekannter Fehler ist aufgetreten.</translation>
 <translation id="5509914365760201064">Aussteller: <ph name="CERTIFICATE_AUTHORITY"/></translation>
+<translation id="4941246025622441835">Diese Geräteanforderung beim Registrieren des Geräts für die Unternehmensverwaltung verwenden:</translation>
 <translation id="5449588825071916739">Alle Tabs als Lesezeichen speichern</translation>
 <translation id="7073385929680664879">Eingabemethoden durchgehen</translation>
 <translation id="7842062217214609161">Keine Tastenkombination</translation>
@@ -4692,6 +4727,7 @@ Eine Anleitung und weitere Informationen wurden per E-Mail an <ph name="ACCOUNT_
 <translation id="3366404380928138336">Externe Protokollanforderung</translation>
 <translation id="5300589172476337783">Anzeigen</translation>
 <translation id="3160041952246459240">In Ihren gespeicherten Zertifikaten sind folgende Server angegeben:</translation>
+<translation id="5806573568064269889">Ich bestätige, dass ich ein Ladegerät mit einem grünen Aufkleber verwende.</translation>
 <translation id="566920818739465183">Sie haben diese Website erstmals am <ph name="VISIT_DATE"/> besucht.</translation>
 <translation id="2961695502793809356">Klicken, um weiterzugehen. Gedrückt halten, um Verlauf aufzurufen</translation>
 <translation id="4092878864607680421">Die neueste Version der App &quot;<ph name="APP_NAME"/>&quot; benötigt mehr Berechtigungen und wurde daher deaktiviert.</translation>
@@ -4760,7 +4796,7 @@ Nach Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellungen j
 <translation id="5783221160790377646">Aufgrund eines Fehlers wurde kein betreuter Nutzer erstellt. Bitte versuchen Sie es später erneut.</translation>
 <translation id="340771324714262530">Spiegelung beenden</translation>
 <translation id="3303260552072730022">Eine Erweiterung hat den Vollbildmodus ausgelöst.</translation>
-<translation id="3275249274721749724">Bei einem Neustart im Desktopmodus werden all Ihre Chrome-Apps geschlossen.</translation>
+<translation id="3275249274721749724">Bei einem Neustart im Desktopmodus werden Ihre Chrome-Apps geschlossen.</translation>
 <translation id="1021323901059345250">Dies könnte einen Verlust oder eine Beschädigung Ihrer Daten zur Folge haben. Werfen Sie Ihr Gerät immer erst über die App &quot;Dateien&quot; aus, bevor Sie es entfernen.</translation>
 <translation id="5212108862377457573">Umwandlung auf der Grundlage der vorherigen Eingaben anpassen</translation>
 <translation id="3020960800108671197">Blockierung von Plug-ins ohne Sandbox verwalten...</translation>
@@ -4894,6 +4930,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="1852583733258643568"><ph name="BEGIN_BOLD"/>2. <ph name="END_BOLD"/>Routerverbindung testen</translation>
 <translation id="48607902311828362">Flugmodus</translation>
 <translation id="680572642341004180">RLZ-Nachverfolgung für <ph name="SHORT_PRODUCT_OS_NAME"/> aktivieren</translation>
+<translation id="688797901999351107">Verwenden Sie das zurückgerufene Ladegerät bitte nicht mehr.</translation>
 <translation id="4746971725921104503">Offenbar wird schon ein Nutzer unter diesem Namen verwaltet. Wollten Sie <ph name="LINK_START"/><ph name="USER_DISPLAY_NAME"/> auf dieses Gerät importieren<ph name="LINK_END"/>?</translation>
 <translation id="8142699993796781067">Privates Netzwerk</translation>
 <translation id="1374468813861204354">Vorschläge</translation>
@@ -4920,7 +4957,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="203168018648013061">Synchronisierungsfehler: Setzen Sie die Synchronisierung über das Google Dashboard zurück.</translation>
 <translation id="1405126334425076373">Mauszeiger</translation>
 <translation id="6671493224572088110"><ph name="VIDEO_NAME"/> ansehen</translation>
-<translation id="2796424461616874739">Authentifizierungs-Timeout beim Herstellen der Verbindung zu &quot;<ph name="DEVICE_NAME"/>&quot;</translation>
+<translation id="2796424461616874739">Zeitüberschreitung bei der Authentifizierung beim Herstellen der Verbindung zu &quot;<ph name="DEVICE_NAME"/>&quot;</translation>
 <translation id="6096326118418049043">X.500-Name</translation>
 <translation id="6086259540486894113">Wählen Sie mindestens einen Datentyp für die Synchronisierung aus.</translation>
 <translation id="923467487918828349">Alle einblenden</translation>
