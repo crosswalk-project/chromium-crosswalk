@@ -63,7 +63,8 @@ public class ResourceExtractor {
                 deleteFiles();
             }
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                    mContext.getApplicationContext());
             HashSet<String> filenames = (HashSet<String>) prefs.getStringSet(
                     PAK_FILENAMES, new HashSet<String>());
             String currentLocale = LocalizationUtils.getDefaultLocale();
