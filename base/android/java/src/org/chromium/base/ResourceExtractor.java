@@ -83,7 +83,8 @@ public class ResourceExtractor {
                 deleteFiles();
             }
 
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mContext);
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(
+                    mContext.getApplicationContext());
             String currentLocale = LocaleUtils.getDefaultLocale();
             String currentLanguage = currentLocale.split("-", 2)[0];
             // If everything we need is already there (and the locale hasn't
