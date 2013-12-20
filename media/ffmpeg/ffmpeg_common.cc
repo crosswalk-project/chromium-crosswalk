@@ -173,7 +173,7 @@ AVCodecID AudioCodecToCodecID(AudioCodec audio_codec,
 }
 
 // Converts an FFmpeg video codec ID into its corresponding supported codec id.
-static VideoCodec CodecIDToVideoCodec(AVCodecID codec_id) {
+VideoCodec CodecIDToVideoCodec(AVCodecID codec_id) {
   switch (codec_id) {
     case AV_CODEC_ID_H264:
       return kCodecH264;
