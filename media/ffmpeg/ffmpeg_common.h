@@ -128,6 +128,10 @@ PixelFormat VideoFormatToPixelFormat(VideoFrame::Format video_format);
 // date string. Otherwise returns fals and timeline_offset is unmodified.
 MEDIA_EXPORT bool FFmpegUTCDateToTime(const char* date_utc, base::Time* out);
 
+MEDIA_EXPORT AudioCodec CodecIDToAudioCodec(AVCodecID codec_id);
+
+MEDIA_EXPORT VideoCodec CodecIDToVideoCodec(AVCodecID codec_id);
+
 }  // namespace media
 
 #endif  // MEDIA_FFMPEG_FFMPEG_COMMON_H_
