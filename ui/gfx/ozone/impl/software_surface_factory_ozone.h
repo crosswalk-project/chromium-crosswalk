@@ -17,7 +17,7 @@ class SoftwareSurfaceOzone;
 // SurfaceFactoryOzone implementation on top of DRM/KMS using dumb buffers.
 // This implementation is used in conjunction with the software rendering
 // path.
-class SoftwareSurfaceFactoryOzone : public SurfaceFactoryOzone {
+class GFX_EXPORT SoftwareSurfaceFactoryOzone : public SurfaceFactoryOzone {
  public:
   SoftwareSurfaceFactoryOzone();
   virtual ~SoftwareSurfaceFactoryOzone();
