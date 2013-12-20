@@ -144,6 +144,10 @@ MEDIA_EXPORT bool FFmpegUTCDateToTime(const char* date_utc, base::Time* out);
 // unit test for more information and code for generating the histogram XML.
 MEDIA_EXPORT int32_t HashCodecName(const char* codec_name);
 
+MEDIA_EXPORT AudioCodec CodecIDToAudioCodec(AVCodecID codec_id);
+
+MEDIA_EXPORT VideoCodec CodecIDToVideoCodec(AVCodecID codec_id);
+
 }  // namespace media
 
 #endif  // MEDIA_FFMPEG_FFMPEG_COMMON_H_
