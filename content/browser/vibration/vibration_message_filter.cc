@@ -20,8 +20,10 @@ const int64 kMinimumVibrationDurationMs = 1;
 
 VibrationMessageFilter::VibrationMessageFilter() {
   provider_.reset(GetContentClient()->browser()->OverrideVibrationProvider());
+#if !defined(OS_ANDROID) && !defined(OS_TIZEN_MOBILE)
   if (!provider_.get())
     provider_.reset(CreateProvider());
+#endif
 }
 
 VibrationMessageFilter::~VibrationMessageFilter() {
