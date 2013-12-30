@@ -110,9 +110,9 @@ VideoFrame::Format PixelFormatToVideoFormat(PixelFormat pixel_format);
 // Converts video formats to its corresponding FFmpeg's pixel formats.
 PixelFormat VideoFormatToPixelFormat(VideoFrame::Format video_format);
 
-AudioCodec CodecIDToAudioCodec(AVCodecID codec_id);
+MEDIA_EXPORT AudioCodec CodecIDToAudioCodec(AVCodecID codec_id);
 
-VideoCodec CodecIDToVideoCodec(AVCodecID codec_id);
+MEDIA_EXPORT VideoCodec CodecIDToVideoCodec(AVCodecID codec_id);
 
 }  // namespace media
 
