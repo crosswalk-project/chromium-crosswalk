@@ -129,7 +129,8 @@ Widget::InitParams::InitParams()
       desktop_root_window_host(NULL),
       top_level(false),
       layer_type(ui::LAYER_TEXTURED),
-      context(NULL) {
+      context(NULL),
+      net_wm_pid(0) {
 }
 
 Widget::InitParams::InitParams(Type type)
@@ -155,7 +156,8 @@ Widget::InitParams::InitParams(Type type)
       desktop_root_window_host(NULL),
       top_level(false),
       layer_type(ui::LAYER_TEXTURED),
-      context(NULL) {
+      context(NULL),
+      net_wm_pid(0) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////
