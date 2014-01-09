@@ -1112,7 +1112,9 @@ void DesktopWindowTreeHostX11::InitX11Window(
   // XChangeProperty() expects "pid" to be long.
   static_assert(sizeof(long) >= sizeof(pid_t),
                 "pid_t should not be larger than long");
-  long pid = getpid();
+  long pid = params.net_wm_pid;
+  if (!pid)
+    pid = getpid();
   XChangeProperty(xdisplay_,
                   xwindow_,
                   atom_cache_.GetAtom("_NET_WM_PID"),
