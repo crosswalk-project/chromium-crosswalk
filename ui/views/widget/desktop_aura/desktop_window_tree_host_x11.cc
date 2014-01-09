@@ -1118,7 +1118,9 @@ void DesktopWindowTreeHostX11::InitX11Window(
   // program to kill if the window hangs.
   // XChangeProperty() expects "pid" to be long.
   COMPILE_ASSERT(sizeof(long) >= sizeof(pid_t), pid_t_bigger_than_long);
-  long pid = getpid();
+  long pid = params.net_wm_pid;
+  if (!pid)
+    pid = getpid();
   XChangeProperty(xdisplay_,
                   xwindow_,
                   atom_cache_.GetAtom("_NET_WM_PID"),
