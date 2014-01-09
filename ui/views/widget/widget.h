@@ -268,6 +268,9 @@ class VIEWS_EXPORT Widget : public internal::NativeWidgetDelegate,
     std::string wm_role_name;
     std::string wm_class_name;
     std::string wm_class_class;
+    // Only used by X11, for root level windows. Specifies the PID set in
+    // _NET_WM_PID window property.
+    long net_wm_pid;
   };
 
   Widget();
