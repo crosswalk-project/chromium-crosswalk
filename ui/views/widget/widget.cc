@@ -113,6 +113,7 @@ Widget::InitParams::InitParams()
       desktop_window_tree_host(NULL),
       layer_type(aura::WINDOW_LAYER_TEXTURED),
       context(NULL),
+      net_wm_pid(0),
       force_show_in_taskbar(false) {
 }
 
@@ -136,6 +137,7 @@ Widget::InitParams::InitParams(Type type)
       desktop_window_tree_host(NULL),
       layer_type(aura::WINDOW_LAYER_TEXTURED),
       context(NULL),
+      net_wm_pid(0),
       force_show_in_taskbar(false) {
 }
 
