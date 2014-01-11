@@ -922,6 +922,11 @@ void DesktopRootWindowHostWin::PostHandleMSG(UINT message,
                                              LPARAM l_param) {
 }
 
+bool DesktopWindowTreeHostWin::HandleScrollEvent(
+    const ui::ScrollEvent& event) {
+  return delegate_->OnHostScrollEvent(const_cast<ui::ScrollEvent*>(&event));
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // DesktopRootWindowHostWin, private:
 
