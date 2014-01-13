@@ -882,7 +882,6 @@ void BrowserProcessImpl::CreateLocalState() {
       prefs::kMetricsReportingEnabled,
       base::Bind(&BrowserProcessImpl::ApplyMetricsReportingPolicy,
                  base::Unretained(this)));
-  ApplyMetricsReportingPolicy();
 #endif
 
   int max_per_proxy = local_state_->GetInteger(prefs::kMaxConnectionsPerProxy);
@@ -911,6 +910,10 @@ void BrowserProcessImpl::PreMainMessageLoopRun() {
 
   if (local_state_->IsManagedPreference(prefs::kDefaultBrowserSettingEnabled))
     ApplyDefaultBrowserPolicy();
+
+#if !defined(OS_CHROMEOS) && !defined(OS_ANDROID) && !defined(OS_IOS)
+  ApplyMetricsReportingPolicy();
+#endif
 
 #if defined(ENABLE_PLUGINS)
   PluginService* plugin_service = PluginService::GetInstance();
@@ -1037,11 +1040,11 @@ void BrowserProcessImpl::ApplyAllowCrossOriginAuthPromptPolicy() {
 
 void BrowserProcessImpl::ApplyMetricsReportingPolicy() {
 #if !defined(OS_CHROMEOS) && !defined(OS_ANDROID) && !defined(OS_IOS)
-  BrowserThread::PostTask(
+  CHECK(BrowserThread::PostTask(
       BrowserThread::FILE, FROM_HERE,
       base::Bind(
           base::IgnoreResult(&GoogleUpdateSettings::SetCollectStatsConsent),
-          local_state()->GetBoolean(prefs::kMetricsReportingEnabled)));
+          local_state()->GetBoolean(prefs::kMetricsReportingEnabled))));
 #endif
 }
 
