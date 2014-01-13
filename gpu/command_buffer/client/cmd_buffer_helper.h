@@ -17,7 +17,7 @@
 
 namespace gpu {
 
-#if !defined(OS_ANDROID)
+#if (!defined(OS_ANDROID) || defined(OS_TIZEN_MOBILE))
 #define CMD_HELPER_PERIODIC_FLUSH_CHECK
 const int kCommandsPerFlushCheck = 100;
 const float kPeriodicFlushDelay = 1.0f / (5.0f * 60.0f);
