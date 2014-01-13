@@ -185,7 +185,6 @@ void CompoundEventFilter::FilterTouchEvent(ui::TouchEvent* event) {
 void CompoundEventFilter::SetCursorVisibilityOnEvent(aura::Window* target,
                                                      ui::Event* event,
                                                      bool show) {
-  DCHECK(ShouldHideCursorOnTouch());
   if (event->flags() & ui::EF_IS_SYNTHESIZED)
     return;
 
@@ -254,10 +253,8 @@ void CompoundEventFilter::OnMouseEvent(ui::MouseEvent* event) {
       event->type() == ui::ET_MOUSE_MOVED ||
       event->type() == ui::ET_MOUSE_PRESSED ||
       event->type() == ui::ET_MOUSEWHEEL) {
-    if (ShouldHideCursorOnTouch()) {
-      SetMouseEventsEnableStateOnEvent(window, event, true);
-      SetCursorVisibilityOnEvent(window, event, true);
-    }
+    SetMouseEventsEnableStateOnEvent(window, event, true);
+    SetCursorVisibilityOnEvent(window, event, true);
     UpdateCursor(window, event);
   }
 
