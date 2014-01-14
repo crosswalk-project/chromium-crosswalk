@@ -39,8 +39,8 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
   WebRuntimeFeatures::enablePagePopup(false);
   // datalist on Android is not enabled
   WebRuntimeFeatures::enableDataListElement(false);
-  // Android does not yet support the Web Notification API. crbug.com/115320
-  WebRuntimeFeatures::enableNotifications(false);
+  // Crosswalk supports the Web Notification API on Android.
+  WebRuntimeFeatures::enableNotifications(true);
   // Android does not yet support SharedWorker. crbug.com/154571
   WebRuntimeFeatures::enableSharedWorker(false);
 #endif  // defined(OS_ANDROID)
