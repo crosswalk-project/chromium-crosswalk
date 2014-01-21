@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="ja">
-<translation id="3234920859344197194">このサイトは Chrome Frame プラグインを使用しています。このプラグインでは間もなく、セキュリティと安定性のアップデートが受信されなくなります。プラグインをアンインストールし、最新のブラウザにアップグレードしてください。</translation>
 <translation id="8914504000324227558">Chrome の再起動</translation>
 <translation id="8000275528373650868">Google Chrome のご利用には Windows Vista または Windows XP SP2 以降が必要です。</translation>
-<translation id="8124352762008487242">Copyright 2013 Google Inc. All rights reserved.</translation>
 <translation id="8485767968786176057">証明書に記載されているアドレスが、ブラウザがアクセスしようとしたウェブサイトのアドレスと一致しません。理由の 1 つとして、通信が悪意のあるユーザーによって傍受され、そのユーザーから別のウェブサイトの証明書が提示されているために、アドレスが一致しないことが考えられます。あるいは、アクセスしようとしているウェブサイトを含む複数のウェブサイトについて同じ証明書を返すようにサーバーが設定されているが、その証明書がすべてのサイトについて有効とは限らないことが考えられます。Google Chrome では、アクセスしているサイトが確かに &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt; であることは保証できますが、アクセスしようとした &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt; と同じサイトであるかどうかは検証できません。次に進むと、以降 Chrome ではアドレスの不一致がチェックされなくなります。</translation>
 <translation id="5430073640787465221">ユーザー設定ファイルが壊れているか無効です。設定を復元できません。</translation>
 <translation id="6676384891291319759">インターネットにアクセス</translation>
@@ -182,6 +180,7 @@
 <translation id="7396375882099008034">ファイアウォールやウイルス対策の設定で、Chrome からネットワークへのアクセスを
         許可します。</translation>
 <translation id="9102715433345326100">不正なファイルです。Chrome はこのファイルをブロックしました。</translation>
+<translation id="3170677364322086041">このサイトは廃止された Chrome Frame プラグインを使用しています。セキュリティと安定性のアップデートはこのプラグインで受信されなくなりました。プラグインをアンインストールし、最新のブラウザにアップグレードしてください。</translation>
 <translation id="8205111949707227942">オプション: 使用状況データと障害レポートを Google に自動送信して Chrome OS の機能向上に役立てる。</translation>
 <translation id="7253415505590551024">現在ダウンロードを実行中です。ダウンロードがキャンセルされますが、Google Chrome を終了してもよろしいですか？</translation>
 <translation id="7196020411877309443">このウィンドウが表示される理由</translation>
@@ -198,7 +197,6 @@
           [LAN の設定]
           の順に移動して、[LAN にプロキシ サーバーを使用する] チェックボックスをオフにします。</translation>
 <translation id="7825851276765848807">原因不明のエラーによりインストールに失敗しました。Google Chrome をもう一度ダウンロードしてください。</translation>
-<translation id="4919523385405675060">このサイトは Chrome Frame プラグインを使用しています。このプラグインでは間もなく、セキュリティと安定性のアップデートが受信されなくなります。プラグインをアンインストールし、互換性のあるブラウザをダウンロードしてください。</translation>
 <translation id="1061257178446858647">Chrome にログインしています。ブックマーク、履歴、その他の設定は Google アカウントに同期されます。</translation>
 <translation id="3335672657969596251">Google Chrome は <ph name="OS_NAME"/> に対応していません。</translation>
 <translation id="4458285410772214805">変更内容を反映するには、一度ログアウトして、もう一度ログインしてください。</translation>
@@ -216,6 +214,7 @@
 <translation id="6626317981028933585">Mozilla Firefox の設定を Google Chrome にインポートするには、まず Firefox のウィンドウをすべて閉じてください。その後 [続行] をクリックしてください。</translation>
 <translation id="7242029209006116544">現在、管理対象アカウントでログインしており、あなたの Google Chrome プロフィールを管理者が制御できる状態になっています。あなたの Chrome データ（アプリ、ブックマーク、履歴、パスワードなどの設定）は永続的に <ph name="USER_NAME"/> に関連付けられます。このデータは Google アカウントのダッシュボードを介して削除できますが、このデータを別のアカウントに関連付けることはできなくなります。新しいプロフィールを作成して、既存の Chrome データを別に保管することができます。<ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">Copyright <ph name="YEAR"/> Google Inc. All rights reserved.</translation>
 <translation id="1698376642261615901">Google Chrome は、ウェブページやアプリケーションを高速に実行できるスピードと、高い安定性を兼ね備えた非常に使いやすいウェブブラウザです。不正なソフトウェアやフィッシングに対する保護機能が組み込まれており、ウェブを安全にブラウジングできます。</translation>
 <translation id="3419750618886995598">Chrome フレームが更新されました。</translation>
 <translation id="3336524238463733095">Google Chrome や Google Chrome Frame では、Google Update Group Policy 設定に矛盾があるアカウントを更新することはできません。Group Policy Editor で Google Chrome Binaries アプリケーションの更新ポリシーの上書きを設定してから再度お試しください。詳しくは、http://goo.gl/uJ9gV をご覧ください。</translation>

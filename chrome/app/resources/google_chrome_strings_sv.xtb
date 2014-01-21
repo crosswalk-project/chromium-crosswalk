@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="sv">
-<translation id="3234920859344197194">Webbplatsen använder pluginprogrammet Chrome Frame som snart slutar få nya säkerhets- och stabilitetsuppdateringar. Avinstallera programmet och uppgradera till en ny webbläsare.</translation>
 <translation id="8914504000324227558">Starta om Chrome</translation>
 <translation id="8000275528373650868">För Google Chrome krävs Windows Vista eller Windows XP med SP2 eller senare.</translation>
-<translation id="8124352762008487242">Upphovsrätt 2013 Google Inc. Med ensamrätt.</translation>
 <translation id="8485767968786176057">I det här fallet överensstämmer inte adressen i certifikatet med webbplatsen som webbläsaren försökte öppna. Det kan bero på att kommunikationen har kapats av en bedragare som anger ett certifikat för en annan webbplats, vilket orsakar konflikten. En annan orsak kan vara att servern är konfigurerad för att returnera samma certifikat till flera webbplatser, inklusive den som du försöker besöka, trots att certifikatet inte är giltigt för alla dessa webbplatser. Google Chrome kan intyga att du har öppnat &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt;, men kan inte bekräfta att det är webbplatsen &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt; som du ville besöka. Om du fortsätter kommer inte Chrome att söka efter eventuella nya namnkonflikter.</translation>
 <translation id="5430073640787465221">Inställningsfilen är skadad eller ogiltig.
 
@@ -190,6 +188,7 @@ Om du loggar in ändå synkroniseras din information i Chrome, till exempel bokm
 <translation id="7396375882099008034">Tillåt att Chrome får åtkomst till nätverket i inställningarna för brandväggen eller
         antivirusprogrammet.</translation>
 <translation id="9102715433345326100">Filen är skadlig och har blockerats av Chrome.</translation>
+<translation id="3170677364322086041">Den här webbplatsen använder Chrome Frame. Denna plugin är inaktuell och inga nya säkerhets- eller stabilitetsuppdateringar släpps. Du bör avinstallera den och uppgradera till en modern webbläsare.</translation>
 <translation id="8205111949707227942">Valfritt: Hjälp till att göra Chrome bättre genom att automatiskt skicka användningsstatistik och kraschrapporter till Google.</translation>
 <translation id="7253415505590551024">Hämtningar pågår. Vill du avsluta Google Chrome och avbryta hämtningarna?</translation>
 <translation id="7196020411877309443">Varför visas det här?</translation>
@@ -206,7 +205,6 @@ Om du loggar in ändå synkroniseras din information i Chrome, till exempel bokm
           LAN-inställningar
           och avmarkera Använd en proxyserver för nätverket.</translation>
 <translation id="7825851276765848807">Installationen misslyckades på grund av ett okänt fel. Hämta Google Chrome igen.</translation>
-<translation id="4919523385405675060">Webbplatsen använder pluginprogrammet Chrome Frame som snart slutar få nya säkerhets- och stabilitetsuppdateringar. Avinstallera programmet och hämta en kompatibel webbläsare.</translation>
 <translation id="1061257178446858647">Du är nu inloggad i Chrome! Bokmärken, historik och andra inställningar synkroniseras med ditt Google-konto.</translation>
 <translation id="3335672657969596251">Google Chrome saknar stöd för <ph name="OS_NAME"/>.</translation>
 <translation id="4458285410772214805">Den här ändringen träder inte i kraft förrän du loggat ut och sedan loggar in igen.</translation>
@@ -224,6 +222,7 @@ Om du loggar in ändå synkroniseras din information i Chrome, till exempel bokm
 <translation id="6626317981028933585">Inställningarna för Mozilla Firefox är tyvärr inte tillgängliga medan webbläsaren körs. Om du vill importera dessa inställningar till Google Chrome måste du spara ditt arbete och stänga alla Firefox-fönster. Klicka sedan på Fortsätt.</translation>
 <translation id="7242029209006116544">Du loggar in med ett hanterat konto och ger dess administratör kontroll över din Google Chrome-profil. Dina Chrome-uppgifter, t.ex. dina appar, bokmärken, din historik, dina lösenord och andra inställningar, knyts permanent till <ph name="USER_NAME"/>. Du kommer att kunna ta bort dessa uppgifter via instrumentpanelen i Google Konton, men du kommer inte att kunna koppla dessa uppgifter till ett annat konto. Du kan skapa en ny profil om du vill hålla dina befintliga Chrome-uppgifter separata. <ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">Upphovsrätt <ph name="YEAR"/> Google Inc. Med ensamrätt.</translation>
 <translation id="1698376642261615901">Google Chrome är en webbläsare som kör webbsidor och program med ljusets hastighet. Den är snabb, stabil och lätt att använda. Surfa säkrare med Google Chrome, som har inbyggt skydd mot skadlig programvara och nätfiske.</translation>
 <translation id="3419750618886995598">Uppdatering av Chrome Frame.</translation>
 <translation id="3336524238463733095">Google Chrome eller Google Chrome Frame kan inte uppdateras eftersom grupprincipinställningarna för Google Update inte är konsekventa. Använd Principeditorn för att ange en åsidosättning för grupprinciper för programmet Google Chrome Binaries och försök igen. Mer information finns på http://goo.gl/uJ9gV.</translation>

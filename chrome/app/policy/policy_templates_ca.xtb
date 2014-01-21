@@ -1292,7 +1292,7 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 <translation id="4525521128313814366">Us permet definir una llista de patrons d'URL que especifiquen els llocs en què no està permès mostrar imatges. Si no es defineix aquesta política, s'utilitzarà el valor global predeterminat per a tots els llocs tant de la política &quot;DefaultImagesSetting&quot;, si es defineix, com d'un altre tipus de configuració personal de l'usuari.</translation>
 <translation id="8499172469244085141">Configuració predeterminada (els usuaris la poden sobreescriure)</translation>
 <translation id="8693243869659262736">Utilitza el client DNS integrat</translation>
-<translation id="3072847235228302527">Defineix les Condicions del servei d'un compte local del dispositiu</translation>
+<translation id="3072847235228302527">Defineix els Termes i condicions d'un compte local del dispositiu</translation>
 <translation id="5523812257194833591">Sessió pública per iniciar la sessió automàticament després d'un retard.
 
       Si aquesta política es defineix, s'iniciarà automàticament la sessió especificada després d'un període de temps a la pantalla d'inici de sessió sense interacció de l'usuari. La sessió pública ja ha d'estar configurada (consulteu |DeviceLocalAccounts|).
@@ -1400,13 +1400,13 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 <translation id="6810445994095397827">Bloqueja JavaScript en aquests llocs</translation>
 <translation id="6672934768721876104">Aquesta política està obsoleta; feu servir ProxyMode en lloc seu. Us permet especificar el servidor intermediari que <ph name="PRODUCT_NAME"/> utilitza i impedeix que els usuaris en modifiquin la configuració. Si trieu que mai no es faci servir un connector intermediari i voleu connectar-vos directament, s'ignoraran totes les altres opcions. Si trieu fer servir la configuració del servidor intermediari o bé detectar el servidor intermediari automàticament, s'ignoraran totes les altres opcions. Si trieu configurar manualment el servidor intermediari, podreu especificar més opcions a &quot;Adreça o URL del servidor intermediari&quot;, a &quot;URL del fitxer .pac d'un servidor intermediari&quot; i a &quot;Regles d'evitació de servidors intermediaris separada per comes&quot;. Si voleu consultar-ne exemples detallats, visiteu: <ph name="PROXY_HELP_URL"/>. Si activeu aquest paràmetre, <ph name="PRODUCT_NAME"/> ignorarà totes les opcions relacionades amb els servidors intermediaris que hi hagi a la línia d'ordres. Si no es defineix aquesta política, els usuaris podran escollir la configuració del servidor intermediari.</translation>
 <translation id="3780152581321609624">Inclou un port no estàndard a l'SPN de Kerberos</translation>
-<translation id="1749815929501097806">Defineix les Condicions del servei que l'usuari ha d'acceptar abans d'iniciar una sessió amb un compte local del dispositiu.
+<translation id="1749815929501097806">Defineix els Termes i condicions que l'usuari ha d'acceptar abans d'iniciar una sessió amb un compte local del dispositiu.
 
-      Si aquesta política es defineix, <ph name="PRODUCT_OS_NAME"/> baixa les Condicions del servei i les presenta a l'usuari cada vegada que s'iniciï una sessió amb un compte local del dispositiu. L'usuari només podrà iniciar la sessió una vegada les hagi acceptat.
+      Si aquesta política es defineix, <ph name="PRODUCT_OS_NAME"/> baixa els Termes i condicions i les presenta a l'usuari cada vegada que s'iniciï una sessió amb un compte local del dispositiu. L'usuari només podrà iniciar la sessió una vegada les hagi acceptat.
 
-      Si aquesta política no es defineix, no es mostren les Condicions del servei.
+      Si aquesta política no es defineix, no es mostren els Termes i condicions.
 
-      La política s'ha de definir en un URL del qual <ph name="PRODUCT_OS_NAME"/> pugui baixar les Condicions del servei, que han de trobar-se com a text sense format proporcionat com a text/sense format de tipus MIME. No es permet el marcatge.</translation>
+      La política s'ha de definir en un URL del qual <ph name="PRODUCT_OS_NAME"/> pugui baixar els Termes i condicions, que han de trobar-se com a text sense format proporcionat com a text/sense format de tipus MIME. No es permet el marcatge.</translation>
 <translation id="2660846099862559570">No facis servir mai un servidor intermediari</translation>
 <translation id="1435659902881071157">Configuració de la xarxa a nivell del dispositiu</translation>
 <translation id="2131902621292742709">Retard d'atenuació de pantalla quan s'utilitza bateria</translation>

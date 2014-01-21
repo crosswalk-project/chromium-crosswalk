@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="de">
-<translation id="3234920859344197194">Diese Website verwendet das Google Chrome Frame-Plug-in, das ab demnächst keine Sicherheits- und Stabilitätsupdates mehr erhalten wird. Deinstallieren Sie das Plug-in und stellen Sie auf einen modernen Browser um.</translation>
 <translation id="8914504000324227558">Chrome neu starten</translation>
 <translation id="8000275528373650868">Für Google Chrome ist Windows Vista oder Windows XP SP2 oder höher erforderlich.</translation>
-<translation id="8124352762008487242">Copyright 2013 Google Inc. Alle Rechte vorbehalten.</translation>
 <translation id="8485767968786176057">In diesem Fall stimmt die im Zertifikat angegebene Adresse nicht mit der Adresse der Website überein, die Ihr Browser aufzurufen versucht. Ein möglicher Grund hierfür ist, dass Ihre Kommunikation von einem Hacker abgefangen wird, der ein Zertifikat für eine andere Website vorlegt, wodurch keine Übereinstimmung vorliegen würde. Ein weiterer möglicher Grund ist, dass der Server so konfiguriert ist, dass das gleiche Zertifikat für mehrere Websites zurückgegeben wird, darunter die Website, die Sie aufrufen möchten, obwohl dieses Zertifikat nicht für alle Websites gültig ist. Google Chrome kann Ihnen in jedem Fall bestätigen, dass Sie &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt; aufgerufen haben, kann jedoch nicht überprüfen, ob es sich um die gewünschte Website &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt; handelt. Wenn Sie fortfahren, sucht Chrome nicht nach weiteren fehlenden Übereinstimmungen.</translation>
 <translation id="5430073640787465221">Ihre Einstellungsdatei ist beschädigt oder ungültig. Google Chrome kann Ihre Einstellungen nicht wiederherstellen.</translation>
 <translation id="6676384891291319759">Internetzugriff</translation>
@@ -165,6 +163,7 @@ Sollten Sie sich trotzdem anmelden, werden die Chrome-Daten wie Lesezeichen, Ver
 <translation id="2189123953385179981">Google Chrome OS unterstützt keine externe App zur Verarbeitung von <ph name="SCHEME"/>-Links. Der angeforderte Link ist <ph name="PROTOLINK"/>.</translation>
 <translation id="7396375882099008034">Erlauben Sie Chrome in Ihren Firewall- und Virenschutzeinstellungen den Zugriff auf das Netzwerk.</translation>
 <translation id="9102715433345326100">Diese Datei ist schädlich und wurde von Chrome blockiert.</translation>
+<translation id="3170677364322086041">Diese Website verwendet das eingestellte Chrome Frame-Plug-in, für das es keine Sicherheits- und Stabilitätsupdates mehr gibt. Deinstallieren Sie das Plug-in und führen Sie ein Upgrade auf einen modernen Browser aus.</translation>
 <translation id="8205111949707227942">Optional: Nutzungsstatistiken und Absturzberichte zur Verbesserung von Chrome OS automatisch an Google senden</translation>
 <translation id="7253415505590551024">Momentan werden Downloads durchgeführt. Möchten Sie Google Chrome beenden und die Downloads abbrechen?</translation>
 <translation id="7196020411877309443">Warum wird diese Meldung angezeigt?</translation>
@@ -172,7 +171,6 @@ Sollten Sie sich trotzdem anmelden, werden die Chrome-Daten wie Lesezeichen, Ver
 <translation id="4567424176335768812">Sie sind als <ph name="USER_EMAIL_ADDRESS"/> angemeldet. Auf allen Geräten, auf denen Sie angemeldet sind, sind nun Ihre Lesezeichen, Ihr Verlauf und andere Einstellungen verfügbar.</translation>
 <translation id="6855094794438142393">Gehen Sie zum Chrome-Menü &gt; &quot;<ph name="SETTINGS_TITLE"/>&quot; &gt; &quot;<ph name="ADVANCED_TITLE"/>&quot; &gt; &quot;<ph name="PROXIES_TITLE"/>&quot; &gt; &quot;LAN-Einstellungen&quot; und deaktivieren Sie die Option &quot;Proxyserver für LAN verwenden&quot;.</translation>
 <translation id="7825851276765848807">Die Installation ist aufgrund eines unbekannten Fehlers fehlgeschlagen. Laden Sie Google Chrome erneut herunter.</translation>
-<translation id="4919523385405675060">Diese Website verwendet das Google Chrome Frame-Plug-in, das ab demnächst keine Sicherheits- und Stabilitätsupdates mehr erhalten wird. Deinstallieren Sie das Plug-in und laden Sie einen kompatiblen Browser herunter.</translation>
 <translation id="1061257178446858647">Sie sind jetzt in Chrome angemeldet. Ihre Lesezeichen, Ihr Verlauf und andere Einstellungen werden mit Ihrem Google-Konto synchronisiert.</translation>
 <translation id="3335672657969596251">Google Chrome unterstützt <ph name="OS_NAME"/> nicht.</translation>
 <translation id="4458285410772214805">Melden Sie sich ab und wieder an, damit diese Änderung wirksam wird.</translation>
@@ -190,6 +188,7 @@ Sollten Sie sich trotzdem anmelden, werden die Chrome-Daten wie Lesezeichen, Ver
 <translation id="6626317981028933585">Leider sind Ihre Mozilla Firefox-Einstellungen nicht verfügbar, wenn dieser Browser ausgeführt wird. Um diese Einstellungen in Google Chrome zu importieren, speichern Sie Ihre Arbeit und schließen Sie alle Firefox-Fenster. Klicken Sie anschließend auf &quot;Weiter&quot;.</translation>
 <translation id="7242029209006116544">Sie melden sich mit einem verwalteten Konto an und ermöglichen dessen Administrator Zugriff auf Ihr Google Chrome-Profil. Ihre Chrome-Daten, wie Apps, Lesezeichen, Verlauf, Passwörter und andere Einstellungen, werden dauerhaft mit <ph name="USER_NAME"/> verknüpft. Sie können diese Daten über das Google Konten-Dashboard löschen, aber nicht mit einem anderen Konto verknüpfen. Wenn Sie Ihre bestehenden Chrome-Daten getrennt verwenden möchten, können Sie ein neues Profil erstellen. <ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">Copyright <ph name="YEAR"/> Google Inc. Alle Rechte vorbehalten.</translation>
 <translation id="1698376642261615901">Google Chrome ist ein Webbrowser, der Webseiten und Apps in Sekundenschnelle lädt und dabei äußerst stabil und nutzerfreundlich ist. Dank des integrierten Malware- und Phishing-Schutzes können Sie bedenkenlos im Internet surfen.</translation>
 <translation id="3419750618886995598">Google Chrome Frame-Update.</translation>
 <translation id="3336524238463733095">Google Chrome oder Google Chrome Frame kann aufgrund von inkonsistenten Google Update-Gruppenrichtlinieneinstellungen nicht aktualisiert werden. Verwenden Sie den Gruppenrichtlinieneditor, um die Aktualisierungsrichtlinien für die Google Chrome Binaries-Anwendung außer Kraft zu setzen, und versuchen Sie es erneut. Weitere Informationen erhalten Sie unter http://goo.gl/uJ9gV.</translation>

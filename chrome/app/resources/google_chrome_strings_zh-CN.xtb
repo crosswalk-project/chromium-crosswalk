@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="zh-CN">
-<translation id="3234920859344197194">该网站使用的 Chrome 内嵌框架插件即将停止接收安全性和稳定性更新，因此请将其卸载，然后升级到新式浏览器。</translation>
 <translation id="8914504000324227558">重启 Chrome</translation>
 <translation id="8000275528373650868">Google Chrome 浏览器要求操作系统必须为 Windows Vista 或者 Windows XP SP2 或更高版本。</translation>
-<translation id="8124352762008487242">版权所有 2013 Google Inc. 保留所有权利。</translation>
 <translation id="8485767968786176057">在这种情况下，列在证书中的地址与浏览器尝试显示的网站的地址不相符。引发这种情况的一个可能原因是，您的通信内容正被攻击者拦截，攻击者出示的是其他网站的证书，这就会引发网站地址不符的情况。另一可能引发这种情况的原因是，服务器已设置为对多个网站（包括您试图访问的网站）返回同一证书，即使此证书并不是对所有这些网站都有效。Google Chrome 浏览器确定访问的是 &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt;，但无法证实该网站就是所要访问的网站 &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt;。如果继续操作，则 Chrome 浏览器不会检查是否还有名称不相符的情况。</translation>
 <translation id="5430073640787465221">您的偏好设置文件已损坏或无效。Google Chrome 浏览器无法恢复您的设置。</translation>
 <translation id="6676384891291319759">访问互联网</translation>
@@ -166,6 +164,7 @@
 <translation id="2189123953385179981">Google Chrome 操作系统不支持启动外部应用处理 <ph name="SCHEME"/> 链接。请求的链接是 <ph name="PROTOLINK"/>。</translation>
 <translation id="7396375882099008034">对防火墙或防病毒软件进行设置，以允许 Chrome 访问该网络。</translation>
 <translation id="9102715433345326100">这是恶意文件，Chrome 已将其拦截。</translation>
+<translation id="3170677364322086041">该网站使用的Chrome内嵌框架插件已停止使用，并且不再接收安全性和稳定性更新。请将其卸载，然后升级到新式浏览器。</translation>
 <translation id="8205111949707227942">可选：将使用情况统计信息和崩溃报告自动发送给 Google，帮助完善 Chrome 操作系统。</translation>
 <translation id="7253415505590551024">正在进行多项下载。您希望退出 Google Chrome 浏览器并取消这些下载吗？</translation>
 <translation id="7196020411877309443">为何会出现这个窗口？</translation>
@@ -173,7 +172,6 @@
 <translation id="4567424176335768812">您已使用 <ph name="USER_EMAIL_ADDRESS"/> 的身份登录。现在您可在已登录的所有设备上访问您的书签、历史记录和其他设置。</translation>
 <translation id="6855094794438142393">依次转到 Chrome 菜单 &gt;“<ph name="SETTINGS_TITLE"/>”&gt;“<ph name="ADVANCED_TITLE"/>”&gt;“<ph name="PROXIES_TITLE"/>”&gt;“LAN 设置”，然后取消选中“为 LAN 使用代理服务器”。</translation>
 <translation id="7825851276765848807">由于未指定的错误导致安装失败。请重新下载 Google Chrome 浏览器。</translation>
-<translation id="4919523385405675060">该网站使用的 Chrome 内嵌框架插件即将停止接收安全性和稳定性更新，因此请将其卸载，然后下载一个兼容的浏览器。</translation>
 <translation id="1061257178446858647">您现已登录 Chrome 浏览器！您的书签、历史记录和其他设置都会同步到您的 Google 帐户。</translation>
 <translation id="3335672657969596251">Google Chrome 浏览器不支持 <ph name="OS_NAME"/>。</translation>
 <translation id="4458285410772214805">请先退出，然后重新登录，以便此更改生效。</translation>
@@ -191,6 +189,7 @@
 <translation id="6626317981028933585">抱歉，无法在 Mozilla Firefox 浏览器运行时获取其设置。要将其设置导入 Google Chrome 浏览器，请保存您手头的工作并关闭所有 Firefox 窗口，然后点击“继续”。</translation>
 <translation id="7242029209006116544">您目前登录的帐户是一个托管帐户，该帐户的管理员将能够控制您的 Google Chrome 个人资料。您的 Chrome 数据（例如您的应用、书签、历史记录、密码和其他设置）将永远与 <ph name="USER_NAME"/> 相关联。您可以通过 Google 帐户信息中心删除这些数据，但无法将这些数据与其他帐户相关联。您可以选择创建新的个人资料来单独存储现有的 Chrome 数据。<ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">版权所有<ph name="YEAR"/> Google Inc. 保留所有权利。</translation>
 <translation id="1698376642261615901">Google Chrome 浏览器是一款可高速运行网页和应用的网络浏览器。它快捷、稳定且易于使用。Google Chrome 浏览器内置的恶意软件和网上诱骗防护功能可让您更安全地浏览网页。</translation>
 <translation id="3419750618886995598">Chrome 浏览器内嵌框架更新。</translation>
 <translation id="3336524238463733095">由于 Google 更新组策略设置不一致，导致无法更新 Google Chrome 浏览器或 Google Chrome 浏览器内嵌框架。请使用组策略编辑器设置更新政策，以替换 Google Chrome Binaries 应用程序，然后重试；有关详情，请访问 http://goo.gl/uJ9gV。</translation>

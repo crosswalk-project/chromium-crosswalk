@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="en-GB">
-<translation id="3234920859344197194">This site is using the Chrome Frame plug-in which will soon stop receiving security and stability updates. Please uninstall it and upgrade to a modern browser.</translation>
 <translation id="8914504000324227558">Relaunch Chrome</translation>
 <translation id="8000275528373650868">Google Chrome requires Windows Vista or Windows XP with SP2 or higher.</translation>
-<translation id="8124352762008487242">Copyright 2013 Google Inc. All rights reserved.</translation>
 <translation id="8485767968786176057">In this case, the address listed in the certificate does not match the address of the website that your browser tried to go to. One possible reason for this is that your communications are being intercepted by an attacker who is presenting a certificate for a different website, which would cause a mismatch. Another possible reason is that the server is set up to return the same certificate for multiple websites, including the one you are attempting to visit, even though that certificate is not valid for all of those websites. Google Chrome can say for sure that you reached &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt;, but cannot verify that that is the same site as &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt; which you intended to reach. If you proceed, Chrome will not check for any further name mismatches.</translation>
 <translation id="5430073640787465221">Your preferences file is corrupt or invalid.
 
@@ -190,6 +188,7 @@ Signing in anyway will merge Chrome information like bookmarks, history and othe
 <translation id="7396375882099008034">Allow Chrome to access the network in your firewall or antivirus
         settings.</translation>
 <translation id="9102715433345326100">This file is malicious and Chrome has blocked it.</translation>
+<translation id="3170677364322086041">This site is using the retired Chrome Frame plug-in which no longer receives security and stability updates. Please uninstall it and upgrade to a modern browser.</translation>
 <translation id="8205111949707227942">Optional: Help make Chrome OS better by sending usage statistics and crash reports automatically to Google.</translation>
 <translation id="7253415505590551024">Downloads are currently in progress. Do you want to exit Google Chrome and cancel the downloads?</translation>
 <translation id="7196020411877309443">Why am I seeing this?</translation>
@@ -206,7 +205,6 @@ Signing in anyway will merge Chrome information like bookmarks, history and othe
           LAN Settings
           and deselect &quot;Use a proxy server for your LAN&quot;.</translation>
 <translation id="7825851276765848807">Installation failed due to unspecified error. Please download Google Chrome again.</translation>
-<translation id="4919523385405675060">This site is using the Chrome Frame plug-in which will soon stop receiving security and stability updates. Please uninstall it and download a compatible browser.</translation>
 <translation id="1061257178446858647">You're now signed in to Chrome! Your bookmarks, history, and other settings will be synced to your Google Account.</translation>
 <translation id="3335672657969596251">Google Chrome does not support <ph name="OS_NAME"/>.</translation>
 <translation id="4458285410772214805">Please sign out and sign in again for this change to take effect.</translation>
@@ -224,6 +222,7 @@ Signing in anyway will merge Chrome information like bookmarks, history and othe
 <translation id="6626317981028933585">Sadly, your Mozilla Firefox settings are not available while that browser is running. To import those settings to Google Chrome, save your work and close all Firefox windows. Then click Continue.</translation>
 <translation id="7242029209006116544">You are signing in with a managed account and giving its administrator control over your Google Chrome profile. Your Chrome data, such as your apps, bookmarks, history, passwords and other settings will become permanently tied to <ph name="USER_NAME"/>. You will be able to delete this data via the Google Accounts Dashboard, but you will not be able to associate this data with another account. You can optionally create a new profile to keep your existing Chrome data separate. <ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">Copyright <ph name="YEAR"/> Google Inc. All rights reserved.</translation>
 <translation id="1698376642261615901">Google Chrome is a web browser that runs web pages and applications with lightning speed. It's fast, stable and easy to use. Browse the web more safely with malware and phishing protection built into Google Chrome.</translation>
 <translation id="3419750618886995598">Chrome Frame Update.</translation>
 <translation id="3336524238463733095">Google Chrome or Google Chrome Frame cannot be updated due to inconsistent Google Update Group Policy settings. Use the Group Policy Editor to set the update policy override for the Google Chrome Binaries application and try again; see http://goo.gl/uJ9gV for details.</translation>

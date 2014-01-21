@@ -1,10 +1,8 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="zh-TW">
-<translation id="3234920859344197194">這個網站使用的 Chrome 內嵌框架外掛程式即將停止接收安全性和穩定性更新。請解除安裝該外掛程式，並升級至新世代瀏覽器。</translation>
 <translation id="8914504000324227558">重新啟動 Chrome</translation>
 <translation id="8000275528373650868">Google Chrome 支援的作業系統為 Windows Vista 或 Windows XP SP2 以上版本。</translation>
-<translation id="8124352762008487242">Copyright 2013 Google Inc. 版權所有。</translation>
 <translation id="8485767968786176057">在這種情況中，憑證所列的網址與瀏覽器嘗試前往的網址不符。憑證不符的其中一個可能原因是，攻擊者攔截了您的通訊，並且出示另一個網站的憑證。另一個可能的原因是，伺服器已設定為不同的網站傳回相同的憑證 (其中包括您嘗試造訪的網站)，即便該憑證並不適用於某些網站。Google Chrome 可以確定您已經到達 &lt;strong&gt;<ph name="DOMAIN2"/>&lt;/strong&gt;，但是無法驗證這與您嘗試前往的 &lt;strong&gt;<ph name="DOMAIN"/>&lt;/strong&gt; 是不是同一個網站。如果您繼續，Chrome 將不再檢查任何名稱不符的情況。</translation>
 <translation id="5430073640787465221">您的偏好設定檔已毀損或無效。
 
@@ -184,6 +182,7 @@ Google Chrome 無法復原您的設定。</translation>
 <translation id="7396375882099008034">允許 Chrome 存取受到防火牆或防毒軟體設定所阻擋的
         網路。</translation>
 <translation id="9102715433345326100">這個檔案是惡意軟體，因此已遭到 Chrome 封鎖。</translation>
+<translation id="3170677364322086041">這個網站使用的 Chrome 內嵌框架外掛程式已淘汰，無法再接收安全性和穩定性更新。請解除安裝該外掛程式，並升級至新世代瀏覽器。</translation>
 <translation id="8205111949707227942">選擇性：把使用統計資料及當機報告自動傳送給 Google，將有助於 Chrome OS 更臻完美。</translation>
 <translation id="7253415505590551024">目前正在進行下載，您要結束 Google Chrome 並取消下載嗎？</translation>
 <translation id="7196020411877309443">為何出現這個對話框？</translation>
@@ -200,7 +199,6 @@ Google Chrome 無法復原您的設定。</translation>
           [區域網路設定]
           然後取消勾選 [在您的區域網路使用 Proxy 伺服器] 核取方塊。</translation>
 <translation id="7825851276765848807">不明錯誤導致安裝失敗，請再次下載 Google Chrome。</translation>
-<translation id="4919523385405675060">這個網站使用的 Chrome 內嵌框架外掛程式即將停止接收安全性和穩定性更新。請解除安裝該外掛程式，並下載相容的瀏覽器。</translation>
 <translation id="1061257178446858647">您現在已登入 Chrome！系統會將您的書籤、紀錄和其他設定同步處理至 Google 帳戶。</translation>
 <translation id="3335672657969596251">Google Chrome 不支援 <ph name="OS_NAME"/>。</translation>
 <translation id="4458285410772214805">請先登出，然後重新登入，這項變更才會生效。</translation>
@@ -218,6 +216,7 @@ Google Chrome 無法復原您的設定。</translation>
 <translation id="6626317981028933585">抱歉，我們無法在 Mozilla Firefox 執行時取得其設定。如果要將這些設定匯入到 Google Chrome，請儲存您的工作，並關閉所有 Firefox 視窗。然後按一下 [繼續]。</translation>
 <translation id="7242029209006116544">您已登入管理化環境下的帳戶，並將管理控制權授予您的 Chrome 設定檔。您的 Chrome 資料 (例如應用程式、書籤、紀錄、密碼和其他設定) 均將永久與 <ph name="USER_NAME"/> 建立關聯。您可以透過 Google 帳戶資訊主頁刪除這些資料，但您無法將這些資料與其他帳戶建立關聯。如要另行保留現有的 Chromium 資料，您可以選擇建立新的設定檔。<ph name="LEARN_MORE"/></translation>
 <translation id="8540666473246803645">Google Chrome</translation>
+<translation id="2334084861041072223">Copyright <ph name="YEAR"/> Google Inc. 版權所有。</translation>
 <translation id="1698376642261615901">Google Chrome 瀏覽器開啟網頁和執行應用程式的速度奇快無比！除了執行速度迅速、穩定且容易使用之外，內建防護機制還可讓您安心瀏覽網頁，無需擔心受到網路釣魚與惡意軟體的威脅。</translation>
 <translation id="3419750618886995598">Chrome 內嵌框架更新。</translation>
 <translation id="3336524238463733095">由於「Google 更新群組政策」設定不一致，因此 Google Chrome 或「Google Chrome 內嵌框架」無法更新。使用「群組政策編輯器」設定要覆寫「Google Chrome Binaries」應用程式的更新政策，然後再試一次；詳情請參閱 http://goo.gl/uJ9gV。</translation>
