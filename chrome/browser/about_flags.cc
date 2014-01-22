@@ -148,14 +148,6 @@ const Experiment::Choice kEnableAcceleratedFixedRootBackgroundChoices[] = {
     switches::kDisableAcceleratedFixedRootBackground, ""},
 };
 
-const Experiment::Choice kGDIPresentChoices[] = {
-  { IDS_GENERIC_EXPERIMENT_CHOICE_DEFAULT, "", "" },
-  { IDS_FLAGS_PRESENT_WITH_GDI_FIRST_SHOW,
-    switches::kDoFirstShowPresentWithGDI, ""},
-  { IDS_FLAGS_PRESENT_WITH_GDI_ALL_SHOW,
-    switches::kDoAllShowPresentWithGDI, ""}
-};
-
 const Experiment::Choice kTouchEventsChoices[] = {
   { IDS_GENERIC_EXPERIMENT_CHOICE_AUTOMATIC, "", "" },
   { IDS_GENERIC_EXPERIMENT_CHOICE_ENABLED,
@@ -390,7 +382,7 @@ const Experiment kExperiments[] = {
     "force-compositing-mode-2",
     IDS_FLAGS_FORCE_COMPOSITING_MODE_NAME,
     IDS_FLAGS_FORCE_COMPOSITING_MODE_DESCRIPTION,
-    kOsMac | kOsWin | kOsLinux,
+    kOsMac | kOsLinux,
     ENABLE_DISABLE_VALUE_TYPE(switches::kForceCompositingMode,
                               switches::kDisableForceCompositingMode)
   },
@@ -398,7 +390,7 @@ const Experiment kExperiments[] = {
     "threaded-compositing-mode",
     IDS_FLAGS_THREADED_COMPOSITING_MODE_NAME,
     IDS_FLAGS_THREADED_COMPOSITING_MODE_DESCRIPTION,
-    kOsMac | kOsWin | kOsLinux,
+    kOsMac | kOsLinux,
     ENABLE_DISABLE_VALUE_TYPE(switches::kEnableThreadedCompositing,
                               switches::kDisableThreadedCompositing)
   },
@@ -420,13 +412,6 @@ const Experiment kExperiments[] = {
          switches::kDisableUniversalAcceleratedOverflowScroll)
   },
   {
-    "present-with-GDI",
-    IDS_FLAGS_PRESENT_WITH_GDI_NAME,
-    IDS_FLAGS_PRESENT_WITH_GDI_DESCRIPTION,
-    kOsWin,
-    MULTI_VALUE_TYPE(kGDIPresentChoices)
-  },
-  {
     "enable-experimental-canvas-features",
     IDS_FLAGS_ENABLE_EXPERIMENTAL_CANVAS_FEATURES_NAME,
     IDS_FLAGS_ENABLE_EXPERIMENTAL_CANVAS_FEATURES_DESCRIPTION,
@@ -439,13 +424,6 @@ const Experiment kExperiments[] = {
     IDS_FLAGS_DISABLE_ACCELERATED_2D_CANVAS_DESCRIPTION,
     kOsAll,
     SINGLE_VALUE_TYPE(switches::kDisableAccelerated2dCanvas)
-  },
-  {
-    "disable-threaded-animation",
-    IDS_FLAGS_DISABLE_THREADED_ANIMATION_NAME,
-    IDS_FLAGS_DISABLE_THREADED_ANIMATION_DESCRIPTION,
-    kOsAll,
-    SINGLE_VALUE_TYPE(cc::switches::kDisableThreadedAnimation)
   },
   {
     "composited-layer-borders",
@@ -723,7 +701,7 @@ const Experiment kExperiments[] = {
     IDS_FLAGS_ENABLE_SMOOTH_SCROLLING_DESCRIPTION,
     // Can't expose the switch unless the code is compiled in.
     // On by default for the Mac (different implementation in WebKit).
-    kOsWin | kOsLinux,
+    kOsLinux,
     SINGLE_VALUE_TYPE(switches::kEnableSmoothScrolling)
   },
   {
