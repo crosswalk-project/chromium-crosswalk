@@ -43,12 +43,24 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
 
     protected ContentViewCore mContentViewCore;
 
+    // The listener which will be triggered when below two conditions become valid.
+    // 1. The view has been initialized and ready to draw content to the screen.
+    // 2. The compositor finished compositing and the OpenGL buffers has been swapped.
+    //    Which means the view has been updated with visually non-empty content.
+    // This listener will be triggered only once after registered.
+    private FirstRenderedFrameListener mFirstRenderedFrameListener;
+    private boolean mFirstFrameReceived;
+
     private final Runnable mRenderRunnable = new Runnable() {
         @Override
         public void run() {
             render();
         }
     };
+
+    public interface FirstRenderedFrameListener{
+        public void onFirstFrameReceived();
+    }
 
     /**
      * Constructs a new ContentViewRenderView that should be can to a view hierarchy.
@@ -153,6 +165,13 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
         }
     }
 
+    public void registerFirstRenderedFrameListener(FirstRenderedFrameListener listener) {
+        mFirstRenderedFrameListener = listener;
+        if (mFirstFrameReceived && mFirstRenderedFrameListener != null) {
+            mFirstRenderedFrameListener.onFirstFrameReceived();
+        }
+    }
+
     /**
      * This method should be subclassed to provide actions to be performed once the view is ready to
      * render.
@@ -236,6 +255,14 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
     @CalledByNative
     private void onSwapBuffersCompleted() {
         TraceEvent.instant("onSwapBuffersCompleted");
+
+        if (!mFirstFrameReceived && mCurrentContentView != null &&
+                mCurrentContentView.getContentViewCore().isReady()) {
+            mFirstFrameReceived = true;
+            if (mFirstRenderedFrameListener != null) {
+                mFirstRenderedFrameListener.onFirstFrameReceived();
+            }
+        }
 
         if (mPendingSwapBuffers == MAX_SWAP_BUFFER_COUNT && mNeedToRender) requestRender();
         if (mPendingSwapBuffers > 0) mPendingSwapBuffers--;
