@@ -3170,7 +3170,7 @@ WebMediaPlayer* RenderViewImpl::createMediaPlayer(
       sink,
       RenderThreadImpl::current()->GetGpuFactories(),
       new RenderMediaLog());
-  return new WebMediaPlayerImpl(frame, client, AsWeakPtr(), params);
+  return new WebMediaPlayerImpl(this, frame, client, AsWeakPtr(), params);
 }
 
 WebCookieJar* RenderViewImpl::cookieJar(WebFrame* frame) {
