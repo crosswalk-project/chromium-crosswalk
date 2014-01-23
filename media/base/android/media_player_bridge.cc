@@ -19,6 +19,9 @@ using base::android::ScopedJavaLocalRef;
 // Time update happens every 250ms.
 static const int kTimeUpdateInterval = 250;
 
+static const char* APP_SCHEME = "app";
+static const std::string FILE_URL_PREFIX = "file:///android_asset/www";
+
 namespace media {
 
 MediaPlayerBridge::MediaPlayerBridge(
@@ -49,6 +52,12 @@ MediaPlayerBridge::~MediaPlayerBridge() {
 }
 
 void MediaPlayerBridge::Initialize() {
+  if (url_.SchemeIs(APP_SCHEME)) {
+    cookies_.clear();
+    ExtractMediaMetadata(FILE_URL_PREFIX + url_.path());
+    return;
+  }
+
   if (url_.SchemeIsFile()) {
     cookies_.clear();
     ExtractMediaMetadata(url_.spec());
@@ -125,7 +134,9 @@ void MediaPlayerBridge::Prepare() {
             url_, base::Bind(&MediaPlayerBridge::SetDataSource,
                              weak_this_.GetWeakPtr()));
   } else {
-    SetDataSource(url_.spec());
+    std::string url = url_.SchemeIs(APP_SCHEME) ?
+        FILE_URL_PREFIX + url_.path() : url_.spec();
+    SetDataSource(url);
   }
 }
 
