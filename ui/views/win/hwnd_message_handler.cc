@@ -407,7 +407,7 @@ HWNDMessageHandler::HWNDMessageHandler(HWNDMessageHandlerDelegate* delegate)
       autohide_factory_(this),
       id_generator_(0),
       needs_scroll_styles_(false),
-      in_size_move_loop_(false) {
+      in_size_loop_(false) {
 }
 
 HWNDMessageHandler::~HWNDMessageHandler() {
@@ -1389,13 +1389,11 @@ LRESULT HWNDMessageHandler::OnDwmCompositionChanged(UINT msg,
 }
 
 void HWNDMessageHandler::OnEnterSizeMove() {
-  in_size_move_loop_ = true;
-
   // Please refer to the comments in the OnSize function about the scrollbar
   // hack.
   // Hide the Windows scrollbar if the scroll styles are present to ensure
   // that a paint flicker does not occur while sizing.
-  if (needs_scroll_styles_)
+  if (in_size_loop_ && needs_scroll_styles_)
     ShowScrollBar(hwnd(), SB_BOTH, FALSE);
 
   delegate_->HandleBeginWMSizeMove();
@@ -1410,13 +1408,12 @@ LRESULT HWNDMessageHandler::OnEraseBkgnd(HDC dc) {
 void HWNDMessageHandler::OnExitSizeMove() {
   delegate_->HandleEndWMSizeMove();
   SetMsgHandled(FALSE);
-  in_size_move_loop_ = false;
   // Please refer to the notes in the OnSize function for information about
   // the scrolling hack.
   // We hide the Windows scrollbar in the OnEnterSizeMove function. We need
   // to add the scroll styles back to ensure that scrolling works in legacy
   // trackpoint drivers.
-  if (needs_scroll_styles_)
+  if (in_size_loop_ && needs_scroll_styles_)
     AddScrollStylesToWindow(hwnd());
 }
 
@@ -2091,7 +2088,7 @@ void HWNDMessageHandler::OnSize(UINT param, const CSize& size) {
   // want Windows to draw the scrollbars. To achieve this we hide the scroll
   // bars and readd them to the window style in a posted task to ensure that we
   // don't get nested WM_SIZE messages.
-  if (needs_scroll_styles_ && !in_size_move_loop_) {
+  if (needs_scroll_styles_ && !in_size_loop_) {
     ShowScrollBar(hwnd(), SB_BOTH, FALSE);
     base::MessageLoop::current()->PostTask(
         FROM_HERE, base::Bind(&AddScrollStylesToWindow, hwnd()));
@@ -2147,8 +2144,13 @@ void HWNDMessageHandler::OnSysCommand(UINT notification_code,
 
   // If the delegate can't handle it, the system implementation will be called.
   if (!delegate_->HandleCommand(notification_code)) {
+    // If the window is being resized by dragging the borders of the window
+    // with the mouse/touch/keyboard, we flag as being in a size loop.
+    if ((notification_code & sc_mask) == SC_SIZE)
+      in_size_loop_ = true;
     DefWindowProc(hwnd(), WM_SYSCOMMAND, notification_code,
                   MAKELPARAM(point.x, point.y));
+    in_size_loop_ = false;
   }
 }
 
