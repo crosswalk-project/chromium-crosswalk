@@ -1107,6 +1107,9 @@ bool GpuProcessHost::LaunchGpuProcess(const std::string& channel_id) {
     switches::kDisableImageTransportSurface,
     switches::kDisableLogging,
     switches::kDisableSeccompFilterSandbox,
+#if defined(ENABLE_WEBRTC)
+    switches::kDisableWebRtcHWEncoding,
+#endif
     switches::kEnableLogging,
     switches::kEnableShareGroupAsyncTextureUpload,
     switches::kGpuStartupDialog,

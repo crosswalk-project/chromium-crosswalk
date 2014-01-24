@@ -1164,6 +1164,16 @@ LONG_STRING_CONST(
       "features": [
         "texture_sharing"
       ]
+    },
+    {
+      "id": 82,
+      "description": "MediaCodec is still too buggy to use for encoding (b/11536167).",
+      "os": {
+        "type": "android"
+      },
+      "features": [
+        "accelerated_video_encode"
+      ]
     }
   ]
 }
