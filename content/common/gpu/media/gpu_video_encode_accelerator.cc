@@ -17,6 +17,8 @@
 
 #if defined(OS_CHROMEOS) && defined(ARCH_CPU_ARMEL) && defined(USE_X11)
 #include "content/common/gpu/media/exynos_video_encode_accelerator.h"
+#elif defined(OS_ANDROID) && defined(ENABLE_WEBRTC)
+#include "content/common/gpu/media/android_video_encode_accelerator.h"
 #endif
 
 namespace content {
@@ -88,6 +90,8 @@ GpuVideoEncodeAccelerator::GetSupportedProfiles() {
 
 #if defined(OS_CHROMEOS) && defined(ARCH_CPU_ARMEL) && defined(USE_X11)
   profiles = ExynosVideoEncodeAccelerator::GetSupportedProfiles();
+#elif defined(OS_ANDROID) && defined(ENABLE_WEBRTC)
+  profiles = AndroidVideoEncodeAccelerator::GetSupportedProfiles();
 #endif
 
   // TODO(sheu): return platform-specific profiles.
@@ -95,8 +99,11 @@ GpuVideoEncodeAccelerator::GetSupportedProfiles() {
 }
 
 void GpuVideoEncodeAccelerator::CreateEncoder() {
+  DCHECK(!encoder_);
 #if defined(OS_CHROMEOS) && defined(ARCH_CPU_ARMEL) && defined(USE_X11)
   encoder_.reset(new ExynosVideoEncodeAccelerator(this));
+#elif defined(OS_ANDROID) && defined(ENABLE_WEBRTC)
+  encoder_.reset(new AndroidVideoEncodeAccelerator(this));
 #endif
 }
 
@@ -160,13 +167,14 @@ void GpuVideoEncodeAccelerator::OnEncode(int32 frame_id,
     return;
   }
 
+  uint8* shm_memory = reinterpret_cast<uint8*>(shm->memory());
   scoped_refptr<media::VideoFrame> frame =
       media::VideoFrame::WrapExternalSharedMemory(
           input_format_,
           input_coded_size_,
           gfx::Rect(input_visible_size_),
           input_visible_size_,
-          reinterpret_cast<uint8*>(shm->memory()),
+          shm_memory,
           buffer_size,
           buffer_handle,
           base::TimeDelta(),
