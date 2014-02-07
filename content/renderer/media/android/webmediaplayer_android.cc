@@ -4,6 +4,7 @@
 
 #include "content/renderer/media/android/webmediaplayer_android.h"
 
+#include <algorithm>
 #include <limits>
 
 #include "base/android/build_info.h"
@@ -585,7 +586,7 @@ void WebMediaPlayerAndroid::OnMediaMetadataChanged(
     const base::TimeDelta& duration, int width, int height, bool success) {
   bool need_to_signal_duration_changed = false;
 
-  if (url_.SchemeIs("file"))
+  if (url_.SchemeIs("file") || url_.SchemeIs("app"))
     UpdateNetworkState(WebMediaPlayer::NetworkStateLoaded);
 
   // Update duration, if necessary, prior to ready state updates that may
