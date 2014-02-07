@@ -33,6 +33,19 @@ import java.util.HashMap;
 @JNINamespace("media")
 public class MediaPlayerBridge {
 
+    public static class ResourceLoadingFilter {
+        public boolean shouldOverrideResourceLoading(
+                MediaPlayer mediaPlayer, Context context, Uri uri) {
+            return false;
+        }
+    }
+
+    private static ResourceLoadingFilter sResourceLoadFilter = null;
+
+    public static void setResourceLoadingFilter(ResourceLoadingFilter filter) {
+        sResourceLoadFilter = filter;
+    }
+
     private static final String TAG = "MediaPlayerBridge";
 
     // Local player to forward this to. We don't initialize it here since the subclass might not
@@ -144,6 +157,11 @@ public class MediaPlayerBridge {
         if (!TextUtils.isEmpty(cookies)) headersMap.put("Cookie", cookies);
         if (!TextUtils.isEmpty(userAgent)) headersMap.put("User-Agent", userAgent);
         try {
+            if (sResourceLoadFilter != null &&
+                    sResourceLoadFilter.shouldOverrideResourceLoading(
+                            getLocalPlayer(), context, uri)) {
+                return true;
+            }
             getLocalPlayer().setDataSource(context, uri, headersMap);
             return true;
         } catch (Exception e) {
