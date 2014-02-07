@@ -190,7 +190,7 @@ class MediaResourceGetter {
     boolean configure(Context context, String url, String cookies, String userAgent) {
         Uri uri = Uri.parse(url);
         String scheme = uri.getScheme();
-        if (scheme == null || scheme.equals("file")) {
+        if (scheme == null || scheme.equals("file") || scheme.equals("app")) {
             File file = uriToFile(uri.getPath());
             if (!file.exists()) {
                 Log.e(TAG, "File does not exist.");
