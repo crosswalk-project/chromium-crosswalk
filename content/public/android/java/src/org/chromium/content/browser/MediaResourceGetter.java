@@ -94,6 +94,10 @@ class MediaResourceGetter {
         try {
             Uri uri = Uri.parse(url);
             String scheme = uri.getScheme();
+            // Keep app uri have the same behavior with file asset uri.
+            if (scheme.equals("app")) {
+                return new MediaMetadata(durationInMilliseconds, width, height, success);
+            }
             if (scheme == null || scheme.equals("file")) {
                 File file = new File(uri.getPath());
                 String path = file.getAbsolutePath();
