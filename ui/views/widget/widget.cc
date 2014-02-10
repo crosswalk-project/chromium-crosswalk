@@ -129,8 +129,8 @@ Widget::InitParams::InitParams()
       top_level(false),
       layer_type(aura::WINDOW_LAYER_TEXTURED),
       context(NULL),
-      net_wm_pid(0),
-      force_show_in_taskbar(false) {
+      force_show_in_taskbar(false),
+      net_wm_pid(0) {
 }
 
 Widget::InitParams::InitParams(Type type)
@@ -156,8 +156,8 @@ Widget::InitParams::InitParams(Type type)
       top_level(false),
       layer_type(aura::WINDOW_LAYER_TEXTURED),
       context(NULL),
-      net_wm_pid(0),
-      force_show_in_taskbar(false) {
+      force_show_in_taskbar(false),
+      net_wm_pid(0) {
 }
 
 Widget::InitParams::~InitParams() {
