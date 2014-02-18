@@ -49,7 +49,7 @@ MediaPlayerBridge::~MediaPlayerBridge() {
 }
 
 void MediaPlayerBridge::Initialize() {
-  if (url_.SchemeIsFile()) {
+  if (url_.SchemeIsFile() || url_.SchemeIs("app")) {
     cookies_.clear();
     ExtractMediaMetadata(url_.spec());
     return;
