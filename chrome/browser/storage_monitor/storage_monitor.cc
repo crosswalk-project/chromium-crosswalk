@@ -6,7 +6,9 @@
 
 #include "base/stl_util.h"
 #include "base/strings/utf_string_conversions.h"
+#if !defined(XWALK_STORAGE_MONITOR)
 #include "chrome/browser/browser_process.h"
+#endif
 #include "chrome/browser/storage_monitor/removable_storage_observer.h"
 #include "chrome/browser/storage_monitor/transient_device_ids.h"
 
@@ -43,10 +45,16 @@ void StorageMonitor::ReceiverImpl::MarkInitialized() {
 }
 
 StorageMonitor* StorageMonitor::GetInstance() {
+#if !defined(XWALK_STORAGE_MONITOR)
   if (g_browser_process)
     return g_browser_process->storage_monitor();
 
   return NULL;
+#else
+  static StorageMonitor* monitor(StorageMonitor::Create());
+
+  return monitor;
+#endif
 }
 
 std::vector<StorageInfo> StorageMonitor::GetAllAvailableStorages() const {
