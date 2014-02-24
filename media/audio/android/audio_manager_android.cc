@@ -35,7 +35,8 @@ AudioManager* CreateAudioManager() {
   return new AudioManagerAndroid();
 }
 
-AudioManagerAndroid::AudioManagerAndroid() {
+AudioManagerAndroid::AudioManagerAndroid()
+    : communication_mode_is_on_(false) {
   SetMaxOutputStreamsAllowed(kMaxOutputStreams);
 
   j_audio_manager_.Reset(
@@ -90,11 +91,6 @@ AudioOutputStream* AudioManagerAndroid::MakeAudioOutputStream(
   AudioOutputStream* stream =
       AudioManagerBase::MakeAudioOutputStream(params, std::string(),
           std::string());
-  if (stream && output_stream_count() == 1) {
-    SetAudioMode(kAudioModeInCommunication);
-    RegisterHeadsetReceiver();
-  }
-
   {
     base::AutoLock lock(streams_lock_);
     streams_.insert(static_cast<OpenSLESOutputStream*>(stream));
@@ -104,29 +100,44 @@ AudioOutputStream* AudioManagerAndroid::MakeAudioOutputStream(
 
 AudioInputStream* AudioManagerAndroid::MakeAudioInputStream(
     const AudioParameters& params, const std::string& device_id) {
+  bool has_no_input_streams = HasNoAudioInputStreams();
   AudioInputStream* stream =
       AudioManagerBase::MakeAudioInputStream(params, device_id);
+
+  // The audio manager for Android creates streams intended for real-time
+  // VoIP sessions and therefore sets the audio mode to MODE_IN_COMMUNICATION.
+  // If a Bluetooth headset is used, the audio stream will use the SCO
+  // channel and therefore have a limited bandwidth (8kHz).
+  if (stream && has_no_input_streams) {
+    communication_mode_is_on_ = true;
+    SetAudioMode(kAudioModeInCommunication);
+    RegisterHeadsetReceiver();
+  }
   return stream;
 }
 
 void AudioManagerAndroid::ReleaseOutputStream(AudioOutputStream* stream) {
   AudioManagerBase::ReleaseOutputStream(stream);
-  if (!output_stream_count()) {
-    UnregisterHeadsetReceiver();
-    SetAudioMode(kAudioModeNormal);
-  }
   base::AutoLock lock(streams_lock_);
   streams_.erase(static_cast<OpenSLESOutputStream*>(stream));
 }
 
 void AudioManagerAndroid::ReleaseInputStream(AudioInputStream* stream) {
   AudioManagerBase::ReleaseInputStream(stream);
+
+  // Restore the audio mode which was used before the first communication-
+  // mode stream was created.
+  if (HasNoAudioInputStreams()) {
+    communication_mode_is_on_ = false;
+    UnregisterHeadsetReceiver();
+    SetAudioMode(kAudioModeNormal);
+  }
 }
 
 AudioOutputStream* AudioManagerAndroid::MakeLinearOutputStream(
     const AudioParameters& params) {
   DCHECK_EQ(AudioParameters::AUDIO_PCM_LINEAR, params.format());
-  return new OpenSLESOutputStream(this, params);
+  return new OpenSLESOutputStream(this, params, SL_ANDROID_STREAM_MEDIA);
 }
 
 AudioOutputStream* AudioManagerAndroid::MakeLowLatencyOutputStream(
@@ -135,7 +146,12 @@ AudioOutputStream* AudioManagerAndroid::MakeLowLatencyOutputStream(
     const std::string& input_device_id) {
   DLOG_IF(ERROR, !device_id.empty()) << "Not implemented!";
   DCHECK_EQ(AudioParameters::AUDIO_PCM_LOW_LATENCY, params.format());
-  return new OpenSLESOutputStream(this, params);
+
+  // Set stream type which matches the current system-wide audio mode used by
+  // the Android audio manager.
+  const SLint32 stream_type = communication_mode_is_on_ ?
+      SL_ANDROID_STREAM_VOICE : SL_ANDROID_STREAM_MEDIA;
+  return new OpenSLESOutputStream(this, params, stream_type);
 }
 
 AudioInputStream* AudioManagerAndroid::MakeLinearInputStream(
@@ -189,6 +205,10 @@ AudioParameters AudioManagerAndroid::GetPreferredOutputStreamParameters(
   return AudioParameters(
       AudioParameters::AUDIO_PCM_LOW_LATENCY, channel_layout, input_channels,
       sample_rate, bits_per_sample, buffer_size);
+}
+
+bool AudioManagerAndroid::HasNoAudioInputStreams() {
+  return input_stream_count() == 0;
 }
 
 // static
