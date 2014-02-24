@@ -2555,6 +2555,8 @@
         'browser/usb/usb_service.h',
         'browser/user_data_dir_extractor.cc',
         'browser/user_data_dir_extractor.h',
+        'browser/user_data_dir_extractor_win.cc',
+        'browser/user_data_dir_extractor_win.h',
         'browser/value_store/leveldb_value_store.cc',
         'browser/value_store/leveldb_value_store.h',
         'browser/value_store/testing_value_store.cc',
@@ -3405,6 +3407,7 @@
             'browser/first_run/first_run_dialog.h',
             'browser/lifetime/application_lifetime_stub.cc',
             'browser/profiles/profile_shortcut_manager_stub.cc',
+            'browser/user_data_dir_extractor.cc',
           ],
           'conditions': [
             ['win_use_allocator_shim==1', {

@@ -5,8 +5,6 @@
 #ifndef CHROME_BROWSER_USER_DATA_DIR_EXTRACTOR_H_
 #define CHROME_BROWSER_USER_DATA_DIR_EXTRACTOR_H_
 
-#include "base/callback.h"
-
 namespace base {
 class FilePath;
 }
@@ -16,12 +14,6 @@ struct MainFunctionParams;
 }
 
 namespace chrome {
-
-typedef base::Callback<base::FilePath()> GetUserDataDirCallback;
-
-// Tests may install a custom GetUserDataDir() callback to override behavior.
-void InstallCustomGetUserDataDirCallbackForTest(
-    GetUserDataDirCallback* callback);
 
 // Returns the user data dir. Must be called prior to InitializeLocalState().
 base::FilePath GetUserDataDir(const content::MainFunctionParams& parameters);
