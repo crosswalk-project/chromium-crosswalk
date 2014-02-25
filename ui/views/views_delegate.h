@@ -125,8 +125,15 @@ class VIEWS_EXPORT ViewsDelegate {
   // maximized windows; otherwise to restored windows.
   virtual bool WindowManagerProvidesTitleBar(bool maximized);
 
+  virtual void SetShouldShowTitleBar(bool show_title_bar) {
+    should_show_titlebar_ = show_title_bar;
+  }
+  virtual bool ShouldShowTitleBar() const { return  should_show_titlebar_; }
+
  private:
   scoped_ptr<ViewsTouchSelectionControllerFactory> views_tsc_factory_;
+  // Set to ture if the window should have the title bar.
+  bool should_show_titlebar_;
 };
 
 }  // namespace views
