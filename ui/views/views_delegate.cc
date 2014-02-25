@@ -10,7 +10,8 @@
 namespace views {
 
 ViewsDelegate::ViewsDelegate()
-    : views_tsc_factory_(new ViewsTouchEditingControllerFactory) {
+    : views_tsc_factory_(new ViewsTouchEditingControllerFactory),
+      should_show_titlebar_(true) {
   ui::TouchEditingControllerFactory::SetInstance(views_tsc_factory_.get());
 }
 
@@ -97,5 +98,13 @@ int ViewsDelegate::GetAppbarAutohideEdges(HMONITOR monitor,
   return EDGE_BOTTOM;
 }
 #endif
+
+void ViewsDelegate::SetShouldShowTitleBar(bool show_title_bar) {
+  should_show_titlebar_ = show_title_bar;
+}
+
+bool ViewsDelegate::ShouldShowTitleBar() const {
+  return should_show_titlebar_;
+}
 
 }  // namespace views
