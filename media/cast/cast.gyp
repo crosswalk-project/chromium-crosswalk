@@ -148,7 +148,11 @@
             '<(DEPTH)/media/cast/test/receiver.cc',
           ],
           'conditions': [
-            ['OS == "linux"', {
+            ['OS == "linux and use_x11==1"', {
+              'dependencies': [
+                '<(DEPTH)/build/linux/system.gyp:x11',
+                '<(DEPTH)/build/linux/system.gyp:xext',
+              ],
               'sources': [
                 '<(DEPTH)/media/cast/test/linux_output_window.cc',
                 '<(DEPTH)/media/cast/test/linux_output_window.h',
