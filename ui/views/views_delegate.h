@@ -152,8 +152,14 @@ class VIEWS_EXPORT ViewsDelegate {
   // The active ViewsDelegate used by the views system.
   static ViewsDelegate* views_delegate;
 
+  virtual void SetShouldShowTitleBar(bool show_title_bar);
+  virtual bool ShouldShowTitleBar() const;
+
  private:
   scoped_ptr<ViewsTouchEditingControllerFactory> views_tsc_factory_;
+
+  // Set to true if the window should have the title bar.
+  bool should_show_titlebar_;
 
   DISALLOW_COPY_AND_ASSIGN(ViewsDelegate);
 };
