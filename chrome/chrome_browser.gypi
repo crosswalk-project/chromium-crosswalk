@@ -3454,7 +3454,6 @@
               'dependencies': [
                 '../build/linux/system.gyp:dbus',
                 '../build/linux/system.gyp:fontconfig',
-                '../build/linux/system.gyp:x11',
                 '../dbus/dbus.gyp:dbus',
               ],
               'sources/': [
@@ -3465,6 +3464,12 @@
             ['toolkit_uses_gtk==1', {
               'sources/': [
                 ['exclude', '^browser/lifetime/application_lifetime_stub.cc'],
+              ],
+            }],
+            # x11 build
+            ['use_x11==1', {
+              'dependencies': [
+                '../build/linux/system.gyp:x11',
               ],
             }],
           ],
