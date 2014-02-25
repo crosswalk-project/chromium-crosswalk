@@ -330,7 +330,7 @@ gfx::Rect CustomFrameView::IconBounds() const {
 
 bool CustomFrameView::ShouldShowTitleBarAndBorder() const {
   if (ViewsDelegate::views_delegate) {
-    return !ViewsDelegate::views_delegate->WindowManagerProvidesTitleBar(
+    return ViewsDelegate::views_delegate->ShouldShowTitleBar() && !ViewsDelegate::views_delegate->WindowManagerProvidesTitleBar(
                 frame_->IsMaximized());
   }
 
