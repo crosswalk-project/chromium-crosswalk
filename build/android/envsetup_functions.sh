@@ -66,6 +66,7 @@ common_vars_defines() {
 print_usage() {
   echo "usage: ${0##*/} [--target-arch=value] [--help]" >& 2
   echo "--target-arch=value     target CPU architecture (arm=default, x86)" >& 2
+  echo "--host-os=value         override host OS detection (linux, mac)" >&2
   echo "--help                  this help" >& 2
 }
 
@@ -73,10 +74,14 @@ print_usage() {
 # Process command line options.
 ################################################################################
 process_options() {
+  host_os=$(uname -s | sed -e 's/Linux/linux/;s/Darwin/mac/')
   while [[ -n $1 ]]; do
     case "$1" in
       --target-arch=*)
         target_arch="$(echo "$1" | sed 's/^[^=]*=//')"
+        ;;
+      --host-os=*)
+        host_os="$(echo "$1" | sed 's/^[^=]*=//')"
         ;;
       --help)
         print_usage
@@ -142,11 +147,20 @@ ${android_sdk_version}
   ANDROID_SDK=$(python -c \
       "import os.path; print os.path.relpath('${ANDROID_SDK_ROOT}', \
       '${ANDROID_BUILD_TOP}')")
-  ANDROID_SDK_TOOLS=$(python -c \
-      "import os.path, sys; \
-      print os.path.relpath( \
-      '${ANDROID_SDK_ROOT}/../tools/' + sys.platform.rstrip('23'), \
-      '${ANDROID_BUILD_TOP}')")
+  case "${host_os}" in
+    "linux")
+      ANDROID_SDK_TOOLS=$(python -c \
+          "import os.path; \
+          print os.path.relpath('${ANDROID_SDK_ROOT}/../tools/linux', \
+          '${ANDROID_BUILD_TOP}')")
+      ;;
+    "mac")
+      ANDROID_SDK_TOOLS=$(python -c \
+          "import os.path; \
+          print os.path.relpath('${ANDROID_SDK_ROOT}/../tools/darwin', \
+          '${ANDROID_BUILD_TOP}')")
+      ;;
+  esac
   DEFINES+=" android_webview_build=1"
   DEFINES+=" android_src=\$(PWD)"
   DEFINES+=" android_ndk_root=ndk_root_unused_in_webview_build"
