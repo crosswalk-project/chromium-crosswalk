@@ -36,6 +36,9 @@ const char kDisableBootAnimation[]          = "disable-boot-animation";
 // Disables Google Drive integration.
 const char kDisableDrive[]                  = "disable-drive";
 
+// Disables the ChromeOS demo.
+const char kDisableDemoMode[]               = "disable-demo-mode";
+
 // Disables reporting recently logged in users for enterprise-managed devices.
 const char kDisableEnterpriseUserReporting[] =
     "disable-enterprise-user-reporting";
