@@ -50,6 +50,15 @@
         '../chrome/browser/storage_monitor/volume_mount_watcher_win.h',
       ],
       'conditions': [
+        ['OS == "mac"', {
+          'link_settings': {
+            'libraries': [
+              '$(SDKROOT)/System/Library/Frameworks/DiskArbitration.framework',
+              '$(SDKROOT)/System/Library/Frameworks/Foundation.framework',
+              '$(SDKROOT)/System/Library/Frameworks/ImageCaptureCore.framework',
+            ],
+          },
+        }],
         ['OS=="linux"', {
           'dependencies': [
             '../build/linux/system.gyp:udev',
