@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.List;
 import java.util.concurrent.CancellationException;
 import java.util.concurrent.ExecutionException;
@@ -44,6 +45,7 @@ public class ResourceExtractor {
     private static final String V8_SNAPSHOT_DATA_FILENAME = "snapshot_blob.bin";
 
     private static String[] sMandatoryPaks = null;
+    private static ResourceIntercepter sIntercepter = null;
 
     // By default, we attempt to extract a pak file for the users
     // current device locale. Use setExtractImplicitLocale() to
@@ -54,6 +56,11 @@ public class ResourceExtractor {
         return ICU_DATA_FILENAME.equals(file)
                 || V8_NATIVES_DATA_FILENAME.equals(file)
                 || V8_SNAPSHOT_DATA_FILENAME.equals(file);
+    }
+
+    public interface ResourceIntercepter {
+        Set<String> getInterceptableResourceList();
+        InputStream interceptLoadingForResource(String resource);
     }
 
     private class ExtractTask extends AsyncTask<Void, Void, Void> {
@@ -128,6 +135,18 @@ public class ResourceExtractor {
                 // created above.
                 byte[] buffer = null;
                 String[] files = manager.list("");
+                if (sIntercepter != null) {
+                    Set<String> filesIncludingInterceptableFiles =
+                            sIntercepter.getInterceptableResourceList();
+                    if (filesIncludingInterceptableFiles != null &&
+                            !filesIncludingInterceptableFiles.isEmpty()) {
+                        for (String file : files) {
+                            filesIncludingInterceptableFiles.add(file);
+                        }
+                        files = new String[filesIncludingInterceptableFiles.size()];
+                        filesIncludingInterceptableFiles.toArray(files);
+                    }
+                }
                 for (String file : files) {
                     if (!paksToInstall.matcher(file).matches()) {
                         continue;
@@ -141,7 +160,10 @@ public class ResourceExtractor {
                     OutputStream os = null;
                     beginTraceSection("ExtractResource");
                     try {
-                        is = manager.open(file);
+                        if (sIntercepter != null) {
+                            is = sIntercepter.interceptLoadingForResource(file);
+                        }
+                        if (is == null) is = manager.open(file);
                         os = new FileOutputStream(output);
                         Log.i(LOGTAG, "Extracting resource " + file);
                         if (buffer == null) {
@@ -314,6 +336,19 @@ public class ResourceExtractor {
                 : "Must be called before startExtractingResources is called";
         sMandatoryPaks = mandatoryPaks;
 
+    }
+
+    /**
+     * Allow embedders to intercept the resource loading process. Embedders may
+     * want to load paks from res/raw instead of assets, since assets are not
+     * supported in Android library project.
+     * @param intercepter The instance of intercepter which provides the files list
+     * to intercept and the inputstream for the files it wants to intercept with.
+     */
+    public static void setResourceIntercepter(ResourceIntercepter intercepter) {
+        assert (sInstance == null || sInstance.mExtractTask == null)
+                : "Must be called before startExtractingResources is called";
+        sIntercepter = intercepter;
     }
 
     /**
