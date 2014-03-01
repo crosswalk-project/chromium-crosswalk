@@ -1526,7 +1526,7 @@ IN_PROC_BROWSER_TEST_F(AutofillDialogControllerI18nTest,
 
   // Switch the shipping country.
   view->SetTextContentsOfInput(ADDRESS_HOME_COUNTRY, ASCIIToUTF16("China"));
-  EXPECT_EQ(ASCIIToUTF16("Belarus"),
+  EXPECT_EQ(ASCIIToUTF16("China"),
             view->GetTextContentsOfInput(ADDRESS_HOME_COUNTRY));
   view->ActivateInput(ADDRESS_HOME_COUNTRY);
 
