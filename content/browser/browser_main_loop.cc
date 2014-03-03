@@ -125,6 +125,7 @@
 #if defined(USE_OZONE)
 #include "ui/ozone/ozone_platform.h"
 #include "ui/events/ozone/event_factory_ozone.h"
+#include "ozone/content/ozone_channel_host_factory.h"
 #endif
 
 // One of the linux specific headers defines this as a macro.
@@ -870,6 +871,10 @@ void BrowserMainLoop::ShutdownThreadsAndCleanUp() {
     TRACE_EVENT0("shutdown", "BrowserMainLoop::Subsystem:GPUChannelFactory");
     if (BrowserGpuChannelHostFactory::instance())
       BrowserGpuChannelHostFactory::Terminate();
+#if defined(USE_OZONE)
+    if (OzoneChannelHostFactory::instance())
+      OzoneChannelHostFactory::Terminate();
+#endif
   }
 
   // Must happen after the I/O thread is shutdown since this class lives on the
@@ -1031,6 +1036,14 @@ int BrowserMainLoop::BrowserThreadsStarted() {
 
 #if defined(OS_MACOSX)
   ThemeHelperMac::GetInstance();
+#endif
+
+#if defined(USE_OZONE)
+  bool using_gpu_process =
+      established_gpu_channel &&
+      !parsed_command_line_.HasSwitch(switches::kSingleProcess) &&
+      !parsed_command_line_.HasSwitch(switches::kInProcessGPU);
+  OzoneChannelHostFactory::Initialize(using_gpu_process);
 #endif
 #endif  // !defined(OS_IOS)
 
