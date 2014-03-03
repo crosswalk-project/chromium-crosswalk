@@ -215,7 +215,12 @@ LRESULT LegacyRenderWidgetHostHWND::OnScroll(UINT message,
 LRESULT LegacyRenderWidgetHostHWND::OnNCHitTest(UINT message,
                                                 WPARAM w_param,
                                                 LPARAM l_param) {
-  return ::SendMessage(GetParent(), message, w_param, l_param);
+  LRESULT hit_test = ::SendMessage(GetParent(), message, w_param, l_param);
+  // If the parent returns HTNOWHERE which can happen for popup windows, etc
+  // we return HTCLIENT.
+  if (hit_test == HTNOWHERE)
+    hit_test = HTCLIENT;
+  return hit_test;
 }
 
 LRESULT LegacyRenderWidgetHostHWND::OnNCPaint(UINT message,
