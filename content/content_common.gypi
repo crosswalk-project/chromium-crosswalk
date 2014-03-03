@@ -686,6 +686,25 @@
         },
      ]
     }],
+    ['use_ozone == 1', {
+      'sources': [
+        '<(DEPTH)/ozone/content/event_converter_in_process.h',
+        '<(DEPTH)/ozone/content/event_converter_in_process.cc',
+        '<(DEPTH)/ozone/content/messages.h',
+        '<(DEPTH)/ozone/content/message_generator.h',
+        '<(DEPTH)/ozone/content/message_generator.cc',
+        '<(DEPTH)/ozone/content/ozone_channel.h',
+        '<(DEPTH)/ozone/content/ozone_channel.cc',
+        '<(DEPTH)/ozone/content/ozone_channel_host.h',
+        '<(DEPTH)/ozone/content/ozone_channel_host.cc',
+        '<(DEPTH)/ozone/content/ozone_channel_host_factory.h',
+        '<(DEPTH)/ozone/content/ozone_channel_host_factory.cc',
+        '<(DEPTH)/ozone/content/remote_event_dispatcher.h',
+        '<(DEPTH)/ozone/content/remote_event_dispatcher.cc',
+        '<(DEPTH)/ozone/content/remote_state_change_handler.h',
+        '<(DEPTH)/ozone/content/remote_state_change_handler.cc',
+      ],
+    }],
     ['OS=="win"', {
       'dependencies': [
         '../media/media.gyp:media',
