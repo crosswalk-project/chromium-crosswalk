@@ -73,6 +73,8 @@ class CONTENT_EXPORT LegacyRenderWidgetHostHWND
     MESSAGE_HANDLER_EX(WM_TOUCH, OnTouch)
     MESSAGE_HANDLER_EX(WM_VSCROLL, OnScroll)
     MESSAGE_HANDLER_EX(WM_HSCROLL, OnScroll)
+    MESSAGE_HANDLER_EX(WM_NCCALCSIZE, OnNCCalcSize)
+    MESSAGE_HANDLER_EX(WM_SIZE, OnSize)
   END_MSG_MAP()
 
   HWND hwnd() { return m_hWnd; }
@@ -120,6 +122,8 @@ class CONTENT_EXPORT LegacyRenderWidgetHostHWND
   LRESULT OnNCPaint(UINT message, WPARAM w_param, LPARAM l_param);
   LRESULT OnPaint(UINT message, WPARAM w_param, LPARAM l_param);
   LRESULT OnSetCursor(UINT message, WPARAM w_param, LPARAM l_param);
+  LRESULT OnNCCalcSize(UINT message, WPARAM w_param, LPARAM l_param);
+  LRESULT OnSize(UINT message, WPARAM w_param, LPARAM l_param);
 
   content::BrowserAccessibilityManagerWin* manager_;
   base::win::ScopedComPtr<IAccessible> window_accessible_;
