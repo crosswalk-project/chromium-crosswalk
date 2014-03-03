@@ -51,6 +51,10 @@
 #include "content/public/common/sandbox_init.h"
 #endif
 
+#if defined(USE_OZONE)
+#include "ozone/content/ozone_channel.h"
+#endif
+
 const int kGpuTimeout = 10000;
 
 namespace content {
@@ -353,6 +357,10 @@ int GpuMain(const MainFunctionParams& parameters) {
     watchdog_thread->AddPowerObserver();
 
   {
+#if defined(USE_OZONE)
+    OzoneChannel channel;
+    channel.Register();
+#endif
     TRACE_EVENT0("gpu", "Run Message Loop");
     main_message_loop.Run();
   }
