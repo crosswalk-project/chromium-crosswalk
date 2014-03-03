@@ -278,7 +278,9 @@ class DeviceLocalAccountTest : public DevicePolicyCrosBrowserTest,
       : user_id_1_(GenerateDeviceLocalAccountUserId(
             kAccountId1, DeviceLocalAccount::TYPE_PUBLIC_SESSION)),
         user_id_2_(GenerateDeviceLocalAccountUserId(
-            kAccountId2, DeviceLocalAccount::TYPE_PUBLIC_SESSION)) {}
+            kAccountId2, DeviceLocalAccount::TYPE_PUBLIC_SESSION)) {
+    set_exit_when_last_browser_closes(false);
+  }
 
   virtual ~DeviceLocalAccountTest() {}
 
@@ -605,10 +607,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, FullscreenDisallowed) {
   if (!oobe_ui_ready)
     run_loop.Run();
 
-  // Ensure that the browser stays alive, even though no windows are opened
-  // during session start.
-  chrome::StartKeepAlive();
-
   // Start login into the device-local account.
   host->StartSignInScreen(LoginScreenContext());
   chromeos::ExistingUserController* controller =
@@ -620,8 +618,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, FullscreenDisallowed) {
   content::WindowedNotificationObserver(chrome::NOTIFICATION_SESSION_STARTED,
                                         base::Bind(IsSessionStarted)).Wait();
 
-  // Open a browser window.
-  chrome::NewEmptyWindow(GetProfileForTest(), chrome::HOST_DESKTOP_TYPE_ASH);
   BrowserList* browser_list =
     BrowserList::GetInstance(chrome::HOST_DESKTOP_TYPE_ASH);
   EXPECT_EQ(1U, browser_list->size());
@@ -629,7 +625,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, FullscreenDisallowed) {
   ASSERT_TRUE(browser);
   BrowserWindow* browser_window = browser->window();
   ASSERT_TRUE(browser_window);
-  chrome::EndKeepAlive();
 
   // Verify that an attempt to enter fullscreen mode is denied.
   EXPECT_FALSE(browser_window->IsFullscreen());
@@ -687,10 +682,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, ExtensionsUncached) {
   const bool oobe_ui_ready = oobe_ui->IsJSReady(run_loop.QuitClosure());
   if (!oobe_ui_ready)
     run_loop.Run();
-
-  // Ensure that the browser stays alive, even though no windows are opened
-  // during session start.
-  chrome::StartKeepAlive();
 
   // Start listening for app/extension installation results.
   content::WindowedNotificationObserver hosted_app_observer(
@@ -786,10 +777,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, ExtensionsCached) {
   const bool oobe_ui_ready = oobe_ui->IsJSReady(run_loop.QuitClosure());
   if (!oobe_ui_ready)
     run_loop.Run();
-
-  // Ensure that the browser stays alive, even though no windows are opened
-  // during session start.
-  chrome::StartKeepAlive();
 
   // Start listening for app/extension installation results.
   content::WindowedNotificationObserver hosted_app_observer(
@@ -912,10 +899,6 @@ IN_PROC_BROWSER_TEST_F(DeviceLocalAccountTest, ExternalData) {
   const bool oobe_ui_ready = oobe_ui->IsJSReady(run_loop->QuitClosure());
   if (!oobe_ui_ready)
     run_loop->Run();
-
-  // Ensure that the browser stays alive, even though no windows are opened
-  // during session start.
-  chrome::StartKeepAlive();
 
   // Start login into the device-local account.
   host->StartSignInScreen(LoginScreenContext());
