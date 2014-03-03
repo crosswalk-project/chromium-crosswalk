@@ -11,7 +11,6 @@
 
 #if defined(OS_ANDROID)
 #include <cpu-features.h>
-#include "base/android/build_info.h"
 #include "media/base/android/media_codec_bridge.h"
 #endif
 
@@ -30,7 +29,8 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
   // WebAudio is enabled by default only on ARM and only when the
   // MediaCodec API is available.
   WebRuntimeFeatures::enableWebAudio(
-    media::MediaCodecBridge::IsAvailable());
+      media::MediaCodecBridge::IsAvailable() &&
+      (android_getCpuFamily() == ANDROID_CPU_FAMILY_ARM));
   // Android does not support the Gamepad API.
   WebRuntimeFeatures::enableGamepad(false);
   // Android does not have support for PagePopup
