@@ -1859,6 +1859,7 @@ void RenderWidgetHostViewMac::GotAcceleratedFrame() {
   base::TimeTicks timebase;
   base::TimeDelta interval;
   if (compositing_iosurface_context_ &&
+      compositing_iosurface_context_->display_link() &&
       compositing_iosurface_context_->display_link()->GetVSyncParameters(
           &timebase, &interval)) {
     render_widget_host_->UpdateVSyncParameters(timebase, interval);

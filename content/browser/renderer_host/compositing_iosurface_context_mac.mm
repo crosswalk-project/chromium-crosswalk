@@ -147,7 +147,6 @@ CompositingIOSurfaceContext::Get(int window_number) {
   scoped_refptr<DisplayLinkMac> display_link = DisplayLinkMac::Create();
   if (!display_link) {
     LOG(ERROR) << "Failed to create display link for GL context.";
-    return NULL;
   }
 
   return new CompositingIOSurfaceContext(
