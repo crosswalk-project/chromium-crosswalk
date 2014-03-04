@@ -144,9 +144,12 @@ CompositingIOSurfaceContext::Get(int window_number) {
     return NULL;
   }
 
-  scoped_refptr<DisplayLinkMac> display_link = DisplayLinkMac::Create();
-  if (!display_link) {
-    LOG(ERROR) << "Failed to create display link for GL context.";
+  scoped_refptr<DisplayLinkMac> display_link;
+  if (!is_vsync_disabled) {
+    display_link = DisplayLinkMac::Create();
+    if (!display_link) {
+      LOG(ERROR) << "Failed to create display link for GL context.";
+    }
   }
 
   return new CompositingIOSurfaceContext(
