@@ -4,6 +4,7 @@
 {
   'variables': {
     'chromium_code': 1,
+    'external_ozone_views_files': [],
   },
   'target_defaults': {
     'conditions': [
@@ -543,6 +544,9 @@
           ],
         }],
         ['use_ozone==1', {
+          'sources': [
+            '<@(external_ozone_views_files)',
+          ],
           'dependencies': [
             '../ozone/ozone.gyp:ozone',
           ],
