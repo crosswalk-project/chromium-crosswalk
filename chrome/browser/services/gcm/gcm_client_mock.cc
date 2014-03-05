@@ -13,13 +13,10 @@
 
 namespace gcm {
 
-GCMClientMock::GCMClientMock(LoadingDelay loading_delay,
-                             ErrorSimulation error_simulation)
+GCMClientMock::GCMClientMock(Status status, ErrorSimulation error_simulation)
     : delegate_(NULL),
-      status_(UNINITIALIZED),
-      loading_delay_(loading_delay),
-      error_simulation_(error_simulation),
-      weak_ptr_factory_(this) {
+      status_(status),
+      error_simulation_(error_simulation) {
 }
 
 GCMClientMock::~GCMClientMock() {
@@ -35,26 +32,8 @@ void GCMClientMock::Initialize(
   delegate_ = delegate;
 }
 
-void GCMClientMock::Load() {
-  DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
-  DCHECK_NE(LOADED, status_);
-
-  if (loading_delay_ == DELAY_LOADING)
-    return;
-  DoLoading();
-}
-
-void GCMClientMock::DoLoading() {
-  status_ = LOADED;
-  base::MessageLoop::current()->PostTask(
-      FROM_HERE,
-      base::Bind(&GCMClientMock::CheckinFinished,
-                 weak_ptr_factory_.GetWeakPtr()));
-}
-
 void GCMClientMock::CheckOut() {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
-  status_ = CHECKED_OUT;
 }
 
 void GCMClientMock::Register(const std::string& app_id,
@@ -69,7 +48,7 @@ void GCMClientMock::Register(const std::string& app_id,
   base::MessageLoop::current()->PostTask(
       FROM_HERE,
       base::Bind(&GCMClientMock::RegisterFinished,
-                 weak_ptr_factory_.GetWeakPtr(),
+                 base::Unretained(this),
                  app_id,
                  registration_id));
 }
@@ -85,18 +64,13 @@ void GCMClientMock::Send(const std::string& app_id,
   base::MessageLoop::current()->PostTask(
       FROM_HERE,
       base::Bind(&GCMClientMock::SendFinished,
-                 weak_ptr_factory_.GetWeakPtr(),
+                 base::Unretained(this),
                  app_id,
                  message.id));
 }
 
-void GCMClientMock::PerformDelayedLoading() {
-  DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
-
-  content::BrowserThread::PostTask(
-      content::BrowserThread::IO,
-      FROM_HERE,
-      base::Bind(&GCMClientMock::DoLoading, weak_ptr_factory_.GetWeakPtr()));
+bool GCMClientMock::IsReady() const {
+  return status_ == READY;
 }
 
 void GCMClientMock::ReceiveMessage(const std::string& app_id,
@@ -107,7 +81,7 @@ void GCMClientMock::ReceiveMessage(const std::string& app_id,
       content::BrowserThread::IO,
       FROM_HERE,
       base::Bind(&GCMClientMock::MessageReceived,
-                 weak_ptr_factory_.GetWeakPtr(),
+                 base::Unretained(this),
                  app_id,
                  message));
 }
@@ -119,8 +93,20 @@ void GCMClientMock::DeleteMessages(const std::string& app_id) {
       content::BrowserThread::IO,
       FROM_HERE,
       base::Bind(&GCMClientMock::MessagesDeleted,
-                 weak_ptr_factory_.GetWeakPtr(),
+                 base::Unretained(this),
                  app_id));
+}
+
+void GCMClientMock::SetReady() {
+  DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
+  DCHECK_EQ(status_, NOT_READY);
+
+  status_ = READY;
+  content::BrowserThread::PostTask(
+      content::BrowserThread::IO,
+      FROM_HERE,
+      base::Bind(&GCMClientMock::SetReadyOnIO,
+                 base::Unretained(this)));
 }
 
 // static
@@ -145,10 +131,6 @@ std::string GCMClientMock::GetRegistrationIdFromSenderIds(
   return registration_id;
 }
 
-void GCMClientMock::CheckinFinished() {
-  delegate_->OnGCMReady();
-}
-
 void GCMClientMock::RegisterFinished(const std::string& app_id,
                                      const std::string& registrion_id) {
   delegate_->OnRegisterFinished(
@@ -164,7 +146,7 @@ void GCMClientMock::SendFinished(const std::string& app_id,
     base::MessageLoop::current()->PostDelayedTask(
         FROM_HERE,
         base::Bind(&GCMClientMock::MessageSendError,
-                   weak_ptr_factory_.GetWeakPtr(),
+                   base::Unretained(this),
                    app_id,
                    message_id),
         base::TimeDelta::FromMilliseconds(200));
@@ -186,6 +168,10 @@ void GCMClientMock::MessageSendError(const std::string& app_id,
                                      const std::string& message_id) {
   if (delegate_)
     delegate_->OnMessageSendError(app_id, message_id, NETWORK_ERROR);
+}
+
+void GCMClientMock::SetReadyOnIO() {
+  delegate_->OnGCMReady();
 }
 
 }  // namespace gcm

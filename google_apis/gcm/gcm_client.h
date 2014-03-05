@@ -132,8 +132,7 @@ class GCM_EXPORT GCMClient {
   GCMClient();
   virtual ~GCMClient();
 
-  // Begins initialization of the GCM Client. This will not trigger a
-  // connection.
+  // Begins initialization of the GCM Client.
   // |chrome_build_proto|: chrome info, i.e., version, channel and etc.
   // |store_path|: path to the GCM store.
   // |blocking_task_runner|: for running blocking file tasks.
@@ -147,10 +146,6 @@ class GCM_EXPORT GCMClient {
       const scoped_refptr<net::URLRequestContextGetter>&
           url_request_context_getter,
       Delegate* delegate) = 0;
-
-  // Loads the data from the persistent store. This will automatically kick off
-  // the check-in if the check-in info is not found in the store.
-  virtual void Load() = 0;
 
   // Checks out of the GCM service. This will erase all the cached and persisted
   // data.
@@ -181,6 +176,9 @@ class GCM_EXPORT GCMClient {
   virtual void Send(const std::string& app_id,
                     const std::string& receiver_id,
                     const OutgoingMessage& message) = 0;
+
+  // Returns true if GCM becomes ready.
+  virtual bool IsReady() const = 0;
 };
 
 }  // namespace gcm

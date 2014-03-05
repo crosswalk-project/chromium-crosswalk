@@ -9,7 +9,6 @@
 #include "chrome/browser/services/gcm/fake_gcm_profile_service.h"
 #include "chrome/browser/services/gcm/gcm_client_factory.h"
 #include "chrome/browser/services/gcm/gcm_profile_service_factory.h"
-#include "chrome/common/chrome_switches.h"
 #include "chrome/common/extensions/features/feature_channel.h"
 #include "chrome/test/base/ui_test_utils.h"
 
@@ -26,7 +25,6 @@ class GcmApiTest : public ExtensionApiTest {
   GcmApiTest() : fake_gcm_profile_service_(NULL) {}
 
  protected:
-  virtual void SetUpCommandLine(CommandLine* command_line) OVERRIDE;
   virtual void SetUpOnMainThread() OVERRIDE;
 
   void StartCollecting();
@@ -40,24 +38,13 @@ class GcmApiTest : public ExtensionApiTest {
   gcm::FakeGCMProfileService* fake_gcm_profile_service_;
 };
 
-void GcmApiTest::SetUpCommandLine(CommandLine* command_line) {
-  // We now always create the GCMProfileService instance in
-  // ProfileSyncServiceFactory that is called when a profile is being
-  // initialized. In order to prevent it from being created, we add the switch
-  // to disable the sync logic.
-  command_line->AppendSwitch(switches::kDisableSync);
-
-  ExtensionApiTest::SetUpCommandLine(command_line);
-}
-
 void GcmApiTest::SetUpOnMainThread() {
   gcm::GCMProfileServiceFactory::GetInstance()->SetTestingFactory(
       browser()->profile(), &gcm::FakeGCMProfileService::Build);
   fake_gcm_profile_service_ = static_cast<gcm::FakeGCMProfileService*>(
       gcm::GCMProfileServiceFactory::GetInstance()->GetForProfile(
           browser()->profile()));
-
-  ExtensionApiTest::SetUpOnMainThread();
+  gcm::FakeGCMProfileService::EnableGCMForTesting();
 }
 
 void GcmApiTest::StartCollecting() {

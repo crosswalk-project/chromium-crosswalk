@@ -232,7 +232,7 @@ class GCMProfileService::IOWorker
       public base::RefCountedThreadSafe<GCMProfileService::IOWorker>{
  public:
   // Called on UI thread.
-  IOWorker();
+  explicit IOWorker(const base::WeakPtr<GCMProfileService>& service);
 
   // Overridden from GCMClient::Delegate:
   // Called on IO thread.
@@ -255,12 +255,11 @@ class GCMProfileService::IOWorker
 
   // Called on IO thread.
   void Initialize(
-      scoped_ptr<GCMClientFactory> gcm_client_factory,
+      GCMClientFactory* gcm_client_factory,
       const base::FilePath& store_path,
       const scoped_refptr<net::URLRequestContextGetter>&
           url_request_context_getter);
   void Reset();
-  void Load(const base::WeakPtr<GCMProfileService>& service);
   void CheckOut();
   void Register(const std::string& app_id,
                 const std::vector<std::string>& sender_ids,
@@ -270,19 +269,18 @@ class GCMProfileService::IOWorker
             const std::string& receiver_id,
             const GCMClient::OutgoingMessage& message);
 
-  // For testing purpose. Can be called from UI thread. Use with care.
-  GCMClient* gcm_client_for_testing() const { return gcm_client_.get(); }
-
  private:
   friend class base::RefCountedThreadSafe<IOWorker>;
   virtual ~IOWorker();
 
-  base::WeakPtr<GCMProfileService> service_;
+  const base::WeakPtr<GCMProfileService> service_;
 
   scoped_ptr<GCMClient> gcm_client_;
 };
 
-GCMProfileService::IOWorker::IOWorker() {
+GCMProfileService::IOWorker::IOWorker(
+    const base::WeakPtr<GCMProfileService>& service)
+    : service_(service) {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 }
 
@@ -290,7 +288,7 @@ GCMProfileService::IOWorker::~IOWorker() {
 }
 
 void GCMProfileService::IOWorker::Initialize(
-    scoped_ptr<GCMClientFactory> gcm_client_factory,
+    GCMClientFactory* gcm_client_factory,
     const base::FilePath& store_path,
     const scoped_refptr<net::URLRequestContextGetter>&
         url_request_context_getter) {
@@ -315,6 +313,13 @@ void GCMProfileService::IOWorker::Initialize(
                           blocking_task_runner,
                           url_request_context_getter,
                           this);
+
+  content::BrowserThread::PostTask(
+      content::BrowserThread::UI,
+      FROM_HERE,
+      base::Bind(&GCMProfileService::FinishInitializationOnUI,
+                 service_,
+                 gcm_client_->IsReady()));
 }
 
 void GCMProfileService::IOWorker::Reset() {
@@ -412,21 +417,11 @@ void GCMProfileService::IOWorker::OnGCMReady() {
                  service_));
 }
 
-void GCMProfileService::IOWorker::Load(
-    const base::WeakPtr<GCMProfileService>& service) {
-  DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
-
-  service_ = service;
-  gcm_client_->Load();
-}
-
 void GCMProfileService::IOWorker::CheckOut() {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
 
   gcm_client_->CheckOut();
-
-  // Note that we still need to keep GCMClient instance alive since the profile
-  // might be signed in again.
+  gcm_client_.reset();
 }
 
 void GCMProfileService::IOWorker::Register(
@@ -463,19 +458,18 @@ bool GCMProfileService::RegistrationInfo::IsValid() const {
   return !sender_ids.empty() && !registration_id.empty();
 }
 
+bool GCMProfileService::enable_gcm_for_testing_ = false;
+
 // static
-GCMProfileService::GCMEnabledState GCMProfileService::GetGCMEnabledState(
-    Profile* profile) {
-  const base::Value* gcm_enabled_value =
-      profile->GetPrefs()->GetUserPrefValue(prefs::kGCMChannelEnabled);
-  if (!gcm_enabled_value)
-    return ENABLED_FOR_APPS;
+bool GCMProfileService::IsGCMEnabled(Profile* profile) {
+  // GCM is not enabled in incognito mode.
+  if (profile->IsOffTheRecord())
+    return false;
 
-  bool gcm_enabled = false;
-  if (!gcm_enabled_value->GetAsBoolean(&gcm_enabled))
-    return ENABLED_FOR_APPS;
+  if (enable_gcm_for_testing_)
+    return true;
 
-  return gcm_enabled ? ALWAYS_ENABLED : ALWAYS_DISABLED;
+  return profile->GetPrefs()->GetBoolean(prefs::kGCMChannelEnabled);
 }
 
 // static
@@ -511,6 +505,15 @@ GCMProfileService::~GCMProfileService() {
 
 void GCMProfileService::Initialize(
     scoped_ptr<GCMClientFactory> gcm_client_factory) {
+  gcm_client_factory_ = gcm_client_factory.Pass();
+
+  // This has to be done first since CheckIn depends on it.
+  io_worker_ = new IOWorker(weak_ptr_factory_.GetWeakPtr());
+
+#if !defined(OS_ANDROID)
+  js_event_router_.reset(new extensions::GcmJsEventRouter(profile_));
+#endif
+
   registrar_.Add(this,
                  chrome::NOTIFICATION_GOOGLE_SIGNIN_SUCCESSFUL,
                  content::Source<Profile>(profile_));
@@ -525,24 +528,14 @@ void GCMProfileService::Initialize(
                  chrome:: NOTIFICATION_EXTENSION_UNINSTALLED,
                  content::Source<Profile>(profile_));
 
-  // Create and initialize the GCMClient. Note that this does not initiate the
-  // GCM check-in.
-  io_worker_ = new IOWorker();
-  scoped_refptr<net::URLRequestContextGetter> url_request_context_getter =
-      profile_->GetRequestContext();
-  content::BrowserThread::PostTask(
-      content::BrowserThread::IO,
-      FROM_HERE,
-      base::Bind(&GCMProfileService::IOWorker::Initialize,
-                 io_worker_,
-                 base::Passed(&gcm_client_factory),
-                 profile_->GetPath().Append(chrome::kGCMStoreDirname),
-                 url_request_context_getter));
-
-  // Load from the GCM store and initiate the GCM check-in if the rollout signal
-  // indicates yes.
-  if (GetGCMEnabledState(profile_) == ALWAYS_ENABLED)
-    EnsureLoaded();
+  // In case that the profile has been signed in before GCMProfileService is
+  // created.
+  SigninManagerBase* manager = SigninManagerFactory::GetForProfile(profile_);
+  if (manager) {
+    std::string username = manager->GetAuthenticatedUsername();
+    if (!username.empty())
+      CheckIn(username);
+  }
 }
 
 void GCMProfileService::Register(const std::string& app_id,
@@ -551,9 +544,6 @@ void GCMProfileService::Register(const std::string& app_id,
                                  RegisterCallback callback) {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
   DCHECK(!app_id.empty() && !sender_ids.empty() && !callback.is_null());
-
-  // Ensure that check-in has been done.
-  EnsureLoaded();
 
   // If the profile was not signed in, bail out.
   if (username_.empty()) {
@@ -640,9 +630,6 @@ void GCMProfileService::Send(const std::string& app_id,
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
   DCHECK(!app_id.empty() && !receiver_id.empty() && !callback.is_null());
 
-  // Ensure that check-in has been done.
-  EnsureLoaded();
-
   // If the profile was not signed in, bail out.
   if (username_.empty()) {
     callback.Run(std::string(), GCMClient::NOT_SIGNED_IN);
@@ -687,10 +674,6 @@ void GCMProfileService::DoSend(const std::string& app_id,
                  message));
 }
 
-GCMClient* GCMProfileService::GetGCMClientForTesting() const {
-  return io_worker_ ? io_worker_->gcm_client_for_testing() : NULL;
-}
-
 void GCMProfileService::Observe(int type,
                                 const content::NotificationSource& source,
                                 const content::NotificationDetails& details) {
@@ -698,8 +681,11 @@ void GCMProfileService::Observe(int type,
 
   switch (type) {
     case chrome::NOTIFICATION_GOOGLE_SIGNIN_SUCCESSFUL: {
-      if (GetGCMEnabledState(profile_) == ALWAYS_ENABLED)
-        EnsureLoaded();
+      const GoogleServiceSigninSuccessDetails* signin_details =
+          content::Details<GoogleServiceSigninSuccessDetails>(details).ptr();
+      // This could be called multiple times when the password changed.
+      if (username_ != signin_details->username)
+        CheckIn(signin_details->username);
       break;
     }
     case chrome::NOTIFICATION_GOOGLE_SIGNED_OUT:
@@ -708,67 +694,45 @@ void GCMProfileService::Observe(int type,
     case chrome::NOTIFICATION_PROFILE_DESTROYED:
       ResetGCMClient();
       break;
-    case chrome:: NOTIFICATION_EXTENSION_UNINSTALLED:
-      if (!username_.empty()) {
-        extensions::Extension* extension =
-            content::Details<extensions::Extension>(details).ptr();
-        Unregister(extension->id());
-      }
+    case chrome:: NOTIFICATION_EXTENSION_UNINSTALLED: {
+      extensions::Extension* extension =
+          content::Details<extensions::Extension>(details).ptr();
+      Unregister(extension->id());
       break;
+    }
     default:
       NOTREACHED();
   }
 }
 
-void GCMProfileService::EnsureLoaded() {
-  SigninManagerBase* manager = SigninManagerFactory::GetForProfile(profile_);
-  if (!manager)
-    return;
-  std::string username = manager->GetAuthenticatedUsername();
-  if (username.empty())
-    return;
-
-  // CheckIn could be called more than once when:
-  // 1) The password changes.
-  // 2) Register/send function calls it to ensure CheckIn is done.
-  if (username_ == username)
-    return;
+void GCMProfileService::CheckIn(const std::string& username) {
+  DCHECK(!username.empty() && username_.empty());
   username_ = username;
-
-#if !defined(OS_ANDROID)
-  if (!js_event_router_)
-    js_event_router_.reset(new extensions::GcmJsEventRouter(profile_));
-#endif
 
   DCHECK(!delayed_task_controller_);
   delayed_task_controller_.reset(new DelayedTaskController);
 
-  // Load all the registered apps.
+  // Load all register apps.
   ReadRegisteredAppIDs();
 
-  // This will load the data from the gcm store and trigger the check-in if
-  // the persisted check-in info is not found.
-  // Note that we need to pass weak pointer again since the existing weak
-  // pointer in IOWorker might have been invalidated when check-out occurs.
+  // Let the IO thread create and initialize GCMClient.
+  scoped_refptr<net::URLRequestContextGetter> url_request_context_getter =
+      profile_->GetRequestContext();
   content::BrowserThread::PostTask(
       content::BrowserThread::IO,
       FROM_HERE,
-      base::Bind(&GCMProfileService::IOWorker::Load,
+      base::Bind(&GCMProfileService::IOWorker::Initialize,
                  io_worker_,
-                 weak_ptr_factory_.GetWeakPtr()));
+                 gcm_client_factory_.get(),
+                 profile_->GetPath().Append(chrome::kGCMStoreDirname),
+                 url_request_context_getter));
 }
 
 void GCMProfileService::CheckOut() {
   DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  // We still proceed with the check-out logic even if the check-in is not
-  // initiated in the current session. This will make sure that all the
-  // persisted data written previously will get purged.
+  DCHECK(!username_.empty());
   username_.clear();
-
-  // Remove all the queued tasks since they no longer make sense after
-  // check-out.
-  weak_ptr_factory_.InvalidateWeakPtrs();
 
   // Remove persisted data from app's state store.
   for (RegistrationInfoMap::const_iterator iter =
@@ -778,6 +742,7 @@ void GCMProfileService::CheckOut() {
   }
 
   // Remove persisted data from prefs store.
+  profile_->GetPrefs()->ClearPref(prefs::kGCMChannelEnabled);
   profile_->GetPrefs()->ClearPref(prefs::kGCMRegisteredAppIDs);
 
   gcm_client_ready_ = false;
@@ -921,6 +886,14 @@ void GCMProfileService::MessageSendError(const std::string& app_id,
     return;
 
   GetEventRouter(app_id)->OnSendError(app_id, message_id, result);
+}
+
+void GCMProfileService::FinishInitializationOnUI(bool ready) {
+  DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
+
+  gcm_client_ready_ = ready;
+  if (gcm_client_ready_)
+    delayed_task_controller_->SetGCMReady();
 }
 
 void GCMProfileService::GCMClientReady() {

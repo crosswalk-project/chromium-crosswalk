@@ -14,8 +14,7 @@ namespace gcm {
 
 // static
 GCMProfileService* GCMProfileServiceFactory::GetForProfile(Profile* profile) {
-  // GCM is not supported in incognito mode.
-  if (profile->IsOffTheRecord())
+  if (!gcm::GCMProfileService::IsGCMEnabled(profile))
     return NULL;
 
   return static_cast<GCMProfileService*>(
@@ -39,6 +38,8 @@ GCMProfileServiceFactory::~GCMProfileServiceFactory() {
 BrowserContextKeyedService* GCMProfileServiceFactory::BuildServiceInstanceFor(
     content::BrowserContext* context) const {
   Profile* profile = static_cast<Profile*>(context);
+  if (!gcm::GCMProfileService::IsGCMEnabled(profile))
+    return NULL;
   GCMProfileService* service = new GCMProfileService(profile);
   scoped_ptr<GCMClientFactory> gcm_client_factory(new GCMClientFactory);
   service->Initialize(gcm_client_factory.Pass());

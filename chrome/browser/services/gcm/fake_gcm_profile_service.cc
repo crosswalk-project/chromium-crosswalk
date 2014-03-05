@@ -19,6 +19,11 @@ BrowserContextKeyedService* FakeGCMProfileService::Build(
   return new FakeGCMProfileService(profile);
 }
 
+// static
+void FakeGCMProfileService::EnableGCMForTesting() {
+  GCMProfileService::enable_gcm_for_testing_ = true;
+}
+
 FakeGCMProfileService::FakeGCMProfileService(Profile* profile)
     : GCMProfileService(profile),
       collect_(false) {}

@@ -98,14 +98,7 @@ class Waiter {
   void OnIOLoopPump() {
     DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
 
-    content::BrowserThread::PostTask(
-        content::BrowserThread::IO,
-        FROM_HERE,
-        base::Bind(&Waiter::OnIOLoopPumpCompleted, base::Unretained(this)));
-  }
-
-  void OnIOLoopPumpCompleted() {
-    DCHECK(content::BrowserThread::CurrentlyOn(content::BrowserThread::IO));
+    base::MessageLoop::current()->RunUntilIdle();
 
     content::BrowserThread::PostTask(
         content::BrowserThread::UI,
@@ -221,9 +214,9 @@ class FakeGCMEventRouter : public GCMEventRouter {
 class FakeGCMClientFactory : public GCMClientFactory {
  public:
   FakeGCMClientFactory(
-      GCMClientMock::LoadingDelay gcm_client_loading_delay,
+      GCMClientMock::Status gcm_client_initial_status,
       GCMClientMock::ErrorSimulation gcm_client_error_simulation)
-      : gcm_client_loading_delay_(gcm_client_loading_delay),
+      : gcm_client_initial_status_(gcm_client_initial_status),
         gcm_client_error_simulation_(gcm_client_error_simulation),
         gcm_client_(NULL) {
   }
@@ -232,7 +225,7 @@ class FakeGCMClientFactory : public GCMClientFactory {
   }
 
   virtual scoped_ptr<GCMClient> BuildInstance() OVERRIDE {
-    gcm_client_ = new GCMClientMock(gcm_client_loading_delay_,
+    gcm_client_ = new GCMClientMock(gcm_client_initial_status_,
                                     gcm_client_error_simulation_);
     return scoped_ptr<GCMClient>(gcm_client_);
   }
@@ -240,7 +233,7 @@ class FakeGCMClientFactory : public GCMClientFactory {
   GCMClientMock* gcm_client() const { return gcm_client_; }
 
  private:
-  GCMClientMock::LoadingDelay gcm_client_loading_delay_;
+  GCMClientMock::Status gcm_client_initial_status_;
   GCMClientMock::ErrorSimulation gcm_client_error_simulation_;
   GCMClientMock* gcm_client_;
 
@@ -263,7 +256,7 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
       : waiter_(waiter),
         extension_service_(NULL),
         signin_manager_(NULL),
-        gcm_client_loading_delay_(GCMClientMock::NO_DELAY_LOADING),
+        gcm_client_initial_status_(GCMClientMock::READY),
         gcm_client_error_simulation_(GCMClientMock::ALWAYS_SUCCEED),
         registration_result_(GCMClient::SUCCESS),
         has_persisted_registration_info_(false),
@@ -285,7 +278,7 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
     extension_service_ = extension_system->Get(profile())->extension_service();
 
     // Enable GCM such that tests could be run on all channels.
-    profile()->GetPrefs()->SetBoolean(prefs::kGCMChannelEnabled, true);
+    GCMProfileService::enable_gcm_for_testing_ = true;
 
     // Mock a GCMEventRouter.
     gcm_event_router_.reset(new FakeGCMEventRouter(waiter_));
@@ -341,7 +334,7 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
             profile(), &GCMProfileServiceTestConsumer::BuildGCMProfileService));
     gcm_profile_service->set_testing_delegate(this);
     scoped_ptr<GCMClientFactory> gcm_client_factory(
-        new FakeGCMClientFactory(gcm_client_loading_delay_,
+        new FakeGCMClientFactory(gcm_client_initial_status_,
                                  gcm_client_error_simulation_));
     gcm_profile_service->Initialize(gcm_client_factory.Pass());
     waiter_->PumpIOLoop();
@@ -418,8 +411,8 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
   }
 
   GCMClientMock* GetGCMClient() const {
-    return static_cast<GCMClientMock*>(
-        GetGCMProfileService()->GetGCMClientForTesting());
+    return static_cast<FakeGCMClientFactory*>(
+        GetGCMProfileService()->gcm_client_factory_.get())->gcm_client();
   }
 
   const std::string& GetUsername() const {
@@ -439,8 +432,8 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
     return gcm_event_router_.get();
   }
 
-  void set_gcm_client_loading_delay(GCMClientMock::LoadingDelay delay) {
-    gcm_client_loading_delay_ = delay;
+  void set_gcm_client_initial_status(GCMClientMock::Status status) {
+    gcm_client_initial_status_ = status;
   }
   void set_gcm_client_error_simulation(GCMClientMock::ErrorSimulation error) {
     gcm_client_error_simulation_ = error;
@@ -472,7 +465,7 @@ class GCMProfileServiceTestConsumer : public GCMProfileService::TestingDelegate{
   FakeSigninManager* signin_manager_;  // Not owned.
   scoped_ptr<FakeGCMEventRouter> gcm_event_router_;
 
-  GCMClientMock::LoadingDelay gcm_client_loading_delay_;
+  GCMClientMock::Status gcm_client_initial_status_;
   GCMClientMock::ErrorSimulation gcm_client_error_simulation_;
 
   std::string registration_id_;
@@ -591,67 +584,7 @@ TEST_F(GCMProfileServiceTest, CreateGCMProfileServiceAfterProfileSignIn) {
   EXPECT_FALSE(consumer()->GetUsername().empty());
 }
 
-TEST_F(GCMProfileServiceTest, SignInAndSignOutUnderPositiveChannelSignal) {
-  // Positive channel signal is provided in SetUp.
-  consumer()->CreateGCMProfileServiceInstance();
-  consumer()->SignIn(kTestingUsername);
-
-  // GCMClient should be loaded.
-  EXPECT_TRUE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::LOADED, consumer()->GetGCMClient()->status());
-
-  consumer()->SignOut();
-
-  // GCMClient should be checked out.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::CHECKED_OUT, consumer()->GetGCMClient()->status());
-}
-
-TEST_F(GCMProfileServiceTest, SignInAndSignOutUnderNegativeChannelSignal) {
-  // Negative channel signal will prevent GCMClient from checking in when the
-  // profile is signed in.
-  profile()->GetPrefs()->SetBoolean(prefs::kGCMChannelEnabled, false);
-
-  consumer()->CreateGCMProfileServiceInstance();
-  consumer()->SignIn(kTestingUsername);
-
-  // GCMClient should not be loaded.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::UNINITIALIZED, consumer()->GetGCMClient()->status());
-
-  consumer()->SignOut();
-
-  // Check-out should still be performed.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::CHECKED_OUT, consumer()->GetGCMClient()->status());
-}
-
-TEST_F(GCMProfileServiceTest, SignOutAndThenSignIn) {
-  // Positive channel signal is provided in SetUp.
-  consumer()->CreateGCMProfileServiceInstance();
-  consumer()->SignIn(kTestingUsername);
-
-  // GCMClient should be loaded.
-  EXPECT_TRUE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::LOADED, consumer()->GetGCMClient()->status());
-
-  consumer()->SignOut();
-
-  // GCMClient should be checked out.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::CHECKED_OUT, consumer()->GetGCMClient()->status());
-
-  // Sign-in with a different username.
-  consumer()->SignIn(kTestingUsername2);
-
-  // GCMClient should be loaded again.
-  EXPECT_TRUE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::LOADED, consumer()->GetGCMClient()->status());
-}
-
-TEST_F(GCMProfileServiceTest, RegisterWhenNotSignedIn) {
-  consumer()->CreateGCMProfileServiceInstance();
-
+TEST_F(GCMProfileServiceTest, RegsiterWhenNotSignedIn) {
   std::vector<std::string> sender_ids;
   sender_ids.push_back("sender1");
   consumer()->Register(kTestingAppId, sender_ids);
@@ -660,38 +593,7 @@ TEST_F(GCMProfileServiceTest, RegisterWhenNotSignedIn) {
   EXPECT_EQ(GCMClient::NOT_SIGNED_IN, consumer()->registration_result());
 }
 
-TEST_F(GCMProfileServiceTest, RegisterUnderNeutralChannelSignal) {
-  // Neutral channel signal will prevent GCMClient from checking in when the
-  // profile is signed in.
-  profile()->GetPrefs()->ClearPref(prefs::kGCMChannelEnabled);
-
-  consumer()->CreateGCMProfileServiceInstance();
-  consumer()->SignIn(kTestingUsername);
-
-  // GCMClient should not be checked in.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::UNINITIALIZED, consumer()->GetGCMClient()->status());
-
-  // Invoking register will make GCMClient checked in.
-  std::vector<std::string> sender_ids;
-  sender_ids.push_back("sender1");
-  consumer()->Register(kTestingAppId, sender_ids);
-  WaitUntilCompleted();
-
-  // GCMClient should be checked in.
-  EXPECT_TRUE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::LOADED, consumer()->GetGCMClient()->status());
-
-  // Registration should succeed.
-  std::string expected_registration_id =
-      GCMClientMock::GetRegistrationIdFromSenderIds(sender_ids);
-  EXPECT_EQ(expected_registration_id, consumer()->registration_id());
-  EXPECT_EQ(GCMClient::SUCCESS, consumer()->registration_result());
-}
-
 TEST_F(GCMProfileServiceTest, SendWhenNotSignedIn) {
-  consumer()->CreateGCMProfileServiceInstance();
-
   GCMClient::OutgoingMessage message;
   message.id = "1";
   message.data["key1"] = "value1";
@@ -699,34 +601,6 @@ TEST_F(GCMProfileServiceTest, SendWhenNotSignedIn) {
 
   EXPECT_TRUE(consumer()->send_message_id().empty());
   EXPECT_EQ(GCMClient::NOT_SIGNED_IN, consumer()->send_result());
-}
-
-TEST_F(GCMProfileServiceTest, SendUnderNeutralChannelSignal) {
-  // Neutral channel signal will prevent GCMClient from checking in when the
-  // profile is signed in.
-  profile()->GetPrefs()->ClearPref(prefs::kGCMChannelEnabled);
-
-  consumer()->CreateGCMProfileServiceInstance();
-  consumer()->SignIn(kTestingUsername);
-
-  // GCMClient should not be checked in.
-  EXPECT_FALSE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::UNINITIALIZED, consumer()->GetGCMClient()->status());
-
-  // Invoking send will make GCMClient checked in.
-  GCMClient::OutgoingMessage message;
-  message.id = "1";
-  message.data["key1"] = "value1";
-  consumer()->Send(kTestingAppId, kUserId, message);
-  WaitUntilCompleted();
-
-  // GCMClient should be checked in.
-  EXPECT_TRUE(consumer()->IsGCMClientReady());
-  EXPECT_EQ(GCMClientMock::LOADED, consumer()->GetGCMClient()->status());
-
-  // Sending should succeed.
-  EXPECT_EQ(consumer()->send_message_id(), message.id);
-  EXPECT_EQ(GCMClient::SUCCESS, consumer()->send_result());
 }
 
 // Tests single-profile.
@@ -745,6 +619,29 @@ class GCMProfileServiceSingleProfileTest : public GCMProfileServiceTest {
     consumer()->SignIn(kTestingUsername);
   }
 };
+
+TEST_F(GCMProfileServiceSingleProfileTest, SignOut) {
+  EXPECT_TRUE(consumer()->IsGCMClientReady());
+
+  // This will trigger check-out.
+  consumer()->SignOut();
+
+  EXPECT_FALSE(consumer()->IsGCMClientReady());
+}
+
+TEST_F(GCMProfileServiceSingleProfileTest, SignOutAndThenSignIn) {
+  EXPECT_TRUE(consumer()->IsGCMClientReady());
+
+  // This will trigger check-out.
+  consumer()->SignOut();
+
+  EXPECT_FALSE(consumer()->IsGCMClientReady());
+
+  // Sign-in with a different username.
+  consumer()->SignIn(kTestingUsername2);
+
+  EXPECT_TRUE(consumer()->IsGCMClientReady());
+}
 
 TEST_F(GCMProfileServiceSingleProfileTest, Register) {
   std::vector<std::string> sender_ids;
@@ -869,7 +766,6 @@ TEST_F(GCMProfileServiceSingleProfileTest, ReadRegistrationFromStateStore) {
 
   // This should read the registration info from the extension's state store.
   consumer()->Register(extension->id(), sender_ids);
-  PumpIOLoop();
   PumpUILoop();
   EXPECT_EQ(old_registration_id, consumer()->registration_id());
   EXPECT_EQ(GCMClient::SUCCESS, consumer()->registration_result());
@@ -892,8 +788,10 @@ TEST_F(GCMProfileServiceSingleProfileTest,
   // preparation to call register 2nd time.
   consumer()->clear_registration_result();
 
+  // Needs to create a GCMClient instance that is not ready initiallly.
+  consumer()->set_gcm_client_initial_status(GCMClientMock::NOT_READY);
+
   // Simulate start-up by recreating GCMProfileService.
-  consumer()->set_gcm_client_loading_delay(GCMClientMock::DELAY_LOADING);
   consumer()->CreateGCMProfileServiceInstance();
 
   // Simulate start-up by reloading extension.
@@ -907,7 +805,7 @@ TEST_F(GCMProfileServiceSingleProfileTest,
   EXPECT_EQ(GCMClient::UNKNOWN_ERROR, consumer()->registration_result());
 
   // Register operation will be invoked after GCMClient becomes ready.
-  consumer()->GetGCMClient()->PerformDelayedLoading();
+  consumer()->GetGCMClient()->SetReady();
   WaitUntilCompleted();
   EXPECT_EQ(old_registration_id, consumer()->registration_id());
   EXPECT_EQ(GCMClient::SUCCESS, consumer()->registration_result());
