@@ -575,3 +575,16 @@ IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest, DeleteFrameBeforeSubmit) {
   observer.Wait();
   // The only thing we check here is that there is no use-after-free reported.
 }
+
+// Test fix for crbug.com/338650.
+IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest,
+                       DontPromptForPasswordFormWithDefaultValue) {
+  NavigateToFile("/password/password_form_with_default_value.html");
+
+  // Don't prompt if we navigate away even if there is a password value since
+  // it's not coming from the user.
+  NavigationObserver observer(WebContents());
+  NavigateToFile("/password/done.html");
+  observer.Wait();
+  EXPECT_FALSE(observer.infobar_shown());
+}
