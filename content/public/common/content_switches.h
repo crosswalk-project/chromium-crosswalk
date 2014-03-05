@@ -133,7 +133,7 @@ CONTENT_EXPORT extern const char kEnableEncryptedMedia[];
 CONTENT_EXPORT extern const char kEnableExperimentalCanvasFeatures[];
 CONTENT_EXPORT extern const char kEnableExperimentalWebPlatformFeatures[];
 CONTENT_EXPORT extern const char kEnableExperimentalWebSocket[];
-CONTENT_EXPORT extern const char kEnableFastTextAutosizing[];
+extern const char kEnableFastTextAutosizing[];
 CONTENT_EXPORT extern const char kEnableFileCookies[];
 CONTENT_EXPORT extern const char kEnableFixedPositionCreatesStackingContext[];
 CONTENT_EXPORT extern const char kEnableGestureTapHighlight[];
