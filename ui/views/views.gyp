@@ -4,6 +4,7 @@
 {
   'variables': {
     'chromium_code': 1,
+    'external_ozone_views_files': [],
     # Sources lists shared with GN build.
     'views_sources': [
       'accessibility/native_view_accessibility.cc',
@@ -645,6 +646,9 @@
           'msvs_disabled_warnings': [ 4267, ],
         }],
         ['use_ozone==1', {
+          'sources': [
+            '<@(external_ozone_views_files)',
+          ],
           'dependencies': [
             '../ozone/ozone.gyp:ozone',
           ],
