@@ -60,6 +60,7 @@ class ContentViewCoreImpl : public ContentViewCore,
   virtual void GetScaledContentBitmap(
       float scale,
       gfx::Size* out_size,
+      gfx::Rect src_rect,
       const base::Callback<void(bool, const SkBitmap&)>& result_callback)
       OVERRIDE;
   virtual float GetDpiScale() const OVERRIDE;
