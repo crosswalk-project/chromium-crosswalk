@@ -692,14 +692,14 @@ void ContentViewCoreImpl::ShowPastePopup(int x_dip, int y_dip) {
 void ContentViewCoreImpl::GetScaledContentBitmap(
     float scale,
     gfx::Size* out_size,
+    gfx::Rect src_subrect,
     const base::Callback<void(bool, const SkBitmap&)>& result_callback) {
   RenderWidgetHostViewAndroid* view = GetRenderWidgetHostViewAndroid();
   if (!view) {
     result_callback.Run(false, SkBitmap());
     return;
   }
-
-  view->GetScaledContentBitmap(scale, out_size, result_callback);
+  view->GetScaledContentBitmap(scale, out_size, src_subrect, result_callback);
 }
 
 void ContentViewCoreImpl::StartContentIntent(const GURL& content_url) {
@@ -1467,16 +1467,6 @@ jboolean ContentViewCoreImpl::OnAnimate(JNIEnv* env, jobject /* obj */,
     return false;
 
   return view->Animate(base::TimeTicks::FromInternalValue(frame_time_micros));
-}
-
-jboolean ContentViewCoreImpl::PopulateBitmapFromCompositor(JNIEnv* env,
-                                                           jobject obj,
-                                                           jobject jbitmap) {
-  RenderWidgetHostViewAndroid* view = GetRenderWidgetHostViewAndroid();
-  if (!view)
-    return false;
-
-  return view->PopulateBitmapWithContents(jbitmap);
 }
 
 void ContentViewCoreImpl::WasResized(JNIEnv* env, jobject obj) {

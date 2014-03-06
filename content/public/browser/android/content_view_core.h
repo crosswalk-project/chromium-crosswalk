@@ -11,6 +11,7 @@
 #include "base/callback.h"
 #include "content/common/content_export.h"
 #include "content/public/browser/navigation_controller.h"
+#include "ui/gfx/rect.h"
 
 class SkBitmap;
 
@@ -58,6 +59,7 @@ class CONTENT_EXPORT ContentViewCore {
   virtual void GetScaledContentBitmap(
       float scale,
       gfx::Size* out_size,
+      gfx::Rect src_rect,
       const base::Callback<void(bool, const SkBitmap&)>& result_callback) = 0;
   virtual float GetDpiScale() const = 0;
   virtual void RequestContentClipping(const gfx::Rect& clipping,
