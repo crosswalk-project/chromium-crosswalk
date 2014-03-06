@@ -68,10 +68,10 @@ int Me2MeNativeMessagingHostMain() {
   // Pass handle of the native view to the controller so that the UAC prompts
   // are focused properly.
   const CommandLine* command_line = CommandLine::ForCurrentProcess();
+  int64 native_view_handle = 0;
   if (command_line->HasSwitch(kParentWindowSwitchName)) {
     std::string native_view =
         command_line->GetSwitchValueASCII(kParentWindowSwitchName);
-    int64 native_view_handle = 0;
     if (base::StringToInt64(native_view, &native_view_handle)) {
       daemon_controller->SetWindow(reinterpret_cast<void*>(native_view_handle));
     } else {
@@ -202,6 +202,7 @@ int Me2MeNativeMessagingHostMain() {
   scoped_ptr<Me2MeNativeMessagingHost> host(
       new Me2MeNativeMessagingHost(
           needs_elevation,
+          static_cast<intptr_t>(native_view_handle),
           channel.Pass(),
           daemon_controller,
           pairing_registry,
