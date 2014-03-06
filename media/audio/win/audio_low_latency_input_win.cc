@@ -257,9 +257,6 @@ AudioParameters WASAPIAudioInputStream::GetInputStreamParameters(
   }
 
   int effects = AudioParameters::NO_EFFECTS;
-  // For non-loopback devices, advertise that ducking is supported.
-  if (device_id != AudioManagerBase::kLoopbackInputDeviceId)
-    effects |= AudioParameters::DUCKING;
 
   // Use 10ms frame size as default.
   int frames_per_buffer = sample_rate / 100;
@@ -478,27 +475,13 @@ HRESULT WASAPIAudioInputStream::SetCaptureDevice() {
     // Retrieve the default capture audio endpoint for the specified role.
     // Note that, in Windows Vista, the MMDevice API supports device roles
     // but the system-supplied user interface programs do not.
-
-    // If the caller has requested to turn on ducking, we select the default
-    // communications device instead of the default capture device.
-    // This implicitly turns on ducking and allows the user to control the
-    // attenuation level.
-    ERole role = (effects_ & AudioParameters::DUCKING) ?
-        eCommunications : eConsole;
-
-    hr = enumerator->GetDefaultAudioEndpoint(eCapture, role,
+    hr = enumerator->GetDefaultAudioEndpoint(eCapture, eConsole,
                                              endpoint_device_.Receive());
   } else if (device_id_ == AudioManagerBase::kLoopbackInputDeviceId) {
     // Capture the default playback stream.
     hr = enumerator->GetDefaultAudioEndpoint(eRender, eConsole,
                                              endpoint_device_.Receive());
   } else {
-    // Retrieve a capture endpoint device that is specified by an endpoint
-    // device-identification string.
-    // TODO(tommi): Opt into ducking for non-default audio devices.
-    DLOG_IF(WARNING, effects_ & AudioParameters::DUCKING)
-        << "Ducking has been requested for a non-default device."
-           "Not implemented.";
     hr = enumerator->GetDevice(base::UTF8ToUTF16(device_id_).c_str(),
                                endpoint_device_.Receive());
   }
