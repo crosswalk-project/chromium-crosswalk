@@ -115,11 +115,9 @@
 #include "third_party/skia/include/core/SkRect.h"
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_skia_rep.h"
-#include "ui/gfx/point_conversions.h"
 #include "ui/gfx/range/range.h"
 #include "ui/gfx/rect_conversions.h"
 #include "ui/gfx/scoped_ns_graphics_context_save_gstate_mac.h"
-#include "ui/gfx/size_conversions.h"
 #include "v8/include/v8.h"
 #include "webkit/renderer/compositor_bindings/web_layer_impl.h"
 
@@ -1948,7 +1946,6 @@ void PepperPluginInstanceImpl::UpdateLayer() {
   if ((want_layer == !!texture_layer_.get()) &&
       (want_3d_layer == layer_is_hardware_) &&
       layer_bound_to_fullscreen_ == !!fullscreen_container_) {
-    UpdateLayerTransform();
     return;
   }
 
@@ -1962,7 +1959,6 @@ void PepperPluginInstanceImpl::UpdateLayer() {
   }
   if (want_layer) {
     bool opaque = false;
-    scoped_refptr<cc::Layer> plugin_layer;
     if (want_3d_layer) {
       DCHECK(bound_graphics_3d_.get());
       texture_layer_ = cc::TextureLayer::CreateForMailbox(NULL);
@@ -1970,24 +1966,14 @@ void PepperPluginInstanceImpl::UpdateLayer() {
       texture_layer_->SetTextureMailbox(
           cc::TextureMailbox(mailbox, GL_TEXTURE_2D, sync_point),
           cc::SingleReleaseCallback::Create(base::Bind(&IgnoreCallback)));
-      plugin_layer = texture_layer_;
     } else {
       DCHECK(bound_graphics_2d_platform_);
       texture_layer_ = cc::TextureLayer::CreateForMailbox(this);
       bound_graphics_2d_platform_->AttachedToNewLayer();
       opaque = bound_graphics_2d_platform_->IsAlwaysOpaque();
       texture_layer_->SetFlipped(false);
-      texture_layer_->SetBounds(bound_graphics_2d_platform_->Size());
-      texture_layer_->SetIsDrawable(true);
-      // WebLayer sets the bounds of its containing layer to be the same size as
-      // the plugin DOM element. Because we want to allow scaling/positioning of
-      // the layer in the 2D case (for SetOffset) we need to add this
-      // intermediate layer. If we wanted to support this functionality for the
-      // 3D case, we would need an intermediate layer in that case also.
-      plugin_layer = cc::Layer::Create();
-      plugin_layer->AddChild(texture_layer_);
     }
-    web_layer_.reset(new webkit::WebLayerImpl(plugin_layer));
+    web_layer_.reset(new webkit::WebLayerImpl(texture_layer_));
     if (fullscreen_container_) {
       fullscreen_container_->SetLayer(web_layer_.get());
       // Ignore transparency in fullscreen, since that's what Flash always
@@ -2001,7 +1987,6 @@ void PepperPluginInstanceImpl::UpdateLayer() {
   }
   layer_bound_to_fullscreen_ = !!fullscreen_container_;
   layer_is_hardware_ = want_3d_layer;
-  UpdateLayerTransform();
 }
 
 unsigned PepperPluginInstanceImpl::PrepareTexture() {
@@ -2020,35 +2005,6 @@ bool PepperPluginInstanceImpl::PrepareTextureMailbox(
 
 void PepperPluginInstanceImpl::OnDestruct() {
   render_frame_ = NULL;
-}
-
-void PepperPluginInstanceImpl::UpdateLayerTransform() {
-  if (!bound_graphics_2d_platform_ || !texture_layer_) {
-    // Currently the transform is only applied for Graphics2D.
-    return;
-  }
-
-  gfx::RectF backing_store(bound_graphics_2d_platform_->plugin_offset(),
-                           bound_graphics_2d_platform_->Size());
-  gfx::PointF scale = gfx::ScalePoint(
-      bound_graphics_2d_platform_->GetResizeScale(),
-      bound_graphics_2d_platform_->GetScale());
-  backing_store = ScaleRect(backing_store, scale.x(), scale.y());
-
-  gfx::Rect layer_rect(ToEnclosingRect(backing_store));
-  gfx::Size plugin_size(PP_ToGfxSize(view_data_.rect.size));
-  layer_rect.Intersect(gfx::Rect(plugin_size));
-  texture_layer_->SetPosition(layer_rect.origin());
-  texture_layer_->SetBounds(layer_rect.size());
-
-  gfx::PointF u(PointAtOffsetFromOrigin(
-      layer_rect.origin() - backing_store.origin()));
-  gfx::PointF v(PointAtOffsetFromOrigin(
-      layer_rect.bottom_right() - backing_store.origin()));
-  gfx::RectF uv(BoundingRect(u, v));
-  if (!backing_store.IsEmpty())
-    uv.Scale(1.0f / backing_store.width(), 1.0f / backing_store.height());
-  texture_layer_->SetUV(uv.origin(), uv.bottom_right());
 }
 
 void PepperPluginInstanceImpl::AddPluginObject(PluginObject* plugin_object) {
