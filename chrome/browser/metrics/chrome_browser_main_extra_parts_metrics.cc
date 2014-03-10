@@ -28,7 +28,11 @@
 #include <gnu/libc-version.h>
 
 #include "base/version.h"
-#endif
+#endif  // defined(OS_LINUX) && !defined(OS_CHROMEOS)
+
+#if defined(OS_WIN)
+#include "chrome/installer/util/google_update_settings.h"
+#endif  // defined(OS_WIN)
 
 namespace {
 
@@ -69,6 +73,14 @@ void RecordDefaultBrowserUMAStat() {
       ShellIntegration::GetDefaultBrowser();
   UMA_HISTOGRAM_ENUMERATION("DefaultBrowser.State", default_state,
                             ShellIntegration::NUM_DEFAULT_STATES);
+}
+
+// Called on the blocking pool some time after startup to avoid slowing down
+// startup with metrics that aren't trivial to compute.
+void RecordStartupMetricsOnBlockingPool() {
+#if defined(OS_WIN)
+  GoogleUpdateSettings::RecordChromeUpdatePolicyHistograms();
+#endif  // defined(OS_WIN)
 }
 
 void RecordLinuxGlibcVersion() {
@@ -150,6 +162,12 @@ void ChromeBrowserMainExtraPartsMetrics::PreBrowserStart() {
 void ChromeBrowserMainExtraPartsMetrics::PostBrowserStart() {
   RecordLinuxGlibcVersion();
   RecordTouchEventState();
+
+  const int kStartupMetricsGatheringDelaySeconds = 45;
+  content::BrowserThread::GetBlockingPool()->PostDelayedTask(
+      FROM_HERE,
+      base::Bind(&RecordStartupMetricsOnBlockingPool),
+      base::TimeDelta::FromSeconds(kStartupMetricsGatheringDelaySeconds));
 }
 
 namespace chrome {
