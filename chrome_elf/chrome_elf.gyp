@@ -9,6 +9,7 @@
     '../build/win_precompile.gypi',
     '../chrome/version.gypi',
     'blacklist.gypi',
+    'dll_hash.gypi',
   ],
   'targets': [
     {

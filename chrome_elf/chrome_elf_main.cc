@@ -17,9 +17,6 @@ BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID reserved) {
   if (reason == DLL_PROCESS_ATTACH) {
     InitCache();
     blacklist::Initialize(false);  // Don't force, abort if beacon is present.
-
-    // TODO(csharp): Move additions to the DLL blacklist to a sane place.
-    // blacklist::AddDllToBlacklist(L"foo.dll");
   }
 
   return TRUE;

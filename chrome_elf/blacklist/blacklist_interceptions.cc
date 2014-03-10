@@ -34,12 +34,12 @@ FARPROC GetNtDllExportByName(const char* export_name) {
   return ::GetProcAddress(ntdll, export_name);
 }
 
-bool DllMatch(const base::string16& module_name) {
+int DllMatch(const base::string16& module_name) {
   for (int i = 0; blacklist::g_troublesome_dlls[i] != NULL; ++i) {
     if (_wcsicmp(module_name.c_str(), blacklist::g_troublesome_dlls[i]) == 0)
-      return true;
+      return i;
   }
-  return false;
+  return -1;
 }
 
 // TODO(robertshield): Some of the helper functions below overlap somewhat with
@@ -221,10 +221,15 @@ SANDBOX_INTERCEPT NTSTATUS WINAPI BlNtMapViewOfSection(
       module_name = ExtractLoadedModuleName(file_name);
     }
 
-    if (!module_name.empty() && DllMatch(module_name)) {
-      DCHECK_NT(g_nt_unmap_view_of_section_func);
-      g_nt_unmap_view_of_section_func(process, *base);
-      ret = STATUS_UNSUCCESSFUL;
+    if (!module_name.empty()) {
+      int blocked_index = DllMatch(module_name);
+      if (blocked_index != -1) {
+        DCHECK_NT(g_nt_unmap_view_of_section_func);
+        g_nt_unmap_view_of_section_func(process, *base);
+        ret = STATUS_UNSUCCESSFUL;
+
+        blacklist::BlockedDll(blocked_index);
+      }
     }
   }
 
