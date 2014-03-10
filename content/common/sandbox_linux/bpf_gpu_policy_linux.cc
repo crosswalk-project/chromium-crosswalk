@@ -71,9 +71,13 @@ inline bool IsArchitectureArm() {
 }
 
 bool IsAcceleratedVideoDecodeEnabled() {
+#if defined(OS_TIZEN)
+  bool is_enabled = true;
+#else
   // Accelerated video decode is currently enabled on Chrome OS,
   // but not on Linux: crbug.com/137247.
   bool is_enabled = IsChromeOS();
+#endif
 
   const CommandLine& command_line = *CommandLine::ForCurrentProcess();
   is_enabled &=
@@ -198,11 +202,21 @@ bool GpuProcessPolicy::PreSandboxHook() {
     if (IsAcceleratedVideoDecodeEnabled()) {
       const char* I965DrvVideoPath = NULL;
 
+#if defined(OS_TIZEN)
+      if (IsArchitectureX86_64()) {
+        // TODO(halton): Add 64-bit VA driver when 64-bit Tizen support
+        // is ready.
+        return false;
+      } else if (IsArchitectureI386()) {
+        I965DrvVideoPath = "/usr/lib/dri/i965_dri.so";
+      }
+#else
       if (IsArchitectureX86_64()) {
         I965DrvVideoPath = "/usr/lib64/va/drivers/i965_drv_video.so";
       } else if (IsArchitectureI386()) {
         I965DrvVideoPath = "/usr/lib/va/drivers/i965_drv_video.so";
       }
+#endif
 
       dlopen(I965DrvVideoPath, RTLD_NOW|RTLD_GLOBAL|RTLD_NODELETE);
       dlopen("libva.so.1", RTLD_NOW|RTLD_GLOBAL|RTLD_NODELETE);
