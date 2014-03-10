@@ -490,9 +490,15 @@ void WebViewGuest::Observe(int type,
       break;
     }
 #if defined(OS_CHROMEOS)
-    case chrome::NOTIFICATION_CROS_ACCESSIBILITY_TOGGLE_SPOKEN_FEEDBACK:
-      InjectChromeVoxIfNeeded(guest_web_contents()->GetRenderViewHost());
+    case chrome::NOTIFICATION_CROS_ACCESSIBILITY_TOGGLE_SPOKEN_FEEDBACK: {
+      chromeos::AccessibilityStatusEventDetails* accessibility_status =
+          content::Details<chromeos::AccessibilityStatusEventDetails>(details).ptr();
+      if (!accessibility_status->enabled)
+        chromevox_injected_ = false;
+      else
+        InjectChromeVoxIfNeeded(guest_web_contents()->GetRenderViewHost());
       break;
+    }
 #endif
     default:
       NOTREACHED() << "Unexpected notification sent.";
