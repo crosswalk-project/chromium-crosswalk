@@ -86,6 +86,7 @@ bool HotwordPrivateGetStatusFunction::RunImpl() {
     result.available = hotword_service->IsServiceAvailable();
 
   PrefService* prefs = GetProfile()->GetPrefs();
+  result.enabled_set = prefs->HasPrefPath(prefs::kHotwordSearchEnabled);
   result.enabled =
       prefs->GetBoolean(prefs::kHotwordSearchEnabled);
 
