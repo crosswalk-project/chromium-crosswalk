@@ -95,9 +95,10 @@
       'include_dirs': [
         '..',
       ],
+      'dependencies': [
+        'chrome_elf_constants',
+      ],
       'sources': [
-        'chrome_elf_constants.cc',
-        'chrome_elf_constants.h',
         'chrome_elf_types.h',
         'create_file/chrome_create_file.cc',
         'create_file/chrome_create_file.h',
@@ -108,6 +109,26 @@
         ['component=="shared_library"', {
           # In component builds, all targets depend on chrome_redirects by
           # default. Remove it here to avoid a circular dependency.
+          'dependencies!': [
+            '../chrome_elf/chrome_elf.gyp:chrome_redirects',
+          ],
+        }],
+      ],
+    },
+    {
+      'target_name': 'chrome_elf_constants',
+      'type': 'static_library',
+      'include_dirs': [
+        '..',
+      ],
+      'sources': [
+        'chrome_elf_constants.cc',
+        'chrome_elf_constants.h',
+      ],
+       'conditions': [
+        ['component=="shared_library"', {
+          # In component builds, all targets depend on chrome_redirects by
+          # default. Remove it here so we are able to test it.
           'dependencies!': [
             '../chrome_elf/chrome_elf.gyp:chrome_redirects',
           ],

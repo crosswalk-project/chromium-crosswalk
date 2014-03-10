@@ -21,7 +21,8 @@
         # chrome_elf cannot do.
         '../base/base.gyp:base_static',
         '../chrome/chrome.gyp:chrome_version_header',
-        '../sandbox/sandbox.gyp:sandbox',        
+        '../chrome_elf/chrome_elf.gyp:chrome_elf_constants',
+        '../sandbox/sandbox.gyp:sandbox',
       ],
     },
     {
