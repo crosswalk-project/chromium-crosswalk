@@ -12,7 +12,7 @@ Preferences::Preferences()
       number_of_cpu_cores(0),
       is_3d_supported(true),
       is_stage3d_supported(false),
-      is_stage3d_baseline_supported(false), {
+      is_stage3d_baseline_supported(false),
       is_accelerated_video_decode_enabled(false) {
 }
 
