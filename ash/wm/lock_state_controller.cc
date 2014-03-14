@@ -166,7 +166,8 @@ LockStateController::LockStateController()
       shutting_down_(false),
       shutdown_after_lock_(false),
       animating_lock_(false),
-      can_cancel_lock_animation_(false) {
+      can_cancel_lock_animation_(false),
+      weak_ptr_factory_(this) {
   Shell::GetPrimaryRootWindow()->GetDispatcher()->AddRootWindowObserver(this);
 }
 
@@ -430,7 +431,8 @@ void LockStateController::StartImmediatePreLockAnimation(
 
   base::Closure next_animation_starter =
       base::Bind(&LockStateController::PreLockAnimationFinished,
-      base::Unretained(this), request_lock_on_completion);
+                 weak_ptr_factory_.GetWeakPtr(),
+                 request_lock_on_completion);
   AnimationFinishedObserver* observer =
       new AnimationFinishedObserver(next_animation_starter);
 
@@ -468,7 +470,8 @@ void LockStateController::StartCancellablePreLockAnimation() {
   VLOG(1) << "StartCancellablePreLockAnimation";
   base::Closure next_animation_starter =
       base::Bind(&LockStateController::PreLockAnimationFinished,
-      base::Unretained(this), true /* request_lock */);
+                 weak_ptr_factory_.GetWeakPtr(),
+                 true /* request_lock */);
   AnimationFinishedObserver* observer =
       new AnimationFinishedObserver(next_animation_starter);
 
@@ -503,7 +506,7 @@ void LockStateController::CancelPreLockAnimation() {
   VLOG(1) << "CancelPreLockAnimation";
   base::Closure next_animation_starter =
       base::Bind(&LockStateController::LockAnimationCancelled,
-      base::Unretained(this));
+                 weak_ptr_factory_.GetWeakPtr());
   AnimationFinishedObserver* observer =
       new AnimationFinishedObserver(next_animation_starter);
 
@@ -530,7 +533,7 @@ void LockStateController::StartPostLockAnimation() {
   VLOG(1) << "StartPostLockAnimation";
   base::Closure next_animation_starter =
       base::Bind(&LockStateController::PostLockAnimationFinished,
-      base::Unretained(this));
+                 weak_ptr_factory_.GetWeakPtr());
 
   AnimationFinishedObserver* observer =
       new AnimationFinishedObserver(next_animation_starter);
@@ -558,7 +561,7 @@ void LockStateController::StartUnlockAnimationAfterUIDestroyed() {
   VLOG(1) << "StartUnlockAnimationAfterUIDestroyed";
   base::Closure next_animation_starter =
       base::Bind(&LockStateController::UnlockAnimationAfterUIDestroyedFinished,
-                 base::Unretained(this));
+                 weak_ptr_factory_.GetWeakPtr());
 
   AnimationFinishedObserver* observer =
       new AnimationFinishedObserver(next_animation_starter);
