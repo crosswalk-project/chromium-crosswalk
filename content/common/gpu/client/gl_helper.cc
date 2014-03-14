@@ -30,6 +30,18 @@ using gpu::gles2::GLES2Interface;
 
 namespace {
 
+class ScopedFlush {
+ public:
+  explicit ScopedFlush(gpu::gles2::GLES2Interface* gl) : gl_(gl) {}
+
+  ~ScopedFlush() { gl_->Flush(); }
+
+ private:
+  gpu::gles2::GLES2Interface* gl_;
+
+  DISALLOW_COPY_AND_ASSIGN(ScopedFlush);
+};
+
 // Helper class for allocating and holding an RGBA texture of a given
 // size and an associated framebuffer.
 class TextureFrameBufferPair {
@@ -913,6 +925,10 @@ bool GLHelper::CanUseRgb565Readback() {
   }
   initialized_565_format_check_ = true;
   return support_565_format_;
+}
+
+void GLHelper::Flush() {
+  gl_->Flush();
 }
 
 void GLHelper::CopyTextureToImpl::ReadbackPlane(

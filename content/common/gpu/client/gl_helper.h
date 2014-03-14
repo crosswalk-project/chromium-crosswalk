@@ -131,18 +131,6 @@ class ScopedTextureBinder : ScopedBinder<Target> {
   }
 };
 
-class ScopedFlush {
- public:
-  explicit ScopedFlush(gpu::gles2::GLES2Interface* gl) : gl_(gl) {}
-
-  ~ScopedFlush() { gl_->Flush(); }
-
- private:
-  gpu::gles2::GLES2Interface* gl_;
-
-  DISALLOW_COPY_AND_ASSIGN(ScopedFlush);
-};
-
 class ReadbackYUVInterface;
 
 // Provides higher level operations on top of the gpu::gles2::GLES2Interface
@@ -279,6 +267,9 @@ class CONTENT_EXPORT GLHelper {
 
   // Check whether rgb565 readback is supported or not.
   bool CanUseRgb565Readback();
+
+  // Flushes GL commands.
+  void Flush();
 
   // A scaler will cache all intermediate textures and programs
   // needed to scale from a specified size to a destination size.
