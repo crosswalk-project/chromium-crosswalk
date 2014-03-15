@@ -1189,6 +1189,9 @@ cr.define('login', function() {
     // Array of apps that are shown in addition to other user pods.
     apps_: [],
 
+    // True to show app pods along with user pods.
+    shouldShowApps_: true,
+
     // Array of users that are shown (public/supervised/regular).
     users_: [],
 
@@ -1416,8 +1419,10 @@ cr.define('login', function() {
         this.podsWithPendingImages_.push(pod);
 
       // TODO(nkostylev): Edge case handling when kiosk apps are not fitting.
-      for (var i = 0; i < this.apps_.length; ++i)
-        this.addUserPod(this.apps_[i], this.userAddIsAnimated_);
+      if (this.shouldShowApps_) {
+        for (var i = 0; i < this.apps_.length; ++i)
+          this.addUserPod(this.apps_[i], this.userAddIsAnimated_);
+      }
 
       // Make sure we eventually show the pod row, even if some image is stuck.
       setTimeout(function() {
@@ -1468,6 +1473,18 @@ cr.define('login', function() {
       window.setTimeout(function() {
         chrome.send('checkKioskAppLaunchError');
       }, 500);
+    },
+
+    /**
+     * Sets whether should show app pods.
+     * @param {boolean} shouldShowApps Whether app pods should be shown.
+     */
+    setShouldShowApps: function(shouldShowApps) {
+      if (this.shouldShowApps_ == shouldShowApps)
+        return;
+
+      this.shouldShowApps_ = shouldShowApps;
+      this.rebuildPods();
     },
 
     /**
