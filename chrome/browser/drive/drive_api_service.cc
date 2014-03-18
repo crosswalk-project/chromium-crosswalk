@@ -121,8 +121,8 @@ const char kChangeListFields[] =
     "mimeType,md5Checksum,fileSize,labels/trashed,imageMediaMetadata/width,"
     "imageMediaMetadata/height,imageMediaMetadata/rotation,etag,"
     "parents/parentLink,selfLink,thumbnailLink,alternateLink,embedLink,"
-    "modifiedDate,lastViewedByMeDate,shared),deleted,id,fileId),nextLink,"
-    "largestChangeId";
+    "modifiedDate,lastViewedByMeDate,shared),deleted,id,fileId,"
+    "modificationDate),nextLink,largestChangeId";
 
 // Callback invoked when the parsing of resource list is completed,
 // regardless whether it is succeeded or not.
