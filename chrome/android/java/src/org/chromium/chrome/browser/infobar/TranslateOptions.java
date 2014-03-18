@@ -34,7 +34,7 @@ public class TranslateOptions {
     private final boolean mTriggeredFromMenu;
 
     // Placeholder while i18tn is supported.
-    private static final String UNTRANSLATED_LANGUAGE_PLAHOLDER = "\ud83c\udfc4";
+    private static final String UNTRANSLATED_LANGUAGE_PLAHOLDER = "Emoji";
 
     private TranslateOptions(int sourceLanguageCode, int targetLanguageCode, String[] allLanguages,
             boolean neverLanguage, boolean neverDomain, boolean alwaysLanguage,
