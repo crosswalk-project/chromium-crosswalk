@@ -59,7 +59,8 @@ void TranslateTabHelper::ShowTranslateUI(TranslateTabHelper::TranslateStep step,
                                          content::WebContents* web_contents,
                                          const std::string source_language,
                                          const std::string target_language,
-                                         TranslateErrors::Type error_type) {
+                                         TranslateErrors::Type error_type,
+                                         bool triggered_from_menu) {
   if (error_type != TranslateErrors::NONE)
     step = TranslateTabHelper::TRANSLATE_ERROR;
 
@@ -85,7 +86,8 @@ void TranslateTabHelper::ShowTranslateUI(TranslateTabHelper::TranslateStep step,
                                    source_language,
                                    target_language,
                                    error_type,
-                                   original_profile->GetPrefs());
+                                   original_profile->GetPrefs(),
+                                   triggered_from_menu);
 }
 
 bool TranslateTabHelper::OnMessageReceived(const IPC::Message& message) {

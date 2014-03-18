@@ -59,7 +59,8 @@ class TranslateManager : public content::NotificationObserver {
   // script is not yet available.
   void TranslatePage(content::WebContents* web_contents,
                      const std::string& source_lang,
-                     const std::string& target_lang);
+                     const std::string& target_lang,
+                     bool triggered_from_menu);
 
   // Reverts the contents of the page in |web_contents| to its original
   // language.

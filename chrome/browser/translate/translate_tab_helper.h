@@ -59,7 +59,8 @@ class TranslateTabHelper
                        content::WebContents* web_contents,
                        const std::string source_language,
                        const std::string target_language,
-                       TranslateErrors::Type error_type);
+                       TranslateErrors::Type error_type,
+                       bool triggered_from_menu);
 
  private:
   explicit TranslateTabHelper(content::WebContents* web_contents);
