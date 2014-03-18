@@ -164,7 +164,7 @@ gboolean AutofillPopupViewGtk::HandleLeave(GtkWidget* widget,
 
 gboolean AutofillPopupViewGtk::HandleMotion(GtkWidget* widget,
                                             GdkEventMotion* event) {
-  controller_->AcceptSelectionAtPoint(gfx::Point(event->x, event->y));
+  controller_->SetSelectionAtPoint(gfx::Point(event->x, event->y));
 
   return TRUE;
 }
