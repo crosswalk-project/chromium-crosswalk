@@ -15,6 +15,7 @@
 #include "content/browser/frame_host/render_frame_host_delegate.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
 #include "content/common/frame_messages.h"
+#include "content/common/swapped_out_messages.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/content_browser_client.h"
 #include "content/public/browser/render_process_host.h"
@@ -120,6 +121,26 @@ bool RenderFrameHostImpl::Send(IPC::Message* message) {
 }
 
 bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
+  // Filter out most IPC messages if this renderer is swapped out.
+  // We still want to handle certain ACKs to keep our state consistent.
+  // TODO(nasko): Only check RenderViewHost state, as this object's own state
+  // isn't yet properly updated. Transition this check once the swapped out
+  // state is correct in RenderFrameHost itself.
+  if (render_view_host_->IsSwappedOut()) {
+    if (!SwappedOutMessages::CanHandleWhileSwappedOut(msg)) {
+      // If this is a synchronous message and we decided not to handle it,
+      // we must send an error reply, or else the renderer will be stuck
+      // and won't respond to future requests.
+      if (msg.is_sync()) {
+        IPC::Message* reply = IPC::SyncMessage::GenerateReply(&msg);
+        reply->set_reply_error();
+        Send(reply);
+      }
+      // Don't continue looking for someone to handle it.
+      return true;
+    }
+  }
+
   if (delegate_->OnMessageReceived(this, msg))
     return true;
 
