@@ -135,16 +135,6 @@ const char kWebpageWithDynamicContent[] =
     "   </body>"
     "</html>";
 
-const char kJavaScriptClick[] =
-    "var event = new MouseEvent('click', {"
-    "   'view': window,"
-    "   'bubbles': true,"
-    "   'cancelable': true"
-    "});"
-    "var form = document.getElementById('myform1');"
-    "form.dispatchEvent(event);"
-    "console.log('clicked!');";
-
 const char kOnChangeDetectionScript[] =
     "<script>"
     "  usernameOnchangeCalled = false;"
@@ -329,20 +319,15 @@ class PasswordAutofillAgentTest : public ChromeRenderViewTest {
                                        bool username_autofilled,
                                        const WebInputElement& password_element,
                                        const std::string& password,
-                                       bool password_autofilled,
-                                       bool checkSuggestedValue = true) {
+                                       bool password_autofilled) {
     EXPECT_EQ(username,
               static_cast<std::string>(username_element.value().utf8()));
     EXPECT_EQ(username_autofilled, username_element.isAutofilled());
     EXPECT_EQ(password,
-              static_cast<std::string>(
-                  checkSuggestedValue ? password_element.suggestedValue().utf8()
-                                      : password_element.value().utf8()));
+              static_cast<std::string>(password_element.value().utf8()));
     EXPECT_EQ(password_autofilled, password_element.isAutofilled());
   }
 
-  // Checks the DOM-accessible value of the username element and the
-  // *suggested* value of the password element.
   void CheckTextFieldsState(const std::string& username,
                             bool username_autofilled,
                             const std::string& password,
@@ -350,21 +335,6 @@ class PasswordAutofillAgentTest : public ChromeRenderViewTest {
     CheckTextFieldsStateForElements(username_element_, username,
                                     username_autofilled, password_element_,
                                     password, password_autofilled);
-  }
-
-  // Checks the DOM-accessible value of the username element and the
-  // DOM-accessible value of the password element.
-  void CheckTextFieldsDOMState(const std::string& username,
-                               bool username_autofilled,
-                               const std::string& password,
-                               bool password_autofilled) {
-    CheckTextFieldsStateForElements(username_element_,
-                                    username,
-                                    username_autofilled,
-                                    password_element_,
-                                    password,
-                                    password_autofilled,
-                                    false);
   }
 
   void CheckUsernameSelection(int start, int end) {
@@ -834,34 +804,6 @@ TEST_F(PasswordAutofillAgentTest, IframeNoFillTest) {
                                   password_input, kAlicePassword, true);
 }
 
-// Tests that a password will only be filled as a suggested and will not be
-// accessible by the DOM until a user gesture has occurred.
-TEST_F(PasswordAutofillAgentTest, GestureRequiredTest) {
-  // Trigger the initial autocomplete.
-  SimulateOnFillPasswordForm(fill_data_);
-
-  // The username and password should have been autocompleted.
-  CheckTextFieldsState(kAliceUsername, true, kAlicePassword, true);
-
-  // However, it should only have completed with the suggested value, as tested
-  // above, and it should not have completed into the DOM accessible value for
-  // the password field.
-  CheckTextFieldsDOMState(kAliceUsername, true, std::string(), true);
-
-  // Simulate a user click so that the password field's real value is filled.
-  SimulateElementClick(kUsernameName);
-  CheckTextFieldsDOMState(kAliceUsername, true, kAlicePassword, true);
-}
-
-// Verfies that a DOM-activated UI event will not cause an autofill.
-TEST_F(PasswordAutofillAgentTest, NoDOMActivationTest) {
-  // Trigger the initial autocomplete.
-  SimulateOnFillPasswordForm(fill_data_);
-
-  ExecuteJavaScript(kJavaScriptClick);
-  CheckTextFieldsDOMState(kAliceUsername, true, "", true);
-}
-
 // Regression test for http://crbug.com/326679
 TEST_F(PasswordAutofillAgentTest, SelectUsernameWithUsernameAutofillOff) {
   // Simulate the browser sending back the login info.
@@ -937,14 +879,9 @@ TEST_F(PasswordAutofillAgentTest,
   // autocomplete.
   SimulateOnFillPasswordForm(fill_data_);
 
-  // The username and password should have been autocompleted...
+  // The username and password should have been autocompleted.
   CheckTextFieldsState(kAliceUsername, true, kAlicePassword, true);
-  // ... but since there hasn't been a user gesture yet, the autocompleted
-  // password should only be visible to the user.
-  CheckTextFieldsDOMState(kAliceUsername, true, std::string(), true);
 
-  // A JavaScript onChange event should have been triggered for the username,
-  // but not yet for the password.
   int username_onchange_called = -1;
   int password_onchange_called = -1;
   ASSERT_TRUE(
@@ -952,19 +889,6 @@ TEST_F(PasswordAutofillAgentTest,
           ASCIIToUTF16("usernameOnchangeCalled ? 1 : 0"),
           &username_onchange_called));
   EXPECT_EQ(1, username_onchange_called);
-  ASSERT_TRUE(
-      ExecuteJavaScriptAndReturnIntValue(
-          ASCIIToUTF16("passwordOnchangeCalled ? 1 : 0"),
-          &password_onchange_called));
-  // TODO(isherman): Re-enable this check once http://crbug.com/333144 is fixed.
-  // EXPECT_EQ(0, password_onchange_called);
-
-  // Simulate a user click so that the password field's real value is filled.
-  SimulateElementClick(kUsernameName);
-  CheckTextFieldsDOMState(kAliceUsername, true, kAlicePassword, true);
-
-  // Now, a JavaScript onChange event should have been triggered for the
-  // password as well.
   ASSERT_TRUE(
       ExecuteJavaScriptAndReturnIntValue(
           ASCIIToUTF16("passwordOnchangeCalled ? 1 : 0"),
@@ -998,7 +922,7 @@ TEST_F(PasswordAutofillAgentTest,
   autofill_agent_->textFieldDidEndEditing(username_element_);
 
   // The username and password should now have been autocompleted.
-  CheckTextFieldsDOMState(kAliceUsername, true, kAlicePassword, true);
+  CheckTextFieldsState(kAliceUsername, true, kAlicePassword, true);
 
   // JavaScript onChange events should have been triggered both for the username
   // and for the password.
