@@ -45,8 +45,7 @@ void MultiProfileUMA::RecordTeleportAction(TeleportWindowAction action) {
 
 // static
 void MultiProfileUMA::RecordUserCount(int number_of_users) {
-  UMA_HISTOGRAM_COUNTS_100("MultiProfile.UsersPerSessionIncremental",
-                           number_of_users);
+  UMA_HISTOGRAM_COUNTS_100("MultiProfile.UsersPerSession", number_of_users);
 }
 
 // static

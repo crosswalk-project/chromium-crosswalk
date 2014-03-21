@@ -69,8 +69,7 @@ class ASH_EXPORT MultiProfileUMA {
   // Record the way and how many times a window got teleported to another desk.
   static void RecordTeleportAction(TeleportWindowAction action);
 
-  // Record number of users joined into a session. Called every time a user gets
-  // added.
+  // Record number of users joined into a session. Called upon logout.
   static void RecordUserCount(int number_of_users);
 
   // Record a discarded tab in the number of running users bucket.

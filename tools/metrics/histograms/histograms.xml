@@ -192,89 +192,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="appcache.CheckResponseResult"
-    enum="AppCacheCheckResponseResult">
-  <summary>AppCache check response result code.</summary>
-</histogram>
-
-<histogram name="appcache.CompletionQueueTime" units="milliseconds">
-  <summary>
-    Time elapsed between a completion task being queued and run.
-  </summary>
-</histogram>
-
-<histogram name="appcache.CompletionRunTime" units="milliseconds">
-  <summary>
-    The amount of time taken to run a completion task on the IO thread.
-  </summary>
-</histogram>
-
-<histogram name="appcache.CorruptionDetected">
-  <summary>
-    Tracks the number of times corruption is detected in the sql database.
-  </summary>
-</histogram>
-
-<histogram name="appcache.InitResult" enum="AppCacheInitResult">
-  <summary>AppCache initialization result code.</summary>
-</histogram>
-
-<histogram name="appcache.JobStartDelay.AppCache" units="milliseconds">
-  <summary>
-    How long URLRequests to be retrieved from the appcache are delayed.
-  </summary>
-</histogram>
-
-<histogram name="appcache.JobStartDelay.Error" units="milliseconds">
-  <summary>
-    How long URLRequests that result in a synthesized error are delayed.
-  </summary>
-</histogram>
-
-<histogram name="appcache.JobStartDelay.Network" units="milliseconds">
-  <summary>
-    How long URLRequests to be retrieved over the network are delayed.
-  </summary>
-</histogram>
-
-<histogram name="appcache.MissingManifestDetectedAtCallsite"
-    enum="AppCacheErrorSite">
-  <summary>Identifies where a missing manifest was detected occured.</summary>
-</histogram>
-
-<histogram name="appcache.MissingManifestEntry" enum="BooleanSuccess">
-  <summary>
-    Logged on each occurrence of there being no record for the manifest file in
-    the entries table.
-  </summary>
-</histogram>
-
-<histogram name="appcache.ReinitAttempt">
-  <summary>
-    Tracks the number of times the appcache reinit process occurs. The boolean
-    value indicates whether it was a repeated attempt to reinitialize during a
-    browsing session.
-  </summary>
-</histogram>
-
-<histogram name="appcache.TaskQueueTime" units="milliseconds">
-  <summary>
-    Time elapsed between a background task being queued and run.
-  </summary>
-</histogram>
-
-<histogram name="appcache.TaskRunTime" units="milliseconds">
-  <summary>The amount of time taken to run a background task.</summary>
-</histogram>
-
-<histogram name="appcache.UpdateJobResult" enum="AppCacheUpdateJobResult">
-  <summary>AppCache update job result code.</summary>
-</histogram>
-
-<histogram name="appcache.UpdateJobResult.Docs" enum="AppCacheUpdateJobResult">
-  <summary>AppCache update job result code, only for docs.google.com.</summary>
-</histogram>
-
 <histogram name="Apps.AppLaunch" enum="AppLaunch">
   <summary>
     The number of times v2 packaged apps are launched grouped by
@@ -1287,9 +1204,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Autofill.Quality" enum="AutofillQuality">
-  <obsolete>
-    Deprecated as of 2/2014 (M35), replaced by Autofill.UserHappiness.
-  </obsolete>
   <summary>The quality of the Autofill implementation.</summary>
 </histogram>
 
@@ -1350,9 +1264,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Autofill.ServerExperimentId.Query" enum="AutofillExperimentId">
-  <obsolete>
-    Deprecated as of 2/2014 (M35).
-  </obsolete>
   <summary>
     The experiment ID received in response to an Autofill server query.
   </summary>
@@ -1360,9 +1271,6 @@ other types of suffix sets.
 
 <histogram name="Autofill.ServerExperimentId.Upload"
     enum="AutofillExperimentId">
-  <obsolete>
-    Deprecated as of 2/2014 (M35).
-  </obsolete>
   <summary>
     The experiment ID received at the time of an Autofill upload.
   </summary>
@@ -1393,7 +1301,7 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Blacklist.Blocked" enum="DllHash">
+<histogram name="Blacklist.Blocked" units="DllHash">
   <summary>
     Records the name hashes of all the dlls that are blocked from the browser
     process.
@@ -3913,23 +3821,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Event.ActionAfterDoubleTapNoDelay" enum="ActionAfterDoubleTap">
-  <summary>
-    On non-mobile sites, gesture taps are delayed to prevent double taps from
-    sending a click event. This stat tracks the user's first action within 5
-    seconds after a double tap gesture when the gesture tap delay is disabled.
-  </summary>
-</histogram>
-
-<histogram name="Event.ActionAfterDoubleTapWithDelay"
-    enum="ActionAfterDoubleTap">
-  <summary>
-    On non-mobile sites, gesture taps are delayed to prevent double taps from
-    sending a click event. This stat tracks the user's first action within 5
-    seconds after a double tap gesture when gesture tap events are delayed.
-  </summary>
-</histogram>
-
 <histogram name="Event.AggregatedLatency.Renderer2" units="microseconds">
   <summary>
     Time between initiation of any input event and the renderer receiving and
@@ -4254,15 +4145,6 @@ other types of suffix sets.
   <summary>
     Time between initial creation of touch event and the resulting frame from
     ScrollUpdate is swapped.
-  </summary>
-</histogram>
-
-<histogram name="Event.SingleTapType" enum="TapDelayType">
-  <summary>
-    On non-mobile sites, gesture taps are delayed to prevent double taps from
-    sending a click event. This stat counts the number of taps that are delayed
-    by the double-tap delay versus those that are sent immediately on mobile
-    sites.
   </summary>
 </histogram>
 
@@ -5437,27 +5319,17 @@ other types of suffix sets.
 
 <histogram name="ExtensionToolbarModel.BrowserActionsCount">
   <summary>
-    The number of icons the Browser Actions Container knows about (visible or in
-    the overflow bucket). Does not count icons that have been permanently hidden
-    by the user. Measured once per startup per (non-incognito) profile.
-  </summary>
-</histogram>
-
-<histogram name="ExtensionToolbarModel.BrowserActionsPermanentlyHidden">
-  <summary>
-    The number of Browser Action icons the user has elected to permanently hide
-    (as opposed to putting them in the overflow bucket). Measured once per
-    startup per (non-incognito) profile.
+    The number of icons the Browser Actions Container knows about (visible or
+    not). Measured once per startup per profile.
   </summary>
 </histogram>
 
 <histogram name="ExtensionToolbarModel.BrowserActionsVisible">
   <summary>
-    The number of visible icons in the Browser Actions Container (visible as in
-    number of icons not in the overflow bucket). 0 means all icons are in the
-    overflow bucket. MAX_INT means the toolbar is always showing all icons.
-    Measured once per startup per (non-incognito) profile but only for those
-    profiles that have one or more browser actions showing in the toolbar.
+    The number of visible icons in the Browser Actions Container. 0 means all
+    icons are hidden. MAX_INT means the toolbar is always showing all icons.
+    Measured once per startup per profile for those profiles who have one or
+    more browser actions showing in the toolbar.
   </summary>
 </histogram>
 
@@ -6217,15 +6089,6 @@ other types of suffix sets.
   <summary>
     The number of update attempts with a full update payload until the update
     has been applied. This is reported on every update attempt.
-  </summary>
-</histogram>
-
-<histogram name="Installer.InstallDateProvisioningSource"
-    enum="UpdateEngineInstallDateProvisioningSource">
-  <summary>
-    The source used to provision the install-date-days value sent to Omaha with
-    every request. This is reported when OOBE completes (M34 or later) or when
-    upgrading to a version with install-date-days support.
   </summary>
 </histogram>
 
@@ -7439,35 +7302,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Media.VideoCapture.FrameRate" units="fps">
-  <summary>
-    Video Capture Device frame rate requested by VideoCaptureManager on
-    AllocateAndStart(). The collection is made in the VideoCaptureController
-    upon reception of the first frame.
-  </summary>
-</histogram>
-
-<histogram name="Media.VideoCapture.Height" units="pixels">
-  <summary>
-    Video Capture Device captured frame height in pixels. The collection is made
-    in the VideoCaptureController upon reception of the first frame.
-  </summary>
-</histogram>
-
-<histogram name="Media.VideoCapture.PixelFormat" enum="CapturePixelFormat">
-  <summary>
-    Pixel format provided by a Video Capture Device. The collection is made in
-    the VideoCaptureController upon reception of the first frame.
-  </summary>
-</histogram>
-
-<histogram name="Media.VideoCapture.Width" units="pixels">
-  <summary>
-    Video Capture Device captured frame width in pixels. The collection is made
-    in the VideoCaptureController upon reception of the first frame.
-  </summary>
-</histogram>
-
 <histogram name="Media.VideoCaptureManager" units="ms">
   <summary>Measures the time taken for VideoCaptureManager::</summary>
 </histogram>
@@ -7538,35 +7372,6 @@ other types of suffix sets.
   <summary>
     Time needed to buffer A/V data after an underrun for the YouTube
     application.
-  </summary>
-</histogram>
-
-<histogram name="MediaGalleries.ScanCancelTime" units="ms">
-  <summary>If a media scan was cancelled, the duration (in ms) it ran.</summary>
-</histogram>
-
-<histogram name="MediaGalleries.ScanDirectoriesFound">
-  <summary>
-    The number of directories with media files found during a scan.
-  </summary>
-</histogram>
-
-<histogram name="MediaGalleries.ScanFinishedTime" units="ms">
-  <summary>
-    Duration in milliseconds taken to do a media scan that ran to completion.
-  </summary>
-</histogram>
-
-<histogram name="MediaGalleries.ScanGalleriesGranted" units="%">
-  <summary>
-    The percentage of galleries accepted (not deselected) from the scan result
-    dialog.
-  </summary>
-</histogram>
-
-<histogram name="MediaGalleries.ScanGalleriesPopulated">
-  <summary>
-    The number of galleries added or updated in preferences after a scan.
   </summary>
 </histogram>
 
@@ -8118,374 +7923,9 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="MultiProfile.UsersPerSession">
-  <obsolete>
-    Deprecated 3/2014, renamed to MultiProfile.UsersPerSessionIncremental.
-  </obsolete>
   <summary>
     The number of users simultaneously signed into a multiprofile session on
-    Chrome OS. This is recorded upon session end.
-  </summary>
-</histogram>
-
-<histogram name="MultiProfile.UsersPerSessionIncremental">
-  <summary>
-    The number of users simultaneously signed into a multiprofile session on
-    Chrome OS. This is recorded whenever a user gets added to the session. To
-    get the correct count, all following counts must be subtracted. Example: If
-    100 single user, 20 two user and 5 three user sessions, there were
-    100-20-5=75 single user sessions, 100-80=20 dual user sessions and so on.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Client.Helper.InitState" enum="NaClHelperStatus">
-  <summary>
-    When the browser started, what happened with the NaCl helper process?
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Client.Helper.StateOnFork" enum="NaClHelperStatus">
-  <summary>
-    When a NaCl application process was created, what had happened with the NaCl
-    helper process when the browser was started?
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Client.OSArch" enum="NaClOSArchEnum">
-  <summary>The OS/Architecture of a nexe that was loaded.</summary>
-</histogram>
-
-<histogram name="NaCl.HttpStatusCodeClass.Manifest.InstalledApp"
-    enum="NaClHttpStatusCodeClass">
-  <summary>
-    The status code returned when trying to load a manifest inside an installed
-    app.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.HttpStatusCodeClass.Manifest.NotInstalledApp"
-    enum="NaClHttpStatusCodeClass">
-  <summary>
-    The status code returned when trying to load a manifest from a source other
-    than an installed app.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.HttpStatusCodeClass.Nexe.InstalledApp"
-    enum="NaClHttpStatusCodeClass">
-  <summary>
-    The status code returned when trying to load a NaCl executable inside an
-    installed app.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.HttpStatusCodeClass.Nexe.NotInstalledApp"
-    enum="NaClHttpStatusCodeClass">
-  <summary>
-    The status code returned when trying to load a NaCl executable from a source
-    other than an installed app.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.Plugin" enum="NaClPluginErrorCode">
-  <summary>The error code returned by NaCl's Chrome plugin.</summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.Plugin.InstalledApp"
-    enum="NaClPluginErrorCode">
-  <summary>
-    The error code returned by NaCl's Chrome plugin, but only for installed
-    apps.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.Plugin.NotInstalledApp"
-    enum="NaClPluginErrorCode">
-  <summary>
-    The error code returned by NaCl's Chrome plugin, but excluding installed
-    apps.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.SelLdr" enum="NaClSelLdrErrorCode">
-  <summary>The error code returned by NaCl's sel_ldr.</summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.SelLdr.InstalledApp"
-    enum="NaClSelLdrErrorCode">
-  <summary>
-    The error code returned by NaCl's sel_ldr, but only for installed apps.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.LoadStatus.SelLdr.NotInstalledApp"
-    enum="NaClSelLdrErrorCode">
-  <summary>
-    The error code returned by NaCl's sel_ldr, but excluding installed apps.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Manifest.IsDataURI" enum="NaClManifestType">
-  <summary>
-    Was the manifest specified as a data URI rather than a .nmf file?
-  </summary>
-</histogram>
-
-<histogram name="NaCl.ManifestDownloadTime" units="milliseconds">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>
-    The time it took to download the manifset file for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.ModuleUptime.Crash" units="milliseconds">
-  <summary>The time a NaCl module ran before it crashed.</summary>
-</histogram>
-
-<histogram name="NaCl.ModuleUptime.Normal" units="milliseconds">
-  <summary>The time a NaCl module ran without crashing, at shutdown.</summary>
-</histogram>
-
-<histogram name="NaCl.NexeDownloadTime" units="milliseconds">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>
-    The time it took to download the main .nexe for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.NexeSize" units="KB">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>
-    The size of the main .nexe file downloaded for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.NexeStartupTime" units="milliseconds">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    proxied execution of the NaCl module begins. This is the general startup
-    overhead of running as a NaCl module vs a trusted PPAPI plugin.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.NexeStartupTimePerMB" units="milliseconds/MB">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    proxied execution of the NaCl module begins. This is the general startup
-    overhead of running as a NaCl module vs a trusted PPAPI plugin.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Options.PNaCl.OptLevel" enum="PNaClOptionsOptLevelEnum">
-  <summary>
-    The optimization level set for the initial Portable Native Client
-    translation from bitcode to native code.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.OSArch" enum="NaClOSArchEnum">
-  <obsolete>
-    Deprecated 6/2011, renamed.
-  </obsolete>
-  <summary>The OS/Architecture of a nexe that was loaded.</summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClCache.IsHit" enum="PNaClTranslationCacheEnum">
-  <summary>
-    Did the Portable Native Client translation cache find an executable
-    translated from bitcode?
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.CompileKBPerSec" units="KB/s">
-  <summary>
-    The rate for compiling a Portable Native Client bitcode file to an object
-    file in Kilobytes per second.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.CompileTime" units="milliseconds">
-  <summary>
-    The time it took to compile a Portable Native Client bitcode file to an
-    object file.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.LinkTime" units="milliseconds">
-  <summary>
-    The time it took to link a Portable Native Client generated object file into
-    a Native Client executable.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.LoadCompiler" units="milliseconds">
-  <summary>
-    The time it took to load and validate the Portable Native Client compiler.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.LoadLinker" units="milliseconds">
-  <summary>
-    The time it took to load and validate the Portable Native Client linker.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.PctCompiledWhenFullyDownloaded"
-    units="%">
-  <summary>
-    The percentage of a Portable Native Client application that is compiled by
-    the time the application is fully downloaded (compile and download happen in
-    parallel).
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.TotalUncachedKBPerSec" units="KB/s">
-  <summary>
-    The rate for completely translating a Portable Native Client bitcode file
-    into a Native Client executable and caching the result in Kilobytes per
-    second.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.PNaClLoadTime.TotalUncachedTime"
-    units="milliseconds">
-  <summary>
-    The total time it took to completely translate a Portable Native Client
-    bitcode file into a Native Client executable, and cache the result.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.Size.Manifest" units="KB">
-  <summary>The size of the manifest file.</summary>
-</histogram>
-
-<histogram name="NaCl.Perf.Size.Nexe" units="KB">
-  <summary>
-    The size of the main .nexe file downloaded for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.Size.Pexe" units="KB">
-  <summary>
-    The size of the main .pexe bitcode file downloaded for a Portable Native
-    Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.Size.PexeNexeSizePct" units="%">
-  <summary>
-    The size of the main .pexe bitcode file divided by the size of the .nexe
-    that is the result of translating the bitcode file, times 100.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.Size.PNaClTranslatedNexe" units="KB">
-  <summary>
-    The size of the main .nexe file that is the result of translating a Portable
-    Native Client .pexe bitcode file.  This reflects the amount of cache
-    consumed.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.LoadModule" units="milliseconds">
-  <summary>The time it took to load the NaCl module into sel_ldr.</summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.LoadModulePerMB" units="milliseconds/MB">
-  <summary>
-    The time it took to load the NaCl module into sel_ldr.  Normalized by the
-    size of the .nexe, in megabytes.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.ManifestDownload" units="milliseconds">
-  <summary>
-    The time it took to download the manifset file for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.NaClOverhead" units="milliseconds">
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    proxied execution of the NaCl module begins. This is the general startup
-    overhead of running as a NaCl module vs a trusted PPAPI plugin.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.NaClOverheadPerMB"
-    units="milliseconds/MB">
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    proxied execution of the NaCl module begins. This is the general startup
-    overhead of running as a NaCl module vs a trusted PPAPI plugin.  Normalized
-    by the size of the .nexe, in megabytes.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.NexeDownload" units="milliseconds">
-  <summary>
-    The time it took to download the main .nexe for a Native Client module.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.NexeDownloadPerMB"
-    units="milliseconds/MB">
-  <summary>
-    The time it took to download the main .nexe for a Native Client module.
-    Normalized by the size of the .nexe, in megabytes.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.Total" units="milliseconds">
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    the NaCl module is ready to be used.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.Perf.StartupTime.TotalPerMB" units="milliseconds/MB">
-  <summary>
-    The time it took between the Native Client plugin initialization and when
-    the NaCl module is ready to be used.  Normalized by the size of the .nexe,
-    in megabytes.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.ShutdownTime.Total" units="milliseconds">
-  <summary>The time it took the NaCl module to shut down.</summary>
-</histogram>
-
-<histogram name="NaCl.Startups" enum="NaClStartupEnum">
-  <obsolete>
-    Deprecated 5/2011, data is duplicated by NaCl.NexeStartupTime, and
-    normalizing to 'tab opens' is unusual.
-  </obsolete>
-  <summary>
-    The number of times that Native Client has been started by loading a .nexe
-    compared to the number of times that a tab has been opened.
-  </summary>
-</histogram>
-
-<histogram name="NaCl.ValidationCache.Query" enum="NaClValidationCacheEnum">
-  <summary>
-    Did a validation cache query find a previously known validation result?
-  </summary>
-</histogram>
-
-<histogram name="NaCl.ValidationCache.Set" enum="NaClValidationCacheEnum">
-  <summary>
-    Was the validation cache updated with a new validation result?
+    Chrome OS. This is recorded whenever a new user logs in.
   </summary>
 </histogram>
 
@@ -9869,15 +9309,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Net.OCSPResponseStapled" enum="BooleanSuccess">
-  <summary>
-    When connecting over HTTPS, a server may include an OCSP response as part of
-    the TLS handshake so that clients do not have to fetch it, provided the
-    client requested the server do so. This measures whether or not a server
-    included an OCSP response when it was requested.
-  </summary>
-</histogram>
-
 <histogram name="Net.OSErrorsForGetAddrinfo" enum="ErrorCodesGetaddrinfo_All">
   <summary>
     Positive error code that was returned by the system library
@@ -10276,22 +9707,15 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Net.QuicEphemeralPortsSuggested">
-  <summary>The number of ports suggested per server.</summary>
-</histogram>
-
-<histogram name="Net.QuicHandshakeNotConfirmedNumPacketsReceived">
-  <summary>
-    The number of QUIC packets received by a QUIC connection whose handshake was
-    not confirmed when that connection is closed.
-  </summary>
-</histogram>
-
-<histogram name="Net.QuicHandshakeState" enum="QuicHandshakeState">
+<histogram name="Net.QuicCryptoHandshakeState" enum="QuicHandshakeState">
   <summary>
     The state of a QUIC connection's crypto hanshake as it progresses from
     starting to confirmation or failure.
   </summary>
+</histogram>
+
+<histogram name="Net.QuicEphemeralPortsSuggested">
+  <summary>The number of ports suggested per server.</summary>
 </histogram>
 
 <histogram name="Net.QuicNumSentClientHellos">
@@ -10425,16 +9849,6 @@ other types of suffix sets.
     The number of missing packets between the current received packet and the
     previously largest received packet sequence number, as reported by the
     remote end of the connection.
-  </summary>
-</histogram>
-
-<histogram name="Net.QuicSession.PublicResetAddressMismatch"
-    enum="QuicAddressMismatch">
-  <summary>
-    When a public reset packet is received, whether the client IP address and
-    port number in it differ from the client IP address and port number in the
-    ServerHello handshake message. In the comparison, the first address is the
-    one in ServerHello and the second address is the one in public reset.
   </summary>
 </histogram>
 
@@ -13268,9 +12682,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Omnibox.SearchEngine" enum="OmniboxSearchEngine">
-  <obsolete>
-    Made obsolete around Chrome 32.  Use Omnibox.SearchEngineType instead.
-  </obsolete>
   <summary>
     The id of search engine that was used for search in omnibox. See
     src/chrome/browser/search_engines/template_url_prepopulate_data.cc for more
@@ -14811,13 +14222,6 @@ other types of suffix sets.
 
 <histogram name="Platform.Temperature.Sensor09" units="Celsius">
   <summary>Temperature reading at sensor 9 (PECI) taken every 30s.</summary>
-</histogram>
-
-<histogram name="Platform.TPM.DictionaryAttackCounter">
-  <summary>
-    Each sample is the value of the TPM dictionary attack counter during
-    startup.  Any non-zero value is unexpected.
-  </summary>
 </histogram>
 
 <histogram name="Platform.TPMForcedReboot" units="reboots">
@@ -16804,19 +16208,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Rappor.DiscardReason" enum="RapporDiscardReason">
-  <summary>
-    For each Rappor log that is discarded, the reason that it was discarded.
-  </summary>
-</histogram>
-
-<histogram name="Rappor.UploadResponseCode" enum="HttpResponseCode">
-  <summary>
-    For each upload to the Rappor server, log the response received from the
-    server.
-  </summary>
-</histogram>
-
 <histogram name="Renderer.AcceleratedFixedRootBackground"
     enum="AcceleratedFixedRootBackground">
   <summary>
@@ -17626,20 +17017,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="SB2.DownloadBinhashAddsDeleted">
-  <obsolete>
-    Deleted in M-34 (February 2014).
-  </obsolete>
-  <summary>Obsolete download BINHASH add chunks deleted.</summary>
-</histogram>
-
-<histogram name="SB2.DownloadBinhashSubsDeleted">
-  <obsolete>
-    Deleted in M-34 (February 2014).
-  </obsolete>
-  <summary>Obsolete download BINHASH sub chunks deleted.</summary>
-</histogram>
-
 <histogram name="SB2.DownloadChecks" enum="SB2DownloadChecks">
   <summary>
     Records results of SafeBrowsing download check, including both url check and
@@ -18016,21 +17393,6 @@ other types of suffix sets.
 
 <histogram name="SB2.PrefixSetWrite" units="ms">
   <summary>Time to store the PrefixSet file.</summary>
-</histogram>
-
-<histogram name="SB2.ReportingIsEnabled" enum="BooleanEnabled">
-  <summary>
-    Whether the user has Safe Browsing extended reporting enabled at the time a
-    Safe Browsing warning was dismissed.  This tracks the fraction of all SB
-    interstitials that had reporting enabled.
-  </summary>
-</histogram>
-
-<histogram name="SB2.SetReportingEnabled" enum="BooleanEnabled">
-  <summary>
-    Tracks changes to the Safe Browsing extended reporting opt-in which is shown
-    in the Safe Browsing interstitial.
-  </summary>
 </histogram>
 
 <histogram name="SB2.SideEffectFreeWhitelistDatabaseKilobytes" units="KB">
@@ -18453,39 +17815,7 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Search.ContextualSearchOptCard"
-    enum="ContextualSearchOptCardAction">
-  <summary>The type of action taken in the Opt-in card.</summary>
-</histogram>
-
-<histogram name="Search.ContextualSearchOptPeekCard"
-    enum="ContextualSearchPeekCardAction">
-  <summary>The type of action taken when the Opt-in card is peeking.</summary>
-</histogram>
-
-<histogram name="Search.ContextualSearchPeekCard"
-    enum="ContextualSearchPeekCardAction">
-  <summary>The type of action taken when the Search card is peeking.</summary>
-</histogram>
-
-<histogram name="Search.ContextualSearchTap" enum="ContextualSearchTapAction">
-  <summary>The type of tap action taken by opted-in users.</summary>
-</histogram>
-
-<histogram name="Search.ContextualSearchTapUndecided"
-    enum="ContextualSearchTapAction">
-  <summary>The type of tap action taken by undecided users.</summary>
-</histogram>
-
-<histogram name="Search.ContextualSearchTimeToSearch" units="milliseconds">
-  <summary>The time between tapping on a word and performing a search.</summary>
-</histogram>
-
 <histogram name="Search.DefaultSearchProvider" enum="OmniboxSearchEngine">
-  <obsolete>
-    Made obsolete around Chrome 32.  Use Search.DefaultSearchProviderType
-    instead.
-  </obsolete>
   <summary>
     The id of the default search engine that is loaded after Chrome startup. See
     src/chrome/browser/search_engines/prepopulate_engines.json for more info.
@@ -21630,56 +20960,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Sync.AppAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during app association (M18 and earlier were mispelled with this
-    histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AppRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of apps run failures, used to compare failure rates between data types
-    for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AppsAssociationTime" units="milliseconds">
-  <summary>Time taken during app association.</summary>
-</histogram>
-
-<histogram name="Sync.AppSettingsAssociationTime" units="milliseconds">
-  <summary>Time taken during app settings association.</summary>
-</histogram>
-
-<histogram name="Sync.AppSettingsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of app settings association failures.</summary>
-</histogram>
-
-<histogram name="Sync.AppsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of app association failures.</summary>
-</histogram>
-
-<histogram name="Sync.AppStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of app association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AttemptNigoriMigration" enum="SyncNigoriMigrationResult">
-  <summary>
-    Enumeration of results from attempting to migrate Sync's nigori node and its
-    encryption keys to support keystore.
-  </summary>
-</histogram>
-
 <histogram name="Sync.AuthInvalidationRejectedTokenAgeLong" units="days">
   <summary>
     Age of all auth tokens rejected by the invalidation server. Measured from
@@ -21693,10 +20973,6 @@ other types of suffix sets.
     Age of auth tokens younger than one hour that were rejected by the
     invalidation server. Measured from the time they were created.
   </summary>
-</histogram>
-
-<histogram name="Sync.AuthorizationTimeInNetwork" units="milliseconds">
-  <summary>Time taken during initial authorization.</summary>
 </histogram>
 
 <histogram name="Sync.AuthServerRejectedTokenAgeLong" units="days">
@@ -21713,667 +20989,12 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Sync.AutofillAssociationTime" units="milliseconds">
-  <summary>Time taken during autofill association.</summary>
-</histogram>
-
-<histogram name="Sync.AutofillProfileAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during autofill profile association (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AutofillProfileRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of autofill profiles run failures, used to compare failure rates
-    between data types for a particular profile (see other Sync*RunFailures
-    histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AutofillProfilesAssociationTime" units="milliseconds">
-  <summary>Time taken during autofill profile association.</summary>
-</histogram>
-
-<histogram name="Sync.AutofillProfilesStartFailure" enum="SyncStartResult">
-  <summary>
-    Enumeration of types of autofill profile association failures.
-  </summary>
-</histogram>
-
-<histogram name="Sync.AutofillProfileStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of autofill profile association failures (M18 and
-    earlier were mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AutofillRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of autofill (autocomplete) run failures, used to compare failure rates
-    between data types for a particular profile (see other Sync*RunFailures
-    histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.AutofillStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of autofill association failures.</summary>
-</histogram>
-
-<histogram name="Sync.AutoNigoriOverwrites">
-  <summary>
-    Number of times this client has overwritten the nigori node to update the
-    encryption keys without a user action (during this instantiation of Chrome).
-  </summary>
-</histogram>
-
-<histogram name="Sync.BackendInitializeFirstTime" units="milliseconds">
-  <summary>
-    Tracks sync backend initialization time during initial sync setup.
-  </summary>
-</histogram>
-
-<histogram name="Sync.BackendInitializeFirstTimeSuccess" enum="BooleanSuccess">
-  <summary>
-    Tracks sync backend initialization success rate during initial sync setup.
-  </summary>
-</histogram>
-
 <histogram name="Sync.BackendInitializeRestoreState"
     enum="SyncBackendInitializeRestoreState">
   <summary>
     Compares sync's has_setup_completed pref against the set of types actually
     restored from the sync DB.  Mismatches should be rare.
   </summary>
-</histogram>
-
-<histogram name="Sync.BackendInitializeRestoreSuccess" enum="BooleanSuccess">
-  <summary>
-    Tracks sync backend initialization success rate in cases where sync was
-    previously initialized.
-  </summary>
-</histogram>
-
-<histogram name="Sync.BackendInitializeRestoreTime" units="milliseconds">
-  <summary>
-    Tracks sync backend initialization time in cases where sync was previously
-    initialized.
-  </summary>
-</histogram>
-
-<histogram name="Sync.BadRequestCountOnSignInNeedsUpdateInfoBar">
-  <summary>
-    Number of bad requests since application startup, when the Sync error
-    infobar asking the user to update his account details is displayed.
-  </summary>
-</histogram>
-
-<histogram name="Sync.BookmarkAssociationTime" units="milliseconds">
-  <obsolete>
-    Deprecated as of m18
-  </obsolete>
-  <summary>Time taken during bookmark association.</summary>
-</histogram>
-
-<histogram name="Sync.BookmarkRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of bookmark run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.BookmarksAssociationTime" units="milliseconds">
-  <summary>Time taken during bookmark association.</summary>
-</histogram>
-
-<histogram name="Sync.BookmarksStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of bookmark association failures.</summary>
-</histogram>
-
-<histogram name="Sync.BookmarkStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of bookmark association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureFailed" enum="SyncModelTypes">
-  <summary>Count of model association failures for each type.</summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime.ABORTED" units="milliseconds">
-  <obsolete>
-    Replaced by Sync.ConfigureTime_Long.ABORTED in m21.
-  </obsolete>
-  <summary>
-    Time spent configuring data types in the case where configuration is
-    aborted.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime.OK" units="milliseconds">
-  <obsolete>
-    Replaced by Sync.ConfigureTime_Long.OK in m21.
-  </obsolete>
-  <summary>
-    Time spent configuring data types in the case where configuration succeeds.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime.PARTIAL_SUCCESS" units="milliseconds">
-  <obsolete>
-    Replaced by Sync.ConfigureTime_Long.PARTIAL_SUCCESS in m21.
-  </obsolete>
-  <summary>
-    Time spent configuring data types in the case where only some data types
-    succeed.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime.UNRECOVERABLE_ERROR" units="milliseconds">
-  <obsolete>
-    Replaced by Sync.ConfigureTime_Long.UNRECOVERABLE_ERROR in m21.
-  </obsolete>
-  <summary>
-    Time spent configuring data types in the case where configuration encounters
-    an unrecoverable error.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime_Long.ABORTED" units="milliseconds">
-  <summary>
-    Time spent configuring data types in the case where configuration is
-    aborted.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime_Long.OK" units="milliseconds">
-  <summary>
-    Time spent configuring data types in the case where configuration succeeds.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime_Long.PARTIAL_SUCCESS" units="milliseconds">
-  <summary>
-    Time spent configuring data types in the case where only some data types
-    succeed.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConfigureTime_Long.UNRECOVERABLE_ERROR"
-    units="milliseconds">
-  <summary>
-    Time spent configuring data types in the case where configuration encounters
-    an unrecoverable error.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConflictFixCircularity">
-  <obsolete>
-    Deprecated 12/2011. No longer tracked. See crbug.com/107816.
-  </obsolete>
-  <summary>
-    Number of times we fix a circularity sync conflict. This is not expected to
-    be hit anymore.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ConflictFixRemovedDirectoriesWithContent">
-  <obsolete>
-    Deprecated 12/2011. No longer tracked. See crbug.com/107816.
-  </obsolete>
-  <summary>
-    Number of times we fix a removed directory with content sync conflict. This
-    is not expected to be hit anymore
-  </summary>
-</histogram>
-
-<histogram name="Sync.CredentialsLost" enum="BooleanCredentialsLost">
-  <summary>
-    Whether or not we detected missing credentials during startup.  This may be
-    related to crbug.com/121755.
-  </summary>
-</histogram>
-
-<histogram name="Sync.CryptographerPendingKeys"
-    enum="SyncCryptographerPendingKeysState">
-  <summary>
-    Breakdown of sync users whose cryptographer has pending keys.
-  </summary>
-</histogram>
-
-<histogram name="Sync.CryptographerReady" enum="SyncCryptographerReadyState">
-  <summary>
-    Breakdown of sync users whose cryptographer is fully ready for encryption
-    and decryption (initialized and no pending keys).
-  </summary>
-</histogram>
-
-<histogram name="Sync.CustomEncryption" enum="SyncCustomEncryptionEvent">
-  <summary>
-    Histogram that keeps track of how users encrypt their sync data. All users
-    start off with default encryption during initial setup, while a subset of
-    users go on to encrypt their sync data with a custom passphrase.
-  </summary>
-</histogram>
-
-<histogram name="Sync.CustomPassphrase">
-  <obsolete>
-    Deprecated as of m26.
-  </obsolete>
-  <summary>
-    Boolean histogram for whether a custom passphrase was entered during sync
-    setup. Samples are taken every time sync is (re)configured, and the unique
-    userid count shows how many users entered a custom passphrase.
-  </summary>
-</histogram>
-
-<histogram name="Sync.CustomSync" enum="UserSelectableSyncType">
-  <summary>
-    Samples are taken every time sync is (re)configured, and the unique userid
-    count shows how many users explicitly chose to sync this data type via the
-    &quot;Advanced Sync Preferences&quot; dialog.
-  </summary>
-</histogram>
-
-<histogram name="Sync.DatatypePrefRecovery">
-  <summary>
-    Number of clients that have fixed themselves up from a datatype preference
-    loss. Clients are not expected to have this happen more than once. This
-    value can be compared to Sync.BackendInitializeRestoreSuccess to determine
-    what percentage of users are still recovering.
-  </summary>
-</histogram>
-
-<histogram name="Sync.DataTypeRunFailures" enum="SyncModelTypes">
-  <summary>
-    Histogram of the run failures for the different sync datatypes. These are
-    failures that occur after startup while the datatype is syncing. Note: Due
-    to an enumeration reordering, pre-M23 labels are inaccurate (see
-    sync/internal_api/public/base/model_type.h).
-  </summary>
-</histogram>
-
-<histogram name="Sync.DataTypeStartFailures" enum="SyncModelTypes">
-  <summary>
-    Histogram of the startup failures for the different sync datatypes. These
-    are failures due to missing top level sync nodes or model association Note:
-    Due to an enumeration reordering, pre-M23 labels are inaccurate (see
-    sync/internal_api/public/base/model_type.h).
-  </summary>
-</histogram>
-
-<histogram name="Sync.DictionaryAssociationTime" units="milliseconds">
-  <summary>Time taken during dictionary association.</summary>
-</histogram>
-
-<histogram name="Sync.DictionaryStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of dictionary association failures.</summary>
-</histogram>
-
-<histogram name="Sync.DirectoryOpenFailedMac">
-  <obsolete>
-    Deprecated 11/2011. No longer tracked.
-  </obsolete>
-  <summary>Number of failures trying to open the sync database on mac.</summary>
-</histogram>
-
-<histogram name="Sync.DirectoryOpenFailedNotWinMac">
-  <obsolete>
-    Deprecated 11/2011. No longer tracked.
-  </obsolete>
-  <summary>
-    Number of failures trying to open the sync database on a non-windows non-mac
-    platform.
-  </summary>
-</histogram>
-
-<histogram name="Sync.DirectoryOpenFailedWin">
-  <obsolete>
-    Deprecated 11/2011. No longer tracked.
-  </obsolete>
-  <summary>
-    Number of failures trying to open the sync database on windows.
-  </summary>
-</histogram>
-
-<histogram name="Sync.DirectoryOpenResult" enum="SyncDirectoryOpenResult">
-  <summary>Tracks success of failure of sync directory initialization.</summary>
-</histogram>
-
-<histogram name="Sync.EncryptAllData">
-  <obsolete>
-    Deprecated as of m26.
-  </obsolete>
-  <summary>
-    Boolean histogram for whether the &quot;Encrypt all synced data&quot; radio
-    button was selected during sync setup. Samples are taken every time sync is
-    (re)configured, and the unique userid count shows how many users chose to
-    encrypt their sync data.
-  </summary>
-</histogram>
-
-<histogram name="Sync.EventCodes" enum="SyncEventCode">
-  <summary>A UI event occured.</summary>
-</histogram>
-
-<histogram name="Sync.ExtensionAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during extension association (M18 and earlier were mispelled with
-    this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ExtensionRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of extension run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ExtensionsAssociationTime" units="milliseconds">
-  <summary>Time taken during extension association.</summary>
-</histogram>
-
-<histogram name="Sync.ExtensionSettingsAssociationTime" units="milliseconds">
-  <summary>Time taken during extension settings association.</summary>
-</histogram>
-
-<histogram name="Sync.ExtensionSettingsStartFailure" enum="SyncStartResult">
-  <summary>
-    Enumeration of types of extension settings association failures.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ExtensionsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of extension association failures.</summary>
-</histogram>
-
-<histogram name="Sync.ExtensionStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of extension association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.FaviconCacheLookupSucceeded" enum="BooleanSuccess">
-  <summary>Whether a sync favicon cache lookup succeeded or not.</summary>
-</histogram>
-
-<histogram name="Sync.FaviconCount">
-  <summary>Number of synced favicons at initialization time.</summary>
-</histogram>
-
-<histogram name="Sync.FaviconImagesAssociationTime" units="milliseconds">
-  <summary>Time taken during favicon images association.</summary>
-</histogram>
-
-<histogram name="Sync.FaviconImagesStartFailure" enum="SyncStartResult">
-  <summary>
-    Enumeration of types of favicon images association failures.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FaviconsAvailableAtMerge" enum="SyncFaviconsAvailable">
-  <summary>
-    Number of client that have filled their sync favicon cache and must evict
-    old favicons vs those whose cache is not full.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FaviconTrackingAssociationTime" units="milliseconds">
-  <summary>Time taken during favicon tracking association.</summary>
-</histogram>
-
-<histogram name="Sync.FaviconTrackingStartFailure" enum="SyncStartResult">
-  <summary>
-    Enumeration of types of favicon tracking association failures.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FaviconVisitPeriod" units="hours">
-  <summary>Time between updates to a synced favicon's visit time.</summary>
-</histogram>
-
-<histogram name="Sync.FirstBackendInitializeSuccess" enum="BooleanSuccess">
-  <obsolete>
-    Deprecated 11/2011.  Was counted incorrectly.  Replaced by
-    Sync.BackendInitializeFirstTimeSuccess.
-  </obsolete>
-  <summary>
-    Tracks sync backend initialization success rate during initial sync setup.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqApps" units="milliseconds">
-  <summary>
-    Time between nudges for apps. Used as estimate of datatype commit frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqAutofill" units="milliseconds">
-  <summary>
-    Time between nudges for autofill entries. Used as estimate of datatype
-    commit frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqAutofillProfiles" units="milliseconds">
-  <summary>
-    Time between nudges for autofill profiles. Used as estimate of datatype
-    commit frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqBookmarks" units="milliseconds">
-  <summary>
-    Time between nudges for bookmarks. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqDictionary" units="milliseconds">
-  <summary>
-    Time between nudges for dictionary. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqExtensions" units="milliseconds">
-  <summary>
-    Time between nudges for extensions. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqFaviconImages" units="milliseconds">
-  <summary>
-    Time between nudges for favicon images. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqFaviconTracking" units="milliseconds">
-  <summary>
-    Time between nudges for favicon tracking. Used as estimate of datatype
-    commit frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqNigori" units="milliseconds">
-  <summary>
-    Time between nudges for nigori. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqPasswords" units="milliseconds">
-  <summary>
-    Time between nudges for passwords. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqPreferences" units="milliseconds">
-  <summary>
-    Time between nudges for preferences. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqSearchEngines" units="milliseconds">
-  <summary>
-    Time between nudges for search engines. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqSessions" units="milliseconds">
-  <summary>
-    Time between nudges for sessions. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqSyncedNotifications" units="milliseconds">
-  <summary>
-    Time between nudges for synced notifications. Used as estimate of datatype
-    commit frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqThemes" units="milliseconds">
-  <summary>
-    Time between nudges for themes. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.FreqTypedUrls" units="milliseconds">
-  <summary>
-    Time between nudges for typed urls. Used as estimate of datatype commit
-    frequency.
-  </summary>
-</histogram>
-
-<histogram name="Sync.KeystoreDecryptionFailed"
-    enum="SyncKeystoreDecryptionFailure">
-  <summary>
-    The reason for a failure decrypting the keystore decryptor token.
-  </summary>
-</histogram>
-
-<histogram name="Sync.LocalModelOutOfSync" enum="SyncModelTypes">
-  <summary>
-    Counts instances of out of sync local models detected during startup.
-  </summary>
-</histogram>
-
-<histogram name="Sync.NigoriMigrationState" enum="SyncNigoriMigrationState">
-  <summary>Breakdown of sync's nigori node keystore migration state.</summary>
-</histogram>
-
-<histogram name="Sync.PartiallySyncedTypes">
-  <summary>
-    Number of partially synced types (those with a progress marker but no
-    initial sync ended bit) that exist at sync startup.
-  </summary>
-</histogram>
-
-<histogram name="Sync.PasswordAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during password association (M18 and earlier were mispelled with
-    this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.PasswordRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of passwords run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.PasswordsAssociationTime" units="milliseconds">
-  <summary>Time taken during password association.</summary>
-</histogram>
-
-<histogram name="Sync.PasswordsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of password association failures.</summary>
-</histogram>
-
-<histogram name="Sync.PasswordStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of password association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.PreferenceAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during preference association (M18 and earlier were mispelled
-    with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.PreferenceRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of preferences run failures, used to compare failure rates between
-    data types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.PreferencesAssociationTime" units="milliseconds">
-  <summary>Time taken during preference association.</summary>
-</histogram>
-
-<histogram name="Sync.PreferencesStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of preference association failures.</summary>
-</histogram>
-
-<histogram name="Sync.PreferenceStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of preference association failures (M18 and earlier
-    were mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ReauthorizationTime" units="milliseconds">
-  <summary>Time taken from startup for the user to reauthorize.</summary>
 </histogram>
 
 <histogram name="Sync.RefreshTokenAvailable" enum="BooleanSuccess">
@@ -22383,140 +21004,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Sync.ResolveSimpleConflict"
-    enum="SyncSimpleConflictResolutions">
-  <summary>Enumeration of types of simple conflict resolutions.</summary>
-</histogram>
-
-<histogram name="Sync.RestoreBackendInitializeSucess" enum="BooleanSuccess">
-  <obsolete>
-    Deprecated 11/2011.  Was counted incorrectly.  Replaced by
-    Sync.BackendInitializeRestoreSuccess.
-  </obsolete>
-  <summary>
-    Tracks sync backend initialization success rate in cases where sync was
-    previously initialized.
-  </summary>
-</histogram>
-
-<histogram name="Sync.SearchEngineAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during search engine association (M18 and earlier were mispelled
-    with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.SearchEngineRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of search engine run failures, used to compare failure rates between
-    data types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.SearchEnginesAssociationTime" units="milliseconds">
-  <summary>Time taken during search engine association.</summary>
-</histogram>
-
-<histogram name="Sync.SearchEnginesStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of search engine association failures.</summary>
-</histogram>
-
-<histogram name="Sync.SearchEngineStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of search engine association failures (M18 and earlier
-    were mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ServiceInitialConfigureTime" units="milliseconds">
-  <summary>
-    Time spent on first-time configure.  May include time spent on retries.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ServiceSubsequentConfigureTime" units="milliseconds">
-  <summary>
-    Time spent on non-first-time configure.  May include time spent on retries.
-  </summary>
-</histogram>
-
-<histogram name="Sync.SessionAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during session association (M18 and earlier were mispelled with
-    this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.SessionRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of sessions run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.SessionsAssociationTime" units="milliseconds">
-  <summary>Time taken during session association.</summary>
-</histogram>
-
-<histogram name="Sync.SessionsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of session association failures.</summary>
-</histogram>
-
-<histogram name="Sync.SessionStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of session association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.Shutdown.BackendDestroyedTime" units="milliseconds">
-  <summary>
-    Time taken from the start of sync shutdown (in ProfileSyncService) until the
-    backend (SyncBackendHost) is fully destroyed.
-  </summary>
-</histogram>
-
-<histogram name="Sync.Shutdown.StopRegistrarTime" units="milliseconds">
-  <summary>
-    Amount of time the UI thread waits (at shutdown) to stop the
-    SyncBackendRegistrar.
-  </summary>
-</histogram>
-
-<histogram name="Sync.Shutdown.StopSyncThreadTime" units="milliseconds">
-  <summary>
-    Amount of time the UI thread waits (at shutdown) to stop the sync thread.
-  </summary>
-</histogram>
-
-<histogram name="Sync.Startup.DeferredInitTrigger"
-    enum="SyncDeferredInitTrigger">
-  <summary>The type of event that triggered sync initialization.</summary>
-</histogram>
-
-<histogram name="Sync.Startup.TimeDeferred" units="milliseconds">
-  <summary>
-    Time spent after ProfileSyncService *creation* but before SyncBackendHost
-    initialization.
-  </summary>
-</histogram>
-
-<histogram name="Sync.Startup.TypeTriggeringInit" enum="SyncModelTypes">
-  <summary>Data type that first requests sync initialization.</summary>
-</histogram>
-
 <histogram name="Sync.SyncAuthError" enum="SyncAuthError">
   <summary>
     Counts the number of times sync clients have encountered an auth error and
@@ -22524,146 +21011,7 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="Sync.SyncedNotificationsAssociationTime" units="milliseconds">
-  <summary>Time taken during synced notifications association.</summary>
-</histogram>
-
-<histogram name="Sync.SyncedNotificationsStartFailure" enum="SyncStartResult">
-  <summary>
-    Enumeration of types of synced notifications association failures.
-  </summary>
-</histogram>
-
-<histogram name="Sync.SyncerConflictStuck">
-  <obsolete>
-    Deprecated 12/2011. No longer tracked. See crbug.com/107816.
-  </obsolete>
-  <summary>
-    Number of times the sync conflict resolver gets stuck. This is not expected
-    to be hit anymore.
-  </summary>
-</histogram>
-
-<histogram name="Sync.SyncErrorInfobarDisplayed" enum="SyncErrorInfobarTypes">
-  <summary>
-    Enumeration of error conditions that displays an infobar to the user.
-  </summary>
-</histogram>
-
-<histogram name="Sync.SyncEverything">
-  <summary>
-    Boolean histogram for whether the &quot;Sync Everything&quot; option was
-    selected during sync setup. Samples are taken every time sync is
-    (re)configured, and the unique userid count shows how many users chose to
-    sync all available data types.
-  </summary>
-</histogram>
-
-<histogram name="Sync.ThemeAssociationTime" units="milliseconds">
-  <obsolete>
-    Deprecated as of m19
-  </obsolete>
-  <summary>
-    Time taken during theme association (M18 and earlier were mispelled with
-    this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ThemeRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of theme run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.ThemesAssociationTime" units="milliseconds">
-  <summary>Time taken during theme association.</summary>
-</histogram>
-
-<histogram name="Sync.ThemesStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of theme association failures.</summary>
-</histogram>
-
-<histogram name="Sync.ThemeStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of theme association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlAssociationTime" units="milliseconds">
-  <summary>
-    Time taken during typed url association (M18 and earlier were mispelled with
-    this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlChangeProcessorErrors" units="%">
-  <summary>
-    The percentage of history DB operations initiated by the typed URL change
-    processor that return an error. The cumulative count for the current sync
-    session is logged after every typed URL change.
-  </summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlModelAssociationErrors" units="%">
-  <summary>
-    The percentage of history DB operations during model association that return
-    an error. This is logged at the end of typed URL model association, which
-    happens once each time sync starts up.
-  </summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlRunFailures">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Count of typed url run failures, used to compare failure rates between data
-    types for a particular profile (see other Sync*RunFailures histograms).
-  </summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlsAssociationTime" units="milliseconds">
-  <summary>Time taken during typed url association.</summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlsStartFailure" enum="SyncStartResult">
-  <summary>Enumeration of types of typed url association failures.</summary>
-</histogram>
-
-<histogram name="Sync.TypedUrlStartFailures" enum="SyncStartResult">
-  <obsolete>
-    Deprecated as of m19.
-  </obsolete>
-  <summary>
-    Enumeration of types of typed url association failures (M18 and earlier were
-    mispelled with this histogram).
-  </summary>
-</histogram>
-
-<histogram name="Sync.UnrecoverableErrors" enum="SyncUnrecoverableErrorReason">
-  <summary>
-    Enumeration of the different reasons for unrecoverable errors and how often
-    they have occurred.
-  </summary>
-</histogram>
-
-<histogram name="Sync.UserPerceivedAuthorizationTime" units="milliseconds">
-  <summary>Time the user spends looking at the authorization dialog.</summary>
-</histogram>
-
-<histogram name="Sync.UserPerceivedBookmarkAssociation">
-  <summary>Time taken during bookmark association.</summary>
-</histogram>
-
-<histogram name="SyncedNotifications.Actions"
+<histogram name="SyncedNotification.Actions"
     enum="SyncedNotificationActionType">
   <summary>
     The actions taken on synced notifications, recorded every time they happen.
@@ -22921,6 +21269,33 @@ other types of suffix sets.
   <obsolete>
     Deprecated as of 7/2013.
   </obsolete>
+</histogram>
+
+<histogram name="Touchscreen.ActionAfterDoubleTapNoDelay"
+    enum="ActionAfterDoubleTap">
+  <summary>
+    On non-mobile sites, gesture taps are delayed to prevent double taps from
+    sending a click event. This stat tracks the user's first action within 5
+    seconds after a double tap gesture when the gesture tap delay is disabled.
+  </summary>
+</histogram>
+
+<histogram name="Touchscreen.ActionAfterDoubleTapWithDelay"
+    enum="ActionAfterDoubleTap">
+  <summary>
+    On non-mobile sites, gesture taps are delayed to prevent double taps from
+    sending a click event. This stat tracks the user's first action within 5
+    seconds after a double tap gesture when gesture tap events are delayed.
+  </summary>
+</histogram>
+
+<histogram name="Touchscreen.SingleTapType" enum="TapDelayType">
+  <summary>
+    On non-mobile sites, gesture taps are delayed to prevent double taps from
+    sending a click event. This stat counts the number of taps that are delayed
+    by the double-tap delay versus those that are sent immediately on mobile
+    sites.
+  </summary>
 </histogram>
 
 <histogram name="Translate.AlwaysTranslateLang">
@@ -23474,9 +21849,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Variations.FetchNotModifiedLatency" units="milliseconds">
-  <obsolete>
-    Deprecated 2/2014. No longer tracked.
-  </obsolete>
   <summary>
     The latency of a VariationsService seed fetch that results in a not modified
     response.
@@ -23484,9 +21856,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Variations.FetchOtherLatency" units="milliseconds">
-  <obsolete>
-    Deprecated 2/2014. No longer tracked.
-  </obsolete>
   <summary>
     The latency of a VariationsService seed fetch that results in neither a
     success nor not modified response.
@@ -23494,9 +21863,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="Variations.FetchSuccessLatency" units="milliseconds">
-  <obsolete>
-    Deprecated 2/2014. No longer tracked.
-  </obsolete>
   <summary>
     The latency of a VariationsService seed fetch that results in a success
     response.
@@ -23736,13 +22102,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="WebCore.Editing.Commands" enum="MappedEditingCommands">
-  <summary>
-    Counts the number of times each document.execCommand is executed. This
-    doesn't count commands not supported by Blink.
-  </summary>
-</histogram>
-
 <histogram name="WebCore.FeatureObserver" enum="FeatureObserver">
   <summary>
     Count of how many instances of WebCore::Page use various features. Each
@@ -23840,11 +22199,6 @@ other types of suffix sets.
   <summary>
     Methods that encountered leveldb errors while trying to write to disk.
   </summary>
-</histogram>
-
-<histogram name="WebCore.IndexedDB.Context.ForcedCloseReason"
-    enum="IDBContextForcedCloseReason">
-  <summary>The reason that a forced-close of a backing store occurred.</summary>
 </histogram>
 
 <histogram name="WebCore.IndexedDB.FrontEndAPICalls"
@@ -24067,14 +22421,6 @@ other types of suffix sets.
   </summary>
 </histogram>
 
-<histogram name="WebFont.BlankTextShownTime" units="milliseconds">
-  <summary>
-    A histogram tracking the time we spent showing blank text because a web font
-    wasn't available by the time we needed it. Measured once per @font-face that
-    ended up showing blank text.
-  </summary>
-</histogram>
-
 <histogram name="WebFont.CacheHit" enum="WebFontCacheHit">
   <summary>
     Recorded upon web fonts load. Counts the number of times web font is loaded
@@ -24122,14 +22468,6 @@ other types of suffix sets.
   <summary>
     The time taken for a webfont download that failed. Includes aborted
     requests.
-  </summary>
-</histogram>
-
-<histogram name="WebFont.HadBlankText" enum="BooleanHadBlankText">
-  <summary>
-    This metrics is logged when a page that use web fonts is loaded. The value
-    is whether we had to wait on at least one web font and ended up showing
-    blank text, or not.
   </summary>
 </histogram>
 
@@ -24307,9 +22645,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="WebRTC.AudioCaptureTime" units="milliseconds">
-  <obsolete>
-    Removed from code 2014/2/25.
-  </obsolete>
   <summary>Duration in milliseconds of WebRTC audio capture session.</summary>
 </histogram>
 
@@ -24318,17 +22653,11 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="WebRTC.AudioInputFramesPerBuffer" enum="AudioFramesPerBuffer">
-  <obsolete>
-    No longer exists in the code as of 2014/2/25.
-  </obsolete>
   <summary>Size of WebRTC audio input buffers (in audio frames).</summary>
 </histogram>
 
 <histogram name="WebRTC.AudioInputFramesPerBufferUnexpected"
     units="audio frames">
-  <obsolete>
-    No longer exists in the code as of 2014/2/25.
-  </obsolete>
   <summary>
     Size of WebRTC audio input buffers (atypical values, in audio frames).
   </summary>
@@ -24345,9 +22674,6 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="WebRTC.AudioOutputChannelLayout" enum="ChannelLayout">
-  <obsolete>
-    Removed from code on 2014/2/25.
-  </obsolete>
   <summary>Audio output channel layout in WebRTC.</summary>
 </histogram>
 
@@ -24373,39 +22699,7 @@ other types of suffix sets.
 </histogram>
 
 <histogram name="WebRTC.AudioRenderTime" units="milliseconds">
-  <obsolete>
-    Removed from code 2014/2/25.
-  </obsolete>
   <summary>Duration in milliseconds of WebRTC audio render session.</summary>
-</histogram>
-
-<histogram name="WebRTC.DataChannelCounters" enum="DataChannelCounters">
-  <summary>
-    Counters on creation, opening, and a few main attributes of data channels.
-  </summary>
-</histogram>
-
-<histogram name="WebRTC.NumDataChannelsPerPeerConnection">
-  <summary>
-    Number of data channels created per PeerConnection. Sample added to the
-    histogram when the PeerConnection is destroyed.
-  </summary>
-</histogram>
-
-<histogram name="WebRTC.ReliableDataChannelMessageSize" units="bytes">
-  <summary>
-    Sizes of messages sent over reliable data channels. The size of an
-    individual message is added to the histogram as a sample immediately when a
-    message is sent.
-  </summary>
-</histogram>
-
-<histogram name="WebRTC.UnreliableDataChannelMessageSize" units="bytes">
-  <summary>
-    Sizes of messages sent over unreliable data channels. The size of an
-    individual message is added to the histogram as a sample immediately when a
-    message is sent.
-  </summary>
 </histogram>
 
 <histogram name="WebRTC.webkitApiCount" enum="JavaScriptAPIName">
@@ -24565,38 +22859,6 @@ other types of suffix sets.
   <int value="1" label="TrimMemoryRunningLow"/>
   <int value="2" label="TrimMemoryRunningCritical"/>
   <int value="3" label="LowMemory"/>
-</enum>
-
-<enum name="AppCacheCheckResponseResult" type="int">
-  <int value="0" label="OK"/>
-  <int value="1" label="Manifest obsolete"/>
-  <int value="2" label="Response obsolete"/>
-  <int value="3" label="Entry not found"/>
-  <int value="4" label="Read headers error"/>
-  <int value="5" label="Read data error"/>
-  <int value="6" label="Unexpected size"/>
-  <int value="7" label="Check canceled"/>
-</enum>
-
-<enum name="AppCacheErrorSite" type="int">
-  <summary>Identifies the point of failure, see sources.</summary>
-</enum>
-
-<enum name="AppCacheInitResult" type="int">
-  <int value="0" label="OK"/>
-  <int value="1" label="SQL Database Error"/>
-  <int value="2" label="Disk Cache Error"/>
-</enum>
-
-<enum name="AppCacheUpdateJobResult" type="int">
-  <int value="0" label="OK"/>
-  <int value="1" label="SQL Database Error"/>
-  <int value="2" label="Disk Cache Error"/>
-  <int value="3" label="Quota Error"/>
-  <int value="4" label="Redirect Error"/>
-  <int value="5" label="Manifest Error"/>
-  <int value="6" label="Network Error"/>
-  <int value="7" label="Server Error"/>
 </enum>
 
 <enum name="AppLaunch" type="int">
@@ -25127,11 +23389,6 @@ other types of suffix sets.
   <int value="1" label="Force Disabled"/>
 </enum>
 
-<enum name="BooleanHadBlankText" type="int">
-  <int value="0" label="Did not have blank text"/>
-  <int value="1" label="Had blank text"/>
-</enum>
-
 <enum name="BooleanHasCrc" type="int">
   <int value="0" label="No CRC"/>
   <int value="1" label="Has CRC"/>
@@ -25212,18 +23469,6 @@ other types of suffix sets.
   <int value="1" label="webkit-3d"/>
   <int value="2" label="experimental-webgl"/>
   <int value="3" label="webgl"/>
-</enum>
-
-<enum name="CapturePixelFormat" type="int">
-  <int value="0" label="UNKNOWN"/>
-  <int value="1" label="I420"/>
-  <int value="2" label="YUY2"/>
-  <int value="3" label="UYVY"/>
-  <int value="4" label="RGB24"/>
-  <int value="5" label="ARGB"/>
-  <int value="6" label="MJPEG"/>
-  <int value="7" label="NV21"/>
-  <int value="8" label="YV12"/>
 </enum>
 
 <enum name="CatSixtyFour" type="int">
@@ -25406,28 +23651,6 @@ other types of suffix sets.
   <int value="4" label="TEST_NOT_RUN"/>
 </enum>
 
-<enum name="ContextualSearchOptCardAction" type="int">
-  <int value="0" label="Opt-in"/>
-  <int value="1" label="Opt-out"/>
-  <int value="2" label="Learn More"/>
-  <int value="3" label="Dismiss by Tapping on the Page"/>
-  <int value="4" label="Dismiss by Scrolling the Page"/>
-  <int value="5" label="Dismiss by Leaving the Page"/>
-</enum>
-
-<enum name="ContextualSearchPeekCardAction" type="int">
-  <int value="0" label="Tap Card"/>
-  <int value="1" label="Dismiss by Tapping on the Page"/>
-  <int value="2" label="Dismiss by Scrolling the Page"/>
-  <int value="3" label="Dismiss by Leaving the Page"/>
-</enum>
-
-<enum name="ContextualSearchTapAction" type="int">
-  <int value="0" label="Tap Word"/>
-  <int value="1" label="Tap Ignored"/>
-  <int value="2" label="Tap Invalid"/>
-</enum>
-
 <enum name="CookieDeletionCause" type="int">
   <summary>Reason why a cookie was removed from the cookie store</summary>
   <int value="0" label="explicit">
@@ -25515,17 +23738,6 @@ other types of suffix sets.
 
 <enum name="CrosEventEnum" type="int">
   <int value="0" label="ModemManagerCommandSendFailure"/>
-  <int value="1" label="HwWatchdogReboot"/>
-  <int value="2" label="Cras.NoCodecsFoundAtBoot"/>
-  <int value="3" label="Chaps.DatabaseCorrupted"/>
-  <int value="4" label="Chaps.DatabaseRepairFailure"/>
-  <int value="5" label="Chaps.DatabaseCreateFailure"/>
-  <int value="6" label="Attestation.OriginSpecificExhausted"/>
-  <int value="7" label="SpringPowerSupply.Original.High"/>
-  <int value="8" label="SpringPowerSupply.Other.High"/>
-  <int value="9" label="SpringPowerSupply.Original.Low"/>
-  <int value="10" label="SpringPowerSupply.ChargerIdle"/>
-  <int value="11" label="TPM.NonZeroDictionaryAttackCounter"/>
 </enum>
 
 <enum name="CrosFirstRunTutorialCompletionType" type="int">
@@ -25547,14 +23759,6 @@ other types of suffix sets.
   <int value="6" label="Sheets"/>
   <int value="7" label="Slides"/>
   <int value="8" label="PlayMusic"/>
-</enum>
-
-<enum name="DataChannelCounters" type="int">
-  <int value="0" label="Channel created."/>
-  <int value="1" label="Channel reached Open state."/>
-  <int value="2" label="Channel is reliable."/>
-  <int value="3" label="Channel is ordered."/>
-  <int value="4" label="Channel is negotiated."/>
 </enum>
 
 <enum name="DataReductionProxyBypassEventType" type="int">
@@ -26582,11 +24786,6 @@ other types of suffix sets.
   <int value="255" label="Enable on-screen keyboard"/>
   <int value="256"
       label="Set default state of the on-screen keyboard on the login screen"/>
-  <int value="257" label="Allow gnubby authentication"/>
-  <int value="258"
-      label="Power management settings when the user becomes idle"/>
-  <int value="259" label="Screen lock delays"/>
-  <int value="260" label="Media keys default to function keys"/>
 </enum>
 
 <enum name="EnterprisePolicyInvalidations" type="int">
@@ -27507,19 +25706,6 @@ other types of suffix sets.
   <int value="683" label="WEBVIEW_GETZOOM"/>
   <int value="684" label="DEVELOPERPRIVATE_REQUESTFILESOURCE"/>
   <int value="685" label="DEVELOPERPRIVATE_OPENDEVTOOLS"/>
-  <int value="686" label="ACTIVITYLOGPRIVATE_DELETEACTIVITIES"/>
-  <int value="687" label="NETWORKINGPRIVATE_SETWIFITDLSENABLEDSTATE"/>
-  <int value="688" label="NETWORKINGPRIVATE_GETWIFITDLSSTATUS"/>
-  <int value="689" label="SCREENLOCKPRIVATE_HIDEBUTTON"/>
-  <int value="690" label="SCREENLOCKPRIVATE_SETAUTHTYPE"/>
-  <int value="691" label="SCREENLOCKPRIVATE_GETAUTHTYPE"/>
-  <int value="692" label="SCREENLOCKPRIVATE_ACCEPTAUTHATTEMPT"/>
-  <int value="693" label="WEBVIEW_FIND"/>
-  <int value="694" label="WEBVIEW_STOPFINDING"/>
-  <int value="695" label="WEBVIEW_CONTEXTMENUSCREATE"/>
-  <int value="696" label="WEBVIEW_CONTEXTMENUSUPDATE"/>
-  <int value="697" label="WEBVIEW_CONTEXTMENUSREMOVE"/>
-  <int value="698" label="WEBVIEW_CONTEXTMENUSREMOVEALL"/>
 </enum>
 
 <enum name="ExtensionInstallCause" type="int">
@@ -27993,23 +26179,6 @@ other types of suffix sets.
   <int value="266" label="PrefixedPutImageDataHD"/>
   <int value="267" label="PrefixedImageSmoothingEnabled"/>
   <int value="268" label="UnprefixedImageSmoothingEnabled"/>
-  <int value="269" label="ShadowRootApplyAuthorStyles"/>
-  <int value="270" label="PromiseConstructor"/>
-  <int value="271" label="PromiseCast"/>
-  <int value="272" label="PromiseReject"/>
-  <int value="273" label="PromiseResolve"/>
-  <int value="274" label="TextAutosizing"/>
-  <int value="275" label="TextAutosizingLayout"/>
-  <int value="276" label="HTMLAnchorElementPingAttribute"/>
-  <int value="277" label="JavascriptExhaustedMemory"/>
-  <int value="278" label="InsertAdjacentHTML"/>
-  <int value="279" label="SVGClassName"/>
-  <int value="280" label="HTMLAppletElement"/>
-  <int value="281" label="HTMLMediaElementSeekToFragmentStart"/>
-  <int value="282" label="HTMLMediaElementSeekToFragmentEnd"/>
-  <int value="283" label="PrefixedWindowURL"/>
-  <int value="284" label="PrefixedWorkerURL"/>
-  <int value="285" label="WindowOrientation"/>
 </enum>
 
 <enum name="FFmpegCodecs" type="int">
@@ -28513,10 +26682,6 @@ other types of suffix sets.
   <int value="3" label="Authentication failed"/>
   <int value="4" label="Device registration error"/>
   <int value="5" label="Unknown error"/>
-  <int value="6" label="URL fetching failed"/>
-  <int value="7" label="HTTP not OK"/>
-  <int value="8" label="Response parsing failed"/>
-  <int value="9" label="Reached maximum number of retries"/>
 </enum>
 
 <enum name="GCMUnregistrationRequestStatus" type="int">
@@ -28645,7 +26810,7 @@ other types of suffix sets.
   <int value="3" label="DISMISS_REQUEST_TOTAL"/>
   <int value="4" label="DISMISS_REQUEST_SUCCESS"/>
   <int value="5" label="LOCATION_REQUEST"/>
-  <int value="6" label="DELETED_LOCATION_UPDATE"/>
+  <int value="6" label="LOCATION_UPDATE"/>
   <int value="7" label="EXTENSION_START"/>
   <int value="8" label="DELETED_SHOW_WELCOME_TOAST"/>
   <int value="9" label="STOPPED"/>
@@ -28906,18 +27071,6 @@ other types of suffix sets.
     connected unused socket (idle prior to use)
   </int>
   <int value="2" label="REUSED_IDLE">previously used (keep-alive?) socket</int>
-</enum>
-
-<enum name="IDBContextForcedCloseReason" type="int">
-  <int value="0" label="DeleteOrigin">
-    A request was made to delete the data for an origin.
-  </int>
-  <int value="1" label="BackingStoreFailure">
-    An unrecoverable error occurred accessing the backing store.
-  </int>
-  <int value="2" label="InternalsPage">
-    A forced close was requested from the indexeddb-internals page.
-  </int>
 </enum>
 
 <enum name="IDBLevelDBBackingStoreInternalErrorType" type="int">
@@ -30331,150 +28484,6 @@ other types of suffix sets.
   <int value="437" label="object-position"/>
 </enum>
 
-<enum name="MappedEditingCommands" type="int">
-<!-- Generated from ../../../third_party/WebKit/Source/core/editing/EditorCommand.cpp -->
-
-  <int value="1" label="AlignJustified"/>
-  <int value="2" label="AlignLeft"/>
-  <int value="3" label="AlignRight"/>
-  <int value="4" label="BackColor"/>
-  <int value="5" label="BackwardDelete"/>
-  <int value="6" label="Bold"/>
-  <int value="7" label="Copy"/>
-  <int value="8" label="CreateLink"/>
-  <int value="9" label="Cut"/>
-  <int value="10" label="DefaultParagraphSeparator"/>
-  <int value="11" label="Delete"/>
-  <int value="12" label="DeleteBackward"/>
-  <int value="13" label="DeleteBackwardByDecomposingPreviousCharacter"/>
-  <int value="14" label="DeleteForward"/>
-  <int value="15" label="DeleteToBeginningOfLine"/>
-  <int value="16" label="DeleteToBeginningOfParagraph"/>
-  <int value="17" label="DeleteToEndOfLine"/>
-  <int value="18" label="DeleteToEndOfParagraph"/>
-  <int value="19" label="DeleteToMark"/>
-  <int value="20" label="DeleteWordBackward"/>
-  <int value="21" label="DeleteWordForward"/>
-  <int value="22" label="FindString"/>
-  <int value="23" label="FontName"/>
-  <int value="24" label="FontSize"/>
-  <int value="25" label="FontSizeDelta"/>
-  <int value="26" label="ForeColor"/>
-  <int value="27" label="FormatBlock"/>
-  <int value="28" label="ForwardDelete"/>
-  <int value="29" label="HiliteColor"/>
-  <int value="30" label="IgnoreSpelling"/>
-  <int value="31" label="Indent"/>
-  <int value="32" label="InsertBacktab"/>
-  <int value="33" label="InsertHTML"/>
-  <int value="34" label="InsertHorizontalRule"/>
-  <int value="35" label="InsertImage"/>
-  <int value="36" label="InsertLineBreak"/>
-  <int value="37" label="InsertNewline"/>
-  <int value="38" label="InsertNewlineInQuotedContent"/>
-  <int value="39" label="InsertOrderedList"/>
-  <int value="40" label="InsertParagraph"/>
-  <int value="41" label="InsertTab"/>
-  <int value="42" label="InsertText"/>
-  <int value="43" label="InsertUnorderedList"/>
-  <int value="44" label="Italic"/>
-  <int value="45" label="JustifyCenter"/>
-  <int value="46" label="JustifyFull"/>
-  <int value="47" label="JustifyLeft"/>
-  <int value="48" label="JustifyNone"/>
-  <int value="49" label="JustifyRight"/>
-  <int value="50" label="MakeTextWritingDirectionLeftToRight"/>
-  <int value="51" label="MakeTextWritingDirectionNatural"/>
-  <int value="52" label="MakeTextWritingDirectionRightToLeft"/>
-  <int value="53" label="MoveBackward"/>
-  <int value="54" label="MoveBackwardAndModifySelection"/>
-  <int value="55" label="MoveDown"/>
-  <int value="56" label="MoveDownAndModifySelection"/>
-  <int value="57" label="MoveForward"/>
-  <int value="58" label="MoveForwardAndModifySelection"/>
-  <int value="59" label="MoveLeft"/>
-  <int value="60" label="MoveLeftAndModifySelection"/>
-  <int value="61" label="MovePageDown"/>
-  <int value="62" label="MovePageDownAndModifySelection"/>
-  <int value="63" label="MovePageUp"/>
-  <int value="64" label="MovePageUpAndModifySelection"/>
-  <int value="65" label="MoveParagraphBackward"/>
-  <int value="66" label="MoveParagraphBackwardAndModifySelection"/>
-  <int value="67" label="MoveParagraphForward"/>
-  <int value="68" label="MoveParagraphForwardAndModifySelection"/>
-  <int value="69" label="MoveRight"/>
-  <int value="70" label="MoveRightAndModifySelection"/>
-  <int value="71" label="MoveToBeginningOfDocument"/>
-  <int value="72" label="MoveToBeginningOfDocumentAndModifySelection"/>
-  <int value="73" label="MoveToBeginningOfLine"/>
-  <int value="74" label="MoveToBeginningOfLineAndModifySelection"/>
-  <int value="75" label="MoveToBeginningOfParagraph"/>
-  <int value="76" label="MoveToBeginningOfParagraphAndModifySelection"/>
-  <int value="77" label="MoveToBeginningOfSentence"/>
-  <int value="78" label="MoveToBeginningOfSentenceAndModifySelection"/>
-  <int value="79" label="MoveToEndOfDocument"/>
-  <int value="80" label="MoveToEndOfDocumentAndModifySelection"/>
-  <int value="81" label="MoveToEndOfLine"/>
-  <int value="82" label="MoveToEndOfLineAndModifySelection"/>
-  <int value="83" label="MoveToEndOfParagraph"/>
-  <int value="84" label="MoveToEndOfParagraphAndModifySelection"/>
-  <int value="85" label="MoveToEndOfSentence"/>
-  <int value="86" label="MoveToEndOfSentenceAndModifySelection"/>
-  <int value="87" label="MoveToLeftEndOfLine"/>
-  <int value="88" label="MoveToLeftEndOfLineAndModifySelection"/>
-  <int value="89" label="MoveToRightEndOfLine"/>
-  <int value="90" label="MoveToRightEndOfLineAndModifySelection"/>
-  <int value="91" label="MoveUp"/>
-  <int value="92" label="MoveUpAndModifySelection"/>
-  <int value="93" label="MoveWordBackward"/>
-  <int value="94" label="MoveWordBackwardAndModifySelection"/>
-  <int value="95" label="MoveWordForward"/>
-  <int value="96" label="MoveWordForwardAndModifySelection"/>
-  <int value="97" label="MoveWordLeft"/>
-  <int value="98" label="MoveWordLeftAndModifySelection"/>
-  <int value="99" label="MoveWordRight"/>
-  <int value="100" label="MoveWordRightAndModifySelection"/>
-  <int value="101" label="Outdent"/>
-  <int value="102" label="OverWrite"/>
-  <int value="103" label="Paste"/>
-  <int value="104" label="PasteAndMatchStyle"/>
-  <int value="105" label="PasteGlobalSelection"/>
-  <int value="106" label="Print"/>
-  <int value="107" label="Redo"/>
-  <int value="108" label="RemoveFormat"/>
-  <int value="109" label="ScrollPageBackward"/>
-  <int value="110" label="ScrollPageForward"/>
-  <int value="111" label="ScrollLineUp"/>
-  <int value="112" label="ScrollLineDown"/>
-  <int value="113" label="ScrollToBeginningOfDocument"/>
-  <int value="114" label="ScrollToEndOfDocument"/>
-  <int value="115" label="SelectAll"/>
-  <int value="116" label="SelectLine"/>
-  <int value="117" label="SelectParagraph"/>
-  <int value="118" label="SelectSentence"/>
-  <int value="119" label="SelectToMark"/>
-  <int value="120" label="SelectWord"/>
-  <int value="121" label="SetMark"/>
-  <int value="122" label="Strikethrough"/>
-  <int value="123" label="StyleWithCSS"/>
-  <int value="124" label="Subscript"/>
-  <int value="125" label="Superscript"/>
-  <int value="126" label="SwapWithMark"/>
-  <int value="127" label="ToggleBold"/>
-  <int value="128" label="ToggleItalic"/>
-  <int value="129" label="ToggleUnderline"/>
-  <int value="130" label="Transpose"/>
-  <int value="131" label="Underline"/>
-  <int value="132" label="Undo"/>
-  <int value="133" label="Unlink"/>
-  <int value="134" label="Unscript"/>
-  <int value="135" label="Unselect"/>
-  <int value="136" label="UseCSS"/>
-  <int value="137" label="Yank"/>
-  <int value="138" label="YankAndSelect"/>
-  <int value="139" label="AlignCenter"/>
-</enum>
-
 <enum name="MediaContainers" type="int">
   <int value="0" label="Unknown"/>
   <int value="1" label="AAC (Advanced Audio Coding)"/>
@@ -30519,11 +28528,11 @@ other types of suffix sets.
 </enum>
 
 <enum name="MediaGalleriesUsageType" type="int">
-  <int value="0" label="Gallery added from permission dialog"/>
-  <int value="1" label="Gallery permission added from permission dialog"/>
-  <int value="2" label="Gallery permission removed from permission dialog"/>
+  <int value="0" label="Gallery added from dialog"/>
+  <int value="1" label="Gallery permission added from dialog"/>
+  <int value="2" label="Gallery permission removed from dialog"/>
   <int value="3" label="GetMediaFileSystems API invocations"/>
-  <int value="4" label="Profiles With API Usage (corrected in M35)"/>
+  <int value="4" label="Profiles With API Usage"/>
   <int value="5" label="Dialog shown"/>
   <int value="6" label="Dialog permissions saved"/>
   <int value="7" label="Gallery added from WebUI"/>
@@ -30531,16 +28540,7 @@ other types of suffix sets.
   <int value="9" label="Preferences initialized"/>
   <int value="10" label="Preferences initialization failed"/>
   <int value="11" label="GetAllMediaFileSystemMetadata API invocations"/>
-  <int value="12" label="GetMetadata API invocations"/>
-  <int value="13" label="AddUserSelectedFolder API invocations"/>
-  <int value="14" label="StartMediaScan API invocations"/>
-  <int value="15" label="CancelMediaScan API invocations"/>
-  <int value="16" label="AddScanResults API invocations"/>
-  <int value="17" label="A media scan completed"/>
-  <int value="18" label="AddScanResults dialog cancelled"/>
-  <int value="19" label="AddScanResults dialog accepted"/>
-  <int value="20" label="Gallery removed from AddScanResults dialog"/>
-  <int value="21" label="Gallery removed from permission dialog"/>
+  <int value="12" label="AddUserSelectedFolder API invocations"/>
 </enum>
 
 <enum name="MediaKeyError" type="int">
@@ -30639,198 +28639,6 @@ other types of suffix sets.
   <int value="4" label="Panel"/>
   <int value="5" label="Popup"/>
   <int value="6" label="Unknown"/>
-</enum>
-
-<enum name="NaClHelperStatus" type="int">
-  <int value="0" label="Helper not initialized"/>
-  <int value="1" label="Helper executable missing"/>
-  <int value="2" label="Helper bootstrap executable missing"/>
-  <int value="3" label="Browser running under Valgrind"/>
-  <int value="4" label="Helper failed to launch"/>
-  <int value="5" label="Helper failed to ACK"/>
-  <int value="6" label="Helper started correctly"/>
-</enum>
-
-<enum name="NaClHttpStatusCodeClass" type="int">
-  <int value="0" label="0XX"/>
-  <int value="1" label="1XX"/>
-  <int value="2" label="2XX"/>
-  <int value="3" label="3XX"/>
-  <int value="4" label="4XX"/>
-  <int value="5" label="5XX"/>
-  <int value="6" label="No status"/>
-</enum>
-
-<enum name="NaClManifestType" type="int">
-  <int value="0" label="File"/>
-  <int value="1" label="DataURI"/>
-</enum>
-
-<enum name="NaClOSArchEnum" type="int">
-  <int value="0" label="Linux x86-32"/>
-  <int value="1" label="Linux x86-64"/>
-  <int value="2" label="Linux ARM"/>
-  <int value="3" label="Mac x86-32"/>
-  <int value="4" label="Mac x86-64"/>
-  <int value="5" label="Mac ARM"/>
-  <int value="6" label="Windows x86-32"/>
-  <int value="7" label="Windows x86-64"/>
-  <int value="8" label="Windows ARM"/>
-  <int value="9" label="Linux Mips32"/>
-</enum>
-
-<enum name="NaClPluginErrorCode" type="int">
-  <int value="0" label="ERROR_LOAD_SUCCESS"/>
-  <int value="1" label="ERROR_LOAD_ABORTED"/>
-  <int value="2" label="ERROR_UNKNOWN"/>
-  <int value="3" label="ERROR_MANIFEST_RESOLVE_URL"/>
-  <int value="4" label="ERROR_MANIFEST_LOAD_URL"/>
-  <int value="5" label="ERROR_MANIFEST_STAT"/>
-  <int value="6" label="ERROR_MANIFEST_TOO_LARGE"/>
-  <int value="7" label="ERROR_MANIFEST_OPEN"/>
-  <int value="8" label="ERROR_MANIFEST_MEMORY_ALLOC"/>
-  <int value="9" label="ERROR_MANIFEST_READ"/>
-  <int value="10" label="ERROR_MANIFEST_PARSING"/>
-  <int value="11" label="ERROR_MANIFEST_SCHEMA_VALIDATE"/>
-  <int value="12" label="ERROR_MANIFEST_GET_NEXE_URL"/>
-  <int value="13" label="ERROR_NEXE_LOAD_URL"/>
-  <int value="14" label="ERROR_NEXE_ORIGIN_PROTOCOL"/>
-  <int value="15" label="ERROR_NEXE_FH_DUP"/>
-  <int value="16" label="ERROR_NEXE_STAT"/>
-  <int value="17" label="ERROR_ELF_CHECK_IO"/>
-  <int value="18" label="ERROR_ELF_CHECK_FAIL"/>
-  <int value="19" label="ERROR_SEL_LDR_INIT"/>
-  <int value="20" label="ERROR_SEL_LDR_CREATE_LAUNCHER"/>
-  <int value="21" label="ERROR_SEL_LDR_FD"/>
-  <int value="22" label="ERROR_SEL_LDR_LAUNCH"/>
-  <int value="23" label="ERROR_SEL_LDR_COMMUNICATION"/>
-  <int value="24" label="ERROR_SEL_LDR_SEND_NEXE"/>
-  <int value="25" label="ERROR_SEL_LDR_HANDLE_PASSING"/>
-  <int value="26" label="ERROR_SEL_LDR_START_MODULE"/>
-  <int value="27" label="ERROR_SEL_LDR_START_STATUS"/>
-  <int value="28" label="ERROR_SRPC_CONNECTION_FAIL"/>
-  <int value="29" label="ERROR_START_PROXY_CHECK_PPP"/>
-  <int value="30" label="ERROR_START_PROXY_ALLOC"/>
-  <int value="31" label="ERROR_START_PROXY_MODULE"/>
-  <int value="32" label="ERROR_START_PROXY_INSTANCE"/>
-  <int value="33" label="ERROR_SEL_LDR_COMMUNICATION_CMD_CHANNEL"/>
-  <int value="34" label="ERROR_SEL_LDR_COMMUNICATION_REV_SETUP"/>
-  <int value="35" label="ERROR_SEL_LDR_COMMUNICATION_WRAPPER"/>
-  <int value="36" label="ERROR_SEL_LDR_COMMUNICATION_REV_SERVICE"/>
-  <int value="37" label="ERROR_START_PROXY_CRASH"/>
-  <int value="38" label="ERROR_MANIFEST_PROGRAM_MISSING_ARCH"/>
-  <int value="39" label="ERROR_PNACL_CACHE_OPEN_INPROGRESS"/>
-  <int value="40" label="ERROR_PNACL_CACHE_OPEN_NOACCESS"/>
-  <int value="41" label="ERROR_PNACL_CACHE_OPEN_NOQUOTA"/>
-  <int value="42" label="ERROR_PNACL_CACHE_OPEN_NOSPACE"/>
-  <int value="43" label="ERROR_PNACL_CACHE_OPEN_OTHER"/>
-  <int value="44" label="ERROR_PNACL_CACHE_DIRECTORY_CREATE"/>
-  <int value="45" label="ERROR_PNACL_CACHE_FILEOPEN_NOACCESS"/>
-  <int value="46" label="ERROR_PNACL_CACHE_FILEOPEN_NOQUOTA"/>
-  <int value="47" label="ERROR_PNACL_CACHE_FILEOPEN_NOSPACE"/>
-  <int value="48" label="ERROR_PNACL_CACHE_FILEOPEN_NOTAFILE"/>
-  <int value="49" label="ERROR_PNACL_CACHE_FILEOPEN_OTHER"/>
-  <int value="50" label="ERROR_PNACL_CACHE_FETCH_NOACCESS"/>
-  <int value="51" label="ERROR_PNACL_CACHE_FETCH_NOTFOUND"/>
-  <int value="52" label="ERROR_PNACL_CACHE_FETCH_OTHER"/>
-  <int value="53" label="ERROR_PNACL_CACHE_FINALIZE_COPY_NOQUOTA"/>
-  <int value="54" label="ERROR_PNACL_CACHE_FINALIZE_COPY_NOSPACE"/>
-  <int value="55" label="ERROR_PNACL_CACHE_FINALIZE_COPY_OTHER"/>
-  <int value="56" label="ERROR_PNACL_CACHE_FINALIZE_RENAME_NOACCESS"/>
-  <int value="57" label="ERROR_PNACL_CACHE_FINALIZE_RENAME_OTHER"/>
-  <int value="58" label="ERROR_PNACL_RESOURCE_FETCH"/>
-  <int value="59" label="ERROR_PNACL_PEXE_FETCH_ABORTED"/>
-  <int value="60" label="ERROR_PNACL_PEXE_FETCH_NOACCESS"/>
-  <int value="61" label="ERROR_PNACL_PEXE_FETCH_OTHER"/>
-  <int value="62" label="ERROR_PNACL_THREAD_CREATE"/>
-  <int value="63" label="ERROR_PNACL_LLC_SETUP"/>
-  <int value="64" label="ERROR_PNACL_LD_SETUP"/>
-  <int value="65" label="ERROR_PNACL_LLC_INTERNAL"/>
-  <int value="66" label="ERROR_PNACL_LD_INTERNAL"/>
-  <int value="67" label="ERROR_PNACL_CREATE_TEMP"/>
-  <int value="68" label="ERROR_PNACL_NOT_ENABLED"/>
-  <int value="69" label="ERROR_MANIFEST_NOACCESS_URL"/>
-  <int value="70" label="ERROR_NEXE_NOACCESS_URL"/>
-</enum>
-
-<enum name="NaClSelLdrErrorCode" type="int">
-  <int value="0" label="LOAD_OK"/>
-  <int value="1" label="LOAD_STATUS_UNKNOWN"/>
-  <int value="2" label="LOAD_UNSUPPORTED_OS_PLATFORM"/>
-  <int value="3" label="LOAD_DEP_UNSUPPORTED"/>
-  <int value="4" label="LOAD_INTERNAL"/>
-  <int value="5" label="LOAD_DUP_LOAD_MODULE"/>
-  <int value="6" label="LOAD_DUP_START_MODULE"/>
-  <int value="7" label="LOAD_OPEN_ERROR"/>
-  <int value="8" label="LOAD_READ_ERROR"/>
-  <int value="9" label="LOAD_TOO_MANY_PROG_HDRS"/>
-  <int value="10" label="LOAD_BAD_PHENTSIZE"/>
-  <int value="11" label="LOAD_BAD_ELF_MAGIC"/>
-  <int value="12" label="LOAD_NOT_32_BIT"/>
-  <int value="13" label="LOAD_NOT_64_BIT"/>
-  <int value="14" label="LOAD_BAD_ABI"/>
-  <int value="15" label="LOAD_NOT_EXEC"/>
-  <int value="16" label="LOAD_BAD_MACHINE"/>
-  <int value="17" label="LOAD_BAD_ELF_VERS"/>
-  <int value="18" label="LOAD_TOO_MANY_SECT"/>
-  <int value="19" label="LOAD_BAD_SECT"/>
-  <int value="20" label="LOAD_NO_MEMORY"/>
-  <int value="21" label="LOAD_SECT_HDR"/>
-  <int value="22" label="LOAD_ADDR_SPACE_TOO_SMALL"/>
-  <int value="23" label="LOAD_ADDR_SPACE_TOO_BIG"/>
-  <int value="24" label="LOAD_DATA_OVERLAPS_STACK_SECTION"/>
-  <int value="25" label="LOAD_RODATA_OVERLAPS_DATA"/>
-  <int value="26" label="LOAD_DATA_NOT_LAST_SEGMENT"/>
-  <int value="27" label="LOAD_NO_DATA_BUT_RODATA_NOT_LAST_SEGMENT"/>
-  <int value="28" label="LOAD_TEXT_OVERLAPS_RODATA"/>
-  <int value="29" label="LOAD_TEXT_OVERLAPS_DATA"/>
-  <int value="30" label="LOAD_BAD_RODATA_ALIGNMENT"/>
-  <int value="31" label="LOAD_BAD_DATA_ALIGNMENT"/>
-  <int value="32" label="LOAD_UNLOADABLE"/>
-  <int value="33" label="LOAD_BAD_ELF_TEXT"/>
-  <int value="34" label="LOAD_TEXT_SEG_TOO_BIG"/>
-  <int value="35" label="LOAD_DATA_SEG_TOO_BIG"/>
-  <int value="36" label="LOAD_MPROTECT_FAIL"/>
-  <int value="37" label="LOAD_MADVISE_FAIL"/>
-  <int value="38" label="LOAD_TOO_MANY_SYMBOL_STR"/>
-  <int value="39" label="LOAD_SYMTAB_ENTRY_TOO_SMALL"/>
-  <int value="40" label="LOAD_NO_SYMTAB"/>
-  <int value="41" label="LOAD_NO_SYMTAB_STRINGS"/>
-  <int value="42" label="LOAD_SYMTAB_ENTRY"/>
-  <int value="43" label="LOAD_UNKNOWN_SYMBOL_TYPE"/>
-  <int value="44" label="LOAD_SYMTAB_DUP"/>
-  <int value="45" label="LOAD_REL_ERROR"/>
-  <int value="46" label="LOAD_REL_UNIMPL"/>
-  <int value="47" label="LOAD_UNDEF_SYMBOL"/>
-  <int value="48" label="LOAD_BAD_SYMBOL_DATA"/>
-  <int value="49" label="LOAD_BAD_FILE"/>
-  <int value="50" label="LOAD_BAD_ENTRY"/>
-  <int value="51" label="LOAD_SEGMENT_OUTSIDE_ADDRSPACE"/>
-  <int value="52" label="LOAD_DUP_SEGMENT"/>
-  <int value="53" label="LOAD_SEGMENT_BAD_LOC"/>
-  <int value="54" label="LOAD_BAD_SEGMENT"/>
-  <int value="55" label="LOAD_REQUIRED_SEG_MISSING"/>
-  <int value="56" label="LOAD_SEGMENT_BAD_PARAM"/>
-  <int value="57" label="LOAD_VALIDATION_FAILED"/>
-  <int value="58" label="LOAD_UNIMPLEMENTED"/>
-  <int value="59" label="SRT_NO_SEG_SEL"/>
-  <int value="60" label="LOAD_BAD_EHSIZE"/>
-  <int value="61" label="LOAD_EHDR_OVERFLOW"/>
-  <int value="62" label="LOAD_PHDR_OVERFLOW"/>
-  <int value="63" label="LOAD_UNSUPPORTED_CPU"/>
-  <int value="64" label="LOAD_NO_MEMORY_FOR_DYNAMIC_TEXT"/>
-  <int value="65" label="LOAD_NO_MEMORY_FOR_ADDRESS_SPACE"/>
-</enum>
-
-<enum name="NaClStartupEnum" type="int">
-  <int value="0" label="Default tab opened"/>
-  <int value="1" label="New tab opened"/>
-  <int value="2" label="NaCl sel_ldr started"/>
-</enum>
-
-<enum name="NaClValidationCacheEnum" type="int">
-  <int value="0" label="Miss"/>
-  <int value="1" label="Hit"/>
 </enum>
 
 <enum name="NavigationScheme" type="int">
@@ -32072,7 +29880,7 @@ other types of suffix sets.
 </enum>
 
 <enum name="PepperInterface" type="int">
-<!-- Generated by src/ppapi/tools/pepper_hash_for_uma.cc -->
+<!-- Generated by ppapi/tools/pepper_hash_for_uma.cc -->
 
   <int value="286711" label="PPB_FlashFullscreen;0.1"/>
   <int value="2804066" label="PPB_AudioConfig;1.1"/>
@@ -32132,7 +29940,6 @@ other types of suffix sets.
   <int value="910782902" label="PPB_AudioFrame;0.1"/>
   <int value="913922409" label="PPB_NetworkProxy;1.0"/>
   <int value="916446405" label="PPB_URLUtil(Dev);0.6"/>
-  <int value="930528031" label="PPB_OpenGLES2DrawBuffers(Dev);1.0"/>
   <int value="930786862" label="PPB_Flash_Clipboard;5.0"/>
   <int value="941275733" label="PPB_Flash;12.6"/>
   <int value="944161065" label="PPB_Flash_DRM;1.1"/>
@@ -32325,19 +30132,6 @@ other types of suffix sets.
   <int value="1" label="LOAD_FAILED"/>
   <int value="2" label="ENTRY_POINT_MISSING"/>
   <int value="3" label="INIT_FAILED"/>
-</enum>
-
-<enum name="PNaClOptionsOptLevelEnum" type="int">
-  <int value="0" label="0"/>
-  <int value="1" label="1"/>
-  <int value="2" label="2"/>
-  <int value="3" label="3"/>
-  <int value="4" label="Default / Unknown"/>
-</enum>
-
-<enum name="PNaClTranslationCacheEnum" type="int">
-  <int value="0" label="Miss"/>
-  <int value="1" label="Hit"/>
 </enum>
 
 <enum name="PointerSensitivity" type="int">
@@ -32915,17 +30709,6 @@ other types of suffix sets.
   <int value="22" label="DOMAIN_NUM_EVENTS"/>
 </enum>
 
-<enum name="QuicAddressMismatch" type="int">
-  <int value="0" label="Address mismatch: IPv4 IPv4"/>
-  <int value="1" label="Address mismatch: IPv6 IPv6"/>
-  <int value="2" label="Address mismatch: IPv4 IPv6"/>
-  <int value="3" label="Address mismatch: IPv6 IPv4"/>
-  <int value="4" label="Port mismatch: IPv4 IPv4"/>
-  <int value="5" label="Port mismatch: IPv6 IPv6"/>
-  <int value="6" label="Address and port match: IPv4 IPv4"/>
-  <int value="7" label="Address and port match: IPv6 IPv6"/>
-</enum>
-
 <enum name="QuicErrorCodes" type="int">
   <int value="0" label="NO_ERROR"/>
   <int value="1" label="INTERNAL_ERROR"/>
@@ -32979,15 +30762,6 @@ other types of suffix sets.
   <int value="49" label="INVALID_PRIORITY"/>
   <int value="50" label="INVALID_STREAM_FRAME"/>
   <int value="51" label="PACKET_READ_ERROR"/>
-  <int value="52" label="INVALID_CHANNEL_ID_SIGNATURE"/>
-  <int value="53" label="CRYPTO_SYMMETRIC_KEY_SETUP_FAILED"/>
-  <int value="54" label="CRYPTO_MESSAGE_WHILE_VALIDATING_CLIENT_HELLO"/>
-  <int value="55" label="VERSION_NEGOTIATION_MISMATCH"/>
-  <int value="56" label="INVALID_HEADERS_STREAM_DATA"/>
-  <int value="57" label="INVALID_WINDOW_UPDATE_DATA"/>
-  <int value="58" label="INVALID_BLOCKED_DATA"/>
-  <int value="59" label="FLOW_CONTROL_ERROR"/>
-  <int value="60" label="INVALID_STOP_WAITING_DATA"/>
 </enum>
 
 <enum name="QuicHandshakeState" type="int">
@@ -33107,12 +30881,6 @@ other types of suffix sets.
   <int value="4" label="CONNECTION_ERROR"/>
   <int value="5" label="PEER_GOING_AWAY"/>
   <int value="6" label="CANCELLED"/>
-</enum>
-
-<enum name="RapporDiscardReason" type="int">
-  <int value="0" label="Upload Success"/>
-  <int value="1" label="Upload Rejected"/>
-  <int value="2" label="Queue Overflowed"/>
 </enum>
 
 <enum name="RecentTabsAction" type="int">
@@ -33823,7 +31591,6 @@ other types of suffix sets.
 
   <int value="29" label="GoAway Frame Corrupt"/>
   <int value="30" label="RstStream Frame Corrupt"/>
-  <int value="31" label="Unexpected Frame (Expected Continuation)"/>
 </enum>
 
 <enum name="SpdySessionGet" type="int">
@@ -34527,174 +32294,12 @@ other types of suffix sets.
   <int value="3" label="Did not expect restored types but found some"/>
 </enum>
 
-<enum name="SyncCryptographerPendingKeysState" type="int">
-  <int value="0" label="Does not have pending keys"/>
-  <int value="1" label="Has pending keys"/>
-</enum>
-
-<enum name="SyncCryptographerReadyState" type="int">
-  <int value="0" label="Not Ready"/>
-  <int value="1" label="Ready"/>
-</enum>
-
-<enum name="SyncCustomEncryptionEvent" type="int">
-  <int value="0" label="Default setup with an implicit passphrase"/>
-  <int value="1" label="Advanced setup with a custom passphrase"/>
-</enum>
-
-<enum name="SyncDeferredInitTrigger" type="int">
-  <int value="0" label="Data type requested init."/>
-  <int value="1" label="Fallback timer triggered init."/>
-</enum>
-
-<enum name="SyncDirectoryOpenResult" type="int">
-  <summary>Possible outcomes of an attempt to load the sync directory.</summary>
-  <int value="0" label="FIRST_TRY_SUCCESS"/>
-  <int value="1" label="SECOND_TRY_SUCCESS"/>
-  <int value="2" label="SECOND_TRY_FAILURE"/>
-</enum>
-
 <enum name="SyncedNotificationActionType" type="int">
   <int value="0" label="Unknown"/>
   <int value="1" label="Notification clicked"/>
   <int value="2" label="Notification button clicked"/>
   <int value="3" label="Notification closed by user"/>
   <int value="4" label="Notification closed by system"/>
-</enum>
-
-<enum name="SyncedSearchEngineDeleteEvent" type="int">
-  <summary>Possible events that delete a synced search engine.</summary>
-  <int value="0" label="USER_INITIATED"/>
-  <int value="1" label="PRE_SYNC_DELETE"/>
-  <int value="2" label="EMPTY_FIELD"/>
-</enum>
-
-<enum name="SyncErrorInfobarTypes" type="int">
-  <summary>Possible errors that can trigger a sync error infobar.</summary>
-  <int value="1" label="Sign in needs update"/>
-  <int value="2" label="Service unavailable"/>
-  <int value="3" label="Needs passphrase"/>
-  <int value="4" label="Unrecoverable error"/>
-</enum>
-
-<enum name="SyncEventCode" type="int">
-  <summary>
-    Sync UI events. The codes are listed in profile_syncer_service.h with more
-    details.
-  </summary>
-  <int value="1" label="START_FROM_NTP"/>
-  <int value="2" label="START_FROM_WRENCH"/>
-  <int value="3" label="START_FROM_OPTIONS"/>
-  <int value="10" label="CANCEL_FROM_SIGNON_WITHOUT_AUTH"/>
-  <int value="11" label="CANCEL_DURING_SIGNON"/>
-  <int value="12" label="CANCEL_DURING_SIGNON_AFTER_MERGE"/>
-  <int value="20" label="STOP_FROM_OPTIONS"/>
-  <int value="21" label="STOP_FROM_ADVANCED_DIALOG"/>
-  <int value="30" label="MERGE_AND_SYNC_NEEDED"/>
-</enum>
-
-<enum name="SyncFaviconsAvailable" type="int">
-  <int value="0" label="Synced favicons full"/>
-  <int value="1" label="Synced favicons not full"/>
-</enum>
-
-<enum name="SyncKeystoreDecryptionFailure" type="int">
-  <int value="0" label="No keystore key"/>
-  <int value="1" label="Unknown reason"/>
-</enum>
-
-<enum name="SyncModelTypes" type="int">
-  <int value="0" label="Unspecified"/>
-  <int value="1" label="Top level folder"/>
-  <int value="2" label="Bookmarks"/>
-  <int value="3" label="Preferences"/>
-  <int value="4" label="Passwords"/>
-  <int value="5" label="Autofill Profile"/>
-  <int value="6" label="Autocomplete"/>
-  <int value="7" label="Themes"/>
-  <int value="8" label="Typed URLs"/>
-  <int value="9" label="Extensions"/>
-  <int value="10" label="Search Engines"/>
-  <int value="11" label="Sessions"/>
-  <int value="12" label="Apps"/>
-  <int value="13" label="App Settings"/>
-  <int value="14" label="Extension Settings"/>
-  <int value="15" label="App Notifications"/>
-  <int value="16" label="History Delete Directives"/>
-  <int value="17" label="Nigori"/>
-  <int value="18" label="Device Information"/>
-  <int value="19" label="Experiments"/>
-  <int value="20" label="Synced Notifications"/>
-  <int value="21" label="Priority Preferences"/>
-  <int value="22" label="Dictionary"/>
-  <int value="23" label="Favicon Images"/>
-  <int value="24" label="Favicon Tracking"/>
-  <int value="25" label="Proxy Tabs"/>
-  <int value="26" label="Managed User Settings"/>
-  <int value="27" label="Managed Users"/>
-  <int value="28" label="Articles"/>
-  <int value="29" label="App list"/>
-  <int value="30" label="Managed User Shared Settings"/>
-  <int value="31" label="Synced Notification App Info"/>
-</enum>
-
-<enum name="SyncNigoriMigrationResult" type="int">
-  <int value="0" label="Failed to set default encryption key"/>
-  <int value="1" label="Failed to set nondefault encryption key"/>
-  <int value="2" label="Failed to extract keystore decryptor"/>
-  <int value="3" label="Failed to extract encryption keybag"/>
-  <int value="4"
-      label="Successfully migrated to non-backwards compatible keystore mode"/>
-  <int value="5"
-      label="Successfully migrated to backwards compatible keystore mode"/>
-  <int value="6" label="Successfully migrated with frozen implicit passphrase"/>
-  <int value="7" label="Successfully migrated with custom passphrase"/>
-</enum>
-
-<enum name="SyncNigoriMigrationState" type="int">
-  <int value="0" label="Fully migrated"/>
-  <int value="1" label="Not migrated due to cryptographer not ready"/>
-  <int value="2" label="Not migrated due to missing keystore key"/>
-  <int value="3" label="Not migrated for an unknown reason"/>
-</enum>
-
-<enum name="SyncSimpleConflictResolutions" type="int">
-  <summary>
-    Sync simple conflict resolutions. The codes are listed in
-    conflict_resolver.h, and correspond to the different methods we have for
-    resolving simple sync conflicts.
-  </summary>
-  <int value="0" label="Overwrite local"/>
-  <int value="1" label="Overwrite server"/>
-  <int value="2" label="Undelete"/>
-  <int value="3" label="Ignore encryption"/>
-  <int value="4" label="Nigori merge"/>
-  <int value="5" label="Changes match"/>
-</enum>
-
-<enum name="SyncStartResult" type="int">
-  <summary>
-    Sync data type start results. The codes are listed in data_type_controller.h
-    with more details.
-  </summary>
-  <int value="0" label="OK"/>
-  <int value="1" label="OK_FIRST_RUN"/>
-  <int value="2" label="BUSY"/>
-  <int value="3" label="NOT_ENABLED"/>
-  <int value="4" label="ASSOCIATION_FAILED"/>
-  <int value="5" label="ABORTED"/>
-  <int value="6" label="UNRECOVERABLE_ERROR"/>
-  <int value="7" label="NEEDS_CRYPTO"/>
-</enum>
-
-<enum name="SyncUnrecoverableErrorReason" type="int">
-  <summary>Reasons for sync unrecoverable errors.</summary>
-  <int value="0" label="No error"/>
-  <int value="1" label="Syncer error"/>
-  <int value="2" label="Backend initialization error"/>
-  <int value="3" label="Configuration retry"/>
-  <int value="4" label="Configuration failure"/>
-  <int value="5" label="Actionable error"/>
 </enum>
 
 <enum name="TabRestoreResult" type="int">
@@ -34977,11 +32582,6 @@ other types of suffix sets.
   <int value="42" label="kErrorCodeUpdateCanceledByChannelChange"/>
 </enum>
 
-<enum name="UpdateEngineInstallDateProvisioningSource" type="int">
-  <int value="0" label="Omaha Response"/>
-  <int value="1" label="OOBE Marker"/>
-</enum>
-
 <enum name="UpdateEnginePayloadFormat" type="int">
   <int value="0" label="Full"/>
   <int value="1" label="Delta"/>
@@ -35015,18 +32615,6 @@ other types of suffix sets.
   <int value="10" label="kFileSystemScheme"/>
 </enum>
 
-<enum name="UserSelectableSyncType" type="int">
-  <int value="0" label="Bookmarks"/>
-  <int value="1" label="Preferences"/>
-  <int value="2" label="Passwords"/>
-  <int value="3" label="Autofill"/>
-  <int value="4" label="Themes"/>
-  <int value="5" label="Omnibox History"/>
-  <int value="6" label="Extensions"/>
-  <int value="7" label="Open Tabs"/>
-  <int value="8" label="Apps"/>
-</enum>
-
 <enum name="UserType" type="int">
   <int value="0" label="Regular"/>
   <int value="1" label="Guest"/>
@@ -35057,7 +32645,6 @@ other types of suffix sets.
   <int value="0" label="Seed Not Empty"/>
   <int value="1" label="Seed Empty"/>
   <int value="2" label="Seed Corrupt"/>
-  <int value="3" label="Seed Signature Verification Failed"/>
 </enum>
 
 <enum name="VaryType" type="int">
@@ -35572,18 +33159,6 @@ other types of suffix sets.
   <affected-histogram name="PLT.BeginToFinish_LinkLoadReload"/>
   <affected-histogram name="PLT.BeginToFinish_NormalLoad"/>
   <affected-histogram name="PLT.LoadType"/>
-</fieldtrial>
-
-<fieldtrial name="ContextualSearch">
-  <group name="Control"/>
-  <group name="Tap"/>
-  <group name="TapForced"/>
-  <affected-histogram name="Search.ContextualSearchOptCard"/>
-  <affected-histogram name="Search.ContextualSearchOptPeekCard"/>
-  <affected-histogram name="Search.ContextualSearchPeekCard"/>
-  <affected-histogram name="Search.ContextualSearchTap"/>
-  <affected-histogram name="Search.ContextualSearchTapUndecided"/>
-  <affected-histogram name="Search.ContextualSearchTimeToSearch"/>
 </fieldtrial>
 
 <fieldtrial name="CrosFirstRunStep" separator="">
@@ -38192,7 +35767,7 @@ other types of suffix sets.
 </fieldtrial>
 
 <fieldtrial name="TrackedSplitPreferences" separator=".">
-  <group name="extensions.settings" label="Extension IDs dictionary"/>
+  <group name="extension.settings" label="Extension IDs dictionary"/>
   <affected-histogram name="Settings.TrackedSplitPreferenceChanged"/>
 </fieldtrial>
 
