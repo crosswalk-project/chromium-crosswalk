@@ -6,8 +6,10 @@
 #define CHROME_BROWSER_SEARCH_HOTWORD_SERVICE_H_
 
 #include "base/basictypes.h"
+#include "base/prefs/pref_change_registrar.h"
 #include "components/browser_context_keyed_service/browser_context_keyed_service.h"
 
+class ExtensionService;
 class Profile;
 
 namespace hotword_internal {
@@ -44,8 +46,24 @@ class HotwordService : public BrowserContextKeyedService {
   // and language.
   virtual bool IsHotwordAllowed();
 
+  // Used in the case of an error with the current hotword extension. Tries
+  // to reload the extension or in the case of failure, tries to re-download it.
+  // Returns true upon successful attempt at reload or if the extension has
+  // already loaded successfully by some other means.
+  virtual bool RetryHotwordExtension();
+
+  // Control the state of the hotword extension.
+  void EnableHotwordExtension(ExtensionService* extension_service);
+  void DisableHotwordExtension(ExtensionService* extension_service);
+
+  // Handles enabling/disabling the hotword extension when the user
+  // turns it off via the settings menu.
+  void OnHotwordSearchEnabledChanged(const std::string& pref_name);
+
  private:
   Profile* profile_;
+
+  PrefChangeRegistrar pref_registrar_;
 
   DISALLOW_COPY_AND_ASSIGN(HotwordService);
 };
