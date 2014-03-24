@@ -1068,19 +1068,16 @@ void ExtensionService::DisableUserExtensions(
       system_->management_policy();
   extensions::ExtensionList to_disable;
 
-  // TODO(rlp): Clean up this code. crbug.com/353266.
   const ExtensionSet& enabled_set = registry_->enabled_extensions();
   for (ExtensionSet::const_iterator extension = enabled_set.begin();
       extension != enabled_set.end(); ++extension) {
-    if (management_policy->UserMayModifySettings(extension->get(), NULL) &&
-        extension->get()->location() != Manifest::EXTERNAL_COMPONENT)
+    if (management_policy->UserMayModifySettings(extension->get(), NULL))
       to_disable.push_back(*extension);
   }
   const ExtensionSet& terminated_set = registry_->terminated_extensions();
   for (ExtensionSet::const_iterator extension = terminated_set.begin();
       extension != terminated_set.end(); ++extension) {
-    if (management_policy->UserMayModifySettings(extension->get(), NULL) &&
-        extension->get()->location() != Manifest::EXTERNAL_COMPONENT)
+    if (management_policy->UserMayModifySettings(extension->get(), NULL))
       to_disable.push_back(*extension);
   }
 
@@ -2666,13 +2663,8 @@ void ExtensionService::SetBeingReloaded(const std::string& extension_id,
 bool ExtensionService::ShouldEnableOnInstall(const Extension* extension) {
   // Extensions installed by policy can't be disabled. So even if a previous
   // installation disabled the extension, make sure it is now enabled.
-  // TODO(rlp): Clean up the special case for external components as noted
-  // in crbug.com/353266. For now, EXTERNAL_COMPONENT apps should be
-  // default enabled on install as before.
-  if (system_->management_policy()->MustRemainEnabled(extension, NULL) ||
-      extension->location() == Manifest::EXTERNAL_COMPONENT) {
+  if (system_->management_policy()->MustRemainEnabled(extension, NULL))
     return true;
-  }
 
   if (extension_prefs_->IsExtensionDisabled(extension->id()))
     return false;
