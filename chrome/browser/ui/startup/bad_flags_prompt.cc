@@ -45,10 +45,16 @@ void ShowBadFlagsPrompt(Browser* browser) {
     // This parameter should be used only for server side developments.
     translate::switches::kTranslateScriptURL,
     translate::switches::kTranslateSecurityOrigin,
-  #if defined(ENABLE_WEBRTC)
+#if defined(ENABLE_WEBRTC)
     // This flag disables security of media packets in WebRTC.
     switches::kDisableWebRtcEncryption,
-  #endif
+#endif
+
+#if defined(OS_LINUX) && !defined(OS_CHROMEOS)
+    // Speech dispatcher is buggy, it can crash and it can make Chrome freeze.
+    // http://crbug.com/327295
+    switches::kEnableSpeechDispatcher,
+#endif
     NULL
   };
 
