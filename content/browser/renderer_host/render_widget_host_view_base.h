@@ -89,6 +89,8 @@ class CONTENT_EXPORT RenderWidgetHostViewBase
   virtual void DidStopFlinging() OVERRIDE {}
   virtual uint32 RendererFrameNumber() OVERRIDE;
   virtual void DidReceiveRendererFrame() OVERRIDE;
+  virtual void LockCompositingSurface() OVERRIDE;
+  virtual void UnlockCompositingSurface() OVERRIDE;
 
   void SetBrowserAccessibilityManager(BrowserAccessibilityManager* manager);
 

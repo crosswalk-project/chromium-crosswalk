@@ -139,6 +139,11 @@ class CONTENT_EXPORT RenderWidgetHostImpl : virtual public RenderWidgetHost,
       const gfx::Rect& src_rect,
       const gfx::Size& accelerated_dst_size,
       const base::Callback<void(bool, const SkBitmap&)>& callback) OVERRIDE;
+  virtual bool CanCopyFromBackingStore() OVERRIDE;
+#if defined(OS_ANDROID)
+  virtual void LockBackingStore() OVERRIDE;
+  virtual void UnlockBackingStore() OVERRIDE;
+#endif
 #if defined(TOOLKIT_GTK)
   virtual bool CopyFromBackingStoreToGtkWindow(const gfx::Rect& dest_rect,
                                                GdkWindow* target) OVERRIDE;
