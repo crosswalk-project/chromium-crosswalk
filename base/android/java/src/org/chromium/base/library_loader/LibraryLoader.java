@@ -4,7 +4,6 @@
 
 package org.chromium.base.library_loader;
 
-import android.content.Context;
 import android.util.Log;
 
 import org.chromium.base.CommandLine;
@@ -41,11 +40,6 @@ public class LibraryLoader {
     // library_loader_hooks.cc).
     private static boolean sInitialized = false;
 
-    // One-way switch becomes true if the system library loading failed,
-    // and the right native library was found and loaded by the hack.
-    // The flag is used to report UMA stats later.
-    private static boolean sNativeLibraryHackWasUsed = false;
-
     // TODO(cjhopman): Remove this once it's unused.
     /**
      * Doesn't do anything.
@@ -55,35 +49,15 @@ public class LibraryLoader {
     }
 
     /**
-     * TODO: http://crbug.com/354655
-     * remove this method once WebViewChromiumFactoryProvider.java
-     * changes the call to ensureInitialized(null).
+     *  This method blocks until the library is fully loaded and initialized.
      */
     public static void ensureInitialized() throws ProcessInitException {
-        ensureInitialized(null);
-    }
-
-    /**
-     *  This method blocks until the library is fully loaded and initialized.
-     *
-     *  @param context The context in which the method is called, the caller
-     *    may pass in a null context if it doesn't know in which context it
-     *    is running, or it doesn't need to work around the issue
-     *    http://b/13216167.
-     *
-     *    When the context is not null and native library was not extracted
-     *    by Android package manager, the LibraryLoader class
-     *    will extract the native libraries from APK. This is a hack used to
-     *    work around some Sony devices with the following platform bug:
-     *    http://b/13216167.
-     */
-    public static void ensureInitialized(Context context) throws ProcessInitException {
         synchronized (sLock) {
             if (sInitialized) {
                 // Already initialized, nothing to do.
                 return;
             }
-            loadAlreadyLocked(context);
+            loadAlreadyLocked();
             initializeAlreadyLocked(CommandLine.getJavaSwitchesOrNull());
         }
     }
@@ -106,9 +80,9 @@ public class LibraryLoader {
      *
      * @throws ProcessInitException if the native library failed to load.
      */
-    public static void loadNow(Context context) throws ProcessInitException {
+    public static void loadNow() throws ProcessInitException {
         synchronized (sLock) {
-            loadAlreadyLocked(context);
+            loadAlreadyLocked();
         }
     }
 
@@ -128,7 +102,7 @@ public class LibraryLoader {
 
 
     // Invoke System.loadLibrary(...), triggering JNI_OnLoad in native code
-    private static void loadAlreadyLocked(Context context) throws ProcessInitException {
+    private static void loadAlreadyLocked() throws ProcessInitException {
         try {
             if (!sLoaded) {
                 assert !sInitialized;
@@ -144,21 +118,7 @@ public class LibraryLoader {
                     if (useChromiumLinker)
                         Linker.loadLibrary(library);
                     else
-                        try {
-                            System.loadLibrary(library);
-                            if (context != null) {
-                                LibraryLoaderHelper.deleteWorkaroundLibrariesAsynchronously(
-                                    context);
-                            }
-                        } catch (UnsatisfiedLinkError e) {
-                            if (context != null
-                                && LibraryLoaderHelper.tryLoadLibraryUsingWorkaround(context,
-                                                                                     library)) {
-                                sNativeLibraryHackWasUsed = true;
-                            } else {
-                                throw e;
-                            }
-                        }
+                        System.loadLibrary(library);
                 }
                 if (useChromiumLinker)
                     Linker.finishLibraryLoad();
@@ -205,8 +165,6 @@ public class LibraryLoader {
         if (Linker.isUsed())
             nativeRecordChromiumAndroidLinkerHistogram(Linker.loadAtFixedAddressFailed(),
                                                     SysUtils.isLowEndDevice());
-
-        nativeRecordNativeLibraryHack(sNativeLibraryHackWasUsed);
     }
 
     // Only methods needed before or during normal JNI registration are during System.OnLoad.
@@ -227,6 +185,4 @@ public class LibraryLoader {
     // Get the version of the native library. This is needed so that we can check we
     // have the right version before initializing the (rest of the) JNI.
     private static native String nativeGetVersionNumber();
-
-    private static native void nativeRecordNativeLibraryHack(boolean usedHack);
 }
