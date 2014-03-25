@@ -360,6 +360,7 @@ class RenderWidgetHostViewAndroid
   scoped_ptr<DelegatedFrameEvictor> frame_evictor_;
 
   bool using_delegated_renderer_;
+  bool root_window_destroyed_;
 
   DISALLOW_COPY_AND_ASSIGN(RenderWidgetHostViewAndroid);
 };

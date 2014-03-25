@@ -148,7 +148,8 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
       using_delegated_renderer_(CommandLine::ForCurrentProcess()->HasSwitch(
                                     switches::kEnableDelegatedRenderer) &&
                                 !CommandLine::ForCurrentProcess()->HasSwitch(
-                                    switches::kDisableDelegatedRenderer)) {
+                                    switches::kDisableDelegatedRenderer)),
+      root_window_destroyed_(false) {
   if (!using_delegated_renderer_) {
     texture_layer_ = cc::TextureLayer::Create(NULL);
     layer_ = texture_layer_;
@@ -1336,8 +1337,14 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
   RunAckCallbacks();
 
   RemoveLayers();
-  if (content_view_core_ && !using_synchronous_compositor_)
+  // TODO: crbug.com/324341
+  // WindowAndroid and Compositor should outlive all WebContents.
+  // Allowing this here at runtime is a bandaid.
+  DCHECK(!root_window_destroyed_);
+  if (content_view_core_ && !root_window_destroyed_ &&
+      !using_synchronous_compositor_) {
     content_view_core_->GetWindowAndroid()->RemoveObserver(this);
+  }
 
   content_view_core_ = content_view_core;
 
@@ -1350,8 +1357,10 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
   }
 
   AttachLayers();
-  if (content_view_core_ && !using_synchronous_compositor_)
+  if (content_view_core_ && !root_window_destroyed_ &&
+      !using_synchronous_compositor_) {
     content_view_core_->GetWindowAndroid()->AddObserver(this);
+  }
 }
 
 void RenderWidgetHostViewAndroid::RunAckCallbacks() {
@@ -1368,6 +1377,7 @@ void RenderWidgetHostViewAndroid::OnCompositingDidCommit() {
 void RenderWidgetHostViewAndroid::OnDetachCompositor() {
   DCHECK(content_view_core_);
   DCHECK(!using_synchronous_compositor_);
+  root_window_destroyed_ = true;
   RunAckCallbacks();
 }
 
