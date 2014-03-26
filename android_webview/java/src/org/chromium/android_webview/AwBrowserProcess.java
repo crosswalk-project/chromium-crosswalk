@@ -26,7 +26,7 @@ public abstract class AwBrowserProcess {
     public static void loadLibrary() {
         PathUtils.setPrivateDataDirectorySuffix(PRIVATE_DATA_DIRECTORY_SUFFIX);
         try {
-            LibraryLoader.loadNow();
+            LibraryLoader.loadNow(null);
         } catch (ProcessInitException e) {
             throw new RuntimeException("Cannot load WebView", e);
         }
