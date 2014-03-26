@@ -361,8 +361,9 @@ bool Initialize(bool force) {
   // Pseudo-handle, no need to close.
   HANDLE current_process = ::GetCurrentProcess();
 
-  // Tells the resolver to patch already patched functions.
-  const bool kRelaxed = true;
+  // It is possible for other dlls to have already patched code by now and
+  // attempting to patch their code might result in crashes.
+  const bool kRelaxed = false;
 
   // Record that we are starting the thunk setup code.
   HKEY key = NULL;
