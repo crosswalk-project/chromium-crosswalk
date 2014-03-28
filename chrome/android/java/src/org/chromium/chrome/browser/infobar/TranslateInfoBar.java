@@ -43,13 +43,12 @@ public class TranslateInfoBar extends TwoButtonInfoBar implements SubPanelListen
 
     public TranslateInfoBar(long nativeInfoBarPtr, TranslateInfoBarDelegate delegate,
             int infoBarType, int sourceLanguageIndex, int targetLanguageIndex,
-            boolean autoTranslatePair, boolean shouldShowNeverBar,
-            boolean triggeredFromMenu, String[] languages) {
+            boolean autoTranslatePair, boolean shouldShowNeverBar, String[] languages) {
         super(null, BACKGROUND_TYPE_INFO,
                 R.drawable.infobar_translate);
         mTranslateDelegate = delegate;
         mOptions = new TranslateOptions(sourceLanguageIndex, targetLanguageIndex, languages,
-                autoTranslatePair, triggeredFromMenu);
+                autoTranslatePair);
         mInfoBarType = infoBarType;
         mShouldShowNeverBar = shouldShowNeverBar;
         mOptionsPanelViewType = NO_PANEL;
@@ -181,12 +180,10 @@ public class TranslateInfoBar extends TwoButtonInfoBar implements SubPanelListen
             return;
         }
 
-        if (getInfoBarType() == AFTER_TRANSLATE_INFOBAR &&
-                !needsAlwaysPanel() &&
-                !mOptions.triggeredFromMenu()) {
+        if (getInfoBarType() == AFTER_TRANSLATE_INFOBAR && !needsAlwaysPanel()) {
             // Long always translate version
-             TranslateCheckBox checkBox = new TranslateCheckBox(mOptions, this);
-             checkBox.createContent(getContext(), layout);
+            TranslateCheckBox checkBox = new TranslateCheckBox(mOptions, this);
+            checkBox.createContent(getContext(), layout);
         }
 
         super.createContent(layout);
@@ -333,12 +330,10 @@ public class TranslateInfoBar extends TwoButtonInfoBar implements SubPanelListen
         return mInfoBarType;
     }
 
-    void changeInfoBarTypeAndNativePointer(
-            int infoBarType,int newTargetLanguage,  long newNativePointer) {
+    void changeInfoBarTypeAndNativePointer(int infoBarType, long newNativePointer) {
         if (infoBarType >= 0 && infoBarType < MAX_INFOBAR_INDEX) {
             mInfoBarType = infoBarType;
             replaceNativePointer(newNativePointer);
-            mOptions.setTargetLanguage(newTargetLanguage);
             updateViewForCurrentState(createView());
         } else {
             assert false : "Trying to change the InfoBar to a type that is invalid.";

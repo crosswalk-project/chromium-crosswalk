@@ -159,8 +159,7 @@ void TranslateUIDelegate::Translate() {
   }
   TranslateManager::GetInstance()->TranslatePage(web_contents(),
                                                  GetOriginalLanguageCode(),
-                                                 GetTargetLanguageCode(),
-                                                 false);
+                                                 GetTargetLanguageCode());
 
   UMA_HISTOGRAM_BOOLEAN(kPerformTranslate, true);
 }

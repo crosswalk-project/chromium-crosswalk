@@ -1832,7 +1832,7 @@ void RenderViewContextMenu::ExecuteCommand(int id, int event_flags) {
       prefs->UnblockLanguage(original_lang);
       prefs->RemoveSiteFromBlacklist(params_.page_url.HostNoBrackets());
       TranslateManager::GetInstance()->TranslatePage(
-          source_web_contents_, original_lang, target_lang, false);
+          source_web_contents_, original_lang, target_lang);
       break;
     }
 

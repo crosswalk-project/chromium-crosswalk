@@ -60,8 +60,7 @@ void TranslateInfoBarDelegate::Create(bool replace_existing_infobar,
                                       const std::string& original_language,
                                       const std::string& target_language,
                                       TranslateErrors::Type error_type,
-                                      PrefService* prefs,
-                                      bool triggered_from_menu) {
+                                      PrefService* prefs) {
   // Check preconditions.
   if (step != TranslateTabHelper::TRANSLATE_ERROR) {
     DCHECK(TranslateDownloadManager::IsSupportedLanguage(target_language));
@@ -104,8 +103,7 @@ void TranslateInfoBarDelegate::Create(bool replace_existing_infobar,
   scoped_ptr<InfoBar> infobar(CreateInfoBar(
       scoped_ptr<TranslateInfoBarDelegate>(new TranslateInfoBarDelegate(
           web_contents, step, old_delegate, original_language,
-          target_language, error_type, prefs,
-          triggered_from_menu))));
+          target_language, error_type, prefs))));
   if (old_delegate)
     infobar_service->ReplaceInfoBar(old_infobar, infobar.Pass());
   else
@@ -253,7 +251,7 @@ void TranslateInfoBarDelegate::MessageInfoBarButtonPressed() {
   }
   // This is the "Try again..." case.
   TranslateManager::GetInstance()->TranslatePage(
-      web_contents(), original_language_code(), target_language_code(), false);
+      web_contents(), original_language_code(), target_language_code());
 }
 
 bool TranslateInfoBarDelegate::ShouldShowMessageInfoBarButton() {
@@ -323,15 +321,13 @@ TranslateInfoBarDelegate::TranslateInfoBarDelegate(
     const std::string& original_language,
     const std::string& target_language,
     TranslateErrors::Type error_type,
-    PrefService* prefs,
-    bool triggered_from_menu)
+    PrefService* prefs)
     : InfoBarDelegate(),
       step_(step),
       background_animation_(NONE),
       ui_delegate_(web_contents, original_language, target_language),
       error_type_(error_type),
-      prefs_(TranslateTabHelper::CreateTranslatePrefs(prefs)),
-      triggered_from_menu_(triggered_from_menu) {
+      prefs_(TranslateTabHelper::CreateTranslatePrefs(prefs)) {
   DCHECK_NE((step_ == TranslateTabHelper::TRANSLATE_ERROR),
             (error_type_ == TranslateErrors::NONE));
 

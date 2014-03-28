@@ -20,7 +20,7 @@ public class TranslateOptionsTest extends AndroidTestCase {
     @SmallTest
     @Feature({"Translate"})
     public void testNoChanges() {
-        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE, false);
+        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE);
         assertEquals("English", options.sourceLanguage());
         assertEquals("Spanish", options.targetLanguage());
         assertEquals(0, options.sourceLanguageIndex());
@@ -34,14 +34,13 @@ public class TranslateOptionsTest extends AndroidTestCase {
     @SmallTest
     @Feature({"Translate"})
     public void testBasicLanguageChanges() {
-        TranslateOptions options = new TranslateOptions(0, 1, languages, !ALWAYS_TRANSLATE, true);
+        TranslateOptions options = new TranslateOptions(0, 1, languages, !ALWAYS_TRANSLATE);
         options.setTargetLanguage(2);
         options.setSourceLanguage(1);
         assertEquals("Spanish", options.sourceLanguage());
         assertEquals("French", options.targetLanguage());
         assertEquals(1, options.sourceLanguageIndex());
         assertEquals(2, options.targetLanguageIndex());
-        assertTrue(options.triggeredFromMenu());
         assertTrue(options.optionsChanged());
 
         // Switch back to the original
@@ -53,7 +52,7 @@ public class TranslateOptionsTest extends AndroidTestCase {
     @SmallTest
     @Feature({"Translate"})
     public void testInvalidLanguageChanges() {
-        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE, false);
+        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE);
 
         // Same target language as source
         assertFalse(options.setTargetLanguage(0));
@@ -75,7 +74,7 @@ public class TranslateOptionsTest extends AndroidTestCase {
     @SmallTest
     @Feature({"Translate"})
     public void testBasicOptionsChanges() {
-        TranslateOptions options = new TranslateOptions(0, 1, languages, !ALWAYS_TRANSLATE, false);
+        TranslateOptions options = new TranslateOptions(0, 1, languages, !ALWAYS_TRANSLATE);
         assertFalse(options.optionsChanged());
         options.toggleNeverTranslateDomainState(true);
         assertTrue(options.neverTranslateDomainState());
@@ -99,7 +98,7 @@ public class TranslateOptionsTest extends AndroidTestCase {
     @SmallTest
     @Feature({"Translate"})
     public void testInvalidOptionsChanges() {
-        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE, false);
+        TranslateOptions options = new TranslateOptions(0, 1, languages, ALWAYS_TRANSLATE);
 
         // Never translate language should not work, but never translate domain should
         assertFalse(options.toggleNeverTranslateLanguageState(true));
