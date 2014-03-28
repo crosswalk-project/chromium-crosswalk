@@ -50,3 +50,8 @@ void pa_stream_unref(pa_stream* s);
 int pa_context_errno(pa_context *c);
 const char* pa_strerror(int error);
 pa_cvolume* pa_cvolume_set(pa_cvolume* a, unsigned  channels, pa_volume_t v);
+# Functions from pulse used in TIZEN to tag the audio stream as "browser".
+pa_proplist* pa_proplist_new(void);
+void pa_proplist_free(pa_proplist* p);
+int pa_proplist_sets(pa_proplist *p, const char *key, const char *value);
+pa_stream* pa_stream_new_with_proplist(pa_context* c, const char* name, const pa_sample_spec* ss, const pa_channel_map* map, pa_proplist* proplist);
