@@ -69,7 +69,7 @@ class ContextTestBase : public content::ContentBrowserTest {
 
 namespace content {
 
-class BrowserGpuChannelHostFactoryTest : public ContentBrowserTest {
+class BrowserGpuChannelHostFactoryTest : public ContextTestBase {
  public:
   virtual void SetUpOnMainThread() OVERRIDE {
     if (!BrowserGpuChannelHostFactory::CanUseForTesting())
@@ -83,6 +83,16 @@ class BrowserGpuChannelHostFactoryTest : public ContentBrowserTest {
     CHECK(GetFactory());
 
     ContentBrowserTest::SetUpOnMainThread();
+  }
+
+  virtual void TearDownOnMainThread() OVERRIDE {
+    ContextTestBase::TearDownOnMainThread();
+  }
+
+  virtual void SetUpCommandLine(CommandLine* command_line) OVERRIDE {
+    // Start all tests without a gpu channel so that the tests exercise a
+    // consistent codepath.
+    command_line->AppendSwitch(switches::kDisableGpuProcessPrelaunch);
   }
 
   void OnContextLost(const base::Closure callback, int* counter) {
@@ -125,16 +135,20 @@ class BrowserGpuChannelHostFactoryTest : public ContentBrowserTest {
   }
 };
 
-// Fails since UI Compositor establishes a GpuChannel.
-IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest, DISABLED_Basic) {
+IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest, Basic) {
+  if (!context_)
+    return;
+
   DCHECK(!IsChannelEstablished());
   EstablishAndWait();
   EXPECT_TRUE(GetGpuChannel() != NULL);
 }
 
-// Fails since UI Compositor establishes a GpuChannel.
 IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest,
-                       DISABLED_EstablishAndTerminate) {
+                       EstablishAndTerminate) {
+  if (!context_)
+    return;
+
   DCHECK(!IsChannelEstablished());
   base::RunLoop run_loop;
   GetFactory()->EstablishGpuChannel(kInitCause, run_loop.QuitClosure());
@@ -144,9 +158,10 @@ IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest,
   run_loop.Run();
 }
 
-// Fails since UI Compositor establishes a GpuChannel.
-IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest,
-                       DISABLED_AlreadyEstablished) {
+IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest, AlreadyEstablished) {
+  if (!context_)
+    return;
+
   DCHECK(!IsChannelEstablished());
   scoped_refptr<GpuChannelHost> gpu_channel =
       GetFactory()->EstablishGpuChannelSync(kInitCause);
@@ -160,9 +175,10 @@ IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest,
   EXPECT_EQ(gpu_channel, GetGpuChannel());
 }
 
-// Fails since UI Compositor establishes a GpuChannel.
-IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest,
-                       DISABLED_CrashAndRecover) {
+IN_PROC_BROWSER_TEST_F(BrowserGpuChannelHostFactoryTest, CrashAndRecover) {
+  if (!context_)
+    return;
+
   DCHECK(!IsChannelEstablished());
   EstablishAndWait();
   scoped_refptr<GpuChannelHost> host = GetGpuChannel();
