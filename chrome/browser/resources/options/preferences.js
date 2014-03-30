@@ -214,11 +214,12 @@ cr.define('options', function() {
 
       var event = new Event(name);
       // Decorate pref value as CoreOptionsHandler::CreateValueForPref() does.
-      event.value = {value: value, uncommitted: true};
-      if (pref.orig) {
-        event.value.recommendedValue = pref.orig.recommendedValue;
-        event.value.disabled = pref.orig.disabled;
-      }
+      event.value = {
+        value: value,
+        recommendedValue: pref.orig.recommendedValue,
+        disabled: pref.orig.disabled,
+        uncommitted: true,
+      };
       this.dispatchEvent(event);
     },
 
