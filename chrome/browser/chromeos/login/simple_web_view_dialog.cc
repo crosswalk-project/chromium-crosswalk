@@ -265,10 +265,9 @@ void SimpleWebViewDialog::NavigationStateChanged(
   }
 }
 
-void SimpleWebViewDialog::LoadingStateChanged(WebContents* source,
-    bool to_different_document) {
+void SimpleWebViewDialog::LoadingStateChanged(WebContents* source) {
   bool is_loading = source->IsLoading();
-  UpdateReload(is_loading && to_different_document, false);
+  UpdateReload(is_loading, false);
   command_updater_->UpdateCommandEnabled(IDC_STOP, is_loading);
 }
 

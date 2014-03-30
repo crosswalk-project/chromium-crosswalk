@@ -88,10 +88,9 @@ bool RegisterChromeWebContentsDelegateAndroid(JNIEnv* env) {
 }
 
 void ChromeWebContentsDelegateAndroid::LoadingStateChanged(
-    WebContents* source, bool to_different_document) {
+    WebContents* source) {
   bool has_stopped = source == NULL || !source->IsLoading();
-  WebContentsDelegateAndroid::LoadingStateChanged(
-      source, to_different_document);
+  WebContentsDelegateAndroid::LoadingStateChanged(source);
   LoadProgressChanged(source, has_stopped ? 1 : 0);
 }
 

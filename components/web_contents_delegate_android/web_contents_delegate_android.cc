@@ -139,8 +139,7 @@ void WebContentsDelegateAndroid::DeactivateContents(WebContents* contents) {
   // to focus. Not implemented on Android.
 }
 
-void WebContentsDelegateAndroid::LoadingStateChanged(WebContents* source,
-    bool to_different_document) {
+void WebContentsDelegateAndroid::LoadingStateChanged(WebContents* source) {
   JNIEnv* env = AttachCurrentThread();
   ScopedJavaLocalRef<jobject> obj = GetJavaDelegate(env);
   if (obj.is_null())

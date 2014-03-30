@@ -160,9 +160,8 @@ void PanelHost::DeactivateContents(content::WebContents* contents) {
   panel_->Deactivate();
 }
 
-void PanelHost::LoadingStateChanged(content::WebContents* source,
-    bool to_different_document) {
-  bool is_loading = source->IsLoading() && to_different_document;
+void PanelHost::LoadingStateChanged(content::WebContents* source) {
+  bool is_loading = source->IsLoading();
   panel_->LoadingStateChanged(is_loading);
 }
 

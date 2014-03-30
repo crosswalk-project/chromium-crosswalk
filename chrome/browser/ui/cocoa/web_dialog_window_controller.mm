@@ -73,8 +73,7 @@ public:
                               const gfx::Rect& initial_pos,
                               bool user_gesture,
                               bool* was_blocked) OVERRIDE;
-  virtual void LoadingStateChanged(content::WebContents* source,
-                                   bool to_different_document) OVERRIDE;
+  virtual void LoadingStateChanged(content::WebContents* source) OVERRIDE;
 
 private:
   WebDialogWindowController* controller_;  // weak
@@ -241,7 +240,7 @@ void WebDialogWindowDelegateBridge::AddNewContents(
 }
 
 void WebDialogWindowDelegateBridge::LoadingStateChanged(
-    content::WebContents* source, bool to_different_document) {
+    content::WebContents* source) {
   if (delegate_)
     delegate_->OnLoadingStateChanged(source);
 }

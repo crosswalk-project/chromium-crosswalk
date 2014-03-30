@@ -914,7 +914,7 @@ void Browser::TabInsertedAt(WebContents* contents,
 
   // Make sure the loading state is updated correctly, otherwise the throbber
   // won't start if the page is loading.
-  LoadingStateChanged(contents, true);
+  LoadingStateChanged(contents);
 
   interstitial_observers_.push_back(new InterstitialObserver(this, contents));
 
@@ -1339,14 +1339,13 @@ void Browser::DeactivateContents(WebContents* contents) {
   window_->Deactivate();
 }
 
-void Browser::LoadingStateChanged(WebContents* source,
-    bool to_different_document) {
+void Browser::LoadingStateChanged(WebContents* source) {
   window_->UpdateLoadingAnimations(tab_strip_model_->TabsAreLoading());
   window_->UpdateTitleBar();
 
   WebContents* selected_contents = tab_strip_model_->GetActiveWebContents();
   if (source == selected_contents) {
-    bool is_loading = source->IsLoading() && to_different_document;
+    bool is_loading = source->IsLoading();
     command_controller_->LoadingStateChanged(is_loading, false);
     if (GetStatusBubble()) {
       GetStatusBubble()->SetStatus(CoreTabHelper::FromWebContents(

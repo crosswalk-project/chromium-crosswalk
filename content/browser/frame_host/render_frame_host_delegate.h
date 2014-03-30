@@ -32,10 +32,7 @@ class CONTENT_EXPORT RenderFrameHostDelegate {
 
   // The top-level RenderFrame began loading a new page. This corresponds to
   // Blink's notion of the throbber starting.
-  // |to_different_document| will be true unless the load is a fragment
-  // navigation, or triggered by history.pushState/replaceState.
-  virtual void DidStartLoading(RenderFrameHost* render_frame_host,
-                               bool to_different_document) {}
+  virtual void DidStartLoading(RenderFrameHost* render_frame_host) {}
 
   // The top-level RenderFrame stopped loading a page. This corresponds to
   // Blink's notion of the throbber stopping.

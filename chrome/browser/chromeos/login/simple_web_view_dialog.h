@@ -70,8 +70,7 @@ class SimpleWebViewDialog : public views::ButtonListener,
   // Implements content::WebContentsDelegate:
   virtual void NavigationStateChanged(const content::WebContents* source,
                                       unsigned changed_flags) OVERRIDE;
-  virtual void LoadingStateChanged(content::WebContents* source,
-                                   bool to_different_document) OVERRIDE;
+  virtual void LoadingStateChanged(content::WebContents* source) OVERRIDE;
 
   // Implements LocationBarView::Delegate:
   virtual content::WebContents* GetWebContents() OVERRIDE;
