@@ -35,11 +35,7 @@ OptInClient.CommandFromPage = {
   // User has explicitly clicked 'no'.
   CLICKED_NO_OPTIN: 'hcno',
   // User has opted in.
-  CLICKED_OPTIN: 'hco',
-  // Audio logging is opted in.
-  AUDIO_LOGGING_ON: 'alon',
-  // Audio logging is opted out.
-  AUDIO_LOGGING_OFF: 'aloff',
+  CLICKED_OPTIN: 'hco'
 };
 
 
@@ -53,15 +49,23 @@ OptInClient.EXISTS_ = 'chwoihe';
 
 /**
  * Handles the messages posted to the window, mainly listening for
- * the optin and no optin clicks. Also listening for preference on
- * audio logging.
+ * the optin and no optin clicks.
  * @param {!MessageEvent} messageEvent Message event from the window.
  * @private
  */
 OptInClient.prototype.handleCommandFromPage_ = function(messageEvent) {
   if (messageEvent.source === window && messageEvent.data.type) {
     var command = messageEvent.data.type;
-    chrome.runtime.sendMessage({'type': command});
+    switch (command) {
+      case OptInClient.CommandFromPage.CLICKED_OPTIN:
+        chrome.runtime.sendMessage(
+            {'type': command});
+        break;
+      case OptInClient.CommandFromPage.CLICKED_NO_OPTIN:
+        chrome.runtime.sendMessage(
+            {'type': command});
+        break;
+    }
   }
 };
 
