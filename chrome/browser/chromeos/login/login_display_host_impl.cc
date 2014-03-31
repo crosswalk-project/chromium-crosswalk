@@ -487,7 +487,7 @@ void LoginDisplayHostImpl::GetAutoEnrollmentCheckResult(
 void LoginDisplayHostImpl::StartWizard(
     const std::string& first_screen_name,
     scoped_ptr<base::DictionaryValue> screen_parameters) {
-  startup_sound_honors_spoken_feedback_ = false;
+  startup_sound_honors_spoken_feedback_ = true;
   TryToPlayStartupSound();
 
   // Keep parameters to restore if renderer crashes.
