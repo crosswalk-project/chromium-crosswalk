@@ -12,7 +12,7 @@ namespace switches {
 
 APP_LIST_EXPORT extern const char kEnableExperimentalAppList[];
 APP_LIST_EXPORT extern const char kEnableFolderUI[];
-APP_LIST_EXPORT extern const char kDisableVoiceSearch[];
+APP_LIST_EXPORT extern const char kEnableVoiceSearch[];
 APP_LIST_EXPORT extern const char kEnableAppInfo[];
 
 bool APP_LIST_EXPORT IsFolderUIEnabled();
