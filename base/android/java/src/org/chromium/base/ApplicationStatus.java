@@ -109,11 +109,11 @@ public class ApplicationStatus {
      *
      * @param application The application whose status you wish to monitor.
      */
-    public static void initialize(BaseChromiumApplication application) {
-        sApplication = application;
+    public static void initialize(Application app) {
+        sApplication = app;
 
-        application.registerWindowFocusChangedListener(
-                new BaseChromiumApplication.WindowFocusChangedListener() {
+        ApplicationStatusManager.registerWindowFocusChangedListener(
+                new ApplicationStatusManager.WindowFocusChangedListener() {
                     @Override
                     public void onWindowFocusChanged(Activity activity, boolean hasFocus) {
                         if (!hasFocus || activity == sActivity) return;
@@ -128,7 +128,7 @@ public class ApplicationStatus {
                     }
                 });
 
-        application.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
+        sApplication.registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
                 onStateChange(activity, ActivityState.CREATED);
