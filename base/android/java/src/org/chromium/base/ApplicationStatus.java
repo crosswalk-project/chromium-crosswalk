@@ -114,11 +114,11 @@ public class ApplicationStatus {
      *
      * @param application The application whose status you wish to monitor.
      */
-    public static void initialize(BaseChromiumApplication application) {
+    public static void initialize(Application application) {
         sApplication = application;
 
-        application.registerWindowFocusChangedListener(
-                new BaseChromiumApplication.WindowFocusChangedListener() {
+        ApplicationStatusManager.registerWindowFocusChangedListener(
+                new ApplicationStatusManager.WindowFocusChangedListener() {
                     @Override
                     public void onWindowFocusChanged(Activity activity, boolean hasFocus) {
                         if (!hasFocus || activity == sActivity) return;
