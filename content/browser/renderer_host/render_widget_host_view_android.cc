@@ -419,6 +419,7 @@ void RenderWidgetHostViewAndroid::ReleaseLocksOnSurface() {
   while (locks_on_frame_count_ > 0) {
     UnlockCompositingSurface();
   }
+  RunAckCallbacks();
 }
 
 gfx::Rect RenderWidgetHostViewAndroid::GetViewBounds() const {
@@ -730,6 +731,7 @@ void RenderWidgetHostViewAndroid::OnAcceleratedCompositingStateChange() {
 
 void RenderWidgetHostViewAndroid::SendDelegatedFrameAck(
     uint32 output_surface_id) {
+  DCHECK(host_);
   cc::CompositorFrameAck ack;
   if (resource_collection_.get())
     resource_collection_->TakeUnusedResourcesForChildCompositor(&ack.resources);
@@ -1334,8 +1336,6 @@ void RenderWidgetHostViewAndroid::DidStopFlinging() {
 
 void RenderWidgetHostViewAndroid::SetContentViewCore(
     ContentViewCoreImpl* content_view_core) {
-  RunAckCallbacks();
-
   RemoveLayers();
   // TODO: crbug.com/324341
   // WindowAndroid and Compositor should outlive all WebContents.
@@ -1391,7 +1391,7 @@ void RenderWidgetHostViewAndroid::OnLostResources() {
   if (delegated_renderer_layer_.get())
     DestroyDelegatedContent();
   texture_id_in_layer_ = 0;
-  RunAckCallbacks();
+  DCHECK(ack_callbacks_.empty());
 }
 
 // static
