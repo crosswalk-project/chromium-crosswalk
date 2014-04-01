@@ -1743,6 +1743,13 @@ void RenderWidgetHostImpl::DidUpdateBackingStore(
 
 void RenderWidgetHostImpl::OnQueueSyntheticGesture(
     const SyntheticGesturePacket& gesture_packet) {
+  // Only allow untrustworthy gestures if explicitly enabled.
+  if (!CommandLine::ForCurrentProcess()->HasSwitch(
+          cc::switches::kEnableGpuBenchmarking)) {
+    GetProcess()->ReceivedBadMessage();
+    return;
+  }
+
   if (!synthetic_gesture_controller_) {
     if (!view_)
       return;
