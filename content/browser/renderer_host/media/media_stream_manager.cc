@@ -1662,6 +1662,7 @@ void MediaStreamManager::HandleAccessRequestResponse(
     FinalizeRequestFailed(label, request, result);
     return;
   }
+  DCHECK(!devices.empty());
 
   // Process all newly-accepted devices for this request.
   bool found_audio = false;
