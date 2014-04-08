@@ -34,17 +34,7 @@ public class ApplicationStatusManager {
         app.registerActivityLifecycleCallbacks(new Application.ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(final Activity activity, Bundle savedInstanceState) {
-                Window.Callback callback = activity.getWindow().getCallback();
-                activity.getWindow().setCallback(new WindowCallbackWrapper(callback) {
-                    @Override
-                    public void onWindowFocusChanged(boolean hasFocus) {
-                        super.onWindowFocusChanged(hasFocus);
-
-                        for (WindowFocusChangedListener listener : sWindowFocusListeners) {
-                            listener.onWindowFocusChanged(activity, hasFocus);
-                        }
-                    }
-                });
+                setWindowFocusChangedCallback(activity);
             }
 
             @Override
@@ -93,5 +83,29 @@ public class ApplicationStatusManager {
      */
     public static void unregisterWindowFocusChangedListener(WindowFocusChangedListener listener) {
         sWindowFocusListeners.removeObserver(listener);
+    }
+
+    /**
+     * When ApplicationStatus initialized after application started, the onActivityCreated(),
+     * onActivityStarted() and onActivityResumed() callbacks will be missed.
+     * This function will give the chance to simulate these three callbacks.
+     */
+    public static void informActivityStarted(final Activity activity) {
+        setWindowFocusChangedCallback(activity);
+        ApplicationStatus.informActivityStarted(activity);
+    }
+
+    private static void setWindowFocusChangedCallback(final Activity activity) {
+        Window.Callback callback = activity.getWindow().getCallback();
+        activity.getWindow().setCallback(new WindowCallbackWrapper(callback) {
+            @Override
+            public void onWindowFocusChanged(boolean hasFocus) {
+                super.onWindowFocusChanged(hasFocus);
+
+                for (WindowFocusChangedListener listener : sWindowFocusListeners) {
+                    listener.onWindowFocusChanged(activity, hasFocus);
+                }
+            }
+        });
     }
 }
