@@ -97,6 +97,7 @@ LocallyManagedUserCreationScreen::LocallyManagedUserCreationScreen(
 }
 
 LocallyManagedUserCreationScreen::~LocallyManagedUserCreationScreen() {
+  CameraPresenceNotifier::GetInstance()->RemoveObserver(this);
   if (actor_)
     actor_->SetDelegate(NULL);
   if (image_decoder_.get())
@@ -110,6 +111,7 @@ void LocallyManagedUserCreationScreen::PrepareToShow() {
 }
 
 void LocallyManagedUserCreationScreen::Show() {
+  CameraPresenceNotifier::GetInstance()->AddObserver(this);
   if (actor_) {
     actor_->Show();
     // TODO(antrim) : temorary hack (until upcoming hackaton). Should be
@@ -162,6 +164,7 @@ void LocallyManagedUserCreationScreen::ShowInitialScreen() {
 }
 
 void LocallyManagedUserCreationScreen::Hide() {
+  CameraPresenceNotifier::GetInstance()->RemoveObserver(this);
   if (actor_)
     actor_->Hide();
   if (!on_error_screen_)
