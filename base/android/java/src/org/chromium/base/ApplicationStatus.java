@@ -388,6 +388,17 @@ public class ApplicationStatus {
         sApplicationStateListeners.removeObserver(listener);
     }
 
+     /**
+     * When ApplicationStatus initialized after application started, the onActivityCreated(),
+     * onActivityStarted() and onActivityResumed() callbacks will be missed.
+     * This function will give the chance to simulate these three callbacks.
+     */
+    public static void informActivityStarted(Activity activity) {
+        onStateChange(activity, ActivityState.CREATED);
+        onStateChange(activity, ActivityState.STARTED);
+        onStateChange(activity, ActivityState.RESUMED);
+    }
+
     /**
      * Registers the single thread-safe native activity status listener.
      * This handles the case where the caller is not on the main thread.
