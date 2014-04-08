@@ -383,6 +383,17 @@ public class ApplicationStatus {
         sApplicationStateListeners.removeObserver(listener);
     }
 
+     /**
+     * When ApplicationStatus initialized after application started, the onActivityCreated(),
+     * onActivityStarted() and onActivityResumed() callbacks will be missed.
+     * This function will give the chance to simulate these three callbacks.
+     */
+    public static void informActivityStarted(Activity activity) {
+        onStateChange(activity, ActivityState.CREATED);
+        onStateChange(activity, ActivityState.STARTED);
+        onStateChange(activity, ActivityState.RESUMED);
+    }
+
     /**
      * Robolectric JUnit tests create a new application between each test, while all the context
      * in static classes isn't reset. This function allows to reset the application status to avoid
