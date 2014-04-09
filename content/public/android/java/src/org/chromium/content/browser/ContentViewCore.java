@@ -2300,11 +2300,11 @@ public class ContentViewCore
         TraceEvent.instant("ContentViewCore:updateFrameInfo");
         // Adjust contentWidth/Height to be always at least as big as
         // the actual viewport (as set by onSizeChanged).
+        final float deviceScale = mRenderCoordinates.getDeviceScaleFactor();
         contentWidth = Math.max(contentWidth,
-                mRenderCoordinates.fromPixToLocalCss(mViewportWidthPix));
+                mViewportWidthPix / (deviceScale * pageScaleFactor));
         contentHeight = Math.max(contentHeight,
-                mRenderCoordinates.fromPixToLocalCss(mViewportHeightPix));
-
+                mViewportHeightPix / (deviceScale * pageScaleFactor));
         final float contentOffsetYPix = mRenderCoordinates.fromDipToPix(contentOffsetYCss);
 
         final boolean contentSizeChanged =
@@ -2358,7 +2358,6 @@ public class ContentViewCore
         if (contentOffsetChanged) updateHandleScreenPositions();
 
         // Update offsets for fullscreen.
-        final float deviceScale = mRenderCoordinates.getDeviceScaleFactor();
         final float controlsOffsetPix = controlsOffsetYCss * deviceScale;
         final float overdrawBottomHeightPix = overdrawBottomHeightCss * deviceScale;
         getContentViewClient().onOffsetsForFullscreenChanged(
