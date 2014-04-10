@@ -5,6 +5,8 @@
 #ifndef BASE_MESSAGE_LOOP_MESSAGE_PUMP_OZONE_H_
 #define BASE_MESSAGE_LOOP_MESSAGE_PUMP_OZONE_H_
 
+#include <vector>
+
 #include "base/memory/scoped_ptr.h"
 #include "base/memory/scoped_vector.h"
 #include "base/message_loop/message_pump_dispatcher.h"
@@ -39,7 +41,13 @@ class BASE_EXPORT MessagePumpOzone : public MessagePumpLibevent,
   // Overridden from MessagePumpDispatcher.
   virtual uint32_t Dispatch(const NativeEvent& event) OVERRIDE;
 
+  // List of observers.
+  ObserverList<MessagePumpObserver> observers_;
+
  private:
+  void WillProcessEvent(const NativeEvent& event);
+  void DidProcessEvent(const NativeEvent& event);
+
   std::vector<MessagePumpDispatcher*> dispatcher_;
 
   DISALLOW_COPY_AND_ASSIGN(MessagePumpOzone);
