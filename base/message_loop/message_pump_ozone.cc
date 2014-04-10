@@ -16,12 +16,24 @@ MessagePumpOzone::MessagePumpOzone()
 MessagePumpOzone::~MessagePumpOzone() {
 }
 
-void MessagePumpOzone::AddObserver(MessagePumpObserver* /* observer */) {
-  NOTIMPLEMENTED();
+void MessagePumpOzone::AddObserver(MessagePumpObserver* observer) {
+  observers_.AddObserver(observer);
 }
 
-void MessagePumpOzone::RemoveObserver(MessagePumpObserver* /* observer */) {
-  NOTIMPLEMENTED();
+void MessagePumpOzone::RemoveObserver(MessagePumpObserver* observer) {
+  observers_.RemoveObserver(observer);
+}
+
+void MessagePumpOzone::WillProcessEvent(const NativeEvent& event) {
+  FOR_EACH_OBSERVER(MessagePumpObserver,
+                    observers_,
+                    WillProcessEvent(event));
+}
+
+void MessagePumpOzone::DidProcessEvent(const NativeEvent& event) {
+  FOR_EACH_OBSERVER(MessagePumpObserver,
+                    observers_,
+                    DidProcessEvent(event));
 }
 
 // static
@@ -33,20 +45,24 @@ MessagePumpOzone* MessagePumpOzone::Current() {
 void MessagePumpOzone::AddDispatcherForRootWindow(
     MessagePumpDispatcher* dispatcher) {
   // Only one root window is supported.
-  DCHECK(dispatcher_.size() == 0);
-  dispatcher_.insert(dispatcher_.begin(),dispatcher);
+  DCHECK_EQ(dispatcher_.size(), 0);
+  dispatcher_.insert(dispatcher_.begin(), dispatcher);
 }
 
 void MessagePumpOzone::RemoveDispatcherForRootWindow(
       MessagePumpDispatcher* dispatcher) {
-  DCHECK(dispatcher_.size() == 1);
+  DCHECK_EQ(dispatcher_.size(), 1);
   dispatcher_.pop_back();
 }
 
 uint32_t MessagePumpOzone::Dispatch(const NativeEvent& dev) {
-  if (dispatcher_.size() > 0)
-    return dispatcher_[0]->Dispatch(dev);
-  return POST_DISPATCH_NONE;
+  uint32_t result = POST_DISPATCH_NONE;
+  WillProcessEvent(dev);
+  if (!dispatcher_.empty()) {
+    result = dispatcher_[0]->Dispatch(dev);
+  }
+  DidProcessEvent(dev);
+  return result;
 }
 
 // This code assumes that the caller tracks the lifetime of the |dispatcher|.
