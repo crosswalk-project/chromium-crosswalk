@@ -85,6 +85,7 @@ class GPUSupport;
 class HighContrastController;
 class LockStateController;
 class MagnificationController;
+class MaximizeModeController;
 class MediaDelegate;
 class MruWindowTracker;
 class NestedDispatcherController;
@@ -505,6 +506,10 @@ class ASH_EXPORT Shell
     return accelerometer_controller_.get();
   }
 
+  MaximizeModeController* maximize_mode_controller() {
+    return maximize_mode_controller_.get();
+  }
+
 #if defined(OS_CHROMEOS)
 #if defined(USE_X11)
   // TODO(oshima): Move these objects to DisplayController.
@@ -734,6 +739,8 @@ class ASH_EXPORT Shell
   scoped_ptr<ui::EventHandler> speech_feedback_handler_;
 #endif  // defined(USE_X11)
 #endif  // defined(OS_CHROMEOS)
+
+  scoped_ptr<MaximizeModeController> maximize_mode_controller_;
 
   // |native_cursor_manager_| is owned by |cursor_manager_|, but we keep a
   // pointer to vend to test code.
