@@ -123,6 +123,7 @@
 #endif  // defined(OS_CHROMEOS)
 
 #if defined(OS_WIN)
+#include "chrome/browser/extensions/settings_api_helpers.h"
 #include "chrome/installer/util/auto_launch_util.h"
 #endif  // defined(OS_WIN)
 
@@ -241,6 +242,8 @@ void BrowserOptionsHandler::GetLocalizedValues(base::DictionaryValue* values) {
     { "easyUnlockSectionTitle", IDS_OPTIONS_EASY_UNLOCK_SECTION_TITLE },
     { "easyUnlockSetupButton", IDS_OPTIONS_EASY_UNLOCK_SETUP_BUTTON },
     { "easyUnlockManagement", IDS_OPTIONS_EASY_UNLOCK_MANAGEMENT },
+    { "extensionControlled", IDS_OPTIONS_TAB_EXTENSION_CONTROLLED },
+    { "extensionDisable", IDS_OPTIONS_TAB_EXTENSION_CONTROLLED_DISABLE },
     { "fontSettingsCustomizeFontsButton",
       IDS_OPTIONS_FONTSETTINGS_CUSTOMIZE_FONTS_BUTTON },
     { "fontSizeLabelCustom", IDS_OPTIONS_FONT_SIZE_LABEL_CUSTOM },
@@ -741,6 +744,13 @@ void BrowserOptionsHandler::RegisterMessages() {
       "launchEasyUnlockSetup",
       base::Bind(&BrowserOptionsHandler::HandleLaunchEasyUnlockSetup,
                base::Unretained(this)));
+#if defined(OS_WIN)
+  web_ui()->RegisterMessageCallback(
+      "refreshExtensionControlIndicators",
+      base::Bind(
+          &BrowserOptionsHandler::SetupExtensionControlledIndicators,
+          base::Unretained(this)));
+#endif  // defined(OS_WIN)
 }
 
 void BrowserOptionsHandler::Uninitialize() {
@@ -852,6 +862,20 @@ void BrowserOptionsHandler::InitializeHandler() {
       base::Bind(&BrowserOptionsHandler::SetupEasyUnlock,
                  base::Unretained(this)));
 
+#if defined(OS_WIN)
+  const base::ListValue* empty = NULL;
+  profile_pref_registrar_.Add(
+      prefs::kURLsToRestoreOnStartup,
+      base::Bind(&BrowserOptionsHandler::SetupExtensionControlledIndicators,
+                 base::Unretained(this),
+                 empty));
+  profile_pref_registrar_.Add(
+      prefs::kHomePage,
+      base::Bind(&BrowserOptionsHandler::SetupExtensionControlledIndicators,
+                 base::Unretained(this),
+                 empty));
+#endif  // defined(OS_WIN)
+
 #if defined(OS_CHROMEOS)
   if (!policy_registrar_) {
     policy_registrar_.reset(new policy::PolicyChangeRegistrar(
@@ -903,6 +927,10 @@ void BrowserOptionsHandler::InitializePage() {
     }
   }
 #endif
+
+#if defined(OS_WIN)
+  SetupExtensionControlledIndicators(NULL);
+#endif  // defined(OS_WIN)
 
 #if defined(OS_CHROMEOS)
   SetupAccessibilityFeatures();
@@ -1119,6 +1147,10 @@ void BrowserOptionsHandler::OnTemplateURLServiceChanged() {
       base::FundamentalValue(
           template_url_service_->is_default_search_managed() ||
           template_url_service_->IsExtensionControlledDefaultSearch()));
+
+#if defined(OS_WIN)
+  SetupExtensionControlledIndicators(NULL);
+#endif  // defined(OS_WIN)
 }
 
 void BrowserOptionsHandler::SetDefaultSearchEngine(
@@ -1826,5 +1858,39 @@ void BrowserOptionsHandler::SetupEasyUnlock() {
       "BrowserOptions.updateEasyUnlock",
       has_pairing_value);
 }
+
+#if defined(OS_WIN)
+// Setup the UI for showing which settings are extension controlled.
+void BrowserOptionsHandler::SetupExtensionControlledIndicators(
+    const base::ListValue* args) {
+  const extensions::Extension* extension = extensions::OverridesSearchEngine(
+      Profile::FromWebUI(web_ui()), NULL);
+  base::StringValue extension_id(extension ? extension->id() : std::string());
+  base::StringValue extension_name(
+      extension ? extension->name() : std::string());
+  web_ui()->CallJavascriptFunction(
+      "BrowserOptions.toggleSearchEngineControlled",
+      extension_id,
+      extension_name);
+
+  extension = extensions::OverridesHomepage(Profile::FromWebUI(web_ui()), NULL);
+  extension_id = base::StringValue(extension ? extension->id() : std::string());
+  extension_name = base::StringValue(
+      extension ? extension->name() : std::string());
+  web_ui()->CallJavascriptFunction("BrowserOptions.toggleHomepageControlled",
+                                   extension_id,
+                                   extension_name);
+
+  extension = extensions::OverridesStartupPages(
+      Profile::FromWebUI(web_ui()), NULL);
+  extension_id = base::StringValue(extension ? extension->id() : std::string());
+  extension_name = base::StringValue(
+      extension ? extension->name() : std::string());
+  web_ui()->CallJavascriptFunction(
+      "BrowserOptions.toggleStartupPagesControlled",
+      extension_id,
+      extension_name);
+}
+#endif  // defined(OS_WIN)
 
 }  // namespace options
