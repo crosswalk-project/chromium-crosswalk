@@ -1630,14 +1630,8 @@ void AppsGridView::ReparentItemForReorder(views::View* item_view,
 
   AppListItem* reparent_item = static_cast<AppListItemView*>(item_view)->item();
   DCHECK(reparent_item->IsInFolder());
-  const std::string source_folder_id = reparent_item->folder_id();
-  AppListFolderItem* source_folder =
-      static_cast<AppListFolderItem*>(item_list_->FindItem(source_folder_id));
-
-  // Remove the source folder view if there is only 1 item in it, since the
-  // source folder will be deleted after its only child item removed from it.
-  if (source_folder->ChildItemCount() == 1u)
-    DeleteItemViewAtIndex(view_model_.GetIndexOfView(activated_item_view()));
+  AppListFolderItem* source_folder = static_cast<AppListFolderItem*>(
+        item_list_->FindItem(reparent_item->folder_id()));
 
   // Move the item from its parent folder to top level item list.
   // Must move to target_model_index, the location we expect the target item
@@ -1650,7 +1644,8 @@ void AppsGridView::ReparentItemForReorder(views::View* item_view,
   model_->MoveItemToFolderAt(reparent_item, "", target_position);
   view_model_.Move(current_model_index, target_model_index);
 
-  RemoveLastItemFromReparentItemFolderIfNecessary(source_folder_id);
+  if (source_folder->ChildItemCount() == 1)
+    RemoveLastItemFromReparentItemFolder(source_folder);
 
   item_list_->AddObserver(this);
   model_->AddObserver(this);
@@ -1666,15 +1661,8 @@ void AppsGridView::ReparentItemToAnotherFolder(views::View* item_view,
 
   AppListItem* reparent_item = static_cast<AppListItemView*>(item_view)->item();
   DCHECK(reparent_item->IsInFolder());
-  const std::string source_folder_id = reparent_item->folder_id();
-  AppListFolderItem* source_folder =
-      static_cast<AppListFolderItem*>(item_list_->FindItem(source_folder_id));
-
-  // Remove the source folder view if there is only 1 item in it, since the
-  // source folder will be deleted after its only child item merged into the
-  // target item.
-  if (source_folder->ChildItemCount() == 1u)
-    DeleteItemViewAtIndex(view_model_.GetIndexOfView(activated_item_view()));
+  AppListFolderItem* source_folder = static_cast<AppListFolderItem*>(
+      item_list_->FindItem(reparent_item->folder_id()));
 
   AppListItemView* target_view =
       static_cast<AppListItemView*>(GetViewAtSlotOnCurrentPage(target.slot));
@@ -1707,7 +1695,8 @@ void AppsGridView::ReparentItemToAnotherFolder(views::View* item_view,
     }
   }
 
-  RemoveLastItemFromReparentItemFolderIfNecessary(source_folder_id);
+  if (source_folder->ChildItemCount() == 1)
+    RemoveLastItemFromReparentItemFolder(source_folder);
 
   item_list_->AddObserver(this);
 
@@ -1724,12 +1713,9 @@ void AppsGridView::ReparentItemToAnotherFolder(views::View* item_view,
 // left, remove the last item out of the folder, delete the folder and insert it
 // to the data model at the same position. Make the same change to view_model_
 // accordingly.
-void AppsGridView::RemoveLastItemFromReparentItemFolderIfNecessary(
-    const std::string& source_folder_id) {
-  AppListFolderItem* source_folder =
-      static_cast<AppListFolderItem*>(item_list_->FindItem(source_folder_id));
-  if (!source_folder || source_folder->ChildItemCount() != 1u)
-    return;
+void AppsGridView::RemoveLastItemFromReparentItemFolder(
+    AppListFolderItem* source_folder) {
+  DCHECK_EQ(1u, source_folder->ChildItemCount());
 
   // Delete view associated with the folder item to be removed.
   AppListItemView* folder_item_view = activated_item_view();
