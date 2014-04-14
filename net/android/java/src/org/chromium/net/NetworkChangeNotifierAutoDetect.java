@@ -130,6 +130,16 @@ public class NetworkChangeNotifierAutoDetect extends BroadcastReceiver
     }
 
     /**
+     * Give the chance to register the broadcast receiver after activity started.
+     */
+    public void registerReceiverIfNeeded() {
+        if (!mRegistered) {
+            connectionTypeChanged();
+            registerReceiver();
+        }
+    }
+
+    /**
      * Register a BroadcastReceiver in the given context.
      */
     private void registerReceiver() {
