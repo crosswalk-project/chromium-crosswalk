@@ -408,6 +408,10 @@ public class ResourceExtractor {
 
         try {
             mExtractTask.get();
+            // ResourceExtractor is not needed any more.
+            // Release static objects to avoid leak of Context.
+            sIntercepter = null;
+            sInstance = null;
         } catch (CancellationException e) {
             // Don't leave the files in an inconsistent state.
             deleteFiles();
