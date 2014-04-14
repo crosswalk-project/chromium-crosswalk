@@ -116,6 +116,15 @@ public class NetworkChangeNotifier {
         getInstance().setAutoDetectConnectivityStateInternal(shouldAutoDetect);
     }
 
+    /**
+     * If setAutoDetectConnectivityState() called after activity started, it will miss the registration
+     * of connectivity change broadcast receiver.
+     * This function will give the chance to register the broadcast receiver after activity started.
+     */
+    public static void registerNetworkChangeListenerIfNeeded() {
+        getInstance().registerNetworkChangeListenerIfNeededInternal();
+    }
+
     private void destroyAutoDetector() {
         if (mAutoDetector != null) {
             mAutoDetector.destroy();
@@ -138,6 +147,12 @@ public class NetworkChangeNotifier {
             }
         } else {
             destroyAutoDetector();
+        }
+    }
+
+    private void registerNetworkChangeListenerIfNeededInternal() {
+        if (mAutoDetector != null) {
+            mAutoDetector.registerReceiverIfNeeded();
         }
     }
 
