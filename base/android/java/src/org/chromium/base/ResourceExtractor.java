@@ -128,6 +128,11 @@ public class ResourceExtractor {
             try {
                 // Extract all files that don't already exist.
                 for (ResourceEntry entry : sResourcesToExtract) {
+                    // Loading "icudtl.dat" from "assets/"" currently does not work with either
+                    // embedded mode (the file is in raw/res) or shared mode (the app's context is
+                    // used to retrieve the AssetManager, not Crosswalk's). We thus need to put
+                    // those special files in a different directory so that we leverage the fallback
+                    // code in Chromium to load these files from disk.
                     File dir = isAppDataFile(entry.extractedFileName) ? appDataDir : outputDir;
                     File output = new File(dir, entry.extractedFileName);
                     if (output.exists()) {
@@ -322,6 +327,10 @@ public class ResourceExtractor {
 
         try {
             mExtractTask.get();
+            // ResourceExtractor is not needed any more.
+            // Release static objects to avoid leak of Context.
+            sInterceptor = null;
+            sInstance = null;
         } catch (CancellationException e) {
             // Don't leave the files in an inconsistent state.
             deleteFiles();
