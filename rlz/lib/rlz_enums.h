@@ -63,7 +63,7 @@ enum AccessPoint {
   CHROMEOS_RESERVED,   // Reserved for ChromeOS.
 
   CHROME_IOS_OMNIBOX,  // Chrome searches through the address bar omnibox (iOS).
-  CHROME_IOS_HOME_PAGE,// Chrome searches through Google as home page (iOS).
+  CHROME_IOS_RESERVED, // Reserved for Chrome on iOS.
 
   // Unclaimed access points - should be used first before creating new APs.
   // Please also make sure you re-name the enum before using an unclaimed value;
