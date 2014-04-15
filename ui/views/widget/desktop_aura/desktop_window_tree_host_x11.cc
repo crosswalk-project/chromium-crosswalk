@@ -1397,7 +1397,8 @@ uint32_t DesktopWindowTreeHostX11::Dispatch(const base::NativeEvent& event) {
         OnHostResized(bounds.size());
       if (origin_changed)
         OnHostMoved(bounds_.origin());
-      ResetWindowRegion();
+      if (size_changed)
+        ResetWindowRegion();
       break;
     }
     case GenericEvent: {
