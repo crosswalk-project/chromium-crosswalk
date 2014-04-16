@@ -8,6 +8,10 @@
 #ifndef CONTENT_COMMON_GPU_MEDIA_VAAPI_VIDEO_DECODE_ACCELERATOR_H_
 #define CONTENT_COMMON_GPU_MEDIA_VAAPI_VIDEO_DECODE_ACCELERATOR_H_
 
+#if defined(USE_OZONE)
+#include <wayland-client.h>
+#endif
+#include <list>
 #include <map>
 #include <queue>
 #include <utility>
@@ -44,9 +48,14 @@ namespace content {
 class CONTENT_EXPORT VaapiVideoDecodeAccelerator
     : public VideoDecodeAcceleratorImpl {
  public:
+#if defined(USE_OZONE)
+  VaapiVideoDecodeAccelerator(
+      const base::Callback<bool(void)>& make_context_current); //NOLINT
+#else
   VaapiVideoDecodeAccelerator(
       Display* x_display,
       const base::Callback<bool(void)>& make_context_current);
+#endif
   virtual ~VaapiVideoDecodeAccelerator();
 
   // media::VideoDecodeAccelerator implementation.
@@ -148,10 +157,15 @@ private:
   // Check if the surfaces have been released or post ourselves for later.
   void TryFinishSurfaceSetChange();
 
+#if defined(USE_OZONE)
+  wl_display* wl_display_;
+  base::Callback<bool(void)> make_context_current_; //NOLINT
+#else
   // Client-provided X/GLX state.
   Display* x_display_;
   base::Callback<bool(void)> make_context_current_;
   GLXFBConfig fb_config_;
+#endif
 
   // VAVDA state.
   enum State {
