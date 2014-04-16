@@ -190,6 +190,9 @@ public class ApplicationStatus {
         sCachedApplicationState = null;
 
         ActivityInfo info = sActivityInfo.get(activity);
+        // Ignore status from none tracked activitys.
+        if (info == null) return;
+
         info.setStatus(newState);
 
         // Notify all state observers that are specifically listening to this activity.
