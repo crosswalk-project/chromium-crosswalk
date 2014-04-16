@@ -9,6 +9,7 @@
 #ifndef CONTENT_COMMON_GPU_MEDIA_VAAPI_WRAPPER_H_
 #define CONTENT_COMMON_GPU_MEDIA_VAAPI_WRAPPER_H_
 
+#include <vector>
 #include "base/callback.h"
 #include "base/memory/ref_counted.h"
 #include "base/synchronization/lock.h"
@@ -16,7 +17,11 @@
 #include "content/common/gpu/media/va_surface.h"
 #include "media/base/video_decoder_config.h"
 #include "media/base/video_frame.h"
+#if defined (USE_OZONE)
+#include "third_party/libva/va/wayland/va_wayland.h"
+#else
 #include "third_party/libva/va/va_x11.h"
+#endif
 #include "ui/gfx/size.h"
 
 namespace content {
@@ -37,7 +42,7 @@ class CONTENT_EXPORT VaapiWrapper {
   // errors to clients via method return values.
   static scoped_ptr<VaapiWrapper> Create(
       media::VideoCodecProfile profile,
-      Display* x_display,
+      void* display,
       const base::Closure& report_error_to_uma_cb);
 
   ~VaapiWrapper();
@@ -72,12 +77,23 @@ class CONTENT_EXPORT VaapiWrapper {
   // buffers. Return false if SubmitDecode() fails.
   bool DecodeAndDestroyPendingBuffers(VASurfaceID va_surface_id);
 
+#if defined (USE_OZONE)
+  bool CreateRGBImage(gfx::Size size, VAImage* image);
+  void DestroyImage(VAImage* image);
+
+  bool MapImage(VAImage* image, void** buffer);
+  void UnmapImage(VAImage* image);
+
+  // Put data from |va_surface_id| into |va_image|, converting/scaling it.
+  bool PutSurfaceIntoImage(VASurfaceID va_surface_id,
+                           VAImage* va_image);
+#else
   // Put data from |va_surface_id| into |x_pixmap| of size |size|,
   // converting/scaling to it.
   bool PutSurfaceIntoPixmap(VASurfaceID va_surface_id,
                             Pixmap x_pixmap,
                             gfx::Size dest_size);
-
+#endif
   // Returns true if the VAAPI version is less than the specified version.
   bool VAAPIVersionLessThan(int major, int minor);
 
@@ -96,7 +112,7 @@ class CONTENT_EXPORT VaapiWrapper {
   VaapiWrapper();
 
   bool Initialize(media::VideoCodecProfile profile,
-                  Display* x_display,
+                  void* display,
                   const base::Closure& report_error__to_uma_cb);
   void Deinitialize();
 
