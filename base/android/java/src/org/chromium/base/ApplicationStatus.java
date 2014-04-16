@@ -193,6 +193,9 @@ public class ApplicationStatus {
         }
 
         ActivityInfo info = sActivityInfo.get(activity);
+        // Ignore status from none tracked activitys.
+        if (info == null) return;
+
         info.setStatus(newState);
 
         // Remove before calling listeners so that isEveryActivityDestroyed() returns false when
