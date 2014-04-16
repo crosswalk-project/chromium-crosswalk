@@ -638,22 +638,44 @@
         ],
       },
     }],
-    ['target_arch != "arm" and use_x11 == 1', {
+    ['target_arch != "arm" and (use_x11 == 1 or use_ozone == 1)', {
       'sources': [
         'common/gpu/media/h264_dpb.cc',
         'common/gpu/media/h264_dpb.h',
         'common/gpu/media/va_surface.h',
         'common/gpu/media/vaapi_h264_decoder.cc',
         'common/gpu/media/vaapi_h264_decoder.h',
-        'common/gpu/media/vaapi_video_decode_accelerator.cc',
         'common/gpu/media/vaapi_video_decode_accelerator.h',
         'common/gpu/media/vaapi_wrapper.cc',
         'common/gpu/media/vaapi_wrapper.h',
       ],
+      'conditions': [
+        [ 'use_x11 == 1', {
+          'variables': {
+            'extra_header': 'common/gpu/media/va_stub_header.fragment',
+            'sig_files': ['common/gpu/media/va.sigs'],
+          },
+          'sources': [
+            'common/gpu/media/vaapi_video_decode_accelerator.cc',
+          ]
+        }],
+        [ 'use_ozone == 1', {
+          'variables': {
+            'extra_header': 'common/gpu/media/va_wayland_stub_header.fragment',
+            'sig_files': ['common/gpu/media/va_wayland.sigs'],
+          },
+          'link_settings': {
+            'libraries': [
+              '-lwayland-client',
+            ],
+          },
+          'sources': [
+            'common/gpu/media/vaapi_video_decode_accelerator_wayland.cc',
+          ]
+        }],
+      ],
       'variables': {
         'generate_stubs_script': '../tools/generate_stubs/generate_stubs.py',
-        'extra_header': 'common/gpu/media/va_stub_header.fragment',
-        'sig_files': ['common/gpu/media/va.sigs'],
         'outfile_type': 'posix_stubs',
         'stubs_filename_root': 'va_stubs',
         'project_path': 'content/common/gpu/media',
