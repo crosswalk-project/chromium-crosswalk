@@ -248,6 +248,7 @@ Textfield::Textfield()
       use_default_background_color_(true),
       placeholder_text_color_(kDefaultPlaceholderTextColor),
       text_input_type_(ui::TEXT_INPUT_TYPE_TEXT),
+      performing_user_action_(false),
       skip_input_method_cancel_composition_(false),
       cursor_visible_(false),
       drop_cursor_visible_(false),
@@ -1548,6 +1549,8 @@ void Textfield::OnCaretBoundsChanged() {
 }
 
 void Textfield::OnBeforeUserAction() {
+  DCHECK(!performing_user_action_);
+  performing_user_action_ = true;
   if (controller_)
     controller_->OnBeforeUserAction(this);
 }
@@ -1555,6 +1558,8 @@ void Textfield::OnBeforeUserAction() {
 void Textfield::OnAfterUserAction() {
   if (controller_)
     controller_->OnAfterUserAction(this);
+  DCHECK(performing_user_action_);
+  performing_user_action_ = false;
 }
 
 bool Textfield::Cut() {
@@ -1648,7 +1653,7 @@ void Textfield::CreateTouchSelectionControllerAndNotifyIt() {
 
 void Textfield::UpdateSelectionClipboard() const {
 #if defined(OS_LINUX) && !defined(OS_CHROMEOS)
-  if (HasSelection()) {
+  if (performing_user_action_ && HasSelection()) {
     ui::ScopedClipboardWriter(
         ui::Clipboard::GetForCurrentThread(),
         ui::CLIPBOARD_TYPE_SELECTION).WriteText(GetSelectedText());
