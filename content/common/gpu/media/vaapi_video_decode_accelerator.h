@@ -8,6 +8,10 @@
 #ifndef CONTENT_COMMON_GPU_MEDIA_VAAPI_VIDEO_DECODE_ACCELERATOR_H_
 #define CONTENT_COMMON_GPU_MEDIA_VAAPI_VIDEO_DECODE_ACCELERATOR_H_
 
+#if defined(USE_OZONE)
+#include <wayland-client.h>
+#endif
+#include <list>
 #include <map>
 #include <queue>
 #include <utility>
@@ -44,9 +48,14 @@ namespace content {
 class CONTENT_EXPORT VaapiVideoDecodeAccelerator
     : public VideoDecodeAcceleratorImpl {
  public:
+#if defined(USE_OZONE)
+  VaapiVideoDecodeAccelerator(
+      const base::Callback<bool(void)>& make_context_current); //NOLINT
+#else
   VaapiVideoDecodeAccelerator(
       Display* x_display,
-      const base::Callback<bool(void)>& make_context_current);
+      const base::Callback<bool(void)>& make_context_current); //NOLINT
+#endif
   virtual ~VaapiVideoDecodeAccelerator();
 
   // media::VideoDecodeAccelerator implementation.
@@ -60,7 +69,7 @@ class CONTENT_EXPORT VaapiVideoDecodeAccelerator
   virtual void Reset() OVERRIDE;
   virtual void Destroy() OVERRIDE;
 
-private:
+ private:
   // Notify the client that an error has occurred and decoding cannot continue.
   void NotifyError(Error error);
 
@@ -148,10 +157,15 @@ private:
   // Check if the surfaces have been released or post ourselves for later.
   void TryFinishSurfaceSetChange();
 
+#if defined(USE_OZONE)
+  wl_display* wl_display_;
+  base::Callback<bool(void)> make_context_current_; //NOLINT
+#else
   // Client-provided X/GLX state.
   Display* x_display_;
-  base::Callback<bool(void)> make_context_current_;
+  base::Callback<bool(void)> make_context_current_; //NOLINT
   GLXFBConfig fb_config_;
+#endif
 
   // VAVDA state.
   enum State {
@@ -220,7 +234,7 @@ private:
   // requests output, we'll store the request on pending_output_cbs_ queue for
   // later and run it once the client gives us more textures
   // via ReusePictureBuffer().
-  typedef base::Callback<void(TFPPicture*)> OutputCB;
+  typedef base::Callback<void(TFPPicture*)> OutputCB; //NOLINT
   std::queue<OutputCB> pending_output_cbs_;
 
   // ChildThread's message loop
