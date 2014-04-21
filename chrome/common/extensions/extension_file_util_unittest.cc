@@ -90,8 +90,7 @@ TEST_F(ExtensionFileUtilTest, InstallUninstallGarbageCollect) {
   extension_paths.insert(std::make_pair(extension_id,
       base::FilePath().AppendASCII(extension_id).Append(version_3.BaseName())));
   extension_file_util::GarbageCollectExtensions(all_extensions,
-                                                extension_paths,
-                                                true);
+                                                extension_paths);
   ASSERT_FALSE(base::DirectoryExists(version_1));
   ASSERT_TRUE(base::DirectoryExists(version_2));
   ASSERT_TRUE(base::DirectoryExists(version_3));

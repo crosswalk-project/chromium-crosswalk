@@ -529,6 +529,7 @@ void ExtensionService::Init() {
     // rather than running immediately at startup.
     CheckForExternalUpdates();
 
+
     base::MessageLoop::current()->PostDelayedTask(
         FROM_HERE,
         base::Bind(&ExtensionService::GarbageCollectExtensions, AsWeakPtr()),
@@ -1572,17 +1573,15 @@ void ExtensionService::GarbageCollectExtensions() {
   if (extension_prefs_->pref_service()->ReadOnly())
     return;
 
-  bool clean_temp_dir = true;
-
   if (pending_extension_manager()->HasPendingExtensions()) {
-    // Don't garbage collect temp dir while there are pending installations,
-    // which may be using the temporary installation directory. Try to garbage
-    // collect again later.
-    clean_temp_dir = false;
+    // Don't garbage collect while there are pending installations, which may
+    // be using the temporary installation directory. Try to garbage collect
+    // again later.
     base::MessageLoop::current()->PostDelayedTask(
         FROM_HERE,
         base::Bind(&ExtensionService::GarbageCollectExtensions, AsWeakPtr()),
         base::TimeDelta::FromSeconds(kGarbageCollectRetryDelay));
+    return;
   }
 
   scoped_ptr<extensions::ExtensionPrefs::ExtensionsInfo> info(
@@ -1603,8 +1602,7 @@ void ExtensionService::GarbageCollectExtensions() {
           base::Bind(
               &extension_file_util::GarbageCollectExtensions,
               install_directory_,
-              extension_paths,
-              clean_temp_dir))) {
+              extension_paths))) {
     NOTREACHED();
   }
 }
