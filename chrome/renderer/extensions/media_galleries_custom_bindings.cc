@@ -23,22 +23,21 @@ void GetMediaFileSystemObject(const v8::FunctionCallbackInfo<v8::Value>& args) {
   CHECK_EQ(1, args.Length());
   CHECK(args[0]->IsString());
 
-  std::string fs_mount(*v8::String::Utf8Value(args[0]));
-  CHECK(!fs_mount.empty());
+  std::string fsid(*v8::String::Utf8Value(args[0]));
+  CHECK(!fsid.empty());
 
   blink::WebFrame* webframe = blink::WebFrame::frameForCurrentContext();
   const GURL origin = GURL(webframe->document().securityOrigin().toString());
-  std::string fs_name =
-      fileapi::GetFileSystemName(origin, fileapi::kFileSystemTypeExternal);
-  fs_name.append("_");
-  fs_name.append(fs_mount);
+  const std::string fs_name = fileapi::GetIsolatedFileSystemName(origin, fsid);
   const GURL root_url(
-      fileapi::GetExternalFileSystemRootURIString(origin, fs_mount));
+      fileapi::GetIsolatedFileSystemRootURIString(
+          origin, fsid, extension_misc::kMediaFileSystemPathPart));
   args.GetReturnValue().Set(
-      blink::WebDOMFileSystem::create(webframe,
-                                      blink::WebFileSystemTypeExternal,
-                                      blink::WebString::fromUTF8(fs_name),
-                                      root_url).toV8Value());
+      blink::WebDOMFileSystem::create(
+          webframe,
+          blink::WebFileSystemTypeIsolated,
+          blink::WebString::fromUTF8(fs_name),
+          root_url).toV8Value());
 }
 
 }  // namespace

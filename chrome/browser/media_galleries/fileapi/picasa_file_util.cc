@@ -49,24 +49,11 @@ base::File::Error FindAlbumInfo(const std::string& key,
   return base::File::FILE_OK;
 }
 
-std::vector<std::string> GetVirtualPathComponents(
-    const fileapi::FileSystemURL& url) {
-  ImportedMediaGalleryRegistry* imported_registry =
-      ImportedMediaGalleryRegistry::GetInstance();
-  base::FilePath root = imported_registry->ImportedRoot().AppendASCII("picasa");
-
-  DCHECK(root.IsParent(url.path()) || root == url.path());
-  base::FilePath virtual_path;
-  root.AppendRelativePath(url.path(), &virtual_path);
-
-  std::vector<std::string> result;
-  fileapi::VirtualPath::GetComponentsUTF8Unsafe(virtual_path, &result);
-  return result;
-}
-
 PicasaDataProvider::DataType GetDataTypeForURL(
     const fileapi::FileSystemURL& url) {
-  std::vector<std::string> components = GetVirtualPathComponents(url);
+  std::vector<std::string> components;
+  fileapi::VirtualPath::GetComponentsUTF8Unsafe(url.path(), &components);
+
   if (components.size() >= 2 && components[0] == kPicasaDirAlbums)
     return PicasaDataProvider::ALBUMS_IMAGES_DATA;
 
@@ -134,7 +121,8 @@ base::File::Error PicasaFileUtil::GetFileInfoSync(
   if (platform_path)
     *platform_path = base::FilePath();
 
-  std::vector<std::string> components = GetVirtualPathComponents(url);
+  std::vector<std::string> components;
+  fileapi::VirtualPath::GetComponentsUTF8Unsafe(url.path(), &components);
 
   switch (components.size()) {
     case 0:
@@ -202,7 +190,9 @@ base::File::Error PicasaFileUtil::ReadDirectorySync(
   if (!file_info.is_directory)
     return base::File::FILE_ERROR_NOT_A_DIRECTORY;
 
-  std::vector<std::string> components = GetVirtualPathComponents(url);
+  std::vector<std::string> components;
+  fileapi::VirtualPath::GetComponentsUTF8Unsafe(url.path(), &components);
+
   switch (components.size()) {
     case 0: {
       // Root directory.
@@ -307,7 +297,8 @@ base::File::Error PicasaFileUtil::GetLocalFilePath(
     base::FilePath* local_file_path) {
   DCHECK(local_file_path);
   DCHECK(url.is_valid());
-  std::vector<std::string> components = GetVirtualPathComponents(url);
+  std::vector<std::string> components;
+  fileapi::VirtualPath::GetComponentsUTF8Unsafe(url.path(), &components);
 
   switch (components.size()) {
     case 2:

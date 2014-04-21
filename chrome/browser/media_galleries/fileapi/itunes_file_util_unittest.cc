@@ -17,7 +17,6 @@
 #include "chrome/browser/media_galleries/fileapi/itunes_file_util.h"
 #include "chrome/browser/media_galleries/fileapi/media_file_system_backend.h"
 #include "chrome/browser/media_galleries/fileapi/media_path_filter.h"
-#include "chrome/browser/media_galleries/imported_media_gallery_registry.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/test/test_browser_thread.h"
 #include "content/public/test/test_file_system_options.h"
@@ -154,7 +153,6 @@ class ItunesFileUtilTest : public testing::Test {
 
   virtual void SetUp() OVERRIDE {
     ASSERT_TRUE(profile_dir_.CreateUniqueTempDir());
-    ImportedMediaGalleryRegistry::GetInstance()->Initialize();
 
     scoped_refptr<quota::SpecialStoragePolicy> storage_policy =
         new quota::MockSpecialStoragePolicy();
@@ -199,14 +197,10 @@ class ItunesFileUtilTest : public testing::Test {
     ASSERT_FALSE(completed);
   }
 
-  FileSystemURL CreateURL(const std::string& path) const {
-    base::FilePath virtual_path =
-        ImportedMediaGalleryRegistry::GetInstance()->ImportedRoot();
-    virtual_path = virtual_path.AppendASCII("itunes");
-    virtual_path = virtual_path.AppendASCII(path);
+  FileSystemURL CreateURL(const std::string& virtual_path) const {
     return file_system_context_->CreateCrackedFileSystemURL(
         GURL("http://www.example.com"), fileapi::kFileSystemTypeItunes,
-        virtual_path);
+        base::FilePath::FromUTF8Unsafe(virtual_path));
   }
 
   fileapi::FileSystemOperationRunner* operation_runner() const {
