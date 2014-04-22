@@ -294,9 +294,6 @@ void ApplyWebPreferences(const WebPreferences& prefs, WebView* web_view) {
   // Scrollbars should not be stylable.
   settings->setAllowCustomScrollbarInMainFrame(false);
 
-  // Don't auto play music on Tizen devices.
-  settings->setMediaPlaybackRequiresUserGesture(true);
-
   // IME support
   settings->setAutoZoomFocusedNodeToLegibleScale(true);
 
