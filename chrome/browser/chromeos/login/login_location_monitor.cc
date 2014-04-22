@@ -50,8 +50,7 @@ void LoginLocationMonitor::InstallLocationCallback(
   self->request_timeout_.Start(
       FROM_HERE,
       timeout,
-      base::Bind(&LoginLocationMonitor::DoRemoveLocationCallback,
-                 self->on_location_update_));
+      base::Bind(&LoginLocationMonitor::RemoveLocationCallback));
 
   content::BrowserThread::PostTask(
       content::BrowserThread::IO,
