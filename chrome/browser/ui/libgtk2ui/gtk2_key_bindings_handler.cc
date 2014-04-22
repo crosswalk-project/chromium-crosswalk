@@ -326,7 +326,7 @@ void Gtk2KeyBindingsHandler::MoveCursor(
       break;
     case GTK_MOVEMENT_BUFFER_ENDS:
       command = (count > 0 ? TextEditCommandX11::MOVE_TO_END_OF_DOCUMENT :
-                 TextEditCommandX11::MOVE_TO_BEGINING_OF_PARAGRAPH);
+                 TextEditCommandX11::MOVE_TO_BEGINING_OF_DOCUMENT);
       break;
     default:
       // GTK_MOVEMENT_PARAGRAPHS and GTK_MOVEMENT_HORIZONTAL_PAGES have
