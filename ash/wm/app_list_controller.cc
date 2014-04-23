@@ -306,7 +306,7 @@ void AppListController::ProcessLocatedEvent(ui::LocatedEvent* event) {
     }
   }
 
-  aura::Window* window = view_->GetWidget()->GetNativeView();
+  aura::Window* window = view_->GetWidget()->GetNativeView()->parent();
   if (!window->Contains(target))
     SetVisible(false, window);
 }
