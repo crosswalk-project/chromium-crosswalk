@@ -12,7 +12,7 @@ namespace switches {
 
 // Please keep these flags sorted.
 APP_LIST_EXPORT extern const char kDisableSyncAppList[];
-APP_LIST_EXPORT extern const char kDisableVoiceSearch[];
+APP_LIST_EXPORT extern const char kEnableVoiceSearch[];
 APP_LIST_EXPORT extern const char kEnableAppInfo[];
 APP_LIST_EXPORT extern const char kEnableExperimentalAppList[];
 APP_LIST_EXPORT extern const char kEnableExperimentalAppListPosition[];

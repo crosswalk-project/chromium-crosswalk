@@ -1543,11 +1543,11 @@ const Experiment kExperiments[] = {
   },
 #endif
   {
-    "disable-app-list-voice-search",
-    IDS_FLAGS_DISABLE_APP_LIST_VOICE_SEARCH,
-    IDS_FLAGS_DISABLE_APP_LIST_VOICE_SEARCH_DESCRIPTION,
+    "enable-app-list-voice-search",
+    IDS_FLAGS_ENABLE_APP_LIST_VOICE_SEARCH,
+    IDS_FLAGS_ENABLE_APP_LIST_VOICE_SEARCH_DESCRIPTION,
     kOsCrOS,
-    SINGLE_VALUE_TYPE(app_list::switches::kDisableVoiceSearch)
+    SINGLE_VALUE_TYPE(app_list::switches::kEnableVoiceSearch)
   },
   {
     "enable-app-list-hotword-always-on",

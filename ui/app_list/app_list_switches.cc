@@ -13,7 +13,7 @@ namespace switches {
 const char kDisableSyncAppList[] = "disable-sync-app-list";
 
 // If set, the voice search is disabled in app list UI.
-const char kDisableVoiceSearch[] = "disable-app-list-voice-search";
+const char kEnableVoiceSearch[] = "enable-app-list-voice-search";
 
 // If set, the app info context menu item is available in the app list UI.
 const char kEnableAppInfo[] = "enable-app-list-app-info";
@@ -52,7 +52,7 @@ bool IsFolderUIEnabled() {
 bool IsVoiceSearchEnabled() {
   // Speech recognition in AppList is only for ChromeOS right now.
 #if defined(OS_CHROMEOS)
-  return !CommandLine::ForCurrentProcess()->HasSwitch(kDisableVoiceSearch);
+  return CommandLine::ForCurrentProcess()->HasSwitch(kEnableVoiceSearch);
 #else
   return false;
 #endif
