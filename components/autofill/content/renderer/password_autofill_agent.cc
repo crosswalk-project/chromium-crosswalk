@@ -826,7 +826,7 @@ bool PasswordAutofillAgent::FillUserNameAndPassword(
 
 // TODO(vabr): The "gatekeeper" feature is currently disabled on mobile.
 // http://crbug.com/345510#c13
-#if !defined(OS_ANDROID) || !defined(OS_IOS)
+#if !defined(OS_ANDROID) && !defined(OS_IOS)
   // Wait to fill in the password until a user gesture occurs. This is to make
   // sure that we do not fill in the DOM with a password until we believe the
   // user is intentionally interacting with the page.
