@@ -374,9 +374,6 @@ const size_t kNonrepeatableActionsLength =
 const AcceleratorAction kActionsAllowedInAppMode[] = {
   BRIGHTNESS_DOWN,
   BRIGHTNESS_UP,
-  CYCLE_BACKWARD_MRU,
-  CYCLE_FORWARD_MRU,
-  TOGGLE_OVERVIEW,
   DISABLE_CAPS_LOCK,
   KEYBOARD_BRIGHTNESS_DOWN,
   KEYBOARD_BRIGHTNESS_UP,
