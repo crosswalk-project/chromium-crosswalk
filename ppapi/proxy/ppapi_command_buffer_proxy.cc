@@ -185,7 +185,6 @@ scoped_refptr<gpu::Buffer> PpapiCommandBufferProxy::GetTransferBuffer(
   // Map the shared memory on demand.
   if (!shared_memory->memory()) {
     if (!shared_memory->Map(handle.size())) {
-      *id = -1;
       return NULL;
     }
   }
