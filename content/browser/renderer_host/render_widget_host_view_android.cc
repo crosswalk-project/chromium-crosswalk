@@ -157,7 +157,7 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
                                 !CommandLine::ForCurrentProcess()->HasSwitch(
                                     switches::kDisableDelegatedRenderer)),
       locks_on_frame_count_(0),
-      root_window_destroyed_(false) {
+      observing_root_window_(false) {
   if (!using_delegated_renderer_) {
     texture_layer_ = cc::TextureLayer::Create(NULL);
     layer_ = texture_layer_;
@@ -228,8 +228,10 @@ void RenderWidgetHostViewAndroid::WasShown() {
 
   host_->WasShown();
 
-  if (content_view_core_ && !using_synchronous_compositor_)
+  if (content_view_core_ && !using_synchronous_compositor_) {
     content_view_core_->GetWindowAndroid()->AddObserver(this);
+    observing_root_window_ = true;
+  }
 }
 
 void RenderWidgetHostViewAndroid::WasHidden() {
@@ -242,8 +244,10 @@ void RenderWidgetHostViewAndroid::WasHidden() {
   // utilization.
   host_->WasHidden();
 
-  if (content_view_core_ && !using_synchronous_compositor_)
+  if (content_view_core_ && !using_synchronous_compositor_) {
     content_view_core_->GetWindowAndroid()->RemoveObserver(this);
+    observing_root_window_ = false;
+  }
 }
 
 void RenderWidgetHostViewAndroid::WasResized() {
@@ -1337,13 +1341,9 @@ void RenderWidgetHostViewAndroid::DidStopFlinging() {
 void RenderWidgetHostViewAndroid::SetContentViewCore(
     ContentViewCoreImpl* content_view_core) {
   RemoveLayers();
-  // TODO: crbug.com/324341
-  // WindowAndroid and Compositor should outlive all WebContents.
-  // Allowing this here at runtime is a bandaid.
-  DCHECK(!root_window_destroyed_);
-  if (content_view_core_ && !root_window_destroyed_ &&
-      !using_synchronous_compositor_) {
+  if (observing_root_window_ && content_view_core_) {
     content_view_core_->GetWindowAndroid()->RemoveObserver(this);
+    observing_root_window_ = false;
   }
 
   if (content_view_core != content_view_core_)
@@ -1360,9 +1360,9 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
   }
 
   AttachLayers();
-  if (content_view_core_ && !root_window_destroyed_ &&
-      !using_synchronous_compositor_) {
+  if (content_view_core_ && !using_synchronous_compositor_) {
     content_view_core_->GetWindowAndroid()->AddObserver(this);
+    observing_root_window_ = true;
   }
 }
 
@@ -1384,7 +1384,10 @@ void RenderWidgetHostViewAndroid::OnDetachCompositor() {
 }
 
 void RenderWidgetHostViewAndroid::OnWillDestroyWindow() {
-  root_window_destroyed_ = true;
+  // crbug.com/324341
+  // WindowAndroid and Compositor should outlive all WebContents.
+  NOTREACHED();
+  observing_root_window_ = false;
 }
 
 void RenderWidgetHostViewAndroid::OnLostResources() {
