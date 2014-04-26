@@ -127,7 +127,11 @@ scoped_refptr<gpu::Buffer> PpapiCommandBufferProxy::CreateTransferBuffer(
   if ((*id) <= 0)
     return NULL;
 
-  return GetTransferBuffer(*id);
+  scoped_refptr<gpu::Buffer> buffer = GetTransferBuffer(*id);
+  if (!buffer)
+    *id = -1;
+
+  return buffer;
 }
 
 void PpapiCommandBufferProxy::DestroyTransferBuffer(int32 id) {
