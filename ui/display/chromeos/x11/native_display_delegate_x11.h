@@ -123,6 +123,8 @@ class DISPLAY_EXPORT NativeDisplayDelegateX11 : public NativeDisplayDelegate {
       const DisplaySnapshotX11& x11_output,
       ColorCalibrationProfile new_profile);
 
+  void DrawBackground();
+
   Display* display_;
   Window window_;
 
@@ -147,6 +149,9 @@ class DISPLAY_EXPORT NativeDisplayDelegateX11 : public NativeDisplayDelegate {
 
   // List of observers waiting for display configuration change events.
   ObserverList<NativeDisplayObserver> observers_;
+
+  // A background color used during boot time + multi displays.
+  uint32_t background_color_argb_;
 
   DISALLOW_COPY_AND_ASSIGN(NativeDisplayDelegateX11);
 };

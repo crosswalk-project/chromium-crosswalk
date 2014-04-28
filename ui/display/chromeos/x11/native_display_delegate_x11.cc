@@ -151,7 +151,8 @@ void NativeDisplayDelegateX11::MessagePumpObserverX11::DidProcessEvent(
 NativeDisplayDelegateX11::NativeDisplayDelegateX11()
     : display_(base::MessagePumpX11::GetDefaultXDisplay()),
       window_(DefaultRootWindow(display_)),
-      screen_(NULL) {}
+      screen_(NULL),
+      background_color_argb_(0) {}
 
 NativeDisplayDelegateX11::~NativeDisplayDelegateX11() {
   base::MessagePumpX11::Current()->RemoveDispatcherForRootWindow(
@@ -196,22 +197,7 @@ void NativeDisplayDelegateX11::UngrabServer() {
 void NativeDisplayDelegateX11::SyncWithServer() { XSync(display_, 0); }
 
 void NativeDisplayDelegateX11::SetBackgroundColor(uint32_t color_argb) {
-  // Configuring CRTCs/Framebuffer clears the boot screen image.  Set the
-  // same background color while configuring the display to minimize the
-  // duration of black screen at boot time. The background is filled with
-  // black later in ash::DisplayManager.  crbug.com/171050.
-  XSetWindowAttributes swa = {0};
-  XColor color;
-  Colormap colormap = DefaultColormap(display_, 0);
-  // XColor uses 16 bits per color.
-  color.red = (color_argb & 0x00FF0000) >> 8;
-  color.green = (color_argb & 0x0000FF00);
-  color.blue = (color_argb & 0x000000FF) << 8;
-  color.flags = DoRed | DoGreen | DoBlue;
-  XAllocColor(display_, colormap, &color);
-  swa.background_pixel = color.pixel;
-  XChangeWindowAttributes(display_, window_, CWBackPixel, &swa);
-  XFreeColors(display_, colormap, &color.pixel, 1, 0);
+  background_color_argb_ = color_argb;
 }
 
 void NativeDisplayDelegateX11::ForceDPMSOn() {
@@ -311,6 +297,21 @@ void NativeDisplayDelegateX11::CreateFrameBuffer(const gfx::Size& size) {
   int mm_height = size.height() * kPixelsToMmScale;
   XRRSetScreenSize(
       display_, window_, size.width(), size.height(), mm_width, mm_height);
+  // We don't wait for root window resize, therefore this end up with drawing
+  // in the old window size, which we care during the boot.
+  DrawBackground();
+
+  // Don't redraw the background upon framebuffer change again. This should
+  // happen only once after boot.
+  background_color_argb_ = 0;
+}
+
+void NativeDisplayDelegateX11::AddObserver(NativeDisplayObserver* observer) {
+  observers_.AddObserver(observer);
+}
+
+void NativeDisplayDelegateX11::RemoveObserver(NativeDisplayObserver* observer) {
+  observers_.RemoveObserver(observer);
 }
 
 void NativeDisplayDelegateX11::InitModes() {
@@ -641,12 +642,29 @@ XRRCrtcGamma* NativeDisplayDelegateX11::CreateGammaRampForProfile(
   return NULL;
 }
 
-void NativeDisplayDelegateX11::AddObserver(NativeDisplayObserver* observer) {
-  observers_.AddObserver(observer);
-}
+void NativeDisplayDelegateX11::DrawBackground() {
+  if (!background_color_argb_)
+    return;
+  // Configuring CRTCs/Framebuffer clears the boot screen image.  Paint the
+  // same background color after updating framebuffer to minimize the
+  // duration of black screen at boot time.
+  XColor color;
+  Colormap colormap = DefaultColormap(display_, 0);
+  // XColor uses 16 bits per color.
+  color.red = (background_color_argb_ & 0x00FF0000) >> 8;
+  color.green = (background_color_argb_ & 0x0000FF00);
+  color.blue = (background_color_argb_ & 0x000000FF) << 8;
+  color.flags = DoRed | DoGreen | DoBlue;
+  XAllocColor(display_, colormap, &color);
 
-void NativeDisplayDelegateX11::RemoveObserver(NativeDisplayObserver* observer) {
-  observers_.RemoveObserver(observer);
+  GC gc = XCreateGC(display_, window_, 0, 0);
+  XSetForeground(display_, gc, color.pixel);
+  XSetFillStyle(display_, gc, FillSolid);
+  int width = DisplayWidth(display_, DefaultScreen(display_));
+  int height = DisplayHeight(display_, DefaultScreen(display_));
+  XFillRectangle(display_, window_, gc, 0, 0, width, height);
+  XFreeGC(display_, gc);
+  XFreeColors(display_, colormap, &color.pixel, 1, 0);
 }
 
 }  // namespace ui
