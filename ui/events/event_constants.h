@@ -91,6 +91,11 @@ enum EventFlags {
   EF_ALTGR_DOWN          = 1 << 10,
 };
 
+// Flags specific to key events
+enum KeyEventFlags {
+  EF_NUMPAD_KEY         = 1 << 16,  // Key originates from number pad (Xkb only)
+};
+
 // Flags specific to mouse events
 enum MouseEventFlags {
   EF_IS_DOUBLE_CLICK    = 1 << 16,
