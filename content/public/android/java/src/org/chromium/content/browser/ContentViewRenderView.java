@@ -9,10 +9,13 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.SurfaceTexture;
 import android.os.Handler;
 import android.view.Surface;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+import android.view.TextureView;
+import android.view.TextureView.SurfaceTextureListener;
 import android.widget.FrameLayout;
 
 import org.chromium.base.CalledByNative;
@@ -36,6 +39,21 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
 
     private final SurfaceView mSurfaceView;
     private final WindowAndroid mRootWindow;
+
+    // Enum for the type of compositing surface:
+    //   SURFACE_VIEW - Use SurfaceView as compositing surface which
+    //                  has a bit performance advantage
+    //   TEXTURE_VIEW - Use TextureView as compositing surface which
+    //                  supports animation on the View
+    public enum CompositingSurfaceType { SURFACE_VIEW, TEXTURE_VIEW };
+
+    // The stuff for TextureView usage. It is not a good practice to mix 2 different
+    // implementations into one single class. However, for the sake of reducing the
+    // effort of rebasing maintanence in future, here we avoid heavily changes in
+    // this class.
+    private TextureView mTextureView;
+    private Surface mSurface;
+    private CompositingSurfaceType mCompositingSurfaceType;
 
     private int mPendingRenders;
     private int mPendingSwapBuffers;
@@ -63,12 +81,85 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
         public void onFirstFrameReceived();
     }
 
+    // Initialize the TextureView for rendering ContentView and configure the callback
+    // listeners.
+    private void initTextureView(Context context) {
+        mTextureView = new TextureView(context);
+        mTextureView.setBackgroundColor(Color.WHITE);
+
+        mTextureView.setSurfaceTextureListener(new SurfaceTextureListener() {
+            @Override
+            public void onSurfaceTextureAvailable(SurfaceTexture surfaceTexture,
+                    int width, int height) {
+                assert mNativeContentViewRenderView != 0;
+
+                mSurface = new Surface(surfaceTexture);
+                nativeSurfaceCreated(mNativeContentViewRenderView);
+                // Force to trigger the compositor to start working.
+                onSurfaceTextureSizeChanged(surfaceTexture, width, height);
+
+                mPendingSwapBuffers = 0;
+                mPendingRenders = 0;
+                onReadyToRender();
+            }
+
+            @Override
+            public void onSurfaceTextureSizeChanged(SurfaceTexture surfaceTexture,
+                    int width, int height) {
+                assert mNativeContentViewRenderView != 0 && mSurface != null;
+                assert surfaceTexture == mTextureView.getSurfaceTexture();
+                assert mSurface != null;
+
+                // Here we hard-code the pixel format since the native part requires
+                // the format parameter to decide if the compositing surface should be
+                // replaced with a new one when the format is changed.
+                //
+                // If TextureView is used, the surface won't be possible to changed,
+                // so that the format is also not changed. There is no special reason
+                // to use RGBA_8888 value since the native part won't use its real
+                // value to do something for drawing.
+                //
+                // TODO(hmin): Figure out how to get pixel format from SurfaceTexture.
+                int format = PixelFormat.RGBA_8888;
+                nativeSurfaceChanged(mNativeContentViewRenderView,
+                        format, width, height, mSurface);
+                if (mContentViewCore != null) {
+                    mContentViewCore.onPhysicalBackingSizeChanged(
+                            width, height);
+                }
+            }
+
+            @Override
+            public boolean onSurfaceTextureDestroyed(SurfaceTexture surfaceTexture) {
+                assert mNativeContentViewRenderView != 0;
+                nativeSurfaceDestroyed(mNativeContentViewRenderView);
+
+                // Release the underlying surface to make it invalid.
+                mSurface.release();
+                mSurface = null;
+                return true;
+            }
+
+            @Override
+            public void onSurfaceTextureUpdated(SurfaceTexture surfaceTexture) {
+                // Do nothing since the SurfaceTexture won't be updated via updateTexImage().
+            }
+        });
+    }
+
+    public ContentViewRenderView(Context context, WindowAndroid rootWindow) {
+        this(context, rootWindow, CompositingSurfaceType.SURFACE_VIEW);
+    }
+
     /**
      * Constructs a new ContentViewRenderView that should be can to a view hierarchy.
      * Native code should add/remove the layers to be rendered through the ContentViewLayerRenderer.
      * @param context The context used to create this.
+     * @param useTextureView True if TextureView is used as compositing target surface,
+     *                       otherwise SurfaceView is used.
      */
-    public ContentViewRenderView(Context context, WindowAndroid rootWindow) {
+    public ContentViewRenderView(Context context, WindowAndroid rootWindow,
+                CompositingSurfaceType surfaceType) {
         super(context);
         assert rootWindow != null;
         mNativeContentViewRenderView = nativeInit(rootWindow.getNativePointer());
@@ -76,6 +167,22 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
 
         mRootWindow = rootWindow;
         rootWindow.setVSyncClient(this);
+
+        mCompositingSurfaceType = surfaceType;
+        if (surfaceType == CompositingSurfaceType.TEXTURE_VIEW) {
+            initTextureView(context);
+
+            addView(mTextureView,
+                    new FrameLayout.LayoutParams(
+                            FrameLayout.LayoutParams.MATCH_PARENT,
+                            FrameLayout.LayoutParams.MATCH_PARENT));
+
+            // Avoid compiler warning.
+            mSurfaceView = null;
+            mSurfaceCallback = null;
+            return;
+        }
+
         mSurfaceView = createSurfaceView(getContext());
         mSurfaceView.setZOrderMediaOverlay(true);
         mSurfaceCallback = new SurfaceHolder.Callback() {
@@ -165,7 +272,16 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
         mContentReadbackHandler.destroy();
         mContentReadbackHandler = null;
         mRootWindow.setVSyncClient(null);
-        mSurfaceView.getHolder().removeCallback(mSurfaceCallback);
+        if (mCompositingSurfaceType == CompositingSurfaceType.TEXTURE_VIEW) {
+            mTextureView.setSurfaceTextureListener(null);
+            if (mSurface != null) {
+                mSurface.release();
+                mSurface = null;
+            }
+        } else {
+            mSurfaceView.getHolder().removeCallback(mSurfaceCallback);
+        }
+
         nativeDestroy(mNativeContentViewRenderView);
         mNativeContentViewRenderView = 0;
     }
@@ -211,7 +327,7 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
      * @return whether the surface view is initialized and ready to render.
      */
     public boolean isInitialized() {
-        return mSurfaceView.getHolder().getSurface() != null;
+        return mSurfaceView.getHolder().getSurface() != null || mSurface != null;
     }
 
     /**
@@ -219,6 +335,11 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
      * @param enabled Whether overlay mode is enabled.
      */
     public void setOverlayVideoMode(boolean enabled) {
+        if (mCompositingSurfaceType == CompositingSurfaceType.TEXTURE_VIEW) {
+            nativeSetOverlayVideoMode(mNativeContentViewRenderView, enabled);
+            return;
+        }
+
         int format = enabled ? PixelFormat.TRANSLUCENT : PixelFormat.OPAQUE;
         mSurfaceView.getHolder().setFormat(format);
         nativeSetOverlayVideoMode(mNativeContentViewRenderView, enabled);
@@ -263,8 +384,8 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
     private void onSwapBuffersCompleted() {
         TraceEvent.instant("onSwapBuffersCompleted");
 
-        if (!mFirstFrameReceived && mCurrentContentView != null &&
-                mCurrentContentView.getContentViewCore().isReady()) {
+        if (!mFirstFrameReceived && mContentViewCore != null &&
+                mContentViewCore.isReady()) {
             mFirstFrameReceived = true;
             if (mFirstRenderedFrameListener != null) {
                 mFirstRenderedFrameListener.onFirstFrameReceived();
@@ -281,6 +402,8 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
         boolean didDraw = nativeComposite(mNativeContentViewRenderView);
         if (didDraw) {
             mPendingSwapBuffers++;
+            // Ignore if TextureView is used.
+            if (mCompositingSurfaceType == CompositingSurfaceType.TEXTURE_VIEW) return;
             if (mSurfaceView.getBackground() != null) {
                 post(new Runnable() {
                     @Override
