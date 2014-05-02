@@ -139,7 +139,9 @@ DesktopScreenX11::DesktopScreenX11()
     base::MessagePumpX11::Current()->AddDispatcherForRootWindow(this);
     XRRSelectInput(xdisplay_,
                    x_root_window_,
-                   RRScreenChangeNotifyMask | RROutputChangeNotifyMask);
+                   RRScreenChangeNotifyMask |
+                   RROutputChangeNotifyMask |
+                   RRCrtcChangeNotifyMask);
 
     displays_ = BuildDisplaysFromXRandRInfo();
   } else {
