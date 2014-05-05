@@ -792,10 +792,6 @@
     "channel": "stable",
     "extension_types": ["platform_app"]
   },
-  "systemIndicator": {
-    "channel": "dev",
-    "extension_types": ["extension", "legacy_packaged_app", "platform_app"]
-  },
   "storage": {
     "channel": "stable",
     "extension_types": ["extension", "legacy_packaged_app", "platform_app"],

@@ -139,7 +139,6 @@ class APIPermission {
     kStreamsPrivate,
     kSyncFileSystem,
     kSystemPrivate,
-    kSystemIndicator,
     kSystemDisplay,
     kSystemStorage,
     kTab,
