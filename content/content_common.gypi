@@ -603,6 +603,7 @@
     ['target_arch=="arm" and chromeos == 1 and use_x11 == 1', {
       'dependencies': [
         '../media/media.gyp:media',
+        '../gpu/command_buffer/command_buffer.gyp:gles2_utils',
       ],
       'sources': [
         'common/gpu/media/exynos_v4l2_video_device.cc',
@@ -625,6 +626,9 @@
       },
     }],
     ['target_arch != "arm" and chromeos == 1 and use_x11 == 1', {
+      'dependencies': [
+        '../gpu/command_buffer/command_buffer.gyp:gles2_utils',
+      ],
       'sources': [
         'common/gpu/media/h264_dpb.cc',
         'common/gpu/media/h264_dpb.h',

@@ -392,11 +392,22 @@ class GLES2ImplementationTest : public testing::Test {
    public:
     TestContext() : commands_(NULL), token_(0) {}
 
+#if defined(OS_CHROMEOS)
+    bool Initialize(ShareGroup* share_group,
+                    bool bind_generates_resource,
+                    bool lose_context_when_out_of_memory) {
+#else
     void Initialize(ShareGroup* share_group,
                     bool bind_generates_resource,
                     bool lose_context_when_out_of_memory) {
+#endif
       command_buffer_.reset(new StrictMock<MockClientCommandBuffer>());
+#if defined(OS_CHROMEOS)
+      if (!command_buffer_->Initialize())
+        return false;
+#else
       ASSERT_TRUE(command_buffer_->Initialize());
+#endif
 
       transfer_buffer_.reset(
           new MockTransferBuffer(command_buffer_.get(),
@@ -426,6 +437,10 @@ class GLES2ImplementationTest : public testing::Test {
       int_state.max_vertex_uniform_vectors = kMaxVertexUniformVectors;
       int_state.num_compressed_texture_formats = kNumCompressedTextureFormats;
       int_state.num_shader_binary_formats = kNumShaderBinaryFormats;
+#if defined(OS_CHROMEOS)
+      int_state.bind_generates_resource_chromium =
+          bind_generates_resource ? 1 : 0;
+#endif
 
       // This just happens to work for now because IntState has 1 GLint per
       // state.
@@ -449,10 +464,18 @@ class GLES2ImplementationTest : public testing::Test {
                                           bind_generates_resource,
                                           lose_context_when_out_of_memory,
                                           gpu_control_.get()));
+#if defined(OS_CHROMEOS)
+        if (!gl_->Initialize(kTransferBufferSize,
+                             kTransferBufferSize,
+                             kTransferBufferSize,
+                             GLES2Implementation::kNoLimit))
+          return false;
+#else
         ASSERT_TRUE(gl_->Initialize(kTransferBufferSize,
                                     kTransferBufferSize,
                                     kTransferBufferSize,
                                     GLES2Implementation::kNoLimit));
+#endif
       }
 
       EXPECT_CALL(*command_buffer_, OnFlush()).Times(1).RetiresOnSaturation();
@@ -466,6 +489,9 @@ class GLES2ImplementationTest : public testing::Test {
       EXPECT_TRUE(transfer_buffer_->InSync());
 
       ::testing::Mock::VerifyAndClearExpectations(command_buffer());
+#if defined(OS_CHROMEOS)
+      return true;
+#endif
     }
 
     void TearDown() {
@@ -518,6 +544,7 @@ class GLES2ImplementationTest : public testing::Test {
     return gl_->query_tracker_->GetQuery(id);
   }
 
+#if !defined(OS_CHROMEOS)
   void Initialize(bool bind_generates_resource,
                   bool lose_context_when_out_of_memory) {
     share_group_ = new ShareGroup(bind_generates_resource);
@@ -526,6 +553,30 @@ class GLES2ImplementationTest : public testing::Test {
       test_contexts_[i].Initialize(share_group_.get(),
                                    bind_generates_resource,
                                    lose_context_when_out_of_memory);
+#else
+  struct ContextInitOptions {
+    ContextInitOptions()
+        : bind_generates_resource_client(true),
+          bind_generates_resource_service(true),
+          lose_context_when_out_of_memory(false) {}
+
+    bool bind_generates_resource_client;
+    bool bind_generates_resource_service;
+    bool lose_context_when_out_of_memory;
+  };
+
+  bool Initialize(const ContextInitOptions& init_options) {
+    bool success = true;
+    share_group_ = new ShareGroup(init_options.bind_generates_resource_service);
+
+    for (int i = 0; i < kNumTestContexts; i++) {
+      if (!test_contexts_[i].Initialize(
+              share_group_.get(),
+              init_options.bind_generates_resource_client,
+              init_options.lose_context_when_out_of_memory))
+        success = false;
+    }
+#endif
 
     // Default to test context 0.
     gpu_control_ = test_contexts_[0].gpu_control_.get();
@@ -533,6 +584,9 @@ class GLES2ImplementationTest : public testing::Test {
     transfer_buffer_ = test_contexts_[0].transfer_buffer_.get();
     gl_ = test_contexts_[0].gl_.get();
     commands_ = test_contexts_[0].commands_;
+#if defined(OS_CHROMEOS)
+    return success;
+#endif
   }
 
   MockClientCommandBuffer* command_buffer() const {
@@ -592,9 +646,14 @@ class GLES2ImplementationTest : public testing::Test {
 };
 
 void GLES2ImplementationTest::SetUp() {
+#if defined(OS_CHROMEOS)
+  ContextInitOptions init_options;
+  ASSERT_TRUE(Initialize(init_options));
+#else
   bool bind_generates_resource = true;
   bool lose_context_when_out_of_memory = false;
   Initialize(bind_generates_resource, lose_context_when_out_of_memory);
+#endif
 }
 
 void GLES2ImplementationTest::TearDown() {
@@ -697,9 +756,16 @@ class GLES2ImplementationStrictSharedTest : public GLES2ImplementationTest {
 };
 
 void GLES2ImplementationStrictSharedTest::SetUp() {
+#if defined(OS_CHROMEOS)
+  ContextInitOptions init_options;
+  init_options.bind_generates_resource_client = false;
+  init_options.bind_generates_resource_service = false;
+  ASSERT_TRUE(Initialize(init_options));
+#else
   bool bind_generates_resource = false;
   bool lose_context_when_out_of_memory = false;
   Initialize(bind_generates_resource, lose_context_when_out_of_memory);
+#endif
 }
 
 // GCC requires these declarations, but MSVC requires they not be present
@@ -3117,9 +3183,15 @@ TEST_F(GLES2ImplementationTest, ProduceTextureCHROMIUM) {
 }
 
 TEST_F(GLES2ImplementationManualInitTest, LoseContextOnOOM) {
+#if defined(OS_CHROMEOS)
+  ContextInitOptions init_options;
+  init_options.lose_context_when_out_of_memory = true;
+  ASSERT_TRUE(Initialize(init_options));
+#else
   bool bind_generates_resource = false;
   bool lose_context_when_out_of_memory = true;
   Initialize(bind_generates_resource, lose_context_when_out_of_memory);
+#endif
 
   struct Cmds {
     cmds::LoseContextCHROMIUM cmd;
@@ -3136,10 +3208,14 @@ TEST_F(GLES2ImplementationManualInitTest, LoseContextOnOOM) {
 }
 
 TEST_F(GLES2ImplementationManualInitTest, NoLoseContextOnOOM) {
+#if defined(OS_CHROMEOS)
+  ContextInitOptions init_options;
+  ASSERT_TRUE(Initialize(init_options));
+#else
   bool bind_generates_resource = false;
   bool lose_context_when_out_of_memory = false;
   Initialize(bind_generates_resource, lose_context_when_out_of_memory);
-
+#endif
   struct Cmds {
     cmds::LoseContextCHROMIUM cmd;
   };
@@ -3151,6 +3227,22 @@ TEST_F(GLES2ImplementationManualInitTest, NoLoseContextOnOOM) {
   // The context should not be lost.
   EXPECT_TRUE(NoCommandsWritten());
 }
+
+#if defined(OS_CHROMEOS)
+TEST_F(GLES2ImplementationManualInitTest, FailInitOnBGRMismatch1) {
+  ContextInitOptions init_options;
+  init_options.bind_generates_resource_client = false;
+  init_options.bind_generates_resource_service = true;
+  EXPECT_FALSE(Initialize(init_options));
+}
+
+TEST_F(GLES2ImplementationManualInitTest, FailInitOnBGRMismatch2) {
+  ContextInitOptions init_options;
+  init_options.bind_generates_resource_client = true;
+  init_options.bind_generates_resource_service = false;
+  EXPECT_FALSE(Initialize(init_options));
+}
+#endif
 
 #include "gpu/command_buffer/client/gles2_implementation_unittest_autogen.h"
 

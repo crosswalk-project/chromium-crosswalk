@@ -123,7 +123,9 @@ class WebGraphicsContext3DCommandBufferImpl
       const GURL& active_url,
       GpuChannelHost* host,
       const Attributes& attributes,
+#if !defined(OS_CHROMEOS)
       bool bind_generates_resources,
+#endif
       bool lose_context_when_out_of_memory,
       const SharedMemoryLimits& limits,
       WebGraphicsContext3DCommandBufferImpl* share_context);
@@ -769,7 +771,9 @@ class WebGraphicsContext3DCommandBufferImpl
   scoped_ptr<gpu::gles2::GLES2Implementation> real_gl_;
   scoped_ptr<gpu::gles2::GLES2Interface> trace_gl_;
   Error last_error_;
+#if !defined(OS_CHROMEOS)
   bool bind_generates_resources_;
+#endif
   bool lose_context_when_out_of_memory_;
   SharedMemoryLimits mem_limits_;
 

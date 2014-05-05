@@ -2852,7 +2852,9 @@ RenderWidget::CreateGraphicsContext3D() {
   attributes.noAutomaticFlushes = true;
   attributes.depth = false;
   attributes.stencil = false;
+#if !defined(OS_CHROMEOS)
   bool bind_generates_resources = false;
+#endif
   bool lose_context_when_out_of_memory = true;
   WebGraphicsContext3DCommandBufferImpl::SharedMemoryLimits limits;
 #if defined(OS_ANDROID)
@@ -2883,7 +2885,9 @@ RenderWidget::CreateGraphicsContext3D() {
                                                 GetURLForGraphicsContext3D(),
                                                 gpu_channel_host.get(),
                                                 attributes,
+#if !defined(OS_CHROMEOS)
                                                 bind_generates_resources,
+#endif
                                                 lose_context_when_out_of_memory,
                                                 limits,
                                                 NULL));

@@ -82,14 +82,18 @@ CmdBufferImageTransportFactory::CmdBufferImageTransportFactory() {
       3 * full_screen_texture_size_in_bytes, kDefaultMaxTransferBufferSize);
   limits.mapped_memory_reclaim_limit =
       WebGraphicsContext3DCommandBufferImpl::kNoLimit;
+#if !defined(OS_CHROMEOS)
   bool bind_generates_resource = false;
+#endif
   bool lose_context_when_out_of_memory = false;
   context_.reset(
       new WebGraphicsContext3DCommandBufferImpl(0,  // offscreen
                                                 url,
                                                 gpu_channel_host.get(),
                                                 attrs,
+#if !defined(OS_CHROMEOS)
                                                 bind_generates_resource,
+#endif
                                                 lose_context_when_out_of_memory,
                                                 limits,
                                                 NULL));

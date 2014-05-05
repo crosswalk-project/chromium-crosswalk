@@ -325,7 +325,11 @@ int GLES2Util::GLGetNumValuesReturned(int id) const {
     // -- glHint with GL_OES_standard_derivatives
     case GL_FRAGMENT_SHADER_DERIVATIVE_HINT_OES:
       return 1;
-
+#if defined(OS_CHROMEOS)
+    // Chromium internal bind_generates_resource query
+    case GL_BIND_GENERATES_RESOURCE_CHROMIUM:
+      return 1;
+#endif
     // bad enum
     default:
       return 0;

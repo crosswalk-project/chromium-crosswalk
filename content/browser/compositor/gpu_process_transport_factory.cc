@@ -428,7 +428,9 @@ GpuProcessTransportFactory::CreateContextCommon(int surface_id) {
   attrs.stencil = false;
   attrs.antialias = false;
   attrs.noAutomaticFlushes = true;
+#if !defined(OS_CHROMEOS)
   bool bind_generates_resources = false;
+#endif
   bool lose_context_when_out_of_memory = true;
   CauseForGpuLaunch cause =
       CAUSE_FOR_GPU_LAUNCH_WEBGRAPHICSCONTEXT3DCOMMANDBUFFERIMPL_INITIALIZE;
@@ -445,7 +447,9 @@ GpuProcessTransportFactory::CreateContextCommon(int surface_id) {
           url,
           gpu_channel_host.get(),
           attrs,
+#if !defined(OS_CHROMEOS)
           bind_generates_resources,
+#endif
           lose_context_when_out_of_memory,
           WebGraphicsContext3DCommandBufferImpl::SharedMemoryLimits(),
           NULL));

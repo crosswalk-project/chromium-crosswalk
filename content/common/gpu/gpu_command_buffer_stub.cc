@@ -139,15 +139,28 @@ GpuCommandBufferStub::GpuCommandBufferStub(
       total_gpu_memory_(0) {
   active_url_hash_ = base::Hash(active_url.possibly_invalid_spec());
   FastSetActiveURL(active_url_, active_url_hash_);
+#if defined(OS_CHROMEOS)
+  gpu::gles2::ContextCreationAttribHelper attrib_parser;
+  attrib_parser.Parse(requested_attribs_);
+#endif
+
   if (share_group) {
     context_group_ = share_group->context_group_;
+#if defined(OS_CHROMEOS)
+    DCHECK(context_group_->bind_generates_resource() ==
+           attrib_parser.bind_generates_resource_);
+#endif
   } else {
     context_group_ = new gpu::gles2::ContextGroup(
         mailbox_manager,
         image_manager,
         new GpuCommandBufferMemoryTracker(channel),
         NULL,
+#if defined(OS_CHROMEOS)
+        attrib_parser.bind_generates_resource_);
+#else
         true);
+#endif
   }
 
   use_virtualized_gl_context_ |=

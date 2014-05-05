@@ -74,6 +74,9 @@
 #define GL_UNPACK_PREMULTIPLY_ALPHA_CHROMIUM             0x9241
 #define GL_UNPACK_UNPREMULTIPLY_ALPHA_CHROMIUM           0x9242
 #define GL_UNPACK_COLORSPACE_CONVERSION_CHROMIUM         0x9243
+#if defined(OS_CHROMEOS)
+#define GL_BIND_GENERATES_RESOURCE_CHROMIUM              0x9244
+#endif
 
 // GL_CHROMIUM_gpu_memory_manager
 #define GL_TEXTURE_POOL_CHROMIUM                         0x6000

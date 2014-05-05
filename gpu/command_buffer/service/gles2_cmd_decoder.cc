@@ -4511,6 +4511,14 @@ bool GLES2DecoderImpl::GetHelper(
         params[0] = unpack_unpremultiply_alpha_;
       }
       return true;
+#if defined(OS_CHROMEOS)
+    case GL_BIND_GENERATES_RESOURCE_CHROMIUM:
+      *num_written = 1;
+      if (params) {
+        params[0] = group_->bind_generates_resource() ? 1 : 0;
+      }
+      return true;
+#endif
     default:
       if (pname >= GL_DRAW_BUFFER0_ARB &&
           pname < GL_DRAW_BUFFER0_ARB + group_->max_draw_buffers()) {
