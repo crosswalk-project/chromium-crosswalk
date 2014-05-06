@@ -167,6 +167,7 @@ protected:
     bool runModalPromptDialog(blink::WebFrame*, const blink::WebString& message, const blink::WebString& defaultValue, blink::WebString* actualValue);
     bool runModalBeforeUnloadDialog(blink::WebFrame*, const blink::WebString&);
 
+    void loadURLExternally(blink::WebFrame* frame, const blink::WebURLRequest& request, blink::WebNavigationPolicy policy, const blink::WebString& suggested_name);
     void didStartProvisionalLoad(blink::WebFrame*);
     void didReceiveServerRedirectForProvisionalLoad(blink::WebFrame*);
     bool didFailProvisionalLoad(blink::WebFrame*, const blink::WebURLError&);
