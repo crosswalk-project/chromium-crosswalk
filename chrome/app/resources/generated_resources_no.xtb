@@ -802,7 +802,7 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="375841316537350618">Laster ned mellomtjenerskript ...</translation>
 <translation id="45400070127195133">Aktivering av dette alternativet tillater nettapper å bruke WebGL-utvidelsene som fortsatt er i utkaststatus.</translation>
 <translation id="4117553660243903041"><ph name="CLOUD_PRINT_NAME"/> lar deg bruke denne datamaskinens skrivere fra hvor som helst.</translation>
-<translation id="9169664750068251925">Alltid blokkér på dette nettstedet</translation>
+<translation id="9169664750068251925">Blokkér alltid på dette nettstedet</translation>
 <translation id="6406303162637086258">Simuler omstart av nettleseren</translation>
 <translation id="7428296649065852053">Tiden det tar å laste inn en nettside</translation>
 <translation id="8725178340343806893">Favoritter/bokmerker</translation>
@@ -1454,7 +1454,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="996987097147224996">Trykk på Ctrl + mellomromstasten for å velge forrige inndatametode.</translation>
 <translation id="4240069395079660403"><ph name="PRODUCT_NAME"/> kan ikke vises på dette språket</translation>
 <translation id="747114903913869239">Feil: Kan ikke avkode etternavnet</translation>
-<translation id="7187885785158279764">Opphev filtilgangen</translation>
+<translation id="7187885785158279764">Opphev tilgangen til filer</translation>
 <translation id="3574210789297084292">logg på</translation>
 <translation id="1146204723345436916">Importer bokmerker fra HTML-fil</translation>
 <translation id="2113921862428609753">Informasjonstilgang til instans</translation>
@@ -1554,7 +1554,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="825608351287166772">Sertifikater har en gyldighetsperiode, på linje med andre identitetsdokumenter (f.eks. pass). Sertifikatet som er presentert for nettleseren, er ikke gyldig ennå. Når et sertifikat er utenfor gyldighetsperioden, er det ikke påkrevd å vedlikeholde enkelte opplysninger om statusen for sertifikatet (om det er tilbakekalt og ikke lenger klarert). Det er dermed ikke mulig å verifisere at dette sertifikatet er pålitelig. Du bør ikke fortsette.</translation>
 <translation id="2381823505763074471">Logg av brukeren <ph name="PROFILE_USERNAME"/>.</translation>
 <translation id="3616113530831147358">Lyd</translation>
-<translation id="23030561267973084">«<ph name="EXTENSION_NAME"/>» har bedt om flere tillatelser.</translation>
+<translation id="23030561267973084">«<ph name="EXTENSION_NAME"/>» har bedt om ekstra tilgang.</translation>
 <translation id="6957887021205513506">Tjenersertifikatet ser ut til å være forfalsket.</translation>
 <translation id="8957709627709183338">Det er bare eieren av enheten som kan opprette overvåkede brukere.</translation>
 <translation id="8551494947769799688">Latvisk</translation>
@@ -1578,7 +1578,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="8795668016723474529">Legg til kredittkort</translation>
 <translation id="5860033963881614850">Av</translation>
 <translation id="6575251558004911012">Spør når et nettsted krever tilgang til kameraet (anbefales)</translation>
-<translation id="4116663294526079822">Alltid tillat på dette nettstedet</translation>
+<translation id="4116663294526079822">Tillat alltid på dette nettstedet</translation>
 <translation id="7547317915858803630">Advarsel: <ph name="PRODUCT_NAME"/>-innstillingene dine lagres på en nettverksdisk. Dette kan forårsake forsinkelser, krasjer og til og med tap av data.</translation>
 <translation id="3956882961292411849">Laster inn opplysninger om mobildataplan. Vent litt.</translation>
 <translation id="689050928053557380">Kjøp dataplan</translation>
@@ -1788,6 +1788,7 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
 <translation id="7724603315864178912">Klipp ut</translation>
 <translation id="8456681095658380701">Ugyldig navn</translation>
 <translation id="3518086201899641494">Varsler om autentiseringsportal</translation>
+<translation id="3652052123500137959">Aktiver talesøk i appvelgeren.</translation>
 <translation id="1976150099241323601">Logg på sikkerhetsenhet</translation>
 <translation id="4120817667028078560">Filbanen er for lang</translation>
 <translation id="4938972461544498524">Innstillinger for styreflate</translation>
@@ -2154,7 +2155,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="707392107419594760">Velg tastatur:</translation>
 <translation id="8605503133013456784">Kunne ikke fjerne tilknytning til og koble fra «<ph name="DEVICE_NAME"/>».</translation>
 <translation id="2007404777272201486">Rapporter et problem</translation>
-<translation id="4366509400410520531">Tillates av deg</translation>
+<translation id="4366509400410520531">Tillatt av deg</translation>
 <translation id="2218947405056773815">Beklager. <ph name="API_NAME"/> støtte på et hinder.</translation>
 <translation id="6797509194603611336">åpne alle <ph name="PROTOCOL"/>-linker i stedet for <ph name="REPLACED_HANDLER_TITLE"/>?</translation>
 <translation id="1783075131180517613">Oppdater passordfrasen for synkronisering.</translation>
@@ -2890,13 +2891,14 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="8443621894987748190">Velg bilde for konto</translation>
 <translation id="7374461526650987610">Protokollbehandlere</translation>
 <translation id="2192505247865591433">Fra:</translation>
+<translation id="8668997025496699314">Aktiver talesøk i appvelgeren. Hvis talesøk er aktivert, kan brukeren søke ved å snakke.</translation>
 <translation id="4634771451598206121">Logg på igjen</translation>
 <translation id="3475110616773907981">få tilgang til alle data på datamaskinen din og nettstedene du besøker</translation>
 <translation id="1035590878859356651">Legg til bokmerke for denne siden</translation>
 <translation id="3944266449990965865">Hele skjermen</translation>
 <translation id="942954117721265519">Det fins ingen bilder i denne katalogen.</translation>
 <translation id="671928215901716392">Lås skjerm</translation>
-<translation id="2241468422635044128">Tillatt ifølge utvidelsen</translation>
+<translation id="2241468422635044128">Tillatt av en utvidelse</translation>
 <translation id="3727187387656390258">Undersøk hurtigvindu</translation>
 <translation id="361106536627977100">Flash-data</translation>
 <translation id="569068482611873351">Importer</translation>
@@ -3556,7 +3558,7 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="1834560242799653253">Retning:</translation>
 <translation id="7085070717976089605">Aktivert – skjuler inndata i multifunksjonsfeltet</translation>
 <translation id="6440616190620341629">Aktiver dekoding uten sammensetting i MediaDrm som standard for krypterte medieutvidelser.</translation>
-<translation id="8353683614194668312">Den kan</translation>
+<translation id="8353683614194668312">Den får følgende tilgang:</translation>
 <translation id="1047956942837015229">Sletter <ph name="COUNT"/> elementer ...</translation>
 <translation id="1531961661616401172">Aktiver eksperimentelle synkroniserte varsler.</translation>
 <translation id="7361039089383199231">$1 bytes</translation>
@@ -3633,7 +3635,7 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="7439964298085099379">Høy kontrast-modusen er aktivert. Vil du installere Høy kontrast-utvidelsen vår og et mørkt tema?</translation>
 <translation id="9012607008263791152">Jeg forstår at dette nettstedet kan skade datamaskinen.</translation>
 <translation id="6640442327198413730">Bufferfeil</translation>
-<translation id="3788401245189148511">Den kan</translation>
+<translation id="3788401245189148511">Den får følgende tilgang:</translation>
 <translation id="8926518602592448999">Deaktiver utvidelser for utviklermodus</translation>
 <translation id="2902734494705624966">Amerikansk utvidet</translation>
 <translation id="5793220536715630615">K&amp;opier videoens nettadresse</translation>
@@ -3796,7 +3798,6 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="3228279582454007836">Du har aldri besøkt dette nettstedet før i dag.</translation>
 <translation id="7027125358315426638">Databasenavn:</translation>
 <translation id="4030383055268325496">&amp;Angre tilleggingen</translation>
-<translation id="5474648613967354713">Deaktiver talesøk i appvelgeren.</translation>
 <translation id="5449716055534515760">Lukk vin&amp;du</translation>
 <translation id="3224239078034945833">Flerspråklig canadisk</translation>
 <translation id="4875057836161716898">Slå på inndatavisninger.</translation>
@@ -4023,7 +4024,7 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="1084300930170237385">Informasjon om åpenhet</translation>
 <translation id="774465434535803574">Feil ved pakking av utvidelse</translation>
 <translation id="8200772114523450471">Fortsett</translation>
-<translation id="5750676294091770309">Blokkert av utvidelsen</translation>
+<translation id="5750676294091770309">Blokkert av en utvidelse</translation>
 <translation id="1302191857856401062">Gjør det mulig å bytte raskt mellom brukere i brukerbildemenyen.</translation>
 <translation id="7865978820218947446">Rediger bruker</translation>
 <translation id="523299859570409035">Unntak for varsler</translation>
@@ -4283,7 +4284,6 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="1812514023095547458">Velg farge</translation>
 <translation id="2487656424763972284">Enkel opplåsing</translation>
 <translation id="7047998246166230966">Peker</translation>
-<translation id="743268637741709136">Deaktiver talesøk i appvelgeren. Når den er deaktivert, kan ikke brukeren søke med tale.</translation>
 <translation id="3252266817569339921">Fransk</translation>
 <translation id="2665717534925640469">Denne siden vises nå i fullskjermsvisning, og har deaktivert markøren din.</translation>
 <translation id="3414952576877147120">Størrelse:</translation>
@@ -4416,7 +4416,7 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="421017592316736757">Du må ha Internett-tilkobling for å få tilgang til denne filen.</translation>
 <translation id="3423858849633684918">Start <ph name="PRODUCT_NAME"/> på nytt</translation>
 <translation id="1232569758102978740">Uten tittel</translation>
-<translation id="3489444618744432220">Tillatt ifølge retningslinjen</translation>
+<translation id="3489444618744432220">Tillatt av en retningslinje</translation>
 <translation id="3925247638945319984">Du har ingen nylig lagrede WebRTC-logger.</translation>
 <translation id="6626108645084335023">Venter på DNS-sonde.</translation>
 <translation id="1903219944620007795">Velg språk for å se tilgjengelige inndatametoder for tekst.</translation>
@@ -4764,7 +4764,7 @@ Pass på at du ikke deler privat informasjon.</translation>
 <translation id="6380143666419481200">Godta og fortsett</translation>
 <translation id="713122686776214250">Legg til si&amp;de</translation>
 <translation id="4816492930507672669">Tilpass til siden</translation>
-<translation id="1485015260175968628">Den kan nå</translation>
+<translation id="1485015260175968628">Den har allerede følgende tilgang:</translation>
 <translation id="7496192982082800780">Dager</translation>
 <translation id="1122198203221319518">&amp;Verktøy</translation>
 <translation id="5143151113947480436">få tilgang til data du kopierer og limer inn</translation>
@@ -5100,7 +5100,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="3268451620468152448">Åpne faner</translation>
 <translation id="4918086044614829423">Godta</translation>
 <translation id="4085298594534903246">JavaScript er blokkert på siden.</translation>
-<translation id="7825543042214876779">Blokkert av retningslinjen</translation>
+<translation id="7825543042214876779">Blokkert av en retningslinje</translation>
 <translation id="4341977339441987045">Blokker at nettsteder lagrer data på maskinen</translation>
 <translation id="806812017500012252">Sortér etter tittel</translation>
 <translation id="6518133107902771759">Bekreft</translation>
@@ -5196,7 +5196,7 @@ Vil du godta dette?</translation>
 <translation id="2050339315714019657">Stående</translation>
 <translation id="8273027367978594412">Når dette er aktivert, opprettes en gjestebruker i Chrome på skrivebordet.</translation>
 <translation id="6991128190741664836">Senere</translation>
-<translation id="8261490674758214762">De kan:</translation>
+<translation id="8261490674758214762">De får følgende tilgang:</translation>
 <translation id="8647750283161643317">Tilbakestill alle til standard</translation>
 <translation id="5112577000029535889">&amp;Utviklerverktøy</translation>
 <translation id="2301382460326681002">Utvidelsens rotkatalog er ugyldig.</translation>
