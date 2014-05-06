@@ -920,6 +920,21 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
       "features": [
         "disable_post_sub_buffers_for_onscreen_surfaces"
       ]
+    },
+    {
+      "id": 71,
+      "description": "Vivante's support of OES_standard_derivatives is buggy",
+      "cr_bugs": [368005],
+      "os": {
+        "type": "android"
+      },
+      "gl_extensions": {
+        "op": "contains",
+        "value": "GL_VIV_shader_binary"
+      },
+      "features": [
+        "disable_oes_standard_derivatives"
+      ]
     }
   ]
 }
