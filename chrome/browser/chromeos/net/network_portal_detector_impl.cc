@@ -408,11 +408,12 @@ void NetworkPortalDetectorImpl::OnAttemptCompleted(
   state.response_code = response_code;
   switch (result) {
     case captive_portal::RESULT_NO_RESPONSE:
-      if (state.response_code == net::HTTP_PROXY_AUTHENTICATION_REQUIRED) {
-        state.status = CAPTIVE_PORTAL_STATUS_PROXY_AUTH_REQUIRED;
-      } else if (CanPerformAttempt()) {
+      if (CanPerformAttempt()) {
         ScheduleAttempt(results.retry_after_delta);
         return;
+      } else if (state.response_code ==
+                 net::HTTP_PROXY_AUTHENTICATION_REQUIRED) {
+        state.status = CAPTIVE_PORTAL_STATUS_PROXY_AUTH_REQUIRED;
       } else if (network &&
                  (network->connection_state() == shill::kStatePortal)) {
         // Take into account shill's detection results.
