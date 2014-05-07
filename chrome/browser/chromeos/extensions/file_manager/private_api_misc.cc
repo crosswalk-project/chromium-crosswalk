@@ -87,7 +87,8 @@ GetLoggedInProfileInfoList(content::WebContents* contents) {
     if (contents) {
       const gfx::Image& image =
           ash::GetAvatarImageForContext(contents->GetBrowserContext());
-      const SkBitmap* const bitmap = image.ToSkBitmap();
+      const SkBitmap* const bitmap =
+          image.IsEmpty() ? NULL : image.ToSkBitmap();
       if (bitmap) {
         profile_info->image_uri.reset(
             new std::string(webui::GetBitmapDataUrl(*bitmap)));
