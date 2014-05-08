@@ -5,6 +5,9 @@
 #include "content/common/gpu/media/vaapi_wrapper.h"
 
 #include <dlfcn.h>
+#if defined (USE_OZONE)
+#include <wayland-client.h>
+#endif
 
 #include "base/bind.h"
 #include "base/logging.h"
@@ -12,13 +15,23 @@
 // Auto-generated for dlopen libva libraries
 #include "content/common/gpu/media/va_stubs.h"
 
+#if defined (USE_OZONE)
+#include "third_party/libva/va/wayland/va_wayland.h"
+
+using content_common_gpu_media::kModuleVa_wayland;
+#else
 using content_common_gpu_media::kModuleVa;
+#endif
 using content_common_gpu_media::InitializeStubs;
 using content_common_gpu_media::StubPathMap;
 
 // libva-x11 depends on libva, so dlopen libva-x11 is enough
 static const base::FilePath::CharType kVaLib[] =
+#if defined (USE_OZONE)
+    FILE_PATH_LITERAL("libva-wayland.so.1");
+#else
     FILE_PATH_LITERAL("libva-x11.so.1");
+#endif
 
 #define LOG_VA_ERROR_AND_REPORT(va_error, err_msg)         \
   do {                                                     \
@@ -112,11 +125,11 @@ VaapiWrapper::~VaapiWrapper() {
 
 scoped_ptr<VaapiWrapper> VaapiWrapper::Create(
     media::VideoCodecProfile profile,
-    Display* x_display,
+    void* display,
     const base::Closure& report_error_to_uma_cb) {
   scoped_ptr<VaapiWrapper> vaapi_wrapper(new VaapiWrapper());
 
-  if (!vaapi_wrapper->Initialize(profile, x_display, report_error_to_uma_cb))
+  if (!vaapi_wrapper->Initialize(profile, display, report_error_to_uma_cb))
     vaapi_wrapper.reset();
 
   return vaapi_wrapper.Pass();
@@ -135,7 +148,7 @@ void VaapiWrapper::TryToSetVADisplayAttributeToLocalGPU() {
 }
 
 bool VaapiWrapper::Initialize(media::VideoCodecProfile profile,
-                              Display* x_display,
+                              void* display,
                               const base::Closure& report_error_to_uma_cb) {
   static bool vaapi_functions_initialized = PostSandboxInitialization();
   if (!vaapi_functions_initialized) {
@@ -147,7 +160,11 @@ bool VaapiWrapper::Initialize(media::VideoCodecProfile profile,
 
   base::AutoLock auto_lock(va_lock_);
 
-  va_display_ = vaGetDisplay(x_display);
+#if defined (USE_OZONE)
+  va_display_ = vaGetDisplayWl(static_cast<wl_display *>(display));
+#else
+  va_display_ = vaGetDisplay(static_cast<Display *>(display));
+#endif
   if (!vaDisplayIsValid(va_display_)) {
     DVLOG(1) << "Could not get a valid VA display";
     return false;
@@ -362,7 +379,63 @@ bool VaapiWrapper::DecodeAndDestroyPendingBuffers(VASurfaceID va_surface_id) {
   DestroyPendingBuffers();
   return result;
 }
+#if defined (USE_OZONE)
+bool VaapiWrapper::CreateRGBImage(gfx::Size size, VAImage* image) {
+  base::AutoLock auto_lock(va_lock_);
+  VAStatus va_res;
+  VAImageFormat format;
+  format.fourcc = VA_FOURCC_RGBX;
+  format.byte_order = VA_LSB_FIRST;
+  format.bits_per_pixel = 32;
+  format.depth = 24;
+  format.red_mask = 0xff;
+  format.green_mask = 0xff00;
+  format.blue_mask = 0xff0000;
+  format.alpha_mask = 0;
+  va_res = vaCreateImage(va_display_,
+                         &format,
+                         size.width(),
+                         size.height(),
+                         image);
+  VA_SUCCESS_OR_RETURN(va_res, "Failed to create image", false);
+  return true;
+}
 
+void VaapiWrapper::DestroyImage(VAImage* image) {
+  base::AutoLock auto_lock(va_lock_);
+  vaDestroyImage(va_display_, image->image_id);
+}
+
+bool VaapiWrapper::MapImage(VAImage* image, void** buffer) {
+  base::AutoLock auto_lock(va_lock_);
+
+  VAStatus va_res = vaMapBuffer(va_display_, image->buf, buffer);
+  VA_SUCCESS_OR_RETURN(va_res, "Failed to map image", false);
+  return true;
+}
+
+void VaapiWrapper::UnmapImage(VAImage* image) {
+  base::AutoLock auto_lock(va_lock_);
+  vaUnmapBuffer(va_display_, image->buf);
+}
+
+bool VaapiWrapper::PutSurfaceIntoImage(VASurfaceID va_surface_id,
+                                       VAImage* image) {
+  base::AutoLock auto_lock(va_lock_);
+  VAStatus va_res = vaSyncSurface(va_display_, va_surface_id);
+  VA_SUCCESS_OR_RETURN(va_res, "Failed syncing surface", false);
+
+  va_res = vaGetImage(va_display_,
+                      va_surface_id,
+                      0,
+                      0,
+                      image->width,
+                      image->height,
+                      image->image_id);
+  VA_SUCCESS_OR_RETURN(va_res, "Failed to put surface into image", false);
+  return true;
+}
+#else
 bool VaapiWrapper::PutSurfaceIntoPixmap(VASurfaceID va_surface_id,
                                         Pixmap x_pixmap,
                                         gfx::Size dest_size) {
@@ -382,7 +455,7 @@ bool VaapiWrapper::PutSurfaceIntoPixmap(VASurfaceID va_surface_id,
                        false);
   return true;
 }
-
+#endif
 bool VaapiWrapper::GetVaImageForTesting(VASurfaceID va_surface_id,
                                         VAImage* image,
                                         void** mem) {
@@ -417,8 +490,11 @@ void VaapiWrapper::ReturnVaImageForTesting(VAImage* image) {
 // static
 bool VaapiWrapper::PostSandboxInitialization() {
   StubPathMap paths;
+#if defined (USE_OZONE)
+  paths[kModuleVa_wayland].push_back(kVaLib);
+#else
   paths[kModuleVa].push_back(kVaLib);
-
+#endif
   return InitializeStubs(paths);
 }
 
