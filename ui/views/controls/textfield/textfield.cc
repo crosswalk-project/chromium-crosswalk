@@ -1566,7 +1566,7 @@ bool Textfield::Cut() {
   if (!read_only() && text_input_type_ != ui::TEXT_INPUT_TYPE_PASSWORD &&
       model_->Cut()) {
     if (controller_)
-      controller_->OnAfterCutOrCopy();
+      controller_->OnAfterCutOrCopy(ui::CLIPBOARD_TYPE_COPY_PASTE);
     return true;
   }
   return false;
@@ -1575,7 +1575,7 @@ bool Textfield::Cut() {
 bool Textfield::Copy() {
   if (text_input_type_ != ui::TEXT_INPUT_TYPE_PASSWORD && model_->Copy()) {
     if (controller_)
-      controller_->OnAfterCutOrCopy();
+      controller_->OnAfterCutOrCopy(ui::CLIPBOARD_TYPE_COPY_PASTE);
     return true;
   }
   return false;
@@ -1657,6 +1657,8 @@ void Textfield::UpdateSelectionClipboard() const {
     ui::ScopedClipboardWriter(
         ui::Clipboard::GetForCurrentThread(),
         ui::CLIPBOARD_TYPE_SELECTION).WriteText(GetSelectedText());
+    if (controller_)
+      controller_->OnAfterCutOrCopy(ui::CLIPBOARD_TYPE_SELECTION);
   }
 #endif
 }
