@@ -45,13 +45,13 @@ MessagePumpOzone* MessagePumpOzone::Current() {
 void MessagePumpOzone::AddDispatcherForRootWindow(
     MessagePumpDispatcher* dispatcher) {
   // Only one root window is supported.
-  DCHECK_EQ(dispatcher_.size(), 0);
+  DCHECK_EQ(dispatcher_.size(), 0U);
   dispatcher_.insert(dispatcher_.begin(), dispatcher);
 }
 
 void MessagePumpOzone::RemoveDispatcherForRootWindow(
       MessagePumpDispatcher* dispatcher) {
-  DCHECK_EQ(dispatcher_.size(), 1);
+  DCHECK_EQ(dispatcher_.size(), 1U);
   dispatcher_.pop_back();
 }
 
