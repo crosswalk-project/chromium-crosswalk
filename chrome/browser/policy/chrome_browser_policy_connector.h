@@ -36,12 +36,6 @@ class ChromeBrowserPolicyConnector : public BrowserPolicyConnector {
  private:
   ConfigurationPolicyProvider* CreatePlatformProvider();
 
-  // Appends the --enable-web-based-signin flag if the
-  // enable-web-based-signin policy is enabled.
-  // TODO(guohui): Needs to move this to a more proper place and also to handle
-  // dynamic refresh.
- void AppendExtraFlagPerPolicy();
-
   DISALLOW_COPY_AND_ASSIGN(ChromeBrowserPolicyConnector);
 };
 
