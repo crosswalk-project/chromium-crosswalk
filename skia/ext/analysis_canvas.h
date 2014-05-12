@@ -105,6 +105,10 @@ class SK_API AnalysisCanvas : public SkCanvas, public SkDrawPictureCallback {
                           SkRegion::Op op,
                           ClipEdgeStyle edge_style) OVERRIDE;
 
+  virtual void onDrawDRRect(const SkRRect& outer,
+                            const SkRRect& inner,
+                            const SkPaint&) OVERRIDE;
+
  private:
   typedef SkCanvas INHERITED;
 
