@@ -79,8 +79,11 @@ typedef base::Callback<void(FileError error,
     GetFileContentInitializedCallback;
 
 // Used to get list of entries under a directory.
-typedef base::Callback<void(scoped_ptr<ResourceEntryVector> entries)>
-    ReadDirectoryEntriesCallback;
+// If |error| is not FILE_ERROR_OK, |entries| is null.
+typedef base::Callback<void(FileError error,
+                            scoped_ptr<ResourceEntryVector> entries,
+                            bool has_more)>
+    ReadDirectoryCallback;
 
 // Used to get drive content search results.
 // If |error| is not FILE_ERROR_OK, |result_paths| is empty.
@@ -356,13 +359,10 @@ class FileSystemInterface {
 
   // Finds and reads a directory by |file_path|. This call will also retrieve
   // and refresh file system content from server and disk cache.
-  // |entries_callback| can be a null callback when not interested in entries.
   //
-  // |completion_callback| must not be null.
-  virtual void ReadDirectory(
-      const base::FilePath& file_path,
-      const ReadDirectoryEntriesCallback& entries_callback,
-      const FileOperationCallback& completion_callback) = 0;
+  // |callback| must not be null.
+  virtual void ReadDirectory(const base::FilePath& file_path,
+                             const ReadDirectoryCallback& callback) = 0;
 
   // Does server side content search for |search_query|.
   // If |next_link| is set, this is the search result url that will be

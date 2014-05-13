@@ -36,6 +36,7 @@ FileError CheckLocalState(ResourceMetadata* resource_metadata,
                           const google_apis::AboutResource& about_resource,
                           const std::string& local_id,
                           ResourceEntry* entry,
+                          ResourceEntryVector* child_entries,
                           int64* local_changestamp) {
   // Fill My Drive resource ID.
   ResourceEntry mydrive;
@@ -53,6 +54,11 @@ FileError CheckLocalState(ResourceMetadata* resource_metadata,
 
   // Get entry.
   error = resource_metadata->GetResourceEntryById(local_id, entry);
+  if (error != FILE_ERROR_OK)
+    return error;
+
+  // Get child entries.
+  error = resource_metadata->ReadDirectoryById(local_id, child_entries);
   if (error != FILE_ERROR_OK)
     return error;
 
@@ -89,8 +95,7 @@ FileError UpdateChangestamp(ResourceMetadata* resource_metadata,
 }  // namespace
 
 struct DirectoryLoader::ReadDirectoryCallbackState {
-  ReadDirectoryEntriesCallback entries_callback;
-  FileOperationCallback completion_callback;
+  ReadDirectoryCallback callback;
   std::set<std::string> sent_entry_names;
 };
 
@@ -187,7 +192,8 @@ class DirectoryLoader::FeedFetcher {
       return;
     }
 
-    loader_->SendEntries(directory_fetch_info_.local_id(), *refreshed_entries);
+    loader_->SendEntries(directory_fetch_info_.local_id(), *refreshed_entries,
+                         true /*has_more*/);
 
     if (!next_url.is_empty()) {
       // There is the remaining result so fetch it.
@@ -270,12 +276,10 @@ void DirectoryLoader::RemoveObserver(ChangeListLoaderObserver* observer) {
   observers_.RemoveObserver(observer);
 }
 
-void DirectoryLoader::ReadDirectory(
-    const base::FilePath& directory_path,
-    const ReadDirectoryEntriesCallback& entries_callback,
-    const FileOperationCallback& completion_callback) {
+void DirectoryLoader::ReadDirectory(const base::FilePath& directory_path,
+                                    const ReadDirectoryCallback& callback) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
-  DCHECK(!completion_callback.is_null());
+  DCHECK(!callback.is_null());
 
   ResourceEntry* entry = new ResourceEntry;
   base::PostTaskAndReplyWithResult(
@@ -288,42 +292,39 @@ void DirectoryLoader::ReadDirectory(
       base::Bind(&DirectoryLoader::ReadDirectoryAfterGetEntry,
                  weak_ptr_factory_.GetWeakPtr(),
                  directory_path,
-                 entries_callback,
-                 completion_callback,
+                 callback,
                  true,  // should_try_loading_parent
                  base::Owned(entry)));
 }
 
 void DirectoryLoader::ReadDirectoryAfterGetEntry(
     const base::FilePath& directory_path,
-    const ReadDirectoryEntriesCallback& entries_callback,
-    const FileOperationCallback& completion_callback,
+    const ReadDirectoryCallback& callback,
     bool should_try_loading_parent,
     const ResourceEntry* entry,
     FileError error) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
-  DCHECK(!completion_callback.is_null());
+  DCHECK(!callback.is_null());
 
   if (error == FILE_ERROR_NOT_FOUND &&
       should_try_loading_parent &&
       util::GetDriveGrandRootPath().IsParent(directory_path)) {
     // This entry may be found after loading the parent.
     ReadDirectory(directory_path.DirName(),
-                  ReadDirectoryEntriesCallback(),
                   base::Bind(&DirectoryLoader::ReadDirectoryAfterLoadParent,
                              weak_ptr_factory_.GetWeakPtr(),
                              directory_path,
-                             entries_callback,
-                             completion_callback));
+                             callback));
     return;
   }
   if (error != FILE_ERROR_OK) {
-    completion_callback.Run(error);
+    callback.Run(error, scoped_ptr<ResourceEntryVector>(), false /*has_more*/);
     return;
   }
 
   if (!entry->file_info().is_directory()) {
-    completion_callback.Run(FILE_ERROR_NOT_A_DIRECTORY);
+    callback.Run(FILE_ERROR_NOT_A_DIRECTORY,
+                 scoped_ptr<ResourceEntryVector>(), false /*has_more*/);
     return;
   }
 
@@ -335,8 +336,7 @@ void DirectoryLoader::ReadDirectoryAfterGetEntry(
   // Register the callback function to be called when it is loaded.
   const std::string& local_id = directory_fetch_info.local_id();
   ReadDirectoryCallbackState callback_state;
-  callback_state.entries_callback = entries_callback;
-  callback_state.completion_callback = completion_callback;
+  callback_state.callback = callback;
   pending_load_callback_[local_id].push_back(callback_state);
 
   // If loading task for |local_id| is already running, do nothing.
@@ -357,14 +357,18 @@ void DirectoryLoader::ReadDirectoryAfterGetEntry(
 
 void DirectoryLoader::ReadDirectoryAfterLoadParent(
     const base::FilePath& directory_path,
-    const ReadDirectoryEntriesCallback& entries_callback,
-    const FileOperationCallback& completion_callback,
-    FileError error) {
+    const ReadDirectoryCallback& callback,
+    FileError error,
+    scoped_ptr<ResourceEntryVector> entries,
+    bool has_more) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
-  DCHECK(!completion_callback.is_null());
+  DCHECK(!callback.is_null());
+
+  if (has_more)
+    return;
 
   if (error != FILE_ERROR_OK) {
-    completion_callback.Run(error);
+    callback.Run(error, scoped_ptr<ResourceEntryVector>(), false /*has_more*/);
     return;
   }
 
@@ -379,8 +383,7 @@ void DirectoryLoader::ReadDirectoryAfterLoadParent(
       base::Bind(&DirectoryLoader::ReadDirectoryAfterGetEntry,
                  weak_ptr_factory_.GetWeakPtr(),
                  directory_path,
-                 entries_callback,
-                 completion_callback,
+                 callback,
                  false,  // should_try_loading_parent
                  base::Owned(entry)));
 }
@@ -402,6 +405,7 @@ void DirectoryLoader::ReadDirectoryAfterGetAboutResource(
   // Check the current status of local metadata, and start loading if needed.
   google_apis::AboutResource* about_resource_ptr = about_resource.get();
   ResourceEntry* entry = new ResourceEntry;
+  ResourceEntryVector* child_entries = new ResourceEntryVector;
   int64* local_changestamp = new int64;
   base::PostTaskAndReplyWithResult(
       blocking_task_runner_,
@@ -411,12 +415,14 @@ void DirectoryLoader::ReadDirectoryAfterGetAboutResource(
                  *about_resource_ptr,
                  local_id,
                  entry,
+                 child_entries,
                  local_changestamp),
       base::Bind(&DirectoryLoader::ReadDirectoryAfterCheckLocalState,
                  weak_ptr_factory_.GetWeakPtr(),
                  base::Passed(&about_resource),
                  local_id,
                  base::Owned(entry),
+                 base::Owned(child_entries),
                  base::Owned(local_changestamp)));
 }
 
@@ -424,6 +430,7 @@ void DirectoryLoader::ReadDirectoryAfterCheckLocalState(
     scoped_ptr<google_apis::AboutResource> about_resource,
     const std::string& local_id,
     const ResourceEntry* entry,
+    const ResourceEntryVector* child_entries,
     const int64* local_changestamp,
     FileError error) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
@@ -462,6 +469,8 @@ void DirectoryLoader::ReadDirectoryAfterCheckLocalState(
   if (directory_changestamp + kMinimumChangestampGap > remote_changestamp) {
     OnDirectoryLoadComplete(local_id, FILE_ERROR_OK);
   } else {
+    // Send locally found entries to callbacks.
+    SendEntries(local_id, *child_entries, true /*has_more*/);
     // Start fetching the directory content, and mark it with the changestamp
     // |remote_changestamp|.
     LoadDirectoryFromServer(directory_fetch_info);
@@ -476,23 +485,6 @@ void DirectoryLoader::OnDirectoryLoadComplete(const std::string& local_id,
                "Fast-fetch complete: %s => %s",
                local_id.c_str(),
                FileErrorToString(error).c_str());
-
-  LoadCallbackMap::iterator it = pending_load_callback_.find(local_id);
-  if (it == pending_load_callback_.end())
-    return;
-
-  // No need to read metadata when no one needs entries.
-  bool needs_to_send_entries = false;
-  for (size_t i = 0; i < it->second.size(); ++i) {
-    const ReadDirectoryCallbackState& callback_state = it->second[i];
-    if (!callback_state.entries_callback.is_null())
-      needs_to_send_entries = true;
-  }
-
-  if (!needs_to_send_entries) {
-    OnDirectoryLoadCompleteAfterRead(local_id, NULL, FILE_ERROR_OK);
-    return;
-  }
 
   ResourceEntryVector* entries = new ResourceEntryVector;
   base::PostTaskAndReplyWithResult(
@@ -514,26 +506,28 @@ void DirectoryLoader::OnDirectoryLoadCompleteAfterRead(
   if (it != pending_load_callback_.end()) {
     DVLOG(1) << "Running callback for " << local_id;
 
-    if (error == FILE_ERROR_OK && entries)
-      SendEntries(local_id, *entries);
-
-    for (size_t i = 0; i < it->second.size(); ++i) {
-      const ReadDirectoryCallbackState& callback_state = it->second[i];
-      callback_state.completion_callback.Run(error);
+    const bool kHasMore = false;
+    if (error == FILE_ERROR_OK) {
+      SendEntries(local_id, *entries, kHasMore);
+    } else {
+      for (size_t i = 0; i < it->second.size(); ++i) {
+        const ReadDirectoryCallbackState& callback_state = it->second[i];
+        callback_state.callback.Run(error, scoped_ptr<ResourceEntryVector>(),
+                                    kHasMore);
+      }
     }
     pending_load_callback_.erase(it);
   }
 }
 
 void DirectoryLoader::SendEntries(const std::string& local_id,
-                                  const ResourceEntryVector& entries) {
+                                  const ResourceEntryVector& entries,
+                                  bool has_more) {
   LoadCallbackMap::iterator it = pending_load_callback_.find(local_id);
   DCHECK(it != pending_load_callback_.end());
 
   for (size_t i = 0; i < it->second.size(); ++i) {
     ReadDirectoryCallbackState* callback_state = &it->second[i];
-    if (callback_state->entries_callback.is_null())
-      continue;
 
     // Filter out entries which were already sent.
     scoped_ptr<ResourceEntryVector> entries_to_send(new ResourceEntryVector);
@@ -544,7 +538,8 @@ void DirectoryLoader::SendEntries(const std::string& local_id,
         entries_to_send->push_back(entry);
       }
     }
-    callback_state->entries_callback.Run(entries_to_send.Pass());
+    callback_state->callback.Run(FILE_ERROR_OK, entries_to_send.Pass(),
+                                 has_more);
   }
 }
 

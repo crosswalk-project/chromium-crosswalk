@@ -169,8 +169,7 @@ void FakeFileSystem::GetResourceEntry(
 
 void FakeFileSystem::ReadDirectory(
     const base::FilePath& file_path,
-    const ReadDirectoryEntriesCallback& entries_callback,
-    const FileOperationCallback& completion_callback) {
+    const ReadDirectoryCallback& callback) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
 }
 

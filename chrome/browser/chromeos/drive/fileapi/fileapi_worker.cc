@@ -66,10 +66,19 @@ void RunGetFileInfoCallback(const GetFileInfoCallback& callback,
   callback.Run(base::File::FILE_OK, file_info);
 }
 
-// Runs |callback| with entries.
-void RunReadDirectoryCallbackWithEntries(
+// Runs |callback| with arguments converted from |error| and |resource_entries|.
+void RunReadDirectoryCallback(
     const ReadDirectoryCallback& callback,
-    scoped_ptr<ResourceEntryVector> resource_entries) {
+    FileError error,
+    scoped_ptr<ResourceEntryVector> resource_entries,
+    bool has_more) {
+  if (error != FILE_ERROR_OK) {
+    DCHECK(!has_more);
+    callback.Run(FileErrorToBaseFileError(error),
+                 std::vector<fileapi::DirectoryEntry>(), has_more);
+    return;
+  }
+
   DCHECK(resource_entries);
 
   std::vector<fileapi::DirectoryEntry> entries;
@@ -88,14 +97,7 @@ void RunReadDirectoryCallbackWithEntries(
     entries.push_back(entry);
   }
 
-  callback.Run(base::File::FILE_OK, entries, true /*has_more*/);
-}
-
-// Runs |callback| with |error|.
-void RunReadDirectoryCallbackOnCompletion(const ReadDirectoryCallback& callback,
-                                          FileError error) {
-  callback.Run(FileErrorToBaseFileError(error),
-               std::vector<fileapi::DirectoryEntry>(), false /*has_more*/);
+  callback.Run(base::File::FILE_OK, entries, has_more);
 }
 
 // Runs |callback| with arguments based on |error|, |local_path| and |entry|.
@@ -263,10 +265,8 @@ void ReadDirectory(const base::FilePath& file_path,
                    const ReadDirectoryCallback& callback,
                    FileSystemInterface* file_system) {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
-  file_system->ReadDirectory(
-      file_path,
-      base::Bind(&RunReadDirectoryCallbackWithEntries, callback),
-      base::Bind(&RunReadDirectoryCallbackOnCompletion, callback));
+  file_system->ReadDirectory(file_path,
+                             base::Bind(&RunReadDirectoryCallback, callback));
 }
 
 void Remove(const base::FilePath& file_path,
