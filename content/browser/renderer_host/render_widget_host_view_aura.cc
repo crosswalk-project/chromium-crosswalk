@@ -96,8 +96,8 @@
 
 #if defined(OS_LINUX) && !defined(OS_CHROMEOS)
 #include "content/common/input_messages.h"
-#include "ui/events/x/text_edit_command_x11.h"
-#include "ui/events/x/text_edit_key_bindings_delegate_x11.h"
+#include "ui/events/linux/text_edit_command_auralinux.h"
+#include "ui/events/linux/text_edit_key_bindings_delegate_auralinux.h"
 #endif
 
 using gfx::RectToSkIRect;
@@ -3578,16 +3578,16 @@ void RenderWidgetHostViewAura::DetachFromInputMethod() {
 void RenderWidgetHostViewAura::ForwardKeyboardEvent(
     const NativeWebKeyboardEvent& event) {
 #if defined(OS_LINUX) && !defined(OS_CHROMEOS)
-  ui::TextEditKeyBindingsDelegateX11* keybinding_delegate =
+  ui::TextEditKeyBindingsDelegateAuraLinux* keybinding_delegate =
       ui::GetTextEditKeyBindingsDelegate();
-  std::vector<ui::TextEditCommandX11> commands;
+  std::vector<ui::TextEditCommandAuraLinux> commands;
   if (!event.skip_in_browser &&
       keybinding_delegate &&
       event.os_event &&
       keybinding_delegate->MatchEvent(*event.os_event, &commands)) {
     // Transform from ui/ types to content/ types.
     EditCommands edit_commands;
-    for (std::vector<ui::TextEditCommandX11>::const_iterator it =
+    for (std::vector<ui::TextEditCommandAuraLinux>::const_iterator it =
              commands.begin(); it != commands.end(); ++it) {
       edit_commands.push_back(EditCommand(it->GetCommandString(),
                                           it->argument()));
