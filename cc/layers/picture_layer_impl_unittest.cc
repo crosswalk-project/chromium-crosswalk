@@ -1691,7 +1691,7 @@ TEST_F(PictureLayerImplTest, NoLowResTilingWithGpuRasterization) {
   gfx::Size result_bounds;
 
   SetupDefaultTrees(layer_bounds);
-  EXPECT_FALSE(pending_layer_->ShouldUseGpuRasterization());
+  EXPECT_FALSE(pending_layer_->use_gpu_rasterization());
   EXPECT_EQ(0u, pending_layer_->tilings()->num_tilings());
   pending_layer_->CalculateContentsScale(1.f,
                                          1.f,
@@ -1704,9 +1704,10 @@ TEST_F(PictureLayerImplTest, NoLowResTilingWithGpuRasterization) {
   // Should have a low-res and a high-res tiling.
   ASSERT_EQ(2u, pending_layer_->tilings()->num_tilings());
 
-  pending_layer_->SetUseGpuRasterization(true);
-  EXPECT_TRUE(pending_layer_->ShouldUseGpuRasterization());
-  EXPECT_EQ(0u, pending_layer_->tilings()->num_tilings());
+  ResetTilingsAndRasterScales();
+
+  host_impl_.pending_tree()->SetUseGpuRasterization(true);
+  EXPECT_TRUE(pending_layer_->use_gpu_rasterization());
   pending_layer_->CalculateContentsScale(1.f,
                                          1.f,
                                          1.f,
