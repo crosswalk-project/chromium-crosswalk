@@ -55,10 +55,6 @@ void ClearBrowserDataHandler::InitializeHandler() {
 void ClearBrowserDataHandler::InitializePage() {
   UpdateInfoBannerVisibility();
   OnBrowsingHistoryPrefChanged();
-
-  bool removal_in_progress = !!remover_;
-  web_ui()->CallJavascriptFunction("ClearBrowserDataOverlay.setClearing",
-                                   base::FundamentalValue(removal_in_progress));
 }
 
 void ClearBrowserDataHandler::UpdateInfoBannerVisibility() {
@@ -152,8 +148,9 @@ void ClearBrowserDataHandler::RegisterMessages() {
 
 void ClearBrowserDataHandler::HandleClearBrowserData(
     const base::ListValue* value) {
-  // We should never be called when the previous clearing has not yet finished.
-  CHECK(!remover_);
+  // TODO(engedy): change this back to a DCHECK once we have updated the UI.
+  if (remover_)
+    return;
 
   Profile* profile = Profile::FromWebUI(web_ui());
   PrefService* prefs = profile->GetPrefs();
