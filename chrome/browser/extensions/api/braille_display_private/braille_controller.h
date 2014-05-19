@@ -39,9 +39,8 @@ class BrailleController {
 // Observer for events from the BrailleController
 class BrailleObserver {
  public:
-  virtual void OnBrailleDisplayStateChanged(
-      const DisplayState& display_state) {}
-  virtual void OnBrailleKeyEvent(const KeyEvent& event) {}
+  virtual void OnDisplayStateChanged(const DisplayState& display_state) {}
+  virtual void OnKeyEvent(const KeyEvent& event) {}
 };
 
 }  // namespace braille_display_private

@@ -60,7 +60,7 @@ BrailleDisplayPrivateAPI::GetFactoryInstance() {
   return g_factory.Pointer();
 }
 
-void BrailleDisplayPrivateAPI::OnBrailleDisplayStateChanged(
+void BrailleDisplayPrivateAPI::OnDisplayStateChanged(
     const DisplayState& display_state) {
   scoped_ptr<Event> event(new Event(
       OnDisplayStateChanged::kEventName,
@@ -68,7 +68,8 @@ void BrailleDisplayPrivateAPI::OnBrailleDisplayStateChanged(
   event_delegate_->BroadcastEvent(event.Pass());
 }
 
-void BrailleDisplayPrivateAPI::OnBrailleKeyEvent(const KeyEvent& key_event) {
+void BrailleDisplayPrivateAPI::OnKeyEvent(
+    const KeyEvent& key_event) {
   // Key events only go to extensions of the active profile.
   if (!IsProfileActive())
     return;

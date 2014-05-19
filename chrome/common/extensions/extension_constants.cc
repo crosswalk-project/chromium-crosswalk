@@ -137,12 +137,6 @@ const char kPlatformAppLaunchHistogram[] = "Apps.AppLaunch";
 const char kChromeVoxExtensionId[] =
     "mndnfokpggljbaajbnioimlmbfngpief";
 const char kChromeVoxExtensionPath[] = "chromeos/chromevox";
-const char kBrailleImeExtensionId[] =
-    "jddehjeebkoimngcbdkaahpobgicbffp";
-const char kBrailleImeExtensionPath[] =
-    "chromeos/braille_ime";
-const char kBrailleImeEngineId[] =
-    "_comp_ime_jddehjeebkoimngcbdkaahpobgicbffpbraille";
 const char kConnectivityDiagnosticsPath[] =
     "/usr/share/chromeos-assets/connectivity_diagnostics";
 const char kConnectivityDiagnosticsKioskPath[] =

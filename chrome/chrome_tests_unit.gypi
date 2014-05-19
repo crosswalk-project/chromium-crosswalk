@@ -1202,8 +1202,6 @@
         'browser/renderer_host/plugin_info_message_filter_unittest.cc',
         'browser/renderer_host/web_cache_manager_unittest.cc',
         'browser/renderer_host/chrome_render_widget_host_view_mac_history_swiper_unit_test.mm',
-        'browser/resources/chromeos/braille_ime/braille_ime.js',
-        'browser/resources/chromeos/braille_ime/braille_ime_unittest.gtestjs',
         'browser/resources/google_now/background.js',
         'browser/resources/google_now/background_test_util.js',
         'browser/resources/google_now/background_unittest.gtestjs',
@@ -2304,7 +2302,6 @@
             ['exclude', '^browser/ui/webui/chromeos/login'],
             ['exclude', '^browser/ui/webui/options/chromeos/'],
             ['exclude', '^browser/ui/webui/options/chromeos/'],
-            ['exclude', '^browser/resources/chromeos/'],
           ],
           'sources!': [
             'browser/extensions/api/enterprise_platform_keys_private/enterprise_platform_keys_private_api_unittest.cc',

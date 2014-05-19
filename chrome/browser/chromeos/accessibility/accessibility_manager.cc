@@ -18,8 +18,6 @@
 #include "base/path_service.h"
 #include "base/prefs/pref_member.h"
 #include "base/prefs/pref_service.h"
-#include "base/strings/string_split.h"
-#include "base/strings/string_util.h"
 #include "base/time/time.h"
 #include "base/values.h"
 #include "chrome/browser/accessibility/accessibility_extension_api.h"
@@ -41,7 +39,6 @@
 #include "chrome/common/extensions/manifest_handlers/content_scripts_handler.h"
 #include "chrome/common/pref_names.h"
 #include "chromeos/audio/chromeos_sounds.h"
-#include "chromeos/ime/input_method_manager.h"
 #include "chromeos/login/login_state.h"
 #include "content/public/browser/browser_accessibility_state.h"
 #include "content/public/browser/browser_thread.h"
@@ -69,7 +66,6 @@ using content::BrowserThread;
 using content::RenderViewHost;
 using extensions::api::braille_display_private::BrailleController;
 using extensions::api::braille_display_private::DisplayState;
-using extensions::api::braille_display_private::KeyEvent;
 
 namespace chromeos {
 
@@ -314,8 +310,7 @@ AccessibilityManager::AccessibilityManager()
       should_speak_chrome_vox_announcements_on_user_screen_(true),
       system_sounds_enabled_(false),
       braille_display_connected_(false),
-      scoped_braille_observer_(this),
-      braille_ime_current_(false) {
+      scoped_braille_observer_(this) {
   notification_registrar_.Add(this,
                               chrome::NOTIFICATION_LOGIN_OR_LOCK_WEBUI_VISIBLE,
                               content::NotificationService::AllSources());
@@ -516,7 +511,6 @@ void AccessibilityManager::UpdateSpokenFeedbackFromPref() {
   } else {
     UnloadChromeVox();
   }
-  UpdateBrailleImeState();
 }
 
 void AccessibilityManager::LoadChromeVox() {
@@ -777,33 +771,7 @@ void AccessibilityManager::CheckBrailleState() {
 
 void AccessibilityManager::ReceiveBrailleDisplayState(
     scoped_ptr<extensions::api::braille_display_private::DisplayState> state) {
-  OnBrailleDisplayStateChanged(*state);
-}
-
-void AccessibilityManager::UpdateBrailleImeState() {
-  if (!profile_)
-    return;
-  PrefService* pref_service = profile_->GetPrefs();
-  std::vector<std::string> preload_engines;
-  base::SplitString(pref_service->GetString(prefs::kLanguagePreloadEngines),
-                    ',',
-                    &preload_engines);
-  std::vector<std::string>::iterator it =
-      std::find(preload_engines.begin(),
-                preload_engines.end(),
-                extension_misc::kBrailleImeEngineId);
-  bool is_enabled = (it != preload_engines.end());
-  bool should_be_enabled =
-      (spoken_feedback_enabled_ && braille_display_connected_);
-  if (is_enabled == should_be_enabled)
-    return;
-  if (should_be_enabled)
-    preload_engines.push_back(extension_misc::kBrailleImeEngineId);
-  else
-    preload_engines.erase(it);
-  pref_service->SetString(prefs::kLanguagePreloadEngines,
-                          JoinString(preload_engines, ','));
-  braille_ime_current_ = false;
+  OnDisplayStateChanged(*state);
 }
 
 // Overridden from InputMethodManager::Observer.
@@ -816,10 +784,6 @@ void AccessibilityManager::InputMethodChanged(
       manager->IsISOLevel5ShiftUsedByCurrentInputMethod(),
       manager->IsAltGrUsedByCurrentInputMethod());
 #endif
-  const chromeos::input_method::InputMethodDescriptor descriptor =
-      manager->GetCurrentInputMethod();
-  braille_ime_current_ =
-      (descriptor.id() == extension_misc::kBrailleImeEngineId);
 }
 
 void AccessibilityManager::SetProfile(Profile* profile) {
@@ -884,8 +848,7 @@ void AccessibilityManager::SetProfile(Profile* profile) {
 
   if (!had_profile && profile)
     CheckBrailleState();
-  else
-    UpdateBrailleImeState();
+
   UpdateLargeCursorFromPref();
   UpdateStickyKeysFromPref();
   UpdateSpokenFeedbackFromPref();
@@ -1026,29 +989,17 @@ void AccessibilityManager::Observe(
   }
 }
 
-void AccessibilityManager::OnBrailleDisplayStateChanged(
+void AccessibilityManager::OnDisplayStateChanged(
     const DisplayState& display_state) {
   braille_display_connected_ = display_state.available;
-  if (braille_display_connected_) {
+  if (braille_display_connected_)
     EnableSpokenFeedback(true, ash::A11Y_NOTIFICATION_SHOW);
-  }
-  UpdateBrailleImeState();
 
   AccessibilityStatusEventDetails details(
       ACCESSIBILITY_BRAILLE_DISPLAY_CONNECTION_STATE_CHANGED,
       braille_display_connected_,
       ash::A11Y_NOTIFICATION_SHOW);
   NotifyAccessibilityStatusChanged(details);
-}
-
-void AccessibilityManager::OnBrailleKeyEvent(const KeyEvent& event) {
-  // Ensure the braille IME is active on braille keyboard (dots) input.
-  if ((event.command ==
-       extensions::api::braille_display_private::KEY_COMMAND_DOTS) &&
-      !braille_ime_current_) {
-    input_method::InputMethodManager::Get()->ChangeInputMethod(
-        extension_misc::kBrailleImeEngineId);
-  }
 }
 
 void AccessibilityManager::PostLoadChromeVox(Profile* profile) {

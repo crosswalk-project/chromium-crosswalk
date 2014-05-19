@@ -37,9 +37,9 @@ class BrailleDisplayPrivateAPI : public BrowserContextKeyedAPI,
       GetFactoryInstance();
 
   // BrailleObserver implementation.
-  virtual void OnBrailleDisplayStateChanged(
+  virtual void OnDisplayStateChanged(
       const api::braille_display_private::DisplayState& display_state) OVERRIDE;
-  virtual void OnBrailleKeyEvent(
+  virtual void OnKeyEvent(
       const api::braille_display_private::KeyEvent& keyEvent) OVERRIDE;
 
   // EventRouter::Observer implementation.
