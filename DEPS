@@ -71,7 +71,7 @@ vars = {
   # Three lines of non-changing comments so that
   # the commit queue can handle CLs rolling ANGLE
   # and whatever else without interference from each other.
-  "angle_revision": "74697cf2064c0a2c0d7e1b1b28db439286766a05",
+  "angle_revision": "01b4c0a0ff283e543b7fd2ec9bb3d3dd88d14566",
 }
 
 deps = {
