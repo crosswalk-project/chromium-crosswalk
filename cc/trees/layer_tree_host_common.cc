@@ -2518,50 +2518,6 @@ static bool PointIsClippedBySurfaceOrClipRect(
   return false;
 }
 
-static bool PointHitsLayer(LayerImpl* layer,
-                           const gfx::PointF& screen_space_point) {
-  gfx::RectF content_rect(layer->content_bounds());
-  if (!PointHitsRect(
-          screen_space_point, layer->screen_space_transform(), content_rect))
-    return false;
-
-  // At this point, we think the point does hit the layer, but we need to walk
-  // up the parents to ensure that the layer was not clipped in such a way
-  // that the hit point actually should not hit the layer.
-  if (PointIsClippedBySurfaceOrClipRect(screen_space_point, layer))
-    return false;
-
-  // Skip the HUD layer.
-  if (layer == layer->layer_tree_impl()->hud_layer())
-    return false;
-
-  return true;
-}
-
-LayerImpl* LayerTreeHostCommon::FindFirstScrollingLayerThatIsHitByPoint(
-    const gfx::PointF& screen_space_point,
-    const LayerImplList& render_surface_layer_list) {
-  typedef LayerIterator<LayerImpl> LayerIteratorType;
-  LayerIteratorType end = LayerIteratorType::End(&render_surface_layer_list);
-  for (LayerIteratorType it =
-           LayerIteratorType::Begin(&render_surface_layer_list);
-       it != end;
-       ++it) {
-    // We don't want to consider render_surfaces for hit testing.
-    if (!it.represents_itself())
-      continue;
-
-    LayerImpl* current_layer = (*it);
-    if (!PointHitsLayer(current_layer, screen_space_point))
-      continue;
-
-    if (current_layer->scrollable())
-      return current_layer;
-  }
-
-  return NULL;
-}
-
 LayerImpl* LayerTreeHostCommon::FindLayerThatIsHitByPoint(
     const gfx::PointF& screen_space_point,
     const LayerImplList& render_surface_layer_list) {
@@ -2578,7 +2534,20 @@ LayerImpl* LayerTreeHostCommon::FindLayerThatIsHitByPoint(
       continue;
 
     LayerImpl* current_layer = (*it);
-    if (!PointHitsLayer(current_layer, screen_space_point))
+    gfx::RectF content_rect(current_layer->content_bounds());
+    if (!PointHitsRect(screen_space_point,
+                       current_layer->screen_space_transform(),
+                       content_rect))
+      continue;
+
+    // At this point, we think the point does hit the layer, but we need to walk
+    // up the parents to ensure that the layer was not clipped in such a way
+    // that the hit point actually should not hit the layer.
+    if (PointIsClippedBySurfaceOrClipRect(screen_space_point, current_layer))
+      continue;
+
+    // Skip the HUD layer.
+    if (current_layer == current_layer->layer_tree_impl()->hud_layer())
       continue;
 
     found_layer = current_layer;
@@ -2593,32 +2562,21 @@ LayerImpl* LayerTreeHostCommon::FindLayerThatIsHitByPoint(
 LayerImpl* LayerTreeHostCommon::FindLayerThatIsHitByPointInTouchHandlerRegion(
     const gfx::PointF& screen_space_point,
     const LayerImplList& render_surface_layer_list) {
-  typedef LayerIterator<LayerImpl> LayerIteratorType;
-  LayerIteratorType end = LayerIteratorType::End(&render_surface_layer_list);
-  for (LayerIteratorType it =
-           LayerIteratorType::Begin(&render_surface_layer_list);
-       it != end;
-       ++it) {
-    // We don't want to consider render_surfaces for hit testing.
-    if (!it.represents_itself())
-      continue;
+  // First find out which layer was hit from the saved list of visible layers
+  // in the most recent frame.
+  LayerImpl* layer_impl = LayerTreeHostCommon::FindLayerThatIsHitByPoint(
+      screen_space_point,
+      render_surface_layer_list);
 
-    LayerImpl* current_layer = (*it);
-    if (!PointHitsLayer(current_layer, screen_space_point))
-      continue;
-
-    if (LayerTreeHostCommon::LayerHasTouchEventHandlersAt(screen_space_point,
-                                                          current_layer))
-      return current_layer;
-
-    // Note that we could stop searching if we hit a layer we know to be
-    // opaque to hit-testing, but knowing that reliably is tricky (eg. due to
-    // CSS pointer-events: none).  Also blink has an optimization for the
-    // common case of an entire document having handlers where it doesn't
-    // report any rects for child layers (since it knows they can't exceed
-    // the document bounds).
+  // Walk up the hierarchy and look for a layer with a touch event handler
+  // region that the given point hits.
+  // This walk may not be necessary anymore: http://crbug.com/310817
+  for (; layer_impl; layer_impl = layer_impl->parent()) {
+     if (LayerTreeHostCommon::LayerHasTouchEventHandlersAt(screen_space_point,
+                                                          layer_impl))
+       break;
   }
-  return NULL;
+  return layer_impl;
 }
 
 bool LayerTreeHostCommon::LayerHasTouchEventHandlersAt(

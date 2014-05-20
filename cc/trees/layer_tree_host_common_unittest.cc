@@ -6111,21 +6111,7 @@ TEST_F(LayerTreeHostCommonTest,
   LayerImpl* result_layer =
       LayerTreeHostCommon::FindLayerThatIsHitByPointInTouchHandlerRegion(
           test_point, render_surface_layer_list);
-
-  // We should have passed through the no-touch layer and found the layer
-  // behind it.
-  EXPECT_TRUE(result_layer);
-
-  host_impl.active_tree()->LayerById(1234)->SetContentsOpaque(true);
-  result_layer =
-      LayerTreeHostCommon::FindLayerThatIsHitByPointInTouchHandlerRegion(
-          test_point, render_surface_layer_list);
-
-  // Even with an opaque layer in the middle, we should still find the layer
-  // with
-  // the touch handler behind it (since we can't assume that opaque layers are
-  // opaque to hit testing).
-  EXPECT_TRUE(result_layer);
+  EXPECT_FALSE(result_layer);
 
   test_point = gfx::Point(35, 15);
   result_layer =

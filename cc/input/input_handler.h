@@ -53,14 +53,7 @@ class CC_EXPORT InputHandler {
  public:
   // Note these are used in a histogram. Do not reorder or delete existing
   // entries.
-  enum ScrollStatus {
-    ScrollOnMainThread = 0,
-    ScrollStarted,
-    ScrollIgnored,
-    ScrollUnknown,
-    // This must be the last entry.
-    ScrollStatusCount
-  };
+  enum ScrollStatus { ScrollOnMainThread, ScrollStarted, ScrollIgnored };
   enum ScrollInputType { Gesture, Wheel, NonBubblingGesture };
 
   // Binds a client to this handler to receive notifications. Only one client

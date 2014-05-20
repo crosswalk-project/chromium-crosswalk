@@ -232,12 +232,8 @@ InputHandlerProxy::EventDisposition InputHandlerProxy::HandleInputEvent(
         // main thread. Change back to DROP_EVENT once we have synchronization
         // bugs sorted out.
         return DID_NOT_HANDLE;
-      case cc::InputHandler::ScrollUnknown:
       case cc::InputHandler::ScrollOnMainThread:
         return DID_NOT_HANDLE;
-      case cc::InputHandler::ScrollStatusCount:
-        NOTREACHED();
-        break;
     }
   } else if (event.type == WebInputEvent::GestureScrollBegin) {
     DCHECK(!gesture_scroll_on_impl_thread_);
@@ -250,9 +246,6 @@ InputHandlerProxy::EventDisposition InputHandlerProxy::HandleInputEvent(
     cc::InputHandler::ScrollStatus scroll_status = input_handler_->ScrollBegin(
         gfx::Point(gesture_event.x, gesture_event.y),
         cc::InputHandler::Gesture);
-    UMA_HISTOGRAM_ENUMERATION("Renderer4.CompositorScrollHitTestResult",
-                              scroll_status,
-                              cc::InputHandler::ScrollStatusCount);
     switch (scroll_status) {
       case cc::InputHandler::ScrollStarted:
         TRACE_EVENT_INSTANT0("input",
@@ -260,14 +253,10 @@ InputHandlerProxy::EventDisposition InputHandlerProxy::HandleInputEvent(
                              TRACE_EVENT_SCOPE_THREAD);
         gesture_scroll_on_impl_thread_ = true;
         return DID_HANDLE;
-      case cc::InputHandler::ScrollUnknown:
       case cc::InputHandler::ScrollOnMainThread:
         return DID_NOT_HANDLE;
       case cc::InputHandler::ScrollIgnored:
         return DROP_EVENT;
-      case cc::InputHandler::ScrollStatusCount:
-        NOTREACHED();
-        break;
     }
   } else if (event.type == WebInputEvent::GestureScrollUpdate) {
 #ifndef NDEBUG
@@ -406,7 +395,6 @@ InputHandlerProxy::HandleGestureFling(
       input_handler_->SetNeedsAnimate();
       return DID_HANDLE;
     }
-    case cc::InputHandler::ScrollUnknown:
     case cc::InputHandler::ScrollOnMainThread: {
       TRACE_EVENT_INSTANT0("input",
                            "InputHandlerProxy::HandleGestureFling::"
@@ -428,9 +416,6 @@ InputHandlerProxy::HandleGestureFling(
       }
       return DROP_EVENT;
     }
-    case cc::InputHandler::ScrollStatusCount:
-      NOTREACHED();
-      break;
   }
   return DID_NOT_HANDLE;
 }

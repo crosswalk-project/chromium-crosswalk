@@ -2184,17 +2184,6 @@ LayerImpl* LayerTreeHostImpl::FindScrollLayerForDeviceViewportPoint(
   return potentially_scrolling_layer_impl;
 }
 
-// Similar to LayerImpl::HasAncestor, but walks up the scroll parents.
-static bool HasScrollAncestor(LayerImpl* child, LayerImpl* scroll_ancestor) {
-  DCHECK(scroll_ancestor);
-  for (LayerImpl* ancestor = child; ancestor;
-       ancestor = NextScrollLayer(ancestor)) {
-    if (ancestor->scrollable())
-      return ancestor == scroll_ancestor;
-  }
-  return false;
-}
-
 InputHandler::ScrollStatus LayerTreeHostImpl::ScrollBegin(
     const gfx::Point& viewport_point,
     InputHandler::ScrollInputType type) {
@@ -2214,14 +2203,6 @@ InputHandler::ScrollStatus LayerTreeHostImpl::ScrollBegin(
   LayerImpl* layer_impl = LayerTreeHostCommon::FindLayerThatIsHitByPoint(
       device_viewport_point,
       active_tree_->RenderSurfaceLayerList());
-
-  if (layer_impl) {
-    LayerImpl* scroll_layer_impl =
-        LayerTreeHostCommon::FindFirstScrollingLayerThatIsHitByPoint(
-            device_viewport_point, active_tree_->RenderSurfaceLayerList());
-    if (scroll_layer_impl && !HasScrollAncestor(layer_impl, scroll_layer_impl))
-      return ScrollUnknown;
-  }
 
   bool scroll_on_main_thread = false;
   LayerImpl* scrolling_layer_impl =
