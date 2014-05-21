@@ -35,7 +35,9 @@ void VideoCaptureDevice::GetDeviceSupportedFormats(
 }
 
 // static
-VideoCaptureDevice* VideoCaptureDevice::Create(const Name& device_name) {
+VideoCaptureDevice* VideoCaptureDevice::Create(
+    scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner,
+    const Name& device_name) {
   return VideoCaptureDeviceAndroid::Create(device_name);
 }
 

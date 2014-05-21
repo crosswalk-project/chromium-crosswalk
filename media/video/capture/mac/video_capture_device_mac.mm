@@ -150,7 +150,9 @@ const std::string VideoCaptureDevice::Name::GetModel() const {
   return id_vendor + ":" + id_product;
 }
 
-VideoCaptureDevice* VideoCaptureDevice::Create(const Name& device_name) {
+VideoCaptureDevice* VideoCaptureDevice::Create(
+    scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner,
+    const Name& device_name) {
   VideoCaptureDeviceMac* capture_device =
       new VideoCaptureDeviceMac(device_name);
   if (!capture_device->Init()) {

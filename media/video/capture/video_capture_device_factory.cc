@@ -11,10 +11,11 @@ VideoCaptureDeviceFactory::VideoCaptureDeviceFactory() {
 };
 
 scoped_ptr<VideoCaptureDevice> VideoCaptureDeviceFactory::Create(
+    scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner,
     const VideoCaptureDevice::Name& device_name) {
   DCHECK(thread_checker_.CalledOnValidThread());
   return scoped_ptr<VideoCaptureDevice>(
-      VideoCaptureDevice::Create(device_name));
+      VideoCaptureDevice::Create(ui_task_runner, device_name));
 }
 
 void VideoCaptureDeviceFactory::GetDeviceNames(
