@@ -64,6 +64,7 @@ bool TransportVideoSender::EncryptVideoFrame(
   encrypted_frame->frame_id = video_frame.frame_id;
   encrypted_frame->last_referenced_frame_id =
       video_frame.last_referenced_frame_id;
+  encrypted_frame->rtp_timestamp = video_frame.rtp_timestamp;
   return true;
 }
 
