@@ -143,6 +143,11 @@ class CONTENT_EXPORT RenderProcessHostImpl
 
   // ChildProcessLauncher::Client implementation.
   virtual void OnProcessLaunched() OVERRIDE;
+  
+  virtual ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost()
+      OVERRIDE {
+    return screen_orientation_dispatcher_host_;
+  }
 
   scoped_refptr<AudioRendererHost> audio_renderer_host() const;
 
