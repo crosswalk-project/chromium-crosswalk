@@ -874,6 +874,11 @@ void RenderProcessHostImpl::NotifyTimezoneChange() {
   Send(new ViewMsg_TimezoneChange());
 }
 
+ScreenOrientationDispatcherHost* RenderProcessHostImpl
+    ::GetScreenOrientationDispatcherHost() {
+  return screen_orientation_dispatcher_host_;
+}
+
 void RenderProcessHostImpl::AddRoute(
     int32 routing_id,
     IPC::Listener* listener) {
