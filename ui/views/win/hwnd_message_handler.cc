@@ -1942,6 +1942,9 @@ LRESULT HWNDMessageHandler::OnSetCursor(UINT message,
     case HTCLIENT:
       SetCursor(current_cursor_);
       return 1;
+    case LOWORD(HTERROR):  // Use HTERROR's LOWORD value for valid comparison.
+      SetMsgHandled(FALSE);
+      break;
     default:
       // Use the default value, IDC_ARROW.
       break;
