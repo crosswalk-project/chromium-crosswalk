@@ -227,6 +227,11 @@ void MockRenderProcessHost::FilterURL(bool empty_allowed, GURL* url) {
   RenderProcessHostImpl::FilterURL(this, empty_allowed, url);
 }
 
+ScreenOrientationDispatcherHost* MockRenderProcessHost
+    ::GetScreenOrientationDispatcherHost() {
+  return NULL;
+}
+
 #if defined(ENABLE_WEBRTC)
 void MockRenderProcessHost::EnableAecDump(const base::FilePath& file) {
 }
