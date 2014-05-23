@@ -82,6 +82,9 @@ class MockRenderProcessHost : public RenderProcessHost {
       OVERRIDE;
   virtual void NotifyTimezoneChange() OVERRIDE;
 
+  virtual ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost()
+      OVERRIDE;
+
   // IPC::Sender via RenderProcessHost.
   virtual bool Send(IPC::Message* msg) OVERRIDE;
 
