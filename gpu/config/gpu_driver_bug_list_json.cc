@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "5.5",
+  "version": "5.7",
   "entries": [
     {
       "id": 1,
@@ -982,6 +982,21 @@ LONG_STRING_CONST(
       "gl_vendor": {
         "op": "beginwith",
         "value": "Qualcomm"
+      },
+      "features": [
+        "disable_egl_khr_fence_sync"
+      ]
+    },
+    {
+      "id": 76,
+      "cr_bugs": [371530],
+      "description": "Testing EGL sync fences is broken on IMG",
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": {
+        "op": "beginwith",
+        "value": "Imagination Technologies"
       },
       "features": [
         "disable_egl_khr_fence_sync"
