@@ -20,7 +20,7 @@
 #include "components/bookmarks/core/browser/bookmark_storage.h"
 #include "components/bookmarks/core/browser/bookmark_utils.h"
 #include "components/favicon_base/favicon_types.h"
-#include "grit/component_strings.h"
+#include "grit/components_strings.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/gfx/favicon_size.h"
 
