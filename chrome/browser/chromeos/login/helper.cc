@@ -44,6 +44,11 @@ int GetCurrentUserImageSize() {
 
 namespace login {
 
+bool LockScrollIntoViewEnabled() {
+  return !CommandLine::ForCurrentProcess()->HasSwitch(
+      chromeos::switches::kDisableLockScrollIntoView);
+}
+
 bool LoginScrollIntoViewEnabled() {
   return !CommandLine::ForCurrentProcess()->HasSwitch(
       chromeos::switches::kDisableLoginScrollIntoView);
