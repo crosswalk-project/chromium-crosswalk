@@ -28,8 +28,7 @@ class Gtk2UI;
 class Gtk2Border : public views::Border, public ui::NativeThemeObserver {
  public:
   Gtk2Border(Gtk2UI* gtk2_ui,
-             views::LabelButton* owning_button,
-             scoped_ptr<views::Border> border);
+             views::LabelButton* owning_button);
   virtual ~Gtk2Border();
 
   // Overridden from views::Border:
@@ -55,10 +54,6 @@ class Gtk2Border : public views::Border, public ui::NativeThemeObserver {
   // The view to which we are a border. We keep track of this so that we can
   // force invalidate the layout on theme changes.
   views::LabelButton* owning_button_;
-
-  // The views::Border that we are replacing in native mode. We keep track of
-  // this for inset information.
-  scoped_ptr<views::Border> border_;
 
   ScopedObserver<ui::NativeTheme, ui::NativeThemeObserver> observer_manager_;
 

@@ -38,16 +38,14 @@ void BackButton::SetLeadingMargin(int margin) {
   InvalidateLayout();
 }
 
-scoped_ptr<views::LabelButtonBorder> BackButton::CreateDefaultBorder() const {
-  scoped_ptr<views::LabelButtonBorder> border =
-      ToolbarButton::CreateDefaultBorder();
-
+scoped_ptr<views::Border> BackButton::CreateDefaultBorder() const {
   // Adjust border insets to follow the margin change,
   // which will be reflected in where the border is painted
   // through |GetThemePaintRect|.
+  scoped_ptr<views::LabelButtonBorder> border(
+      new views::LabelButtonBorder(style()));
   const gfx::Insets insets(border->GetInsets());
   border->set_insets(gfx::Insets(insets.top(), insets.left() + margin_leading_,
                                  insets.bottom(), insets.right()));
-
-  return border.Pass();
+  return border.PassAs<views::Border>();
 }
