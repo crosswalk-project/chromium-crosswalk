@@ -42,6 +42,7 @@
 #include "chrome/browser/chromeos/login/login_utils.h"
 #include "chrome/browser/chromeos/login/login_wizard.h"
 #include "chrome/browser/chromeos/login/oobe_display.h"
+#include "chrome/browser/chromeos/login/screens/core_oobe_actor.h"
 #include "chrome/browser/chromeos/login/startup_utils.h"
 #include "chrome/browser/chromeos/login/user_manager.h"
 #include "chrome/browser/chromeos/login/webui_login_display.h"
@@ -80,9 +81,13 @@
 #include "ui/compositor/layer_animation_observer.h"
 #include "ui/compositor/scoped_layer_animation_settings.h"
 #include "ui/events/event_utils.h"
+#include "ui/gfx/display.h"
 #include "ui/gfx/rect.h"
+#include "ui/gfx/screen.h"
+#include "ui/gfx/size.h"
 #include "ui/gfx/transform.h"
 #include "ui/keyboard/keyboard_controller.h"
+#include "ui/keyboard/keyboard_util.h"
 #include "ui/views/focus/focus_manager.h"
 #include "ui/views/widget/widget.h"
 #include "ui/views/widget/widget_delegate.h"
@@ -282,6 +287,18 @@ class LoginWidgetDelegate : public views::WidgetDelegate {
   DISALLOW_COPY_AND_ASSIGN(LoginWidgetDelegate);
 };
 
+// Disables virtual keyboard overscroll. Login UI will scroll user pods
+// into view on JS side when virtual keyboard is shown.
+void DisableKeyboardOverscroll() {
+  keyboard::SetKeyboardOverscrollOverride(
+      keyboard::KEYBOARD_OVERSCROLL_OVERRIDE_DISABLED);
+}
+
+void ResetKeyboardOverscrollOverride() {
+  keyboard::SetKeyboardOverscrollOverride(
+      keyboard::KEYBOARD_OVERSCROLL_OVERRIDE_NONE);
+}
+
 }  // namespace
 
 namespace chromeos {
@@ -332,6 +349,7 @@ LoginDisplayHostImpl::LoginDisplayHostImpl(const gfx::Rect& background_bounds)
   }
 
   ash::Shell::GetInstance()->delegate()->AddVirtualKeyboardStateObserver(this);
+  ash::Shell::GetScreen()->AddObserver(this);
 
   // We need to listen to CLOSE_ALL_BROWSERS_REQUEST but not APP_TERMINATING
   // because/ APP_TERMINATING will never be fired as long as this keeps
@@ -434,6 +452,10 @@ LoginDisplayHostImpl::~LoginDisplayHostImpl() {
 
   ash::Shell::GetInstance()->delegate()->
       RemoveVirtualKeyboardStateObserver(this);
+  ash::Shell::GetScreen()->RemoveObserver(this);
+
+  if (login::LoginScrollIntoViewEnabled())
+    ResetKeyboardOverscrollOverride();
 
   views::FocusManager::set_arrow_key_traversal_enabled(false);
   ResetLoginWindowAndView();
@@ -530,6 +552,9 @@ AutoEnrollmentController* LoginDisplayHostImpl::GetAutoEnrollmentController() {
 void LoginDisplayHostImpl::StartWizard(
     const std::string& first_screen_name,
     scoped_ptr<base::DictionaryValue> screen_parameters) {
+  if (login::LoginScrollIntoViewEnabled())
+    DisableKeyboardOverscroll();
+
   startup_sound_honors_spoken_feedback_ = true;
   TryToPlayStartupSound();
 
@@ -574,6 +599,9 @@ AppLaunchController* LoginDisplayHostImpl::GetAppLaunchController() {
 
 void LoginDisplayHostImpl::StartUserAdding(
     const base::Closure& completion_callback) {
+  if (login::LoginScrollIntoViewEnabled())
+    DisableKeyboardOverscroll();
+
   restore_path_ = RESTORE_ADD_USER_INTO_SESSION;
   completion_callback_ = completion_callback;
   finalize_animation_type_ = ANIMATION_NONE;
@@ -606,6 +634,9 @@ void LoginDisplayHostImpl::StartUserAdding(
 
 void LoginDisplayHostImpl::StartSignInScreen(
     const LoginScreenContext& context) {
+  if (login::LoginScrollIntoViewEnabled())
+    DisableKeyboardOverscroll();
+
   startup_sound_honors_spoken_feedback_ = true;
   TryToPlayStartupSound();
 
@@ -876,15 +907,41 @@ void LoginDisplayHostImpl::OnKeyboardBoundsChanging(
     const gfx::Rect& new_bounds) {
   if (new_bounds.IsEmpty() && !keyboard_bounds_.IsEmpty()) {
     // Keyboard has been hidden.
-    if (webui_login_display_)
-      webui_login_display_->ShowControlBar(true);
+    if (GetOobeUI()) {
+      GetOobeUI()->GetCoreOobeActor()->ShowControlBar(true);
+      if (login::LoginScrollIntoViewEnabled())
+        GetOobeUI()->GetCoreOobeActor()->SetKeyboardState(false);
+    }
   } else if (!new_bounds.IsEmpty() && keyboard_bounds_.IsEmpty()) {
     // Keyboard has been shown.
-    if (webui_login_display_)
-      webui_login_display_->ShowControlBar(false);
+    if (GetOobeUI()) {
+      GetOobeUI()->GetCoreOobeActor()->ShowControlBar(false);
+      if (login::LoginScrollIntoViewEnabled())
+        GetOobeUI()->GetCoreOobeActor()->SetKeyboardState(true);
+    }
   }
 
   keyboard_bounds_ = new_bounds;
+}
+
+////////////////////////////////////////////////////////////////////////////////
+// LoginDisplayHostImpl, gfx::DisplayObserver implementation:
+
+void LoginDisplayHostImpl::OnDisplayBoundsChanged(const gfx::Display& display) {
+  if (display.id() != ash::Shell::GetScreen()->GetPrimaryDisplay().id())
+    return;
+
+  if (GetOobeUI()) {
+    const gfx::Size& size = ash::Shell::GetScreen()->GetPrimaryDisplay().size();
+    GetOobeUI()->GetCoreOobeActor()->SetClientAreaSize(size.width(),
+                                                       size.height());
+  }
+}
+
+void LoginDisplayHostImpl::OnDisplayAdded(const gfx::Display& new_display) {
+}
+
+void LoginDisplayHostImpl::OnDisplayRemoved(const gfx::Display& old_display) {
 }
 
 ////////////////////////////////////////////////////////////////////////////////

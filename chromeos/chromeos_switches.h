@@ -31,6 +31,7 @@ CHROMEOS_EXPORT extern const char kDisableDemoMode[];
 CHROMEOS_EXPORT extern const char kDisableEnterpriseUserReporting[];
 CHROMEOS_EXPORT extern const char kDisableGeniusApp[];
 CHROMEOS_EXPORT extern const char kDisableLoginAnimations[];
+CHROMEOS_EXPORT extern const char kDisableLoginScrollIntoView[];
 CHROMEOS_EXPORT extern const char kDisableNetworkPortalNotification[];
 CHROMEOS_EXPORT extern const char kDisableNewChannelSwitcherUI[];
 CHROMEOS_EXPORT extern const char kDisableNewKioskUI[];

@@ -5,7 +5,9 @@
 #include "chrome/browser/chromeos/login/helper.h"
 
 #include "ash/shell.h"
+#include "base/command_line.h"
 #include "base/strings/utf_string_conversions.h"
+#include "chromeos/chromeos_switches.h"
 #include "chromeos/network/network_handler.h"
 #include "chromeos/network/network_state.h"
 #include "chromeos/network/network_state_handler.h"
@@ -41,6 +43,11 @@ int GetCurrentUserImageSize() {
 }
 
 namespace login {
+
+bool LoginScrollIntoViewEnabled() {
+  return !CommandLine::ForCurrentProcess()->HasSwitch(
+      chromeos::switches::kDisableLoginScrollIntoView);
+}
 
 NetworkStateHelper::NetworkStateHelper() {}
 NetworkStateHelper::~NetworkStateHelper() {}

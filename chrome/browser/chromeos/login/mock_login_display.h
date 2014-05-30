@@ -39,7 +39,6 @@ class MockLoginDisplay : public LoginDisplay {
   MOCK_METHOD1(ShowGaiaPasswordChanged, void(const std::string&));
   MOCK_METHOD1(ShowPasswordChangedDialog, void(bool));
   MOCK_METHOD1(ShowSigninUI, void(const std::string&));
-  MOCK_METHOD1(ShowControlBar, void(bool));
   MOCK_METHOD1(OnBeforeUserRemoved, void(const std::string&));
   MOCK_METHOD1(OnUserRemoved, void(const std::string&));
 
