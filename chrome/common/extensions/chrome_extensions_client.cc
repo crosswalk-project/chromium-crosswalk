@@ -214,8 +214,8 @@ base::StringPiece ChromeExtensionsClient::GetAPISchema(
 }
 
 bool ChromeExtensionsClient::ShouldSuppressFatalErrors() const {
-  // <= dev means dev, canary, and trunk.
-  return GetCurrentChannel() <= chrome::VersionInfo::CHANNEL_DEV;
+  // Suppress fatal errors only on beta and stable channels.
+  return GetCurrentChannel() > chrome::VersionInfo::CHANNEL_DEV;
 }
 
 // static
