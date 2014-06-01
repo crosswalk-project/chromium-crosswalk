@@ -25,6 +25,8 @@ bool MenuEventDispatcher::CanDispatchEvent(const ui::PlatformEvent& event) {
 }
 
 uint32_t MenuEventDispatcher::DispatchEvent(const ui::PlatformEvent& event) {
+  bool should_quit = false;
+  bool should_perform_default = true;
   bool should_process_event = true;
 
   // Check if the event should be handled.
@@ -43,36 +45,46 @@ uint32_t MenuEventDispatcher::DispatchEvent(const ui::PlatformEvent& event) {
   }
 
   if (menu_controller_->exit_type() == MenuController::EXIT_ALL ||
-      menu_controller_->exit_type() == MenuController::EXIT_DESTROYED)
-    return (ui::POST_DISPATCH_QUIT_LOOP | ui::POST_DISPATCH_PERFORM_DEFAULT);
-
-  if (should_process_event) {
+      menu_controller_->exit_type() == MenuController::EXIT_DESTROYED) {
+    should_quit = true;
+  } else if (should_process_event) {
     switch (ui::EventTypeFromNative(event)) {
       case ui::ET_KEY_PRESSED: {
-        if (!menu_controller_->OnKeyDown(ui::KeyboardCodeFromNative(event)))
-          return ui::POST_DISPATCH_QUIT_LOOP;
+        if (!menu_controller_->OnKeyDown(ui::KeyboardCodeFromNative(event))) {
+          should_quit = true;
+          should_perform_default = false;
+          break;
+        }
 
         // Do not check mnemonics if the Alt or Ctrl modifiers are pressed.
         int flags = ui::EventFlagsFromNative(event);
         if ((flags & (ui::EF_CONTROL_DOWN | ui::EF_ALT_DOWN)) == 0) {
           char c = ui::GetCharacterFromKeyCode(
               ui::KeyboardCodeFromNative(event), flags);
-          if (menu_controller_->SelectByChar(c))
-            return ui::POST_DISPATCH_QUIT_LOOP;
+          if (menu_controller_->SelectByChar(c)) {
+            should_quit = true;
+            should_perform_default = false;
+            break;
+          }
         }
-        return ui::POST_DISPATCH_NONE;
+        should_quit = false;
+        should_perform_default = false;
+        break;
       }
       case ui::ET_KEY_RELEASED:
-        return ui::POST_DISPATCH_NONE;
+        should_quit = false;
+        should_perform_default = false;
+        break;
       default:
         break;
     }
   }
 
-  return ui::POST_DISPATCH_PERFORM_DEFAULT |
-         (menu_controller_->exit_type() == MenuController::EXIT_NONE
-              ? ui::POST_DISPATCH_NONE
-              : ui::POST_DISPATCH_QUIT_LOOP);
+  if (should_quit || menu_controller_->exit_type() != MenuController::EXIT_NONE)
+    menu_controller_->TerminateNestedMessageLoop();
+
+  return should_perform_default ? ui::POST_DISPATCH_PERFORM_DEFAULT
+                                : ui::POST_DISPATCH_NONE;
 }
 
 }  // namespace internal
