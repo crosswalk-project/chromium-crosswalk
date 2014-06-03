@@ -407,9 +407,9 @@ ImageView.prototype.load = function(entry, metadata, effect,
           canvas,
           effect,
           (metadata.media && metadata.media.width) ||
-              metadata.drive.imageWidth,
+              (metadata.drive && metadata.drive.imageWidth),
           (metadata.media && metadata.media.height) ||
-              metadata.drive.imageHeight,
+              (metadata.drive && metadata.drive.imageHeight),
           true /* preview */);
       if (displayCallback) displayCallback();
     }

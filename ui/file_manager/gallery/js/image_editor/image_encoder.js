@@ -32,7 +32,8 @@ ImageEncoder.registerMetadataEncoder = function(constructor, mimeType) {
  * @return {ImageEncoder.MetadataEncoder} Created metadata encoder.
  */
 ImageEncoder.createMetadataEncoder = function(metadata) {
-  var constructor = ImageEncoder.metadataEncoders[metadata.mimeType] ||
+  var constructor =
+      (metadata && ImageEncoder.metadataEncoders[metadata.mimeType]) ||
       ImageEncoder.MetadataEncoder;
   return new constructor(metadata);
 };
@@ -208,6 +209,7 @@ ImageEncoder.MetadataEncoder.prototype.setThumbnailData =
     function(canvas, quality) {
   this.metadata_.thumbnailURL =
       canvas.toDataURL(this.metadata_.mimeType, quality);
+  delete this.metadata_.thumbnailTransform;
 };
 
 /**

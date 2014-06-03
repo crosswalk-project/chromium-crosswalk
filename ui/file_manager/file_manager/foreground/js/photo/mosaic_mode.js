@@ -1982,7 +1982,7 @@ Mosaic.Tile.prototype.layout = function(left, top, width, height) {
 
   if (this.imageLoaded_) {
     this.thumbnailLoader_.attachImage(this.wrapper_,
-                                      ThumbnailLoader.FillMode.FILL);
+                                      ThumbnailLoader.FillMode.OVER_FILL);
   }
 };
 
