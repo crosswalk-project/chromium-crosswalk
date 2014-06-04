@@ -828,7 +828,8 @@ public class ContentViewCore
                 params.mPostData,
                 params.mBaseUrlForDataUrl,
                 params.mVirtualUrlForDataUrl,
-                params.mCanLoadLocalResources);
+                params.mCanLoadLocalResources,
+                params.mIsRendererInitiated);
     }
 
     /**
@@ -3090,7 +3091,8 @@ public class ContentViewCore
             byte[] postData,
             String baseUrlForDataUrl,
             String virtualUrlForDataUrl,
-            boolean canLoadLocalResources);
+            boolean canLoadLocalResources,
+            boolean isRendererInitiated);
 
     private native String nativeGetURL(long nativeContentViewCoreImpl);
 

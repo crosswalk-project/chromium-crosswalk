@@ -420,7 +420,8 @@ public class Tab implements NavigationClient {
                 // Policy will be ignored for null referrer url, 0 is just a placeholder.
                 // TODO(ppi): Should we pass Referrer jobject and add JNI methods to read it from
                 //            the native?
-                params.getReferrer() != null ? params.getReferrer().getPolicy() : 0);
+                params.getReferrer() != null ? params.getReferrer().getPolicy() : 0,
+                params.getIsRendererInitiated());
 
         TraceEvent.end();
 
@@ -1127,7 +1128,8 @@ public class Tab implements NavigationClient {
     private native WebContents nativeGetWebContents(long nativeTabAndroid);
     private native Profile nativeGetProfileAndroid(long nativeTabAndroid);
     private native int nativeLoadUrl(long nativeTabAndroid, String url, String extraHeaders,
-            byte[] postData, int transition, String referrerUrl, int referrerPolicy);
+            byte[] postData, int transition, String referrerUrl, int referrerPolicy,
+            boolean isRendererInitiated);
     private native int nativeGetSecurityLevel(long nativeTabAndroid);
     private native void nativeSetActiveNavigationEntryTitleForUrl(long nativeTabAndroid, String url,
             String title);
