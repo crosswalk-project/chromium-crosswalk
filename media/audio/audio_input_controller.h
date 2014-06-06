@@ -16,9 +16,6 @@
 #include "base/timer/timer.h"
 #include "media/audio/audio_io.h"
 #include "media/audio/audio_manager_base.h"
-#include "media/audio/audio_parameters.h"
-#include "media/audio/audio_power_monitor.h"
-#include "media/base/audio_bus.h"
 
 // An AudioInputController controls an AudioInputStream and records data
 // from this input stream. The two main methods are Record() and Close() and
@@ -75,11 +72,6 @@
 //
 namespace media {
 
-// Only do power monitoring for non-mobile platforms to save resources.
-#if !defined(OS_ANDROID) && !defined(OS_IOS)
-#define AUDIO_POWER_MONITORING
-#endif
-
 class UserInputMonitor;
 
 class MEDIA_EXPORT AudioInputController
@@ -119,8 +111,6 @@ class MEDIA_EXPORT AudioInputController
                          ErrorCode error_code) = 0;
     virtual void OnData(AudioInputController* controller, const uint8* data,
                         uint32 size) = 0;
-    virtual void OnLog(AudioInputController* controller,
-                       const std::string& message) = 0;
 
    protected:
     virtual ~EventHandler() {}
@@ -262,7 +252,6 @@ class MEDIA_EXPORT AudioInputController
   void DoSetVolume(double volume);
   void DoSetAutomaticGainControl(bool enabled);
   void DoOnData(scoped_ptr<uint8[]> data, uint32 size);
-  void DoLogAudioLevel(float level_dbfs);
 
   // Method which ensures that OnError() is triggered when data recording
   // times out. Called on the audio thread.
@@ -315,16 +304,6 @@ class MEDIA_EXPORT AudioInputController
   double max_volume_;
 
   UserInputMonitor* user_input_monitor_;
-
-#if defined(AUDIO_POWER_MONITORING)
-  // Scans audio samples from OnData() as input to compute audio levels.
-  scoped_ptr<AudioPowerMonitor> audio_level_;
-
-  // We need these to be able to feed data to the AudioPowerMonitor.
-  scoped_ptr<AudioBus> audio_bus_;
-  media::AudioParameters audio_params_;
-  base::TimeTicks last_audio_level_log_time_;
-#endif
 
   size_t prev_key_down_count_;
 
