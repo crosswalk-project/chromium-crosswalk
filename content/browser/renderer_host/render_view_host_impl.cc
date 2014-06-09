@@ -421,7 +421,7 @@ WebPreferences RenderViewHostImpl::GetWebkitPrefs(const GURL& url) {
       atoi(command_line.GetSwitchValueASCII(
       switches::kAcceleratedCanvas2dMSAASampleCount).c_str());
   prefs.deferred_filters_enabled =
-      !command_line.HasSwitch(switches::kDisableDeferredFilters);
+      command_line.HasSwitch(switches::kEnableDeferredFilters);
   prefs.container_culling_enabled =
       command_line.HasSwitch(switches::kEnableContainerCulling);
   prefs.lazy_layout_enabled =

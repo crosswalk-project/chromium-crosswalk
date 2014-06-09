@@ -318,8 +318,8 @@ const char kDomAutomationController[]       = "dom-automation";
 const char kEnableBleedingEdgeRenderingFastPaths[] =
     "enable-bleeding-edge-rendering-fast-paths";
 
-// Disable deferred image filters.
-const char kDisableDeferredFilters[]         = "disable-deferred-filters";
+// Disable gpu-accelerated 2d canvas.
+const char kEnableDeferredFilters[]         = "enable-deferred-filters";
 
 // Enables accelerated compositing for backgrounds of root layers with
 // background-attachment: fixed.
