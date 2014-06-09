@@ -54,6 +54,12 @@ static int GetThreadCount(AVCodecID codec_id) {
   return decode_threads;
 }
 
+static size_t RoundUp(size_t value, size_t alignment) {
+  // Check that |alignment| is a power of 2.
+  DCHECK((alignment + (alignment - 1)) == (alignment | (alignment - 1)));
+  return ((value + (alignment - 1)) & ~(alignment - 1));
+}
+
 FFmpegVideoDecoder::FFmpegVideoDecoder(
     const scoped_refptr<base::SingleThreadTaskRunner>& task_runner)
     : task_runner_(task_runner), state_(kUninitialized) {}
@@ -91,9 +97,13 @@ int FFmpegVideoDecoder::GetVideoBuffer(AVCodecContext* codec_context,
   //
   // When lowres is non-zero, dimensions should be divided by 2^(lowres), but
   // since we don't use this, just DCHECK that it's zero.
+  //
+  // Always round up to a multiple of two to match VideoFrame restrictions on
+  // frame alignment.
   DCHECK_EQ(codec_context->lowres, 0);
-  gfx::Size coded_size(std::max(size.width(), codec_context->coded_width),
-                       std::max(size.height(), codec_context->coded_height));
+  gfx::Size coded_size(
+      RoundUp(std::max(size.width(), codec_context->coded_width), 2),
+      RoundUp(std::max(size.height(), codec_context->coded_height), 2));
 
   if (!VideoFrame::IsValidConfig(
           format, coded_size, gfx::Rect(size), natural_size))
