@@ -1943,7 +1943,7 @@ test("base_unittests") {
     sources += [ "trace_event/process_memory_maps_dump_provider_unittest.cc" ]
   }
 
-  if (!is_linux || use_ozone) {
+  if (!is_linux) {
     sources -= [ "message_loop/message_pump_glib_unittest.cc" ]
   }
 
