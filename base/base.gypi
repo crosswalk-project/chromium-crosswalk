@@ -738,7 +738,7 @@
                 'atomicops_internals_x86_gcc.cc',
               ],
           }],
-          ['<(use_glib)==0 or >(nacl_untrusted_build)==1', {
+          ['(<(use_glib)==0 and <(use_ozone)==0) or >(nacl_untrusted_build)==1', {
               'sources!': [
                 'message_loop/message_pump_glib.cc',
               ],
