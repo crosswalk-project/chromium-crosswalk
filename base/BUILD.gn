@@ -1575,7 +1575,7 @@ test("base_unittests") {
     }
   }
 
-  if (!is_linux || use_ozone) {
+  if (!is_linux) {
     sources -= [ "message_loop/message_pump_glib_unittest.cc" ]
   }
 
