@@ -962,11 +962,6 @@
               'strings/string16.cc',
             ],
           },],
-          ['<(use_ozone) == 1', {
-            'sources!': [
-              'message_loop/message_pump_glib.cc',
-            ]
-          }],
           ['OS == "linux" and >(nacl_untrusted_build)==0', {
             'sources!': [
               'files/file_path_watcher_fsevents.cc',
