@@ -167,6 +167,7 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
 
         mRootWindow = rootWindow;
         rootWindow.setVSyncClient(this);
+        initContentReadbackHandler();
 
         mCompositingSurfaceType = surfaceType;
         if (surfaceType == CompositingSurfaceType.TEXTURE_VIEW) {
@@ -223,6 +224,9 @@ public class ContentViewRenderView extends FrameLayout implements WindowAndroid.
                         FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.MATCH_PARENT));
 
+    }
+
+    private void initContentReadbackHandler() {
         mContentReadbackHandler = new ContentReadbackHandler() {
             @Override
             protected boolean readyForReadback() {
