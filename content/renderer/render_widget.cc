@@ -187,7 +187,6 @@ class RenderWidget::ScreenMetricsEmulator {
  private:
   void Reapply();
   void Apply(float overdraw_bottom_height,
-             const gfx::Size& visible_viewport_size,
              gfx::Rect resizer_rect,
              bool is_fullscreen);
 
@@ -206,6 +205,7 @@ class RenderWidget::ScreenMetricsEmulator {
   // Original values to restore back after emulation ends.
   gfx::Size original_size_;
   gfx::Size original_physical_backing_size_;
+  gfx::Size original_visible_viewport_size_;
   blink::WebScreenInfo original_screen_info_;
   gfx::Rect original_view_screen_rect_;
   gfx::Rect original_window_screen_rect_;
@@ -219,11 +219,12 @@ RenderWidget::ScreenMetricsEmulator::ScreenMetricsEmulator(
       scale_(1.f) {
   original_size_ = widget_->size_;
   original_physical_backing_size_ = widget_->physical_backing_size_;
+  original_visible_viewport_size_ = widget_->visible_viewport_size_;
   original_screen_info_ = widget_->screen_info_;
   original_view_screen_rect_ = widget_->view_screen_rect_;
   original_window_screen_rect_ = widget_->window_screen_rect_;
-  Apply(widget_->overdraw_bottom_height_, widget_->visible_viewport_size_,
-        widget_->resizer_rect_, widget_->is_fullscreen_);
+  Apply(widget_->overdraw_bottom_height_, widget_->resizer_rect_,
+      widget_->is_fullscreen_);
 }
 
 RenderWidget::ScreenMetricsEmulator::~ScreenMetricsEmulator() {
@@ -234,7 +235,7 @@ RenderWidget::ScreenMetricsEmulator::~ScreenMetricsEmulator() {
   widget_->view_screen_rect_ = original_view_screen_rect_;
   widget_->window_screen_rect_ = original_window_screen_rect_;
   widget_->Resize(original_size_, original_physical_backing_size_,
-      widget_->overdraw_bottom_height_, widget_->visible_viewport_size_,
+      widget_->overdraw_bottom_height_, original_visible_viewport_size_,
       widget_->resizer_rect_, widget_->is_fullscreen_, NO_RESIZE_ACK);
 }
 
@@ -245,13 +246,12 @@ void RenderWidget::ScreenMetricsEmulator::ChangeEmulationParams(
 }
 
 void RenderWidget::ScreenMetricsEmulator::Reapply() {
-  Apply(widget_->overdraw_bottom_height_, widget_->visible_viewport_size_,
-        widget_->resizer_rect_, widget_->is_fullscreen_);
+  Apply(widget_->overdraw_bottom_height_, widget_->resizer_rect_,
+      widget_->is_fullscreen_);
 }
 
 void RenderWidget::ScreenMetricsEmulator::Apply(
     float overdraw_bottom_height,
-    const gfx::Size& visible_viewport_size,
     gfx::Rect resizer_rect,
     bool is_fullscreen) {
   applied_widget_rect_.set_size(gfx::Size(params_.viewSize));
@@ -314,7 +314,7 @@ void RenderWidget::ScreenMetricsEmulator::Apply(
   gfx::Size physical_backing_size = gfx::ToCeiledSize(gfx::ScaleSize(
       original_size_, original_screen_info_.deviceScaleFactor));
   widget_->Resize(applied_widget_rect_.size(), physical_backing_size,
-      overdraw_bottom_height, visible_viewport_size, resizer_rect,
+      overdraw_bottom_height, applied_widget_rect_.size(), resizer_rect,
       is_fullscreen, NO_RESIZE_ACK);
 }
 
@@ -325,8 +325,9 @@ void RenderWidget::ScreenMetricsEmulator::OnResizeMessage(
   original_size_ = params.new_size;
   original_physical_backing_size_ = params.physical_backing_size;
   original_screen_info_ = params.screen_info;
-  Apply(params.overdraw_bottom_height, params.visible_viewport_size,
-        params.resizer_rect, params.is_fullscreen);
+  original_visible_viewport_size_ = params.visible_viewport_size;
+  Apply(params.overdraw_bottom_height, params.resizer_rect,
+      params.is_fullscreen);
 
   if (need_ack) {
     widget_->set_next_paint_is_resize_ack();
