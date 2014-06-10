@@ -242,7 +242,8 @@ void PrintDialogGtk2::ShowDialog(
   // TODO(mukai): take care of parent as select_file_dialog_impl_gtk2.
   dialog_ = gtk_print_unix_dialog_new(NULL, NULL);
   libgtk2ui::SetGtkTransientForAura(dialog_, parent_view);
-  parent_view->AddObserver(this);
+  if (parent_view)
+    parent_view->AddObserver(this);
   g_signal_connect(dialog_, "delete-event",
                    G_CALLBACK(gtk_widget_hide_on_delete), NULL);
 
