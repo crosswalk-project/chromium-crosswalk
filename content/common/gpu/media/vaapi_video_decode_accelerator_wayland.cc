@@ -190,6 +190,14 @@ bool VaapiVideoDecodeAccelerator::TFPPicture::Upload(VASurfaceID surface) {
   gfx::ScopedTextureBinder texture_binder(GL_TEXTURE_2D, texture_id_);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
   glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+
+  unsigned int al = 4 * size_.width(); // Alignment length.
+  if(al != va_image_.pitches[0]) { // Check RGBA data alignment.
+    unsigned char* bhandle = (unsigned char* )buffer;
+    for(int i = 0; i < size_.height(); i++) { // Realign filled video frame.
+      memcpy(bhandle + (i * al), bhandle + (i * (va_image_.pitches[0])), al);
+    }
+  }
   glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, size_.width(), size_.height(),
                0, GL_RGBA, GL_UNSIGNED_BYTE, buffer);
 
