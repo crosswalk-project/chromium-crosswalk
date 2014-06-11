@@ -74,6 +74,9 @@ GFX_EXPORT double GetUndocumentedDPIScale();
 // This function returns the appropriate scaling factor for touch events.
 GFX_EXPORT double GetUndocumentedDPITouchScale();
 
+GFX_EXPORT extern const wchar_t kRegistryProfilePath[];
+GFX_EXPORT extern const wchar_t kHighDPISupportW[];
+
 }  // namespace win
 }  // namespace gfx
 
