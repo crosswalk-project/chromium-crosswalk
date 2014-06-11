@@ -401,6 +401,7 @@ extern const char kInvalidSandboxedPagesList[];
 extern const char kInvalidSandboxedPage[];
 extern const char kInvalidSandboxedPagesCSP[];
 extern const char kInvalidScriptBadge[];
+extern const char kInvalidSearchEngineMissingKeys[];
 extern const char kInvalidSearchEngineURL[];
 extern const char kInvalidServiceWorkerScript[];
 extern const char kInvalidShortName[];
