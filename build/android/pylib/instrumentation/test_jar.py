@@ -221,9 +221,13 @@ class TestJar(object):
           (t.split('.')[-1].replace('#', '.'), t) for t in available_tests])
       # Filters 'class.test' names and populates |tests| with the corresponding
       # 'package.path.class#test' names.
-      tests = [
-          sanitized_test_names[t] for t in unittest_util.FilterTestNames(
-              sanitized_test_names.keys(), test_filter.replace('#', '.'))]
+      test_filters = [test_filter, test_filter+'.*', '*.'+test_filter]
+      for f in test_filters:
+        tests = [
+            sanitized_test_names[t] for t in unittest_util.FilterTestNames(
+                sanitized_test_names.keys(), f.replace('#', '.'))]
+        if tests:
+          break
     else:
       tests = available_tests
 
