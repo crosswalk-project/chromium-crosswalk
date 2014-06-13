@@ -78,6 +78,11 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
   if (base::win::OSInfo::GetInstance()->version() >= base::win::VERSION_WIN8)
     WebRuntimeFeatures::enableScreenOrientation(false);
 #endif // OS_WIN
+
+#if defined(OS_TIZEN)
+  WebRuntimeFeatures::enableScreenOrientation(true);
+  WebRuntimeFeatures::enableOrientationEvent(true);
+#endif  // defined(OS_TIZEN)
 }
 
 void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
