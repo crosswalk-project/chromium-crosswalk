@@ -55,6 +55,10 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
 #else
   WebRuntimeFeatures::enableNavigatorContentUtils(true);
 #endif  // defined(OS_ANDROID)
+#if defined(OS_TIZEN)
+  WebRuntimeFeatures::enableScreenOrientation(true);
+  WebRuntimeFeatures::enableOrientationEvent(true);
+#endif  // defined(OS_TIZEN)
 }
 
 void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
