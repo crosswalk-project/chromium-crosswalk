@@ -120,7 +120,8 @@ void TranslateTabHelper::GetTranslateLanguages(
   if (!translate_tab_helper)
     return;
 
-  *source = translate_tab_helper->GetLanguageState().original_language();
+  *source = TranslateDownloadManager::GetLanguageCode(
+      translate_tab_helper->GetLanguageState().original_language());
 
   Profile* profile =
       Profile::FromBrowserContext(web_contents->GetBrowserContext());
