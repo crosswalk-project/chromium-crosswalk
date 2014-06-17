@@ -474,6 +474,7 @@ FileTasks.prototype.checkAvailability_ = function(callback) {
       VolumeManagerCommon.DriveConnectionType.OFFLINE;
 
   if (fm.isOnDrive() && isDriveOffline) {
+    fm.metadataCache_.clear(entries, 'drive');
     fm.metadataCache_.get(entries, 'drive', function(props) {
       if (areAll(props, 'availableOffline')) {
         callback();
