@@ -42,6 +42,10 @@ GestureProvider::Config CreateDefaultConfig() {
   // microseconds simply to allow several intermediate events to occur before
   // the second tap at microsecond intervals.
   sConfig.gesture_detector_config.double_tap_timeout = kOneMicrosecond * 4;
+  sConfig.gesture_detector_config.double_tap_min_time = kOneMicrosecond * 2;
+
+  sConfig.scale_gesture_detector_config.gesture_detector_config =
+      sConfig.gesture_detector_config;
   return sConfig;
 }
 
@@ -177,6 +181,10 @@ class GestureProviderTest : public testing::Test, public GestureProviderClient {
     return GetDefaultConfig().gesture_detector_config.touch_slop;
   }
 
+  float GetMinScalingSpan() const {
+    return GetDefaultConfig().scale_gesture_detector_config.min_scaling_span;
+  }
+
   float GetMinSwipeVelocity() const {
     return GetDefaultConfig().gesture_detector_config.minimum_swipe_velocity;
   }
@@ -191,6 +199,14 @@ class GestureProviderTest : public testing::Test, public GestureProviderClient {
 
   base::TimeDelta GetDoubleTapTimeout() const {
     return GetDefaultConfig().gesture_detector_config.double_tap_timeout;
+  }
+
+  base::TimeDelta GetDoubleTapMinTime() const {
+    return GetDefaultConfig().gesture_detector_config.double_tap_min_time;
+  }
+
+  base::TimeDelta GetValidDoubleTapDelay() const {
+    return (GetDoubleTapTimeout() + GetDoubleTapMinTime()) / 2;
   }
 
   void EnableBeginEndTypes() {
@@ -577,7 +593,8 @@ TEST_F(GestureProviderTest, DoubleTap) {
   EXPECT_EQ(ET_GESTURE_TAP_UNCONFIRMED, GetMostRecentGestureEventType());
   EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 2,
+  event_time += GetValidDoubleTapDelay();
+  event = ObtainMotionEvent(event_time,
                             MotionEvent::ACTION_DOWN,
                             kFakeCoordX,
                             kFakeCoordY);
@@ -587,7 +604,7 @@ TEST_F(GestureProviderTest, DoubleTap) {
 
   // Moving a very small amount of distance should not trigger the double tap
   // drag zoom mode.
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 3,
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
                             MotionEvent::ACTION_MOVE,
                             kFakeCoordX,
                             kFakeCoordY + 1);
@@ -595,7 +612,7 @@ TEST_F(GestureProviderTest, DoubleTap) {
   EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
   EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 3,
+  event = ObtainMotionEvent(event_time + kOneMicrosecond * 2,
                             MotionEvent::ACTION_UP,
                             kFakeCoordX,
                             kFakeCoordY + 1);
@@ -611,7 +628,7 @@ TEST_F(GestureProviderTest, DoubleTap) {
 
 TEST_F(GestureProviderTest, DoubleTapDragZoomBasic) {
   const base::TimeTicks down_time_1 = TimeTicks::Now();
-  const base::TimeTicks down_time_2 = down_time_1 + kOneMicrosecond * 2;
+  const base::TimeTicks down_time_2 = down_time_1 + GetValidDoubleTapDelay();
 
   MockMotionEvent event =
       ObtainMotionEvent(down_time_1, MotionEvent::ACTION_DOWN);
@@ -894,7 +911,8 @@ TEST_F(GestureProviderTest, NoGestureLongPressDuringDoubleTap) {
   EXPECT_EQ(ET_GESTURE_TAP_UNCONFIRMED, GetMostRecentGestureEventType());
   EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond,
+  event_time += GetValidDoubleTapDelay();
+  event = ObtainMotionEvent(event_time,
                             MotionEvent::ACTION_DOWN,
                             kFakeCoordX,
                             kFakeCoordY);
@@ -1007,6 +1025,43 @@ TEST_F(GestureProviderTest, NoScrollWithinTouchSlop) {
   EXPECT_TRUE(HasReceivedGesture(ET_GESTURE_SCROLL_BEGIN));
 }
 
+TEST_F(GestureProviderTest, NoDoubleTapWhenTooRapid) {
+  base::TimeTicks event_time = base::TimeTicks::Now();
+
+  MockMotionEvent event =
+      ObtainMotionEvent(event_time, MotionEvent::ACTION_DOWN);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+
+  EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
+  EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
+
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
+                            MotionEvent::ACTION_UP,
+                            kFakeCoordX,
+                            kFakeCoordY);
+  gesture_provider_->OnTouchEvent(event);
+  EXPECT_EQ(ET_GESTURE_TAP_UNCONFIRMED, GetMostRecentGestureEventType());
+  EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
+
+  // If the second tap follows the first in too short a time span, no double-tap
+  // will occur.
+  event_time += (GetDoubleTapMinTime() / 2);
+  event = ObtainMotionEvent(event_time,
+                            MotionEvent::ACTION_DOWN,
+                            kFakeCoordX,
+                            kFakeCoordY);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
+  EXPECT_EQ(1, GetMostRecentGestureEvent().details.touch_points());
+
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
+                            MotionEvent::ACTION_UP,
+                            kFakeCoordX,
+                            kFakeCoordY);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(ET_GESTURE_TAP_UNCONFIRMED, GetMostRecentGestureEventType());
+}
+
 TEST_F(GestureProviderTest, NoDoubleTapWhenExplicitlyDisabled) {
   // Ensure that double-tap gestures can be disabled.
   gesture_provider_->SetDoubleTapSupportForPlatformEnabled(false);
@@ -1024,14 +1079,15 @@ TEST_F(GestureProviderTest, NoDoubleTapWhenExplicitlyDisabled) {
   EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
   EXPECT_EQ(ET_GESTURE_TAP, GetMostRecentGestureEventType());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 2,
+  event_time += GetValidDoubleTapDelay();
+  event = ObtainMotionEvent(event_time,
                             MotionEvent::ACTION_DOWN,
                             kFakeCoordX,
                             kFakeCoordY);
   EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
   EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 3,
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
                             MotionEvent::ACTION_UP,
                             kFakeCoordX,
                             kFakeCoordY);
@@ -1060,28 +1116,30 @@ TEST_F(GestureProviderTest, NoDoubleTapWhenExplicitlyDisabled) {
   // Ensure that double-tap gestures can be resumed.
   gesture_provider_->SetDoubleTapSupportForPlatformEnabled(true);
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 2,
+  event_time += GetValidDoubleTapDelay();
+  event = ObtainMotionEvent(event_time,
                             MotionEvent::ACTION_DOWN,
                             kFakeCoordX,
                             kFakeCoordY);
   EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
   EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 3,
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
                             MotionEvent::ACTION_UP,
                             kFakeCoordX,
                             kFakeCoordY);
   EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
   EXPECT_EQ(ET_GESTURE_TAP_UNCONFIRMED, GetMostRecentGestureEventType());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 4,
+  event_time += GetValidDoubleTapDelay();
+  event = ObtainMotionEvent(event_time,
                             MotionEvent::ACTION_DOWN,
                             kFakeCoordX,
                             kFakeCoordY);
   EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
   EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
 
-  event = ObtainMotionEvent(event_time + kOneMicrosecond * 5,
+  event = ObtainMotionEvent(event_time + kOneMicrosecond,
                             MotionEvent::ACTION_UP,
                             kFakeCoordX,
                             kFakeCoordY);
@@ -1121,7 +1179,7 @@ TEST_F(GestureProviderTest, NoDelayedTapWhenDoubleTapSupportToggled) {
 
 TEST_F(GestureProviderTest, NoDoubleTapDragZoomWhenDisabledOnPlatform) {
   const base::TimeTicks down_time_1 = TimeTicks::Now();
-  const base::TimeTicks down_time_2 = down_time_1 + kOneMicrosecond * 2;
+  const base::TimeTicks down_time_2 = down_time_1 + GetValidDoubleTapDelay();
 
   gesture_provider_->SetDoubleTapSupportForPlatformEnabled(false);
 
@@ -1173,7 +1231,7 @@ TEST_F(GestureProviderTest, NoDoubleTapDragZoomWhenDisabledOnPlatform) {
 // The second tap sequence should be treated just as the first would be.
 TEST_F(GestureProviderTest, NoDoubleTapDragZoomWhenDisabledOnPage) {
   const base::TimeTicks down_time_1 = TimeTicks::Now();
-  const base::TimeTicks down_time_2 = down_time_1 + kOneMicrosecond * 2;
+  const base::TimeTicks down_time_2 = down_time_1 + GetValidDoubleTapDelay();
 
   gesture_provider_->SetDoubleTapSupportForPageEnabled(false);
 
@@ -1222,7 +1280,7 @@ TEST_F(GestureProviderTest, NoDoubleTapDragZoomWhenDisabledOnPage) {
 // disables double tap detection after the gesture has ended.
 TEST_F(GestureProviderTest, FixedPageScaleDuringDoubleTapDragZoom) {
   base::TimeTicks down_time_1 = TimeTicks::Now();
-  base::TimeTicks down_time_2 = down_time_1 + kOneMicrosecond * 2;
+  base::TimeTicks down_time_2 = down_time_1 + GetValidDoubleTapDelay();
 
   gesture_provider_->SetDoubleTapSupportForPageEnabled(true);
   gesture_provider_->SetDoubleTapSupportForPlatformEnabled(true);
@@ -1434,6 +1492,48 @@ TEST_F(GestureProviderTest, PinchZoom) {
             GetMostRecentGestureEvent().details.bounding_box());
 }
 
+// Verify that no accidental pinching occurs if the touch size is large relative
+// to the min scaling span.
+TEST_F(GestureProviderTest, NoPinchZoomWithFatFinger) {
+  base::TimeTicks event_time = base::TimeTicks::Now();
+  const float kFatFingerSize = GetMinScalingSpan() * 3.f;
+
+  gesture_provider_->SetDoubleTapSupportForPlatformEnabled(false);
+  gesture_provider_->SetMultiTouchZoomSupportEnabled(true);
+
+  MockMotionEvent event =
+      ObtainMotionEvent(event_time, MotionEvent::ACTION_DOWN);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(ET_GESTURE_TAP_DOWN, GetMostRecentGestureEventType());
+  EXPECT_EQ(1U, GetReceivedGestureCount());
+
+  event = ObtainMotionEvent(event_time + kOneSecond,
+                            MotionEvent::ACTION_MOVE);
+  event.SetTouchMajor(0.1f);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(1U, GetReceivedGestureCount());
+
+  event = ObtainMotionEvent(event_time + kOneSecond * 2,
+                            MotionEvent::ACTION_MOVE,
+                            kFakeCoordX + 1.f,
+                            kFakeCoordY);
+  event.SetTouchMajor(1.f);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(1U, GetReceivedGestureCount());
+
+  event = ObtainMotionEvent(event_time + kOneSecond * 3,
+                            MotionEvent::ACTION_MOVE);
+  event.SetTouchMajor(kFatFingerSize * 3.5f);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(1U, GetReceivedGestureCount());
+
+  event = ObtainMotionEvent(event_time + kOneSecond * 4,
+                            MotionEvent::ACTION_MOVE);
+  event.SetTouchMajor(kFatFingerSize * 5.f);
+  EXPECT_TRUE(gesture_provider_->OnTouchEvent(event));
+  EXPECT_EQ(1U, GetReceivedGestureCount());
+}
+
 // Verify that multi-finger swipe sends the proper event sequence.
 TEST_F(GestureProviderTest, MultiFingerSwipe) {
   EnableMultiFingerSwipe();
@@ -1595,7 +1695,7 @@ TEST_F(GestureProviderTest, CancelActiveTouchSequence) {
 
 TEST_F(GestureProviderTest, DoubleTapDragZoomCancelledOnSecondaryPointerDown) {
   const base::TimeTicks down_time_1 = TimeTicks::Now();
-  const base::TimeTicks down_time_2 = down_time_1 + kOneMicrosecond * 2;
+  const base::TimeTicks down_time_2 = down_time_1 + GetValidDoubleTapDelay();
 
   gesture_provider_->SetDoubleTapSupportForPlatformEnabled(true);
 
