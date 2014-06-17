@@ -36,16 +36,16 @@ SpdyProxyClientSocket::SpdyProxyClientSocket(
     : next_state_(STATE_DISCONNECTED),
       spdy_stream_(spdy_stream),
       endpoint_(endpoint),
-      auth_(
-          new HttpAuthController(HttpAuth::AUTH_PROXY,
-                                 GURL("https://" + proxy_server.ToString()),
-                                 auth_cache,
-                                 auth_handler_factory)),
+      auth_(new HttpAuthController(HttpAuth::AUTH_PROXY,
+                                   GURL("https://" + proxy_server.ToString()),
+                                   auth_cache,
+                                   auth_handler_factory)),
       user_buffer_len_(0),
       write_buffer_len_(0),
       was_ever_used_(false),
       redirect_has_load_timing_info_(false),
       weak_factory_(this),
+      write_callback_weak_factory_(this),
       net_log_(BoundNetLog::Make(spdy_stream->net_log().net_log(),
                                  NetLog::SOURCE_PROXY_CLIENT_SOCKET)) {
   request_.method = "CONNECT";
@@ -137,6 +137,7 @@ void SpdyProxyClientSocket::Disconnect() {
 
   write_buffer_len_ = 0;
   write_callback_.Reset();
+  write_callback_weak_factory_.InvalidateWeakPtrs();
 
   next_state_ = STATE_DISCONNECTED;
 
@@ -266,6 +267,11 @@ void SpdyProxyClientSocket::LogBlockedTunnelResponse() const {
       response_.headers->response_code(),
       request_.url,
       /* is_https_proxy = */ true);
+}
+
+void SpdyProxyClientSocket::RunCallback(const CompletionCallback& callback,
+                                        int result) const {
+  callback.Run(result);
 }
 
 void SpdyProxyClientSocket::OnIOComplete(int result) {
@@ -487,7 +493,10 @@ void SpdyProxyClientSocket::OnDataSent()  {
   // stream's write callback chain to unwind (see crbug.com/355511).
   base::MessageLoop::current()->PostTask(
       FROM_HERE,
-      base::Bind(ResetAndReturn(&write_callback_), rv));
+      base::Bind(&SpdyProxyClientSocket::RunCallback,
+                 write_callback_weak_factory_.GetWeakPtr(),
+                 ResetAndReturn(&write_callback_),
+                 rv));
 }
 
 void SpdyProxyClientSocket::OnClose(int status)  {
