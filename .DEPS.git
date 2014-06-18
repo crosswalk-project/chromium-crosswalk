@@ -29,8 +29,6 @@ deps = {
         Var('git_url') + '/chromium/deps/lighttpd.git@9dfa55d15937a688a92cbf2b7a8621b0927d06eb',
     'depot_tools':
         Var('git_url') + '/chromium/tools/depot_tools.git@c4396a1b4e231e3b271e36d7b76e280e89245b04',
-    'src':
-        Var('git_url') + '/chromium/src.git@5378fff02dd75b1bb75b472060735a56bff45171',
     'src/breakpad/src':
         Var('git_url') + '/external/google-breakpad/src.git@c7c6e51faeb9c1e8fbe285a1b28a5039b345f139',
     'src/chrome/browser/resources/pdf/html_office':
@@ -410,6 +408,7 @@ skip_child_includes = [
     'metro_driver',
     'native_client_sdk',
     'o3d',
+    'ozone',
     'pdf',
     'sdch',
     'skia',
