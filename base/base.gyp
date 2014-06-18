@@ -54,7 +54,7 @@
               ['exclude', '_nss\\.cc$'],
             ],
         }],
-        ['use_glib==1', {
+        ['use_glib==1 or <(use_ozone)==1', {
           'dependencies': [
             '../build/linux/system.gyp:glib',
           ],
