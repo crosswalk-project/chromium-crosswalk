@@ -435,7 +435,7 @@ void oom_killer_new() {
 // === Core Foundation CFAllocators ===
 
 bool CanGetContextForCFAllocator() {
-  return !base::mac::IsOSLaterThanMavericks_DontCallThis();
+  return !base::mac::IsOSYosemiteOrLater();
 }
 
 CFAllocatorContext* ContextForCFAllocator(CFAllocatorRef allocator) {
