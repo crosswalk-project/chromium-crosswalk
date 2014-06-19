@@ -4,6 +4,9 @@
 
 #include "media/audio/android/audio_manager_android.h"
 
+#include <algorithm>
+#include <string>
+
 #include "base/android/build_info.h"
 #include "base/android/jni_array.h"
 #include "base/android/jni_string.h"
@@ -249,8 +252,19 @@ AudioInputStream* AudioManagerAndroid::MakeLowLatencyInputStream(
     DVLOG(1) << "Creating AudioRecordInputStream";
     return new AudioRecordInputStream(this, params);
   }
+
+  // TODO(xingnan): Crash will happen in the openSL ES library on some IA
+  // devices like ZTE Geek V975, Use AudioRecordInputStream path instead as
+  // a workaround. Will fall back after the fix of the bug.
+#if defined(ARCH_CPU_X86)
+  if (base::android::BuildInfo::GetInstance()->sdk_int() < 16)
+    return NULL;
+  DVLOG(1) << "Creating AudioRecordInputStream";
+  return new AudioRecordInputStream(this, params);
+#else
   DVLOG(1) << "Creating OpenSLESInputStream";
   return new OpenSLESInputStream(this, params);
+#endif
 }
 
 // static
