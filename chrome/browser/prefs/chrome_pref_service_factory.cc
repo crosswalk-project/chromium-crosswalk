@@ -189,8 +189,8 @@ enum SettingsEnforcementGroup {
   GROUP_ENFORCE_ON_LOAD,
   // Also disallow seeding of unloaded profiles.
   GROUP_ENFORCE_ALWAYS,
-  // Also enforce extension settings.
-  GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS,
+  // Also enforce extension default search.
+  GROUP_ENFORCE_ALWAYS_WITH_DSE,
   // Also enforce extension settings and default search.
   GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS_AND_DSE,
   // The default enforcement group contains all protection features.
@@ -223,8 +223,8 @@ SettingsEnforcementGroup GetSettingsEnforcementGroup() {
     { chrome_prefs::internals::kSettingsEnforcementGroupEnforceAlways,
       GROUP_ENFORCE_ALWAYS },
     { chrome_prefs::internals::
-          kSettingsEnforcementGroupEnforceAlwaysWithExtensions,
-      GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS },
+          kSettingsEnforcementGroupEnforceAlwaysWithDSE,
+      GROUP_ENFORCE_ALWAYS_WITH_DSE },
     { chrome_prefs::internals::
           kSettingsEnforcementGroupEnforceAlwaysWithExtensionsAndDSE,
       GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS_AND_DSE },
@@ -279,18 +279,18 @@ GetTrackingConfiguration() {
       data.enforcement_level = PrefHashFilter::NO_ENFORCEMENT;
     }
 
-    if (enforcement_group >= GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS &&
+    if (enforcement_group >= GROUP_ENFORCE_ALWAYS_WITH_DSE &&
+        data.name == DefaultSearchManager::kDefaultSearchProviderDataPrefName) {
+      // Specifically enable default search settings enforcement.
+      data.enforcement_level = PrefHashFilter::ENFORCE_ON_LOAD;
+    }
+
+    if (enforcement_group >= GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS_AND_DSE &&
         (data.name == extensions::pref_names::kExtensions ||
          data.name == extensions::pref_names::kKnownDisabled)) {
       // Specifically enable extension settings enforcement and ensure
       // kKnownDisabled follows it in the Protected Preferences.
       // TODO(gab): Get rid of kKnownDisabled altogether.
-      data.enforcement_level = PrefHashFilter::ENFORCE_ON_LOAD;
-    }
-
-    if (enforcement_group >= GROUP_ENFORCE_ALWAYS_WITH_EXTENSIONS_AND_DSE &&
-        data.name == DefaultSearchManager::kDefaultSearchProviderDataPrefName) {
-      // Specifically enable default search settings enforcement.
       data.enforcement_level = PrefHashFilter::ENFORCE_ON_LOAD;
     }
 
@@ -421,8 +421,8 @@ const char kSettingsEnforcementTrialName[] = "SettingsEnforcement";
 const char kSettingsEnforcementGroupNoEnforcement[] = "no_enforcement";
 const char kSettingsEnforcementGroupEnforceOnload[] = "enforce_on_load";
 const char kSettingsEnforcementGroupEnforceAlways[] = "enforce_always";
-const char kSettingsEnforcementGroupEnforceAlwaysWithExtensions[] =
-    "enforce_always_with_extensions";
+const char kSettingsEnforcementGroupEnforceAlwaysWithDSE[] =
+    "enforce_always_with_dse";
 const char kSettingsEnforcementGroupEnforceAlwaysWithExtensionsAndDSE[] =
     "enforce_always_with_extensions_and_dse";
 
