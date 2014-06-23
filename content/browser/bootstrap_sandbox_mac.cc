@@ -139,7 +139,7 @@ void BootstrapSandboxPolicy::AddBaselinePolicy(
 }  // namespace
 
 bool ShouldEnableBootstrapSandbox() {
-  return base::mac::IsOSMavericksOrEarlier();
+  return false;
 }
 
 sandbox::BootstrapSandbox* GetBootstrapSandbox() {
