@@ -28,12 +28,6 @@ AudioFileReader::~AudioFileReader() {
 }
 
 bool AudioFileReader::Open() {
-  if (!OpenDemuxer())
-    return false;
-  return OpenDecoder();
-}
-
-bool AudioFileReader::OpenDemuxer() {
   glue_.reset(new FFmpegGlue(protocol_));
   AVFormatContext* format_context = glue_->format_context();
 
@@ -58,21 +52,20 @@ bool AudioFileReader::OpenDemuxer() {
   if (!codec_context_)
     return false;
 
-  const int result = avformat_find_stream_info(format_context, NULL);
-  DLOG_IF(WARNING, result < 0)
-      << "AudioFileReader::Open() : error in avformat_find_stream_info()";
-  return result >= 0;
-}
+  int result = avformat_find_stream_info(format_context, NULL);
+  if (result < 0) {
+    DLOG(WARNING)
+        << "AudioFileReader::Open() : error in avformat_find_stream_info()";
+    return false;
+  }
 
-bool AudioFileReader::OpenDecoder() {
   AVCodec* codec = avcodec_find_decoder(codec_context_->codec_id);
   if (codec) {
     // MP3 decodes to S16P which we don't support, tell it to use S16 instead.
     if (codec_context_->sample_fmt == AV_SAMPLE_FMT_S16P)
       codec_context_->request_sample_fmt = AV_SAMPLE_FMT_S16;
 
-    const int result = avcodec_open2(codec_context_, codec, NULL);
-    if (result < 0) {
+    if ((result = avcodec_open2(codec_context_, codec, NULL)) < 0) {
       DLOG(WARNING) << "AudioFileReader::Open() : could not open codec -"
                     << " result: " << result;
       return false;
@@ -86,7 +79,8 @@ bool AudioFileReader::OpenDecoder() {
       return false;
     }
   } else {
-    DLOG(WARNING) << "AudioFileReader::Open() : could not find codec.";
+    DLOG(WARNING) << "AudioFileReader::Open() : could not find codec -"
+                  << " result: " << result;
     return false;
   }
 
@@ -102,6 +96,7 @@ bool AudioFileReader::OpenDecoder() {
   channels_ = codec_context_->channels;
   sample_rate_ = codec_context_->sample_rate;
   av_sample_format_ = codec_context_->sample_fmt;
+
   return true;
 }
 
@@ -245,10 +240,6 @@ int AudioFileReader::GetNumberOfFrames() const {
   return static_cast<int>(ceil(GetDuration().InSecondsF() * sample_rate()));
 }
 
-bool AudioFileReader::OpenDemuxerForTesting() {
-  return OpenDemuxer();
-}
-
 bool AudioFileReader::ReadPacketForTesting(AVPacket* output_packet) {
   return ReadPacket(output_packet);
 }
@@ -264,17 +255,6 @@ bool AudioFileReader::ReadPacket(AVPacket* output_packet) {
     return true;
   }
   return false;
-}
-
-bool AudioFileReader::SeekForTesting(base::TimeDelta seek_time) {
-  return av_seek_frame(glue_->format_context(),
-                       stream_index_,
-                       ConvertToTimeBase(codec_context_->time_base, seek_time),
-                       AVSEEK_FLAG_BACKWARD) >= 0;
-}
-
-const AVStream* AudioFileReader::GetAVStreamForTesting() const {
-  return glue_->format_context()->streams[stream_index_];
 }
 
 }  // namespace media
