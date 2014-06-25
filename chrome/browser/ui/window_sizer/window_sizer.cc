@@ -146,16 +146,8 @@ class DefaultTargetDisplayProvider : public WindowSizer::TargetDisplayProvider {
       const gfx::Screen* screen,
       const gfx::Rect& bounds) const OVERRIDE {
 #if defined(USE_ASH)
-    bool force_ash = false;
-    // On Windows check if the browser is launched to serve ASH. If yes then
-    // we should get the display for the corresponding root window created for
-    // ASH. This ensures that the display gets the correct workarea, etc.
-#if defined(OS_WIN)
-    force_ash =
-        CommandLine::ForCurrentProcess()->HasSwitch(switches::kViewerConnect);
-#endif
     // Use the target display on ash.
-    if (chrome::ShouldOpenAshOnStartup() || force_ash) {
+    if (chrome::ShouldOpenAshOnStartup()) {
       aura::Window* target = ash::Shell::GetTargetRootWindow();
       return screen->GetDisplayNearestWindow(target);
     }
