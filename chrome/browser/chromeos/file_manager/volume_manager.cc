@@ -394,7 +394,7 @@ void VolumeManager::Initialize() {
   // Subscribe to storage monitor for MTP notifications.
   const bool disable_mtp =
       CommandLine::ForCurrentProcess()->GetSwitchValueASCII(
-          chromeos::switches::kEnableFileManagerMTP) == "false";
+          chromeos::switches::kEnableFileManagerMTP) != "true";
   if (!disable_mtp && storage_monitor::StorageMonitor::GetInstance()) {
     storage_monitor::StorageMonitor::GetInstance()->EnsureInitialized(
         base::Bind(&VolumeManager::OnStorageMonitorInitialized,
