@@ -36649,6 +36649,8 @@ Therefore, the affected-histogram name has to have at least one dot in it.
   <int value="792" label="VIRTUALKEYBOARDPRIVATE_OPENSETTINGS"/>
   <int value="793" label="BLUETOOTHLOWENERGY_CONNECT"/>
   <int value="794" label="BLUETOOTHLOWENERGY_DISCONNECT"/>
+  <int value="821" label="BLUETOOTHLOWENERGY_STARTCHARACTERISTICNOTIFICATIONS"/>
+  <int value="822" label="BLUETOOTHLOWENERGY_STOPCHARACTERISTICNOTIFICATIONS"/>
 </enum>
 
 <enum name="ExtensionInstallCause" type="int">
