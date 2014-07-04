@@ -255,7 +255,9 @@ class WebURLLoaderImpl::Context : public base::RefCounted<Context>,
   ResourceDispatcher* resource_dispatcher_;
   WebReferrerPolicy referrer_policy_;
   scoped_ptr<ResourceLoaderBridge> bridge_;
+#if !defined(DISABLE_FTP_SUPPORT)
   scoped_ptr<FtpDirectoryListingResponseDelegate> ftp_listing_delegate_;
+#endif
   scoped_ptr<MultipartResponseDelegate> multipart_delegate_;
   scoped_ptr<ResourceLoaderBridge> completed_bridge_;
 };
@@ -278,9 +280,11 @@ void WebURLLoaderImpl::Context::Cancel() {
   // its own pointer to the client.
   if (multipart_delegate_)
     multipart_delegate_->Cancel();
+#if !defined(DISABLE_FTP_SUPPORT)
   // Ditto for the ftp delegate.
   if (ftp_listing_delegate_)
     ftp_listing_delegate_->Cancel();
+#endif
 
   // Do not make any further calls to the client.
   client_ = NULL;
@@ -555,7 +559,9 @@ void WebURLLoaderImpl::Context::OnReceivedResponse(
   if (!client_)
     return;
 
+#if !defined(DISABLE_FTP_SUPPORT)
   DCHECK(!ftp_listing_delegate_.get());
+#endif
   DCHECK(!multipart_delegate_.get());
   if (info.headers.get() && info.mime_type == "multipart/x-mixed-replace") {
     std::string content_type;
@@ -577,8 +583,10 @@ void WebURLLoaderImpl::Context::OnReceivedResponse(
     }
   } else if (info.mime_type == "text/vnd.chromium.ftp-dir" &&
              !show_raw_listing) {
+#if !defined(DISABLE_FTP_SUPPORT)
     ftp_listing_delegate_.reset(
         new FtpDirectoryListingResponseDelegate(client_, loader_, response));
+#endif
   }
 }
 
@@ -594,6 +602,9 @@ void WebURLLoaderImpl::Context::OnReceivedData(const char* data,
   if (!client_)
     return;
 
+#if defined(DISABLE_FTP_SUPPORT)
+  if (multipart_delegate_) {
+#else
   if (ftp_listing_delegate_) {
     // The FTP listing delegate will make the appropriate calls to
     // client_->didReceiveData and client_->didReceiveResponse.  Since the
@@ -602,6 +613,7 @@ void WebURLLoaderImpl::Context::OnReceivedData(const char* data,
     scoped_refptr<Context> protect(this);
     ftp_listing_delegate_->OnReceivedData(data, data_length);
   } else if (multipart_delegate_) {
+#endif
     // The multipart delegate will make the appropriate calls to
     // client_->didReceiveData and client_->didReceiveResponse.  Since the
     // delegate may want to do work after sending data to the delegate, keep
@@ -632,10 +644,14 @@ void WebURLLoaderImpl::Context::OnCompletedRequest(
   // cancelled and |client_| will be set to NULL.
   scoped_refptr<Context> protect(this);
 
+#if defined(DISABLE_FTP_SUPPORT)
+  if (multipart_delegate_) {
+#else
   if (ftp_listing_delegate_) {
     ftp_listing_delegate_->OnCompletedRequest();
     ftp_listing_delegate_.reset(NULL);
   } else if (multipart_delegate_) {
+#endif
     multipart_delegate_->OnCompletedRequest();
     multipart_delegate_.reset(NULL);
   }
