@@ -143,6 +143,7 @@ public class ContentViewRenderView extends FrameLayout {
         mNativeContentViewRenderView = nativeInit(rootWindow.getNativePointer());
         assert mNativeContentViewRenderView != 0;
 
+        initContentReadbackHandler();
         mCompositingSurfaceType = surfaceType;
         if (surfaceType == CompositingSurfaceType.TEXTURE_VIEW) {
             initTextureView(context);
@@ -193,7 +194,9 @@ public class ContentViewRenderView extends FrameLayout {
                 new FrameLayout.LayoutParams(
                         FrameLayout.LayoutParams.MATCH_PARENT,
                         FrameLayout.LayoutParams.MATCH_PARENT));
+    }
 
+    private void initContentReadbackHandler() {
         mContentReadbackHandler = new ContentReadbackHandler() {
             @Override
             protected boolean readyForReadback() {
