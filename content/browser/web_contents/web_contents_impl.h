@@ -225,6 +225,7 @@ class CONTENT_EXPORT WebContentsImpl
   void RequestAXTreeSnapshot(AXTreeSnapshotCallback callback);
 
   // WebContents ------------------------------------------------------
+  ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() override;
   WebContentsDelegate* GetDelegate() override;
   void SetDelegate(WebContentsDelegate* delegate) override;
   NavigationControllerImpl& GetController() override;
