@@ -178,6 +178,18 @@ public class ContentViewRenderView extends FrameLayout {
         assert rootWindow != null;
         mNativeContentViewRenderView = nativeInit(rootWindow.getNativePointer());
         assert mNativeContentViewRenderView != 0;
+
+        mContentReadbackHandler = new ContentReadbackHandler() {
+            @Override
+            protected boolean readyForReadback() {
+                return mNativeContentViewRenderView != 0 && mContentViewCore != null;
+            }
+        };
+        mContentReadbackHandler.initNativeContentReadbackHandler();
+
+        if (mCompositingSurfaceType == CompositingSurfaceType.TEXTURE_VIEW)
+            return;
+
         mSurfaceCallback = new SurfaceHolder.Callback() {
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
@@ -206,14 +218,6 @@ public class ContentViewRenderView extends FrameLayout {
         };
         mSurfaceView.getHolder().addCallback(mSurfaceCallback);
         mSurfaceView.setVisibility(VISIBLE);
-
-        mContentReadbackHandler = new ContentReadbackHandler() {
-            @Override
-            protected boolean readyForReadback() {
-                return mNativeContentViewRenderView != 0 && mContentViewCore != null;
-            }
-        };
-        mContentReadbackHandler.initNativeContentReadbackHandler();
     }
 
     /**
