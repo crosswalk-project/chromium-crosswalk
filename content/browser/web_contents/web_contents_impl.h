@@ -210,6 +210,7 @@ class CONTENT_EXPORT WebContentsImpl
   void ClearNavigationTransitionData();
 
   // WebContents ------------------------------------------------------
+  ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() override;
   WebContentsDelegate* GetDelegate() override;
   void SetDelegate(WebContentsDelegate* delegate) override;
   NavigationControllerImpl& GetController() override;
