@@ -720,6 +720,10 @@ const GURL& WebContentsImpl::GetLastCommittedURL() const {
   return entry ? entry->GetVirtualURL() : GURL::EmptyGURL();
 }
 
+ScreenOrientationDispatcherHost* WebContentsImpl::GetScreenOrientationDispatcherHost() {
+  return screen_orientation_dispatcher_host_.get();
+}
+
 WebContentsDelegate* WebContentsImpl::GetDelegate() {
   return delegate_;
 }
