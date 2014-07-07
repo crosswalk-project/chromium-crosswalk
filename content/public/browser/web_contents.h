@@ -53,6 +53,7 @@ class RenderFrameHost;
 class RenderProcessHost;
 class RenderViewHost;
 class RenderWidgetHostView;
+class ScreenOrientationDispatcherHost;
 class SiteInstance;
 class WebContentsDelegate;
 struct CustomContextMenuContext;
@@ -157,6 +158,8 @@ class WebContents : public PageNavigator,
   ~WebContents() override {}
 
   // Intrinsic tab state -------------------------------------------------------
+
+  virtual ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() = 0;
 
   // Gets/Sets the delegate.
   virtual WebContentsDelegate* GetDelegate() = 0;
