@@ -168,6 +168,7 @@ class CONTENT_EXPORT WebContentsImpl
   bool should_normally_be_visible() { return should_normally_be_visible_; }
 
   // WebContents ------------------------------------------------------
+  virtual ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() OVERRIDE;
   virtual WebContentsDelegate* GetDelegate() OVERRIDE;
   virtual void SetDelegate(WebContentsDelegate* delegate) OVERRIDE;
   virtual NavigationControllerImpl& GetController() OVERRIDE;
