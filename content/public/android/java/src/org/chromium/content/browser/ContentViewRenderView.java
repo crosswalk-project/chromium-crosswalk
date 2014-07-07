@@ -31,6 +31,18 @@ public class ContentViewRenderView extends FrameLayout {
     private final SurfaceView mSurfaceView;
     protected ContentViewCore mContentViewCore;
 
+    // The listener which will be triggered when below two conditions become valid.
+    // 1. The view has been initialized and ready to draw content to the screen.
+    // 2. The compositor finished compositing and the OpenGL buffers has been swapped.
+    //    Which means the view has been updated with visually non-empty content.
+    // This listener will be triggered only once after registered.
+    private FirstRenderedFrameListener mFirstRenderedFrameListener;
+    private boolean mFirstFrameReceived;
+
+    public interface FirstRenderedFrameListener{
+        public void onFirstFrameReceived();
+    }
+
     /**
      * Constructs a new ContentViewRenderView.
      * This should be called and the {@link ContentViewRenderView} should be added to the view
@@ -152,6 +164,13 @@ public class ContentViewRenderView extends FrameLayout {
         return new SurfaceView(context);
     }
 
+    public void registerFirstRenderedFrameListener(FirstRenderedFrameListener listener) {
+        mFirstRenderedFrameListener = listener;
+        if (mFirstFrameReceived && mFirstRenderedFrameListener != null) {
+            mFirstRenderedFrameListener.onFirstFrameReceived();
+        }
+    }
+
     /**
      * @return whether the surface view is initialized and ready to render.
      */
@@ -171,6 +190,13 @@ public class ContentViewRenderView extends FrameLayout {
 
     @CalledByNative
     private void onSwapBuffersCompleted() {
+        if (!mFirstFrameReceived && mContentViewCore != null && mContentViewCore.getWebContents().isReady()) {
+            mFirstFrameReceived = true;
+            if (mFirstRenderedFrameListener != null) {
+                mFirstRenderedFrameListener.onFirstFrameReceived();
+            }
+        }
+
         if (mSurfaceView.getBackground() != null) {
             post(new Runnable() {
                 @Override public void run() {
