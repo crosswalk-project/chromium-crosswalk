@@ -194,6 +194,7 @@ class CONTENT_EXPORT WebContentsImpl
   void RemoveAccessibilityMode(AccessibilityMode mode);
 
   // WebContents ------------------------------------------------------
+  virtual ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() OVERRIDE;
   virtual WebContentsDelegate* GetDelegate() OVERRIDE;
   virtual void SetDelegate(WebContentsDelegate* delegate) OVERRIDE;
   virtual NavigationControllerImpl& GetController() OVERRIDE;
