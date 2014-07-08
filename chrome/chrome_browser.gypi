@@ -1875,6 +1875,8 @@
         'browser/safe_browsing/incident_report_uploader_impl.h',
         'browser/safe_browsing/incident_reporting_service.cc',
         'browser/safe_browsing/incident_reporting_service.h',
+        'browser/safe_browsing/last_download_finder.cc',
+        'browser/safe_browsing/last_download_finder.h',
         'browser/safe_browsing/malware_details.cc',
         'browser/safe_browsing/malware_details.h',
         'browser/safe_browsing/malware_details_cache.cc',
