@@ -20,6 +20,10 @@ class Rect;
 class Size;
 }
 
+namespace views {
+class FocusManager;
+}
+
 namespace ash {
 
 class PopupMessage;
@@ -84,6 +88,9 @@ class UserView : public views::View,
 
   // The mouse watcher which takes care of out of window hover events.
   scoped_ptr<views::MouseWatcher> mouse_watcher_;
+
+  // The focus manager which we use to detect focus changes.
+  views::FocusManager* focus_manager_;
 
   DISALLOW_COPY_AND_ASSIGN(UserView);
 };
