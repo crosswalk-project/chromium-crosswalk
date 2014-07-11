@@ -625,7 +625,7 @@
 
       En webadresse har formatet &quot;netværk://vært:port/sti&quot;.
       Det valgfrie netværk kan være http, https eller ftp. Kun dette netværk blokeres. Hvis ingen er angivet, blokeres alle netværk.
-      Værten kan være et værtsnavn eller en IP-adresse. Underdomæner af et værtsnavn vil også blive blokeret. Medtag et &quot;.&quot; før værtsnavnet for at forhindre blokering af underdomæner. Det særlige værtsnavn &quot;*&quot; blokerer alle domæner.
+      Værten kan være et hostname eller en IP-adresse. Underdomæner af et hostname vil også blive blokeret. Medtag et &quot;.&quot; før hostname for at forhindre blokering af underdomæner. Det særlige hostname &quot;*&quot; blokerer alle domæner.
       Den valgfrie port består af et gyldigt portnummer mellem 1 og 65.535. Hvis intet nummer angives, blokeres alle porte.
       Hvis den valgfri sti er angivet, blokeres kun stier med det pågældende præfiks.
 
@@ -873,7 +873,7 @@
       Hvis denne politik er angivet til &quot;RemoveLRUIfDormant&quot;, vil den automatiske oprydningsfunktion fortsætte med at fjerne brugere, der ikke har været logget ind i minimum tre måneder, startende med den bruger, der ikke har været logget ind i længst tid, indtil der er tilstrækkelig ledig plads.
 
       Hvis denne politik ikke er indstillet, anvender den automatiske oprydningsfunktion standardstrategien. Denne strategi er i øjeblikket &quot;RemoveLRUIfDormant&quot;.</translation>
-<translation id="6923366716660828830">Angiver navnet på standardsøgemaskinen. Hvis det ikke udfyldes eller angives, vil det værtsnavn, der er angivet af søgewebadressen, blive anvendt. Denne politik overvejes kun, hvis politikken &quot;DefaultSearchProviderEnabled&quot; er aktiveret.</translation>
+<translation id="6923366716660828830">Angiver navnet på standardsøgemaskinen. Hvis det ikke udfyldes eller angives, vil det hostname, der er angivet af søgewebadressen, blive anvendt. Denne politik overvejes kun, hvis politikken &quot;DefaultSearchProviderEnabled&quot; er aktiveret.</translation>
 <translation id="4869787217450099946">Angiver om aktiveringslåse for skærm er tilladt. Der kan anmodes om aktiveringslåse vha. Power Management Extension API.
 
           Hvis denne politik er angivet til sand eller ikke er angivet, indfries aktiveringslåse for skærm med strømstyring.

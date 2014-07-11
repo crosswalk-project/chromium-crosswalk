@@ -680,7 +680,7 @@ Falls die Richtlinie auf &quot;false&quot; gesetzt oder nicht festgelegt wird, k
 
       Hinweis: Diese Richtlinie wird derzeit nur im Kioskmodus unterstützt.</translation>
 <translation id="489803897780524242">Parameter zur Steuerung der Suchbegriffersetzung für den Standardsuchanbieter</translation>
-<translation id="316778957754360075">Diese Einstellung wird ab <ph name="PRODUCT_NAME"/>-Version 29 nicht mehr verwendet. Zur Einrichtung einer Sammlung mit Erweiterungen oder Apps, die von der Organisation gehostet wird, empfehlen wir, die Host-Website der CRX-Pakete in &quot;ExtensionInstallSources&quot; einzufügen und auf einer Webseite direkte Downloadlinks zu den Paketen bereitzustellen. Eine Übersicht für diese Webseite kann mithilfe der Richtlinie &quot;ExtensionInstallForcelist&quot; erstellt werden.</translation>
+<translation id="316778957754360075">Diese Einstellung wird ab <ph name="PRODUCT_NAME"/>-Version 29 nicht mehr verwendet. Zur Einrichtung einer Sammlung mit Erweiterungen oder Apps, die von der Organisation gehostet wird, empfehlen wir, die Host-Website der CRX-Pakete in &quot;ExtensionInstallSources&quot; einzufügen und auf einer Webseite direkte Downloadlinks zu den Paketen bereitzustellen. Ein Launcher für diese Webseite kann mithilfe der Richtlinie &quot;ExtensionInstallForcelist&quot; erstellt werden.</translation>
 <translation id="6401669939808766804">Nutzer abmelden</translation>
 <translation id="4826326557828204741">Auszuführende Aktion beim Erreichen der Leerlaufverzögerung während des Akkubetriebs</translation>
 <translation id="7912255076272890813">Zulässige App- bzw. Erweiterungstypen konfigurieren</translation>
@@ -916,7 +916,7 @@ Falls die Richtlinie auf &quot;false&quot; gesetzt oder nicht festgelegt wird, k
 <translation id="8344454543174932833">Lesezeichen bei erster Ausführung aus Standardbrowser importieren</translation>
 <translation id="1019101089073227242">Verzeichnis für Nutzerdaten festlegen</translation>
 <translation id="5826047473100157858">Gibt an, ob der Nutzer Seiten in <ph name="PRODUCT_NAME"/> im Inkognito-Modus öffnen kann. Ist diese Richtlinie aktiviert oder nicht konfiguriert, so können Seiten im Inkognito-Modus geöffnet werden. Wenn sie deaktiviert ist, so können Seiten nicht im Inkognito-Modus geöffnet werden. Mit dem Wert &quot;Forced&quot; können Seiten ausschließlich im Inkognito-Modus geöffnet werden.</translation>
-<translation id="2988031052053447965">Diese Richtlinie dient dazu, die Chrome Web Store App und den zugehörigen Fußzeilenlink auf der Seite &quot;Neuer Tab&quot; und in der App-Übersicht von Chrome OS auszublenden.
+<translation id="2988031052053447965">Diese Richtlinie dient dazu, die Chrome Web Store App und den zugehörigen Fußzeilenlink auf der Seite &quot;Neuer Tab&quot; und im App Launcher von Chrome OS auszublenden.
 
       Ist diese Richtlinie auf &quot;true&quot; gesetzt, werden die Symbole ausgeblendet.
 
@@ -1190,7 +1190,7 @@ Diese Richtlinien dienen ausschließlich zur internen Verwendung in Chrome.</tra
           Wurde &quot;true&quot; oder &quot;not configured&quot; festgelegt, kann dieser Nutzer betreute Nutzer erstellen und verwalten.</translation>
 <translation id="5469484020713359236">Ermöglicht Ihnen die Zusammenstellung einer Liste mit URL-Mustern, die Websites angeben, denen das Speichern von Cookies gestattet ist. Wenn diese Richtlinie nicht konfiguriert ist, kommt für alle Websites entweder der globale Standardwert der Richtlinie &quot;DefaultCookiesSetting&quot;, sofern konfiguriert, oder der persönlichen Konfiguration des Nutzers zum Einsatz.</translation>
 <translation id="1504431521196476721">Remote-Bestätigung</translation>
-<translation id="1881299719020653447">Web Store auf der Seite &quot;Neuer Tab&quot; und in der App-Übersicht ausblenden</translation>
+<translation id="1881299719020653447">Web Store auf der Seite &quot;Neuer Tab&quot; und im App Launcher ausblenden</translation>
 <translation id="930930237275114205">Verzeichnis für <ph name="PRODUCT_FRAME_NAME"/>-Nutzerdaten festlegen</translation>
 <translation id="244317009688098048">Aktiviert Tastaturkürzel zur Umgehung der automatischen Anmeldung.
 
