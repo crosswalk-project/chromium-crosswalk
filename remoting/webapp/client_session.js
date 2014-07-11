@@ -128,6 +128,18 @@ remoting.ClientSession = function(accessCode, fetchPin, fetchThirdPartyToken,
   /** @type {HTMLMediaElement} @private */
   this.video_ = null;
 
+  /** @type {Element} @private */
+  this.mouseCursorOverlay_ =
+      this.container_.querySelector('.mouse-cursor-overlay');
+
+  /** @type {Element} */
+  var img = this.mouseCursorOverlay_;
+  /** @param {Event} event @private */
+  this.updateMouseCursorPosition_ = function(event) {
+    img.style.top = event.y + 'px';
+    img.style.left = event.x + 'px';
+  };
+
   /** @type {HTMLElement} @private */
   this.resizeToClientButton_ =
       document.getElementById('screen-resize-to-client');
@@ -537,14 +549,12 @@ remoting.ClientSession.prototype.onPluginInitialized_ = function(initialized) {
 
   this.plugin_.onConnectionStatusUpdateHandler =
       this.onConnectionStatusUpdate_.bind(this);
-  this.plugin_.onConnectionReadyHandler =
-      this.onConnectionReady_.bind(this);
+  this.plugin_.onConnectionReadyHandler = this.onConnectionReady_.bind(this);
   this.plugin_.onDesktopSizeUpdateHandler =
       this.onDesktopSizeChanged_.bind(this);
-  this.plugin_.onSetCapabilitiesHandler =
-      this.onSetCapabilities_.bind(this);
-  this.plugin_.onGnubbyAuthHandler =
-      this.processGnubbyAuthMessage_.bind(this);
+  this.plugin_.onSetCapabilitiesHandler = this.onSetCapabilities_.bind(this);
+  this.plugin_.onGnubbyAuthHandler = this.processGnubbyAuthMessage_.bind(this);
+  this.plugin_.updateMouseCursorImage = this.updateMouseCursorImage_.bind(this);
   this.initiateConnection_();
 };
 
@@ -589,6 +599,10 @@ remoting.ClientSession.prototype.removePlugin = function() {
   // hide the <video> element.
   /** @type {HTMLElement} */(document.getElementById('video-container'))
       .classList.remove('mediasource-rendering');
+
+  this.container_.removeEventListener('mousemove',
+                                      this.updateMouseCursorPosition_,
+                                      true);
 };
 
 /**
@@ -985,6 +999,10 @@ remoting.ClientSession.prototype.onConnectionStatusUpdate_ =
     if (remoting.windowFrame) {
       remoting.windowFrame.setConnected(true);
     }
+
+    this.container_.addEventListener('mousemove',
+                                     this.updateMouseCursorPosition_,
+                                     true);
 
   } else if (status == remoting.ClientSession.State.FAILED) {
     switch (error) {
@@ -1518,4 +1536,19 @@ remoting.ClientSession.prototype.getClientArea_ = function() {
   return remoting.windowFrame ?
       remoting.windowFrame.getClientArea() :
       { 'width': window.innerWidth, 'height': window.innerHeight };
-}
+};
+
+/**
+ * @param {string} url
+ * @param {number} hotspotX
+ * @param {number} hotspotY
+ */
+remoting.ClientSession.prototype.updateMouseCursorImage_ =
+    function(url, hotspotX, hotspotY) {
+  this.mouseCursorOverlay_.hidden = !url;
+  if (url) {
+    this.mouseCursorOverlay_.style.marginLeft = '-' + hotspotX + 'px';
+    this.mouseCursorOverlay_.style.marginTop = '-' + hotspotY + 'px';
+    this.mouseCursorOverlay_.src = url;
+  }
+ };
