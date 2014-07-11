@@ -7,7 +7,6 @@
 #import <Cocoa/Cocoa.h>
 
 #include "base/mac/scoped_nsobject.h"
-#include "chrome/browser/guest_view/web_view/web_view_guest.h"
 #import "chrome/browser/ui/cocoa/constrained_window/constrained_window_custom_sheet.h"
 #import "chrome/browser/ui/cocoa/constrained_window/constrained_window_custom_window.h"
 #import "chrome/browser/ui/cocoa/constrained_window/constrained_window_mac.h"
@@ -131,10 +130,6 @@ ConstrainedWebDialogDelegate* CreateConstrainedWebDialog(
         WebDialogDelegate* delegate,
         WebDialogWebContentsDelegate* tab_delegate,
         content::WebContents* web_contents) {
-  WebViewGuest* guest = WebViewGuest::FromWebContents(web_contents);
-  if (guest && guest->embedder_web_contents())
-    web_contents = guest->embedder_web_contents();
-
   // Deleted when the dialog closes.
   ConstrainedWebDialogDelegateViewMac* constrained_delegate =
       new ConstrainedWebDialogDelegateViewMac(
