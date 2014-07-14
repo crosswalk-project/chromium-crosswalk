@@ -504,14 +504,6 @@ void RenderWidget::SetSwappedOut(bool is_swapped_out) {
     RenderProcess::current()->AddRefProcess();
 }
 
-bool RenderWidget::UsingSynchronousRendererCompositor() const {
-#if defined(OS_ANDROID)
-  return SynchronousCompositorFactory::GetInstance() != NULL;
-#else
-  return false;
-#endif
-}
-
 void RenderWidget::EnableScreenMetricsEmulation(
     const WebDeviceEmulationParams& params) {
   if (!screen_metrics_emulator_)
