@@ -416,17 +416,13 @@ void HttpCache::WriteMetadata(const GURL& url,
 }
 
 void HttpCache::CloseAllConnections() {
-  net::HttpNetworkLayer* network =
-      static_cast<net::HttpNetworkLayer*>(network_layer_.get());
-  HttpNetworkSession* session = network->GetSession();
+  HttpNetworkSession* session = GetSession();
   if (session)
     session->CloseAllConnections();
 }
 
 void HttpCache::CloseIdleConnections() {
-  net::HttpNetworkLayer* network =
-      static_cast<net::HttpNetworkLayer*>(network_layer_.get());
-  HttpNetworkSession* session = network->GetSession();
+  HttpNetworkSession* session = GetSession();
   if (session)
     session->CloseIdleConnections();
 }
@@ -466,9 +462,7 @@ HttpCache* HttpCache::GetCache() {
 }
 
 HttpNetworkSession* HttpCache::GetSession() {
-  net::HttpNetworkLayer* network =
-      static_cast<net::HttpNetworkLayer*>(network_layer_.get());
-  return network->GetSession();
+  return network_layer_->GetSession();
 }
 
 scoped_ptr<HttpTransactionFactory>
