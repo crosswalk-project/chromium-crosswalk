@@ -47,6 +47,7 @@ public class TranslateInfoBar extends TwoButtonInfoBar implements SubPanelListen
             boolean triggeredFromMenu, String[] languages) {
         super(null, BACKGROUND_TYPE_INFO,
                 R.drawable.infobar_translate);
+
         mTranslateDelegate = delegate;
         mOptions = new TranslateOptions(sourceLanguageIndex, targetLanguageIndex, languages,
                 autoTranslatePair, triggeredFromMenu);
@@ -334,12 +335,10 @@ public class TranslateInfoBar extends TwoButtonInfoBar implements SubPanelListen
         return mInfoBarType;
     }
 
-    void changeInfoBarTypeAndNativePointer(
-            int infoBarType,int newTargetLanguage,  long newNativePointer) {
+    void changeInfoBarTypeAndNativePointer(int infoBarType, long newNativePointer) {
         if (infoBarType >= 0 && infoBarType < MAX_INFOBAR_INDEX) {
             mInfoBarType = infoBarType;
             replaceNativePointer(newNativePointer);
-            mOptions.setTargetLanguage(newTargetLanguage);
             updateViewForCurrentState(createView());
         } else {
             assert false : "Trying to change the InfoBar to a type that is invalid.";
