@@ -198,7 +198,7 @@ class WebRtcGetUserMediaBrowserTest: public WebRtcContentBrowserTest,
     NavigateToURL(shell(), url);
 
     std::string devices_as_json = ExecuteJavascriptAndReturnResult(
-        "getMediaDevices()");
+        "getSources()");
     EXPECT_FALSE(devices_as_json.empty());
 
     int error_code;
@@ -222,16 +222,14 @@ class WebRtcGetUserMediaBrowserTest: public WebRtcContentBrowserTest,
       std::string device_id;
       ASSERT_TRUE((*it)->GetAsDictionary(&dict));
       ASSERT_TRUE(dict->GetString("kind", &kind));
-      ASSERT_TRUE(dict->GetString("deviceId", &device_id));
+      ASSERT_TRUE(dict->GetString("id", &device_id));
       ASSERT_FALSE(device_id.empty());
-      EXPECT_TRUE(kind == "audioinput" || kind == "videoinput" ||
-                  kind == "audiooutput");
-      if (kind == "audioinput") {
+      EXPECT_TRUE(kind == "audio" || kind == "video");
+      if (kind == "audio") {
         audio_ids->push_back(device_id);
-      } else if (kind == "videoinput") {
+      } else if (kind == "video") {
         video_ids->push_back(device_id);
       }
-      // We ignore audio output.
     }
     ASSERT_FALSE(audio_ids->empty());
     ASSERT_FALSE(video_ids->empty());

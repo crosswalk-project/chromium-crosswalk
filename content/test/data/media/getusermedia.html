@@ -13,8 +13,8 @@
     reportTestSuccess();
   });
 
-  function getMediaDevices() {
-    navigator.getMediaDevices(function(devices) {
+  function getSources() {
+    MediaStreamTrack.getSources(function(devices) {
       document.title = 'Media devices available';
       sendValueToTest(JSON.stringify(devices));
     });
