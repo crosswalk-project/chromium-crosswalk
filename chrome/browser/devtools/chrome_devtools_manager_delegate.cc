@@ -112,29 +112,29 @@ ChromeDevToolsManagerDelegate::EmulateNetworkConditions(
     upload_throughput = 0.0;
 
   EnsureDevtoolsCallbackRegistered();
-  scoped_refptr<DevToolsNetworkConditions> conditions(
+  scoped_ptr<DevToolsNetworkConditions> conditions(
       new DevToolsNetworkConditions(
           offline, latency, download_throughput, upload_throughput));
 
-  UpdateNetworkState(agent_host, conditions);
+  UpdateNetworkState(agent_host, conditions.Pass());
   return command->SuccessResponse(NULL);
 }
 
 void ChromeDevToolsManagerDelegate::UpdateNetworkState(
     content::DevToolsAgentHost* agent_host,
-    scoped_refptr<DevToolsNetworkConditions> conditions) {
+    scoped_ptr<DevToolsNetworkConditions> conditions) {
   Profile* profile = GetProfile(agent_host);
   if (!profile)
     return;
   profile->GetDevToolsNetworkController()->SetNetworkState(
-      agent_host->GetId(), conditions);
+      agent_host->GetId(), conditions.Pass());
 }
 
 void ChromeDevToolsManagerDelegate::OnDevToolsStateChanged(
     content::DevToolsAgentHost* agent_host,
     bool attached) {
-  scoped_refptr<DevToolsNetworkConditions> conditions;
+  scoped_ptr<DevToolsNetworkConditions> conditions;
   if (attached)
-    conditions = new DevToolsNetworkConditions();
-  UpdateNetworkState(agent_host, conditions);
+    conditions.reset(new DevToolsNetworkConditions());
+  UpdateNetworkState(agent_host, conditions.Pass());
 }
