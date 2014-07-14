@@ -8,7 +8,6 @@
 #include "base/macros.h"
 #include "cc/animation/animation.h"
 #include "content/public/common/screen_orientation_values.h"
-#include "net/base/mime_util.h"
 #include "third_party/WebKit/public/platform/WebAnimation.h"
 #include "third_party/WebKit/public/platform/WebMimeRegistry.h"
 #include "third_party/WebKit/public/platform/WebScreenOrientationLockType.h"
@@ -35,14 +34,6 @@ COMPILE_ASSERT_MATCHING_ENUM(blink::WebScreenOrientationLockLandscape,
     LANDSCAPE);
 COMPILE_ASSERT_MATCHING_ENUM(blink::WebScreenOrientationLockPortrait,
     PORTRAIT);
-
-// SupportsType
-COMPILE_ASSERT_MATCHING_ENUM(blink::WebMimeRegistry::IsNotSupported,
-    net::IsNotSupported);
-COMPILE_ASSERT_MATCHING_ENUM(blink::WebMimeRegistry::IsSupported,
-    net::IsSupported);
-COMPILE_ASSERT_MATCHING_ENUM(blink::WebMimeRegistry::MayBeSupported,
-    net::MayBeSupported);
 
 // TargetProperty
 COMPILE_ASSERT_MATCHING_ENUM(blink::WebAnimation::TargetPropertyTransform,

@@ -424,7 +424,8 @@ RendererWebKitPlatformSupportImpl::MimeRegistry::supportsMediaMIMEType(
     std::string key_system_ascii =
         GetUnprefixedKeySystemName(base::UTF16ToASCII(key_system));
     std::vector<std::string> strict_codecs;
-    net::ParseCodecString(ToASCIIOrEmpty(codecs), &strict_codecs, true);
+    bool strip_suffix = !net::IsStrictMediaMimeType(mime_type_ascii);
+    net::ParseCodecString(ToASCIIOrEmpty(codecs), &strict_codecs, strip_suffix);
 
     if (!IsSupportedKeySystemWithMediaMimeType(
             mime_type_ascii, strict_codecs, key_system_ascii)) {
@@ -439,8 +440,14 @@ RendererWebKitPlatformSupportImpl::MimeRegistry::supportsMediaMIMEType(
     // Check if the codecs are a perfect match.
     std::vector<std::string> strict_codecs;
     net::ParseCodecString(ToASCIIOrEmpty(codecs), &strict_codecs, false);
-    return static_cast<WebMimeRegistry::SupportsType> (
-        net::IsSupportedStrictMediaMimeType(mime_type_ascii, strict_codecs));
+    if (net::IsSupportedStrictMediaMimeType(mime_type_ascii, strict_codecs))
+      return IsSupported;
+
+    // We support the container, but no codecs were specified.
+    if (codecs.isNull())
+      return MayBeSupported;
+
+    return IsNotSupported;
   }
 
   // If we don't recognize the codec, it's possible we support it.
