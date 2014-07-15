@@ -450,6 +450,8 @@ void WizardController::ShowEnrollmentScreen() {
     mode = EnrollmentScreenActor::ENROLLMENT_MODE_AUTO;
   else if (ShouldAutoStartEnrollment() && !CanExitEnrollment())
     mode = EnrollmentScreenActor::ENROLLMENT_MODE_FORCED;
+  else if (ShouldRecoverEnrollment())
+    mode = EnrollmentScreenActor::ENROLLMENT_MODE_FORCED;
 
   EnrollmentScreen* screen = GetEnrollmentScreen();
   screen->SetParameters(mode, GetForcedEnrollmentDomain(), user);
@@ -652,7 +654,7 @@ void WizardController::OnUserImageSkipped() {
 void WizardController::OnEnrollmentDone() {
   // Mark OOBE as completed only if enterprise enrollment was part of the
   // forced flow (i.e. app kiosk).
-  if (ShouldAutoStartEnrollment())
+  if (ShouldAutoStartEnrollment() || ShouldRecoverEnrollment())
     PerformOOBECompletedActions();
 
   // TODO(mnissler): Unify the logic for auto-login for Public Sessions and
@@ -697,7 +699,7 @@ void WizardController::OnAutoEnrollmentDone() {
 }
 
 void WizardController::OnOOBECompleted() {
-  if (ShouldAutoStartEnrollment()) {
+  if (ShouldAutoStartEnrollment() || ShouldRecoverEnrollment()) {
     ShowEnrollmentScreen();
   } else {
     PerformOOBECompletedActions();
@@ -1009,6 +1011,13 @@ bool WizardController::ShouldAutoStartEnrollment() {
   policy::BrowserPolicyConnectorChromeOS* connector =
       g_browser_process->platform_part()->browser_policy_connector_chromeos();
   return connector->GetDeviceCloudPolicyManager()->ShouldAutoStartEnrollment();
+}
+
+// static
+bool WizardController::ShouldRecoverEnrollment() {
+  policy::BrowserPolicyConnectorChromeOS* connector =
+      g_browser_process->platform_part()->browser_policy_connector_chromeos();
+  return connector->GetDeviceCloudPolicyManager()->ShouldRecoverEnrollment();
 }
 
 // static
