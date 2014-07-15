@@ -9,7 +9,6 @@
 #include "chrome/browser/download/download_crx_util.h"
 #include "chrome/browser/download/download_item_model.h"
 #include "chrome/browser/download/download_prefs.h"
-#include "chrome/browser/download/download_target_determiner.h"
 #include "chrome/browser/safe_browsing/download_protection_service.h"
 #include "chrome/browser/safe_browsing/safe_browsing_service.h"
 #include "chrome/common/url_constants.h"
@@ -21,18 +20,15 @@
 #include "grit/generated_resources.h"
 #include "ui/base/l10n/l10n_util.h"
 
-#if defined(OS_WIN)
-#include "chrome/browser/ui/pdf/adobe_reader_info_win.h"
-#endif
-
 using content::DownloadItem;
+using extensions::Extension;
 
 namespace {
 
 // Returns true if downloads resumption is enabled.
 bool IsDownloadResumptionEnabled() {
-  return base::CommandLine::ForCurrentProcess()->HasSwitch(
-      switches::kEnableDownloadResumption);
+  const CommandLine& command_line = *CommandLine::ForCurrentProcess();
+  return command_line.HasSwitch(switches::kEnableDownloadResumption);
 }
 
 }  // namespace
@@ -48,14 +44,6 @@ DownloadShelfContextMenu::DownloadShelfContextMenu(
       navigator_(navigator) {
   DCHECK(download_item_);
   download_item_->AddObserver(this);
-
-#if defined(OS_WIN)
-  is_pdf_reader_up_to_date_ = false;
-  if (IsDownloadPdf() && IsAdobeReaderDefaultPDFViewer()) {
-    is_pdf_reader_up_to_date_ =
-        DownloadTargetDeterminer::IsAdobeReaderUpToDate();
-  }
-#endif  // defined(OS_WIN)
 }
 
 ui::SimpleMenuModel* DownloadShelfContextMenu::GetMenuModel() {
@@ -109,7 +97,6 @@ bool DownloadShelfContextMenu::IsCommandIdEnabled(int command_id) const {
     case LEARN_MORE_INTERRUPTED:
       return true;
   }
-  NOTREACHED();
   return false;
 }
 
@@ -122,28 +109,11 @@ bool DownloadShelfContextMenu::IsCommandIdChecked(int command_id) const {
       return download_item_->GetOpenWhenComplete() ||
           download_crx_util::IsExtensionDownload(*download_item_);
     case ALWAYS_OPEN_TYPE:
-#if defined(OS_WIN)
-      if (CanOpenPdfInReader()) {
-        DownloadPrefs* prefs = DownloadPrefs::FromBrowserContext(
-            download_item_->GetBrowserContext());
-        return prefs->ShouldOpenPdfInAdobeReader();
-      }
-#endif
       return download_item_->ShouldOpenFileBasedOnExtension();
     case TOGGLE_PAUSE:
       return download_item_->IsPaused();
   }
   return false;
-}
-
-bool DownloadShelfContextMenu::IsCommandIdVisible(int command_id) const {
-  if (!download_item_)
-    return false;
-
-  if (command_id == PLATFORM_OPEN)
-    return (DownloadItemModel(download_item_).ShouldPreferOpeningInBrowser());
-
-  return true;
 }
 
 void DownloadShelfContextMenu::ExecuteCommand(int command_id, int event_flags) {
@@ -158,22 +128,13 @@ void DownloadShelfContextMenu::ExecuteCommand(int command_id, int event_flags) {
       download_item_->OpenDownload();
       break;
     case ALWAYS_OPEN_TYPE: {
-      bool is_checked = IsCommandIdChecked(ALWAYS_OPEN_TYPE);
       DownloadPrefs* prefs = DownloadPrefs::FromBrowserContext(
           download_item_->GetBrowserContext());
-#if defined(OS_WIN)
-      if (CanOpenPdfInReader()) {
-        prefs->SetShouldOpenPdfInAdobeReader(!is_checked);
-        DownloadItemModel(download_item_).SetShouldPreferOpeningInBrowser(
-            is_checked);
-        break;
-      }
-#endif
       base::FilePath path = download_item_->GetTargetFilePath();
-      if (is_checked)
-        prefs->DisableAutoOpenBasedOnExtension(path);
-      else
+      if (!IsCommandIdChecked(ALWAYS_OPEN_TYPE))
         prefs->EnableAutoOpenBasedOnExtension(path);
+      else
+        prefs->DisableAutoOpenBasedOnExtension(path);
       break;
     }
     case PLATFORM_OPEN:
@@ -242,7 +203,7 @@ base::string16 DownloadShelfContextMenu::GetLabelForCommandId(
         return l10n_util::GetStringUTF16(IDS_DOWNLOAD_MENU_OPEN_WHEN_COMPLETE);
       return l10n_util::GetStringUTF16(IDS_DOWNLOAD_MENU_OPEN);
     case ALWAYS_OPEN_TYPE:
-      return l10n_util::GetStringUTF16(GetAlwaysOpenStringId());
+      return l10n_util::GetStringUTF16(IDS_DOWNLOAD_MENU_ALWAYS_OPEN_TYPE);
     case PLATFORM_OPEN:
       return l10n_util::GetStringUTF16(IDS_DOWNLOAD_MENU_PLATFORM_OPEN);
     case CANCEL:
@@ -289,7 +250,7 @@ ui::SimpleMenuModel* DownloadShelfContextMenu::GetInProgressMenuModel() {
   in_progress_download_menu_model_->AddCheckItemWithStringId(
       OPEN_WHEN_COMPLETE, IDS_DOWNLOAD_MENU_OPEN_WHEN_COMPLETE);
   in_progress_download_menu_model_->AddCheckItemWithStringId(
-      ALWAYS_OPEN_TYPE, GetAlwaysOpenStringId());
+      ALWAYS_OPEN_TYPE, IDS_DOWNLOAD_MENU_ALWAYS_OPEN_TYPE);
   in_progress_download_menu_model_->AddSeparator(ui::NORMAL_SEPARATOR);
   in_progress_download_menu_model_->AddItemWithStringId(
       TOGGLE_PAUSE, IDS_DOWNLOAD_MENU_PAUSE_ITEM);
@@ -311,9 +272,10 @@ ui::SimpleMenuModel* DownloadShelfContextMenu::GetFinishedMenuModel() {
   finished_download_menu_model_->AddItemWithStringId(
       OPEN_WHEN_COMPLETE, IDS_DOWNLOAD_MENU_OPEN);
   finished_download_menu_model_->AddCheckItemWithStringId(
-      ALWAYS_OPEN_TYPE, GetAlwaysOpenStringId());
-  finished_download_menu_model_->AddItemWithStringId(
-      PLATFORM_OPEN, IDS_DOWNLOAD_MENU_PLATFORM_OPEN);
+      ALWAYS_OPEN_TYPE, IDS_DOWNLOAD_MENU_ALWAYS_OPEN_TYPE);
+  if (DownloadItemModel(download_item_).ShouldPreferOpeningInBrowser())
+    finished_download_menu_model_->AddItemWithStringId(
+        PLATFORM_OPEN, IDS_DOWNLOAD_MENU_PLATFORM_OPEN);
   finished_download_menu_model_->AddSeparator(ui::NORMAL_SEPARATOR);
   finished_download_menu_model_->AddItemWithStringId(
       SHOW_IN_FOLDER, IDS_DOWNLOAD_MENU_SHOW);
@@ -371,7 +333,8 @@ ui::SimpleMenuModel* DownloadShelfContextMenu::GetMaybeMaliciousMenuModel() {
   return maybe_malicious_download_menu_model_.get();
 }
 
-ui::SimpleMenuModel* DownloadShelfContextMenu::GetMaliciousMenuModel() {
+ui::SimpleMenuModel*
+DownloadShelfContextMenu::GetMaliciousMenuModel() {
   if (malicious_download_menu_model_)
     return malicious_download_menu_model_.get();
 
@@ -383,22 +346,3 @@ ui::SimpleMenuModel* DownloadShelfContextMenu::GetMaliciousMenuModel() {
 
   return malicious_download_menu_model_.get();
 }
-
-int DownloadShelfContextMenu::GetAlwaysOpenStringId() const {
-#if defined(OS_WIN)
-  if (CanOpenPdfInReader())
-    return IDS_DOWNLOAD_MENU_ALWAYS_OPEN_PDF_IN_READER;
-#endif
-  return IDS_DOWNLOAD_MENU_ALWAYS_OPEN_TYPE;
-}
-
-#if defined(OS_WIN)
-bool DownloadShelfContextMenu::IsDownloadPdf() const {
-  base::FilePath path = download_item_->GetTargetFilePath();
-  return path.MatchesExtension(FILE_PATH_LITERAL(".pdf"));
-}
-
-bool DownloadShelfContextMenu::CanOpenPdfInReader() const {
-  return (is_pdf_reader_up_to_date_ && IsDownloadPdf());
-}
-#endif
