@@ -78,6 +78,10 @@
             ],
           },
         }],
+        ['os_posix==1 and (target_arch=="arm" or target_arch=="armv7" or target_arch=="arm64")', {
+          'cflags!': ['-Os'],
+          'cflags': ['-O3'],
+        }],
         ['use_opus_fixed_point==0', {
           'include_dirs': [
             'src/silk/float',
