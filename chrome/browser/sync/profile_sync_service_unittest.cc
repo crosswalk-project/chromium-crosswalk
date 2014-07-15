@@ -207,7 +207,8 @@ class ProfileSyncServiceTest : public ::testing::Test {
 #if defined(OS_WIN) || defined(OS_MACOSX) || (defined(OS_LINUX) && !defined(OS_CHROMEOS))
   void CreateServiceWithoutSignIn() {
     CreateService(browser_sync::MANUAL_START);
-    SigninManagerFactory::GetForProfile(profile())->SignOut();
+    SigninManagerFactory::GetForProfile(profile())->SignOut(
+        signin_metrics::SIGNOUT_TEST);
     service()->SetBackupStartDelayForTest(
         base::TimeDelta::FromMilliseconds(100));
   }
@@ -429,7 +430,8 @@ TEST_F(ProfileSyncServiceTest, EnableSyncAndSignOutDesktop) {
       sync_driver::prefs::kSyncSuppressStart));
   EXPECT_EQ(ProfileSyncService::SYNC, service()->backend_mode());
 
-  SigninManagerFactory::GetForProfile(profile())->SignOut();
+  SigninManagerFactory::GetForProfile(profile())->SignOut(
+      signin_metrics::SIGNOUT_TEST);
   EXPECT_TRUE(service()->sync_initialized());
   EXPECT_EQ(ProfileSyncService::BACKUP, service()->backend_mode());
 }
@@ -445,7 +447,8 @@ TEST_F(ProfileSyncServiceTest, EnableSyncAndSignOut) {
   EXPECT_FALSE(profile()->GetPrefs()->GetBoolean(
       sync_driver::prefs::kSyncSuppressStart));
 
-  SigninManagerFactory::GetForProfile(profile())->SignOut();
+  SigninManagerFactory::GetForProfile(profile())->SignOut(
+      signin_metrics::SIGNOUT_TEST);
   EXPECT_FALSE(service()->sync_initialized());
 }
 #endif  // !defined(OS_CHROMEOS)
