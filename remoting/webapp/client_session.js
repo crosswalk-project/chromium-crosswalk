@@ -129,6 +129,9 @@ remoting.ClientSession = function(accessCode, fetchPin, fetchThirdPartyToken,
   this.video_ = null;
 
   /** @type {Element} @private */
+  this.container_ = document.getElementById('video-container');
+
+  /** @type {Element} @private */
   this.mouseCursorOverlay_ =
       this.container_.querySelector('.mouse-cursor-overlay');
 
