@@ -35,11 +35,13 @@ const wchar_t* g_troublesome_dlls[kTroublesomeDllsMaxCount] = {
   L"activedetect64.dll",                // Lenovo One Key Theater.
   L"bitguard.dll",                      // Unknown (suspected malware).
   L"chrmxtn.dll",                       // Unknown (keystroke logger).
+  L"datamngr.dll",                      // Unknown (suspected adware).
   L"hk.dll",                            // Unknown (keystroke logger).
   L"libsvn_tsvn32.dll",                 // TortoiseSVN.
   L"lmrn.dll",                          // Unknown.
   L"scdetour.dll",                      // Quick Heal Antivirus.
                                         // See crbug.com/382561.
+  L"systemk.dll",                       // Unknown (suspected adware).
   L"windowsapihookdll32.dll",           // Lenovo One Key Theater.
                                         // See crbug.com/379218.
   L"windowsapihookdll64.dll",           // Lenovo One Key Theater.
