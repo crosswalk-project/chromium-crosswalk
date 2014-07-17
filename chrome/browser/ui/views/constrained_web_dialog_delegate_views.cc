@@ -5,6 +5,7 @@
 #include "chrome/browser/ui/webui/constrained_web_dialog_delegate_base.h"
 
 #include "base/strings/utf_string_conversions.h"
+#include "chrome/browser/guest_view/web_view/web_view_guest.h"
 #include "components/web_modal/web_contents_modal_dialog_host.h"
 #include "components/web_modal/web_contents_modal_dialog_manager.h"
 #include "components/web_modal/web_contents_modal_dialog_manager_delegate.h"
@@ -202,6 +203,12 @@ ConstrainedWebDialogDelegate* CreateConstrainedWebDialog(
     WebDialogDelegate* delegate,
     WebDialogWebContentsDelegate* tab_delegate,
     content::WebContents* web_contents) {
+  WebViewGuest* guest = WebViewGuest::FromWebContents(web_contents);
+  content::WebContents* embedder_web_contents =
+      guest ? guest->embedder_web_contents() : NULL;
+  if (embedder_web_contents)
+    web_contents = embedder_web_contents;
+
   ConstrainedWebDialogDelegateViewViews* constrained_delegate =
       new ConstrainedWebDialogDelegateViewViews(
           browser_context, delegate, tab_delegate);
