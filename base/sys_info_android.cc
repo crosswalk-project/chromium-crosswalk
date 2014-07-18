@@ -4,12 +4,52 @@
 
 #include "base/sys_info.h"
 
+#include <dlfcn.h>
 #include <sys/system_properties.h>
 
 #include "base/logging.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/string_piece.h"
 #include "base/strings/stringprintf.h"
+
+// TODO(rmcilroy): Update API level when 'L' gets an official API level.
+#if (__ANDROID_API__ >= 9999 /* 'L' */)
+
+namespace {
+
+typedef int (SystemPropertyGetFunction)(const char*, char*);
+
+SystemPropertyGetFunction* DynamicallyLoadRealSystemPropertyGet() {
+  // libc.so should already be open, get a handle to it.
+  void* handle = dlopen("libc.so", RTLD_NOLOAD);
+  if (!handle) {
+    LOG(FATAL) << "Cannot dlopen libc.so: " << dlerror();
+  }
+  SystemPropertyGetFunction* real_system_property_get =
+      reinterpret_cast<SystemPropertyGetFunction*>(
+          dlsym(handle, "__system_property_get"));
+  if (!real_system_property_get) {
+    LOG(FATAL) << "Cannot resolve __system_property_get(): " << dlerror();
+  }
+  return real_system_property_get;
+}
+
+static base::LazyInstance<base::internal::LazySysInfoValue<
+    SystemPropertyGetFunction*, DynamicallyLoadRealSystemPropertyGet> >::Leaky
+    g_lazy_real_system_property_get = LAZY_INSTANCE_INITIALIZER;
+
+}  // namespace
+
+// Android 'L' removes __system_property_get from the NDK, however it is still
+// a hidden symbol in libc. Until we remove all calls of __system_property_get
+// from Chrome we work around this by defining a weak stub here, which uses
+// dlsym to but ensures that Chrome uses the real system
+// implementatation when loaded.  http://crbug.com/392191.
+int __system_property_get(const char* name, char* value) {
+  return g_lazy_real_system_property_get.Get().value()(name, value);
+}
+
+#endif
 
 namespace {
 
