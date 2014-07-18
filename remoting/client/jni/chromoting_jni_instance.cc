@@ -77,6 +77,8 @@ ChromotingJniInstance::ChromotingJniInstance(ChromotingJniRuntime* jni_runtime,
       protocol::AuthenticationMethod::FromString("spake2_hmac"));
   client_config_.authentication_methods.push_back(
       protocol::AuthenticationMethod::FromString("spake2_plain"));
+  client_config_.authentication_methods.push_back(
+      protocol::AuthenticationMethod::FromString("third_party"));
 
   // Post a task to start connection
   jni_runtime_->display_task_runner()->PostTask(
