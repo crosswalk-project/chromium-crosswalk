@@ -7,10 +7,12 @@
 #include <dlfcn.h>
 #include <sys/system_properties.h>
 
+#include "base/lazy_instance.h"
 #include "base/logging.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/string_piece.h"
 #include "base/strings/stringprintf.h"
+#include "base/sys_info_internal.h"
 
 // TODO(rmcilroy): Update API level when 'L' gets an official API level.
 #if (__ANDROID_API__ >= 9999 /* 'L' */)
