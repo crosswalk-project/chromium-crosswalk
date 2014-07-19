@@ -197,6 +197,7 @@ class QueryFence : public ResourceProvider::Fence {
       : gl_(gl), query_id_(query_id) {}
 
   // Overridden from ResourceProvider::Fence:
+  virtual void Set() OVERRIDE {}
   virtual bool HasPassed() OVERRIDE {
     unsigned available = 1;
     gl_->GetQueryObjectuivEXT(
@@ -232,7 +233,7 @@ ResourceProvider::Resource::Resource()
       pending_set_pixels(false),
       set_pixels_completion_forced(false),
       allocated(false),
-      enable_read_lock_fences(false),
+      read_lock_fences_enabled(false),
       has_shared_bitmap_id(false),
       allow_overlay(false),
       read_lock_fence(NULL),
@@ -248,7 +249,8 @@ ResourceProvider::Resource::Resource()
       hint(TextureUsageAny),
       type(InvalidType),
       format(RGBA_8888),
-      shared_bitmap(NULL) {}
+      shared_bitmap(NULL) {
+}
 
 ResourceProvider::Resource::~Resource() {}
 
@@ -277,7 +279,7 @@ ResourceProvider::Resource::Resource(GLuint texture_id,
       pending_set_pixels(false),
       set_pixels_completion_forced(false),
       allocated(false),
-      enable_read_lock_fences(false),
+      read_lock_fences_enabled(false),
       has_shared_bitmap_id(false),
       allow_overlay(false),
       read_lock_fence(NULL),
@@ -320,7 +322,7 @@ ResourceProvider::Resource::Resource(uint8_t* pixels,
       pending_set_pixels(false),
       set_pixels_completion_forced(false),
       allocated(false),
-      enable_read_lock_fences(false),
+      read_lock_fences_enabled(false),
       has_shared_bitmap_id(!!bitmap),
       allow_overlay(false),
       read_lock_fence(NULL),
@@ -364,7 +366,7 @@ ResourceProvider::Resource::Resource(const SharedBitmapId& bitmap_id,
       pending_set_pixels(false),
       set_pixels_completion_forced(false),
       allocated(false),
-      enable_read_lock_fences(false),
+      read_lock_fences_enabled(false),
       has_shared_bitmap_id(true),
       allow_overlay(false),
       read_lock_fence(NULL),
@@ -1089,8 +1091,11 @@ const ResourceProvider::Resource* ResourceProvider::LockForRead(ResourceId id) {
   }
 
   resource->lock_for_read_count++;
-  if (resource->enable_read_lock_fences)
+  if (resource->read_lock_fences_enabled) {
+    if (current_read_lock_fence_)
+      current_read_lock_fence_->Set();
     resource->read_lock_fence = current_read_lock_fence_;
+  }
 
   return resource;
 }
@@ -1549,8 +1554,11 @@ void ResourceProvider::ReceiveReturnsFromParent(
 
     // Need to wait for the current read lock fence to pass before we can
     // recycle this resource.
-    if (resource->enable_read_lock_fences)
+    if (resource->read_lock_fences_enabled) {
+      if (current_read_lock_fence_)
+        current_read_lock_fence_->Set();
       resource->read_lock_fence = current_read_lock_fence_;
+    }
 
     if (returned.sync_point) {
       DCHECK(!resource->has_shared_bitmap_id);
@@ -2129,10 +2137,9 @@ void ResourceProvider::BindImageForSampling(Resource* resource) {
   resource->dirty_image = false;
 }
 
-void ResourceProvider::EnableReadLockFences(ResourceProvider::ResourceId id,
-                                            bool enable) {
+void ResourceProvider::EnableReadLockFences(ResourceProvider::ResourceId id) {
   Resource* resource = GetResource(id);
-  resource->enable_read_lock_fences = enable;
+  resource->read_lock_fences_enabled = true;
 }
 
 void ResourceProvider::AcquireImage(Resource* resource) {
