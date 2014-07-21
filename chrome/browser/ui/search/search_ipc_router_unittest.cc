@@ -180,10 +180,7 @@ class SearchIPCRouterTest : public BrowserWithTestWindowTest {
   }
 
   void OnMessageReceived(const IPC::Message& message) {
-    bool should_handle_message =
-        chrome::IsRenderedInInstantProcess(web_contents(), profile());
-    bool handled = GetSearchIPCRouter().OnMessageReceived(message);
-    ASSERT_EQ(should_handle_message, handled);
+    GetSearchIPCRouter().OnMessageReceived(message);
   }
 
   bool IsActiveTab(content::WebContents* contents) {
@@ -194,26 +191,6 @@ class SearchIPCRouterTest : public BrowserWithTestWindowTest {
   MockSearchIPCRouterDelegate delegate_;
   base::FieldTrialList field_trial_list_;
 };
-
-TEST_F(SearchIPCRouterTest, IgnoreMessagesFromNonInstantRenderers) {
-  NavigateAndCommitActiveTab(GURL("file://foo/bar"));
-  SetupMockDelegateAndPolicy();
-  GURL destination_url("www.foo.com");
-  EXPECT_CALL(*mock_delegate(), NavigateToURL(destination_url, CURRENT_TAB,
-                                              true)).Times(0);
-  content::WebContents* contents = web_contents();
-  bool is_active_tab = IsActiveTab(contents);
-  EXPECT_TRUE(is_active_tab);
-
-  MockSearchIPCRouterPolicy* policy = GetSearchIPCRouterPolicy();
-  EXPECT_CALL(*policy, ShouldProcessNavigateToURL(is_active_tab)).Times(0);
-
-  scoped_ptr<IPC::Message> message(new ChromeViewHostMsg_SearchBoxNavigate(
-      contents->GetRoutingID(),
-      GetSearchIPCRouterSeqNo(),
-      destination_url, CURRENT_TAB, true));
-  OnMessageReceived(*message);
-}
 
 TEST_F(SearchIPCRouterTest, ProcessVoiceSearchSupportMsg) {
   NavigateAndCommitActiveTab(GURL("chrome-search://foo/bar"));
@@ -308,7 +285,7 @@ TEST_F(SearchIPCRouterTest, HandleTabChangedEvents) {
 }
 
 TEST_F(SearchIPCRouterTest, ProcessNavigateToURLMsg) {
-  NavigateAndCommitActiveTab(GURL(chrome::kChromeSearchLocalNtpUrl));
+  NavigateAndCommitActiveTab(GURL("chrome-search://foo/bar"));
   SetupMockDelegateAndPolicy();
   GURL destination_url("www.foo.com");
   EXPECT_CALL(*mock_delegate(), NavigateToURL(destination_url, CURRENT_TAB,

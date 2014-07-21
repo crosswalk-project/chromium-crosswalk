@@ -4,7 +4,6 @@
 
 #include "chrome/browser/ui/search/search_ipc_router.h"
 
-#include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/search/search.h"
 #include "chrome/common/render_messages.h"
 #include "content/public/browser/web_contents.h"
@@ -144,11 +143,6 @@ void SearchIPCRouter::OnTabDeactivated() {
 }
 
 bool SearchIPCRouter::OnMessageReceived(const IPC::Message& message) {
-  Profile* profile =
-      Profile::FromBrowserContext(web_contents()->GetBrowserContext());
-  if (!chrome::IsRenderedInInstantProcess(web_contents(), profile))
-    return false;
-
   bool handled = true;
   IPC_BEGIN_MESSAGE_MAP(SearchIPCRouter, message)
     IPC_MESSAGE_HANDLER(ChromeViewHostMsg_InstantSupportDetermined,
