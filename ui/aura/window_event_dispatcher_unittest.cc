@@ -909,6 +909,34 @@ TEST_F(WindowEventDispatcherTest, DispatchSyntheticMouseEvents) {
   root_window()->RemovePreTargetHandler(&recorder);
 }
 
+// Tests that a mouse-move event is not synthesized when a mouse-button is down.
+TEST_F(WindowEventDispatcherTest, DoNotSynthesizeWhileButtonDown) {
+  EventFilterRecorder recorder;
+  test::TestWindowDelegate delegate;
+  scoped_ptr<aura::Window> window(CreateTestWindowWithDelegate(
+      &delegate, 1234, gfx::Rect(5, 5, 100, 100), root_window()));
+  window->Show();
+
+  window->AddPreTargetHandler(&recorder);
+  // Dispatch a non-synthetic mouse event when mouse events are enabled.
+  ui::MouseEvent mouse1(ui::ET_MOUSE_PRESSED, gfx::Point(10, 10),
+                        gfx::Point(10, 10), ui::EF_LEFT_MOUSE_BUTTON,
+                        ui::EF_LEFT_MOUSE_BUTTON);
+  DispatchEventUsingWindowDispatcher(&mouse1);
+  ASSERT_EQ(1u, recorder.events().size());
+  EXPECT_EQ(ui::ET_MOUSE_PRESSED, recorder.events()[0]);
+  window->RemovePreTargetHandler(&recorder);
+  recorder.Reset();
+
+  // Move |window| away from underneath the cursor.
+  root_window()->AddPreTargetHandler(&recorder);
+  window->SetBounds(gfx::Rect(30, 30, 100, 100));
+  EXPECT_TRUE(recorder.events().empty());
+  RunAllPendingInMessageLoop();
+  EXPECT_TRUE(recorder.events().empty());
+  root_window()->RemovePreTargetHandler(&recorder);
+}
+
 // Tests synthetic mouse events generated when window bounds changes such that
 // the cursor previously outside the window becomes inside, or vice versa.
 // Do not synthesize events if the window ignores events or is invisible.
