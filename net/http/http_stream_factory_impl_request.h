@@ -37,6 +37,7 @@ class HttpStreamFactoryImpl::Request : public HttpStreamRequest {
   // for this SpdySessionKey, since we may need to wait for NPN to complete
   // before knowing if SPDY is available.
   void SetSpdySessionKey(const SpdySessionKey& spdy_session_key);
+  bool HasSpdySessionKey() const;
 
   // Called when the Job determines the appropriate |http_pipelining_key| for
   // the Request. Registers this Request with the factory, so that if an
