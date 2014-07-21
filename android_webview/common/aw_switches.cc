@@ -6,7 +6,4 @@
 
 namespace switches {
 
-const char kDisableRecordDocumentWorkaround[] =
-    "disable-record-document-workaround";
-
 }  // namespace switches
