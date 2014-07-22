@@ -2086,6 +2086,7 @@ void LayerTreeHostImpl::SetViewportSize(const gfx::Size& device_viewport_size) {
   UpdateInnerViewportContainerSize();
   client_->OnCanDrawStateChanged(CanDraw());
   SetFullRootLayerDamage();
+  active_tree_->set_needs_update_draw_properties();
 }
 
 void LayerTreeHostImpl::SetOverdrawBottomHeight(float overdraw_bottom_height) {
