@@ -75,14 +75,10 @@ class ErrorScreenStrategy : public PortalDetectorStrategy {
 class SessionStrategy : public PortalDetectorStrategy {
  public:
   static const int kFastDelayBetweenAttemptsSec = 1;
-  static const int kFastAttemptTimeoutSec = 3;
   static const int kMaxFastAttempts = 3;
+  static const int kFastAttemptTimeoutSec = 3;
 
-  static const int kNormalDelayBetweenAttemptsSec = 10;
-  static const int kNormalAttemptTimeoutSec = 5;
-  static const int kMaxNormalAttempts = 3;
-
-  static const int kSlowDelayBetweenAttemptsSec = 2 * 60;
+  static const int kSlowDelayBetweenAttemptsSec = 10;
   static const int kSlowAttemptTimeoutSec = 5;
 
   SessionStrategy() {}
@@ -94,34 +90,22 @@ class SessionStrategy : public PortalDetectorStrategy {
   virtual bool CanPerformAttemptAfterDetectionImpl() OVERRIDE { return true; }
   virtual base::TimeDelta GetDelayTillNextAttemptImpl() OVERRIDE {
     int delay;
-    if (IsFastAttempt())
+    if (delegate_->AttemptCount() < kMaxFastAttempts)
       delay = kFastDelayBetweenAttemptsSec;
-    else if (IsNormalAttempt())
-      delay = kNormalDelayBetweenAttemptsSec;
     else
       delay = kSlowDelayBetweenAttemptsSec;
     return AdjustDelay(base::TimeDelta::FromSeconds(delay));
   }
   virtual base::TimeDelta GetNextAttemptTimeoutImpl() OVERRIDE {
     int timeout;
-    if (IsFastAttempt())
+    if (delegate_->AttemptCount() < kMaxFastAttempts)
       timeout = kFastAttemptTimeoutSec;
-    else if (IsNormalAttempt())
-      timeout = kNormalAttemptTimeoutSec;
     else
       timeout = kSlowAttemptTimeoutSec;
     return base::TimeDelta::FromSeconds(timeout);
   }
 
  private:
-  bool IsFastAttempt() {
-    return delegate_->AttemptCount() < kMaxFastAttempts;
-  }
-
-  bool IsNormalAttempt() {
-    return delegate_->AttemptCount() < kMaxFastAttempts + kMaxNormalAttempts;
-  }
-
   DISALLOW_COPY_AND_ASSIGN(SessionStrategy);
 };
 
