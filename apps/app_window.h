@@ -362,6 +362,11 @@ class AppWindow : public content::NotificationObserver,
   // app.
   void WindowEventsReady();
 
+  // Whether the app window wants a transparent background.
+  bool requested_transparent_background() const {
+    return requested_transparent_background_;
+  }
+
  protected:
   virtual ~AppWindow();
 
@@ -557,6 +562,9 @@ class AppWindow : public content::NotificationObserver,
   // reinstated when the window exits fullscreen and moves away from the
   // taskbar.
   bool cached_always_on_top_;
+
+  // Whether |transparent_background| was set in the CreateParams.
+  bool requested_transparent_background_;
 
   DISALLOW_COPY_AND_ASSIGN(AppWindow);
 };

@@ -831,6 +831,10 @@ bool DesktopWindowTreeHostX11::IsAnimatingClosed() const {
   return false;
 }
 
+bool DesktopWindowTreeHostX11::IsTranslucentWindowOpacitySupported() const {
+  return false;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // DesktopWindowTreeHostX11, aura::WindowTreeHost implementation:
 
