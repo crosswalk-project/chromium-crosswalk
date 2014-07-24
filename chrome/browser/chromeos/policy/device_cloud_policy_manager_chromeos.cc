@@ -237,6 +237,11 @@ bool DeviceCloudPolicyManagerChromeOS::ShouldRecoverEnrollment() const {
   return false;
 }
 
+std::string
+DeviceCloudPolicyManagerChromeOS::GetEnrollmentRecoveryDomain() const {
+  return install_attributes_->GetDomain();
+}
+
 bool DeviceCloudPolicyManagerChromeOS::CanExitEnrollment() const {
   if (GetRestoreMode() == kDeviceStateRestoreModeReEnrollmentEnforced)
     return false;

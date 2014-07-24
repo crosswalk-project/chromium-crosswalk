@@ -86,6 +86,9 @@ class DeviceCloudPolicyManagerChromeOS : public CloudPolicyManager {
   // Checks whether enterprise enrollment recovery is required.
   bool ShouldRecoverEnrollment() const;
 
+  // Looks up the domain from |install_attributes_|.
+  std::string GetEnrollmentRecoveryDomain() const;
+
   // Checks whether the user can cancel enrollment.
   bool CanExitEnrollment() const;
 
