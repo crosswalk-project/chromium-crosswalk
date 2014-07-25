@@ -49,14 +49,19 @@ void SyncBackupManager::Init(
                                 report_unrecoverable_error_function,
                                 cancelation_signal);
 
+  if (!initialized())
+    return;
+
   GetUserShare()->directory->CollectMetaHandleCounts(
-      &status_.num_entries_by_type,
-      &status_.num_to_delete_entries_by_type);
+    &status_.num_entries_by_type,
+    &status_.num_to_delete_entries_by_type);
 }
 
 void SyncBackupManager::SaveChanges() {
-  NormalizeEntries();
-  GetUserShare()->directory->SaveChanges();
+  if (initialized()) {
+    NormalizeEntries();
+    GetUserShare()->directory->SaveChanges();
+  }
 }
 
 SyncStatus SyncBackupManager::GetDetailedStatus() const {
