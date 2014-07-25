@@ -35,10 +35,14 @@ class SingleClientBackupRollbackTest : public SyncTest {
   SingleClientBackupRollbackTest() : SyncTest(SINGLE_CLIENT) {}
   virtual ~SingleClientBackupRollbackTest() {}
 
-  virtual void SetUp() OVERRIDE {
+  void DisableBackup() {
+    CommandLine::ForCurrentProcess()->AppendSwitch(
+          switches::kSyncDisableBackup);
+  }
+
+  void EnableRollback() {
     CommandLine::ForCurrentProcess()->AppendSwitch(
           switches::kSyncEnableRollback);
-    SyncTest::SetUp();
   }
 
  private:
@@ -91,6 +95,7 @@ class BackupModeChecker {
 #endif
 IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
                        MAYBE_TestBackupRollback) {
+  EnableRollback();
   ASSERT_TRUE(SetupClients()) << "SetupClients() failed.";
 
   // Starting state:
