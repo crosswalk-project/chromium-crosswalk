@@ -4,12 +4,15 @@
 
 #include "base/command_line.h"
 #include "base/message_loop/message_loop.h"
+#include "base/prefs/pref_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/sync/profile_sync_service.h"
 #include "chrome/browser/sync/test/integration/bookmarks_helper.h"
+#include "chrome/browser/sync/test/integration/preferences_helper.h"
 #include "chrome/browser/sync/test/integration/sync_integration_test_util.h"
 #include "chrome/browser/sync/test/integration/sync_test.h"
 #include "chrome/common/chrome_switches.h"
+#include "chrome/common/pref_names.h"
 #include "components/bookmarks/browser/bookmark_model.h"
 #include "sync/test/fake_server/fake_server_verifier.h"
 
@@ -47,9 +50,10 @@ class BackupModeChecker {
   explicit BackupModeChecker(ProfileSyncService* service,
                              base::TimeDelta timeout)
       : pss_(service),
-        expiration_(base::TimeTicks::Now() + timeout) {}
+        timeout_(timeout) {}
 
   bool Wait() {
+    expiration_ = base::TimeTicks::Now() + timeout_;
     base::MessageLoop::current()->PostDelayedTask(
         FROM_HERE,
         base::Bind(&BackupModeChecker::PeriodicCheck, base::Unretained(this)),
@@ -76,6 +80,7 @@ class BackupModeChecker {
   }
 
   ProfileSyncService* pss_;
+  base::TimeDelta timeout_;
   base::TimeTicks expiration_;
 };
 
@@ -259,3 +264,4 @@ IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
   ASSERT_EQ(GURL(kUrl2), sub_folder->GetChild(1)->url());
   ASSERT_EQ(GURL(kUrl3), sub_folder->GetChild(2)->url());
 }
+

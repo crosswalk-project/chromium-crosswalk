@@ -68,7 +68,7 @@ class SyncBackupManagerTest : public syncer::SyncManager::Observer,
                   NULL, NULL);
     manager->ConfigureSyncer(
           CONFIGURE_REASON_NEW_CLIENT,
-          ModelTypeSet(PREFERENCES),
+          ModelTypeSet(SEARCH_ENGINES),
           ModelTypeSet(), ModelTypeSet(), ModelTypeSet(),
           ModelSafeRoutingInfo(),
           base::Bind(&OnConfigDone, true),
@@ -117,14 +117,14 @@ TEST_F(SyncBackupManagerTest, NormalizeAndPersist) {
   scoped_ptr<SyncBackupManager> manager(new SyncBackupManager);
   InitManager(manager.get(), STORAGE_ON_DISK);
 
-  CreateEntry(manager->GetUserShare(), PREFERENCES, "test");
+  CreateEntry(manager->GetUserShare(), SEARCH_ENGINES, "test");
 
   {
     // New entry is local and unsynced at first.
     ReadTransaction trans(FROM_HERE, manager->GetUserShare());
     ReadNode pref(&trans);
     EXPECT_EQ(BaseNode::INIT_OK,
-              pref.InitByClientTagLookup(PREFERENCES, "test"));
+              pref.InitByClientTagLookup(SEARCH_ENGINES, "test"));
     EXPECT_FALSE(pref.GetEntry()->GetId().ServerKnows());
     EXPECT_TRUE(pref.GetEntry()->GetIsUnsynced());
   }
@@ -136,7 +136,7 @@ TEST_F(SyncBackupManagerTest, NormalizeAndPersist) {
     ReadTransaction trans(FROM_HERE, manager->GetUserShare());
     ReadNode pref(&trans);
     EXPECT_EQ(BaseNode::INIT_OK,
-              pref.InitByClientTagLookup(PREFERENCES, "test"));
+              pref.InitByClientTagLookup(SEARCH_ENGINES, "test"));
     EXPECT_TRUE(pref.GetEntry()->GetId().ServerKnows());
     EXPECT_FALSE(pref.GetEntry()->GetIsUnsynced());
   }
@@ -149,7 +149,7 @@ TEST_F(SyncBackupManagerTest, NormalizeAndPersist) {
     ReadTransaction trans(FROM_HERE, manager->GetUserShare());
     ReadNode pref(&trans);
     EXPECT_EQ(BaseNode::INIT_OK,
-              pref.InitByClientTagLookup(PREFERENCES, "test"));
+              pref.InitByClientTagLookup(SEARCH_ENGINES, "test"));
     EXPECT_TRUE(pref.GetEntry()->GetId().ServerKnows());
     EXPECT_FALSE(pref.GetEntry()->GetIsUnsynced());
   }
