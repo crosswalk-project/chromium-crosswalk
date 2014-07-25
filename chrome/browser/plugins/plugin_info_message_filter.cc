@@ -117,9 +117,11 @@ bool PluginInfoMessageFilter::OnMessageReceived(const IPC::Message& message) {
   IPC_BEGIN_MESSAGE_MAP(PluginInfoMessageFilter, message)
     IPC_MESSAGE_HANDLER_DELAY_REPLY(ChromeViewHostMsg_GetPluginInfo,
                                     OnGetPluginInfo)
+#if defined(ENABLE_PEPPER_CDMS)
     IPC_MESSAGE_HANDLER(
         ChromeViewHostMsg_IsInternalPluginAvailableForMimeType,
         OnIsInternalPluginAvailableForMimeType)
+#endif
     IPC_MESSAGE_UNHANDLED(return false)
   IPC_END_MESSAGE_MAP()
   return true;
@@ -187,7 +189,7 @@ void PluginInfoMessageFilter::PluginsLoaded(
   Send(reply_msg);
 }
 
-
+#if defined(ENABLE_PEPPER_CDMS)
 void PluginInfoMessageFilter::OnIsInternalPluginAvailableForMimeType(
     const std::string& mime_type,
     bool* is_available,
