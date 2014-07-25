@@ -21,6 +21,12 @@ using bookmarks_helper::Move;
 using bookmarks_helper::Remove;
 using sync_integration_test_util::AwaitCommitActivityCompletion;
 
+namespace {
+const char kUrl1[] = "http://www.google.com";
+const char kUrl2[] = "http://map.google.com";
+const char kUrl3[] = "http://plus.google.com";
+}  // anonymous namespace
+
 class SingleClientBackupRollbackTest : public SyncTest {
  public:
   SingleClientBackupRollbackTest() : SyncTest(SINGLE_CLIENT) {}
@@ -130,4 +136,126 @@ IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
   ASSERT_EQ(1, tier1_b->child_count());
   const BookmarkNode* url2 = tier1_b->GetChild(0);
   ASSERT_EQ(GURL("http://www.nhl.com"), url2->url());
+}
+
+#if defined(ENABLE_PRE_SYNC_BACKUP)
+#define MAYBE_TestPrefBackupRollback TestPrefBackupRollback
+#else
+#define MAYBE_TestPrefBackupRollback DISABLED_TestPrefBackupRollback
+#endif
+// Verify local preferences are not affected by preferences in backup DB under
+// backup mode.
+IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
+                       MAYBE_TestPrefBackupRollback) {
+  EnableRollback();
+
+  ASSERT_TRUE(SetupClients()) << "SetupClients() failed.";
+
+  preferences_helper::ChangeStringPref(0, prefs::kHomePage, kUrl1);
+
+  BackupModeChecker checker(GetSyncService(0),
+                            base::TimeDelta::FromSeconds(15));
+  ASSERT_TRUE(checker.Wait());
+
+  // Shut down backup, then change preference.
+  GetSyncService(0)->StartStopBackupForTesting();
+  preferences_helper::ChangeStringPref(0, prefs::kHomePage, kUrl2);
+
+  // Restart backup. Preference shouldn't change after backup starts.
+  GetSyncService(0)->StartStopBackupForTesting();
+  ASSERT_TRUE(checker.Wait());
+  ASSERT_EQ(kUrl2,
+            preferences_helper::GetPrefs(0)->GetString(prefs::kHomePage));
+
+  // Start sync and change preference.
+  ASSERT_TRUE(SetupSync()) << "SetupSync() failed.";
+  preferences_helper::ChangeStringPref(0, prefs::kHomePage, kUrl3);
+  ASSERT_TRUE(AwaitCommitActivityCompletion(GetSyncService((0))));
+  ASSERT_TRUE(ModelMatchesVerifier(0));
+
+  // Let server return rollback command on next sync request.
+  GetFakeServer()->TriggerError(sync_pb::SyncEnums::USER_ROLLBACK);
+
+  // Make another change to trigger downloading of rollback command.
+  preferences_helper::ChangeStringPref(0, prefs::kHomePage, "");
+
+  // Wait for sync to switch to backup mode after finishing rollback.
+  ASSERT_TRUE(checker.Wait());
+
+  // Verify preference is restored.
+  ASSERT_EQ(kUrl2,
+            preferences_helper::GetPrefs(0)->GetString(prefs::kHomePage));
+}
+
+#if defined(ENABLE_PRE_SYNC_BACKUP)
+#define MAYBE_RollbackNoBackup RollbackNoBackup
+#else
+#define MAYBE_RollbackNoBackup DISABLED_RollbackNoBackup
+#endif
+IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
+                       MAYBE_RollbackNoBackup) {
+  EnableRollback();
+
+  ASSERT_TRUE(SetupClients()) << "SetupClients() failed.";
+
+  // Setup sync, wait for its completion, and make sure changes were synced.
+  ASSERT_TRUE(SetupSync()) << "SetupSync() failed.";
+
+  // Starting state:
+  // other_node
+  //    -> http://mail.google.com  "url0"
+  //    -> http://www.nhl.com "url1"
+  ASSERT_TRUE(AddURL(0, GetOtherNode(0), 0, "url0",
+                     GURL("http://mail.google.com")));
+  ASSERT_TRUE(AddURL(0, GetOtherNode(0), 1, "url1",
+                     GURL("http://www.nhl.com")));
+
+  ASSERT_TRUE(AwaitCommitActivityCompletion(GetSyncService((0))));
+  ASSERT_TRUE(ModelMatchesVerifier(0));
+
+  // Let server to return rollback command on next sync request.
+  GetFakeServer()->TriggerError(sync_pb::SyncEnums::USER_ROLLBACK);
+
+  // Make another change to trigger downloading of rollback command.
+  Remove(0, GetOtherNode(0), 0);
+
+  // Wait for sync to switch to backup mode after finishing rollback.
+  BackupModeChecker checker(GetSyncService(0),
+                            base::TimeDelta::FromSeconds(15));
+  ASSERT_TRUE(checker.Wait());
+
+  // Without backup DB, bookmarks added during sync shouldn't be removed.
+  ASSERT_EQ(1, GetOtherNode(0)->child_count());
+  ASSERT_EQ(GURL("http://www.nhl.com"),
+            GetOtherNode(0)->GetChild(0)->url());
+}
+
+#if defined(ENABLE_PRE_SYNC_BACKUP)
+#define MAYBE_DontChangeBookmarkOrdering DontChangeBookmarkOrdering
+#else
+#define MAYBE_DontChangeBookmarkOrdering DISABLED_DontChangeBookmarkOrdering
+#endif
+IN_PROC_BROWSER_TEST_F(SingleClientBackupRollbackTest,
+                       MAYBE_DontChangeBookmarkOrdering) {
+  ASSERT_TRUE(SetupClients()) << "SetupClients() failed.";
+
+  const BookmarkNode* sub_folder = AddFolder(0, GetOtherNode(0), 0, "test");
+  ASSERT_TRUE(AddURL(0, sub_folder, 0, "", GURL(kUrl1)));
+  ASSERT_TRUE(AddURL(0, sub_folder, 1, "", GURL(kUrl2)));
+  ASSERT_TRUE(AddURL(0, sub_folder, 2, "", GURL(kUrl3)));
+
+  BackupModeChecker checker(GetSyncService(0),
+                            base::TimeDelta::FromSeconds(15));
+  ASSERT_TRUE(checker.Wait());
+
+  // Restart backup.
+  GetSyncService(0)->StartStopBackupForTesting();
+  GetSyncService(0)->StartStopBackupForTesting();
+  ASSERT_TRUE(checker.Wait());
+
+  // Verify bookmarks are unchanged.
+  ASSERT_EQ(3, sub_folder->child_count());
+  ASSERT_EQ(GURL(kUrl1), sub_folder->GetChild(0)->url());
+  ASSERT_EQ(GURL(kUrl2), sub_folder->GetChild(1)->url());
+  ASSERT_EQ(GURL(kUrl3), sub_folder->GetChild(2)->url());
 }
