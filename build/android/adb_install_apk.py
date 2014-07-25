@@ -77,10 +77,10 @@ def main(argv):
   while retry_times > 0:
     devices = android_commands.GetAttachedDevices()
     if options.device:
-    if options.device not in devices:
-      raise Exception('Error: %s not in attached devices %s' % (options.device,
-                      ','.join(devices)))
-    devices = [options.device]
+      if options.device not in devices:
+        raise Exception('Error: %s not in attached devices %s' % \
+                        (options.device, ','.join(devices)))
+      devices = [options.device]
 
     if not devices:
       print 'No connected devices found, '\
