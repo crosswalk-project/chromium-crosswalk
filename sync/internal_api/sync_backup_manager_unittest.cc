@@ -66,13 +66,6 @@ class SyncBackupManagerTest : public syncer::SyncManager::Observer,
                   NULL, NULL, SyncCredentials(), "", "", "", &factory,
                   NULL, scoped_ptr<UnrecoverableErrorHandler>().Pass(),
                   NULL, NULL);
-    manager->ConfigureSyncer(
-          CONFIGURE_REASON_NEW_CLIENT,
-          ModelTypeSet(SEARCH_ENGINES),
-          ModelTypeSet(), ModelTypeSet(), ModelTypeSet(),
-          ModelSafeRoutingInfo(),
-          base::Bind(&OnConfigDone, true),
-          base::Bind(&OnConfigDone, false));
     loop_.PostTask(FROM_HERE, run_loop.QuitClosure());
     run_loop.Run();
   }
