@@ -339,7 +339,7 @@ deps = {
   'src/sdch/open-vcdiff':
     (Var("open-vcdiff")) + '/trunk@42',
   'src/third_party/angle':
-    (Var("git.chromium.org")) + '/angle/angle.git@ebba7d306b34a56f57ff1b87682bdc67cc9c50f8',
+    (Var("git.chromium.org")) + '/angle/angle.git@5ac2ae3ea1f311be61955b2d554e8510474cf4f0',
   'build/third_party/lighttpd':
     '/trunk/deps/third_party/lighttpd@58968',
   'src/buildtools':
