@@ -295,11 +295,6 @@
         ['OS!="android"', {
           'sources/': [ ['exclude', '^android/'] ],
         }],
-        ['use_ozone==1', {
-          'dependencies': [
-            '../ozone/ozone.gyp:ozone',
-          ],
-        }],
         ['OS=="android" and android_webview_build==0', {
           'dependencies': [
             '../android/ui_android.gyp:ui_java',
