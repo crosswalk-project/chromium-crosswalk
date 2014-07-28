@@ -64,6 +64,8 @@ class CompositingIOSurfaceLayerClient {
 // Called when a new frame is received.
 - (void)gotNewFrame;
 
+- (void)setNeedsDisplayAndDisplayAndAck;
+- (void)displayIfNeededAndAck;
 @end
 
 #endif  // CONTENT_BROWSER_RENDERER_HOST_COMPOSITING_IOSURFACE_LAYER_MAC_H_

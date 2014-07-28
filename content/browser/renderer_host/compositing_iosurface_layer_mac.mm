@@ -18,7 +18,6 @@
 #include "ui/gl/gpu_switching_manager.h"
 
 @interface CompositingIOSurfaceLayer(Private)
-- (void)immediatelyForceDisplayAndAck;
 - (void)ackPendingFrame:(bool)success;
 - (void)timerFired;
 @end
@@ -101,7 +100,7 @@ class CompositingIOSurfaceLayerHelper {
   if (context_ && context_->is_vsync_disabled()) {
     // If vsync is disabled, draw immediately and don't bother trying to use
     // the isAsynchronous property to ensure smooth animation.
-    [self immediatelyForceDisplayAndAck];
+    [self setNeedsDisplayAndDisplayAndAck];
   } else {
     needs_display_ = YES;
     if (![self isAsynchronous])
@@ -111,8 +110,20 @@ class CompositingIOSurfaceLayerHelper {
 
 // Private methods:
 
-- (void)immediatelyForceDisplayAndAck {
+- (void)setNeedsDisplayAndDisplayAndAck {
+  // Workaround for crbug.com/395827
+  if ([self isAsynchronous])
+    [self setAsynchronous:NO];
+
   [self setNeedsDisplay];
+  [self displayIfNeededAndAck];
+}
+
+- (void)displayIfNeededAndAck {
+  // Workaround for crbug.com/395827
+  if ([self isAsynchronous])
+    [self setAsynchronous:NO];
+
   [self displayIfNeeded];
 
   // Calls to setNeedsDisplay can sometimes be ignored, especially if issued
@@ -134,7 +145,7 @@ class CompositingIOSurfaceLayerHelper {
 
 - (void)timerFired {
   if (has_pending_frame_)
-    [self immediatelyForceDisplayAndAck];
+    [self setNeedsDisplayAndDisplayAndAck];
 }
 
 // The remaining methods implement the CAOpenGLLayer interface.
