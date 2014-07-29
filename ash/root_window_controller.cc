@@ -806,8 +806,8 @@ void RootWindowController::Init(RootWindowType root_window_type,
   }
 
 #if defined(OS_CHROMEOS)
-  if (!CommandLine::ForCurrentProcess()->HasSwitch(
-          switches::kAshDisableTouchExplorationMode)) {
+  if (CommandLine::ForCurrentProcess()->HasSwitch(
+          switches::kAshEnableTouchExplorationMode)) {
     cros_accessibility_observer_.reset(new CrosAccessibilityObserver(this));
   }
 #endif
