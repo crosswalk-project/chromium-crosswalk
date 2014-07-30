@@ -154,7 +154,8 @@ class ExternalProviderImplTest : public ExtensionServiceTestBase {
 
 }  // namespace
 
-TEST_F(ExternalProviderImplTest, InAppPayments) {
+// flaky, disabling on branch only
+TEST_F(ExternalProviderImplTest, DISABLED_InAppPayments) {
   InitServiceWithExternalProviders();
 
   scoped_refptr<content::MessageLoopRunner> runner =
