@@ -425,8 +425,15 @@ bool QuicClientSession::CanPool(const std::string& hostname) const {
     // We can always pool with insecure QUIC sessions.
     return true;
   }
+
+  // Disable pooling for secure sessions.
+  // TODO(rch): re-enable this.
+  return false;
+
+#if 0
   // Only pool secure QUIC sessions if the cert matches the new hostname.
   return ssl_info.cert->VerifyNameMatch(hostname, &unused);
+#endif
 }
 
 QuicDataStream* QuicClientSession::CreateIncomingDataStream(
