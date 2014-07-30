@@ -283,7 +283,8 @@ IN_PROC_BROWSER_TEST_F(PDFBrowserTest, MAYBE_Scroll) {
 // TODO(thestig): http://crbug.com/79837, http://crbug.com/329912
 #define MAYBE_FindAndCopy DISABLED_FindAndCopy
 #endif
-IN_PROC_BROWSER_TEST_F(PDFBrowserTest, MAYBE_FindAndCopy) {
+// flaky, disabling on branch
+IN_PROC_BROWSER_TEST_F(PDFBrowserTest, DISABLED_FindAndCopy) {
   ASSERT_NO_FATAL_FAILURE(Load());
   // Verifies that find in page works.
   ASSERT_EQ(3, ui_test_utils::FindInPage(
