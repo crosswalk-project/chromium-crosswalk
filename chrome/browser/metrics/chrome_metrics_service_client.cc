@@ -165,7 +165,7 @@ void ChromeMetricsServiceClient::SetClientID(const std::string& client_id) {
 }
 
 bool ChromeMetricsServiceClient::IsOffTheRecordSessionActive() {
-  return !chrome::IsOffTheRecordSessionActive();
+  return chrome::IsOffTheRecordSessionActive();
 }
 
 std::string ChromeMetricsServiceClient::GetApplicationLocale() {
