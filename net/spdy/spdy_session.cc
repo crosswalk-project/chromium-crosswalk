@@ -711,6 +711,10 @@ bool SpdySession::VerifyDomainAuthentication(const std::string& domain) {
   if (!GetSSLInfo(&ssl_info, &was_npn_negotiated, &protocol_negotiated))
     return true;   // This is not a secure session, so all domains are okay.
 
+  // Disable pooling for secure sessions.
+  // TODO(rch): re-enable this.
+  return false;
+#if 0
   bool unused = false;
   return
       !ssl_info.client_cert_sent &&
@@ -718,6 +722,7 @@ bool SpdySession::VerifyDomainAuthentication(const std::string& domain) {
        (ServerBoundCertService::GetDomainForHost(domain) ==
         ServerBoundCertService::GetDomainForHost(host_port_pair().host()))) &&
       ssl_info.cert->VerifyNameMatch(domain, &unused);
+#endif
 }
 
 int SpdySession::GetPushStream(

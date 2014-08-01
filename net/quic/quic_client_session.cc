@@ -483,13 +483,20 @@ bool QuicClientSession::CanPool(const std::string& hostname) const {
   // logic will need to be revised.
   DCHECK(connection()->connected());
   SSLInfo ssl_info;
-  bool unused = false;
   if (!GetSSLInfo(&ssl_info) || !ssl_info.cert) {
     // We can always pool with insecure QUIC sessions.
     return true;
   }
+
+  // Disable pooling for secure sessions.
+  // TODO(rch): re-enable this.
+  return false;
+
+#if 0
+  bool unused = false;
   // Only pool secure QUIC sessions if the cert matches the new hostname.
   return ssl_info.cert->VerifyNameMatch(hostname, &unused);
+#endif
 }
 
 QuicDataStream* QuicClientSession::CreateIncomingDataStream(
