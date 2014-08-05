@@ -527,7 +527,7 @@ void GpuChannel::StubSchedulingChanged(bool scheduled) {
   }
 }
 
-bool GpuChannel::CreateViewCommandBuffer(
+CreateCommandBufferResult GpuChannel::CreateViewCommandBuffer(
     const gfx::GLSurfaceHandle& window,
     int32 surface_id,
     const GPUCreateCommandBufferConfig& init_params,
@@ -568,10 +568,10 @@ bool GpuChannel::CreateViewCommandBuffer(
   if (!router_.AddRoute(route_id, stub.get())) {
     DLOG(ERROR) << "GpuChannel::CreateViewCommandBuffer(): "
                    "failed to add route";
-    return false;
+    return CREATE_COMMAND_BUFFER_FAILED_AND_CHANNEL_LOST;
   }
   stubs_.AddWithID(stub.release(), route_id);
-  return true;
+  return CREATE_COMMAND_BUFFER_SUCCEEDED;
 }
 
 GpuCommandBufferStub* GpuChannel::LookupCommandBuffer(int32 route_id) {
