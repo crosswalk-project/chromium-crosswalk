@@ -1143,7 +1143,7 @@ CreateCommandBufferResult RenderThreadImpl::CreateViewCommandBuffer(
                "surface_id",
                surface_id);
 
-  CreateCommandBufferResult result;
+  CreateCommandBufferResult result = CREATE_COMMAND_BUFFER_FAILED;
   IPC::Message* message = new GpuHostMsg_CreateViewCommandBuffer(
       surface_id,
       init_params,
