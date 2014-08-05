@@ -1320,6 +1320,7 @@ void RenderWidget::QueueSyntheticGesture(
 }
 
 void RenderWidget::Close() {
+  screen_metrics_emulator_.reset();
   if (webwidget_) {
     webwidget_->willCloseLayerTreeView();
     compositor_.reset();
