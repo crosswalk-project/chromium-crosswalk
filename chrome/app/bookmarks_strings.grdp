@@ -50,6 +50,9 @@
       Show <ph name="FOLDER_NAME">$1<ex>Managed Bookmarks</ex></ph>
     </message>
   </if>
+  <message name="IDS_BOOKMARK_BAR_APPS_SHORTCUT_NAME" desc="Name shown in the bookmark bar for the apps page shortcut">
+    Apps
+  </message>
   <message name="IDS_BOOKMARK_BAR_APPS_SHORTCUT_TOOLTIP" desc="Text shown in the tooltip of the apps page shortcut in the bookmark bar">
     Show apps
   </message>
