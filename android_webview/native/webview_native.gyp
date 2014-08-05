@@ -104,15 +104,6 @@
       ],
     },
     {
-      'target_name': 'input_stream_android_jar_jni_headers',
-      'type': 'none',
-      'variables': {
-        'jni_gen_package': 'android_webview',
-        'input_java_class': 'java/io/InputStream.class',
-      },
-      'includes': [ '../../build/jar_file_jni_generator.gypi' ],
-    },
-    {
       'target_name': 'cancellation_signal_android_jar_jni_headers',
       'type': 'none',
       'variables': {
@@ -143,6 +134,7 @@
           '../java/src/org/chromium/android_webview/AwWebContentsDelegate.java',
           '../java/src/org/chromium/android_webview/AwWebResourceResponse.java',
           '../java/src/org/chromium/android_webview/ExternalVideoSurfaceContainer.java',
+          '../java/src/org/chromium/android_webview/InputStreamUtil.java',
           '../java/src/org/chromium/android_webview/JavaBrowserViewRendererHelper.java',
           '../java/src/org/chromium/android_webview/permission/AwPermissionRequest.java',
       ],
@@ -151,7 +143,6 @@
       },
       'includes': [ '../../build/jni_generator.gypi' ],
       'dependencies': [
-        'input_stream_android_jar_jni_headers',
         'cancellation_signal_android_jar_jni_headers',
       ],
     },
