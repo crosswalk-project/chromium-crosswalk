@@ -397,7 +397,8 @@ RenderWidget::RenderWidget(blink::WebPopupType popup_type,
 #endif
       popup_origin_scale_for_emulation_(0.f),
       resizing_mode_selector_(new ResizingModeSelector()),
-      context_menu_source_type_(ui::MENU_SOURCE_MOUSE) {
+      context_menu_source_type_(ui::MENU_SOURCE_MOUSE),
+      has_host_context_menu_location_(false) {
   if (!swapped_out)
     RenderProcess::current()->AddRefProcess();
   DCHECK(RenderThread::Get());
