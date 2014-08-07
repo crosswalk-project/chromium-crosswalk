@@ -38,6 +38,7 @@ class QuicRandom;
 class QuicServerInfoFactory;
 class QuicServerId;
 class QuicStreamFactory;
+class TransportSecurityState;
 
 namespace test {
 class QuicStreamFactoryPeer;
@@ -91,6 +92,7 @@ class NET_EXPORT_PRIVATE QuicStreamFactory
       ClientSocketFactory* client_socket_factory,
       base::WeakPtr<HttpServerProperties> http_server_properties,
       CertVerifier* cert_verifier,
+      TransportSecurityState* transport_security_state,
       QuicCryptoClientStreamFactory* quic_crypto_client_stream_factory,
       QuicRandom* random_generator,
       QuicClock* clock,
