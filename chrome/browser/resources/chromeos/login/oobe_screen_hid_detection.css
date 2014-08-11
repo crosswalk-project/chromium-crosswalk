@@ -19,12 +19,16 @@
 }
 
 #hid-detection #hid-prerequisite-msg {
-  padding: 10px 0 30px;
+  padding: 10px 0 20px;
 }
 
 #hid-keyboard-block,
 #hid-mouse-block {
-  padding: 20px 0;
+  padding: 10px 0;
+}
+
+#hid-keyboard-block {
+  padding-bottom: 30px;
 }
 
 #hid-keyboard-icon,
@@ -42,6 +46,7 @@
 
 #hid-mouse-label,
 #hid-keyboard-label {
+  -webkit-padding-start: 10px;
   display: inline;
 }
 
@@ -63,7 +68,9 @@
 }
 
 #hid-detection #hid-keyboard-pincode {
-  padding: 10px 0 20px 40px;
+  -webkit-padding-start: 40px;
+  padding-bottom: 15px;
+  padding-top: 15px;
 }
 
 .searching #hid-keyboard-label-searching,
@@ -89,6 +96,4 @@
 
 .pairing #hid-keyboard-pincode {
   display: block;
-  margin-left: 40px;
-  padding: 15px 0;
 }
