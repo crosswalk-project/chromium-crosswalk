@@ -26,6 +26,9 @@ class MaximizeModeControllerTest;
 class MaximizeModeEventBlocker;
 class MaximizeModeWindowManager;
 class MaximizeModeWindowManagerTest;
+namespace test {
+class MultiUserWindowManagerChromeOSTest;
+}
 
 // MaximizeModeController listens to accelerometer events and automatically
 // enters and exits maximize mode when the lid is opened beyond the triggering
@@ -82,6 +85,12 @@ class ASH_EXPORT MaximizeModeController : public AccelerometerObserver,
   // Test if the MaximizeModeWindowManager is enabled or not.
   bool IsMaximizeModeWindowManagerEnabled() const;
 
+  // Add a special window to the MaximizeModeWindowManager for tracking. This is
+  // only required for special windows which are handled by other window
+  // managers like the |MultiUserWindowManager|.
+  // If the maximize mode is not enabled no action will be performed.
+  void AddWindow(aura::Window* window);
+
   // TODO(jonross): move this into the destructor. Currently separated as
   // ShellOberver notifies of maximize mode ending, and the observers end up
   // attempting to access MaximizeModeController via the Shell. If done in
@@ -108,6 +117,7 @@ class ASH_EXPORT MaximizeModeController : public AccelerometerObserver,
  private:
   friend class MaximizeModeControllerTest;
   friend class MaximizeModeWindowManagerTest;
+  friend class test::MultiUserWindowManagerChromeOSTest;
 
   // Detect hinge rotation from |base| and |lid| accelerometers and
   // automatically start / stop maximize mode.
