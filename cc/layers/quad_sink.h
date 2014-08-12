@@ -43,6 +43,8 @@ class CC_EXPORT QuadSink {
 
   virtual void Append(scoped_ptr<DrawQuad> draw_quad);
 
+  const RenderPass* render_pass() const { return render_pass_; }
+
  protected:
   RenderPass* render_pass_;
 
