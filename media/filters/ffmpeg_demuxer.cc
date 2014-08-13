@@ -67,7 +67,6 @@ FFmpegDemuxerStream::FFmpegDemuxerStream(
       type_(UNKNOWN),
       end_of_stream_(false),
       last_packet_timestamp_(kNoTimestamp()),
-      last_packet_duration_(kNoTimestamp()),
       bitstream_converter_enabled_(false) {
   DCHECK(demuxer_);
 
@@ -231,41 +230,13 @@ void FFmpegDemuxerStream::EnqueuePacket(ScopedAVPacket packet) {
       stream_->time_base, packet->pts));
   buffer->set_duration(ConvertStreamTimestamp(
       stream_->time_base, packet->duration));
-
-  if (last_packet_timestamp_ != kNoTimestamp()) {
-    // FFmpeg doesn't support chained ogg correctly.  Instead of guaranteeing
-    // continuity across links in the chain it uses the timestamp information
-    // from each link directly.  Doing so can lead to timestamps which appear to
-    // go backwards in time.
-    //
-    // If the new link starts with a negative timestamp or a timestamp less than
-    // the original (positive) |start_time|, we will get a negative timestamp
-    // here.  It's also possible FFmpeg returns kNoTimestamp() here if it's not
-    // able to work out a timestamp using the previous link and the next.
-    //
-    // Fixing chained ogg is non-trivial, so for now just reuse the last good
-    // timestamp.  The decoder will rewrite the timestamps to be sample accurate
-    // later.  See http://crbug.com/396864.
-    if (buffer->timestamp() == kNoTimestamp() ||
-        buffer->timestamp() < last_packet_timestamp_) {
-      buffer->set_timestamp(last_packet_timestamp_ +
-                            (last_packet_duration_ != kNoTimestamp()
-                                 ? last_packet_duration_
-                                 : base::TimeDelta::FromMicroseconds(1)));
-    }
-
-    // The demuxer should always output positive timestamps.
-    DCHECK(buffer->timestamp() >= base::TimeDelta());
-    DCHECK(buffer->timestamp() != kNoTimestamp());
-
-    if (last_packet_timestamp_ < buffer->timestamp()) {
-      buffered_ranges_.Add(last_packet_timestamp_, buffer->timestamp());
-      demuxer_->NotifyBufferingChanged();
-    }
+  if (buffer->timestamp() != kNoTimestamp() &&
+      last_packet_timestamp_ != kNoTimestamp() &&
+      last_packet_timestamp_ < buffer->timestamp()) {
+    buffered_ranges_.Add(last_packet_timestamp_, buffer->timestamp());
+    demuxer_->NotifyBufferingChanged();
   }
-
   last_packet_timestamp_ = buffer->timestamp();
-  last_packet_duration_ = buffer->duration();
 
   buffer_queue_.Push(buffer);
   SatisfyPendingRead();
@@ -283,7 +254,6 @@ void FFmpegDemuxerStream::FlushBuffers() {
   buffer_queue_.Clear();
   end_of_stream_ = false;
   last_packet_timestamp_ = kNoTimestamp();
-  last_packet_duration_ = kNoTimestamp();
 }
 
 void FFmpegDemuxerStream::Stop() {
