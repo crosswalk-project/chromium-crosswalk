@@ -466,7 +466,6 @@ void ManagePasswordsBubbleView::ShowBubble(content::WebContents* web_contents,
         browser_view->GetBoundsInScreen());
   }
   manage_passwords_bubble_->GetWidget()->Show();
-  manage_passwords_bubble_->SetArrowPaintType(views::BubbleBorder::PAINT_NONE);
 }
 
 // static
@@ -493,7 +492,7 @@ ManagePasswordsBubbleView::ManagePasswordsBubbleView(
       anchor_view_(anchor_view),
       never_save_passwords_(false) {
   // Compensate for built-in vertical padding in the anchor view's image.
-  set_anchor_view_insets(gfx::Insets(2, 0, 2, 0));
+  set_anchor_view_insets(gfx::Insets(5, 0, 5, 0));
   set_notify_enter_exit_on_child(true);
   if (anchor_view)
     anchor_view->SetActive(true);
