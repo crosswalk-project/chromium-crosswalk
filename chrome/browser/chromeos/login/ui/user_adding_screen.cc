@@ -11,6 +11,7 @@
 #include "base/observer_list.h"
 #include "chrome/browser/chromeos/login/helper.h"
 #include "chrome/browser/chromeos/login/ui/login_display_host_impl.h"
+#include "chrome/browser/chromeos/login/users/wallpaper/wallpaper_manager.h"
 #include "ui/gfx/rect.h"
 #include "ui/gfx/size.h"
 
@@ -56,6 +57,12 @@ void UserAddingScreenImpl::Cancel() {
   // Make sure that system tray is enabled after this flow.
   ash::Shell::GetInstance()->GetPrimarySystemTray()->SetEnabled(true);
   display_host_->Finalize();
+
+  // Reset wallpaper if cancel adding user from multiple user sign in page.
+  if (UserManager::Get()->IsUserLoggedIn()) {
+    WallpaperManager::Get()->SetUserWallpaperDelayed(
+        UserManager::Get()->GetActiveUser()->email());
+  }
 }
 
 bool UserAddingScreenImpl::IsRunning() {
