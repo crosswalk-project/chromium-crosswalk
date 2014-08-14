@@ -12,6 +12,8 @@
 #include "base/memory/weak_ptr.h"
 #include "base/synchronization/waitable_event.h"
 #include "media/base/android/media_resource_getter.h"
+#include "media/base/android/media_url_interceptor.h"
+#include "net/base/auth.h"
 #include "net/cookies/canonical_cookie.h"
 
 namespace fileapi {
@@ -50,6 +52,11 @@ class MediaResourceGetterImpl : public media::MediaResourceGetter {
   virtual void ExtractMediaMetadata(
       const std::string& url, const std::string& cookies,
       const std::string& user_agent,
+      const ExtractMediaMetadataCB& callback) OVERRIDE;
+  virtual void ExtractMediaMetadata(
+      const int fd,
+      const int64 offset,
+      const int64 size,
       const ExtractMediaMetadataCB& callback) OVERRIDE;
 
   static bool RegisterMediaResourceGetter(JNIEnv* env);
