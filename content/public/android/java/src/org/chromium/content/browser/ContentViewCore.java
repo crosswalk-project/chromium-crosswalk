@@ -2424,6 +2424,12 @@ public class ContentViewCore
 
     @SuppressWarnings("unused")
     @CalledByNative
+    private void showSelectionHandlesAutomatically() {
+        getSelectionHandleController().allowAutomaticShowing();
+    }
+
+    @SuppressWarnings("unused")
+    @CalledByNative
     private void onSelectionBoundsChanged(Rect anchorRectDip, int anchorDir, Rect focusRectDip,
             int focusDir, boolean isAnchorFirst) {
         // All coordinates are in DIP.
