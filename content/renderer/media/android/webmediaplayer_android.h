@@ -250,11 +250,18 @@ class WebMediaPlayerAndroid : public blink::WebMediaPlayer,
   void SetNeedsEstablishPeer(bool needs_establish_peer);
 
  private:
+  void InitializePlayer(const GURL& url,
+                        const GURL& first_party_for_cookies,
+                        bool allowed_stored_credentials,
+                        int demuxer_client_id);
   void Pause(bool is_media_related_action);
   void DrawRemotePlaybackText(const std::string& remote_playback_message);
   void ReallocateVideoFrame();
   void SetCurrentFrameInternal(scoped_refptr<media::VideoFrame>& frame);
-  void DidLoadMediaInfo(MediaInfoLoader::Status status);
+  void DidLoadMediaInfo(MediaInfoLoader::Status status,
+                        const GURL& redirected_url,
+                        const GURL& first_party_for_cookies,
+                        bool allow_stored_credentials);
   bool IsKeySystemSupported(const std::string& key_system);
 
   // Actually do the work for generateKeyRequest/addKey so they can easily
@@ -358,9 +365,6 @@ class WebMediaPlayerAndroid : public blink::WebMediaPlayer,
   // Whether the mediaplayer is playing.
   bool is_playing_;
 
-  // Whether the mediaplayer has already started playing.
-  bool playing_started_;
-
   // Whether media player needs to re-establish the surface texture peer.
   bool needs_establish_peer_;
 
@@ -369,10 +373,6 @@ class WebMediaPlayerAndroid : public blink::WebMediaPlayer,
 
   // Whether the video size info is available.
   bool has_size_info_;
-
-  // Whether the video metadata and info are available.
-  bool has_media_metadata_;
-  bool has_media_info_;
 
   // Object for allocating stream textures.
   scoped_refptr<StreamTextureFactory> stream_texture_factory_;
@@ -442,6 +442,9 @@ class WebMediaPlayerAndroid : public blink::WebMediaPlayer,
   // systems, a browser side CDM will be used and we set CDM by calling
   // player_manager_->SetCdm() directly.
   media::DecryptorReadyCB decryptor_ready_cb_;
+
+  // Whether stored credentials are allowed to be passed to the server.
+  bool allow_stored_credentials_;
 
   // NOTE: Weak pointers must be invalidated before all other member variables.
   base::WeakPtrFactory<WebMediaPlayerAndroid> weak_factory_;
