@@ -57,6 +57,8 @@ OzonePlatform* OzonePlatform::GetInstance() {
 
 // static
 void OzonePlatform::CreateInstance() {
+  base::AutoLock lock(lock_);
+
   if (!instance_) {
     TRACE_EVENT1("ozone",
                  "OzonePlatform::Initialize",
