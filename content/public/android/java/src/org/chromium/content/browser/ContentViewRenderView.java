@@ -173,11 +173,15 @@ public class ContentViewRenderView extends FrameLayout {
      * @param rootWindow The {@link WindowAndroid} this render view should be linked to.
      */
     public void onNativeLibraryLoaded(WindowAndroid rootWindow) {
-        assert !mSurfaceView.getHolder().getSurface().isValid() :
-                "Surface created before native library loaded.";
         assert rootWindow != null;
         mNativeContentViewRenderView = nativeInit(rootWindow.getNativePointer());
         assert mNativeContentViewRenderView != 0;
+
+        if (mCompositingSurfaceType == CompositingSurfaceType.TEXTURE_VIEW)
+            return;
+
+        assert !mSurfaceView.getHolder().getSurface().isValid() :
+                "Surface created before native library loaded.";
         mSurfaceCallback = new SurfaceHolder.Callback() {
             @Override
             public void surfaceChanged(SurfaceHolder holder, int format, int width, int height) {
