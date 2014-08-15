@@ -220,7 +220,7 @@ public class ContentViewCore
      * extractSmartClipData are available.
      */
     public interface SmartClipDataListener {
-        public void onSmartClipDataExtracted(String result);
+        public void onSmartClipDataExtracted(String result, Rect cliprect);
     }
 
     private final Context mContext;
@@ -3100,9 +3100,9 @@ public class ContentViewCore
     }
 
     @CalledByNative
-    private void onSmartClipDataExtracted(String result) {
+    private void onSmartClipDataExtracted(String result, Rect cliprect) {
         if (mSmartClipDataListener != null ) {
-            mSmartClipDataListener.onSmartClipDataExtracted(result);
+            mSmartClipDataListener.onSmartClipDataExtracted(result, cliprect);
         }
     }
 
