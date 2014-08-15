@@ -238,8 +238,9 @@ class ContentViewCoreImpl : public ContentViewCore,
   // Public methods that call to Java via JNI
   // --------------------------------------------------------------------------
 
-  void OnSmartClipDataExtracted(const gfx::Rect& clip_rect,
-                                const base::string16& result);
+  void OnSmartClipDataExtracted(const base::string16& text,
+                                const base::string16& html,
+                                const gfx::Rect& clip_rect);
 
   // Creates a popup menu with |items|.
   // |multiple| defines if it should support multi-select.
