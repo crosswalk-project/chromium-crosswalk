@@ -6,6 +6,7 @@
 #define UI_OZONE_OZONE_PLATFORM_H_
 
 #include "base/memory/scoped_ptr.h"
+#include "base/synchronization/lock.h"
 #include "ui/ozone/ozone_export.h"
 
 namespace ui {
@@ -68,6 +69,7 @@ class OZONE_EXPORT OzonePlatform {
   static void CreateInstance();
 
   static OzonePlatform* instance_;
+  static base::Lock lock_;
 
   DISALLOW_COPY_AND_ASSIGN(OzonePlatform);
 };
