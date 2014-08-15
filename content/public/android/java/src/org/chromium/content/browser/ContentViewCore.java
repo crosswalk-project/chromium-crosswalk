@@ -345,6 +345,10 @@ public class ContentViewCore
     private float mCurrentTouchOffsetX;
     private float mCurrentTouchOffsetY;
 
+    // Offsets for smart clip
+    private int mSmartClipOffsetX;
+    private int mSmartClipOffsetY;
+
     /**
      * Constructs a new ContentViewCore. Embedders must call initialize() after constructing
      * a ContentViewCore and before using it.
@@ -3095,8 +3099,24 @@ public class ContentViewCore
 
     public void extractSmartClipData(int x, int y, int width, int height) {
         if (mNativeContentViewCore != 0) {
+            x += mSmartClipOffsetX;
+            y += mSmartClipOffsetY;
             nativeExtractSmartClipData(mNativeContentViewCore, x, y, width, height);
         }
+    }
+
+    /**
+     * Set offsets for smart clip.
+     *
+     * <p>This should be called if there is a viewport change introduced by,
+     * e.g., show and hide of a location bar.
+     *
+     * @param offsetX Offset for X position.
+     * @param offsetY Offset for Y position.
+     */
+    public void setSmartClipOffsets(int offsetX, int offsetY) {
+        mSmartClipOffsetX = offsetX;
+        mSmartClipOffsetY = offsetY;
     }
 
     @CalledByNative
