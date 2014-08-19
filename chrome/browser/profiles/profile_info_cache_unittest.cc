@@ -504,6 +504,8 @@ TEST_F(ProfileInfoCacheTest, AddStubProfile) {
     ASSERT_FALSE(names[i].empty());
 }
 
+// High res avatar downloading is only supported on desktop.
+#if !defined(OS_ANDROID) && !defined(OS_IOS) && !defined(OS_CHROMEOS)
 TEST_F(ProfileInfoCacheTest, DownloadHighResAvatarTest) {
   EXPECT_EQ(0U, GetCache()->GetNumberOfProfiles());
   base::FilePath path_1 = GetProfilePath("path_1");
@@ -551,3 +553,4 @@ TEST_F(ProfileInfoCacheTest, DownloadHighResAvatarTest) {
   EXPECT_TRUE(base::DeleteFile(icon_path, true));
   EXPECT_FALSE(base::PathExists(icon_path));
 }
+#endif
