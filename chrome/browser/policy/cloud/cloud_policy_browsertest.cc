@@ -139,7 +139,7 @@ void GetExpectedDefaultPolicy(PolicyMap* policy_map) {
 #if defined(OS_CHROMEOS)
   policy_map->Set(
       key::kChromeOsMultiProfileUserBehavior, POLICY_LEVEL_MANDATORY,
-      POLICY_SCOPE_USER, base::Value::CreateStringValue("primary-only"), NULL);
+      POLICY_SCOPE_USER, base::Value::CreateStringValue("not-allowed"), NULL);
 #endif
 }
 
@@ -163,7 +163,7 @@ void GetExpectedTestPolicy(PolicyMap* expected, const char* homepage) {
 #if defined(OS_CHROMEOS)
   expected->Set(
       key::kChromeOsMultiProfileUserBehavior, POLICY_LEVEL_MANDATORY,
-      POLICY_SCOPE_USER, base::Value::CreateStringValue("primary-only"), NULL);
+      POLICY_SCOPE_USER, base::Value::CreateStringValue("not-allowed"), NULL);
 #endif
 }
 
