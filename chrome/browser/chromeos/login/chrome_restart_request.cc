@@ -205,7 +205,6 @@ std::string DeriveCommandLine(const GURL& start_url,
     chromeos::switches::kNaturalScrollDefault,
     chromeos::switches::kSystemInDevMode,
     policy::switches::kDeviceManagementUrl,
-    ::switches::kEnableBrowserTextSubpixelPositioning,
     ::switches::kEnableWebkitTextSubpixelPositioning,
     wm::switches::kWindowAnimationsDisabled,
   };
