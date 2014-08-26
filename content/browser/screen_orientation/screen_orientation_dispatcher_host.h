@@ -43,6 +43,8 @@ class CONTENT_EXPORT ScreenOrientationDispatcherHost
 
   void OnOrientationChange();
 
+  void SetProvider(ScreenOrientationProvider* provider);
+
  private:
   void OnLockRequest(RenderFrameHost* render_frame_host,
                      blink::WebScreenOrientationLockType orientation,
