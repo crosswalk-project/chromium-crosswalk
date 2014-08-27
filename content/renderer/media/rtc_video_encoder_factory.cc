@@ -4,7 +4,9 @@
 
 #include "content/renderer/media/rtc_video_encoder_factory.h"
 
+#include "base/command_line.h"
 #include "content/common/gpu/client/gpu_video_encode_accelerator_host.h"
+#include "content/public/common/content_switches.h"
 #include "content/renderer/media/rtc_video_encoder.h"
 #include "media/filters/gpu_video_accelerator_factories.h"
 #include "media/video/video_encode_accelerator.h"
@@ -14,32 +16,32 @@ namespace content {
 namespace {
 
 // Translate from media::VideoEncodeAccelerator::SupportedProfile to
-// cricket::WebRtcVideoEncoderFactory::VideoCodec
-cricket::WebRtcVideoEncoderFactory::VideoCodec VEAToWebRTCCodec(
+// one or more instances of cricket::WebRtcVideoEncoderFactory::VideoCodec
+void VEAToWebRTCCodecs(
+    std::vector<cricket::WebRtcVideoEncoderFactory::VideoCodec>* codecs,
     const media::VideoEncodeAccelerator::SupportedProfile& profile) {
-  webrtc::VideoCodecType type = webrtc::kVideoCodecUnknown;
-  std::string name;
-  int width = 0, height = 0, fps = 0;
+  int width = profile.max_resolution.width();
+  int height = profile.max_resolution.height();
+  int fps = profile.max_framerate.numerator;
+  DCHECK_EQ(profile.max_framerate.denominator, 1U);
 
+  const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
   if (profile.profile >= media::VP8PROFILE_MIN &&
       profile.profile <= media::VP8PROFILE_MAX) {
-    type = webrtc::kVideoCodecVP8;
-    name = "VP8";
+    if (cmd_line->HasSwitch(switches::kEnableWebRtcHWVp8Encoding)) {
+      codecs->push_back(cricket::WebRtcVideoEncoderFactory::VideoCodec(
+          webrtc::kVideoCodecVP8, "VP8", width, height, fps));
+    }
   } else if (profile.profile >= media::H264PROFILE_MIN &&
              profile.profile <= media::H264PROFILE_MAX) {
-    type = webrtc::kVideoCodecGeneric;
-    name = "CAST1";
+    if (cmd_line->HasSwitch(switches::kEnableWebRtcHWH264Encoding)) {
+      codecs->push_back(cricket::WebRtcVideoEncoderFactory::VideoCodec(
+          webrtc::kVideoCodecH264, "H264", width, height, fps));
+    }
+    // TODO(hshi): remove the generic codec type after CASTv1 deprecation.
+    codecs->push_back(cricket::WebRtcVideoEncoderFactory::VideoCodec(
+        webrtc::kVideoCodecGeneric, "CAST1", width, height, fps));
   }
-
-  if (type != webrtc::kVideoCodecUnknown) {
-    width = profile.max_resolution.width();
-    height = profile.max_resolution.height();
-    fps = profile.max_framerate.numerator;
-    DCHECK_EQ(profile.max_framerate.denominator, 1U);
-  }
-
-  return cricket::WebRtcVideoEncoderFactory::VideoCodec(
-      type, name, width, height, fps);
 }
 
 // Translate from cricket::WebRtcVideoEncoderFactory::VideoCodec to
@@ -49,6 +51,7 @@ media::VideoCodecProfile WebRTCCodecToVideoCodecProfile(
   switch (type) {
     case webrtc::kVideoCodecVP8:
       return media::VP8PROFILE_ANY;
+    case webrtc::kVideoCodecH264:
     case webrtc::kVideoCodecGeneric:
       return media::H264PROFILE_MAIN;
     default:
@@ -64,11 +67,8 @@ RTCVideoEncoderFactory::RTCVideoEncoderFactory(
   // Query media::VideoEncodeAccelerator (statically) for our supported codecs.
   std::vector<media::VideoEncodeAccelerator::SupportedProfile> profiles =
       GpuVideoEncodeAcceleratorHost::GetSupportedProfiles();
-  for (size_t i = 0; i < profiles.size(); ++i) {
-    VideoCodec codec = VEAToWebRTCCodec(profiles[i]);
-    if (codec.type != webrtc::kVideoCodecUnknown)
-      codecs_.push_back(codec);
-  }
+  for (size_t i = 0; i < profiles.size(); ++i)
+    VEAToWebRTCCodecs(&codecs_, profiles[i]);
 }
 
 RTCVideoEncoderFactory::~RTCVideoEncoderFactory() {}
