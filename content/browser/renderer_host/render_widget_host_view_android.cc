@@ -228,7 +228,7 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
     RenderWidgetHostImpl* widget_host,
     ContentViewCoreImpl* content_view_core)
     : host_(widget_host),
-      needs_begin_frame_(false),
+      outstanding_vsync_requests_(0),
       is_showing_(!widget_host->is_hidden()),
       content_view_core_(NULL),
       ime_adapter_android_(this),
@@ -242,7 +242,6 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
       gesture_text_selector_(this),
       touch_scrolling_(false),
       potentially_active_fling_count_(0),
-      flush_input_requested_(false),
       accelerated_surface_route_id_(0),
       using_synchronous_compositor_(SynchronousCompositorImpl::FromID(
                                         widget_host->GetProcess()->GetID(),
@@ -305,10 +304,9 @@ void RenderWidgetHostViewAndroid::WasShown() {
 
   host_->WasShown(ui::LatencyInfo());
 
-  if (content_view_core_ && !using_synchronous_compositor_) {
-    content_view_core_->GetWindowAndroid()->AddObserver(this);
-    content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
-    observing_root_window_ = true;
+  if (content_view_core_) {
+    StartObservingRootWindow();
+    RequestVSyncUpdate(BEGIN_FRAME);
   }
 }
 
@@ -322,10 +320,7 @@ void RenderWidgetHostViewAndroid::WasHidden() {
   // utilization.
   host_->WasHidden();
 
-  if (content_view_core_ && !using_synchronous_compositor_) {
-    content_view_core_->GetWindowAndroid()->RemoveObserver(this);
-    observing_root_window_ = false;
-  }
+  StopObservingRootWindow();
 }
 
 void RenderWidgetHostViewAndroid::WasResized() {
@@ -597,15 +592,13 @@ void RenderWidgetHostViewAndroid::OnDidChangeBodyBackgroundColor(
 }
 
 void RenderWidgetHostViewAndroid::OnSetNeedsBeginFrame(bool enabled) {
-  if (enabled == needs_begin_frame_)
-    return;
-
+  DCHECK(!using_synchronous_compositor_);
   TRACE_EVENT1("cc", "RenderWidgetHostViewAndroid::OnSetNeedsBeginFrame",
                "enabled", enabled);
-  if (content_view_core_ && enabled)
-    content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
-
-  needs_begin_frame_ = enabled;
+  if (enabled)
+    RequestVSyncUpdate(PERSISTENT_BEGIN_FRAME);
+  else
+    outstanding_vsync_requests_ &= ~PERSISTENT_BEGIN_FRAME;
 }
 
 void RenderWidgetHostViewAndroid::OnStartContentIntent(
@@ -1208,6 +1201,64 @@ void RenderWidgetHostViewAndroid::RemoveLayers() {
     overscroll_effect_->Disable();
 }
 
+void RenderWidgetHostViewAndroid::RequestVSyncUpdate(uint32 requests) {
+  // The synchronous compositor does not requre BeginFrame messages.
+  if (using_synchronous_compositor_)
+    requests &= FLUSH_INPUT;
+
+  bool should_request_vsync = !outstanding_vsync_requests_ && requests;
+  outstanding_vsync_requests_ |= requests;
+  // Note that if we're not currently observing the root window, outstanding
+  // vsync requests will be pushed if/when we resume observing in
+  // |StartObservingRootWindow()|.
+  if (observing_root_window_ && should_request_vsync)
+    content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
+}
+
+void RenderWidgetHostViewAndroid::StartObservingRootWindow() {
+  DCHECK(content_view_core_);
+  if (observing_root_window_)
+    return;
+
+  observing_root_window_ = true;
+  content_view_core_->GetWindowAndroid()->AddObserver(this);
+
+  // Clear existing vsync requests to allow a request to the new window.
+  uint32 outstanding_vsync_requests = outstanding_vsync_requests_;
+  outstanding_vsync_requests_ = 0;
+  RequestVSyncUpdate(outstanding_vsync_requests);
+}
+
+void RenderWidgetHostViewAndroid::StopObservingRootWindow() {
+  if (!content_view_core_) {
+    DCHECK(!observing_root_window_);
+    return;
+  }
+
+  if (!observing_root_window_)
+    return;
+
+  observing_root_window_ = false;
+  content_view_core_->GetWindowAndroid()->RemoveObserver(this);
+}
+
+void RenderWidgetHostViewAndroid::SendBeginFrame(base::TimeTicks frame_time,
+                                                 base::TimeDelta vsync_period) {
+  TRACE_EVENT0("cc", "RenderWidgetHostViewAndroid::SendBeginFrame");
+  base::TimeTicks display_time = frame_time + vsync_period;
+
+  // TODO(brianderson): Use adaptive draw-time estimation.
+  base::TimeDelta estimated_browser_composite_time =
+      base::TimeDelta::FromMicroseconds(
+          (1.0f * base::Time::kMicrosecondsPerSecond) / (3.0f * 60));
+
+  base::TimeTicks deadline = display_time - estimated_browser_composite_time;
+
+  host_->Send(new ViewMsg_BeginFrame(
+      host_->GetRoutingID(),
+      cc::BeginFrameArgs::Create(frame_time, deadline, vsync_period)));
+}
+
 bool RenderWidgetHostViewAndroid::Animate(base::TimeTicks frame_time) {
   bool needs_animate =
       overscroll_effect_ ? overscroll_effect_->Animate(frame_time) : false;
@@ -1353,11 +1404,8 @@ InputEventAckState RenderWidgetHostViewAndroid::FilterInputEvent(
 }
 
 void RenderWidgetHostViewAndroid::OnSetNeedsFlushInput() {
-  if (flush_input_requested_ || !content_view_core_)
-    return;
   TRACE_EVENT0("input", "RenderWidgetHostViewAndroid::OnSetNeedsFlushInput");
-  flush_input_requested_ = true;
-  content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
+  RequestVSyncUpdate(FLUSH_INPUT);
 }
 
 BrowserAccessibilityManager*
@@ -1398,9 +1446,8 @@ void RenderWidgetHostViewAndroid::SendTouchEvent(
   // This is good enough as long as the first touch event has Begin semantics
   // and the actual scroll happens on the next vsync.
   // TODO: Is this actually still needed?
-  if (content_view_core_ && observing_root_window_) {
-    content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
-  }
+  if (observing_root_window_)
+    RequestVSyncUpdate(BEGIN_FRAME);
 }
 
 void RenderWidgetHostViewAndroid::SendMouseEvent(
@@ -1496,10 +1543,7 @@ void RenderWidgetHostViewAndroid::DidStopFlinging() {
 void RenderWidgetHostViewAndroid::SetContentViewCore(
     ContentViewCoreImpl* content_view_core) {
   RemoveLayers();
-  if (observing_root_window_ && content_view_core_) {
-    content_view_core_->GetWindowAndroid()->RemoveObserver(this);
-    observing_root_window_ = false;
-  }
+  StopObservingRootWindow();
 
   bool resize = false;
   if (content_view_core != content_view_core_) {
@@ -1525,12 +1569,7 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
   if (!content_view_core_)
     return;
 
-  if (!using_synchronous_compositor_) {
-    content_view_core_->GetWindowAndroid()->AddObserver(this);
-    observing_root_window_ = true;
-    if (needs_begin_frame_)
-      content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
-  }
+  StartObservingRootWindow();
 
   if (resize)
     WasResized();
@@ -1575,27 +1614,19 @@ void RenderWidgetHostViewAndroid::OnVSync(base::TimeTicks frame_time,
   if (!host_)
     return;
 
-  if (flush_input_requested_) {
-    flush_input_requested_ = false;
+  const uint32 current_vsync_requests = outstanding_vsync_requests_;
+  outstanding_vsync_requests_ = 0;
+
+  if (current_vsync_requests & FLUSH_INPUT)
     host_->FlushInput();
+
+  if (current_vsync_requests & BEGIN_FRAME ||
+      current_vsync_requests & PERSISTENT_BEGIN_FRAME) {
+    SendBeginFrame(frame_time, vsync_period);
   }
 
-  TRACE_EVENT0("cc", "RenderWidgetHostViewAndroid::SendBeginFrame");
-  base::TimeTicks display_time = frame_time + vsync_period;
-
-  // TODO(brianderson): Use adaptive draw-time estimation.
-  base::TimeDelta estimated_browser_composite_time =
-      base::TimeDelta::FromMicroseconds(
-          (1.0f * base::Time::kMicrosecondsPerSecond) / (3.0f * 60));
-
-  base::TimeTicks deadline = display_time - estimated_browser_composite_time;
-
-  host_->Send(new ViewMsg_BeginFrame(
-      host_->GetRoutingID(),
-      cc::BeginFrameArgs::Create(frame_time, deadline, vsync_period)));
-
-  if (needs_begin_frame_)
-    content_view_core_->GetWindowAndroid()->RequestVSyncUpdate();
+  if (current_vsync_requests & PERSISTENT_BEGIN_FRAME)
+    RequestVSyncUpdate(PERSISTENT_BEGIN_FRAME);
 }
 
 void RenderWidgetHostViewAndroid::OnAnimate(base::TimeTicks begin_frame_time) {
