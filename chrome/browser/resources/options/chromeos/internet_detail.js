@@ -1268,7 +1268,7 @@ cr.define('options.internet', function() {
           'prl-version',
           getActiveDictionaryValue(data, 'Cellular', 'PRLVersion'));
 
-      var family = getActiveDictionaryValue(data, 'Cellular', 'GSM');
+      var family = getActiveDictionaryValue(data, 'Cellular', 'Family');
       detailsPage.gsm = family == 'GSM';
       if (detailsPage.gsm) {
         $('iccid').textContent =
