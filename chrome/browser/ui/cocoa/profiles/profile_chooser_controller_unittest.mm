@@ -99,7 +99,7 @@ TEST_F(ProfileChooserControllerTest, InitialLayoutWithNewMenu) {
   StartProfileChooserController();
 
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
 
   // Three profiles means we should have one active card, one separator and
@@ -138,7 +138,7 @@ TEST_F(ProfileChooserControllerTest, InitialLayoutWithNewMenu) {
 
   // Profile icon.
   NSView* activeProfileImage = [activeCardSubviews objectAtIndex:2];
-  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSImageView class]]);
+  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSButton class]]);
 
   // Profile name.
   NSView* activeProfileName = [activeCardSubviews objectAtIndex:1];
@@ -166,7 +166,7 @@ TEST_F(ProfileChooserControllerTest, InitialLayoutWithFastUserSwitcher) {
   StartProfileChooserController();
 
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
 
   // Three profiles means we should have one active card and a
@@ -209,7 +209,7 @@ TEST_F(ProfileChooserControllerTest, InitialLayoutWithFastUserSwitcher) {
 
   // Profile icon.
   NSView* activeProfileImage = [activeCardSubviews objectAtIndex:2];
-  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSImageView class]]);
+  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSButton class]]);
 
   // Profile name.
   NSView* activeProfileName = [activeCardSubviews objectAtIndex:1];
@@ -240,7 +240,7 @@ TEST_F(ProfileChooserControllerTest, OtherProfilesSortedAlphabetically) {
   StartProfileChooserController();
 
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
   NSString* sortedNames[] = { @"Another Test",
                               @"New Profile",
@@ -272,7 +272,7 @@ TEST_F(ProfileChooserControllerTest,
   switches::EnableNewAvatarMenuForTesting(CommandLine::ForCurrentProcess());
   StartProfileChooserController();
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
   NSArray* activeCardSubviews = [[subviews objectAtIndex:2] subviews];
   NSArray* activeCardLinks = [[activeCardSubviews objectAtIndex:0] subviews];
@@ -301,7 +301,7 @@ TEST_F(ProfileChooserControllerTest,
 
   StartProfileChooserController();
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
   NSArray* activeCardSubviews = [[subviews objectAtIndex:2] subviews];
   NSArray* activeCardLinks = [[activeCardSubviews objectAtIndex:0] subviews];
@@ -323,7 +323,7 @@ TEST_F(ProfileChooserControllerTest,
 
   StartProfileChooserController();
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
   NSArray* activeCardSubviews = [[subviews objectAtIndex:2] subviews];
   NSArray* activeCardLinks = [[activeCardSubviews objectAtIndex:0] subviews];
@@ -358,7 +358,7 @@ TEST_F(ProfileChooserControllerTest, AccountManagementLayout) {
       profiles::BUBBLE_VIEW_MODE_ACCOUNT_MANAGEMENT];
 
   NSArray* subviews = [[[controller() window] contentView] subviews];
-  ASSERT_EQ(1U, [subviews count]);
+  ASSERT_EQ(2U, [subviews count]);
   subviews = [[subviews objectAtIndex:0] subviews];
 
   // There should be one active card, one accounts container, two separators
@@ -435,7 +435,7 @@ TEST_F(ProfileChooserControllerTest, AccountManagementLayout) {
 
   // Profile icon.
   NSView* activeProfileImage = [activeCardSubviews objectAtIndex:2];
-  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSImageView class]]);
+  EXPECT_TRUE([activeProfileImage isKindOfClass:[NSButton class]]);
 
   // Profile name.
   NSView* activeProfileName = [activeCardSubviews objectAtIndex:1];
@@ -450,4 +450,70 @@ TEST_F(ProfileChooserControllerTest, AccountManagementLayout) {
       [linksSubviews objectAtIndex:0]);
   EXPECT_EQ(@selector(hideAccountManagement:), [link action]);
   EXPECT_EQ(controller(), [link target]);
+}
+
+TEST_F(ProfileChooserControllerTest, SignedInProfileLockDisabled) {
+  switches::EnableNewProfileManagementForTesting(
+      CommandLine::ForCurrentProcess());
+  // Sign in the first profile.
+  ProfileInfoCache* cache = testing_profile_manager()->profile_info_cache();
+  cache->SetUserNameOfProfileAtIndex(0, base::ASCIIToUTF16(kEmail));
+  cache->SetLocalAuthCredentialsOfProfileAtIndex(0, std::string());
+
+  StartProfileChooserController();
+  NSArray* subviews = [[[controller() window] contentView] subviews];
+  ASSERT_EQ(2U, [subviews count]);
+  subviews = [[subviews objectAtIndex:0] subviews];
+
+  // Three profiles means we should have one active card, one separator, one
+  // option buttons view and a lock view. We also have an update promo for the
+  // new avatar menu.
+  // TODO(noms): Enforcing 5U fails on the waterfall debug bots, but it's not
+  // reproducible anywhere else.
+  ASSERT_GE([subviews count], 4U);
+
+  // There will be three buttons and two separators in the option buttons view.
+  NSArray* buttonSubviews = [[subviews objectAtIndex:0] subviews];
+  ASSERT_EQ(5U, [buttonSubviews count]);
+
+  // There should be a lock button.
+  NSButton* lockButton =
+      base::mac::ObjCCast<NSButton>([buttonSubviews objectAtIndex:0]);
+  ASSERT_TRUE(lockButton);
+  EXPECT_EQ(@selector(lockProfile:), [lockButton action]);
+  EXPECT_EQ(controller(), [lockButton target]);
+  EXPECT_FALSE([lockButton isEnabled]);
+}
+
+TEST_F(ProfileChooserControllerTest, SignedInProfileLockEnabled) {
+  switches::EnableNewProfileManagementForTesting(
+      CommandLine::ForCurrentProcess());
+  // Sign in the first profile.
+  ProfileInfoCache* cache = testing_profile_manager()->profile_info_cache();
+  cache->SetUserNameOfProfileAtIndex(0, base::ASCIIToUTF16(kEmail));
+  cache->SetLocalAuthCredentialsOfProfileAtIndex(0, "YourHashHere");
+
+  StartProfileChooserController();
+  NSArray* subviews = [[[controller() window] contentView] subviews];
+  ASSERT_EQ(2U, [subviews count]);
+  subviews = [[subviews objectAtIndex:0] subviews];
+
+  // Three profiles means we should have one active card, one separator, one
+  // option buttons view and a lock view. We also have an update promo for the
+  // new avatar menu.
+  // TODO(noms): Enforcing 5U fails on the waterfall debug bots, but it's not
+  // reproducible anywhere else.
+  ASSERT_GE([subviews count], 4U);
+
+  // There will be three buttons and two separators in the option buttons view.
+  NSArray* buttonSubviews = [[subviews objectAtIndex:0] subviews];
+  ASSERT_EQ(5U, [buttonSubviews count]);
+
+  // There should be a lock button.
+  NSButton* lockButton =
+      base::mac::ObjCCast<NSButton>([buttonSubviews objectAtIndex:0]);
+  ASSERT_TRUE(lockButton);
+  EXPECT_EQ(@selector(lockProfile:), [lockButton action]);
+  EXPECT_EQ(controller(), [lockButton target]);
+  EXPECT_TRUE([lockButton isEnabled]);
 }
