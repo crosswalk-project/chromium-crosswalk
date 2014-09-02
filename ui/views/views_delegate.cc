@@ -95,4 +95,12 @@ int ViewsDelegate::GetAppbarAutohideEdges(HMONITOR monitor,
 }
 #endif
 
+void ViewsDelegate::SetShouldShowTitleBar(bool show_title_bar) {
+  should_show_titlebar_ = show_title_bar;
+}
+
+bool ViewsDelegate::ShouldShowTitleBar() const {
+  return should_show_titlebar_;
+}
+
 }  // namespace views
