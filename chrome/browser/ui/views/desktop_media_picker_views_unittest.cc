@@ -46,8 +46,8 @@ class DesktopMediaPickerViewsTest : public testing::Test {
 
     picker_views_.reset(new DesktopMediaPickerViews());
     picker_views_->Show(NULL,
-                        parent_widget_->GetNativeWindow(),
                         NULL,
+                        parent_widget_->GetNativeWindow(),
                         app_name,
                         app_name,
                         media_list.PassAs<DesktopMediaList>(),

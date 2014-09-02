@@ -11,7 +11,6 @@
 #include "chrome/grit/generated_resources.h"
 #include "components/web_modal/popup_manager.h"
 #include "content/public/browser/browser_thread.h"
-#include "content/public/browser/web_contents_delegate.h"
 #include "ui/aura/window_tree_host.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/events/event_constants.h"
@@ -359,6 +358,7 @@ void DesktopMediaListView::OnSourceThumbnailChanged(int index) {
 DesktopMediaPickerDialogView::DesktopMediaPickerDialogView(
     content::WebContents* parent_web_contents,
     gfx::NativeWindow context,
+    gfx::NativeWindow parent_window,
     DesktopMediaPickerViews* parent,
     const base::string16& app_name,
     const base::string16& target_name,
@@ -384,25 +384,26 @@ DesktopMediaPickerDialogView::DesktopMediaPickerDialogView(
       GetMediaListViewHeightForRows(1), GetMediaListViewHeightForRows(2));
   AddChildView(scroll_view_);
 
-  // If |parent_web_contents| is set and it's not a background page then the
-  // picker will be shown modal to the web contents. Otherwise the picker is
-  // shown in a separate window.
+  // If |parent_web_contents| is set, the picker will be shown modal to the
+  // web contents. Otherwise, a new dialog widget inside |parent_window| will be
+  // created for the picker. Note that |parent_window| may also be NULL if
+  // parent web contents is not set. In this case the picker will be parented
+  // by a root window.
   views::Widget* widget = NULL;
-  bool modal_dialog =
-      parent_web_contents &&
-      !parent_web_contents->GetDelegate()->IsNeverVisible(parent_web_contents);
-  if (modal_dialog) {
+  if (parent_web_contents)
     widget = CreateWebModalDialogViews(this, parent_web_contents);
-  } else {
-    widget = DialogDelegate::CreateDialogWidget(this, context, NULL);
-  }
+  else
+    widget = DialogDelegate::CreateDialogWidget(this, context, parent_window);
 
-  // If the picker is not modal to the calling web contents then it is displayed
-  // in its own top-level window, so in that case it needs to be filtered out of
-  // the list of top-level windows available for capture, and to achieve that
-  // the Id is passed to DesktopMediaList.
+  // DesktopMediaList needs to know the ID of the picker window which
+  // matches the ID it gets from the OS. Depending on the OS and configuration
+  // we get this ID differently.
   DesktopMediaID::Id dialog_window_id = 0;
-  if (!modal_dialog) {
+
+  // If there is |parent_window| or |parent_web_contents|, the picker window
+  // is embedded in the parent and does not have its own native window id, so we
+  // do not filter in that case.
+  if (!parent_window && !parent_web_contents) {
 #if defined(USE_ASH)
     if (chrome::IsNativeWindowInAsh(widget->GetNativeWindow())) {
       dialog_window_id =
@@ -419,7 +420,7 @@ DesktopMediaPickerDialogView::DesktopMediaPickerDialogView(
 
   list_view_->StartUpdating(dialog_window_id);
 
-  if (modal_dialog) {
+  if (parent_web_contents) {
     web_modal::PopupManager* popup_manager =
         web_modal::PopupManager::FromWebContents(parent_web_contents);
     popup_manager->ShowModalDialog(GetWidget()->GetNativeView(),
@@ -554,7 +555,8 @@ void DesktopMediaPickerViews::Show(content::WebContents* web_contents,
                                    const DoneCallback& done_callback) {
   callback_ = done_callback;
   dialog_ = new DesktopMediaPickerDialogView(
-      web_contents, context, this, app_name, target_name, media_list.Pass());
+      web_contents, context, parent, this, app_name, target_name,
+      media_list.Pass());
 }
 
 void DesktopMediaPickerViews::NotifyDialogResult(DesktopMediaID source) {
