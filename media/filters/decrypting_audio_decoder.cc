@@ -30,7 +30,7 @@ static inline bool IsOutOfSync(const base::TimeDelta& timestamp_1,
   // Out of sync of 100ms would be pretty noticeable and we should keep any
   // drift below that.
   const int64 kOutOfSyncThresholdInMilliseconds = 100;
-  return std::abs(timestamp_1.InMilliseconds() - timestamp_2.InMilliseconds()) >
+  return std::abs(static_cast<long>(timestamp_1.InMilliseconds()) - timestamp_2.InMilliseconds()) >
          kOutOfSyncThresholdInMilliseconds;
 }
 

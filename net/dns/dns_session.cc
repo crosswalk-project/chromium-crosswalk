@@ -178,7 +178,7 @@ void DnsSession::RecordRTT(unsigned server_index, base::TimeDelta rtt) {
   base::TimeDelta current_error = rtt - estimate;
   estimate += current_error / 8;  // * alpha
   base::TimeDelta abs_error = base::TimeDelta::FromInternalValue(
-      std::abs(current_error.ToInternalValue()));
+      std::abs(static_cast<long>(current_error.ToInternalValue())));
   deviation += (abs_error - deviation) / 4;  // * delta
 
   // Histogram-based method.
