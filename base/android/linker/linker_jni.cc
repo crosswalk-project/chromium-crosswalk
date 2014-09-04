@@ -451,7 +451,7 @@ static bool PostForLaterExecution(crazy_callback_t* callback_request,
   LOG_INFO("%s: Calling back to java with handler %p, opaque %p",
            __FUNCTION__, callback->handler, callback->opaque);
 
-  jlong arg = static_cast<jlong>(reinterpret_cast<intptr_t>(callback));
+  jlong arg = static_cast<jlong>(reinterpret_cast<uintptr_t>(callback));
   env->CallStaticVoidMethod(
       s_java_callback_bindings.clazz, s_java_callback_bindings.method_id, arg);
 
