@@ -420,6 +420,20 @@ struct VADriverVTable
             VASurfaceAttrib    *attrib_list,
             unsigned int       *num_attribs
         );
+
+        VAStatus
+        (*vaLockBuffer)(
+            VADriverContextP    ctx,
+            VABufferID          buf_id,
+            VABufferInfo *      buf_info_ptr
+        );
+
+        VAStatus
+        (*vaUnlockBuffer)(
+            VADriverContextP    ctx,
+            VABufferID          buf_id,
+            VABufferInfo *      buf_info_ptr
+        );
 };
 
 struct VADriverContext
