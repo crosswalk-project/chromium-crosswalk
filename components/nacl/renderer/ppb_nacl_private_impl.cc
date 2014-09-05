@@ -1699,7 +1699,6 @@ void StreamPexe(PP_Instance instance,
   url_request.addHTTPHeaderField(
       blink::WebString::fromUTF8("Accept"),
       blink::WebString::fromUTF8("application/x-pnacl, */*"));
-  url_request.setRequestContext(blink::WebURLRequest::RequestContextObject);
   downloader->Load(url_request);
 }
 
