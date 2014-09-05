@@ -78,6 +78,7 @@
 #ifndef _VA_H_
 #define _VA_H_
 
+#include <stddef.h>
 #include <stdint.h>
 #include <va/va_version.h>
 
@@ -1849,6 +1850,116 @@ VAStatus vaUnmapBuffer (
 VAStatus vaDestroyBuffer (
     VADisplay dpy,
     VABufferID buffer_id
+);
+
+/** VA buffer information */
+typedef struct {
+    /** Buffer handle */
+    uintptr_t           handle;
+    /** Buffer type (See VABufferType). */
+    uint32_t            type;
+    /**
+     * Buffer memory type (See VASurfaceAttribMemoryType).
+     *
+     * On input to vaLockBuffer(), this field can serve as a hint to
+     * specify the set of memory types the caller is interested in. On
+     * successful return from vaLockBuffer(), the field is updated
+     * with the best matching memory type.
+     */
+    uint32_t            mem_type;
+    /** Size of the underlying buffer. */
+    size_t              mem_size;
+} VABufferInfo;
+
+/**
+ * Locks buffer for external API usage.
+ *
+ * Locks the VA buffer object buf_id for external API usage like
+ * EGL or OpenCL (OCL). This function is a synchronization point. This
+ * means that any pending operation is guaranteed to be completed
+ * prior to returning from the function.
+ *
+ * If the referenced VA buffer object is the backing store of a VA
+ * surface, then this function acts as if vaSyncSurface() on the
+ * parent surface was called first.
+ *
+ * The VABufferInfo argument shall be zero'ed on input. On
+ * successful output, the data structure is filled in with all the
+ * necessary buffer level implementation details like handle, type,
+ * memory type and memory size.
+ *
+ * Note: the external API implementation, or the application, can
+ * express the memory types it is interested in by filling in the
+ * mem_type field accordingly. On successful output, the memory type
+ * that fits best the request and that was used is updated in the
+ * VABufferInfo data structure. If none of the supplied memory types
+ * is supported, then a VA_STATUS_ERROR_UNSUPPORTED_MEMORY_TYPE
+ * error is returned.
+ *
+ * The VABufferInfo data is valid until vaUnlockBuffer() is
+ * called. Besides, no additional operation is allowed on any of the
+ * buffer parent object until vaUnlockBuffer() is called. e.g. decoding
+ * into a VA surface backed with the supplied VA buffer object
+ * buf_id would fail with a VA_STATUS_ERROR_SURFACE_BUSY error.
+ *
+ * Possible errors:
+ * - VA_STATUS_ERROR_UNIMPLEMENTED: the VA driver implementation
+ *   does not support this interface
+ * - VA_STATUS_ERROR_INVALID_DISPLAY: an invalid display was supplied
+ * - VA_STATUS_ERROR_INVALID_BUFFER: an invalid buffer was supplied
+ * - VA_STATUS_ERROR_UNSUPPORTED_BUFFERTYPE: the implementation
+ *   does not support exporting buffers of the specified type
+ * - VA_STATUS_ERROR_UNSUPPORTED_MEMORY_TYPE: none of the requested
+ *   memory types in \ref VABufferInfo.mem_type was supported
+ *
+ * @param[in] dpy               the VA display
+ * @param[in] buf_id            the VA buffer
+ * @param[in,out] buf_info_ptr  the VA buffer information
+ * @return VA_STATUS_SUCCESS if successful
+ */
+VAStatus
+vaLockBuffer(
+    VADisplay           dpy,
+    VABufferID          buf_id,
+    VABufferInfo *      buf_info_ptr
+);
+
+/**
+ * Unlocks buffer after usage from external API.
+ *
+ * Unlocks the VA buffer object buf_id from external API usage like
+ * EGL or OpenCL (OCL). This function is a synchronization point. This
+ * means that any pending operation is guaranteed to be completed
+ * prior to returning from the function.
+ *
+ * The VABufferInfo argument shall point to the original data
+ * structure that was obtained from vaLockBuffer(), unaltered. This is
+ * necessary so that the VA driver implementation could deallocate any
+ * resources that were needed.
+ *
+ * In any case, returning from this function invalidates any contents
+ * in VABufferInfo. i.e. the underlyng buffer handle is no longer
+ * valid. Therefore, VA driver implementations are free to reset this
+ * data structure to safe defaults.
+ *
+ * Possible errors:
+ * - VA_STATUS_ERROR_UNIMPLEMENTED: the VA driver implementation
+ *   does not support this interface
+ * - VA_STATUS_ERROR_INVALID_DISPLAY: an invalid display was supplied
+ * - VA_STATUS_ERROR_INVALID_BUFFER: an invalid buffer was supplied
+ * - VA_STATUS_ERROR_UNSUPPORTED_BUFFERTYPE: the implementation
+ *   does not support exporting buffers of the specified type
+ *
+ * @param[in] dpy               the VA display
+ * @param[in] buf_id            the VA buffer
+ * @param[in,out] buf_info_ptr  the VA buffer information
+ * @return VA_STATUS_SUCCESS if successful
+ */
+VAStatus
+vaUnlockBuffer(
+    VADisplay           dpy,
+    VABufferID          buf_id,
+    VABufferInfo *      buf_info_ptr
 );
 
 /*
