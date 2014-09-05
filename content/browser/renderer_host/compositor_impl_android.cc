@@ -559,7 +559,6 @@ scoped_ptr<cc::OutputSurface> CompositorImpl::CreateOutputSurface(
 
 void CompositorImpl::OnLostResources() {
   client_->DidLoseResources();
-  ui_resource_provider_.UIResourcesAreInvalid();
 }
 
 void CompositorImpl::ScheduleComposite() {
