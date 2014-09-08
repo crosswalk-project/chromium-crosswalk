@@ -1003,6 +1003,14 @@ public class Tab implements NavigationClient {
     }
 
     /**
+     * A helper method to allow subclasses to handle the Instant support
+     * disabled event.
+     */
+    @CalledByNative
+    protected void onWebContentsInstantSupportDisabled() {
+    }
+
+    /**
      * A helper method to allow subclasses to build their own menu populator.
      * @return An instance of a {@link ContextMenuPopulator}.
      */
