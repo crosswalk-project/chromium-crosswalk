@@ -82,8 +82,9 @@ class PropertyTest : public testing::Test {
         object_proxy_,
         base::Bind(&PropertyTest::OnPropertyChanged,
                    base::Unretained(this))));
+
+    // GetAll is called once the signals are connected.
     properties_->ConnectSignals();
-    properties_->GetAll();
   }
 
   virtual void TearDown() {

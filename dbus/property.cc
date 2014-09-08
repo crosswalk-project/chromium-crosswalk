@@ -89,6 +89,11 @@ void PropertySet::ChangedConnected(const std::string& interface_name,
                                    bool success) {
   LOG_IF(WARNING, !success) << "Failed to connect to " << signal_name
                             << "signal.";
+
+  // This is a simple workaround for crbug.com/407109, which causes signals to
+  // be missed if they are received before a match rule is added for them. This
+  // is a branch-only workaround that is only present in 2125 (38).
+  GetAll();
 }
 
 
