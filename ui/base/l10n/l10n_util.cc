@@ -311,6 +311,11 @@ std::string GetCanonicalLocale(const std::string& locale) {
   return base::i18n::GetCanonicalLocale(locale.c_str());
 }
 
+std::string GetLanguage(const std::string& locale) {
+  const std::string::size_type hyphen_pos = locale.find('-');
+  return std::string(locale, 0, hyphen_pos);
+}
+
 bool CheckAndResolveLocale(const std::string& locale,
                            std::string* resolved_locale) {
 #if defined(OS_MACOSX)

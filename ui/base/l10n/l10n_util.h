@@ -24,6 +24,9 @@ namespace l10n_util {
 // std::string as an argument.
 UI_BASE_EXPORT std::string GetCanonicalLocale(const std::string& locale);
 
+// Takes normalized locale as |locale|. Returns language part (before '-').
+UI_BASE_EXPORT std::string GetLanguage(const std::string& locale);
+
 // This method translates a generic locale name to one of the locally defined
 // ones. This method returns true if it succeeds.
 UI_BASE_EXPORT bool CheckAndResolveLocale(const std::string& locale,
