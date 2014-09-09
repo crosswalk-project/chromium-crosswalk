@@ -146,7 +146,7 @@ void CompositingIOSurfaceLayerHelper::DisplayIfNeededAndAck() {
 }
 
 void CompositingIOSurfaceLayerHelper::TimerFired() {
-  SetNeedsDisplayAndDisplayAndAck();
+  DisplayIfNeededAndAck();
 }
 
 void CompositingIOSurfaceLayerHelper::BeginPumpingFrames() {
