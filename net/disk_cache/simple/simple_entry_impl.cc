@@ -160,6 +160,8 @@ class SimpleEntryImpl::ScopedOperationRunner {
   SimpleEntryImpl* const entry_;
 };
 
+SimpleEntryImpl::ActiveEntryProxy::~ActiveEntryProxy() {}
+
 SimpleEntryImpl::SimpleEntryImpl(net::CacheType cache_type,
                                  const FilePath& path,
                                  const uint64 entry_hash,
@@ -193,6 +195,12 @@ SimpleEntryImpl::SimpleEntryImpl(net::CacheType cache_type,
   MakeUninitialized();
   net_log_.BeginEvent(net::NetLog::TYPE_SIMPLE_CACHE_ENTRY,
       CreateNetLogSimpleEntryConstructionCallback(this));
+}
+
+void SimpleEntryImpl::SetActiveEntryProxy(
+    scoped_ptr<ActiveEntryProxy> active_entry_proxy) {
+  DCHECK(!active_entry_proxy_);
+  active_entry_proxy_.reset(active_entry_proxy.release());
 }
 
 int SimpleEntryImpl::OpenEntry(Entry** out_entry,
@@ -525,7 +533,6 @@ SimpleEntryImpl::~SimpleEntryImpl() {
   DCHECK_EQ(0U, pending_operations_.size());
   DCHECK(state_ == STATE_UNINITIALIZED || state_ == STATE_FAILURE);
   DCHECK(!synchronous_entry_);
-  RemoveSelfFromBackend();
   net_log_.EndEvent(net::NetLog::TYPE_SIMPLE_CACHE_ENTRY);
 }
 
@@ -567,18 +574,12 @@ void SimpleEntryImpl::ReturnEntryToCaller(Entry** out_entry) {
   *out_entry = this;
 }
 
-void SimpleEntryImpl::RemoveSelfFromBackend() {
-  if (!backend_.get())
-    return;
-  backend_->OnDeactivated(this);
-}
-
 void SimpleEntryImpl::MarkAsDoomed() {
   doomed_ = true;
   if (!backend_.get())
     return;
   backend_->index()->Remove(entry_hash_);
-  RemoveSelfFromBackend();
+  active_entry_proxy_.reset();
 }
 
 void SimpleEntryImpl::RunNextOperationIfNeeded() {
