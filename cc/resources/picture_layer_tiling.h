@@ -294,7 +294,6 @@ class CC_EXPORT PictureLayerTiling {
                      const gfx::Size& layer_bounds,
                      PictureLayerTilingClient* client);
   void SetLiveTilesRect(const gfx::Rect& live_tiles_rect);
-  void VerifyLiveTilesRect();
   Tile* CreateTile(int i, int j, const PictureLayerTiling* twin_tiling);
 
   // Computes a skewport. The calculation extrapolates the last visible
