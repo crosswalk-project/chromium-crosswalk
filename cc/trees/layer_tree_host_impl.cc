@@ -1168,6 +1168,12 @@ void LayerTreeHostImpl::ResetTreesForTesting() {
   recycle_tree_.reset();
 }
 
+void LayerTreeHostImpl::ResetRecycleTreeForTesting() {
+  if (recycle_tree_)
+    recycle_tree_->DetachLayerTree();
+  recycle_tree_.reset();
+}
+
 void LayerTreeHostImpl::EnforceManagedMemoryPolicy(
     const ManagedMemoryPolicy& policy) {
 
