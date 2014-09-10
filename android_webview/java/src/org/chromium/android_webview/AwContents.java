@@ -2050,6 +2050,13 @@ public class AwContents {
         }
     }
 
+    // Call postInvalidateOnAnimation for invalidations. This is only used to synchronize
+    // draw functor destruction.
+    @CalledByNative
+    private void invalidateOnFunctorDestroy() {
+        mContainerView.invalidate();
+    }
+
     @CalledByNative
     private int[] getLocationOnScreen() {
         int[] result = new int[2];
