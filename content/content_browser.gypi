@@ -1900,6 +1900,26 @@
         'browser/power_save_blocker_x11.cc',
       ],
     }],
+    ['tizen==1 and enable_murphy==1', {
+      'sources': [
+        '<(DEPTH)/xwalk/tizen/browser/media/browser_mediaplayer_manager.cc',
+        '<(DEPTH)/xwalk/tizen/browser/media/browser_mediaplayer_manager.h',
+        '<(DEPTH)/xwalk/tizen/browser/media/media_webcontents_observer.cc',
+        '<(DEPTH)/xwalk/tizen/browser/media/media_webcontents_observer.h',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_mainloop.cc',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_mainloop.h',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_resource.cc',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_resource.h',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_resource_manager.cc',
+        '<(DEPTH)/xwalk/tizen/browser/media/murphy_resource_manager.h',
+      ],
+      'dependencies': [
+        '../build/linux/system.gyp:resource_manager',
+      ],
+      'export_dependent_settings': [
+        '../build/linux/system.gyp:resource_manager',
+      ],
+    }],
     ['os_bsd==1', {
       'sources/': [
         ['exclude', '^browser/gamepad/gamepad_platform_data_fetcher_linux\\.cc$'],
