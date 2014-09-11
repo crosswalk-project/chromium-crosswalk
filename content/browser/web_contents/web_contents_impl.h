@@ -45,6 +45,12 @@ struct BrowserPluginHostMsg_ResizeGuest_Params;
 struct ViewHostMsg_DateTimeDialogValue_Params;
 struct ViewMsg_PostMessage_Params;
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+namespace tizen {
+class MediaWebContentsObserver;
+}
+#endif
+
 namespace content {
 class BrowserPluginEmbedder;
 class BrowserPluginGuest;
@@ -1251,6 +1257,11 @@ class CONTENT_EXPORT WebContentsImpl
 #if defined(ENABLE_BROWSER_CDMS)
   // Manages all the media player and CDM managers and forwards IPCs to them.
   scoped_ptr<MediaWebContentsObserver> media_web_contents_observer_;
+#endif
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  // Manages all the media player managers and forwards IPCs to them.
+  scoped_ptr<tizen::MediaWebContentsObserver> media_webcontents_observer_;
 #endif
 
   base::WeakPtrFactory<WebContentsImpl> loading_weak_factory_;
