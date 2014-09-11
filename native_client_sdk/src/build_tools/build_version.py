@@ -6,6 +6,7 @@
 """
 
 import os
+import re
 import sys
 
 # pylint: disable=E0602
@@ -27,11 +28,12 @@ def ChromeVersion():
   Returns:
     Chrome version string or trunk + svn rev.
   '''
-  info = lastchange.FetchVersionInfo(None)
-  if info.url.startswith('/trunk/'):
-    return 'trunk.%s' % info.revision
-  else:
-    return ChromeVersionNoTrunk()
+  info = FetchGitCommitPosition()
+  if info.url == 'git':
+    _, ref, revision = ParseCommitPosition(info.revision)
+    if ref == 'refs/heads/master':
+      return 'trunk.%s' % revision
+  return ChromeVersionNoTrunk()
 
 
 def ChromeVersionNoTrunk():
@@ -58,10 +60,26 @@ def ChromeMajorVersion():
 def ChromeRevision():
   '''Extract chrome revision from svn.
 
+     Now that the Chrome source-of-truth is git, this will return the
+     Cr-Commit-Position instead. Fortunately, this value is equal to the SVN
+     revision if one exists.
+
   Returns:
     The Chrome revision as a string. e.g. "12345"
   '''
-  return lastchange.FetchVersionInfo(None).revision
+  version = FetchGitCommitPosition()
+  return ParseCommitPosition(version.revision)[2]
+
+
+def ChromeCommitPosition():
+  '''Return the full git sha and commit position.
+
+  Returns:
+    A value like:
+    0178d4831bd36b5fb9ff477f03dc43b11626a6dc-refs/heads/master@{#292238}
+  '''
+  return FetchGitCommitPosition().revision
+
 
 def NaClRevision():
   '''Extract NaCl revision from svn.
@@ -70,4 +88,49 @@ def NaClRevision():
     The NaCl revision as a string. e.g. "12345"
   '''
   nacl_dir = os.path.join(SRC_DIR, 'native_client')
-  return lastchange.FetchVersionInfo(None, nacl_dir).revision
+  return lastchange.FetchVersionInfo(None, nacl_dir, 'native_client').revision
+
+
+def FetchGitCommitPosition(directory=None):
+  '''Return the "commit-position" of the Chromium git repo. This should be
+  equivalent to the SVN revision if one exists.
+  '''
+  SEARCH_LIMIT = 100
+  for i in xrange(SEARCH_LIMIT):
+    cmd = ['show', '-s', '--format=%H%n%B', 'HEAD~%d' % i]
+    proc = lastchange.RunGitCommand(directory, cmd)
+    if not proc:
+      break
+
+    output = proc.communicate()[0]
+    if not (proc.returncode == 0 and output):
+      break
+
+    lines = output.splitlines()
+
+    # First line is the hash.
+    hsh = lines[0]
+    if not re.match(r'[0-9a-fA-F]+', hsh):
+      break
+
+    for line in reversed(lines):
+      if line.startswith('Cr-Commit-Position:'):
+        pos = line.rsplit()[-1].strip()
+        return lastchange.VersionInfo('git', '%s-%s' % (hsh, pos))
+
+  raise Exception('Unable to fetch a Git Commit Position.')
+
+
+
+def ParseCommitPosition(commit_position):
+  '''Parse a Chrome commit position into its components.
+
+  Given a commit position like:
+    0178d4831bd36b5fb9ff477f03dc43b11626a6dc-refs/heads/master@{#292238}
+  Returns:
+    ("0178d4831bd36b5fb9ff477f03dc43b11626a6dc", "refs/heads/master", "292238")
+  '''
+  m = re.match(r'([0-9a-fA-F]+)(?:-([^@]+)@{#(\d+)})?', commit_position)
+  if m:
+    return m.groups()
+  return None
