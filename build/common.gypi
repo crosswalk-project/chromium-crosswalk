@@ -2501,6 +2501,10 @@
 
     # Whether to allow building of Media Router related isolates.
     'archive_media_router_tests%': 0,
+
+    # Flags to enable Murphy resource policy daemon integration on Tizen.
+    'tizen%': 0,
+    'enable_murphy%': 0,
   },
   'target_defaults': {
     'variables': {
