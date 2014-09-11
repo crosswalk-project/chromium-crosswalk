@@ -989,6 +989,11 @@
         '<(DEPTH)/third_party/khronos',
       ],
     }],
+    ['tizen==1 and enable_murphy==1', {
+      'sources': [
+        '<(DEPTH)/xwalk/tizen/common/media/media_player_messages.h',
+      ],
+    }],
     ['OS=="win" and directxsdk_exists=="True"', {
       'actions': [
       {
