@@ -144,6 +144,11 @@
 #include "content/renderer/media/crypto/renderer_cdm_manager.h"
 #endif
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+#include "xwalk/tizen/renderer/media/renderer_mediaplayer_manager.h"
+#include "xwalk/tizen/renderer/media/mediaplayer_impl.h"
+#endif
+
 using blink::WebContextMenuData;
 using blink::WebData;
 using blink::WebDataSource;
@@ -443,6 +448,9 @@ RenderFrameImpl::RenderFrameImpl(RenderViewImpl* render_view, int routing_id)
 #endif
 #if defined(VIDEO_HOLE)
       contains_media_player_(false),
+#endif
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+      media_player_manager_(NULL),
 #endif
       geolocation_dispatcher_(NULL),
       push_messaging_dispatcher_(NULL),
@@ -1513,10 +1521,28 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
                  static_cast<RenderFrame*>(this)),
       RenderThreadImpl::current()->GetAudioRendererMixerManager()->CreateInput(
           render_view_->routing_id_, routing_id_));
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  tizen::MediaPlayerImpl* media_player = new tizen::MediaPlayerImpl(
+      frame, client, weak_factory_.GetWeakPtr(),
+      GetTizenMediaPlayerManager(), params);
+  return media_player;
+#endif
+
   return new WebMediaPlayerImpl(frame, client, weak_factory_.GetWeakPtr(),
                                 params);
 #endif  // defined(OS_ANDROID)
 }
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+tizen::RendererMediaPlayerManager*
+RenderFrameImpl::GetTizenMediaPlayerManager() {
+  if (!media_player_manager_)
+    media_player_manager_ = new tizen::RendererMediaPlayerManager(this);
+
+  return media_player_manager_;
+}
+#endif
 
 blink::WebContentDecryptionModule*
 RenderFrameImpl::createContentDecryptionModule(
