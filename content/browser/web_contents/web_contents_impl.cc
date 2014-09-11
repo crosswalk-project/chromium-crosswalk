@@ -119,6 +119,10 @@
 #include "base/mac/foundation_util.h"
 #endif
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+#include "xwalk/tizen/browser/media/media_webcontents_observer.h"
+#endif
+
 namespace content {
 namespace {
 
@@ -351,6 +355,10 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context,
   audio_state_provider_.reset(new MediaPlayersObserver(this));
 #else
   audio_state_provider_.reset(new AudioStreamMonitor(this));
+#endif
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  media_webcontents_observer_.reset(new tizen::MediaWebContentsObserver(this));
 #endif
 }
 
