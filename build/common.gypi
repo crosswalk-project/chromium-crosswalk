@@ -2337,6 +2337,10 @@
 
     # Whether to allow building of the GPU-related isolates.
     'archive_gpu_tests%': 0,
+
+    # Flags to enable Murphy resource policy daemon integration on Tizen.
+    'tizen%': 0,
+    'enable_murphy%': 0,
   },
   'target_defaults': {
     'variables': {
