@@ -34,6 +34,12 @@ struct MediaPlayerAction;
 struct ViewHostMsg_CreateWindow_Params;
 struct ViewMsg_PostMessage_Params;
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+namespace tizen {
+class MediaWebContentsObserver;
+}
+#endif
+
 namespace base {
 class ListValue;
 }
@@ -497,6 +503,11 @@ class CONTENT_EXPORT RenderViewHostImpl
 #if defined(ENABLE_BROWSER_CDMS)
   // Manages all the media player and CDM managers and forwards IPCs to them.
   scoped_ptr<MediaWebContentsObserver> media_web_contents_observer_;
+#endif
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  // Manages all the media player managers and forwards IPCs to them.
+  scoped_ptr<tizen::MediaWebContentsObserver> media_webcontents_observer_;
 #endif
 
   // Used to swap out or shutdown this RVH when the unload event is taking too
