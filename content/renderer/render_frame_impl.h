@@ -77,6 +77,12 @@ namespace mojo {
 class ServiceProvider;
 }
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+namespace tizen {
+class RendererMediaPlayerManager;
+}
+#endif
+
 namespace content {
 
 class ChildFrameCompositingHelper;
@@ -812,6 +818,8 @@ class CONTENT_EXPORT RenderFrameImpl
       blink::WebContentDecryptionModule* initial_cdm);
 
   RendererMediaPlayerManager* GetMediaPlayerManager();
+#elif defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  tizen::RendererMediaPlayerManager* GetTizenMediaPlayerManager();
 #endif
 
   bool AreSecureCodecsSupported();
@@ -947,6 +955,8 @@ class CONTENT_EXPORT RenderFrameImpl
   // real media player in the browser process. It's okay to use a raw pointer
   // since it's a RenderFrameObserver.
   RendererMediaPlayerManager* media_player_manager_;
+#elif defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  tizen::RendererMediaPlayerManager* media_player_manager_;
 #endif
 
 #if defined(ENABLE_BROWSER_CDMS)

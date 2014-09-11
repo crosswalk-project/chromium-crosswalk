@@ -186,6 +186,10 @@
 #else
 #include "media/renderers/default_renderer_factory.h"
 #endif
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+#include "xwalk/tizen/renderer/media/renderer_mediaplayer_manager.h"
+#include "xwalk/tizen/renderer/media/mediaplayer_impl.h"
+#endif
 
 #if defined(ENABLE_WEBVR)
 #include "content/renderer/vr/vr_dispatcher.h"
@@ -660,6 +664,9 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
       contains_media_player_(false),
 #endif
       devtools_agent_(nullptr),
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+      media_player_manager_(NULL),
+#endif
       geolocation_dispatcher_(NULL),
       push_messaging_dispatcher_(NULL),
       presentation_dispatcher_(NULL),
@@ -2040,11 +2047,29 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
   }
 #endif  // defined(ENABLE_MOJO_MEDIA)
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  tizen::MediaPlayerImpl* media_player = new tizen::MediaPlayerImpl(
+      frame, client, weak_factory_.GetWeakPtr(),
+      GetTizenMediaPlayerManager(), media_renderer_factory.Pass(),
+      cdm_factory.Pass(), params);
+  return media_player;
+#endif
+
   return new media::WebMediaPlayerImpl(
       frame, client, weak_factory_.GetWeakPtr(), media_renderer_factory.Pass(),
       GetCdmFactory(), params);
 #endif  // defined(OS_ANDROID)
 }
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+tizen::RendererMediaPlayerManager*
+RenderFrameImpl::GetTizenMediaPlayerManager() {
+  if (!media_player_manager_)
+    media_player_manager_ = new tizen::RendererMediaPlayerManager(this);
+
+  return media_player_manager_;
+}
+#endif
 
 blink::WebApplicationCacheHost* RenderFrameImpl::createApplicationCacheHost(
     blink::WebLocalFrame* frame,

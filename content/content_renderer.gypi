@@ -849,6 +849,14 @@
         'renderer/vr/vr_type_converters.h',
       ]
     }],
+    ['tizen==1 and enable_murphy==1', {
+      'sources': [
+        '<(DEPTH)/xwalk/tizen/renderer/media/mediaplayer_impl.cc',
+        '<(DEPTH)/xwalk/tizen/renderer/media/mediaplayer_impl.h',
+        '<(DEPTH)/xwalk/tizen/renderer/media/renderer_mediaplayer_manager.cc',
+        '<(DEPTH)/xwalk/tizen/renderer/media/renderer_mediaplayer_manager.h',
+      ],
+    }],
   ],
   'target_conditions': [
     ['OS=="android"', {
