@@ -1217,5 +1217,27 @@
         }],
       ],
     },
+    {
+      'target_name': 'resource_manager',
+      'type': 'none',
+      'toolsets': ['host', 'target'],
+      'conditions': [
+        ['tizen==1 and enable_murphy==1', {
+          'direct_dependent_settings': {
+            'cflags': [
+              '<!@(<(pkg-config) --cflags murphy-common murphy-resource)',
+            ],
+          },
+          'link_settings': {
+            'ldflags': [
+              '<!@(<(pkg-config) --libs-only-L --libs-only-other murphy-common murphy-resource)',
+            ],
+            'libraries': [
+              '<!@(<(pkg-config) --libs-only-l murphy-common  murphy-resource)',
+            ],
+          },
+        }],
+      ],
+    },
   ],
 }
