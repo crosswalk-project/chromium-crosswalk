@@ -314,9 +314,23 @@ willPositionSheet:(NSWindow*)sheet
   maxY -= tabStripHeight;
   [tabStripView setFrame:NSMakeRect(0, maxY, width, tabStripHeight)];
 
+  // In Yosemite fullscreen, manually add the fullscreen controls to the tab
+  // strip.
+  BOOL isInAppKitFullscreen =
+      [self isInSystemFullscreen] || enteringSystemFullscreen_;
+  BOOL addControlsInFullscreen =
+      isInAppKitFullscreen && base::mac::IsOSYosemiteOrLater();
+
   // Set left indentation based on fullscreen mode status.
-  [tabStripController_ setLeftIndentForControls:(fullscreen ? 0 :
-      [[tabStripController_ class] defaultLeftIndentForControls])];
+  CGFloat leftIndent = 0;
+  if (!fullscreen || addControlsInFullscreen)
+    leftIndent = [[tabStripController_ class] defaultLeftIndentForControls];
+  [tabStripController_ setLeftIndentForControls:leftIndent];
+
+  if (addControlsInFullscreen)
+    [tabStripController_ addWindowControls];
+  else
+    [tabStripController_ removeWindowControls];
 
   // Lay out the icognito/avatar badge because calculating the indentation on
   // the right depends on it.
@@ -875,6 +889,7 @@ willPositionSheet:(NSWindow*)sheet
   BOOL mode = enteringPresentationMode_ ||
        browser_->fullscreen_controller()->IsWindowFullscreenForTabOrPending();
   enteringFullscreen_ = YES;
+  enteringSystemFullscreen_ = YES;
   [self setPresentationModeInternal:mode forceDropdown:NO];
 }
 
@@ -895,6 +910,7 @@ willPositionSheet:(NSWindow*)sheet
   if (notification)  // For System Fullscreen when non-nil.
     [self deregisterForContentViewResizeNotifications];
   enteringFullscreen_ = NO;
+  enteringSystemFullscreen_ = NO;
   enteringPresentationMode_ = NO;
 
   const CommandLine* command_line = CommandLine::ForCurrentProcess();
@@ -928,6 +944,7 @@ willPositionSheet:(NSWindow*)sheet
 - (void)windowDidFailToEnterFullScreen:(NSWindow*)window {
   [self deregisterForContentViewResizeNotifications];
   enteringFullscreen_ = NO;
+  enteringSystemFullscreen_ = NO;
   [self setPresentationModeInternal:NO forceDropdown:NO];
 
   // Force a relayout to try and get the window back into a reasonable state.

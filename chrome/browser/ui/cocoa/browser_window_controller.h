@@ -135,6 +135,9 @@ class Command;
   // fullscreen mode.
   BOOL enteringFullscreen_;
 
+  // True when entering system fullscreen.
+  BOOL enteringSystemFullscreen_;
+
   // True between |-setPresentationMode:url:bubbleType:| and
   // |-windowDidEnterFullScreen:| to indicate that the window is in the process
   // of transitioning into fullscreen presentation mode.
