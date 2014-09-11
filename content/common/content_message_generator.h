@@ -71,3 +71,7 @@
 #include "content/common/gin_java_bridge_messages.h"
 #include "content/common/media/media_player_messages_android.h"
 #endif  // defined(OS_ANDROID)
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+#include "xwalk/tizen/common/media/media_player_messages.h"
+#endif
