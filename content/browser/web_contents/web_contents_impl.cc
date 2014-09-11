@@ -116,6 +116,10 @@
 #include "base/mac/foundation_util.h"
 #endif
 
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+#include "xwalk/tizen/browser/media/media_webcontents_observer.h"
+#endif
+
 namespace content {
 namespace {
 
@@ -344,6 +348,10 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context,
                  base::Unretained(this)));
 #if defined(ENABLE_BROWSER_CDMS)
   media_web_contents_observer_.reset(new MediaWebContentsObserver(this));
+#endif
+
+#if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
+  media_webcontents_observer_.reset(new tizen::MediaWebContentsObserver(this));
 #endif
 }
 
