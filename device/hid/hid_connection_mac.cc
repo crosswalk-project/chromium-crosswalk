@@ -17,21 +17,28 @@ HidConnectionMac::HidConnectionMac(HidDeviceInfo device_info)
   message_loop_ = base::MessageLoopProxy::current();
 
   DCHECK(device_.get());
+
   size_t expected_report_size = device_info.max_input_report_size;
   if (device_info.has_report_id) {
     expected_report_size++;
   }
-  inbound_buffer_.reset((uint8_t*)malloc(expected_report_size));
-  IOHIDDeviceRegisterInputReportCallback(device_.get(),
-                                         inbound_buffer_.get(),
-                                         expected_report_size,
-                                         &HidConnectionMac::InputReportCallback,
-                                         this);
-  IOHIDDeviceOpen(device_, kIOHIDOptionsTypeNone);
+  inbound_buffer_.resize(expected_report_size);
+  if (inbound_buffer_.size() > 0) {
+    IOHIDDeviceRegisterInputReportCallback(
+        device_.get(),
+        &inbound_buffer_[0],
+        inbound_buffer_.size(),
+        &HidConnectionMac::InputReportCallback,
+        this);
+  }
 }
 
 HidConnectionMac::~HidConnectionMac() {
-  IOHIDDeviceClose(device_, kIOHIDOptionsTypeNone);
+  if (inbound_buffer_.size() > 0) {
+    // Unregister the input report callback before this object is freed.
+    IOHIDDeviceRegisterInputReportCallback(
+        device_.get(), &inbound_buffer_[0], inbound_buffer_.size(), NULL, this);
+  }
   Flush();
 }
 
@@ -74,8 +81,10 @@ void HidConnectionMac::PlatformGetFeatureReport(
                                          &report_size);
   if (result == kIOReturnSuccess)
     callback.Run(true, report_size);
-  else
+  else {
+    VLOG(1) << "Failed to get feature report: " << result;
     callback.Run(false, 0);
+  }
 }
 
 void HidConnectionMac::PlatformSendFeatureReport(
@@ -92,6 +101,11 @@ void HidConnectionMac::InputReportCallback(void* context,
                                            uint32_t report_id,
                                            uint8_t* report_bytes,
                                            CFIndex report_length) {
+  if (result != kIOReturnSuccess) {
+    VLOG(1) << "Failed to read input report: " << result;
+    return;
+  }
+
   HidConnectionMac* connection = static_cast<HidConnectionMac*>(context);
   // report_id is already contained in report_bytes
   scoped_refptr<net::IOBufferWithSize> buffer;
@@ -130,6 +144,7 @@ void HidConnectionMac::WriteReport(IOHIDReportType type,
   if (res != kIOReturnSuccess) {
     callback.Run(false, 0);
   } else {
+    VLOG(1) << "Failed to set report: " << res;
     callback.Run(true, output_buffer->size());
   }
 }
