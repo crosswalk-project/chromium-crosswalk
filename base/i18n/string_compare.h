@@ -11,16 +11,23 @@
 
 #include "base/i18n/base_i18n_export.h"
 #include "base/strings/string16.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/i18n/unicode/coll.h"
+#endif
 
 namespace base {
 namespace i18n {
 
 // Compares the two strings using the specified collator.
 BASE_I18N_EXPORT UCollationResult
-CompareString16WithCollator(const icu::Collator& collator,
-                            const string16& lhs,
-                            const string16& rhs);
+CompareString16WithCollator(
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    const std::string& locale,
+#else
+    const icu::Collator& collator,
+#endif
+    const string16& lhs,
+    const string16& rhs);
 
 }  // namespace i18n
 }  // namespace base

@@ -9,13 +9,18 @@
 #include "base/strings/string_util.h"
 #include "base/strings/sys_string_conversions.h"
 #include "base/strings/utf_string_conversions.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/locid.h"
 #include "third_party/icu/source/common/unicode/uchar.h"
 #include "third_party/icu/source/common/unicode/uscript.h"
 #include "third_party/icu/source/i18n/unicode/coll.h"
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
 namespace {
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // Extract language, country and variant, but ignore keywords.  For example,
 // en-US, ca@valencia, ca-ES@valencia.
 std::string GetLocaleString(const icu::Locale& locale) {
@@ -59,6 +64,7 @@ base::i18n::TextDirection GetCharacterDirection(UChar32 character) {
   }
   return base::i18n::UNKNOWN_DIRECTION;
 }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
 }  // namespace
 
@@ -70,12 +76,22 @@ static TextDirection g_icu_text_direction = UNKNOWN_DIRECTION;
 
 // Convert the ICU default locale to a string.
 std::string GetConfiguredLocale() {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::GetConfiguredLocale();
+#else
   return GetLocaleString(icu::Locale::getDefault());
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 // Convert the ICU canonicalized locale to a string.
 std::string GetCanonicalLocale(const std::string& locale) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // Not used on Android.
+  NOTIMPLEMENTED();
+  return std::string();
+#else
   return GetLocaleString(icu::Locale::createCanonical(locale.c_str()));
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 // Convert Chrome locale name to ICU locale name
@@ -90,6 +106,7 @@ std::string ICULocaleName(const std::string& locale_string) {
   // locale.  If it's es-RR other than es-ES, map to es-RR. Otherwise, map
   // to es-MX (the most populous in Spanish-speaking Latin America).
   if (LowerCaseEqualsASCII(locale_string, "es-419")) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     const icu::Locale& locale = icu::Locale::getDefault();
     std::string language = locale.getLanguage();
     const char* country = locale.getCountry();
@@ -99,6 +116,7 @@ std::string ICULocaleName(const std::string& locale_string) {
         language += country;
         return language;
     }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     return "es-MX";
   }
   // Currently, Chrome has only "es" and "es-419", but later we may have
@@ -107,6 +125,9 @@ std::string ICULocaleName(const std::string& locale_string) {
 }
 
 void SetICUDefaultLocale(const std::string& locale_string) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  base::icu_utils::SetDefaultLocale(locale_string);
+#else
   icu::Locale locale(ICULocaleName(locale_string).c_str());
   UErrorCode error_code = U_ZERO_ERROR;
   icu::Locale::setDefault(locale, error_code);
@@ -116,6 +137,7 @@ void SetICUDefaultLocale(const std::string& locale_string) {
   // it does not hurt to have it as a sanity check.
   DCHECK(U_SUCCESS(error_code));
   g_icu_text_direction = UNKNOWN_DIRECTION;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 bool IsRTL() {
@@ -124,21 +146,31 @@ bool IsRTL() {
 
 bool ICUIsRTL() {
   if (g_icu_text_direction == UNKNOWN_DIRECTION) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    // TODO: Support rtl on Android.
+    g_icu_text_direction = LEFT_TO_RIGHT;
+#else
     const icu::Locale& locale = icu::Locale::getDefault();
     g_icu_text_direction = GetTextDirectionForLocale(locale.getName());
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   }
   return g_icu_text_direction == RIGHT_TO_LEFT;
 }
 
 TextDirection GetTextDirectionForLocale(const char* locale_name) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return LEFT_TO_RIGHT;
+#else
   UErrorCode status = U_ZERO_ERROR;
   ULayoutType layout_dir = uloc_getCharacterOrientation(locale_name, &status);
   DCHECK(U_SUCCESS(status));
   // Treat anything other than RTL as LTR.
   return (layout_dir != ULOC_LAYOUT_RTL) ? LEFT_TO_RIGHT : RIGHT_TO_LEFT;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 TextDirection GetFirstStrongCharacterDirection(const string16& text) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   const UChar* string = text.c_str();
   size_t length = text.length();
   size_t position = 0;
@@ -151,10 +183,12 @@ TextDirection GetFirstStrongCharacterDirection(const string16& text) {
       return direction;
     position = next_position;
   }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   return LEFT_TO_RIGHT;
 }
 
 TextDirection GetLastStrongCharacterDirection(const string16& text) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   const UChar* string = text.c_str();
   size_t position = text.length();
   while (position > 0) {
@@ -166,10 +200,14 @@ TextDirection GetLastStrongCharacterDirection(const string16& text) {
       return direction;
     position = prev_position;
   }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   return LEFT_TO_RIGHT;
 }
 
 TextDirection GetStringDirection(const string16& text) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return LEFT_TO_RIGHT;
+#else
   const UChar* string = text.c_str();
   size_t length = text.length();
   size_t position = 0;
@@ -194,6 +232,7 @@ TextDirection GetStringDirection(const string16& text) {
     return LEFT_TO_RIGHT;
 
   return result;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 #if defined(OS_WIN)
@@ -301,6 +340,7 @@ bool UnadjustStringForLocaleDirection(string16* text) {
 #endif  // !OS_WIN
 
 bool StringContainsStrongRTLChars(const string16& text) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   const UChar* string = text.c_str();
   size_t length = text.length();
   size_t position = 0;
@@ -317,6 +357,7 @@ bool StringContainsStrongRTLChars(const string16& text) {
 
     position = next_position;
   }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
   return false;
 }
