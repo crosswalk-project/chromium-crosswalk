@@ -7,7 +7,13 @@
 #include <set>
 
 #include "base/strings/string_util.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+// Encoding detection is only used for ftp support, which
+// is also the component we want to cut for binary size.
+// So here just simply detect ascii.
 #include "third_party/icu/source/i18n/unicode/ucsdet.h"
+#endif
 
 namespace base {
 
@@ -16,6 +22,9 @@ bool DetectEncoding(const std::string& text, std::string* encoding) {
     *encoding = std::string();
     return true;
   }
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return false;
+#else
 
   UErrorCode status = U_ZERO_ERROR;
   UCharsetDetector* detector = ucsdet_open(&status);
@@ -32,10 +41,20 @@ bool DetectEncoding(const std::string& text, std::string* encoding) {
 
   *encoding = detected_encoding;
   return true;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 bool DetectAllEncodings(const std::string& text,
                         std::vector<std::string>* encodings) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  if (!IsStringASCII(text))
+    return false;
+
+  encodings->clear();
+  encodings->push_back(std::string());
+  return true;
+#else
+
   UErrorCode status = U_ZERO_ERROR;
   UCharsetDetector* detector = ucsdet_open(&status);
   ucsdet_setText(detector, text.data(), static_cast<int32_t>(text.length()),
@@ -99,6 +118,7 @@ bool DetectAllEncodings(const std::string& text,
 
   ucsdet_close(detector);
   return !encodings->empty();
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 }  // namespace base

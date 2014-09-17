@@ -11,15 +11,21 @@
 #include "base/memory/scoped_ptr.h"
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/ucnv.h"
 #include "third_party/icu/source/common/unicode/ucnv_cb.h"
 #include "third_party/icu/source/common/unicode/ucnv_err.h"
 #include "third_party/icu/source/common/unicode/unorm.h"
 #include "third_party/icu/source/common/unicode/ustring.h"
+#endif
 
 namespace base {
 
 namespace {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // ToUnicodeCallbackSubstitute() is based on UCNV_TO_U_CALLBACK_SUBSTITUTE
 // in source/common/ucnv_err.c.
 
@@ -133,7 +139,7 @@ void SetUpErrorHandlerForToUChars(OnStringConversionError::Type on_error,
       NOTREACHED();
   }
 }
-
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }  // namespace
 
 // Codepage <-> Wide/UTF-16  ---------------------------------------------------
@@ -142,6 +148,24 @@ bool UTF16ToCodepage(const string16& utf16,
                      const char* codepage_name,
                      OnStringConversionError::Type on_error,
                      std::string* encoded) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  int on_error_int = 0;
+  switch (on_error) {
+    case OnStringConversionError::FAIL:
+      on_error_int = 0;
+      break;
+    case OnStringConversionError::SKIP:
+      on_error_int = 1;
+      break;
+    case OnStringConversionError::SUBSTITUTE:
+      on_error_int = 2;
+      break;
+    default:
+      NOTREACHED();
+  }
+  return base::icu_utils::EncodeCodePage(
+      codepage_name, utf16, on_error_int, encoded);
+#else  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   encoded->clear();
 
   UErrorCode status = U_ZERO_ERROR;
@@ -151,12 +175,31 @@ bool UTF16ToCodepage(const string16& utf16,
 
   return ConvertFromUTF16(converter, utf16.c_str(),
                           static_cast<int>(utf16.length()), on_error, encoded);
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 bool CodepageToUTF16(const std::string& encoded,
                      const char* codepage_name,
                      OnStringConversionError::Type on_error,
                      string16* utf16) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  int on_error_int = 0;
+  switch (on_error) {
+    case OnStringConversionError::FAIL:
+      on_error_int = 0;
+      break;
+    case OnStringConversionError::SKIP:
+      on_error_int = 1;
+      break;
+    case OnStringConversionError::SUBSTITUTE:
+      on_error_int = 2;
+      break;
+    default:
+      NOTREACHED();
+  }
+  return base::icu_utils::DecodeCodePage(
+      codepage_name, encoded, on_error_int, utf16);
+#else  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   utf16->clear();
 
   UErrorCode status = U_ZERO_ERROR;
@@ -187,6 +230,7 @@ bool CodepageToUTF16(const std::string& encoded,
 
   utf16->assign(buffer.get(), actual_size);
   return true;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 bool ConvertToUtf8AndNormalize(const std::string& text,
@@ -198,19 +242,40 @@ bool ConvertToUtf8AndNormalize(const std::string& text,
       text, charset.c_str(), OnStringConversionError::FAIL, &utf16))
     return false;
 
-  UErrorCode status = U_ZERO_ERROR;
   size_t max_length = utf16.length() + 1;
   string16 normalized_utf16;
   scoped_ptr<char16[]> buffer(new char16[max_length]);
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  bool error = true;
+  int actual_length = base::icu_utils::normalize(
+      utf16.c_str(), utf16.length(), 0,
+      buffer.get(), static_cast<int>(max_length), &error);
+  if (!error) return false;
+#else
+  UErrorCode status = U_ZERO_ERROR;
   int actual_length = unorm_normalize(
       utf16.c_str(), utf16.length(), UNORM_NFC, 0,
       buffer.get(), static_cast<int>(max_length), &status);
   if (!U_SUCCESS(status))
     return false;
+#endif
   normalized_utf16.assign(buffer.get(), actual_length);
 
   return UTF16ToUTF8(normalized_utf16.data(),
                      normalized_utf16.length(), result);
 }
+
+bool ConvertToUtf8(const std::string& text,
+                   const std::string& charset,
+                   std::string* result) {
+  result->clear();
+  string16 utf16;
+  if (!CodepageToUTF16(
+      text, charset.c_str(), OnStringConversionError::FAIL, &utf16))
+    return false;
+
+  return UTF16ToUTF8(utf16.data(), utf16.length(), result);
+}
+
 
 }  // namespace base
