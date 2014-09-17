@@ -12,8 +12,11 @@
 
 #include "base/i18n/string_compare.h"
 #include "base/memory/scoped_ptr.h"
-#include "third_party/icu/source/i18n/unicode/coll.h"
 #include "ui/base/ui_base_export.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "third_party/icu/source/i18n/unicode/coll.h"
+#endif
 
 namespace l10n_util {
 
@@ -25,18 +28,32 @@ class StringMethodComparatorWithCollator
                                   const base::string16&,
                                   bool> {
  public:
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  StringMethodComparatorWithCollator(const std::string&locale, Method method)
+      : locale_(locale),
+#else
   StringMethodComparatorWithCollator(icu::Collator* collator, Method method)
       : collator_(collator),
+#endif
         method_(method) { }
 
   // Returns true if lhs preceeds rhs.
   bool operator() (T* lhs_t, T* rhs_t) {
-    return base::i18n::CompareString16WithCollator(collator_,
+    return base::i18n::CompareString16WithCollator(
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        locale_,
+#else
+        collator_,
+#endif
         (lhs_t->*method_)(), (rhs_t->*method_)()) == UCOL_LESS;
   }
 
  private:
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  std::string locale_;
+#else
   icu::Collator* collator_;
+#endif
   Method method_;
 };
 
@@ -66,6 +83,7 @@ template <class T, class Method>
 void SortStringsUsingMethod(const std::string& locale,
                             std::vector<T*>* elements,
                             Method method) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   UErrorCode error = U_ZERO_ERROR;
   icu::Locale loc(locale.c_str());
   scoped_ptr<icu::Collator> collator(icu::Collator::createInstance(loc, error));
@@ -74,9 +92,16 @@ void SortStringsUsingMethod(const std::string& locale,
          StringMethodComparator<T, Method>(method));
     return;
   }
+#endif
 
   std::sort(elements->begin(), elements->end(),
-      StringMethodComparatorWithCollator<T, Method>(collator.get(), method));
+      StringMethodComparatorWithCollator<T, Method>(
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+          locale,
+#else
+          collator.get(),
+#endif
+          method));
 }
 
 // Compares two elements' string keys and returns true if the first element's
@@ -89,20 +114,33 @@ class StringComparator : public std::binary_function<const Element&,
                                                      const Element&,
                                                      bool> {
  public:
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  StringComparator(const std::string& locale)
+      : locale_(locale) { }
+#else
   explicit StringComparator(icu::Collator* collator)
       : collator_(collator) { }
+#endif
 
   // Returns true if lhs precedes rhs.
   bool operator()(const Element& lhs, const Element& rhs) {
     const base::string16& lhs_string_key = lhs.GetStringKey();
     const base::string16& rhs_string_key = rhs.GetStringKey();
 
-    return StringComparator<base::string16>(collator_)(lhs_string_key,
-                                                 rhs_string_key);
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return StringComparator<base::string16>(locale_)(
+#else
+    return StringComparator<base::string16>(collator_)(
+#endif
+        lhs_string_key, rhs_string_key);
   }
 
  private:
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  std::string locale_;
+#else
   icu::Collator* collator_;
+#endif
 };
 
 // Specialization of operator() method for base::string16 version.
@@ -112,10 +150,15 @@ UI_BASE_EXPORT inline bool StringComparator<base::string16>::operator()(
     const base::string16& rhs) {
   // If we can not get collator instance for specified locale, just do simple
   // string compare.
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::i18n::CompareString16WithCollator(locale_, lhs, rhs) ==
+      UCOL_LESS;
+#else
   if (!collator_)
     return lhs < rhs;
   return base::i18n::CompareString16WithCollator(collator_, lhs, rhs) ==
       UCOL_LESS;
+#endif
 }
 
 // In place sorting of |elements| of a vector according to the string key of
@@ -131,12 +174,16 @@ void SortVectorWithStringKey(const std::string& locale,
                              bool needs_stable_sort) {
   DCHECK(begin_index < end_index &&
          end_index <= static_cast<unsigned int>(elements->size()));
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  StringComparator<Element> c(locale);
+#else
   UErrorCode error = U_ZERO_ERROR;
   icu::Locale loc(locale.c_str());
   scoped_ptr<icu::Collator> collator(icu::Collator::createInstance(loc, error));
   if (U_FAILURE(error))
     collator.reset();
   StringComparator<Element> c(collator.get());
+#endif
   if (needs_stable_sort) {
     stable_sort(elements->begin() + begin_index,
                 elements->begin() + end_index,

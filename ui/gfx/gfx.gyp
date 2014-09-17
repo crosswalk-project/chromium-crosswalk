@@ -368,6 +368,18 @@
             ],
           },
         }],
+        ['OS=="android" and use_icu_alternatives_on_android==1', {
+          'dependencies': [
+            '../../base/base.gyp:base_icu_alternatives',
+          ],
+          'dependencies!': [
+            '../../third_party/icu/icu.gyp:icui18n',
+            '../../third_party/icu/icu.gyp:icuuc',
+          ],
+          'export_dependent_settings': [
+            '<(DEPTH)/skia/skia.gyp:skia',
+          ],
+        }],
         ['use_aura==0 and toolkit_views==0', {
           'sources!': [
             'nine_image_painter.cc',

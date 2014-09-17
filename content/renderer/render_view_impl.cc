@@ -598,7 +598,13 @@ void ApplyFontsFromMap(const ScriptFontFamilyMap& map,
                        WebSettings* settings) {
   for (ScriptFontFamilyMap::const_iterator it = map.begin(); it != map.end();
        ++it) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    // As Chromium only uses the common script("Zyyy"),
+    // it's ok to return 0 directly.
+    int32 script = 0;
+#else
     int32 script = u_getPropertyValueEnum(UCHAR_SCRIPT, (it->first).c_str());
+#endif
     if (script >= 0 && script < USCRIPT_CODE_LIMIT) {
       UScriptCode code = static_cast<UScriptCode>(script);
       (*setter)(settings, it->second, GetScriptForWebSettings(code));

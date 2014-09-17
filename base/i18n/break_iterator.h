@@ -10,6 +10,10 @@
 #include "base/strings/string16.h"
 #include "base/strings/string_piece.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/break_iterator_bridge.h"
+#endif
+
 // The BreakIterator class iterates through the words, word breaks, and
 // line breaks in a UTF-16 string.
 //
@@ -130,6 +134,8 @@ class BASE_I18N_EXPORT BreakIterator {
   // This is actually an ICU UBreakiterator* type, which turns out to be
   // a typedef for a void* in the ICU headers. Using void* directly prevents
   // callers from needing access to the ICU public headers directory.
+  // If use ICU alternatives on Android,
+  // it will be a pointer of BreakerIteratorBridge which invokes java.
   void* iter_;
 
   // The string we're iterating over. Can be changed with SetText(...)
