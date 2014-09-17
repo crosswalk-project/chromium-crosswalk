@@ -9,7 +9,11 @@
 #include "base/memory/singleton.h"
 #include "base/strings/string16.h"
 #include "base/strings/utf_string_conversions.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/i18n/unicode/timezone.h"
+#endif
 
 namespace base {
 
@@ -597,12 +601,16 @@ class TimezoneMap {
 }  // namespace
 
 std::string CountryCodeForCurrentTimezone() {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::CountryCodeForCurrentTimezone();
+#else
   scoped_ptr<icu::TimeZone> zone(icu::TimeZone::createDefault());
   icu::UnicodeString id;
   zone->getID(id);
   string16 olson_code(id.getBuffer(), id.length());
   return TimezoneMap::GetInstance()->CountryCodeForTimezone(
       UTF16ToUTF8(olson_code));
+#endif
 }
 
 }  // namespace base

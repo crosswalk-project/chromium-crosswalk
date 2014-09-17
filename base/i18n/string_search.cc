@@ -5,7 +5,9 @@
 #include "base/i18n/string_search.h"
 #include "base/logging.h"
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/i18n/unicode/usearch.h"
+#endif
 
 namespace base {
 namespace i18n {

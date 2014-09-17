@@ -9,7 +9,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "content/public/renderer/android_content_detection_prefixes.h"
 #include "net/base/escape.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/i18n/unicode/regex.h"
+#endif
 
 namespace {
 
@@ -47,6 +49,8 @@ bool EmailDetector::FindContent(const base::string16::const_iterator& begin,
                                 size_t* start_pos,
                                 size_t* end_pos,
                                 std::string* content_text) {
+// FIXME(Xingnan): Add JNI function to enable this if needed. 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   base::string16 utf16_input = base::string16(begin, end);
   icu::UnicodeString pattern(kEmailRegex);
   icu::UnicodeString input(utf16_input.data(), utf16_input.length());
@@ -67,6 +71,7 @@ bool EmailDetector::FindContent(const base::string16::const_iterator& begin,
         content_text);
     return true;
   }
+#endif
 
   return false;
 }

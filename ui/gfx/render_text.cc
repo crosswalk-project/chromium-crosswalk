@@ -13,8 +13,6 @@
 #include "base/stl_util.h"
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
-#include "third_party/icu/source/common/unicode/rbbi.h"
-#include "third_party/icu/source/common/unicode/utf16.h"
 #include "third_party/skia/include/core/SkTypeface.h"
 #include "third_party/skia/include/effects/SkGradientShader.h"
 #include "ui/gfx/canvas.h"
@@ -26,6 +24,11 @@
 #include "ui/gfx/text_elider.h"
 #include "ui/gfx/text_utils.h"
 #include "ui/gfx/utf16_indexing.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "third_party/icu/source/common/unicode/rbbi.h"
+#include "third_party/icu/source/common/unicode/utf16.h"
+#endif
 
 namespace gfx {
 

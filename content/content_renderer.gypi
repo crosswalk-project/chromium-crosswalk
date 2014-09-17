@@ -758,6 +758,12 @@
         'renderer/java/java_bridge_dispatcher.h',
       ],
     }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icui18n',
+        '../third_party/icu/icu.gyp:icuuc',
+      ],
+    }],
     # TODO(jrg): remove the OS=="android" section?
     # http://crbug.com/113172
     # Understand better how media_stream_ is tied into Chromium.
