@@ -869,14 +869,16 @@ IN_PROC_BROWSER_TEST_F(WebContentsViewAuraTest, WebContentsViewReparent) {
   EXPECT_TRUE(rwhva->has_snapped_to_boundary());
 }
 
-// Flaky on Windows, likely for the same reason as other flaky overscroll tests.
-// http://crbug.com/305722
-#if defined(OS_WIN)
+// Flaky on some platforms, likely for the same reason as other flaky overscroll
+// tests. http://crbug.com/305722
+// TODO(tdresser): Re-enable this once eager GR is back on. See
+// crbug.com/410280.
+#if defined(OS_WIN) || (defined(OS_LINUX) && !defined(OS_CHROMEOS))
 #define MAYBE_OverscrollNavigationTouchThrottling \
         DISABLED_OverscrollNavigationTouchThrottling
 #else
 #define MAYBE_OverscrollNavigationTouchThrottling \
-        OverscrollNavigationTouchThrottling
+        DISABLED_OverscrollNavigationTouchThrottling
 #endif
 
 // Tests that touch moves are not throttled when performing a scroll gesture on

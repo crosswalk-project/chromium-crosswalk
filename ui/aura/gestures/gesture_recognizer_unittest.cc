@@ -4533,10 +4533,9 @@ TEST_P(GestureRecognizerTest, GestureEventSmallPinchEnabled) {
 
 // Tests that delaying the ack of a touch release doesn't trigger a long press
 // gesture.
-TEST_P(GestureRecognizerTest, EagerGestureDetection) {
+TEST_P(GestureRecognizerTest, DISABLED_EagerGestureDetection) {
   if (!UsingUnifiedGR())
     return;
-
   scoped_ptr<QueueTouchEventDelegate> delegate(
       new QueueTouchEventDelegate(host()->dispatcher()));
   TimedEvents tes;
