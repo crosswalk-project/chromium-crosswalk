@@ -1152,9 +1152,12 @@ cr.define('options.internet', function() {
 
     // Signal strength as percentage (for WiFi and Wimax).
     var signalStrength;
-    if (data.type == 'WiFi' || data.type == 'Wimax') {
+    if (data.type == 'WiFi') {
       signalStrength =
           getActiveDictionaryValue(data, data.type, 'SignalStrength');
+    } else if (data.type == 'Wimax') {
+      // Wimax is not yet translated to ONC.
+      signalStrength = data.strength;
     }
     if (!signalStrength)
       signalStrength = 0;
@@ -1163,7 +1166,7 @@ cr.define('options.internet', function() {
 
     detailsPage.type = data.type;
     if (data.type == 'WiFi') {
-      assert(data.WiFi, 'WiFi network has no WiFi object' + networkName);
+      assert(data.WiFi, 'WiFi network has no WiFi object: ' + networkName);
       OptionsPage.showTab($('wifi-network-nav-tab'));
       detailsPage.gsm = false;
       detailsPage.shared = data.shared;
@@ -1194,7 +1197,7 @@ cr.define('options.internet', function() {
       $('auto-connect-network-wifi').disabled = !data.remembered;
       detailsPage.hasSecurity = security != undefined;
     } else if (data.type == 'Wimax') {
-      assert(data.Wimax, 'Wimax network has no Wimax object' + networkName);
+      // Note: Wimax is not yet translated to ONC.
       OptionsPage.showTab($('wimax-network-nav-tab'));
       detailsPage.gsm = false;
       detailsPage.shared = data.shared;
@@ -1203,14 +1206,11 @@ cr.define('options.internet', function() {
       $('auto-connect-network-wimax').checked =
           getActiveValue(data, 'AutoConnect');
       $('auto-connect-network-wimax').disabled = !data.remembered;
-      var identity;
-      if (data.Wimax.EAP)
-        identity = getActiveValue(data.Wimax.EAP, 'Identity');
-      setOrHideParent('wimax-eap-identity', identity);
+      setOrHideParent('wimax-eap-identity', data.identity);
       $('wimax-signal-strength').textContent = strengthString;
     } else if (data.type == 'Cellular') {
       assert(data.Cellular,
-             'Cellular network has no Cellular object' + networkName);
+             'Cellular network has no Cellular object: ' + networkName);
       OptionsPage.showTab($('cellular-conn-nav-tab'));
       if (data.showCarrierSelect && data.currentCarrierIndex != -1) {
         var carrierSelector = $('select-carrier');
