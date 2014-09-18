@@ -1110,6 +1110,10 @@ base::Time ChunkDemuxer::GetTimelineOffset() const {
   return timeline_offset_;
 }
 
+TimeDelta ChunkDemuxer::GetStartTime() const {
+  return TimeDelta();
+}
+
 Demuxer::Liveness ChunkDemuxer::GetLiveness() const {
   return liveness_;
 }
@@ -1605,7 +1609,7 @@ void ChunkDemuxer::OnSourceInitDone(
     return;
   }
 
-  SeekAllSources(base::TimeDelta());
+  SeekAllSources(GetStartTime());
   StartReturningData();
 
   if (duration_ == kNoTimestamp())

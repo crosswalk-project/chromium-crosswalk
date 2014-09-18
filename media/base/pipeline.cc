@@ -418,10 +418,12 @@ void Pipeline::StateTransitionTask(PipelineStatus status) {
           }
           metadata_cb_.Run(metadata);
         }
+        start_timestamp_ = demuxer_->GetStartTime();
       }
 
       base::ResetAndReturn(&seek_cb_).Run(PIPELINE_OK);
 
+      DCHECK(start_timestamp_ >= base::TimeDelta());
       {
         base::AutoLock auto_lock(lock_);
         interpolator_->SetBounds(start_timestamp_, start_timestamp_);
@@ -690,14 +692,17 @@ void Pipeline::SeekTask(TimeDelta time, const PipelineStatusCB& seek_cb) {
 
   DCHECK(seek_cb_.is_null());
 
+  const base::TimeDelta seek_timestamp =
+      std::max(time, demuxer_->GetStartTime());
+
   SetState(kSeeking);
   seek_cb_ = seek_cb;
   audio_ended_ = false;
   video_ended_ = false;
   text_ended_ = false;
-  start_timestamp_ = time;
+  start_timestamp_ = seek_timestamp;
 
-  DoSeek(time,
+  DoSeek(seek_timestamp,
          base::Bind(&Pipeline::OnStateTransition, weak_factory_.GetWeakPtr()));
 }
 

@@ -687,6 +687,10 @@ base::Time FFmpegDemuxer::GetTimelineOffset() const {
   return timeline_offset_;
 }
 
+base::TimeDelta FFmpegDemuxer::GetStartTime() const {
+  return std::max(start_time_, base::TimeDelta());
+}
+
 Demuxer::Liveness FFmpegDemuxer::GetLiveness() const {
   DCHECK(task_runner_->BelongsToCurrentThread());
   return liveness_;
@@ -960,7 +964,7 @@ void FFmpegDemuxer::OnFindStreamInfoDone(const PipelineStatusCB& status_cb,
 
   // Since we're shifting the externally visible start time to zero, we need to
   // adjust the timeline offset to compensate.
-  if (!timeline_offset_.is_null())
+  if (!timeline_offset_.is_null() && start_time_ < base::TimeDelta())
     timeline_offset_ += start_time_;
 
   if (max_duration == kInfiniteDuration() && !timeline_offset_.is_null()) {

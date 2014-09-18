@@ -116,6 +116,8 @@ class PipelineTest : public ::testing::Test {
 
     EXPECT_CALL(*demuxer_, GetLiveness())
         .WillRepeatedly(Return(Demuxer::LIVENESS_UNKNOWN));
+
+    EXPECT_CALL(*demuxer_, GetStartTime()).WillRepeatedly(Return(start_time_));
   }
 
   virtual ~PipelineTest() {
@@ -210,7 +212,7 @@ class PipelineTest : public ::testing::Test {
         EXPECT_CALL(*audio_renderer_, GetTimeSource())
             .WillOnce(Return(&time_source_));
         EXPECT_CALL(time_source_, SetPlaybackRate(0.0f));
-        EXPECT_CALL(time_source_, SetMediaTime(base::TimeDelta()));
+        EXPECT_CALL(time_source_, SetMediaTime(start_time_));
         EXPECT_CALL(time_source_, StartTicking());
         EXPECT_CALL(*audio_renderer_, SetVolume(1.0f));
         EXPECT_CALL(*audio_renderer_, StartPlaying())
@@ -365,6 +367,7 @@ class PipelineTest : public ::testing::Test {
   base::Closure video_ended_cb_;
   VideoDecoderConfig video_decoder_config_;
   PipelineMetadata metadata_;
+  base::TimeDelta start_time_;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(PipelineTest);
@@ -941,6 +944,22 @@ TEST_F(PipelineTest, Underflow) {
   base::TimeDelta expected = base::TimeDelta::FromSeconds(5);
   ExpectSeek(expected, true);
   DoSeek(expected);
+}
+
+TEST_F(PipelineTest, PositiveStartTime) {
+  start_time_ = base::TimeDelta::FromSeconds(1);
+  EXPECT_CALL(*demuxer_, GetStartTime()).WillRepeatedly(Return(start_time_));
+  CreateAudioStream();
+  MockDemuxerStreamVector streams;
+  streams.push_back(audio_stream());
+  SetDemuxerExpectations(&streams);
+  SetAudioRendererExpectations(audio_stream());
+  StartPipeline(PIPELINE_OK);
+  ExpectDemuxerStop();
+  ExpectPipelineStopAndDestroyPipeline();
+  pipeline_->Stop(
+      base::Bind(&CallbackHelper::OnStop, base::Unretained(&callbacks_)));
+  message_loop_.RunUntilIdle();
 }
 
 static void PostTimeCB(base::MessageLoop* message_loop,
