@@ -90,7 +90,7 @@ vars = {
 
 deps = {
   "src/breakpad/src":
-    Var("chromium_git") + "/external/google-breakpad/src.git@17f614cd8365f5b78577ffcc237300a970db9813", # from svn revision 1359
+    Var("chromium_git") + "/external/google-breakpad/src.git@4c5fcfd85bf658e45258c6d263a6080f2e5cf0f2", # from svn revision 1383
 
   "src/buildtools":
     Var("chromium_git") + "/chromium/buildtools.git@" +
