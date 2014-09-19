@@ -154,7 +154,6 @@
 #include "components/google/core/browser/google_url_tracker.h"
 #include "components/search/search.h"
 #include "components/startup_metric_utils/startup_metric_utils.h"
-#include "components/web_modal/popup_manager.h"
 #include "components/web_modal/web_contents_modal_dialog_manager.h"
 #include "content/public/browser/devtools_manager.h"
 #include "content/public/browser/download_item.h"
@@ -449,12 +448,6 @@ Browser::Browser(const CreateParams& params)
   }
 
   fullscreen_controller_.reset(new FullscreenController(this));
-
-  // Must be initialized after window_.
-  // Also: surprise! a modal dialog host is not necessary to host modal dialogs
-  // without a modal dialog host, so that value may be null.
-  popup_manager_.reset(new web_modal::PopupManager(
-      GetWebContentsModalDialogHost()));
 }
 
 Browser::~Browser() {
@@ -903,10 +896,6 @@ void Browser::TabInsertedAt(WebContents* contents,
                             int index,
                             bool foreground) {
   SetAsDelegate(contents, true);
-
-  if (popup_manager_)
-    popup_manager_->RegisterWith(contents);
-
   SessionTabHelper* session_tab_helper =
       SessionTabHelper::FromWebContents(contents);
   session_tab_helper->SetWindowID(session_id());
@@ -948,9 +937,6 @@ void Browser::TabClosingAt(TabStripModel* tab_strip_model,
       content::Source<NavigationController>(&contents->GetController()),
       content::NotificationService::NoDetails());
 
-  if (popup_manager_)
-    popup_manager_->UnregisterWith(contents);
-
   // Sever the WebContents' connection back to us.
   SetAsDelegate(contents, false);
 }
@@ -966,10 +952,6 @@ void Browser::TabDetachedAt(WebContents* contents, int index) {
       session_service->SetSelectedTabInWindow(session_id(),
                                               old_active_index - 1);
   }
-
-  if (popup_manager_)
-    popup_manager_->UnregisterWith(contents);
-
   TabDetachedAtImpl(contents, index, DETACH_TYPE_DETACH);
 }
 
