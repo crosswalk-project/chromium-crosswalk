@@ -873,8 +873,7 @@ public class ContentViewCore
      * Stops loading the current web contents.
      */
     public void stopLoading() {
-        assert mWebContents != null;
-        mWebContents.stop();
+        if (mWebContents != null) mWebContents.stop();
     }
 
     /**
@@ -883,8 +882,7 @@ public class ContentViewCore
      * @return The URL of the current page.
      */
     public String getUrl() {
-        assert mWebContents != null;
-        return mWebContents.getUrl();
+        return (mWebContents != null) ? mWebContents.getUrl() : null;
     }
 
     /**
@@ -893,8 +891,7 @@ public class ContentViewCore
      * @return The title of the current page.
      */
     public String getTitle() {
-        assert mWebContents != null;
-        return mWebContents.getTitle();
+        return (mWebContents != null) ? mWebContents.getTitle() : null;
     }
 
     /**
@@ -1344,8 +1341,7 @@ public class ContentViewCore
      * Inserts the provided markup sandboxed into the frame.
      */
     public void setupTransitionView(String markup) {
-        assert mWebContents != null;
-        mWebContents.setupTransitionView(markup);
+        if (mWebContents != null) mWebContents.setupTransitionView(markup);
     }
 
     /**
@@ -1353,8 +1349,7 @@ public class ContentViewCore
      * exiting-transition stylesheets.
      */
     public void beginExitTransition(String cssSelector) {
-        assert mWebContents != null;
-        mWebContents.beginExitTransition(cssSelector);
+        if (mWebContents != null) mWebContents.beginExitTransition(cssSelector);
     }
 
     /**
@@ -1378,8 +1373,7 @@ public class ContentViewCore
      *                 If no result is required, pass null.
      */
     public void evaluateJavaScript(String script, JavaScriptCallback callback) {
-        assert mWebContents != null;
-        mWebContents.evaluateJavaScript(script, callback, false);
+        if (mWebContents != null) mWebContents.evaluateJavaScript(script, callback, false);
     }
 
     /**
@@ -1389,8 +1383,7 @@ public class ContentViewCore
      * @param script The Javascript to execute.
      */
     public void evaluateJavaScriptEvenIfNotYetNavigated(String script) {
-        assert mWebContents != null;
-        mWebContents.evaluateJavaScript(script, null, true);
+        if (mWebContents != null) mWebContents.evaluateJavaScript(script, null, true);
     }
 
     /**
@@ -1414,7 +1407,7 @@ public class ContentViewCore
      * To be called when the ContentView is shown.
      */
     public void onShow() {
-        assert mWebContents != null;
+        if (mWebContents == null) return;
         mWebContents.onShow();
         setAccessibilityState(mAccessibilityManager.isEnabled());
     }
@@ -3092,8 +3085,7 @@ public class ContentViewCore
     }
 
     public void resumeResponseDeferredAtStart() {
-        assert mWebContents != null;
-        mWebContents.resumeResponseDeferredAtStart();
+        if (mWebContents != null) mWebContents.resumeResponseDeferredAtStart();
     }
 
     /**
