@@ -293,10 +293,6 @@ void AppWindow::Init(const GURL& url,
   helper_.reset(new AppWebContentsHelper(
       browser_context_, extension_id_, web_contents, app_delegate_.get()));
 
-  popup_manager_.reset(
-      new web_modal::PopupManager(GetWebContentsModalDialogHost()));
-  popup_manager_->RegisterWith(web_contents);
-
   // Prevent the browser process from shutting down while this window exists.
   apps_client->IncrementKeepAliveCount();
   UpdateExtensionAppIcon();

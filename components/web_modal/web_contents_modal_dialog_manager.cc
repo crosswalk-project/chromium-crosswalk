@@ -58,7 +58,7 @@ bool WebContentsModalDialogManager::IsDialogActive() const {
   return !child_dialogs_.empty();
 }
 
-void WebContentsModalDialogManager::FocusTopmostDialog() const {
+void WebContentsModalDialogManager::FocusTopmostDialog() {
   DCHECK(!child_dialogs_.empty());
   child_dialogs_.front()->manager->Focus();
 }
