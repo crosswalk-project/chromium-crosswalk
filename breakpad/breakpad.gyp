@@ -236,6 +236,7 @@
           'target_name': 'breakpad_utilities',
           'type': 'static_library',
           'sources': [
+            'src/client/mac/crash_generation/ConfigFile.mm',
             'src/client/mac/handler/breakpad_nlist_64.cc',
             'src/client/mac/handler/dynamic_images.cc',
             'src/client/mac/handler/minidump_generator.cc',
@@ -245,6 +246,7 @@
             'src/common/mac/arch_utilities.cc',
             'src/common/mac/bootstrap_compat.cc',
             'src/common/mac/file_id.cc',
+            'src/common/mac/launch_reporter.cc',
             'src/common/mac/macho_id.cc',
             'src/common/mac/macho_utilities.cc',
             'src/common/mac/macho_walker.cc',
@@ -269,7 +271,6 @@
             'src/common/mac',
           ],
           'sources': [
-            'src/client/mac/crash_generation/ConfigFile.mm',
             'src/client/mac/crash_generation/Inspector.mm',
             'src/client/mac/crash_generation/InspectorMain.mm',
           ],
