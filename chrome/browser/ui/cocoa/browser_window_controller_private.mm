@@ -528,10 +528,6 @@ willPositionSheet:(NSWindow*)sheet
   }
 }
 
-- (void)updateRoundedBottomCorners {
-  [[self tabContentArea] setRoundedBottomCorners:![self isFullscreen]];
-}
-
 - (void)adjustToolbarAndBookmarkBarForCompression:(CGFloat)compression {
   CGFloat newHeight =
       [toolbarController_ desiredHeightForCompression:compression];
@@ -923,7 +919,6 @@ willPositionSheet:(NSWindow*)sheet
   [self showFullscreenExitBubbleIfNecessary];
   browser_->WindowFullscreenStateChanged();
   [[[self window] cr_windowView] setWantsLayer:NO];
-  [self updateRoundedBottomCorners];
 }
 
 - (void)windowWillExitFullScreen:(NSNotification*)notification {
@@ -938,7 +933,6 @@ willPositionSheet:(NSWindow*)sheet
   if (notification)  // For System Fullscreen when non-nil.
     [self deregisterForContentViewResizeNotifications];
   browser_->WindowFullscreenStateChanged();
-  [self updateRoundedBottomCorners];
 }
 
 - (void)windowDidFailToEnterFullScreen:(NSWindow*)window {
