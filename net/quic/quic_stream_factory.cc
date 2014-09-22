@@ -356,6 +356,10 @@ int QuicStreamFactory::Job::DoConnect() {
     return rv;
   }
 
+  if (!session_->connection()->connected()) {
+    return ERR_CONNECTION_CLOSED;
+  }
+
   session_->StartReading();
   if (!session_->connection()->connected()) {
     return ERR_QUIC_PROTOCOL_ERROR;
@@ -865,7 +869,9 @@ int QuicStreamFactory::CreateSession(
       net_log.net_log());
   all_sessions_[*session] = server_id;  // owning pointer
   (*session)->InitializeSession();
-  bool closed_during_initialize = !ContainsKey(all_sessions_, *session);
+  bool closed_during_initialize =
+      !ContainsKey(all_sessions_, *session) ||
+      !(*session)->connection()->connected();
   UMA_HISTOGRAM_BOOLEAN("Net.QuicSession.ClosedDuringInitializeSession",
                         closed_during_initialize);
   if (closed_during_initialize) {
