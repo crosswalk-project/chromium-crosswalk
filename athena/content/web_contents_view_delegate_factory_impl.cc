@@ -5,7 +5,6 @@
 #include "athena/content/public/web_contents_view_delegate_creator.h"
 
 #include "athena/content/render_view_context_menu_impl.h"
-#include "components/web_modal/popup_manager.h"
 #include "components/web_modal/single_web_contents_dialog_manager.h"
 #include "components/web_modal/web_contents_modal_dialog_host.h"
 #include "components/web_modal/web_contents_modal_dialog_manager.h"
@@ -32,10 +31,11 @@ class WebContentsViewDelegateImpl : public content::WebContentsViewDelegate {
   }
 
   virtual bool Focus() OVERRIDE {
-    web_modal::PopupManager* popup_manager =
-        web_modal::PopupManager::FromWebContents(web_contents_);
-    if (popup_manager)
-      popup_manager->WasFocused(web_contents_);
+    web_modal::WebContentsModalDialogManager* manager =
+        web_modal::WebContentsModalDialogManager::FromWebContents(
+            web_contents_);
+    if (manager)
+      manager->FocusTopmostDialog();
     return false;
   }
 
