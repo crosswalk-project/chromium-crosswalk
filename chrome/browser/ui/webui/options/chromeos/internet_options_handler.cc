@@ -1411,6 +1411,7 @@ void InternetOptionsHandler::PopulateDictionaryDetailsCallback(
         LOG(WARNING) << "Policy prevents autoconnect, but value is True.";
         auto_connect_value.reset(new base::FundamentalValue(false));
       }
+      auto_connect_default_value = auto_connect_value.get();
     }
     SetManagedValueDictionary(shill::kAutoConnectProperty,
                               auto_connect_value.get(),
