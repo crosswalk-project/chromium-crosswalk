@@ -24,12 +24,15 @@ const uint8 kBigData[] = { 0x00, 0x11, 0x22, 0x33, 0x44, 0x55, 0x66, 0x77,
 const uint32 kBigDataSize = arraysize(kBigData);
 
 // Must be > kReadSize in cdm_file_io_impl.cc.
-const uint32 kLargeDataSize = 9 * 1024 + 7;
+const uint32 kLargeDataSize = 20 * 1024 + 7;
 
 // Macros to help add test cases/steps.
+
+// |test_name| is also used as the file name. File name validity tests relies
+// on this to work.
 #define START_TEST_CASE(test_name)                                     \
   do {                                                                 \
-    FileIOTest test_case(create_file_io_cb_, "FileIOTest." test_name); \
+    FileIOTest test_case(create_file_io_cb_, test_name);               \
     CREATE_FILE_IO  // Create FileIO for each test case.
 
 #define ADD_TEST_STEP(type, status, data, data_size)                   \
@@ -90,6 +93,36 @@ FileIOTestRunner::~FileIOTestRunner() {
 
 // Note: Consecutive expectations (EXPECT*) can happen in any order.
 void FileIOTestRunner::AddTests() {
+  START_TEST_CASE("/FileNameStartsWithForwardSlash")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("FileNameContains/ForwardSlash")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("\\FileNameStartsWithBackslash")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("FileNameContains\\Backslash")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("_FileNameStartsWithUnderscore")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("FileNameContains_Underscore")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+  END_TEST_CASE
+
   START_TEST_CASE("ReadBeforeOpeningFile")
     READ_FILE
     EXPECT_FILE_READ(kError, NULL, 0)
@@ -105,6 +138,11 @@ void FileIOTestRunner::AddTests() {
     READ_FILE
     EXPECT_FILE_OPENED(kSuccess)
     EXPECT_FILE_READ(kError, NULL, 0)
+    // After file opened, we can still do normal operations.
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("WriteBeforeFileOpened")
@@ -112,6 +150,11 @@ void FileIOTestRunner::AddTests() {
     WRITE_FILE(kData, kDataSize)
     EXPECT_FILE_WRITTEN(kError)
     EXPECT_FILE_OPENED(kSuccess)
+    // After file opened, we can still do normal operations.
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("ReadDuringPendingRead")
@@ -123,6 +166,9 @@ void FileIOTestRunner::AddTests() {
     READ_FILE
     EXPECT_FILE_READ(kInUse, NULL, 0)
     EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+    // Read again.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("ReadDuringPendingWrite")
@@ -132,6 +178,9 @@ void FileIOTestRunner::AddTests() {
     READ_FILE
     EXPECT_FILE_READ(kInUse, NULL, 0)
     EXPECT_FILE_WRITTEN(kSuccess)
+    // Read again.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("WriteDuringPendingRead")
@@ -141,6 +190,11 @@ void FileIOTestRunner::AddTests() {
     WRITE_FILE(kData, kDataSize)
     EXPECT_FILE_WRITTEN(kInUse)
     EXPECT_FILE_READ(kSuccess, NULL, 0)
+    // We can still do normal operations.
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("WriteDuringPendingWrite")
@@ -150,9 +204,12 @@ void FileIOTestRunner::AddTests() {
     WRITE_FILE(kBigData, kBigDataSize)
     EXPECT_FILE_WRITTEN(kInUse)
     EXPECT_FILE_WRITTEN(kSuccess)
+    // Read to make sure original data (kData) is written.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
-  START_TEST_CASE("ReadEmptyFile")
+  START_TEST_CASE("ReadFileThatDoesNotExist")
     OPEN_FILE
     EXPECT_FILE_OPENED(kSuccess)
     READ_FILE
@@ -168,7 +225,7 @@ void FileIOTestRunner::AddTests() {
     EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
-  START_TEST_CASE("WriteZeroBytes")
+  START_TEST_CASE("WriteAndReadEmptyFile")
     OPEN_FILE
     EXPECT_FILE_OPENED(kSuccess)
     WRITE_FILE(NULL, 0)
@@ -234,7 +291,49 @@ void FileIOTestRunner::AddTests() {
     EXPECT_FILE_READ(kSuccess, kData, kDataSize)
   END_TEST_CASE
 
-  START_TEST_CASE("ReopenFileInTheSameFileIO")
+  START_TEST_CASE("MultipleReadsAndWrites")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    // Read file which doesn't exist.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, NULL, 0)
+    // Write kData to file.
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // Read file.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+    // Read file again.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+    // Overwrite file with large data.
+    WRITE_FILE(&large_data_[0], kLargeDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // Read file.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, &large_data_[0], kLargeDataSize)
+    // Overwrite file with kData.
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // Read file.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+    // Overwrite file with zero bytes.
+    WRITE_FILE(NULL, 0)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // Read file.
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, NULL, 0)
+  END_TEST_CASE
+
+  START_TEST_CASE("OpenAfterOpen")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kError)
+  END_TEST_CASE
+
+  START_TEST_CASE("OpenDuringPendingOpen")
     OPEN_FILE
     OPEN_FILE
     EXPECT_FILE_OPENED(kError)  // The second Open() failed.
@@ -263,8 +362,41 @@ void FileIOTestRunner::AddTests() {
   START_TEST_CASE("CloseDuringPendingWrite")
     OPEN_FILE
     EXPECT_FILE_OPENED(kSuccess)
-    WRITE_FILE(kData, kDataSize)
+    // TODO(xhwang): Reenable this after http:://crbug.com/415401 is fixed.
+    // WRITE_FILE(kData, kDataSize)
     CLOSE_FILE
+  END_TEST_CASE
+
+  START_TEST_CASE("CloseDuringPendingOverwriteWithLargerData")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    WRITE_FILE(kData, kDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // TODO(xhwang): Reenable this after http:://crbug.com/415401 is fixed.
+    // WRITE_FILE(kBigData, kBigDataSize)
+    CLOSE_FILE
+    // Write() didn't finish and the content of the file is not modified.
+    CREATE_FILE_IO
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+  END_TEST_CASE
+
+  START_TEST_CASE("CloseDuringPendingOverwriteWithSmallerData")
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    WRITE_FILE(kBigData, kBigDataSize)
+    EXPECT_FILE_WRITTEN(kSuccess)
+    // TODO(xhwang): Reenable this after http:://crbug.com/415401 is fixed.
+    // WRITE_FILE(kData, kDataSize)
+    CLOSE_FILE
+    // Write() didn't finish and the content of the file is not modified.
+    CREATE_FILE_IO
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kBigData, kBigDataSize)
   END_TEST_CASE
 
   START_TEST_CASE("CloseDuringPendingRead")
@@ -272,8 +404,35 @@ void FileIOTestRunner::AddTests() {
     EXPECT_FILE_OPENED(kSuccess)
     WRITE_FILE(kData, kDataSize)
     EXPECT_FILE_WRITTEN(kSuccess)
-    READ_FILE
+    // TODO(xhwang): Reenable this after http:://crbug.com/415401 is fixed.
+    // READ_FILE
     CLOSE_FILE
+    // Make sure the file is not modified.
+    CREATE_FILE_IO
+    OPEN_FILE
+    EXPECT_FILE_OPENED(kSuccess)
+    READ_FILE
+    EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+  END_TEST_CASE
+
+  START_TEST_CASE("StressTest")
+    for (int i = 0; i < 100; ++i) {
+      CREATE_FILE_IO
+      OPEN_FILE
+      EXPECT_FILE_OPENED(kSuccess)
+      WRITE_FILE(kData, kDataSize)
+      EXPECT_FILE_WRITTEN(kSuccess)
+      // TODO(xhwang): Reenable this after http:://crbug.com/415401 is fixed.
+      // WRITE_FILE(kBigData, kBigDataSize)
+      CLOSE_FILE
+      // Make sure the file is not modified.
+      CREATE_FILE_IO
+      OPEN_FILE
+      EXPECT_FILE_OPENED(kSuccess)
+      READ_FILE
+      EXPECT_FILE_READ(kSuccess, kData, kDataSize)
+      CLOSE_FILE
+    }
   END_TEST_CASE
 }
 
@@ -364,7 +523,7 @@ bool FileIOTest::MatchesResult(const TestStep& a, const TestStep& b) {
   if (a.type != RESULT_READ || a.status != cdm::FileIOClient::kSuccess)
     return true;
 
-  return (a.data_size == a.data_size &&
+  return (a.data_size == b.data_size &&
           std::equal(a.data, a.data + a.data_size, b.data));
 }
 
