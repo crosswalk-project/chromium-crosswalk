@@ -1141,6 +1141,8 @@ void RenderView::ApplyWebPreferences(const WebPreferences& prefs,
 
   // Enable double tap to zoom when zoomable.
   settings->setDoubleTapToZoomEnabled(true);
+
+  settings->setShrinksViewportContentToFit(true);
 #endif
 
 #if defined(OS_ANDROID)
