@@ -10,6 +10,7 @@
 
 #include "base/basictypes.h"
 #include "base/memory/scoped_ptr.h"
+#include "base/message_loop/message_loop.h"
 #include "chrome/browser/sessions/session_id.h"
 
 class SessionBackend;
@@ -17,6 +18,10 @@ class SessionCommand;
 class SessionService;
 struct SessionTab;
 struct SessionWindow;
+
+namespace base {
+class RunLoop;
+}
 
 namespace sessions {
 class SerializedNavigationEntry;
@@ -26,7 +31,7 @@ class SerializedNavigationEntry;
 
 class SessionServiceTestHelper {
  public:
-  explicit SessionServiceTestHelper();
+  SessionServiceTestHelper();
   explicit SessionServiceTestHelper(SessionService* service);
   ~SessionServiceTestHelper();
 
@@ -75,6 +80,9 @@ class SessionServiceTestHelper {
   SessionService* service() { return service_.get(); }
 
   SessionBackend* backend();
+
+  void RunTaskOnBackendThread(const tracked_objects::Location& from_here,
+                              const base::Closure& task);
 
  private:
   scoped_ptr<SessionService> service_;

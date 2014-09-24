@@ -191,7 +191,8 @@ SessionService::SessionService(Profile* profile)
       save_delay_in_millis_(base::TimeDelta::FromMilliseconds(2500)),
       save_delay_in_mins_(base::TimeDelta::FromMinutes(10)),
       save_delay_in_hrs_(base::TimeDelta::FromHours(8)),
-      force_browser_not_alive_with_no_windows_(false) {
+      force_browser_not_alive_with_no_windows_(false),
+      weak_factory_(this) {
   Init();
 }
 
@@ -202,7 +203,8 @@ SessionService::SessionService(const base::FilePath& save_path)
       save_delay_in_millis_(base::TimeDelta::FromMilliseconds(2500)),
       save_delay_in_mins_(base::TimeDelta::FromMinutes(10)),
       save_delay_in_hrs_(base::TimeDelta::FromHours(8)),
-      force_browser_not_alive_with_no_windows_(false)  {
+      force_browser_not_alive_with_no_windows_(false),
+      weak_factory_(this) {
   Init();
 }
 
@@ -528,7 +530,7 @@ base::CancelableTaskTracker::TaskId SessionService::GetLastSession(
   // the callback.
   return ScheduleGetLastSessionCommands(
       base::Bind(&SessionService::OnGotSessionCommands,
-                 base::Unretained(this), callback),
+                 weak_factory_.GetWeakPtr(), callback),
       tracker);
 }
 
