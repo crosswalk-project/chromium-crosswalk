@@ -1419,6 +1419,12 @@ void InternetOptionsHandler::PopulateDictionaryDetailsCallback(
                               auto_connect_recommended,
                               auto_connect_default_value,
                               dictionary.get());
+  } else {
+    // Set AutoConnect property for unmanaged types (Cellular, Wimax).
+    bool auto_connect = false;
+    shill_properties.GetBooleanWithoutPathExpansion(
+        shill::kAutoConnectProperty, &auto_connect);
+    dictionary->SetBoolean(shill::kAutoConnectProperty, auto_connect);
   }
 
   // Show details dialog
