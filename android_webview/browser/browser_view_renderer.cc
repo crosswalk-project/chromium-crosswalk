@@ -244,8 +244,10 @@ bool BrowserViewRenderer::OnDrawHardware(jobject java_canvas) {
   if (!compositor_)
     return false;
 
-  if (last_on_draw_global_visible_rect_.IsEmpty())
+  if (last_on_draw_global_visible_rect_.IsEmpty()) {
+    shared_renderer_state_->SetForceInvalidateOnNextDrawGL(true);
     return client_->RequestDrawGL(java_canvas, false);
+  }
 
   if (!hardware_enabled_) {
     hardware_enabled_ = compositor_->InitializeHwDraw();
@@ -307,9 +309,12 @@ bool BrowserViewRenderer::OnDrawHardware(jobject java_canvas) {
 void BrowserViewRenderer::UpdateParentDrawConstraints() {
   // Post an invalidate if the parent draw constraints are stale and there is
   // no pending invalidate.
-  if (!parent_draw_constraints_.Equals(
-          shared_renderer_state_->ParentDrawConstraints()))
+  if (shared_renderer_state_->NeedsForceInvalidateOnNextDrawGL() ||
+      !parent_draw_constraints_.Equals(
+        shared_renderer_state_->ParentDrawConstraints())) {
+    shared_renderer_state_->SetForceInvalidateOnNextDrawGL(false);
     EnsureContinuousInvalidation(true);
+  }
 }
 
 void BrowserViewRenderer::ReturnUnusedResource(scoped_ptr<DrawGLInput> input) {
