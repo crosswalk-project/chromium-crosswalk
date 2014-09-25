@@ -42,6 +42,14 @@ class InfoBarService : public infobars::InfoBarManager,
     return content::WebContentsObserver::web_contents();
   }
 
+  // Makes it so the next reload is ignored. That is, if the next commit is a
+  // reload then it is treated as if nothing happened and no infobars are
+  // attempted to be closed.
+  // This is useful for non-user triggered reloads that should not dismiss
+  // infobars. For example, instant may trigger a reload when the google URL
+  // changes.
+  void set_ignore_next_reload() { ignore_next_reload_ = true; }
+
  private:
   friend class content::WebContentsUserData<InfoBarService>;
 
@@ -58,6 +66,9 @@ class InfoBarService : public infobars::InfoBarManager,
 
   // content::WebContentsObserver:
   virtual void RenderProcessGone(base::TerminationStatus status) OVERRIDE;
+  virtual void DidStartNavigationToPendingEntry(
+      const GURL& url,
+      content::NavigationController::ReloadType reload_type) OVERRIDE;
   virtual void NavigationEntryCommitted(
       const content::LoadCommittedDetails& load_details) OVERRIDE;
   virtual void WebContentsDestroyed() OVERRIDE;
@@ -67,6 +78,8 @@ class InfoBarService : public infobars::InfoBarManager,
   void OnDidBlockDisplayingInsecureContent();
   void OnDidBlockRunningInsecureContent();
 
+  // See description in set_ignore_next_reload().
+  bool ignore_next_reload_;
 
   DISALLOW_COPY_AND_ASSIGN(InfoBarService);
 };
