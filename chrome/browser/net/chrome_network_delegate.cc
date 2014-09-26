@@ -445,7 +445,7 @@ void ChromeNetworkDelegate::OnResolveProxy(
 void ChromeNetworkDelegate::OnProxyFallback(const net::ProxyServer& bad_proxy,
                                             int net_error) {
   if (data_reduction_proxy_usage_stats_) {
-    data_reduction_proxy_usage_stats_->OnProxyFallback(
+    data_reduction_proxy_usage_stats_->RecordBypassEventHistograms(
         bad_proxy, net_error);
   }
 }

@@ -64,10 +64,8 @@ class DataReductionProxyUsageStats
       const BooleanPrefMember& data_reduction_proxy_enabled,
       const net::ProxyConfig& data_reduction_proxy_config);
 
-  // Called by |ChromeNetworkDelegate| when a proxy is put into the bad proxy
-  // list. Used to track when the data reduction proxy falls back.
-  void OnProxyFallback(const net::ProxyServer& bypassed_proxy,
-                       int net_error);
+  void RecordBypassEventHistograms(const net::ProxyServer& bypassed_proxy,
+                                   int net_error) const;
 
  private:
   enum BypassedBytesType {
@@ -85,11 +83,9 @@ class DataReductionProxyUsageStats
   virtual void OnNetworkChanged(
       net::NetworkChangeNotifier::ConnectionType type) OVERRIDE;
 
-  // Called when request counts change. Resets counts if they exceed thresholds,
-  // and calls MaybeNotifyUnavailability otherwise.
-  void OnRequestCountChanged();
-
-  // Clears request counts unconditionally.
+  // Counts requests that went through the data reduction proxy and counts
+  // requests that were eligible to go through the proxy.
+  void IncrementRequestCounts(bool actual);
   void ClearRequestCounts();
 
   // Checks if the availability status of the data reduction proxy has changed,
@@ -97,7 +93,7 @@ class DataReductionProxyUsageStats
   // data reduction proxy is considered unavailable if and only if no requests
   // went through the proxy but some eligible requests were service by other
   // routes.
-  void NotifyUnavailabilityIfChanged();
+  void MaybeNotifyUnavailability();
   void NotifyUnavailabilityOnUIThread(bool unavailable);
 
   DataReductionProxyParams* data_reduction_proxy_params_;
@@ -114,12 +110,14 @@ class DataReductionProxyUsageStats
   // unreachable if no successful requests are made through it despite a
   // non-zero number of requests being eligible.
 
-  // Count of successful requests through the data reduction proxy.
-  unsigned long successful_requests_through_proxy_count_;
+  // Count of requests which will be tried to be sent through data reduction
+  // proxy. The count is only based on the config and not the bad proxy list.
+  // Explicit bypasses are not part of this count. This is the desired behavior
+  // since otherwise both counts would be identical.
+  unsigned long eligible_num_requests_through_proxy_;
 
-  // Count of network errors encountered when connecting to a data reduction
-  // proxy.
-  unsigned long proxy_net_errors_count_;
+  // Count of successful requests through data reduction proxy.
+  unsigned long actual_num_requests_through_proxy_;
 
   // Whether or not the data reduction proxy is unavailable.
   bool unavailable_;
