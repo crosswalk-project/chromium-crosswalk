@@ -126,7 +126,10 @@ public abstract class VideoCapture implements PreviewCallback {
         int frameRateInMs = frameRate * 1000;
         // Use the first range as default.
         int[] fpsMinMax = listFpsRange.get(0);
-        int newFrameRate = (fpsMinMax[0] + 999) / 1000;
+        int frameRateInMSNearest = Math.abs(frameRateInMs - fpsMinMax[0]) <
+                                   Math.abs(frameRateInMs - fpsMinMax[1]) ?
+                                   fpsMinMax[0] : fpsMinMax[1];
+        int newFrameRate = (frameRateInMSNearest + 999) / 1000;
         for (int[] fpsRange : listFpsRange) {
             if (fpsRange[0] <= frameRateInMs && frameRateInMs <= fpsRange[1]) {
                 fpsMinMax = fpsRange;
