@@ -331,6 +331,16 @@ void WebViewGuest::DidAttachToEmbedder() {
     // lifetime of the new guest is no longer managed by the opener guest.
     GetOpener()->pending_new_windows_.erase(this);
   }
+
+  ZoomController* zoom_controller = ZoomController::FromWebContents(
+      embedder_web_contents());
+  if (!zoom_controller)
+    return;
+  // Listen to the embedder's zoom changes.
+  zoom_controller->AddObserver(this);
+  // Set the guest's initial zoom level to be equal to the embedder's.
+  ZoomController::FromWebContents(guest_web_contents())->
+      SetZoomLevel(zoom_controller->GetZoomLevel());
 }
 
 void WebViewGuest::DidInitialize() {
@@ -1258,6 +1268,12 @@ void WebViewGuest::OnWebViewNewWindowResponse(
 
   if (!allow)
     guest->Destroy();
+}
+
+void WebViewGuest::OnZoomChanged(
+    const ZoomController::ZoomChangedEventData& data) {
+  ZoomController::FromWebContents(guest_web_contents())->
+      SetZoomLevel(data.new_zoom_level);
 }
 
 }  // namespace extensions

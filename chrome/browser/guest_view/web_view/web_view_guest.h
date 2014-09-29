@@ -12,6 +12,7 @@
 #include "chrome/browser/guest_view/web_view/web_view_find_helper.h"
 #include "chrome/browser/guest_view/web_view/web_view_permission_helper.h"
 #include "chrome/browser/guest_view/web_view/web_view_permission_types.h"
+#include "chrome/browser/ui/zoom/zoom_observer.h"
 #include "chrome/common/extensions/api/web_view_internal.h"
 #include "content/public/browser/javascript_dialog_manager.h"
 #include "content/public/browser/notification_observer.h"
@@ -43,7 +44,8 @@ class WebViewInternalFindFunction;
 // or through the use of the New Window API, when a new window is attached to
 // a particular <webview>.
 class WebViewGuest : public GuestView<WebViewGuest>,
-                     public content::NotificationObserver {
+                     public content::NotificationObserver,
+                     public ZoomObserver {
  public:
   static GuestViewBase* Create(content::BrowserContext* browser_context,
                                int guest_instance_id);
@@ -275,6 +277,10 @@ class WebViewGuest : public GuestView<WebViewGuest>,
       content::RenderFrameHost* render_frame_host) OVERRIDE;
   virtual void RenderProcessGone(base::TerminationStatus status) OVERRIDE;
   virtual void UserAgentOverrideSet(const std::string& user_agent) OVERRIDE;
+
+  // ZoomObserver implementation.
+  virtual void OnZoomChanged(
+      const ZoomController::ZoomChangedEventData& data) OVERRIDE;
 
   // Informs the embedder of a frame name change.
   void ReportFrameNameChange(const std::string& name);
