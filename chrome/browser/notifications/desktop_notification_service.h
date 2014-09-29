@@ -152,6 +152,11 @@ class DesktopNotificationService
       const extensions::Extension* extension,
       extensions::UninstallReason reason) OVERRIDE;
 
+  // PermissionContextBase:
+  virtual void UpdateContentSetting(const GURL& requesting_origin,
+                                    const GURL& embedder_origin,
+                                    bool allowed) OVERRIDE;
+
   // The profile which owns this object.
   Profile* profile_;
 
