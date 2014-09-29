@@ -9,6 +9,7 @@
 #include <OpenGL/CGLRenderers.h>
 #include <OpenGL/gl.h>
 #include <OpenGL/OpenGL.h>
+#include <OpenGL/gl.h>
 
 #include "base/mac/mac_util.h"
 #include "base/mac/sdk_forward_declarations.h"
