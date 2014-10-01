@@ -121,7 +121,8 @@ bool GLContextEGL::MakeCurrent(GLSurface* surface) {
   }
 
 #if defined(USE_OZONE)
-  eglSwapInterval(display_, 0);
+  if (!surface->IsOffscreen())
+    eglSwapInterval(display_, 0);
 #endif
 
   // Set this as soon as the context is current, since we might call into GL.
