@@ -1129,6 +1129,7 @@
       'browser/screen_orientation/screen_orientation_dispatcher_host_impl.h',
       'browser/screen_orientation/screen_orientation_message_filter_android.h',
       'browser/screen_orientation/screen_orientation_message_filter_android.cc',
+      'browser/screen_orientation/screen_orientation_provider.cc',
       'browser/screen_orientation/screen_orientation_provider_android.h',
       'browser/screen_orientation/screen_orientation_provider_android.cc',
       'browser/service_worker/embedded_worker_instance.cc',

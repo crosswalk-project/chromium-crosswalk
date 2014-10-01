@@ -108,6 +108,11 @@ void ScreenOrientationDispatcherHostImpl::OnOrientationChange() {
     provider_->OnOrientationChange();
 }
 
+void ScreenOrientationDispatcherHostImpl::SetProvider(
+    ScreenOrientationProvider* provider) {
+  provider_.reset(provider);
+}
+
 void ScreenOrientationDispatcherHostImpl::OnLockRequest(
     RenderFrameHost* render_frame_host,
     blink::WebScreenOrientationLockType orientation,
