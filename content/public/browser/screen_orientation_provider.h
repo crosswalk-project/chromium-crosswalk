@@ -44,15 +44,6 @@ class CONTENT_EXPORT ScreenOrientationProvider {
   DISALLOW_COPY_AND_ASSIGN(ScreenOrientationProvider);
 };
 
-#if !defined(OS_ANDROID)
-// static
-ScreenOrientationProvider* ScreenOrientationProvider::Create(
-    ScreenOrientationDispatcherHost* dispatcher_host,
-    WebContents* web_contents) {
-  return NULL;
-}
-#endif // !defined(OS_ANDROID)
-
 } // namespace content
 
 #endif // CONTENT_PUBLIC_BROWSER_SCREEN_ORIENTATION_PROVIDER_H_

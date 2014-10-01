@@ -10,6 +10,8 @@
 
 namespace content {
 
+class ScreenOrientationProvider;
+
 // ScreenOrientationDispatcherHost receives lock and unlock requests from the
 // RenderFrames and dispatch them to the ScreenOrientationProvider. It also
 // make sure that the right RenderFrame get replied for each lock request.
@@ -29,6 +31,8 @@ class CONTENT_EXPORT ScreenOrientationDispatcherHost {
                                blink::WebLockOrientationError error) = 0;
 
   virtual void OnOrientationChange() = 0;
+
+  virtual void SetProvider(ScreenOrientationProvider* provider) = 0;
 };
 
 }  // namespace content
