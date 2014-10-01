@@ -31,6 +31,7 @@ class CONTENT_EXPORT ScreenOrientationDispatcherHostImpl
   virtual void NotifyLockError(int request_id,
                                blink::WebLockOrientationError error) OVERRIDE;
   virtual void OnOrientationChange() OVERRIDE;
+  virtual void SetProvider(ScreenOrientationProvider* provider) OVERRIDE;
 
   // WebContentsObserver:
   virtual bool OnMessageReceived(const IPC::Message&,
