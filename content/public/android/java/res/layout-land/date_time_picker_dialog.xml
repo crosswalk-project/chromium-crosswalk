@@ -5,29 +5,36 @@
      found in the LICENSE file.
 -->
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- ScrollView is needed since sometimes the dialog does not fit in small screen devices. -->
+<HorizontalScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center_horizontal"
-    android:orientation="horizontal"
-    android:gravity="center">
+    android:layout_height="wrap_content">
 
-    <DatePicker
-        android:id="@+id/date_picker"
-        android:layout_gravity="center_horizontal"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:spinnersShown="true"
-        android:calendarViewShown="false"
-        android:contentDescription="@string/accessibility_datetime_picker_date"
-        />
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:gravity="center">
 
-    <TimePicker
-        android:id="@+id/time_picker"
-        android:layout_gravity="center_horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/accessibility_datetime_picker_time"
-        />
+        <DatePicker
+            android:id="@+id/date_picker"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:spinnersShown="true"
+            android:calendarViewShown="false"
+            android:contentDescription="@string/accessibility_datetime_picker_date"
+            />
 
-</LinearLayout>
+        <TimePicker
+            android:id="@+id/time_picker"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/accessibility_datetime_picker_time"
+            />
+
+    </LinearLayout>
+
+</HorizontalScrollView>
