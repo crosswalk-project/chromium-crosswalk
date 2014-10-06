@@ -878,6 +878,9 @@ content::ColorChooser* WebViewGuest::OpenColorChooser(
 }
 
 void WebViewGuest::NavigateGuest(const std::string& src) {
+  if (!attached())
+    return;
+
   GURL url = ResolveURL(src);
 
   // Do not allow navigating a guest to schemes other than known safe schemes.
