@@ -507,6 +507,9 @@ bool LayerTreeImpl::UpdateDrawProperties() {
           settings().minimum_occlusion_tracking_size);
     }
 
+    bool resourceless_software_draw = (layer_tree_host_impl_->GetDrawMode() ==
+                                       DRAW_MODE_RESOURCELESS_SOFTWARE);
+
     // LayerIterator is used here instead of CallFunctionForSubtree to only
     // UpdateTilePriorities on layers that will be visible (and thus have valid
     // draw properties) and not because any ordering is required.
@@ -525,8 +528,10 @@ bool LayerTreeImpl::UpdateDrawProperties() {
                                   layer->draw_transform())
                             : Occlusion();
 
-      if (it.represents_itself())
-        layer->UpdateTiles(occlusion_in_content_space);
+      if (it.represents_itself()) {
+        layer->UpdateTiles(occlusion_in_content_space,
+                           resourceless_software_draw);
+      }
 
       if (!it.represents_contributing_render_surface()) {
         if (occlusion_tracker)
@@ -534,11 +539,14 @@ bool LayerTreeImpl::UpdateDrawProperties() {
         continue;
       }
 
-      if (layer->mask_layer())
-        layer->mask_layer()->UpdateTiles(occlusion_in_content_space);
-      if (layer->replica_layer() && layer->replica_layer()->mask_layer())
+      if (layer->mask_layer()) {
+        layer->mask_layer()->UpdateTiles(occlusion_in_content_space,
+                                         resourceless_software_draw);
+      }
+      if (layer->replica_layer() && layer->replica_layer()->mask_layer()) {
         layer->replica_layer()->mask_layer()->UpdateTiles(
-            occlusion_in_content_space);
+            occlusion_in_content_space, resourceless_software_draw);
+      }
 
       if (occlusion_tracker)
         occlusion_tracker->LeaveLayer(it);
