@@ -45,6 +45,8 @@ class HidDeviceManager : public BrowserContextKeyedAPI {
 
   base::ThreadChecker thread_checker_;
 
+  static const bool kServiceHasOwnInstanceInIncognito = true;
+
   int next_resource_id_;
 
   typedef std::map<int, device::HidDeviceId> ResourceIdToDeviceIdMap;
