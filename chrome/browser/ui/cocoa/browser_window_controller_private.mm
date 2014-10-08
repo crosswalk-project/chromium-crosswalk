@@ -55,6 +55,13 @@ namespace {
 // Space between the incognito badge and the right edge of the window.
 const CGFloat kAvatarRightOffset = 4;
 
+// Space between the location bar and the right edge of the window, when there
+// are no extension buttons present.
+// When there is a fullscreen button to the right of the new style profile
+// button, we align the profile button with the location bar (although it won't
+// be aligned when there are extension buttons).
+const CGFloat kLocationBarRightOffset = 35;
+
 }  // namespace
 
 @implementation BrowserWindowController(Private)
@@ -228,8 +235,8 @@ willPositionSheet:(NSWindow*)sheet
 
     if ([self shouldUseNewAvatarButton]) {
       // The fullscreen icon is displayed to the right of the avatar button.
-      if (![self isInAnyFullscreenMode] && fullScreenButton)
-        badgeXOffset -= width - NSMinX([fullScreenButton frame]);
+      if (fullScreenButton)
+        badgeXOffset = -kLocationBarRightOffset;
       // Center the button vertically on the tabstrip.
       badgeYOffset = (tabStripHeight - buttonHeight) / 2;
     } else {
@@ -246,23 +253,21 @@ willPositionSheet:(NSWindow*)sheet
     [avatarButton setHidden:NO];  // Make sure it's shown.
   }
 
-  // Calculate the right indentation.  The default indentation built into the
-  // tabstrip leaves enough room for the fullscreen button on Lion (10.7) to
-  // Mavericks (10.9).  On 10.6 and >=10.10, the right indent needs to be
-  // adjusted to make room for the new tab button when an avatar is present.
-  CGFloat rightIndent = 0;
-  if (![self isInAnyFullscreenMode] && fullScreenButton) {
-    rightIndent = width - NSMinX([fullScreenButton frame]);
-
-    if ([self shouldUseNewAvatarButton]) {
-      // The new avatar button is to the left of the fullscreen button.
-      // (The old avatar button is to the right).
-      rightIndent += NSWidth([avatarButton frame]) + kAvatarRightOffset;
-    }
-  } else if ([self shouldShowAvatar]) {
-    rightIndent += NSWidth([avatarButton frame]) + kAvatarRightOffset;
+  // Calculate the right indentation.
+  // On 10.7 Lion to 10.9 Mavericks, there will be a fullscreen button when not
+  // in fullscreen mode.
+  // There may also be a profile button, which can be on the right of the
+  // fullscreen button (old style), or to its left (new style).
+  // The right indentation is calculated to prevent the tab strip from
+  // overlapping these buttons.
+  CGFloat maxX = width;
+  if (fullScreenButton) {
+    maxX = NSMinX([fullScreenButton frame]);
   }
-
+  if ([self shouldShowAvatar]) {
+    maxX = std::min(maxX, NSMinX([avatarButton frame]));
+  }
+  CGFloat rightIndent = width - maxX;
   if (rightIndent != [tabStripController_ rightIndentForControls]) {
     [tabStripController_ setRightIndentForControls:rightIndent];
     requiresRelayout = YES;
