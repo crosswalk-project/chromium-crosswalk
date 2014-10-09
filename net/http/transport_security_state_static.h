@@ -1160,7 +1160,6 @@ static const struct HSTSPreload kPreloadedSTS[] = {
   {22, true, "\020" "winhistory-forum" "\003" "net", true, kNoPins, DOMAIN_NOT_PINNED },
   {11, true, "\005" "y-o-w" "\003" "com", true, kNoPins, DOMAIN_NOT_PINNED },
   {14, true, "\010" "explodie" "\003" "org", true, kNoPins, DOMAIN_NOT_PINNED },
-  {16, true, "\013" "accelerated" "\002" "de", true, kNoPins, DOMAIN_NOT_PINNED },
   {8, true, "\003" "aie" "\002" "de", true, kNoPins, DOMAIN_NOT_PINNED },
   {9, true, "\004" "baer" "\002" "im", true, kNoPins, DOMAIN_NOT_PINNED },
   {28, true, "\027" "bayrisch-fuer-anfaenger" "\002" "de", true, kNoPins, DOMAIN_NOT_PINNED },
