@@ -15,8 +15,9 @@
 #include "chrome/browser/ui/views/passwords/manage_password_item_view.h"
 #include "chrome/browser/ui/views/passwords/manage_passwords_icon_view.h"
 #include "chrome/grit/generated_resources.h"
-#include "components/password_manager/core/common/password_manager_ui.h"
-#include "content/public/browser/notification_source.h"
+#include "content/public/browser/render_view_host.h"
+#include "content/public/browser/web_contents.h"
+#include "ui/aura/window.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/base/models/combobox_model.h"
 #include "ui/base/resource/resource_bundle.h"
@@ -512,6 +513,59 @@ void ManagePasswordsBubbleView::SaveConfirmationView::ButtonPressed(
   parent_->Close();
 }
 
+// ManagePasswordsBubbleView::WebContentMouseHandler --------------------------
+
+// The class listens for WebContentsView events and notifies the bubble if the
+// view was clicked on or received keystrokes.
+class ManagePasswordsBubbleView::WebContentMouseHandler
+    : public ui::EventHandler {
+ public:
+  explicit WebContentMouseHandler(ManagePasswordsBubbleView* bubble);
+  virtual ~WebContentMouseHandler();
+
+  virtual void OnKeyEvent(ui::KeyEvent* event) OVERRIDE;
+  virtual void OnMouseEvent(ui::MouseEvent* event) OVERRIDE;
+
+ private:
+  aura::Window* GetWebContentsWindow();
+
+  ManagePasswordsBubbleView* bubble_;
+
+  DISALLOW_COPY_AND_ASSIGN(WebContentMouseHandler);
+};
+
+ManagePasswordsBubbleView::WebContentMouseHandler::WebContentMouseHandler(
+    ManagePasswordsBubbleView* bubble)
+    : bubble_(bubble) {
+  GetWebContentsWindow()->AddPreTargetHandler(this);
+}
+
+ManagePasswordsBubbleView::WebContentMouseHandler::~WebContentMouseHandler() {
+  if (aura::Window* window = GetWebContentsWindow())
+    window->RemovePreTargetHandler(this);
+}
+
+void ManagePasswordsBubbleView::WebContentMouseHandler::OnKeyEvent(
+    ui::KeyEvent* event) {
+  content::WebContents* web_contents = bubble_->model()->web_contents();
+  content::RenderViewHost* rvh = web_contents->GetRenderViewHost();
+  if (rvh->IsFocusedElementEditable() &&
+      event->type() == ui::ET_KEY_PRESSED)
+    bubble_->Close();
+}
+
+void ManagePasswordsBubbleView::WebContentMouseHandler::OnMouseEvent(
+    ui::MouseEvent* event) {
+  if (event->type() == ui::ET_MOUSE_PRESSED)
+    bubble_->Close();
+}
+
+aura::Window*
+ManagePasswordsBubbleView::WebContentMouseHandler::GetWebContentsWindow() {
+  content::WebContents* web_contents = bubble_->model()->web_contents();
+  return web_contents ? web_contents->GetNativeView() : NULL;
+}
+
 // ManagePasswordsBubbleView --------------------------------------------------
 
 // static
@@ -593,6 +647,7 @@ ManagePasswordsBubbleView::ManagePasswordsBubbleView(
   set_notify_enter_exit_on_child(true);
   if (anchor_view)
     anchor_view->SetActive(true);
+  mouse_handler_.reset(new WebContentMouseHandler(this));
 }
 
 ManagePasswordsBubbleView::~ManagePasswordsBubbleView() {
@@ -700,4 +755,8 @@ void ManagePasswordsBubbleView::StartTimerIfNecessary() {
                base::TimeDelta::FromSeconds(kBubbleCloseDelay),
                this,
                &ManagePasswordsBubbleView::Close);
+}
+
+void ManagePasswordsBubbleView::OnWebContentClicked() {
+  Close();
 }

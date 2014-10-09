@@ -8,8 +8,12 @@
 #include "chrome/browser/ui/browser.h"
 #include "chrome/browser/ui/tabs/tab_strip_model.h"
 #include "chrome/browser/ui/views/passwords/manage_passwords_view_test.h"
+#include "chrome/test/base/interactive_test_utils.h"
 #include "components/password_manager/core/browser/password_manager_metrics_util.h"
 #include "components/password_manager/core/browser/stub_password_manager_client.h"
+#include "content/public/browser/notification_service.h"
+#include "content/public/browser/notification_types.h"
+#include "content/public/browser/render_view_host.h"
 #include "testing/gtest/include/gtest/gtest.h"
 
 namespace {
@@ -158,4 +162,37 @@ IN_PROC_BROWSER_TEST_F(ManagePasswordsBubbleViewTest,
   EXPECT_EQ(1,
             samples->GetCount(
                 metrics_util::MANUAL_MANAGE_PASSWORDS));
+}
+
+IN_PROC_BROWSER_TEST_F(ManagePasswordsBubbleViewTest, CloseOnClick) {
+  ManagePasswordsBubbleView::ShowBubble(
+      browser()->tab_strip_model()->GetActiveWebContents(),
+      ManagePasswordsBubble::AUTOMATIC);
+  EXPECT_TRUE(ManagePasswordsBubbleView::IsShowing());
+  EXPECT_FALSE(ManagePasswordsBubbleView::manage_password_bubble()->
+      GetFocusManager()->GetFocusedView());
+  ui_test_utils::ClickOnView(browser(), VIEW_ID_TAB_CONTAINER);
+  EXPECT_FALSE(ManagePasswordsBubbleView::IsShowing());
+}
+
+IN_PROC_BROWSER_TEST_F(ManagePasswordsBubbleViewTest, CloseOnKey) {
+  content::WindowedNotificationObserver focus_observer(
+      content::NOTIFICATION_FOCUS_CHANGED_IN_PAGE,
+      content::NotificationService::AllSources());
+  ui_test_utils::NavigateToURL(
+      browser(),
+      GURL("data:text/html;charset=utf-8,<input type=\"text\" autofocus>"));
+  focus_observer.Wait();
+  content::WebContents* web_contents =
+      browser()->tab_strip_model()->GetActiveWebContents();
+  ManagePasswordsBubbleView::ShowBubble(web_contents,
+                                        ManagePasswordsBubble::AUTOMATIC);
+  EXPECT_TRUE(ManagePasswordsBubbleView::IsShowing());
+  EXPECT_FALSE(ManagePasswordsBubbleView::manage_password_bubble()->
+      GetFocusManager()->GetFocusedView());
+  EXPECT_TRUE(ui_test_utils::IsViewFocused(browser(), VIEW_ID_TAB_CONTAINER));
+  EXPECT_TRUE(web_contents->GetRenderViewHost()->IsFocusedElementEditable());
+  ASSERT_TRUE(ui_test_utils::SendKeyPressSync(browser(), ui::VKEY_K,
+      false, false, false, false));
+  EXPECT_FALSE(ManagePasswordsBubbleView::IsShowing());
 }
