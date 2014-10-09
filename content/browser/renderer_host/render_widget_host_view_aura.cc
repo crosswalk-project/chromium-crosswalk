@@ -517,8 +517,10 @@ void RenderWidgetHostViewAura::InitAsPopup(
 
   SetBounds(bounds_in_screen);
   Show();
-  if (NeedsMouseCapture())
+#if !defined(OS_WIN) && !defined(OS_CHROMEOS)
+  if (NeedsInputGrab())
     window_->SetCapture();
+#endif
 
   event_filter_for_popup_exit_.reset(new EventFilterForPopupExit(this));
 }
@@ -1958,8 +1960,7 @@ void RenderWidgetHostViewAura::OnMouseEvent(ui::MouseEvent* event) {
       FinishImeCompositionSession();
       break;
     case ui::ET_MOUSE_RELEASED:
-      if (!NeedsMouseCapture())
-        window_->ReleaseCapture();
+      window_->ReleaseCapture();
       break;
     default:
       break;
@@ -2292,13 +2293,6 @@ ui::InputMethod* RenderWidgetHostViewAura::GetInputMethod() const {
 
 bool RenderWidgetHostViewAura::NeedsInputGrab() {
   return popup_type_ == blink::WebPopupTypeSelect;
-}
-
-bool RenderWidgetHostViewAura::NeedsMouseCapture() {
-#if defined(OS_LINUX) && !defined(OS_CHROMEOS)
-  return NeedsInputGrab();
-#endif
-  return false;
 }
 
 void RenderWidgetHostViewAura::FinishImeCompositionSession() {
