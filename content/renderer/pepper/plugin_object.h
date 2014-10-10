@@ -49,6 +49,9 @@ class PluginObject : public gin::Wrappable<PluginObject>,
   virtual v8::Local<v8::Value> GetNamedProperty(
       v8::Isolate* isolate,
       const std::string& property) OVERRIDE;
+  virtual bool SetNamedProperty(v8::Isolate* isolate,
+                                const std::string& property,
+                                v8::Local<v8::Value> value) OVERRIDE;
   virtual std::vector<std::string> EnumerateNamedProperties(
       v8::Isolate* isolate) OVERRIDE;
 
