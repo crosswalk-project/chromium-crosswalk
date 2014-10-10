@@ -414,7 +414,7 @@ class APP_LIST_EXPORT AppsGridView : public views::View,
 
   // Gets the item view located at |slot| on the current page. If there is
   // no item located at |slot|, returns NULL.
-  views::View* GetViewAtSlotOnCurrentPage(int slot);
+  views::View* GetViewAtSlotOnCurrentPage(int slot) const;
 
   // Sets state of the view with |target_index| to |is_target_folder| for
   // dropping |drag_view_|.
