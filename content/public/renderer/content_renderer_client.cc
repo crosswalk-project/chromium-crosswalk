@@ -14,6 +14,10 @@ SkBitmap* ContentRendererClient::GetSadWebViewBitmap() {
   return NULL;
 }
 
+std::string ContentRendererClient::GetDefaultEncoding() {
+  return std::string();
+}
+
 bool ContentRendererClient::OverrideCreatePlugin(
     RenderFrame* render_frame,
     blink::WebLocalFrame* frame,

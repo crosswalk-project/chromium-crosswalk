@@ -30,6 +30,13 @@ std::string GetNoDomainPageContent() {
   return base::android::ConvertJavaStringToUTF8(content);
 }
 
+std::string GetDefaultTextEncoding() {
+  JNIEnv* env = base::android::AttachCurrentThread();
+  ScopedJavaLocalRef<jstring> encoding =
+      Java_AwResource_getDefaultTextEncoding(env);
+  return base::android::ConvertJavaStringToUTF8(encoding);
+}
+
 bool RegisterAwResource(JNIEnv* env) {
   return RegisterNativesImpl(env);
 }

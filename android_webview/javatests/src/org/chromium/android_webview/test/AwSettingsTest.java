@@ -434,12 +434,12 @@ public class AwSettingsTest extends AwTestBase {
 
         @Override
         protected String getAlteredValue() {
-            return "Latin-1";
+            return "utf-8";
         }
 
         @Override
         protected String getInitialValue() {
-            return "UTF-8";
+            return "Latin-1";
         }
 
         @Override
