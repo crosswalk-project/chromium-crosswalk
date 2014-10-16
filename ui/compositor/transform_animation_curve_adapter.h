@@ -32,7 +32,8 @@ class COMPOSITOR_EXPORT TransformAnimationCurveAdapter
                                     gfx::BoxF* bounds) const OVERRIDE;
   virtual bool AffectsScale() const OVERRIDE;
   virtual bool IsTranslation() const OVERRIDE;
-  virtual bool MaximumScale(float* max_scale) const OVERRIDE;
+  virtual bool MaximumTargetScale(bool forward_direction,
+                                  float* max_scale) const OVERRIDE;
 
  private:
   gfx::Tween::Type tween_type_;
@@ -61,7 +62,8 @@ class COMPOSITOR_EXPORT InverseTransformCurveAdapter
                                     gfx::BoxF* bounds) const OVERRIDE;
   virtual bool AffectsScale() const OVERRIDE;
   virtual bool IsTranslation() const OVERRIDE;
-  virtual bool MaximumScale(float* max_scale) const OVERRIDE;
+  virtual bool MaximumTargetScale(bool forward_direction,
+                                  float* max_scale) const OVERRIDE;
 
  private:
   TransformAnimationCurveAdapter base_curve_;
