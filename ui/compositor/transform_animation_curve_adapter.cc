@@ -71,9 +71,7 @@ bool TransformAnimationCurveAdapter::IsTranslation() const {
          target_value_.IsIdentityOrTranslation();
 }
 
-bool TransformAnimationCurveAdapter::MaximumTargetScale(
-    bool forward_direction,
-    float* max_scale) const {
+bool TransformAnimationCurveAdapter::MaximumScale(float* max_scale) const {
   return false;
 }
 
@@ -136,8 +134,7 @@ bool InverseTransformCurveAdapter::IsTranslation() const {
          base_curve_.IsTranslation();
 }
 
-bool InverseTransformCurveAdapter::MaximumTargetScale(bool forward_direction,
-                                                      float* max_scale) const {
+bool InverseTransformCurveAdapter::MaximumScale(float* max_scale) const {
   return false;
 }
 
