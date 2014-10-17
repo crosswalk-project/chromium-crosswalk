@@ -556,24 +556,15 @@ void WrenchMenuModel::Build() {
   }
 
 #if defined(OS_WIN)
-  // Windows 8 can support ASH mode using WARP, but Windows 7 requires a working
-  // GPU compositor.
-  if ((base::win::GetVersion() >= base::win::VERSION_WIN7 &&
-      content::GpuDataManager::GetInstance()->CanUseGpuBrowserCompositor()) ||
-      (base::win::GetVersion() >= base::win::VERSION_WIN8)) {
+  if (base::win::GetVersion() >= base::win::VERSION_WIN8 &&
+      content::GpuDataManager::GetInstance()->CanUseGpuBrowserCompositor()) {
     if (browser_->host_desktop_type() == chrome::HOST_DESKTOP_TYPE_ASH) {
       // ASH/Metro mode, add the 'Relaunch Chrome in desktop mode'.
       AddSeparator(ui::NORMAL_SEPARATOR);
       AddItemWithStringId(IDC_WIN_DESKTOP_RESTART, IDS_WIN_DESKTOP_RESTART);
     } else {
-      // In Windows 8 desktop, add the 'Relaunch Chrome in Windows 8 mode'.
-      // In Windows 7 desktop, add the 'Relaunch Chrome in Windows ASH mode'
       AddSeparator(ui::NORMAL_SEPARATOR);
-      if (base::win::GetVersion() >= base::win::VERSION_WIN8) {
-        AddItemWithStringId(IDC_WIN8_METRO_RESTART, IDS_WIN8_METRO_RESTART);
-      } else {
-        AddItemWithStringId(IDC_WIN_CHROMEOS_RESTART, IDS_WIN_CHROMEOS_RESTART);
-      }
+      AddItemWithStringId(IDC_WIN8_METRO_RESTART, IDS_WIN8_METRO_RESTART);
     }
   }
 #endif
