@@ -62,7 +62,6 @@ class MEDIA_EXPORT MediaSourcePlayer : public MediaPlayerAndroid,
   virtual bool CanSeekBackward() OVERRIDE;
   virtual bool IsPlayerReady() OVERRIDE;
   virtual void SetCdm(BrowserCdm* cdm) OVERRIDE;
-  virtual bool IsSurfaceInUse() const OVERRIDE;
 
   // DemuxerAndroidClient implementation.
   virtual void OnDemuxerConfigsAvailable(const DemuxerConfigs& params) OVERRIDE;
