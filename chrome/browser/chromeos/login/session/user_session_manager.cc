@@ -451,8 +451,7 @@ bool UserSessionManager::RespectLocalePreference(
 }
 
 bool UserSessionManager::NeedsToUpdateEasyUnlockKeys() const {
-  return !CommandLine::ForCurrentProcess()->HasSwitch(
-             chromeos::switches::kDisableEasySignin) &&
+  return EasyUnlockService::IsSignInEnabled() &&
          !user_context_.GetUserID().empty() &&
          user_context_.GetUserType() == user_manager::USER_TYPE_REGULAR &&
          user_context_.GetKey() && !user_context_.GetKey()->GetSecret().empty();
@@ -1033,9 +1032,6 @@ void UserSessionManager::UpdateEasyUnlockKeys(const UserContext& user_context) {
   if (!base::SysInfo::IsRunningOnChromeOS())
     return;
 
-  if (!GetEasyUnlockKeyManager())
-    return;
-
   // Only update Easy unlock keys for regular user.
   // TODO(xiyuan): Fix inconsistency user type of |user_context| introduced in
   // authenticator.
@@ -1056,16 +1052,17 @@ void UserSessionManager::UpdateEasyUnlockKeys(const UserContext& user_context) {
         EasyUnlockScreenlockStateHandler::NO_HARDLOCK);
   }
 
+  EasyUnlockKeyManager* key_manager = GetEasyUnlockKeyManager();
   running_easy_unlock_key_ops_ = true;
   if (device_list) {
-    easy_unlock_key_manager_->RefreshKeys(
+    key_manager->RefreshKeys(
         user_context,
         *device_list,
         base::Bind(&UserSessionManager::OnEasyUnlockKeyOpsFinished,
                    AsWeakPtr(),
                    user_context.GetUserID()));
   } else {
-    easy_unlock_key_manager_->RemoveKeys(
+    key_manager->RemoveKeys(
         user_context,
         0,
         base::Bind(&UserSessionManager::OnEasyUnlockKeyOpsFinished,
@@ -1114,11 +1111,6 @@ UserSessionManager::GetDefaultIMEState(Profile* profile) {
 }
 
 EasyUnlockKeyManager* UserSessionManager::GetEasyUnlockKeyManager() {
-  if (CommandLine::ForCurrentProcess()
-           ->HasSwitch(chromeos::switches::kDisableEasySignin)) {
-    return NULL;
-  }
-
   if (!easy_unlock_key_manager_)
     easy_unlock_key_manager_.reset(new EasyUnlockKeyManager);
 
