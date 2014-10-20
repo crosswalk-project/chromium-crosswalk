@@ -49,8 +49,6 @@ MediaPlayerBridge::MediaPlayerBridge(
       volume_(-1.0),
       allow_credentials_(allow_credentials),
       weak_factory_(this) {
-  listener_.reset(new MediaPlayerListener(base::MessageLoopProxy::current(),
-                                          weak_factory_.GetWeakPtr()));
 }
 
 MediaPlayerBridge::~MediaPlayerBridge() {
@@ -102,7 +100,7 @@ void MediaPlayerBridge::CreateJavaMediaPlayerBridge() {
   if (volume_ >= 0)
     SetVolume(volume_);
 
-  SetMediaPlayerListener();
+  AttachListener(j_media_player_bridge_.obj());
 }
 
 void MediaPlayerBridge::SetJavaMediaPlayerBridge(
@@ -118,13 +116,6 @@ base::android::ScopedJavaLocalRef<jobject> MediaPlayerBridge::
   base::android::ScopedJavaLocalRef<jobject> j_bridge(
       j_media_player_bridge_);
   return j_bridge;
-}
-
-void MediaPlayerBridge::SetMediaPlayerListener() {
-  jobject j_context = base::android::GetApplicationContext();
-  DCHECK(j_context);
-
-  listener_->CreateMediaPlayerListener(j_context, j_media_player_bridge_.obj());
 }
 
 void MediaPlayerBridge::SetDuration(base::TimeDelta duration) {
@@ -384,7 +375,7 @@ void MediaPlayerBridge::Release() {
   JNIEnv* env = base::android::AttachCurrentThread();
   Java_MediaPlayerBridge_release(env, j_media_player_bridge_.obj());
   j_media_player_bridge_.Reset();
-  listener_->ReleaseMediaPlayerListenerResources();
+  DetachListener();
 }
 
 void MediaPlayerBridge::SetVolume(double volume) {
@@ -402,29 +393,17 @@ void MediaPlayerBridge::SetVolume(double volume) {
 void MediaPlayerBridge::OnVideoSizeChanged(int width, int height) {
   width_ = width;
   height_ = height;
-  manager()->OnVideoSizeChanged(player_id(), width, height);
-}
-
-void MediaPlayerBridge::OnMediaError(int error_type) {
-  manager()->OnError(player_id(), error_type);
-}
-
-void MediaPlayerBridge::OnBufferingUpdate(int percent) {
-  manager()->OnBufferingUpdate(player_id(), percent);
+  MediaPlayerAndroid::OnVideoSizeChanged(width, height);
 }
 
 void MediaPlayerBridge::OnPlaybackComplete() {
   time_update_timer_.Stop();
-  manager()->OnPlaybackComplete(player_id());
+  MediaPlayerAndroid::OnPlaybackComplete();
 }
 
 void MediaPlayerBridge::OnMediaInterrupted() {
   time_update_timer_.Stop();
-  manager()->OnMediaInterrupted(player_id());
-}
-
-void MediaPlayerBridge::OnSeekComplete() {
-  manager()->OnSeekComplete(player_id(), GetCurrentTime());
+  MediaPlayerAndroid::OnMediaInterrupted();
 }
 
 void MediaPlayerBridge::OnMediaPrepared() {
