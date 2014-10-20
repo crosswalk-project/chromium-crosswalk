@@ -120,8 +120,9 @@ class ExtensionManagement : public KeyedService {
   // ExternalPolicyLoader::AddExtension().
   scoped_ptr<base::DictionaryValue> GetForceInstallList() const;
 
-  // Returns if an extension with id |id| is allowed to install or not.
-  bool IsInstallationAllowed(const ExtensionId& id) const;
+  // Returns if an extension with id |id| is explicitly allowed by enterprise
+  // policy or not.
+  bool IsInstallationExplicitlyAllowed(const ExtensionId& id) const;
 
   // Returns true if an extension download should be allowed to proceed.
   bool IsOffstoreInstallAllowed(const GURL& url, const GURL& referrer_url);
