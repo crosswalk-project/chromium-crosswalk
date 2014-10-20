@@ -22,7 +22,20 @@ class PlatformWindowDelegate;
 // underlying platform windowing system (i.e. X11/Win/OSX).
 class PlatformWindow {
  public:
+  enum PlatformWindowType {
+    PLATFORM_WINDOW_UNKNOWN,
+    PLATFORM_WINDOW_TYPE_TOOLTIP,
+    PLATFORM_WINDOW_TYPE_POPUP,
+    PLATFORM_WINDOW_TYPE_MENU,
+    PLATFORM_WINDOW_TYPE_BUBBLE,
+    PLATFORM_WINDOW_TYPE_WINDOW,
+    PLATFORM_WINDOW_TYPE_WINDOW_FRAMELESS
+  };
+
   virtual ~PlatformWindow() {}
+
+  virtual void InitPlatformWindow(PlatformWindowType type,
+                                  gfx::AcceleratedWidget parent_window) { }
 
   virtual void Show() = 0;
   virtual void Hide() = 0;
