@@ -176,7 +176,7 @@ bool ExtensionManagement::IsInstallationExplicitlyAllowed(
     return false;
   // Checks if the extension is on the automatically installed list or
   // install white-list.
-  InstallationMode mode = it->second->installation_mode;
+  InstallationMode mode = it->second.installation_mode;
   return mode == INSTALLATION_FORCED || mode == INSTALLATION_RECOMMENDED ||
          mode == INSTALLATION_ALLOWED;
 }
