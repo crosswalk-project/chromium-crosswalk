@@ -424,8 +424,10 @@ void GCMDriverDesktop::RemoveAppHandler(const std::string& app_id) {
   GCMDriver::RemoveAppHandler(app_id);
 
   // Stops the GCM service when no app intends to consume it.
-  if (app_handlers().empty())
+  if (app_handlers().empty()) {
     Stop();
+    gcm_channel_status_syncer_->Stop();
+  }
 }
 
 void GCMDriverDesktop::AddConnectionObserver(GCMConnectionObserver* observer) {
@@ -463,8 +465,6 @@ void GCMDriverDesktop::Stop() {
   // No need to stop GCM service if not started yet.
   if (!gcm_started_)
     return;
-
-  gcm_channel_status_syncer_->Stop();
 
   RemoveCachedData();
 
@@ -638,8 +638,14 @@ GCMClient::Result GCMDriverDesktop::EnsureStarted() {
   if (gcm_started_)
     return GCMClient::SUCCESS;
 
-  if (!gcm_enabled_)
+  if (!gcm_enabled_) {
+    // Poll for channel status in order to find out when it is re-enabled when
+    // GCM is currently disabled.
+    if (GCMDriver::IsAllowedForAllUsers())
+      gcm_channel_status_syncer_->EnsureStarted();
+
     return GCMClient::GCM_DISABLED;
+  }
 
   // Have any app requested the service?
   if (app_handlers().empty())
