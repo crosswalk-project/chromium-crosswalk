@@ -26,6 +26,7 @@ class UserFlow {
   virtual bool ShouldShowSettings() = 0;
   virtual bool ShouldLaunchBrowser() = 0;
   virtual bool ShouldSkipPostLoginScreens() = 0;
+  virtual bool SupportsEarlyRestartToApplyFlags() = 0;
   virtual bool HandleLoginFailure(const AuthFailure& failure) = 0;
   virtual void HandleLoginSuccess(const UserContext& context) = 0;
   virtual bool HandlePasswordChangeDetected() = 0;
@@ -54,6 +55,7 @@ class DefaultUserFlow : public UserFlow {
   virtual bool ShouldShowSettings() OVERRIDE;
   virtual bool ShouldLaunchBrowser() OVERRIDE;
   virtual bool ShouldSkipPostLoginScreens() OVERRIDE;
+  virtual bool SupportsEarlyRestartToApplyFlags() OVERRIDE;
   virtual bool HandleLoginFailure(const AuthFailure& failure) OVERRIDE;
   virtual void HandleLoginSuccess(const UserContext& context) OVERRIDE;
   virtual bool HandlePasswordChangeDetected() OVERRIDE;

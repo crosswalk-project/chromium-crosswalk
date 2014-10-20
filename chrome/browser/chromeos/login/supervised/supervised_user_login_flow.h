@@ -27,6 +27,7 @@ class SupervisedUserLoginFlow
   virtual bool CanLockScreen() OVERRIDE;
   virtual bool ShouldLaunchBrowser() OVERRIDE;
   virtual bool ShouldSkipPostLoginScreens() OVERRIDE;
+  virtual bool SupportsEarlyRestartToApplyFlags() OVERRIDE;
   virtual bool HandleLoginFailure(const AuthFailure& failure) OVERRIDE;
   virtual void HandleLoginSuccess(const UserContext& context) OVERRIDE;
   virtual bool HandlePasswordChangeDetected() OVERRIDE;
