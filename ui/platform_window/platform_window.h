@@ -6,11 +6,15 @@
 #define UI_PLATFORM_WINDOW_PLATFORM_WINDOW_H_
 
 #include "base/memory/scoped_ptr.h"
+#include "base/strings/string16.h"
+#include "third_party/skia/include/core/SkPath.h"
 #include "ui/base/cursor/cursor.h"
 
 namespace gfx {
 class Rect;
 }
+
+class SkPath;
 
 namespace ui {
 
@@ -22,7 +26,23 @@ class PlatformWindowDelegate;
 // underlying platform windowing system (i.e. X11/Win/OSX).
 class PlatformWindow {
  public:
+  enum PlatformWindowType {
+    PLATFORM_WINDOW_UNKNOWN,
+    PLATFORM_WINDOW_TYPE_TOOLTIP,
+    PLATFORM_WINDOW_TYPE_POPUP,
+    PLATFORM_WINDOW_TYPE_MENU,
+    PLATFORM_WINDOW_TYPE_BUBBLE,
+    PLATFORM_WINDOW_TYPE_WINDOW,
+    PLATFORM_WINDOW_TYPE_WINDOW_FRAMELESS
+  };
+
   virtual ~PlatformWindow() {}
+
+  virtual void InitPlatformWindow(PlatformWindowType type,
+                                  gfx::AcceleratedWidget parent_window) { }
+  virtual void SetWidgetTitle(const base::string16& title) { }
+  virtual void SetWindowShape(const SkPath& path) { }
+  virtual void SetOpacity(unsigned char opacity) { }
 
   virtual void Show() = 0;
   virtual void Hide() = 0;
