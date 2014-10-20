@@ -27,6 +27,7 @@ class HidConnectionWin : public HidConnection {
   ~HidConnectionWin();
 
   // HidConnection implementation.
+  virtual void PlatformClose() OVERRIDE;
   virtual void PlatformRead(const ReadCallback& callback) OVERRIDE;
   virtual void PlatformWrite(scoped_refptr<net::IOBuffer> buffer,
                              size_t size,

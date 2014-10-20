@@ -64,12 +64,18 @@ HidAsyncApiFunction::HidAsyncApiFunction()
 HidAsyncApiFunction::~HidAsyncApiFunction() {}
 
 bool HidAsyncApiFunction::PrePrepare() {
+#if defined(OS_MACOSX)
+  // Migration from FILE thread to UI thread. OS X gets it first.
+  set_work_thread_id(content::BrowserThread::UI);
+#else
+  // TODO(reillyg): Migrate Linux/CrOS and Windows as well.
+  set_work_thread_id(content::BrowserThread::FILE);
+#endif
   device_manager_ = HidDeviceManager::Get(browser_context());
   DCHECK(device_manager_);
   connection_manager_ =
       ApiResourceManager<HidConnectionResource>::Get(browser_context());
   DCHECK(connection_manager_);
-  set_work_thread_id(content::BrowserThread::FILE);
   return true;
 }
 

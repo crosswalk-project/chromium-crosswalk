@@ -119,6 +119,9 @@ HidConnectionWin::HidConnectionWin(const HidDeviceInfo& device_info)
 }
 
 HidConnectionWin::~HidConnectionWin() {
+}
+
+void HidConnectionWin::PlatformClose() {
   CancelIo(file_.Get());
 }
 

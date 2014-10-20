@@ -73,7 +73,9 @@ class HidConnectionTest : public testing::Test {
     if (!UsbTestGadget::IsTestEnabled()) return;
 
     message_loop_.reset(new base::MessageLoopForIO());
-    service_ = HidService::GetInstance(message_loop_->message_loop_proxy());
+    service_ = HidService::GetInstance(
+        message_loop_->message_loop_proxy(),
+        message_loop_->message_loop_proxy());
     ASSERT_TRUE(service_);
 
     test_gadget_ = UsbTestGadget::Claim();
@@ -149,6 +151,8 @@ TEST_F(HidConnectionTest, ReadWrite) {
       ASSERT_EQ(i + j - 1, read_callback.buffer()->data()[j]);
     }
   }
+
+  conn->Close();
 }
 
 }  // namespace device
