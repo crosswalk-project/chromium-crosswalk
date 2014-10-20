@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "7.5",
+  "version": "7.7",
   "entries": [
     {
       "id": 1,
@@ -1038,6 +1038,24 @@ LONG_STRING_CONST(
       "gl_renderer": "PowerVR SGX 5.*",
       "features": [
         "etc1_power_of_two_only"
+      ]
+    },
+    {
+      "id": 93,
+      "description": "The GL implementation on the Android emulator has problems with PBOs.",
+      "cr_bugs": [340882],
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "VMware.*",
+      "gl_renderer": "Gallium.*",
+      "gl_type": "gles",
+      "gl_version": {
+        "op": "=",
+        "value": "3.0"
+      },
+      "features": [
+        "disable_async_readpixels"
       ]
     }
   ]
