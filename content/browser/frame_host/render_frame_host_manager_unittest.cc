@@ -1719,7 +1719,9 @@ TEST_F(RenderFrameHostManagerTest, BrowserSideNavigationBeginNavigation) {
   // Add a subframe.
   TestRenderFrameHost* subframe_rfh = static_cast<TestRenderFrameHost*>(
       contents()->GetFrameTree()->AddFrame(
-          contents()->GetFrameTree()->root(), 14, "Child"));
+          contents()->GetFrameTree()->root(),
+          contents()->GetMainFrame()->GetProcess()->GetID(),
+          14, "Child"));
 
   // Simulate a BeginNavigation IPC on the subframe.
   subframe_rfh->SendBeginNavigationWithURL(kUrl2);

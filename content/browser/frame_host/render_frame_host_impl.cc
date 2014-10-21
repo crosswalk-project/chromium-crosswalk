@@ -585,7 +585,9 @@ void RenderFrameHostImpl::OnAddMessageToConsole(
 void RenderFrameHostImpl::OnCreateChildFrame(int new_routing_id,
                                              const std::string& frame_name) {
   RenderFrameHostImpl* new_frame = frame_tree_->AddFrame(
-      frame_tree_node_, new_routing_id, frame_name);
+      frame_tree_node_, GetProcess()->GetID(), new_routing_id, frame_name);
+  if (!new_frame)
+    return;
 
   // We know that the RenderFrame has been created in this case, immediately
   // after the CreateChildFrame IPC was sent.
