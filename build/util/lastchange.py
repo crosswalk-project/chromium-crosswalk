@@ -129,7 +129,8 @@ def FetchGitSVNURLAndRevision(directory, svn_url_regex):
   Returns:
     A tuple containing the Subversion URL and revision.
   """
-  proc = RunGitCommand(directory, ['log', '-1', '--format=%b'])
+  proc = RunGitCommand(directory, ['log', '-1',
+                                   '--grep=git-svn-id', '--format=%b'])
   if proc:
     output = proc.communicate()[0].strip()
     if proc.returncode == 0 and output:
