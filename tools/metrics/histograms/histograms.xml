@@ -41181,6 +41181,7 @@ Therefore, the affected-histogram name has to have at least one dot in it.
   <int value="277"
       label="Import autofill form data from default browser on first run"/>
   <int value="279" label="SSL minimum version"/>
+  <int value="280" label="SSL fallback minimum version"/>
 </enum>
 
 <enum name="EnterprisePolicyInvalidations" type="int">
