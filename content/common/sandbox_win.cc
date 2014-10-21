@@ -18,6 +18,7 @@
 #include "base/strings/string_util.h"
 #include "base/strings/stringprintf.h"
 #include "base/win/iat_patch_function.h"
+#include "base/win/registry.h"
 #include "base/win/scoped_handle.h"
 #include "base/win/scoped_process_information.h"
 #include "base/win/windows_version.h"
@@ -602,6 +603,20 @@ bool ShouldUseDirectWrite() {
   if (gfx::GetDPIScale() > 1.0f)
     return true;
 #endif
+
+  // We have logic in renderer_font_platform_win.cc for falling back to safe
+  // font list if machine has more than 1750 fonts installed. Users have
+  // complained about this as safe font list is usually not sufficient.
+  // We now disable direct write (gdi) if we encounter more number
+  // of fonts than a threshold (currently 1750).
+  // Refer: crbug.com/421305
+  const wchar_t kWindowsFontsRegistryKey[] =
+      L"SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Fonts";
+  base::win::RegistryValueIterator reg_iterator(HKEY_LOCAL_MACHINE,
+                                                kWindowsFontsRegistryKey);
+  const DWORD kMaxAllowedFontsBeforeFallbackToGDI = 1750;
+  if (reg_iterator.ValueCount() >= kMaxAllowedFontsBeforeFallbackToGDI)
+    return false;
 
   // Otherwise, check the field trial.
   const std::string group_name =
