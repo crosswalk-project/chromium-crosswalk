@@ -45,6 +45,7 @@
 #include "chrome/browser/media/media_stream_devices_controller.h"
 #include "chrome/browser/metrics/variations/variations_service.h"
 #include "chrome/browser/net/prediction_options.h"
+#include "chrome/browser/net/ssl_config_service_manager.h"
 #include "chrome/browser/net/url_request_mock_util.h"
 #include "chrome/browser/plugins/plugin_prefs.h"
 #include "chrome/browser/policy/cloud/test_request_interceptor.h"
@@ -132,6 +133,8 @@
 #include "net/base/net_util.h"
 #include "net/base/url_util.h"
 #include "net/http/http_stream_factory.h"
+#include "net/ssl/ssl_config.h"
+#include "net/ssl/ssl_config_service.h"
 #include "net/test/url_request/url_request_failed_job.h"
 #include "net/test/url_request/url_request_mock_http_job.h"
 #include "net/url_request/url_request.h"
@@ -2199,6 +2202,34 @@ IN_PROC_BROWSER_TEST_F(PolicyTest, FileURLBlacklist) {
 
   EXPECT_NO_FATAL_FAILURE(CheckCanOpenURL(browser(), file_path1.c_str()));
   EXPECT_NO_FATAL_FAILURE(CheckURLIsBlocked(browser(), file_path2.c_str()));
+}
+
+static bool IsMinSSLVersionTLS12(Profile* profile) {
+  scoped_refptr<net::SSLConfigService> config_service(
+      profile->GetSSLConfigService());
+  net::SSLConfig config;
+  config_service->GetSSLConfig(&config);
+  return config.version_min == net::SSL_PROTOCOL_VERSION_TLS1_2;
+}
+
+IN_PROC_BROWSER_TEST_F(PolicyTest, SSLVersionMin) {
+  PrefService* prefs = g_browser_process->local_state();
+
+  const std::string new_value("tls1.2");
+  const std::string default_value(prefs->GetString(prefs::kSSLVersionMin));
+
+  EXPECT_NE(default_value, new_value);
+  EXPECT_FALSE(IsMinSSLVersionTLS12(browser()->profile()));
+
+  PolicyMap policies;
+  policies.Set(key::kSSLVersionMin,
+               POLICY_LEVEL_MANDATORY,
+               POLICY_SCOPE_USER,
+               new base::StringValue(new_value),
+               NULL);
+  UpdateProviderPolicy(policies);
+
+  EXPECT_TRUE(IsMinSSLVersionTLS12(browser()->profile()));
 }
 
 #if !defined(OS_MACOSX)
