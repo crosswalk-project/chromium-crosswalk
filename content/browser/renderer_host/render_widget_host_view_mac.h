@@ -33,8 +33,6 @@
 #include "ui/base/cocoa/remote_layer_api.h"
 #include "ui/gfx/display_observer.h"
 
-struct ViewHostMsg_TextInputState_Params;
-
 namespace content {
 class BrowserCompositorviewMac;
 class RenderWidgetHostViewMac;
@@ -265,8 +263,9 @@ class CONTENT_EXPORT RenderWidgetHostViewMac
   virtual void Blur() OVERRIDE;
   virtual void UpdateCursor(const WebCursor& cursor) OVERRIDE;
   virtual void SetIsLoading(bool is_loading) OVERRIDE;
-  virtual void TextInputStateChanged(
-      const ViewHostMsg_TextInputState_Params& params) OVERRIDE;
+  virtual void TextInputTypeChanged(ui::TextInputType type,
+                                    ui::TextInputMode input_mode,
+                                    bool can_compose_inline) OVERRIDE;
   virtual void ImeCancelComposition() OVERRIDE;
   virtual void ImeCompositionRangeChanged(
       const gfx::Range& range,
