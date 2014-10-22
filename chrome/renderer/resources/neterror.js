@@ -135,7 +135,7 @@ function setButtonLayout() {
   if (templateData) {
     // Hide the details button if there are no details to show.
     if (templateData.summary && !templateData.summary.msg) {
-      detailsButton.hidden = true;
+      detailsButton.style.display = 'none';
       document.getElementById('help-box-outer').style.display = 'block';
     }
 
