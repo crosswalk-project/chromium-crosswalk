@@ -4367,6 +4367,7 @@ void GLES2DecoderImpl::DoDiscardFramebufferEXT(GLenum target,
     translated_attachments[i] = attachment;
   }
 
+  ScopedRenderTo do_render(framebuffer);
   glDiscardFramebufferEXT(target, numAttachments, translated_attachments.get());
 }
 
@@ -5114,6 +5115,7 @@ error::Error GLES2DecoderImpl::DoClear(GLbitfield mask) {
   DCHECK(!ShouldDeferDraws());
   if (CheckBoundFramebuffersValid("glClear")) {
     ApplyDirtyState();
+    ScopedRenderTo do_render(framebuffer_state_.bound_draw_framebuffer.get());
     glClear(mask);
   }
   return error::kNoError;
@@ -5415,6 +5417,7 @@ void GLES2DecoderImpl::DoBlitFramebufferCHROMIUM(
   }
 
   state_.SetDeviceCapabilityState(GL_SCISSOR_TEST, false);
+  ScopedRenderTo do_render(framebuffer_state_.bound_draw_framebuffer.get());
   BlitFramebufferHelper(
       srcX0, srcY0, srcX1, srcY1, dstX0, dstY0, dstX1, dstY1, mask, filter);
   state_.SetDeviceCapabilityState(GL_SCISSOR_TEST,
