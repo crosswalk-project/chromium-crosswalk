@@ -226,6 +226,65 @@ size_t FindUnusualCharacter(const base::string16& text,
   return run_break;
 }
 
+// Callback to |EnumEnhMetaFile()| to intercept font creation.
+int CALLBACK MetaFileEnumProc(HDC hdc,
+                              HANDLETABLE* table,
+                              CONST ENHMETARECORD* record,
+                              int table_entries,
+                              LPARAM log_font) {
+  if (record->iType == EMR_EXTCREATEFONTINDIRECTW) {
+    const EMREXTCREATEFONTINDIRECTW* create_font_record =
+        reinterpret_cast<const EMREXTCREATEFONTINDIRECTW*>(record);
+    *reinterpret_cast<LOGFONT*>(log_font) = create_font_record->elfw.elfLogFont;
+  }
+  return 1;
+}
+
+// Finds a fallback font to use to render the specified |text| with respect to
+// an initial |font|. Returns the resulting font via out param |result|. Returns
+// |true| if a fallback font was found.
+// Adapted from WebKit's |FontCache::GetFontDataForCharacters()|.
+// TODO(asvitkine): This should be moved to font_fallback_win.cc.
+bool ChooseFallbackFont(HDC hdc,
+                        const Font& font,
+                        const wchar_t* text,
+                        int text_length,
+                        Font* result) {
+  // Use a meta file to intercept the fallback font chosen by Uniscribe.
+  HDC meta_file_dc = CreateEnhMetaFile(hdc, NULL, NULL, NULL);
+  if (!meta_file_dc)
+    return false;
+
+  SelectObject(meta_file_dc, font.GetNativeFont());
+
+  SCRIPT_STRING_ANALYSIS script_analysis;
+  HRESULT hresult =
+      ScriptStringAnalyse(meta_file_dc, text, text_length, 0, -1,
+                          SSA_METAFILE | SSA_FALLBACK | SSA_GLYPHS | SSA_LINK,
+                          0, NULL, NULL, NULL, NULL, NULL, &script_analysis);
+
+  if (SUCCEEDED(hresult)) {
+    hresult = ScriptStringOut(script_analysis, 0, 0, 0, NULL, 0, 0, FALSE);
+    ScriptStringFree(&script_analysis);
+  }
+
+  bool found_fallback = false;
+  HENHMETAFILE meta_file = CloseEnhMetaFile(meta_file_dc);
+  if (SUCCEEDED(hresult)) {
+    LOGFONT log_font;
+    log_font.lfFaceName[0] = 0;
+    EnumEnhMetaFile(0, meta_file, MetaFileEnumProc, &log_font, NULL);
+    if (log_font.lfFaceName[0]) {
+      *result = Font(base::UTF16ToUTF8(log_font.lfFaceName),
+                     font.GetFontSize());
+      found_fallback = true;
+    }
+  }
+  DeleteEnhMetaFile(meta_file);
+
+  return found_fallback;
+}
+
 }  // namespace
 
 namespace internal {
@@ -999,66 +1058,69 @@ void RenderTextWin::LayoutTextRun(internal::TextRun* run) {
   const size_t run_length = run->range.length();
   const wchar_t* run_text = &(GetLayoutText()[run->range.start()]);
   Font original_font = run->font;
-
-  run->logical_clusters.reset(new WORD[run_length]);
-
-  // Try shaping with |original_font|.
-  Font current_font = original_font;
-  int missing_count = CountCharsWithMissingGlyphs(run,
-      ShapeTextRunWithFont(run, current_font));
-  if (missing_count == 0)
-    return;
-
+  internal::LinkedFontsIterator fonts(original_font);
+  bool tried_cached_font = false;
+  bool tried_fallback = false;
   // Keep track of the font that is able to display the greatest number of
   // characters for which ScriptShape() returned S_OK. This font will be used
   // in the case where no font is able to display the entire run.
-  int best_partial_font_missing_char_count = missing_count;
-  Font best_partial_font = current_font;
+  int best_partial_font_missing_char_count = INT_MAX;
+  Font best_partial_font = original_font;
+  Font current_font;
 
-  // Try to shape with the cached font from previous runs, if any.
-  std::map<std::string, Font>::const_iterator it =
-      successful_substitute_fonts_.find(original_font.GetFontName());
-  if (it != successful_substitute_fonts_.end()) {
-    current_font = it->second;
-    missing_count = CountCharsWithMissingGlyphs(run,
-        ShapeTextRunWithFont(run, current_font));
-    if (missing_count == 0)
-      return;
-    if (missing_count < best_partial_font_missing_char_count) {
-      best_partial_font_missing_char_count = missing_count;
-      best_partial_font = current_font;
-    }
-  }
+  run->logical_clusters.reset(new WORD[run_length]);
+  while (fonts.NextFont(&current_font)) {
+    HRESULT hr = ShapeTextRunWithFont(run, current_font);
 
-  // Try finding a fallback font using a meta file.
-  // TODO(msw|asvitkine): Support RenderText's font_list()?
-  if (GetUniscribeFallbackFont(original_font, run_text, run_length,
-                               &current_font)) {
-    missing_count = CountCharsWithMissingGlyphs(run,
-        ShapeTextRunWithFont(run, current_font));
-    if (missing_count == 0) {
-      successful_substitute_fonts_[original_font.GetFontName()] = current_font;
-      return;
+    bool glyphs_missing = false;
+    if (hr == USP_E_SCRIPT_NOT_IN_FONT) {
+      glyphs_missing = true;
+    } else if (hr == S_OK) {
+      // If |hr| is S_OK, there could still be missing glyphs in the output.
+      // http://msdn.microsoft.com/en-us/library/windows/desktop/dd368564.aspx
+      const int missing_count = CountCharsWithMissingGlyphs(run);
+      // Track the font that produced the least missing glyphs.
+      if (missing_count < best_partial_font_missing_char_count) {
+        best_partial_font_missing_char_count = missing_count;
+        best_partial_font = run->font;
+      }
+      glyphs_missing = (missing_count != 0);
+    } else {
+      NOTREACHED() << hr;
     }
-    if (missing_count < best_partial_font_missing_char_count) {
-      best_partial_font_missing_char_count = missing_count;
-      best_partial_font = current_font;
-    }
-  }
 
-  // Try fonts in the fallback list except the first, which is |original_font|.
-  std::vector<std::string> fonts =
-      GetFallbackFontFamilies(original_font.GetFontName());
-  for (size_t i = 1; i < fonts.size(); ++i) {
-    missing_count = CountCharsWithMissingGlyphs(run,
-        ShapeTextRunWithFont(run, Font(fonts[i], original_font.GetFontSize())));
-    if (missing_count == 0) {
-      successful_substitute_fonts_[original_font.GetFontName()] = current_font;
+    // Use the font if it had glyphs for all characters.
+    if (!glyphs_missing) {
+      // Save the successful fallback font that was chosen.
+      if (tried_fallback)
+        successful_substitute_fonts_[original_font.GetFontName()] = run->font;
       return;
     }
-    if (missing_count < best_partial_font_missing_char_count) {
-      best_partial_font_missing_char_count = missing_count;
-      best_partial_font = current_font;
+
+    // First, try the cached font from previous runs, if any.
+    if (!tried_cached_font) {
+      tried_cached_font = true;
+
+      std::map<std::string, Font>::const_iterator it =
+          successful_substitute_fonts_.find(original_font.GetFontName());
+      if (it != successful_substitute_fonts_.end()) {
+        fonts.SetNextFont(it->second);
+        continue;
+      }
+    }
+
+    // If there are missing glyphs, first try finding a fallback font using a
+    // meta file, if it hasn't yet been attempted for this run.
+    // TODO(msw|asvitkine): Support RenderText's font_list()?
+    if (!tried_fallback) {
+      tried_fallback = true;
+
+      Font fallback_font;
+      if (ChooseFallbackFont(cached_hdc_, run->font, run_text, run_length,
+                             &fallback_font)) {
+        fonts.SetNextFont(fallback_font);
+        continue;
+      }
     }
   }
 
@@ -1149,15 +1211,7 @@ HRESULT RenderTextWin::ShapeTextRunWithFont(internal::TextRun* run,
   return hr;
 }
 
-int RenderTextWin::CountCharsWithMissingGlyphs(internal::TextRun* run,
-                                               HRESULT shaping_result) const {
-  if (shaping_result != S_OK) {
-    DCHECK_EQ(shaping_result, USP_E_SCRIPT_NOT_IN_FONT);
-    return INT_MAX;
-  }
-
-  // If |hr| is S_OK, there could still be missing glyphs in the output.
-  // http://msdn.microsoft.com/en-us/library/windows/desktop/dd368564.aspx
+int RenderTextWin::CountCharsWithMissingGlyphs(internal::TextRun* run) const {
   int chars_not_missing_glyphs = 0;
   SCRIPT_FONTPROPERTIES properties;
   memset(&properties, 0, sizeof(properties));
