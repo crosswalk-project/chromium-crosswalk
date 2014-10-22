@@ -144,6 +144,7 @@ class BrowserViewRenderer : public content::SynchronousCompositorClient,
       bool effective_immediately) OVERRIDE;
 
   void UpdateParentDrawConstraints();
+  void DidSkipCommitFrame();
 
  private:
   void SetTotalRootLayerScrollOffset(gfx::Vector2dF new_value_dip);
@@ -157,7 +158,7 @@ class BrowserViewRenderer : public content::SynchronousCompositorClient,
   bool OnDrawSoftware(jobject java_canvas);
   bool CompositeSW(SkCanvas* canvas);
   void DidComposite();
-  void SkippedCompositeInDraw();
+  void DidSkipCompositeInDraw();
   scoped_ptr<base::Value> RootLayerStateAsValue(
       const gfx::Vector2dF& total_scroll_offset_dip,
       const gfx::SizeF& scrollable_size_dip);
@@ -218,6 +219,8 @@ class BrowserViewRenderer : public content::SynchronousCompositorClient,
   // reflect the expectation of the compositor and not be reused for other
   // states.
   bool compositor_needs_continuous_invalidate_;
+
+  bool invalidate_after_composite_;
 
   // Used to block additional invalidates while one is already pending.
   bool block_invalidates_;
