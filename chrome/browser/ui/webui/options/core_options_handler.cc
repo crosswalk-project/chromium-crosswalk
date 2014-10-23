@@ -17,7 +17,6 @@
 #include "chrome/browser/extensions/extension_service.h"
 #include "chrome/browser/extensions/extension_util.h"
 #include "chrome/browser/profiles/profile.h"
-#include "chrome/browser/ui/webui/help/help_handler.h"
 #include "chrome/common/chrome_switches.h"
 #include "chrome/common/pref_names.h"
 #include "chrome/common/url_constants.h"
@@ -60,6 +59,19 @@ bool CanSetExtensionControlledPrefValue(
 #else
   return true;
 #endif
+}
+
+// Hack to re-use IDS_ABOUT, which is a menu item for the About page.
+// Since it's a menu item, it may include a "&" to indicate a hotkey.
+base::string16 GetAboutString() {
+  if (!switches::AboutInSettingsEnabled())
+    return base::string16();
+
+  base::string16 str = l10n_util::GetStringUTF16(IDS_ABOUT);
+  size_t start_pos = str.find(base::ASCIIToUTF16("&"));
+  if (start_pos != base::string16::npos)
+    str.erase(start_pos, 1);
+  return str;
 }
 
 }  // namespace
@@ -147,6 +159,11 @@ void CoreOptionsHandler::GetStaticLocalizedValues(
   localized_strings->SetString("searchPageHelpURL",
                                chrome::kSettingsSearchHelpURL);
 
+  // About
+  localized_strings->SetBoolean("showAbout",
+                                switches::AboutInSettingsEnabled());
+  localized_strings->SetString("aboutButton", GetAboutString());
+
   // Common
   localized_strings->SetString("ok",
       l10n_util::GetStringUTF16(IDS_OK));
@@ -160,12 +177,6 @@ void CoreOptionsHandler::GetStaticLocalizedValues(
       l10n_util::GetStringUTF16(IDS_DONE));
   localized_strings->SetString("deletableItemDeleteButtonTitle",
       l10n_util::GetStringUTF16(IDS_OPTIONS_DELETABLE_ITEM_DELETE_BUTTON));
-  localized_strings->SetString(
-      "browserVersion",
-      l10n_util::GetStringFUTF16(IDS_ABOUT_PRODUCT_VERSION,
-                                 HelpHandler::BuildBrowserVersionString()));
-  localized_strings->SetBoolean("showVersion",
-                                switches::AboutInSettingsEnabled());
 }
 
 void CoreOptionsHandler::Uninitialize() {
