@@ -776,8 +776,8 @@ void MetricsService::CloseCurrentLog() {
   current_log->RecordStabilityMetrics(metrics_providers_.get(),
                                       incremental_uptime, uptime);
 
-  RecordCurrentHistograms();
   current_log->RecordGeneralMetrics(metrics_providers_.get());
+  RecordCurrentHistograms();
 
   log_manager_.FinishCurrentLog();
 }
@@ -991,9 +991,8 @@ void MetricsService::PrepareInitialMetricsLog() {
   MetricsLog* current_log = log_manager_.current_log();
   current_log->RecordStabilityMetrics(metrics_providers_.get(),
                                       base::TimeDelta(), base::TimeDelta());
-  RecordCurrentHistograms();
-
   current_log->RecordGeneralMetrics(metrics_providers_.get());
+  RecordCurrentHistograms();
 
   log_manager_.FinishCurrentLog();
   log_manager_.ResumePausedLog();
