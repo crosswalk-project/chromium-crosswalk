@@ -37,8 +37,8 @@ class SigninStatusMetricsProvider : public metrics::MetricsProvider,
   virtual ~SigninStatusMetricsProvider();
 
   // metrics::MetricsProvider:
-  void ProvideGeneralMetrics(
-      metrics::ChromeUserMetricsExtension* uma_proto) override;
+  virtual void ProvideGeneralMetrics(
+      metrics::ChromeUserMetricsExtension* uma_proto) OVERRIDE;
 
   // Factory method, creates a new instance of this class.
   static SigninStatusMetricsProvider* CreateInstance();
