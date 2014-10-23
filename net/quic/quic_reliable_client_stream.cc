@@ -42,12 +42,12 @@ uint32 QuicReliableClientStream::ProcessData(const char* data,
   return data_len;
 }
 
-void QuicReliableClientStream::OnFinRead() {
+void QuicReliableClientStream::OnClose() {
   if (delegate_) {
     delegate_->OnClose(connection_error());
     delegate_ = NULL;
   }
-  ReliableQuicStream::OnFinRead();
+  ReliableQuicStream::OnClose();
 }
 
 void QuicReliableClientStream::OnCanWrite() {
