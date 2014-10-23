@@ -1546,6 +1546,9 @@
         # generate anything deterministic with WPO enabled AFAIK.
         'dont_embed_build_metadata%': 0,
       }],
+      ['OS=="android" and use_icu_alternatives_on_android', {
+        'v8_enable_i18n_support': 0,
+      }],
       # Enable the Syzygy optimization step for the official builds.
       ['OS=="win" and buildtype=="Official" and syzyasan!=1 and clang!=1', {
         'syzygy_optimize%': 1,
