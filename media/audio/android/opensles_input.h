@@ -43,6 +43,7 @@ class OpenSLESInputStream : public AudioInputStream {
   virtual double GetVolume() OVERRIDE;
   virtual void SetAutomaticGainControl(bool enabled) OVERRIDE;
   virtual bool GetAutomaticGainControl() OVERRIDE;
+  virtual bool IsMuted() OVERRIDE;
 
  private:
   bool CreateRecorder();

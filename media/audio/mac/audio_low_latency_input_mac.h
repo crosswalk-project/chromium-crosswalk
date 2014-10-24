@@ -72,6 +72,7 @@ class AUAudioInputStream : public AgcAudioStream<AudioInputStream> {
   virtual double GetMaxVolume() OVERRIDE;
   virtual void SetVolume(double volume) OVERRIDE;
   virtual double GetVolume() OVERRIDE;
+  virtual bool IsMuted() OVERRIDE;
 
   // Returns the current hardware sample rate for the default input device.
   MEDIA_EXPORT static int HardwareSampleRate();

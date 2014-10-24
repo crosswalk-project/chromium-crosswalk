@@ -49,6 +49,7 @@ class AlsaPcmInputStream : public AgcAudioStream<AudioInputStream> {
   virtual double GetMaxVolume() OVERRIDE;
   virtual void SetVolume(double volume) OVERRIDE;
   virtual double GetVolume() OVERRIDE;
+  virtual bool IsMuted() OVERRIDE;
 
  private:
   // Logs the error and invokes any registered callbacks.

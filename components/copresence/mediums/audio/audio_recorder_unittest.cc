@@ -47,6 +47,7 @@ class TestAudioInputStream : public media::AudioInputStream {
   virtual double GetVolume() OVERRIDE { return 1.0; }
   virtual void SetAutomaticGainControl(bool enabled) OVERRIDE {}
   virtual bool GetAutomaticGainControl() OVERRIDE { return true; }
+  virtual bool IsMuted() OVERRIDE { return false; }
 
  private:
   void SimulateRecording() {

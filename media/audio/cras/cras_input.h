@@ -40,6 +40,7 @@ class CrasInputStream : public AgcAudioStream<AudioInputStream> {
   virtual double GetMaxVolume() OVERRIDE;
   virtual void SetVolume(double volume) OVERRIDE;
   virtual double GetVolume() OVERRIDE;
+  virtual bool IsMuted() OVERRIDE;
 
  private:
   // Handles requests to get samples from the provided buffer.  This will be
