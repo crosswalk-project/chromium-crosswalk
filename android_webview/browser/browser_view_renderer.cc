@@ -96,7 +96,9 @@ void BrowserViewRenderer::CalculateTileMemoryPolicy(bool use_zero_copy) {
     g_tile_area = 256 * 256;
 
     // Also use a high tile limit since there are no file descriptor issues.
-    GlobalTileManager::GetInstance()->SetTileLimit(1000);
+    // There is no need to limit number of tiles, so use an effectively
+    // unlimited value as the limit.
+    GlobalTileManager::GetInstance()->SetTileLimit(10 * 1000 * 1000);
     return;
   }
 
