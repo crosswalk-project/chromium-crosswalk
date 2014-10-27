@@ -629,7 +629,7 @@ int SSLClientSocketOpenSSL::Read(IOBuffer* buf,
   user_read_buf_ = buf;
   user_read_buf_len_ = buf_len;
 
-  int rv = DoReadLoop(OK);
+  int rv = DoReadLoop();
 
   if (rv == ERR_IO_PENDING) {
     user_read_callback_ = callback;
@@ -654,7 +654,7 @@ int SSLClientSocketOpenSSL::Write(IOBuffer* buf,
   user_write_buf_ = buf;
   user_write_buf_len_ = buf_len;
 
-  int rv = DoWriteLoop(OK);
+  int rv = DoWriteLoop();
 
   if (rv == ERR_IO_PENDING) {
     user_write_callback_ = callback;
@@ -1133,7 +1133,7 @@ void SSLClientSocketOpenSSL::OnRecvComplete(int result) {
   if (!user_read_buf_.get())
     return;
 
-  int rv = DoReadLoop(result);
+  int rv = DoReadLoop();
   if (rv != ERR_IO_PENDING)
     DoReadCallback(rv);
 }
@@ -1185,10 +1185,7 @@ int SSLClientSocketOpenSSL::DoHandshakeLoop(int last_io_result) {
   return rv;
 }
 
-int SSLClientSocketOpenSSL::DoReadLoop(int result) {
-  if (result < 0)
-    return result;
-
+int SSLClientSocketOpenSSL::DoReadLoop() {
   bool network_moved;
   int rv;
   do {
@@ -1199,10 +1196,7 @@ int SSLClientSocketOpenSSL::DoReadLoop(int result) {
   return rv;
 }
 
-int SSLClientSocketOpenSSL::DoWriteLoop(int result) {
-  if (result < 0)
-    return result;
-
+int SSLClientSocketOpenSSL::DoWriteLoop() {
   bool network_moved;
   int rv;
   do {
