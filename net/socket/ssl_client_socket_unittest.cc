@@ -1896,7 +1896,7 @@ TEST_F(SSLClientSocketTest, Read_WithAsyncZeroReturn) {
       new SynchronousErrorStreamSocket(real_transport.Pass()));
   SynchronousErrorStreamSocket* raw_error_socket = error_socket.get();
   scoped_ptr<FakeBlockingStreamSocket> transport(
-      new FakeBlockingStreamSocket(error_socket.Pass()));
+      new FakeBlockingStreamSocket(error_socket.PassAs<StreamSocket>()));
   FakeBlockingStreamSocket* raw_transport = transport.get();
   int rv = callback.GetResult(transport->Connect(callback.callback()));
   EXPECT_EQ(OK, rv);
@@ -1906,7 +1906,7 @@ TEST_F(SSLClientSocketTest, Read_WithAsyncZeroReturn) {
   ssl_config.false_start_enabled = false;
 
   scoped_ptr<SSLClientSocket> sock(
-      CreateSSLClientSocket(transport.Pass(),
+      CreateSSLClientSocket(transport.PassAs<StreamSocket>(),
                             test_server.host_port_pair(),
                             ssl_config));
 
