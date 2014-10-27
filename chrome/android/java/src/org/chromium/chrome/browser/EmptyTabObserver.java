@@ -66,5 +66,9 @@ public class EmptyTabObserver implements TabObserver {
             boolean isIframeSrcdoc) { }
 
     @Override
+    public void onDidNavigateMainFrame(Tab tab, String url, String baseUrl,
+            boolean isNavigationToDifferentPage, boolean isFragmentNavigation, int statusCode) { }
+
+    @Override
     public void onDidChangeThemeColor(int color) { }
 }
