@@ -540,7 +540,8 @@ void PictureLayerTiling::UpdateTilePriorities(
     float ideal_contents_scale,
     double current_frame_time_in_seconds,
     const Occlusion& occlusion_in_layer_space) {
-  if (!NeedsUpdateForFrameAtTime(current_frame_time_in_seconds)) {
+  if (!NeedsUpdateForFrameAtTimeAndViewport(current_frame_time_in_seconds,
+                                            viewport_in_layer_space)) {
     // This should never be zero for the purposes of has_ever_been_updated().
     DCHECK_NE(current_frame_time_in_seconds, 0.0);
     return;
@@ -551,6 +552,7 @@ void PictureLayerTiling::UpdateTilePriorities(
 
   if (tiling_size().IsEmpty()) {
     last_impl_frame_time_in_seconds_ = current_frame_time_in_seconds;
+    last_viewport_in_layer_space_ = viewport_in_layer_space;
     last_visible_rect_in_content_space_ = visible_rect_in_content_space;
     return;
   }
@@ -579,6 +581,7 @@ void PictureLayerTiling::UpdateTilePriorities(
   SetLiveTilesRect(eventually_rect);
 
   last_impl_frame_time_in_seconds_ = current_frame_time_in_seconds;
+  last_viewport_in_layer_space_ = viewport_in_layer_space;
   last_visible_rect_in_content_space_ = visible_rect_in_content_space;
 
   eviction_tiles_cache_valid_ = false;
