@@ -55,7 +55,7 @@ bool IsPasswordGenerationEnabled() {
   if (command_line->HasSwitch(switches::kEnablePasswordGeneration))
     return true;
 
-  return group_name != "Disabled";
+  return group_name == "Enabled";
 }
 
 }  // namespace password_generation
