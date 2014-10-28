@@ -152,6 +152,15 @@
                 'DSQLITE_DEFAULT_FILE_FORMAT=4',
               ],
             }],
+            ['OS == "android" and use_icu_alternatives_on_android == 1', {
+              'defines!': [
+                'SQLITE_ENABLE_ICU',
+              ],
+              'dependencies!': [
+                '../icu/icu.gyp:icui18n',
+                '../icu/icu.gyp:icuuc',
+              ],
+            }],
             ['os_posix == 1 and OS != "mac" and OS != "android"', {
               'cflags': [
                 # SQLite doesn't believe in compiler warnings,
