@@ -2200,7 +2200,7 @@ bool ProfileSyncService::EncryptEverythingAllowed() const {
 }
 
 void ProfileSyncService::SetEncryptEverythingAllowed(bool allowed) {
-  DCHECK(allowed || !backend_initialized() || !EncryptEverythingEnabled());
+  DCHECK(allowed || !backend_initialized_ || !EncryptEverythingEnabled());
   encrypt_everything_allowed_ = allowed;
 }
 
