@@ -74,6 +74,8 @@ class EasyUnlockScreenlockStateHandler : public ScreenlockBridge::Observer {
   // Shows the hardlock UI if the hardlock_state_ is not NO_HARDLOCK.
   void MaybeShowHardlockUI();
 
+  State state() const { return state_; }
+
  private:
   // ScreenlockBridge::Observer:
   virtual void OnScreenDidLock() OVERRIDE;
