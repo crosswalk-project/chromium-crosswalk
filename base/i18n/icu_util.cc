@@ -17,10 +17,13 @@
 #include "base/path_service.h"
 #include "base/strings/string_util.h"
 #include "base/strings/sys_string_conversions.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/common/unicode/putil.h"
 #include "third_party/icu/source/common/unicode/udata.h"
 #if defined(OS_LINUX) && !defined(OS_CHROMEOS)
 #include "third_party/icu/source/i18n/unicode/timezone.h"
+#endif
 #endif
 
 #if defined(OS_MACOSX)
@@ -71,6 +74,9 @@ bool InitializeICUWithFileDescriptor(
 #if (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_STATIC)
   // The ICU data is statically linked.
   return true;
+#elif defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // There is no icudtl.dat to load any more.
+  return true;
 #elif (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_FILE)
   CR_DEFINE_STATIC_LOCAL(MemoryMappedFile, mapped_file, ());
   if (!mapped_file.IsValid()) {
@@ -85,14 +91,18 @@ bool InitializeICUWithFileDescriptor(
 #endif // ICU_UTIL_DATA_FILE
 }
 
-
 bool InitializeICU() {
 #if !defined(NDEBUG)
   DCHECK(!g_check_called_once || !g_called_once);
   g_called_once = true;
 #endif
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // There is no icudtl.dat to load any more.
+  return true;
+#else
   bool result;
+
 #if (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_SHARED)
   // We expect to find the ICU data module alongside the current module.
   FilePath data_path;
@@ -192,6 +202,7 @@ bool InitializeICU() {
     scoped_ptr<icu::TimeZone> zone(icu::TimeZone::createDefault());
 #endif
   return result;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 #endif
 
