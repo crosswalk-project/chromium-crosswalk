@@ -726,6 +726,10 @@ void SupervisedUserService::SetActive(bool active) {
   }
 #endif
 
+  ProfileSyncService* sync_service =
+      ProfileSyncServiceFactory::GetForProfile(profile_);
+  sync_service->SetEncryptEverythingAllowed(!active_);
+
   SupervisedUserSettingsService* settings_service = GetSettingsService();
   settings_service->SetActive(active_);
 

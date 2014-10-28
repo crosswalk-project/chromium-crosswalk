@@ -70,6 +70,7 @@ class ProfileSyncServiceMock : public ProfileSyncService {
   MOCK_METHOD0(GetJsController, base::WeakPtr<syncer::JsController>());
   MOCK_CONST_METHOD0(HasSyncSetupCompleted, bool());
 
+  MOCK_CONST_METHOD0(EncryptEverythingAllowed, bool());
   MOCK_CONST_METHOD0(EncryptEverythingEnabled, bool());
   MOCK_METHOD0(EnableEncryptEverything, void());
 
@@ -90,8 +91,7 @@ class ProfileSyncServiceMock : public ProfileSyncService {
   MOCK_CONST_METHOD0(sync_initialized, bool());
   MOCK_CONST_METHOD0(IsStartSuppressed, bool());
   MOCK_CONST_METHOD0(waiting_for_auth, bool());
-  MOCK_METHOD1(OnActionableError, void(
-      const syncer::SyncProtocolError&));
+  MOCK_METHOD1(OnActionableError, void(const syncer::SyncProtocolError&));
   MOCK_METHOD1(SetSetupInProgress, void(bool));
   MOCK_CONST_METHOD1(IsDataTypeControllerRunning, bool(syncer::ModelType));
 
