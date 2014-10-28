@@ -26,24 +26,6 @@
 
 #ifdef LIBXML_ICONV_ENABLED
 #include <iconv.h>
-#else 
-#ifdef LIBXML_ICU_ENABLED
-#include <unicode/ucnv.h>
-#if 0
-/* Forward-declare UConverter here rather than pulling in <unicode/ucnv.h>
- * to prevent unwanted ICU symbols being exposed to users of libxml2.
- * One particular case is Qt4 conflicting on UChar32.
- */
-#include <stdint.h>
-struct UConverter;
-typedef struct UConverter UConverter;
-#ifdef _MSC_VER
-typedef wchar_t UChar;
-#else
-typedef uint16_t UChar;
-#endif
-#endif
-#endif
 #endif
 #ifdef __cplusplus
 extern "C" {
@@ -143,13 +125,6 @@ typedef int (* xmlCharEncodingOutputFunc)(unsigned char *out, int *outlen,
  * Block defining the handlers for non UTF-8 encodings.
  * If iconv is supported, there are two extra fields.
  */
-#ifdef LIBXML_ICU_ENABLED
-struct _uconv_t {
-  UConverter *uconv; /* for conversion between an encoding and UTF-16 */
-  UConverter *utf8; /* for conversion between UTF-8 and UTF-16 */
-};
-typedef struct _uconv_t uconv_t;
-#endif
 
 typedef struct _xmlCharEncodingHandler xmlCharEncodingHandler;
 typedef xmlCharEncodingHandler *xmlCharEncodingHandlerPtr;
@@ -161,10 +136,6 @@ struct _xmlCharEncodingHandler {
     iconv_t                    iconv_in;
     iconv_t                    iconv_out;
 #endif /* LIBXML_ICONV_ENABLED */
-#ifdef LIBXML_ICU_ENABLED
-    uconv_t                    *uconv_in;
-    uconv_t                    *uconv_out;
-#endif /* LIBXML_ICU_ENABLED */
 };
 
 #ifdef __cplusplus
