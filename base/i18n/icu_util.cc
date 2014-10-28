@@ -16,8 +16,11 @@
 #include "base/path_service.h"
 #include "base/strings/string_util.h"
 #include "base/strings/sys_string_conversions.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/common/unicode/putil.h"
 #include "third_party/icu/source/common/unicode/udata.h"
+#endif
 
 #if defined(OS_MACOSX)
 #include "base/mac/foundation_util.h"
@@ -64,6 +67,9 @@ bool InitializeICUWithFileDescriptor(int data_fd) {
 #if (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_STATIC)
   // The ICU data is statically linked.
   return true;
+#elif defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // There is no icudtl.dat to load any more.
+  return true;
 #elif (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_FILE)
   CR_DEFINE_STATIC_LOCAL(base::MemoryMappedFile, mapped_file, ());
   if (!mapped_file.IsValid()) {
@@ -85,6 +91,11 @@ bool InitializeICU() {
   DCHECK(!g_check_called_once || !g_called_once);
   g_called_once = true;
 #endif
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // There is no icudtl.dat to load any more.
+  return true;
+#else
 
 #if (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_SHARED)
   // We expect to find the ICU data module alongside the current module.
@@ -154,6 +165,7 @@ bool InitializeICU() {
   udata_setCommonData(const_cast<uint8*>(mapped_file.data()), &err);
   return err == U_ZERO_ERROR;
 #endif
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 void AllowMultipleInitializeCallsForTesting() {
