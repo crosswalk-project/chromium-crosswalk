@@ -1373,7 +1373,10 @@ cr.define('options.internet', function() {
       else if (staticNameServersString == inetNameServersString)
         nameServerType = 'user';
     }
-    $('automatic-dns-display').textContent = inetNameServersString;
+    if (nameServerType == 'automatic')
+      $('automatic-dns-display').textContent = inetNameServersString;
+    else
+      $('automatic-dns-display').textContent = savedNameServersString;
     $('google-dns-display').textContent = GoogleNameServersString;
 
     var nameServersUser = [];
