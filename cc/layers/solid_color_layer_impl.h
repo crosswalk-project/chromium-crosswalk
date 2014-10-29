@@ -22,7 +22,7 @@ class CC_EXPORT SolidColorLayerImpl : public LayerImpl {
       RenderPass* render_pass,
       const OcclusionTracker<LayerImpl>& occlusion_tracker,
       SharedQuadState* shared_quad_state,
-      const gfx::Size& content_bounds,
+      const gfx::Rect& visible_content_rect,
       const gfx::Transform& target_space_transform,
       SkColor color);
 

@@ -169,7 +169,7 @@ void PictureLayerImpl::AppendQuads(
         render_pass,
         occlusion_tracker,
         shared_quad_state,
-        content_bounds(),
+        visible_content_rect(),
         draw_properties().target_space_transform,
         pile_->solid_color());
     return;

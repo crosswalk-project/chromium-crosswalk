@@ -4333,12 +4333,12 @@ void PictureLayerImplTest::TestQuadsForSolidColor(bool test_for_solid) {
   SetupPendingTree(pending_pile);
   ActivateTree();
 
+  active_layer_->set_fixed_tile_size(tile_size);
+  host_impl_.active_tree()->UpdateDrawProperties();
   if (test_for_solid) {
     EXPECT_EQ(0u, active_layer_->tilings()->num_tilings());
   } else {
     ASSERT_TRUE(active_layer_->tilings());
-    active_layer_->set_fixed_tile_size(tile_size);
-    host_impl_.active_tree()->UpdateDrawProperties();
     ASSERT_GT(active_layer_->tilings()->num_tilings(), 0u);
     std::vector<Tile*> tiles =
         active_layer_->tilings()->tiling_at(0)->AllTilesForTesting();
