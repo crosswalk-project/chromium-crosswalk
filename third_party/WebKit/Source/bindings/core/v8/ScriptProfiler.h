@@ -56,6 +56,11 @@ public:
     public:
         virtual ~OutputStream() { }
         virtual void write(const uint32_t* chunk, const int size) = 0;
+        virtual void write(const char* symbols, int symbolsSize,
+                           const char* frames, int framesSize,
+                           const char* types, int typesSize,
+                           const char* chunks, int chunksSize,
+                           const char* retentions, int retentionsSize) { };
     };
 
     static void collectGarbage();
@@ -69,6 +74,9 @@ public:
     static void startTrackingHeapObjects(bool trackAllocations);
     static void stopTrackingHeapObjects();
     static unsigned requestHeapStatsUpdate(OutputStream*);
+    static void startTrackingHeapObjectsXDK(int stackDepth, bool retentions);
+    static PassRefPtr<HeapProfileXDK> stopTrackingHeapObjectsXDK();
+    static void requestHeapXDKUpdate(OutputStream*);
     static void initialize();
     static HashMap<String, double>* currentProfileNameIdleTimeMap();
     static void setIdle(bool isIdle);
