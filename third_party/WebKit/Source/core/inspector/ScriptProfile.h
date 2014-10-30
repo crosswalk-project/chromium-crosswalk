@@ -69,6 +69,30 @@ private:
     double m_idleTime;
 };
 
+class HeapProfileXDK final : public RefCountedWillBeGarbageCollectedFinalized<HeapProfileXDK> {
+public:
+    static PassRefPtrWillBeRawPtr<HeapProfileXDK> create(v8::HeapEventXDK* event)
+    {
+        return adoptRefWillBeNoop(new HeapProfileXDK(event));
+    }
+
+    String getSymbols() const;
+    String getFrames() const;
+    String getTypes() const;
+    String getChunks() const;
+    String getRetentions() const;
+    int getDuration() const;
+
+private:
+    HeapProfileXDK(v8::HeapEventXDK* event)
+        : m_event(event)
+    {
+    }
+
+    v8::HeapEventXDK* m_event;
+
+};
+
 } // namespace blink
 
 #endif // ScriptProfile_h
