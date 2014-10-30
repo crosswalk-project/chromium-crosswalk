@@ -763,9 +763,6 @@
         'renderer/external_popup_menu.cc',
         'renderer/external_popup_menu.h',
       ],
-      'dependencies': [
-        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
-      ],
       'includes': [
         '../build/android/cpufeatures.gypi',
       ],
@@ -783,6 +780,11 @@
       'dependencies': [
         '../media/cast/cast.gyp:cast_sender',
       ]
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android!=1', {
+      'dependencies': [
+        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
+      ],
     }],
     ['OS=="android" and use_icu_alternatives_on_android==1', {
       'dependencies!': [
