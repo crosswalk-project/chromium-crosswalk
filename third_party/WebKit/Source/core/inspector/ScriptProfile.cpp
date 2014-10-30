@@ -105,6 +105,7 @@ static PassRefPtr<TypeBuilder::Profiler::CPUProfileNode> buildInspectorObjectFor
         .setColumnNumber(node->GetColumnNumber())
         .setHitCount(node->GetHitCount())
         .setCallUID(node->GetCallUid())
+        .setStackEntryLine(node->GetSrcLine())
         .setChildren(children.release())
         .setPositionTicks(positionTicks.release())
         .setDeoptReason(node->GetBailoutReason())
@@ -133,6 +134,36 @@ PassRefPtr<TypeBuilder::Array<double> > ScriptProfile::buildInspectorObjectForTi
     for (int i = 0; i < count; i++)
         array->addItem(m_profile->GetSampleTimestamp(i));
     return array.release();
+}
+
+String HeapProfileXDK::getSymbols() const
+{
+    return String(m_event->getSymbols()); 
+}
+
+String HeapProfileXDK::getFrames() const
+{
+    return String(m_event->getFrames()); 
+}
+
+String HeapProfileXDK::getTypes() const
+{
+    return String(m_event->getTypes()); 
+}
+
+String HeapProfileXDK::getChunks() const
+{
+    return String(m_event->getChunks()); 
+}
+
+int HeapProfileXDK::getDuration() const
+{
+    return (int)m_event->getDuration(); 
+}
+
+String HeapProfileXDK::getRetentions() const
+{
+    return String(m_event->getRetentions());
 }
 
 } // namespace blink
