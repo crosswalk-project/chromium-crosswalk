@@ -10,6 +10,7 @@
 #include "base/strings/utf_string_conversions.h"
 #include "content/public/renderer/android_content_detection_prefixes.h"
 #include "net/base/escape.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/libphonenumber/src/phonenumber_api.h"
 #include "third_party/libphonenumber/src/phonenumbers/phonenumbermatch.h"
 #include "third_party/libphonenumber/src/phonenumbers/phonenumbermatcher.h"
@@ -19,6 +20,7 @@ using i18n::phonenumbers::PhoneNumberMatch;
 using i18n::phonenumbers::PhoneNumberMatcher;
 using i18n::phonenumbers::PhoneNumberUtil;
 using i18n::phonenumbers::RegionCode;
+#endif
 
 namespace {
 
@@ -30,12 +32,20 @@ const size_t kMaximumTelephoneLength = 20;
 namespace content {
 
 PhoneNumberDetector::PhoneNumberDetector()
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    : region_code_("ZZ") {
+#else
     : region_code_(RegionCode::GetUnknown()) {
+#endif
 }
 
 // Region should be empty or an ISO 3166-1 alpha-2 country code.
 PhoneNumberDetector::PhoneNumberDetector(const std::string& region)
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    : region_code_(region.empty() ? "ZZ"
+#else
     : region_code_(region.empty() ? RegionCode::GetUnknown()
+#endif
                                   : StringToUpperASCII(region)) {
 }
 
@@ -60,6 +70,7 @@ bool PhoneNumberDetector::FindContent(
     size_t* start_pos,
     size_t* end_pos,
     std::string* content_text) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   base::string16 utf16_input = base::string16(begin, end);
   std::string utf8_input = base::UTF16ToUTF8(utf16_input);
 
@@ -84,6 +95,7 @@ bool PhoneNumberDetector::FindContent(
 
     return true;
   }
+#endif
 
   return false;
 }
