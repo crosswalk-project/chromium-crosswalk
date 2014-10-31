@@ -310,6 +310,8 @@ void ProfileSyncService::Initialize() {
 
   TrySyncDatatypePrefRecovery();
 
+  last_synced_time_ = sync_prefs_.GetLastSyncedTime();
+
 #if defined(OS_CHROMEOS)
   std::string bootstrap_token = sync_prefs_.GetEncryptionBootstrapToken();
   if (bootstrap_token.empty()) {
@@ -907,7 +909,8 @@ void ProfileSyncService::SetSyncSetupCompleted() {
 }
 
 void ProfileSyncService::UpdateLastSyncedTime() {
-  sync_prefs_.SetLastSyncedTime(base::Time::Now());
+  last_synced_time_ = base::Time::Now();
+  sync_prefs_.SetLastSyncedTime(last_synced_time_);
 }
 
 void ProfileSyncService::NotifyObservers() {
@@ -1031,9 +1034,9 @@ void ProfileSyncService::PostBackendInitialization() {
   ConsumeCachedPassphraseIfPossible();
 
   // The very first time the backend initializes is effectively the first time
-  // we can say we successfully "synced".  LastSyncedTime will only be null in
-  // this case, because the pref wasn't restored on StartUp.
-  if (sync_prefs_.GetLastSyncedTime().is_null()) {
+  // we can say we successfully "synced".  last_synced_time_ will only be null
+  // in this case, because the pref wasn't restored on StartUp.
+  if (last_synced_time_.is_null()) {
     UpdateLastSyncedTime();
   }
 
@@ -1703,18 +1706,16 @@ bool ProfileSyncService::IsPassphraseRequiredForDecryption() const {
 }
 
 base::string16 ProfileSyncService::GetLastSyncedTimeString() const {
-  const base::Time last_synced_time = sync_prefs_.GetLastSyncedTime();
-  if (last_synced_time.is_null())
+  if (last_synced_time_.is_null())
     return l10n_util::GetStringUTF16(IDS_SYNC_TIME_NEVER);
 
-  base::TimeDelta time_since_last_sync = base::Time::Now() - last_synced_time;
+  base::TimeDelta last_synced = base::Time::Now() - last_synced_time_;
 
-  if (time_since_last_sync < base::TimeDelta::FromMinutes(1))
+  if (last_synced < base::TimeDelta::FromMinutes(1))
     return l10n_util::GetStringUTF16(IDS_SYNC_TIME_JUST_NOW);
 
   return ui::TimeFormat::Simple(ui::TimeFormat::FORMAT_ELAPSED,
-                                ui::TimeFormat::LENGTH_SHORT,
-                                time_since_last_sync);
+                                ui::TimeFormat::LENGTH_SHORT, last_synced);
 }
 
 void ProfileSyncService::UpdateSelectedTypesHistogram(
@@ -2685,11 +2686,10 @@ void ProfileSyncService::CheckSyncBackupIfNeeded() {
   DCHECK_EQ(backend_mode_, SYNC);
 
 #if defined(ENABLE_PRE_SYNC_BACKUP)
-  const base::Time last_synced_time = sync_prefs_.GetLastSyncedTime();
   // Check backup once a day.
   if (!last_backup_time_ &&
-      (last_synced_time.is_null() ||
-          base::Time::Now() - last_synced_time >=
+      (last_synced_time_.is_null() ||
+          base::Time::Now() - last_synced_time_ >=
               base::TimeDelta::FromDays(1))) {
     // If sync thread is set, need to serialize check on sync thread after
     // closing backup DB.
