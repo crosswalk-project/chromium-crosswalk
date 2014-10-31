@@ -214,6 +214,11 @@ class URLRequestExtensionJob : public net::URLRequestFileJob {
     DCHECK(posted);
   }
 
+  virtual bool IsRedirectResponse(GURL* location,
+                                  int* http_status_code) override {
+    return false;
+  }
+
   virtual void SetExtraRequestHeaders(
       const net::HttpRequestHeaders& headers) OVERRIDE {
     // TODO(asargent) - we'll need to add proper support for range headers.
