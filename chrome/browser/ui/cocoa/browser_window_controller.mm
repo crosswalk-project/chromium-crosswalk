@@ -2095,6 +2095,8 @@ willAnimateFromState:(BookmarkBar::State)oldState
 
 - (void)enterPresentationMode {
   if (!chrome::mac::SupportsSystemFullscreen()) {
+    if ([self isInImmersiveFullscreen])
+      return;
     [self enterImmersiveFullscreen];
     return;
   }
