@@ -759,7 +759,13 @@
            # http://crbug.com/115320
           'notifications%': 0,
           'video_hole%': 1,
-          'disable_ftp_support%': 1,
+          'conditions': [
+            ['use_icu_alternatives_on_android==1', {
+              'disable_ftp_support%': 1,
+            }, {
+              'disable_ftp_support%': 0,
+            }],
+          ],
         }],
 
         # Android OS includes support for proprietary codecs regardless of
