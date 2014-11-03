@@ -114,7 +114,7 @@ void PictureLayerImpl::PushPropertiesTo(LayerImpl* base_layer) {
   layer_impl->twin_layer_ = NULL;
   twin_layer_ = NULL;
 
-  layer_impl->pile_ = pile_;
+  layer_impl->UpdatePile(pile_);
 
   DCHECK(!pile_->is_solid_color() || !tilings_->num_tilings());
   // Tilings would be expensive to push, so we swap.
@@ -148,6 +148,16 @@ void PictureLayerImpl::PushPropertiesTo(LayerImpl* base_layer) {
   // We always need to push properties.
   // See http://crbug.com/303943
   needs_push_properties_ = true;
+}
+
+void PictureLayerImpl::UpdatePile(scoped_refptr<PicturePileImpl> pile) {
+  bool could_have_tilings = CanHaveTilings();
+  pile_.swap(pile);
+
+  // Need to call UpdateTiles again if CanHaveTilings changed.
+  if (could_have_tilings != CanHaveTilings()) {
+    layer_tree_impl()->set_needs_update_draw_properties();
+  }
 }
 
 void PictureLayerImpl::AppendQuads(
