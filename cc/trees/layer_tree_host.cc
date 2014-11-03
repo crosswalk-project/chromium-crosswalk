@@ -1072,7 +1072,7 @@ void LayerTreeHost::ApplyScrollAndScale(ScrollAndScaleSet* info) {
   gfx::Vector2d inner_viewport_scroll_delta;
   gfx::Vector2d outer_viewport_scroll_delta;
 
-  if (root_layer_.get() {
+  if (root_layer_.get()) {
     for (size_t i = 0; i < info->scrolls.size(); ++i) {
       Layer* layer = LayerTreeHostCommon::FindLayerInSubtree(
           root_layer_.get(), info->scrolls[i].layer_id);
