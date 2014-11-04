@@ -238,6 +238,11 @@ public class ContentVideoView extends FrameLayout
 
         mCurrentState = STATE_ERROR;
 
+        if (!isActivityContext(getContext())) {
+            Log.w(TAG, "Unable to show alert dialog because it requires an activity context");
+            return;
+        }
+
         /* Pop up an error dialog so the user knows that
          * something bad has happened. Only try and pop up the dialog
          * if we're attached to a window. When we're going away and no
@@ -420,11 +425,6 @@ public class ContentVideoView extends FrameLayout
     private static ContentVideoView createContentVideoView(
             Context context, long nativeContentVideoView, ContentVideoViewClient client) {
         ThreadUtils.assertOnUiThread();
-        // The context needs be Activity to create the ContentVideoView correctly.
-        if (!isActivityContext(context)) {
-            Log.e(TAG, "Wrong type of context, can't create fullscreen video");
-            return null;
-        }
         ContentVideoView videoView = new ContentVideoView(context, nativeContentVideoView, client);
         if (videoView.getContentVideoViewClient().onShowCustomView(videoView)) {
             return videoView;
@@ -437,6 +437,7 @@ public class ContentVideoView extends FrameLayout
         // an Activity, given that Activity is already a subclass of ContextWrapper.
         if (context instanceof ContextWrapper && !(context instanceof Activity)) {
             context = ((ContextWrapper) context).getBaseContext();
+            return isActivityContext(context);
         }
         return context instanceof Activity;
     }
