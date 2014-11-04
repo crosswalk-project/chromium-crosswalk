@@ -51,6 +51,8 @@ const wchar_t* g_troublesome_dlls[kTroublesomeDllsMaxCount] = {
   L"scdetour.dll",                      // Quick Heal Antivirus.
                                         // See crbug.com/382561.
   L"systemk.dll",                       // Unknown (suspected adware).
+  L"wajam_goblin_64.dll",               // Wajam Internet Technologies.
+  L"wajam_goblin.dll",                  // Wajam Internet Technologies.
   L"windowsapihookdll32.dll",           // Lenovo One Key Theater.
                                         // See crbug.com/379218.
   L"windowsapihookdll64.dll",           // Lenovo One Key Theater.
