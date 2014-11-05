@@ -90,4 +90,11 @@ void AudioOutputProxy::Close() {
   delete this;
 }
 
+#if defined(OS_TIZEN)
+void AudioOutputProxy::SetMediaStreamProperties(const std::string& app_id,
+                                                const std::string& app_class) {
+  dispatcher_->SetMediaStreamProperties(app_id, app_class);
+}
+#endif
+
 }  // namespace media
