@@ -11,7 +11,10 @@
 
 #include "base/i18n/base_i18n_export.h"
 #include "base/strings/string16.h"
-#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+// Only include the definition of macros and structs if using icu alternatives.
+#include "third_party/icu/source/i18n/unicode/ucol.h"
+#else
 #include "third_party/icu/source/i18n/unicode/coll.h"
 #endif
 
