@@ -365,4 +365,23 @@ void WebContentsAndroid::EvaluateJavaScript(JNIEnv* env,
       ConvertJavaStringToUTF16(env, script), js_callback);
 }
 
+void WebContentsAndroid::EvaluateJavaScriptForTests(JNIEnv* env,
+                                                   jobject obj,
+                                                   jstring script) {
+  RenderViewHost* rvh = web_contents_->GetRenderViewHost();
+  DCHECK(rvh);
+
+  if (!rvh->IsRenderViewLive()) {
+    if (!static_cast<WebContentsImpl*>(web_contents_)->
+        CreateRenderViewForInitialEmptyDocument()) {
+      LOG(ERROR) << "Failed to create RenderView in EvaluateJavaScript";
+      return;
+    }
+  }
+
+  web_contents_->GetMainFrame()->ExecuteJavaScriptForTests(
+      ConvertJavaStringToUTF16(env, script));
+  return;
+}
+
 }  // namespace content

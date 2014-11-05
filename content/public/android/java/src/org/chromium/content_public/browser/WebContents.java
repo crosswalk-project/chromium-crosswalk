@@ -163,4 +163,12 @@ public interface WebContents {
      */
     public void evaluateJavaScript(String script, JavaScriptCallback callback);
 
+    /**
+     * Injects the passed Javascript code in the current page and evaluates it.
+     * It will fake UserGestureIndicator for a bunch of browser tests
+     * to pass.
+     *
+     * @param script The Javascript to execute.
+     */
+    public void evaluateJavaScriptForTests(String script);
 }

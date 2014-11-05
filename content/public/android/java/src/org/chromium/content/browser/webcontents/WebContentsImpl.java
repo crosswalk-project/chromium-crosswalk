@@ -227,6 +227,11 @@ import org.chromium.content_public.browser.WebContents;
         callback.handleJavaScriptResult(jsonResult);
     }
 
+    @Override
+    public void evaluateJavaScriptForTests(String script) {
+         nativeEvaluateJavaScriptForTests(mNativeWebContentsAndroid, script);
+    }
+
     private native String nativeGetTitle(long nativeWebContentsAndroid);
     private native String nativeGetVisibleURL(long nativeWebContentsAndroid);
     private native void nativeStop(long nativeWebContentsAndroid);
@@ -258,4 +263,6 @@ import org.chromium.content_public.browser.WebContents;
             String cssSelector);
     private native void nativeEvaluateJavaScript(long nativeWebContentsAndroid,
             String script, JavaScriptCallback callback);
+    private native void nativeEvaluateJavaScriptForTests(long nativeWebContentsAndroid,
+            String script);
 }
