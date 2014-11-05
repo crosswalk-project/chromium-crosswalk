@@ -5,6 +5,10 @@
 #ifndef MEDIA_AUDIO_AUDIO_OUTPUT_CONTROLLER_H_
 #define MEDIA_AUDIO_AUDIO_OUTPUT_CONTROLLER_H_
 
+#if defined(OS_TIZEN)
+#include <string>
+#endif
+
 #include "base/atomic_ref_count.h"
 #include "base/callback.h"
 #include "base/memory/ref_counted.h"
@@ -68,6 +72,11 @@ class MEDIA_EXPORT AudioOutputController
     virtual void OnPaused() = 0;
     virtual void OnError() = 0;
     virtual void OnDeviceChange(int new_buffer_size, int new_sample_rate) = 0;
+
+#if defined(OS_TIZEN)
+    virtual std::string app_id() const = 0;
+    virtual std::string app_class() const = 0;
+#endif
 
    protected:
     virtual ~EventHandler() {}
