@@ -11,9 +11,7 @@
 
 #include "base/i18n/base_i18n_export.h"
 #include "base/strings/string16.h"
-#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/i18n/unicode/coll.h"
-#endif
 
 namespace base {
 namespace i18n {
