@@ -203,6 +203,10 @@ void AudioOutputResampler::Initialize() {
 bool AudioOutputResampler::OpenStream() {
   DCHECK(task_runner_->BelongsToCurrentThread());
 
+#if defined(OS_TIZEN)
+  dispatcher_->SetMediaStreamProperties(app_id_, app_class_);
+#endif
+
   if (dispatcher_->OpenStream()) {
     // Only record the UMA statistic if we didn't fallback during construction
     // and only for the first stream we open.
@@ -270,6 +274,10 @@ bool AudioOutputResampler::StartStream(
   } else {
     resampler_callback = it->second;
   }
+
+#if defined(OS_TIZEN)
+  dispatcher_->SetMediaStreamProperties(app_id_, app_class_);
+#endif
 
   resampler_callback->Start(callback);
   bool result = dispatcher_->StartStream(resampler_callback, stream_proxy);

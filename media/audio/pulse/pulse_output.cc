@@ -234,4 +234,13 @@ void PulseAudioOutputStream::GetVolume(double* volume) {
   *volume = volume_;
 }
 
+#if defined(OS_TIZEN)
+void PulseAudioOutputStream::SetMediaStreamProperties(
+    const std::string& app_id,
+    const std::string& app_class) {
+  app_id_ = app_id;
+  app_class_ = app_class;
+}
+#endif
+
 }  // namespace media
