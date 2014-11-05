@@ -65,6 +65,11 @@ class AudioRendererHost::AudioEntry
   bool playing() const { return playing_; }
   void set_playing(bool playing) { playing_ = playing; }
 
+#if defined(OS_TIZEN)
+  std::string app_id() const override { return host_->app_id_; }
+  std::string app_class() const override { return host_->app_class_; }
+#endif
+
  private:
   // media::AudioOutputController::EventHandler implementation.
   virtual void OnCreated() OVERRIDE;
@@ -483,5 +488,14 @@ AudioRendererHost::AudioEntry* AudioRendererHost::LookupById(int stream_id) {
 bool AudioRendererHost::HasActiveAudio() {
   return !base::AtomicRefCountIsZero(&num_playing_streams_);
 }
+
+#if defined(OS_TIZEN)
+void AudioRendererHost::SetMediaStreamProperties(
+    const std::string& app_id,
+    const std::string& app_class) {
+  app_id_ = app_id;
+  app_class_ = app_class;
+}
+#endif
 
 }  // namespace content

@@ -51,6 +51,13 @@ class PulseAudioOutputStream : public AudioOutputStream {
   virtual void SetVolume(double volume) OVERRIDE;
   virtual void GetVolume(double* volume) OVERRIDE;
 
+#if defined(OS_TIZEN)
+  void SetMediaStreamProperties(const std::string& app_id,
+                                const std::string& app_class) override;
+  const std::string& app_id() const {return app_id_;}
+  const std::string& app_class() const {return app_class_;}
+#endif
+
  private:
   // Called by PulseAudio when |pa_stream_| change state.  If an unexpected
   // failure state change happens and |source_callback_| is set
@@ -90,6 +97,12 @@ class PulseAudioOutputStream : public AudioOutputStream {
 
   // Container for retrieving data from AudioSourceCallback::OnMoreData().
   scoped_ptr<AudioBus> audio_bus_;
+
+#if defined(OS_TIZEN)
+  // Application ID and class for the pulseaudio streams.
+  std::string app_id_;
+  std::string app_class_;
+#endif
 
   base::ThreadChecker thread_checker_;
 

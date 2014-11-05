@@ -137,6 +137,10 @@ bool AudioOutputDispatcherImpl::CreateAndOpenStream() {
   if (!stream)
     return false;
 
+#if defined(OS_TIZEN)
+  stream->SetMediaStreamProperties(app_id_, app_class_);
+#endif
+
   if (!stream->Open()) {
     stream->Close();
     return false;
