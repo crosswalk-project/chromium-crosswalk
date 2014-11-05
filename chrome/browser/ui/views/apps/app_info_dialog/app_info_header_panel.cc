@@ -100,21 +100,22 @@ void AppInfoHeaderPanel::CreateControls() {
 
 void AppInfoHeaderPanel::LayoutControls() {
   AddChildView(app_icon_);
+
+  // Create a vertical container to store the app's name and links.
+  views::View* vertical_info_container = new views::View();
+  views::BoxLayout* vertical_container_layout =
+      new views::BoxLayout(views::BoxLayout::kVertical, 0, 0, 0);
+  vertical_container_layout->set_main_axis_alignment(
+      views::BoxLayout::MAIN_AXIS_ALIGNMENT_CENTER);
+  vertical_info_container->SetLayoutManager(vertical_container_layout);
+  AddChildView(vertical_info_container);
+
+  vertical_info_container->AddChildView(app_name_label_);
   if (!view_in_store_link_ && !licenses_link_) {
     // If there's no links, allow the app's name to take up multiple lines.
     // TODO(sashab): Limit the number of lines to 2.
     app_name_label_->SetMultiLine(true);
-    AddChildView(app_name_label_);
   } else {
-    // Create a vertical container to store the app's name and links.
-    views::View* vertical_info_container = new views::View();
-    views::BoxLayout* vertical_container_layout =
-        new views::BoxLayout(views::BoxLayout::kVertical, 0, 0, 0);
-    vertical_container_layout->set_main_axis_alignment(
-        views::BoxLayout::MAIN_AXIS_ALIGNMENT_CENTER);
-    vertical_info_container->SetLayoutManager(vertical_container_layout);
-
-    vertical_info_container->AddChildView(app_name_label_);
     // Create a horizontal container to store the app's links.
     views::View* horizontal_links_container =
         CreateHorizontalStack(kSpacingBetweenAppLinks);
@@ -123,8 +124,6 @@ void AppInfoHeaderPanel::LayoutControls() {
     if (licenses_link_)
       horizontal_links_container->AddChildView(licenses_link_);
     vertical_info_container->AddChildView(horizontal_links_container);
-
-    AddChildView(vertical_info_container);
   }
 }
 void AppInfoHeaderPanel::LinkClicked(views::Link* source, int event_flags) {
