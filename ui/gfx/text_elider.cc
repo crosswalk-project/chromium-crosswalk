@@ -21,11 +21,17 @@
 #include "base/strings/string_util.h"
 #include "base/strings/sys_string_conversions.h"
 #include "base/strings/utf_string_conversions.h"
-#include "third_party/icu/source/common/unicode/rbbi.h"
-#include "third_party/icu/source/common/unicode/uloc.h"
 #include "ui/gfx/font_list.h"
 #include "ui/gfx/render_text.h"
 #include "ui/gfx/text_utils.h"
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#include "third_party/icu/source/common/unicode/utf16.h"
+#else
+#include "third_party/icu/source/common/unicode/rbbi.h"
+#include "third_party/icu/source/common/unicode/uloc.h"
+#endif
 
 using base::ASCIIToUTF16;
 using base::UTF8ToUTF16;
@@ -777,6 +783,10 @@ base::string16 TruncateString(const base::string16& string,
     // Just enough room for the elide string.
     return kElideString;
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::CutOffStringForEliding(
+      string, max, break_type == WORD_BREAK) + kElideString;
+#else
   int32_t index = static_cast<int32_t>(max);
   if (break_type == WORD_BREAK) {
     // Use a line iterator to find the first boundary.
@@ -819,6 +829,7 @@ base::string16 TruncateString(const base::string16& string,
   }
 
   return string.substr(0, index) + kElideString;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 }  // namespace gfx

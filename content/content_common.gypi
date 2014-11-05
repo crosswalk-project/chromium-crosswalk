@@ -671,6 +671,11 @@
         'content.gyp:common_aidl',
       ],
     }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icuuc',
+      ],
+    }],
     ['use_pango == 1', {
       'dependencies': [
         '../build/linux/system.gyp:pangocairo',

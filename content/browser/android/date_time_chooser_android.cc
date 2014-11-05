@@ -12,7 +12,11 @@
 #include "content/public/browser/android/content_view_core.h"
 #include "content/public/browser/render_view_host.h"
 #include "jni/DateTimeChooserAndroid_jni.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/uchar.h"
+#endif
 #include "third_party/icu/source/common/unicode/unistr.h"
 
 using base::android::AttachCurrentThread;
@@ -25,16 +29,29 @@ namespace {
 
 base::string16 SanitizeSuggestionString(const base::string16& string) {
   base::string16 trimmed = string.substr(0, 255);
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  base::string16 sanitized;
+#else
   icu::UnicodeString sanitized;
+#endif
   base::i18n::UTF16CharIterator sanitized_iterator(&trimmed);
   while (!sanitized_iterator.end()) {
     UChar c = sanitized_iterator.get();
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    if (base::icu_utils::isPrintableChar(c))
+        base::StringPiece16(&c, 1).AppendToString(&sanitized);
+#else
     if (u_isprint(c))
       sanitized.append(c);
+#endif
     sanitized_iterator.Advance();
   }
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return sanitized;
+#else
   return base::string16(sanitized.getBuffer(),
                         static_cast<size_t>(sanitized.length()));
+#endif
 }
 
 }  // namespace

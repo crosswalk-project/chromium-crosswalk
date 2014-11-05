@@ -14,6 +14,7 @@ import org.chromium.base.JNINamespace;
 import org.chromium.base.LocaleUtils;
 
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 /**
  * This class provides the locale related methods for the native library.
@@ -40,7 +41,6 @@ public class LocalizationUtils {
         return LocaleUtils.getDefaultLocale();
     }
 
-    @CalledByNative
     private static Locale getJavaLocale(String language, String country, String variant) {
         return new Locale(language, country, variant);
     }
@@ -88,7 +88,54 @@ public class LocalizationUtils {
      * @return time remaining
      */
     public static String getDurationString(long timeInMillis) {
-        return nativeGetDurationString(timeInMillis);
+        String ret = nativeGetDurationString(timeInMillis);
+        if (ret != null) {
+            return ret;
+        } else {
+            // Probably defined USE_ICU_ALTERNATIVES_ON_ANDROID
+            int type = 0;  //Days
+            long count = 0;
+            while (true) {
+                switch (type) {
+                    case 0:  // Days
+                        count = TimeUnit.MILLISECONDS.toDays(timeInMillis);
+                        break;
+                    case 1:  // Hours
+                        count = TimeUnit.MILLISECONDS.toHours(timeInMillis);
+                        break;
+                    case 2:  // Mins
+                        count = TimeUnit.MILLISECONDS.toMinutes(timeInMillis);
+                        break;
+                    case 3:  // Secs
+                        count = TimeUnit.MILLISECONDS.toSeconds(timeInMillis);
+                        break;
+                    default:
+                        return "0 sec left";
+                }
+                if (count > 0) break;
+                type++;
+            }
+            String unit;
+            switch (type) {
+                case 0:  // Days
+                    unit = "day";
+                    break;
+                case 1:  // Hours
+                    unit = "hour";
+                    break;
+                case 2:  // Mins
+                    unit = "min";
+                    break;
+                case 3:  // Secs
+                    unit = "sec";
+                    break;
+                default:
+                    return "0 sec left";
+            }
+            String plural = "";
+            if (count > 1) plural = "s";
+            return String.format("%d %s%s left", count, unit, plural);
+        }
     }
 
     private static native int nativeGetFirstStrongCharacterDirection(String string);

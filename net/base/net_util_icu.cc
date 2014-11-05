@@ -27,6 +27,10 @@
 #include "third_party/icu/source/i18n/unicode/regex.h"
 #include "third_party/icu/source/i18n/unicode/ulocdata.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#endif
+
 using base::Time;
 
 namespace net {
@@ -579,7 +583,11 @@ const FormatUrlType kFormatUrlOmitAll = kFormatUrlOmitUsernamePassword |
 
 base::string16 IDNToUnicode(const std::string& host,
                             const std::string& languages) {
+#if defined (USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::IDNToUnicode(host, languages);
+#else
   return IDNToUnicodeWithAdjustments(host, languages, NULL);
+#endif
 }
 
 std::string GetDirectoryListingEntry(const base::string16& name,

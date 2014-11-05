@@ -738,9 +738,6 @@
         'renderer/external_popup_menu.cc',
         'renderer/external_popup_menu.h',
       ],
-      'dependencies': [
-        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
-      ],
       'includes': [
         '../build/android/cpufeatures.gypi',
       ],
@@ -756,6 +753,17 @@
         'renderer/java/java_bridge_channel.h',
         'renderer/java/java_bridge_dispatcher.cc',
         'renderer/java/java_bridge_dispatcher.h',
+      ],
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android!=1', {
+      'dependencies': [
+        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
+      ],
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icui18n',
+        '../third_party/icu/icu.gyp:icuuc',
       ],
     }],
     # TODO(jrg): remove the OS=="android" section?

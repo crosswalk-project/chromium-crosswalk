@@ -759,6 +759,13 @@
            # http://crbug.com/115320
           'notifications%': 0,
           'video_hole%': 1,
+          'conditions': [
+            ['use_icu_alternatives_on_android==1', {
+              'disable_ftp_support%': 1,
+            }, {
+              'disable_ftp_support%': 0,
+            }],
+          ],
         }],
 
         # Android OS includes support for proprietary codecs regardless of
@@ -1502,6 +1509,9 @@
     'use_migrated_chromevox%': 1,
 
     'conditions': [
+      ['OS=="android" and use_icu_alternatives_on_android', {
+        'v8_enable_i18n_support': 0,
+      }],
       # Enable the Syzygy optimization step for the official builds.
       ['OS=="win" and buildtype=="Official" and syzyasan!=1', {
         'syzygy_optimize%': 1,

@@ -11,13 +11,19 @@
 #include "base/strings/string_util.h"
 #include "base/strings/stringprintf.h"
 #include "base/strings/utf_string_conversions.h"
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/ustring.h"
 #include "third_party/icu/source/i18n/unicode/numfmt.h"
+#endif
 
 namespace base {
 
 namespace {
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // A simple wrapper around icu::NumberFormat that allows for resetting it
 // (as LazyInstance does not).
 struct NumberFormatWrapper {
@@ -42,10 +48,14 @@ LazyInstance<NumberFormatWrapper> g_number_format_int =
     LAZY_INSTANCE_INITIALIZER;
 LazyInstance<NumberFormatWrapper> g_number_format_float =
     LAZY_INSTANCE_INITIALIZER;
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
 }  // namespace
 
 string16 FormatNumber(int64 number) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::FormatNumber(number);
+#else
   icu::NumberFormat* number_format =
       g_number_format_int.Get().number_format.get();
 
@@ -57,9 +67,13 @@ string16 FormatNumber(int64 number) {
   number_format->format(number, ustr);
 
   return string16(ustr.getBuffer(), static_cast<size_t>(ustr.length()));
+#endif
 }
 
 string16 FormatDouble(double number, int fractional_digits) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::FormatNumber(number, fractional_digits);
+#else
   icu::NumberFormat* number_format =
       g_number_format_float.Get().number_format.get();
 
@@ -73,13 +87,16 @@ string16 FormatDouble(double number, int fractional_digits) {
   number_format->format(number, ustr);
 
   return string16(ustr.getBuffer(), static_cast<size_t>(ustr.length()));
+#endif
 }
 
 namespace testing {
 
 void ResetFormatters() {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   g_number_format_int.Get().Reset();
   g_number_format_float.Get().Reset();
+#endif
 }
 
 }  // namespace testing

@@ -627,6 +627,23 @@
             'clipboard/clipboard_aura.cc'
           ],
         }],
+        ['OS=="android" and use_icu_alternatives_on_android==1', {
+          'dependencies': [
+            '../../base/base.gyp:base_icu_alternatives',
+          ],
+          'dependencies!': [
+            '../../third_party/icu/icu.gyp:icui18n',
+            '../../third_party/icu/icu.gyp:icuuc',
+          ],
+          'sources!': [
+            'l10n/formatter.cc',
+            'l10n/formatter.h',
+            'l10n/l10n_util_plurals.cc',
+            'l10n/l10n_util_plurals.h',
+            'l10n/time_format.cc',
+            'l10n/time_format.h',
+          ],
+        }],
         ['OS=="android" or OS=="ios"', {
           'sources!': [
             'device_form_factor_desktop.cc'

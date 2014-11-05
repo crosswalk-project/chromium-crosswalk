@@ -27,6 +27,11 @@
 #include "base/message_loop/message_pump_android.h"
 #include "base/power_monitor/power_monitor_device_source_android.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/break_iterator_bridge.h"
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#endif
+
 namespace base {
 namespace android {
 
@@ -52,6 +57,10 @@ static RegistrationMethod kBaseRegisteredMethods[] = {
   { "PowerMonitor", base::RegisterPowerMonitor },
   { "ThreadUtils", base::RegisterThreadUtils },
   { "TraceEvent", base::android::RegisterTraceEvent },
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  { "IcuUtils", base::RegisterIcuUtilsJni },
+  { "BreakIteratorBridge", base::RegisterBreakIteratorBridgeJni },
+#endif
 };
 
 bool RegisterJni(JNIEnv* env) {

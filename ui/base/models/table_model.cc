@@ -35,8 +35,10 @@ TableColumn::TableColumn(int id, Alignment alignment, int width, float percent)
 
 // TableModel -----------------------------------------------------------------
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // Used for sorting.
 static icu::Collator* collator = NULL;
+#endif
 
 gfx::ImageSkia TableModel::GetIcon(int row) {
   return gfx::ImageSkia();
@@ -73,15 +75,20 @@ int TableModel::CompareValues(int row1, int row2, int column_id) {
          row2 >= 0 && row2 < RowCount());
   base::string16 value1 = GetText(row1, column_id);
   base::string16 value2 = GetText(row2, column_id);
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   icu::Collator* collator = GetCollator();
 
   if (collator)
     return base::i18n::CompareString16WithCollator(collator, value1, value2);
+#else
+  return base::i18n::CompareString16WithCollator("", value1, value2);
+#endif
 
   NOTREACHED();
   return 0;
 }
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 void TableModel::ClearCollator() {
   delete collator;
   collator = NULL;
@@ -98,5 +105,6 @@ icu::Collator* TableModel::GetCollator() {
   }
   return collator;
 }
+#endif
 
 }  // namespace ui
