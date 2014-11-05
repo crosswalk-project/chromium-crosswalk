@@ -28,8 +28,13 @@ BluetoothHostPairingController::BluetoothHostPairingController()
 }
 
 BluetoothHostPairingController::~BluetoothHostPairingController() {
-  if (adapter_.get())
+  if (adapter_.get()) {
+    if (adapter_->IsDiscoverable()) {
+      adapter_->SetDiscoverable(false, base::Closure(), base::Closure());
+    }
     adapter_->RemoveObserver(this);
+    adapter_ = NULL;
+  }
 }
 
 void BluetoothHostPairingController::ChangeStage(Stage new_stage) {
@@ -245,7 +250,6 @@ void BluetoothHostPairingController::OnSetError() {
 void BluetoothHostPairingController::OnAcceptError(
     const std::string& error_message) {
   LOG(ERROR) << error_message;
-  Reset();
 }
 
 void BluetoothHostPairingController::OnSendError(
@@ -257,7 +261,6 @@ void BluetoothHostPairingController::OnReceiveError(
     device::BluetoothSocket::ErrorReason reason,
     const std::string& error_message) {
   LOG(ERROR) << reason << ", " << error_message;
-  Reset();
 }
 
 void BluetoothHostPairingController::OnHostStatusMessage(
