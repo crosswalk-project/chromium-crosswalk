@@ -38,6 +38,9 @@
 #define CONTENT_BROWSER_RENDERER_HOST_MEDIA_AUDIO_RENDERER_HOST_H_
 
 #include <map>
+#if defined(OS_TIZEN)
+#include <string>
+#endif
 
 #include "base/atomic_ref_count.h"
 #include "base/gtest_prod_util.h"
@@ -92,6 +95,15 @@ class CONTENT_EXPORT AudioRendererHost : public BrowserMessageFilter {
   // Returns true if any streams managed by the RenderView identified by
   // |render_view_id| are actively playing. Can be called from any thread.
   bool RenderViewHasActiveAudio(int render_view_id) const;
+
+#if defined(OS_TIZEN)
+  // Sets an application ID and class properties, which are used to tag audio
+  // streams in pulseaudio/Murphy.
+  virtual void SetMediaStreamProperties(const std::string& app_id,
+                                        const std::string& app_class);
+  const std::string& app_id() const { return app_id_; }
+  const std::string& app_class() const { return app_class_; }
+#endif
 
  private:
   friend class AudioRendererHostTest;
@@ -179,6 +191,12 @@ class CONTENT_EXPORT AudioRendererHost : public BrowserMessageFilter {
 
   // The number of streams in the playing state.
   base::AtomicRefCount num_playing_streams_;
+
+#if defined(OS_TIZEN)
+  // Application ID and class for the Murphy resource set.
+  std::string app_id_;
+  std::string app_class_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(AudioRendererHost);
 };
