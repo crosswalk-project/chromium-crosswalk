@@ -127,6 +127,10 @@ void AudioOutputController::DoCreate(bool is_for_device_change) {
     return;
   }
 
+#if defined(OS_TIZEN)
+  stream_->SetMediaStreamProperties(handler_->app_id(), handler_->app_class());
+#endif
+
   if (!stream_->Open()) {
     DoStopCloseAndClearStream();
     state_ = kError;
