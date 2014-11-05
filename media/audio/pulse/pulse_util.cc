@@ -2,6 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#if defined(OS_TIZEN)
+#include "media/audio/pulse/pulse_output.h"
+#endif
+
 #include "media/audio/pulse/pulse_util.h"
 
 #include "base/logging.h"
@@ -289,6 +293,14 @@ bool CreateOutputStream(pa_threaded_mainloop** mainloop,
   ScopedPropertyList property_list;
   pa_proplist_sets(property_list.get(), PA_PROP_APPLICATION_ICON_NAME,
                    kBrowserDisplayName);
+#if defined(OS_TIZEN)
+  PulseAudioOutputStream* data =
+      static_cast<PulseAudioOutputStream*>(user_data);
+  pa_proplist_sets(property_list.get(), "resource.set.appid",
+                   data->app_id().c_str());
+  pa_proplist_sets(property_list.get(), PA_PROP_MEDIA_ROLE,
+                   data->app_class().c_str());
+#endif
   *stream = pa_stream_new_with_proplist(
       *context, "Playback", &sample_specifications, map, property_list.get());
   RETURN_ON_FAILURE(*stream, "failed to create PA playback stream");
