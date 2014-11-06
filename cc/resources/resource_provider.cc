@@ -1969,6 +1969,8 @@ void ResourceProvider::AcquireSkSurface(ResourceId id) {
   desc.fTextureHandle = resource->gl_id;
   skia::RefPtr<GrTexture> gr_texture =
       skia::AdoptRef(gr_context->wrapBackendTexture(desc));
+  if (!gr_texture)
+    return;
   SkSurface::TextRenderMode text_render_mode =
       use_distance_field_text_ ? SkSurface::kDistanceField_TextRenderMode
                                : SkSurface::kStandard_TextRenderMode;
