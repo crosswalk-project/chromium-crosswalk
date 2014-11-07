@@ -537,14 +537,9 @@ void LayerImpl::PushPropertiesTo(LayerImpl* layer) {
                                                : Layer::INVALID_ID);
   layer->set_user_scrollable_horizontal(user_scrollable_horizontal_);
   layer->set_user_scrollable_vertical(user_scrollable_vertical_);
-
-  // Save the difference but clear the sent delta so that we don't subtract
-  // it again in SetScrollOffsetAndDelta's pending twin mirroring logic.
-  gfx::Vector2dF remaining_delta =
-      layer->ScrollDelta() - layer->sent_scroll_delta();
-  layer->SetSentScrollDelta(gfx::Vector2dF());
-  layer->SetScrollOffsetAndDelta(scroll_offset_, remaining_delta);
-
+  layer->SetScrollOffsetAndDelta(
+      scroll_offset_, layer->ScrollDelta() - layer->sent_scroll_delta());
+  layer->SetSentScrollDelta(gfx::Vector2d());
   layer->Set3dSortingContextId(sorting_context_id_);
   layer->SetNumDescendantsThatDrawContent(num_descendants_that_draw_content_);
 
