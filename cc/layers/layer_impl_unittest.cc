@@ -17,6 +17,7 @@
 #include "testing/gmock/include/gmock/gmock.h"
 #include "testing/gtest/include/gtest/gtest.h"
 #include "third_party/skia/include/effects/SkBlurImageFilter.h"
+#include "ui/gfx/geometry/vector2d_conversions.h"
 
 namespace cc {
 namespace {
@@ -678,11 +679,12 @@ TEST_F(LayerImplScrollTest, PushPropertiesToMirrorsTotalScrollOffset) {
   EXPECT_VECTOR_EQ(gfx::Vector2dF(0, 0), unscrolled);
   EXPECT_VECTOR_EQ(gfx::Vector2dF(22, 23), layer()->TotalScrollOffset());
 
-  layer()->SetSentScrollDelta(scroll_delta);
+  layer()->SetSentScrollDelta(gfx::ToFlooredVector2d(scroll_delta));
 
   scoped_ptr<LayerImpl> pending_layer =
       LayerImpl::Create(host_impl().sync_tree(), layer()->id());
-  pending_layer->SetScrollOffset(layer()->TotalScrollOffset());
+  pending_layer->SetScrollOffset(
+      gfx::ToFlooredVector2d(layer()->TotalScrollOffset()));
 
   pending_layer->PushPropertiesTo(layer());
 
