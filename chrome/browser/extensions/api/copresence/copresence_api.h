@@ -24,10 +24,6 @@ class CopresenceManager;
 class WhispernetClient;
 }
 
-namespace gcm {
-class GCMDriver;
-}
-
 namespace extensions {
 
 class CopresenceService : public BrowserContextKeyedAPI,
@@ -77,7 +73,6 @@ class CopresenceService : public BrowserContextKeyedAPI,
   const std::string GetPlatformVersionString() const override;
   const std::string GetAPIKey(const std::string& app_id) const override;
   copresence::WhispernetClient* GetWhispernetClient() override;
-  gcm::GCMDriver* GetGCMDriver() override;
 
   // BrowserContextKeyedAPI implementation.
   static const char* service_name() { return "CopresenceService"; }

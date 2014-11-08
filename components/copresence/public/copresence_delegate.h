@@ -10,10 +10,6 @@
 
 #include "base/callback_forward.h"
 
-namespace gcm {
-class GCMDriver;
-}
-
 namespace net {
 class URLRequestContextGetter;
 }
@@ -53,10 +49,6 @@ class CopresenceDelegate {
 
   // Thw WhispernetClient must outlive the CopresenceManager.
   virtual WhispernetClient* GetWhispernetClient() = 0;
-
-  // Clients may optionally provide a GCMDriver to receive messages from.
-  // If no driver is available, this can return null.
-  virtual gcm::GCMDriver* GetGCMDriver() = 0;
 };
 
 }  // namespace copresence

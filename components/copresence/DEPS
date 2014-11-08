@@ -1,6 +1,5 @@
 include_rules = [
   "+base",
-  "+components/gcm_driver",
   "+content/public/browser",
   "+content/public/test",
   "+google_apis",
