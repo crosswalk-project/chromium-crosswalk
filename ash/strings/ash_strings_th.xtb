@@ -1,6 +1,4 @@
-<?xml version="1.0" ?>
-<!DOCTYPE translationbundle>
-<translationbundle lang="th">
+<?xml version="1.0" ?><!DOCTYPE translationbundle><translationbundle lang="th">
 <translation id="3595596368722241419">แบตเตอรี่เต็ม</translation>
 <translation id="6895424601869865703">เพิ่มบัญชีสำหรับ <ph name="GIVEN_NAME"/></translation>
 <translation id="1057289296854808272">การหมุนเปิดอยู่ (แตะที่นี่เพื่อเปลี่ยนแปลง)</translation>
@@ -15,6 +13,7 @@
 <translation id="6713285437468012787">อุปกรณ์บลูทูธ &quot;<ph name="DEVICE_NAME"/>&quot; ได้รับการจับคู่และขณะนี้พร้อมให้บริการแก่ผู้ใช้ทุกคนแล้ว คุณสามารถลบการจับคู่นี้โดยใช้การตั้งค่า</translation>
 <translation id="7165320105431587207">ล้มเหลวในการกำหนดค่าเครือข่าย</translation>
 <translation id="3775358506042162758">คุณสามารถมีได้มากสุดสามบัญชีเท่านั้นในการลงชื่อเข้าสู่ระบบพร้อมกันหลายบัญชี</translation>
+<translation id="9151726767154816831">รีสตาร์ทและ Powerwash เพื่ออัปเดต</translation>
 <translation id="370649949373421643">เปิดใช้งาน Wi-Fi</translation>
 <translation id="3626281679859535460">ความสว่าง</translation>
 <translation id="3621202678540785336">อินพุต</translation>
@@ -26,6 +25,7 @@
 <translation id="5565793151875479467">พร็อกซี...</translation>
 <translation id="938582441709398163">การวางซ้อนแป้นพิมพ์</translation>
 <translation id="4387004326333427325">ใบรับรองการตรวจสอบสิทธิ์ได้รับการปฏิเสธจากระยะไกล</translation>
+<translation id="6047696787498798094">การแชร์หน้าจอจะหยุดเมื่อคุณสลับไปเป็นผู้ใช้อีกรายหนึ่ง ต้องการดำเนินการต่อไหม</translation>
 <translation id="6979158407327259162">Google ไดรฟ์</translation>
 <translation id="3683428399328702079">ความละเอียดของ <ph name="DISPLAY_NAME"/> เปลี่ยนเป็น <ph name="RESOLUTION"/></translation>
 <translation id="6943836128787782965">การรับ HTTP ล้มเหลว</translation>
@@ -97,6 +97,7 @@
 <translation id="3967919079500697218">ความสามารถในการบันทึกภาพหน้าจอถูกปิดใช้โดยผู้ดูแลระบบ</translation>
 <translation id="372094107052732682">กด Ctrl+Shift+Q สองครั้งเพื่อออก</translation>
 <translation id="923686485342484400">กด Control Shift Q 2 ครั้งเพื่อออกจากระบบ</translation>
+<translation id="9194617393863864469">ลงชื่อเข้าใช้ด้วยชื่อผู้ใช้อื่น...</translation>
 <translation id="6803622936009808957">ไม่สามารถแสดงผลคู่ขนานได้เนื่องจากไม่พบความละเอียดที่สนับสนุน เข้าสู่เดสก์ท็อปแบบขยายแทน</translation>
 <translation id="1480041086352807611">โหมดสาธิต</translation>
 <translation id="4066708417179825777"><ph name="PRIMARY_ACCOUNT"/> (หลัก)</translation>
@@ -110,6 +111,7 @@
 <translation id="2614835198358683673">Chromebook ของคุณอาจไม่ได้ชาร์จในขณะที่เปิดอยู่ ลองใช้ที่ชาร์จมาตรฐาน</translation>
 <translation id="4430019312045809116">ระดับเสียง</translation>
 <translation id="4442424173763614572">การค้นหา DNS ล้มเหลว</translation>
+<translation id="544691375626129091">เพิ่มผู้ใช้ที่มีทั้งหมดลงในเซสชันนี้แล้ว</translation>
 <translation id="1383876407941801731">ค้นหา</translation>
 <translation id="2204305834655267233">ข้อมูลเครือข่าย</translation>
 <translation id="1621499497873603021">เวลาที่เหลือกว่าแบตเตอรี่จะหมด, <ph name="TIME_LEFT"/></translation>
@@ -138,6 +140,7 @@
 <translation id="6062360702481658777">คุณจะออกจากระบบโดยอัตโนมัติใน <ph name="LOGOUT_TIME_LEFT"/></translation>
 <translation id="252373100621549798">หน้าจอที่ไม่รู้จัก</translation>
 <translation id="1882897271359938046">กำลังแสดงผลไปที่ <ph name="DISPLAY_NAME"/></translation>
+<translation id="5777841717266010279">ต้องการหยุดแชร์หน้าจอไหม</translation>
 <translation id="2727977024730340865">เสียบอยู่กับที่ชาร์จพลังงานต่ำ การชาร์จแบตเตอรี่อาจไม่น่าเชื่อถือ</translation>
 <translation id="2761704814324807722">ถาดสถานะ เวลา <ph name="TIME"/>, <ph name="BATTERY"/></translation>
 <translation id="3784455785234192852">ล็อก</translation>
@@ -174,6 +177,7 @@
 <translation id="2999742336789313416"><ph name="DISPLAY_NAME"/> เป็นเซสชันสาธารณะซึ่งจัดการโดย <ph name="DOMAIN"/></translation>
 <translation id="9044646465488564462">ไม่สามารถเชื่อมต่อเครือข่าย: <ph name="DETAILS"/></translation>
 <translation id="7029814467594812963">ออกจากเซสชัน</translation>
+<translation id="479989351350248267">ค้นหา</translation>
 <translation id="4872237917498892622">Alt+ค้นหา หรือ Shift</translation>
 <translation id="2429753432712299108">อุปกรณ์บลูทูธ &quot;<ph name="DEVICE_NAME"/>&quot; ต้องการสิทธิ์ในการจับคู่ ก่อนที่จะยอมรับ โปรดยืนยันว่ารหัสผ่านนี้ปรากฏบนอุปกรณ์นั้น: <ph name="PASSKEY"/></translation>
 <translation id="9201131092683066720">มีแบตเตอรี่ <ph name="PERCENTAGE"/>%</translation>
@@ -224,7 +228,6 @@
 <translation id="5102001756192215136">เหลืออีก <ph name="HOUR"/>:<ph name="MINUTE"/></translation>
 <translation id="3009178788565917040">เอาต์พุต</translation>
 <translation id="520760366042891468">กำลังแชร์การควบคุมหน้าจอผ่านแฮงเอาท์</translation>
-<translation id="4015692727874266537">ลงชื่อเข้าใช้บัญชีอื่น...</translation>
 <translation id="6911468394164995108">เชื่อมต่อเครือข่ายอื่น...</translation>
 <translation id="3678715477168044796"><ph name="DISPLAY_NAME"/>: <ph name="ANNOTATION"/></translation>
 <translation id="2563856802393254086">ขอแสดงความยินดี! บริการข้อมูล &quot;<ph name="NAME"/>&quot; ของคุณได้เปิดใช้งานและพร้อมใช้งานแล้ว</translation>

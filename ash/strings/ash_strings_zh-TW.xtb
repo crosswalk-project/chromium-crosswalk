@@ -1,6 +1,4 @@
-<?xml version="1.0" ?>
-<!DOCTYPE translationbundle>
-<translationbundle lang="zh-TW">
+<?xml version="1.0" ?><!DOCTYPE translationbundle><translationbundle lang="zh-TW">
 <translation id="3595596368722241419">電池已充滿</translation>
 <translation id="6895424601869865703">新增<ph name="GIVEN_NAME"/>的帳戶</translation>
 <translation id="1057289296854808272">已開啟旋轉功能 (輕按此處即可變更)</translation>
@@ -15,6 +13,7 @@
 <translation id="6713285437468012787">藍牙裝置「<ph name="DEVICE_NAME"/>」已配對成功，可供所有使用者使用。如要移除配對，請使用「設定」。</translation>
 <translation id="7165320105431587207">無法設定網路</translation>
 <translation id="3775358506042162758">多帳戶登入功能一次只能登入最多 3 個帳戶。</translation>
+<translation id="9151726767154816831">重新啟動並執行 Powerwash 即可更新</translation>
 <translation id="370649949373421643">啟用 Wi-Fi</translation>
 <translation id="3626281679859535460">亮度</translation>
 <translation id="3621202678540785336">輸入</translation>
@@ -26,6 +25,7 @@
 <translation id="5565793151875479467">Proxy...</translation>
 <translation id="938582441709398163">鍵盤自訂快速鍵</translation>
 <translation id="4387004326333427325">遠端已拒絕驗證憑證</translation>
+<translation id="6047696787498798094">切換到另一個使用者會停止共用螢幕，您要繼續嗎？</translation>
 <translation id="6979158407327259162">Google 雲端硬碟</translation>
 <translation id="3683428399328702079"><ph name="DISPLAY_NAME"/> 的解析度已變更為 <ph name="RESOLUTION"/></translation>
 <translation id="6943836128787782965">HTTP 擷取失敗</translation>
@@ -97,6 +97,7 @@
 <translation id="3967919079500697218">您的管理員已停用拍攝螢幕擷取畫面功能。</translation>
 <translation id="372094107052732682">按兩下 Ctrl+Shift+Q 鍵即可結束。</translation>
 <translation id="923686485342484400">按兩下 Ctrl+Shift+Q 鍵即可登出。</translation>
+<translation id="9194617393863864469">登入其他使用者帳戶...</translation>
 <translation id="6803622936009808957">找不到系統支援的解析度，因此無法顯示鏡像。已改為進入延伸桌面。</translation>
 <translation id="1480041086352807611">示範模式</translation>
 <translation id="4066708417179825777"><ph name="PRIMARY_ACCOUNT"/> (主要)</translation>
@@ -110,6 +111,7 @@
 <translation id="2614835198358683673">您的 Chromebook 可能無法在開機時充電。建議您使用官方提供的充電器。</translation>
 <translation id="4430019312045809116">音量</translation>
 <translation id="4442424173763614572">DNS 查詢失敗</translation>
+<translation id="544691375626129091">現有使用者已全部加入這個工作階段。</translation>
 <translation id="1383876407941801731">搜尋</translation>
 <translation id="2204305834655267233">網路資訊</translation>
 <translation id="1621499497873603021">電池剩餘使用時間：<ph name="TIME_LEFT"/></translation>
@@ -138,10 +140,11 @@
 <translation id="6062360702481658777">您將於 <ph name="LOGOUT_TIME_LEFT"/>後自動登出。</translation>
 <translation id="252373100621549798">顯示器不明</translation>
 <translation id="1882897271359938046">正在建立 <ph name="DISPLAY_NAME"/> 鏡像</translation>
+<translation id="5777841717266010279">停止共用螢幕？</translation>
 <translation id="2727977024730340865">使用低功率充電器，可能導致充電狀態不穩定。</translation>
 <translation id="2761704814324807722">狀態匣：時間 <ph name="TIME"/>，<ph name="BATTERY"/></translation>
 <translation id="3784455785234192852">鎖定</translation>
-<translation id="2805756323405976993">應用服務</translation>
+<translation id="2805756323405976993">應用程式</translation>
 <translation id="5097002363526479830">無法連線至「<ph name="NAME"/>」：<ph name="DETAILS"/></translation>
 <translation id="2872961005593481000">關閉</translation>
 <translation id="3433830597744061105">管理帳戶</translation>
@@ -174,6 +177,7 @@
 <translation id="2999742336789313416"><ph name="DISPLAY_NAME"/> 是受 <ph name="DOMAIN"/> 管理的公開工作階段</translation>
 <translation id="9044646465488564462">無法連線至網路：<ph name="DETAILS"/></translation>
 <translation id="7029814467594812963">結束工作階段</translation>
+<translation id="479989351350248267">search</translation>
 <translation id="4872237917498892622">Alt + 搜尋鍵或 Shift 鍵</translation>
 <translation id="2429753432712299108">藍牙裝置「<ph name="DEVICE_NAME"/>」要求配對權限。接受要求前，請確認裝置顯示以下密碼金鑰：<ph name="PASSKEY"/></translation>
 <translation id="9201131092683066720">電池電量為 <ph name="PERCENTAGE"/>%。</translation>
@@ -224,7 +228,6 @@
 <translation id="5102001756192215136">電量剩餘時間：<ph name="HOUR"/>:<ph name="MINUTE"/></translation>
 <translation id="3009178788565917040">輸出</translation>
 <translation id="520760366042891468">透過 Hangouts 分享螢幕控制權。</translation>
-<translation id="4015692727874266537">使用其他帳戶登入...</translation>
 <translation id="6911468394164995108">加入其他網路...</translation>
 <translation id="3678715477168044796"><ph name="DISPLAY_NAME"/>：<ph name="ANNOTATION"/></translation>
 <translation id="2563856802393254086">恭喜您！您的「<ph name="NAME"/>」數據服務已啟用，隨時可供使用。</translation>

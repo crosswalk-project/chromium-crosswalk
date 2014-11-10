@@ -1,6 +1,4 @@
-<?xml version="1.0" ?>
-<!DOCTYPE translationbundle>
-<translationbundle lang="sk">
+<?xml version="1.0" ?><!DOCTYPE translationbundle><translationbundle lang="sk">
 <translation id="3595596368722241419">Batéria je nabitá</translation>
 <translation id="6895424601869865703">Pridať účet pre používateľa <ph name="GIVEN_NAME"/></translation>
 <translation id="1057289296854808272">Otáčanie je zapnuté (klepnutím tu to zmeníte)</translation>
@@ -15,6 +13,7 @@
 <translation id="6713285437468012787">Zariadenie Bluetooth s názvom <ph name="DEVICE_NAME"/> bolo spárované a je k dispozícii pre všetkých používateľov. Párovanie môžete zrušiť pomocou ponuky Nastavenia.</translation>
 <translation id="7165320105431587207">Sieť sa nepodarilo nakonfigurovať</translation>
 <translation id="3775358506042162758">V rámci viacnásobného prihlásenia môžete mať maximálne tri účty.</translation>
+<translation id="9151726767154816831">Aktualizáciu uskutočníte reštartovaním a použitím funkcie Powerwash</translation>
 <translation id="370649949373421643">Povoliť Wi-Fi</translation>
 <translation id="3626281679859535460">Jas</translation>
 <translation id="3621202678540785336">Vstup</translation>
@@ -26,6 +25,7 @@
 <translation id="5565793151875479467">Server proxy...</translation>
 <translation id="938582441709398163">Prekryvná vrstva klávesnice</translation>
 <translation id="4387004326333427325">Certifikát na overenie totožnosti bol zamietnutý na diaľku</translation>
+<translation id="6047696787498798094">Keď prepnete na iného používateľa, zdieľanie obrazovky sa ukončí. Chcete pokračovať?</translation>
 <translation id="6979158407327259162">Disk Google</translation>
 <translation id="3683428399328702079">Rozlíšenie obrazovky <ph name="DISPLAY_NAME"/> bolo zmenené na <ph name="RESOLUTION"/></translation>
 <translation id="6943836128787782965">Príkaz get protokolu HTTP zlyhal</translation>
@@ -97,6 +97,7 @@
 <translation id="3967919079500697218">Váš správca zakázal zaznamenávanie snímok obrazovky.</translation>
 <translation id="372094107052732682">Ak chcete skončiť, stlačte dvakrát kombináciu kláves Ctrl+Shift+Q.</translation>
 <translation id="923686485342484400">Ak sa chcete odhlásiť, stlačte dvakrát kombináciu klávesov Ctrl, Shift a Q.</translation>
+<translation id="9194617393863864469">Prihlásiť ďalšieho používateľa...</translation>
 <translation id="6803622936009808957">Obraz na monitoroch sa nedá zrkadliť, pretože sa nenašli podporované rozlíšenia. Namiesto toho sa spustil režim rozšírenej pracovnej plochy.</translation>
 <translation id="1480041086352807611">Režim ukážky</translation>
 <translation id="4066708417179825777"><ph name="PRIMARY_ACCOUNT"/> (primárny)</translation>
@@ -110,6 +111,7 @@
 <translation id="2614835198358683673">Chromebook sa nesmie dobíjať v čase, keď je zapnutý. Zvážte použitie oficiálnej nabíjačky.</translation>
 <translation id="4430019312045809116">Hlasitosť</translation>
 <translation id="4442424173763614572">Vyhľadanie DNS zlyhalo</translation>
+<translation id="544691375626129091">Do tejto relácie už boli pridaní všetci dostupní používatelia</translation>
 <translation id="1383876407941801731">Vyhľadávanie</translation>
 <translation id="2204305834655267233">Informácie o sieti</translation>
 <translation id="1621499497873603021">Čas zostávajúci do vybitia batérie: <ph name="TIME_LEFT"/></translation>
@@ -138,6 +140,7 @@
 <translation id="6062360702481658777">Odhlásenie prebehne automaticky o <ph name="LOGOUT_TIME_LEFT"/>.</translation>
 <translation id="252373100621549798">Neznáma obrazovka</translation>
 <translation id="1882897271359938046">Zrkadlenie na displej <ph name="DISPLAY_NAME"/></translation>
+<translation id="5777841717266010279">Chcete ukončiť zdieľanie obrazovky?</translation>
 <translation id="2727977024730340865">Batéria je zapojená do nabíjačky s nízkym výkonom. Nabíjanie batérie nemusí byť spoľahlivé.</translation>
 <translation id="2761704814324807722">Stavový panel, čas <ph name="TIME"/>, <ph name="BATTERY"/></translation>
 <translation id="3784455785234192852">Uzamknúť</translation>
@@ -174,6 +177,7 @@ Správa zo servera: <ph name="SERVER_MSG"/></translation>
 <translation id="2999742336789313416"><ph name="DISPLAY_NAME"/> je verejná relácia spravovaná stránkami <ph name="DOMAIN"/></translation>
 <translation id="9044646465488564462">Nepodarilo sa pripojiť k sieti: <ph name="DETAILS"/></translation>
 <translation id="7029814467594812963">Ukončiť reláciu</translation>
+<translation id="479989351350248267">search</translation>
 <translation id="4872237917498892622">Alt + Hľadať alebo Shift</translation>
 <translation id="2429753432712299108">Zariadenie Bluetooth s názvom <ph name="DEVICE_NAME"/> žiada o povolenie párovania. Skôr ako žiadosti vyhoviete, overte, či sa na danom zariadení zobrazuje nasledujúci prístupový kľúč: <ph name="PASSKEY"/></translation>
 <translation id="9201131092683066720">Batéria je nabitá na <ph name="PERCENTAGE"/> %.</translation>
@@ -224,7 +228,6 @@ Ak ho chcete zrušiť, stlačte klávesy Alt + Hľadať alebo Shift.</translatio
 <translation id="5102001756192215136">zostáva <ph name="HOUR"/>:<ph name="MINUTE"/></translation>
 <translation id="3009178788565917040">Výstup</translation>
 <translation id="520760366042891468">Zdieľanie ovládania obrazovky prostredníctvom služby Hangouts.</translation>
-<translation id="4015692727874266537">Prihláste sa do iného účtu...</translation>
 <translation id="6911468394164995108">Pripojiť k ďalšej...</translation>
 <translation id="3678715477168044796"><ph name="DISPLAY_NAME"/>: <ph name="ANNOTATION"/></translation>
 <translation id="2563856802393254086">Gratulujeme! Dátová služba <ph name="NAME"/> sa aktivovala a je pripravená na použitie.</translation>
