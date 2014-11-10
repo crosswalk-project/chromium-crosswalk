@@ -63,6 +63,31 @@ class CONTENT_EXPORT RenderFrameHostImpl
     : public RenderFrameHost,
       public BrowserAccessibilityDelegate {
  public:
+  // Keeps track of the state of the RenderFrameHostImpl, particularly with
+  // respect to swap out.
+  enum RenderFrameHostImplState {
+    // The standard state for a RFH handling the communication with an active
+    // RenderFrame.
+    STATE_DEFAULT = 0,
+    // The RFH has not received the SwapOutACK yet, but the new page has
+    // committed in a different RFH.  Upon reception of the SwapOutACK, the RFH
+    // will either enter STATE_SWAPPED_OUT (if it is a main frame and there are
+    // other active frames in its SiteInstance) or it will be deleted.
+    STATE_PENDING_SWAP_OUT,
+    // The RFH is swapped out and stored inside a RenderFrameProxyHost, being
+    // used as a placeholder to allow cross-process communication.  Only main
+    // frames can enter this state.
+    STATE_SWAPPED_OUT,
+  };
+  // Helper function to determine whether the RFH state should contribute to the
+  // number of active frames of a SiteInstance or not.
+  static bool IsRFHStateActive(RenderFrameHostImplState rfh_state);
+
+  // An accessibility reset is only allowed to prevent very rare corner cases
+  // or race conditions where the browser and renderer get out of sync. If
+  // this happens more than this many times, kill the renderer.
+  static const int kMaxAccessibilityResets = 5;
+
   static RenderFrameHostImpl* FromID(int process_id, int routing_id);
 
   virtual ~RenderFrameHostImpl();
@@ -293,6 +318,10 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // NULL.
   BrowserAccessibilityManager* GetOrCreateBrowserAccessibilityManager();
 
+  void set_disallow_browser_accessibility_manager_for_testing(bool flag) {
+    disallow_browser_accessibility_manager_for_testing_ = flag;
+  }
+
 #if defined(OS_WIN)
   void SetParentNativeViewAccessible(
       gfx::NativeViewAccessible accessible_parent);
@@ -378,7 +407,8 @@ class CONTENT_EXPORT RenderFrameHostImpl
   void OnBeginNavigation(
       const FrameHostMsg_BeginNavigation_Params& params);
   void OnAccessibilityEvents(
-      const std::vector<AccessibilityHostMsg_EventParams>& params);
+      const std::vector<AccessibilityHostMsg_EventParams>& params,
+      int reset_token);
   void OnAccessibilityLocationChanges(
       const std::vector<AccessibilityHostMsg_LocationChangeParams>& params);
 
@@ -476,12 +506,24 @@ class CONTENT_EXPORT RenderFrameHostImpl
 
   ServiceRegistryImpl service_registry_;
 
+  // The object managing the accessibility tree for this frame.
   scoped_ptr<BrowserAccessibilityManager> browser_accessibility_manager_;
+
+  // This is nonzero if we sent an accessibility reset to the renderer and
+  // we're waiting for an IPC containing this reset token (sequentially
+  // assigned) and a complete replacement accessibility tree.
+  int accessibility_reset_token_;
+
+  // A count of the number of times we needed to reset accessibility, so
+  // we don't keep trying to reset forever.
+  int accessibility_reset_count_;
 
   // Callback when an event is received, for testing.
   base::Callback<void(ui::AXEvent, int)> accessibility_testing_callback_;
   // The most recently received accessibility tree - for testing only.
   scoped_ptr<ui::AXTree> ax_tree_for_testing_;
+  // Flag to not create a BrowserAccessibilityManager, for testing.
+  bool disallow_browser_accessibility_manager_for_testing_;
 
   // NOTE: This must be the last member.
   base::WeakPtrFactory<RenderFrameHostImpl> weak_ptr_factory_;
