@@ -502,9 +502,9 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(extra.width() / 2, text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   int expected_flags = gfx::Canvas::MULTI_LINE |
                        gfx::Canvas::TEXT_ALIGN_CENTER |
                        gfx::Canvas::FORCE_LTR_DIRECTIONALITY;
@@ -520,9 +520,9 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(0, text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   expected_flags = gfx::Canvas::MULTI_LINE |
                    gfx::Canvas::TEXT_ALIGN_LEFT |
                    gfx::Canvas::FORCE_LTR_DIRECTIONALITY;
@@ -537,9 +537,9 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(extra.width(), text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   expected_flags = gfx::Canvas::MULTI_LINE |
                    gfx::Canvas::TEXT_ALIGN_RIGHT |
                    gfx::Canvas::FORCE_LTR_DIRECTIONALITY;
@@ -563,7 +563,7 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(border.left() + extra.width() / 2, text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
   EXPECT_EQ(center_bounds.height(), text_bounds.height());
   expected_flags = gfx::Canvas::MULTI_LINE |
@@ -580,7 +580,7 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(border.left(), text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
   EXPECT_EQ(center_bounds.height(), text_bounds.height());
   expected_flags = gfx::Canvas::MULTI_LINE |
@@ -597,7 +597,7 @@ TEST_F(LabelTest, DrawMultiLineString) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(extra.width() + border.left(), text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
   EXPECT_EQ(center_bounds.height(), text_bounds.height());
   expected_flags = gfx::Canvas::MULTI_LINE |
@@ -764,9 +764,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(extra.width() / 2, text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_CENTER & flags);
 #if !defined(OS_WIN)
@@ -780,9 +780,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(extra.width(), text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_RIGHT & flags);
 #if !defined(OS_WIN)
@@ -795,9 +795,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(0, text_bounds.x());
-  EXPECT_EQ(0, text_bounds.y());
+  EXPECT_EQ(extra.height() / 2, text_bounds.y());
   EXPECT_GT(text_bounds.width(), kMinTextDimension);
-  EXPECT_EQ(text_bounds.height(), label.height());
+  EXPECT_GT(text_bounds.height(), kMinTextDimension);
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_LEFT & flags);
 #if !defined(OS_WIN)
@@ -819,9 +819,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(border.left() + extra.width() / 2, text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
-  EXPECT_EQ(label.GetContentsBounds().height(), text_bounds.height());
+  EXPECT_EQ(center_bounds.height(), text_bounds.height());
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_CENTER & flags);
 #if !defined(OS_WIN)
@@ -834,9 +834,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(border.left() + extra.width(), text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
-  EXPECT_EQ(label.GetContentsBounds().height(), text_bounds.height());
+  EXPECT_EQ(center_bounds.height(), text_bounds.height());
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_RIGHT & flags);
 #if !defined(OS_WIN)
@@ -849,9 +849,9 @@ TEST_F(LabelTest, DrawMultiLineStringInRTL) {
   label.CalculateDrawStringParams(&paint_text, &text_bounds, &flags);
   EXPECT_EQ(label.text(), paint_text);
   EXPECT_EQ(border.left(), text_bounds.x());
-  EXPECT_EQ(border.top(), text_bounds.y());
+  EXPECT_EQ(border.top() + extra.height() / 2, text_bounds.y());
   EXPECT_EQ(center_bounds.width(), text_bounds.width());
-  EXPECT_EQ(label.GetContentsBounds().height(), text_bounds.height());
+  EXPECT_EQ(center_bounds.height(), text_bounds.height());
   EXPECT_TRUE(gfx::Canvas::MULTI_LINE & flags);
   EXPECT_TRUE(gfx::Canvas::TEXT_ALIGN_LEFT & flags);
 #if !defined(OS_WIN)
