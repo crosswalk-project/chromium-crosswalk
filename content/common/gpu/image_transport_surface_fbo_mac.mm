@@ -77,7 +77,7 @@ bool ImageTransportSurfaceFBO::OnMakeCurrent(gfx::GLContext* context) {
   if (made_current_)
     return true;
 
-  OnResize(gfx::Size(1, 1), 1.f);
+  AllocateOrResizeFramebuffer(gfx::Size(1, 1), 1.f);
 
   made_current_ = true;
   return true;
@@ -113,7 +113,7 @@ void ImageTransportSurfaceFBO::AdjustBufferAllocation() {
     DestroyFramebuffer();
     helper_->Suspend();
   } else if (backbuffer_suggested_allocation_ && !has_complete_framebuffer_) {
-    CreateFramebuffer();
+    AllocateOrResizeFramebuffer(pixel_size_, scale_factor_);
   }
 }
 
@@ -125,7 +125,7 @@ bool ImageTransportSurfaceFBO::SwapBuffers() {
 
   // It is the responsibility of the storage provider to send the swap IPC.
   is_swap_buffers_send_pending_ = true;
-  storage_provider_->SwapBuffers(size_, scale_factor_);
+  storage_provider_->SwapBuffers(pixel_size_, scale_factor_);
   return true;
 }
 
@@ -153,7 +153,7 @@ bool ImageTransportSurfaceFBO::SupportsPostSubBuffer() {
 }
 
 gfx::Size ImageTransportSurfaceFBO::GetSize() {
-  return size_;
+  return pixel_size_;
 }
 
 void* ImageTransportSurfaceFBO::GetHandle() {
@@ -170,17 +170,15 @@ void ImageTransportSurfaceFBO::OnBufferPresented(
   storage_provider_->SwapBuffersAckedByBrowser();
 }
 
-void ImageTransportSurfaceFBO::OnResize(gfx::Size size,
+void ImageTransportSurfaceFBO::OnResize(gfx::Size pixel_size,
                                         float scale_factor) {
   TRACE_EVENT2("gpu", "ImageTransportSurfaceFBO::OnResize",
-               "old_width", size_.width(), "new_width", size.width());
+               "old_size", pixel_size_.ToString(),
+               "new_size", pixel_size.ToString());
   // Caching |context_| from OnMakeCurrent. It should still be current.
   DCHECK(context_->IsCurrent(this));
 
-  size_ = size;
-  scale_factor_ = scale_factor;
-
-  CreateFramebuffer();
+  AllocateOrResizeFramebuffer(pixel_size, scale_factor);
 }
 
 void ImageTransportSurfaceFBO::SetLatencyInfo(
@@ -227,18 +225,29 @@ void ImageTransportSurfaceFBO::DestroyFramebuffer() {
   has_complete_framebuffer_ = false;
 }
 
-void ImageTransportSurfaceFBO::CreateFramebuffer() {
-  gfx::Size new_rounded_size = storage_provider_->GetRoundedSize(size_);
+void ImageTransportSurfaceFBO::AllocateOrResizeFramebuffer(
+    const gfx::Size& new_pixel_size, float new_scale_factor) {
+  gfx::Size new_rounded_pixel_size =
+      storage_provider_->GetRoundedSize(new_pixel_size);
 
-  // Only recreate surface when the rounded up size has changed.
-  if (has_complete_framebuffer_ && new_rounded_size == rounded_size_)
+  // Only recreate the surface's storage when the rounded up size has changed,
+  // or the scale factor has changed.
+  bool needs_new_storage =
+      !has_complete_framebuffer_ ||
+      new_rounded_pixel_size != rounded_pixel_size_ ||
+      new_scale_factor != scale_factor_;
+
+  // Save the new storage parameters.
+  pixel_size_ = new_pixel_size;
+  rounded_pixel_size_ = new_rounded_pixel_size;
+  scale_factor_ = new_scale_factor;
+
+  if (!needs_new_storage)
     return;
 
-  TRACE_EVENT2("gpu", "ImageTransportSurfaceFBO::CreateFramebuffer",
-               "width", new_rounded_size.width(),
-               "height", new_rounded_size.height());
-
-  rounded_size_ = new_rounded_size;
+  TRACE_EVENT2("gpu", "ImageTransportSurfaceFBO::AllocateOrResizeFramebuffer",
+               "width", new_rounded_pixel_size.width(),
+               "height", new_rounded_pixel_size.height());
 
   // GL_TEXTURE_RECTANGLE_ARB is the best supported render target on
   // Mac OS X and is required for IOSurface interoperability.
@@ -284,7 +293,8 @@ void ImageTransportSurfaceFBO::CreateFramebuffer() {
       glBindRenderbufferEXT(GL_RENDERBUFFER_EXT,
                             depth_stencil_renderbuffer_id_);
       glRenderbufferStorageEXT(GL_RENDERBUFFER_EXT, GL_DEPTH24_STENCIL8_EXT,
-                              rounded_size_.width(), rounded_size_.height());
+                              rounded_pixel_size_.width(),
+                              rounded_pixel_size_.height());
       glFramebufferRenderbufferEXT(GL_FRAMEBUFFER_EXT,
                                   GL_STENCIL_ATTACHMENT_EXT,
                                   GL_RENDERBUFFER_EXT,
@@ -299,7 +309,7 @@ void ImageTransportSurfaceFBO::CreateFramebuffer() {
 
   bool allocated_color_buffer = storage_provider_->AllocateColorBufferStorage(
       static_cast<CGLContextObj>(context_->GetHandle()), texture_id_,
-      rounded_size_, scale_factor_);
+      rounded_pixel_size_, scale_factor_);
   if (!allocated_color_buffer) {
     DLOG(ERROR) << "Failed to allocate color buffer storage.";
     DestroyFramebuffer();
