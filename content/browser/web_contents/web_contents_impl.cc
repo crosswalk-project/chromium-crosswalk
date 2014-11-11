@@ -1825,6 +1825,14 @@ FrameTree* WebContentsImpl::GetFrameTree() {
   return &frame_tree_;
 }
 
+void WebContentsImpl::SetIsVirtualKeyboardRequested(bool requested) {
+  virtual_keyboard_requested_ = requested;
+}
+
+bool WebContentsImpl::IsVirtualKeyboardRequested() {
+  return virtual_keyboard_requested_;
+}
+
 AccessibilityMode WebContentsImpl::GetAccessibilityMode() const {
   return accessibility_mode_;
 }

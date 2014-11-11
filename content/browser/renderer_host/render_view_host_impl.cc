@@ -1238,6 +1238,7 @@ void RenderViewHostImpl::OnFocusedNodeChanged(bool is_editable_node) {
 #if defined(OS_WIN)
   if (!is_editable_node && virtual_keyboard_requested_) {
     virtual_keyboard_requested_ = false;
+    delegate_->SetIsVirtualKeyboardRequested(false);
     BrowserThread::PostDelayedTask(
         BrowserThread::UI, FROM_HERE,
         base::Bind(base::IgnoreResult(&DismissVirtualKeyboardTask)),
@@ -1462,8 +1463,10 @@ void RenderViewHostImpl::OnFocusedNodeTouched(bool editable) {
 #if defined(OS_WIN)
   if (editable) {
     virtual_keyboard_requested_ = base::win::DisplayVirtualKeyboard();
+    delegate_->SetIsVirtualKeyboardRequested(true);
   } else {
     virtual_keyboard_requested_ = false;
+    delegate_->SetIsVirtualKeyboardRequested(false);
     base::win::DismissVirtualKeyboard();
   }
 #endif

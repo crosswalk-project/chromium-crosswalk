@@ -486,6 +486,8 @@ class CONTENT_EXPORT WebContentsImpl
       SiteInstance* instance) OVERRIDE;
   virtual SessionStorageNamespaceMap GetSessionStorageNamespaceMap() OVERRIDE;
   virtual FrameTree* GetFrameTree() OVERRIDE;
+  void SetIsVirtualKeyboardRequested(bool requested) OVERRIDE;
+  bool IsVirtualKeyboardRequested() OVERRIDE;
 
   // NavigatorDelegate ---------------------------------------------------------
 
@@ -1246,6 +1248,8 @@ class CONTENT_EXPORT WebContentsImpl
   scoped_ptr<WebContentsAudioMuter> audio_muter_;
 
   base::WeakPtrFactory<WebContentsImpl> loading_weak_factory_;
+
+  bool virtual_keyboard_requested_;
 
   DISALLOW_COPY_AND_ASSIGN(WebContentsImpl);
 };
