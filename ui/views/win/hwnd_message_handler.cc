@@ -871,8 +871,7 @@ void HWNDMessageHandler::SetFullscreen(bool fullscreen) {
 void HWNDMessageHandler::SizeConstraintsChanged() {
   LONG style = GetWindowLong(hwnd(), GWL_STYLE);
   // Ignore if this is not a standard window.
-  // WS_OVERLAPPED is just the *absence* of WS_POPUP and WS_CHILD.
-  if ((style & (WS_POPUP | WS_CHILD)) == WS_OVERLAPPED)
+  if (!(style & WS_OVERLAPPED))
     return;
 
   if (delegate_->CanResize()) {
