@@ -363,8 +363,10 @@ void EasyUnlockService::CheckCryptohomeKeysAndMaybeHardlock() {
   }
 
   // No need to compare if a change is already recorded.
-  if (GetHardlockState() == EasyUnlockScreenlockStateHandler::PAIRING_CHANGED)
+  if (GetHardlockState() == EasyUnlockScreenlockStateHandler::PAIRING_CHANGED ||
+      GetHardlockState() == EasyUnlockScreenlockStateHandler::PAIRING_ADDED) {
     return;
+  }
 
   chromeos::EasyUnlockKeyManager* key_manager =
       chromeos::UserSessionManager::GetInstance()->GetEasyUnlockKeyManager();
@@ -594,8 +596,11 @@ void EasyUnlockService::OnCryptohomeKeysFetchedForChecking(
 
   if (paired_devices != devices_in_cryptohome ||
       GetHardlockState() == EasyUnlockScreenlockStateHandler::NO_PAIRING) {
-    SetHardlockStateForUser(user_id,
-                            EasyUnlockScreenlockStateHandler::PAIRING_CHANGED);
+    SetHardlockStateForUser(
+        user_id,
+        devices_in_cryptohome.empty()
+            ? EasyUnlockScreenlockStateHandler::PAIRING_ADDED
+            : EasyUnlockScreenlockStateHandler::PAIRING_CHANGED);
   }
 }
 #endif

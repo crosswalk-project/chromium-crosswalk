@@ -227,6 +227,9 @@ void EasyUnlockScreenlockStateHandler::ShowHardlockUI() {
     } else if (hardlock_state_ == PAIRING_CHANGED) {
       tooltip = l10n_util::GetStringUTF16(
           IDS_EASY_UNLOCK_SCREENLOCK_TOOLTIP_HARDLOCK_PAIRING_CHANGED);
+    } else if (hardlock_state_ == PAIRING_ADDED) {
+      tooltip = l10n_util::GetStringUTF16(
+          IDS_EASY_UNLOCK_SCREENLOCK_TOOLTIP_HARDLOCK_PAIRING_ADDED);
     } else {
       LOG(ERROR) << "Unknown hardlock state " << hardlock_state_;
     }
