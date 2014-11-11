@@ -12,6 +12,7 @@
 #include "chrome/browser/ui/views/constrained_window_views.h"
 #include "chrome/grit/generated_resources.h"
 #include "extensions/common/extension.h"
+#include "ui/aura/window_tracker.h"
 #include "ui/base/l10n/l10n_util.h"
 #include "ui/compositor/compositor.h"
 #include "ui/compositor/layer.h"
@@ -35,7 +36,7 @@ class ExtensionUninstallDialogViews
  public:
   ExtensionUninstallDialogViews(
       Profile* profile,
-      gfx::NativeWindow parent,
+      aura::Window* parent,
       extensions::ExtensionUninstallDialog::Delegate* delegate);
   virtual ~ExtensionUninstallDialogViews();
 
@@ -51,6 +52,12 @@ class ExtensionUninstallDialogViews
   virtual void Show() OVERRIDE;
 
   ExtensionUninstallDialogDelegateView* view_;
+
+  // The dialog's parent window.
+  aura::Window* parent_;
+
+  // Tracks whether |parent_| got destroyed.
+  aura::WindowTracker parent_window_tracker_;
 
   DISALLOW_COPY_AND_ASSIGN(ExtensionUninstallDialogViews);
 };
@@ -103,10 +110,13 @@ class ExtensionUninstallDialogDelegateView : public views::DialogDelegateView {
 
 ExtensionUninstallDialogViews::ExtensionUninstallDialogViews(
     Profile* profile,
-    gfx::NativeWindow parent,
+    aura::Window* parent,
     extensions::ExtensionUninstallDialog::Delegate* delegate)
-    : extensions::ExtensionUninstallDialog(profile, parent, delegate),
-      view_(NULL) {
+    : extensions::ExtensionUninstallDialog(profile, delegate),
+      view_(NULL),
+      parent_(parent) {
+  if (parent_)
+    parent_window_tracker_.Add(parent_);
 }
 
 ExtensionUninstallDialogViews::~ExtensionUninstallDialogViews() {
@@ -118,6 +128,11 @@ ExtensionUninstallDialogViews::~ExtensionUninstallDialogViews() {
 }
 
 void ExtensionUninstallDialogViews::Show() {
+  if (parent_ && !parent_window_tracker_.Contains(parent_)) {
+    delegate_->ExtensionUninstallCanceled();
+    return;
+  }
+
   view_ = new ExtensionUninstallDialogDelegateView(
       this, extension_, triggering_extension_, &icon_);
   CreateBrowserModalDialogViews(view_, parent_)->Show();
