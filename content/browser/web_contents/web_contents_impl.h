@@ -486,8 +486,8 @@ class CONTENT_EXPORT WebContentsImpl
       SiteInstance* instance) OVERRIDE;
   virtual SessionStorageNamespaceMap GetSessionStorageNamespaceMap() OVERRIDE;
   virtual FrameTree* GetFrameTree() OVERRIDE;
-  void SetIsVirtualKeyboardRequested(bool requested) OVERRIDE;
-  bool IsVirtualKeyboardRequested() OVERRIDE;
+  virtual void SetIsVirtualKeyboardRequested(bool requested) OVERRIDE;
+  virtual bool IsVirtualKeyboardRequested() OVERRIDE;
 
   // NavigatorDelegate ---------------------------------------------------------
 
