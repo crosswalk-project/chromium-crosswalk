@@ -586,7 +586,7 @@ const FormatUrlType kFormatUrlOmitAll = kFormatUrlOmitUsernamePassword |
 base::string16 IDNToUnicode(const std::string& host,
                             const std::string& languages) {
 #if defined (USE_ICU_ALTERNATIVES_ON_ANDROID)
-  return base::IDNToUnicode(host, languages);
+  return base::icu_utils::IDNToUnicode(host, languages);
 #else
   return IDNToUnicodeWithAdjustments(host, languages, NULL);
 #endif
