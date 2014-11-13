@@ -1617,10 +1617,12 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
   }
 #endif  // defined(VIDEO_HOLE)
 
+#if !defined(DISABLE_MEDIA_STREAM)
   blink::WebMediaStream web_stream(
       blink::WebMediaStreamRegistry::lookupMediaStreamDescriptor(url));
   if (!web_stream.isNull())
     return CreateWebMediaPlayerForMediaStream(url, client);
+#endif  // !defined(DISABLE_MEDIA_STREAM)
 
 #if defined(OS_ANDROID)
   return CreateAndroidWebMediaPlayer(url, client, initial_cdm);
