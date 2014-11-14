@@ -76,7 +76,7 @@ class SelectFileDialog implements WindowAndroid.IntentCallback {
         camera.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION |
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
         try {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            if (false) {
                 mCameraOutputUri = ContentUriUtils.getContentUriFromFile(
                         context, getFileForImageCapture(context));
             } else {
@@ -92,7 +92,7 @@ class SelectFileDialog implements WindowAndroid.IntentCallback {
         }
 
         camera.putExtra(MediaStore.EXTRA_OUTPUT, mCameraOutputUri);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (false) {
             camera.setClipData(
                     ClipData.newUri(context.getContentResolver(),
                     IMAGE_FILE_PATH, mCameraOutputUri));
@@ -163,7 +163,7 @@ class SelectFileDialog implements WindowAndroid.IntentCallback {
      */
     private File getFileForImageCapture(Context context) throws IOException {
         File path;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+        if (false) {
             path = new File(context.getFilesDir(), IMAGE_FILE_PATH);
             if (!path.exists() && !path.mkdir()) {
                 throw new IOException("Folder cannot be created.");
@@ -202,7 +202,7 @@ class SelectFileDialog implements WindowAndroid.IntentCallback {
         if (results == null) {
             // If we have a successful return but no data, then assume this is the camera returning
             // the photo that we requested.
-            nativeOnFileSelected(mNativeSelectFileDialog, mCameraOutputUri.toString(),
+            nativeOnFileSelected(mNativeSelectFileDialog, mCameraOutputUri.getPath(),
                     mCameraOutputUri.getLastPathSegment());
 
             // Broadcast to the media scanner that there's a new photo on the device so it will
