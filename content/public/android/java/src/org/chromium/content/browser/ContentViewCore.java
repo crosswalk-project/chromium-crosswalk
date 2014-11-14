@@ -618,7 +618,7 @@ public class ContentViewCore
                     public void onImeEvent() {
                         mPopupZoomer.hide(true);
                         getContentViewClient().onImeEvent();
-                        if (mFocusedNodeEditable) hideTextHandles();
+                        if (mFocusedNodeEditable) dismissTextHandles();
                     }
 
                     @Override
@@ -1346,7 +1346,7 @@ public class ContentViewCore
         hidePastePopup();
         hideSelectPopup();
         mPopupZoomer.hide(false);
-        if (mUnselectAllOnActionModeDismiss) hideTextHandles();
+        if (mUnselectAllOnActionModeDismiss) dismissTextHandles();
     }
 
     private void restoreSelectionPopupsIfNecessary() {
@@ -1375,6 +1375,7 @@ public class ContentViewCore
     @SuppressWarnings("javadoc")
     public void onAttachedToWindow() {
         setAccessibilityState(mAccessibilityManager.isEnabled());
+        setTextHandlesTemporarilyHidden(false);
         restoreSelectionPopupsIfNecessary();
         ScreenOrientationListener.getInstance().addObserver(this, mContext);
         GamepadList.onAttachedToWindow(mContext);
@@ -1387,12 +1388,19 @@ public class ContentViewCore
     @SuppressLint("MissingSuperCall")
     public void onDetachedFromWindow() {
         setInjectedAccessibility(false);
-        hidePopupsAndPreserveSelection();
         mZoomControlsDelegate.dismissZoomPicker();
         unregisterAccessibilityContentObserver();
 
         ScreenOrientationListener.getInstance().removeObserver(this);
         GamepadList.onDetachedFromWindow();
+
+        // WebView uses PopupWindows for handle rendering, which may remain
+        // unintentionally visible even after the WebView has been detached.
+        // Override the handle visibility explicitly to address this, but
+        // preserve the underlying selection for detachment cases like screen
+        // locking and app switching.
+        setTextHandlesTemporarilyHidden(true);
+        hidePopupsAndPreserveSelection();
     }
 
     /**
@@ -1945,7 +1953,7 @@ public class ContentViewCore
                 public void onDestroyActionMode() {
                     mActionMode = null;
                     if (mUnselectAllOnActionModeDismiss) {
-                        hideTextHandles();
+                        dismissTextHandles();
                         clearUserSelection();
                     }
                     getContentViewClient().onContextualActionBarHidden();
@@ -2084,10 +2092,15 @@ public class ContentViewCore
         getContentViewClient().onSelectionEvent(eventType, posXDip * scale, posYDip * scale);
     }
 
-    private void hideTextHandles() {
+    private void dismissTextHandles() {
         mHasSelection = false;
         mHasInsertion = false;
-        if (mNativeContentViewCore != 0) nativeHideTextHandles(mNativeContentViewCore);
+        if (mNativeContentViewCore != 0) nativeDismissTextHandles(mNativeContentViewCore);
+    }
+
+    private void setTextHandlesTemporarilyHidden(boolean hide) {
+        if (mNativeContentViewCore == 0) return;
+        nativeSetTextHandlesTemporarilyHidden(mNativeContentViewCore, hide);
     }
 
     /**
@@ -2337,7 +2350,7 @@ public class ContentViewCore
                     @Override
                     public void paste() {
                         mImeAdapter.paste();
-                        hideTextHandles();
+                        dismissTextHandles();
                     }
                 });
         }
@@ -3011,7 +3024,9 @@ public class ContentViewCore
 
     private native void nativeMoveCaret(long nativeContentViewCoreImpl, float x, float y);
 
-    private native void nativeHideTextHandles(long nativeContentViewCoreImpl);
+    private native void nativeDismissTextHandles(long nativeContentViewCoreImpl);
+    private native void nativeSetTextHandlesTemporarilyHidden(
+            long nativeContentViewCoreImpl, boolean hidden);
 
     private native void nativeResetGestureDetection(long nativeContentViewCoreImpl);
 
