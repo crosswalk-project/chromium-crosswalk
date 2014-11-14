@@ -544,6 +544,9 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable media stream support by default.
+      'disable_media_stream%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -794,7 +797,14 @@
         }],
 
         ['OS=="android"', {
-          'enable_webrtc%': 1,
+          'conditions': [
+            ['disable_media_stream==1', {
+              # if media stream is disabled, webrtc should be disabled as well.
+              'enable_webrtc%': 0,
+            }, {
+              'enable_webrtc%': 1,
+            }],
+          ],
         }],
 
         ['OS=="ios"', {
@@ -1177,6 +1187,7 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_media_stream%': '<(disable_media_stream)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -2918,6 +2929,9 @@
       }],
       ['disable_ftp_support==1', {
         'defines': ['DISABLE_FTP_SUPPORT=1'],
+      }],
+      ['disable_media_stream==1', {
+        'defines': ['DISABLE_MEDIA_STREAM=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
