@@ -559,6 +559,9 @@
       # Enable media stream support by default.
       'disable_media_stream%': 0,
 
+      # Enable Inspector by default.
+      'disable_inspector%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1224,6 +1227,7 @@
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'disable_media_stream%': '<(disable_media_stream)',
+    'disable_inspector%': '<(disable_inspector)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3004,6 +3008,9 @@
       }],
       ['disable_media_stream==1', {
         'defines': ['DISABLE_MEDIA_STREAM=1'],
+      }],
+      ['disable_inspector==1', {
+        'defines': ['DISABLE_INSPECTOR=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
