@@ -588,6 +588,9 @@
       # Enable angle by default.
       'disable_angle%': 0,
 
+      # Enable Inspector by default.
+      'disable_inspector%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1227,6 +1230,7 @@
     'disable_xslt%': '<(disable_xslt)',
     'disable_webp%': '<(disable_webp)',
     'disable_angle%': '<(disable_angle)',
+    'disable_inspector%': '<(disable_inspector)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3042,6 +3046,9 @@
       }],
       ['OS=="android" and disable_angle==1', {
         'defines': ['DISABLE_ANGLE_ON_ANDROID=1'],
+      }],
+      ['disable_inspector==1', {
+        'defines': ['DISABLE_INSPECTOR=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
