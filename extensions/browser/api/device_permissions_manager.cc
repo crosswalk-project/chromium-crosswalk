@@ -324,11 +324,13 @@ void DevicePermissionsManager::Clear(const std::string& extension_id) {
   DCHECK(CalledOnValidThread());
 
   ClearDevicePermissionEntries(ExtensionPrefs::Get(context_), extension_id);
-  std::map<std::string, DevicePermissions*>::iterator it =
-      extension_id_to_device_permissions_.find(extension_id);
-  if (it != extension_id_to_device_permissions_.end()) {
-    delete it->second;
-    extension_id_to_device_permissions_.erase(it);
+  DevicePermissions* device_permissions = Get(extension_id);
+  if (device_permissions) {
+    for (const auto& device_entry : device_permissions->ephemeral_devices_) {
+      device_entry->RemoveObserver(this);
+    }
+    extension_id_to_device_permissions_.erase(extension_id);
+    delete device_permissions;
   }
 }
 
@@ -340,7 +342,11 @@ DevicePermissionsManager::DevicePermissionsManager(
 
 DevicePermissionsManager::~DevicePermissionsManager() {
   for (const auto& map_entry : extension_id_to_device_permissions_) {
-    delete map_entry.second;
+    DevicePermissions* device_permissions = map_entry.second;
+    for (const auto& device_entry : device_permissions->ephemeral_devices_) {
+      device_entry->RemoveObserver(this);
+    }
+    delete device_permissions;
   }
 }
 
