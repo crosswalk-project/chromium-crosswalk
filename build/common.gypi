@@ -565,6 +565,9 @@
       # Enable XSLT support by deafult.
       'disable_xslt%': 0,
 
+      # Enable Webp support by default.
+      'disable_webp%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1232,6 +1235,7 @@
     'disable_media_stream%': '<(disable_media_stream)',
     'disable_inspector%': '<(disable_inspector)',
     'disable_xslt%': '<(disable_xslt)',
+    'disable_webp%': '<(disable_webp)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3018,6 +3022,9 @@
       }],
       ['disable_xslt==1', {
         'defines': ['DISABLE_XSLT=1'],
+      }],
+      ['disable_webp==1', {
+        'defines': ['DISABLE_WEBP=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
