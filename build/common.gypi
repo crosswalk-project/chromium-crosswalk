@@ -573,6 +573,9 @@
       # Include all resources by default.
       'use_minimum_resources%': 0,
 
+      # Enable XSLT support by deafult.
+      'disable_xslt%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1207,6 +1210,7 @@
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'use_minimum_resources%': '<(use_minimum_resources)',
+    'disable_xslt%': '<(disable_xslt)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3007,6 +3011,9 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['disable_xslt==1', {
+        'defines': ['DISABLE_XSLT=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
