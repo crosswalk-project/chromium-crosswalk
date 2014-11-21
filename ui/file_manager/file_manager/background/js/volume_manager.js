@@ -464,7 +464,8 @@ function VolumeManager() {
    */
   this.driveConnectionState_ = {
     type: VolumeManagerCommon.DriveConnectionType.OFFLINE,
-    reason: VolumeManagerCommon.DriveConnectionReason.NO_SERVICE
+    reason: VolumeManagerCommon.DriveConnectionReason.NO_SERVICE,
+    hasCellularNetworkAccess: false
   };
 
   chrome.fileManagerPrivate.onDriveConnectionStatusChanged.addListener(

@@ -1941,7 +1941,7 @@ var BOTTOM_MARGIN_FOR_PREVIEW_PANEL_PX = 52;
    * @return {boolean} True if those setting items should be shown.
    */
   FileManager.prototype.shouldShowDriveSettings = function() {
-    return this.isOnDrive() && this.isSecretGearMenuShown_;
+    return this.isOnDrive();
   };
 
   /**
