@@ -16,6 +16,7 @@
 #include "chrome/browser/ui/extensions/extension_action_platform_delegate.h"
 #include "chrome/browser/ui/toolbar/toolbar_action_view_delegate.h"
 #include "chrome/common/extensions/api/extension_action/action_info.h"
+#include "extensions/browser/extension_registry.h"
 #include "extensions/common/extension.h"
 #include "extensions/common/manifest_constants.h"
 #include "ui/gfx/image/image_skia.h"
@@ -34,7 +35,9 @@ ExtensionActionViewController::ExtensionActionViewController(
       view_delegate_(nullptr),
       platform_delegate_(ExtensionActionPlatformDelegate::Create(this)),
       icon_factory_(browser->profile(), extension, extension_action, this),
-      icon_observer_(nullptr) {
+      icon_observer_(nullptr),
+      extension_registry_(
+          extensions::ExtensionRegistry::Get(browser_->profile())) {
   DCHECK(extension_action);
   DCHECK(extension_action->action_type() == ActionInfo::TYPE_PAGE ||
          extension_action->action_type() == ActionInfo::TYPE_BROWSER);
@@ -56,10 +59,16 @@ void ExtensionActionViewController::SetDelegate(
 
 gfx::Image ExtensionActionViewController::GetIcon(
     content::WebContents* web_contents) {
+  if (!ExtensionIsValid())
+    return gfx::Image();
+
   return icon_factory_.GetIcon(SessionTabHelper::IdForTab(web_contents));
 }
 
 gfx::ImageSkia ExtensionActionViewController::GetIconWithBadge() {
+  if (!ExtensionIsValid())
+    return gfx::ImageSkia();
+
   content::WebContents* web_contents = view_delegate_->GetCurrentWebContents();
   gfx::Size spacing(0, 3);
   gfx::ImageSkia icon = *GetIcon(web_contents).ToImageSkia();
@@ -70,11 +79,17 @@ gfx::ImageSkia ExtensionActionViewController::GetIconWithBadge() {
 }
 
 base::string16 ExtensionActionViewController::GetActionName() const {
+  if (!ExtensionIsValid())
+    return base::string16();
+
   return base::UTF8ToUTF16(extension_->name());
 }
 
 base::string16 ExtensionActionViewController::GetAccessibleName(
     content::WebContents* web_contents) const {
+  if (!ExtensionIsValid())
+    return base::string16();
+
   std::string title =
       extension_action()->GetTitle(SessionTabHelper::IdForTab(web_contents));
   return base::UTF8ToUTF16(title.empty() ? extension()->name() : title);
@@ -87,12 +102,18 @@ base::string16 ExtensionActionViewController::GetTooltip(
 
 bool ExtensionActionViewController::IsEnabled(
     content::WebContents* web_contents) const {
+  if (!ExtensionIsValid())
+    return false;
+
   return extension_action_->GetIsVisible(
       SessionTabHelper::IdForTab(web_contents));
 }
 
 bool ExtensionActionViewController::HasPopup(
     content::WebContents* web_contents) const {
+  if (!ExtensionIsValid())
+    return false;
+
   int tab_id = SessionTabHelper::IdForTab(web_contents);
   return (tab_id < 0) ? false : extension_action_->HasPopup(tab_id);
 }
@@ -120,6 +141,9 @@ bool ExtensionActionViewController::ExecuteAction(bool by_user) {
 
 bool ExtensionActionViewController::ExecuteAction(PopupShowAction show_action,
                                                   bool grant_tab_permissions) {
+  if (!ExtensionIsValid())
+    return false;
+
   if (extensions::ExtensionActionAPI::Get(browser_->profile())
           ->ExecuteExtensionAction(
               extension_, browser_, grant_tab_permissions) ==
@@ -137,12 +161,18 @@ void ExtensionActionViewController::PaintExtra(
     gfx::Canvas* canvas,
     const gfx::Rect& bounds,
     content::WebContents* web_contents) const {
+  if (!ExtensionIsValid())
+    return;
+
   int tab_id = SessionTabHelper::IdForTab(web_contents);
   if (tab_id >= 0)
     extension_action_->PaintBadge(canvas, bounds, tab_id);
 }
 
 void ExtensionActionViewController::RegisterCommand() {
+  if (!ExtensionIsValid())
+    return;
+
   platform_delegate_->RegisterCommand();
 }
 
@@ -157,9 +187,16 @@ void ExtensionActionViewController::OnIconUpdated() {
     view_delegate_->UpdateState();
 }
 
+bool ExtensionActionViewController::ExtensionIsValid() const {
+  return extension_registry_->enabled_extensions().Contains(extension_->id());
+}
+
 bool ExtensionActionViewController::GetExtensionCommand(
     extensions::Command* command) {
   DCHECK(command);
+  if (!ExtensionIsValid())
+    return false;
+
   CommandService* command_service = CommandService::Get(browser_->profile());
   if (extension_action_->action_type() == ActionInfo::TYPE_PAGE) {
     return command_service->GetPageActionCommand(
@@ -173,6 +210,9 @@ bool ExtensionActionViewController::ShowPopupWithUrl(
     PopupShowAction show_action,
     const GURL& popup_url,
     bool grant_tab_permissions) {
+  if (!ExtensionIsValid())
+    return false;
+
   bool already_showing = platform_delegate_->IsShowingPopup();
 
   // Always hide the current popup, even if it's not owned by this extension.
