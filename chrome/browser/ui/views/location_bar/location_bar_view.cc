@@ -971,8 +971,6 @@ void LocationBarView::Update(const WebContents* contents) {
       browser_->search_model()->voice_search_supported());
   RefreshContentSettingViews();
   generated_credit_card_view_->Update();
-  ZoomBubbleView::CloseBubble();
-  TranslateBubbleView::CloseBubble();
   RefreshZoomView();
   RefreshPageActionViews();
   RefreshTranslateIcon();
@@ -1138,6 +1136,8 @@ bool LocationBarView::RefreshZoomView() {
     return false;
   const bool was_visible = zoom_view_->visible();
   zoom_view_->Update(ZoomController::FromWebContents(web_contents));
+  if (!zoom_view_->visible())
+    ZoomBubbleView::CloseBubble();
   return was_visible != zoom_view_->visible();
 }
 
@@ -1154,6 +1154,8 @@ void LocationBarView::RefreshTranslateIcon() {
   command_updater()->UpdateCommandEnabled(IDC_TRANSLATE_PAGE, enabled);
   translate_icon_view_->SetVisible(enabled);
   translate_icon_view_->SetToggled(language_state.IsPageTranslated());
+  if (!enabled)
+    TranslateBubbleView::CloseBubble();
 }
 
 bool LocationBarView::RefreshManagePasswordsIconView() {
