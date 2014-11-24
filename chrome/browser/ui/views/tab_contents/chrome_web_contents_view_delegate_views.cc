@@ -178,9 +178,6 @@ void ChromeWebContentsViewDelegateViews::ShowDisambiguationPopup(
     const base::Callback<void(ui::GestureEvent*)>& gesture_cb,
     const base::Callback<void(ui::MouseEvent*)>& mouse_cb) {
 #if defined(USE_AURA)
-  if (!browser_defaults::kShowLinkDisambiguationPopup)
-    return;
-
   link_disambiguation_popup_.reset(new LinkDisambiguationPopup);
   link_disambiguation_popup_->Show(
       zoomed_bitmap, target_rect, content, gesture_cb, mouse_cb);
