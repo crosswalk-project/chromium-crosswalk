@@ -339,6 +339,14 @@ public final class PrefServiceBridge {
     }
 
     /**
+     * @return whether the Contextual Search feature is disabled by policy.
+     */
+    public boolean isContextualSearchDisabledByPolicy() {
+        return nativeGetContextualSearchPreferenceIsManaged()
+                && isContextualSearchDisabled();
+    }
+
+    /**
      * @return whether the Contextual Search feature is uninitialized (preference unset by the
      *         user).
      */
@@ -705,6 +713,7 @@ public final class PrefServiceBridge {
     private native void nativeSetPathValuesForAboutChrome();
     private native void nativeSetContextualSearchPreference(String preference);
     private native String nativeGetContextualSearchPreference();
+    private native boolean nativeGetContextualSearchPreferenceIsManaged();
     private native boolean nativeGetSearchSuggestEnabled();
     private native void nativeSetSearchSuggestEnabled(boolean enabled);
     private native boolean nativeGetSearchSuggestManaged();
