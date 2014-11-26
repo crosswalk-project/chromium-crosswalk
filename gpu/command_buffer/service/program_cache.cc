@@ -73,9 +73,13 @@ void ProgramCache::ComputeShaderHash(
     const std::string& str,
     const ShaderTranslatorInterface* translator,
     char* result) const {
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  std::string s(str);
+#else
   std::string s((
       translator ? translator->GetStringForOptionsThatWouldAffectCompilation() :
                    std::string()) + str);
+#endif
   base::SHA1HashBytes(reinterpret_cast<const unsigned char*>(s.c_str()),
                       s.length(), reinterpret_cast<unsigned char*>(result));
 }

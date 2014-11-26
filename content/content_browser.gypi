@@ -1623,6 +1623,11 @@
         '../ui/surface/surface.gyp:surface',
       ],
     }],
+    ['OS=="android" and disable_angle==1', {
+      'dependencies!': [
+        '../third_party/angle/src/build_angle.gyp:commit_id',
+      ],
+    }],
     ['enable_printing!=0', {
       'dependencies': [
         '../printing/printing.gyp:printing',

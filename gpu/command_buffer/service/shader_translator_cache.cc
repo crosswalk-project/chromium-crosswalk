@@ -13,10 +13,13 @@ ShaderTranslatorCache::ShaderTranslatorCache() {
 }
 
 ShaderTranslatorCache::~ShaderTranslatorCache() {
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   DCHECK(cache_.empty());
+#endif
 }
 
 void ShaderTranslatorCache::OnDestruct(ShaderTranslator* translator) {
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   Cache::iterator it = cache_.begin();
   while (it != cache_.end()) {
     if (it->second == translator) {
@@ -25,8 +28,14 @@ void ShaderTranslatorCache::OnDestruct(ShaderTranslator* translator) {
     }
     it++;
   }
+#endif
 }
 
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+scoped_refptr<ShaderTranslator> ShaderTranslatorCache::GetTranslator() {
+  return new ShaderTranslator();
+}
+#else
 scoped_refptr<ShaderTranslator> ShaderTranslatorCache::GetTranslator(
     sh::GLenum shader_type,
     ShShaderSpec shader_spec,
@@ -55,6 +64,7 @@ scoped_refptr<ShaderTranslator> ShaderTranslatorCache::GetTranslator(
     return NULL;
   }
 }
+#endif
 
 }  // namespace gles2
 }  // namespace gpu
