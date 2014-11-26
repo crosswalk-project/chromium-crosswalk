@@ -13,7 +13,9 @@
 #include "base/memory/scoped_ptr.h"
 #include "base/observer_list.h"
 #include "gpu/gpu_export.h"
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 #include "third_party/angle/include/GLSLANG/ShaderLang.h"
+#endif
 
 namespace gfx {
 struct GLVersionInfo;
@@ -36,6 +38,7 @@ class ShaderTranslatorInterface
  public:
   ShaderTranslatorInterface() {}
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   // Initializes the translator.
   // Must be called once before using the translator object.
   virtual bool Init(sh::GLenum shader_type,
@@ -44,6 +47,7 @@ class ShaderTranslatorInterface
                     ShShaderOutput shader_output_language,
                     ShCompileOptions driver_bug_workarounds) = 0;
 
+#endif
   // Translates the given shader source.
   // Returns true if translation is successful, false otherwise.
   // Always fill |info_log| if it's non-null.
@@ -58,9 +62,11 @@ class ShaderTranslatorInterface
                          VaryingMap* varying_map,
                          NameMap* name_map) const = 0;
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   // Return a string that is unique for a specfic set of options that would
   // possibly affect compilation.
   virtual std::string GetStringForOptionsThatWouldAffectCompilation() const = 0;
+#endif
 
  protected:
   virtual ~ShaderTranslatorInterface() {}
@@ -91,12 +97,14 @@ class GPU_EXPORT ShaderTranslator
   static ShShaderOutput GetShaderOutputLanguageForContext(
       const gfx::GLVersionInfo& context_version);
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   // Overridden from ShaderTranslatorInterface.
   bool Init(sh::GLenum shader_type,
             ShShaderSpec shader_spec,
             const ShBuiltInResources* resources,
             ShShaderOutput shader_output_language,
             ShCompileOptions driver_bug_workarounds) override;
+#endif
 
   // Overridden from ShaderTranslatorInterface.
   bool Translate(const std::string& shader_source,
@@ -108,7 +116,9 @@ class GPU_EXPORT ShaderTranslator
                  VaryingMap* varying_map,
                  NameMap* name_map) const override;
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   std::string GetStringForOptionsThatWouldAffectCompilation() const override;
+#endif
 
   void AddDestructionObserver(DestructionObserver* observer);
   void RemoveDestructionObserver(DestructionObserver* observer);
@@ -118,8 +128,10 @@ class GPU_EXPORT ShaderTranslator
 
   int GetCompileOptions() const;
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   ShHandle compiler_;
   ShCompileOptions driver_bug_workarounds_;
+#endif
   base::ObserverList<DestructionObserver> destruction_observers_;
 };
 

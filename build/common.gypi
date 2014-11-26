@@ -621,6 +621,9 @@
       # Enable Webp support by default.
       'disable_webp%': 0,
 
+      # Enable angle by default.
+      'disable_angle%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1235,6 +1238,7 @@
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'disable_xslt%': '<(disable_xslt)',
     'disable_webp%': '<(disable_webp)',
+    'disable_angle%': '<(disable_angle)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3071,6 +3075,9 @@
       }],
       ['disable_webp==1', {
         'defines': ['DISABLE_WEBP=1'],
+      }],
+      ['OS=="android" and disable_angle==1', {
+        'defines': ['DISABLE_ANGLE_ON_ANDROID=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
