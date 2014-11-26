@@ -275,6 +275,11 @@
             '../testing/android/native_test.gyp:native_test_native_code',
           ],
         }],
+        ['OS == "android" and disable_angle==1', {
+          'dependencies!': [
+            '<(angle_path)/src/angle.gyp:translator',
+          ],
+        }],
         # See http://crbug.com/162998#c4 for why this is needed.
         ['OS=="linux" and use_allocator!="none"', {
           'dependencies': [
@@ -384,6 +389,11 @@
         ['OS == "android"', {
           'dependencies': [
             '../testing/android/native_test.gyp:native_test_native_code',
+          ],
+        }],
+        ['OS == "android" and disable_angle == 1', {
+          'dependencies!': [
+            '<(angle_path)/src/angle.gyp:translator',
           ],
         }],
         ['OS == "win"', {
