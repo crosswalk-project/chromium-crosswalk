@@ -1744,6 +1744,11 @@
         'DEBUG_DEVTOOLS=1',
       ],
     }],
+    ['OS=="android" and disable_angle==1', {
+      'dependencies!': [
+        '../third_party/angle/src/angle.gyp:commit_id',
+      ],
+    }],
     ['enable_basic_printing==1 or enable_print_preview==1', {
       'dependencies': [
         '../printing/printing.gyp:printing',

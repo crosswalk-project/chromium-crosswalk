@@ -2951,7 +2951,7 @@ void GLES2DecoderImpl::UpdateCapabilities() {
 
 bool GLES2DecoderImpl::InitializeShaderTranslator() {
   TRACE_EVENT0("gpu", "GLES2DecoderImpl::InitializeShaderTranslator");
-
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   if (!use_shader_translator_) {
     return true;
   }
@@ -3063,6 +3063,10 @@ bool GLES2DecoderImpl::InitializeShaderTranslator() {
     return false;
   }
   return true;
+#else
+  use_shader_translator_ = false;
+  return true;
+#endif
 }
 
 bool GLES2DecoderImpl::GenBuffersHelper(GLsizei n, const GLuint* client_ids) {

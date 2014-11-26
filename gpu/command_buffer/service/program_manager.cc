@@ -1184,6 +1184,7 @@ bool Program::DetectGlobalNameConflicts(std::string* conflicting_name) const {
 
 bool Program::CheckVaryingsPacking(
     Program::VaryingsPackingOption option) const {
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   DCHECK(attached_shaders_[0].get() &&
          attached_shaders_[0]->shader_type() == GL_VERTEX_SHADER &&
          attached_shaders_[1].get() &&
@@ -1228,6 +1229,9 @@ bool Program::CheckVaryingsPacking(
       static_cast<int>(manager_->max_varying_vectors()),
       variables.get(),
       combined_map.size());
+#else
+  return true;
+#endif
 }
 
 void Program::GetProgramInfo(

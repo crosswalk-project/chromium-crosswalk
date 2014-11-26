@@ -148,5 +148,10 @@
         'command_buffer/service/async_pixel_transfer_manager_egl.h',
       ],
     }],
+    ['OS=="android" and disable_angle==1', {
+      'dependencies!': [
+        '<(angle_path)/src/angle.gyp:translator',
+      ],
+    }]
   ],
 }
