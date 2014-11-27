@@ -251,7 +251,9 @@ class NET_EXPORT HttpCache : public HttpTransactionFactory,
   };
 
   class MetadataWriter;
+#if !defined(DISABLE_QUIC_SUPPORT)
   class QuicServerInfoFactoryAdaptor;
+#endif
   class Transaction;
   class WorkItem;
   friend class Transaction;
@@ -390,8 +392,10 @@ class NET_EXPORT HttpCache : public HttpTransactionFactory,
   bool RemovePendingTransactionFromPendingOp(PendingOp* pending_op,
                                              Transaction* trans);
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Instantiates and sets QUIC server info factory.
   void SetupQuicServerInfoFactory(HttpNetworkSession* session);
+#endif
 
   // Resumes processing the pending list of |entry|.
   void ProcessPendingQueue(ActiveEntry* entry);
@@ -443,7 +447,9 @@ class NET_EXPORT HttpCache : public HttpTransactionFactory,
 
   Mode mode_;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   scoped_ptr<QuicServerInfoFactoryAdaptor> quic_server_info_factory_;
+#endif
 
   scoped_ptr<HttpTransactionFactory> network_layer_;
 

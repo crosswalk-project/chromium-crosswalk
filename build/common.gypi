@@ -573,6 +573,9 @@
       # Include all resources by default.
       'use_minimum_resources%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
       # Enable XSLT support by deafult.
       'disable_xslt%': 0,
 
@@ -1216,6 +1219,7 @@
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'use_minimum_resources%': '<(use_minimum_resources)',
+    'disable_quic_support%': '<(disable_quic_support)',
     'disable_xslt%': '<(disable_xslt)',
     'disable_webp%': '<(disable_webp)',
     'disable_angle%': '<(disable_angle)',
@@ -3019,6 +3023,9 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
       }],
       ['disable_xslt==1', {
         'defines': ['DISABLE_XSLT=1'],

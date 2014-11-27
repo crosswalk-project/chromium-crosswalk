@@ -30,7 +30,9 @@
 #include "net/http/http_stream_factory.h"
 #include "net/http/http_stream_factory_impl_request.h"
 #include "net/log/net_log.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/quic_http_stream.h"
+#endif
 #include "net/socket/client_socket_handle.h"
 #include "net/socket/client_socket_pool.h"
 #include "net/socket/client_socket_pool_manager.h"
@@ -97,9 +99,11 @@ HttpStreamFactoryImpl::Job::Job(HttpStreamFactoryImpl* stream_factory,
       waiting_job_(NULL),
       using_ssl_(false),
       using_spdy_(false),
+#if !defined(DISABLE_QUIC_SUPPORT)
       using_quic_(false),
       quic_request_(session_->quic_stream_factory()),
       using_existing_quic_session_(false),
+#endif
       spdy_certificate_error_(OK),
       establishing_tunnel_(false),
       was_npn_negotiated_(false),
@@ -166,7 +170,11 @@ LoadState HttpStreamFactoryImpl::Job::GetLoadState() const {
       return session_->proxy_service()->GetLoadState(pac_request_);
     case STATE_INIT_CONNECTION_COMPLETE:
     case STATE_CREATE_STREAM_COMPLETE:
+#if !defined(DISABLE_QUIC_SUPPORT)
       return using_quic_ ? LOAD_STATE_CONNECTING : connection_->GetLoadState();
+#else
+      return connection_->GetLoadState();
+#endif
     default:
       return LOAD_STATE_IDLE;
   }
@@ -176,10 +184,12 @@ void HttpStreamFactoryImpl::Job::MarkAsAlternate(
     AlternativeService alternative_service) {
   DCHECK(!IsAlternate());
   alternative_service_ = alternative_service;
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (alternative_service.protocol == QUIC) {
     DCHECK(session_->params().enable_quic);
     using_quic_ = true;
   }
+#endif
 }
 
 void HttpStreamFactoryImpl::Job::WaitFor(Job* job) {
@@ -721,8 +731,10 @@ int HttpStreamFactoryImpl::Job::DoResolveProxyComplete(int result) {
         ProxyServer::SCHEME_HTTPS | ProxyServer::SCHEME_SOCKS4 |
         ProxyServer::SCHEME_SOCKS5;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
     if (session_->params().enable_quic_for_proxies)
       supported_proxies |= ProxyServer::SCHEME_QUIC;
+#endif
 
     proxy_info_.RemoveProxiesWithoutScheme(supported_proxies);
 
@@ -730,11 +742,13 @@ int HttpStreamFactoryImpl::Job::DoResolveProxyComplete(int result) {
       // No proxies/direct to choose from. This happens when we don't support
       // any of the proxies in the returned list.
       result = ERR_NO_SUPPORTED_PROXIES;
+#if !defined(DISABLE_QUIC_SUPPORT)
     } else if (using_quic_ &&
                (!proxy_info_.is_quic() && !proxy_info_.is_direct())) {
       // QUIC can not be spoken to non-QUIC proxies.  This error should not be
       // user visible, because the non-alternate job should be resumed.
       result = ERR_NO_SUPPORTED_PROXIES;
+#endif
     }
   }
 
@@ -753,11 +767,13 @@ int HttpStreamFactoryImpl::Job::DoResolveProxyComplete(int result) {
   return OK;
 }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 bool HttpStreamFactoryImpl::Job::ShouldForceQuic() const {
   return session_->params().enable_quic &&
          session_->params().origin_to_force_quic_on.Equals(server_) &&
          proxy_info_.is_direct();
 }
+#endif
 
 int HttpStreamFactoryImpl::Job::DoWaitForJob() {
   DCHECK(blocking_job_);
@@ -786,6 +802,7 @@ int HttpStreamFactoryImpl::Job::DoInitConnection() {
                IsSpdyAlternate();
   using_spdy_ = false;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (ShouldForceQuic())
     using_quic_ = true;
 
@@ -854,6 +871,8 @@ int HttpStreamFactoryImpl::Job::DoInitConnection() {
     }
     return rv;
   }
+
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
   SpdySessionKey spdy_session_key = GetSpdySessionKey();
 
@@ -942,8 +961,10 @@ int HttpStreamFactoryImpl::Job::DoInitConnection() {
 
 int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
   if (IsPreconnecting()) {
+#if !defined(DISABLE_QUIC_SUPPORT)
     if (using_quic_)
       return result;
+#endif
     DCHECK_EQ(OK, result);
     return OK;
   }
@@ -991,11 +1012,13 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
                                     connection_->is_ssl_error());
 
   if (ssl_started && (result == OK || IsCertificateError(result))) {
+#if !defined(DISABLE_QUIC_SUPPORT)
     if (using_quic_ && result == OK) {
       was_npn_negotiated_ = true;
       protocol_negotiated_ =
           SSLClientSocket::NextProtoFromString("quic/1+spdy/3");
     } else {
+#endif
       SSLClientSocket* ssl_socket =
           static_cast<SSLClientSocket*>(connection_->socket());
       if (ssl_socket->WasNpnNegotiated()) {
@@ -1011,7 +1034,9 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
         if (NextProtoIsSPDY(protocol_negotiated_))
           SwitchToSpdyMode();
       }
+#if !defined(DISABLE_QUIC_SUPPORT)
     }
+#endif
   } else if (proxy_info_.is_https() && connection_->socket() &&
         result == OK) {
     ProxyClientSocket* proxy_socket =
@@ -1051,6 +1076,7 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
     return result;
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (using_quic_) {
     if (result < 0) {
       job_status_ = STATUS_BROKEN;
@@ -1061,6 +1087,7 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
     next_state_ = STATE_NONE;
     return OK;
   }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
   if (result < 0 && !ssl_started)
     return ReconsiderProxyAfterError(result);
@@ -1128,7 +1155,11 @@ int HttpStreamFactoryImpl::Job::DoCreateStream() {
   tracked_objects::ScopedTracker tracking_profile(
       FROM_HERE_WITH_EXPLICIT_FUNCTION(
           "462811 HttpStreamFactoryImpl::Job::DoCreateStream"));
+#if !defined(DISABLE_QUIC_SUPPORT)
   DCHECK(connection_->socket() || existing_spdy_session_.get() || using_quic_);
+#else
+  DCHECK(connection_->socket() || existing_spdy_session_.get());
+#endif
   if (IsAlternate())
     DCHECK(IsSpdyAlternate());
 
@@ -1455,11 +1486,15 @@ bool HttpStreamFactoryImpl::Job::IsOrphaned() const {
 }
 
 void HttpStreamFactoryImpl::Job::ReportJobSucceededForRequest() {
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (using_existing_quic_session_) {
     // If an existing session was used, then no TCP connection was
     // started.
     HistogramAlternateProtocolUsage(ALTERNATE_PROTOCOL_USAGE_NO_RACE);
   } else if (IsAlternate()) {
+#else
+  if (IsAlternate()) {
+#endif
     // This job was the alternate protocol job, and hence won the race.
     HistogramAlternateProtocolUsage(ALTERNATE_PROTOCOL_USAGE_WON_RACE);
   } else {
