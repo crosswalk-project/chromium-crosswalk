@@ -12,6 +12,7 @@ namespace cronet {
 #include "components/cronet/url_request_context_config_list.h"
 #undef DEFINE_CONTEXT_CONFIG
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 URLRequestContextConfig::QuicHint::QuicHint() {
 }
 
@@ -30,6 +31,7 @@ void URLRequestContextConfig::QuicHint::RegisterJSONConverter(
       REQUEST_CONTEXT_CONFIG_QUIC_HINT_ALT_PORT,
       &URLRequestContextConfig::QuicHint::alternate_port);
 }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
 URLRequestContextConfig::URLRequestContextConfig() {
 }
@@ -56,15 +58,21 @@ void URLRequestContextConfig::ConfigureURLRequestContextBuilder(
     context_builder->DisableHttpCache();
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   context_builder->SetSpdyAndQuicEnabled(enable_spdy, enable_quic);
+#else
+  context_builder->SetSpdyAndQuicEnabled(enable_spdy, false);
+#endif
   // TODO(mef): Use |config| to set cookies.
 }
 
 // static
 void URLRequestContextConfig::RegisterJSONConverter(
     base::JSONValueConverter<URLRequestContextConfig>* converter) {
+#if !defined(DISABLE_QUIC_SUPPORT)
   converter->RegisterBoolField(REQUEST_CONTEXT_CONFIG_ENABLE_QUIC,
                                &URLRequestContextConfig::enable_quic);
+#endif
   converter->RegisterBoolField(REQUEST_CONTEXT_CONFIG_ENABLE_SPDY,
                                &URLRequestContextConfig::enable_spdy);
   converter->RegisterStringField(REQUEST_CONTEXT_CONFIG_HTTP_CACHE,

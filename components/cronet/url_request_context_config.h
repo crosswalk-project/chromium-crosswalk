@@ -20,6 +20,7 @@ namespace cronet {
 // Common configuration parameters used by Cronet to configure
 // URLRequestContext. Can be parsed from JSON string passed through JNI.
 struct URLRequestContextConfig {
+#if !defined(DISABLE_QUIC_SUPPORT)
   // App-provided hint that server supports QUIC.
   struct QuicHint {
     QuicHint();
@@ -39,6 +40,7 @@ struct URLRequestContextConfig {
    private:
     DISALLOW_COPY_AND_ASSIGN(QuicHint);
   };
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
   URLRequestContextConfig();
   ~URLRequestContextConfig();
@@ -51,8 +53,10 @@ struct URLRequestContextConfig {
   static void RegisterJSONConverter(
       base::JSONValueConverter<URLRequestContextConfig>* converter);
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Enable QUIC.
   bool enable_quic;
+#endif
   // Enable SPDY.
   bool enable_spdy;
   // Type of http cache: "HTTP_CACHE_DISABLED", "HTTP_CACHE_DISK" or
@@ -62,8 +66,10 @@ struct URLRequestContextConfig {
   int http_cache_max_size;
   // Storage path for http cache and cookie storage.
   std::string storage_path;
+#if !defined(DISABLE_QUIC_SUPPORT)
   // App-provided list of servers that support QUIC.
   ScopedVector<QuicHint> quic_hints;
+#endif
 
  private:
   DISALLOW_COPY_AND_ASSIGN(URLRequestContextConfig);
