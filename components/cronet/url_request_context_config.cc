@@ -6,8 +6,10 @@
 
 #include "base/json/json_reader.h"
 #include "base/values.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/quic_protocol.h"
 #include "net/quic/quic_utils.h"
+#endif
 #include "net/url_request/url_request_context_builder.h"
 
 namespace cronet {
@@ -16,6 +18,7 @@ namespace cronet {
 #include "components/cronet/url_request_context_config_list.h"
 #undef DEFINE_CONTEXT_CONFIG
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 URLRequestContextConfig::QuicHint::QuicHint() {
 }
 
@@ -34,6 +37,7 @@ void URLRequestContextConfig::QuicHint::RegisterJSONConverter(
       REQUEST_CONTEXT_CONFIG_QUIC_HINT_ALT_PORT,
       &URLRequestContextConfig::QuicHint::alternate_port);
 }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
 URLRequestContextConfig::URLRequestContextConfig() {
 }
@@ -74,10 +78,15 @@ void URLRequestContextConfig::ConfigureURLRequestContextBuilder(
   } else {
     context_builder->DisableHttpCache();
   }
+
   context_builder->set_user_agent(user_agent);
+#if !defined(DISABLE_QUIC_SUPPORT)
   context_builder->SetSpdyAndQuicEnabled(enable_spdy, enable_quic);
   context_builder->set_quic_connection_options(
       net::QuicUtils::ParseQuicConnectionOptions(quic_connection_options));
+#else
+  context_builder->SetSpdyAndQuicEnabled(enable_spdy, false);
+#endif
   // TODO(mef): Use |config| to set cookies.
 }
 
@@ -88,8 +97,6 @@ void URLRequestContextConfig::RegisterJSONConverter(
                                  &URLRequestContextConfig::user_agent);
   converter->RegisterStringField(REQUEST_CONTEXT_CONFIG_STORAGE_PATH,
                                  &URLRequestContextConfig::storage_path);
-  converter->RegisterBoolField(REQUEST_CONTEXT_CONFIG_ENABLE_QUIC,
-                               &URLRequestContextConfig::enable_quic);
   converter->RegisterBoolField(REQUEST_CONTEXT_CONFIG_ENABLE_SPDY,
                                &URLRequestContextConfig::enable_spdy);
   converter->RegisterStringField(REQUEST_CONTEXT_CONFIG_HTTP_CACHE,
@@ -100,9 +107,13 @@ void URLRequestContextConfig::RegisterJSONConverter(
                               &URLRequestContextConfig::http_cache_max_size);
   converter->RegisterRepeatedMessage(REQUEST_CONTEXT_CONFIG_QUIC_HINTS,
                                      &URLRequestContextConfig::quic_hints);
+#if !defined(DISABLE_QUIC_SUPPORT)
+  converter->RegisterBoolField(REQUEST_CONTEXT_CONFIG_ENABLE_QUIC,
+                               &URLRequestContextConfig::enable_quic);
   converter->RegisterStringField(
       REQUEST_CONTEXT_CONFIG_QUIC_OPTIONS,
       &URLRequestContextConfig::quic_connection_options);
+#endif
 }
 
 }  // namespace cronet

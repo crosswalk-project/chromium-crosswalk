@@ -74,8 +74,10 @@ class NET_EXPORT URLRequestContextBuilder {
     NextProtoVector next_protos;
     std::string trusted_spdy_proxy;
     bool use_alternate_protocols;
+#if !defined(DISABLE_QUIC_SUPPORT)
     bool enable_quic;
     QuicTagVector quic_connection_options;
+#endif
   };
 
   URLRequestContextBuilder();
@@ -166,11 +168,13 @@ class NET_EXPORT URLRequestContextBuilder {
   void SetSpdyAndQuicEnabled(bool spdy_enabled,
                              bool quic_enabled);
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   void set_quic_connection_options(
       const QuicTagVector& quic_connection_options) {
     http_network_session_params_.quic_connection_options =
         quic_connection_options;
   }
+#endif
 
   void set_throttling_enabled(bool throttling_enabled) {
     throttling_enabled_ = throttling_enabled;

@@ -542,6 +542,9 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1166,6 +1169,7 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_quic_support%': '<(disable_quic_support)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -2925,6 +2929,9 @@
       }],
       ['disable_ftp_support==1', {
         'defines': ['DISABLE_FTP_SUPPORT=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
