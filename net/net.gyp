@@ -135,6 +135,15 @@
             ],
           },
         ],
+        ['disable_quic_support==1', {
+          'sources/': [
+            ['exclude', '^quic/'],
+          ],
+          'sources!': [
+            'http/disk_cache_based_quic_server_info.cc',
+            'http/disk_cache_based_quic_server_info.h',
+          ],
+        }],
       ],
       'includes': [ 'net_common.gypi' ],
     },
@@ -302,6 +311,18 @@
             ],
             'sources!': [
               'url_request/url_request_ftp_job_unittest.cc',
+            ],
+          },
+        ],
+        [ 'disable_quic_support==1', {
+            'sources/': [
+              ['exclude', '^quic/'],
+            ],
+            'sources!': [
+              'http/disk_cache_based_quic_server_info_unittest.cc',
+            ],
+            'dependencies!': [
+              'quic_tools',
             ],
           },
         ],

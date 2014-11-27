@@ -556,6 +556,9 @@
       # Enable web audio hrtf by default.
       'disable_webaudio_hrtf%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
       # Enable media stream support by default.
       'disable_media_stream%': 0,
 
@@ -1235,6 +1238,7 @@
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
+    'disable_quic_support%': '<(disable_quic_support)',
     'disable_media_stream%': '<(disable_media_stream)',
     'disable_inspector%': '<(disable_inspector)',
     'disable_xslt%': '<(disable_xslt)',
@@ -3017,6 +3021,9 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
       }],
       ['disable_media_stream==1', {
         'defines': ['DISABLE_MEDIA_STREAM=1'],
