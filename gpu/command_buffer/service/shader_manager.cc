@@ -79,6 +79,12 @@ void Shader::DoCompile() {
       return;
     }
     source_for_driver = translated_source_.c_str();
+  } else {
+    log_info_ = "";
+    attrib_map_.clear();
+    uniform_map_.clear();
+    varying_map_.clear();
+    name_map_.clear();
   }
 
   glShaderSource(service_id_, 1, &source_for_driver, NULL);
