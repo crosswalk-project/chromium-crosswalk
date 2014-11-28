@@ -27,6 +27,7 @@ void Shader::DoCompile(ShaderTranslatorInterface* translator,
   // Translate GL ES 2.0 shader to Desktop GL shader and pass that to
   // glShaderSource and then glCompileShader.
   const char* source_for_driver = source_.c_str();
+  signature_source_ = source_;
   if (translator) {
     valid_ = translator->Translate(source_,
                                    &log_info_,
@@ -38,8 +39,13 @@ void Shader::DoCompile(ShaderTranslatorInterface* translator,
     if (!valid_) {
       return;
     }
-    signature_source_ = source_;
     source_for_driver = translated_source_.c_str();
+  } else {
+    log_info_ = "";
+    attrib_map_.clear();
+    uniform_map_.clear();
+    varying_map_.clear();
+    name_map_.clear();
   }
 
   glShaderSource(service_id_, 1, &source_for_driver, NULL);
@@ -79,6 +85,8 @@ void Shader::DoCompile(ShaderTranslatorInterface* translator,
         << "\n--original-shader--\n" << source_
         << "\n--translated-shader--\n" << source_for_driver
         << "\n--info-log--\n" << log_info_;
+  } else {
+    valid_ = true;
   }
 }
 
