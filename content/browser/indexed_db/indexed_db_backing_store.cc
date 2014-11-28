@@ -3905,7 +3905,7 @@ void IndexedDBBackingStore::Transaction::Begin() {
     incognito_blob_map_[iter->first] = iter->second->Clone().release();
 }
 
-static GURL getURLFromUUID(const string& uuid) {
+static GURL getURLFromUUID(const std::string& uuid) {
   return GURL("blob:uuid/" + uuid);
 }
 
