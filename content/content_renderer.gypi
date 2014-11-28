@@ -819,6 +819,11 @@
         'renderer/media/webrtc_logging_noop.cc',
       ],
     }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^renderer/android/synchronous_compositor*'],
+      ],
+    }],
     ['enable_plugins==1', {
       'sources': [
         '<@(public_renderer_plugin_sources)',

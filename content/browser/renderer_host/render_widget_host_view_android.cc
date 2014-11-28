@@ -38,7 +38,9 @@
 #include "content/browser/android/content_view_core_impl.h"
 #include "content/browser/android/edge_effect.h"
 #include "content/browser/android/edge_effect_l.h"
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 #include "content/browser/android/in_process/synchronous_compositor_impl.h"
+#endif
 #include "content/browser/android/overscroll_controller_android.h"
 #include "content/browser/devtools/render_frame_devtools_agent_host.h"
 #include "content/browser/gpu/browser_gpu_channel_host_factory.h"
@@ -390,7 +392,11 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
       gesture_provider_(CreateGestureProviderConfig(), this),
       stylus_text_selector_(this),
       accelerated_surface_route_id_(0),
+#if !defined(DISABLE_SYNC_COMPOSITOR)
       using_browser_compositor_(CompositorImpl::IsInitialized()),
+#else
+      using_browser_compositor_(true),
+#endif
       frame_evictor_(new DelegatedFrameEvictor(this)),
       locks_on_frame_count_(0),
       observing_root_window_(false),
@@ -1003,6 +1009,7 @@ void RenderWidgetHostViewAndroid::CopyFromCompositingSurface(
   gfx::Rect src_subrect_in_pixel =
       gfx::ConvertRectToPixel(device_scale_factor, src_subrect);
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (!using_browser_compositor_) {
     SynchronousCopyContents(src_subrect_in_pixel, dst_size_in_pixel, callback,
                             color_type);
@@ -1010,6 +1017,7 @@ void RenderWidgetHostViewAndroid::CopyFromCompositingSurface(
                         base::TimeTicks::Now() - start_time);
     return;
   }
+#endif
 
   scoped_ptr<cc::CopyOutputRequest> request;
   scoped_refptr<cc::Layer> readback_layer;
@@ -1402,6 +1410,7 @@ RenderWidgetHostViewAndroid::CreateDrawable() {
       content_view_core_->GetContext().obj()));
 }
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 void RenderWidgetHostViewAndroid::SynchronousCopyContents(
     const gfx::Rect& src_subrect_in_pixel,
     const gfx::Size& dst_size_in_pixel,
@@ -1441,6 +1450,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
   compositor->DemandDrawSw(&canvas);
   callback.Run(bitmap, READBACK_SUCCESS);
 }
+#endif
 
 void RenderWidgetHostViewAndroid::OnFrameMetadataUpdated(
     const cc::CompositorFrameMetadata& frame_metadata) {
@@ -1677,11 +1687,13 @@ InputEventAckState RenderWidgetHostViewAndroid::FilterInputEvent(
           new AcceleratedSurfaceMsg_WakeUpGpu(accelerated_surface_route_id_));
   }
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorImpl* compositor =
       SynchronousCompositorImpl::FromID(host_->GetProcess()->GetID(),
                                           host_->GetRoutingID());
   if (compositor)
     return compositor->HandleInputEvent(input_event);
+#endif
   return INPUT_EVENT_ACK_STATE_NOT_CONSUMED;
 }
 
