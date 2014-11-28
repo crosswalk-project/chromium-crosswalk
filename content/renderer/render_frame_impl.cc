@@ -5025,10 +5025,12 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
     WebMediaPlayerEncryptedMediaClient* encrypted_client,
     const media::WebMediaPlayerParams& params) {
   scoped_refptr<StreamTextureFactory> stream_texture_factory;
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     stream_texture_factory = factory->CreateStreamTextureFactory(routing_id_);
   } else {
+#endif
     GpuChannelHost* gpu_channel_host =
         RenderThreadImpl::current()->EstablishGpuChannelSync(
             CAUSE_FOR_GPU_LAUNCH_VIDEODECODEACCELERATOR_INITIALIZE);
@@ -5048,7 +5050,9 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
 
     stream_texture_factory = StreamTextureFactoryImpl::Create(
         context_provider, gpu_channel_host, routing_id_);
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   }
+#endif
 
   return new WebMediaPlayerAndroid(
       frame_, client, encrypted_client, weak_factory_.GetWeakPtr(),

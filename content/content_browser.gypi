@@ -2122,6 +2122,12 @@
         'browser/media/capture/desktop_capture_device_aura.h',
       ],
     }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^browser/android/in_process/'],
+        ['exclude', '^public/browser/android/synchronous_compositor*'],
+      ],
+    }],
     ['OS=="win"', {
       'dependencies': [
         # For accessibility
