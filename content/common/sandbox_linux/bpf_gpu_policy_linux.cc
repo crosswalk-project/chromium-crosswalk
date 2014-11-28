@@ -299,9 +299,7 @@ bool GpuProcessPolicy::PreSandboxHook() {
 
 #if defined(OS_TIZEN)
       if (IsArchitectureX86_64()) {
-        // TODO(halton): Add 64-bit VA driver when 64-bit Tizen support
-        // is ready.
-        return false;
+        I965DrvVideoPath = "/usr/lib64/dri/i965_dri.so";
       } else if (IsArchitectureI386()) {
         I965DrvVideoPath = "/usr/lib/dri/i965_dri.so";
       }
