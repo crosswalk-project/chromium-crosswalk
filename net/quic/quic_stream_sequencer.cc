@@ -102,8 +102,8 @@ void QuicStreamSequencer::OnStreamFrame(const QuicStreamFrame& frame) {
   for (size_t i = 0; i < data.Size(); ++i) {
     DVLOG(1) << "Buffering stream data at offset " << byte_offset;
     const iovec& iov = data.iovec()[i];
-    buffered_frames_.insert(std::make_pair(
-        byte_offset, string(static_cast<char*>(iov.iov_base), iov.iov_len)));
+    buffered_frames_.insert(make_pair(
+        byte_offset, std::string(static_cast<char*>(iov.iov_base), iov.iov_len)));
     byte_offset += iov.iov_len;
     num_bytes_buffered_ += iov.iov_len;
   }
@@ -266,7 +266,7 @@ void QuicStreamSequencer::FlushBufferedFrames() {
   FrameMap::iterator it = buffered_frames_.find(num_bytes_consumed_);
   while (it != buffered_frames_.end()) {
     DVLOG(1) << "Flushing buffered packet at offset " << it->first;
-    string* data = &it->second;
+    std::string* data = &it->second;
     size_t bytes_consumed = stream_->ProcessRawData(data->c_str(),
                                                     data->size());
     RecordBytesConsumed(bytes_consumed);
@@ -280,7 +280,7 @@ void QuicStreamSequencer::FlushBufferedFrames() {
       buffered_frames_.erase(it);
       it = buffered_frames_.find(num_bytes_consumed_);
     } else {
-      string new_data = it->second.substr(bytes_consumed);
+      std::string new_data = it->second.substr(bytes_consumed);
       buffered_frames_.erase(it);
       buffered_frames_.insert(std::make_pair(num_bytes_consumed_, new_data));
       return;
