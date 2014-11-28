@@ -45,7 +45,9 @@
 #include "ui/native_theme/native_theme_switches.h"
 
 #if defined(OS_ANDROID)
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 #include "content/renderer/android/synchronous_compositor_factory.h"
+#endif
 #include "ui/gfx/android/device_display_info.h"
 #endif
 
@@ -344,6 +346,7 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
       cmd->HasSwitch(cc::switches::kStrictLayerPropertyChangeChecking);
 
 #if defined(OS_ANDROID)
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorFactory* synchronous_compositor_factory =
       SynchronousCompositorFactory::GetInstance();
 
@@ -354,18 +357,28 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
       synchronous_compositor_factory->RecordFullLayer();
   settings.report_overscroll_only_for_scrollable_axes =
       !synchronous_compositor_factory;
+#else
+  settings.using_synchronous_renderer_compositor = false;
+  settings.record_full_layer = false;
+  settings.report_overscroll_only_for_scrollable_axes = true;
+#endif
   settings.max_partial_texture_updates = 0;
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (synchronous_compositor_factory) {
     // Android WebView uses system scrollbars, so make ours invisible.
     settings.scrollbar_animator = cc::LayerTreeSettings::NoAnimator;
     settings.solid_color_scrollbar_color = SK_ColorTRANSPARENT;
   } else {
+#endif
     settings.scrollbar_animator = cc::LayerTreeSettings::LinearFade;
     settings.scrollbar_fade_delay_ms = 300;
     settings.scrollbar_fade_duration_ms = 300;
     settings.solid_color_scrollbar_color = SkColorSetARGB(128, 128, 128, 128);
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   }
+#endif
   settings.highp_threshold_min = 2048;
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   // Android WebView handles root layer flings itself.
   settings.ignore_root_layer_flings =
       synchronous_compositor_factory;
@@ -373,6 +386,10 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
   // low end, so always use default policy.
   bool is_low_end_device =
       base::SysInfo::IsLowEndDevice() && !synchronous_compositor_factory;
+#else
+  settings.ignore_root_layer_flings = false;
+  bool is_low_end_device = base::SysInfo::IsLowEndDevice();
+#endif
   // RGBA_4444 textures are only enabled for low end devices
   // and are disabled for Android WebView as it doesn't support the format.
   settings.use_rgba_4444_textures = is_low_end_device;
@@ -388,8 +405,12 @@ scoped_ptr<RenderWidgetCompositor> RenderWidgetCompositor::Create(
     settings.max_memory_for_prepaint_percentage = 50;
   }
   // Webview does not own the surface so should not clear it.
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   settings.should_clear_root_render_pass =
       !synchronous_compositor_factory;
+#else
+  settings.should_clear_root_render_pass = true;
+#endif
 
   // TODO(danakj): Only do this on low end devices.
   settings.create_low_res_tiling = true;

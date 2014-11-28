@@ -550,6 +550,9 @@
       # Enable Inspector by default.
       'disable_inspector%': 0,
 
+      # Enable sync compositor by default.
+      'disable_sync_compositor%': 0,
+
       # Enable XSLT support by deafult.
       'disable_xslt%': 0,
 
@@ -1198,6 +1201,7 @@
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_media_stream%': '<(disable_media_stream)',
     'disable_inspector%': '<(disable_inspector)',
+    'disable_sync_compositor%': '<(disable_sync_compositor)',
     'disable_xslt%': '<(disable_xslt)',
     'disable_webp%': '<(disable_webp)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
@@ -2947,6 +2951,9 @@
       }],
       ['disable_inspector==1', {
         'defines': ['DISABLE_INSPECTOR=1'],
+      }],
+      ['disable_sync_compositor==1', {
+        'defines': ['DISABLE_SYNC_COMPOSITOR=1'],
       }],
       ['disable_xslt==1', {
         'defines': ['DISABLE_XSLT=1'],

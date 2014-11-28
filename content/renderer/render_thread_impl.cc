@@ -127,7 +127,9 @@
 
 #if defined(OS_ANDROID)
 #include <cpu-features.h>
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 #include "content/renderer/android/synchronous_compositor_factory.h"
+#endif
 #include "content/renderer/media/android/renderer_demuxer_android.h"
 #endif
 
@@ -851,7 +853,7 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
 
   bool enable = !command_line.HasSwitch(switches::kDisableThreadedCompositing);
   if (enable) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     if (SynchronousCompositorFactory* factory =
         SynchronousCompositorFactory::GetInstance())
       compositor_message_loop_proxy_ =
@@ -872,7 +874,7 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
     }
 
     InputHandlerManagerClient* input_handler_manager_client = NULL;
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     if (SynchronousCompositorFactory* factory =
         SynchronousCompositorFactory::GetInstance()) {
       input_handler_manager_client = factory->GetInputHandlerManagerClient();
@@ -1138,7 +1140,7 @@ RenderThreadImpl::SharedMainThreadContextProvider() {
   if (!shared_main_thread_contexts_.get() ||
       shared_main_thread_contexts_->DestroyedOnMainThread()) {
     shared_main_thread_contexts_ = NULL;
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     if (SynchronousCompositorFactory* factory =
             SynchronousCompositorFactory::GetInstance()) {
       shared_main_thread_contexts_ = factory->CreateOffscreenContextProvider(

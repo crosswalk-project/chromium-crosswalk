@@ -793,6 +793,11 @@
         'renderer/media/webrtc_logging.h',
       ],
     }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^renderer/android/synchronous_compositor*'],
+      ],
+    }],
     ['enable_plugins==1', {
       'sources': [
         '<@(private_renderer_plugin_sources)',
