@@ -275,6 +275,10 @@ public class BrowserAccessibilityManager {
                 }
                 return previousAtGranularity(granularity, extend);
             }
+            case AccessibilityNodeInfo.ACTION_SCROLL_FORWARD:
+                return nativeAdjustSlider(mNativeObj, virtualViewId, true);
+            case AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD:
+                return nativeAdjustSlider(mNativeObj, virtualViewId, false);
             default:
                 break;
         }
@@ -587,6 +591,11 @@ public class BrowserAccessibilityManager {
     }
 
     @CalledByNative
+    private void handleSliderChanged(int id) {
+        sendAccessibilityEvent(id, AccessibilityEvent.TYPE_VIEW_SCROLLED);
+    }
+
+    @CalledByNative
     private void handleContentChanged(int id) {
         int rootId = nativeGetRootId(mNativeObj);
         if (rootId != mCurrentRootId) {
@@ -643,9 +652,10 @@ public class BrowserAccessibilityManager {
 
     @CalledByNative
     private void setAccessibilityNodeInfoBooleanAttributes(AccessibilityNodeInfo node,
-            int virtualViewId, boolean checkable, boolean checked, boolean clickable,
-            boolean editableText, boolean enabled, boolean focusable, boolean focused,
-            boolean password, boolean scrollable, boolean selected, boolean visibleToUser) {
+            int virtualViewId, boolean canScrollForward, boolean canScrollBackward,
+            boolean checkable, boolean checked, boolean clickable, boolean editableText,
+            boolean enabled, boolean focusable, boolean focused, boolean password,
+            boolean scrollable, boolean selected, boolean visibleToUser) {
         node.setCheckable(checkable);
         node.setChecked(checked);
         node.setClickable(clickable);
@@ -669,6 +679,14 @@ public class BrowserAccessibilityManager {
         if (editableText && enabled) {
             node.addAction(ACTION_SET_TEXT);
             node.addAction(AccessibilityNodeInfo.ACTION_SET_SELECTION);
+        }
+
+        if (canScrollForward) {
+            node.addAction(AccessibilityNodeInfo.ACTION_SCROLL_FORWARD);
+        }
+
+        if (canScrollBackward) {
+            node.addAction(AccessibilityNodeInfo.ACTION_SCROLL_BACKWARD);
         }
 
         if (focusable) {
