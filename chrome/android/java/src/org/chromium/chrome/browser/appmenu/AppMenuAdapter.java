@@ -320,7 +320,7 @@ class AppMenuAdapter extends BaseAdapter {
         button.setImageDrawable(item.getIcon());
         item.getIcon().setLevel(currentLevel);
         if (item.isChecked()) {
-            button.setTint(button.getResources().getColorStateList(R.color.blue_mode_tint));
+            button.setTint(button.getResources().getColorStateList(R.color.button_tint_menu));
         }
         button.setEnabled(item.isEnabled());
         button.setFocusable(item.isEnabled());
