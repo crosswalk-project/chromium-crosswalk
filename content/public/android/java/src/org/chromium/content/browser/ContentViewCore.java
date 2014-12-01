@@ -700,6 +700,7 @@ public class ContentViewCore
         mRenderCoordinates.reset();
         initPopupZoomer(mContext);
         mImeAdapter = createImeAdapter(mContext);
+        attachImeAdapter();
 
         mAccessibilityInjector = AccessibilityInjector.newInstance(this);
 
