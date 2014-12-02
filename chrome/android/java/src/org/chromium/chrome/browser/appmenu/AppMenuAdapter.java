@@ -320,7 +320,7 @@ class AppMenuAdapter extends BaseAdapter {
         button.setImageDrawable(item.getIcon());
         item.getIcon().setLevel(currentLevel);
         if (item.isChecked()) {
-            button.setTint(button.getResources().getColorStateList(R.color.button_tint_menu));
+            button.setTint(button.getResources().getColorStateList(R.color.blue_mode_tint));
         }
         button.setEnabled(item.isEnabled());
         button.setFocusable(item.isEnabled());
@@ -336,7 +336,7 @@ class AppMenuAdapter extends BaseAdapter {
 
     private void setupMenuButton(TintedImageButton button) {
         button.setImageResource(R.drawable.btn_menu);
-        button.setTint(button.getResources().getColorStateList(R.color.button_tint_menu));
+        button.setTint(button.getResources().getColorStateList(R.color.blue_mode_tint));
         button.setContentDescription(button.getResources().getString(R.string.menu_dismiss_btn));
         button.setEnabled(true);
         button.setFocusable(true);
