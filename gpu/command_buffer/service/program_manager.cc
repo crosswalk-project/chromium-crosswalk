@@ -42,7 +42,11 @@ struct UniformType {
   UniformType()
       : type(0),
         size(0),
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
         precision(SH_PRECISION_MEDIUMP) { }
+#else
+        precision(0x5002) { }
+#endif
 
   bool operator==(const UniformType& other) const {
     return type == other.type &&
@@ -1102,6 +1106,7 @@ bool Program::DetectGlobalNameConflicts(std::string* conflicting_name) const {
 
 bool Program::CheckVaryingsPacking(
     Program::VaryingsPackingOption option) const {
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   DCHECK(attached_shaders_[0].get() &&
          attached_shaders_[0]->shader_type() == GL_VERTEX_SHADER &&
          attached_shaders_[1].get() &&
@@ -1149,6 +1154,9 @@ bool Program::CheckVaryingsPacking(
       static_cast<int>(manager_->max_varying_vectors()),
       variables.get(),
       combined_map.size()) == 1;
+#else
+  return true;
+#endif
 }
 
 static uint32 ComputeOffset(const void* start, const void* position) {

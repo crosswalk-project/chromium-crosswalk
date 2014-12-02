@@ -11,7 +11,10 @@
 
 #include "base/memory/ref_counted.h"
 #include "gpu/command_buffer/service/shader_translator.h"
+
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 #include "third_party/angle/include/GLSLANG/ShaderLang.h"
+#endif
 
 namespace gpu {
 namespace gles2 {
@@ -31,6 +34,9 @@ class GPU_EXPORT ShaderTranslatorCache
   // ShaderTranslator::DestructionObserver implementation
   virtual void OnDestruct(ShaderTranslator* translator) OVERRIDE;
 
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  scoped_refptr<ShaderTranslator> GetTranslator();
+#else
   scoped_refptr<ShaderTranslator> GetTranslator(
       sh::GLenum shader_type,
       ShShaderSpec shader_spec,
@@ -38,11 +44,13 @@ class GPU_EXPORT ShaderTranslatorCache
       ShaderTranslatorInterface::GlslImplementationType
           glsl_implementation_type,
       ShCompileOptions driver_bug_workarounds);
+#endif
 
  private:
   friend class base::RefCounted<ShaderTranslatorCache>;
   virtual ~ShaderTranslatorCache();
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   // Parameters passed into ShaderTranslator::Init
   struct ShaderTranslatorInitParams {
     sh::GLenum shader_type;
@@ -81,6 +89,7 @@ class GPU_EXPORT ShaderTranslatorCache
 
   typedef std::map<ShaderTranslatorInitParams, ShaderTranslator* > Cache;
   Cache cache_;
+#endif  // !defined(DISABLE_ANGLE_ON_ANDROID)
 
   DISALLOW_COPY_AND_ASSIGN(ShaderTranslatorCache);
 };

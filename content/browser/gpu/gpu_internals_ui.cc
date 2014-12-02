@@ -33,7 +33,10 @@
 #include "content/public/common/url_constants.h"
 #include "gpu/config/gpu_feature_type.h"
 #include "gpu/config/gpu_info.h"
+
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 #include "third_party/angle/src/common/version.h"
+#endif
 
 #if defined(OS_WIN)
 #include "ui/base/win/shell.h"
@@ -370,7 +373,9 @@ base::Value* GpuMessageHandler::OnRequestClientInfo(
   dict->SetString("operating_system",
                   base::SysInfo::OperatingSystemName() + " " +
                   base::SysInfo::OperatingSystemVersion());
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   dict->SetString("angle_commit_id", ANGLE_COMMIT_HASH);
+#endif
   dict->SetString("graphics_backend", "Skia");
   dict->SetString("blacklist_version",
       GpuDataManagerImpl::GetInstance()->GetBlacklistVersion());
