@@ -29,6 +29,7 @@
 #include "base/android/jni_android.h"
 #include "content/browser/android/browser_jni_registrar.h"
 #include "content/common/android/common_jni_registrar.h"
+#include "content/public/browser/android/compositor.h"
 #include "media/base/android/media_jni_registrar.h"
 #include "net/android/net_jni_registrar.h"
 #include "ui/base/android/ui_base_jni_registrar.h"
@@ -80,6 +81,8 @@ void ContentTestSuiteBase::Initialize() {
   net::android::RegisterJni(env);
   ui::android::RegisterJni(env);
   ui::shell_dialogs::RegisterJni(env);
+
+  content::Compositor::Initialize();
 #endif
 
   testing::UnitTest::GetInstance()->listeners().Append(

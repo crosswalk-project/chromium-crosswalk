@@ -8,7 +8,16 @@
 #include "content/public/test/unittest_test_suite.h"
 #include "content/test/content_test_suite.h"
 
+#if defined(OS_ANDROID)
+#include "content/browser/gpu/browser_gpu_channel_host_factory.h"
+#endif
+
 int main(int argc, char** argv) {
+#if defined(OS_ANDROID)
+  // Android wants to call GetChannelId() (even though GPU channels
+  // are not getting created in content_unittests).
+  content::BrowserGpuChannelHostFactory::Initialize(false);
+#endif
 #if !defined(OS_IOS)
   content::InitializeMojo();
 #endif
