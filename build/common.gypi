@@ -544,6 +544,9 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
       # Enable media stream support by default.
       'disable_media_stream%': 0,
 
@@ -1199,6 +1202,7 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_quic_support%': '<(disable_quic_support)',
     'disable_media_stream%': '<(disable_media_stream)',
     'disable_inspector%': '<(disable_inspector)',
     'disable_xslt%': '<(disable_xslt)',
@@ -2945,6 +2949,9 @@
       }],
       ['disable_ftp_support==1', {
         'defines': ['DISABLE_FTP_SUPPORT=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
       }],
       ['disable_media_stream==1', {
         'defines': ['DISABLE_MEDIA_STREAM=1'],

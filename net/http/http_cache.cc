@@ -34,7 +34,6 @@
 #include "net/base/upload_data_stream.h"
 #include "net/disk_cache/disk_cache.h"
 #include "net/http/disk_based_cert_cache.h"
-#include "net/http/disk_cache_based_quic_server_info.h"
 #include "net/http/http_cache_transaction.h"
 #include "net/http/http_network_layer.h"
 #include "net/http/http_network_session.h"
@@ -42,7 +41,11 @@
 #include "net/http/http_response_headers.h"
 #include "net/http/http_response_info.h"
 #include "net/http/http_util.h"
+
+#if !defined(DISABLE_QUIC_SUPPORT)
+#include "net/http/disk_cache_based_quic_server_info.h"
 #include "net/quic/crypto/quic_server_info.h"
+#endif
 
 namespace {
 
@@ -274,6 +277,7 @@ void HttpCache::MetadataWriter::OnIOComplete(int result) {
   SelfDestroy();
 }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 //-----------------------------------------------------------------------------
 
 class HttpCache::QuicServerInfoFactoryAdaptor : public QuicServerInfoFactory {
@@ -290,6 +294,7 @@ class HttpCache::QuicServerInfoFactoryAdaptor : public QuicServerInfoFactory {
  private:
   HttpCache* const http_cache_;
 };
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
 //-----------------------------------------------------------------------------
 HttpCache::HttpCache(const net::HttpNetworkSession::Params& params,
@@ -301,7 +306,9 @@ HttpCache::HttpCache(const net::HttpNetworkSession::Params& params,
       mode_(NORMAL),
       network_layer_(new HttpNetworkLayer(new HttpNetworkSession(params))),
       weak_factory_(this) {
+#if !defined(DISABLE_QUIC_SUPPORT)
   SetupQuicServerInfoFactory(network_layer_->GetSession());
+#endif
 }
 
 
@@ -328,7 +335,9 @@ HttpCache::HttpCache(HttpTransactionFactory* network_layer,
       mode_(NORMAL),
       network_layer_(network_layer),
       weak_factory_(this) {
+#if !defined(DISABLE_QUIC_SUPPORT)
   SetupQuicServerInfoFactory(network_layer_->GetSession());
+#endif
 }
 
 HttpCache::~HttpCache() {
@@ -1015,6 +1024,7 @@ bool HttpCache::RemovePendingTransactionFromPendingOp(PendingOp* pending_op,
   return false;
 }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 void HttpCache::SetupQuicServerInfoFactory(HttpNetworkSession* session) {
   if (session &&
       !session->quic_stream_factory()->has_quic_server_info_factory()) {
@@ -1024,6 +1034,7 @@ void HttpCache::SetupQuicServerInfoFactory(HttpNetworkSession* session) {
         quic_server_info_factory_.get());
   }
 }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
 void HttpCache::ProcessPendingQueue(ActiveEntry* entry) {
   // Multiple readers may finish with an entry at once, so we want to batch up

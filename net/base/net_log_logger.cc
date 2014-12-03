@@ -14,8 +14,10 @@
 #include "net/base/address_family.h"
 #include "net/base/load_states.h"
 #include "net/base/net_errors.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/quic_protocol.h"
 #include "net/quic/quic_utils.h"
+#endif
 
 namespace {
 
@@ -154,6 +156,7 @@ base::DictionaryValue* NetLogLogger::GetConstants() {
     constants_dict->Set("netError", dict);
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Add information on the relationship between QUIC error codes and their
   // symbolic names.
   {
@@ -183,6 +186,7 @@ base::DictionaryValue* NetLogLogger::GetConstants() {
 
     constants_dict->Set("quicRstStreamError", dict);
   }
+#endif // !defined(DISABLE_QUIC_SUPPORT)
 
   // Information about the relationship between event phase enums and their
   // symbolic names.
