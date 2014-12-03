@@ -1872,6 +1872,9 @@ TEST_F(PictureLayerImplTest,
 TEST_F(PictureLayerImplTest, HighResRequiredWhenUnsharedActiveAllReady) {
   gfx::Size layer_bounds(400, 400);
   gfx::Size tile_size(100, 100);
+
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   // No tiles shared.
@@ -1893,6 +1896,9 @@ TEST_F(PictureLayerImplTest, HighResRequiredWhenUnsharedActiveAllReady) {
 TEST_F(PictureLayerImplTest, HighResRequiredWhenMissingHighResFlagOn) {
   gfx::Size layer_bounds(400, 400);
   gfx::Size tile_size(100, 100);
+
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   // All tiles shared (no invalidation).
@@ -1917,6 +1923,9 @@ TEST_F(PictureLayerImplTest, HighResRequiredWhenMissingHighResFlagOn) {
 TEST_F(PictureLayerImplTest, AllHighResRequiredEvenIfShared) {
   gfx::Size layer_bounds(400, 400);
   gfx::Size tile_size(100, 100);
+
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   CreateHighLowResAndSetAllTilesVisible();
@@ -1991,6 +2000,9 @@ TEST_F(PictureLayerImplTest, NothingRequiredIfActiveMissingTiles) {
 TEST_F(PictureLayerImplTest, HighResRequiredIfActiveCantHaveTiles) {
   gfx::Size layer_bounds(400, 400);
   gfx::Size tile_size(100, 100);
+
+  host_impl_.SetViewportSize(layer_bounds);
+
   scoped_refptr<FakePicturePileImpl> pending_pile =
       FakePicturePileImpl::CreateFilledPile(tile_size, layer_bounds);
   scoped_refptr<FakePicturePileImpl> active_pile =
@@ -3136,6 +3148,8 @@ TEST_F(PictureLayerImplTest, LowResReadyToDrawNotEnoughToActivate) {
   gfx::Size tile_size(100, 100);
   gfx::Size layer_bounds(1000, 1000);
 
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   // Make sure some tiles are not shared.
@@ -3163,6 +3177,8 @@ TEST_F(PictureLayerImplTest, HighResReadyToDrawEnoughToActivate) {
   gfx::Size tile_size(100, 100);
   gfx::Size layer_bounds(1000, 1000);
 
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   // Make sure some tiles are not shared.
@@ -3185,6 +3201,8 @@ TEST_F(PictureLayerImplTest,
        SharedActiveHighResReadyAndPendingLowResReadyNotEnoughToActivate) {
   gfx::Size tile_size(100, 100);
   gfx::Size layer_bounds(1000, 1000);
+
+  host_impl_.SetViewportSize(layer_bounds);
 
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
@@ -3209,6 +3227,8 @@ TEST_F(PictureLayerImplTest,
 TEST_F(PictureLayerImplTest, SharedActiveHighResReadyNotEnoughToActivate) {
   gfx::Size tile_size(100, 100);
   gfx::Size layer_bounds(1000, 1000);
+
+  host_impl_.SetViewportSize(layer_bounds);
 
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
@@ -3297,6 +3317,9 @@ TEST_F(NoLowResPictureLayerImplTest, ManageTilingsCreatesTilings) {
 TEST_F(NoLowResPictureLayerImplTest, AllHighResRequiredEvenIfShared) {
   gfx::Size layer_bounds(400, 400);
   gfx::Size tile_size(100, 100);
+
+  host_impl_.SetViewportSize(layer_bounds);
+
   SetupDefaultTreesWithFixedTileSize(layer_bounds, tile_size);
 
   CreateHighLowResAndSetAllTilesVisible();
@@ -3657,6 +3680,8 @@ TEST_F(PictureLayerImplTest, SharedQuadStateContainsMaxTilingScale) {
 
   gfx::Size tile_size(400, 400);
   gfx::Size layer_bounds(1000, 2000);
+
+  host_impl_.SetViewportSize(layer_bounds);
 
   scoped_refptr<FakePicturePileImpl> pending_pile =
       FakePicturePileImpl::CreateFilledPile(tile_size, layer_bounds);

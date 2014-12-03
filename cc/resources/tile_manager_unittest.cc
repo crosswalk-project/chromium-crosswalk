@@ -149,7 +149,9 @@ class TileManagerTilePriorityQueueTest : public testing::Test {
 };
 
 TEST_F(TileManagerTilePriorityQueueTest, RasterTilePriorityQueue) {
-  SetupDefaultTrees(gfx::Size(1000, 1000));
+  const gfx::Size layer_bounds(1000, 1000);
+  host_impl_.SetViewportSize(layer_bounds);
+  SetupDefaultTrees(layer_bounds);
 
   active_layer_->CreateDefaultTilingsAndTiles();
   pending_layer_->CreateDefaultTilingsAndTiles();
@@ -391,7 +393,9 @@ TEST_F(TileManagerTilePriorityQueueTest, ActivationComesBeforeEventually) {
 }
 
 TEST_F(TileManagerTilePriorityQueueTest, EvictionTilePriorityQueue) {
-  SetupDefaultTrees(gfx::Size(1000, 1000));
+  const gfx::Size layer_bounds(1000, 1000);
+  host_impl_.SetViewportSize(layer_bounds);
+  SetupDefaultTrees(layer_bounds);
 
   active_layer_->CreateDefaultTilingsAndTiles();
   pending_layer_->CreateDefaultTilingsAndTiles();
@@ -560,6 +564,8 @@ TEST_F(TileManagerTilePriorityQueueTest,
   gfx::Size tile_size(102, 102);
   gfx::Size layer_bounds(1000, 1000);
 
+  host_impl_.SetViewportSize(layer_bounds);
+
   scoped_refptr<FakePicturePileImpl> pending_pile =
       FakePicturePileImpl::CreateFilledPile(tile_size, layer_bounds);
   SetupPendingTree(pending_pile);
@@ -670,7 +676,9 @@ TEST_F(TileManagerTilePriorityQueueTest,
 }
 
 TEST_F(TileManagerTilePriorityQueueTest, RasterTilePriorityQueueEmptyLayers) {
-  SetupDefaultTrees(gfx::Size(1000, 1000));
+  const gfx::Size layer_bounds(1000, 1000);
+  host_impl_.SetViewportSize(layer_bounds);
+  SetupDefaultTrees(layer_bounds);
 
   active_layer_->CreateDefaultTilingsAndTiles();
   pending_layer_->CreateDefaultTilingsAndTiles();
@@ -717,7 +725,9 @@ TEST_F(TileManagerTilePriorityQueueTest, RasterTilePriorityQueueEmptyLayers) {
 }
 
 TEST_F(TileManagerTilePriorityQueueTest, EvictionTilePriorityQueueEmptyLayers) {
-  SetupDefaultTrees(gfx::Size(1000, 1000));
+  const gfx::Size layer_bounds(1000, 1000);
+  host_impl_.SetViewportSize(layer_bounds);
+  SetupDefaultTrees(layer_bounds);
 
   active_layer_->CreateDefaultTilingsAndTiles();
   pending_layer_->CreateDefaultTilingsAndTiles();
