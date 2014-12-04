@@ -954,7 +954,7 @@ RendererWebKitPlatformSupportImpl::createOffscreenGraphicsContext3D(
 
   scoped_ptr<webkit::gpu::WebGraphicsContext3DImpl> context;
   bool must_use_synchronous_factory = false;
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     context.reset(factory->CreateOffscreenGraphicsContext3D(attributes));

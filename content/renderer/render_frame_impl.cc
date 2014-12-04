@@ -3891,10 +3891,12 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
   }
 
   scoped_refptr<StreamTextureFactory> stream_texture_factory;
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     stream_texture_factory = factory->CreateStreamTextureFactory(routing_id_);
   } else {
+#endif
     scoped_refptr<webkit::gpu::ContextProviderWebContext> context_provider =
         RenderThreadImpl::current()->SharedMainThreadContextProvider();
 
@@ -3905,7 +3907,9 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
 
     stream_texture_factory = StreamTextureFactoryImpl::Create(
         context_provider, gpu_channel_host, routing_id_);
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   }
+#endif
 
   return new WebMediaPlayerAndroid(
       frame_,

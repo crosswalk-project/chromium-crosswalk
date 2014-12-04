@@ -1688,6 +1688,12 @@
         'ENABLE_SCREEN_CAPTURE=1',
       ],
     }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^browser/android/in_process/'],
+        ['exclude', '^public/browser/android/synchronous_compositor*'],
+      ],
+    }],
     ['OS=="win"', {
       'dependencies': [
         # For accessibility

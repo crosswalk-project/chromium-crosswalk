@@ -313,12 +313,14 @@ class CONTENT_EXPORT RenderWidgetHostViewAndroid
       const base::Callback<void(bool, const SkBitmap&)>& callback,
       scoped_ptr<cc::CopyOutputResult> result);
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   // DevTools ScreenCast support for Android WebView.
   void SynchronousCopyContents(
       const gfx::Rect& src_subrect_in_pixel,
       const gfx::Size& dst_size_in_pixel,
       const base::Callback<void(bool, const SkBitmap&)>& callback,
       const SkColorType color_type);
+#endif
 
   bool IsReadbackConfigSupported(SkColorType color_type);
 
