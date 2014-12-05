@@ -27,6 +27,10 @@ const char kDisableTouchDragDrop[] = "disable-touch-drag-drop";
 // Disables controls that support touch base text editing.
 const char kDisableTouchEditing[] = "disable-touch-editing";
 
+// Enables a zoomed popup bubble that allows the user to select a link.
+const char kEnableLinkDisambiguationPopup[] =
+    "enable-link-disambiguation-popup";
+
 // Enables an experimental focus manager to track text input clients.
 const char kEnableTextInputFocusManager[] = "enable-text-input-focus-manager";
 
