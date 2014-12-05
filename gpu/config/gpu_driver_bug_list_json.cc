@@ -175,7 +175,11 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
       "id": 11,
       "description": "Limit max texure size to 4096 on Macs with Intel GPUs",
       "os": {
-        "type": "macosx"
+        "type": "macosx",
+        "version": {
+          "op": "<",
+          "value": "10.9"
+        }
       },
       "vendor_id": "0x8086",
       "features": [
@@ -212,7 +216,11 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
       "id": 14,
       "description": "Limit max texure size and cube map texture size to 4096 on Macs with AMD GPUs",
       "os": {
-        "type": "macosx"
+        "type": "macosx",
+        "version": {
+          "op": "<",
+          "value": "10.9"
+        }
       },
       "vendor_id": "0x1002",
       "features": [
