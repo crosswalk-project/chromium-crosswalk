@@ -6,7 +6,6 @@
 
 #include "base/bind.h"
 #include "base/logging.h"
-#include "base/metrics/field_trial.h"
 #include "base/prefs/pref_service.h"
 #include "base/prefs/scoped_user_pref_update.h"
 #include "base/values.h"
@@ -278,12 +277,6 @@ bool EasyUnlockServiceRegular::IsAllowedInternal() {
 
   if (!profile()->GetPrefs()->GetBoolean(prefs::kEasyUnlockAllowed))
     return false;
-
-  // Respect existing policy and skip finch test.
-  if (!profile()->GetPrefs()->IsManagedPreference(prefs::kEasyUnlockAllowed)) {
-    // It is enabled when the trial exists and is in "Enable" group.
-    return base::FieldTrialList::FindFullName("EasyUnlock") == "Enable";
-  }
 
   return true;
 #else
