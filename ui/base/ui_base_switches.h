@@ -21,6 +21,7 @@ UI_BASE_EXPORT extern const char kDisableTextInputFocusManager[];
 UI_BASE_EXPORT extern const char kDisableTouchAdjustment[];
 UI_BASE_EXPORT extern const char kDisableTouchDragDrop[];
 UI_BASE_EXPORT extern const char kDisableTouchEditing[];
+UI_BASE_EXPORT extern const char kEnableLinkDisambiguationPopup[];
 UI_BASE_EXPORT extern const char kEnableTextInputFocusManager[];
 UI_BASE_EXPORT extern const char kEnableTouchDragDrop[];
 UI_BASE_EXPORT extern const char kEnableTouchEditing[];

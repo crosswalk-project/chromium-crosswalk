@@ -1569,6 +1569,13 @@ const Experiment kExperiments[] = {
     kOsCrOS | kOsWin | kOsLinux,
     SINGLE_VALUE_TYPE(views::switches::kDisableViewsRectBasedTargeting)
   },
+  {
+    "enable-link-disambiguation-popup",
+    IDS_FLAGS_ENABLE_LINK_DISAMBIGUATION_POPUP_NAME,
+    IDS_FLAGS_ENABLE_LINK_DISAMBIGUATION_POPUP_DESCRIPTION,
+    kOsCrOS | kOsWin,
+    SINGLE_VALUE_TYPE(switches::kEnableLinkDisambiguationPopup)
+  },
 #endif
 #if defined(ENABLE_EXTENSIONS)
   {
