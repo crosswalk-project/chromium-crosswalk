@@ -2738,16 +2738,10 @@ InputHandlerScrollResult LayerTreeHostImpl::ScrollBy(
     }
 
     did_lock_scrolling_layer_ = true;
-
-    // When scrolls are allowed to bubble, it's important that the original
-    // scrolling layer be preserved. This ensures that, after a scroll bubbles,
-    // the user can reverse scroll directions and immediately resume scrolling
-    // the original layer that scrolled.
-    if (!should_bubble_scrolls_)
+    if (!allow_bubbling_for_current_layer) {
       active_tree_->SetCurrentlyScrollingLayer(layer_impl);
-
-    if (!allow_bubbling_for_current_layer)
       break;
+    }
 
     if (allow_unrestricted_bubbling_for_current_layer) {
       pending_delta -= applied_delta;
