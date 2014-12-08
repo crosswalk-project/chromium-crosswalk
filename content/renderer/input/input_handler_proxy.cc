@@ -114,15 +114,12 @@ WebGestureEvent ObtainGestureScrollBegin(const WebGestureEvent& event) {
   return scroll_begin_event;
 }
 
-void ReportInputEventLatencyUma(const WebInputEvent& event,
-                                const ui::LatencyInfo& latency_info) {
+void SendScrollLatencyUma(const WebInputEvent& event,
+                          const ui::LatencyInfo& latency_info) {
   if (!(event.type == WebInputEvent::GestureScrollBegin ||
         event.type == WebInputEvent::GestureScrollUpdate ||
-        event.type == WebInputEvent::GesturePinchBegin ||
-        event.type == WebInputEvent::GesturePinchUpdate ||
-        event.type == WebInputEvent::GestureFlingStart)) {
+        event.type == WebInputEvent::GestureScrollUpdateWithoutPropagation))
     return;
-  }
 
   ui::LatencyInfo::LatencyMap::const_iterator it =
       latency_info.latency_components.find(std::make_pair(
@@ -133,41 +130,16 @@ void ReportInputEventLatencyUma(const WebInputEvent& event,
 
   base::TimeDelta delta = base::TimeTicks::HighResNow() - it->second.event_time;
   for (size_t i = 0; i < it->second.event_count; ++i) {
-    switch (event.type) {
-      case blink::WebInputEvent::GestureScrollBegin:
-        UMA_HISTOGRAM_CUSTOM_COUNTS(
-            "Event.Latency.RendererImpl.GestureScrollBegin",
-            delta.InMicroseconds(), 1, 1000000, 100);
-        break;
-      case blink::WebInputEvent::GestureScrollUpdate:
-        UMA_HISTOGRAM_CUSTOM_COUNTS(
-            // So named for historical reasons.
-            "Event.Latency.RendererImpl.GestureScroll2",
-            delta.InMicroseconds(), 1, 1000000, 100);
-        break;
-      case blink::WebInputEvent::GesturePinchBegin:
-        UMA_HISTOGRAM_CUSTOM_COUNTS(
-            "Event.Latency.RendererImpl.GesturePinchBegin",
-            delta.InMicroseconds(), 1, 1000000, 100);
-        break;
-      case blink::WebInputEvent::GesturePinchUpdate:
-        UMA_HISTOGRAM_CUSTOM_COUNTS(
-            "Event.Latency.RendererImpl.GesturePinchUpdate",
-            delta.InMicroseconds(), 1, 1000000, 100);
-        break;
-      case blink::WebInputEvent::GestureFlingStart:
-        UMA_HISTOGRAM_CUSTOM_COUNTS(
-            "Event.Latency.RendererImpl.GestureFlingStart",
-            delta.InMicroseconds(), 1, 1000000, 100);
-        break;
-      default:
-        NOTREACHED();
-        break;
-    }
+    UMA_HISTOGRAM_CUSTOM_COUNTS(
+        "Event.Latency.RendererImpl.GestureScroll2",
+        delta.InMicroseconds(),
+        1,
+        1000000,
+        100);
   }
-}
-
 }  // namespace
+
+}
 
 namespace content {
 
@@ -184,9 +156,7 @@ InputHandlerProxy::InputHandlerProxy(cc::InputHandler* input_handler,
       fling_may_be_active_on_main_thread_(false),
       disallow_horizontal_fling_scroll_(false),
       disallow_vertical_fling_scroll_(false),
-      has_fling_animation_started_(false),
-      uma_latency_reporting_enabled_(
-          base::TimeTicks::IsHighResNowFastAndReliable()) {
+      has_fling_animation_started_(false) {
   DCHECK(client);
   input_handler_->BindToClient(this);
   smooth_scroll_enabled_ = CommandLine::ForCurrentProcess()->HasSwitch(
@@ -206,8 +176,7 @@ InputHandlerProxy::HandleInputEventWithLatencyInfo(
     ui::LatencyInfo* latency_info) {
   DCHECK(input_handler_);
 
-  if (uma_latency_reporting_enabled_)
-    ReportInputEventLatencyUma(event, *latency_info);
+  SendScrollLatencyUma(event, *latency_info);
 
   TRACE_EVENT_FLOW_STEP0("input",
                          "LatencyInfo.Flow",

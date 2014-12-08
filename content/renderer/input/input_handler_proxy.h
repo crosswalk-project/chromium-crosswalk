@@ -124,8 +124,6 @@ class CONTENT_EXPORT InputHandlerProxy
 
   bool smooth_scroll_enabled_;
 
-  bool uma_latency_reporting_enabled_;
-
   DISALLOW_COPY_AND_ASSIGN(InputHandlerProxy);
 };
 
