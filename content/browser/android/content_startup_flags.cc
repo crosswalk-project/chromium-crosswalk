@@ -65,7 +65,6 @@ void SetContentCommandLineFlags(bool single_process,
   parsed_command_line->AppendSwitch(switches::kInProcessGPU);
   parsed_command_line->AppendSwitch(switches::kDisableGpuShaderDiskCache);
 
-  parsed_command_line->AppendSwitch(switches::kEnableViewport);
   parsed_command_line->AppendSwitch(switches::kEnableViewportMeta);
   parsed_command_line->AppendSwitch(
       switches::kMainFrameResizesAreOrientationChanges);
