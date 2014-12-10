@@ -446,9 +446,11 @@ class GLES2ImplementationTest : public testing::Test {
       {
         InSequence sequence;
 
-        EXPECT_CALL(*command_buffer_, OnFlush())
-            .WillOnce(SetMemory(mem1.ptr + sizeof(int_state), int_state))
-            .RetiresOnSaturation();
+        if (!transfer_buffer_initialize_fail) {
+          EXPECT_CALL(*command_buffer_, OnFlush())
+              .WillOnce(SetMemory(mem1.ptr + sizeof(int_state), int_state))
+              .RetiresOnSaturation();
+        }
         GetNextToken();  // eat the token that starting up will use.
 
         const bool support_client_side_arrays = true;
