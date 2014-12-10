@@ -122,7 +122,7 @@ void ExtensionToolbarModel::MoveExtensionIcon(const std::string& id,
 }
 
 void ExtensionToolbarModel::SetVisibleIconCount(size_t count) {
-  visible_icon_count_ = (count == toolbar_items_.size()) ? -1 : count;
+  visible_icon_count_ = (count >= toolbar_items_.size()) ? -1 : count;
 
   // Only set the prefs if we're not in highlight mode and the profile is not
   // incognito. Highlight mode is designed to be a transitory state, and should
@@ -227,17 +227,16 @@ void ExtensionToolbarModel::Observe(
     int new_index = 0;
     if (visible) {
       // If this action used to be hidden, we can't possibly be showing all.
-      DCHECK_NE(-1, visible_icon_count_);
+      DCHECK_LT(visible_icon_count(), toolbar_items_.size());
       // Grow the bar by one and move the extension to the end of the visibles.
-      new_size = visible_icon_count_ + 1;
+      new_size = visible_icon_count() + 1;
       new_index = new_size - 1;
     } else {
       // If we're hiding one, we must be showing at least one.
-      DCHECK_NE(visible_icon_count_, 0);
+      DCHECK_GE(visible_icon_count(), 0u);
       // Shrink the bar by one and move the extension to the beginning of the
       // overflow menu.
-      new_size = visible_icon_count_ == -1 ?
-                     toolbar_items_.size() - 1 : visible_icon_count_ - 1;
+      new_size = visible_icon_count() - 1;
       new_index = new_size;
     }
     SetVisibleIconCount(new_size);
@@ -311,6 +310,8 @@ bool ExtensionToolbarModel::ShouldAddExtension(const Extension* extension) {
 }
 
 void ExtensionToolbarModel::AddExtension(const Extension* extension) {
+  // We only use AddExtension() once the system is initialized.
+  DCHECK(extensions_initialized_);
   if (!ShouldAddExtension(extension))
     return;
 
@@ -345,18 +346,17 @@ void ExtensionToolbarModel::AddExtension(const Extension* extension) {
       // Find what the index will be in the main bar. Because Observer calls are
       // nondeterministic, we can't just assume the main bar will have the
       // extension and look it up.
-      int main_index = is_new_extension ?
+      size_t main_index = is_new_extension ?
           main_model->toolbar_items_.size() :
           main_model->FindNewPositionFromLastKnownGood(extension);
-      bool visible = main_index < main_model->visible_icon_count_ ||
-                     main_model->visible_icon_count_ == -1;
+      bool visible = main_index < main_model->visible_icon_count();
       // We may need to adjust the visible count if the incognito bar isn't
       // showing all icons and this one is visible, or if it is showing all
       // icons and this is hidden.
-      if (visible && visible_icon_count_ != -1)
-        SetVisibleIconCount(visible_icon_count_ + 1);
-      else if (!visible && visible_icon_count_ == -1)
-        SetVisibleIconCount(toolbar_items_.size() - 1);
+      if (visible && !all_icons_visible())
+        SetVisibleIconCount(visible_icon_count() + 1);
+      else if (!visible && all_icons_visible())
+        SetVisibleIconCount(visible_icon_count() - 1);
     }
   }
 }
@@ -394,16 +394,6 @@ void ExtensionToolbarModel::RemoveExtension(const Extension* extension) {
   UpdatePrefs();
 }
 
-void ExtensionToolbarModel::ClearItems() {
-  size_t items_count = toolbar_items_.size();
-  for (size_t i = 0; i < items_count; ++i) {
-    const Extension* extension = toolbar_items_.back().get();
-    toolbar_items_.pop_back();
-    FOR_EACH_OBSERVER(Observer, observers_, ToolbarExtensionRemoved(extension));
-  }
-  DCHECK(toolbar_items_.empty());
-}
-
 // Combine the currently enabled extensions that have browser actions (which
 // we get from the ExtensionRegistry) with the ordering we get from the
 // pref service. For robustness we use a somewhat inefficient process:
@@ -412,6 +402,8 @@ void ExtensionToolbarModel::ClearItems() {
 // 2. Create a vector of extensions that did not have a pref value.
 // 3. Remove holes from the sorted vector and append the unsorted vector.
 void ExtensionToolbarModel::InitializeExtensionList() {
+  DCHECK(toolbar_items_.empty());  // We shouldn't have any items yet.
+
   last_known_positions_ = extension_prefs_->GetToolbarOrder();
   if (profile_->IsOffTheRecord())
     IncognitoPopulate();
@@ -420,7 +412,7 @@ void ExtensionToolbarModel::InitializeExtensionList() {
 
   extensions_initialized_ = true;
   MaybeUpdateVisibilityPrefs();
-  FOR_EACH_OBSERVER(Observer, observers_, ToolbarVisibleCountChanged());
+  FOR_EACH_OBSERVER(Observer, observers_, OnToolbarModelInitialized());
 }
 
 void ExtensionToolbarModel::Populate(const ExtensionIdList& positions) {
@@ -450,11 +442,9 @@ void ExtensionToolbarModel::Populate(const ExtensionIdList& positions) {
       unsorted.push_back(extension);
   }
 
-  // Clear the current items, if any.
-  ClearItems();
-
   // Merge the lists.
-  toolbar_items_.reserve(sorted.size() + unsorted.size());
+  sorted.insert(sorted.end(), unsorted.begin(), unsorted.end());
+  toolbar_items_.reserve(sorted.size());
 
   for (const scoped_refptr<const Extension>& extension : sorted) {
     // It's possible for the extension order to contain items that aren't
@@ -463,21 +453,13 @@ void ExtensionToolbarModel::Populate(const ExtensionIdList& positions) {
     // syncing NPAPI-containing extensions, so if one of those is not actually
     // synced, we'll get a NULL in the list.  This sort of case can also happen
     // if some error prevents an extension from loading.
-    if (extension.get() != NULL) {
+    if (extension.get()) {
+      // We don't notify observers of the added extension yet. Rather, observers
+      // should wait for the "OnToolbarModelInitialized" notification, and then
+      // bulk-update. (This saves a lot of bouncing-back-and-forth here, and
+      // allows observers to ensure that the extension system is always
+      // initialized before using the extensions).
       toolbar_items_.push_back(extension);
-      FOR_EACH_OBSERVER(
-          Observer,
-          observers_,
-          ToolbarExtensionAdded(extension.get(), toolbar_items_.size() - 1));
-    }
-  }
-  for (const scoped_refptr<const Extension>& extension : unsorted) {
-    if (extension.get() != NULL) {
-      toolbar_items_.push_back(extension);
-      FOR_EACH_OBSERVER(
-          Observer,
-          observers_,
-          ToolbarExtensionAdded(extension.get(), toolbar_items_.size() - 1));
     }
   }
 
@@ -499,9 +481,6 @@ void ExtensionToolbarModel::Populate(const ExtensionIdList& positions) {
 
 void ExtensionToolbarModel::IncognitoPopulate() {
   DCHECK(profile_->IsOffTheRecord());
-  // Clear the current items, if any.
-  ClearItems();
-
   const ExtensionToolbarModel* original_model =
       ExtensionToolbarModel::Get(profile_->GetOriginalProfile());
 
@@ -519,10 +498,6 @@ void ExtensionToolbarModel::IncognitoPopulate() {
       toolbar_items_.push_back(*iter);
       if (iter - original_model->toolbar_items_.begin() < original_visible)
         ++visible_icon_count_;
-      FOR_EACH_OBSERVER(
-          Observer,
-          observers_,
-          ToolbarExtensionAdded(iter->get(), toolbar_items_.size() - 1));
     }
   }
 }
@@ -538,11 +513,11 @@ void ExtensionToolbarModel::UpdatePrefs() {
 }
 
 void ExtensionToolbarModel::MaybeUpdateVisibilityPref(
-    const Extension* extension, int index) {
+    const Extension* extension, size_t index) {
   // We only update the visibility pref for hidden/not hidden based on the
   // overflow menu with the new toolbar design.
   if (include_all_extensions_ && !profile_->IsOffTheRecord()) {
-    bool visible = index < visible_icon_count_ || visible_icon_count_ == -1;
+    bool visible = index < visible_icon_count();
     if (visible != ExtensionActionAPI::GetBrowserActionVisibility(
                        extension_prefs_, extension->id())) {
       // Don't observe changes caused by ourselves.
@@ -590,8 +565,24 @@ void ExtensionToolbarModel::OnExtensionToolbarPrefChange() {
   }
   last_known_positions_.swap(pref_positions);
 
-  // Re-populate.
+  // Clear out the old...
+  while (!toolbar_items_.empty()) {
+    scoped_refptr<const Extension> extension = toolbar_items_.back();
+    toolbar_items_.pop_back();
+    FOR_EACH_OBSERVER(
+        Observer, observers_, ToolbarExtensionRemoved(extension.get()));
+  }
+  DCHECK(toolbar_items_.empty());
+
+  // ...Add the new...
   Populate(last_known_positions_);
+
+  // ...And notify.
+  for (size_t i = 0; i < toolbar_items().size(); ++i) {
+    FOR_EACH_OBSERVER(Observer,
+                      observers_,
+                      ToolbarExtensionAdded(toolbar_items()[i].get(), i));
+  }
 
   if (last_known_positions_.size() > pref_position_size) {
     // Need to update pref because we have extra icons. But can't call
@@ -609,7 +600,7 @@ size_t ExtensionToolbarModel::GetVisibleIconCountForTab(
     return visible_icon_count();  // Already displaying all actions.
 
   ExtensionActionAPI* extension_action_api = ExtensionActionAPI::Get(profile_);
-  size_t total_icons = visible_icon_count_;
+  size_t total_icons = visible_icon_count();
   for (size_t i = total_icons; i < toolbar_items_.size(); ++i) {
     if (extension_action_api->ExtensionWantsToRun(toolbar_items_[i].get(),
                                                   web_contents))
@@ -664,15 +655,15 @@ bool ExtensionToolbarModel::ShowExtensionActionPopup(
 
 void ExtensionToolbarModel::EnsureVisibility(
     const ExtensionIdList& extension_ids) {
-  if (visible_icon_count_ == -1)
+  if (all_icons_visible())
     return;  // Already showing all.
 
   // Otherwise, make sure we have enough room to show all the extensions
   // requested.
-  if (visible_icon_count_ < static_cast<int>(extension_ids.size()))
+  if (visible_icon_count() < extension_ids.size())
     SetVisibleIconCount(extension_ids.size());
 
-  if (visible_icon_count_ == -1)
+  if (all_icons_visible())
     return;  // May have been set to max by SetVisibleIconCount.
 
   // Guillotine's Delight: Move an orange noble to the front of the line.
@@ -681,7 +672,8 @@ void ExtensionToolbarModel::EnsureVisibility(
     for (ExtensionList::const_iterator extension = toolbar_items_.begin();
          extension != toolbar_items_.end(); ++extension) {
       if ((*extension)->id() == (*it)) {
-        if (extension - toolbar_items_.begin() >= visible_icon_count_)
+        if (extension - toolbar_items_.begin() >=
+                static_cast<int>(visible_icon_count()))
           MoveExtensionIcon((*extension)->id(), 0);
         break;
       }
@@ -709,10 +701,8 @@ bool ExtensionToolbarModel::HighlightExtensions(
   if (highlighted_items_.size()) {
     old_visible_icon_count_ = visible_icon_count_;
     is_highlighting_ = true;
-    if (visible_icon_count_ != -1 &&
-        visible_icon_count_ < static_cast<int>(extension_ids.size())) {
+    if (visible_icon_count() < extension_ids.size())
       SetVisibleIconCount(extension_ids.size());
-    }
 
     FOR_EACH_OBSERVER(Observer, observers_, ToolbarHighlightModeChanged(true));
     return true;

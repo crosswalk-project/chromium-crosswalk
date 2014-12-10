@@ -209,6 +209,10 @@ class ExtensionServiceObserverBridge
 
   void ToolbarHighlightModeChanged(bool is_highlighting) override {}
 
+  void OnToolbarModelInitialized() override {
+    [owner_ createButtons];
+  }
+
   Browser* GetBrowser() override { return browser_; }
 
  private:
@@ -283,7 +287,8 @@ class ExtensionServiceObserverBridge
 
     hiddenButtons_.reset([[NSMutableArray alloc] init]);
     buttons_.reset([[NSMutableDictionary alloc] init]);
-    [self createButtons];
+    if (toolbarModel_->extensions_initialized())
+      [self createButtons];
     [self showChevronIfNecessaryInFrame:[containerView_ frame] animate:NO];
     [self updateGrippyCursors];
     [container setResizable:!profile_->IsOffTheRecord()];
@@ -427,8 +432,7 @@ class ExtensionServiceObserverBridge
     [self createActionButtonForExtension:iter->get() withIndex:i++];
   }
 
-  CGFloat width = [self savedWidth];
-  [containerView_ resizeToWidth:width animate:NO];
+  [self resizeContainerAndAnimate:NO];
 }
 
 - (void)createActionButtonForExtension:(const Extension*)extension

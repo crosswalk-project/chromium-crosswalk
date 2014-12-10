@@ -116,8 +116,7 @@ bool BrowserActionsContainer::disable_animations_during_testing_ = false;
 BrowserActionsContainer::BrowserActionsContainer(
     Browser* browser,
     BrowserActionsContainer* main_container)
-    : initialized_(false),
-      profile_(browser->profile()),
+    : profile_(browser->profile()),
       browser_(browser),
       main_container_(main_container),
       popup_owner_(NULL),
@@ -179,8 +178,6 @@ void BrowserActionsContainer::Init() {
     container_width_ = GetPreferredWidth();
     SetChevronVisibility();
   }
-
-  initialized_ = true;
 }
 
 const std::string& BrowserActionsContainer::GetIdAt(size_t index) {
@@ -752,7 +749,10 @@ void BrowserActionsContainer::ViewHierarchyChanged(
     // We do this here instead of in the constructor because AddBrowserAction
     // calls Layout on the Toolbar, which needs this object to be constructed
     // before its Layout function is called.
-    CreateToolbarActionViews();
+    // If the model is not initialized, this is called later from
+    // OnToolbarModelInitialized().
+    if (model_->extensions_initialized())
+      CreateToolbarActionViews();
   }
 }
 
@@ -925,6 +925,11 @@ void BrowserActionsContainer::ToolbarHighlightModeChanged(
   DeleteToolbarActionViews();
   CreateToolbarActionViews();
   Animate(gfx::Tween::LINEAR, GetIconCount());
+}
+
+void BrowserActionsContainer::OnToolbarModelInitialized() {
+  CreateToolbarActionViews();
+  ToolbarVisibleCountChanged();
 }
 
 void BrowserActionsContainer::OnToolbarReorderNecessary(
