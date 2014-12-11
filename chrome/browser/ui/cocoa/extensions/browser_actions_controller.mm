@@ -287,7 +287,7 @@ class ExtensionServiceObserverBridge
 
     hiddenButtons_.reset([[NSMutableArray alloc] init]);
     buttons_.reset([[NSMutableDictionary alloc] init]);
-    if (toolbarModel_->extensions_initialized())
+    if (toolbarModel_ && toolbarModel_->extensions_initialized())
       [self createButtons];
     [self showChevronIfNecessaryInFrame:[containerView_ frame] animate:NO];
     [self updateGrippyCursors];
