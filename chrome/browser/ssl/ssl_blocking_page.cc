@@ -121,6 +121,7 @@ enum SSLBlockingPageEvent {
   DEPRECATED_CAPTIVE_PORTAL_NO_RESPONSE_OVERRIDABLE,
   DEPRECATED_CAPTIVE_PORTAL_DETECTED,
   DEPRECATED_CAPTIVE_PORTAL_DETECTED_OVERRIDABLE,
+  DISPLAYED_CLOCK_INTERSTITIAL,
   UNUSED_BLOCKING_PAGE_EVENT,
 };
 
@@ -443,6 +444,8 @@ std::string SSLBlockingPage::GetHTMLContents() {
 
   // Conditional UI configuration.
   if (bad_clock) {
+    RecordSSLBlockingPageEventStats(DISPLAYED_CLOCK_INTERSTITIAL);
+
     load_time_data.SetBoolean("bad_clock", true);
     load_time_data.SetBoolean("overridable", false);
 
