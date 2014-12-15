@@ -1,6 +1,5 @@
-<?xml version="1.0" ?>
-<!DOCTYPE translationbundle>
-<translationbundle lang="zh-CN">
+<?xml version="1.0" ?><!DOCTYPE translationbundle><translationbundle lang="zh-CN">
+<translation id="4542520061254486227">读取您在 <ph name="WEBSITE_1"/> 和 <ph name="WEBSITE_2"/> 上的数据</translation>
 <translation id="3624204664103857160">无法加载启动器页面“<ph name="PAGE"/>”。</translation>
 <translation id="8804398419035066391">与合作网站通信</translation>
 <translation id="7809034755304591547"><ph name="EXTENSION_NAME"/>（扩展程序 ID为“<ph name="EXTENSION_ID"/>”）已被管理员阻止。</translation>
@@ -16,8 +15,10 @@
 <translation id="6241530762627360640">获取与您的系统配对的蓝牙设备的相关信息，以及发现附近的蓝牙设备。</translation>
 <translation id="5911798608827489036">与本地网络或互联网上的任何计算机交换数据</translation>
 <translation id="4719685943208231314">访问由<ph name="VENDOR_NAME"/>生产的USB设备</translation>
+<translation id="8284835137979141223"><ph name="PRODUCT_NAME"/>（<ph name="VENDOR_NAME"/>）</translation>
 <translation id="657064425229075395">无法加载背景脚本“<ph name="BACKGROUND_SCRIPT"/>”。</translation>
 <translation id="9131487537093447019">向蓝牙设备发送消息，以及接收来自蓝牙设备的消息。</translation>
+<translation id="5678955352098267522">读取您在 <ph name="WEBSITE_1"/> 上的数据</translation>
 <translation id="8198425243160395623">访问您的USB设备</translation>
 <translation id="8597109877291678953">与名为 <ph name="HOSTNAME"/> 的计算机交换数据</translation>
 <translation id="5456409301717116725">此扩展程序包含密钥文件“<ph name="KEY_PATH"/>”，您最好不要执行此操作。</translation>
@@ -26,19 +27,21 @@
 <translation id="8058376558882514200">访问由<ph name="VENDOR_NAME"/>生产的USB设备“<ph name="PRODUCT_NAME"/>”</translation>
 <translation id="149347756975725155">无法加载扩展程序图标“<ph name="ICON"/>”。</translation>
 <translation id="8825366169884721447">此扩展程序无法修改网络请求的请求标头“<ph name="HEADER_NAME"/>”，因为这一修改与另一个扩展程序（<ph name="EXTENSION_NAME"/>）产生了冲突。</translation>
+<translation id="7495493006406536234">产品 <ph name="PRODUCT_ID"/></translation>
 <translation id="4233778200880751280">无法加载简介页面“<ph name="ABOUT_PAGE"/>”。</translation>
 <translation id="388442998277590542">无法加载选项页“<ph name="OPTIONS_PAGE"/>”。</translation>
 <translation id="6344170822609224263">网络连接的访问权限列表</translation>
 <translation id="2616366145935564096">读取和更改您在<ph name="WEBSITE_1"/>上的数据</translation>
 <translation id="2518849872271000461">与下列名称的计算机交换数据：<ph name="HOSTNAMES"/></translation>
-<translation id="1389014510128217152">- <ph name="WEBSITE_1"/></translation>
+<translation id="289069346039609763"><ph name="VENDOR_NAME"/> (<ph name="VENDOR_ID"/>)，<ph name="PRODUCT_NAME"/> (<ph name="PRODUCT_ID"/>)</translation>
+<translation id="973833515778624067">请选择要与“<ph name="APP_NAME"/>”搭配使用的设备。</translation>
+<translation id="4444304522807523469">使用通过 USB 连接的或本地网络中的文档扫描仪</translation>
 <translation id="6408118934673775994">读取和更改您在<ph name="WEBSITE_1"/>、<ph name="WEBSITE_2"/>和<ph name="WEBSITE_3"/>上的数据</translation>
 <translation id="961805664415579088">与域 <ph name="DOMAIN"/> 中的任何计算机交换数据</translation>
 <translation id="3502064055007747926">访问您的输入设备</translation>
 <translation id="8670869118777164560">此扩展程序无法将该网络请求重新定向到 <ph name="ATTEMPTED_REDIRECT_DESTINATION"/>，因为其他扩展程序（<ph name="EXTENSION_NAME"/>）已将其重新定向到 <ph name="ACTUAL_REDIRECT_DESTINATION"/>。</translation>
 <translation id="6840444547062817500">此扩展程序自行重新加载的频率过高。</translation>
 <translation id="8047248493720652249">此扩展程序无法将下载的文件命名为“<ph name="ATTEMPTED_FILENAME"/>”，因为另一扩展程序 (<ph name="EXTENSION_NAME"/>) 已将此文件命名为“<ph name="ACTUAL_FILENAME"/>”。</translation>
-<translation id="2732710576072980201"><ph name="VENDOR_NAME"/>提供的产品 <ph name="PRODUCT_ID"/>（序列号：<ph name="SERIAL_NUMBER"/>）</translation>
 <translation id="4968399700653439437">与下列域中的任何计算机交换数据：<ph name="DOMAINS"/></translation>
 <translation id="5026754133087629784">网页视图：<ph name="WEBVIEW_TAG_NAME"/></translation>
 <translation id="8284279544186306258">所有<ph name="WEBSITE_1"/>网站</translation>
@@ -57,8 +60,14 @@
 <translation id="7217838517480956708">此计算机的管理员要求安装 <ph name="EXTENSION_NAME"/>。该扩展程序无法删除或修改。</translation>
 <translation id="6580950983454333167"><ph name="VENDOR_NAME"/>提供的<ph name="PRODUCT_NAME"/>（序列号：<ph name="SERIAL_NUMBER"/>）</translation>
 <translation id="7154130902455071009">将您的初始页更改为：<ph name="START_PAGE"/></translation>
-<translation id="6758203075041033901">供应商 <ph name="VENDOR_ID"/> 提供的产品 <ph name="PRODUCT_ID"/>（序列号：<ph name="SERIAL_NUMBER"/>）</translation>
 <translation id="6698810901424468597">读取和更改您在<ph name="WEBSITE_1"/>和<ph name="WEBSITE_2"/>上的数据</translation>
+<translation id="5544884907028850012">供应商 <ph name="VENDOR_ID"/></translation>
+<translation id="2048182445208425546">获取您的网络流量数据</translation>
+<translation id="5972529113578162692">此设备的管理员要求安装“<ph name="EXTENSION_NAME"/>”，因此不能卸载该扩展程序。</translation>
+<translation id="2706892089432507937">USB 设备</translation>
+<translation id="7131040479572660648">读取您在 <ph name="WEBSITE_1"/>、<ph name="WEBSITE_2"/> 和 <ph name="WEBSITE_3"/> 上的数据</translation>
+<translation id="2457545405930252243">请选择一种要与“<ph name="APP_NAME"/>”搭配使用的设备。</translation>
 <translation id="1803557475693955505">无法加载背景页“<ph name="BACKGROUND_PAGE"/>”。</translation>
 <translation id="7972881773422714442">选项：<ph name="EXTENSIONOPTIONS_TAG_NAME"/></translation>
+<translation id="344630545793878684">读取您在一些网站上的数据</translation>
 </translationbundle>
