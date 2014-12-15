@@ -323,6 +323,20 @@ public class Tab {
                 observer.onDidChangeThemeColor(color);
             }
         }
+
+        @Override
+        public void didAttachInterstitialPage() {
+            for (TabObserver observer : mObservers) {
+                observer.onDidAttachInterstitialPage(Tab.this);
+            }
+        }
+
+        @Override
+        public void didDetachInterstitialPage() {
+            for (TabObserver observer : mObservers) {
+                observer.onDidDetachInterstitialPage(Tab.this);
+            }
+        }
     }
 
     /**
