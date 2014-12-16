@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "android_webview/browser/aw_download_manager_delegate.h"
+#include "android_webview/browser/aw_ssl_host_state_delegate.h"
 #include "base/basictypes.h"
 #include "base/compiler_specific.h"
 #include "base/files/file_path.h"
@@ -147,6 +148,7 @@ class AwBrowserContext : public content::BrowserContext,
       data_reduction_proxy_statistics_;
   scoped_ptr<data_reduction_proxy::DataReductionProxySettings>
       data_reduction_proxy_settings_;
+  scoped_ptr<AwSSLHostStateDelegate> ssl_host_state_delegate_;
 
   DISALLOW_COPY_AND_ASSIGN(AwBrowserContext);
 };

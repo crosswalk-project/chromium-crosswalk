@@ -5,7 +5,9 @@
 package org.chromium.android_webview.test;
 
 import android.graphics.Picture;
+import android.net.http.SslError;
 import android.webkit.ConsoleMessage;
+import android.webkit.ValueCallback;
 
 import org.chromium.base.ThreadUtils;
 import org.chromium.content.browser.test.util.CallbackHelper;
@@ -19,9 +21,11 @@ import org.chromium.content.browser.test.util.TestCallbackHelperContainer.OnRece
  */
 public class TestAwContentsClient extends NullContentsClient {
     private String mUpdatedTitle;
+    private boolean mAllowSslError;
     private final OnPageStartedHelper mOnPageStartedHelper;
     private final OnPageFinishedHelper mOnPageFinishedHelper;
     private final OnReceivedErrorHelper mOnReceivedErrorHelper;
+    private final CallbackHelper mOnReceivedSslErrorHelper;
     private final OnDownloadStartHelper mOnDownloadStartHelper;
     private final OnReceivedLoginRequestHelper mOnReceivedLoginRequestHelper;
     private final OnEvaluateJavaScriptResultHelper mOnEvaluateJavaScriptResultHelper;
@@ -36,6 +40,7 @@ public class TestAwContentsClient extends NullContentsClient {
         mOnPageStartedHelper = new OnPageStartedHelper();
         mOnPageFinishedHelper = new OnPageFinishedHelper();
         mOnReceivedErrorHelper = new OnReceivedErrorHelper();
+        mOnReceivedSslErrorHelper = new CallbackHelper();
         mOnDownloadStartHelper = new OnDownloadStartHelper();
         mOnReceivedLoginRequestHelper = new OnReceivedLoginRequestHelper();
         mOnEvaluateJavaScriptResultHelper = new OnEvaluateJavaScriptResultHelper();
@@ -44,6 +49,7 @@ public class TestAwContentsClient extends NullContentsClient {
         mPictureListenerHelper = new PictureListenerHelper();
         mShouldOverrideUrlLoadingHelper = new ShouldOverrideUrlLoadingHelper();
         mDoUpdateVisitedHistoryHelper = new DoUpdateVisitedHistoryHelper();
+        mAllowSslError = true;
     }
 
     public OnPageStartedHelper getOnPageStartedHelper() {
@@ -56,6 +62,10 @@ public class TestAwContentsClient extends NullContentsClient {
 
     public OnReceivedErrorHelper getOnReceivedErrorHelper() {
         return mOnReceivedErrorHelper;
+    }
+
+    public CallbackHelper getOnReceivedSslErrorHelper() {
+        return mOnReceivedSslErrorHelper;
     }
 
     public OnDownloadStartHelper getOnDownloadStartHelper() {
@@ -138,6 +148,16 @@ public class TestAwContentsClient extends NullContentsClient {
     @Override
     public void onReceivedError(int errorCode, String description, String failingUrl) {
         mOnReceivedErrorHelper.notifyCalled(errorCode, description, failingUrl);
+    }
+
+    @Override
+    public void onReceivedSslError(ValueCallback<Boolean> callback, SslError error) {
+        callback.onReceiveValue(mAllowSslError);
+        mOnReceivedSslErrorHelper.notifyCalled();
+    }
+
+    public void setAllowSslError(boolean allow) {
+        mAllowSslError = allow;
     }
 
     /**
@@ -240,7 +260,7 @@ public class TestAwContentsClient extends NullContentsClient {
     }
 
     /**
-     * Callback helper for onScaleChangedScaled.
+     * Callback helper for AddMessageToConsole.
      */
     public static class AddMessageToConsoleHelper extends CallbackHelper {
         private int mLevel;
@@ -283,7 +303,7 @@ public class TestAwContentsClient extends NullContentsClient {
     }
 
     /**
-     * Callback helper for onScaleChangedScaled.
+     * Callback helper for PictureListener.
      */
     public static class PictureListenerHelper extends CallbackHelper {
         // Generally null, depending on |invalidationOnly| in enableOnNewPicture()
@@ -306,7 +326,7 @@ public class TestAwContentsClient extends NullContentsClient {
     }
 
     /**
-     * Callback helper for onScaleChangedScaled.
+     * Callback helper for ShouldOverrideUrlLoading.
      */
     public static class ShouldOverrideUrlLoadingHelper extends CallbackHelper {
         private String mShouldOverrideUrlLoadingUrl;
