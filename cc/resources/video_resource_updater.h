@@ -5,11 +5,13 @@
 #ifndef CC_RESOURCES_VIDEO_RESOURCE_UPDATER_H_
 #define CC_RESOURCES_VIDEO_RESOURCE_UPDATER_H_
 
+#include <list>
 #include <vector>
 
 #include "base/basictypes.h"
 #include "base/memory/ref_counted.h"
 #include "base/memory/weak_ptr.h"
+#include "base/time/time.h"
 #include "cc/base/cc_export.h"
 #include "cc/resources/release_callback_impl.h"
 #include "cc/resources/resource_format.h"
@@ -77,32 +79,46 @@ class CC_EXPORT VideoResourceUpdater
     gfx::Size resource_size;
     ResourceFormat resource_format;
     gpu::Mailbox mailbox;
+    // The balance between the number of times this resource has been returned
+    // from CreateForSoftwarePlanes vs released in RecycleResource.
+    int ref_count;
+    // These last three members will be used for identifying the data stored in
+    // this resource, and uniquely identifies a media::VideoFrame plane. The
+    // frame pointer will only be used for pointer comparison, i.e. the
+    // underlying data will not be accessed.
+    const void* frame_ptr;
+    int plane_index;
+    base::TimeDelta timestamp;
 
     PlaneResource(unsigned resource_id,
                   const gfx::Size& resource_size,
                   ResourceFormat resource_format,
-                  gpu::Mailbox mailbox)
-        : resource_id(resource_id),
-          resource_size(resource_size),
-          resource_format(resource_format),
-          mailbox(mailbox) {}
+                  gpu::Mailbox mailbox);
   };
 
-  void DeleteResource(unsigned resource_id);
+  static bool PlaneResourceMatchesUniqueID(const PlaneResource& plane_resource,
+                                           const media::VideoFrame* video_frame,
+                                           int plane_index);
+
+  static void SetPlaneResourceUniqueId(const media::VideoFrame* video_frame,
+                                       int plane_index,
+                                       PlaneResource* plane_resource);
+
+  // This needs to be a container where iterators can be erased without
+  // invalidating other iterators.
+  typedef std::list<PlaneResource> ResourceList;
+  ResourceList::iterator AllocateResource(const gfx::Size& plane_size,
+                                          ResourceFormat format,
+                                          bool has_mailbox);
+  void DeleteResource(ResourceList::iterator resource_it);
   bool VerifyFrame(const scoped_refptr<media::VideoFrame>& video_frame);
   VideoFrameExternalResources CreateForHardwarePlanes(
       const scoped_refptr<media::VideoFrame>& video_frame);
   VideoFrameExternalResources CreateForSoftwarePlanes(
       const scoped_refptr<media::VideoFrame>& video_frame);
 
-  struct RecycleResourceData {
-    unsigned resource_id;
-    gfx::Size resource_size;
-    ResourceFormat resource_format;
-    gpu::Mailbox mailbox;
-  };
   static void RecycleResource(base::WeakPtr<VideoResourceUpdater> updater,
-                              RecycleResourceData data,
+                              unsigned resource_id,
                               uint32 sync_point,
                               bool lost_resource,
                               BlockingTaskRunner* main_thread_task_runner);
@@ -116,8 +132,9 @@ class CC_EXPORT VideoResourceUpdater
   ResourceProvider* resource_provider_;
   scoped_ptr<media::SkCanvasVideoRenderer> video_renderer_;
 
-  std::vector<unsigned> all_resources_;
-  std::vector<PlaneResource> recycled_resources_;
+  // Recycle resources so that we can reduce the number of allocations and
+  // data transfers.
+  ResourceList all_resources_;
 
   DISALLOW_COPY_AND_ASSIGN(VideoResourceUpdater);
 };
