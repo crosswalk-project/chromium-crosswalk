@@ -176,8 +176,7 @@ var focusedIframe = null;
 
 /**
  * True if a page has been blacklisted and we're waiting on the
- * onmostvisitedchange callback. See onMostVisitedChange() for how this
- * is used.
+ * onmostvisitedchange callback. See renderAllTiles() for how this is used.
  * @type {boolean}
  */
 var isBlacklisting = false;
@@ -193,7 +192,7 @@ var numColumnsShown = 0;
 
 /**
  * A flag to indicate Most Visited changed caused by user action. If true, then
- * in onMostVisitedChange() tiles remain visible so no flickering occurs.
+ * in renderAllTiles() tiles remain visible so no flickering occurs.
  * @type {boolean}
  */
 var userInitiatedMostVisitedChange = false;
@@ -380,7 +379,7 @@ function renderTheme() {
 function onThemeChange() {
   renderTheme();
   tilesContainer.innerHTML = '';
-  renderAndShowTiles();
+  renderAllTiles();
 }
 
 
@@ -495,9 +494,17 @@ function convertToRGBAColor(color) {
 
 
 /**
- * Handles a new set of Most Visited page data.
+ * Called when page data change.
  */
 function onMostVisitedChange() {
+  renderAllTiles();
+}
+
+
+/**
+ * Rerenders all tiles based on Most Visited page data.
+ */
+function renderAllTiles() {
   if (isBlacklisting) {
     // Trigger the blacklist animation, which then triggers reloadAllTiles().
     var lastBlacklistedTileElem = lastBlacklistedTile.elem;
@@ -521,8 +528,8 @@ function blacklistAnimationDone() {
   lastBlacklistedTile.elem.removeEventListener(
       'webkitTransitionEnd', blacklistAnimationDone);
   // Need to call explicitly to re-render the tiles, since the initial
-  // onmostvisitedchange issued by the blacklist function only triggered
-  // the animation.
+  // renderAllTiles() issued by the blacklist function only triggered the
+  // animation.
   reloadAllTiles();
 }
 
@@ -1135,7 +1142,7 @@ function init() {
     onInputStart();
 
   renderTheme();
-  onMostVisitedChange();
+  renderAllTiles();
 
   searchboxApiHandle = topLevelHandle.searchBox;
 
