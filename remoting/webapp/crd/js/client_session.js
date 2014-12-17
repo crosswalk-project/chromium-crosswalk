@@ -30,6 +30,17 @@ var remoting = remoting || {};
 remoting.enableCast = false;
 
 /**
+ * True to enable MediaSource rendering, if available.
+ * The plugin also needs to support MediaSource rendering.
+ *
+ * TODO(sergeyu): Remove mediaSource renderer from the plugin and
+ * everywhere else.
+ *
+ * @type {boolean}
+ */
+remoting.enableMediaSourceRendering = false;
+
+/**
  * @param {remoting.SignalStrategy} signalStrategy Signal strategy.
  * @param {HTMLElement} container Container element for the client view.
  * @param {string} hostDisplayName A human-readable name for the host.
@@ -511,6 +522,7 @@ remoting.ClientSession.prototype.onPluginInitialized_ = function(initialized) {
   var chromeVersionMajor =
       parseInt((remoting.getChromeVersion() || '0').split('.')[0], 10);
   if (chromeVersionMajor >= 37 &&
+      remoting.enableMediaSourceRendering &&
       this.plugin_.hasFeature(
           remoting.ClientPlugin.Feature.MEDIA_SOURCE_RENDERING)) {
     this.video_ = /** @type {HTMLMediaElement} */(
