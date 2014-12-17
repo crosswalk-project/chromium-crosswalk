@@ -619,9 +619,9 @@ TEST_F(SdchManagerTest, SdchOnByDefault) {
   GURL google_url("http://www.google.com");
   scoped_ptr<SdchManager> sdch_manager(new SdchManager);
 
-  EXPECT_EQ(SDCH_OK, sdch_manager->IsInSupportedDomain(google_url));
+  EXPECT_TRUE(sdch_manager->IsInSupportedDomain(google_url));
   SdchManager::EnableSdchSupport(false);
-  EXPECT_EQ(SDCH_DISABLED, sdch_manager->IsInSupportedDomain(google_url));
+  EXPECT_FALSE(sdch_manager->IsInSupportedDomain(google_url));
 }
 
 #else
@@ -630,9 +630,9 @@ TEST(SdchManagerTest, SdchOffByDefault) {
   GURL google_url("http://www.google.com");
   scoped_ptr<SdchManager> sdch_manager(new SdchManager);
 
-  EXPECT_EQ(SDCH_DISABLED, sdch_manager->IsInSupportedDomain(google_url));
+  EXPECT_FALSE(sdch_manager->IsInSupportedDomain(google_url));
   SdchManager::EnableSdchSupport(true);
-  EXPECT_EQ(SDCH_OK, sdch_manager->IsInSupportedDomain(google_url));
+  EXPECT_TRUE(sdch_manager->IsInSupportedDomain(google_url));
 }
 
 #endif  // !defined(OS_IOS)
