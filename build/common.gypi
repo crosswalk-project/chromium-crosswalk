@@ -553,9 +553,6 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
-      # Enable web audio hrtf by default.
-      'disable_webaudio_hrtf%': 0,
-
       # Enable QUIC support by default.
       'disable_quic_support%': 0,
 
@@ -576,6 +573,12 @@
 
       # Enable angle by default.
       'disable_angle%': 0,
+
+      # Enable web audio hrtf by default.
+      'disable_webaudio_hrtf%': 0,
+
+      # Include all resources by default.
+      'use_minimum_resources%': 0,
 
       # Use native android functions in place of ICU.  Not supported by most
       # components.
