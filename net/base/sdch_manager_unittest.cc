@@ -15,6 +15,9 @@
 
 namespace net {
 
+// Workaround for http://crbug.com/437794; remove when fixed.
+#if !defined(OS_IOS)
+
 //------------------------------------------------------------------------------
 // Provide sample data and compression results with a sample VCDIFF dictionary.
 // Note an SDCH dictionary has extra meta-data before the VCDIFF dictionary.
@@ -611,5 +614,27 @@ TEST_F(SdchManagerTest, GetDictionaryNotification) {
   EXPECT_EQ(test_request_gurl, observer.last_dictionary_request_url());
   EXPECT_EQ(test_dictionary_gurl, observer.last_dictionary_url());
 }
+
+TEST_F(SdchManagerTest, SdchOnByDefault) {
+  GURL google_url("http://www.google.com");
+  scoped_ptr<SdchManager> sdch_manager(new SdchManager);
+
+  EXPECT_EQ(SDCH_OK, sdch_manager->IsInSupportedDomain(google_url));
+  SdchManager::EnableSdchSupport(false);
+  EXPECT_EQ(SDCH_DISABLED, sdch_manager->IsInSupportedDomain(google_url));
+}
+
+#else
+
+TEST(SdchManagerTest, SdchOffByDefault) {
+  GURL google_url("http://www.google.com");
+  scoped_ptr<SdchManager> sdch_manager(new SdchManager);
+
+  EXPECT_EQ(SDCH_DISABLED, sdch_manager->IsInSupportedDomain(google_url));
+  SdchManager::EnableSdchSupport(true);
+  EXPECT_EQ(SDCH_OK, sdch_manager->IsInSupportedDomain(google_url));
+}
+
+#endif  // !defined(OS_IOS)
 
 }  // namespace net
