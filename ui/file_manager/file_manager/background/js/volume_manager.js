@@ -229,6 +229,7 @@ volumeManagerUtil.createVolumeInfo = function(volumeMetadata, callback) {
       break;
   }
 
+  console.debug('Requesting file system.');
   chrome.fileManagerPrivate.requestFileSystem(
       volumeMetadata.volumeId,
       function(fileSystem) {
@@ -249,6 +250,8 @@ volumeManagerUtil.createVolumeInfo = function(volumeMetadata, callback) {
               volumeMetadata.extensionId));
           return;
         }
+
+        console.debug('File system obtained: ' + volumeMetadata.volumeId);
         if (volumeMetadata.volumeType ==
             VolumeManagerCommon.VolumeType.DRIVE) {
           // After file system is mounted, we "read" drive grand root
@@ -563,7 +566,10 @@ VolumeManager.revokeInstanceForTesting = function() {
  * @private
  */
 VolumeManager.prototype.initialize_ = function(callback) {
+  console.debug('Requesting volume list.');
   chrome.fileManagerPrivate.getVolumeMetadataList(function(volumeMetadataList) {
+    console.debug('Volume list fetched with: ' + volumeMetadataList.length +
+        ' items.');
     // We must subscribe to the mount completed event in the callback of
     // getVolumeMetadataList. crbug.com/330061.
     // But volumes reported by onMountCompleted events must be added after the
@@ -572,6 +578,7 @@ VolumeManager.prototype.initialize_ = function(callback) {
       // Create VolumeInfo for each volume.
       var group = new AsyncUtil.Group();
       for (var i = 0; i < volumeMetadataList.length; i++) {
+        console.debug('Initializing volume: ' + volumeMetadataList[i].volumeId);
         group.add(function(volumeMetadata, continueCallback) {
           volumeManagerUtil.createVolumeInfo(
               volumeMetadata,
@@ -580,11 +587,13 @@ VolumeManager.prototype.initialize_ = function(callback) {
                 if (volumeMetadata.volumeType ===
                     VolumeManagerCommon.VolumeType.DRIVE)
                   this.onDriveConnectionStatusChanged_();
+                console.debug('Initialized volume: ' + volumeInfo.volumeId);
                 continueCallback();
               }.bind(this));
         }.bind(this, volumeMetadataList[i]));
       }
       group.run(function() {
+        console.debug('Initialized all volumes.');
         // Call the callback of the initialize function.
         callback();
         // Call the callback of AsyncQueue. Maybe it invokes callbacks
