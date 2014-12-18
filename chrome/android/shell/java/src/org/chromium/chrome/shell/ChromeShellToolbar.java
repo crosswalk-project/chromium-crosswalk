@@ -148,7 +148,8 @@ public class ChromeShellToolbar extends LinearLayout {
 
     void setMenuHandler(AppMenuHandler menuHandler) {
         mMenuHandler = menuHandler;
-        mAppMenuButtonHelper = new AppMenuButtonHelper(mMenuHandler);
+        ImageButton menuButton = (ImageButton) findViewById(R.id.menu_button);
+        mAppMenuButtonHelper = new AppMenuButtonHelper(menuButton, mMenuHandler);
     }
 
     private void initializeUrlField() {
