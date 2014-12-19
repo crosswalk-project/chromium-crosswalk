@@ -4205,7 +4205,7 @@ void GLES2DecoderImpl::OnFboChanged() const {
     GLint bound_fbo_unsigned = -1;
     glGetIntegerv(GL_FRAMEBUFFER_BINDING_EXT, &bound_fbo_unsigned);
     GLuint bound_fbo = static_cast<GLuint>(bound_fbo_unsigned);
-    if (surface_ && surface_->GetBackingFrameBufferObject() == bound_fbo)
+    if (surface_.get() && surface_->GetBackingFrameBufferObject() == bound_fbo)
       surface_->NotifyWasBound();
   }
 }
