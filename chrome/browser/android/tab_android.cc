@@ -643,8 +643,8 @@ bool TabAndroid::Print(JNIEnv* env, jobject obj) {
   return true;
 }
 
-ScopedJavaLocalRef<jobject> TabAndroid::GetDefaultFavicon(JNIEnv* env,
-                                                          jobject obj) {
+ScopedJavaLocalRef<jobject> TabAndroid::GetFavicon(JNIEnv* env,
+                                                   jobject obj) {
   ScopedJavaLocalRef<jobject> bitmap;
   FaviconTabHelper* favicon_tab_helper =
       FaviconTabHelper::FromWebContents(web_contents_.get());
