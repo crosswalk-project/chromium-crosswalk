@@ -219,8 +219,7 @@ base::string16 CutOffStringForEliding(
 }
 
 UChar32 foldCase(UChar32 c) {
-  // FIXME(Xingnan): No java method, directly return the same copy.
-  return c;
+  return toLower(c);
 }
 
 int copy(UChar* result, int resultLength, const UChar* src, int srcLength) {
@@ -230,9 +229,7 @@ int copy(UChar* result, int resultLength, const UChar* src, int srcLength) {
 }
 
 int foldCase(UChar* result, int resultLength, const UChar* src, int srcLength, bool* error) {
-  // FIXME(Xingnan): No java method, directly return the same copy.
-  *error = true;
-  return copy(result, resultLength, src, srcLength);
+  return toLower(result, resultLength, src, srcLength, error);
 }
 
 int toLower(UChar* result, int resultLength, const UChar* src, int srcLength, bool* error) {
