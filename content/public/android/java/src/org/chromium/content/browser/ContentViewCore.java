@@ -484,6 +484,7 @@ public class ContentViewCore
     private ViewAndroid mViewAndroid;
 
     private SmartClipDataListener mSmartClipDataListener = null;
+    private ObserverList<ContainerViewObserver> mContainerViewObservers;
 
     // This holds the state of editable text (e.g. contents of <input>, contenteditable) of
     // a focused element.
@@ -540,6 +541,7 @@ public class ContentViewCore
 
         mEditable = Editable.Factory.getInstance().newEditable("");
         Selection.setSelection(mEditable, 0);
+        mContainerViewObservers = new ObserverList<ContainerViewObserver>();
     }
 
     /**
@@ -804,7 +806,18 @@ public class ContentViewCore
         mContainerView.setWillNotDraw(false); // TODO(epenner): Remove (http://crbug.com/436689)
         mContainerView.setClickable(true);
         mViewAndroidDelegate.updateCurrentContainerView();
+        for (ContainerViewObserver observer : mContainerViewObservers) {
+            observer.onContainerViewChanged(mContainerView);
+        }
         TraceEvent.end();
+    }
+
+    public void addContainerViewObserver(ContainerViewObserver observer) {
+        mContainerViewObservers.addObserver(observer);
+    }
+
+    public void removeContainerViewObserver(ContainerViewObserver observer) {
+        mContainerViewObservers.removeObserver(observer);
     }
 
     @CalledByNative
@@ -917,6 +930,7 @@ public class ContentViewCore
         mGestureStateListeners.clear();
         ScreenOrientationListener.getInstance().removeObserver(this);
         mPositionObserver.clearListener();
+        mContainerViewObservers.clear();
     }
 
     private void unregisterAccessibilityContentObserver() {
