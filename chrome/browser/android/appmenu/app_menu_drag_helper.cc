@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "base/metrics/histogram_macros.h"
+#include "base/metrics/histogram.h"
 #include "chrome/browser/android/appmenu/app_menu_drag_helper.h"
 #include "jni/AppMenuDragHelper_jni.h"
 
