@@ -296,7 +296,7 @@ bool CreateOutputStream(pa_threaded_mainloop** mainloop,
 #if defined(OS_TIZEN)
   PulseAudioOutputStream* data =
       static_cast<PulseAudioOutputStream*>(user_data);
-  pa_proplist_sets(property_list.get(), "resource.set.appid",
+  pa_proplist_sets(property_list.get(), "resource.set.name",
                    data->app_id().c_str());
   pa_proplist_sets(property_list.get(), PA_PROP_MEDIA_ROLE,
                    data->app_class().c_str());
