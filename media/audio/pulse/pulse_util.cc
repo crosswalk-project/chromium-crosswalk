@@ -268,7 +268,7 @@ bool CreateOutputStream(pa_threaded_mainloop** mainloop,
   PulseAudioOutputStream* data =
       static_cast<PulseAudioOutputStream*>(user_data);
   pa_proplist* proplist = pa_proplist_new();
-  pa_proplist_sets(proplist, "resource.set.appid", data->app_id().c_str());
+  pa_proplist_sets(proplist, "resource.set.name", data->app_id().c_str());
   pa_proplist_sets(proplist, PA_PROP_MEDIA_ROLE, data->app_class().c_str());
   *stream = pa_stream_new_with_proplist(*context, "Playback",
                                         &sample_specifications,
