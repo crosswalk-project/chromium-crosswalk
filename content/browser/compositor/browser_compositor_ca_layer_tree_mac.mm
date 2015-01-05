@@ -60,7 +60,6 @@ BrowserCompositorCALayerTreeMac::BrowserCompositorCALayerTreeMac()
       native_widget_,
       content::GetContextFactory(),
       RenderWidgetResizeHelper::Get()->task_runner()));
-  compositor_->SetVisible(false);
 }
 
 BrowserCompositorCALayerTreeMac::~BrowserCompositorCALayerTreeMac() {
@@ -81,7 +80,6 @@ void BrowserCompositorCALayerTreeMac::SetView(
   DCHECK(background_layer);
   [flipped_layer_ setBounds:[background_layer bounds]];
   [background_layer addSublayer:flipped_layer_];
-  compositor_->SetVisible(true);
 }
 
 void BrowserCompositorCALayerTreeMac::ResetView() {
@@ -99,8 +97,8 @@ void BrowserCompositorCALayerTreeMac::ResetView() {
   accelerated_output_surface_id_ = 0;
   last_swap_size_dip_ = gfx::Size();
 
-  compositor_->SetVisible(false);
-  compositor_->SetScaleAndSize(1.0, gfx::Size(0, 0));
+  content::ImageTransportFactory::GetInstance()->OnCompositorRecycled(
+      compositor_.get());
   compositor_->SetRootLayer(NULL);
   view_ = NULL;
 }

@@ -24,6 +24,7 @@
 
 #if defined(OS_MACOSX)
 #include "content/browser/compositor/browser_compositor_ca_layer_tree_mac.h"
+#include "content/browser/compositor/image_transport_factory.h"
 #endif
 
 #if defined(USE_OZONE)
@@ -259,17 +260,29 @@ void GpuProcessHostUIShim::OnAcceleratedSurfaceBuffersSwapped(
   // associated with a RenderWidgetHostViewBase.
   AcceleratedSurfaceMsg_BufferPresented_Params ack_params;
   DCHECK(IsDelegatedRendererEnabled());
-  gfx::AcceleratedWidget native_widget =
-      content::GpuSurfaceTracker::Get()->AcquireNativeWidget(params.surface_id);
-  BrowserCompositorCALayerTreeMacGotAcceleratedFrame(
-      native_widget,
-      params.surface_handle,
-      params.surface_id,
-      params.latency_info,
-      params.size,
-      params.scale_factor,
-      &ack_params.disable_throttling,
-      &ack_params.renderer_id);
+  // If the frame was intended for an NSView that the gfx::AcceleratedWidget is
+  // no longer attached to, do not pass the frame along to the widget. Just ack
+  // it to the GPU process immediately, so we can proceed to the next frame.
+  bool should_not_show_frame =
+      content::ImageTransportFactory::GetInstance()
+          ->SurfaceShouldNotShowFramesAfterRecycle(params.surface_id);
+  if (should_not_show_frame) {
+    content::ImageTransportFactory::GetInstance()->OnSurfaceDisplayed(
+        params.surface_id);
+  } else {
+    gfx::AcceleratedWidget native_widget =
+        content::GpuSurfaceTracker::Get()->AcquireNativeWidget(
+            params.surface_id);
+    BrowserCompositorCALayerTreeMacGotAcceleratedFrame(
+        native_widget,
+        params.surface_handle,
+        params.surface_id,
+        params.latency_info,
+        params.size,
+        params.scale_factor,
+        &ack_params.disable_throttling,
+        &ack_params.renderer_id);
+  }
   Send(new AcceleratedSurfaceMsg_BufferPresented(params.route_id, ack_params));
 #else
   NOTREACHED();
