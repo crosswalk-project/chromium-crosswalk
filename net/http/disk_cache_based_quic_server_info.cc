@@ -187,11 +187,17 @@ void DiskCacheBasedQuicServerInfo::OnIOComplete(CacheOperationDataShim* unused,
   rv = DoLoop(rv);
   if (rv == ERR_IO_PENDING)
     return;
+
+  base::WeakPtr<DiskCacheBasedQuicServerInfo> weak_this =
+      weak_factory_.GetWeakPtr();
+
   if (!wait_for_ready_callback_.is_null()) {
     RecordLastFailure();
     base::ResetAndReturn(&wait_for_ready_callback_).Run(rv);
   }
-  if (ready_ && !pending_write_data_.empty()) {
+  // |wait_for_ready_callback_| could delete the object if there is an error.
+  // Check if |weak_this| still exists before accessing it.
+  if (weak_this.get() && ready_ && !pending_write_data_.empty()) {
     DCHECK_EQ(NONE, state_);
     PersistInternal();
   }
