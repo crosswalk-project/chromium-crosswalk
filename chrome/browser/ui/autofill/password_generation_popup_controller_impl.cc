@@ -182,6 +182,13 @@ void PasswordGenerationPopupControllerImpl::Show(bool display_password) {
 
   if (!view_) {
     view_ = PasswordGenerationPopupView::Create(this);
+
+    // Treat popup as being hidden if creation fails.
+    if (!view_) {
+      Hide();
+      return;
+    }
+
     CalculateBounds();
     view_->Show();
   } else {
