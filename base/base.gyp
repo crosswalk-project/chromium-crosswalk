@@ -54,7 +54,7 @@
               ['exclude', '_nss\\.cc$'],
             ],
         }],
-        ['use_glib==1 or <(use_ozone)==1', {
+        ['use_glib==1', {
           'dependencies': [
             '../build/linux/system.gyp:glib',
           ],
@@ -737,11 +737,6 @@
             '../build/linux/system.gyp:glib',
           ],
         }, {  # use_glib == 0
-          'sources!': [
-            'message_loop/message_pump_glib_unittest.cc',
-          ]
-        }],
-        ['use_ozone == 1', {
           'sources!': [
             'message_loop/message_pump_glib_unittest.cc',
           ]
