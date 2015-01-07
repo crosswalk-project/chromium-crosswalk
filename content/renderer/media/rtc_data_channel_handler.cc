@@ -50,10 +50,7 @@ RtcDataChannelHandler::Observer::Observer(
   channel_->RegisterObserver(this);
 }
 
-RtcDataChannelHandler::Observer::~Observer() {
-  DVLOG(3) << "dtor";
-  DCHECK(!channel_.get()) << "Unregister hasn't been called.";
-}
+RtcDataChannelHandler::Observer::~Observer() {}
 
 const scoped_refptr<base::SingleThreadTaskRunner>&
 RtcDataChannelHandler::Observer::main_thread() const {
@@ -62,19 +59,12 @@ RtcDataChannelHandler::Observer::main_thread() const {
 
 const scoped_refptr<webrtc::DataChannelInterface>&
 RtcDataChannelHandler::Observer::channel() const {
-  DCHECK(main_thread_->BelongsToCurrentThread());
   return channel_;
 }
 
-void RtcDataChannelHandler::Observer::Unregister() {
+void RtcDataChannelHandler::Observer::ClearHandler() {
   DCHECK(main_thread_->BelongsToCurrentThread());
   handler_ = nullptr;
-  if (channel_.get()) {
-    channel_->UnregisterObserver();
-    // Now that we're guaranteed to not get further OnStateChange callbacks,
-    // it's safe to release our reference to the channel.
-    channel_ = nullptr;
-  }
 }
 
 void RtcDataChannelHandler::Observer::OnStateChange() {
@@ -137,18 +127,13 @@ RtcDataChannelHandler::RtcDataChannelHandler(
 RtcDataChannelHandler::~RtcDataChannelHandler() {
   DCHECK(thread_checker_.CalledOnValidThread());
   DVLOG(1) << "::dtor";
-  DCHECK(!observer_.get());
+  observer_->ClearHandler();
 }
 
 void RtcDataChannelHandler::setClient(
     blink::WebRTCDataChannelHandlerClient* client) {
   DCHECK(thread_checker_.CalledOnValidThread());
-  DVLOG(3) << "setClient " << client;
   webkit_client_ = client;
-  if (!client) {
-    observer_->Unregister();
-    observer_ = nullptr;
-  }
 }
 
 blink::WebString RtcDataChannelHandler::label() {
@@ -288,7 +273,6 @@ void RtcDataChannelHandler::OnMessage(scoped_ptr<webrtc::DataBuffer> buffer) {
 }
 
 void RtcDataChannelHandler::RecordMessageSent(size_t num_bytes) {
-  DCHECK(thread_checker_.CalledOnValidThread());
   // Currently, messages are capped at some fairly low limit (16 Kb?)
   // but we may allow unlimited-size messages at some point, so making
   // the histogram maximum quite large (100 Mb) to have some

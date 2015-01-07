@@ -174,8 +174,7 @@ PeerConnectionDependencyFactory::PeerConnectionDependencyFactory(
 }
 
 PeerConnectionDependencyFactory::~PeerConnectionDependencyFactory() {
-  DVLOG(1) << "~PeerConnectionDependencyFactory()";
-  DCHECK(pc_factory_.get() == NULL);
+  CleanupPeerConnectionFactory();
   if (aec_dump_message_filter_.get())
     aec_dump_message_filter_->RemoveDelegate(this);
 }
@@ -269,11 +268,6 @@ PeerConnectionDependencyFactory::GetPcFactory() {
   return pc_factory_;
 }
 
-
-void PeerConnectionDependencyFactory::WillDestroyCurrentMessageLoop() {
-  CleanupPeerConnectionFactory();
-}
-
 void PeerConnectionDependencyFactory::CreatePeerConnectionFactory() {
   DCHECK(!pc_factory_.get());
   DCHECK(!signaling_thread_);
@@ -285,7 +279,6 @@ void PeerConnectionDependencyFactory::CreatePeerConnectionFactory() {
 
   DVLOG(1) << "PeerConnectionDependencyFactory::CreatePeerConnectionFactory()";
 
-  base::MessageLoop::current()->AddDestructionObserver(this);
   // To allow sending to the signaling/worker threads.
   jingle_glue::JingleThreadWrapper::EnsureForCurrentMessageLoop();
   jingle_glue::JingleThreadWrapper::current()->set_send_allowed(true);
@@ -591,7 +584,6 @@ void PeerConnectionDependencyFactory::DeleteIpcNetworkManager() {
 }
 
 void PeerConnectionDependencyFactory::CleanupPeerConnectionFactory() {
-  DVLOG(1) << "PeerConnectionDependencyFactory::CleanupPeerConnectionFactory()";
   pc_factory_ = NULL;
   if (network_manager_) {
     // The network manager needs to free its resources on the thread they were

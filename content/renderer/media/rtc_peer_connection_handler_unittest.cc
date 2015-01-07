@@ -966,7 +966,6 @@ TEST_F(RTCPeerConnectionHandlerTest, CreateDataChannel) {
       pc_handler_->createDataChannel("d1", blink::WebRTCDataChannelInit()));
   EXPECT_TRUE(channel.get() != NULL);
   EXPECT_EQ(label, channel->label());
-  channel->setClient(nullptr);
 }
 
 TEST_F(RTCPeerConnectionHandlerTest, CreateDtmfSender) {
