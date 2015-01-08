@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.view.ContextMenu;
 import android.view.View;
+import android.widget.FrameLayout;
 
 import org.chromium.base.CalledByNative;
 import org.chromium.base.ObserverList;
@@ -113,6 +114,9 @@ public class Tab {
      * The {@link ContentViewCore} showing the current page or {@code null} if the tab is frozen.
      */
     private ContentViewCore mContentViewCore;
+
+    /** The parent view of the ContentView and the InfoBarContainer. */
+    private FrameLayout mContentViewParent;
 
     /**
      * A list of Tab observers.  These are used to broadcast Tab events to listeners.
@@ -502,8 +506,7 @@ public class Tab {
      *         This can be {@code null}, if the tab is frozen or being initialized or destroyed.
      */
     public View getView() {
-        return mNativePage != null ? mNativePage.getView() :
-                (mContentViewCore != null ? mContentViewCore.getContainerView() : null);
+        return mNativePage != null ? mNativePage.getView() : mContentViewParent;
     }
 
     /**
@@ -835,6 +838,18 @@ public class Tab {
 
         mContentViewCore = cvc;
 
+        // Wrap the ContentView in a FrameLayout, which will contain both the ContentView and the
+        // InfoBarContainer. The alternative -- placing the InfoBarContainer inside the ContentView
+        // -- causes problems since then the ContentView would contain both real views (the
+        // infobars) and virtual views (the web page elements), which breaks Android accessibility.
+        // http://crbug.com/416663
+        if (mContentViewParent != null) {
+            assert false;
+            mContentViewParent.removeAllViews();
+        }
+        mContentViewParent = new FrameLayout(mContext);
+        mContentViewParent.addView(cvc.getContainerView());
+
         mWebContentsDelegate = createWebContentsDelegate();
         mWebContentsObserver = new TabWebContentsObserver(mContentViewCore.getWebContents());
         mVoiceSearchTabHelper = new VoiceSearchTabHelper(mContentViewCore.getWebContents());
@@ -854,9 +869,9 @@ public class Tab {
             WebContents webContents = mContentViewCore.getWebContents();
             mInfoBarContainer = new InfoBarContainer(
                     (Activity) mContext, createAutoLoginProcessor(), getId(),
-                    mContentViewCore.getContainerView(), webContents);
+                    mContentViewParent, webContents);
         } else {
-            mInfoBarContainer.onParentViewChanged(getId(), mContentViewCore.getContainerView());
+            mInfoBarContainer.onParentViewChanged(getId(), mContentViewParent);
         }
 
         if (AppBannerManager.isEnabled() && mAppBannerManager == null) {
@@ -1009,9 +1024,8 @@ public class Tab {
 
         destroyContentViewCoreInternal(mContentViewCore);
 
-        if (mInfoBarContainer != null && mInfoBarContainer.getParent() != null) {
-            mInfoBarContainer.removeFromParentView();
-        }
+        mContentViewParent.removeAllViews();
+        mContentViewParent = null;
         mContentViewCore.destroy();
 
         mContentViewCore = null;
