@@ -7,10 +7,11 @@
 
 #include "base/macros.h"
 #include "ui/display/types/native_display_delegate.h"
+#include "ui/ozone/ozone_export.h"
 
 namespace ui {
 
-class NativeDisplayDelegateOzone : public NativeDisplayDelegate {
+class OZONE_EXPORT NativeDisplayDelegateOzone : public NativeDisplayDelegate {
  public:
   NativeDisplayDelegateOzone();
   ~NativeDisplayDelegateOzone() override;
