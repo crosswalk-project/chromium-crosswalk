@@ -157,7 +157,7 @@ void OnResolveProxyHandler(const GURL& url,
         params &&
         params->IsDataReductionProxy(result->proxy_server().host_port_pair(),
                                      NULL)) {
-      result->UseDirect();
+      result->RemoveProxiesWithoutScheme(net::ProxyServer::SCHEME_DIRECT);
     }
   }
 }
