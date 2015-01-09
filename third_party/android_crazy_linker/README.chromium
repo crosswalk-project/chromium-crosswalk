@@ -59,3 +59,5 @@ Local Modifications:
 - Add method for enabling/disabling the memory fallback (disabled by default).
 
 - Add a check whether file is uncompressed in zip file.
+
+- Fix for crbug/444714 (Chrome_Android: Crash Report - -1DB24FB5)
