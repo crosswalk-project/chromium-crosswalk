@@ -154,7 +154,6 @@
 #include "components/bookmarks/browser/bookmark_model.h"
 #include "components/bookmarks/browser/bookmark_utils.h"
 #include "components/content_settings/core/browser/host_content_settings_map.h"
-#include "components/google/core/browser/google_url_tracker.h"
 #include "components/search/search.h"
 #include "components/startup_metric_utils/startup_metric_utils.h"
 #include "components/web_modal/popup_manager.h"

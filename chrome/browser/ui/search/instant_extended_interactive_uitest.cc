@@ -50,7 +50,6 @@
 #include "chrome/test/base/ui_test_utils.h"
 #include "components/bookmarks/browser/bookmark_utils.h"
 #include "components/bookmarks/test/bookmark_test_helpers.h"
-#include "components/google/core/browser/google_url_tracker.h"
 #include "components/history/core/browser/history_types.h"
 #include "components/history/core/common/thumbnail_score.h"
 #include "components/omnibox/autocomplete_match.h"

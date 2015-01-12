@@ -13,7 +13,6 @@
 #include "chrome/browser/chrome_notification_types.h"
 #include "chrome/browser/content_settings/tab_specific_content_settings.h"
 #include "chrome/browser/favicon/favicon_tab_helper.h"
-#include "chrome/browser/google/google_url_tracker_factory.h"
 #include "chrome/browser/infobars/infobar_service.h"
 #include "chrome/browser/prerender/prerender_contents.h"
 #include "chrome/browser/prerender/prerender_manager.h"
@@ -40,8 +39,6 @@
 #include "chrome/browser/ui/tab_helpers.h"
 #include "chrome/common/instant_types.h"
 #include "chrome/common/url_constants.h"
-#include "components/google/core/browser/google_url_tracker.h"
-#include "components/google/core/browser/google_util.h"
 #include "components/infobars/core/infobar_container.h"
 #include "components/url_fixer/url_fixer.h"
 #include "content/public/browser/android/content_view_core.h"
@@ -552,20 +549,6 @@ TabAndroid::TabLoadStatus TabAndroid::LoadUrl(JNIEnv* env,
     return PAGE_LOAD_FAILED;
 
   if (!HandleNonNavigationAboutURL(fixed_url)) {
-    // Notify the GoogleURLTracker of searches, it might want to change the
-    // actual Google site used (for instance when in the UK, google.co.uk, when
-    // in the US google.com).
-    // Note that this needs to happen before we initiate the navigation as the
-    // GoogleURLTracker uses the navigation pending notification to trigger the
-    // infobar.
-    if (google_util::IsGoogleSearchUrl(fixed_url) &&
-        (page_transition & ui::PAGE_TRANSITION_GENERATED)) {
-      GoogleURLTracker* tracker =
-          GoogleURLTrackerFactory::GetForProfile(GetProfile());
-      if (tracker)
-        tracker->SearchCommitted();
-    }
-
     // Record UMA "ShowHistory" here. That way it'll pick up both user
     // typing chrome://history as well as selecting from the drop down menu.
     if (fixed_url.spec() == chrome::kChromeUIHistoryURL) {
