@@ -855,7 +855,7 @@
         }],
       ],
     }],
-    ['target_arch != "arm" and chromeos == 1', {
+    ['target_arch != "arm" and use_ozone == 1', {
       'dependencies': [
         '../media/media.gyp:media',
         '../third_party/libyuv/libyuv.gyp:libyuv',
@@ -866,14 +866,12 @@
         'common/gpu/media/vaapi_h264_decoder.h',
         'common/gpu/media/vaapi_h264_dpb.cc',
         'common/gpu/media/vaapi_h264_dpb.h',
-        'common/gpu/media/vaapi_picture.cc',
-        'common/gpu/media/vaapi_picture.h',
         'common/gpu/media/vaapi_video_decode_accelerator.cc',
         'common/gpu/media/vaapi_video_decode_accelerator.h',
-        'common/gpu/media/vaapi_video_encode_accelerator.cc',
-        'common/gpu/media/vaapi_video_encode_accelerator.h',
-        'common/gpu/media/vaapi_wrapper.cc',
-        'common/gpu/media/vaapi_wrapper.h',
+        '<(DEPTH)/ozone/media/vaapi_picture.cc',
+        '<(DEPTH)/ozone/media/vaapi_picture.h',
+        '<(DEPTH)/ozone/media/vaapi_picture_wayland.cc',
+        '<(DEPTH)/ozone/media/vaapi_picture_wayland.h',
       ],
       'conditions': [
         ['use_x11 == 1', {
