@@ -177,11 +177,6 @@ const char* const kPredefinedAllowedCompositorOrigins[] = {
   "6EAED1924DB611B6EEF2A664BD077BE7EAD33B8F",  // see crbug.com/383937
   "4EB74897CB187C7633357C2FE832E0AD6A44883A"   // see crbug.com/383937
 };
-
-const char* const kPredefinedAllowedVideoDecodeOrigins[] = {
-  "6EAED1924DB611B6EEF2A664BD077BE7EAD33B8F",  // see crbug.com/383937
-  "4EB74897CB187C7633357C2FE832E0AD6A44883A"   // see crbug.com/383937
-};
 #endif
 
 static void AppendParams(const std::vector<base::string16>& additional_names,
@@ -279,9 +274,6 @@ ChromeContentRendererClient::ChromeContentRendererClient() {
 #if defined(ENABLE_PLUGINS)
   for (size_t i = 0; i < arraysize(kPredefinedAllowedCompositorOrigins); ++i)
     allowed_compositor_origins_.insert(kPredefinedAllowedCompositorOrigins[i]);
-  for (size_t i = 0; i < arraysize(kPredefinedAllowedVideoDecodeOrigins); ++i)
-    allowed_video_decode_origins_.insert(
-        kPredefinedAllowedVideoDecodeOrigins[i]);
 #endif
 }
 
@@ -1561,23 +1553,6 @@ bool ChromeContentRendererClient::IsPluginAllowedToUseCompositorAPI(
           switches::kEnablePepperTesting))
     return true;
   if (IsExtensionOrSharedModuleWhitelisted(url, allowed_compositor_origins_))
-    return true;
-
-  chrome::VersionInfo::Channel channel = chrome::VersionInfo::GetChannel();
-  return channel <= chrome::VersionInfo::CHANNEL_DEV;
-#else
-  return false;
-#endif
-}
-
-bool ChromeContentRendererClient::IsPluginAllowedToUseVideoDecodeAPI(
-    const GURL& url) {
-#if defined(ENABLE_PLUGINS) && defined(ENABLE_EXTENSIONS)
-  if (CommandLine::ForCurrentProcess()->HasSwitch(
-          switches::kEnablePepperTesting))
-    return true;
-
-  if (IsExtensionOrSharedModuleWhitelisted(url, allowed_video_decode_origins_))
     return true;
 
   chrome::VersionInfo::Channel channel = chrome::VersionInfo::GetChannel();
