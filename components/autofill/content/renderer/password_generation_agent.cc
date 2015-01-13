@@ -73,7 +73,7 @@ bool ContainsForm(const std::vector<autofill::FormData>& forms,
                   const PasswordForm& form) {
   for (std::vector<autofill::FormData>::const_iterator it =
            forms.begin(); it != forms.end(); ++it) {
-    if (it->SameFormAs(form.form_data))
+    if (*it == form.form_data)
       return true;
   }
   return false;
