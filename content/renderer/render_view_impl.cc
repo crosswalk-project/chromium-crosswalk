@@ -3597,6 +3597,17 @@ GURL RenderViewImpl::GetURLForGraphicsContext3D() {
 void RenderViewImpl::OnSetFocus(bool enable) {
   RenderWidget::OnSetFocus(enable);
 
+  // Make VisibilityChange events work when a window has become visible
+  // or has been hidden.
+  if (webview()) {
+    if (enable)
+      webview()->setVisibilityState(blink::WebPageVisibilityStateVisible,
+          false);
+    else
+      webview()->setVisibilityState(blink::WebPageVisibilityStateHidden,
+          false);
+  }
+
 #if defined(ENABLE_PLUGINS)
   if (webview() && webview()->isActive()) {
     // Notify all NPAPI plugins.
