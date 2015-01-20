@@ -1769,7 +1769,9 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
 
         destroyContentViewCoreInternal(mContentViewCore);
 
-        mContentViewParent.removeAllViews();
+        if (mInfoBarContainer != null && mInfoBarContainer.getParent() != null) {
+            mInfoBarContainer.removeFromParentView();
+        }
         mContentViewParent = null;
         mContentViewCore.destroy();
         mContentViewCore = null;
