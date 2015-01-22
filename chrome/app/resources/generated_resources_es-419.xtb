@@ -470,7 +470,7 @@
 <translation id="7414321908956986214">Versión alternativa del proxy de reducción de datos</translation>
 <translation id="7264275118036872269">Error al iniciar la detección del dispositivo Bluetooth</translation>
 <translation id="3855676282923585394">Importar marcadores y configuración...</translation>
-<translation id="8012647001091218357">No pudimos comunicarnos con tus padres en este momento. Vuelve a intentarlo.</translation>
+<translation id="8012647001091218357">No pudimos comunicarnos con tus padres. Vuelve a intentarlo.</translation>
 <translation id="1116694919640316211">Acerca de</translation>
 <translation id="8381977081675353473">Eslovaco</translation>
 <translation id="2849866606957084126">Se creó un usuario supervisado con el nombre <ph name="NEW_PROFILE_NAME"/>. Para definir los sitios web que puede ver este usuario supervisado, puedes configurar restricciones y opciones a través de la página <ph name="BEGIN_LINK"/>www.chrome.com/manage<ph name="END_LINK"/>. Si no cambias la configuración predeterminada, <ph name="NEW_PROFILE_NAME"/> podrá navegar por todos los sitios de la Web.
@@ -1342,7 +1342,7 @@ Todos los usuarios deben salir de sus cuentas para continuar.</translation>
 <translation id="2803407661478021186">Un resguardo SSLv3 pudo establecer un protocolo de enlace con el servidor, pero ya no aceptamos resguardos SSLv3 debido a nuevos ataques contra el protocolo. El servidor debe actualizarse para admitir por lo menos TLS 1.0 y, preferiblemente, TLS 1.2.</translation>
 <translation id="7719421816612904796">Se agotó el tiempo de espera para la capacitación.</translation>
 <translation id="3725367690636977613">páginas</translation>
-<translation id="3498215018399854026">No pudimos comunicarnos con ninguno de tus padres en este momento. Vuelve a intentarlo.</translation>
+<translation id="3498215018399854026">No pudimos comunicarnos con ninguno de tus padres. Vuelve a intentarlo.</translation>
 <translation id="8656946437567854031">Al hacer clic en Continuar, aceptas los siguientes documentos legales: <ph name="LEGAL_DOC_LINK_TEXT_1"/>, <ph name="LEGAL_DOC_LINK_TEXT_2"/>, <ph name="LEGAL_DOC_LINK_TEXT_3"/>, <ph name="LEGAL_DOC_LINK_TEXT_4"/>, <ph name="LEGAL_DOC_LINK_TEXT_5"/> y <ph name="LEGAL_DOC_LINK_TEXT_6"/>.</translation>
 <translation id="830598693585544337">Si habilitas esta opción, evitarás que los sitios web accedan a la API de WebAudio.</translation>
 <translation id="3574777678278664892">Si esta opción se habilita, el administrador de contraseñas no ofrece guardar la credencial utilizada para la sincronización.</translation>
@@ -1874,7 +1874,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="5317780077021120954">Guardar</translation>
 <translation id="8152091997436726702">Se agotó el tiempo de espera para el registro de la impresora. Debes confirmar el registro de la impresora si quieres registrarla.</translation>
 <translation id="651942933739530207">¿Deseas que <ph name="APP_NAME"/> comparta tu pantalla y la salida de audio?</translation>
-<translation id="5799551393681493217">Habilita los flujos de acceso a Chrome basados en marcos flotantes. Esta marca anula el acceso basado en habilitación web.</translation>
+<translation id="5799551393681493217">Habilita los flujos de acceso a Chrome basados en marcos flotantes. Esta marca anula la habilitación de acceso basado en Web.</translation>
 <translation id="1151972924205500581">Contraseña obligatoria</translation>
 <translation id="9027459031423301635">Abrir vínculo en la pes&amp;taña nueva</translation>
 <translation id="1523350272063152305">Ya puedes configurar el dispositivo Chromebox para reuniones.</translation>
@@ -3103,7 +3103,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="394984172568887996">Importado de Internet Explorer</translation>
 <translation id="5311260548612583999">Archivo de clave privada (opcional):</translation>
 <translation id="8235141838561081489">Inhabilitar el cuadro de diálogo de información sobre extensiones</translation>
-<translation id="2831904287943562142">Habilita la aparición de la solicitud de contraseña cuando hay desplazamiento en una página. Esto permite que se guarden las contraseñas en más páginas, pero también es posible que active la solicitud en intentos de acceso fallidos.</translation>
+<translation id="2831904287943562142">Habilita la aparición de la solicitud de contraseña cuando hay desplazamiento en una página. Esta acción permite que se guarden las contraseñas en más páginas, pero también es posible que active la solicitud en intentos de acceso fallidos.</translation>
 <translation id="8256319818471787266">Bobby</translation>
 <translation id="7568790562536448087">Actualizando</translation>
 <translation id="3910699493603749297">Teclado khmer</translation>
@@ -4890,7 +4890,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
       <ph name="LIST_ITEM"/>eliminar la verificación de rootfs para poder modificar archivos de SO;
       <ph name="LIST_ITEM"/>habilitar el acceso SSH al dispositivo con las claves de prueba estándar a fin de usar herramientas como <ph name="BEGIN_CODE"/>'cros flash'<ph name="END_CODE"/> para acceder al dispositivo;
       <ph name="LIST_ITEM"/>habilitar el inicio desde USB para poder instalar una imagen de SO desde una unidad USB;
-      <ph name="LIST_ITEM"/>y establecer la contraseña de acceso de desarrollo y raíz del sistema en un valor personalizado para poder usar el acceso SSH de manera manual y entrar al dispositivo.
+      <ph name="LIST_ITEM"/>establecer la contraseña de acceso de desarrollo y raíz del sistema en un valor personalizado para poder usar el acceso SSH de manera manual y acceder al dispositivo.
     <ph name="END_LIST"/>
     <ph name="BR"/>
     Una vez habilitadas, la mayoría de las funciones de depuración seguirán habilitadas incluso después de usar la función Powerwash o borrar los datos en un dispositivo administrado por una empresa. Para inhabilitar por completo todas las funciones de depuración, realiza todos los pasos del proceso de recuperación del Sistema operativo Chrome (https://support.google.com/chromebook/answer/1080595).
@@ -5442,7 +5442,7 @@ Presiona cualquier tecla para seguir navegando.</translation>
 <translation id="3184560914950696195">No se puede guardar en $1. Las imágenes editadas se guardarán en la carpeta de descargas.</translation>
 <translation id="8366396658833131068">Se restauró la conexión de red. Selecciona una red distinta o presiona el botón &quot;Continuar&quot; para iniciar la aplicación de kiosco.</translation>
 <translation id="4664482161435122549">Error en la exportación de PKCS #12</translation>
-<translation id="3811328435734979057">Habilitar el nuevo sistema de aplicación de marcadores</translation>
+<translation id="3811328435734979057">Habilitar el nuevo sistema de aplicaciones de marcadores</translation>
 <translation id="2445081178310039857">Se requiere un directorio de raíz de la extensión.</translation>
 <translation id="146187176629751223">Un participante en este Hangout te ofreció ayuda mediante el control de tu computadora. Si aceptas:
 

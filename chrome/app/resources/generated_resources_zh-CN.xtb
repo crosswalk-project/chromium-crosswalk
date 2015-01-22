@@ -414,7 +414,7 @@
 <translation id="4950138595962845479">选项...</translation>
 <translation id="4653235815000740718">创建操作系统恢复媒体时出现问题。找不到已使用的存储设备。</translation>
 <translation id="1407489512183974736">居中并裁剪</translation>
-<translation id="1870557287802238488">允许页内浏览时显示保存密码提示。</translation>
+<translation id="1870557287802238488">允许在页内浏览时显示保存密码提示。</translation>
 <translation id="2688196195245426394">向服务器注册设备时出错：<ph name="CLIENT_ERROR"/>。</translation>
 <translation id="667115622929458276">正在进行多项隐身下载。您希望退出隐身模式并取消这些下载吗？</translation>
 <translation id="1528372117901087631">互联网连接。</translation>
@@ -1245,7 +1245,7 @@
 <translation id="2694026874607847549">1 个 Cookie</translation>
 <translation id="469230890969474295">OEM文件夹</translation>
 <translation id="3909791450649380159">剪切(&amp;T)</translation>
-<translation id="5545275430221931959">为了确保您的<ph name="DEVICE_TYPE"/>安全无虞，Smart Lock 要求在用来为其解锁的手机上设置屏幕锁定。已保障您手机的安全？请点击“再检查一遍”进行确认，然后继续设置。</translation>
+<translation id="5545275430221931959">为了确保您的<ph name="DEVICE_TYPE"/>安全无虞，Smart Lock 要求在用来为其解锁的手机上设置屏幕锁定。已保障您手机的安全？请点击“再次检查”进行核对，然后继续设置。</translation>
 <translation id="2955913368246107853">关闭查找栏</translation>
 <translation id="4044260751144303020">为固定位置的元素合成。</translation>
 <translation id="8722708758503989074">启用实验性焦点管理器，以便追踪文字输入客户端。</translation>
@@ -1492,7 +1492,7 @@
 <translation id="2960393411257968125">密码管理器自动填充同步凭据的方式。</translation>
 <translation id="6178664161104547336">选择证书</translation>
 <translation id="8204086856545141093">向服务器发送的请求已被某政策拦截。</translation>
-<translation id="3345135638360864351">您访问此网站的请求无法发送给<ph name="NAME"/>，请重试。</translation>
+<translation id="3345135638360864351">无法将您访问此网站的请求发送给<ph name="NAME"/>，请重试。</translation>
 <translation id="2450531422290975480">如果您了解自己将面临的安全风险，则可以在危险程序被清除前<ph name="BEGIN_LINK"/>访问这个不安全的网站<ph name="END_LINK"/>（不建议这么做）。</translation>
 <translation id="1721937473331968728">您可将连接到您计算机的传统打印机添加到“<ph name="CLOUD_PRINT_NAME"/>”。</translation>
 <translation id="3341703758641437857">允许访问文件网址</translation>
@@ -1689,7 +1689,7 @@
 <translation id="3195445837372719522">Chromebox 会易需要知道它所属的网域，因此您需要登录自己的帐户。</translation>
 <translation id="7920092496846849526">已向您父母提出允许您访问此网页的请求。</translation>
 <translation id="5984304957315422459">抱歉，无法登录。系统无法验证您的密码，所以登录失败。</translation>
-<translation id="9003677638446136377">再检查一遍</translation>
+<translation id="9003677638446136377">再次检查</translation>
 <translation id="9187827965378254003">目前似乎没有任何实验。</translation>
 <translation id="6022526133015258832">以全屏模式打开</translation>
 <translation id="8933960630081805351">在 Finder 中显示(&amp;S)</translation>
@@ -3083,7 +3083,7 @@
 <translation id="394984172568887996">从 IE 中导入</translation>
 <translation id="5311260548612583999">私有密钥文件（可选）：</translation>
 <translation id="8235141838561081489">停用“扩展程序信息”对话框。</translation>
-<translation id="2831904287943562142">允许页内浏览时显示保存密码提示。启用此项后，用户可以在更多页面上保存密码，但是登录尝试失败时可能会触发该提示。</translation>
+<translation id="2831904287943562142">允许在页内浏览时显示保存密码提示。启用此项后，用户可以在更多页面上保存密码，但是登录尝试失败时可能会触发该提示。</translation>
 <translation id="8256319818471787266">狗狗</translation>
 <translation id="7568790562536448087">更新</translation>
 <translation id="3910699493603749297">高棉语键盘</translation>
@@ -3942,7 +3942,7 @@
 <translation id="1208421848177517699">音译(namaste → નમસ્તે)</translation>
 <translation id="996250603853062861">正在建立安全连接...</translation>
 <translation id="7529471622666797993"><ph name="BEGIN_LINK"/>高级字体设置<ph name="END_LINK"/>（需要使用扩展程序）</translation>
-<translation id="6190552617269794435">将取消连接到附近设备的尝试。所有本地共存数据都将被清除，并且使用共存数据的应用可能会停止工作。确定要执行此操作吗？</translation>
+<translation id="6190552617269794435">将取消连接附近的设备。所有本地共存数据都将被清除，并且所有使用共存数据的应用都可能会停止运行。确定要执行此操作吗？</translation>
 <translation id="6059232451013891645">文件夹：</translation>
 <translation id="1233721473400465416">语言区域</translation>
 <translation id="2739240477418971307">更改您的无障碍设置</translation>
@@ -4867,7 +4867,7 @@
       <ph name="LIST_ITEM"/>将 Dev 和系统根登录密码均设为自定义值，以便手动以 SSH 方式访问设备
     <ph name="END_LIST"/>
     <ph name="BR"/>
-    启用此项后，即使在企业管理的设备上执行了 Powerwash 或数据擦除操作，大部分调试功能仍将保持启用状态。要完全停用所有调试功能，请执行 Chrome 操作系统恢复流程 (https://support.google.com/chromebook/answer/1080595)。
+    启用此项后，即使在企业管理的设备上执行了 Powerwash 或数据擦除操作，大部分调试功能仍将保持启用状态。要完全停用所有调试功能，请执行 Chrome 操作系统恢复过程 (https://support.google.com/chromebook/answer/1080595)。
     <ph name="BR"/>
     <ph name="BR"/>
     如需详细了解调试功能，请访问：<ph name="BR"/>

@@ -129,7 +129,7 @@
 <translation id="3648460724479383440">לחצן בחירה שנבחר</translation>
 <translation id="2494837236724268445">מקלדת גוג'אראטי (פונטית)</translation>
 <translation id="512903556749061217">מחובר</translation>
-<translation id="573719557377416048">‏נקה מצב Copresence</translation>
+<translation id="573719557377416048">נקה מצב נוכחות משותפת</translation>
 <translation id="4654488276758583406">קטן מאוד</translation>
 <translation id="6647228709620733774">‏כתובת אתר לביטול של רשות אישורי Netscape</translation>
 <translation id="546411240573627095">סגנון מקלדת מספרים</translation>
@@ -1471,7 +1471,7 @@
 <translation id="5451646087589576080">הצג מסגרת &amp;ופרטים</translation>
 <translation id="5050209346295804497">השבת את הצורך בתנועה עבור הפעלת מדיה.</translation>
 <translation id="5880247576487732437">אסימון קיים</translation>
-<translation id="3704162925118123524">ייתכן שתוצג דרישה לבקר בדף ההתחברות עבור הרשת שבה אתה משתמש.</translation>
+<translation id="3704162925118123524">ייתכן שתוצג דרישה לבקר בדף ההתחברות של הרשת שבה אתה משתמש.</translation>
 <translation id="7157063064925785854">בלחיצה על 'המשך', אתה מביע הסכמה ל<ph name="LEGAL_DOC_LINK_TEXT_1"/>‏, <ph name="LEGAL_DOC_LINK_TEXT_2"/>‏, <ph name="LEGAL_DOC_LINK_TEXT_3"/>‏, ול<ph name="LEGAL_DOC_LINK_TEXT_4"/>.</translation>
 <translation id="3368922792935385530">מחובר</translation>
 <translation id="6273677812470008672">איכות</translation>
@@ -3949,7 +3949,7 @@
 <translation id="1208421848177517699">‏תעתוק (namaste → નમસ્તે)</translation>
 <translation id="996250603853062861">יוצר חיבור מאובטח...</translation>
 <translation id="7529471622666797993"><ph name="BEGIN_LINK"/>הגדרות גופן מתקדמות<ph name="END_LINK"/> (יש צורך בתוסף)</translation>
-<translation id="6190552617269794435">‏ניסיונות להתחבר אל מכשירים קרובים יבוטלו. כל נתוני Copresence המקומיים ינוקו ואפליקציות העושות שימוש ב-Copresence עשויות להפסיק לפעול. האם אתה בטוח?</translation>
+<translation id="6190552617269794435">ניסיונות להתחבר אל מכשירים קרובים יבוטלו. כל הנתונים המקומיים של נוכחות משותפת ינוקו ואפליקציות העושות שימוש בנוכחות משותפת עשויות להפסיק לפעול. האם אתה בטוח?</translation>
 <translation id="6059232451013891645">תיקייה:</translation>
 <translation id="1233721473400465416">מקום</translation>
 <translation id="2739240477418971307">שינוי הגדרות הנגישות שלך</translation>
@@ -4871,7 +4871,7 @@
 <translation id="9052208328806230490">רשמת את המדפסות שלך ב-<ph name="CLOUD_PRINT_NAME"/> באמצעות החשבון <ph name="EMAIL"/></translation>
 <translation id="2803887722080936828">‏<ph name="BEGIN_H3"/>תכונות של ניקוי באגים<ph name="END_H3"/>
 <ph name="BR"/>
-ניתן להפעיל את תכונות ניקוי הבאגים במכשיר ה-Chrome כדי לבצע במכשיר התקנה ובדיקה של קוד בהתאמה אישית. כך תוכל:<ph name="BR"/>
+אפשר להפעיל את תכונות ניקוי הבאגים במכשיר ה-Chrome כדי לבצע במכשיר התקנה ובדיקה של קוד בהתאמה אישית. כך תוכל:<ph name="BR"/>
 <ph name="BEGIN_LIST"/>
 <ph name="LIST_ITEM"/>להסיר אימות rootfs כדי לשנות קבצים במערכת ההפעלה
 <ph name="LIST_ITEM"/>להפעיל גישת SSH אל המכשיר באמצעות מקשי הבדיקה הרגילים, כדי שתוכל להשתמש בכלים כמו <ph name="BEGIN_CODE"/>'cros flash'<ph name="END_CODE"/> על מנת לגשת למכשיר
