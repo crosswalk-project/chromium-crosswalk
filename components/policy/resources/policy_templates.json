@@ -6928,10 +6928,10 @@
         },
       ],
       'supported_on': [
-        'chrome.*:39-43',
-        'chrome_os:39-43',
-        'android:39-43',
-        'ios:39-43',
+        'chrome.*:39-',
+        'chrome_os:39-',
+        'android:39-',
+        'ios:39-',
       ],
       'features': {
         'dynamic_refresh': True,
@@ -6983,10 +6983,10 @@
         },
       ],
       'supported_on': [
-        'chrome.*:39-43',
-        'chrome_os:39-43',
-        'android:39-43',
-        'ios:39-43',
+        'chrome.*:39-',
+        'chrome_os:39-',
+        'android:39-',
+        'ios:39-',
       ],
       'features': {
         'dynamic_refresh': True,
