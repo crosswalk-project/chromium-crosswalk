@@ -11,13 +11,22 @@
 //   networkingPrivate API. See network_config.js.
 // See crbug.com/279351 for more info.
 
+/** @typedef {{address: (string|undefined),
+ *             gateway: (string|undefined),
+ *             nameServers: (string|undefined),
+ *             netmask: (string|undefined),
+ *             prefixLength: (number|undefined)}}
+ * @see chrome/browser/ui/webui/options/chromeos/internet_options_handler.cc
+ */
+var IPInfo;
+
 cr.define('options.internet', function() {
   var OncData = cr.onc.OncData;
   var Page = cr.ui.pageManager.Page;
   var PageManager = cr.ui.pageManager.PageManager;
   /** @const */ var IPAddressField = options.internet.IPAddressField;
 
-  /** @const */ var GoogleNameServers = ['8.8.4.4', '8.8.8.8'];
+  /** @const */ var GoogleNameServersString = '8.8.4.4,8.8.8.8';
   /** @const */ var CarrierGenericUMTS = 'Generic UMTS';
 
   /**
@@ -125,49 +134,6 @@ cr.define('options.internet', function() {
       netmask += value.toString();
     }
     return netmask;
-  }
-
-  /**
-   * Returns the prefix length from the netmask string.
-   * @param {string} netmask The netmask string, e.g. 255.255.255.0.
-   * @return {number} The corresponding netmask or -1 if invalid.
-   */
-  function netmaskToPrefixLength(netmask) {
-    var prefixLength = 0;
-    var tokens = netmask.split('.');
-    if (tokens.length != 4)
-      return -1;
-    for (var i = 0; i < tokens.length; ++i) {
-      var token = tokens[i];
-      // If we already found the last mask and the current one is not
-      // '0' then the netmask is invalid. For example, 255.224.255.0
-      if (prefixLength / 8 != i) {
-        if (token != '0')
-          return -1;
-      } else if (token == '255') {
-        prefixLength += 8;
-      } else if (token == '254') {
-        prefixLength += 7;
-      } else if (token == '252') {
-        prefixLength += 6;
-      } else if (token == '248') {
-        prefixLength += 5;
-      } else if (token == '240') {
-        prefixLength += 4;
-      } else if (token == '224') {
-        prefixLength += 3;
-      } else if (token == '192') {
-        prefixLength += 2;
-      } else if (token == '128') {
-        prefixLength += 1;
-      } else if (token == '0') {
-        prefixLength += 0;
-      } else {
-        // mask is not a valid number.
-        return -1;
-      }
-    }
-    return prefixLength;
   }
 
   /////////////////////////////////////////////////////////////////////////////
@@ -388,51 +354,33 @@ cr.define('options.internet', function() {
     },
 
     /**
-     * Gets the IPConfig ONC Object.
+     * Sends the IP Config info to chrome.
      * @param {string} nameServerType The selected name server type:
      *   'automatic', 'google', or 'user'.
-     * @return {Object} The IPConfig ONC object.
      * @private
      */
-    getIpConfig_: function(nameServerType) {
-      var ipConfig = {};
-      // If 'ip-address' is empty, automatic configuration will be used.
-      if (!$('ip-automatic-configuration-checkbox').checked &&
-          $('ip-address').model.value) {
-        ipConfig['IPAddress'] = $('ip-address').model.value;
-        var netmask = $('ip-netmask').model.value;
-        var routingPrefix = 0;
-        if (netmask) {
-          routingPrefix = netmaskToPrefixLength(netmask);
-          if (routingPrefix == -1) {
-            console.error('Invalid netmask: ' + netmask);
-            routingPrefix = 0;
-          }
-        }
-        ipConfig['RoutingPrefix'] = routingPrefix;
-        ipConfig['Gateway'] = $('ip-gateway').model.value || '';
-      }
-
-      // Note: If no nameserver fields are set, automatic configuration will be
-      // used. TODO(stevenjb): Validate input fields.
-      if (nameServerType != 'automatic') {
+    sendIpConfig_: function(nameServerType) {
+      var userNameServerString = '';
+      if (nameServerType == 'user') {
         var userNameServers = [];
-        if (nameServerType == 'google') {
-          userNameServers = GoogleNameServers.splice();
-        } else if (nameServerType == 'user') {
-          for (var i = 1; i <= 4; ++i) {
-            var nameServerField = $('ipconfig-dns' + i);
-            // Skip empty values.
-            if (nameServerField && nameServerField.model &&
-                nameServerField.model.value) {
-              userNameServers.push(nameServerField.model.value);
-            }
+        for (var i = 1; i <= 4; ++i) {
+          var nameServerField = $('ipconfig-dns' + i);
+          // Skip empty values.
+          if (nameServerField && nameServerField.model &&
+              nameServerField.model.value) {
+            userNameServers.push(nameServerField.model.value);
           }
         }
-        if (userNameServers.length)
-          ipConfig['NameServers'] = userNameServers.sort();
+        userNameServerString = userNameServers.sort().join(',');
       }
-      return ipConfig;
+      chrome.send('setIPConfig',
+                  [this.servicePath_,
+                   Boolean($('ip-automatic-configuration-checkbox').checked),
+                   $('ip-address').model.value || '',
+                   $('ip-netmask').model.value || '',
+                   $('ip-gateway').model.value || '',
+                   nameServerType,
+                   userNameServerString]);
     },
 
     /**
@@ -1160,16 +1108,10 @@ cr.define('options.internet', function() {
         break;
       }
     }
-    var ipConfig = detailsPage.getIpConfig_(nameServerType);
-    var ipAddressType = ('IPAddress' in ipConfig) ? 'Static' : 'DHCP';
-    var nameServersType = ('NameServers' in ipConfig) ? 'Static' : 'DHCP';
-    oncData.setProperty('IPAddressConfigType', ipAddressType);
-    oncData.setProperty('NameServersConfigType', nameServersType);
-    oncData.setProperty('StaticIPConfig', ipConfig);
+    detailsPage.sendIpConfig_(nameServerType);
 
     var data = oncData.getData();
     if (Object.keys(data).length > 0) {
-      // TODO(stevenjb): Only set changed properties.
       // TODO(stevenjb): chrome.networkingPrivate.setProperties
       chrome.send('setProperties', [servicePath, data]);
     }
@@ -1284,10 +1226,6 @@ cr.define('options.internet', function() {
     var restrictedString = loadTimeData.getString(
         restricted ? 'restrictedYes' : 'restrictedNo');
 
-    // These objects contain an 'automatic' property that is displayed when
-    // ip-automatic-configuration-checkbox is checked, and a 'value' property
-    // that is displayed when unchecked and used to set the associated ONC
-    // property for StaticIPConfig on commit.
     var inetAddress = {};
     var inetNetmask = {};
     var inetGateway = {};
@@ -1326,14 +1264,13 @@ cr.define('options.internet', function() {
       }
     }
 
-    // Override the 'automatic' properties with the saved DHCP values if the
-    // saved value is set, and set any unset 'value' properties.
+    // Override the "automatic" values with the real saved DHCP values,
+    // if they are set.
     var savedNameServersString;
     var savedIpAddress = onc.getActiveValue('SavedIPConfig.IPAddress');
     if (savedIpAddress != undefined) {
       inetAddress.automatic = savedIpAddress;
-      if (!inetAddress.value)
-        inetAddress.value = savedIpAddress;
+      inetAddress.value = savedIpAddress;
     }
     var savedPrefix = onc.getActiveValue('SavedIPConfig.RoutingPrefix');
     if (savedPrefix != undefined) {
@@ -1341,16 +1278,13 @@ cr.define('options.internet', function() {
       var savedNetmask = prefixLengthToNetmask(
           /** @type {number} */(savedPrefix));
       inetNetmask.automatic = savedNetmask;
-      if (!inetNetmask.value)
-        inetNetmask.value = savedNetmask;
+      inetNetmask.value = savedNetmask;
     }
     var savedGateway = onc.getActiveValue('SavedIPConfig.Gateway');
     if (savedGateway != undefined) {
       inetGateway.automatic = savedGateway;
-      if (!inetGateway.value)
-        inetGateway.value = savedGateway;
+      inetGateway.value = savedGateway;
     }
-
     var savedNameServers = onc.getActiveValue('SavedIPConfig.NameServers');
     if (savedNameServers) {
       savedNameServers = savedNameServers.sort();
@@ -1358,28 +1292,29 @@ cr.define('options.internet', function() {
     }
 
     var ipAutoConfig = 'automatic';
-    if (onc.getActiveValue('IPAddressConfigType') == 'Static') {
+
+    var staticNameServersString;
+    var staticIpAddress = onc.getActiveValue('StaticIPConfig.IPAddress');
+    if (staticIpAddress != undefined) {
       ipAutoConfig = 'user';
-      var staticIpAddress = onc.getActiveValue('StaticIPConfig.IPAddress');
       inetAddress.user = staticIpAddress;
       inetAddress.value = staticIpAddress;
-
-      var staticPrefix = onc.getActiveValue('StaticIPConfig.RoutingPrefix');
-      if (typeof staticPrefix != 'number')
-        staticPrefix = 0;
+    }
+    var staticPrefix = onc.getActiveValue('StaticIPConfig.RoutingPrefix');
+    if (staticPrefix != undefined) {
+      assert(typeof staticPrefix == 'number');
       var staticNetmask = prefixLengthToNetmask(
-          /** @type {number} */ (staticPrefix));
+          /** @type {number} */(staticPrefix));
       inetNetmask.user = staticNetmask;
       inetNetmask.value = staticNetmask;
-
-      var staticGateway = onc.getActiveValue('StaticIPConfig.Gateway');
+    }
+    var staticGateway = onc.getActiveValue('StaticIPConfig.Gateway');
+    if (staticGateway != undefined) {
       inetGateway.user = staticGateway;
       inetGateway.value = staticGateway;
     }
-
-    var staticNameServersString;
-    if (onc.getActiveValue('NameServersConfigType') == 'Static') {
-      var staticNameServers = onc.getActiveValue('StaticIPConfig.NameServers');
+    var staticNameServers = onc.getActiveValue('StaticIPConfig.NameServers');
+    if (staticNameServers) {
       staticNameServers = staticNameServers.sort();
       staticNameServersString = staticNameServers.join(',');
     }
@@ -1405,7 +1340,7 @@ cr.define('options.internet', function() {
     if (staticNameServersString) {
       // If static nameservers are defined and match the google name servers,
       // show that in the UI, otherwise show the custom static nameservers.
-      if (staticNameServersString == GoogleNameServers.join(','))
+      if (staticNameServersString == GoogleNameServersString)
         nameServerType = 'google';
       else if (staticNameServersString == inetNameServersString)
         nameServerType = 'user';
@@ -1414,7 +1349,7 @@ cr.define('options.internet', function() {
       $('automatic-dns-display').textContent = inetNameServersString;
     else
       $('automatic-dns-display').textContent = savedNameServersString;
-    $('google-dns-display').textContent = GoogleNameServers.join(',');
+    $('google-dns-display').textContent = GoogleNameServersString;
 
     var nameServersUser = [];
     if (staticNameServers) {

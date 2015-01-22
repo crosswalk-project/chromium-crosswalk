@@ -139,8 +139,7 @@ class ClientCertResolverTest : public testing::Test,
     client_cert_resolver_.reset(new ClientCertResolver());
 
     network_profile_handler_->Init();
-    network_config_handler_->Init(network_state_handler_.get(),
-                                  NULL /* network_device_handler */);
+    network_config_handler_->Init(network_state_handler_.get());
     managed_config_handler_->Init(network_state_handler_.get(),
                                   network_profile_handler_.get(),
                                   network_config_handler_.get(),
