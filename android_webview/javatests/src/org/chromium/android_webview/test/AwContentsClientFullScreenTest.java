@@ -170,6 +170,19 @@ public class AwContentsClientFullScreenTest extends AwTestBase {
         sendKeys(KeyEvent.KEYCODE_BACK);
         mContentsClient.waitForCustomViewHidden();
         assertFalse(mContentsClient.wasOnUnhandledKeyUpEventCalled());
+        assertWaitForIsEmbedded();
+    }
+
+    @MediumTest
+    @Feature({"AndroidWebView"})
+    public void testExitFullscreenEndsIfAppInvokesCallbackFromOnHideCustomView() throws Throwable {
+        mContentsClient.setOnHideCustomViewRunnable(new Runnable() {
+            @Override
+            public void run() {
+                mContentsClient.getExitCallback().onCustomViewHidden();
+            }
+        });
+        doTestOnShowAndHideCustomViewWithCallback(VIDEO_TEST_URL);
     }
 
     @MediumTest
@@ -467,6 +480,21 @@ public class AwContentsClientFullScreenTest extends AwTestBase {
         }));
     }
 
+    private void assertWaitForIsEmbedded() throws InterruptedException {
+        // We need to poll because the Javascript state is updated asynchronously
+        assertTrue(CriteriaHelper.pollForCriteria(new Criteria() {
+            @Override
+            public boolean isSatisfied() {
+                try {
+                    return !DOMUtils.isFullscreen(getWebContentsOnUiThread());
+                } catch (InterruptedException | TimeoutException e) {
+                    fail(e.getMessage());
+                    return false;
+                }
+            }
+        }));
+    }
+
     private void assertContainsContentVideoView() throws Exception {
         assertTrue(containsChildOfType(mContentsClient.getCustomView(),
                 ContentVideoView.class));
@@ -541,6 +569,7 @@ public class AwContentsClientFullScreenTest extends AwTestBase {
         doOnShowCustomViewTest(videoTestUrl);
         runTestOnUiThread(existFullscreen);
         mContentsClient.waitForCustomViewHidden();
+        assertWaitForIsEmbedded();
     }
 
     private void doOnShowCustomViewTest(String videoTestUrl) throws Exception {
