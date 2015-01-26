@@ -117,7 +117,7 @@ void LogUMAHistogramBoolean(const std::string& name, bool sample) {
   base::HistogramBase* histogram =
       base::BooleanHistogram::FactoryGet(
           name,
-          base::Histogram::kNoFlags);
+          base::Histogram::kUmaTargetedHistogramFlag);
           histogram->AddBoolean(sample);
 }
 
