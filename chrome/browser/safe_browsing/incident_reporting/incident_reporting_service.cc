@@ -28,8 +28,6 @@
 #include "chrome/browser/safe_browsing/incident_reporting/blacklist_load_incident_handlers.h"
 #include "chrome/browser/safe_browsing/incident_reporting/environment_data_collection.h"
 #include "chrome/browser/safe_browsing/incident_reporting/incident_report_uploader_impl.h"
-#include "chrome/browser/safe_browsing/incident_reporting/omnibox_incident_handlers.h"
-#include "chrome/browser/safe_browsing/incident_reporting/omnibox_watcher.h"
 #include "chrome/browser/safe_browsing/incident_reporting/preference_validation_delegate.h"
 #include "chrome/browser/safe_browsing/incident_reporting/tracked_preference_incident_handlers.h"
 #include "chrome/browser/safe_browsing/incident_reporting/variations_seed_signature_incident_handlers.h"
@@ -98,8 +96,6 @@ size_t CountIncidents(const ClientIncidentReport_IncidentData& incident) {
     ++result;
   if (incident.has_blacklist_load())
     ++result;
-  if (incident.has_omnibox_interaction())
-    ++result;
   if (incident.has_variations_seed_signature())
     ++result;
   // Add detection for new incident types here.
@@ -115,8 +111,6 @@ IncidentType GetIncidentType(
     return BINARY_INTEGRITY;
   if (incident_data.has_blacklist_load())
     return BLACKLIST_LOAD;
-  if (incident_data.has_omnibox_interaction())
-    return OMNIBOX_INTERACTION;
   if (incident_data.has_variations_seed_signature())
     return VARIATIONS_SEED_SIGNATURE;
 
@@ -168,15 +162,12 @@ PersistentIncidentState ComputeIncidentState(
       state.key = GetBlacklistLoadIncidentKey(incident);
       state.digest = GetBlacklistLoadIncidentDigest(incident);
       break;
-    case OMNIBOX_INTERACTION:
-      state.key = GetOmniboxIncidentKey(incident);
-      state.digest = GetOmniboxIncidentDigest(incident);
-      break;
     case VARIATIONS_SEED_SIGNATURE:
       state.key = GetVariationsSeedSignatureIncidentKey(incident);
       state.digest = GetVariationsSeedSignatureIncidentDigest(incident);
       break;
     // Add handling for new incident types here.
+    case OMNIBOX_INTERACTION:  // Deprecated.
     case NUM_INCIDENT_TYPES:
       NOTREACHED();
       break;
@@ -237,9 +228,6 @@ struct IncidentReportingService::ProfileContext {
   // The incidents collected for this profile pending creation and/or upload.
   // Will contain null values for pruned incidents.
   ScopedVector<ClientIncidentReport_IncidentData> incidents;
-
-  // Watches for suspicious omnibox interactions on this profile.
-  scoped_ptr<OmniboxWatcher> omnibox_watcher;
 
   // False until PROFILE_ADDED notification is received.
   bool added;
@@ -445,11 +433,6 @@ void IncidentReportingService::OnProfileAdded(Profile* profile) {
   // so that the service can determine whether or not it can evaluate a
   // profile's preferences at the time of incident addition.
   ProfileContext* context = GetOrCreateProfileContext(profile);
-  // Start watching the profile now if necessary.
-  if (!context->omnibox_watcher) {
-    context->omnibox_watcher.reset(
-        new OmniboxWatcher(profile, GetAddIncidentCallback(profile)));
-  }
   context->added = true;
 
   const bool safe_browsing_enabled =
