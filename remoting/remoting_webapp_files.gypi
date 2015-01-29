@@ -61,6 +61,7 @@
       'webapp/base/js/application.js',
       'webapp/base/js/base.js',
       'webapp/base/js/platform.js',
+      'webapp/crd/js/apps_v2_migration.js',
       'webapp/crd/js/error.js',
       'webapp/crd/js/event_handlers.js',
       'webapp/crd/js/plugin_settings.js',
@@ -168,6 +169,7 @@
     'remoting_webapp_unittest_js_files': [
       'webapp/js_proto/chrome_proto.js',
       'webapp/unittests/chrome_mocks.js',
+      'webapp/unittests/apps_v2_migration_unittest.js',
       'webapp/unittests/base_unittest.js',
       'webapp/unittests/it2me_helpee_channel_unittest.js',
       'webapp/unittests/it2me_helper_channel_unittest.js',
