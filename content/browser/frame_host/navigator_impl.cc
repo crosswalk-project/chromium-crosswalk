@@ -142,10 +142,19 @@ void MakeNavigateParams(const NavigationEntryImpl& entry,
                         NavigationController::ReloadType reload_type,
                         base::TimeTicks navigation_start,
                         FrameMsg_Navigate_Params* params) {
+  FrameMsg_UILoadMetricsReportType::Value report_type =
+      FrameMsg_UILoadMetricsReportType::NO_REPORT;
+  base::TimeTicks ui_timestamp = base::TimeTicks();
+#if defined(OS_ANDROID)
+  if (!entry.intent_received_timestamp().is_null())
+    report_type = FrameMsg_UILoadMetricsReportType::REPORT_INTENT;
+  ui_timestamp = entry.intent_received_timestamp();
+#endif
+
   params->common_params = CommonNavigationParams(
       entry.GetURL(), entry.GetReferrer(), entry.GetTransitionType(),
       GetNavigationType(controller->GetBrowserContext(), entry, reload_type),
-      !entry.IsViewSourceMode());
+      !entry.IsViewSourceMode(), ui_timestamp, report_type);
   params->request_params = RequestNavigationParams(
       entry.GetHasPostData(),
       entry.extra_headers(),
@@ -880,13 +889,24 @@ bool NavigatorImpl::RequestNavigation(
   int64 frame_tree_node_id = frame_tree_node->frame_tree_node_id();
   FrameMsg_Navigate_Type::Value navigation_type =
       GetNavigationType(controller_->GetBrowserContext(), entry, reload_type);
+  FrameMsg_UILoadMetricsReportType::Value report_type =
+      FrameMsg_UILoadMetricsReportType::NO_REPORT;
+  base::TimeTicks ui_timestamp = base::TimeTicks();
+#if defined(OS_ANDROID)
+  if (!entry.intent_received_timestamp().is_null())
+    report_type = FrameMsg_UILoadMetricsReportType::REPORT_INTENT;
+  ui_timestamp = entry.intent_received_timestamp();
+#endif
+
   scoped_ptr<NavigationRequest> navigation_request(new NavigationRequest(
       frame_tree_node,
       CommonNavigationParams(entry.GetURL(),
                              entry.GetReferrer(),
                              entry.GetTransitionType(),
                              navigation_type,
-                             !entry.IsViewSourceMode()),
+                             !entry.IsViewSourceMode(),
+                             ui_timestamp,
+                             report_type),
       CommitNavigationParams(entry.GetPageState(),
                              entry.GetIsOverridingUserAgent(),
                              navigation_start)));
