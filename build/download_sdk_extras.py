@@ -38,6 +38,12 @@ def clean_and_extract(dir_name, package_name, zip_file):
 
 
 def main():
+  # Crosswalk: make this script do nothing, as the check for the paths below
+  # succeeds for our bots even though we do not have access to that Google
+  # Storage bucket.
+  # FIXME(rakuco): File a bug upstream and fix it there.
+  return 0
+
   if not os.path.exists(GSUTIL_PATH) or not os.path.exists(SDK_EXTRAS_PATH):
     # This is not a buildbot checkout.
     return 0
