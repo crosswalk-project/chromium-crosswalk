@@ -19,7 +19,6 @@ var appWindowsForTest = {};
  * @type {Object}
  */
 var windowCreateOptions = {
-  id: 'video',
   frame: 'none',
   minWidth: 480,
   minHeight: 270
