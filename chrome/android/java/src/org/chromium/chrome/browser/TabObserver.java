@@ -259,6 +259,8 @@ public interface TabObserver {
      */
     public void onDidDetachInterstitialPage(Tab tab);
 
+    public void onDidStartNavigationToPendingEntry(Tab tab, String url);
+
     /**
      * Called when the background color for the tab has changed.
      * @param tab The notifying {@link Tab}.

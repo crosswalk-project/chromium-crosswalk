@@ -580,6 +580,13 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
                 observer.onDidDetachInterstitialPage(Tab.this);
             }
         }
+
+        @Override
+        public void didStartNavigationToPendingEntry(String url) {
+            for (TabObserver observer : mObservers) {
+                observer.onDidStartNavigationToPendingEntry(Tab.this, url);
+            }
+        }
     }
 
     /**
