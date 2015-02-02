@@ -17,6 +17,7 @@
 
 namespace ui {
 
+class EventModifiersEvdev;
 class TouchEvent;
 
 class EVENTS_OZONE_EVDEV_EXPORT TouchEventConverterEvdev
@@ -29,6 +30,7 @@ class EVENTS_OZONE_EVDEV_EXPORT TouchEventConverterEvdev
                            base::FilePath path,
                            int id,
                            InputDeviceType type,
+                           EventModifiersEvdev* modifiers,
                            const EventDispatchCallback& dispatch);
   ~TouchEventConverterEvdev() override;
 
@@ -99,6 +101,9 @@ class EVENTS_OZONE_EVDEV_EXPORT TouchEventConverterEvdev
   // Bit field tracking which in-progress touch points have been modified
   // without a syn event.
   std::bitset<MAX_FINGERS> altered_slots_;
+
+  // Modifier key state (shift, ctrl, etc).
+  EventModifiersEvdev* modifiers_;
 
   // In-progress touch points.
   InProgressEvents events_[MAX_FINGERS];

@@ -95,7 +95,8 @@ scoped_ptr<EventConverterEvdev> CreateConverter(
   // Touchscreen: use TouchEventConverterEvdev.
   if (devinfo.HasMTAbsXY()) {
     scoped_ptr<TouchEventConverterEvdev> converter(new TouchEventConverterEvdev(
-        fd, params.path, params.id, type, params.dispatch_callback));
+        fd, params.path, params.id, type, params.modifiers,
+        params.dispatch_callback));
     converter->Initialize(devinfo);
     return converter.Pass();
   }
