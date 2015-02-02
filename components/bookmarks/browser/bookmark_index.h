@@ -53,10 +53,12 @@ class BookmarkIndex {
   typedef std::set<const BookmarkNode*> NodeSet;
   typedef std::map<base::string16, NodeSet> Index;
 
-  // Constructs |sorted_nodes| by taking the matches in |matches| and sorting
-  // them in decreasing order of typed count (if supported by the client) and
-  // deduping them.
-  void SortMatches(const NodeSet& matches, Nodes* sorted_nodes) const;
+  struct Match;
+  typedef std::vector<Match> Matches;
+
+  // Extracts |matches.nodes| into Nodes, sorts the pairs in decreasing order of
+  // typed count (if supported by the client), and then de-dupes the matches.
+  void SortMatches(const Matches& matches, Nodes* sorted_nodes) const;
 
   // Add |node| to |results| if the node matches the query.
   void AddMatchToResults(
@@ -72,7 +74,28 @@ class BookmarkIndex {
       const base::string16& term,
       bool first_term,
       query_parser::MatchingAlgorithm matching_algorithm,
-      NodeSet* matches);
+      Matches* matches);
+
+  // Iterates over |matches| updating each Match's nodes to contain the
+  // intersection of the Match's current nodes and the nodes at |index_i|.
+  // If the intersection is empty, the Match is removed.
+  //
+  // This is invoked from GetBookmarksMatchingTerm.
+  void CombineMatchesInPlace(const Index::const_iterator& index_i,
+                             Matches* matches);
+
+  // Iterates over |current_matches| calculating the intersection between the
+  // Match's nodes and the nodes at |index_i|. If the intersection between the
+  // two is non-empty, a new match is added to |result|.
+  //
+  // This differs from CombineMatchesInPlace in that if the intersection is
+  // non-empty the result is added to result, not combined in place. This
+  // variant is used for prefix matching.
+  //
+  // This is invoked from GetBookmarksMatchingTerm.
+  void CombineMatches(const Index::const_iterator& index_i,
+                      const Matches& current_matches,
+                      Matches* result);
 
   // Returns the set of query words from |query|.
   std::vector<base::string16> ExtractQueryWords(const base::string16& query);
