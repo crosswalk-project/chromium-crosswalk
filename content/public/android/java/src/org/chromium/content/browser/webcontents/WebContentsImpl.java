@@ -286,11 +286,6 @@ import org.chromium.content_public.browser.WebContents;
         nativeEvaluateJavaScript(mNativeWebContentsAndroid, script, callback);
     }
 
-    @Override
-    public void openUrl(String url, boolean userGesture, boolean isRendererInitiated) {
-        nativeOpenURL(mNativeWebContentsAndroid, url, userGesture, isRendererInitiated);
-    }
-
     @CalledByNative
     private static void onEvaluateJavaScriptResult(
             String jsonResult, JavaScriptCallback callback) {
@@ -337,6 +332,4 @@ import org.chromium.content_public.browser.WebContents;
     private native void nativeFetchTransitionElements(long nativeWebContentsAndroid, String url);
     private native void nativeEvaluateJavaScript(long nativeWebContentsAndroid,
             String script, JavaScriptCallback callback);
-    private native void nativeOpenURL(long nativeWebContentsAndroid, String url,
-            boolean userGesture, boolean isRendererInitiated);
 }

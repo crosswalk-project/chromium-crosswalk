@@ -320,24 +320,21 @@ void ChromeWebContentsDelegateAndroid::AddNewContents(
 
   JNIEnv* env = AttachCurrentThread();
   ScopedJavaLocalRef<jobject> obj = GetJavaDelegate(env);
-  AddWebContentsResult add_result =
-      ADD_WEB_CONTENTS_RESULT_STOP_LOAD_AND_DELETE;
+  bool handled = false;
   if (!obj.is_null()) {
-    add_result = static_cast<AddWebContentsResult>(
-        Java_ChromeWebContentsDelegateAndroid_addNewContents(
-            env,
-            obj.obj(),
-            reinterpret_cast<intptr_t>(source),
-            reinterpret_cast<intptr_t>(new_contents),
-            static_cast<jint>(disposition),
-            NULL,
-            user_gesture));
+    handled = Java_ChromeWebContentsDelegateAndroid_addNewContents(
+        env,
+        obj.obj(),
+        reinterpret_cast<intptr_t>(source),
+        reinterpret_cast<intptr_t>(new_contents),
+        static_cast<jint>(disposition),
+        NULL,
+        user_gesture);
   }
 
   if (was_blocked)
-    *was_blocked = !(add_result == ADD_WEB_CONTENTS_RESULT_PROCEED);
-
-  if (add_result == ADD_WEB_CONTENTS_RESULT_STOP_LOAD_AND_DELETE)
+    *was_blocked = !handled;
+  if (!handled)
     delete new_contents;
 }
 

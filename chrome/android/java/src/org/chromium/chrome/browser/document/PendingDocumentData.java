@@ -28,9 +28,6 @@ public class PendingDocumentData {
     /** HTTP "referer". */
     public Referrer referrer;
 
-    /** The original intent. */
+    /** The original intent */
     public Intent originalIntent;
-
-    /** Whether there was a user gesture during the navigation. */
-    public boolean userGesture;
 }
