@@ -103,6 +103,12 @@ class CONTENT_EXPORT WebContentsAndroid
                           jobject obj,
                           jstring script,
                           jobject callback);
+  void OpenURL(JNIEnv* env,
+               jobject jobj,
+               jstring url,
+               jboolean user_gesture,
+               jboolean is_renderer_initiated);
+
  private:
   RenderWidgetHostViewAndroid* GetRenderWidgetHostViewAndroid();
 
