@@ -5,6 +5,7 @@
 package org.chromium.chrome.browser;
 
 import org.chromium.content.browser.ContentViewCore;
+import org.chromium.content_public.browser.WebContents;
 
 /**
  * This class provides a way to create the native WebContents required for instantiating a
@@ -41,6 +42,17 @@ public abstract class ContentViewUtil {
     }
 
     /**
+     * TODO(dtrainor): Remove when this is no longer used.
+     * Helper method for getting a {@link WebContents} from a
+     * native WebContents pointer.
+     * @param webContentsPtr A native WebContents pointer.
+     * @return               A {@link WebContents} object that is linked to {@code webContentsPtr}.
+     */
+    public static WebContents fromNativeWebContents(long webContentsPtr) {
+        return nativeGetWebContentsFromNative(webContentsPtr);
+    }
+
+    /**
      * @param webContentsPtr The WebContents reference to be deleted.
      */
     public static void destroyNativeWebContents(long webContentsPtr) {
@@ -52,4 +64,5 @@ public abstract class ContentViewUtil {
     private static native long nativeCreateNativeWebContentsWithSharedSiteInstance(
             ContentViewCore contentViewCore);
     private static native void nativeDestroyNativeWebContents(long webContentsPtr);
+    private static native WebContents nativeGetWebContentsFromNative(long webContentsPtr);
 }

@@ -48,6 +48,15 @@ static void DestroyNativeWebContents(
   delete web_contents;
 }
 
+static jobject GetWebContentsFromNative(
+    JNIEnv* env, jclass clazz, jlong web_contents_ptr) {
+  content::WebContents* web_contents =
+      reinterpret_cast<content::WebContents*>(web_contents_ptr);
+  if (!web_contents)
+    return NULL;
+  return web_contents->GetJavaWebContents().Release();
+}
+
 bool RegisterContentViewUtil(JNIEnv* env) {
   return RegisterNativesImpl(env);
 }
