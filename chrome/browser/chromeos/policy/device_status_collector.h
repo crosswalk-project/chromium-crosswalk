@@ -87,6 +87,11 @@ class DeviceStatusCollector : public CloudPolicyClient::StatusProvider {
   // Callback which receives the results of the idle state check.
   void IdleStateCallback(IdleState state);
 
+  // Returns true if the currently active session is an auto-launched
+  // kiosk session (this enables functionality such as network reporting).
+  // Virtual to allow mocking.
+  virtual bool IsAutoLaunchedKioskSession();
+
   // The number of days in the past to store device activity.
   // This is kept in case device status uploads fail for a number of days.
   unsigned int max_stored_past_activity_days_;

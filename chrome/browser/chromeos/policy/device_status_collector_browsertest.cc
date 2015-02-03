@@ -87,7 +87,8 @@ class TestingDeviceStatusCollector : public policy::DeviceStatusCollector {
       : policy::DeviceStatusCollector(
           local_state,
           provider,
-          location_update_requester) {
+          location_update_requester),
+        kiosk_mode_(false) {
     // Set the baseline time to a fixed value (1 AM) to prevent test flakiness
     // due to a single activity period spanning two days.
     SetBaselineTime(Time::Now().LocalMidnight() + TimeDelta::FromHours(1));
@@ -112,6 +113,14 @@ class TestingDeviceStatusCollector : public policy::DeviceStatusCollector {
     baseline_offset_periods_ = 0;
   }
 
+  void set_kiosk_mode(bool is_kiosk) {
+    kiosk_mode_ = is_kiosk;
+  }
+
+  bool IsAutoLaunchedKioskSession() override {
+    return kiosk_mode_;
+  }
+
  protected:
   virtual void CheckIdleState() override {
     // This should never be called in testing, as it results in a dbus call.
@@ -132,6 +141,8 @@ class TestingDeviceStatusCollector : public policy::DeviceStatusCollector {
 
   // The number of simulated periods since the baseline time.
   int baseline_offset_periods_;
+
+  bool kiosk_mode_;
 };
 
 // Return the total number of active milliseconds contained in a device
@@ -942,7 +953,18 @@ class DeviceStatusCollectorNetworkInterfacesTest
   }
 };
 
+TEST_F(DeviceStatusCollectorNetworkInterfacesTest, NoNetworkStateIfNotKiosk) {
+  // If not in an active kiosk session, there should be network interfaces
+  // reported, but no network state.
+  GetStatus();
+  EXPECT_LT(0, status_.network_interface_size());
+  EXPECT_EQ(0, status_.network_state_size());
+}
+
 TEST_F(DeviceStatusCollectorNetworkInterfacesTest, NetworkInterfaces) {
+  // Mock that we are in kiosk mode so we report network state.
+  status_collector_->set_kiosk_mode(true);
+
   // Interfaces should be reported by default.
   GetStatus();
   EXPECT_LT(0, status_.network_interface_size());
