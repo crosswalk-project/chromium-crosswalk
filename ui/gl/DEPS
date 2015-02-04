@@ -12,5 +12,8 @@ specific_include_rules = {
 # get access to desktop OpenGL.
   "gl_surface_osmesa.cc": [
     "+third_party/mesa/src/include/GL/osmesa.h",
+  ],
+  "gl_bindings_autogen_.*\.cc": [
+    "+gpu/command_buffer/common/gles2_cmd_utils.h",
   ]
 }

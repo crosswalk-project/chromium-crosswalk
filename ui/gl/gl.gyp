@@ -120,8 +120,6 @@
         'scoped_make_current.h',
         'sync_control_vsync_provider.cc',
         'sync_control_vsync_provider.h',
-        '<(gl_binding_output_dir)/gl_bindings_autogen_gl.cc',
-        '<(gl_binding_output_dir)/gl_bindings_autogen_gl.h',
         '<(gl_binding_output_dir)/gl_bindings_autogen_osmesa.cc',
         '<(gl_binding_output_dir)/gl_bindings_autogen_osmesa.h',
       ],
@@ -185,12 +183,30 @@
             'gl_surface_egl.h',
             'gl_egl_api_implementation.cc',
             'gl_egl_api_implementation.h',
-            '<(gl_binding_output_dir)/gl_bindings_autogen_egl.cc',
-            '<(gl_binding_output_dir)/gl_bindings_autogen_egl.h',
           ],
           'include_dirs': [
             '<(DEPTH)/third_party/khronos',
         ],
+        }],
+        ['OS in ("win", "linux")', {
+          'sources': [
+            '<(gl_binding_output_dir)/gl_bindings_autogen_egl.cc',
+            '<(gl_binding_output_dir)/gl_bindings_autogen_egl.h',
+          ],
+        }],
+        ['OS != "android"', {
+          'sources': [
+            '<(gl_binding_output_dir)/gl_bindings_autogen_gl.cc',
+            '<(gl_binding_output_dir)/gl_bindings_autogen_gl.h',
+          ],
+        }],
+        ['OS == "android"', {
+          'sources': [
+            'gl_bindings_autogen_egl_android.cc',
+            'gl_bindings_autogen_egl_android.h',
+            'gl_bindings_autogen_gl_android.cc',
+            'gl_bindings_autogen_gl_android.h',
+          ],
         }],
         ['OS in ("android", "linux")', {
           'sources': [

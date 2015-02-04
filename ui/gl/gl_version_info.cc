@@ -13,6 +13,9 @@ GLVersionInfo::GLVersionInfo(const char* version_str, const char* renderer_str)
       is_es1(false),
       is_es2(false),
       is_es3(false),
+#if defined(OS_ANDROID)
+      is_es31(false),
+#endif
       is_gl1(false),
       is_gl2(false),
       is_gl3(false),
@@ -25,6 +28,10 @@ GLVersionInfo::GLVersionInfo(const char* version_str, const char* renderer_str)
       is_es1 = (lstr.substr(9, 2) == "-c" && lstr.substr(13, 2) == "1.");
       is_es2 = (lstr.substr(9, 3) == " 2.");
       is_es3 = (lstr.substr(9, 3) == " 3.");
+#if defined(OS_ANDROID)
+      if (is_es3)
+        is_es31 = (lstr.substr(9, 4) == " 3.1");
+#endif
     } else {
       is_gl2 = (lstr.substr(0, 2) == "2.");
       is_gl3 = (lstr.substr(0, 2) == "3.");

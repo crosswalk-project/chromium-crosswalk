@@ -306,7 +306,11 @@ typedef void (*OSMESAproc)();
 // Forward declare EGL types.
 typedef uint64 EGLuint64CHROMIUM;
 
+#if defined(OS_ANDROID)
+#include "gl_bindings_autogen_gl_android.h"
+#else
 #include "gl_bindings_autogen_gl.h"
+#endif
 #include "gl_bindings_autogen_osmesa.h"
 
 #if defined(OS_WIN)
@@ -318,7 +322,7 @@ typedef uint64 EGLuint64CHROMIUM;
 #elif defined(USE_OZONE)
 #include "gl_bindings_autogen_egl.h"
 #elif defined(OS_ANDROID)
-#include "gl_bindings_autogen_egl.h"
+#include "gl_bindings_autogen_egl_android.h"
 #endif
 
 namespace gfx {

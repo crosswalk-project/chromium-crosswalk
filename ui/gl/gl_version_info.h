@@ -20,6 +20,9 @@ struct GL_EXPORT GLVersionInfo {
   bool is_es1;
   bool is_es2;
   bool is_es3;
+#if defined(OS_ANDROID)
+  bool is_es31;
+#endif
 
   bool is_gl1;
   bool is_gl2;
