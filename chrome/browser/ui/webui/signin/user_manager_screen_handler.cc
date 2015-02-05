@@ -45,6 +45,10 @@
 #include "ui/gfx/image/image_skia.h"
 #include "ui/gfx/image/image_util.h"
 
+#if defined(USE_ASH)
+#include "ash/shell.h"
+#endif
+
 namespace {
 // User dictionary keys.
 const char kKeyUsername[] = "username";
@@ -642,12 +646,14 @@ void UserManagerScreenHandler::SendUserList() {
       web_ui()->GetWebContents()->GetBrowserContext()->GetPath();
   const ProfileInfoCache& info_cache =
       g_browser_process->profile_manager()->GetProfileInfoCache();
-
   user_auth_type_map_.clear();
 
-  // If the active user is a supervised user, then they may not perform
-  // certain actions (i.e. delete another user).
-  bool active_user_is_supervised = Profile::FromWebUI(web_ui())->IsSupervised();
+  // Profile deletion is not allowed in Metro mode.
+  bool can_remove = true;
+#if defined(USE_ASH)
+  can_remove = !ash::Shell::HasInstance();
+#endif
+
   for (size_t i = 0; i < info_cache.GetNumberOfProfiles(); ++i) {
     base::DictionaryValue* profile_value = new base::DictionaryValue();
 
@@ -673,7 +679,7 @@ void UserManagerScreenHandler::SendUserList() {
     profile_value->SetBoolean(
         kKeyNeedsSignin, info_cache.ProfileIsSigninRequiredAtIndex(i));
     profile_value->SetBoolean(kKeyIsOwner, false);
-    profile_value->SetBoolean(kKeyCanRemove, !active_user_is_supervised);
+    profile_value->SetBoolean(kKeyCanRemove, can_remove);
     profile_value->SetBoolean(kKeyIsDesktop, true);
     profile_value->SetString(
         kKeyAvatarUrl, GetAvatarImageAtIndex(i, info_cache));
