@@ -59,6 +59,7 @@ bool IsWhitelistedExtension(const extensions::Extension* extension) {
 
   static const char* const kExtensionWhitelist[] = {
     extension_misc::kHotwordExtensionId,
+    extension_misc::kHotwordNewExtensionId,
   };
 
   for (size_t i = 0; i < arraysize(kExtensionWhitelist); ++i) {
