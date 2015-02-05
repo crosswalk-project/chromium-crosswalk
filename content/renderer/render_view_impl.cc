@@ -3938,7 +3938,7 @@ bool RenderViewImpl::didTapMultipleTargets(
           touch_rect, target_rects, GetSize(),
           gfx::Rect(webview()->mainFrame()->visibleContentRect()).size(),
           device_scale_factor_ * webview()->pageScaleFactor(), &zoom_rect);
-  if (!new_total_scale)
+  if (!new_total_scale || zoom_rect.IsEmpty())
     return false;
 
   bool handled = false;
@@ -3953,6 +3953,7 @@ bool RenderViewImpl::didTapMultipleTargets(
           RenderThreadImpl::current()->shared_bitmap_manager();
       scoped_ptr<cc::SharedBitmap> shared_bitmap =
           manager->AllocateSharedBitmap(canvas_size);
+      CHECK(!!shared_bitmap);
       {
         SkBitmap bitmap;
         SkImageInfo info = SkImageInfo::MakeN32Premul(canvas_size.width(),
