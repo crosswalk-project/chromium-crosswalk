@@ -39,6 +39,14 @@ bool EventConverterEvdev::HasKeyboard() const {
   return false;
 }
 
+bool EventConverterEvdev::HasTouchpad() const {
+  return false;
+}
+
+bool EventConverterEvdev::HasMouse() const {
+  return false;
+}
+
 bool EventConverterEvdev::HasTouchscreen() const {
   return false;
 }

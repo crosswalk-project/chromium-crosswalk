@@ -39,6 +39,7 @@ class EVENTS_OZONE_EVDEV_EXPORT EventConverterEvdevImpl
   // EventConverterEvdev:
   void OnFileCanReadWithoutBlocking(int fd) override;
   bool HasKeyboard() const override;
+  bool HasTouchpad() const override;
 
   void ProcessEvents(const struct input_event* inputs, int count);
 
@@ -55,6 +56,7 @@ class EVENTS_OZONE_EVDEV_EXPORT EventConverterEvdevImpl
 
   // Input modalities for this device.
   bool has_keyboard_;
+  bool has_touchpad_;
 
   // Save x-axis events of relative devices to be flushed at EV_SYN time.
   int x_offset_;

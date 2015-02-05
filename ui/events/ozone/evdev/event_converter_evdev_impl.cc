@@ -31,6 +31,7 @@ EventConverterEvdevImpl::EventConverterEvdevImpl(
     const EventDispatchCallback& callback)
     : EventConverterEvdev(fd, path, id, type),
       has_keyboard_(devinfo.HasKeyboard()),
+      has_touchpad_(devinfo.HasTouchpad()),
       x_offset_(0),
       y_offset_(0),
       cursor_(cursor),
@@ -63,6 +64,10 @@ void EventConverterEvdevImpl::OnFileCanReadWithoutBlocking(int fd) {
 
 bool EventConverterEvdevImpl::HasKeyboard() const {
   return has_keyboard_;
+}
+
+bool EventConverterEvdevImpl::HasTouchpad() const {
+  return has_touchpad_;
 }
 
 void EventConverterEvdevImpl::ProcessEvents(const input_event* inputs,

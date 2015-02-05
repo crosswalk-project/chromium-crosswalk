@@ -323,6 +323,12 @@ void EventFactoryEvdev::NotifyDeviceChange(
 
   if (converter.HasKeyboard())
     NotifyKeyboardsUpdated();
+
+  if (converter.HasTouchpad())
+    NotifyTouchpadsUpdated();
+
+  if (converter.HasMouse())
+    NotifyMiceUpdated();
 }
 
 void EventFactoryEvdev::NotifyTouchscreensUpdated() {
@@ -350,6 +356,32 @@ void EventFactoryEvdev::NotifyKeyboardsUpdated() {
   }
 
   observer->OnKeyboardDevicesUpdated(keyboards);
+}
+
+void EventFactoryEvdev::NotifyTouchpadsUpdated() {
+  std::vector<InputDevice> touchpads;
+  for (auto it = converters_.begin(); it != converters_.end(); ++it) {
+    if (it->second->HasTouchpad()) {
+      touchpads.push_back(InputDevice(it->second->id(), it->second->type(),
+                                      std::string() /* Device name */));
+    }
+  }
+
+  DeviceHotplugEventObserver* observer = DeviceDataManager::GetInstance();
+  observer->OnTouchpadDevicesUpdated(touchpads);
+}
+
+void EventFactoryEvdev::NotifyMiceUpdated() {
+  std::vector<InputDevice> mice;
+  for (auto it = converters_.begin(); it != converters_.end(); ++it) {
+    if (it->second->HasMouse()) {
+      mice.push_back(InputDevice(it->second->id(), it->second->type(),
+                                 std::string() /* Device name */));
+    }
+  }
+
+  DeviceHotplugEventObserver* observer = DeviceDataManager::GetInstance();
+  observer->OnMouseDevicesUpdated(mice);
 }
 
 int EventFactoryEvdev::NextDeviceId() {

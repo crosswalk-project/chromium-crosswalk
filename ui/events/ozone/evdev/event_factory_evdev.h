@@ -89,6 +89,8 @@ class EVENTS_OZONE_EVDEV_EXPORT EventFactoryEvdev : public DeviceEventObserver,
   void NotifyDeviceChange(const EventConverterEvdev& converter);
   void NotifyKeyboardsUpdated();
   void NotifyTouchscreensUpdated();
+  void NotifyTouchpadsUpdated();
+  void NotifyMiceUpdated();
 
   int NextDeviceId();
 

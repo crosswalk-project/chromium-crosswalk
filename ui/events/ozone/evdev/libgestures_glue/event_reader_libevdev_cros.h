@@ -47,6 +47,8 @@ class EventReaderLibevdevCros : public EventConverterEvdev {
   // EventConverterEvdev:
   void OnFileCanReadWithoutBlocking(int fd) override;
   bool HasKeyboard() const override;
+  bool HasMouse() const override;
+  bool HasTouchpad() const override;
 
  private:
   static void OnSynReport(void* data,
@@ -56,6 +58,8 @@ class EventReaderLibevdevCros : public EventConverterEvdev {
 
   // Input modalities for this device.
   bool has_keyboard_;
+  bool has_mouse_;
+  bool has_touchpad_;
 
   // Libevdev state.
   Evdev evdev_;
