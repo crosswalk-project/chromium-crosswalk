@@ -106,6 +106,9 @@ void WinWindow::SetCursor(PlatformCursor cursor) {}
 
 void WinWindow::MoveCursorTo(const gfx::Point& location) {}
 
+void WinWindow::ConfineCursorToBounds(const gfx::Rect& bounds) {
+}
+
 LRESULT WinWindow::OnMouseRange(UINT message, WPARAM w_param, LPARAM l_param) {
   MSG msg = { hwnd(), message, w_param, l_param, GetMessageTime(),
               { CR_GET_X_LPARAM(l_param), CR_GET_Y_LPARAM(l_param) } };

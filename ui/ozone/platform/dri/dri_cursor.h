@@ -40,6 +40,9 @@ class DriCursor : public CursorDelegateEvdev {
   gfx::AcceleratedWidget GetCursorWindow();
   void Reset();
 
+  // Confines the cursor to |bounds|.
+  void ConfineCursorToBounds(const gfx::Rect& bounds);
+
   // CursorDelegateEvdev:
   void MoveCursorTo(gfx::AcceleratedWidget widget,
                     const gfx::PointF& location) override;
@@ -47,7 +50,7 @@ class DriCursor : public CursorDelegateEvdev {
   void MoveCursor(const gfx::Vector2dF& delta) override;
   bool IsCursorVisible() override;
   gfx::PointF GetLocation() override;
-  gfx::Rect GetCursorDisplayBounds() override;
+  gfx::Rect GetCursorConfinedBounds() override;
 
  private:
   // The location of the bitmap (the cursor location is the hotspot location).
@@ -67,6 +70,9 @@ class DriCursor : public CursorDelegateEvdev {
 
   // The bounsd of the display under the cursor.
   gfx::Rect cursor_display_bounds_;
+
+  // The bounds that the cursor is confined to in |cursor_window_|.
+  gfx::Rect cursor_confined_bounds_;
 };
 
 }  // namespace ui

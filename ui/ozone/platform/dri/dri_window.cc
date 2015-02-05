@@ -54,6 +54,11 @@ gfx::AcceleratedWidget DriWindow::GetAcceleratedWidget() {
   return widget_;
 }
 
+gfx::Rect DriWindow::GetCursorConfinedBounds() const {
+  return cursor_confined_bounds_.IsEmpty() ? gfx::Rect(bounds_.size())
+                                           : cursor_confined_bounds_;
+}
+
 void DriWindow::Show() {}
 
 void DriWindow::Hide() {}
@@ -100,6 +105,17 @@ void DriWindow::SetCursor(PlatformCursor cursor) {
 
 void DriWindow::MoveCursorTo(const gfx::Point& location) {
   event_factory_->WarpCursorTo(widget_, location);
+}
+
+void DriWindow::ConfineCursorToBounds(const gfx::Rect& bounds) {
+  if (cursor_confined_bounds_ == bounds)
+    return;
+
+  cursor_confined_bounds_ = bounds;
+
+  DriCursor* dri_cursor = window_manager_->cursor();
+  if (dri_cursor->GetCursorWindow() == widget_)
+    dri_cursor->ConfineCursorToBounds(bounds);
 }
 
 bool DriWindow::CanDispatchEvent(const PlatformEvent& ne) {

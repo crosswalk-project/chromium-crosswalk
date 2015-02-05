@@ -13,8 +13,7 @@ namespace ui {
 namespace {
 
 gfx::Point GetDefaultCursorLocation(DriWindow* window) {
-  return gfx::Point(window->GetBounds().width() / 2,
-                    window->GetBounds().height() / 2);
+  return window->GetCursorConfinedBounds().CenterPoint();
 }
 
 }  // namespace

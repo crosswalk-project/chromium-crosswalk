@@ -56,6 +56,12 @@ void DriCursor::HideCursor() {
                              gfx::Point(), 0);
 }
 
+void DriCursor::ConfineCursorToBounds(const gfx::Rect& bounds) {
+  cursor_confined_bounds_ = bounds;
+  MoveCursorTo(cursor_location_);
+  ShowCursor();
+}
+
 void DriCursor::MoveCursorTo(gfx::AcceleratedWidget widget,
                              const gfx::PointF& location) {
   // When moving between windows hide the cursor on the current window then show
@@ -71,11 +77,12 @@ void DriCursor::MoveCursorTo(gfx::AcceleratedWidget widget,
   cursor_window_ = widget;
   cursor_location_ = location;
   cursor_display_bounds_ = window->GetBounds();
+  cursor_confined_bounds_ = window->GetCursorConfinedBounds();
 
-  const gfx::Size& size = cursor_display_bounds_.size();
-  cursor_location_.SetToMax(gfx::PointF(0, 0));
+  cursor_location_.SetToMax(cursor_confined_bounds_.origin());
   // Right and bottom edges are exclusive.
-  cursor_location_.SetToMin(gfx::PointF(size.width() - 1, size.height() - 1));
+  cursor_location_.SetToMin(gfx::PointF(cursor_confined_bounds_.right() - 1,
+                                        cursor_confined_bounds_.bottom() - 1));
 
   if (cursor_.get()) {
     if (changing_window)
@@ -109,8 +116,9 @@ void DriCursor::MoveCursor(const gfx::Vector2dF& delta) {
 #endif
 }
 
-gfx::Rect DriCursor::GetCursorDisplayBounds() {
-  return cursor_display_bounds_;
+gfx::Rect DriCursor::GetCursorConfinedBounds() {
+  return cursor_confined_bounds_ +
+      cursor_display_bounds_.OffsetFromOrigin();
 }
 
 gfx::AcceleratedWidget DriCursor::GetCursorWindow() {
