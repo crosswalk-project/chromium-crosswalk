@@ -348,6 +348,10 @@ class AthenaEnvImpl : public AthenaEnv,
     MapTouchscreenToDisplay();
   }
 
+  void OnMouseDeviceConfigurationChanged() override {}
+
+  void OnTouchpadDeviceConfigurationChanged() override {}
+
   void OnKeyboardDeviceConfigurationChanged() override {}
 
   // aura::WindowTreeHostObserver:
