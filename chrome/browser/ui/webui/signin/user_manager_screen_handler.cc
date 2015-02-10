@@ -346,7 +346,7 @@ void UserManagerScreenHandler::HandleAuthenticatedLaunchUser(
   }
 
   authenticating_profile_index_ = profile_index;
-  if (!chrome::ValidateLocalAuthCredentials(profile_index, password)) {
+  if (!LocalAuth::ValidateLocalAuthCredentials(profile_index, password)) {
     // Make a second attempt via an on-line authentication call.  This handles
     // profiles that are missing sign-in credentials and also cases where the
     // password has been changed externally.
@@ -464,8 +464,8 @@ void UserManagerScreenHandler::HandleHardlockUserPod(
 
 void UserManagerScreenHandler::OnClientLoginSuccess(
     const ClientLoginResult& result) {
-  chrome::SetLocalAuthCredentials(authenticating_profile_index_,
-                                  password_attempt_);
+  LocalAuth::SetLocalAuthCredentials(authenticating_profile_index_,
+                                     password_attempt_);
   ReportAuthenticationResult(true, ProfileMetrics::AUTH_ONLINE);
 }
 
@@ -486,8 +486,8 @@ void UserManagerScreenHandler::OnClientLoginFailure(
   // profile was locked.  Save the password to streamline future unlocks.
   if (success) {
     DCHECK(!password_attempt_.empty());
-    chrome::SetLocalAuthCredentials(authenticating_profile_index_,
-                                    password_attempt_);
+    LocalAuth::SetLocalAuthCredentials(authenticating_profile_index_,
+                                       password_attempt_);
   }
 
   bool offline = (state == GoogleServiceAuthError::CONNECTION_FAILED ||
