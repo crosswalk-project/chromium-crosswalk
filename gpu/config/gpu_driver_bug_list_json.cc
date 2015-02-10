@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "7.14",
+  "version": "7.16",
   "entries": [
     {
       "id": 1,
@@ -1104,6 +1104,18 @@ LONG_STRING_CONST(
       "gl_renderer": "Intel.*BayTrail",
       "features": [
         "disable_multisampling"
+      ]
+    },
+    {
+      "id": 100,
+      "description": "Disable Direct3D11 on systems with AMD switchable graphics",
+      "cr_bugs": [451420],
+      "os": {
+        "type": "win"
+      },
+      "multi_gpu_style": "amd_switchable",
+      "features": [
+        "disable_d3d11"
       ]
     }
   ]
