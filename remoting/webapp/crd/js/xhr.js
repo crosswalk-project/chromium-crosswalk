@@ -198,7 +198,8 @@ remoting.xhr.defaultResponse = function(onDone, onError) {
   /** @param {XMLHttpRequest} xhr */
   return function(xhr) {
     /** @type {remoting.Error} */
-    var error = remoting.Error.fromHttpError(xhr.status)
+    var error =
+        remoting.Error.fromHttpStatus(/** @type {number} */ (xhr.status));
     if (error == remoting.Error.NONE) {
       onDone();
     } else {
