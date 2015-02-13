@@ -144,9 +144,6 @@ typedef std::vector<FacetURI> AffiliatedFacets;
 bool AreEquivalenceClassesEqual(const AffiliatedFacets& a,
                                 const AffiliatedFacets& b);
 
-// A shorter way to spell FacetURI::IsValidAndroidFacetURI().
-bool IsValidAndroidFacetURI(const std::string& uri);
-
 }  // namespace password_manager
 
 #endif  // COMPONENTS_PASSWORD_MANAGER_CORE_BROWSER_AFFILIATION_UTILS_H_

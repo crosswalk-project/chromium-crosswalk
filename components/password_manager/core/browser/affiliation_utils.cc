@@ -266,9 +266,4 @@ bool AreEquivalenceClassesEqual(const AffiliatedFacets& a,
   return std::equal(a_sorted.begin(), a_sorted.end(), b_sorted.begin());
 }
 
-bool IsValidAndroidFacetURI(const std::string& url) {
-  FacetURI facet = FacetURI::FromPotentiallyInvalidSpec(url);
-  return facet.IsValidAndroidFacetURI();
-}
-
 }  // namespace password_manager

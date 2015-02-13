@@ -49,10 +49,8 @@ struct PasswordForm {
     SCHEME_LAST = SCHEME_OTHER
   } scheme;
 
-  // The "Realm" for the sign-on. This is scheme, host, port for SCHEME_HTML.
-  // Dialog based forms also contain the HTTP realm. Android based forms will
-  // contain a string of the form "android://<hash of cert>@<package name>"
-  //
+  // The "Realm" for the sign-on (scheme, host, port for SCHEME_HTML, and
+  // contains the HTTP realm for dialog-based forms).
   // The signon_realm is effectively the primary key used for retrieving
   // data from the database, so it must not be empty.
   std::string signon_realm;
@@ -78,8 +76,8 @@ struct PasswordForm {
   // An origin URL consists of the scheme, host, port and path; the rest is
   // stripped. This is the primary data used by the PasswordManager to decide
   // (in longest matching prefix fashion) whether or not a given PasswordForm
-  // result from the database is a good fit for a particular form on a page.
-  // This should not be empty except for Android based credentials.
+  // result from the database is a good fit for a particular form on a page, so
+  // it must not be empty.
   GURL origin;
 
   // The action target of the form; like |origin| URL consists of the scheme,
