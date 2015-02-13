@@ -173,10 +173,9 @@ void BrowserAccessibilityManagerAndroid::NotifyAccessibilityEvent(
       Java_BrowserAccessibilityManager_handleTextSelectionChanged(
           env, obj.obj(), node->GetId());
       break;
-    case ui::AX_EVENT_CHILDREN_CHANGED:
     case ui::AX_EVENT_TEXT_CHANGED:
     case ui::AX_EVENT_VALUE_CHANGED:
-      if (node->IsEditableText()) {
+      if (node->IsEditableText() && GetFocus(GetRoot()) == node) {
         Java_BrowserAccessibilityManager_handleEditableTextChanged(
             env, obj.obj(), node->GetId());
       } else if (android_node->IsSlider()) {
