@@ -108,6 +108,7 @@ class WebUIScreenLocker : public WebUILoginView,
   virtual void OnWidgetDestroying(views::Widget* widget) override;
 
   // PowerManagerClient::Observer overrides:
+  virtual void SuspendImminent() override;
   virtual void SuspendDone(const base::TimeDelta& sleep_duration) override;
   virtual void LidEventReceived(bool open,
                                 const base::TimeTicks& time) override;
@@ -133,6 +134,9 @@ class WebUIScreenLocker : public WebUILoginView,
 
   // Ensures that user pod is focused.
   void FocusUserPod();
+
+  // Reset user pod and ensures that user pod is focused.
+  void ResetAndFocusUserPod();
 
   // The screen locker window.
   views::Widget* lock_window_;

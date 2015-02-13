@@ -158,6 +158,13 @@ void WebUIScreenLocker::FocusUserPod() {
   GetWebUI()->CallJavascriptFunction("cr.ui.Oobe.forceLockedUserPodFocus");
 }
 
+void WebUIScreenLocker::ResetAndFocusUserPod() {
+  if (!webui_ready_)
+    return;
+  GetWebUI()->CallJavascriptFunction("cr.ui.Oobe.clearUserPodPassword");
+  FocusUserPod();
+}
+
 WebUIScreenLocker::~WebUIScreenLocker() {
   DBusThreadManager::Get()->GetPowerManagerClient()->RemoveObserver(this);
 #if !defined(USE_ATHENA)
@@ -315,10 +322,19 @@ void WebUIScreenLocker::OnWidgetDestroying(views::Widget* widget) {
 
 void WebUIScreenLocker::LidEventReceived(bool open,
                                          const base::TimeTicks& time) {
+  if (open) {
+    content::BrowserThread::PostTask(
+        content::BrowserThread::UI, FROM_HERE,
+        base::Bind(&WebUIScreenLocker::FocusUserPod,
+                   weak_factory_.GetWeakPtr()));
+  }
+}
+
+void WebUIScreenLocker::SuspendImminent() {
   content::BrowserThread::PostTask(
-      content::BrowserThread::UI,
-      FROM_HERE,
-      base::Bind(&WebUIScreenLocker::FocusUserPod, weak_factory_.GetWeakPtr()));
+      content::BrowserThread::UI, FROM_HERE,
+      base::Bind(&WebUIScreenLocker::ResetAndFocusUserPod,
+                 weak_factory_.GetWeakPtr()));
 }
 
 void WebUIScreenLocker::SuspendDone(const base::TimeDelta& sleep_duration) {
