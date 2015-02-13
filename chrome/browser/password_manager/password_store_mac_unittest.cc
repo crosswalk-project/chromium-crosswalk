@@ -1442,3 +1442,36 @@ TEST_F(PasswordStoreMacTest, TestRemoveLoginsMultiProfile) {
       "http://some.domain.com/insecure.html", PasswordForm::SCHEME_HTML);
   ASSERT_EQ(1u, matching_items.size());
 }
+
+// Verify that Android app passwords are retrievable.
+// Regression test for http://crbug.com/455551
+TEST_F(PasswordStoreMacTest, AndroidCredentialsMatchAfterInsertion) {
+  PasswordForm form;
+  form.signon_realm = "android://7x7IDboo8u9YKraUsbmVkuf1@net.rateflix.app/";
+  form.username_value = base::UTF8ToUTF16("randomusername");
+  form.password_value = base::UTF8ToUTF16("password");
+  store()->AddLogin(form);
+  FinishAsyncProcessing();
+
+  PasswordForm returned_form;
+  MockPasswordStoreConsumer mock_consumer;
+  EXPECT_CALL(mock_consumer, OnGetPasswordStoreResultsConstRef(SizeIs(1u)))
+      .WillOnce(
+          DoAll(SaveACopyOfFirstForm(&returned_form), QuitUIMessageLoop()));
+
+  store()->GetAutofillableLogins(&mock_consumer);
+  base::MessageLoop::current()->Run();
+  ::testing::Mock::VerifyAndClearExpectations(&mock_consumer);
+  EXPECT_EQ(form, returned_form);
+
+  PasswordForm query_form = form;
+  query_form.password_value.clear();
+  query_form.username_value.clear();
+  EXPECT_CALL(mock_consumer, OnGetPasswordStoreResultsConstRef(SizeIs(1u)))
+      .WillOnce(
+          DoAll(SaveACopyOfFirstForm(&returned_form), QuitUIMessageLoop()));
+  store()->GetLogins(query_form, PasswordStore::ALLOW_PROMPT, &mock_consumer);
+  base::MessageLoop::current()->Run();
+  ::testing::Mock::VerifyAndClearExpectations(&mock_consumer);
+  EXPECT_EQ(form, returned_form);
+}
