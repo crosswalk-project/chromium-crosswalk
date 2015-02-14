@@ -143,7 +143,7 @@ void ProfileImplIOData::Handle::Init(
         data_reduction_proxy_configurator,
     scoped_ptr<data_reduction_proxy::DataReductionProxyParams>
         data_reduction_proxy_params,
-    scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
+    base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
         data_reduction_proxy_statistics_prefs,
     scoped_ptr<data_reduction_proxy::DataReductionProxyEventStore>
         data_reduction_proxy_event_store) {
@@ -185,7 +185,7 @@ void ProfileImplIOData::Handle::Init(
       data_reduction_proxy_configurator.Pass());
   io_data_->set_data_reduction_proxy_params(data_reduction_proxy_params.Pass());
   io_data_->set_data_reduction_proxy_statistics_prefs(
-      data_reduction_proxy_statistics_prefs.Pass());
+      data_reduction_proxy_statistics_prefs);
   io_data_->set_data_reduction_proxy_event_store(
       data_reduction_proxy_event_store.Pass());
 }

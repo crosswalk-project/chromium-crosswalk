@@ -699,8 +699,6 @@ void ProfileImpl::DoFinalInit() {
               prefs_.get(),
               base::MessageLoopProxy::current(),
               commit_delay));
-  data_reduction_proxy_chrome_settings->SetDataReductionProxyStatisticsPrefs(
-      data_reduction_proxy_statistics_prefs.get());
 
   // Make sure we initialize the ProfileIOData after everything else has been
   // initialized that we might be reading from the IO thread.
@@ -713,12 +711,13 @@ void ProfileImpl::DoFinalInit() {
                 data_reduction_proxy_unavailable,
                 configurator.Pass(),
                 data_reduction_proxy_params.Pass(),
-                data_reduction_proxy_statistics_prefs.Pass(),
+                data_reduction_proxy_statistics_prefs->GetWeakPtr(),
                 event_store.Pass());
   data_reduction_proxy_chrome_settings->InitDataReductionProxySettings(
       data_reduction_proxy_configurator,
       prefs_.get(),
       g_browser_process->local_state(),
+      data_reduction_proxy_statistics_prefs.Pass(),
       GetRequestContext(),
       net_log,
       data_reduction_proxy_event_store);

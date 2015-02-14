@@ -74,7 +74,7 @@ class ProfileImplIOData : public ProfileIOData {
             data_reduction_proxy_configurator,
         scoped_ptr<data_reduction_proxy::DataReductionProxyParams>
             data_reduction_proxy_params,
-        scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
+        base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
             data_reduction_proxy_statistics_prefs,
         scoped_ptr<data_reduction_proxy::DataReductionProxyEventStore>
             data_reduction_proxy_event_store);

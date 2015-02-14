@@ -14,6 +14,7 @@
 #include "base/files/file_path.h"
 #include "base/memory/ref_counted.h"
 #include "base/memory/scoped_ptr.h"
+#include "base/memory/weak_ptr.h"
 #include "components/visitedlink/browser/visitedlink_delegate.h"
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/content_browser_client.h"
@@ -153,7 +154,7 @@ class AwBrowserContext : public content::BrowserContext,
 
   scoped_ptr<data_reduction_proxy::DataReductionProxyConfigurator>
       data_reduction_proxy_configurator_;
-  scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
+  base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
       data_reduction_proxy_statistics_;
   scoped_ptr<data_reduction_proxy::DataReductionProxySettings>
       data_reduction_proxy_settings_;

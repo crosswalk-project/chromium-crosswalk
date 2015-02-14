@@ -123,8 +123,6 @@ void AwBrowserContext::SetDataReductionProxyEnabled(bool enabled) {
     return;
 
   context->CreateDataReductionProxyStatisticsIfNecessary();
-  proxy_settings->SetDataReductionProxyStatisticsPrefs(
-      context->data_reduction_proxy_statistics_.get());
   proxy_settings->SetDataReductionProxyEnabled(data_reduction_proxy_enabled_);
 }
 
@@ -264,6 +262,7 @@ void AwBrowserContext::CreateUserPrefServiceIfNecessary() {
   if (data_reduction_proxy_settings_.get()) {
     data_reduction_proxy_settings_->InitDataReductionProxySettings(
         user_pref_service_.get(),
+        scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>(),
         GetRequestContext(),
         GetAwURLRequestContext()->GetNetLog(),
         GetDataReductionProxyEventStore());
@@ -360,17 +359,17 @@ void AwBrowserContext::RebuildTable(
 
 void AwBrowserContext::CreateDataReductionProxyStatisticsIfNecessary() {
   DCHECK(user_pref_service_.get());
-
-  if (!data_reduction_proxy_statistics_.get()) {
-    // We don't care about commit_delay for now. It is just a dummy value.
-    base::TimeDelta commit_delay = base::TimeDelta::FromMinutes(60);
-    data_reduction_proxy_statistics_ =
-        scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>(
-            new data_reduction_proxy::DataReductionProxyStatisticsPrefs(
-                user_pref_service_.get(),
-                base::MessageLoopProxy::current(),
-                commit_delay));
-  }
+  DCHECK(GetDataReductionProxySettings());
+  if (data_reduction_proxy_statistics_)
+    return;
+  // We don't care about commit_delay for now. It is just a dummy value.
+  base::TimeDelta commit_delay = base::TimeDelta::FromMinutes(60);
+  GetDataReductionProxySettings()->EnableCompressionStatisticsLogging(
+      user_pref_service_.get(),
+      BrowserThread::GetMessageLoopProxyForThread(BrowserThread::UI),
+      commit_delay);
+  data_reduction_proxy_statistics_ =
+      GetDataReductionProxySettings()->statistics_prefs();
 }
 
 }  // namespace android_webview

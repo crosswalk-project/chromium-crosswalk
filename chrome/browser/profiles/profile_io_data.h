@@ -384,15 +384,15 @@ class ProfileIOData {
   }
 
   void set_data_reduction_proxy_statistics_prefs(
-      scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
+      base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
           data_reduction_proxy_statistics_prefs) {
     data_reduction_proxy_statistics_prefs_ =
-        data_reduction_proxy_statistics_prefs.Pass();
+        data_reduction_proxy_statistics_prefs;
   }
 
-  data_reduction_proxy::DataReductionProxyStatisticsPrefs*
+  base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
       data_reduction_proxy_statistics_prefs() const {
-    return data_reduction_proxy_statistics_prefs_.get();
+    return data_reduction_proxy_statistics_prefs_;
   }
 
   void set_data_reduction_proxy_usage_stats(
@@ -653,7 +653,7 @@ class ProfileIOData {
       data_reduction_proxy_params_;
   mutable scoped_ptr<data_reduction_proxy::DataReductionProxyUsageStats>
       data_reduction_proxy_usage_stats_;
-  mutable scoped_ptr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
+  mutable base::WeakPtr<data_reduction_proxy::DataReductionProxyStatisticsPrefs>
       data_reduction_proxy_statistics_prefs_;
   mutable base::Callback<void(bool)> data_reduction_proxy_unavailable_callback_;
   mutable scoped_ptr<data_reduction_proxy::DataReductionProxyConfigurator>
