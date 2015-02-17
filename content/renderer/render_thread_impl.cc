@@ -1713,7 +1713,9 @@ void RenderThreadImpl::OnMemoryPressure(
     SkGraphics::SetFontCacheLimit(font_cache_limit);
   }
 
-  blink::WebCache::pruneAll();
+  if (blink_platform_impl_) {
+    blink::WebCache::pruneAll();
+  }
 }
 
 scoped_refptr<base::MessageLoopProxy>
