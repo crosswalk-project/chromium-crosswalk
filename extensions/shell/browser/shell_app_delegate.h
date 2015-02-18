@@ -50,6 +50,8 @@ class ShellAppDelegate : public AppDelegate,
                              bool blocked) override;
   bool IsWebContentsVisible(content::WebContents* web_contents) override;
   void SetTerminatingCallback(const base::Closure& callback) override;
+  void OnHide() override {}
+  void OnShow() override {}
 
   // content::WebContentsObserver:
   void RenderViewCreated(content::RenderViewHost* render_view_host) override;

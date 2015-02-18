@@ -33,6 +33,8 @@ class AthenaShellAppDelegate : public AthenaAppDelegateBase {
       const extensions::Extension* extension) override;
   void SetWebContentsBlocked(content::WebContents* web_contents,
                              bool blocked) override;
+  void OnHide() override {}
+  void OnShow() override {}
 
   DISALLOW_COPY_AND_ASSIGN(AthenaShellAppDelegate);
 };
