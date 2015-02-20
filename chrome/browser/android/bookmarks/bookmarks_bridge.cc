@@ -224,7 +224,8 @@ void BookmarksBridge::GetTopLevelFolderIDs(JNIEnv* env,
         client_->managed_node()->child_count() > 0) {
       top_level_folders.push_back(client_->managed_node());
     }
-    if (partner_bookmarks_shim_->HasPartnerBookmarks()) {
+    if (partner_bookmarks_shim_->HasPartnerBookmarks()
+        && IsReachable(partner_bookmarks_shim_->GetPartnerBookmarksRoot())) {
       top_level_folders.push_back(
           partner_bookmarks_shim_->GetPartnerBookmarksRoot());
     }
