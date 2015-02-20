@@ -131,9 +131,15 @@ function FileSelection(fileManager, indexes) {
 FileSelection.prototype.completeInit = function() {
   if (!this.asyncInitPromise_) {
     if (!this.fileManager_.isOnDrive()) {
-      this.asyncInitPromise_ = Promise.resolve();
-      this.allDriveFilesPresent = true;
-      return this.tasks.init(this.entries);
+      this.asyncInitPromise_ = Promise.all(this.entries.map(function(entry) {
+        return new Promise(function(fulfill) {
+          chrome.fileManagerPrivate.getMimeType(entry.toURL(), fulfill);
+        });
+      }.bind(this))).then(function(mimeTypes) {
+        this.allDriveFilesPresent = true;
+        this.mimeTypes = mimeTypes;
+        return this.tasks.init(this.entries, this.mimeTypes);
+      }.bind(this));
     } else {
       this.asyncInitPromise_ = new Promise(function(fulfill) {
         this.fileManager_.metadataCache.get(this.entries, 'external', fulfill);
