@@ -32,11 +32,6 @@ const CGFloat kAnimationDuration = 0.2;
 
 const CGFloat kChevronWidth = 18;
 
-// Since the container is the maximum height of the toolbar, we have
-// to move the buttons up by this amount in order to have them look
-// vertically centered within the toolbar.
-const CGFloat kBrowserActionOriginYOffset = 5.0;
-
 // How far to inset from the bottom of the view to get the top border
 // of the popup 2px below the bottom of the Omnibox.
 const CGFloat kBrowserActionBubbleYOffset = 3.0;
@@ -447,7 +442,7 @@ void ToolbarActionsBarBridge::OnOverflowedActionWantsToRunChanged(
 - (void)addViewForAction:(ToolbarActionViewController*)action
                withIndex:(NSUInteger)index {
   NSRect buttonFrame = NSMakeRect(NSMaxX([containerView_ bounds]),
-                                  kBrowserActionOriginYOffset,
+                                  0,
                                   ToolbarActionsBar::IconWidth(false),
                                   ToolbarActionsBar::IconHeight());
   BrowserActionButton* newButton =
@@ -752,7 +747,7 @@ void ToolbarActionsBarBridge::OnOverflowedActionWantsToRunChanged(
 - (void)updateChevronPositionInFrame:(NSRect)frame {
   CGFloat xPos = NSWidth(frame) - kChevronWidth;
   NSRect buttonFrame = NSMakeRect(xPos,
-                                  kBrowserActionOriginYOffset,
+                                  0,
                                   kChevronWidth,
                                   ToolbarActionsBar::IconHeight());
   [chevronAnimation_ stopAnimation];
