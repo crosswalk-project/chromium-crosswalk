@@ -567,6 +567,17 @@ bool WebContentsImpl::OnMessageReceived(RenderViewHost* render_view_host,
   return handled;
 }
 
+bool WebContentsImpl::HasValidFrameSource() {
+  if (!render_frame_message_source_) {
+    DCHECK(render_view_message_source_);
+    RecordAction(base::UserMetricsAction("BadMessageTerminate_WC"));
+    GetRenderProcessHost()->ReceivedBadMessage();
+    return false;
+  }
+
+  return true;
+}
+
 void WebContentsImpl::RunFileChooser(
     RenderViewHost* render_view_host,
     const FileChooserParams& params) {
@@ -2723,21 +2734,18 @@ void WebContentsImpl::OnDidRunInsecureContent(
 }
 
 void WebContentsImpl::OnDocumentLoadedInFrame() {
-  CHECK(render_frame_message_source_);
-  CHECK(!render_view_message_source_);
+  if (!HasValidFrameSource())
+    return;
+
   RenderFrameHostImpl* rfh =
       static_cast<RenderFrameHostImpl*>(render_frame_message_source_);
   FOR_EACH_OBSERVER(
       WebContentsObserver, observers_, DocumentLoadedInFrame(rfh));
 }
 
-void WebContentsImpl::OnDidFinishLoad(
-    const GURL& url) {
-  if (!render_frame_message_source_) {
-    RecordAction(base::UserMetricsAction("BadMessageTerminate_RVD2"));
-    GetRenderProcessHost()->ReceivedBadMessage();
+void WebContentsImpl::OnDidFinishLoad(const GURL& url) {
+  if (!HasValidFrameSource())
     return;
-  }
 
   GURL validated_url(url);
   RenderProcessHost* render_process_host =
@@ -2751,6 +2759,9 @@ void WebContentsImpl::OnDidFinishLoad(
 }
 
 void WebContentsImpl::OnDidStartLoading(bool to_different_document) {
+  if (!HasValidFrameSource())
+    return;
+
   RenderFrameHostImpl* rfh =
       static_cast<RenderFrameHostImpl*>(render_frame_message_source_);
   int64 render_frame_id = rfh->frame_tree_node()->frame_tree_node_id();
@@ -2789,6 +2800,9 @@ void WebContentsImpl::OnDidStartLoading(bool to_different_document) {
 }
 
 void WebContentsImpl::OnDidStopLoading() {
+  if (!HasValidFrameSource())
+    return;
+
   RenderFrameHostImpl* rfh =
       static_cast<RenderFrameHostImpl*>(render_frame_message_source_);
   int64 render_frame_id = rfh->frame_tree_node()->frame_tree_node_id();
@@ -2816,6 +2830,9 @@ void WebContentsImpl::OnDidStopLoading() {
 }
 
 void WebContentsImpl::OnDidChangeLoadProgress(double load_progress) {
+  if (!HasValidFrameSource())
+    return;
+
   RenderFrameHostImpl* rfh =
       static_cast<RenderFrameHostImpl*>(render_frame_message_source_);
   int64 render_frame_id = rfh->frame_tree_node()->frame_tree_node_id();
@@ -2952,9 +2969,9 @@ void WebContentsImpl::OnOpenColorChooser(
     int color_chooser_id,
     SkColor color,
     const std::vector<ColorSuggestion>& suggestions) {
-  // Protect against malicious renderer. See http://crbug.com/449777
-  if (!render_frame_message_source_)
+  if (!HasValidFrameSource())
     return;
+
   ColorChooser* new_color_chooser = delegate_ ?
       delegate_->OpenColorChooser(this, color, suggestions) :
       NULL;
@@ -4371,6 +4388,9 @@ void WebContentsImpl::OnPreferredSizeChanged(const gfx::Size& old_size) {
 
 void WebContentsImpl::AddMediaPlayerEntry(int64 player_cookie,
                                           ActiveMediaPlayerMap* player_map) {
+  if (!HasValidFrameSource())
+    return;
+
   const uintptr_t key =
       reinterpret_cast<uintptr_t>(render_frame_message_source_);
   DCHECK(std::find((*player_map)[key].begin(),
@@ -4381,6 +4401,9 @@ void WebContentsImpl::AddMediaPlayerEntry(int64 player_cookie,
 
 void WebContentsImpl::RemoveMediaPlayerEntry(int64 player_cookie,
                                              ActiveMediaPlayerMap* player_map) {
+  if (!HasValidFrameSource())
+    return;
+
   const uintptr_t key =
       reinterpret_cast<uintptr_t>(render_frame_message_source_);
   ActiveMediaPlayerMap::iterator it = player_map->find(key);
