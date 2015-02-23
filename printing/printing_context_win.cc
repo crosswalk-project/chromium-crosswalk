@@ -363,7 +363,7 @@ PrintingContext::Result PrintingContextWin::InitializeSettings(
 HWND PrintingContextWin::GetRootWindow(gfx::NativeView view) {
   HWND window = NULL;
 #if defined(USE_AURA)
-  if (view)
+  if (view && view->GetHost())
     window = view->GetHost()->GetAcceleratedWidget();
 #else
   if (view && IsWindow(view)) {
