@@ -494,10 +494,29 @@ void GuestViewBase::DeactivateContents(WebContents* web_contents) {
       embedder_web_contents());
 }
 
+void GuestViewBase::ContentsMouseEvent(content::WebContents* source,
+                                       const gfx::Point& location,
+                                       bool motion) {
+  if (!attached() || !embedder_web_contents()->GetDelegate())
+    return;
+
+  embedder_web_contents()->GetDelegate()->ContentsMouseEvent(
+      embedder_web_contents(), location, motion);
+}
+
 void GuestViewBase::ContentsZoomChange(bool zoom_in) {
   ui_zoom::PageZoom::Zoom(
       embedder_web_contents(),
       zoom_in ? content::PAGE_ZOOM_IN : content::PAGE_ZOOM_OUT);
+}
+
+void GuestViewBase::LoadingStateChanged(content::WebContents* source,
+                                        bool to_different_document) {
+  if (!attached() || !embedder_web_contents()->GetDelegate())
+    return;
+
+  embedder_web_contents()->GetDelegate()->LoadingStateChanged(
+      embedder_web_contents(), to_different_document);
 }
 
 void GuestViewBase::RunFileChooser(WebContents* web_contents,
@@ -530,6 +549,15 @@ void GuestViewBase::UpdatePreferredSize(
   if (IsPreferredSizeModeEnabled()) {
     OnPreferredSizeChanged(pref_size);
   }
+}
+
+void GuestViewBase::UpdateTargetURL(content::WebContents* source,
+                                    const GURL& url) {
+  if (!attached() || !embedder_web_contents()->GetDelegate())
+    return;
+
+  embedder_web_contents()->GetDelegate()->UpdateTargetURL(
+      embedder_web_contents(), url);
 }
 
 GuestViewBase::~GuestViewBase() {
