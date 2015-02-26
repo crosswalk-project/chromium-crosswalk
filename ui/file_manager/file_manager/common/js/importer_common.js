@@ -19,7 +19,8 @@ importer.ScanEvent = {
 importer.Setting = {
   HAS_COMPLETED_IMPORT: 'importer-has-completed-import',
   MACHINE_ID: 'importer-machine-id',
-  PHOTOS_APP_ENABLED: 'importer-photo-app-enabled'
+  PHOTOS_APP_ENABLED: 'importer-photo-app-enabled',
+  LAST_KNOWN_LOG_ID: 'importer-last-known-log-id'
 };
 
 /**
@@ -223,18 +224,19 @@ importer.getMachineId = function() {
 importer.getHistoryFilename = function() {
   return importer.getMachineId().then(
       function(machineId) {
-        return 'import-history.' + machineId + '.log';
+        return machineId + '-import-history.log';
       });
 };
 
 /**
+ * @param {number} logId
  * @return {!Promise.<string>} Resolves with the filename of this
  *     machines debug log file.
  */
-importer.getDebugLogFilename = function() {
+importer.getDebugLogFilename = function(logId) {
   return importer.getMachineId().then(
       function(machineId) {
-        return 'import-debug.' + machineId + '.log';
+        return machineId + '-import-debug-' + logId + '.log';
       });
 };
 
@@ -643,14 +645,34 @@ importer.Logger.prototype.catcher;
  * @final
  *
  * @param {!Promise.<!FileEntry>} fileEntryPromise
+ * @param {!Promise.<!analytics.Tracker>} trackerPromise
  */
-importer.RuntimeLogger = function(fileEntryPromise) {
+importer.RuntimeLogger = function(fileEntryPromise, trackerPromise) {
 
   /** @private {!Promise.<!importer.PromisingFileEntry>} */
   this.fileEntryPromise_ = fileEntryPromise.then(
       /** @param {!FileEntry} fileEntry */
       function(fileEntry) {
         return new importer.PromisingFileEntry(fileEntry);
+      });
+
+  /** @private {!Promise.<!analytics.Tracker>} */
+  this.trackerPromise_ = trackerPromise;
+};
+
+/**
+ * Reports an error to analytics.
+ *
+ * @param {string} context MUST NOT contain any dynamic error content,
+ *    only statically defined string will dooooo.
+ */
+importer.RuntimeLogger.prototype.reportErrorContext_ = function(context) {
+  this.trackerPromise_.then(
+      /** @param {!analytics.Tracker} tracker */
+      function(tracker) {
+        tracker.sendException(
+            context,
+            false  /* fatal */ );
       });
 };
 
@@ -668,9 +690,24 @@ importer.RuntimeLogger.prototype.error = function(content) {
 
 /** @override  */
 importer.RuntimeLogger.prototype.catcher = function(context) {
+  var prefix = '(' + context + ') ';
   return function(error) {
-    this.error('Caught promise error. Context: ' + context +
-        ' Error: ' + error.message);
+    this.reportErrorContext_(context);
+
+    var message = prefix + 'Caught error in promise chain.';
+    if (error) {
+      // Error can be anything...maybe an Error, maybe a string.
+      var error = error.message || error;
+      this.error(message + ' Error: ' + error);
+      if (error.stack) {
+        this.write_('STACK', prefix + error.stack);
+      }
+    } else {
+      this.error(message);
+      error = new Error(message);
+    }
+
+    throw error;
   }.bind(this);
 };
 
@@ -728,11 +765,111 @@ importer.logger_ = null;
  */
 importer.getLogger = function() {
   if (!importer.logger_) {
+    var nextLogId = importer.getNextDebugLogId_();
+
+    /** @return {!Promise} */
+    var rotator = function() {
+      return importer.rotateLogs(
+          nextLogId,
+          importer.ChromeSyncFileEntryProvider.getFileEntry);
+    };
+
+    // This is a sligtly odd arrangement in service of two goals.
+    //
+    // 1) Make a logger available synchronously.
+    // 2) Nuke old log files before reusing their names.
+    //
+    // In support of these goals we push the "rotator" between
+    // the call to load the file entry and the method that
+    // produces the name of the file to load. That method
+    // (getDebugLogFilename) returns promise. We exploit this.
     importer.logger_ = new importer.RuntimeLogger(
         importer.ChromeSyncFileEntryProvider.getFileEntry(
-            importer.getDebugLogFilename()));
+            /** @type {!Promise.<string>} */ (rotator().then(
+                importer.getDebugLogFilename.bind(null, nextLogId)))),
+        importer.getTracker_());
   }
+
   return importer.logger_;
+};
+
+/**
+ * Fetch analytics.Tracker from background page.
+ * @return {!Promise.<!analytics.Tracker>}
+ * @private
+ */
+importer.getTracker_ = function() {
+  return new Promise(
+      function(resolve, reject) {
+        chrome.runtime.getBackgroundPage(
+          /** @param {Window=} opt_background */
+          function(opt_background) {
+            if (chrome.runtime.lastError) {
+              reject(chrome.runtime.lastError);
+            }
+            opt_background.background.ready(
+                function() {
+                  resolve(opt_background.background.tracker);
+                });
+          });
+      });
+};
+
+/**
+ * Returns the log ID for the next debug log to use.
+ * @private
+ */
+importer.getNextDebugLogId_ = function() {
+  // Changes every other month.
+  return new Date().getMonth() % 2;
+};
+
+/**
+ * Deletes the "next" log file if it has just-now become active.
+ *
+ * Basically we toggle back and forth writing to two log files. At the time
+ * we flip from one to another we want to delete the oldest data we have.
+ * In this case it will be the "next" log.
+ *
+ * This function must be run before instantiating the logger.
+ *
+ * @param {number} nextLogId
+ * @param {function(!Promise<string>): !Promise<!FileEntry>} fileFactory
+ *     Injected primarily to facilitate testing.
+ * @return {!Promise} Resolves when trimming is complete.
+ */
+importer.rotateLogs = function(nextLogId, fileFactory) {
+  var storage = importer.ChromeLocalStorage.getInstance();
+
+  /** @return {!Promise} */
+  var rememberLogId = function() {
+    return storage.set(
+        importer.Setting.LAST_KNOWN_LOG_ID,
+        nextLogId);
+  };
+
+  return storage.get(importer.Setting.LAST_KNOWN_LOG_ID)
+      .then(
+          /** @param {number} lastKnownLogId */
+          function(lastKnownLogId) {
+            if (nextLogId === lastKnownLogId ||
+                lastKnownLogId === undefined) {
+              return Promise.resolve();
+            }
+
+            return fileFactory(importer.getDebugLogFilename(nextLogId))
+                .then(
+                    /**
+                     * @param {!FileEntry} entry
+                     * @return {!Promise}
+                     * @suppress {checkTypes}
+                     */
+                    function(entry) {
+                      return new Promise(entry.remove.bind(entry));
+                    });
+          })
+          .then(rememberLogId)
+          .catch(rememberLogId);
 };
 
 /**

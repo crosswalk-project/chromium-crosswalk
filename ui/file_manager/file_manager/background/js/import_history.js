@@ -433,7 +433,8 @@ importer.PersistentImportHistory.prototype.wasCopied =
           function(key) {
             return key in this.copiedEntries_ &&
                 destination in this.copiedEntries_[key];
-          }.bind(this));
+          }.bind(this))
+      .catch(importer.getLogger().catcher('import-history-was-imported'));
 };
 
 /** @override */
@@ -449,7 +450,8 @@ importer.PersistentImportHistory.prototype.wasImported =
            */
           function(key) {
             return this.getDestinations_(key).indexOf(destination) >= 0;
-          }.bind(this));
+          }.bind(this))
+      .catch(importer.getLogger().catcher('import-history-was-imported'));
 };
 
 /** @override */
@@ -476,7 +478,8 @@ importer.PersistentImportHistory.prototype.markCopied =
           importer.ImportHistory.State.COPIED,
           entry,
           destination,
-          destinationUrl));
+          destinationUrl))
+      .catch(importer.getLogger().catcher('import-history-mark-copied'));
 };
 
 /** @override */
@@ -497,7 +500,9 @@ importer.PersistentImportHistory.prototype.listUnimportedUrls =
           }
         }
         return unimported;
-      }.bind(this));
+      }.bind(this))
+      .catch(
+          importer.getLogger().catcher('import-history-list-unimported-urls'));
 };
 
 /** @override */
@@ -521,7 +526,8 @@ importer.PersistentImportHistory.prototype.markImported =
           this,
           importer.ImportHistory.State.IMPORTED,
           entry,
-          destination));
+          destination))
+      .catch(importer.getLogger().catcher('import-history-mark-imported'));
 };
 
 /** @override */
@@ -554,13 +560,14 @@ importer.PersistentImportHistory.prototype.markImportedByUrl =
                       }
                     }.bind(this));
               }.bind(this)
-            );
+            )
+            .catch(importer.getLogger().catcher('mark-imported-by-url'));
       }
     }
   }
 
   return Promise.reject(
-      'Unabled to match destination URL to import record > ' + destinationUrl);
+      'Unable to match destination URL to import record > ' + destinationUrl);
 };
 
 /** @override */
@@ -783,7 +790,7 @@ importer.FileEntryRecordStorage.prototype.write = function(record) {
             return this.fileEntry_.createWriter();
           }.bind(this))
       .then(this.writeRecord_.bind(this, record))
-      .catch(importer.getLogger().catcher('record-writing'));
+      .catch(importer.getLogger().catcher('file-record-store-write'));
 };
 
 /**
@@ -816,35 +823,34 @@ importer.FileEntryRecordStorage.prototype.writeRecord_ =
 
 /** @override */
 importer.FileEntryRecordStorage.prototype.readAll = function() {
-  return /** @type {!Promise.<!Array.<!Array.<*>>>} */ (this.latestOperation_ =
-      this.latestOperation_
-          .then(
-              /**
-               * @param {?} ignore
-               * @this {importer.FileEntryRecordStorage}
-               */
-              function(ignore) {
-                return this.fileEntry_.file();
-              }.bind(this))
-          .then(
-              this.readFileAsText_.bind(this),
-              /**
-               * @return {string}
-               * @this {importer.FileEntryRecordStorage}
-               */
-              function() {
-                console.error('Unable to read from history file.');
-                return '';
-              }.bind(this))
-          .then(
-              /**
-               * @param {string} fileContents
-               * @this {importer.FileEntryRecordStorage}
-               */
-              function(fileContents) {
-                return this.parse_(fileContents);
-              }.bind(this))
-          .catch(importer.getLogger().catcher('record-reading')));
+  return this.latestOperation_ = this.latestOperation_
+      .then(
+          /**
+           * @param {?} ignore
+           * @this {importer.FileEntryRecordStorage}
+           */
+          function(ignore) {
+            return this.fileEntry_.file();
+          }.bind(this))
+      .then(
+          this.readFileAsText_.bind(this),
+          /**
+           * @return {string}
+           * @this {importer.FileEntryRecordStorage}
+           */
+          function() {
+            console.error('Unable to read from history file.');
+            return '';
+          }.bind(this))
+      .then(
+          /**
+           * @param {string} fileContents
+           * @this {importer.FileEntryRecordStorage}
+           */
+          function(fileContents) {
+            return this.parse_(fileContents);
+          }.bind(this))
+      .catch(importer.getLogger().catcher('file-record-store-read-all'));
 };
 
 /**
@@ -879,7 +885,9 @@ importer.FileEntryRecordStorage.prototype.readFileAsText_ = function(file) {
         }.bind(this);
 
         reader.readAsText(file);
-      }.bind(this));
+      }.bind(this))
+          .catch(importer.getLogger().catcher(
+              'file-record-store-read-file-as-text'));
 };
 
 /**
@@ -928,7 +936,8 @@ importer.DriveSyncWatcher = function(history) {
                 .then(this.updateSyncStatus_.bind(
                     this,
                     importer.Destination.GOOGLE_DRIVE));
-          }.bind(this));
+          }.bind(this))
+      .catch(importer.getLogger().catcher('drive-sync-watcher-constructor'));
 
   // Listener is only registered once the history object is initialized.
   // No need to register synchonously since we don't want to be
@@ -967,8 +976,12 @@ importer.DriveSyncWatcher.prototype.updateSyncStatus_ =
  */
 importer.DriveSyncWatcher.prototype.onFileTransfersUpdated_ =
     function(status) {
+  // TODO(smckay): What if the file isn't one we're interested in....?
+  // I guess we just let the call to markImportedByUrl fail for now.
   if (status.transferState === 'completed') {
-    this.history_.markImportedByUrl(status.fileUrl);
+    this.history_.markImportedByUrl(status.fileUrl)
+        .catch(
+            importer.getLogger().catcher('file-transfer-mark-imported-by-url'));
   }
 };
 
@@ -1016,7 +1029,10 @@ importer.DriveSyncWatcher.prototype.checkSyncStatus_ =
                 this.history_.markImportedByUrl(url);
               }
             }
-          }.bind(this));
+          }.bind(this))
+      .catch(
+          importer.getLogger().catcher(
+              'drive-sync-watcher-check-sync-status'));
 };
 
 /**
@@ -1050,7 +1066,9 @@ importer.DriveSyncWatcher.prototype.getSyncStatus_ =
                 resolve(!data['dirty']);
               }
             }.bind(this));
-      }.bind(this));
+      }.bind(this))
+      .catch(
+          importer.getLogger().catcher('drive-sync-watcher-get-sync-status'));
 };
 
 /**
@@ -1094,7 +1112,10 @@ importer.RuntimeHistoryLoader.prototype.getHistory = function() {
 
                     this.historyResolver_.resolve(loader.getHistory());
                   }.bind(this));
-            }.bind(this));
+            }.bind(this))
+        .catch(
+            importer.getLogger().catcher(
+                'runtime-history-loader-get-history'));
   }
 
   return this.historyResolver_.promise;
