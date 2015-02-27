@@ -24,11 +24,8 @@ PermissionMenuModel::PermissionMenuModel(
           IDS_WEBSITE_SETTINGS_MENU_ITEM_DEFAULT_BLOCK);
       break;
     case CONTENT_SETTING_ASK:
-      // For Plugins, ASK is obsolete. Show as BLOCK to reflect actual behavior.
       label = l10n_util::GetStringUTF16(
-          permission_.type == CONTENT_SETTINGS_TYPE_PLUGINS
-              ? IDS_WEBSITE_SETTINGS_MENU_ITEM_DEFAULT_BLOCK
-              : IDS_WEBSITE_SETTINGS_MENU_ITEM_DEFAULT_ASK);
+          IDS_WEBSITE_SETTINGS_MENU_ITEM_DEFAULT_ASK);
       break;
     case CONTENT_SETTING_DETECT_IMPORTANT_CONTENT:
       label = l10n_util::GetStringUTF16(
@@ -47,12 +44,6 @@ PermissionMenuModel::PermissionMenuModel(
     label = l10n_util::GetStringUTF16(
         IDS_WEBSITE_SETTINGS_MENU_ITEM_ALLOW);
     AddCheckItem(CONTENT_SETTING_ALLOW, label);
-  }
-
-  if (permission_.type == CONTENT_SETTINGS_TYPE_PLUGINS) {
-    label = l10n_util::GetStringUTF16(
-        IDS_WEBSITE_SETTINGS_MENU_ITEM_DETECT_IMPORTANT_CONTENT);
-    AddCheckItem(CONTENT_SETTING_DETECT_IMPORTANT_CONTENT, label);
   }
 
   if (permission_.type != CONTENT_SETTINGS_TYPE_FULLSCREEN) {
@@ -79,12 +70,6 @@ PermissionMenuModel::PermissionMenuModel(const GURL& url,
 PermissionMenuModel::~PermissionMenuModel() {}
 
 bool PermissionMenuModel::IsCommandIdChecked(int command_id) const {
-  // For Plugins, ASK is obsolete. Show as BLOCK to reflect actual behavior.
-  if (permission_.type == CONTENT_SETTINGS_TYPE_PLUGINS &&
-      permission_.setting == CONTENT_SETTING_ASK &&
-      command_id == CONTENT_SETTING_BLOCK) {
-    return true;
-  }
   return permission_.setting == command_id;
 }
 

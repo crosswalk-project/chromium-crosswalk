@@ -69,10 +69,6 @@ cr.define('options.contentSettings', function() {
       select.appendChild(optionAllow);
 
       if (this.contentType == 'plugins') {
-        var optionDetect = cr.doc.createElement('option');
-        optionDetect.textContent = loadTimeData.getString('detectException');
-        optionDetect.value = 'detect';
-        select.appendChild(optionDetect);
         var optionAsk = cr.doc.createElement('option');
         optionAsk.textContent = loadTimeData.getString('askException');
         optionAsk.value = 'ask';
