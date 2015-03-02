@@ -87,7 +87,8 @@ class NET_EXPORT SdchOwner : public net::SdchObserver {
   size_t max_total_dictionary_size_;
   size_t min_space_for_dictionary_fetch_;
 
-  base::MemoryPressureListener memory_pressure_listener_;
+  // TODO(rmcilroy) Add back memory_pressure_listener_ when
+  // http://crbug.com/447208 is fixed
 
   DISALLOW_COPY_AND_ASSIGN(SdchOwner);
 };

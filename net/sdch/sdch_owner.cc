@@ -61,7 +61,7 @@ namespace net {
 // Adjust SDCH limits downwards for mobile.
 #if defined(OS_ANDROID) || defined(OS_IOS)
 // static
-const size_t SdchOwner::kMaxTotalDictionarySize = 1000 * 1000;
+const size_t SdchOwner::kMaxTotalDictionarySize = 500 * 1000;
 #else
 // static
 const size_t SdchOwner::kMaxTotalDictionarySize = 20 * 1000 * 1000;
@@ -85,13 +85,9 @@ SdchOwner::SdchOwner(net::SdchManager* sdch_manager,
       total_dictionary_bytes_(0),
       clock_(new base::DefaultClock),
       max_total_dictionary_size_(kMaxTotalDictionarySize),
-      min_space_for_dictionary_fetch_(kMinSpaceForDictionaryFetch),
-      memory_pressure_listener_(
-          base::Bind(&SdchOwner::OnMemoryPressure,
-                     // Because |memory_pressure_listener_| is owned by
-                     // SdchOwner, the SdchOwner object will be available
-                     // for the lifetime of |memory_pressure_listener_|.
-                     base::Unretained(this))) {
+      min_space_for_dictionary_fetch_(kMinSpaceForDictionaryFetch) {
+      // TODO(rmcilroy) Add back memory_pressure_listener_ when
+      // http://crbug.com/447208 is fixed
   manager_->AddObserver(this);
 }
 
