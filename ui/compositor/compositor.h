@@ -68,7 +68,8 @@ class COMPOSITOR_EXPORT ContextFactory {
   // Creates an output surface for the given compositor. The factory may keep
   // per-compositor data (e.g. a shared context), that needs to be cleaned up
   // by calling RemoveCompositor when the compositor gets destroyed.
-  virtual void CreateOutputSurface(base::WeakPtr<Compositor> compositor) = 0;
+  virtual void CreateOutputSurface(base::WeakPtr<Compositor> compositor,
+                                   bool software_fallback) = 0;
 
   // Creates a reflector that copies the content of the |mirrored_compositor|
   // onto |mirroring_layer|.
@@ -289,6 +290,11 @@ class COMPOSITOR_EXPORT Compositor
   friend class base::RefCounted<Compositor>;
   friend class CompositorLock;
 
+  enum {
+   OUTPUT_SURFACE_RETRIES_BEFORE_FALLBACK = 4,
+   MAX_OUTPUT_SURFACE_RETRIES = 5,
+  };
+
   // Called by CompositorLock.
   void UnlockCompositor();
 
@@ -321,6 +327,8 @@ class COMPOSITOR_EXPORT Compositor
 
   int last_started_frame_;
   int last_ended_frame_;
+
+  int num_failed_recreate_attempts_;
 
   bool disable_schedule_composite_;
 

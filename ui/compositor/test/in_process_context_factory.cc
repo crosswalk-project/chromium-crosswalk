@@ -81,7 +81,9 @@ InProcessContextFactory::~InProcessContextFactory() {
 }
 
 void InProcessContextFactory::CreateOutputSurface(
-    base::WeakPtr<Compositor> compositor) {
+    base::WeakPtr<Compositor> compositor,
+    bool software_fallback) {
+  DCHECK(!software_fallback);
   gpu::gles2::ContextCreationAttribHelper attribs;
   attribs.alpha_size = 8;
   attribs.blue_size = 8;

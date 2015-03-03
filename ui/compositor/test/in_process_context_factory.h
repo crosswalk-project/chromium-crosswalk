@@ -35,7 +35,8 @@ class InProcessContextFactory : public ContextFactory {
   }
 
   // ContextFactory implementation
-  void CreateOutputSurface(base::WeakPtr<Compositor> compositor) override;
+  void CreateOutputSurface(base::WeakPtr<Compositor> compositor,
+                           bool software_fallback) override;
 
   scoped_refptr<Reflector> CreateReflector(Compositor* mirrored_compositor,
                                            Layer* mirroring_layer) override;
