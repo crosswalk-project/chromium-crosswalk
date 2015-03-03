@@ -75,9 +75,6 @@ IPC_MESSAGE_CONTROL2(OzoneGpuMsg_WindowBoundsChanged,
                      gfx::AcceleratedWidget /* widget */,
                      gfx::Rect /* bounds */)
 
-// Force the DPMS state of the display to on.
-IPC_MESSAGE_CONTROL0(OzoneGpuMsg_ForceDPMSOn)
-
 // Trigger a display reconfiguration. OzoneHostMsg_UpdateNativeDisplays will be
 // sent as a response.
 IPC_MESSAGE_CONTROL0(OzoneGpuMsg_RefreshNativeDisplays)

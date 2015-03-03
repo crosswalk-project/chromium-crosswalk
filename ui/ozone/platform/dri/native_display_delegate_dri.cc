@@ -130,12 +130,6 @@ void NativeDisplayDelegateDri::SetBackgroundColor(uint32_t color_argb) {
 }
 
 void NativeDisplayDelegateDri::ForceDPMSOn() {
-  for (size_t i = 0; i < cached_displays_.size(); ++i) {
-    DisplaySnapshotDri* dri_output = cached_displays_[i];
-    if (dri_output->dpms_property())
-      dri_->SetProperty(dri_output->connector(),
-                        dri_output->dpms_property()->prop_id, DRM_MODE_DPMS_ON);
-  }
 }
 
 std::vector<DisplaySnapshot*> NativeDisplayDelegateDri::GetDisplays() {
@@ -198,6 +192,11 @@ bool NativeDisplayDelegateDri::Configure(const DisplaySnapshot& output,
       VLOG(1) << "Failed to configure: crtc=" << dri_output.crtc()
               << " connector=" << dri_output.connector();
       return false;
+    }
+
+    if (dri_output.dpms_property()) {
+      dri_->SetProperty(dri_output.connector(),
+                        dri_output.dpms_property()->prop_id, DRM_MODE_DPMS_ON);
     }
   } else {
     if (dri_output.dpms_property()) {

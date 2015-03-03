@@ -95,7 +95,6 @@ void NativeDisplayDelegateProxy::SetBackgroundColor(uint32_t color_argb) {
 }
 
 void NativeDisplayDelegateProxy::ForceDPMSOn() {
-  proxy_->Send(new OzoneGpuMsg_ForceDPMSOn());
 }
 
 void NativeDisplayDelegateProxy::GetDisplays(
