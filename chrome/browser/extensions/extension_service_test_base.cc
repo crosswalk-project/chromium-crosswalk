@@ -19,6 +19,7 @@
 #include "chrome/browser/prefs/pref_service_syncable.h"
 #include "chrome/common/chrome_constants.h"
 #include "chrome/common/chrome_paths.h"
+#include "chrome/test/base/testing_browser_process.h"
 #include "chrome/test/base/testing_profile.h"
 #include "components/pref_registry/pref_registry_syncable.h"
 #include "content/public/browser/browser_context.h"
@@ -71,6 +72,7 @@ ExtensionServiceTestBase::ExtensionServiceInitParams::
 // Our message loop may be used in tests which require it to be an IO loop.
 ExtensionServiceTestBase::ExtensionServiceTestBase()
     : service_(NULL),
+      testing_local_state_(TestingBrowserProcess::GetGlobal()),
       thread_bundle_(content::TestBrowserThreadBundle::IO_MAINLOOP),
       registry_(NULL) {
   base::FilePath test_data_dir;
