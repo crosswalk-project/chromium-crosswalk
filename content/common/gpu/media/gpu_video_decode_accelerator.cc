@@ -44,7 +44,8 @@
 #include "ui/gl/gl_implementation.h"
 #endif
 #elif defined(USE_OZONE)
-#include "media/ozone/media_ozone_platform.h"
+#include "content/common/gpu/media/vaapi_video_decode_accelerator.h"
+#include "ui/gl/gl_implementation.h"
 #elif defined(OS_ANDROID)
 #include "content/common/gpu/media/android_video_decode_accelerator.h"
 #endif
@@ -346,7 +347,7 @@ void GpuVideoDecodeAccelerator::BindImage(uint32 client_texture_id,
 scoped_ptr<media::VideoDecodeAccelerator>
 GpuVideoDecodeAccelerator::CreateVaapiVDA() {
   scoped_ptr<media::VideoDecodeAccelerator> decoder;
-#if defined(OS_CHROMEOS) && defined(ARCH_CPU_X86_FAMILY)
+#if defined(USE_OZONE) && defined(ARCH_CPU_X86_FAMILY)
   decoder.reset(new VaapiVideoDecodeAccelerator(
       make_context_current_, base::Bind(&GpuVideoDecodeAccelerator::BindImage,
                                         base::Unretained(this))));
@@ -368,11 +369,6 @@ GpuVideoDecodeAccelerator::CreateVTVDA() {
 scoped_ptr<media::VideoDecodeAccelerator>
 GpuVideoDecodeAccelerator::CreateOzoneVDA() {
   scoped_ptr<media::VideoDecodeAccelerator> decoder;
-#if !defined(OS_CHROMEOS) && defined(USE_OZONE)
-  media::MediaOzonePlatform* platform =
-      media::MediaOzonePlatform::GetInstance();
-  decoder.reset(platform->CreateVideoDecodeAccelerator(make_context_current_));
-#endif
   return decoder.Pass();
 }
 
