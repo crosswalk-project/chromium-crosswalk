@@ -1852,24 +1852,107 @@ VAStatus vaDestroyBuffer (
     VABufferID buffer_id
 );
 
-/** VA buffer information */
+/** \brief VA buffer information */
 typedef struct {
-    /** Buffer handle */
+    /** \brief Buffer handle */
     uintptr_t           handle;
-    /** Buffer type (See VABufferType). */
+    /** \brief Buffer type (See \ref VABufferType). */
     uint32_t            type;
     /**
-     * Buffer memory type (See VASurfaceAttribMemoryType).
+     * \brief Buffer memory type (See \ref VASurfaceAttribMemoryType).
      *
-     * On input to vaLockBuffer(), this field can serve as a hint to
-     * specify the set of memory types the caller is interested in. On
-     * successful return from vaLockBuffer(), the field is updated
-     * with the best matching memory type.
+     * On input to vaAcquireBufferHandle(), this field can serve as a hint
+     * to specify the set of memory types the caller is interested in.
+     * On successful return from vaAcquireBufferHandle(), the field is
+     * updated with the best matching memory type.
      */
     uint32_t            mem_type;
-    /** Size of the underlying buffer. */
+    /** \brief Size of the underlying buffer. */
     size_t              mem_size;
 } VABufferInfo;
+
+/**
+ * \brief Acquires buffer handle for external API usage
+ *
+ * Locks the VA buffer object \ref buf_id for external API usage like
+ * EGL or OpenCL (OCL). This function is a synchronization point. This
+ * means that any pending operation is guaranteed to be completed
+ * prior to returning from the function.
+ *
+ * If the referenced VA buffer object is the backing store of a VA
+ * surface, then this function acts as if vaSyncSurface() on the
+ * parent surface was called first.
+ *
+ * The \ref VABufferInfo argument shall be zero'ed on input. On
+ * successful output, the data structure is filled in with all the
+ * necessary buffer level implementation details like handle, type,
+ * memory type and memory size.
+ *
+ * Note: the external API implementation, or the application, can
+ * express the memory types it is interested in by filling in the \ref
+ * mem_type field accordingly. On successful output, the memory type
+ * that fits best the request and that was used is updated in the \ref
+ * VABufferInfo data structure. If none of the supplied memory types
+ * is supported, then a \ref VA_STATUS_ERROR_UNSUPPORTED_MEMORY_TYPE
+ * error is returned.
+ *
+ * The \ref VABufferInfo data is valid until vaReleaseBufferHandle()
+ * is called. Besides, no additional operation is allowed on any of
+ * the buffer parent object until vaReleaseBufferHandle() is called.
+ * e.g. decoding into a VA surface backed with the supplied VA buffer
+ * object \ref buf_id would fail with a \ref VA_STATUS_ERROR_SURFACE_BUSY
+ * error.
+ *
+ * Possible errors:
+ * - \ref VA_STATUS_ERROR_UNIMPLEMENTED: the VA driver implementation
+ *   does not support this interface
+ * - \ref VA_STATUS_ERROR_INVALID_DISPLAY: an invalid display was supplied
+ * - \ref VA_STATUS_ERROR_INVALID_BUFFER: an invalid buffer was supplied
+ * - \ref VA_STATUS_ERROR_UNSUPPORTED_BUFFERTYPE: the implementation
+ *   does not support exporting buffers of the specified type
+ * - \ref VA_STATUS_ERROR_UNSUPPORTED_MEMORY_TYPE: none of the requested
+ *   memory types in \ref VABufferInfo.mem_type was supported
+ *
+ * @param[in] dpy               the VA display
+ * @param[in] buf_id            the VA buffer
+ * @param[in,out] buf_info      the associated VA buffer information
+ * @return VA_STATUS_SUCCESS if successful
+ */
+VAStatus
+vaAcquireBufferHandle(VADisplay dpy, VABufferID buf_id, VABufferInfo *buf_info);
+
+/**
+ * \brief Releases buffer after usage from external API
+ *
+ * Unlocks the VA buffer object \ref buf_id from external API usage like
+ * EGL or OpenCL (OCL). This function is a synchronization point. This
+ * means that any pending operation is guaranteed to be completed
+ * prior to returning from the function.
+ *
+ * The \ref VABufferInfo argument shall point to the original data
+ * structure that was obtained from vaAcquireBufferHandle(), unaltered.
+ * This is necessary so that the VA driver implementation could
+ * deallocate any resources that were needed.
+ *
+ * In any case, returning from this function invalidates any contents
+ * in \ref VABufferInfo. i.e. the underlyng buffer handle is no longer
+ * valid. Therefore, VA driver implementations are free to reset this
+ * data structure to safe defaults.
+ *
+ * Possible errors:
+ * - \ref VA_STATUS_ERROR_UNIMPLEMENTED: the VA driver implementation
+ *   does not support this interface
+ * - \ref VA_STATUS_ERROR_INVALID_DISPLAY: an invalid display was supplied
+ * - \ref VA_STATUS_ERROR_INVALID_BUFFER: an invalid buffer was supplied
+ * - \ref VA_STATUS_ERROR_UNSUPPORTED_BUFFERTYPE: the implementation
+ *   does not support exporting buffers of the specified type
+ *
+ * @param[in] dpy               the VA display
+ * @param[in] buf_id            the VA buffer
+ * @return VA_STATUS_SUCCESS if successful
+ */
+VAStatus
+vaReleaseBufferHandle(VADisplay dpy, VABufferID buf_id);
 
 /**
  * Locks buffer for external API usage.
