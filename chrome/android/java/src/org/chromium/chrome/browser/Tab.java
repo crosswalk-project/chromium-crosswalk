@@ -1096,7 +1096,6 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
     /**
      * Called on the foreground tab when the Activity is stopped.
      */
-    // TODO(changwan): remove this
     public void onActivityStop() {
         hide();
     }
