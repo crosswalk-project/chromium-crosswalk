@@ -59,7 +59,7 @@ const LocalProfileId kInvalidLocalProfileId =
     static_cast<LocalProfileId>(0);
 #endif
 
-#if defined(USE_LIBSECRET)
+#if defined(USE_LIBSECRET) && !defined(USE_OZONE)
 const char kLibsecretFieldTrialName[] = "Libsecret";
 const char kLibsecretFieldTrialDisabledGroupName[] = "Disabled";
 #endif
