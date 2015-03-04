@@ -392,6 +392,19 @@ struct VADriverVTable
                 VASurfaceID surface
         );
 
+        VAStatus
+        (*vaAcquireBufferHandle)(
+            VADriverContextP    ctx,
+            VABufferID          buf_id,         /* in */
+            VABufferInfo *      buf_info        /* in/out */
+        );
+
+        VAStatus
+        (*vaReleaseBufferHandle)(
+            VADriverContextP    ctx,
+            VABufferID          buf_id          /* in */
+        );
+
         /* DEPRECATED */
         VAStatus
         (*vaGetSurfaceAttributes)(
