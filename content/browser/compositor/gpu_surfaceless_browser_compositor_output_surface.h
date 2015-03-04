@@ -36,7 +36,6 @@ class GpuSurfacelessBrowserCompositorOutputSurface
   bool BindToClient(cc::OutputSurfaceClient* client) override;
 
   unsigned int internalformat_;
-  bool use_own_gl_helper_;
   scoped_ptr<GLHelper> gl_helper_;
   scoped_ptr<BufferQueue> output_surface_;
   BrowserGpuMemoryBufferManager* gpu_memory_buffer_manager_;

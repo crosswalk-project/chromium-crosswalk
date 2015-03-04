@@ -31,7 +31,6 @@ GpuSurfacelessBrowserCompositorOutputSurface::
                                         vsync_manager,
                                         overlay_candidate_validator.Pass()),
       internalformat_(internalformat),
-      use_own_gl_helper_(use_own_gl_helper),
       gpu_memory_buffer_manager_(gpu_memory_buffer_manager) {
   capabilities_.uses_default_gl_framebuffer = false;
   capabilities_.flipped_output_surface = true;
@@ -86,20 +85,11 @@ bool GpuSurfacelessBrowserCompositorOutputSurface::BindToClient(
     cc::OutputSurfaceClient* client) {
   if (!GpuBrowserCompositorOutputSurface::BindToClient(client))
     return false;
-  GLHelper* helper;
-  if (use_own_gl_helper_) {
-    gl_helper_.reset(new GLHelper(context_provider_->ContextGL(),
-                                  context_provider_->ContextSupport()));
-    helper = gl_helper_.get();
-  } else {
-    helper = ImageTransportFactory::GetInstance()->GetGLHelper();
-  }
-  if (!helper)
-    return false;
-
-  output_surface_.reset(new BufferQueue(context_provider_, internalformat_,
-                                        helper, gpu_memory_buffer_manager_,
-                                        surface_id_));
+  gl_helper_.reset(new GLHelper(context_provider_->ContextGL(),
+                                context_provider_->ContextSupport()));
+  output_surface_.reset(
+      new BufferQueue(context_provider_, internalformat_, gl_helper_.get(),
+                      gpu_memory_buffer_manager_, surface_id_));
   return output_surface_->Initialize();
 }
 
