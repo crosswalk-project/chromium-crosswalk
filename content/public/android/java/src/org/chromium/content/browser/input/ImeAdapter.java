@@ -322,7 +322,12 @@ public class ImeAdapter {
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
-        return translateAndSendNativeEvents(event);
+        // Physical keyboards have their events come through here instead of
+        // AdapterInputConnection.
+        if (mInputConnection != null) {
+            return mInputConnection.sendKeyEvent(event);
+        }
+        return translateAndSendNativeEvents(event, 0);
     }
 
     private int shouldSendKeyEventWithKeyCode(String text) {
@@ -391,11 +396,11 @@ public class ImeAdapter {
         translateAndSendNativeEvents(new KeyEvent(eventTime, eventTime,
                 KeyEvent.ACTION_DOWN, keyCode, 0, 0,
                 KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                flags));
+                flags), 0);
         translateAndSendNativeEvents(new KeyEvent(SystemClock.uptimeMillis(), eventTime,
                 KeyEvent.ACTION_UP, keyCode, 0, 0,
                 KeyCharacterMap.VIRTUAL_KEYBOARD, 0,
-                flags));
+                flags), 0);
     }
 
     // Calls from Java to C++
@@ -430,9 +435,9 @@ public class ImeAdapter {
             // composition below.
             if (keyCode > 0 && isCommit && mLastComposeText == null && textStr.length() == 1) {
                 mLastSyntheticKeyCode = keyCode;
-                return translateAndSendNativeEvents(keyEvent)
+                return translateAndSendNativeEvents(keyEvent, 0)
                         && translateAndSendNativeEvents(
-                                KeyEvent.changeAction(keyEvent, KeyEvent.ACTION_UP));
+                                KeyEvent.changeAction(keyEvent, KeyEvent.ACTION_UP), 0);
             }
 
             // FIXME: Use WebTextInputFlags.AutocompleteOff. We need this hack to enable merge into
@@ -494,7 +499,7 @@ public class ImeAdapter {
         nativeFinishComposingText(mNativeImeAdapterAndroid);
     }
 
-    boolean translateAndSendNativeEvents(KeyEvent event) {
+    boolean translateAndSendNativeEvents(KeyEvent event, int accentChar) {
         if (mNativeImeAdapterAndroid == 0) return false;
 
         int action = event.getAction();
@@ -512,9 +517,11 @@ public class ImeAdapter {
             return false;
         }
         mViewEmbedder.onImeEvent();
+        int unicodeChar = AdapterInputConnection.maybeAddAccentToCharacter(
+                accentChar, event.getUnicodeChar());
         return nativeSendKeyEvent(mNativeImeAdapterAndroid, event, event.getAction(),
                 getModifiers(event.getMetaState()), event.getEventTime(), event.getKeyCode(),
-                             /*isSystemKey=*/false, event.getUnicodeChar());
+                             /*isSystemKey=*/false, unicodeChar);
     }
 
     boolean sendSyntheticKeyEvent(int eventType, long timestampMs, int keyCode, int modifiers,
