@@ -278,6 +278,9 @@ public class ChromeShellActivity extends ActionBarActivity implements AppMenuPro
         super.onStop();
 
         if (mToolbar != null) mToolbar.hideSuggestions();
+
+        Tab activeTab = getActiveTab();
+        if (activeTab != null) activeTab.onActivityStop();
     }
 
     @Override
