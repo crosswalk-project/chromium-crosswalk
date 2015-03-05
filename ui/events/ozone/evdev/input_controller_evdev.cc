@@ -7,6 +7,7 @@
 #include <linux/input.h>
 #include <vector>
 
+#include "base/thread_task_runner_handle.h"
 #include "ui/events/ozone/evdev/event_factory_evdev.h"
 #include "ui/events/ozone/evdev/mouse_button_map_evdev.h"
 
@@ -53,14 +54,14 @@ InputControllerEvdev::InputControllerEvdev(
     GesturePropertyProvider* gesture_property_provider
 #endif
     )
-    : event_factory_(event_factory),
+    : settings_update_pending_(false),
+      event_factory_(event_factory),
       keyboard_(keyboard),
-      button_map_(button_map)
+      button_map_(button_map),
 #if defined(USE_EVDEV_GESTURES)
-      ,
-      gesture_property_provider_(gesture_property_provider)
+      gesture_property_provider_(gesture_property_provider),
 #endif
-{
+      weak_ptr_factory_(this) {
 }
 
 InputControllerEvdev::~InputControllerEvdev() {
@@ -132,30 +133,33 @@ void InputControllerEvdev::SetBoolPropertyForOneType(const EventDeviceType type,
 }
 
 void InputControllerEvdev::SetTouchpadSensitivity(int value) {
-  SetIntPropertyForOneType(DT_TOUCHPAD, "Pointer Sensitivity", value);
-  SetIntPropertyForOneType(DT_TOUCHPAD, "Scroll Sensitivity", value);
+  input_device_settings_.touchpad_sensitivity = value;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetTapToClick(bool enabled) {
-  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Enable", enabled);
+  input_device_settings_.tap_to_click_enabled = enabled;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetThreeFingerClick(bool enabled) {
-  SetBoolPropertyForOneType(DT_TOUCHPAD, "T5R2 Three Finger Click Enable",
-                            enabled);
+  input_device_settings_.three_finger_click_enabled = enabled;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetTapDragging(bool enabled) {
-  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Drag Enable", enabled);
+  input_device_settings_.tap_dragging_enabled = enabled;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetNaturalScroll(bool enabled) {
-  SetBoolPropertyForOneType(DT_MULTITOUCH, "Australian Scrolling", enabled);
+  input_device_settings_.natural_scroll_enabled = enabled;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetMouseSensitivity(int value) {
-  SetIntPropertyForOneType(DT_MOUSE, "Pointer Sensitivity", value);
-  SetIntPropertyForOneType(DT_MOUSE, "Scroll Sensitivity", value);
+  input_device_settings_.mouse_sensitivity = value;
+  ScheduleUpdateDeviceSettings();
 }
 
 void InputControllerEvdev::SetPrimaryButtonRight(bool right) {
@@ -164,7 +168,44 @@ void InputControllerEvdev::SetPrimaryButtonRight(bool right) {
 }
 
 void InputControllerEvdev::SetTapToClickPaused(bool state) {
-  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Paused", state);
+  input_device_settings_.tap_to_click_paused = state;
+  ScheduleUpdateDeviceSettings();
+}
+
+void InputControllerEvdev::UpdateDeviceSettings() {
+  SetIntPropertyForOneType(DT_TOUCHPAD, "Pointer Sensitivity",
+                           input_device_settings_.touchpad_sensitivity);
+  SetIntPropertyForOneType(DT_TOUCHPAD, "Scroll Sensitivity",
+                           input_device_settings_.touchpad_sensitivity);
+
+  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Enable",
+                            input_device_settings_.tap_to_click_enabled);
+  SetBoolPropertyForOneType(DT_TOUCHPAD, "T5R2 Three Finger Click Enable",
+                            input_device_settings_.three_finger_click_enabled);
+  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Drag Enable",
+                            input_device_settings_.tap_dragging_enabled);
+
+  SetBoolPropertyForOneType(DT_MULTITOUCH, "Australian Scrolling",
+                            input_device_settings_.natural_scroll_enabled);
+
+  SetIntPropertyForOneType(DT_MOUSE, "Pointer Sensitivity",
+                           input_device_settings_.mouse_sensitivity);
+  SetIntPropertyForOneType(DT_MOUSE, "Scroll Sensitivity",
+                           input_device_settings_.mouse_sensitivity);
+
+  SetBoolPropertyForOneType(DT_TOUCHPAD, "Tap Paused",
+                            input_device_settings_.tap_to_click_paused);
+
+  settings_update_pending_ = false;
+}
+
+void InputControllerEvdev::ScheduleUpdateDeviceSettings() {
+  if (settings_update_pending_)
+    return;
+  base::ThreadTaskRunnerHandle::Get()->PostTask(
+      FROM_HERE, base::Bind(&InputControllerEvdev::UpdateDeviceSettings,
+                            weak_ptr_factory_.GetWeakPtr()));
+  settings_update_pending_ = true;
 }
 
 }  // namespace ui

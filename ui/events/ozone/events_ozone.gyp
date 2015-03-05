@@ -88,6 +88,8 @@
       'evdev/events_ozone_evdev_export.h',
       'evdev/input_controller_evdev.cc',
       'evdev/input_controller_evdev.h',
+      'evdev/input_device_settings_evdev.cc',
+      'evdev/input_device_settings_evdev.h',
       'evdev/input_injector_evdev.cc',
       'evdev/input_injector_evdev.h',
       'evdev/keyboard_evdev.cc',

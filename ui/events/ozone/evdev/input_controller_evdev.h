@@ -8,8 +8,10 @@
 #include <string>
 
 #include "base/basictypes.h"
+#include "base/memory/weak_ptr.h"
 #include "ui/events/ozone/evdev/event_device_info.h"
 #include "ui/events/ozone/evdev/events_ozone_evdev_export.h"
+#include "ui/events/ozone/evdev/input_device_settings_evdev.h"
 #include "ui/ozone/public/input_controller.h"
 
 namespace ui {
@@ -56,6 +58,9 @@ class EVENTS_OZONE_EVDEV_EXPORT InputControllerEvdev : public InputController {
   void SetPrimaryButtonRight(bool right) override;
   void SetTapToClickPaused(bool state) override;
 
+  // Send settings update to input_device_factory_.
+  void UpdateDeviceSettings();
+
  private:
   // Set a property value for all devices of one type.
   void SetIntPropertyForOneType(const EventDeviceType type,
@@ -64,6 +69,15 @@ class EVENTS_OZONE_EVDEV_EXPORT InputControllerEvdev : public InputController {
   void SetBoolPropertyForOneType(const EventDeviceType type,
                                  const std::string& name,
                                  bool value);
+
+  // Post task to update settings.
+  void ScheduleUpdateDeviceSettings();
+
+  // Configuration that needs to be passed on to InputDeviceFactory.
+  InputDeviceSettingsEvdev input_device_settings_;
+
+  // Task to update config from input_device_settings_ is pending.
+  bool settings_update_pending_;
 
   // Event factory object which manages device event converters.
   EventFactoryEvdev* event_factory_;
@@ -78,6 +92,8 @@ class EVENTS_OZONE_EVDEV_EXPORT InputControllerEvdev : public InputController {
   // Gesture library property provider.
   GesturePropertyProvider* gesture_property_provider_;
 #endif
+
+  base::WeakPtrFactory<InputControllerEvdev> weak_ptr_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(InputControllerEvdev);
 };

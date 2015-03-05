@@ -228,6 +228,9 @@ void EventFactoryEvdev::AttachInputDevice(
   converters_[path]->Start();
 
   NotifyDeviceChange(*converters_[path]);
+
+  // Sync settings to new device.
+  input_controller_.UpdateDeviceSettings();
 }
 
 void EventFactoryEvdev::OnDeviceEvent(const DeviceEvent& event) {
