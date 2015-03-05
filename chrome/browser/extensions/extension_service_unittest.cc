@@ -269,7 +269,7 @@ class MockExtensionProvider : public extensions::ExternalProviderInterface {
 
       visitor_->OnExternalExtensionFileFound(
           i->first, &version, i->second.second, location_,
-          Extension::NO_FLAGS, false);
+          Extension::NO_FLAGS, false, false);
     }
     visitor_->OnExternalProviderReady(this);
   }
@@ -376,7 +376,8 @@ class MockProviderVisitor
                                     const base::FilePath& path,
                                     Manifest::Location unused,
                                     int creation_flags,
-                                    bool mark_acknowledged) override {
+                                    bool mark_acknowledged,
+                                    bool install_immediately) override {
     EXPECT_EQ(expected_creation_flags_, creation_flags);
 
     ++ids_found_;
@@ -1562,12 +1563,14 @@ TEST_F(ExtensionServiceTest, InstallingExternalExtensionWithFlags) {
   content::WindowedNotificationObserver observer(
       extensions::NOTIFICATION_CRX_INSTALLER_DONE,
       content::NotificationService::AllSources());
-  if (service()->OnExternalExtensionFileFound(good_crx,
-                                              &version,
-                                              path,
-                                              Manifest::EXTERNAL_PREF,
-                                              Extension::FROM_BOOKMARK,
-                                              false /* mark_acknowledged */)) {
+  if (service()->OnExternalExtensionFileFound(
+          good_crx,
+          &version,
+          path,
+          Manifest::EXTERNAL_PREF,
+          Extension::FROM_BOOKMARK,
+          false /* mark_acknowledged */,
+          false /* install_immediately */)) {
     observer.Wait();
   }
 
@@ -1602,6 +1605,7 @@ TEST_F(ExtensionServiceTest, UninstallingExternalExtensions) {
                                               path,
                                               Manifest::EXTERNAL_PREF,
                                               Extension::NO_FLAGS,
+                                              false,
                                               false)) {
     observer.Wait();
   }
@@ -1619,6 +1623,7 @@ TEST_F(ExtensionServiceTest, UninstallingExternalExtensions) {
                                           path,
                                           Manifest::EXTERNAL_PREF,
                                           Extension::NO_FLAGS,
+                                          false,
                                           false);
   base::RunLoop().RunUntilIdle();
   ASSERT_TRUE(NULL == service()->GetExtensionById(good_crx, false));
@@ -1633,6 +1638,7 @@ TEST_F(ExtensionServiceTest, UninstallingExternalExtensions) {
                                           path,
                                           Manifest::EXTERNAL_PREF,
                                           Extension::NO_FLAGS,
+                                          false,
                                           false);
   base::RunLoop().RunUntilIdle();
   ASSERT_TRUE(NULL == service()->GetExtensionById(good_crx, false));
@@ -1700,6 +1706,7 @@ TEST_F(ExtensionServiceTest, FailOnWrongId) {
                                           path,
                                           Manifest::EXTERNAL_PREF,
                                           Extension::NO_FLAGS,
+                                          false,
                                           false);
 
   observer.Wait();
@@ -1714,6 +1721,7 @@ TEST_F(ExtensionServiceTest, FailOnWrongId) {
                                               path,
                                               Manifest::EXTERNAL_PREF,
                                               Extension::NO_FLAGS,
+                                              false,
                                               false)) {
     observer2.Wait();
   }
@@ -1737,6 +1745,7 @@ TEST_F(ExtensionServiceTest, FailOnWrongVersion) {
                                           path,
                                           Manifest::EXTERNAL_PREF,
                                           Extension::NO_FLAGS,
+                                          false,
                                           false);
 
   observer.Wait();
@@ -1753,6 +1762,7 @@ TEST_F(ExtensionServiceTest, FailOnWrongVersion) {
                                               path,
                                               Manifest::EXTERNAL_PREF,
                                               Extension::NO_FLAGS,
+                                              false,
                                               false)) {
     observer2.Wait();
   }
@@ -6767,6 +6777,7 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
 
   const int kCreationFlags = 0;
   const bool kDontMarkAcknowledged = false;
+  const bool kDontInstallImmediately = false;
 
   InitializeEmptyExtensionService();
 
@@ -6794,12 +6805,14 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
     content::WindowedNotificationObserver observer(
         extensions::NOTIFICATION_CRX_INSTALLER_DONE,
         content::NotificationService::AllSources());
-    EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                        &older_version,
-                                                        kInvalidPathToCrx,
-                                                        Manifest::INTERNAL,
-                                                        kCreationFlags,
-                                                        kDontMarkAcknowledged));
+    EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+        kGoodId,
+        &older_version,
+        kInvalidPathToCrx,
+        Manifest::INTERNAL,
+        kCreationFlags,
+        kDontMarkAcknowledged,
+        kDontInstallImmediately));
     EXPECT_TRUE(pending->IsIdPending(kGoodId));
     observer.Wait();
     VerifyCrxInstall(kInvalidPathToCrx, INSTALL_FAILED);
@@ -6810,12 +6823,14 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
     content::WindowedNotificationObserver observer(
         extensions::NOTIFICATION_CRX_INSTALLER_DONE,
         content::NotificationService::AllSources());
-    EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                        &older_version,
-                                                        kInvalidPathToCrx,
-                                                        Manifest::EXTERNAL_PREF,
-                                                        kCreationFlags,
-                                                        kDontMarkAcknowledged));
+    EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+        kGoodId,
+        &older_version,
+        kInvalidPathToCrx,
+        Manifest::EXTERNAL_PREF,
+        kCreationFlags,
+        kDontMarkAcknowledged,
+        kDontInstallImmediately));
     EXPECT_TRUE(pending->IsIdPending(kGoodId));
     observer.Wait();
     VerifyCrxInstall(kInvalidPathToCrx, INSTALL_FAILED);
@@ -6824,21 +6839,25 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
   // Simulate an external source adding as EXTERNAL_PREF again.
   // This is rejected because the version and the location are the same as
   // the previous installation, which is still pending.
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::EXTERNAL_PREF,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   // Try INTERNAL again.  Should fail.
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::INTERNAL,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::INTERNAL,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   {
@@ -6846,33 +6865,38 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
     content::WindowedNotificationObserver observer(
         extensions::NOTIFICATION_CRX_INSTALLER_DONE,
         content::NotificationService::AllSources());
-    EXPECT_TRUE(
-        service()->OnExternalExtensionFileFound(kGoodId,
-                                                &older_version,
-                                                kInvalidPathToCrx,
-                                                Manifest::EXTERNAL_REGISTRY,
-                                                kCreationFlags,
-                                                kDontMarkAcknowledged));
+    EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+        kGoodId,
+        &older_version,
+        kInvalidPathToCrx,
+        Manifest::EXTERNAL_REGISTRY,
+        kCreationFlags,
+        kDontMarkAcknowledged,
+        kDontInstallImmediately));
     EXPECT_TRUE(pending->IsIdPending(kGoodId));
     observer.Wait();
     VerifyCrxInstall(kInvalidPathToCrx, INSTALL_FAILED);
   }
 
   // Registry outranks both external pref and internal, so both fail.
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::EXTERNAL_PREF,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::INTERNAL,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::INTERNAL,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   pending->Remove(kGoodId);
@@ -6896,70 +6920,83 @@ TEST_F(ExtensionServiceTest, InstallPriorityExternalLocalFile) {
   // older, or the same, and succeed if the version is newer.
 
   // Older than the installed version...
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::INTERNAL,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::INTERNAL,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_FALSE(pending->IsIdPending(kGoodId));
 
   // Same version as the installed version...
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       ext->version(),
-                                                       kInvalidPathToCrx,
-                                                       Manifest::INTERNAL,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      ext->version(),
+      kInvalidPathToCrx,
+      Manifest::INTERNAL,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_FALSE(pending->IsIdPending(kGoodId));
 
   // Newer than the installed version...
-  EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                      &newer_version,
-                                                      kInvalidPathToCrx,
-                                                      Manifest::INTERNAL,
-                                                      kCreationFlags,
-                                                      kDontMarkAcknowledged));
+  EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &newer_version,
+      kInvalidPathToCrx,
+      Manifest::INTERNAL,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   // An external install for a higher priority install source should succeed
   // if the version is greater.  |older_version| is not...
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &older_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::EXTERNAL_PREF,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &older_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   // |newer_version| is newer.
-  EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                      &newer_version,
-                                                      kInvalidPathToCrx,
-                                                      Manifest::EXTERNAL_PREF,
-                                                      kCreationFlags,
-                                                      kDontMarkAcknowledged));
+  EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &newer_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   // An external install for an even higher priority install source should
   // succeed if the version is greater.
-  EXPECT_TRUE(
-      service()->OnExternalExtensionFileFound(kGoodId,
-                                              &newer_version,
-                                              kInvalidPathToCrx,
-                                              Manifest::EXTERNAL_REGISTRY,
-                                              kCreationFlags,
-                                              kDontMarkAcknowledged));
+  EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &newer_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_REGISTRY,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 
   // Because EXTERNAL_PREF is a lower priority source than EXTERNAL_REGISTRY,
   // adding from external pref will now fail.
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &newer_version,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::EXTERNAL_PREF,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &newer_version,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE(pending->IsIdPending(kGoodId));
 }
 
@@ -6970,6 +7007,7 @@ TEST_F(ExtensionServiceTest, ConcurrentExternalLocalFile) {
   const base::FilePath kInvalidPathToCrx = base::FilePath();
   const int kCreationFlags = 0;
   const bool kDontMarkAcknowledged = false;
+  const bool kDontInstallImmediately = false;
 
   InitializeEmptyExtensionService();
 
@@ -6978,48 +7016,55 @@ TEST_F(ExtensionServiceTest, ConcurrentExternalLocalFile) {
   EXPECT_FALSE(pending->IsIdPending(kGoodId));
 
   // An external provider starts installing from a local crx.
-  EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                      &kVersion123,
-                                                      kInvalidPathToCrx,
-                                                      Manifest::EXTERNAL_PREF,
-                                                      kCreationFlags,
-                                                      kDontMarkAcknowledged));
+  EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &kVersion123,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   const extensions::PendingExtensionInfo* info;
   EXPECT_TRUE((info = pending->GetById(kGoodId)));
   EXPECT_TRUE(info->version().IsValid());
   EXPECT_TRUE(info->version().Equals(kVersion123));
 
   // Adding a newer version overrides the currently pending version.
-  EXPECT_TRUE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                      &kVersion124,
-                                                      kInvalidPathToCrx,
-                                                      Manifest::EXTERNAL_PREF,
-                                                      kCreationFlags,
-                                                      kDontMarkAcknowledged));
+  EXPECT_TRUE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &kVersion124,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE((info = pending->GetById(kGoodId)));
   EXPECT_TRUE(info->version().IsValid());
   EXPECT_TRUE(info->version().Equals(kVersion124));
 
   // Adding an older version fails.
-  EXPECT_FALSE(service()->OnExternalExtensionFileFound(kGoodId,
-                                                       &kVersion123,
-                                                       kInvalidPathToCrx,
-                                                       Manifest::EXTERNAL_PREF,
-                                                       kCreationFlags,
-                                                       kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &kVersion123,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_PREF,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE((info = pending->GetById(kGoodId)));
   EXPECT_TRUE(info->version().IsValid());
   EXPECT_TRUE(info->version().Equals(kVersion124));
 
   // Adding an older version fails even when coming from a higher-priority
   // location.
-  EXPECT_FALSE(
-      service()->OnExternalExtensionFileFound(kGoodId,
-                                              &kVersion123,
-                                              kInvalidPathToCrx,
-                                              Manifest::EXTERNAL_REGISTRY,
-                                              kCreationFlags,
-                                              kDontMarkAcknowledged));
+  EXPECT_FALSE(service()->OnExternalExtensionFileFound(
+      kGoodId,
+      &kVersion123,
+      kInvalidPathToCrx,
+      Manifest::EXTERNAL_REGISTRY,
+      kCreationFlags,
+      kDontMarkAcknowledged,
+      kDontInstallImmediately));
   EXPECT_TRUE((info = pending->GetById(kGoodId)));
   EXPECT_TRUE(info->version().IsValid());
   EXPECT_TRUE(info->version().Equals(kVersion124));
@@ -7092,6 +7137,7 @@ class ExtensionSourcePriorityTest : public ExtensionServiceTest {
                                                    crx_path_,
                                                    Manifest::EXTERNAL_PREF,
                                                    Extension::NO_FLAGS,
+                                                   false,
                                                    false);
   }
 
