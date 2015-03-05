@@ -54,8 +54,6 @@ void EventModifiersEvdev::UpdateModifierLock(unsigned int modifier, bool down) {
   if (down)
     modifier_flags_locked_ ^= kEventFlagFromModifiers[modifier];
 
-  // TODO(spang): Synchronize with the CapsLock LED.
-
   UpdateFlags(modifier);
 }
 
@@ -66,8 +64,6 @@ void EventModifiersEvdev::SetModifierLock(unsigned int modifier, bool locked) {
     modifier_flags_locked_ |= kEventFlagFromModifiers[modifier];
   else
     modifier_flags_locked_ &= ~kEventFlagFromModifiers[modifier];
-
-  // TODO(spang): Synchronize with the CapsLock LED.
 
   UpdateFlags(modifier);
 }
