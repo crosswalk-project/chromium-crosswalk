@@ -6,12 +6,8 @@
  * @fileoverview App launcher start page implementation.
  */
 
-<include src="speech_manager.js">
-
 cr.define('appList.startPage', function() {
   'use strict';
-
-  var speechManager = null;
 
   // The element containing the current Google Doodle.
   var doodle = null;
@@ -20,7 +16,6 @@ cr.define('appList.startPage', function() {
    * Initialize the page.
    */
   function initialize() {
-    speechManager = new speech.SpeechManager();
     chrome.send('initialize');
   }
 
@@ -30,7 +25,6 @@ cr.define('appList.startPage', function() {
    * @param {boolean} enabled Whether the plugin is enabled or not.
    */
   function setHotwordEnabled(enabled) {
-    speechManager.setHotwordEnabled(enabled);
   }
 
   /**
@@ -38,7 +32,6 @@ cr.define('appList.startPage', function() {
    * @param {string} arch The architecture.
    */
   function setNaclArch(arch) {
-    speechManager.setNaclArch(arch);
   }
 
   /**
@@ -47,8 +40,6 @@ cr.define('appList.startPage', function() {
    * @param {boolean} hotwordEnabled Whether the hotword is enabled or not.
    */
   function onAppListShown(hotwordEnabled, legacySpeechEnabled) {
-    if (legacySpeechEnabled)
-      speechManager.onShown(hotwordEnabled);
 
     chrome.send('appListShown', [this.doodle != null]);
   }
@@ -130,7 +121,6 @@ cr.define('appList.startPage', function() {
    * Invoked when the app-list bubble is hidden.
    */
   function onAppListHidden() {
-    speechManager.onHidden();
   }
 
   /**
@@ -138,7 +128,6 @@ cr.define('appList.startPage', function() {
    * state.
    */
   function toggleSpeechRecognition() {
-    speechManager.toggleSpeechRecognition();
   }
 
   return {
