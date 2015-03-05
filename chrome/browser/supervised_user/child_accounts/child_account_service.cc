@@ -205,12 +205,6 @@ void ChildAccountService::OnFailure(FamilyInfoFetcher::ErrorCode error) {
 void ChildAccountService::StartFetchingServiceFlags(
     const std::string& account_id) {
   account_id_ = account_id;
-  flag_fetcher_.reset(new AccountServiceFlagFetcher(
-      account_id_,
-      ProfileOAuth2TokenServiceFactory::GetForProfile(profile_),
-      profile_->GetRequestContext(),
-      base::Bind(&ChildAccountService::OnFlagsFetched,
-                 weak_ptr_factory_.GetWeakPtr())));
 }
 
 void ChildAccountService::CancelFetchingServiceFlags() {
