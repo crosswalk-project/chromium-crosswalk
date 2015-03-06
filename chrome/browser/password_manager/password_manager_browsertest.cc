@@ -1583,3 +1583,80 @@ IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest,
   observer.Wait();
   EXPECT_FALSE(prompt_observer->IsShowingPrompt());
 }
+
+IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest, NoPromptOnBack) {
+  // Go to a successful landing page through submitting first, so that it is
+  // reachable through going back, and the remembered page transition is form
+  // submit. There is no need to submit non-empty strings.
+  NavigateToFile("/password/password_form.html");
+
+  NavigationObserver dummy_submit_observer(WebContents());
+  std::string just_submit =
+      "document.getElementById('input_submit_button').click()";
+  ASSERT_TRUE(content::ExecuteScript(RenderViewHost(), just_submit));
+  dummy_submit_observer.Wait();
+
+  // Now go to a page with a form again, fill the form, and go back instead of
+  // submitting it.
+  NavigateToFile("/password/dummy_submit.html");
+
+  NavigationObserver observer(WebContents());
+  scoped_ptr<PromptObserver> prompt_observer(
+      PromptObserver::Create(WebContents()));
+  // The (dummy) submit is necessary to provisionally save the typed password. A
+  // user typing in the password field would not need to submit to provisionally
+  // save it, but the script cannot trigger that just by assigning to the
+  // field's value.
+  std::string fill_and_back =
+      "document.getElementById('password_field').value = 'random';"
+      "document.getElementById('input_submit_button').click();"
+      "window.history.back();";
+  ASSERT_TRUE(content::ExecuteScript(RenderViewHost(), fill_and_back));
+  observer.Wait();
+  EXPECT_FALSE(prompt_observer->IsShowingPrompt());
+}
+
+// Regression test for http://crbug.com/452306
+IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest,
+                       ChangingTextToPasswordFieldOnSignupForm) {
+  NavigateToFile("/password/signup_form.html");
+
+  // In this case, pretend that username_field is actually a password field
+  // that starts as a text field to simulate placeholder.
+  NavigationObserver observer(WebContents());
+  scoped_ptr<PromptObserver> prompt_observer(
+      PromptObserver::Create(WebContents()));
+  std::string change_and_submit =
+      "document.getElementById('other_info').value = 'username';"
+      "document.getElementById('username_field').type = 'password';"
+      "document.getElementById('username_field').value = 'mypass';"
+      "document.getElementById('password_field').value = 'mypass';"
+      "document.getElementById('testform').submit();";
+  ASSERT_TRUE(content::ExecuteScript(RenderViewHost(), change_and_submit));
+  observer.Wait();
+  EXPECT_TRUE(prompt_observer->IsShowingPrompt());
+}
+
+// Regression test for http://crbug.com/451631
+IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTest,
+                       SavingOnManyPasswordFieldsTest) {
+  // Simulate Macy's registration page, which contains the normal 2 password
+  // fields for confirming the new password plus 2 more fields for security
+  // questions and credit card. Make sure that saving works correctly for such
+  // sites.
+  NavigateToFile("/password/many_password_signup_form.html");
+
+  NavigationObserver observer(WebContents());
+  scoped_ptr<PromptObserver> prompt_observer(
+      PromptObserver::Create(WebContents()));
+  std::string fill_and_submit =
+      "document.getElementById('username_field').value = 'username';"
+      "document.getElementById('password_field').value = 'mypass';"
+      "document.getElementById('confirm_field').value = 'mypass';"
+      "document.getElementById('security_answer').value = 'hometown';"
+      "document.getElementById('SSN').value = '1234';"
+      "document.getElementById('testform').submit();";
+  ASSERT_TRUE(content::ExecuteScript(RenderViewHost(), fill_and_submit));
+  observer.Wait();
+  EXPECT_TRUE(prompt_observer->IsShowingPrompt());
+}

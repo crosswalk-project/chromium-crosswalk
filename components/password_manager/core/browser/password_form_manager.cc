@@ -140,10 +140,14 @@ PasswordFormManager::MatchResultMask PasswordFormManager::DoesManage(
         StartsWithASCII(new_path, old_path, /*case_sensitive=*/true);
   }
 
+  if (!origins_match)
+    return result;
+
+  result |= RESULT_ORIGINS_MATCH;
+
   if (form.username_element == observed_form_.username_element &&
-      form.password_element == observed_form_.password_element &&
-      origins_match) {
-    result |= RESULT_MANDATORY_ATTRIBUTES_MATCH;
+      form.password_element == observed_form_.password_element) {
+    result |= RESULT_HTML_ATTRIBUTES_MATCH;
   }
 
   // Note: although saved password forms might actually have an empty action
@@ -402,11 +406,11 @@ bool PasswordFormManager::HasCompletedMatching() const {
   return state_ == POST_MATCHING_PHASE;
 }
 
-bool PasswordFormManager::IsIgnorableChangePasswordForm() const {
-  bool is_change_password_form = !observed_form_.new_password_element.empty() &&
-                                 !observed_form_.password_element.empty();
-  bool is_username_certainly_correct = observed_form_.username_marked_by_site;
-  return is_change_password_form && !is_username_certainly_correct;
+bool PasswordFormManager::IsIgnorableChangePasswordForm(
+    const PasswordForm& form) const {
+  bool is_change_password_form =
+      !form.new_password_element.empty() && !form.password_element.empty();
+  return is_change_password_form && !form.username_marked_by_site;
 }
 
 void PasswordFormManager::OnRequestDone(
