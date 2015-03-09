@@ -385,7 +385,7 @@ void MediaStreamDevicesController::Accept(bool update_content_setting) {
     if (update_content_setting) {
       if ((IsSchemeSecure() && !devices.empty()) ||
           request_.request_type == content::MEDIA_OPEN_DEVICE) {
-        SetPermission(true);
+        StorePermission(true);
       }
     }
 
@@ -424,8 +424,9 @@ void MediaStreamDevicesController::Deny(
   NotifyUIRequestDenied();
 
   if (update_content_setting) {
+    // Store sticky permissions if |update_content_setting|.
     CHECK_EQ(content::MEDIA_DEVICE_PERMISSION_DENIED, result);
-    SetPermission(false);
+    StorePermission(false);
   }
 
   content::MediaResponseCallback cb = callback_;
@@ -498,11 +499,6 @@ void MediaStreamDevicesController::RequestFinished() {
 }
 
 bool MediaStreamDevicesController::IsRequestAllowedByDefault() const {
-  // If not all ancestors of the requesting frame have the same origin, do not
-  // allow the request per default.
-  if (!request_.all_ancestors_have_same_origin)
-    return false;
-
   // The request from internal objects like chrome://URLs is always allowed.
   if (CheckAllowAllMediaStreamContentForOrigin(profile_,
                                                request_.security_origin)) {
@@ -604,7 +600,7 @@ bool MediaStreamDevicesController::IsSchemeSecure() const {
       request_.security_origin.SchemeIs(extensions::kExtensionScheme);
 }
 
-void MediaStreamDevicesController::SetPermission(bool allowed) const {
+void MediaStreamDevicesController::StorePermission(bool allowed) const {
   DCHECK(BrowserThread::CurrentlyOn(BrowserThread::UI));
   ContentSettingsPattern primary_pattern =
       ContentSettingsPattern::FromURLNoWildcard(request_.security_origin);
