@@ -40,6 +40,10 @@ bool GuestViewInternalCreateGuestFunction::RunAsync() {
     return false;
   }
 
+  // Add flag to |create_params| to indicate that the element size is specified
+  // in logical units.
+  create_params->SetBoolean(guestview::kElementSizeIsLogical, true);
+
   guest_view_manager->CreateGuest(view_type,
                                   owner_web_contents,
                                   *create_params,
