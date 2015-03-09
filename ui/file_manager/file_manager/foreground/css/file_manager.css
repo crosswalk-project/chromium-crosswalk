@@ -301,14 +301,14 @@ body.check-select .dialog-header .icon-button paper-ripple {
 }
 
 .dialog-header .icon-button:hover,
-.dialog-header .icon-button:focus,
+.dialog-header .icon-button:focus:not(.using-mouse),
 .dialog-header .combobutton:hover,
 .dialog-header .combobutton:focus {
   background-color: rgba(90, 90, 90, 0.15);
 }
 
 body.check-select .dialog-header .icon-button:hover,
-body.check-select .dialog-header .icon-button:focus,
+body.check-select .dialog-header .icon-button:focus:not(.using-mouse),
 body.check-select .dialog-header .combobutton:hover,
 body.check-select .dialog-header .combobutton:focus {
   background-color: rgba(153, 153, 153, 0.20);
