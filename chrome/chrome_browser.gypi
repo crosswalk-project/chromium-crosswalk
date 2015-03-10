@@ -101,6 +101,8 @@
       'browser/android/logo_service.h',
       'browser/android/manifest_icon_selector.cc',
       'browser/android/manifest_icon_selector.h',
+      'browser/android/metrics/launch_metrics.cc',
+      'browser/android/metrics/launch_metrics.h',
       'browser/android/most_visited_sites.cc',
       'browser/android/most_visited_sites.h',
       'browser/android/new_tab_page_prefs.cc',
@@ -1647,7 +1649,8 @@
       'android/java/src/org/chromium/chrome/browser/infobar/InfoBarContainer.java',
       'android/java/src/org/chromium/chrome/browser/infobar/TranslateInfoBarDelegate.java',
       'android/java/src/org/chromium/chrome/browser/invalidation/InvalidationServiceFactory.java',
-      'android/java/src/org/chromium/chrome/browser/toolbar/ToolbarModel.java'
+      'android/java/src/org/chromium/chrome/browser/metrics/LaunchMetrics.java',
+      'android/java/src/org/chromium/chrome/browser/toolbar/ToolbarModel.java',
     ],
     'chrome_browser_mdns_sources': [
       'browser/local_discovery/privet_http_asynchronous_factory_impl.cc',
