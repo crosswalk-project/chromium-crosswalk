@@ -320,7 +320,7 @@ void Preferences::RegisterProfilePrefs(
 
   registry->RegisterBooleanPref(
       prefs::kResolveTimezoneByGeolocation, true,
-      user_prefs::PrefRegistrySyncable::UNSYNCABLE_PREF);
+      user_prefs::PrefRegistrySyncable::SYNCABLE_PREF);
 
   input_method::InputMethodSyncer::RegisterProfilePrefs(registry);
 }
