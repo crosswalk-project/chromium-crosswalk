@@ -478,6 +478,7 @@ public class SingleWebsitePreferences extends PreferenceFragment
 
     private void resetSite() {
         mSite.setCookiePermission(null);
+        WebsitePreferenceBridge.nativeClearCookieData(mSite.getAddress().getOrigin());
         mSite.setVideoCapturePermission(null);
         mSite.setVoiceCapturePermission(null);
         mSite.setPopupPermission(null);
