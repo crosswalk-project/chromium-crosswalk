@@ -23,9 +23,6 @@ function LocationLine(breadcrumbs, fileSystemMetadata, volumeManager) {
    * @private
    */
   this.showSequence_ = 0;
-
-  // Register events and seql the object.
-  breadcrumbs.addEventListener('click', this.onClick_.bind(this));
 }
 
 /**
@@ -142,11 +139,19 @@ LocationLine.prototype.updateInternal_ = function(entries) {
     div.textContent = util.getEntryLabel(
         this.volumeManager_.getLocationInfo(entry), entry);
     div.entry = entry;
+    div.tabIndex = 8;
+    div.addEventListener('click', this.execute_.bind(this, div));
+    div.addEventListener('keydown', function(div, event) {
+      // If the pressed key is either Enter or Space.
+      if (event.keyCode == 13 || event.keyCode == 32)
+        this.execute_(div);
+    }.bind(this, div));
     this.breadcrumbs_.appendChild(div);
 
     // If this is the last component, break here.
     if (i === entries.length - 1) {
       div.classList.add('breadcrumb-last');
+      div.tabIndex = -1;
       break;
     }
 
@@ -254,16 +259,16 @@ LocationLine.prototype.hide = function() {
 };
 
 /**
- * Handle a click event on a breadcrumb element.
- * @param {Event} event The click event.
+ * Execute an element.
+ * @param {!Element} element Element to be executed.
  * @private
  */
-LocationLine.prototype.onClick_ = function(event) {
-  if (!event.target.classList.contains('breadcrumb-path') ||
-      event.target.classList.contains('breadcrumb-last'))
+LocationLine.prototype.execute_ = function(element) {
+  if (!element.classList.contains('breadcrumb-path') ||
+      element.classList.contains('breadcrumb-last'))
     return;
 
   var newEvent = new Event('pathclick');
-  newEvent.entry = event.target.entry;
+  newEvent.entry = element.entry;
   this.dispatchEvent(newEvent);
 };
