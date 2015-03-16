@@ -115,7 +115,7 @@
       'variables': {
         'res_dir': '<(java_in_dir)/res',
         'res_input_dirs': ['<(res_dir)', '<@(res_extra_dirs)'],
-        'resource_input_paths': ['<!@(find <(res_dir) -type f)'],
+        'resource_input_paths': ['<!@(mkdir -p <(res_dir) && find <(res_dir) -type f)'],
 
         'R_dir': '<(intermediate_dir)/java_R',
         'R_text_file': '<(R_dir)/R.txt',
@@ -223,7 +223,7 @@
       'action_name': 'javac_<(_target_name)',
       'message': 'Compiling <(_target_name) java sources',
       'variables': {
-        'java_sources': ['>!@(find >(java_in_dir)/src >(additional_src_dirs) -name "*.java")'],
+        'java_sources': ['>!@(mkdir -p >(java_in_dir)/src && find >(java_in_dir)/src >(additional_src_dirs) -name "*.java")'],
       },
       'inputs': [
         '<(DEPTH)/build/android/gyp/util/build_utils.py',
