@@ -46,6 +46,11 @@ def clean_and_extract(dir_name, package_name, zip_file):
 
 
 def main():
+  # Always do nothing. Crosswalk's bots have CHROME_HEADLESS set, but
+  # the files in the bucket below can only be fetched from Google's
+  # infrastructure.
+  return 0
+
   if not os.environ.get('CHROME_HEADLESS'):
     # This is not a buildbot checkout.
     return 0
