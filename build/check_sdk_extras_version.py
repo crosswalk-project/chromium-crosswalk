@@ -125,7 +125,11 @@ def ShouldSkipVersionCheck():
   Bots should not run the version check, since they download the sdk extras
   in a different way.
   '''
-  return bool(os.environ.get('CHROME_HEADLESS'))
+  # Always do nothing. Crosswalk's bots have CHROME_HEADLESS set, but
+  # developers do not. Since Crosswalk does not need the Android SDK extras, it
+  # is safe to make the script always a no-op.
+  return True
+  # return bool(os.environ.get('CHROME_HEADLESS'))
 
 if __name__ == '__main__':
   main()
