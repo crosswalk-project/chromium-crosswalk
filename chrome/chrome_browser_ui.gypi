@@ -2092,6 +2092,8 @@
       'browser/ui/views/extensions/media_gallery_checkbox_view.h',
       'browser/ui/views/first_run_bubble.cc',
       'browser/ui/views/first_run_bubble.h',
+      'browser/ui/views/frame/browser_command_handler_linux.cc',
+      'browser/ui/views/frame/browser_command_handler_linux.h',
       'browser/ui/views/frame/browser_frame.cc',
       'browser/ui/views/frame/browser_frame.h',
       'browser/ui/views/frame/browser_frame_common_win.cc',
@@ -2328,8 +2330,6 @@
     ],
     # Compiled for X11: desktop Linux and ChromeOS. We assume aura/views/ash.
     'chrome_browser_ui_x11_sources': [
-      'browser/ui/views/frame/browser_command_handler_x11.cc',
-      'browser/ui/views/frame/browser_command_handler_x11.h',
       'browser/ui/views/javascript_app_modal_event_blocker_x11.cc',
       'browser/ui/views/javascript_app_modal_event_blocker_x11.h',
       'browser/ui/views/tabs/window_finder_x11.cc',
