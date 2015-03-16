@@ -62,6 +62,11 @@ def download_package_if_needed(remote_file, local_file):
   return True
 
 def main():
+  # Always do nothing. Crosswalk's bots have CHROME_HEADLESS set, but
+  # the files in the bucket below can only be fetched from Google's
+  # infrastructure.
+  return 0
+
   if not os.environ.get('CHROME_HEADLESS'):
     # This is not a buildbot checkout.
     return 0
