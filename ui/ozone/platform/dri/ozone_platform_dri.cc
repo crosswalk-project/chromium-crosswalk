@@ -25,6 +25,7 @@
 #include "ui/ozone/platform/dri/dri_wrapper.h"
 #include "ui/ozone/platform/dri/drm_device_generator.h"
 #include "ui/ozone/platform/dri/drm_device_manager.h"
+#include "ui/ozone/platform/dri/gpu_lock.h"
 #include "ui/ozone/platform/dri/native_display_delegate_dri.h"
 #include "ui/ozone/platform/dri/native_display_delegate_proxy.h"
 #include "ui/ozone/platform/dri/screen_manager.h"
@@ -91,6 +92,9 @@ class OzonePlatformDri : public OzonePlatform {
         display_manager_.get()));
   }
   void InitializeUI() override {
+#if defined(OS_CHROMEOS)
+    gpu_lock_.reset(new GpuLock());
+#endif
     if (!dri_->Initialize())
       LOG(FATAL) << "Failed to initialize primary DRM device";
 
@@ -132,6 +136,7 @@ class OzonePlatformDri : public OzonePlatform {
   void InitializeGPU() override {}
 
  private:
+  scoped_ptr<GpuLock> gpu_lock_;
   scoped_refptr<DriWrapper> dri_;
   scoped_ptr<DrmDeviceManager> drm_device_manager_;
   scoped_ptr<DriBufferGenerator> buffer_generator_;

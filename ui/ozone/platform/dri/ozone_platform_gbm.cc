@@ -29,6 +29,7 @@
 #include "ui/ozone/platform/dri/gbm_surface.h"
 #include "ui/ozone/platform/dri/gbm_surface_factory.h"
 #include "ui/ozone/platform/dri/gbm_wrapper.h"
+#include "ui/ozone/platform/dri/gpu_lock.h"
 #include "ui/ozone/platform/dri/native_display_delegate_dri.h"
 #include "ui/ozone/platform/dri/native_display_delegate_proxy.h"
 #include "ui/ozone/platform/dri/scanout_buffer.h"
@@ -172,6 +173,9 @@ class OzonePlatformGbm : public OzonePlatform {
   }
 
   void InitializeGPU() override {
+#if defined(OS_CHROMEOS)
+    gpu_lock_.reset(new GpuLock());
+#endif
     gl_api_loader_.reset(new GlApiLoader());
     // Async page flips are supported only on surfaceless mode.
     gbm_ = new GbmWrapper(GetFirstDisplayCardPath());
@@ -201,6 +205,7 @@ class OzonePlatformGbm : public OzonePlatform {
 
  private:
   bool use_surfaceless_;
+  scoped_ptr<GpuLock> gpu_lock_;
   scoped_ptr<GlApiLoader> gl_api_loader_;
   scoped_refptr<GbmWrapper> gbm_;
   scoped_ptr<DrmDeviceManager> drm_device_manager_;

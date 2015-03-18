@@ -80,6 +80,8 @@
         'drm_device_generator.h',
         'drm_device_manager.cc',
         'drm_device_manager.h',
+        'gpu_lock.cc',
+        'gpu_lock.h',
         'hardware_display_controller.cc',
         'hardware_display_controller.h',
         'hardware_display_plane.cc',
