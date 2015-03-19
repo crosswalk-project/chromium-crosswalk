@@ -336,11 +336,36 @@ const LogSeverity LOG_DFATAL = LOG_FATAL;
 const LogSeverity LOG_0 = LOG_ERROR;
 #endif
 
+// The actual stream used isn't important.
+#define EAT_STREAM_PARAMETERS                                           \
+  true ? (void) 0 : ::logging::LogMessageVoidify() & LOG_STREAM(FATAL)
+
+#if defined(DISABLE_LOGGING) && defined(NDEBUG)
+
+#define LOG_IS_ON(severity) false
+#define LOG_IF(severity, condition) EAT_STREAM_PARAMETERS
+#define LOG_ASSERT(condition) EAT_STREAM_PARAMETERS
+#define PLOG_IF(severity, condition) EAT_STREAM_PARAMETERS
+#define VLOG_IS_ON(verboselevel) false
+#define VLOG_IF(verboselevel, condition) EAT_STREAM_PARAMETERS
+#define VPLOG_IF(verboselevel, condition) EAT_STREAM_PARAMETERS
+
+#else  // defined(DISABLE_LOGGING) && defined(NDEBUG)
+
 // As special cases, we can assume that LOG_IS_ON(FATAL) always holds. Also,
 // LOG_IS_ON(DFATAL) always holds in debug mode. In particular, CHECK()s will
 // always fire if they fail.
 #define LOG_IS_ON(severity) \
   ((::logging::LOG_ ## severity) >= ::logging::GetMinLogLevel())
+
+#define LOG_IF(severity, condition) \
+  LAZY_STREAM(LOG_STREAM(severity), LOG_IS_ON(severity) && (condition))
+
+#define LOG_ASSERT(condition)  \
+  LOG_IF(FATAL, !(condition)) << "Assert failed: " #condition ". "
+
+#define PLOG_IF(severity, condition) \
+  LAZY_STREAM(PLOG_STREAM(severity), LOG_IS_ON(severity) && (condition))
 
 // We can't do any caching tricks with VLOG_IS_ON() like the
 // google-glog version since it requires GCC extensions.  This means
@@ -348,6 +373,16 @@ const LogSeverity LOG_0 = LOG_ERROR;
 // may be slow.
 #define VLOG_IS_ON(verboselevel) \
   ((verboselevel) <= ::logging::GetVlogLevel(__FILE__))
+
+#define VLOG_IF(verbose_level, condition) \
+  LAZY_STREAM(VLOG_STREAM(verbose_level), \
+      VLOG_IS_ON(verbose_level) && (condition))
+
+#define VPLOG_IF(verbose_level, condition) \
+  LAZY_STREAM(VPLOG_STREAM(verbose_level), \
+    VLOG_IS_ON(verbose_level) && (condition))
+
+#endif  // defined(DISABLE_LOGGING) && defined(NDEBUG)
 
 // Helper macro which avoids evaluating the arguments to a stream if
 // the condition doesn't hold. Condition is evaluated once and only once.
@@ -365,8 +400,6 @@ const LogSeverity LOG_0 = LOG_ERROR;
 #define LOG_STREAM(severity) COMPACT_GOOGLE_LOG_ ## severity.stream()
 
 #define LOG(severity) LAZY_STREAM(LOG_STREAM(severity), LOG_IS_ON(severity))
-#define LOG_IF(severity, condition) \
-  LAZY_STREAM(LOG_STREAM(severity), LOG_IS_ON(severity) && (condition))
 
 #define SYSLOG(severity) LOG(severity)
 #define SYSLOG_IF(severity, condition) LOG_IF(severity, condition)
@@ -377,10 +410,6 @@ const LogSeverity LOG_0 = LOG_ERROR;
 
 #define VLOG(verbose_level) \
   LAZY_STREAM(VLOG_STREAM(verbose_level), VLOG_IS_ON(verbose_level))
-
-#define VLOG_IF(verbose_level, condition) \
-  LAZY_STREAM(VLOG_STREAM(verbose_level), \
-      VLOG_IS_ON(verbose_level) && (condition))
 
 #if defined (OS_WIN)
 #define VPLOG_STREAM(verbose_level) \
@@ -395,14 +424,8 @@ const LogSeverity LOG_0 = LOG_ERROR;
 #define VPLOG(verbose_level) \
   LAZY_STREAM(VPLOG_STREAM(verbose_level), VLOG_IS_ON(verbose_level))
 
-#define VPLOG_IF(verbose_level, condition) \
-  LAZY_STREAM(VPLOG_STREAM(verbose_level), \
-    VLOG_IS_ON(verbose_level) && (condition))
-
 // TODO(akalin): Add more VLOG variants, e.g. VPLOG.
 
-#define LOG_ASSERT(condition)  \
-  LOG_IF(FATAL, !(condition)) << "Assert failed: " #condition ". "
 #define SYSLOG_ASSERT(condition) \
   SYSLOG_IF(FATAL, !(condition)) << "Assert failed: " #condition ". "
 
@@ -418,13 +441,6 @@ const LogSeverity LOG_0 = LOG_ERROR;
 
 #define PLOG(severity)                                          \
   LAZY_STREAM(PLOG_STREAM(severity), LOG_IS_ON(severity))
-
-#define PLOG_IF(severity, condition) \
-  LAZY_STREAM(PLOG_STREAM(severity), LOG_IS_ON(severity) && (condition))
-
-// The actual stream used isn't important.
-#define EAT_STREAM_PARAMETERS                                           \
-  true ? (void) 0 : ::logging::LogMessageVoidify() & LOG_STREAM(FATAL)
 
 // CHECK dies with a fatal error if condition is not true.  It is *not*
 // controlled by NDEBUG, so the check will be executed regardless of

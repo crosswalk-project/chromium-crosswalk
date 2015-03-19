@@ -542,6 +542,9 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Include all logging messages by default.
+      'disable_logging%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1166,6 +1169,7 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_logging%': '<(disable_logging)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -2112,6 +2116,9 @@
       ['use_concatenated_impulse_responses==1', {
         'grit_defines': ['-D', 'use_concatenated_impulse_responses'],
       }],
+      ['disable_logging==1', {
+        'grit_defines': ['-D', 'disable_logging'],
+      }],
       ['enable_webrtc==1', {
         'grit_defines': ['-D', 'enable_webrtc'],
       }],
@@ -2644,6 +2651,9 @@
       }],
       ['remoting==1', {
         'defines': ['ENABLE_REMOTING=1'],
+      }],
+      ['disable_logging==1', {
+        'defines': ['DISABLE_LOGGING=1'],
       }],
       ['enable_webrtc==1', {
         'defines': ['ENABLE_WEBRTC=1'],
@@ -3716,6 +3726,11 @@
               }, {
                 'cflags': ['-fno-unwind-tables', '-fno-asynchronous-unwind-tables'],
                 'defines': ['NO_UNWIND_TABLES'],
+              }],
+              ['disable_logging==1', {
+                # To avoid lots of unused variables warnings because of
+                # LOG/VLOG/CHECK macros turns to be nothing when this flag is 1
+                'cflags': ['-Wno-unused-variable'],
               }],
             ],
           },
