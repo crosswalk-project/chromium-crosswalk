@@ -258,12 +258,11 @@ void RendererPpapiHostImpl::CreateBrowserResourceHosts(
   }
 }
 
-GURL RendererPpapiHostImpl::GetDocumentURL(PP_Instance instance) const {
-  PepperPluginInstanceImpl* instance_object = GetAndValidateInstance(instance);
-  if (!instance_object)
+GURL RendererPpapiHostImpl::GetDocumentURL(PP_Instance pp_instance) const {
+  PepperPluginInstanceImpl* instance = GetAndValidateInstance(pp_instance);
+  if (!instance)
     return GURL();
-
-  return instance_object->container()->element().document().url();
+  return instance->document_url();
 }
 
 PepperPluginInstanceImpl* RendererPpapiHostImpl::GetAndValidateInstance(
