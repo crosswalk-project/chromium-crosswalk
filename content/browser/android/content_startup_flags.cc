@@ -73,7 +73,7 @@ void SetContentCommandLineFlags(bool single_process,
 
   // Web Notifications are only supported on Android JellyBean and beyond.
   if (base::android::BuildInfo::GetInstance()->sdk_int() <
-      base::android::SDK_VERSION_JELLY_BEAN) {
+      base::android::SDK_VERSION_ICE_CREAM_SANDWICH) {
     parsed_command_line->AppendSwitch(switches::kDisableNotifications);
   }
 
