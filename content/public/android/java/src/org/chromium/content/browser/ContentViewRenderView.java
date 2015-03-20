@@ -320,6 +320,16 @@ public class ContentViewRenderView extends FrameLayout {
     }
 
     /**
+    * Control whether the SurfaceView's surface is placed on top of its window.
+    * Note this only works when SurfaceView is used. For TextureView, it is not supported.
+    * @param onTop true for on top.
+    */
+    public void setZOrderOnTop(boolean onTop) {
+        if (mSurfaceView == null) return;
+        mSurfaceView.setZOrderOnTop(onTop);
+    }
+
+    /**
      * Enter or leave overlay video mode.
      * @param enabled Whether overlay mode is enabled.
      */
