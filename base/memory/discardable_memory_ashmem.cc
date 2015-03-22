@@ -60,6 +60,8 @@ bool DiscardableMemoryAshmem::AllocateAndAcquireLock() {
     return ashmem_chunk_->Lock();
 
   ashmem_chunk_ = allocator_->Allocate(bytes_);
+  // Allocate should only fail if OOM.
+  CHECK(ashmem_chunk_);
   return false;
 }
 
