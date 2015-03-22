@@ -4,6 +4,8 @@
 
 #include "base/memory/discardable_memory.h"
 
+#include <algorithm>
+
 #include "base/basictypes.h"
 #include "base/compiler_specific.h"
 #include "base/lazy_instance.h"
@@ -21,7 +23,13 @@ const char kAshmemAllocatorName[] = "DiscardableMemoryAshmemAllocator";
 
 // For Ashmem, have the DiscardableMemoryManager trigger userspace eviction
 // when address space usage gets too high (e.g. 512 MBytes).
-const size_t kAshmemMemoryLimit = 512 * 1024 * 1024;
+const int64 kAshmemMemoryLimit = 512 * 1024 * 1024;
+
+size_t GetAshmemMemoryLimit() {
+  // Allow 25% of physical memory to be used for discardable memory.
+  return std::min(base::SysInfo::AmountOfPhysicalMemory() / 4,
+                  kAshmemMemoryLimit);
+}
 
 size_t GetOptimalAshmemRegionSizeForAllocator() {
   // Note that this may do some I/O (without hitting the disk though) so it
@@ -32,7 +40,9 @@ size_t GetOptimalAshmemRegionSizeForAllocator() {
 // Holds the shared state used for allocations.
 struct SharedState {
   SharedState()
-      : manager(kAshmemMemoryLimit, kAshmemMemoryLimit, TimeDelta::Max()),
+      : manager(GetAshmemMemoryLimit(),
+                GetAshmemMemoryLimit(),
+                TimeDelta::Max()),
         allocator(kAshmemAllocatorName,
                   GetOptimalAshmemRegionSizeForAllocator()) {}
 
