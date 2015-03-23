@@ -103,6 +103,7 @@ class OzonePlatformDri : public OzonePlatform {
     ForceInitializationOfPrimaryDisplay(dri_, screen_manager_.get());
     drm_device_manager_.reset(new DrmDeviceManager(dri_));
     display_manager_.reset(new DisplayManager());
+    cursor_.reset(new DriCursor(window_manager_.get()));
     surface_factory_ozone_.reset(
         new DriSurfaceFactory(&window_delegate_manager_));
     scoped_ptr<NativeDisplayDelegateDri> ndd(new NativeDisplayDelegateDri(
@@ -111,12 +112,10 @@ class OzonePlatformDri : public OzonePlatform {
     gpu_platform_support_.reset(new DriGpuPlatformSupport(
         drm_device_manager_.get(), &window_delegate_manager_,
         screen_manager_.get(), ndd.Pass()));
-    gpu_platform_support_host_.reset(new DriGpuPlatformSupportHost());
+    gpu_platform_support_host_.reset(
+        new DriGpuPlatformSupportHost(cursor_.get()));
     window_manager_.reset(new DriWindowManager());
     cursor_factory_ozone_.reset(new BitmapCursorFactoryOzone);
-    cursor_.reset(
-        new DriCursor(window_manager_.get(), gpu_platform_support_host_.get()));
-    cursor_->Init();
 #if defined(USE_XKBCOMMON)
     KeyboardLayoutEngineManager::SetKeyboardLayoutEngine(make_scoped_ptr(
         new XkbKeyboardLayoutEngine(xkb_evdev_code_converter_)));
@@ -145,9 +144,9 @@ class OzonePlatformDri : public OzonePlatform {
 
   scoped_ptr<DriSurfaceFactory> surface_factory_ozone_;
   scoped_ptr<BitmapCursorFactoryOzone> cursor_factory_ozone_;
+  scoped_ptr<DriCursor> cursor_;
   scoped_ptr<EventFactoryEvdev> event_factory_ozone_;
 
-  scoped_ptr<DriCursor> cursor_;
   scoped_ptr<DriWindowManager> window_manager_;
   scoped_ptr<DisplayManager> display_manager_;
 

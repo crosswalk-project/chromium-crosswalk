@@ -31,11 +31,8 @@ class DriWindowManager;
 
 class DriCursor : public CursorDelegateEvdev, public GpuPlatformSupportHost {
  public:
-  explicit DriCursor(DriWindowManager* window_manager,
-                     DriGpuPlatformSupportHost* sender);
+  explicit DriCursor(DriWindowManager* window_manager);
   ~DriCursor() override;
-
-  void Init();
 
   // Change the cursor over the specifed window.
   void SetCursor(gfx::AcceleratedWidget window, PlatformCursor platform_cursor);
@@ -90,7 +87,6 @@ class DriCursor : public CursorDelegateEvdev, public GpuPlatformSupportHost {
   void SendLocked(IPC::Message* message);
 
   DriWindowManager* window_manager_;   // Not owned.
-  DriGpuPlatformSupportHost* gpu_platform_support_host_;  // Not owned.
 
   // Task runner for main thread.
   scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner_;

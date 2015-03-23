@@ -154,12 +154,11 @@ class OzonePlatformGbm : public OzonePlatform {
     if (!surface_factory_ozone_)
       surface_factory_ozone_.reset(new GbmSurfaceFactory(use_surfaceless_));
     device_manager_ = CreateDeviceManager();
-    gpu_platform_support_host_.reset(new DriGpuPlatformSupportHost());
+    cursor_.reset(new DriCursor(window_manager_.get()));
+    gpu_platform_support_host_.reset(
+        new DriGpuPlatformSupportHost(cursor_.get()));
     window_manager_.reset(new DriWindowManager());
     cursor_factory_ozone_.reset(new BitmapCursorFactoryOzone);
-    cursor_.reset(
-        new DriCursor(window_manager_.get(), gpu_platform_support_host_.get()));
-    cursor_->Init();
 #if defined(USE_XKBCOMMON)
     KeyboardLayoutEngineManager::SetKeyboardLayoutEngine(make_scoped_ptr(
         new XkbKeyboardLayoutEngine(xkb_evdev_code_converter_)));
@@ -215,6 +214,7 @@ class OzonePlatformGbm : public OzonePlatform {
 
   scoped_ptr<GbmSurfaceFactory> surface_factory_ozone_;
   scoped_ptr<BitmapCursorFactoryOzone> cursor_factory_ozone_;
+  scoped_ptr<DriCursor> cursor_;
   scoped_ptr<EventFactoryEvdev> event_factory_ozone_;
 
   scoped_ptr<DriGpuPlatformSupport> gpu_platform_support_;
@@ -222,7 +222,6 @@ class OzonePlatformGbm : public OzonePlatform {
 
   scoped_ptr<DriWindowDelegateManager> window_delegate_manager_;
   // Browser side object only.
-  scoped_ptr<DriCursor> cursor_;
   scoped_ptr<DriWindowManager> window_manager_;
   scoped_ptr<DisplayManager> display_manager_;
 
