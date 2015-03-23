@@ -530,6 +530,8 @@ gfx::Rect PictureLayerTiling::ComputeSkewport(
     double current_frame_time_in_seconds,
     const gfx::Rect& visible_rect_in_content_space) const {
   gfx::Rect skewport = visible_rect_in_content_space;
+  if (skewport.IsEmpty())
+    return skewport;
   if (last_impl_frame_time_in_seconds_ == 0.0)
     return skewport;
 
@@ -563,11 +565,13 @@ gfx::Rect PictureLayerTiling::ComputeSkewport(
                  extrapolation_multiplier * (old_right - new_right),
                  extrapolation_multiplier * (old_bottom - new_bottom));
 
-  // Clip the skewport to |max_skewport|.
+  // Ensure that visible rect is contained in the skewport.
+  skewport.Union(visible_rect_in_content_space);
+
+  // Clip the skewport to |max_skewport|. This needs to happen after the
+  // union in case intersecting would have left the empty rect.
   skewport.Intersect(max_skewport);
 
-  // Finally, ensure that visible rect is contained in the skewport.
-  skewport.Union(visible_rect_in_content_space);
   return skewport;
 }
 
