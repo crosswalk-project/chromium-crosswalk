@@ -186,9 +186,7 @@ void MediaGalleriesScanResultController::DidClickOpenFolderViewer(
     NOTREACHED();
     return;
   }
-  platform_util::OpenItem(GetProfile(), entry->second.pref_info.AbsolutePath(),
-                          platform_util::OPEN_FOLDER,
-                          platform_util::OpenOperationCallback());
+  platform_util::OpenItem(GetProfile(), entry->second.pref_info.AbsolutePath());
 }
 
 void MediaGalleriesScanResultController::DidForgetEntry(

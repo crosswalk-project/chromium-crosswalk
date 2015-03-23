@@ -111,12 +111,7 @@ IPC_MESSAGE_CONTROL1(ChromeUtilityMsg_AnalyzeZipFileForDownloadProtection,
 #endif
 
 #if defined(OS_WIN)
-// Invokes ui::base::win::OpenFileViaShell from the utility process.
-IPC_MESSAGE_CONTROL1(ChromeUtilityMsg_OpenFileViaShell,
-                     base::FilePath /* full_path */)
-
-// Invokes ui::base::win::OpenFolderViaShell from the utility process.
-IPC_MESSAGE_CONTROL1(ChromeUtilityMsg_OpenFolderViaShell,
+IPC_MESSAGE_CONTROL1(ChromeUtilityMsg_OpenItemViaShell,
                      base::FilePath /* full_path */)
 
 // Instructs the utility process to invoke GetOpenFileName. |owner| is the
