@@ -2089,7 +2089,7 @@ public class AwContents implements SmartClipProvider,
 
     public boolean getDidAttemptLoad() {
         if (mDidAttemptLoad) return mDidAttemptLoad;
-        mDidAttemptLoad = mWebContentsObserver.hasStartedAnyProvisionalLoad();
+        mDidAttemptLoad = mWebContentsObserver.hasStartedNonApiProvisionalLoadInMainFrame();
         return mDidAttemptLoad;
     }
 
