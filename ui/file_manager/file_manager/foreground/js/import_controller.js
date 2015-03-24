@@ -636,7 +636,7 @@ importer.RuntimeCommandWidget.prototype.update =
 
       this.mainButton_.hidden = false;
       this.sideButton_.hidden = false;
-      this.panelButton_.hidden = false;
+      this.panelButton_.hidden = true;
 
       this.toolbarIcon_.setAttribute('icon', 'autorenew');
       this.statusIcon_.setAttribute('icon', 'autorenew');
@@ -656,10 +656,10 @@ importer.RuntimeCommandWidget.prototype.update =
 
       this.mainButton_.hidden = false;
       this.sideButton_.hidden = false;
-      this.panelButton_.hidden = false;
+      this.panelButton_.hidden = true;
 
-      this.toolbarIcon_.setAttribute('icon', 'image:photo');
-      this.statusIcon_.setAttribute('icon', 'cloud-off');
+      this.toolbarIcon_.setAttribute('icon', 'cloud-off');
+      this.statusIcon_.setAttribute('icon', 'image:photo');
       break;
 
     case importer.ActivityState.NO_MEDIA:
