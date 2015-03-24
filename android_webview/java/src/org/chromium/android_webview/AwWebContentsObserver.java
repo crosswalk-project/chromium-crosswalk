@@ -5,25 +5,23 @@
 package org.chromium.android_webview;
 
 import org.chromium.content.browser.WebContentsObserver;
-import org.chromium.content_public.browser.NavigationEntry;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.net.NetError;
-import org.chromium.ui.base.PageTransition;
 
 /**
  * Routes notifications from WebContents to AwContentsClient and other listeners.
  */
 public class AwWebContentsObserver extends WebContentsObserver {
     private final AwContentsClient mAwContentsClient;
-    private boolean mStartedNonApiProvisionalLoadInMainFrame = false;
+    private boolean mHasStartedAnyProvisionalLoad = false;
 
     public AwWebContentsObserver(WebContents webContents, AwContentsClient awContentsClient) {
         super(webContents);
         mAwContentsClient = awContentsClient;
     }
 
-    boolean hasStartedNonApiProvisionalLoadInMainFrame() {
-        return mStartedNonApiProvisionalLoadInMainFrame;
+    boolean hasStartedAnyProvisionalLoad() {
+        return mHasStartedAnyProvisionalLoad;
     }
 
     @Override
@@ -83,14 +81,6 @@ public class AwWebContentsObserver extends WebContentsObserver {
             String validatedUrl,
             boolean isErrorPage,
             boolean isIframeSrcdoc) {
-        if (!isMainFrame) return;
-        AwContents awContents = mAwContents.get();
-        if (awContents != null) {
-            NavigationEntry pendingEntry = awContents.getNavigationController().getPendingEntry();
-            if (pendingEntry != null
-                    && (pendingEntry.getTransition() & PageTransition.FROM_API) == 0) {
-                mStartedNonApiProvisionalLoadInMainFrame = true;
-            }
-        }
+        mHasStartedAnyProvisionalLoad = true;
     }
 }

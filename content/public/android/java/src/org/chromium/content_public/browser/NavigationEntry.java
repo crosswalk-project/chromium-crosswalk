@@ -17,20 +17,18 @@ public class NavigationEntry {
     private final String mVirtualUrl;
     private final String mTitle;
     private Bitmap mFavicon;
-    private int mTransition;
 
     /**
      * Default constructor.
      */
     public NavigationEntry(int index, String url, String virtualUrl, String originalUrl,
-            String title, Bitmap favicon, int transition) {
+            String title, Bitmap favicon) {
         mIndex = index;
         mUrl = url;
         mVirtualUrl = virtualUrl;
         mOriginalUrl = originalUrl;
         mTitle = title;
         mFavicon = favicon;
-        mTransition = transition;
     }
 
     /**
@@ -93,9 +91,5 @@ public class NavigationEntry {
      */
     public void updateFavicon(Bitmap favicon) {
         mFavicon = favicon;
-    }
-
-    public int getTransition() {
-        return mTransition;
     }
 }

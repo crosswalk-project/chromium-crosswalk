@@ -49,8 +49,7 @@ static base::android::ScopedJavaLocalRef<jobject> CreateJavaNavigationEntry(
       j_virtual_url.obj(),
       j_original_url.obj(),
       j_title.obj(),
-      j_bitmap.obj(),
-      entry->GetTransitionType());
+      j_bitmap.obj());
 }
 
 static void AddNavigationEntryToHistory(JNIEnv* env,
