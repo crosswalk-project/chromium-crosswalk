@@ -1531,8 +1531,7 @@ public class ContentViewCore
 
             if (newConfig.keyboard != Configuration.KEYBOARD_NOKEYS) {
                 if (mNativeContentViewCore != 0) {
-                    mImeAdapter.attach(nativeGetNativeImeAdapter(mNativeContentViewCore),
-                            TextInputType.NONE, 0 /* no flags */);
+                    mImeAdapter.attach(nativeGetNativeImeAdapter(mNativeContentViewCore));
                 }
                 mInputMethodManagerWrapper.restartInput(mContainerView);
             }
