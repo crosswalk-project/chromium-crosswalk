@@ -3066,7 +3066,8 @@ void RenderViewImpl::OnMediaPlayerActionAt(const gfx::Point& location,
 }
 
 void RenderViewImpl::OnOrientationChange() {
-  webview()->mainFrame()->toWebLocalFrame()->sendOrientationChangeEvent();
+  if (webview() && webview()->mainFrame()->isWebLocalFrame())
+    webview()->mainFrame()->toWebLocalFrame()->sendOrientationChangeEvent();
 }
 
 void RenderViewImpl::OnPluginActionAt(const gfx::Point& location,
