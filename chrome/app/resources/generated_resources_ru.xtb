@@ -2084,8 +2084,6 @@
 <translation id="6122081475643980456">С вашим интернет-соединением все не так просто</translation>
 <translation id="148466539719134488">Швейцарская</translation>
 <translation id="8022523925619404071">Включить автоматические обновления</translation>
-<translation id="6282110173841336854">Сканирование устройства...
-    Новых фото: <ph name="FILE_COUNT"/></translation>
 <translation id="6315493146179903667">Переместить все на передний план</translation>
 <translation id="1000498691615767391">Выберите папку</translation>
 <translation id="3831486154586836914">Активирован режим обзора.</translation>
@@ -2498,9 +2496,6 @@
 <translation id="6553850321211598163">Да</translation>
 <translation id="457386861538956877">Ещё...</translation>
 <translation id="9210991923655648139">Доступен для скрипта:</translation>
-<translation id="1681700948666601548">Новых фото: <ph name="FILE_COUNT"/>
-    &lt;br&gt;
-    Данные будут сохранены на <ph name="BEGIN_LINK"/>Google Диске<ph name="END_LINK"/></translation>
 <translation id="3898521660513055167">Статус токена</translation>
 <translation id="1950295184970569138">* Загрузка фотографии профиля Google</translation>
 <translation id="7939997691108949385">Менеджер сможет устанавливать ограничения и настройки для этого контролируемого профиля на странице <ph name="MANAGEMENT_URL"/>.</translation>
@@ -3230,7 +3225,7 @@
 <translation id="992032470292211616">Расширения, приложения и темы могут причинить вред вашему мобильному устройству. Продолжить?</translation>
 <translation id="6276301056778294989">Убедитесь, что на устройстве показан тот же код.</translation>
 <translation id="2665919335226618153">Произошла ошибка форматирования.</translation>
-<translation id="5687806278383548994">Предупреждать сжатии данных через прокси-сервер</translation>
+<translation id="5687806278383548994">Предупреждать о невозможности экономии трафика</translation>
 <translation id="5930693802084567591">Данные зашифрованы <ph name="TIME"/> с помощью пароля Google. Введите его в поле ниже.</translation>
 <translation id="4087089424473531098">Создано расширение:
 
@@ -3458,7 +3453,6 @@
         посетите эту страницу: <ph name="URL_FOR_MORE_INFO"/>.
         На ней можно ознакомиться с дополнительной информацией и узнать, как отключить блокировку.</translation>
 <translation id="7572787314531933228">Включить управляемые закладки для контролируемых профилей</translation>
-<translation id="5411769601840150972">Дата и время устанавливаются автоматически.</translation>
 <translation id="1747687775439512873">Отключить WiMAX</translation>
 <translation id="6691936601825168937">&amp;Вперед</translation>
 <translation id="6566142449942033617">Не удается загрузить &quot;<ph name="PLUGIN_PATH"/>&quot; для плагина.</translation>
@@ -3651,7 +3645,7 @@
 <translation id="6742189738814863494">Вы вошли как <ph name="USER_EMAIL_ADDRESS"/>. Управляйте синхронизированными данными и устройствами на странице <ph name="BEGIN_LINK"/>chrome.com/sync<ph name="END_LINK"/>.</translation>
 <translation id="6817358880000653228">Сохраненные пароли для этого сайта:</translation>
 <translation id="4613271546271159013">Одно из расширений изменило страницу, которая открывается в новой вкладке.</translation>
-<translation id="351152300840026870">Шрифт фиксированной ширины</translation>
+<translation id="351152300840026870">Моноширинный шрифт</translation>
 <translation id="4301786491084298653">Отключить в домене <ph name="DOMAIN"/></translation>
 <translation id="5827266244928330802">Safari</translation>
 <translation id="8669855045727723110">Скачано расширением <ph name="EXTENSION"/></translation>
@@ -3762,11 +3756,6 @@
 <translation id="1154228249304313899">Следующая страница:</translation>
 <translation id="1454223536435069390">С&amp;делать снимок экрана</translation>
 <translation id="6976108581241006975">Консоль JavaScript</translation>
-<translation id="413002533074232704">Найдено <ph name="FILE_COUNT"/> фото
-    &lt;br&gt;
-    На устройстве недостаточно места.
-    &lt;br&gt;
-    Попробуйте сначала импортировать часть снимков.</translation>
 <translation id="60357267506638014">Чешская (QWERTY)</translation>
 <translation id="2478176599153288112"><ph name="EXTENSION"/>: доступ к медиафайлам</translation>
 <translation id="3473479545200714844">Лупа</translation>
@@ -5450,7 +5439,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="930268624053534560">Подробные временные метки</translation>
 <translation id="1088086359088493902">Секунды</translation>
 <translation id="73289266812733869">Не выбрано</translation>
-<translation id="8863222671655378135">Использовать режим экономии трафика Lo-Fi (если доступно).</translation>
+<translation id="8863222671655378135">Использовать режим Lo-Fi, если включена экономия трафика.</translation>
 <translation id="8639963783467694461">Настройки автозаполнения</translation>
 <translation id="2951247061394563839">Разместить окно по центру</translation>
 <translation id="3435738964857648380">Безопасность</translation>
@@ -5627,7 +5616,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="2510708650472996893">Цветовая схема:</translation>
 <translation id="343467364461911375">Некоторые службы данных используют идентификаторы локальных компьютеров для управления доступом к защищенному содержанию.</translation>
 <translation id="5061708541166515394">Контрастность</translation>
-<translation id="2340201908900687462">Режим экономии трафика с предупреждениями об использовании. Необходимо предварительно включить прокси-сервер в настройках.</translation>
+<translation id="2340201908900687462">Режим экономии трафика с предупреждениями о невозможности использования. Нужно включить прокси-сервер в настройках.</translation>
 <translation id="3307950238492803740">Включить отладку для всех элементов</translation>
 <translation id="2087822576218954668">Печать: <ph name="PRINT_NAME"/></translation>
 <translation id="747459581954555080">Восстановить все</translation>

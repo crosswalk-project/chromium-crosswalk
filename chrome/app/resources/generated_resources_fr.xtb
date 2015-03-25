@@ -950,7 +950,7 @@ Tous les utilisateurs doivent se déconnecter pour continuer.</translation>
 <translation id="7879478708475862060">Suivre le mode de saisie</translation>
 <translation id="1042174272890264476">Votre ordinateur est fourni avec la bibliothèque RLZ de <ph name="SHORT_PRODUCT_NAME"/>. RLZ attribue un tag non unique (et qui n'identifie pas personnellement les internautes) afin de mesurer les recherches et l'utilisation de <ph name="SHORT_PRODUCT_NAME"/> générées par une campagne de promotion spécifique. Ces libellés s'affichent parfois dans les requêtes de recherche Google dans <ph name="PRODUCT_NAME"/>.</translation>
 <translation id="6339034549827494595">Clavier russe phonétique (AATSEEL)</translation>
-<translation id="5301954838959518834">J'ai compris</translation>
+<translation id="5301954838959518834">OK</translation>
 <translation id="4877017884043316611">Associer à Chromebox</translation>
 <translation id="348780365869651045">En attente du cache de l'application…</translation>
 <translation id="1609862759711084604">Utilisateur précédent</translation>
@@ -1565,7 +1565,7 @@ Calcul de la durée restante</translation>
 <translation id="3242765319725186192">Clé pré-partagée :</translation>
 <translation id="8249048954461686687">Dossier OEM</translation>
 <translation id="54870580363317966">Sélectionnez un avatar pour cet utilisateur supervisé.</translation>
-<translation id="2189826151768452760">Activer le mode Basse fidélité de Data Saver</translation>
+<translation id="2189826151768452760">Activer le mode Basse fidélité de l'économiseur de données</translation>
 <translation id="839736845446313156">S'inscrire</translation>
 <translation id="2660779039299703961">Événement</translation>
 <translation id="4249248555939881673">Connexion réseau en attente…</translation>
@@ -2094,8 +2094,6 @@ Une fois que vous avez créé un compte utilisateur supervisé, vous pouvez gér
 <translation id="6122081475643980456">Une extension a pris le contrôle de votre connexion Internet</translation>
 <translation id="148466539719134488">Suisse</translation>
 <translation id="8022523925619404071">Activer la mise à jour automatique</translation>
-<translation id="6282110173841336854">Analyse du périphérique multimédia en cours…
-    <ph name="FILE_COUNT"/> nouvelles photos trouvées.</translation>
 <translation id="6315493146179903667">Tout ramener au premier plan</translation>
 <translation id="1000498691615767391">Sélectionner le dossier à ouvrir</translation>
 <translation id="3831486154586836914">Mode de présentation de la fenêtre activé</translation>
@@ -2513,9 +2511,6 @@ Sinon, vous devrez en obtenir un nouveau d'un autre émetteur.</translation>
 <translation id="6553850321211598163">Oui, je lui fais confiance</translation>
 <translation id="457386861538956877">Autres...</translation>
 <translation id="9210991923655648139">Accessible aux scripts :</translation>
-<translation id="1681700948666601548"><ph name="FILE_COUNT"/> nouvelles photos trouvées.
-    &lt;br&gt;
-    Prêt pour la sauvegarde sur <ph name="BEGIN_LINK"/>Google Drive<ph name="END_LINK"/></translation>
 <translation id="3898521660513055167">État du jeton</translation>
 <translation id="1950295184970569138">* Photo du profil Google (chargement en cours)</translation>
 <translation id="7939997691108949385">Le gestionnaire pourra configurer les restrictions et les paramètres de l'utilisateur supervisé à l'adresse <ph name="MANAGEMENT_URL"/>.</translation>
@@ -3254,7 +3249,7 @@ Sinon, vous devrez en obtenir un nouveau d'un autre émetteur.</translation>
 <translation id="992032470292211616">Les extensions, les applications et les thèmes peuvent endommager votre appareil. Voulez-vous vraiment continuer ?</translation>
 <translation id="6276301056778294989">Assurez-vous que l'appareil affiche le même code.</translation>
 <translation id="2665919335226618153">Petit problème… Une erreur s'est produite lors du formatage.</translation>
-<translation id="5687806278383548994">Avertissements de contournement du proxy Data Saver</translation>
+<translation id="5687806278383548994">Avertissements de contournement du proxy de l'économiseur de données</translation>
 <translation id="5930693802084567591">Vos données ont été chiffrées avec votre mot de passe Google le <ph name="TIME"/>. Veuillez le saisir ci-dessous.</translation>
 <translation id="4087089424473531098">Extension créée :
 
@@ -3481,7 +3476,6 @@ Sinon, vous devrez en obtenir un nouveau d'un autre émetteur.</translation>
         Si vous pensez que ce comportement n'est pas souhaitable (si, par exemple, vous déboguez votre propre site Web), rendez-vous sur <ph name="URL_FOR_MORE_INFO"/>.
         Vous y trouverez davantage d'informations, y compris sur la manière de désactiver cette fonctionnalité.</translation>
 <translation id="7572787314531933228">Activer les favoris gérés pour les utilisateurs supervisés</translation>
-<translation id="5411769601840150972">La date et l'heure sont réglées automatiquement.</translation>
 <translation id="1747687775439512873">Désactiver WiMAX</translation>
 <translation id="6691936601825168937">&amp;Avancer</translation>
 <translation id="6566142449942033617">Impossible de charger &quot;<ph name="PLUGIN_PATH"/>&quot; pour le plug-in.</translation>
@@ -3786,11 +3780,6 @@ Sinon, vous devrez en obtenir un nouveau d'un autre émetteur.</translation>
 <translation id="1154228249304313899">Ouvrir cette page :</translation>
 <translation id="1454223536435069390">F&amp;aire une capture d'écran</translation>
 <translation id="6976108581241006975">Console JavaScript</translation>
-<translation id="413002533074232704"><ph name="FILE_COUNT"/> nouvelles photos trouvées.
-    &lt;br&gt;
-    Espace insuffisant sur l'appareil.
-    &lt;br&gt;
-    Veuillez sélectionner quelques photos pour commencer.</translation>
 <translation id="60357267506638014">QWERTY tchèque</translation>
 <translation id="2478176599153288112">Autorisations de fichier média pour &quot;<ph name="EXTENSION"/>&quot;</translation>
 <translation id="3473479545200714844">Loupe</translation>
@@ -4395,7 +4384,7 @@ Sinon, vous devrez en obtenir un nouveau d'un autre émetteur.</translation>
 <translation id="5613695965848159202">Authentification anonyme :</translation>
 <translation id="5159383109919732130"><ph name="BEGIN_BOLD"/>Ne retirez pas votre périphérique pour le moment !<ph name="END_BOLD"/>
        <ph name="LINE_BREAKS"/>
-       Si vous retirez votre périphérique pendant qu'il est utilisé, vous risquez de perdre des données. Veuillez attendre la fin de l'opération, puis éjecter le périphérique à l'aide de l'application Files.</translation>
+       Si vous retirez votre périphérique pendant qu'il est utilisé, vous risquez de perdre des données. Veuillez attendre la fin de l'opération, puis éjecter le périphérique à l'aide de l'application Fichiers.</translation>
 <translation id="3411172647261449857">Extension TLS</translation>
 <translation id="2326931316514688470">&amp;Actualiser l'application</translation>
 <translation id="7253521419891527137">&amp;En savoir plus</translation>
@@ -5476,7 +5465,7 @@ Pour poursuivre l'exploration, veuillez appuyer sur n'importe quelle touche.</tr
 <translation id="930268624053534560">Horodatage détaillé</translation>
 <translation id="1088086359088493902">Secondes</translation>
 <translation id="73289266812733869">Désélectionné</translation>
-<translation id="8863222671655378135">Active ou désactive le mode Basse fidélité de Data Saver.</translation>
+<translation id="8863222671655378135">Active ou désactive le mode Basse fidélité de l'économiseur de données</translation>
 <translation id="8639963783467694461">Paramètres de saisie automatique</translation>
 <translation id="2951247061394563839">Centrer la fenêtre</translation>
 <translation id="3435738964857648380">Sécurité</translation>
@@ -5653,7 +5642,7 @@ Acceptez-vous ?</translation>
 <translation id="2510708650472996893">Profil de couleurs :</translation>
 <translation id="343467364461911375">Certains services de contenu utilisent des identifiants machine pour vous identifier de façon unique dans le but d'autoriser l'accès au contenu protégé.</translation>
 <translation id="5061708541166515394">Contraste</translation>
-<translation id="2340201908900687462">Utiliser Data Saver avec les avertissements de contournement. Ce proxy doit être activé dans les paramètres pour que cet indicateur prenne effet.</translation>
+<translation id="2340201908900687462">Utiliser l'économiseur de données avec avertissements de contournement. Ce proxy doit être activé dans les paramètres pour que cet indicateur prenne effet.</translation>
 <translation id="3307950238492803740">Tout déboguer</translation>
 <translation id="2087822576218954668">Imprimer : <ph name="PRINT_NAME"/></translation>
 <translation id="747459581954555080">Tout restaurer</translation>

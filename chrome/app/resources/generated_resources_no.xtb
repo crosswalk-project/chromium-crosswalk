@@ -265,7 +265,7 @@
 <translation id="98515147261107953">Liggende</translation>
 <translation id="7334190995941642545">Smart Lock er for øyeblikket ikke tilgjengelig. Prøv igjen senere.</translation>
 <translation id="1303101771013849280">HTML-fil med bokmerker</translation>
-<translation id="8974161578568356045">Automatisk sporing</translation>
+<translation id="8974161578568356045">Oppdag automatisk</translation>
 <translation id="1549045574060481141">Bekreft nedlastingen</translation>
 <translation id="5388588172257446328">Brukernavn:</translation>
 <translation id="1657406563541664238">Bidra til å gjøre <ph name="PRODUCT_NAME"/> bedre ved å sende brukerstatistikk og programstopprapporter til Google automatisk</translation>
@@ -1597,7 +1597,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="6830600606572693159">Nettsiden på <ph name="URL"/> er for tiden utilgjengelig. Den kan være overbelastet eller under vedlikehold.</translation>
 <translation id="4623525071606576283">Sider som ikke lastes inn mens nettleseren er uten nett blir automatisk lastet inn på nytt når nettleseren er på nett igjen.</translation>
 <translation id="6853388645642883916">Oppdatereringsprogrammet er i hvilemodus</translation>
-<translation id="5299109548848736476">Deaktivering av sporing</translation>
+<translation id="5299109548848736476">Ikke spor</translation>
 <translation id="4421932782753506458">Pus</translation>
 <translation id="6051086608691487286">Rullefelt for overlegg</translation>
 <translation id="6132509723755265994">Google Wallet støttes ikke med denne selgeren.</translation>
@@ -2078,8 +2078,6 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
 <translation id="6122081475643980456">Internett-tilkoblingen din kontrolleres</translation>
 <translation id="148466539719134488">Sveitsisk</translation>
 <translation id="8022523925619404071">Slå på automatisk oppdatering</translation>
-<translation id="6282110173841336854">Skanner medieenheten din ...
-    <ph name="FILE_COUNT"/> nye bilder ble funnet</translation>
 <translation id="6315493146179903667">Legg alle i forgrunnen</translation>
 <translation id="1000498691615767391">Velg en mappe du vil åpne</translation>
 <translation id="3831486154586836914">Du er i modusen for vindusoversikt</translation>
@@ -2253,7 +2251,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="5605716740717446121">SIM-kortet ditt blir permanent deaktivert hvis du ikke angir riktig opplåsingskode. Antall gjenværende forsøk: <ph name="TRIES_COUNT"/></translation>
 <translation id="4544744325790288581">Bruk en eksperimentell versjon av proxy-tjeneren for datareduksjon. Proxy-tjeneren må være aktivert i innstillingene for at dette flagget skal gjelde.</translation>
 <translation id="5502500733115278303">Importert fra Firefox</translation>
-<translation id="569109051430110155">Automatisk sporing</translation>
+<translation id="569109051430110155">Oppdag automatisk</translation>
 <translation id="8597845839771543242">Områdeformat:</translation>
 <translation id="4408599188496843485">H&amp;jelp</translation>
 <translation id="7969525169268594403">Slovensk</translation>
@@ -2495,9 +2493,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="6553850321211598163">Ja, jeg stoler på den.</translation>
 <translation id="457386861538956877">Mer</translation>
 <translation id="9210991923655648139">Tilgjengelig for skript:</translation>
-<translation id="1681700948666601548"><ph name="FILE_COUNT"/> nye bilder ble funnet
-    &lt;br&gt;
-    Klar til å sikkerhetskopiere til <ph name="BEGIN_LINK"/>Google Disk<ph name="END_LINK"/></translation>
 <translation id="3898521660513055167">Tokenstatus</translation>
 <translation id="1950295184970569138">*Google-profilbilde (laster inn)</translation>
 <translation id="7939997691108949385">Administratoren kan konfigurere begrensninger og innstillinger for denne administrerte brukeren på <ph name="MANAGEMENT_URL"/>.</translation>
@@ -3231,7 +3226,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="992032470292211616">Utvidelser, apper og temaer kan skade enheten din. Er du sikker på at du vil fortsette?</translation>
 <translation id="6276301056778294989">Kontrollér at enheten viser den samme koden.</translation>
 <translation id="2665919335226618153">Å nei! Det oppsto en feil under formateringen.</translation>
-<translation id="5687806278383548994">Advarsler for forbigåelse av proxy-tjeneren for Datasparing</translation>
+<translation id="5687806278383548994">Advarsler om forbigåelse av proxy-tjeneren for Datasparing</translation>
 <translation id="5930693802084567591">Dataene dine ble kryptert med Google-passordet fra <ph name="TIME"/>. Skriv det inn nedenfor.</translation>
 <translation id="4087089424473531098">Opprettet utvidelsen:
 
@@ -3458,7 +3453,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
         gå til <ph name="URL_FOR_MORE_INFO"/>.
         Der kan du finne mer informasjon om blant annet hvordan du deaktiverer funksjonen.</translation>
 <translation id="7572787314531933228">Slå på administrerte bokmerker for administrerte brukere</translation>
-<translation id="5411769601840150972">Dato og klokkeslett blir angitt automatisk.</translation>
 <translation id="1747687775439512873">Deaktiver WiMAX</translation>
 <translation id="6691936601825168937">&amp;Frem</translation>
 <translation id="6566142449942033617">Kan ikke laste inn «<ph name="PLUGIN_PATH"/>» for programtillegg.</translation>
@@ -3760,11 +3754,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="1154228249304313899">Åpne denne siden:</translation>
 <translation id="1454223536435069390">Ta en skjermdump</translation>
 <translation id="6976108581241006975">JavaScript-konsoll</translation>
-<translation id="413002533074232704"><ph name="FILE_COUNT"/> nye bilder ble funnet
-    &lt;br&gt;
-    Det er ikke nok ledig plass på enheten.
-    &lt;br&gt;
-    Prøv å velge noen få bilder til å begynne med.</translation>
 <translation id="60357267506638014">Tsjekkisk QWERTY</translation>
 <translation id="2478176599153288112">Mediafilrettigheter for «<ph name="EXTENSION"/>»</translation>
 <translation id="3473479545200714844">Skjermforstørrer</translation>
@@ -4292,7 +4281,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="6898440773573063262">Nå kan kioskapper konfigureres til å starte automatisk på denne enheten.</translation>
 <translation id="1813278315230285598">Tjenester</translation>
 <translation id="88986195241502842">Ned én side</translation>
-<translation id="6860097299815761905">Mellomtjenerinnstillinger</translation>
+<translation id="6860097299815761905">Innstillinger for proxy-tjener</translation>
 <translation id="3672159315667503033"><ph name="URL"/> ønsker permanent å lagre data lokalt på datamaskinen din.</translation>
 <translation id="373572798843615002">1 fane</translation>
 <translation id="6190185222845843088">Bruk prosessisoleringstjenere for Wallet</translation>
@@ -4360,7 +4349,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="4701488924964507374"><ph name="SENTENCE1"/> <ph name="SENTENCE2"/></translation>
 <translation id="1163931534039071049">&amp;Vis rammekilde</translation>
 <translation id="8770196827482281187">Inndatametode for persisk (ISIRI 2901-oppsettet)</translation>
-<translation id="6423239382391657905">Åpent VPN</translation>
+<translation id="6423239382391657905">OpenVPN</translation>
 <translation id="5642953011762033339">Koble fra konto</translation>
 <translation id="7564847347806291057">Avslutt prosessen</translation>
 <translation id="7847212883280406910">Trykk på Ctrl+Alt+S for å bytte til <ph name="IDS_SHORT_PRODUCT_OS_NAME"/></translation>
@@ -5623,7 +5612,7 @@ Vil du godta dette?</translation>
 <translation id="2510708650472996893">Fargeprofil:</translation>
 <translation id="343467364461911375">Noen innholdstjenester bruker maskinidentifikatorer for å identifisere deg før du får tilgang til beskyttet innhold.</translation>
 <translation id="5061708541166515394">Kontrast</translation>
-<translation id="2340201908900687462">Bruk Datasparing med forbigåelse av advarsler. Proxy-tjeneren må være slått på i innstillingene for at dette flagget skal gjelde.</translation>
+<translation id="2340201908900687462">Bruk Datasparing med advarsler om forbigåelse. Proxy-tjeneren må være slått på i innstillingene for at dette flagget skal gjelde.</translation>
 <translation id="3307950238492803740">Feilsøk alt.</translation>
 <translation id="2087822576218954668">Skriv ut: <ph name="PRINT_NAME"/></translation>
 <translation id="747459581954555080">Gjenopprett alt</translation>

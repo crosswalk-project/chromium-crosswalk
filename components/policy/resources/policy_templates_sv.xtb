@@ -1,6 +1,6 @@
 <?xml version="1.0" ?><!DOCTYPE translationbundle><translationbundle lang="sv">
 <translation id="1503959756075098984">Tilläggs-ID:n och uppdateringsadresser ska installeras obemärkt</translation>
-<translation id="793134539373873765">Anger om p2p ska användas för uppdateringar av betalningar i operativsystemet. Om policyn är inställd på Sant kommer enheterna att dela och försöka använda uppdateringar av betalningar i det lokala nätverket och eventuellt reducera användningen av bandbredd och överbelastning. Om uppdateringar av betalningar inte är tillgängliga i det lokala nätverket kommer enheten att återgå till att hämtning från en uppdateringsserver. Om policyn är inställd på Falskt eller inte konfigurerad kommer p2p inte att användas.</translation>
+<translation id="793134539373873765">Anger om p2p ska användas för uppdateringar av betalningar i operativsystemet. Om policyn är inställd på Sant kommer enheterna att dela och försöka använda uppdateringar av betalningar i det lokala nätverket och eventuellt reducera användningen av bandbredd och överbelastning. Om uppdateringar av betalningar inte är tillgängliga i det lokala nätverket kommer enheten att återgå till att ladda ned från en uppdateringsserver. Om policyn är inställd på Falskt eller inte konfigurerad kommer p2p inte att användas.</translation>
 <translation id="2463365186486772703">Appens språkversion</translation>
 <translation id="1397855852561539316">Standardsökleverantörens förslagsadress</translation>
 <translation id="3347897589415241400">Standardinställningen för webbplatser som inte har något innehållspaket.
@@ -93,7 +93,7 @@
         &quot;type&quot;: &quot;object&quot;,
         &quot;properties&quot;: {
           &quot;url&quot;: {
-            &quot;description&quot;: &quot;Den webbadress som bilden ska hämtas från.&quot;,
+            &quot;description&quot;: &quot;Den webbadress som bilden ska laddas ned från.&quot;,
             &quot;type&quot;: &quot;string&quot;
           },
           &quot;hash&quot;: {
@@ -473,7 +473,7 @@
 <translation id="838870586332499308">Aktivera dataroaming</translation>
 <translation id="2292084646366244343"><ph name="PRODUCT_NAME"/> kan använda en webbtjänst från Google för att åtgärda stavfel. Om inställningen aktiveras används alltid den här tjänsten. Om den inaktiveras används tjänsten aldrig.
 
-      Du kan fortfarande göra en stavningskontroll med hjälp av en ordlista som du hämtar. Policyn styr endast användningen av onlinetjänsten.
+      Du kan fortfarande göra en stavningskontroll med hjälp av en ordlista som du laddar ned. Policyn styr endast användningen av onlinetjänsten.
 
       Om den här inställningen inte konfigureras kan användare välja om de vill använda stavningskontrollen eller inte.</translation>
 <translation id="8782750230688364867">Anger den procentsats med vilken fördröjningen av skärmdämpningen skalanpassas när enheten är i presentationsläge.
@@ -691,7 +691,7 @@
 <translation id="253135976343875019">Inaktivitetstid när enheten är ansluten till elnätet</translation>
 <translation id="480987484799365700">Om den här policyn är aktiverad tvingas profilen till kortlivat läge. Om policyn anges som en OS-policy (t.ex. GPO i Windows) gäller den för alla profiler i systemet. Om policyn ställs in som en molnpolicy gäller den bara för en profil som är inloggad med ett hanterat konto.
 
-      I det här läget sparas profildata bara på hårddisken under användarsessionen. Funktioner som webbhistorik, webbläsartillägg och webbläsardata, webbdata som cookies och webbdatabaser sparas inte när webbläsaren stängs. Detta förhindrar dock inte att användaren hämtar data till disken manuellt, sparar sidor eller skriver ut dem.
+      I det här läget sparas profildata bara på hårddisken under användarsessionen. Funktioner som webbhistorik, webbläsartillägg och webbläsardata, webbdata som cookies och webbdatabaser sparas inte när webbläsaren stängs. Detta förhindrar dock inte att användaren laddar ned data till disken manuellt, sparar sidor eller skriver ut dem.
 
       Om användaren har aktiverad synkronisering sparas all data i hans eller hennes synkprofil precis som för vanliga profiler. Inkognitoläge är också tillgängligt om det inte har inaktiverats explicit av en policy.
 
@@ -1428,7 +1428,7 @@
 <translation id="1675002386741412210">Stöds av:</translation>
 <translation id="1608755754295374538">Webbadresser som ska ges tillgång till ljudinspelningsenheter utan meddelande</translation>
 <translation id="3547954654003013442">Proxyinställningar</translation>
-<translation id="5921713479449475707">Tillåt hämtningar av automatiska uppdateringar via HTTP</translation>
+<translation id="5921713479449475707">Tillåt nedladdning av automatiska uppdateringar via HTTP</translation>
 <translation id="4482640907922304445">Policyn visar knappen Startsida i verktygsfältet i <ph name="PRODUCT_NAME"/>.
 
       Om du aktiverar inställningen visas alltid knappen Startsida.
@@ -1742,7 +1742,7 @@
       Avgör ID för det tillägg som ska användas som skärmsläckare på inloggningsskärmen. Tillägget måste finnas i det AppPack som är konfigurerat för domänen i policyn DeviceAppPack.</translation>
 <translation id="1796466452925192872">Här kan du ange med vilka webbadresser det ska vara tillåtet att installera tillägg, program och teman.
 
-          Från och med Chrome 21 är det svårare att installera tillägg, appar och användarskript utanför Chrome Web Store. Tidigare kunde användare klicka på en länk till en *.CRX-fil och sedan installera filen via Chrome efter att några varningar visades. Efter Chrome 21 måste sådana filer hämtas och dras till Chromes inställningssida. Med den här inställningen kan du göra det möjligt för särskilda webbadresser att använda det äldre och enklare installationsflödet.
+          Från och med Chrome 21 är det svårare att installera tillägg, appar och användarskript utanför Chrome Web Store. Tidigare kunde användare klicka på en länk till en *.CRX-fil och sedan installera filen via Chrome efter att några varningar visades. Efter Chrome 21 måste sådana filer laddas ned och dras till Chromes inställningssida. Med den här inställningen kan du göra det möjligt för särskilda webbadresser att använda det äldre och enklare installationsflödet.
 
           Varje objekt i listan motsvarar en matchning i form av ett tillägg (se http://code.google.com/chrome/extensions/match_patterns.html). Användarna kan enkelt installera objekt från alla webbadresser som matchar ett objekt i listan.
 
