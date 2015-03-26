@@ -1505,7 +1505,7 @@ bool RenderProcessHostImpl::OnMessageReceived(const IPC::Message& msg) {
       IPC_MESSAGE_HANDLER(ChildProcessHostMsg_DumpHandlesDone,
                           OnDumpHandlesDone)
       IPC_MESSAGE_HANDLER(ViewHostMsg_SuddenTerminationChanged,
-                          SuddenTerminationChanged)
+                          OnSuddenTerminationChanged)
       IPC_MESSAGE_HANDLER(ViewHostMsg_UserMetricsRecordAction,
                           OnUserMetricsRecordAction)
       IPC_MESSAGE_HANDLER(ViewHostMsg_SavedPageAsMHTML, OnSavedPageAsMHTML)
@@ -1668,10 +1668,6 @@ void RenderProcessHostImpl::AddPendingView() {
 void RenderProcessHostImpl::RemovePendingView() {
   DCHECK(pending_views_);
   pending_views_--;
-}
-
-void RenderProcessHostImpl::SetSuddenTerminationAllowed(bool enabled) {
-  sudden_termination_allowed_ = enabled;
 }
 
 bool RenderProcessHostImpl::SuddenTerminationAllowed() const {
@@ -2180,8 +2176,8 @@ void RenderProcessHostImpl::OnShutdownRequest() {
   Send(new ChildProcessMsg_Shutdown());
 }
 
-void RenderProcessHostImpl::SuddenTerminationChanged(bool enabled) {
-  SetSuddenTerminationAllowed(enabled);
+void RenderProcessHostImpl::OnSuddenTerminationChanged(bool enabled) {
+  sudden_termination_allowed_ = enabled;
 }
 
 void RenderProcessHostImpl::OnDumpHandlesDone() {
