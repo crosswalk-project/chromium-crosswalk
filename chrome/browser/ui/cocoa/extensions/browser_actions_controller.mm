@@ -460,7 +460,7 @@ void ToolbarActionsBarBridge::OnOverflowedActionWantsToRunChanged(
              name:kBrowserActionButtonDraggingNotification
            object:newButton];
 
-  [containerView_ setMaxWidth:toolbarActionsBar_->GetMaximumWidth()];
+  [containerView_ setMaxDesiredWidth:toolbarActionsBar_->GetMaximumWidth()];
 }
 
 - (void)redraw {
@@ -515,7 +515,7 @@ void ToolbarActionsBarBridge::OnOverflowedActionWantsToRunChanged(
   [button onRemoved];
   [buttons_ removeObject:button];
 
-  [containerView_ setMaxWidth:toolbarActionsBar_->GetMaximumWidth()];
+  [containerView_ setMaxDesiredWidth:toolbarActionsBar_->GetMaximumWidth()];
 }
 
 - (void)removeAllViews {
