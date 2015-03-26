@@ -144,9 +144,6 @@ RenderFrameHostImpl::RenderFrameHostImpl(SiteInstance* site_instance,
       routing_id_(routing_id),
       render_frame_created_(false),
       navigations_suspended_(false),
-      has_beforeunload_handlers_(false),
-      has_unload_handlers_(false),
-      override_sudden_termination_status_(false),
       is_waiting_for_beforeunload_ack_(false),
       unload_ack_is_for_navigation_(false),
       accessibility_reset_token_(0),
@@ -351,10 +348,6 @@ bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
     IPC_MESSAGE_HANDLER(FrameHostMsg_DocumentOnLoadCompleted,
                         OnDocumentOnLoadCompleted)
     IPC_MESSAGE_HANDLER(FrameHostMsg_BeforeUnload_ACK, OnBeforeUnloadACK)
-    IPC_MESSAGE_HANDLER(FrameHostMsg_BeforeUnloadHandlersPresent,
-                        OnBeforeUnloadHandlersPresent)
-    IPC_MESSAGE_HANDLER(FrameHostMsg_UnloadHandlersPresent,
-                        OnUnloadHandlersPresent)
     IPC_MESSAGE_HANDLER(FrameHostMsg_SwapOut_ACK, OnSwapOutACK)
     IPC_MESSAGE_HANDLER(FrameHostMsg_ContextMenu, OnContextMenu)
     IPC_MESSAGE_HANDLER(FrameHostMsg_JavaScriptExecuteResponse,
@@ -1032,11 +1025,6 @@ bool RenderFrameHostImpl::IsWaitingForUnloadACK() const {
       rfh_state_ == STATE_PENDING_SWAP_OUT;
 }
 
-bool RenderFrameHostImpl::SuddenTerminationAllowed() const {
-  return override_sudden_termination_status_ ||
-      (!has_beforeunload_handlers_ && !has_unload_handlers_);
-}
-
 void RenderFrameHostImpl::OnSwapOutACK() {
   OnSwappedOut();
 }
@@ -1341,14 +1329,6 @@ void RenderFrameHostImpl::OnToggleFullscreen(bool enter_fullscreen) {
   // The previous call might change the fullscreen state. We need to make sure
   // the renderer is aware of that, which is done via the resize message.
   render_view_host_->WasResized();
-}
-
-void RenderFrameHostImpl::OnBeforeUnloadHandlersPresent(bool present) {
-  has_beforeunload_handlers_ = present;
-}
-
-void RenderFrameHostImpl::OnUnloadHandlersPresent(bool present) {
-  has_unload_handlers_ = present;
 }
 
 #if defined(OS_MACOSX) || defined(OS_ANDROID)
