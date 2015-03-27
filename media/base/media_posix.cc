@@ -6,9 +6,11 @@
 
 #include <string>
 
+#include "base/command_line.h"
 #include "base/files/file_path.h"
 #include "base/logging.h"
 #include "base/strings/stringize_macros.h"
+#include "content/public/common/content_switches.h"
 #include "media/ffmpeg/ffmpeg_common.h"
 #include "third_party/ffmpeg/ffmpeg_stubs.h"
 
@@ -49,7 +51,18 @@ bool InitializeMediaLibraryInternal(const base::FilePath& module_dir) {
 
   // First try to initialize with Chrome's sumo library.
   DCHECK_EQ(kNumStubModules, 1);
-  paths[kModuleFfmpegsumo].push_back(module_dir.Append(kSumoLib).value());
+
+  std::string path = module_dir.Append(kSumoLib).value();
+#if defined(OS_LINUX)
+  base::CommandLine* command_line = base::CommandLine::ForCurrentProcess();
+  if (command_line->HasSwitch(switches::kProprietaryCodecLibPath) &&
+      PathExists(base::FilePath(command_line->GetSwitchValueASCII(
+          switches::kProprietaryCodecLibPath)))) {
+    path =
+        command_line->GetSwitchValueASCII(switches::kProprietaryCodecLibPath);
+  }
+#endif
+  paths[kModuleFfmpegsumo].push_back(path);
 
   // If that fails, see if any system libraries are available.
   paths[kModuleFfmpegsumo].push_back(module_dir.Append(
