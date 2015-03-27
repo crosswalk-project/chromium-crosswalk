@@ -596,6 +596,8 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
 
   SyncedScrollOffset* synced_scroll_offset() { return scroll_offset_.get(); }
 
+  virtual gfx::Rect GetEnclosingRectInTargetSpace() const;
+
  protected:
   LayerImpl(LayerTreeImpl* layer_impl,
             int id,
@@ -621,6 +623,8 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
 
   // Note carefully this does not affect the current layer.
   void NoteLayerPropertyChangedForDescendants();
+
+  gfx::Rect GetScaledEnclosingRectInTargetSpace(float scale) const;
 
  private:
   void PushScrollOffset(const gfx::ScrollOffset* scroll_offset);
