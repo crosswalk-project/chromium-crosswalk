@@ -137,6 +137,7 @@ void ZygoteHostImpl::Init(const std::string& sandbox_cmd) {
     switches::kLoggingLevel,
     switches::kNoSandbox,
     switches::kPpapiInProcess,
+    switches::kProprietaryCodecLibPath,
     switches::kRegisterPepperPlugins,
     switches::kV,
     switches::kVModule,
