@@ -471,13 +471,6 @@ IPC_SYNC_MESSAGE_CONTROL1_3(
 #endif
 
 #if defined(ENABLE_PLUGIN_INSTALLATION)
-// Tells the browser to search for a plug-in that can handle the given MIME
-// type. The result will be sent asynchronously to the routing ID
-// |placeholder_id|.
-IPC_MESSAGE_ROUTED2(ChromeViewHostMsg_FindMissingPlugin,
-                    int /* placeholder_id */,
-                    std::string /* mime_type */)
-
 // Notifies the browser that a missing plug-in placeholder has been removed, so
 // the corresponding PluginPlaceholderHost can be deleted.
 IPC_MESSAGE_ROUTED1(ChromeViewHostMsg_RemovePluginPlaceholderHost,
