@@ -28,12 +28,17 @@ ConstrainedWindowMac::ConstrainedWindowMac(
       sheet_([sheet retain]),
       shown_(false) {
   DCHECK(web_contents);
-  extensions::GuestViewBase* guest_view =
-      extensions::GuestViewBase::FromWebContents(web_contents);
-  // For embedded WebContents, use the embedder's WebContents for constrained
-  // window.
-  web_contents_ = guest_view && guest_view->embedder_web_contents() ?
-                      guest_view->embedder_web_contents() : web_contents;
+
+  // |web_contents| may be embedded within a chain of nested GuestViews. If it
+  // is, follow the chain of embedders to the outermost WebContents and use it.
+  while (extensions::GuestViewBase* guest_view =
+             extensions::GuestViewBase::FromWebContents(web_contents)) {
+    if (!guest_view->embedder_web_contents())
+      break;
+    web_contents = guest_view->embedder_web_contents();
+  }
+  web_contents_ = web_contents;
+
   DCHECK(sheet_.get());
   web_modal::PopupManager* popup_manager =
       web_modal::PopupManager::FromWebContents(web_contents_);
