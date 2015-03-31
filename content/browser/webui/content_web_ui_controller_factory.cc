@@ -14,6 +14,9 @@
 #include "content/public/browser/web_contents.h"
 #include "content/public/browser/web_ui.h"
 #include "content/public/common/url_constants.h"
+#if defined(USE_AURA) && defined(OS_LINUX)
+#include "xwalk/runtime/browser/ui/webui/file_picker/file_picker_ui.h"
+#endif
 
 #if defined(ENABLE_WEBRTC)
 #include "content/browser/media/webrtc_internals_ui.h"
@@ -26,6 +29,9 @@ WebUI::TypeID ContentWebUIControllerFactory::GetWebUIType(
   if (url.host() == kChromeUIWebRTCInternalsHost ||
 #if !defined(OS_ANDROID)
       url.host() == kChromeUITracingHost ||
+#endif
+#if defined(USE_AURA) && defined(OS_LINUX)
+	  url.host() == kChromeUIFilePickerHost ||
 #endif
       url.host() == kChromeUIGpuHost ||
       url.host() == kChromeUIIndexedDBInternalsHost ||
@@ -62,6 +68,10 @@ WebUIController* ContentWebUIControllerFactory::CreateWebUIControllerForURL(
 #if !defined(OS_ANDROID)
   if (url.host() == kChromeUITracingHost)
     return new TracingUI(web_ui);
+#endif
+#if defined(USE_AURA) && defined(OS_LINUX)
+  if (url.host() == kChromeUIFilePickerHost)
+    return new ui::FilePickerUI(web_ui);
 #endif
 
 #if defined(ENABLE_WEBRTC)
