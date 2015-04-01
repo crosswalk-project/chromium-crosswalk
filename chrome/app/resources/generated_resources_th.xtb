@@ -2591,6 +2591,7 @@
 <translation id="3786301125658655746">คุณออฟไลน์อยู่</translation>
 <translation id="5659593005791499971">อีเมล</translation>
 <translation id="5978264784700053212">ศูนย์ข้อความ</translation>
+<translation id="7609816802059518759">เปิดใช้การตรวจหาบัญชีย่อยเมื่อลงชื่อเข้าใช้และเริ่มต้นใช้งาน รวมถึงเป็นระยะๆ</translation>
 <translation id="6584878029876017575">การรับรองตลอดชีพของ Microsoft</translation>
 <translation id="562901740552630300">ไปที่
           <ph name="BEGIN_BOLD"/>
@@ -3286,6 +3287,9 @@
 <translation id="4788968718241181184">วิธีป้อนข้อมูลภาษาเวียดนาม (TCVN6064)</translation>
 <translation id="3254409185687681395">บุ๊กมาร์กหน้านี้</translation>
 <translation id="5694501201003948907">กำลังซิป $1 รายการ...</translation>
+<translation id="3815571115159309122">พบรูปภาพใหม่ <ph name="FILE_COUNT"/> ภาพ
+    <ph name="LINE_BREAK1"/>
+    พร้อมสำรองข้อมูลไปยัง <ph name="BEGIN_LINK"/>Google ไดรฟ์<ph name="END_LINK"/></translation>
 <translation id="2677924368525077324">เปิดใช้งานการแก้ไขข้อความแบบการแตะ</translation>
 <translation id="283669119850230892">หากต้องการใช้เครือข่าย <ph name="NETWORK_ID"/> ก่อนอื่น ให้เชื่อมต่ออินเทอร์เน็ตตามด้านล่างนี้</translation>
 <translation id="7513996269498582533">ตรวจหาโดยคุณ</translation>
@@ -3380,6 +3384,11 @@
 <translation id="6042308850641462728">เพิ่มเติม</translation>
 <translation id="1408789165795197664">ขั้นสูง...</translation>
 <translation id="1650709179466243265">เพิ่ม www. และ .com และเปิดที่อยู่</translation>
+<translation id="2391243203977115091">พบรูปภาพใหม่ <ph name="FILE_COUNT"/> ภาพ
+    <ph name="LINE_BREAK1"/>
+    พื้นที่บนอุปกรณ์ไม่เพียงพอ
+    <ph name="LINE_BREAK2"/>
+    ลองเลือกรูปภาพจำนวนน้อยลงเพื่อเริ่มต้น</translation>
 <translation id="3700834376805760154"><ph name="ORGANIZATION"/> ที่ <ph name="LOCALITY"/> ได้รับการยืนยันตัวตนโดย <ph name="ISSUER"/> และสามารถตรวจสอบได้แบบสาธารณะ</translation>
 <translation id="4416628180566102937">ลงทะเบียนและรีสตาร์ท</translation>
 <translation id="4623537843784569564">ส่วนขยายนี้อาจมีการอัปเดตที่ไม่ถูกต้อง โปรดลองติดตั้งใหม่</translation>
@@ -3622,6 +3631,7 @@
 <translation id="9066075624350113914">ไม่สามารถแสดงบางส่วนของเอกสาร PDF นี้</translation>
 <translation id="3187212781151025377">แป้นพิมพ์ภาษาฮิบรู</translation>
 <translation id="4690462567478992370">หยุดใช้ใบรับรองที่ไม่ถูกต้อง</translation>
+<translation id="7421446779945496135">เปิดใช้การตรวจหาบัญชีย่อย</translation>
 <translation id="1142012852508714031">ชื่อโปรไฟล์</translation>
 <translation id="6325191661371220117">ปิดใช้งานการเรียกใช้อัตโนมัติ</translation>
 <translation id="6742189738814863494">ลงชื่อเข้าใช้ด้วย <ph name="USER_EMAIL_ADDRESS"/> แล้ว จัดการข้อมูลและอุปกรณ์ที่ซิงค์ได้บน <ph name="BEGIN_LINK"/>chrome.com/sync<ph name="END_LINK"/></translation>
@@ -4605,6 +4615,9 @@
 <translation id="8156020606310233796">แสดงรายการมุมมอง</translation>
 <translation id="146000042969587795">เฟรมนี้ถูกป้องกันเนื่องจากมีเนื้อหาบางอย่างที่ไม่ปลอดภัย</translation>
 <translation id="3258924582848461629">วิธีป้อนข้อมูลลายมือเขียนสำหรับภาษาญี่ปุ่น</translation>
+<translation id="4315548163539304064">กำลังสแกนอุปกรณ์สื่อ...
+    <ph name="LINE_BREAK1"/>
+    พบรูปภาพใหม่ <ph name="FILE_COUNT"/> ภาพ</translation>
 <translation id="8426564434439698958">&amp;ค้นหาภาพนี้ใน <ph name="SEARCH_ENGINE"/></translation>
 <translation id="4375035964737468845">เปิดไฟล์ที่ดาวน์โหลดมา</translation>
 <translation id="3968739731834770921">คะนะ</translation>
@@ -4728,6 +4741,7 @@
 <translation id="140520891692800925"><ph name="PROFILE_DISPLAY_NAME"/> (อยู่ภายใต้การดูแล)</translation>
 <translation id="9149866541089851383">แก้ไข...</translation>
 <translation id="8735794438432839558">โปรดเชื่อมต่ออินเทอร์เน็ตเพื่อลงชื่อเข้าใช้ Chromebook</translation>
+<translation id="2194802420977819330">ตัวอย่างเช่น เกิดข้อขัดข้อง แสดงหน้าเริ่มต้นใช้งานหรือแถบเครื่องมือที่ผิดปกติ โฆษณาที่ไม่คาดคิดที่คุณไม่สามารถกำจัดออกไปได้ หรือประสบการณ์ท่องเว็บของคุณเปลี่ยนแปลงไป คุณอาจสามารถซ่อมแซมปัญหาโดยเรียกใช้เครื่องมือการนำซอฟต์แวร์ออก</translation>
 <translation id="7939412583708276221">เก็บเอาไว้ ไม่ว่าอย่างไรก็ตาม</translation>
 <translation id="8579285237314169903">กำลังซิงค์ <ph name="NUMBER_OF_FILES"/> รายการ...</translation>
 <translation id="8140778357236808512">นำเข้าผู้ใช้ภายใต้การดูแลที่มีอยู่</translation>

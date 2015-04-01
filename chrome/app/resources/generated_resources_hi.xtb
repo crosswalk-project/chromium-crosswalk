@@ -2286,7 +2286,7 @@
 <translation id="7885253890047913815">हाल ही के गंतव्य</translation>
 <translation id="3646789916214779970">सामान्य थीम पर रीसेट करें</translation>
 <translation id="604001903249547235">क्‍लाउड बैकअप</translation>
-<translation id="9220525904950070496">खाता निकालें</translation>
+<translation id="9220525904950070496">खाता हटाएं</translation>
 <translation id="151922265591345427">1024</translation>
 <translation id="3039828483675273919">$1 आइटम ले जाए जा रहे हैं...</translation>
 <translation id="7816949580378764503">पहचान सत्यापित की गई</translation>
@@ -2623,6 +2623,7 @@
 <translation id="3786301125658655746">आप ऑफ़लाइन हैं</translation>
 <translation id="5659593005791499971">ईमेल</translation>
 <translation id="5978264784700053212">संदेश केंद्र</translation>
+<translation id="7609816802059518759">प्रवेश और स्‍टार्टअप के साथ ही समय-समय पर चाइल्‍ड खातों को पहचानना सक्षम करें.</translation>
 <translation id="6584878029876017575">Microsoft Lifetime Signing</translation>
 <translation id="562901740552630300">          <ph name="BEGIN_BOLD"/>
           Start &gt; Control Panel &gt; Network and Internet &gt; Network and Sharing Center &gt; Troubleshoot Problems (at the bottom) &gt; Internet Connections
@@ -3340,6 +3341,9 @@
 <translation id="4788968718241181184">वियतनामी इनपुट पद्धति (TCVN6064)</translation>
 <translation id="3254409185687681395">इस पृष्ठ को बुकमार्क करें</translation>
 <translation id="5694501201003948907">$1 आइटम ज़िप कर रहा है.</translation>
+<translation id="3815571115159309122"><ph name="FILE_COUNT"/> नई फ़ोटो मिलीं
+    <ph name="LINE_BREAK1"/>
+    <ph name="BEGIN_LINK"/>Google डिस्‍क<ph name="END_LINK"/> पर बैक अप लेने के लिए तैयार</translation>
 <translation id="2677924368525077324">स्पर्श आधारित लेख संपादन सक्षम करें</translation>
 <translation id="283669119850230892">नेटवर्क <ph name="NETWORK_ID"/> का उपयोग करने के लिए, सबसे पहले नीचे इंटरनेट से अपना कनेक्‍शन पूर्ण करें.</translation>
 <translation id="7513996269498582533">आपके द्वारा पता लगाया गया</translation>
@@ -3434,6 +3438,11 @@
 <translation id="6042308850641462728">अधिक</translation>
 <translation id="1408789165795197664">उन्नत...</translation>
 <translation id="1650709179466243265">www. और .com जोड़ें और पता खोलें</translation>
+<translation id="2391243203977115091"><ph name="FILE_COUNT"/> नई फ़ोटो मिलीं
+    <ph name="LINE_BREAK1"/>
+    डिस्‍क पर पर्याप्‍त स्‍थान नहीं है.
+    <ph name="LINE_BREAK2"/>
+    प्रारंभ करने के लिए कुछ फ़ोटो चुनकर देखें.</translation>
 <translation id="3700834376805760154"><ph name="LOCALITY"/> पर <ph name="ORGANIZATION"/> की पहचान को <ph name="ISSUER"/> द्वारा सत्यापित किया गया है और वह सार्वजनिक रूप से ऑडिट किए जाने योग्य है.</translation>
 <translation id="4416628180566102937">नामांकन करें और पुन: प्रारंभ करें</translation>
 <translation id="4623537843784569564">यह एक्सटेंशन संभवत: गलत ढंग से अपडेट किया गया है. पुन: इंस्टॉल करके देखें.</translation>
@@ -3676,6 +3685,7 @@
 <translation id="9066075624350113914">इस PDF दस्तावेज़ के भाग दिखाए नहीं जा सकते.</translation>
 <translation id="3187212781151025377">हिब्रू कीबोर्ड</translation>
 <translation id="4690462567478992370">अमान्य प्रमाणपत्र का उपयोग करना बंद करें</translation>
+<translation id="7421446779945496135">चाइल्‍ड खाते को पहचानना सक्षम करें.</translation>
 <translation id="1142012852508714031">प्रोफ़ाइल नाम</translation>
 <translation id="6325191661371220117">स्वत: लॉन्च अक्षम करें</translation>
 <translation id="6742189738814863494"><ph name="USER_EMAIL_ADDRESS"/> के रूप में प्रवेश करें. <ph name="BEGIN_LINK"/>chrome.com/sync<ph name="END_LINK"/> पर अपने समन्वयित डेटा और डिवाइस को प्रबंधित करें</translation>
@@ -4663,6 +4673,9 @@
 <translation id="8156020606310233796">सूची दृश्य</translation>
 <translation id="146000042969587795">यह फ़्रेम ब्लॉक किया गया था क्योंकि इसमें कुछ असुरक्षित सामग्री मौजूद है.</translation>
 <translation id="3258924582848461629">जापानी के लिए हस्तलिपि इनपुट विधि</translation>
+<translation id="4315548163539304064">आपका मीडिया डिवाइस स्‍कैन किया जा रहा है...
+    <ph name="LINE_BREAK1"/>
+    <ph name="FILE_COUNT"/> नई फ़ोटो मिलीं</translation>
 <translation id="8426564434439698958">इस चित्र के लिए <ph name="SEARCH_ENGINE"/>  &amp;खोजें</translation>
 <translation id="4375035964737468845">डाउनलोड की गई फ़ाइलें खोलें</translation>
 <translation id="3968739731834770921">काना</translation>
@@ -4786,6 +4799,7 @@
 <translation id="140520891692800925"><ph name="PROFILE_DISPLAY_NAME"/> (पर्यवेक्षित)</translation>
 <translation id="9149866541089851383">संपादित करें...</translation>
 <translation id="8735794438432839558">अपने Chrome बुक में प्रवेश करने के लिए कृपया इंटरनेट से कनेक्ट करें.</translation>
+<translation id="2194802420977819330">उदाहरण के लिए, क्रैश होना, असामान्‍य स्टार्टअप पृष्‍ठ या टूलबार, अनपेक्षित विज्ञापन जिनसे आपको छुटकारा नहीं मिल रहा है या अन्‍यथा जिनके कारण आपका ब्राउज़िंग अनुभव बदल रहा है? हो सकता है आप सॉफ़्टवेयर निकालने का टूल चलाकर समस्‍या को ठीक कर सकें.</translation>
 <translation id="7939412583708276221">फिर भी रखें</translation>
 <translation id="8579285237314169903"><ph name="NUMBER_OF_FILES"/> आइटम समन्‍वयित कर रहा है...</translation>
 <translation id="8140778357236808512">कोई मौजूदा पर्यवेक्षित उपयोगकर्ता आयात करें</translation>

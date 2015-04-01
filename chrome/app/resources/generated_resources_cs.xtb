@@ -901,7 +901,7 @@ Všichni uživatelé se před pokračováním musejí odhlásit.</translation>
 <translation id="9188441292293901223">Chcete-li odemknout toto zařízení <ph name="DEVICE_TYPE"/>, aktualizujte svůj telefon na novější verzi platformy Android.</translation>
 <translation id="7765158879357617694">Přesunout</translation>
 <translation id="2192280117622171197">Rozšíření změnilo stránku, která se zobrazí při vyhledávání z omniboxu.</translation>
-<translation id="2731700343119398978">Počkejte prosím...</translation>
+<translation id="2731700343119398978">Čekejte prosím...</translation>
 <translation id="5731751937436428514">Metoda zadávání vietnamštiny (VIQR)</translation>
 <translation id="4526944011780447765">Chcete tuto adresu URL odeslat do Googlu za účelem vylepšení správce hesel?</translation>
 <translation id="1151169732719877940">Povolit konzistenci identity mezi prohlížečem a úložištěm souborů cookie</translation>
@@ -2590,6 +2590,7 @@ Po vytvoření nového dozorovaného uživatele můžete jeho nastavení spravov
 <translation id="3786301125658655746">Jste offline</translation>
 <translation id="5659593005791499971">E-mail</translation>
 <translation id="5978264784700053212">Centrum zpráv</translation>
+<translation id="7609816802059518759">Zapnout detekci dětských účtů při přihlášení, při spuštění a také v pravidelných intervalech</translation>
 <translation id="6584878029876017575">Životnost podepisování Microsoft</translation>
 <translation id="562901740552630300">Přejděte do nabídky
           <ph name="BEGIN_BOLD"/>
@@ -3301,6 +3302,9 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="4788968718241181184">Metoda zadávání vietnamštiny (TCVN6064)</translation>
 <translation id="3254409185687681395">Přidat stránku do záložek</translation>
 <translation id="5694501201003948907">Komprimace $1 položek...</translation>
+<translation id="3815571115159309122">Počet nalezených nových fotek: <ph name="FILE_COUNT"/>
+    <ph name="LINE_BREAK1"/>
+    Zálohování na <ph name="BEGIN_LINK"/>Disk Google<ph name="END_LINK"/> je připraveno.</translation>
 <translation id="2677924368525077324">Aktivovat úpravu textu dotykem</translation>
 <translation id="283669119850230892">Chcete-li používat sít <ph name="NETWORK_ID"/>, dokončete nejdříve připojení k internetu níže.</translation>
 <translation id="7513996269498582533">Zjistit (od vás)</translation>
@@ -3395,6 +3399,11 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="6042308850641462728">Více</translation>
 <translation id="1408789165795197664">Rozšířená nastavení...</translation>
 <translation id="1650709179466243265">Přidat www. a .com a otevřít adresu</translation>
+<translation id="2391243203977115091">Počet nalezených nových fotek: <ph name="FILE_COUNT"/>
+    <ph name="LINE_BREAK1"/>
+    V zařízení není dost místa.
+    <ph name="LINE_BREAK2"/>
+    Začněte tím, že zkusíte vybrat několik fotek.</translation>
 <translation id="3700834376805760154">Identita organizace <ph name="ORGANIZATION"/> na adrese <ph name="LOCALITY"/> byla ověřena vydavatelem <ph name="ISSUER"/> a je veřejně auditovatelná.</translation>
 <translation id="4416628180566102937">Registrace a restart</translation>
 <translation id="4623537843784569564">Toto rozšíření bylo možná aktualizováno nesprávně. Zkuste je nainstalovat znovu.</translation>
@@ -3637,6 +3646,7 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="9066075624350113914">Části tohoto dokumentu PDF nelze zobrazit.</translation>
 <translation id="3187212781151025377">Hebrejská klávesnice</translation>
 <translation id="4690462567478992370">Přestat používat neplatný certifikát</translation>
+<translation id="7421446779945496135">Zapnout detekci dětských účtů.</translation>
 <translation id="1142012852508714031">Název profilu</translation>
 <translation id="6325191661371220117">Deaktivovat automatické spouštění</translation>
 <translation id="6742189738814863494">Jste přihlášeni pomocí účtu <ph name="USER_EMAIL_ADDRESS"/>. Svá synchronizovaná data a zařízení můžete spravovat na webu <ph name="BEGIN_LINK"/>chrome.com/sync<ph name="END_LINK"/>.</translation>
@@ -4620,6 +4630,9 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="8156020606310233796">Seznamové zobrazení</translation>
 <translation id="146000042969587795">Tento rámec byl blokován, protože obsahuje určitý nezabezpečený obsah.</translation>
 <translation id="3258924582848461629">Metoda zadávání rukopisu pro  japonštinu</translation>
+<translation id="4315548163539304064">Prohledávání mediálního zařízení...
+    <ph name="LINE_BREAK1"/>
+    Počet nalezených nových fotek: <ph name="FILE_COUNT"/></translation>
 <translation id="8426564434439698958">&amp;Vyhledat tento obrázek pomocí služby <ph name="SEARCH_ENGINE"/></translation>
 <translation id="4375035964737468845">Otevírání stažených souborů</translation>
 <translation id="3968739731834770921">Kana</translation>
@@ -4743,6 +4756,7 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="140520891692800925"><ph name="PROFILE_DISPLAY_NAME"/> (dozorovaný)</translation>
 <translation id="9149866541089851383">Upravit...</translation>
 <translation id="8735794438432839558">Chcete-li se přihlásit do Chromebooku, připojte se k internetu.</translation>
+<translation id="2194802420977819330">Například způsobuje selhání, neobvyklé počáteční stránky nebo panely nástrojů, neočekávané reklamy, kterých se nelze zbavit, nebo jiné změny chování při procházení internetu? Problém se vám možná podaří vyřešit spuštěním nástroje na odstranění softwaru.</translation>
 <translation id="7939412583708276221">Přesto ponechat</translation>
 <translation id="8579285237314169903">Synchronizace <ph name="NUMBER_OF_FILES"/> položek...</translation>
 <translation id="8140778357236808512">Importovat existujícího dozorovaného uživatele</translation>
