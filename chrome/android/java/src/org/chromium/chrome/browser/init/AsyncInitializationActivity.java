@@ -15,11 +15,17 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.ViewTreeObserver.OnPreDrawListener;
 
+import org.chromium.base.ApiCompatibilityUtils;
+import org.chromium.chrome.browser.metrics.LaunchHistogram;
+
 /**
  * An activity that talks with application and activity level delegates for async initialization.
  */
 public abstract class AsyncInitializationActivity extends ActionBarActivity implements
         ChromeActivityNativeDelegate, BrowserParts {
+    private static final LaunchHistogram sBadIntentMetric =
+            new LaunchHistogram("Launch.InvalidIntent");
+
     protected final Handler mHandler;
 
     // Time at which onCreate is called. This is realtime, counted in ms since device boot.
@@ -87,12 +93,26 @@ public abstract class AsyncInitializationActivity extends ActionBarActivity impl
      */
     @Override
     protected final void onCreate(Bundle savedInstanceState) {
+        if (!isStartedUpCorrectly(getIntent())) {
+            sBadIntentMetric.recordHit();
+            super.onCreate(null);
+            ApiCompatibilityUtils.finishAndRemoveTask(this);
+            return;
+        }
+
         super.onCreate(savedInstanceState);
         mOnCreateTimestampMs = SystemClock.elapsedRealtime();
         mOnCreateTimestampUptimeMs = SystemClock.uptimeMillis();
         mSavedInstanceState = savedInstanceState;
 
         ChromeBrowserInitializer.getInstance(this).handlePreNativeStartup(this);
+    }
+
+    /**
+     * Whether or not the Activity was started up via a valid Intent.
+     */
+    protected boolean isStartedUpCorrectly(Intent intent) {
+        return true;
     }
 
     /**
@@ -167,6 +187,17 @@ public abstract class AsyncInitializationActivity extends ActionBarActivity impl
 
     @Override
     public void onStartWithNative() { }
+
+    @Override
+    public void onResumeWithNative() {
+        sBadIntentMetric.commitHistogram();
+    }
+
+    @Override
+    public void onPauseWithNative() { }
+
+    @Override
+    public void onStopWithNative() { }
 
     @Override
     public boolean isActivityDestroyed() {

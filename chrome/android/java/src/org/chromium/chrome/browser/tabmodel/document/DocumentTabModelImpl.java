@@ -223,7 +223,10 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
     }
 
     @Override
-    public void setLastShownId(int id) {
+    public boolean setLastShownId(int id) {
+        if (mLastShownTabId == id) return false;
+
+        int previousTabId = mLastShownTabId;
         mLastShownTabId = id;
 
         String prefName =
@@ -232,6 +235,15 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
         SharedPreferences.Editor editor = prefs.edit();
         editor.putInt(prefName, id);
         editor.apply();
+
+        // TODO(dfalcantara): Figure out how to fire the correct type of TabSelectionType, which is
+        //                    quite hard to do in Document-mode from where we call this.
+        for (TabModelObserver obs : mObservers) {
+            obs.didSelectTab(
+                    TabModelUtils.getCurrentTab(this), TabSelectionType.FROM_USER, previousTabId);
+        }
+
+        return true;
     }
 
     @Override
@@ -873,6 +885,11 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
 
     @Override
     public void addTab(Intent intent, Tab tab) {
+        if (tab.getId() == Tab.INVALID_TAB_ID
+                || ActivityDelegate.getTabIdFromIntent(intent) != tab.getId()) {
+            return;
+        }
+
         int parentIndex = indexOf(tab.getParentId());
         int index = parentIndex == -1 ? getCount() : parentIndex + 1;
         addTab(tab, index, tab.getLaunchType());
@@ -881,6 +898,10 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
 
     @Override
     public void addTab(Tab tab, int index, TabLaunchType type) {
+        // TODO(dfalcantara): Prevent this method from being called directly instead of going
+        //                    through addTab(Intent intent, Tab tab).
+        if (tab.getId() == Tab.INVALID_TAB_ID) return;
+
         for (TabModelObserver obs : mObservers) obs.willAddTab(tab, type);
 
         if (index == TabModel.INVALID_TAB_INDEX) {
