@@ -603,6 +603,9 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable web audio hrtf by default.
+      'disable_webaudio_hrtf%': 0,
+
       # Use of precompiled headers on Windows.
       #
       # This variable may be explicitly set to 1 (enabled) or 0
@@ -1209,6 +1212,7 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
     'wix_path%': '<(wix_path)',
@@ -2161,6 +2165,9 @@
       }],
       ['use_concatenated_impulse_responses==1', {
         'grit_defines': ['-D', 'use_concatenated_impulse_responses'],
+      }],
+      ['disable_webaudio_hrtf==1', {
+        'grit_defines': ['-D', 'disable_webaudio_hrtf'],
       }],
       ['enable_media_router==1', {
         'grit_defines': ['-D', 'enable_media_router'],
