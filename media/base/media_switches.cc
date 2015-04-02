@@ -116,4 +116,8 @@ const char kRequireAudioHardwareForTesting[] =
 // TODO(dalecurtis): Remove once experiments for http://crbug.com/470940 finish.
 const char kVideoUnderflowThresholdMs[] = "video-underflow-threshold-ms";
 
+#if defined(OS_LINUX)
+const char kProprietaryCodecLibPath[] = "proprietary-codec-lib-path";
+#endif
+
 }  // namespace switches
