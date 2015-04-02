@@ -11,8 +11,7 @@ ContentProvider.WORKER_SCRIPT = '/js/metadata_worker.js';
 /**
  * Gallery for viewing and editing image files.
  *
- * @param {!VolumeManager} volumeManager The VolumeManager instance of the
- *     system.
+ * @param {!VolumeManagerWrapper} volumeManager
  * @constructor
  * @struct
  */
@@ -265,6 +264,7 @@ Gallery.prototype.onPageHide_ = function() {
     this.metadataCache_.removeObserver(this.metadataCacheObserverId_);
   this.volumeManager_.removeEventListener(
       'externally-unmounted', this.onExternallyUnmountedBound_);
+  this.volumeManager_.dispose();
 };
 
 /**
