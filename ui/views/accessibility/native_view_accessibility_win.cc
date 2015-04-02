@@ -304,7 +304,7 @@ STDMETHODIMP NativeViewAccessibilityWin::accHitTest(
   // call accHitTest recursively on that child's native view accessible -
   // which may be a recursive call to this function or it may be overridden,
   // for example in the case of a WebView.
-  if (hit_child_view) {
+  if (hit_child_view && hit_child_view->GetNativeViewAccessible()) {
     HRESULT result = hit_child_view->GetNativeViewAccessible()->accHitTest(
         x_left, y_top, child);
 
