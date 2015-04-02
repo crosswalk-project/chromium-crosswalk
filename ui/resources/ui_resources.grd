@@ -12,6 +12,15 @@
   </outputs>
   <release seq="1">
     <structures fallback_to_low_resolution="true">
+      <structure type="chrome_scaled_image" name="IDR_MENU_CHECK_CHECKED" file="common/menu_check.png" />
+      <structure type="chrome_scaled_image" name="IDR_MENU_DROPARROW" file="cros/menu_droparrow.png" />
+      <if expr="use_aura or toolkit_views or (is_posix and not is_macosx and not is_ios)">
+       <structure type="chrome_scaled_image" name="IDR_PROGRESS_BAR" file="linux/linux-progress-bar.png" />
+       <structure type="chrome_scaled_image" name="IDR_PROGRESS_BORDER_LEFT" file="linux/linux-progress-border-left.png" />
+       <structure type="chrome_scaled_image" name="IDR_PROGRESS_BORDER_RIGHT" file="linux/linux-progress-border-right.png" />
+       <structure type="chrome_scaled_image" name="IDR_PROGRESS_VALUE" file="linux/linux-progress-value.png" />
+      </if>
+      <if expr="not pp_ifdef('use_minimum_resources')">
       <!-- KEEP THESE IN ALPHABETICAL ORDER!  DO NOT ADD TO RANDOM PLACES JUST
            BECAUSE YOUR RESOURCES ARE FUNCTIONALLY RELATED OR FALL UNDER THE
            SAME CONDITIONALS. -->
@@ -179,12 +188,6 @@
         <structure type="chrome_scaled_image" name="IDR_PANEL_BOTTOM_LEFT_CORNER" file="panel_bottom_left_corner.png" />
         <structure type="chrome_scaled_image" name="IDR_PANEL_BOTTOM_RIGHT_CORNER" file="panel_bottom_right_corner.png" />
       </if>
-      <if expr="use_aura or toolkit_views or (is_posix and not is_macosx and not is_ios)">
-        <structure type="chrome_scaled_image" name="IDR_PROGRESS_BAR" file="linux/linux-progress-bar.png" />
-        <structure type="chrome_scaled_image" name="IDR_PROGRESS_BORDER_LEFT" file="linux/linux-progress-border-left.png" />
-        <structure type="chrome_scaled_image" name="IDR_PROGRESS_BORDER_RIGHT" file="linux/linux-progress-border-right.png" />
-        <structure type="chrome_scaled_image" name="IDR_PROGRESS_VALUE" file="linux/linux-progress-value.png" />
-      </if>
       <if expr="use_aura">
         <structure type="chrome_scaled_image" name="IDR_SCROLLBAR_ARROW_BUTTON_BASE_HOVER_BOTTOM" file="common/aura_scrollbar_arrow_button_base_hover_bottom.png" />
         <structure type="chrome_scaled_image" name="IDR_SCROLLBAR_ARROW_BUTTON_BASE_HOVER_BOTTOM_LEFT" file="common/aura_scrollbar_arrow_button_base_hover_bottom_left.png" />
@@ -292,6 +295,7 @@
         <structure type="chrome_scaled_image" name="IDR_TRAY_DO_NOT_DISTURB_EMPTY_PRESSED" file="mac/notification_tray_do_not_disturb_empty_pressed.png"/>
         <structure type="chrome_scaled_image" name="IDR_TRAY_EMPTY" file="mac/notification_tray_empty.png"/>
         <structure type="chrome_scaled_image" name="IDR_TRAY_EMPTY_PRESSED" file="mac/notification_tray_empty_pressed.png"/>
+      </if>
       </if>
     </structures>
   </release>

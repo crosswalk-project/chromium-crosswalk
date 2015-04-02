@@ -797,6 +797,7 @@ struct DataResource {
 const DataResource kDataResources[] = {
     {"missingImage", IDR_BROKENIMAGE, ui::SCALE_FACTOR_100P},
     {"missingImage@2x", IDR_BROKENIMAGE, ui::SCALE_FACTOR_200P},
+#if !defined(USE_MINIMUM_RESOURCES)
     {"mediaplayerPause", IDR_MEDIAPLAYER_PAUSE_BUTTON, ui::SCALE_FACTOR_100P},
     {"mediaplayerPauseNew",
      IDR_MEDIAPLAYER_PAUSE_BUTTON_NEW,
@@ -952,6 +953,7 @@ const DataResource kDataResources[] = {
     {"mediaplayerOverlayPlayNew",
      IDR_MEDIAPLAYER_OVERLAY_PLAY_BUTTON_NEW,
      ui::SCALE_FACTOR_100P},
+#endif
     {"searchCancel", IDR_SEARCH_CANCEL, ui::SCALE_FACTOR_100P},
     {"searchCancelPressed", IDR_SEARCH_CANCEL_PRESSED, ui::SCALE_FACTOR_100P},
     {"searchMagnifier", IDR_SEARCH_MAGNIFIER, ui::SCALE_FACTOR_100P},
