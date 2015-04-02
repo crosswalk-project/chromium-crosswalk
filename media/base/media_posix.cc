@@ -10,7 +10,7 @@
 #include "base/files/file_path.h"
 #include "base/logging.h"
 #include "base/strings/stringize_macros.h"
-#include "content/public/common/content_switches.h"
+#include "media/base/media_switches.h"
 #include "media/ffmpeg/ffmpeg_common.h"
 #include "third_party/ffmpeg/ffmpeg_stubs.h"
 
