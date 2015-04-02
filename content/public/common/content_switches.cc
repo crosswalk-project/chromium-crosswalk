@@ -989,10 +989,6 @@ const char kEnableNpapi[]                   = "enable-npapi";
 const char kEnablePluginPowerSaver[] = "enable-plugin-power-saver";
 #endif
 
-#if defined(OS_LINUX)
-const char kProprietaryCodecLibPath[] = "proprietary-codec-lib-path";
-#endif
-
 // Don't dump stuff here, follow the same order as the header.
 
 }  // namespace switches
