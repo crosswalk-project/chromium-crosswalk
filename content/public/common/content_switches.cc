@@ -978,10 +978,6 @@ const char kFontCacheSharedMemSuffix[] = "font-cache-shared-mem-suffix";
 // Enables the use of NPAPI plugins.
 const char kEnableNpapi[]                   = "enable-npapi";
 
-#if defined(OS_LINUX)
-const char kProprietaryCodecLibPath[] = "proprietary-codec-lib-path";
-#endif
-
 // Don't dump stuff here, follow the same order as the header.
 
 }  // namespace switches
