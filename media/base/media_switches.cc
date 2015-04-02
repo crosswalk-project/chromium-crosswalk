@@ -110,4 +110,8 @@ const char kEnableInbandTextTracks[] = "enable-inband-text-tracks";
 const char kRequireAudioHardwareForTesting[] =
     "require-audio-hardware-for-testing";
 
+#if defined(OS_LINUX)
+const char kProprietaryCodecLibPath[] = "proprietary-codec-lib-path";
+#endif
+
 }  // namespace switches
