@@ -1821,7 +1821,7 @@ TEST(SchedulerStateMachineTest, TestDeferCommit) {
   state.SetDeferCommits(true);
 
   state.SetNeedsCommit();
-  EXPECT_TRUE(state.BeginFrameNeeded());
+  EXPECT_FALSE(state.BeginFrameNeeded());
   EXPECT_ACTION_UPDATE_STATE(SchedulerStateMachine::ACTION_NONE);
 
   state.OnBeginImplFrame(CreateBeginFrameArgsForTesting(BEGINFRAME_FROM_HERE));

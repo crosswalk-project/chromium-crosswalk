@@ -2157,13 +2157,18 @@ class LayerTreeHostTestDeferCommits : public LayerTreeHostTest {
       case 1:
         break;
       case 2:
-        PostSetNeedsCommitToMainThread();
-        break;
       case 3:
+      case 4:
+        // Post a number of frames to increase the chance that, if there exist
+        // bugs, an unexpected BeginMainFrame will be issued.
+        PostSetNeedsCommitToMainThread();
+        PostSetNeedsRedrawToMainThread();
+        break;
+      case 5:
         PostSetDeferCommitsToMainThread(false);
         break;
       default:
-        // Sometimes |num_will_begin_impl_frame_| will be greater than 3 if the
+        // Sometimes |num_will_begin_impl_frame_| will be greater than 5 if the
         // main thread is slow to respond.
         break;
     }
@@ -2185,7 +2190,7 @@ class LayerTreeHostTestDeferCommits : public LayerTreeHostTest {
   }
 
   void AfterTest() override {
-    EXPECT_GE(num_will_begin_impl_frame_, 3);
+    EXPECT_GE(num_will_begin_impl_frame_, 5);
     EXPECT_EQ(2, num_send_begin_main_frame_);
   }
 
