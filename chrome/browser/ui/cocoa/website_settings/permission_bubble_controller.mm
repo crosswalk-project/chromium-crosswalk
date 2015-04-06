@@ -229,7 +229,7 @@ class MenuDelegate : public ui::SimpleMenuModel::Delegate {
                        parentWindow:parentWindow
                          anchoredAt:NSZeroPoint])) {
     [self setShouldCloseOnResignKey:NO];
-    [self setShouldOpenAsKeyWindow:NO];
+    [self setShouldOpenAsKeyWindow:YES];
     [[self bubble] setArrowLocation:info_bubble::kTopLeft];
     bridge_ = bridge;
     NSNotificationCenter* center = [NSNotificationCenter defaultCenter];
@@ -416,6 +416,8 @@ class MenuDelegate : public ui::SimpleMenuModel::Delegate {
     [[self window] setFrame:bubbleFrame display:NO];
     [self setAnchorPoint:anchorPoint];
     [self showWindow:nil];
+    [[self window] makeFirstResponder:nil];
+    [[self window] setInitialFirstResponder:allowOrOkButton.get()];
   }
 }
 
