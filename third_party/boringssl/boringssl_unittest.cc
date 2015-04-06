@@ -239,7 +239,3 @@ TEST(BoringSSL, HKDF) {
 TEST(BoringSSL, PBKDF) {
   TestSimple("pbkdf_test");
 }
-
-TEST(BoringSSL, Thread) {
-  TestSimple("thread_test");
-}

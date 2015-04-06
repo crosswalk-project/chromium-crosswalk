@@ -2937,7 +2937,7 @@ TEST_F(SSLClientSocketFalseStartTest,
   // False Start requires NPN and a forward-secret cipher suite.
   SpawnedTestServer::SSLOptions server_options;
   server_options.key_exchanges =
-      SpawnedTestServer::SSLOptions::KEY_EXCHANGE_DHE_RSA;
+      SpawnedTestServer::SSLOptions::KEY_EXCHANGE_ECDHE_RSA;
   server_options.bulk_ciphers =
       SpawnedTestServer::SSLOptions::BULK_CIPHER_AES128GCM;
   server_options.enable_npn = true;
@@ -2959,7 +2959,7 @@ TEST_F(SSLClientSocketFalseStartTest,
   // False Start requires NPN and a forward-secret cipher suite.
   SpawnedTestServer::SSLOptions server_options;
   server_options.key_exchanges =
-      SpawnedTestServer::SSLOptions::KEY_EXCHANGE_DHE_RSA;
+      SpawnedTestServer::SSLOptions::KEY_EXCHANGE_ECDHE_RSA;
   server_options.bulk_ciphers =
       SpawnedTestServer::SSLOptions::BULK_CIPHER_AES128GCM;
   server_options.enable_npn = true;
