@@ -24,6 +24,7 @@
 
 namespace {
 
+#if !defined(OS_MACOSX)
 void LaunchBrowserProcessWithSwitch(const std::string& switch_string) {
   DCHECK(g_service_process->io_thread()->message_loop_proxy()->
       BelongsToCurrentThread());
@@ -58,6 +59,8 @@ void LaunchBrowserProcessWithSwitch(const std::string& switch_string) {
 void CheckCloudPrintProxyPolicyInBrowser() {
   LaunchBrowserProcessWithSwitch(switches::kCheckCloudPrintConnectorPolicy);
 }
+
+#endif  // !OS_MACOSX
 
 }  // namespace
 
@@ -212,8 +215,10 @@ void CloudPrintProxy::GetPrinters(std::vector<std::string>* printers) {
 }
 
 void CloudPrintProxy::CheckCloudPrintProxyPolicy() {
+#if !defined(OS_MACOSX)
   g_service_process->io_thread()->message_loop_proxy()->PostTask(
       FROM_HERE, base::Bind(&CheckCloudPrintProxyPolicyInBrowser));
+#endif
 }
 
 void CloudPrintProxy::OnAuthenticated(
