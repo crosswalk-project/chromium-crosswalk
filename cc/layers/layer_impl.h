@@ -78,16 +78,6 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
                             public LayerAnimationValueProvider,
                             public AnimationDelegate {
  public:
-  // Allows for the ownership of the total scroll offset to be delegated outside
-  // of the layer.
-  class ScrollOffsetDelegate {
-   public:
-    virtual void SetCurrentScrollOffset(const gfx::ScrollOffset& new_value) = 0;
-    virtual gfx::ScrollOffset GetCurrentScrollOffset() = 0;
-    virtual bool IsExternalFlingActive() const = 0;
-    virtual void Update() const = 0;
-  };
-
   typedef SyncedProperty<AdditionGroup<gfx::ScrollOffset>> SyncedScrollOffset;
   typedef LayerImplList RenderSurfaceListType;
   typedef LayerImplList LayerListType;
@@ -388,11 +378,11 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
   float contents_scale_y() const { return draw_properties_.contents_scale_y; }
   void SetContentsScale(float contents_scale_x, float contents_scale_y);
 
-  void SetScrollOffsetDelegate(ScrollOffsetDelegate* scroll_offset_delegate);
-  void RefreshFromScrollDelegate();
   bool IsExternalFlingActive() const;
 
   void SetCurrentScrollOffset(const gfx::ScrollOffset& scroll_offset);
+  void SetCurrentScrollOffsetFromDelegate(
+      const gfx::ScrollOffset& scroll_offset);
   void PushScrollOffsetFromMainThread(const gfx::ScrollOffset& scroll_offset);
   // This method is similar to PushScrollOffsetFromMainThread but will cause the
   // scroll offset given to clobber any scroll changes on the active tree in the
@@ -628,7 +618,10 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
 
  private:
   void PushScrollOffset(const gfx::ScrollOffset* scroll_offset);
-  void DidUpdateScrollOffset();
+  // If the new scroll offset is assigned from the root scroll offset delegate,
+  // LayerImpl won't inform the root scroll offset delegate about the scroll
+  // change to avoid feedback.
+  void DidUpdateScrollOffset(bool is_from_root_delegate);
   void NoteLayerPropertyChangedForDescendantsInternal();
 
   virtual const char* LayerTypeAsString() const;
@@ -664,7 +657,6 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
   // Properties synchronized from the associated Layer.
   gfx::Point3F transform_origin_;
   gfx::Size bounds_;
-  ScrollOffsetDelegate* scroll_offset_delegate_;
   LayerImpl* scroll_clip_layer_;
   bool scrollable_ : 1;
   bool should_scroll_on_main_thread_ : 1;
