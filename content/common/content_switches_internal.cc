@@ -45,6 +45,9 @@ bool IsWin32kRendererLockdownEnabled() {
   if (!gfx::win::ShouldUseDirectWrite())
     return false;
   const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
+  // TODO(wfh): Remove this once NPAPI is gone.
+  if (cmd_line->HasSwitch(switches::kEnableNpapi))
+    return false;
   if (cmd_line->HasSwitch(switches::kEnableWin32kRendererLockDown))
     return true;
   if (cmd_line->HasSwitch(switches::kDisableWin32kRendererLockDown))
