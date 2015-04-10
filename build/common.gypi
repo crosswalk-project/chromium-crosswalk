@@ -542,6 +542,12 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable web audio hrtf by default.
+      'disable_webaudio_hrtf%': 0,
+
+      # Include all resources by default.
+      'use_minimum_resources%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -1166,6 +1172,8 @@
     'enable_captive_portal_detection%': '<(enable_captive_portal_detection)',
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
+    'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
+    'use_minimum_resources%': '<(use_minimum_resources)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -2111,6 +2119,12 @@
       }],
       ['use_concatenated_impulse_responses==1', {
         'grit_defines': ['-D', 'use_concatenated_impulse_responses'],
+      }],
+      ['disable_webaudio_hrtf==1', {
+        'grit_defines': ['-D', 'disable_webaudio_hrtf'],
+      }],
+      ['use_minimum_resources==1', {
+        'grit_defines': ['-D', 'use_minimum_resources'],
       }],
       ['enable_webrtc==1', {
         'grit_defines': ['-D', 'enable_webrtc'],
