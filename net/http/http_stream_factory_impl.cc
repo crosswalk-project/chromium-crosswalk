@@ -221,6 +221,7 @@ AlternateProtocolInfo HttpStreamFactoryImpl::GetAlternateProtocolRequestFor(
       return kNoAlternateProtocol;
 
     *alternate_url = UpgradeUrlToHttps(original_url, alternate.port);
+#if !defined(DISABLE_QUIC_SUPPORT)
   } else {
     DCHECK_EQ(QUIC, alternate.protocol);
     if (!session_->params().enable_quic)
@@ -231,6 +232,7 @@ AlternateProtocolInfo HttpStreamFactoryImpl::GetAlternateProtocolRequestFor(
     // for the proxy to use to reach the original URL via TCP.  But
     // the alternate request will be going via UDP to a different port.
     *alternate_url = original_url;
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
   }
   return alternate;
 }

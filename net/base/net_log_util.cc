@@ -192,6 +192,7 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
     constants_dict->Set("netError", dict);
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Add information on the relationship between QUIC error codes and their
   // symbolic names.
   {
@@ -221,6 +222,7 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
 
     constants_dict->Set("quicRstStreamError", dict);
   }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
   // Add information on the relationship between SDCH problem codes and their
   // symbolic names.

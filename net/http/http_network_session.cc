@@ -18,12 +18,14 @@
 #include "net/http/http_stream_factory_impl.h"
 #include "net/http/url_security_manager.h"
 #include "net/proxy/proxy_service.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/crypto/quic_random.h"
 #include "net/quic/quic_clock.h"
 #include "net/quic/quic_crypto_client_stream_factory.h"
 #include "net/quic/quic_protocol.h"
 #include "net/quic/quic_stream_factory.h"
 #include "net/quic/quic_utils.h"
+#endif
 #include "net/socket/client_socket_factory.h"
 #include "net/socket/client_socket_pool_manager_impl.h"
 #include "net/socket/next_proto.h"
@@ -89,6 +91,7 @@ HttpNetworkSession::Params::Params()
       force_spdy_always(false),
       use_alternate_protocols(false),
       alternate_protocol_probability_threshold(1),
+#if !defined(DISABLE_QUIC_SUPPORT)
       enable_quic(false),
       enable_quic_for_proxies(false),
       enable_quic_port_selection(true),
@@ -102,10 +105,13 @@ HttpNetworkSession::Params::Params()
       quic_clock(NULL),
       quic_random(NULL),
       quic_max_packet_length(kDefaultMaxPacketSize),
-      enable_user_alternate_protocol_ports(false),
       quic_crypto_client_stream_factory(NULL),
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
+      enable_user_alternate_protocol_ports(false),
       proxy_delegate(NULL) {
+#if !defined(DISABLE_QUIC_SUPPORT)
   quic_supported_versions.push_back(QUIC_VERSION_24);
+#endif
 }
 
 HttpNetworkSession::Params::~Params() {}
@@ -123,6 +129,7 @@ HttpNetworkSession::HttpNetworkSession(const Params& params)
           CreateSocketPoolManager(NORMAL_SOCKET_POOL, params)),
       websocket_socket_pool_manager_(
           CreateSocketPoolManager(WEBSOCKET_SOCKET_POOL, params)),
+#if !defined(DISABLE_QUIC_SUPPORT)
       quic_stream_factory_(
           params.host_resolver,
           params.client_socket_factory
@@ -147,6 +154,7 @@ HttpNetworkSession::HttpNetworkSession(const Params& params)
           params.quic_enable_connection_racing,
           params.quic_disable_disk_cache,
           params.quic_connection_options),
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
       spdy_session_pool_(params.host_resolver,
                          params.ssl_config_service,
                          params.http_server_properties,
@@ -264,6 +272,7 @@ base::Value* HttpNetworkSession::SpdySessionPoolInfoToValue() const {
   return spdy_session_pool_.SpdySessionPoolInfoToValue();
 }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
 base::Value* HttpNetworkSession::QuicInfoToValue() const {
   base::DictionaryValue* dict = new base::DictionaryValue();
   dict->Set("sessions", quic_stream_factory_.QuicStreamFactoryInfoToValue());
@@ -284,12 +293,15 @@ base::Value* HttpNetworkSession::QuicInfoToValue() const {
                   params_.alternate_protocol_probability_threshold);
   return dict;
 }
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
 void HttpNetworkSession::CloseAllConnections() {
   normal_socket_pool_manager_->FlushSocketPoolsWithError(ERR_ABORTED);
   websocket_socket_pool_manager_->FlushSocketPoolsWithError(ERR_ABORTED);
   spdy_session_pool_.CloseCurrentSessions(ERR_ABORTED);
+#if !defined(DISABLE_QUIC_SUPPORT)
   quic_stream_factory_.CloseAllSessions(ERR_ABORTED);
+#endif
 }
 
 void HttpNetworkSession::CloseIdleConnections() {
