@@ -78,6 +78,7 @@ public class WebViewChromiumFactoryProvider implements WebViewFactoryProvider {
     private WebStorageAdapter mWebStorage;
     private WebViewDatabaseAdapter mWebViewDatabase;
     private AwDevToolsServer mDevToolsServer;
+    private Context mWrappedAppContext;
 
     private ArrayList<WeakReference<WebViewChromium>> mWebViewsToStart =
             new ArrayList<WeakReference<WebViewChromium>>();
@@ -290,7 +291,11 @@ public class WebViewChromiumFactoryProvider implements WebViewFactoryProvider {
     }
 
     private Context getWrappedCurrentApplicationContext() {
-        return ResourcesContextWrapperFactory.get(mWebViewDelegate.getApplication());
+        if (mWrappedAppContext == null) {
+            mWrappedAppContext = ResourcesContextWrapperFactory.get(
+                    mWebViewDelegate.getApplication());
+        }
+        return mWrappedAppContext;
     }
 
     AwBrowserContext getBrowserContext() {
