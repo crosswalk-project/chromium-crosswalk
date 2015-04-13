@@ -723,6 +723,7 @@ public class ImeTest extends ContentShellTestBase {
         assertEquals(COMPOSITION_KEY_CODE, mImeAdapter.mLastSyntheticKeyCode);
     }
 
+    @DisabledTest
     @SmallTest
     @Feature({"TextInput", "Main"})
     public void testTransitionsWhileEmittingKeyCode() throws Throwable {
