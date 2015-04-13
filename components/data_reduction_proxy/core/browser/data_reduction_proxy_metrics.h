@@ -48,8 +48,8 @@ int64 GetAdjustedOriginalContentLength(
 // This is only exposed for testing. It is normally called by
 // UpdateContentLengthPrefs.
 void UpdateContentLengthPrefsForDataReductionProxy(
-    int received_content_length,
-    int original_content_length,
+    int64 received_content_length,
+    int64 original_content_length,
     bool with_data_reduction_proxy_enabled,
     DataReductionProxyRequestType request_type,
     base::Time now,

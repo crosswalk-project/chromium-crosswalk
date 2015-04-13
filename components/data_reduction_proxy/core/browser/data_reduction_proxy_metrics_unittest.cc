@@ -500,6 +500,27 @@ TEST_F(ChromeNetworkDailyDataSavingMetricsTest, ForwardOneDay) {
       received_with_data_reduction_proxy_enabled, 2,
       original_via_data_reduction_proxy, 2,
       received_via_data_reduction_proxy, 2);
+
+  // Proxy enabled and via proxy, with content length greater than max int32.
+  const int64 kBigOriginalLength = 0x300000000LL;  // 12G.
+  const int64 kBigReceivedLength = 0x200000000LL;  // 8G.
+  UpdateContentLengthPrefsForDataReductionProxy(
+      kBigReceivedLength, kBigOriginalLength,
+      true, VIA_DATA_REDUCTION_PROXY,
+      FakeNow(), compression_stats_.get());
+  original[1] += kBigOriginalLength;
+  received[1] += kBigReceivedLength;
+  original_with_data_reduction_proxy_enabled[1] += kBigOriginalLength;
+  received_with_data_reduction_proxy_enabled[1] += kBigReceivedLength;
+  original_via_data_reduction_proxy[1] += kBigOriginalLength;
+  received_via_data_reduction_proxy[1] += kBigReceivedLength;
+  VerifyDailyDataSavingContentLengthPrefLists(
+      original, 2,
+      received, 2,
+      original_with_data_reduction_proxy_enabled, 2,
+      received_with_data_reduction_proxy_enabled, 2,
+      original_via_data_reduction_proxy, 2,
+      received_via_data_reduction_proxy, 2);
 }
 
 TEST_F(ChromeNetworkDailyDataSavingMetricsTest, PartialDayTimeChange) {

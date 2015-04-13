@@ -210,7 +210,7 @@ class DailyContentLengthUpdate {
   }
 
   // Update the lengths for the current day.
-  void Add(int content_length) {
+  void Add(int64 content_length) {
     AddInt64ToListPref(kNumDaysInHistory - 1, content_length, update_);
   }
 
@@ -275,7 +275,7 @@ class DailyDataSavingUpdate {
   }
 
   // Update the lengths for the current day.
-  void Add(int original_content_length, int received_content_length) {
+  void Add(int64 original_content_length, int64 received_content_length) {
     original_.Add(original_content_length);
     received_.Add(received_content_length);
   }
@@ -351,8 +351,8 @@ int64 GetAdjustedOriginalContentLength(
 }
 
 void UpdateContentLengthPrefsForDataReductionProxy(
-    int received_content_length,
-    int original_content_length,
+    int64 received_content_length,
+    int64 original_content_length,
     bool with_data_reduction_proxy_enabled,
     DataReductionProxyRequestType request_type,
     base::Time now,

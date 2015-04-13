@@ -119,8 +119,8 @@ class DataReductionProxyNetworkDelegate : public net::LayeredNetworkDelegate {
 
   // Records daily data savings statistics to prefs and reports data savings
   // UMA.
-  void UpdateContentLengthPrefs(int received_content_length,
-                                int original_content_length,
+  void UpdateContentLengthPrefs(int64 received_content_length,
+                                int64 original_content_length,
                                 bool data_reduction_proxy_enabled,
                                 DataReductionProxyRequestType request_type);
 

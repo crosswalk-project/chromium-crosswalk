@@ -232,8 +232,8 @@ void DataReductionProxyNetworkDelegate::AccumulateContentLength(
 }
 
 void DataReductionProxyNetworkDelegate::UpdateContentLengthPrefs(
-    int received_content_length,
-    int original_content_length,
+    int64 received_content_length,
+    int64 original_content_length,
     bool data_reduction_proxy_enabled,
     DataReductionProxyRequestType request_type) {
   if (data_reduction_proxy_io_data_ &&
