@@ -13,7 +13,8 @@
 
 namespace views {
 
-#if !defined(OS_WIN) && !(defined(OS_LINUX) && !defined(OS_CHROMEOS))
+#if !defined(OS_WIN) && \
+    !(defined(OS_LINUX) && !defined(USE_OZONE))
 // static
 NativeViewAccessibility* NativeViewAccessibility::Create(View* view) {
   return new NativeViewAccessibility(view);
