@@ -723,17 +723,6 @@ hooks = [
       'src/tools/.*\\.py',
     'name':
       'remove_stale_pyc_files'
-  },
-  {
-    'action': [
-      'python',
-      'build/scripts/tools/runit.py',
-      'python',
-      'build/scripts/common/cros_chromite.py',
-      '-v'
-    ],
-    'pattern':
-      '.*/cros_chromite\\.py'
   }
 ]
 
