@@ -252,9 +252,14 @@ bool DefaultProvider::SetWebsiteSetting(
   scoped_ptr<base::Value> value(in_value);
   {
     base::AutoReset<bool> auto_reset(&updating_preferences_, true);
-    base::AutoLock lock(lock_);
-
-    ChangeSetting(content_type, value.get());
+    // Lock the memory map access, so that values are not read by
+    // |GetRuleIterator| at the same time as they are written here. Do not lock
+    // the preference access though; preference updates send out notifications
+    // whose callbacks may try to reacquire the lock on the same thread.
+    {
+      base::AutoLock lock(lock_);
+      ChangeSetting(content_type, value.get());
+    }
     WriteIndividualPref(content_type, value.get());
 
     // If the changed setting is syncable, write it to the old dictionary
@@ -380,20 +385,31 @@ void DefaultProvider::OnPreferenceChanged(const std::string& name) {
     // If the dictionary preference gets synced from an old version
     // of Chrome, we should update all individual preferences that
     // are marked as syncable.
-    base::AutoLock lock(lock_);
     base::AutoReset<bool> auto_reset(&updating_preferences_, true);
 
     scoped_ptr<ValueMap> dictionary = ReadDictionaryPref();
 
-    for (ValueMap::iterator it = dictionary->begin();
-         it != dictionary->end(); ++it) {
-      if (!kDefaultSettings[it->first].syncable)
-        continue;
+    // Lock the memory map access, so that values are not read by
+    // |GetRuleIterator| at the same time as they are written here. Do not lock
+    // the preference access though; preference updates send out notifications
+    // whose callbacks may try to reacquire the lock on the same thread.
+    {
+      base::AutoLock lock(lock_);
+      for (const auto& it : *dictionary) {
+        if (!kDefaultSettings[it.first].syncable)
+          continue;
 
-      DCHECK(default_settings_.find(it->first) != default_settings_.end());
-      ChangeSetting(it->first, it->second.get());
-      WriteIndividualPref(it->first, it->second.get());
-      to_notify.push_back(it->first);
+        DCHECK(default_settings_.find(it.first) != default_settings_.end());
+        ChangeSetting(it.first, it.second.get());
+        to_notify.push_back(it.first);
+      }
+    }
+
+    // When the lock is released, write the new settings to preferences.
+    for (const auto& it : *dictionary) {
+      if (!kDefaultSettings[it.first].syncable)
+        continue;
+      WriteIndividualPref(it.first, it.second.get());
     }
   } else {
     // Find out which content setting the preference corresponds to.
@@ -414,10 +430,16 @@ void DefaultProvider::OnPreferenceChanged(const std::string& name) {
     // A new individual preference is changed. If it is syncable, we should
     // change its entry in the dictionary preference as well, so that it
     // can be synced to older versions of Chrome.
-    base::AutoLock lock(lock_);
     base::AutoReset<bool> auto_reset(&updating_preferences_, true);
 
-    ChangeSetting(content_type, ReadIndividualPref(content_type).get());
+    // Lock the memory map access, so that values are not read by
+    // |GetRuleIterator| at the same time as they are written here. Do not lock
+    // the preference access though; preference updates send out notifications
+    // whose callbacks may try to reacquire the lock on the same thread.
+    {
+      base::AutoLock lock(lock_);
+      ChangeSetting(content_type, ReadIndividualPref(content_type).get());
+    }
     if (kDefaultSettings[content_type].syncable)
       WriteDictionaryPref(content_type, default_settings_[content_type].get());
     to_notify.push_back(content_type);
