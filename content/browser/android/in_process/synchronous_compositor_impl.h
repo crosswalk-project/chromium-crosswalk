@@ -52,7 +52,8 @@ class SynchronousCompositorImpl
   // Called by SynchronousCompositorRegistry.
   void DidInitializeRendererObjects(
       SynchronousCompositorOutputSurface* output_surface,
-      SynchronousCompositorExternalBeginFrameSource* begin_frame_source);
+      SynchronousCompositorExternalBeginFrameSource* begin_frame_source,
+      cc::InputHandler* input_handler);
   void DidDestroyRendererObjects();
 
   // Called by SynchronousCompositorExternalBeginFrameSource.
@@ -90,7 +91,6 @@ class SynchronousCompositorImpl
                             float max_page_scale_factor) override;
   bool IsExternalFlingActive() const override;
 
-  void SetInputHandler(cc::InputHandler* input_handler);
   void DidOverscroll(const DidOverscrollParams& params);
   void DidStopFlinging();
 
@@ -107,6 +107,7 @@ class SynchronousCompositorImpl
   void DeliverMessages();
   bool CalledOnValidThread() const;
   void UpdateNeedsBeginFrames();
+  void SetInputHandler(cc::InputHandler* input_handler);
 
   SynchronousCompositorClient* compositor_client_;
   SynchronousCompositorOutputSurface* output_surface_;
