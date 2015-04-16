@@ -72,7 +72,7 @@ BlobURLRequestJob::BlobURLRequestJob(
       byte_range_set_(false),
       weak_factory_(this) {
   TRACE_EVENT_ASYNC_BEGIN1("Blob", "BlobRequest", this, "uuid",
-                           blob_data_->uuid());
+                           blob_data_ ? blob_data_->uuid() : "NotFound");
   DCHECK(file_thread_proxy_.get());
 }
 
@@ -166,7 +166,8 @@ void BlobURLRequestJob::SetExtraRequestHeaders(
 
 BlobURLRequestJob::~BlobURLRequestJob() {
   STLDeleteValues(&index_to_reader_);
-  TRACE_EVENT_ASYNC_END1("Blob", "Request", this, "uuid", blob_data_->uuid());
+  TRACE_EVENT_ASYNC_END1("Blob", "Request", this, "uuid",
+                         blob_data_ ? blob_data_->uuid() : "NotFound");
 }
 
 void BlobURLRequestJob::DidStart() {
