@@ -294,4 +294,29 @@ public class AndroidSyncSettingsTest extends InstrumentationTestCase {
         assertFalse("disableChromeSync shouldn't observers",
                 mSyncSettingsObserver.receivedNotification());
     }
+
+    /**
+     * Regression test for crbug.com/475299.
+     */
+    @SmallTest
+    @Feature({"Sync"})
+    public void testSyncableIsAlwaysSetWhenEnablingSync() throws InterruptedException {
+        // Setup bad state.
+        mSyncContentResolverDelegate.setMasterSyncAutomatically(true);
+        mSyncContentResolverDelegate.waitForLastNotificationCompleted();
+        mSyncContentResolverDelegate.setIsSyncable(mAccount, mAuthority, 1);
+        mSyncContentResolverDelegate.waitForLastNotificationCompleted();
+        mSyncContentResolverDelegate.setSyncAutomatically(mAccount, mAuthority, true);
+        mSyncContentResolverDelegate.waitForLastNotificationCompleted();
+        mSyncContentResolverDelegate.setIsSyncable(mAccount, mAuthority, 0);
+        mSyncContentResolverDelegate.waitForLastNotificationCompleted();
+        assertTrue(mSyncContentResolverDelegate.getIsSyncable(mAccount, mAuthority) == 0);
+        assertTrue(mSyncContentResolverDelegate.getSyncAutomatically(mAccount, mAuthority));
+
+        // Ensure bug is fixed.
+        mAndroid.enableChromeSync();
+        assertTrue(mSyncContentResolverDelegate.getIsSyncable(mAccount, mAuthority) == 1);
+        // Should still be enabled.
+        assertTrue(mSyncContentResolverDelegate.getSyncAutomatically(mAccount, mAuthority));
+    }
 }

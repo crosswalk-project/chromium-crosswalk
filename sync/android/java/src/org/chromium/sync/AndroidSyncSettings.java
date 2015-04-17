@@ -193,8 +193,9 @@ public class AndroidSyncSettings {
 
     private void setChromeSyncEnabled(boolean value) {
         synchronized (mLock) {
-            if (value == mChromeSyncEnabled || mAccount == null) return;
+            if (mAccount == null) return;
             ensureSyncable();
+            if (value == mChromeSyncEnabled) return;
             mChromeSyncEnabled = value;
 
             StrictMode.ThreadPolicy oldPolicy = StrictMode.allowThreadDiskWrites();

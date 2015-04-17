@@ -141,7 +141,7 @@ public class MockSyncContentResolverDelegate implements SyncContentResolverDeleg
         String key = createKey(account, authority);
         synchronized (mSyncableMapLock) {
             if (mIsSyncableMap.containsKey(key)) {
-                return mIsSyncableMap.containsKey(key) ? 1 : 0;
+                return mIsSyncableMap.get(key) ? 1 : 0;
             } else {
                 return -1;
             }
