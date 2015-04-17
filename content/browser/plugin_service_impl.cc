@@ -18,6 +18,7 @@
 #include "content/browser/ppapi_plugin_process_host.h"
 #include "content/browser/renderer_host/render_process_host_impl.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
+#include "content/common/content_switches_internal.h"
 #include "content/common/pepper_plugin_list.h"
 #include "content/common/plugin_list.h"
 #include "content/common/view_messages.h"
@@ -789,6 +790,9 @@ void PluginServiceImpl::GetInternalPlugins(
 }
 
 bool PluginServiceImpl::NPAPIPluginsSupported() {
+  if (npapi_plugins_enabled_)
+    return true;
+
   static bool command_line_checked = false;
 
   if (!command_line_checked) {
@@ -812,8 +816,16 @@ void PluginServiceImpl::DisablePluginsDiscoveryForTesting() {
   PluginList::Singleton()->DisablePluginsDiscovery();
 }
 
-void PluginServiceImpl::EnableNpapiPluginsForTesting() {
+void PluginServiceImpl::EnableNpapiPlugins() {
+#if defined(OS_WIN)
+  DisableWin32kRendererLockdown();
+#endif
   npapi_plugins_enabled_ = true;
+  RefreshPlugins();
+  BrowserThread::PostTask(
+      BrowserThread::UI, FROM_HERE,
+      base::Bind(&PluginService::PurgePluginListCache,
+                 static_cast<BrowserContext*>(NULL), false));
 }
 
 #if defined(OS_MACOSX)

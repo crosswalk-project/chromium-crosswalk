@@ -140,23 +140,6 @@ void ChromeBrowserPolicyConnector::AppendExtraFlagsPerPolicy() {
     if (!command_line->HasSwitch(switches::kEnableIframeBasedSignin))
       command_line->AppendSwitch(switches::kEnableIframeBasedSignin);
   }
-
-  if (command_line->HasSwitch(switches::kEnableNpapi))
-    return;
-
-  // The list of Plugin related policies that re-enable NPAPI. Remove once NPAPI
-  // is dead.
-  const std::string plugin_policies[] = { key::kEnabledPlugins,
-                                          key::kPluginsAllowedForUrls,
-                                          key::kPluginsBlockedForUrls,
-                                          key::kDisabledPluginsExceptions,
-                                          key::kDisabledPlugins };
-  for (auto policy : plugin_policies) {
-    if (chrome_policy.GetValue(policy)) {
-      command_line->AppendSwitch(switches::kEnableNpapi);
-      break;
-    }
-  }
 }
 
 }  // namespace policy
