@@ -378,6 +378,18 @@ deps_os = {
 }
 
 hooks = [
+  # Custom Crosswalk hook.
+  {
+    'action': [
+      'python',
+      'src/build/empty_google_play_services_lib.py'
+    ],
+    'pattern':
+      '.',
+    'name':
+      'empty_google_play_services_lib'
+  },
+
   {
     'action': [
       'python',
@@ -723,18 +735,6 @@ hooks = [
       'src/tools/.*\\.py',
     'name':
       'remove_stale_pyc_files'
-  },
-
-  # Custom Crosswalk hooks.
-  {
-    'action': [
-      'python',
-      'src/build/empty_google_play_services_lib.py'
-    ],
-    'pattern':
-      '.',
-    'name':
-      'empty_google_play_services_lib'
   }
 ]
 
