@@ -18,8 +18,13 @@ struct EVENTS_DEVICES_EXPORT TouchscreenDevice : public InputDevice {
   // Creates an invalid touchscreen device.
   TouchscreenDevice();
 
-  TouchscreenDevice(unsigned int id,
+  TouchscreenDevice(int id,
                     InputDeviceType type,
+                    const std::string& name,
+                    const gfx::Size& size,
+                    int touch_points);
+
+  TouchscreenDevice(const InputDevice& input_device,
                     const gfx::Size& size,
                     int touch_points);
 

@@ -63,8 +63,8 @@ void TouchFactory::SetTouchDeviceListFromCommandLine() {
 
   if (!touch_devices.empty()) {
     std::vector<std::string> devs;
-    std::vector<unsigned int> device_ids;
-    unsigned int devid;
+    std::vector<int> device_ids;
+    int devid;
     base::SplitString(touch_devices, ',', &devs);
     for (std::vector<std::string>::iterator iter = devs.begin();
         iter != devs.end(); ++iter) {
@@ -129,7 +129,7 @@ void TouchFactory::UpdateDeviceList(Display* display) {
               reinterpret_cast<XITouchClassInfo*>(xiclassinfo);
           // Only care direct touch device (such as touch screen) right now
           if (tci->mode == XIDirectTouch)
-            CacheTouchscreenIds(display, devinfo.deviceid);
+            CacheTouchscreenIds(devinfo.deviceid);
         }
       }
     }
@@ -216,28 +216,30 @@ void TouchFactory::SetupXI2ForXWindow(Window window) {
   XFlush(display);
 }
 
-void TouchFactory::SetTouchDeviceList(
-    const std::vector<unsigned int>& devices) {
+void TouchFactory::SetTouchDeviceList(const std::vector<int>& devices) {
   touch_device_lookup_.reset();
   touch_device_list_.clear();
-  for (std::vector<unsigned int>::const_iterator iter = devices.begin();
+  for (std::vector<int>::const_iterator iter = devices.begin();
        iter != devices.end(); ++iter) {
-    DCHECK(*iter < touch_device_lookup_.size());
+    DCHECK(IsValidDevice(*iter));
     touch_device_lookup_[*iter] = true;
     touch_device_list_[*iter] = false;
   }
 }
 
-bool TouchFactory::IsTouchDevice(unsigned deviceid) const {
-  return deviceid < touch_device_lookup_.size() ?
-      touch_device_lookup_[deviceid] : false;
+bool TouchFactory::IsValidDevice(int deviceid) const {
+  return (deviceid >= 0) &&
+         (static_cast<size_t>(deviceid) < touch_device_lookup_.size());
 }
 
-bool TouchFactory::IsMultiTouchDevice(unsigned int deviceid) const {
-  return (deviceid < touch_device_lookup_.size() &&
-          touch_device_lookup_[deviceid]) ?
-          touch_device_list_.find(deviceid)->second :
-          false;
+bool TouchFactory::IsTouchDevice(int deviceid) const {
+  return IsValidDevice(deviceid) ? touch_device_lookup_[deviceid] : false;
+}
+
+bool TouchFactory::IsMultiTouchDevice(int deviceid) const {
+  return (IsValidDevice(deviceid) && touch_device_lookup_[deviceid])
+             ? touch_device_list_.find(deviceid)->second
+             : false;
 }
 
 bool TouchFactory::QuerySlotForTrackingID(uint32 tracking_id, int* slot) {
@@ -269,12 +271,12 @@ void TouchFactory::ResetForTest() {
 }
 
 void TouchFactory::SetTouchDeviceForTest(
-    const std::vector<unsigned int>& devices) {
+    const std::vector<int>& devices) {
   touch_device_lookup_.reset();
   touch_device_list_.clear();
-  for (std::vector<unsigned int>::const_iterator iter = devices.begin();
+  for (std::vector<int>::const_iterator iter = devices.begin();
        iter != devices.end(); ++iter) {
-    DCHECK(*iter < touch_device_lookup_.size());
+    DCHECK(IsValidDevice(*iter));
     touch_device_lookup_[*iter] = true;
     touch_device_list_[*iter] = true;
   }
@@ -282,51 +284,27 @@ void TouchFactory::SetTouchDeviceForTest(
 }
 
 void TouchFactory::SetPointerDeviceForTest(
-    const std::vector<unsigned int>& devices) {
+    const std::vector<int>& devices) {
   pointer_device_lookup_.reset();
-  for (std::vector<unsigned int>::const_iterator iter = devices.begin();
+  for (std::vector<int>::const_iterator iter = devices.begin();
        iter != devices.end(); ++iter) {
     pointer_device_lookup_[*iter] = true;
   }
 }
 
-void TouchFactory::CacheTouchscreenIds(Display* display, int device_id) {
-  XDevice* device = XOpenDevice(display, device_id);
-  if (!device)
+void TouchFactory::CacheTouchscreenIds(int device_id) {
+  if (!DeviceDataManager::HasInstance())
     return;
-
-  Atom actual_type_return;
-  int actual_format_return;
-  unsigned long nitems_return;
-  unsigned long bytes_after_return;
-  unsigned char *prop_return;
-
-  const char kDeviceProductIdString[] = "Device Product ID";
-  Atom device_product_id_atom =
-      XInternAtom(display, kDeviceProductIdString, false);
-
-  if (device_product_id_atom != None &&
-      XGetDeviceProperty(display, device, device_product_id_atom, 0, 2,
-                         False, XA_INTEGER, &actual_type_return,
-                         &actual_format_return, &nitems_return,
-                         &bytes_after_return, &prop_return) == Success) {
-    if (actual_type_return == XA_INTEGER &&
-        actual_format_return == 32 &&
-        nitems_return == 2) {
-      // An actual_format_return of 32 implies that the returned data is an
-      // array of longs. See the description of |prop_return| in `man
-      // XGetDeviceProperty` for details.
-      long* ptr = reinterpret_cast<long*>(prop_return);
-
-      // Internal displays will have a vid and pid of 0. Ignore them.
-      // ptr[0] is the vid, and ptr[1] is the pid.
-      if (ptr[0] || ptr[1])
-        touchscreen_ids_.insert(std::make_pair(ptr[0], ptr[1]));
-    }
-    XFree(prop_return);
-  }
-
-  XCloseDevice(display, device);
+  std::vector<TouchscreenDevice> touchscreens =
+      DeviceDataManager::GetInstance()->touchscreen_devices();
+  const auto it =
+      std::find_if(touchscreens.begin(), touchscreens.end(),
+                   [device_id](const TouchscreenDevice& touchscreen) {
+                     return touchscreen.id == device_id;
+                   });
+  // Internal displays will have a vid and pid of 0. Ignore them.
+  if (it != touchscreens.end() && it->vendor_id && it->product_id)
+    touchscreen_ids_.insert(std::make_pair(it->vendor_id, it->product_id));
 }
 
 }  // namespace ui

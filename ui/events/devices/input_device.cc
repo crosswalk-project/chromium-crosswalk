@@ -9,14 +9,22 @@
 namespace ui {
 
 // static
-const unsigned int InputDevice::kInvalidId = 0;
+const int InputDevice::kInvalidId = 0;
 
 InputDevice::InputDevice()
     : id(kInvalidId), type(InputDeviceType::INPUT_DEVICE_UNKNOWN) {
 }
 
-InputDevice::InputDevice(unsigned int id, InputDeviceType type)
-    : id(id), type(type) {
+InputDevice::InputDevice(int id, InputDeviceType type, const std::string& name)
+    : id(id), type(type), name(name), vendor_id(0), product_id(0) {
+}
+
+InputDevice::InputDevice(int id,
+                         InputDeviceType type,
+                         const std::string& name,
+                         uint16_t vendor,
+                         uint16_t product)
+    : id(id), type(type), name(name), vendor_id(vendor), product_id(product) {
 }
 
 InputDevice::~InputDevice() {

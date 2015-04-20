@@ -226,7 +226,7 @@ TEST_F(EventsXTest, ClickCount) {
 }
 
 TEST_F(EventsXTest, TouchEventBasic) {
-  std::vector<unsigned int> devices;
+  std::vector<int> devices;
   devices.push_back(0);
   ui::SetUpTouchDevicesForTest(devices);
   std::vector<Valuator> valuators;
@@ -311,7 +311,7 @@ int GetTouchIdForTrackingId(uint32 tracking_id) {
 }
 
 TEST_F(EventsXTest, TouchEventNotRemovingFromNativeMapping) {
-  std::vector<unsigned int> devices;
+  std::vector<int> devices;
   devices.push_back(0);
   ui::SetUpTouchDevicesForTest(devices);
   std::vector<Valuator> valuators;
@@ -357,7 +357,7 @@ TEST_F(EventsXTest, TouchEventNotRemovingFromNativeMapping) {
 // crash (crbug.com/467102). Copied events do not contain a proper
 // base::NativeEvent and should not attempt to access it.
 TEST_F(EventsXTest, CopiedTouchEventNotRemovingFromNativeMapping) {
-  std::vector<unsigned int> devices;
+  std::vector<int> devices;
   devices.push_back(0);
   ui::SetUpTouchDevicesForTest(devices);
   std::vector<Valuator> valuators;
@@ -535,9 +535,9 @@ TEST_F(EventsXTest, DisableKeyboard) {
   DeviceDataManagerX11* device_data_manager =
       static_cast<DeviceDataManagerX11*>(
           DeviceDataManager::GetInstance());
-  unsigned int blocked_device_id = 1;
-  unsigned int other_device_id = 2;
-  unsigned int master_device_id = 3;
+  int blocked_device_id = 1;
+  int other_device_id = 2;
+  int master_device_id = 3;
   device_data_manager->DisableDevice(blocked_device_id);
 
   scoped_ptr<std::set<KeyboardCode> > excepted_keys(new std::set<KeyboardCode>);
@@ -592,9 +592,9 @@ TEST_F(EventsXTest, DisableMouse) {
   DeviceDataManagerX11* device_data_manager =
       static_cast<DeviceDataManagerX11*>(
           DeviceDataManager::GetInstance());
-  unsigned int blocked_device_id = 1;
-  unsigned int other_device_id = 2;
-  std::vector<unsigned int> device_list;
+  int blocked_device_id = 1;
+  int other_device_id = 2;
+  std::vector<int> device_list;
   device_list.push_back(blocked_device_id);
   device_list.push_back(other_device_id);
   TouchFactory::GetInstance()->SetPointerDeviceForTest(device_list);
