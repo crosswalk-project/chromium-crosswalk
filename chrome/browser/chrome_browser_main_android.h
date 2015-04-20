@@ -25,7 +25,6 @@ class ChromeBrowserMainPartsAndroid : public ChromeBrowserMainParts {
   void PreEarlyInitialization() override;
 
   // ChromeBrowserMainParts overrides.
-  void PostBrowserStart() override;
   void ShowMissingLocaleMessageBox() override;
 
  private:

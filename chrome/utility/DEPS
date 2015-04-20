@@ -5,7 +5,6 @@ include_rules = [
   "+components/wifi",
   "+courgette",
   "+extensions/common",
-  "+sandbox/linux/seccomp-bpf/sandbox_bpf.h",
   "+skia/ext",
   "+media",
   "+third_party/zlib/google",
