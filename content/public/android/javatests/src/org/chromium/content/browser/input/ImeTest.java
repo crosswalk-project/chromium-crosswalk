@@ -733,10 +733,11 @@ public class ImeTest extends ContentShellTestBase {
         waitAndVerifyEditableCallback(mConnection.mImeUpdateQueue, 0, "", 0, 0, -1, -1);
 
         // H
-        // Since autocomplete="off", regular key codes are emitted.
+        // Although autocomplete="off", we still emit COMPOSITION_KEY_CODE since synthesized
+        // keycodes are disabled.
         expectUpdateStateCall(mConnection);
         setComposingText(mConnection, "h", 1);
-        assertEquals(KeyEvent.KEYCODE_H, mImeAdapter.mLastSyntheticKeyCode);
+        assertEquals(COMPOSITION_KEY_CODE, mImeAdapter.mLastSyntheticKeyCode);
 
         // Simulate switch of input fields.
         finishComposingText(mConnection);
@@ -744,7 +745,7 @@ public class ImeTest extends ContentShellTestBase {
         // H
         expectUpdateStateCall(mConnection);
         setComposingText(mConnection, "h", 1);
-        assertEquals(KeyEvent.KEYCODE_H, mImeAdapter.mLastSyntheticKeyCode);
+        assertEquals(COMPOSITION_KEY_CODE, mImeAdapter.mLastSyntheticKeyCode);
     }
 
     @SmallTest
