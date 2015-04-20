@@ -723,6 +723,18 @@ hooks = [
       'src/tools/.*\\.py',
     'name':
       'remove_stale_pyc_files'
+  },
+
+  # Custom Crosswalk hooks.
+  {
+    'action': [
+      'python',
+      'src/build/empty_google_play_services_lib.py'
+    ],
+    'pattern':
+      '.',
+    'name':
+      'empty_google_play_services_lib'
   }
 ]
 
