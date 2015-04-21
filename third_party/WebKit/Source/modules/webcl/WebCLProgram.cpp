@@ -36,7 +36,7 @@ WebCLProgram::~WebCLProgram()
     ASSERT(!m_clProgram);
 }
 
-PassRefPtr<WebCLProgram> WebCLProgram::create(cl_program program, WebCLContext* context, const String& kernelSource)
+PassRefPtr<WebCLProgram> WebCLProgram::create(cl_program program, PassRefPtr<WebCLContext> context, const String& kernelSource)
 {
     return adoptRef(new WebCLProgram(program, context, kernelSource));
 }
@@ -459,7 +459,7 @@ const String& WebCLProgram::sourceWithCommentsStripped()
     return m_programSourceWithCommentsStripped;
 }
 
-WebCLProgram::WebCLProgram(cl_program program, WebCLContext* context, const String& kernelSource)
+WebCLProgram::WebCLProgram(cl_program program, PassRefPtr<WebCLContext> context, const String& kernelSource)
     : WebCLObject(context)
     , m_buildCallback(nullptr)
     , m_programSource(kernelSource)

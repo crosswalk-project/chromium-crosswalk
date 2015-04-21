@@ -39,7 +39,7 @@ class WebCLCommandQueue : public WebCLObject, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLCommandQueue() override;
-    static PassRefPtr<WebCLCommandQueue> create(cl_command_queue, WebCLContext*, WebCLDevice*);
+    static PassRefPtr<WebCLCommandQueue> create(cl_command_queue, PassRefPtr<WebCLContext>, WebCLDevice*);
 
     ScriptValue getInfo(ScriptState*, int, ExceptionState&);
     void enqueueWriteBuffer(WebCLBuffer*, bool, unsigned, unsigned, DOMArrayBufferView*, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
@@ -97,7 +97,7 @@ private:
     void enqueueReadImageBase(WebCLImage*, bool, const Vector<unsigned>&, const Vector<unsigned>&, unsigned, void*, size_t, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueWriteBufferRectBase(WebCLBuffer*, bool, const Vector<unsigned>&, const Vector<unsigned>&, const Vector<unsigned>&, unsigned, unsigned, unsigned, unsigned, void*, size_t, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueWriteImageBase(WebCLImage*, bool, const Vector<unsigned>&, const Vector<unsigned>&, unsigned, void*, size_t, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
-    WebCLCommandQueue(cl_command_queue, WebCLContext*, WebCLDevice*);
+    WebCLCommandQueue(cl_command_queue, PassRefPtr<WebCLContext>, WebCLDevice*);
     Vector<cl_event> WebCLEventVectorToCLEventVector(bool, Vector<RefPtr<WebCLEvent>>, ExceptionState&);
     cl_event* WebCLEventPtrToCLEventPtr(WebCLEvent*, ExceptionState&);
     bool isExtensionEnabled(WebCLContext*, const String& name) const;

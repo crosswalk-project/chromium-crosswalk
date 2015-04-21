@@ -30,7 +30,7 @@ WebCLKernel::~WebCLKernel()
     ASSERT(!m_clKernel);
 }
 
-PassRefPtr<WebCLKernel> WebCLKernel::create(cl_kernel kernel, WebCLContext* context, WebCLProgram* program, const String& kernelName)
+PassRefPtr<WebCLKernel> WebCLKernel::create(cl_kernel kernel, PassRefPtr<WebCLContext> context, WebCLProgram* program, const String& kernelName)
 {
     return adoptRef(new WebCLKernel(kernel, context, program, kernelName));
 }
@@ -435,7 +435,7 @@ unsigned WebCLKernel::associatedArguments()
     return count;
 }
 
-WebCLKernel::WebCLKernel(cl_kernel kernel, WebCLContext* context, WebCLProgram* program, const String& kernelName)
+WebCLKernel::WebCLKernel(cl_kernel kernel, PassRefPtr<WebCLContext> context, WebCLProgram* program, const String& kernelName)
     : WebCLObject(context)
     , m_program(program)
     , m_kernelName(kernelName)

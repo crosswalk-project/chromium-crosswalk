@@ -29,7 +29,7 @@ WebCLBuffer::~WebCLBuffer()
 {
 }
 
-PassRefPtr<WebCLBuffer> WebCLBuffer::create(WebCLContext* context, unsigned memoryFlags, unsigned sizeInBytes, void* data, ExceptionState& es)
+PassRefPtr<WebCLBuffer> WebCLBuffer::create(PassRefPtr<WebCLContext> context, unsigned memoryFlags, unsigned sizeInBytes, void* data, ExceptionState& es)
 {
     cl_context m_clContext = context->getContext();
     if (!m_clContext) {
@@ -117,7 +117,7 @@ PassRefPtr<WebCLBuffer> WebCLBuffer::createSubBuffer(unsigned memoryFlags, unsig
     return buffer.release();
 }
 
-WebCLBuffer::WebCLBuffer(cl_mem clMem, WebCLContext* context, unsigned memoryFlags, unsigned size, WebCLBuffer* parentBuffer)
+WebCLBuffer::WebCLBuffer(cl_mem clMem, PassRefPtr<WebCLContext> context, unsigned memoryFlags, unsigned size, WebCLBuffer* parentBuffer)
     : WebCLMemoryObject(clMem, size, context, parentBuffer)
     , m_memoryFlags(memoryFlags)
 {

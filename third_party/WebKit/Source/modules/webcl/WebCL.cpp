@@ -93,7 +93,7 @@ static void validateWebCLEventList(const Vector<RefPtr<WebCLEvent>>& events, Exc
         return;
     }
 
-    WebCLContext* referenceContext = events[0]->context();
+    WebCLContext* referenceContext = events[0]->context().get();
 
     for (auto event : events) {
         if (event->isReleased() || (event->isUserEvent() && isSyncCall)) {
@@ -102,7 +102,7 @@ static void validateWebCLEventList(const Vector<RefPtr<WebCLEvent>>& events, Exc
         }
 
         ASSERT(event->context());
-        if (!WebCLInputChecker::compareContext(event->context(), referenceContext)) {
+        if (!WebCLInputChecker::compareContext(event->context().get(), referenceContext)) {
             es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
             return;
         }

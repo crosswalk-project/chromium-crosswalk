@@ -22,7 +22,7 @@ class WebCLSampler : public WebCLObject, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLSampler() override;
-    static PassRefPtr<WebCLSampler> create(cl_sampler, bool, unsigned, unsigned, WebCLContext*);
+    static PassRefPtr<WebCLSampler> create(cl_sampler, bool, unsigned, unsigned, PassRefPtr<WebCLContext>);
 
     ScriptValue getInfo(ScriptState*, cl_sampler_info, ExceptionState&);
     void release() override;
@@ -30,7 +30,7 @@ public:
     cl_sampler getSampler() const { return m_clSampler; }
 
 private:
-    WebCLSampler(cl_sampler, bool, unsigned, unsigned, WebCLContext*);
+    WebCLSampler(cl_sampler, bool, unsigned, unsigned, PassRefPtr<WebCLContext>);
     bool isReleased() const { return !m_clSampler; }
 
     bool m_normCoords;

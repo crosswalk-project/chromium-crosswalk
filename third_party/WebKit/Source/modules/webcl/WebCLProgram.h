@@ -28,7 +28,7 @@ class WebCLProgram : public WebCLObject, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLProgram() override;
-    static PassRefPtr<WebCLProgram> create(cl_program, WebCLContext*, const String&);
+    static PassRefPtr<WebCLProgram> create(cl_program, PassRefPtr<WebCLContext>, const String&);
 
     ScriptValue getInfo(ScriptState*, int, ExceptionState&);
     ScriptValue getBuildInfo(ScriptState* scriptState, WebCLDevice*, int, ExceptionState&);
@@ -42,7 +42,7 @@ public:
     const String& getProgramSource() const { return m_programSource; }
 
 private:
-    WebCLProgram(cl_program, WebCLContext*, const String&);
+    WebCLProgram(cl_program, PassRefPtr<WebCLContext>, const String&);
     bool isReleased() const { return !m_clProgram; }
     bool isExtensionEnabled(RefPtr<blink::WebCLContext>, const String&);
     typedef void (*pfnNotify)(cl_program, void*);
