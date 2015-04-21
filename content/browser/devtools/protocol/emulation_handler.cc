@@ -127,9 +127,7 @@ Response EmulationHandler::CanEmulate(bool* result) {
   if (host_) {
     if (WebContents* web_contents = WebContents::FromRenderViewHost(host_)) {
       *result = web_contents->GetMainFrame()->GetRenderViewHost() == host_;
-#if defined(DEBUG_DEVTOOLS)
       *result &= !web_contents->GetVisibleURL().SchemeIs(kChromeDevToolsScheme);
-#endif  // defined(DEBUG_DEVTOOLS)
     } else {
       *result = true;
     }
