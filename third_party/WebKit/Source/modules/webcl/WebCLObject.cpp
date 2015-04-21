@@ -16,7 +16,7 @@ WebCLObject::~WebCLObject()
         m_context->untrackReleaseableWebCLObject(createWeakPtr());
 }
 
-WebCLObject::WebCLObject(WebCLContext* context)
+WebCLObject::WebCLObject(PassRefPtr<WebCLContext> context)
     : m_weakFactory(this)
     , m_context(context)
 {
@@ -30,13 +30,13 @@ WebCLObject::WebCLObject()
 {
 }
 
-WebCLContext* WebCLObject::context()
+PassRefPtr<WebCLContext> WebCLObject::context()
 {
     ASSERT(m_context);
     return m_context;
 }
 
-void WebCLObject::setContext(WebCLContext* context)
+void WebCLObject::setContext(PassRefPtr<WebCLContext> context)
 {
     m_context = context;
     m_context->trackReleaseableWebCLObject(createWeakPtr());

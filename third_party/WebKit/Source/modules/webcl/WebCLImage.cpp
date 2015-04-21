@@ -18,7 +18,7 @@ WebCLImage::~WebCLImage()
 {
 }
 
-PassRefPtr<WebCLImage> WebCLImage::create(cl_mem image, const WebCLImageDescriptor& imageDescriptor, WebCLContext* context)
+PassRefPtr<WebCLImage> WebCLImage::create(cl_mem image, const WebCLImageDescriptor& imageDescriptor, PassRefPtr<WebCLContext> context)
 {
     return adoptRef(new WebCLImage(image, imageDescriptor, context));
 }
@@ -37,7 +37,7 @@ void WebCLImage::getInfo(ExceptionState& es, WebCLImageDescriptor& descriptor)
     descriptor.setChannelType(m_imageDescriptor.channelType());
 }
 
-WebCLImage::WebCLImage(cl_mem image, const WebCLImageDescriptor& imageDescriptor, WebCLContext* context)
+WebCLImage::WebCLImage(cl_mem image, const WebCLImageDescriptor& imageDescriptor, PassRefPtr<WebCLContext> context)
     : WebCLMemoryObject(image, 0, context)
     , m_imageDescriptor(imageDescriptor)
 {
