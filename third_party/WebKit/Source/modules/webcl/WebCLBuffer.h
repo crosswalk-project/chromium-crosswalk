@@ -20,13 +20,13 @@ class WebCLBuffer : public WebCLMemoryObject {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLBuffer() override;
-    static PassRefPtr<WebCLBuffer> create(WebCLContext*, unsigned, unsigned, void*, ExceptionState&);
+    static PassRefPtr<WebCLBuffer> create(PassRefPtr<WebCLContext>, unsigned, unsigned, void*, ExceptionState&);
     PassRefPtr<WebCLBuffer> createSubBuffer(unsigned, unsigned, unsigned, ExceptionState&);
 
     int type() override { return BUFFER; }
 
 private:
-    WebCLBuffer(cl_mem, WebCLContext*, unsigned, unsigned, WebCLBuffer* parentBuffer = nullptr);
+    WebCLBuffer(cl_mem, PassRefPtr<WebCLContext>, unsigned, unsigned, WebCLBuffer* parentBuffer = nullptr);
 
     unsigned m_memoryFlags;
 };

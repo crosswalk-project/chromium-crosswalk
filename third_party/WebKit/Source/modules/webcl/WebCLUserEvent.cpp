@@ -19,7 +19,7 @@ WebCLUserEvent::~WebCLUserEvent()
 {
 }
 
-PassRefPtr<WebCLUserEvent> WebCLUserEvent::create(WebCLContext* context, ExceptionState& es)
+PassRefPtr<WebCLUserEvent> WebCLUserEvent::create(PassRefPtr<WebCLContext> context, ExceptionState& es)
 {
     cl_int userEventError = 0;
     cl_event userEvent = clCreateUserEvent(context->getContext(), &userEventError);
@@ -77,7 +77,7 @@ ScriptValue WebCLUserEvent::getInfo(ScriptState* scriptState, unsigned name, Exc
     return WebCLEvent::getInfo(scriptState, name, es);
 }
 
-WebCLUserEvent::WebCLUserEvent(cl_event event, WebCLContext* context)
+WebCLUserEvent::WebCLUserEvent(cl_event event, PassRefPtr<WebCLContext> context)
     : WebCLEvent(event)
     , m_eventStatusSituation(StatusUnset)
     , m_executionStatus(0)

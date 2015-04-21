@@ -9,6 +9,7 @@
 #if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLEvent.h"
+#include "wtf/PassRefPtr.h"
 
 namespace blink {
 
@@ -18,7 +19,7 @@ class WebCLUserEvent : public WebCLEvent {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLUserEvent() override;
-    static PassRefPtr<WebCLUserEvent> create(WebCLContext*, ExceptionState&);
+    static PassRefPtr<WebCLUserEvent> create(PassRefPtr<WebCLContext>, ExceptionState&);
 
     void setStatus(cl_int, ExceptionState&);
     ScriptValue getInfo(ScriptState* scriptState, unsigned, ExceptionState&) override;
@@ -28,7 +29,7 @@ public:
     int getStatus() override { return m_executionStatus; }
 
 private:
-    WebCLUserEvent(cl_event event, WebCLContext*);
+    WebCLUserEvent(cl_event event, PassRefPtr<WebCLContext>);
     enum EventStatusSituation m_eventStatusSituation;
     int m_executionStatus;
 };

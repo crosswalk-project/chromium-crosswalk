@@ -23,14 +23,14 @@ class WebCLImage : public WebCLMemoryObject {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLImage() override;
-    static PassRefPtr<WebCLImage> create(cl_mem, const WebCLImageDescriptor&, WebCLContext*);
+    static PassRefPtr<WebCLImage> create(cl_mem, const WebCLImageDescriptor&, PassRefPtr<WebCLContext>);
 
     void getInfo(ExceptionState&, WebCLImageDescriptor&);
     const WebCLImageDescriptor& imageDescriptor() { return m_imageDescriptor; }
     int type() override { return IMAGE; }
 
 private:
-    WebCLImage(cl_mem, const WebCLImageDescriptor&, WebCLContext*);
+    WebCLImage(cl_mem, const WebCLImageDescriptor&, PassRefPtr<WebCLContext>);
 
     WebCLImageDescriptor m_imageDescriptor;
 };

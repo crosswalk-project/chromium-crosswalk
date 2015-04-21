@@ -20,7 +20,7 @@ WebCLSampler::~WebCLSampler()
     ASSERT(!m_clSampler);
 }
 
-PassRefPtr<WebCLSampler> WebCLSampler::create(cl_sampler sampler, bool normCoords, unsigned addressingMode, unsigned filterMode, WebCLContext* context)
+PassRefPtr<WebCLSampler> WebCLSampler::create(cl_sampler sampler, bool normCoords, unsigned addressingMode, unsigned filterMode, PassRefPtr<WebCLContext> context)
 {
     return adoptRef(new WebCLSampler(sampler, normCoords, addressingMode, filterMode, context));
 }
@@ -68,7 +68,7 @@ void WebCLSampler::release()
     m_clSampler = 0;
 }
 
-WebCLSampler::WebCLSampler(cl_sampler sampler, bool normCoords, unsigned addressingMode, unsigned filterMode, WebCLContext* context)
+WebCLSampler::WebCLSampler(cl_sampler sampler, bool normCoords, unsigned addressingMode, unsigned filterMode, PassRefPtr<WebCLContext> context)
     : WebCLObject(context)
     , m_normCoords(normCoords)
     , m_addressingMode(addressingMode)
