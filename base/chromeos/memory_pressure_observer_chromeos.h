@@ -12,6 +12,10 @@
 #include "base/memory/weak_ptr.h"
 #include "base/timer/timer.h"
 
+#if defined (OS_POSIX)
+#include "base/files/scoped_file.h"
+#endif
+
 namespace base {
 
 class TestMemoryPressureObserver;
@@ -98,6 +102,11 @@ class BASE_EXPORT MemoryPressureObserverChromeOS {
   // The thresholds for moderate and critical pressure.
   const int moderate_pressure_threshold_percent_;
   const int critical_pressure_threshold_percent_;
+
+#if defined(OS_POSIX)
+  // File descriptor used to detect low memory condition.
+  ScopedFD low_mem_file_;
+#endif
 
   base::WeakPtrFactory<MemoryPressureObserverChromeOS> weak_ptr_factory_;
 
