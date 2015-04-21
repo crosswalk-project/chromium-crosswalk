@@ -177,7 +177,6 @@ public class ContentViewCore
             }
         }
 
-        private final Context mContext;
         private final RenderCoordinates mRenderCoordinates;
 
         /**
@@ -194,21 +193,18 @@ public class ContentViewCore
          */
         private Map<View, Position> mAnchorViews = new LinkedHashMap<View, Position>();
 
-        ContentViewAndroidDelegate(
-                Context context, ViewGroup containerView, RenderCoordinates renderCoordinates) {
-            mContext = context;
+        ContentViewAndroidDelegate(ViewGroup containerView, RenderCoordinates renderCoordinates) {
             mRenderCoordinates = renderCoordinates;
             mCurrentContainerView = new WeakReference<>(containerView);
         }
 
         @Override
         public View acquireAnchorView() {
-            View anchorView = new View(mContext);
-            mAnchorViews.put(anchorView, null);
             ViewGroup containerView = mCurrentContainerView.get();
-            if (containerView != null) {
-                containerView.addView(anchorView);
-            }
+            if (containerView == null) return null;
+            View anchorView = new View(containerView.getContext());
+            mAnchorViews.put(anchorView, null);
+            containerView.addView(anchorView);
             return anchorView;
         }
 
@@ -233,7 +229,8 @@ public class ContentViewCore
             }
             assert view.getParent() == containerView;
 
-            float scale = (float) DeviceDisplayInfo.create(mContext).getDIPScale();
+            float scale =
+                    (float) DeviceDisplayInfo.create(containerView.getContext()).getDIPScale();
 
             // The anchor view should not go outside the bounds of the ContainerView.
             int leftMargin = Math.round(x * scale);
@@ -853,8 +850,7 @@ public class ContentViewCore
 
     @VisibleForTesting
     void createContentViewAndroidDelegate() {
-        mViewAndroidDelegate =
-                new ContentViewAndroidDelegate(mContext, mContainerView, mRenderCoordinates);
+        mViewAndroidDelegate = new ContentViewAndroidDelegate(mContainerView, mRenderCoordinates);
     }
 
     @VisibleForTesting
