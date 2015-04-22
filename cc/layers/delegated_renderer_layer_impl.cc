@@ -81,9 +81,6 @@ void DelegatedRendererLayerImpl::PushPropertiesTo(LayerImpl* layer) {
   if (have_render_passes_to_push_) {
     // This passes ownership of the render passes to the active tree.
     delegated_layer->SetRenderPasses(&render_passes_in_draw_order_);
-    // Once resources are on the active tree, give them to the ResourceProvider
-    // and release unused resources from the old frame.
-    delegated_layer->TakeOwnershipOfResourcesIfOnActiveTree(resources_);
     DCHECK(render_passes_in_draw_order_.empty());
     have_render_passes_to_push_ = false;
   }
@@ -134,17 +131,14 @@ void DelegatedRendererLayerImpl::SetFrameData(
   }
 
   if (invalid_frame) {
-    // Declare we are still using the last frame's resources. Drops ownership of
-    // any invalid resources, keeping only those in use by the active tree.
+    // Declare we are still using the last frame's resources.
     resource_provider->DeclareUsedResourcesFromChild(child_id_, resources_);
     return;
   }
 
-  // Save the new frame's resources, but don't give them to the ResourceProvider
-  // until they are active, since the resources on the active tree will still be
-  // used and we don't want to return them early.
+  // Declare we are using the new frame's resources.
   resources_.swap(resources_in_frame);
-  TakeOwnershipOfResourcesIfOnActiveTree(resources_);
+  resource_provider->DeclareUsedResourcesFromChild(child_id_, resources_);
 
   inverse_device_scale_factor_ = 1.0f / frame_data->device_scale_factor;
   // Display size is already set so we can compute what the damage rect
@@ -160,15 +154,6 @@ void DelegatedRendererLayerImpl::SetFrameData(
 
   SetRenderPasses(&render_pass_list);
   have_render_passes_to_push_ = true;
-}
-
-void DelegatedRendererLayerImpl::TakeOwnershipOfResourcesIfOnActiveTree(
-    const ResourceProvider::ResourceIdSet& resources) {
-  DCHECK(child_id_);
-  if (!layer_tree_impl()->IsActiveTree())
-    return;
-  layer_tree_impl()->resource_provider()->DeclareUsedResourcesFromChild(
-      child_id_, resources);
 }
 
 void DelegatedRendererLayerImpl::SetRenderPasses(
