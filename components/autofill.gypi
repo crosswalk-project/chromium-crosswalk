@@ -224,12 +224,10 @@
         '<(SHARED_INTERMEDIATE_DIR)/autofill_regex_constants.cc',
       ],
       'conditions': [
-        ['desktop_linux==1', {
+        ['desktop_linux != 1', {
           # Controls whether Wallet cards can be saved to the local instance of
           # chrome.
-          'defines': [ 'ENABLE_SAVE_WALLET_CARDS_LOCALLY=0' ],
-        }, {
-          'defines': [ 'ENABLE_SAVE_WALLET_CARDS_LOCALLY=1' ],
+          'defines': [ 'ENABLE_SAVE_WALLET_CARDS_LOCALLY' ],
         }],
       ],
 

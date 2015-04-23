@@ -326,7 +326,8 @@ void CardUnmaskPromptViews::OnPerformAction(views::Combobox* combobox) {
 void CardUnmaskPromptViews::AnimationProgressed(
     const gfx::Animation* animation) {
   progress_overlay_->SetOpacity(animation->GetCurrentValue());
-  storage_row_->SetOpacity(1.0 - animation->GetCurrentValue());
+  if (storage_row_)
+    storage_row_->SetOpacity(1.0 - animation->GetCurrentValue());
 }
 
 void CardUnmaskPromptViews::InitIfNecessary() {
