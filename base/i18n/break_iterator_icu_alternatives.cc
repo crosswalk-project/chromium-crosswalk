@@ -11,7 +11,7 @@ namespace i18n {
 
 const size_t npos = -1;
 
-BreakIterator::BreakIterator(const string16& str, BreakType break_type)
+BreakIterator::BreakIterator(const StringPiece16& str, BreakType break_type)
     : iter_(NULL),
       string_(str),
       break_type_(break_type),
@@ -91,6 +91,10 @@ bool BreakIterator::IsStartOfWord(size_t position) const {
 }
 
 string16 BreakIterator::GetString() const {
+  return GetStringPiece().as_string();
+}
+
+StringPiece16 BreakIterator::GetStringPiece() const {
   DCHECK(prev_ != npos && pos_ != npos);
   return string_.substr(prev_, pos_ - prev_);
 }
