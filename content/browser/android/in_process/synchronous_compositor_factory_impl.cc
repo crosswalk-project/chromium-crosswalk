@@ -222,7 +222,7 @@ SynchronousCompositorFactoryImpl::CreateContextProviderForCompositor() {
   // pipeline is only one frame deep.
   mem_limits.mapped_memory_reclaim_limit = 6 * 1024 * 1024;
   return webkit::gpu::ContextProviderInProcess::Create(
-      WrapContext(CreateContext(nullptr, mem_limits, true, true)),
+      WrapContext(CreateContext(service_, mem_limits, false, true)),
       "Child-Compositor");
 }
 
