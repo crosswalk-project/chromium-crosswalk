@@ -95,6 +95,42 @@ base::string16 GetUpgradeDialogMenuItemName() {
   }
 }
 
+#if defined(OS_WIN)
+bool GetRestartMenuItemIfRequired(const chrome::HostDesktopType& desktop_type,
+                                  int* command_id,
+                                  int* string_id) {
+  if (base::win::GetVersion() == base::win::VERSION_WIN8 ||
+      base::win::GetVersion() == base::win::VERSION_WIN8_1) {
+    if (desktop_type != chrome::HOST_DESKTOP_TYPE_ASH) {
+      *command_id = IDC_WIN8_METRO_RESTART;
+      *string_id = IDS_WIN8_METRO_RESTART;
+    } else {
+      *command_id = IDC_WIN_DESKTOP_RESTART;
+      *string_id = IDS_WIN_DESKTOP_RESTART;
+    }
+    return true;
+  }
+
+  // Windows 7 ASH mode is only supported in DEBUG for now.
+#if !defined(NDEBUG)
+  // Windows 8 can support ASH mode using WARP, but Windows 7 requires a working
+  // GPU compositor.
+  if (base::win::GetVersion() == base::win::VERSION_WIN7 &&
+      content::GpuDataManager::GetInstance()->CanUseGpuBrowserCompositor()) {
+    if (desktop_type != chrome::HOST_DESKTOP_TYPE_ASH) {
+      *command_id = IDC_WIN_CHROMEOS_RESTART;
+      *string_id = IDS_WIN_CHROMEOS_RESTART;
+    } else {
+      *command_id = IDC_WIN_DESKTOP_RESTART;
+      *string_id = IDS_WIN_DESKTOP_RESTART;
+    }
+    return true;
+  }
+#endif
+  return false;
+}
+#endif
+
 }  // namespace
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -947,6 +983,15 @@ void WrenchMenuModel::Build() {
   SetIcon(GetIndexOfCommandId(IDC_VIEW_INCOMPATIBILITIES),
           ui::ResourceBundle::GetSharedInstance().
               GetNativeImageNamed(IDR_INPUT_ALERT_MENU));
+
+  int command_id = IDC_WIN_DESKTOP_RESTART;
+  int string_id = IDS_WIN_DESKTOP_RESTART;
+  if (GetRestartMenuItemIfRequired(browser_->host_desktop_type(),
+                                   &command_id,
+                                   &string_id)) {
+    AddSeparator(ui::NORMAL_SEPARATOR);
+    AddItemWithStringId(command_id, string_id);
+  }
 #endif
 
   AddGlobalErrorMenuItems();
