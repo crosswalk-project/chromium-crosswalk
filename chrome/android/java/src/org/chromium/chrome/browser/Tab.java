@@ -1584,9 +1584,7 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
         if (mInfoBarContainer == null) {
             // The InfoBarContainer needs to be created after the ContentView has been natively
             // initialized.
-            WebContents webContents = mContentViewCore.getWebContents();
-            mInfoBarContainer = new InfoBarContainer(
-                    mContext, getId(), mContentViewParent, webContents, this);
+            mInfoBarContainer = new InfoBarContainer(mContext, getId(), mContentViewParent, this);
         } else {
             mInfoBarContainer.onParentViewChanged(getId(), mContentViewParent);
         }
@@ -2137,8 +2135,9 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
     }
 
     /** This is currently called when committing a pre-rendered page. */
+    @VisibleForTesting
     @CalledByNative
-    private void swapWebContents(
+    public void swapWebContents(
             WebContents webContents, boolean didStartLoad, boolean didFinishLoad) {
         ContentViewCore cvc = new ContentViewCore(mContext);
         ContentView cv = ContentView.newInstance(mContext, cvc);
@@ -2197,11 +2196,6 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
     private void setNativePtr(long nativePtr) {
         assert mNativeTabAndroid == 0;
         mNativeTabAndroid = nativePtr;
-    }
-
-    @CalledByNative
-    private long getNativeInfoBarContainer() {
-        return getInfoBarContainer().getNative();
     }
 
     /**
