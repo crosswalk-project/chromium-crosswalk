@@ -477,6 +477,8 @@ class AutofillManager : public AutofillDownloadManager::Observer,
                            AutocompleteOffRespected);
   FRIEND_TEST_ALL_PREFIXES(AutofillManagerTest,
                            AutocompleteOffRespectedWithFlag);
+  FRIEND_TEST_ALL_PREFIXES(AutofillManagerTest,
+                           DontSaveCvcInAutocompleteHistory);
   FRIEND_TEST_ALL_PREFIXES(AutofillManagerTest, DontOfferToSaveWalletCard);
   DISALLOW_COPY_AND_ASSIGN(AutofillManager);
 };
