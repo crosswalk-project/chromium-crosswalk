@@ -239,7 +239,7 @@ class CC_EXPORT Scheduler : public BeginFrameObserverMixIn {
   void BeginRetroFrame();
   void BeginImplFrameWithDeadline(const BeginFrameArgs& args);
   void BeginImplFrameSynchronous(const BeginFrameArgs& args);
-  void BeginImplFrame(const BeginFrameArgs& args);
+  void BeginImplFrame();
   void FinishImplFrame();
   void OnBeginImplFrameDeadline();
   void PollToAdvanceCommitState();
