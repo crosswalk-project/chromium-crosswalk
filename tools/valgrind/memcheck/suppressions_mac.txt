@@ -94,6 +94,14 @@
    fun:__CFRunLoopRun
    ...
 }
+{
+   # See also http://openradar.appspot.com/20698633
+   bug_481286
+   Memcheck:Leak
+   ...
+   fun:_ZN8Security13PluginSession6mallocEm
+   fun:_Z20CL_extractCSSMKeyNSSRK33cssm_x509_subject_public_key_infoRN8Security9AllocatorEPK11DecodedCert
+}
 # Intentional leaks in AppKit, for an OS-level cache. Only appear on the first
 # run of each reboot.  See also issues 105525, 257276, 340847.
 {
