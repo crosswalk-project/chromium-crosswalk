@@ -894,30 +894,13 @@ void WrenchMenuModel::Build() {
   }
 
 #if defined(OS_WIN)
-  base::win::Version min_version_for_ash_mode = base::win::VERSION_WIN8;
-  // Windows 7 ASH mode is only supported in DEBUG for now.
-#if !defined(NDEBUG)
-  min_version_for_ash_mode = base::win::VERSION_WIN7;
-#endif
-  // Windows 8 can support ASH mode using WARP, but Windows 7 requires a working
-  // GPU compositor.
-  if ((base::win::GetVersion() >= min_version_for_ash_mode &&
-      content::GpuDataManager::GetInstance()->CanUseGpuBrowserCompositor()) ||
-      (base::win::GetVersion() >= base::win::VERSION_WIN8)) {
-    if (browser_->host_desktop_type() == chrome::HOST_DESKTOP_TYPE_ASH) {
-      // ASH/Metro mode, add the 'Relaunch Chrome in desktop mode'.
-      AddSeparator(ui::NORMAL_SEPARATOR);
-      AddItemWithStringId(IDC_WIN_DESKTOP_RESTART, IDS_WIN_DESKTOP_RESTART);
-    } else {
-      // In Windows 8 desktop, add the 'Relaunch Chrome in Windows 8 mode'.
-      // In Windows 7 desktop, add the 'Relaunch Chrome in Windows ASH mode'
-      AddSeparator(ui::NORMAL_SEPARATOR);
-      if (base::win::GetVersion() >= base::win::VERSION_WIN8) {
-        AddItemWithStringId(IDC_WIN8_METRO_RESTART, IDS_WIN8_METRO_RESTART);
-      } else {
-        AddItemWithStringId(IDC_WIN_CHROMEOS_RESTART, IDS_WIN_CHROMEOS_RESTART);
-      }
-    }
+  int command_id = IDC_WIN_DESKTOP_RESTART;
+  int string_id = IDS_WIN_DESKTOP_RESTART;
+  if (GetRestartMenuItemIfRequired(browser_->host_desktop_type(),
+                                   &command_id,
+                                   &string_id)) {
+    AddSeparator(ui::NORMAL_SEPARATOR);
+    AddItemWithStringId(command_id, string_id);
   }
 #endif
 
@@ -983,15 +966,6 @@ void WrenchMenuModel::Build() {
   SetIcon(GetIndexOfCommandId(IDC_VIEW_INCOMPATIBILITIES),
           ui::ResourceBundle::GetSharedInstance().
               GetNativeImageNamed(IDR_INPUT_ALERT_MENU));
-
-  int command_id = IDC_WIN_DESKTOP_RESTART;
-  int string_id = IDS_WIN_DESKTOP_RESTART;
-  if (GetRestartMenuItemIfRequired(browser_->host_desktop_type(),
-                                   &command_id,
-                                   &string_id)) {
-    AddSeparator(ui::NORMAL_SEPARATOR);
-    AddItemWithStringId(command_id, string_id);
-  }
 #endif
 
   AddGlobalErrorMenuItems();
