@@ -114,10 +114,6 @@ public class MockSyncContentResolverDelegate implements SyncContentResolverDeleg
         synchronized (mSyncableMapLock) {
             switch (syncable) {
                 case 0:
-                    if (mSyncAutomaticallySet.contains(key)) {
-                        mSyncAutomaticallySet.remove(key);
-                    }
-
                     mIsSyncableMap.put(key, false);
                     break;
                 case 1:
