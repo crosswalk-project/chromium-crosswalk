@@ -6,6 +6,7 @@
 
 #include "base/bind.h"
 #include "base/bind_helpers.h"
+#include "base/command_line.h"
 #include "base/debug/alias.h"
 #include "base/lazy_instance.h"
 #include "base/logging.h"
@@ -13,6 +14,7 @@
 #include "base/power_monitor/power_monitor.h"
 #include "build/build_config.h"
 #include "media/audio/fake_audio_log_factory.h"
+#include "media/base/media_switches.h"
 
 namespace media {
 namespace {
@@ -121,6 +123,8 @@ class AudioManagerHelper : public base::PowerObserver {
   DISALLOW_COPY_AND_ASSIGN(AudioManagerHelper);
 };
 
+static bool g_hang_monitor_enabled = false;
+
 static base::LazyInstance<AudioManagerHelper>::Leaky g_helper =
     LAZY_INSTANCE_INITIALIZER;
 }
@@ -147,17 +151,28 @@ AudioManager* AudioManager::CreateWithHangTimer(
     AudioLogFactory* audio_log_factory,
     const scoped_refptr<base::SingleThreadTaskRunner>& monitor_task_runner) {
   AudioManager* manager = Create(audio_log_factory);
-  // On OSX the audio thread is the UI thread, for which a hang monitor is not
-  // necessary.
-#if !defined(OS_MACOSX)
-  g_helper.Pointer()->StartHangTimer(monitor_task_runner);
-#endif
+  if (g_hang_monitor_enabled ||
+      base::CommandLine::ForCurrentProcess()->HasSwitch(
+          switches::kEnableAudioHangMonitor)) {
+    g_helper.Pointer()->StartHangTimer(monitor_task_runner);
+  }
   return manager;
 }
 
 // static
 AudioManager* AudioManager::CreateForTesting() {
   return Create(g_helper.Pointer()->fake_log_factory());
+}
+
+// static
+void AudioManager::EnableHangMonitor() {
+  CHECK(!g_last_created);
+// On OSX the audio thread is the UI thread, for which a hang monitor is not
+// necessary or recommended.  If it's manually requested, we should allow it
+// to start though.
+#if !defined(OS_MACOSX)
+  g_hang_monitor_enabled = true;
+#endif
 }
 
 // static
