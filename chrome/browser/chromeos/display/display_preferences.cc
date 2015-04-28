@@ -251,9 +251,7 @@ void StoreCurrentDisplayProperties() {
 
     scoped_ptr<base::DictionaryValue> property_value(
         new base::DictionaryValue());
-    property_value->SetInteger(
-        "rotation",
-        static_cast<int>(info.GetRotation(gfx::Display::ROTATION_SOURCE_USER)));
+    property_value->SetInteger("rotation", static_cast<int>(info.rotation()));
     property_value->SetInteger(
         "ui-scale",
         static_cast<int>(info.configured_ui_scale() * 1000));
@@ -358,9 +356,8 @@ void StoreDisplayRotationPrefs(bool rotation_lock) {
   DictionaryPrefUpdate update(local_state, prefs::kDisplayRotationLock);
   base::DictionaryValue* pref_data = update.Get();
   pref_data->SetBoolean("lock", rotation_lock);
-  gfx::Display::Rotation rotation =
-      display_manager->->GetDisplayInfo(gfx::Display::InternalDisplayId())
-          .GetRotation(gfx::Display::ROTATION_SOURCE_ACCELEROMETER);
+  gfx::Display::Rotation rotation = display_manager->
+      GetDisplayInfo(gfx::Display::InternalDisplayId()).rotation();
   pref_data->SetInteger("orientation", static_cast<int>(rotation));
 }
 

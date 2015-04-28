@@ -279,7 +279,7 @@ void DisplayOptionsHandler::SendDisplayInfo(
     js_display->SetBoolean("isPrimary", display.id() == primary_id);
     js_display->SetBoolean("isInternal", display.IsInternal());
     js_display->SetInteger("orientation",
-                           static_cast<int>(display_info.GetActiveRotation()));
+                           static_cast<int>(display_info.rotation()));
 
     base::ListValue* js_resolutions = new base::ListValue();
     for (const ash::DisplayMode& display_mode : display_info.display_modes()) {
@@ -438,8 +438,7 @@ void DisplayOptionsHandler::HandleSetOrientation(const base::ListValue* args) {
 
   content::RecordAction(
       base::UserMetricsAction("Options_DisplaySetOrientation"));
-  ash::ScreenRotationAnimator(display_id)
-      .Rotate(new_rotation, gfx::Display::ROTATION_SOURCE_USER);
+  ash::ScreenRotationAnimator(display_id).Rotate(new_rotation);
 }
 
 void DisplayOptionsHandler::HandleSetColorProfile(const base::ListValue* args) {
