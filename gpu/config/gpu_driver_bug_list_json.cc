@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "7.21",
+  "version": "7.23",
   "entries": [
     {
       "id": 1,
@@ -1216,6 +1216,29 @@ LONG_STRING_CONST(
       },
       "features": [
         "disable_discard_framebuffer"
+      ]
+    },
+    {
+      "id": 107,
+      "description": "EGL Sync server wait broken on IMG G6xxx drivers",
+      "cr_bugs": [480992],
+      "os": {
+        "type": "android",
+        "version": {
+          "op": "between",
+          "value": "5.0.0",
+          "value2": "5.1.99"
+        }
+      },
+      "gl_vendor": "Imagination.*",
+      "gl_renderer": "PowerVR Rogue.*",
+      "driver_version": {
+        "op": "between",
+        "value": "1.3",
+        "value2": "1.4"
+      },
+      "features": [
+        "disable_egl_khr_wait_sync"
       ]
     }
   ]
