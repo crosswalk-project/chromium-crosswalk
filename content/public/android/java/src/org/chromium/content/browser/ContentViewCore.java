@@ -2917,7 +2917,7 @@ public class ContentViewCore
                 return false;
             }
 
-            if (!mContentViewClient.isJavascriptEnabled()) {
+            if (!getContentViewClient().isJavascriptEnabled()) {
                 return false;
             }
 
