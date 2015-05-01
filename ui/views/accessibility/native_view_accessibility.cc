@@ -24,7 +24,9 @@ NativeViewAccessibility::NativeViewAccessibility(View* view)
     : view_(view),
       parent_widget_(nullptr),
       ax_node_(nullptr) {
+#if !defined(USE_OZONE)
   ax_node_ = ui::AXPlatformNode::Create(this);
+#endif
 }
 
 NativeViewAccessibility::~NativeViewAccessibility() {
