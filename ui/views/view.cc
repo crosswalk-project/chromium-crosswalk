@@ -1260,8 +1260,10 @@ bool View::ExceededDragThreshold(const gfx::Vector2d& delta) {
 // Accessibility----------------------------------------------------------------
 
 gfx::NativeViewAccessible View::GetNativeViewAccessible() {
+#if !defined(OS_WIN) && !(defined(OS_LINUX) && !defined(OS_CHROMEOS))
   if (!native_view_accessibility_)
     native_view_accessibility_ = NativeViewAccessibility::Create(this);
+#endif
   if (native_view_accessibility_)
     return native_view_accessibility_->GetNativeObject();
   return NULL;
@@ -1274,8 +1276,10 @@ void View::NotifyAccessibilityEvent(
     ViewsDelegate::GetInstance()->NotifyAccessibilityEvent(this, event_type);
 
   if (send_native_event && GetWidget()) {
+#if !defined(OS_WIN) && !(defined(OS_LINUX) && !defined(OS_CHROMEOS))
     if (!native_view_accessibility_)
       native_view_accessibility_ = NativeViewAccessibility::Create(this);
+#endif
     if (native_view_accessibility_)
       native_view_accessibility_->NotifyAccessibilityEvent(event_type);
   }
