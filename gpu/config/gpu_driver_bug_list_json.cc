@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "7.24",
+  "version": "7.27",
   "entries": [
     {
       "id": 1,
@@ -1239,6 +1239,23 @@ LONG_STRING_CONST(
       },
       "features": [
         "avoid_egl_image_target_texture_reuse",
+        "disable_egl_khr_wait_sync"
+      ]
+    },
+    {
+      "id": 110,
+      "description": "EGL Sync server causes crashes on Adreno 3xx drivers",
+      "cr_bugs": [482298],
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "Qualcomm.*",
+      "gl_renderer": "Adreno \\(TM\\) 3.*",
+      "driver_version": {
+        "op": "<",
+        "value": "95"
+      },
+      "features": [
         "disable_egl_khr_wait_sync"
       ]
     }
