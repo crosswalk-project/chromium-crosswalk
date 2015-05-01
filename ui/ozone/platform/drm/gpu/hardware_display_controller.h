@@ -91,7 +91,8 @@ class OZONE_EXPORT HardwareDisplayController
     : public base::SupportsWeakPtr<HardwareDisplayController>,
       public PageFlipObserver {
  public:
-  explicit HardwareDisplayController(scoped_ptr<CrtcController> controller);
+  HardwareDisplayController(scoped_ptr<CrtcController> controller,
+                            const gfx::Point& origin);
   ~HardwareDisplayController() override;
 
   // Performs the initial CRTC configuration. If successful, it will display the
