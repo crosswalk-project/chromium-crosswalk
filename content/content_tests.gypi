@@ -1053,6 +1053,11 @@
             'browser/file_descriptor_info_impl_unittest.cc',
           ],
         }],
+        ['OS == "mac"', {
+          'dependencies': [
+            '../third_party/ocmock/ocmock.gyp:ocmock',
+          ],
+        }],
         ['enable_plugins==1', {
           'sources': [ '<@(content_unittests_plugins_sources)' ],
         }],
