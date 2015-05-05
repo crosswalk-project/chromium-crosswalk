@@ -430,6 +430,14 @@ IPC_MESSAGE_ROUTED3(FrameMsg_JavaScriptExecuteRequest,
                     int,  /* ID */
                     bool  /* if true, a reply is requested */)
 
+// Same as FrameMsg_JavaScriptExecuteRequest above except the script is
+// run in the isolated world specified by the fourth parameter.
+IPC_MESSAGE_ROUTED4(FrameMsg_JavaScriptExecuteRequestInIsolatedWorld,
+                    base::string16, /* javascript */
+                    int, /* ID */
+                    bool, /* if true, a reply is requested */
+                    int /* world_id */)
+
 // ONLY FOR TESTS: Same as above but adds a fake UserGestureindicator around
 // execution. (crbug.com/408426)
 IPC_MESSAGE_ROUTED3(FrameMsg_JavaScriptExecuteRequestForTests,
