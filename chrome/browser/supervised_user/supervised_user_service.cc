@@ -53,7 +53,7 @@
 #endif
 
 #if defined(ENABLE_EXTENSIONS)
-#include "extensions/browser/extension_registry.h"
+#include "chrome/browser/extensions/extension_service.h"
 #include "extensions/browser/extension_system.h"
 #endif
 
@@ -540,6 +540,9 @@ void SupervisedUserService::SetExtensionsActive() {
       management_policy->RegisterProvider(this);
     else
       management_policy->UnregisterProvider(this);
+
+    // Re-check the policy to make sure any new settings get applied.
+    extension_system->extension_service()->CheckManagementPolicy();
   }
 }
 #endif  // defined(ENABLE_EXTENSIONS)
@@ -760,9 +763,8 @@ void SupervisedUserService::SetActive(bool active) {
 #if defined(ENABLE_THEMES)
   // Re-set the default theme to turn the SU theme on/off.
   ThemeService* theme_service = ThemeServiceFactory::GetForProfile(profile_);
-  if (theme_service->UsingDefaultTheme() || theme_service->UsingSystemTheme()) {
-    ThemeServiceFactory::GetForProfile(profile_)->UseDefaultTheme();
-  }
+  if (theme_service->UsingDefaultTheme() || theme_service->UsingSystemTheme())
+    theme_service->UseDefaultTheme();
 #endif
 
   ProfileSyncService* sync_service =
