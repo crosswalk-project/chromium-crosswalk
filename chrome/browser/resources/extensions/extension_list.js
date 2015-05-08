@@ -148,6 +148,17 @@ cr.define('extensions', function() {
     div.__proto__ = ExtensionList.prototype;
     /** @private {!Array<ExtensionInfo>} */
     div.extensions_ = [];
+
+    /**
+     * |loadFinished| should be used for testing purposes and will be
+     * fulfilled when this list has finished loading the first time.
+     * @type {Promise}
+     * */
+    div.loadFinished = new Promise(function(resolve, reject) {
+      /** @private {function(?)} */
+      div.resolveLoadFinished_ = resolve;
+    });
+
     return div;
   }
 
@@ -218,7 +229,7 @@ cr.define('extensions', function() {
       // consider passing in the full object from the ExtensionSettings.
       this.incognitoAvailable_ = incognitoAvailable;
       this.enableAppInfoDialog_ = enableAppInfoDialog;
-      return new Promise(function(resolve, reject) {
+      this.extensionsUpdated_ = new Promise(function(resolve, reject) {
         chrome.developerPrivate.getExtensionsInfo(
             {includeDisabled: true, includeTerminated: true},
             function(extensions) {
@@ -239,8 +250,41 @@ cr.define('extensions', function() {
           this.extensions_ = extensions;
           this.showExtensionNodes_();
           resolve();
+
+          // |resolve| is async so it's necessary to use |then| here in order to
+          // do work after other |then|s have finished. This is important so
+          // elements are visible when these updates happen.
+          this.extensionsUpdated_.then(function() {
+            this.onUpdateFinished_();
+            this.resolveLoadFinished_();
+          }.bind(this));
         }.bind(this));
       }.bind(this));
+
+      return this.extensionsUpdated_;
+    },
+
+    /**
+     * Updates elements that need to be visible in order to update properly.
+     * @private
+     */
+    onUpdateFinished_: function() {
+      // Cannot focus or highlight a extension if there are none.
+      if (this.extensions_.length == 0)
+        return;
+
+      assert(!this.hidden);
+      assert(!this.parentElement.hidden);
+
+      this.updateFocusableElements();
+
+      var idToHighlight = this.getIdQueryParam_();
+      if (idToHighlight && $(idToHighlight))
+        this.scrollToNode_(idToHighlight);
+
+      var idToOpenOptions = this.getOptionsQueryParam_();
+      if (idToOpenOptions && $(idToOpenOptions))
+        this.showEmbeddedExtensionOptions_(idToOpenOptions, true);
     },
 
     /** @return {number} The number of extensions being displayed. */
@@ -298,14 +342,6 @@ cr.define('extensions', function() {
           assertInstanceof(node, ExtensionFocusRow).destroy();
         }
       }
-
-      var idToHighlight = this.getIdQueryParam_();
-      if (idToHighlight && $(idToHighlight))
-        this.scrollToNode_(idToHighlight);
-
-      var idToOpenOptions = this.getOptionsQueryParam_();
-      if (idToOpenOptions && $(idToOpenOptions))
-        this.showEmbeddedExtensionOptions_(idToOpenOptions, true);
     },
 
     /** Updates each row's focusable elements without rebuilding the grid. */
