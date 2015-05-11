@@ -3713,6 +3713,7 @@
               # Specifically tell the linker to perform optimizations.
               # See http://lwn.net/Articles/192624/ .
               '-Wl,-O1',
+              '-Wl,--as-needed',
             ],
             'conditions' : [
               ['no_gc_sections==0', {
@@ -3726,14 +3727,7 @@
                 # function frames (crbug.com/391706).
                 'cflags': [
                   '-fomit-frame-pointer',
-                ],
-                # Android/M43 builds with ld.bfd fail due to -ldl library going
-                # out of order. The ld.bfd linker is used only on arm64. Linking
-                # in all libraries makes libdl symbols available and does not
-                # increase libchrome.so size. See: http://crbug.com/484952
-                'ldflags': [
-                  '-Wl,--as-needed',
-                ],
+                ]
               }],
               ['OS=="android" and target_arch!="mipsel" and target_arch!="mips64el"', {
                 # TODO(jdduke) Re-enable on mips after resolving linking
