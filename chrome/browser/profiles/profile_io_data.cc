@@ -870,7 +870,8 @@ bool ProfileIOData::GetMetricsEnabledStateOnIOThread() const {
 }
 
 bool ProfileIOData::IsDataReductionProxyEnabled() const {
-  return data_reduction_proxy_io_data()->IsEnabled();
+  return data_reduction_proxy_io_data() &&
+      data_reduction_proxy_io_data()->IsEnabled();
 }
 
 void ProfileIOData::set_data_reduction_proxy_io_data(
