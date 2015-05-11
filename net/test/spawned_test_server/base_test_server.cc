@@ -176,7 +176,8 @@ BaseTestServer::BaseTestServer(Type type, const std::string& host)
     : type_(type),
       started_(false),
       log_to_console_(false),
-      ws_basic_auth_(false) {
+      ws_basic_auth_(false),
+      no_anonymous_ftp_user_(false) {
   Init(host);
 }
 
@@ -185,7 +186,8 @@ BaseTestServer::BaseTestServer(Type type, const SSLOptions& ssl_options)
       type_(type),
       started_(false),
       log_to_console_(false),
-      ws_basic_auth_(false) {
+      ws_basic_auth_(false),
+      no_anonymous_ftp_user_(false) {
   DCHECK(UsingSSL(type));
   Init(GetHostname(type, ssl_options));
 }
@@ -399,6 +401,11 @@ bool BaseTestServer::GenerateArguments(base::DictionaryValue* arguments) const {
   if (ws_basic_auth_) {
     DCHECK(type_ == TYPE_WS || type_ == TYPE_WSS);
     arguments->Set("ws-basic-auth", base::Value::CreateNullValue());
+  }
+
+  if (no_anonymous_ftp_user_) {
+    DCHECK_EQ(TYPE_FTP, type_);
+    arguments->Set("no-anonymous-ftp-user", base::Value::CreateNullValue());
   }
 
   if (UsingSSL(type_)) {
