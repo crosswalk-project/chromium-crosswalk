@@ -4071,9 +4071,6 @@
                     'cflags!': [
                        '-fstack-protector',  # stack protector is always enabled on arm64.
                     ],
-                    'ldflags': [
-                      '-fuse-ld=gold',
-                    ],
                   }],
                 ],
               }],
