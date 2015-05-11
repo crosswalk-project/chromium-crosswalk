@@ -3713,12 +3713,22 @@
               # Specifically tell the linker to perform optimizations.
               # See http://lwn.net/Articles/192624/ .
               '-Wl,-O1',
-              '-Wl,--as-needed',
             ],
             'conditions' : [
               ['no_gc_sections==0', {
                 'ldflags': [
                   '-Wl,--gc-sections',
+                ],
+              }],
+              ['OS!="android" or target_arch!="arm64"', {
+                # Building Android/M43 with ld.bfd fails due to -ldl library
+                # going out of order in the linker command-line flags. This
+                # affects only on Android/arm64. On this platform linking all
+                # libraries into libchrome makes libdl symbols available and
+                # does not increase libchrome.so size. See:
+                # http://crbug.com/484952
+                'ldflags': [
+                  '-Wl,--as-needed',
                 ],
               }],
               ['OS=="android" and target_arch!="arm64"', {
