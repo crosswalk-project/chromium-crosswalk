@@ -8,10 +8,15 @@
 #include "base/logging.h"
 #include "base/strings/utf_string_conversions.h"
 #include "chrome/browser/chrome_notification_types.h"
+#include "chrome/browser/infobars/infobar_service.h"
+#include "chrome/browser/plugins/plugin_finder.h"
 #include "chrome/browser/plugins/plugin_metadata.h"
 #include "chrome/browser/plugins/plugin_prefs.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/common/render_messages.h"
+#include "chrome/grit/generated_resources.h"
+#include "components/infobars/core/confirm_infobar_delegate.h"
+#include "components/infobars/core/infobar.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/plugin_service.h"
@@ -19,18 +24,94 @@
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/resource_context.h"
 #include "content/public/browser/web_contents.h"
+#include "grit/components_strings.h"
+#include "grit/theme_resources.h"
+#include "ui/base/l10n/l10n_util.h"
+#include "ui/base/window_open_disposition.h"
 
 using content::BrowserThread;
 using content::PluginService;
 
 namespace {
 
+static const char kLearnMoreUrl[] =
+    "https://www.google.com/support/chrome/bin/answer.py?answer=6213033";
+
 void AuthorizeRenderer(content::RenderFrameHost* render_frame_host) {
   ChromePluginServiceFilter::GetInstance()->AuthorizePlugin(
       render_frame_host->GetProcess()->GetID(), base::FilePath());
 }
 
+class NPAPIRemovalInfoBarDelegate : public ConfirmInfoBarDelegate {
+ public:
+  static void Create(InfoBarService* infobar_service,
+                     const base::string16& plugin_name,
+                     bool is_removed);
+
+ private:
+  NPAPIRemovalInfoBarDelegate(const base::string16& plugin_name,
+                              int message_id);
+  ~NPAPIRemovalInfoBarDelegate() override;
+
+  // ConfirmInfobarDelegate:
+  int GetIconID() const override;
+  base::string16 GetMessageText() const override;
+  int GetButtons() const override;
+  base::string16 GetLinkText() const override;
+  bool LinkClicked(WindowOpenDisposition disposition) override;
+
+  base::string16 plugin_name_;
+  int message_id_;
+};
+
+// static
+void NPAPIRemovalInfoBarDelegate::Create(InfoBarService* infobar_service,
+                                         const base::string16& plugin_name,
+                                         bool is_removed) {
+  int message_id = is_removed ? IDS_PLUGINS_NPAPI_REMOVED
+                              : IDS_PLUGINS_NPAPI_BEING_REMOVED_SOON;
+
+  infobar_service->AddInfoBar(
+      infobar_service->CreateConfirmInfoBar(scoped_ptr<ConfirmInfoBarDelegate>(
+          new NPAPIRemovalInfoBarDelegate(plugin_name, message_id))));
 }
+
+NPAPIRemovalInfoBarDelegate::NPAPIRemovalInfoBarDelegate(
+    const base::string16& plugin_name,
+    int message_id)
+    : plugin_name_(plugin_name), message_id_(message_id) {
+}
+
+NPAPIRemovalInfoBarDelegate::~NPAPIRemovalInfoBarDelegate() {
+}
+
+int NPAPIRemovalInfoBarDelegate::GetIconID() const {
+  return IDR_INFOBAR_WARNING;
+}
+
+base::string16 NPAPIRemovalInfoBarDelegate::GetMessageText() const {
+  return l10n_util::GetStringFUTF16(message_id_, plugin_name_);
+}
+
+int NPAPIRemovalInfoBarDelegate::GetButtons() const {
+  return BUTTON_NONE;
+}
+
+base::string16 NPAPIRemovalInfoBarDelegate::GetLinkText() const {
+  return l10n_util::GetStringUTF16(IDS_LEARN_MORE);
+}
+
+bool NPAPIRemovalInfoBarDelegate::LinkClicked(
+    WindowOpenDisposition disposition) {
+  InfoBarService::WebContentsFromInfoBar(infobar())
+      ->OpenURL(content::OpenURLParams(
+          GURL(kLearnMoreUrl), content::Referrer(),
+          (disposition == CURRENT_TAB) ? NEW_FOREGROUND_TAB : disposition,
+          ui::PAGE_TRANSITION_LINK, false));
+  return true;
+}
+
+}  // namespace
 
 // static
 ChromePluginServiceFilter* ChromePluginServiceFilter::GetInstance() {
@@ -137,6 +218,36 @@ bool ChromePluginServiceFilter::IsPluginAvailable(
   return true;
 }
 
+void ChromePluginServiceFilter::NPAPIPluginLoaded(
+    int render_process_id,
+    int render_frame_id,
+    const std::string& mime_type,
+    const content::WebPluginInfo& plugin) {
+  PluginFinder* finder = PluginFinder::GetInstance();
+  scoped_ptr<PluginMetadata> metadata(finder->GetPluginMetadata(plugin));
+
+  // Singleton will outlive message loop so safe to use base::Unretained here.
+  BrowserThread::PostTask(
+      BrowserThread::UI, FROM_HERE,
+      base::Bind(&ChromePluginServiceFilter::ShowNPAPIInfoBar,
+                 base::Unretained(this), render_process_id, render_frame_id,
+                 metadata->name(), mime_type, false));
+}
+
+#if defined(OS_WIN) || defined(OS_MACOSX)
+void ChromePluginServiceFilter::NPAPIPluginNotFound(
+    int render_process_id,
+    int render_frame_id,
+    const std::string& mime_type) {
+  // Singleton will outlive message loop so safe to use base::Unretained here.
+  BrowserThread::PostTask(
+      BrowserThread::UI, FROM_HERE,
+      base::Bind(&ChromePluginServiceFilter::ShowNPAPIInfoBar,
+                 base::Unretained(this), render_process_id, render_frame_id,
+                 base::string16(), mime_type, true));
+}
+#endif
+
 bool ChromePluginServiceFilter::CanLoadPlugin(int render_process_id,
                                               const base::FilePath& path) {
   // The browser itself sometimes loads plugins to e.g. clear plugin data.
@@ -151,6 +262,45 @@ bool ChromePluginServiceFilter::CanLoadPlugin(int render_process_id,
 
   return (ContainsKey(details->authorized_plugins, path) ||
           ContainsKey(details->authorized_plugins, base::FilePath()));
+}
+
+void ChromePluginServiceFilter::ShowNPAPIInfoBar(int render_process_id,
+                                                 int render_frame_id,
+                                                 const base::string16& name,
+                                                 const std::string& mime_type,
+                                                 bool is_removed) {
+  DCHECK_CURRENTLY_ON(BrowserThread::UI);
+  auto ret = infobared_plugin_mime_types_.insert(mime_type);
+
+  // Only display infobar once per mime type.
+  if (!ret.second)
+    return;
+
+  base::string16 plugin_name(name);
+
+  if (plugin_name.empty()) {
+    plugin_name =
+        PluginFinder::GetInstance()->FindPluginName(mime_type, "en-US");
+  }
+
+  content::RenderFrameHost* render_frame_host =
+      content::RenderFrameHost::FromID(render_process_id, render_frame_id);
+
+  content::WebContents* tab =
+      content::WebContents::FromRenderFrameHost(render_frame_host);
+
+  // WebContents could have been destroyed between posting and running the task
+  // on the UI thread, so explicit check here.
+  if (!tab)
+    return;
+
+  InfoBarService* infobar_service = InfoBarService::FromWebContents(tab);
+
+  // NPAPI plugins can load inside extensions and if so there is nowhere to
+  // display the infobar.
+  if (infobar_service)
+    NPAPIRemovalInfoBarDelegate::Create(infobar_service, plugin_name,
+                                        is_removed);
 }
 
 void ChromePluginServiceFilter::AuthorizePlugin(
