@@ -41,6 +41,8 @@ const int kMaxCommitsPerHour = 6;
 
 }  // namespace
 
+bool DOMStorageArea::s_aggressive_flushing_enabled_ = false;
+
 DOMStorageArea::RateLimiter::RateLimiter(size_t desired_rate,
                                          base::TimeDelta time_quantum)
     : rate_(desired_rate), samples_(0), time_quantum_(time_quantum) {
@@ -87,6 +89,10 @@ GURL DOMStorageArea::OriginFromDatabaseFileName(const base::FilePath& name) {
   std::string origin_id =
       name.BaseName().RemoveExtension().MaybeAsASCII();
   return storage::GetOriginFromIdentifier(origin_id);
+}
+
+void DOMStorageArea::EnableAggressiveCommitDelay() {
+  s_aggressive_flushing_enabled_ = true;
 }
 
 DOMStorageArea::DOMStorageArea(const GURL& origin,
@@ -378,6 +384,9 @@ DOMStorageArea::CommitBatch* DOMStorageArea::CreateCommitBatchIfNeeded() {
 }
 
 base::TimeDelta DOMStorageArea::ComputeCommitDelay() const {
+  if (s_aggressive_flushing_enabled_)
+    return base::TimeDelta::FromSeconds(1);
+
   base::TimeDelta elapsed_time = base::TimeTicks::Now() - start_time_;
   base::TimeDelta delay = std::max(
       base::TimeDelta::FromSeconds(kCommitDefaultDelaySecs),
