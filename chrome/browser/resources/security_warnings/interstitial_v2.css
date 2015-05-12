@@ -265,10 +265,6 @@ input[type=checkbox]:checked ~ .checkbox::before {
   .error-code {
     margin-top: 10px;
   }
-
-  .interstitial-wrapper {
-    margin-top: 13%;
-  }
 }
 
 @media (max-width: 420px) {
@@ -317,7 +313,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
  * Details message replaces the top content in its own scrollable area.
  */
 
-@media (max-width: 420px) and (orientation: portrait) {
+@media (max-width: 420px) and (max-height: 736px) and (orientation: portrait) {
   #details-button {
     border: 0;
     margin: 8px 0 0;
@@ -331,7 +327,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
 
 /* Fixed nav. */
 @media (min-width: 240px) and (max-width: 420px) and
-       (min-height: 401px) and (orientation:portrait),
+       (min-height: 401px) and (max-height: 736px) and (orientation:portrait),
        (min-width: 421px) and (max-width: 736px) and (min-height: 240px) and
        (max-height: 420px) and (orientation:landscape) {
 
@@ -341,6 +337,8 @@ input[type=checkbox]:checked ~ .checkbox::before {
     left: 0;
     margin: 0;
     max-width: 736px;
+    padding-left: 24px;
+    padding-right: 24px;
     position: fixed;
     z-index: 1;
   }
@@ -352,9 +350,14 @@ input[type=checkbox]:checked ~ .checkbox::before {
   .interstitial-wrapper {
     max-width: 736px;
   }
+
+  #details,
+  #main-content {
+    padding-bottom: 40px;
+  }
 }
 
-@media (max-width: 420px) and (orientation: portrait),
+@media (max-width: 420px) and (max-height: 736px) and (orientation: portrait),
        (max-width: 736px) and (max-height: 420px) and (orientation: landscape) {
   body {
     margin: 0 auto;
@@ -372,7 +375,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
 
   .nav-wrapper {
     box-sizing: border-box;
-    padding: 16px 24px 8px;
+    padding-bottom: 8px;
     width: 100%;
   }
 
@@ -451,7 +454,8 @@ input[type=checkbox]:checked ~ .checkbox::before {
   }
 }
 
-@media (min-height: 405px) and (orientation:portrait) {
+@media (min-height: 405px) and (max-height: 736px) and
+       (max-width: 420px) and (orientation:portrait) {
   .icon {
     margin-bottom: 24px;
   }
@@ -461,7 +465,8 @@ input[type=checkbox]:checked ~ .checkbox::before {
   }
 }
 
-@media (min-height: 480px) and (max-width: 420px) and (orientation: portrait),
+@media (min-height: 480px) and (max-width: 420px) and
+       (max-height: 736px) and (orientation: portrait),
        (min-height: 338px) and (max-height: 420px) and (max-width: 736px) and
        (orientation: landscape) {
   .icon {
@@ -469,7 +474,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
   }
 
   .nav-wrapper {
-    padding: 16px 24px 24px;
+    padding-bottom: 24px;
   }
 }
 
@@ -480,7 +485,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
 }
 
 /* Phablet sizing */
-@media (min-width: 375px) and (min-height: 641px) and
+@media (min-width: 375px) and (min-height: 641px) and (max-height: 736px) and
        (max-width: 414px) and (orientation: portrait) {
   button,
   [dir='rtl'] button,
@@ -588,7 +593,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
 /* Small mobile screens. No fixed nav. */
 @media (max-height: 400px) and (orientation: portrait),
        (max-height: 239px) and (orientation: landscape),
-       (max-width: 419px) and (max-height: 360px) {
+       (max-width: 419px) and (max-height: 399px) {
   .interstitial-wrapper {
     display: flex;
     flex-direction: column;
@@ -617,7 +622,7 @@ input[type=checkbox]:checked ~ .checkbox::before {
 }
 
 /* Extended reporting opt-in. No fixed nav. */
-@media (max-height: 600px) and (orientation: portrait),
+@media (max-height: 736px) and (orientation: portrait),
        (max-height: 360px) and (max-width: 680px) and (orientation: landscape) {
   .extended-reporting-has-checkbox .interstitial-wrapper {
     display: flex;
