@@ -6,22 +6,25 @@ package org.chromium.chrome.browser.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.text.TextUtils;
 import android.util.Log;
 
 import org.chromium.base.CalledByNative;
 import org.chromium.base.ThreadUtils;
+import org.chromium.chrome.browser.ContentSettingsType;
+import org.chromium.chrome.browser.UrlUtilities;
 import org.chromium.chrome.browser.preferences.website.ContentSetting;
 import org.chromium.chrome.browser.preferences.website.GeolocationInfo;
 import org.chromium.chrome.browser.preferences.website.JavaScriptExceptionInfo;
 import org.chromium.chrome.browser.preferences.website.PopupExceptionInfo;
 import org.chromium.chrome.browser.preferences.website.WebsitePreferenceBridge;
 import org.chromium.chrome.browser.search_engines.TemplateUrlService;
-import org.chromium.chrome.browser.search_engines.TemplateUrlService.LoadListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * PrefServiceBridge is a singleton which provides access to some native preferences. Ideally
@@ -44,6 +47,8 @@ public final class PrefServiceBridge {
     private static final int MIGRATION_CURRENT_VERSION = 2;
 
     private static String sProfilePath;
+
+    private static final String HTTPS_SCHEME = "https";
 
     // Object to notify when "clear browsing data" completes.
     private OnClearBrowsingDataListener mClearBrowsingDataListener;
@@ -147,29 +152,8 @@ public final class PrefServiceBridge {
         if (currentVersion < 1) {
             nativeMigrateJavascriptPreference();
         }
-        if (currentVersion < 2) {
-            addDefaultSearchEnginePermission(context);
-        }
+        // Step 2 intentionally skipped.
         preferences.edit().putInt(MIGRATION_PREF_KEY, MIGRATION_CURRENT_VERSION).commit();
-    }
-
-   /**
-    * Add a permission entry for Location for the default search engine.
-    */
-    private void addDefaultSearchEnginePermission(final Context context) {
-        TemplateUrlService templateUrlService = TemplateUrlService.getInstance();
-        if (!templateUrlService.isLoaded()) {
-            templateUrlService.registerLoadListener(new LoadListener() {
-                @Override
-                public void onTemplateUrlServiceLoaded() {
-                    TemplateUrlService.getInstance().unregisterLoadListener(this);
-                    addDefaultSearchEnginePermission(context);
-                }});
-            templateUrlService.load();
-            return;
-        }
-
-        maybeCreatePermissionForDefaultSearchEngine(true, context);
     }
 
     /**
@@ -182,6 +166,7 @@ public final class PrefServiceBridge {
         TemplateUrlService templateUrlService = TemplateUrlService.getInstance();
         String url = templateUrlService.getSearchEngineUrlFromTemplateUrl(
                 templateUrlService.getDefaultSearchEngineIndex());
+        if (allowed && !url.startsWith("https:")) return;
         GeolocationInfo locationSettings = new GeolocationInfo(url, null);
         ContentSetting locationPermission = locationSettings.getContentSetting();
         if (locationPermission == null || locationPermission == ContentSetting.ASK) {
@@ -192,6 +177,55 @@ public final class PrefServiceBridge {
                     PreferenceManager.getDefaultSharedPreferences(context);
             sharedPreferences.edit().putBoolean(LOCATION_AUTO_ALLOWED, true).apply();
         }
+    }
+
+    /**
+     * Whether the geo header is allowed to be sent for the current URL.
+     * @param context The Context used to get the device location.
+     * @param url The URL of the request with which this header will be sent.
+     * @param isIncognito Whether the request will happen in an incognito tab.
+     */
+    public static boolean isGeoHeaderEnabledForUrl(
+            Context context, String url, boolean isIncognito) {
+        // TODO(finnur): delete this method once GeolocationHeader has been upstreamed.
+        // Only send the Geo header in normal mode.
+        if (isIncognito) return false;
+
+        // Only send the Geo header to Google domains.
+        if (!UrlUtilities.nativeIsGoogleSearchUrl(url)) return false;
+
+        Uri uri = Uri.parse(url);
+        if (!HTTPS_SCHEME.equals(uri.getScheme())) return false;
+
+        // Only send Geo header if the user hasn't disabled geolocation for url.
+        if (isLocationDisabledForUrl(uri)) return false;
+
+        return true;
+    }
+
+    /**
+     * Returns true if the user has disabled sharing their location with url (e.g. via the
+     * geolocation infobar). If the user has not chosen a preference for url and url uses the https
+     * scheme, this considers the user's preference for url with the http scheme instead.
+     */
+    public static boolean isLocationDisabledForUrl(Uri uri) {
+        // TODO(finnur): Delete this method once GeolocationHeader has been upstreamed.
+        GeolocationInfo locationSettings = new GeolocationInfo(uri.toString(), null);
+        ContentSetting locationPermission = locationSettings.getContentSetting();
+
+        // If no preference has been chosen and the scheme is https, fall back to the preference for
+        // this same host over http with no explicit port number.
+        if (locationPermission == null || locationPermission == ContentSetting.ASK) {
+            String scheme = uri.getScheme();
+            if (scheme != null && scheme.toLowerCase(Locale.US).equals("https")
+                    && uri.getAuthority() != null && uri.getUserInfo() == null) {
+                String urlWithHttp = "http://" + uri.getHost();
+                locationSettings = new GeolocationInfo(urlWithHttp, null);
+                locationPermission = locationSettings.getContentSetting();
+            }
+        }
+
+        return locationPermission == ContentSetting.BLOCK;
     }
 
     /**
