@@ -242,6 +242,8 @@ void ServiceWorkerRegistration::ClearUserData(
 }
 
 void ServiceWorkerRegistration::OnNoControllees(ServiceWorkerVersion* version) {
+  if (!context_)
+    return;
   DCHECK_EQ(active_version(), version);
   if (is_uninstalling_)
     Clear();
