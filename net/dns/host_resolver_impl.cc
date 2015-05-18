@@ -74,6 +74,15 @@ const unsigned kMinimumTTLSeconds = kCacheEntryTTLSeconds;
 
 const char kLocalhost[] = "localhost.";
 
+// Time between IPv6 probes, i.e. for how long results of each IPv6 probe are
+// cached.
+const int kIPv6ProbePeriodMs = 1000;
+
+// Google DNS address used for IPv6 probes.
+const uint8_t kIPv6ProbeAddress[] =
+    { 0x20, 0x01, 0x48, 0x60, 0x48, 0x60, 0x00, 0x00,
+      0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x88, 0x88 };
+
 // We use a separate histogram name for each platform to facilitate the
 // display of error codes by their symbolic name (since each platform has
 // different mappings).
@@ -379,6 +388,15 @@ base::Value* NetLogJobAttachCallback(const NetLog::Source& source,
 base::Value* NetLogDnsConfigCallback(const DnsConfig* config,
                                      NetLog::LogLevel /* log_level */) {
   return config->ToValue();
+}
+
+base::Value* NetLogIPv6AvailableCallback(bool ipv6_available,
+                                         bool cached,
+                                         NetLog::LogLevel /* log_level */) {
+  base::DictionaryValue* dict = new base::DictionaryValue();
+  dict->SetBoolean("ipv6_available", ipv6_available);
+  dict->SetBoolean("cached", cached);
+  return dict;
 }
 
 // The logging routines are defined here because some requests are resolved
@@ -1840,6 +1858,7 @@ HostResolverImpl::HostResolverImpl(const Options& options, NetLog* net_log)
       num_dns_failures_(0),
       probe_ipv6_support_(true),
       use_local_ipv6_(false),
+      last_ipv6_probe_result_(true),
       resolved_known_ipv6_hostname_(false),
       additional_resolver_flags_(0),
       fallback_to_proctask_(true),
@@ -2179,7 +2198,7 @@ void HostResolverImpl::SetHaveOnlyLoopbackAddresses(bool result) {
 }
 
 HostResolverImpl::Key HostResolverImpl::GetEffectiveKeyForRequest(
-    const RequestInfo& info, const BoundNetLog& net_log) const {
+    const RequestInfo& info, const BoundNetLog& net_log) {
   HostResolverFlags effective_flags =
       info.host_resolver_flags() | additional_resolver_flags_;
   AddressFamily effective_address_family = info.address_family();
@@ -2192,21 +2211,7 @@ HostResolverImpl::Key HostResolverImpl::GetEffectiveKeyForRequest(
         // Don't bother IPv6 probing when resolving IPv4 literals.
         url::IPv4AddressToNumber(info.hostname().c_str(), host_comp, ip_number,
                                  &num_components) != url::CanonHostInfo::IPV4) {
-      // Google DNS address.
-      const uint8 kIPv6Address[] =
-          { 0x20, 0x01, 0x48, 0x60, 0x48, 0x60, 0x00, 0x00,
-            0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x88, 0x88 };
-      IPAddressNumber address(kIPv6Address,
-                              kIPv6Address + arraysize(kIPv6Address));
-      BoundNetLog probe_net_log = BoundNetLog::Make(
-          net_log.net_log(), NetLog::SOURCE_IPV6_REACHABILITY_CHECK);
-      probe_net_log.BeginEvent(NetLog::TYPE_IPV6_REACHABILITY_CHECK,
-                               net_log.source().ToEventParametersCallback());
-      bool rv6 = IsGloballyReachable(address, probe_net_log);
-      probe_net_log.EndEvent(NetLog::TYPE_IPV6_REACHABILITY_CHECK);
-      if (rv6) {
-        net_log.AddEvent(NetLog::TYPE_HOST_RESOLVER_IMPL_IPV6_SUPPORTED);
-      } else {
+      if (!IsIPv6Reachable(net_log)) {
         effective_address_family = ADDRESS_FAMILY_IPV4;
         effective_flags |= HOST_RESOLVER_DEFAULT_FAMILY_SET_DUE_TO_NO_IPV6;
       }
@@ -2222,6 +2227,22 @@ HostResolverImpl::Key HostResolverImpl::GetEffectiveKeyForRequest(
     hostname = kLocalhost;
 
   return Key(hostname, effective_address_family, effective_flags);
+}
+
+bool HostResolverImpl::IsIPv6Reachable(const BoundNetLog& net_log) {
+  base::TimeTicks now = base::TimeTicks::Now();
+  bool cached = true;
+  if ((now - last_ipv6_probe_time_).InMilliseconds() > kIPv6ProbePeriodMs) {
+    IPAddressNumber address(kIPv6ProbeAddress,
+                            kIPv6ProbeAddress + arraysize(kIPv6ProbeAddress));
+    last_ipv6_probe_result_ = IsGloballyReachable(address, net_log);
+    last_ipv6_probe_time_ = now;
+    cached = false;
+  }
+  net_log.AddEvent(NetLog::TYPE_IPV6_REACHABILITY_CHECK,
+                   base::Bind(&NetLogIPv6AvailableCallback,
+                              last_ipv6_probe_result_, cached));
+  return last_ipv6_probe_result_;
 }
 
 void HostResolverImpl::AbortAllInProgressJobs() {
@@ -2293,6 +2314,7 @@ void HostResolverImpl::TryServingAllJobsFromHosts() {
 
 void HostResolverImpl::OnIPAddressChanged() {
   resolved_known_ipv6_hostname_ = false;
+  last_ipv6_probe_time_ = base::TimeTicks();
   // Abandon all ProbeJobs.
   probe_weak_ptr_factory_.InvalidateWeakPtrs();
   if (cache_.get())

@@ -196,7 +196,12 @@ class NET_EXPORT HostResolverImpl
   // "effective" address family by inheriting the resolver's default address
   // family when the request leaves it unspecified.
   Key GetEffectiveKeyForRequest(const RequestInfo& info,
-                                const BoundNetLog& net_log) const;
+                                const BoundNetLog& net_log);
+
+  // Probes IPv6 support and returns true if IPv6 support is enabled.
+  // Results are cached, i.e. when called repeatedly this method returns result
+  // from the first probe for some time before probing again.
+  bool IsIPv6Reachable(const BoundNetLog& net_log);
 
   // Records the result in cache if cache is present.
   void CacheResult(const Key& key,
@@ -276,6 +281,9 @@ class NET_EXPORT HostResolverImpl
   // True if DnsConfigService detected that system configuration depends on
   // local IPv6 connectivity. Disables probing.
   bool use_local_ipv6_;
+
+  base::TimeTicks last_ipv6_probe_time_;
+  bool last_ipv6_probe_result_;
 
   // True iff ProcTask has successfully resolved a hostname known to have IPv6
   // addresses using ADDRESS_FAMILY_UNSPECIFIED. Reset on IP address change.
