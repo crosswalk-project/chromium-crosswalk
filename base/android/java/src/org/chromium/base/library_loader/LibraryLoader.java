@@ -299,6 +299,9 @@ public class LibraryLoader {
                         apkFilePath = context.getApplicationInfo().sourceDir;
                         if (mProbeMapApkWithExecPermission) {
                             mMapApkWithExecPermission = Linker.checkMapExecSupport(apkFilePath);
+                        } else {
+                            // Assume map executable support on Samsung devices.
+                            mMapApkWithExecPermission = true;
                         }
                         if (!mMapApkWithExecPermission && Linker.isInZipFile()) {
                             Log.w(TAG, "the no map executable support fallback will be used because"
