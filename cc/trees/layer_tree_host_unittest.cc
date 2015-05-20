@@ -5316,12 +5316,14 @@ class LayerTreeHostTestGpuRasterizationDefault : public LayerTreeHostTest {
     EXPECT_TRUE(layer->IsSuitableForGpuRasterization());
     EXPECT_TRUE(recording_source->IsSuitableForGpuRasterization());
     EXPECT_FALSE(layer_tree_host()->has_gpu_rasterization_trigger());
-    EXPECT_FALSE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+              layer_tree_host()->GetGpuRasterizationStatus());
 
     // Setting gpu rasterization trigger does not enable gpu rasterization.
     layer_tree_host()->SetHasGpuRasterizationTrigger(true);
     EXPECT_TRUE(layer_tree_host()->has_gpu_rasterization_trigger());
-    EXPECT_FALSE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+              layer_tree_host()->GetGpuRasterizationStatus());
 
     PostSetNeedsCommitToMainThread();
   }
@@ -5372,12 +5374,14 @@ class LayerTreeHostTestGpuRasterizationEnabled : public LayerTreeHostTest {
     EXPECT_TRUE(layer->IsSuitableForGpuRasterization());
     EXPECT_TRUE(recording_source->IsSuitableForGpuRasterization());
     EXPECT_FALSE(layer_tree_host()->has_gpu_rasterization_trigger());
-    EXPECT_FALSE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::OFF_VIEWPORT,
+              layer_tree_host()->GetGpuRasterizationStatus());
 
     // Gpu rasterization trigger is relevant.
     layer_tree_host()->SetHasGpuRasterizationTrigger(true);
     EXPECT_TRUE(layer_tree_host()->has_gpu_rasterization_trigger());
-    EXPECT_TRUE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::ON,
+              layer_tree_host()->GetGpuRasterizationStatus());
 
     // Content-based veto is relevant as well.
     recording_source->SetUnsuitableForGpuRasterizationForTesting();
@@ -5440,10 +5444,12 @@ class LayerTreeHostTestGpuRasterizationForced : public LayerTreeHostTest {
     EXPECT_FALSE(layer_tree_host()->has_gpu_rasterization_trigger());
 
     // With gpu rasterization forced, gpu rasterization trigger is irrelevant.
-    EXPECT_TRUE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::ON_FORCED,
+              layer_tree_host()->GetGpuRasterizationStatus());
     layer_tree_host()->SetHasGpuRasterizationTrigger(true);
     EXPECT_TRUE(layer_tree_host()->has_gpu_rasterization_trigger());
-    EXPECT_TRUE(layer_tree_host()->UseGpuRasterization());
+    EXPECT_EQ(GpuRasterizationStatus::ON_FORCED,
+              layer_tree_host()->GetGpuRasterizationStatus());
 
     // Content-based veto is irrelevant as well.
     recording_source->SetUnsuitableForGpuRasterizationForTesting();

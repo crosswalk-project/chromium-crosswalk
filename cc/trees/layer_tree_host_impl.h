@@ -314,15 +314,13 @@ class CC_EXPORT LayerTreeHostImpl
 
   virtual bool InitializeRenderer(scoped_ptr<OutputSurface> output_surface);
   TileManager* tile_manager() { return tile_manager_.get(); }
-  void SetUseGpuRasterization(bool use_gpu);
+  bool CanUseGpuRasterization();
+  void SetGpuRasterizationStatus(
+      GpuRasterizationStatus gpu_rasterization_status);
   bool use_gpu_rasterization() const { return use_gpu_rasterization_; }
 
   GpuRasterizationStatus gpu_rasterization_status() const {
     return gpu_rasterization_status_;
-  }
-  void set_gpu_rasterization_status(
-      GpuRasterizationStatus gpu_rasterization_status) {
-    gpu_rasterization_status_ = gpu_rasterization_status;
   }
 
   bool create_low_res_tiling() const {

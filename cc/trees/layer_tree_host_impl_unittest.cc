@@ -6701,9 +6701,8 @@ TEST_F(LayerTreeHostImplTest, MemoryPolicy) {
   // when visible.
   LayerTreeSettings settings;
   settings.gpu_rasterization_enabled = true;
-  host_impl_ = LayerTreeHostImpl::Create(
-      settings, this, &proxy_, &stats_instrumentation_, NULL, NULL, NULL, 0);
-  host_impl_->SetUseGpuRasterization(true);
+  CreateHostImpl(settings, CreateOutputSurface());
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
   host_impl_->SetVisible(true);
   host_impl_->SetMemoryPolicy(policy1);
   EXPECT_EQ(policy1.bytes_limit_when_visible, current_limit_bytes_);
@@ -6745,18 +6744,82 @@ TEST_F(LayerTreeHostImplTest, RequireHighResAfterGpuRasterizationToggles) {
 
   host_impl_->ResetRequiresHighResToDraw();
 
-  host_impl_->SetUseGpuRasterization(false);
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
   EXPECT_FALSE(host_impl_->RequiresHighResToDraw());
-  host_impl_->SetUseGpuRasterization(true);
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
   EXPECT_TRUE(host_impl_->RequiresHighResToDraw());
-  host_impl_->SetUseGpuRasterization(false);
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
   EXPECT_TRUE(host_impl_->RequiresHighResToDraw());
 
   host_impl_->ResetRequiresHighResToDraw();
 
   EXPECT_FALSE(host_impl_->RequiresHighResToDraw());
-  host_impl_->SetUseGpuRasterization(true);
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
   EXPECT_TRUE(host_impl_->RequiresHighResToDraw());
+}
+
+TEST_F(LayerTreeHostImplTest, SetGpuRasterizationStatus) {
+  ASSERT_TRUE(host_impl_->active_tree());
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
+  EXPECT_TRUE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::ON, host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON_FORCED);
+  EXPECT_TRUE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::ON_FORCED,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_VIEWPORT);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_VIEWPORT,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_CONTENT);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_CONTENT,
+            host_impl_->gpu_rasterization_status());
+}
+
+TEST_F(LayerTreeHostImplTest, SetGpuRasterizationStatusNoContext) {
+  // Initialize output surface with no worker context privider.
+  scoped_ptr<FakeOutputSurface> output_surface =
+      FakeOutputSurface::Create3d(TestContextProvider::Create(), nullptr);
+  CreateHostImpl(DefaultSettings(), output_surface.Pass());
+
+  ASSERT_TRUE(host_impl_->active_tree());
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::ON_FORCED);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_DEVICE,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_VIEWPORT);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_VIEWPORT,
+            host_impl_->gpu_rasterization_status());
+
+  host_impl_->SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_CONTENT);
+  EXPECT_FALSE(host_impl_->use_gpu_rasterization());
+  EXPECT_EQ(GpuRasterizationStatus::OFF_CONTENT,
+            host_impl_->gpu_rasterization_status());
 }
 
 class LayerTreeHostImplTestPrepareTiles : public LayerTreeHostImplTest {

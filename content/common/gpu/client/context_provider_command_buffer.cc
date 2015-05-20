@@ -136,7 +136,7 @@ class GrContext* ContextProviderCommandBuffer::GrContext() {
       new webkit::gpu::GrContextForWebGraphicsContext3D(context3d_.get()));
 
   // If GlContext is already lost, also abandon the new GrContext.
-  if (IsContextLost())
+  if (gr_context_->get() && IsContextLost())
     gr_context_->get()->abandonContext();
 
   return gr_context_->get();

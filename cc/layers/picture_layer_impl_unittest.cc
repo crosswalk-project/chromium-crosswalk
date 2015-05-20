@@ -2421,7 +2421,7 @@ TEST_F(PictureLayerImplTest, SyncTilingAfterGpuRasterizationToggles) {
   // Gpu rasterization is disabled by default.
   EXPECT_FALSE(host_impl_.use_gpu_rasterization());
   // Toggling the gpu rasterization clears all tilings on both trees.
-  host_impl_.SetUseGpuRasterization(true);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
   EXPECT_EQ(0u, pending_layer_->tilings()->num_tilings());
   EXPECT_EQ(0u, active_layer_->tilings()->num_tilings());
 
@@ -2442,7 +2442,7 @@ TEST_F(PictureLayerImplTest, SyncTilingAfterGpuRasterizationToggles) {
 
   // Toggling the gpu rasterization clears all tilings on both trees.
   EXPECT_TRUE(host_impl_.use_gpu_rasterization());
-  host_impl_.SetUseGpuRasterization(false);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
   EXPECT_EQ(0u, pending_layer_->tilings()->num_tilings());
   EXPECT_EQ(0u, active_layer_->tilings()->num_tilings());
 }
@@ -2487,7 +2487,7 @@ TEST_F(PictureLayerImplTest, LowResTilingWithoutGpuRasterization) {
   gfx::Size layer_bounds(default_tile_size.width() * 4,
                          default_tile_size.height() * 4);
 
-  host_impl_.SetUseGpuRasterization(false);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
 
   SetupDefaultTrees(layer_bounds);
   EXPECT_FALSE(host_impl_.use_gpu_rasterization());
@@ -2500,7 +2500,7 @@ TEST_F(PictureLayerImplTest, NoLowResTilingWithGpuRasterization) {
   gfx::Size layer_bounds(default_tile_size.width() * 4,
                          default_tile_size.height() * 4);
 
-  host_impl_.SetUseGpuRasterization(true);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
 
   SetupDefaultTrees(layer_bounds);
   EXPECT_TRUE(host_impl_.use_gpu_rasterization());
@@ -2796,7 +2796,7 @@ TEST_F(PictureLayerImplTest, HighResTilingDuringAnimationForGpuRasterization) {
   gfx::Size viewport_size(1000, 1000);
   SetupDefaultTrees(layer_bounds);
   host_impl_.SetViewportSize(viewport_size);
-  host_impl_.SetUseGpuRasterization(true);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
 
   float contents_scale = 1.f;
   float device_scale = 1.3f;
@@ -4929,7 +4929,7 @@ TEST_F(TileSizeTest, TileSizes) {
   host_impl_.SetViewportSize(gfx::Size(1000, 1000));
   gfx::Size result;
 
-  host_impl_.SetUseGpuRasterization(false);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::OFF_DEVICE);
 
   // Default tile-size for large layers.
   result = layer->CalculateTileSize(gfx::Size(10000, 10000));
@@ -4948,7 +4948,7 @@ TEST_F(TileSizeTest, TileSizes) {
 
   // Gpu-rasterization uses 25% viewport-height tiles.
   // The +2's below are for border texels.
-  host_impl_.SetUseGpuRasterization(true);
+  host_impl_.SetGpuRasterizationStatus(GpuRasterizationStatus::ON);
   host_impl_.SetViewportSize(gfx::Size(2000, 2000));
 
   layer->set_gpu_raster_max_texture_size(host_impl_.device_viewport_size());
