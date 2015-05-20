@@ -1188,6 +1188,11 @@ public class ContentViewCore
         }
     }
 
+    @CalledByNative
+    private void requestDisallowInterceptTouchEvent() {
+        mContainerView.requestDisallowInterceptTouchEvent(true);
+    }
+
     private static boolean isValidTouchEventActionForNative(int eventAction) {
         // Only these actions have any effect on gesture detection.  Other
         // actions have no corresponding WebTouchEvent type and may confuse the
