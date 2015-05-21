@@ -6,10 +6,8 @@
 
 #include "base/bind.h"
 #include "base/logging.h"
-#include "components/proximity_auth/ble/bluetooth_low_energy_connection.h"
 #include "components/proximity_auth/ble/bluetooth_low_energy_connection_finder.h"
 #include "components/proximity_auth/connection.h"
-#include "components/proximity_auth/remote_device.h"
 #include "device/bluetooth/bluetooth_device.h"
 #include "device/bluetooth/bluetooth_gatt_connection.h"
 
@@ -19,12 +17,6 @@ namespace {
 
 // The UUID of the Bluetooth Low Energy service.
 const char kSmartLockServiceUUID[] = "b3b7e28e-a000-3e17-bd86-6e97b9e28c11";
-
-// The UUID of the characteristic used to send data to the peripheral.
-const char kToPeripheralCharUUID[] = "977c6674-1239-4e72-993b-502369b8bb5a";
-
-// The UUID of the characteristic used to receive data from the peripheral.
-const char kFromPeripheralCharUUID[] = "f4b904a2-a030-43b3-98a8-221c536c03cb";
 
 }  // namespace
 
@@ -54,9 +46,8 @@ void ProximityAuthBleSystem::OnScreenDidLock(
       break;
     case ScreenlockBridge::LockHandler::LOCK_SCREEN:
       DCHECK(!connection_finder_);
-      connection_finder_.reset(new BluetoothLowEnergyConnectionFinder(
-          kSmartLockServiceUUID, kToPeripheralCharUUID,
-          kFromPeripheralCharUUID));
+      connection_finder_.reset(
+          new BluetoothLowEnergyConnectionFinder(kSmartLockServiceUUID));
       connection_finder_->Find(
           base::Bind(&ProximityAuthBleSystem::OnConnectionFound,
                      weak_ptr_factory_.GetWeakPtr()));
@@ -70,8 +61,6 @@ void ProximityAuthBleSystem::OnScreenDidLock(
 void ProximityAuthBleSystem::OnScreenDidUnlock(
     ScreenlockBridge::LockHandler::ScreenType screen_type) {
   VLOG(1) << "OnScreenDidUnlock: " << screen_type;
-  connection_->Disconnect();
-  connection_.reset();
   connection_finder_.reset();
 };
 
@@ -80,10 +69,11 @@ void ProximityAuthBleSystem::OnFocusedUserChanged(const std::string& user_id) {
 };
 
 void ProximityAuthBleSystem::OnConnectionFound(
-    scoped_ptr<Connection> connection) {
+    scoped_ptr<device::BluetoothGattConnection> connection) {
   VLOG(1) << "Connection found. Unlock.";
 
-  connection_ = connection.Pass();
+  // Close the connection as it it no longer needed.
+  connection_finder_->CloseConnection(connection.Pass());
 
   // Unlock the screen when a connection is found.
   //
