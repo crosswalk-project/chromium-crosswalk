@@ -728,7 +728,6 @@ base::Process StartSandboxedProcess(
                cmd_line->GetCommandLineString().c_str(),
                policy, &temp_process_info);
   DWORD last_error = ::GetLastError();
-  policy->Release();
   base::win::ScopedProcessInformation target(temp_process_info);
 
   TRACE_EVENT_END_ETW("StartProcessWithAccess::LAUNCHPROCESS", 0, 0);
@@ -747,8 +746,11 @@ base::Process StartSandboxedProcess(
                                   last_error);
     } else
       DLOG(ERROR) << "Failed to launch process. Error: " << result;
+
+    policy->Release();
     return base::Process();
   }
+  policy->Release();
 
   if (delegate)
     delegate->PostSpawnTarget(target.process_handle());
