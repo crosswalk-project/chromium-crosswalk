@@ -1300,6 +1300,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
     switches::kMemoryMetrics,
     switches::kNoReferrers,
     switches::kNoSandbox,
+    switches::kOverridePluginPowerSaverForTesting,
     switches::kPpapiInProcess,
     switches::kProfilerTiming,
     switches::kReducedReferrerGranularity,
