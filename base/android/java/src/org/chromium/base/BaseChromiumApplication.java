@@ -6,7 +6,6 @@ package org.chromium.base;
 
 import android.app.Application;
 import android.content.Context;
-import android.view.KeyEvent;
 
 /**
  * Basic application functionality that should be shared among all browser applications.
