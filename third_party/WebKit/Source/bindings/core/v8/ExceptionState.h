@@ -82,6 +82,7 @@ public:
         , m_isolate(isolate) { ASSERT(m_context == ConstructionContext || m_context == EnumerationContext || m_context == IndexedSetterContext || m_context == IndexedGetterContext || m_context == IndexedDeletionContext); }
 
     virtual void throwDOMException(const ExceptionCode&, const String& message);
+    virtual void throwWebCLException(const ExceptionCode&, const String& message);
     virtual void throwTypeError(const String& message);
     virtual void throwSecurityError(const String& sanitizedMessage, const String& unsanitizedMessage = String());
     virtual void throwRangeError(const String& message);
