@@ -28,8 +28,11 @@
 #include "bindings/core/v8/BindingSecurity.h"
 #include "bindings/core/v8/V8Binding.h"
 #include "bindings/core/v8/V8DOMException.h"
+#include "bindings/core/v8/V8WebCLException.h"
 #include "core/dom/DOMException.h"
 #include "core/dom/ExceptionCode.h"
+#include "core/webcl/WebCLException.h"
+#include "wtf/RefPtr.h"
 
 namespace blink {
 
@@ -45,6 +48,19 @@ static void domExceptionStackSetter(v8::Local<v8::Name> name, v8::Local<v8::Valu
 {
     v8::Maybe<bool> unused = info.Data().As<v8::Object>()->Set(info.GetIsolate()->GetCurrentContext(), v8AtomicString(info.GetIsolate(), "stack"), value);
     ALLOW_UNUSED_LOCAL(unused);
+}
+
+static void webclExceptionStackGetter(v8::Local<v8::Name> name, const v8::PropertyCallbackInfo<v8::Value>& info)
+{
+    v8::Isolate* isolate = info.GetIsolate();
+    v8::Local<v8::Value> value;
+    if (info.Data().As<v8::Object>()->Get(isolate->GetCurrentContext(), v8AtomicString(isolate, "stack")).ToLocal(&value))
+        v8SetReturnValue(info, value);
+}
+
+static void webclExceptionStackSetter(v8::Local<v8::Name> name, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void>& info)
+{
+    info.Data().As<v8::Object>()->Set(v8AtomicString(info.GetIsolate(), "stack"), value);
 }
 
 v8::Local<v8::Value> V8ThrowException::createDOMException(v8::Isolate* isolate, int ec, const String& sanitizedMessage, const String& unsanitizedMessage, const v8::Local<v8::Object>& creationContext)
@@ -102,6 +118,33 @@ v8::Local<v8::Value> V8ThrowException::throwDOMException(int ec, const String& s
         return v8Undefined();
 
     return V8ThrowException::throwException(exception, isolate);
+}
+
+v8::Local<v8::Value> V8ThrowException::createWebCLException(v8::Isolate* isolate, int ec, const String& name, const String& message, const v8::Local<v8::Object>& creationContext)
+{
+    if (ec <= 0 || v8::V8::IsExecutionTerminating())
+        return v8Undefined();
+
+    v8::TryCatch tryCatch;
+
+    RefPtr<WebCLException> webclException = WebCLException::create(ec, name, message);
+    v8::Local<v8::Value> exception = toV8(webclException, creationContext, isolate);
+
+    if (tryCatch.HasCaught()) {
+        ASSERT(exception.IsEmpty());
+        return tryCatch.Exception();
+    }
+    ASSERT(!exception.IsEmpty());
+
+    // Attach an Error object to the WebCLException. This is then lazily used to get the stack value.
+    v8::Local<v8::Value> error = v8::Exception::Error(v8String(isolate, webclException->message()));
+    ASSERT(!error.IsEmpty());
+    v8::Local<v8::Object> exceptionObject = exception.As<v8::Object>();
+    v8::Maybe<bool> result = exceptionObject->SetAccessor(isolate->GetCurrentContext(), v8AtomicString(isolate, "stack"), webclExceptionStackGetter, webclExceptionStackSetter, v8::MaybeLocal<v8::Value>(error));
+    ASSERT_UNUSED(result, result.FromJust());
+    V8HiddenValue::setHiddenValue(isolate, exceptionObject, V8HiddenValue::error(isolate), error);
+
+    return exception;
 }
 
 v8::Local<v8::Value> V8ThrowException::createGeneralError(v8::Isolate* isolate, const String& message)
