@@ -1,0 +1,14 @@
+// Copyright (C) 2015 Intel Corporation All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+// TODO(junmin-zhu): Blink does not support WebIDL dictionary definitions currently.
+// Implement as a WebIDL dictionary type.
+[
+    Conditional=WEBCL,
+] interface WebCLKernelArgInfo {
+    readonly attribute DOMString name;
+    readonly attribute DOMString typeName;
+    readonly attribute DOMString addressQualifier;
+    readonly attribute DOMString accessQualifier;
+};
