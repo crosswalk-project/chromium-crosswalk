@@ -90,6 +90,9 @@ bool AwMainDelegate::BasicStartupComplete(int* exit_code) {
   // WebView does not yet support screen orientation locking.
   cl->AppendSwitch(switches::kDisableScreenOrientationLock);
 
+  // WebView does not currently support the Permissions API (crbug.com/490120)
+  cl->AppendSwitch(switches::kDisablePermissionsAPI);
+
   // WebView does not (yet) save Chromium data during shutdown, so add setting
   // for Chrome to aggressively persist DOM Storage to minimize data loss.
   // http://crbug.com/479767

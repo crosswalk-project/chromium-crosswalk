@@ -207,6 +207,9 @@ const char kDisableOneCopy[]                = "disable-one-copy";
 // Disable Pepper3D.
 const char kDisablePepper3d[]               = "disable-pepper-3d";
 
+// Disables the Permissions API.
+const char kDisablePermissionsAPI[]         = "disable-permissions-api";
+
 // Disables compositor-accelerated touch-screen pinch gestures.
 const char kDisablePinch[]                  = "disable-pinch";
 

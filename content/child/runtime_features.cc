@@ -193,6 +193,9 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
   if (command_line.HasSwitch(switches::kEnablePushMessagingHasPermission))
     WebRuntimeFeatures::enablePushMessagingHasPermission(true);
 
+  if (command_line.HasSwitch(switches::kDisablePermissionsAPI))
+    WebRuntimeFeatures::enablePermissionsAPI(false);
+
   // Delete "StaleWhileRevalidate" line from chrome_browser_field_trials.cc
   // when this experiment is done.
   if (base::FieldTrialList::FindFullName("StaleWhileRevalidate") == "Enabled" ||

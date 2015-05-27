@@ -72,6 +72,7 @@ CONTENT_EXPORT extern const char kDisableNotifications[];
 CONTENT_EXPORT extern const char kDisableOneCopy[];
 extern const char kDisablePepper3d[];
 CONTENT_EXPORT extern const char kDisablePinch[];
+CONTENT_EXPORT extern const char kDisablePermissionsAPI[];
 CONTENT_EXPORT extern const char kDisablePluginsDiscovery[];
 CONTENT_EXPORT extern const char kDisableReadingFromCanvas[];
 extern const char kDisableRemoteFonts[];
