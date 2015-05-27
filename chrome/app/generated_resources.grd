@@ -14391,12 +14391,6 @@ After you create a new supervised user, you can manage their settings at any tim
       <message name="IDS_FLAGS_ENABLE_ACCOUNT_CONSISTENCY_DESCRIPTION" desc="Description for the flag to enable the account consistency between browser and cookie jar.">
         When enabled, the browser manages signing in and out of Google accounts.
       </message>
-      <message name="IDS_FLAGS_ENABLE_NEW_AVATAR_MENU_NAME" desc="Title for the flag to enable the new avatar menu.">
-        Enable the new avatar menu
-      </message>
-      <message name="IDS_FLAGS_ENABLE_NEW_AVATAR_MENU_DESCRIPTION" desc="Description for the flag to enable the new avatar menu.">
-        Enables the new avatar menu. When combined with new-profile-management, it simply shows the new profile management avatar menu. Otherwise it shows a redesigned avatar menu with the same functionality as the old one, plus a tutorial card at the top prompting the user to try out the new profile management UI.
-      </message>
 
       <message name="IDS_FLAGS_ENABLE_IFRAME_BASED_SIGNIN_NAME" desc="Title for the flag to enable iframe-based sign-in flows.">
         Enables iframe-based Chrome sign-in flows. This flag overrides --enable-web-based-signin.
