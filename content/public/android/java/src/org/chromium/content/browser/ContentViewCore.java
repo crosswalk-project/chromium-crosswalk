@@ -2180,6 +2180,10 @@ public class ContentViewCore
     @CalledByNative
     private void onSelectionEvent(
             int eventType, int xAnchor, int yAnchor, int left, int top, int right, int bottom) {
+        // Ensure the provided selection coordinates form a non-empty rect, as required by
+        // the selection action mode.
+        if (left == right) ++right;
+        if (top == bottom) ++bottom;
         switch (eventType) {
             case SelectionEventType.SELECTION_SHOWN:
                 mSelectionRect.set(left, top, right, bottom);
@@ -2188,11 +2192,7 @@ public class ContentViewCore
                 // TODO(cjhopman): Remove this when there is a better signal that long press caused
                 // a selection. See http://crbug.com/150151.
                 mContainerView.performHapticFeedback(HapticFeedbackConstants.LONG_PRESS);
-                // There may already be an active selection, e.g., if the user
-                // longpresses different text while an existing selection is
-                // active. In such case, we need to update the selection rect.
                 showSelectActionMode(true);
-                invalidateActionModeContentRect();
                 break;
 
             case SelectionEventType.SELECTION_MOVED:
