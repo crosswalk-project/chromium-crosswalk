@@ -64,6 +64,7 @@
 <translation id="7098166902387133879">Google Chrome использует микрофон.</translation>
 <translation id="2596415276201385844">Для создания безопасного подключения необходимо, чтобы показания системных часов были верны. Причина в том, что сертификаты для идентификации сайтов имеют ограниченный срок действия. Если часы на устройстве неточны, Chrome не может проверить актуальность этих сертификатов.</translation>
 <translation id="4053720452172726777">Настройка и управление Google Chrome</translation>
+<translation id="5148419164691878332">Chrome добавит его к другим сохраненным паролям Google (<ph name="SAVED_PASSWORDS_LINK"/>) и запомнит для следующих визитов.</translation>
 <translation id="3197823471738295152">Операционная система обновлена.</translation>
 <translation id="8286862437124483331">Чтобы просмотреть пароли, введите пароль своего аккаунта Windows.</translation>
 <translation id="3889417619312448367">Удалить Google Chrome</translation>
@@ -75,6 +76,7 @@
 <translation id="3282568296779691940">Войдите в Chrome</translation>
 <translation id="3089968997497233615">Доступна новая, более безопасная версия Google Chrome.</translation>
 <translation id="5037239767309817516">Чтобы изменения вступили в силу, закройте все окна Google Chrome и перезапустите браузер.</translation>
+<translation id="1619887657840448962">Чтобы обеспечить безопасность ваших данных, некоторые расширения были отключены, так как <ph name="IDS_EXTENSION_WEB_STORE_TITLE"/> не содержит сведений о них (то есть они могли быть установлены без вашего ведома).</translation>
 <translation id="225614027745146050">Добро пожаловать!</translation>
 <translation id="3398288718845740432">Не показывать в Меню Google Chrome</translation>
 <translation id="7473891865547856676">Пропустить</translation>
@@ -102,6 +104,7 @@
 <translation id="7747138024166251722">Программе установки не удалось создать временный каталог. Возможно, у вас нет прав на установку приложений или недостаточно места на диске.</translation>
 <translation id="5170938038195470297">Использовать этот профиль невозможно, так как он был создан в более новой версии Google Chrome. Некоторые функции могут быть недоступны. Укажите другой каталог профиля или установите более новую версию Chrome.</translation>
 <translation id="7282192067747128786">Chrome - Оповещения (новых: <ph name="QUANTITY"/>)</translation>
+<translation id="1475773083554142432">Chrome добавит его к другим сохраненным паролям (<ph name="SAVED_PASSWORD_LINK"/>) и запомнит для следующих визитов.</translation>
 <translation id="6011049234605203654">Выберите
           меню Chrome &gt;
           <ph name="SETTINGS_TITLE"/>
@@ -134,6 +137,7 @@
 <translation id="5855036575689098185">Используемое программное обеспечение несовместимо с Google Chrome.</translation>
 <translation id="7164397146364144019">Вы можете сделать защиту Chrome ещё надежнее. Просто разрешите автоматически отправлять в Google информацию о возможных проблемах безопасности.</translation>
 <translation id="8008534537613507642">Переустановить Chrome</translation>
+<translation id="2689103672227170538">Расширение изменило стартовую страницу Chrome.</translation>
 <translation id="8862326446509486874">У вас нет прав, необходимых для установки на системном уровне. Запустите программу установки еще раз в качестве администратора.</translation>
 <translation id="2874156562296220396">Браузер Google Chrome создан на основе проекта <ph name="BEGIN_LINK_CHROMIUM"/>Chromium<ph name="END_LINK_CHROMIUM"/> и другого <ph name="BEGIN_LINK_OSS"/>программного обеспечения с открытым исходным кодом<ph name="END_LINK_OSS"/>.</translation>
 <translation id="7191567847629796517">Google Chrome OS не поддерживает внешних приложений для обработки ссылок <ph name="SCHEME"/>. Запрашиваемая ссылка: <ph name="PROTOLINK"/>.</translation>
@@ -161,6 +165,7 @@
 <translation id="2665296953892887393">Помочь улучшить Google Chrome, отправляя в Google отчеты о сбоях и <ph name="UMA_LINK"/></translation>
 <translation id="7761834446675418963">Нажмите на свое имя, чтобы войти в Chrome.</translation>
 <translation id="2669824781555328029">Chrome блокирует файл <ph name="FILE_NAME"/>, так как он может нанести вред браузеру.</translation>
+<translation id="6477562832195530369">{NUM_DOWNLOAD,plural, =1{Идет скачивание. Отменить и выйти из Google Chrome?}one{Идет скачивание (#). Отменить и выйти из Google Chrome?}few{Идет скачивание (#). Отменить и выйти из Google Chrome?}many{Идет скачивание (#). Отменить и выйти из Google Chrome?}other{Идет скачивание (#). Отменить и выйти из Google Chrome?}}</translation>
 <translation id="6235018212288296708">Разрешить в Google Chrome передачу входящего трафика по протоколу mDNS</translation>
 <translation id="7984945080620862648">Перейти на сайт <ph name="SITE"/> невозможно, так как его идентификационные данные зашифрованы, и Chrome не может их обработать. Это могло произойти из-за ошибки сети или атаки на сайт. Скорее всего, он заработает через некоторое время.</translation>
 <translation id="6930860321615955692">https://support.google.com/chrome/?p=ib_chromeframe</translation>
@@ -228,6 +233,7 @@
 <translation id="3360895254066713204">Chrome Helper</translation>
 <translation id="1877026089748256423">Версия Chrome устарела</translation>
 <translation id="7592736734348559088">Google Chrome не удалось синхронизировать данные, поскольку ваши учетные данные устарели.</translation>
+<translation id="3735758079232443276">Расширение &quot;<ph name="EXTENSION_NAME"/>&quot; изменило стартовую страницу Chrome.</translation>
 <translation id="6991142834212251086">Связать данные Chrome с этим аккаунтом</translation>
 <translation id="3451115285585441894">Установка...</translation>
 <translation id="3047079729301751317">Если вы отключите аккаунт <ph name="USERNAME"/>, все сохраненные на этом устройстве закладки, настройки, история и другие данные Chrome будут удалены. Данные в вашем аккаунте Google сохранятся, и вы сможете управлять ими в <ph name="GOOGLE_DASHBOARD_LINK"/>Личном кабинете Google<ph name="END_GOOGLE_DASHBOARD_LINK"/>.</translation>

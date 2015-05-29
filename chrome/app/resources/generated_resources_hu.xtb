@@ -13,7 +13,7 @@
 <translation id="166179487779922818">A jelszó túl rövid.</translation>
 <translation id="2345460471437425338">A gazdagép tanúsítványa érvénytelen.</translation>
 <translation id="3688507211863392146">Az alkalmazásban megnyitott fájlok és mappák írása</translation>
-<translation id="226269835214688456">Ha kikapcsolja a Smart Lock funkciót a Chrome-nál, akkor a jövőben nem tudja feloldani Chrome-eszközeit a telefonja használatával, hanem be kell írnia jelszavát.</translation>
+<translation id="226269835214688456">Ha kikapcsolja a Smart Lock Chromebookhoz funkciót, akkor a jövőben nem tudja feloldani Chrome-eszközeit a telefonja használatával, hanem be kell írnia jelszavát.</translation>
 <translation id="8996941253935762404">A felkeresni kívánt webhely ártalmas programokat tartalmaz</translation>
 <translation id="3595596368722241419">Akkumulátor feltöltve</translation>
 <translation id="8098352321677019742"><ph name="PRODUCT_NAME"/> – Értesítések</translation>
@@ -1009,7 +1009,7 @@ Az összes felhasználónak ki kell jelentkeznie a folytatáshoz.</translation>
 <translation id="9153341767479566106">Egyéb bővítmények, amelyeket nem sikerült betölteni:</translation>
 <translation id="1864111464094315414">Bejelentkezés</translation>
 <translation id="3451859089869683931">Érvénytelen telefonszám. Ellenőrizze, majd próbálja újra.</translation>
-<translation id="7130666834200497454">A(z) <ph name="DEVICE_TYPE"/> eszköz biztonságának megőrzése érdekében a Smart Lock a telefont feloldó lezárási képernyőt igényel. Biztonságossá tette már a telefonját? Kattintson az „Ellenőrzés újra” gombra az ellenőrzéshez és a telepítés folytatásához.</translation>
+<translation id="7130666834200497454">A(z) <ph name="DEVICE_TYPE"/> eszköz biztonságának megőrzése érdekében a Smart Lock Chromebookhoz a telefont feloldó lezárási képernyőt igényel. Biztonságossá tette már a telefonját? Kattintson az „Ellenőrzés újra” gombra az ellenőrzéshez és a telepítés folytatásához.</translation>
 <translation id="5414882716132603766">Szinkronizálás hitelesítő adatainak elvetése a jelszókezelőből.</translation>
 <translation id="6353618411602605519">Horvát billentyűzet</translation>
 <translation id="7986039047000333986">A rendszer egy speciális biztonsági frissítést alkalmazott a <ph name="PRODUCT_NAME"/> esetén; indítsa újra a számítógépet, hogy a módosítás életbe léphessen (a lapokat visszaállítjuk).</translation>
@@ -1498,7 +1498,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="7285011324031710154">Engedélyezi a webalkalmazás-stílusú keretet a hosztolt alkalmazásoknál.</translation>
 <translation id="5749861707650047230">{NUM_DOWNLOAD,plural, =1{Letöltés megszakítása}other{Letöltések megszakítása}}</translation>
 <translation id="1221825588892235038">Csak a kijelölt</translation>
-<translation id="2227939492629426903">Elérhetővé teszi az új avatármenüt. Az új profilkezeléssel kombinálva egyszerűen az új profilkezelés avatármenüjét jeleníti meg. Egyébként az újratervezett avatármenüt jeleníti meg, amely a régivel megegyező funkciókkal bír, illetve felül tartalmaz egy oktatókártyát is, amely felkéri a felhasználókat az új profilkezelő felhasználói felület kipróbálására.</translation>
 <translation id="8713979477561846077">Fizikai billentyűzet automatikus javításának engedélyezése USA-beli kiosztást használó billentyűzetek esetén, hogy javaslatok jelenjenek meg a fizikai billentyűzeten történő gépelés közben.</translation>
 <translation id="7201354769043018523">Jobb zárójel</translation>
 <translation id="7517569744831774757">Beállítások visszaállítása alapértelmezettre.</translation>
@@ -4416,7 +4415,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="1254593899333212300">Közvetlen internetkapcsolat</translation>
 <translation id="6107012941649240045">Tulajdonos</translation>
 <translation id="1101112020367325578">Soha ne engedélyezze a sandboxba nem helyezett beépülő modulokat itt: <ph name="HOST"/></translation>
-<translation id="3828373662010953415">Az új avatármenü engedélyezése</translation>
 <translation id="6483805311199035658"><ph name="FILE"/> megnyitása...</translation>
 <translation id="5465122519792752163">Nepáli billentyűzet (InScript)</translation>
 <translation id="940425055435005472">Betűméret:</translation>
@@ -4462,7 +4460,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="774465434535803574">Csomagbővítmény hiba</translation>
 <translation id="8200772114523450471">Folytatás</translation>
 <translation id="5750676294091770309">Bővítmény által letiltott</translation>
-<translation id="1302191857856401062">Lehetővé teszi a felhasználók közötti gyors váltást az avatarmenüben.</translation>
 <translation id="523299859570409035">Értesítések kivételei</translation>
 <translation id="7017480957358237747">bizonyos webhelyek engedélyezése vagy tiltása,</translation>
 <translation id="1029595648591494741">Kipróbálja a következőt: „<ph name="EXTENSION_NAME"/>”?</translation>
@@ -5437,7 +5434,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="8545575359873600875">Sajnáljuk, de jelszavát nem sikerült ellenőrizni. Előfordulhat, hogy a felügyelt felhasználó kezelője nemrégiben módosította a jelszót. Ha így van, akkor az új jelszó a legközelebbi bejelentkezéskor lép érvénybe. Próbálkozzon régi jelszavával.</translation>
 <translation id="7549053541268690807">Keresés a szótárban</translation>
 <translation id="8911079125461595075">A Google a(z) „<ph name="EXTENSION_NAME"/>” bővítményt rosszindulatúként jelölte meg, és megakadályozta a telepítését.</translation>
-<translation id="4347595254852029221">Gyors felhasználóváltás engedélyezése az avatarmenüben</translation>
 <translation id="5870086504539785141">A kisegítő lehetőségek menüjének bezárása</translation>
 <translation id="9102800320402283920">A Google Wallet megköveteli legalább a családnév és az utónév megadását.</translation>
 <translation id="7005848115657603926">Érvénytelen oldaltartomány; próbálja így: <ph name="EXAMPLE_PAGE_RANGE"/></translation>
