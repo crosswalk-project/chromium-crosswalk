@@ -68,7 +68,11 @@ bool TryConvertNativeToNetIPAttributes(int native_attributes,
 namespace internal {
 
 inline const unsigned char* GetIPAddressData(const IPAddressNumber& ip) {
+#if defined(OS_ANDROID)
+  return ip.begin();
+#else
   return ip.data();
+#endif
 }
 
 // Gets the connection type for interface |ifname| by checking for wireless

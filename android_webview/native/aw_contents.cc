@@ -863,7 +863,7 @@ jboolean AwContents::RestoreFromOpaqueState(
   std::vector<uint8> state_vector;
   base::android::JavaByteArrayToByteVector(env, state, &state_vector);
 
-  Pickle pickle(reinterpret_cast<const char*>(state_vector.data()),
+  Pickle pickle(reinterpret_cast<const char*>(state_vector.begin()),
                 state_vector.size());
   PickleIterator iterator(pickle);
 

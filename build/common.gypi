@@ -1692,7 +1692,7 @@
           'android_ndk_absolute_root%': '<(android_ndk_absolute_root)',
           'android_sdk_root%': '<(android_sdk_root)',
           'android_sdk_version%': '<(android_sdk_version)',
-          'android_libcpp_root': '<(android_ndk_root)/sources/cxx-stl/llvm-libc++',
+          'android_stlport_root': '<(android_ndk_root)/sources/cxx-stl/stlport',
           'host_os%': '<(host_os)',
 
           'android_sdk%': '<(android_sdk_root)/platforms/android-<(android_sdk_version)',
@@ -1768,9 +1768,9 @@
         'android_sdk%': '<(android_sdk)',
         'android_sdk_jar%': '<(android_sdk)/android.jar',
 
-        'android_libcpp_root': '<(android_libcpp_root)',
-        'android_libcpp_include': '<(android_libcpp_root)/libcxx/include',
-        'android_libcpp_libs_dir': '<(android_libcpp_root)/libs/<(android_app_abi)',
+        'android_stlport_root': '<(android_stlport_root)',
+        'android_stlport_include': '<(android_stlport_root)/stlport',
+        'android_stlport_libs_dir': '<(android_stlport_root)/libs/<(android_app_abi)',
         'host_os%': '<(host_os)',
 
         # Location of the "objcopy" binary, used by both gyp and scripts.
@@ -4644,9 +4644,9 @@
           # Figure this out early since it needs symbols from libgcc.a, so it
           # has to be before that in the set of libraries.
           ['component=="shared_library"', {
-              'android_libcpp_library': 'c++_shared',
+              'android_stlport_library': 'stlport_shared',
           }, {
-              'android_libcpp_library': 'c++_static',
+              'android_stlport_library': 'stlport_static',
           }],
         ],
 
@@ -4726,17 +4726,17 @@
               '-finline-limit=64',
               '<@(release_extra_cflags)',
               '--sysroot=<(android_ndk_sysroot)',
-              # NOTE: The libc++ header include paths below are specified in
+              # NOTE: The stlport header include paths below are specified in
               # cflags rather than include_dirs because they need to come
               # after include_dirs.
               # The include ordering here is important; change with caution.
-              '-isystem<(android_libcpp_include)',
-              '-isystem<(android_ndk_root)/sources/cxx-stl/llvm-libc++abi/libcxxabi/include',
-              '-isystem<(android_ndk_root)/sources/android/support/include',
+              '-isystem<(android_stlport_include)',
             ],
             'defines': [
               'ANDROID',
               '__GNU_SOURCE=1',  # Necessary for clone()
+              'USE_STLPORT=1',
+              '_STLP_USE_PTR_SPECIALIZATIONS=1',
               'CHROME_BUILD_ID="<(chrome_build_id)"',
               # The NDK has these things, but doesn't define the constants
               # to say that it does. Define them here instead.
@@ -4749,11 +4749,11 @@
               '-Wl,--no-undefined',
               '--sysroot=<(android_ndk_sysroot)',
               '-nostdlib',
-              '-L<(android_libcpp_libs_dir)',
-              # Don't allow visible symbols from libgcc or libc++ to be
+              '-L<(android_stlport_libs_dir)',
+              # Don't allow visible symbols from libgcc or stlport to be
               # re-exported.
               '-Wl,--exclude-libs=libgcc.a',
-              '-Wl,--exclude-libs=libc++_static.a',
+              '-Wl,--exclude-libs=libstlport_static.a',
               # Don't allow visible symbols from libraries that contain
               # assembly code with symbols that aren't hidden properly.
               # http://crbug.com/448386
@@ -4766,8 +4766,7 @@
               '-Wl,--exclude-libs=libvpx.a',
             ],
             'libraries': [
-              '-l<(android_libcpp_library)',
-              '-latomic',
+              '-l<(android_stlport_library)',
               # Manually link the libgcc.a that the cross compiler uses.
               '<!(<(android_toolchain)/*-gcc -print-libgcc-file-name)',
               '-lc',
@@ -4787,11 +4786,6 @@
                 ],
               }],
               ['clang==1', {
-                'libraries!': [
-                  # Clang with libc++ does not require an explicit atomic
-                  # library reference.
-                  '-latomic',
-                ],
                 'cflags': [
                   # Work around incompatibilities between bionic and clang
                   # headers.
