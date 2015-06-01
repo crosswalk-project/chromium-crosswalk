@@ -108,7 +108,6 @@ WebMediaPlayerMS::WebMediaPlayerMS(
       delegate_(delegate),
       paused_(true),
       current_frame_used_(false),
-      pending_repaint_(false),
       video_frame_provider_client_(NULL),
       received_first_frame_(false),
       total_frame_count_(0),
@@ -467,18 +466,14 @@ bool WebMediaPlayerMS::UpdateCurrentFrame(base::TimeTicks deadline_min,
 scoped_refptr<media::VideoFrame> WebMediaPlayerMS::GetCurrentFrame() {
   DVLOG(3) << "WebMediaPlayerMS::GetCurrentFrame";
   base::AutoLock auto_lock(current_frame_lock_);
-  DCHECK(!pending_repaint_);
   if (!current_frame_.get())
     return NULL;
-  pending_repaint_ = true;
   current_frame_used_ = true;
   return current_frame_;
 }
 
 void WebMediaPlayerMS::PutCurrentFrame() {
   DVLOG(3) << "WebMediaPlayerMS::PutCurrentFrame";
-  DCHECK(pending_repaint_);
-  pending_repaint_ = false;
 }
 
 void WebMediaPlayerMS::OnFrameAvailable(
