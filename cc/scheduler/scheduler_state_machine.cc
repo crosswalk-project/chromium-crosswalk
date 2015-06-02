@@ -841,6 +841,14 @@ void SchedulerStateMachine::OnBeginImplFrameDeadline() {
 
   // Clear funnels for any actions we perform during the deadline.
   request_swap_funnel_ = false;
+
+#if defined(OS_ANDROID)
+  // Allow one PrepareTiles per draw for synchronous compositor.
+  if (settings_.using_synchronous_renderer_compositor) {
+    if (prepare_tiles_funnel_ > 0)
+      prepare_tiles_funnel_--;
+  }
+#endif
 }
 
 void SchedulerStateMachine::OnBeginImplFrameIdle() {
