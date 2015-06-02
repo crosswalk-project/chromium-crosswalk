@@ -1386,6 +1386,18 @@ TEST_F(FeatureInfoTest, ARBSyncDisabled) {
   EXPECT_FALSE(gfx::GLFence::IsSupported());
 }
 
+TEST_F(FeatureInfoTest, BlendEquationAdvancedDisabled) {
+  base::CommandLine command_line(0, NULL);
+  command_line.AppendSwitchASCII(
+      switches::kGpuDriverBugWorkarounds,
+      base::IntToString(gpu::DISABLE_BLEND_EQUATION_ADVANCED));
+  SetupInitExpectationsWithCommandLine(
+      "GL_KHR_blend_equation_advanced_coherent GL_KHR_blend_equation_advanced",
+      command_line);
+  EXPECT_FALSE(info_->feature_flags().blend_equation_advanced);
+  EXPECT_FALSE(info_->feature_flags().blend_equation_advanced_coherent);
+}
+
 TEST_F(FeatureInfoTest, InitializeCHROMIUM_path_rendering) {
   SetupInitExpectationsWithGLVersion(
       "GL_ARB_compatibility GL_NV_path_rendering GL_EXT_direct_state_access",

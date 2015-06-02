@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.06",
+  "version": "8.07",
   "entries": [
     {
       "id": 1,
@@ -1258,6 +1258,19 @@ LONG_STRING_CONST(
       },
       "features": [
         "disable_egl_khr_wait_sync"
+      ]
+    },
+    {
+      "id": 117,
+      "description": "GL_KHR_blend_equation_advanced breaks blending on Adreno 4xx",
+      "cr_bugs": [488485],
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "Qualcomm.*",
+      "gl_renderer": ".*4\\d\\d",
+      "features": [
+        "disable_blend_equation_advanced"
       ]
     }
   ]
