@@ -805,6 +805,11 @@ bool PluginServiceImpl::NPAPIPluginsSupported() {
     const base::CommandLine* command_line =
         base::CommandLine::ForCurrentProcess();
     npapi_plugins_enabled_ = command_line->HasSwitch(switches::kEnableNpapi);
+#if defined(OS_WIN)
+    // NPAPI plugins don't play well with Win32k renderer lockdown.
+    if (npapi_plugins_enabled_)
+      DisableWin32kRendererLockdown();
+#endif
     NPAPIPluginStatus status =
         npapi_plugins_enabled_ ? NPAPI_STATUS_ENABLED : NPAPI_STATUS_DISABLED;
 #else
