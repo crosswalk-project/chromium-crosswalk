@@ -216,7 +216,7 @@
 
       <!-- Autofill/Wallet integration preferences -->
       <message name="IDS_AUTOFILL_WALLET_TITLE" desc="Text for checkbox that enables or disables import of Wallet data for Autofill.">
-        Show addresses and credit cards from Google Wallet
+        Show addresses and credit cards from Google Payments
       </message>
       <message name="IDS_AUTOFILL_WALLET_MANAGEMENT_LINK_TEXT" desc="Text for link that allows users to see and edit their Wallet information.">
         Edit
@@ -228,7 +228,7 @@
         https://wallet.google.com/manage/addressBook
       </message>
       <message name="IDS_AUTOFILL_FROM_GOOGLE_ACCOUNT_LONG" desc="Text that indicates an address or credit card came from Google servers.">
-        From Google Wallet
+        From Google Payments
       </message>
 
       <!-- Save passwords preferences -->
