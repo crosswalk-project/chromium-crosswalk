@@ -201,8 +201,6 @@
       'browser/ui/passwords/manage_passwords_ui_controller.h',
       'browser/ui/passwords/manage_passwords_view_utils.cc',
       'browser/ui/passwords/manage_passwords_view_utils.h',
-      'browser/ui/passwords/password_bubble_experiment.cc',
-      'browser/ui/passwords/password_bubble_experiment.h',
       'browser/ui/passwords/password_manager_presenter.cc',
       'browser/ui/passwords/password_manager_presenter.h',
       'browser/ui/passwords/password_ui_view.h',
