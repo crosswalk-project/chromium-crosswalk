@@ -10,6 +10,8 @@
 #include "base/metrics/field_trial.h"
 #include "base/prefs/pref_service.h"
 #include "chrome/browser/profiles/profile_manager.h"
+#include "chrome/browser/sync/profile_sync_service.h"
+#include "chrome/browser/sync/profile_sync_service_factory.h"
 #include "chrome/browser/ui/passwords/manage_passwords_view_utils.h"
 #include "chrome/browser/ui/passwords/password_bubble_experiment.h"
 #include "chrome/common/pref_names.h"
@@ -117,8 +119,10 @@ static jboolean ShouldDisplayManageAccountLink(
 
 static jboolean ShouldUseSmartLockBranding(
     JNIEnv* env, jclass) {
-  return password_bubble_experiment::IsSmartLockBrandingEnabled(
-      ProfileManager::GetLastUsedProfile());
+  const ProfileSyncService* sync_service =
+      ProfileSyncServiceFactory::GetForProfile(
+          ProfileManager::GetLastUsedProfile());
+  return password_bubble_experiment::IsSmartLockBrandingEnabled(sync_service);
 }
 
 // static
