@@ -107,7 +107,6 @@
 <translation id="4274187853770964845">Szinkronizálási hiba: kérjük, állítsa le, majd indítsa újra a szinkronizálást.</translation>
 <translation id="4209562316857013835">Engedélyezi a Wi-Fi-hálózati beállítások szinkronizálását a különböző eszközökön. Engedélyezése esetén a Wi-Fi hitelesítés adattípusának regisztrálása a Chrome-szinkronizálás segítségével, míg a Wi-Fi hitelesítő adatok szinkronizálása a felhasználói preferenciák alapján történik. (Lásd még: chrome://settings/syncSetup.)</translation>
 <translation id="5029568752722684782">Példány törlése</translation>
-<translation id="6499114579475440437">Jelentkezzen be a Google Wallet segítségével történő fizetéshez</translation>
 <translation id="656293578423618167">A fájl elérési útja vagy neve túl hosszú. Kérjük, mentse rövidebb névvel, illetve másik helyre.</translation>
 <translation id="3484869148456018791">Új tanúsítvány kérése</translation>
 <translation id="6766534397406211000">Kísérletek engedélyezése, melynek során az Üzenetközpont mindig felfelé görget, miután egy értesítést eltávolítottak.</translation>
@@ -218,7 +217,6 @@
 <translation id="1461041542809785877">Teljesítmény</translation>
 <translation id="2861301611394761800">A rendszerfrissítés befejeződött. Kérjük, indítsa újra a rendszert.</translation>
 <translation id="551752069230578406">Nyomtató hozzáadása a fiókhoz; ez eltarthat egy darabig...</translation>
-<translation id="2108058520826444209">Figyelem: Nem kapcsolódik éles verziójú Wallet-kiszolgálóhoz. A kibocsátott kártyák érvénytelenek lesznek.</translation>
 <translation id="5228962187251412618">Csak internetes ellenőrzés</translation>
 <translation id="8518901949365209398">Ez a webhely gyenge biztonsági beállításokat (SHA-1 aláírásokat) használ , ezért előfordulhat, hogy a kapcsolat nem titkos.</translation>
 <translation id="4858913220355269194">Foci</translation>
@@ -226,7 +224,6 @@
 <translation id="2231238007119540260">Ha töröl egy szervertanúsítványt, akkor annál a szervernél visszaállítja a hagyományos biztonsági ellenőrzéseket, és elvárja, hogy érvényes tanúsítványt használjon.</translation>
 <translation id="5428707027149023335">Engedélyezés: Elsődleges</translation>
 <translation id="8259581864063078725">Kattintson nyomtató alkalmazás kereséséhez a nyomtató használatához.</translation>
-<translation id="6489433341782457580">Fejlesztők figyelmébe: requestAutocomplete() esetében használja a Wallet API-hívásokhoz tartozó tesztkörnyezeti szolgáltatást.</translation>
 <translation id="8186609076106987817">A szerver nem találta a fájlt.</translation>
 <translation id="4873312501243535625">Médiafájl-ellenőrző</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 lap}other{# lap}}</translation>
@@ -253,7 +250,7 @@
 <translation id="1374844444528092021">A(z) &quot;<ph name="NETWORK_NAME"/>&quot; hálózat által megkövetelt tanúsítvány nincs telepítve, illetve már nem érvényes. Kérjen egy új tanúsítványt, majd próbáljon újrakapcsolódni.</translation>
 <translation id="3496213124478423963">Kicsinyítés</translation>
 <translation id="2296019197782308739">EAP-módszer:</translation>
-<translation id="572328651809341494">Mostanában megjelenített lapok</translation>
+<translation id="572328651809341494">Nemrég megnyitott lapok</translation>
 <translation id="42981349822642051">Részletes nézet</translation>
 <translation id="7774497835322490043">Engedélyezze a GDB hibakereső csonkot. Ezzel indításkor megállítja a Natív kliens alkalmazást, és megvárja, amíg a nacl-gdb (a NaCl SDK-ból) csatlakozik hozzá.</translation>
 <translation id="2686444421126615064">Fiók megtekintése</translation>
@@ -261,6 +258,7 @@
 <translation id="7693221960936265065">mindenkori</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">A következő webhelyek nem figyelhetik a tartózkodási helyét ezen az oldalon:</translation>
+<translation id="3025729795978504041">A többi felhasználó megtekintéséhez kattintson a fenti gombra az egér jobb gombjával.</translation>
 <translation id="8133676275609324831">&amp;Megjelenítés mappában</translation>
 <translation id="302014277942214887">Adja meg az alkalmazás azonosítóját vagy internetes áruházi URL-jét.</translation>
 <translation id="26224892172169984">A webhelyek nem kezelhetnek protokollokat</translation>
@@ -494,7 +492,6 @@
 <translation id="1751752860232137596">Kísérleti finomgörgetés megvalósításának engedélyezése.</translation>
 <translation id="6438234780621650381">A beállítások visszaállítása</translation>
 <translation id="7389722738210761877">Thai billentyűzet (TIS 820-2531)</translation>
-<translation id="9142627797714859698">A Folytatás lehetőségre kattintva elfogadja a Google Wallet használatát. Annak érdekében, hogy megvédjük Önt a csalástól, a számítógépével kapcsolatos információkat (beleértve annak helyét) megosztjuk a Google Wallet szolgáltatással.</translation>
 <translation id="4130750466177569591">Elfogadom</translation>
 <translation id="6993929801679678186">Automatikus kitöltési javaslatok megjelenítése</translation>
 <translation id="4425149324548788773">Saját Drive</translation>
@@ -687,7 +684,6 @@
 <translation id="7088434364990739311">A frissítés ellenőrzésének elindítása sikertelen (hibakód: <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">Kezdőoldalak</translation>
 <translation id="5233019165164992427">NaCl hibakeresési port</translation>
-<translation id="2038896902310685531">Hoppá! <ph name="WALLET_ERROR"/> A Google Wallet nélkül kell végigcsinálnia a tranzakciót.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Ki is hagyhatja a bejelentkezést, és <ph name="LINK_START"/>böngészhet vendégként<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">A szerver nem érhető el.</translation>
@@ -893,6 +889,7 @@ Az összes felhasználónak ki kell jelentkeznie a folytatáshoz.</translation>
 <translation id="3872166400289564527">Külső tárolóeszköz</translation>
 <translation id="1442912890475371290">Letiltott kísérlet <ph name="BEGIN_LINK"/> egy oldal felkeresésére a következő domainen: <ph name="DOMAIN"/><ph name="END_LINK"/>.</translation>
 <translation id="5912378097832178659">&amp;Keresők beállítása...</translation>
+<translation id="8013526960933383914">Egységes asztali mód engedélyezése</translation>
 <translation id="6732586201820838268">Nem sikerült kapcsolatot létesíteni a telefonjával. Győződjön meg róla, hogy bekapcsolt, kompatibilis Android-telefont használ, amely karnyújtásnyira van. &lt;a&gt;További információ&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Fájlnév</translation>
 <translation id="3893630138897523026">ChromeVox (beszélt visszajelzés)</translation>
@@ -1005,7 +1002,6 @@ Az összes felhasználónak ki kell jelentkeznie a folytatáshoz.</translation>
 <translation id="7977551819349545646">A Chromebox frissítése…</translation>
 <translation id="9001035236599590379">MIME-típus</translation>
 <translation id="1624026626836496796">Ezt csak egyszer kell megtennie, bejelentkezési adatait nem tároljuk.</translation>
-<translation id="7238207184783103780">A Google Wallet jelenleg nem érhető el.</translation>
 <translation id="9153341767479566106">Egyéb bővítmények, amelyeket nem sikerült betölteni:</translation>
 <translation id="1864111464094315414">Bejelentkezés</translation>
 <translation id="3451859089869683931">Érvénytelen telefonszám. Ellenőrizze, majd próbálja újra.</translation>
@@ -1173,7 +1169,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="4592444333660235848">Olyan webhelyen böngészik, amelyet nem biztos, hogy tényleg látni akar.</translation>
 <translation id="37613671848467444">Megnyitás &amp;inkognitóablakban</translation>
 <translation id="159359590073980872">Képek gyorsítótára</translation>
-<translation id="7142571697412577603">Címek és hitelkártyák mutatása a Google Walletból</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Részletek elrejtése</translation>
 <translation id="7170467426996704624">Átírás (salam → ሰላም)</translation>
@@ -1213,7 +1208,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="4801512016965057443">Mobil adatbarangolás engedélyezése</translation>
 <translation id="2971213274238188218">sötétítés</translation>
 <translation id="473546211690256853">Ennek a fióknak a kezelője: <ph name="DOMAIN"/>.</translation>
-<translation id="7952477692462853927">A Google Wallet hibába ütközött.</translation>
 <translation id="288024221176729610">cseh</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">A szoftveres renderelési lista felülírása</translation>
@@ -1301,7 +1295,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="1357589289913453911">Bővítményazonosító</translation>
 <translation id="8688579245973331962">Nem látja a nevét?</translation>
 <translation id="3226128629678568754">Nyomja meg a frissítés gombot az oldal betöltéséhez szükséges adatok újraküldéséhez.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> Annak érdekében, hogy megvédjük Önt a csalástól, a számítógépével kapcsolatos információkat (beleértve annak helyét) megosztjuk a Google Wallet szolgáltatással.</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Távoli jelszókezelési link engedélyezése</translation>
 <translation id="529034129044944303">Cookie-k, valamint egyéb webhely- és beépülő modul adatok törlése a böngésző bezárásakor</translation>
@@ -1374,6 +1367,7 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="5990559369517809815">A szerver felé irányuló kéréseket egy bővítmény blokkolja.</translation>
 <translation id="7208342137985015640">Adatokat tárol</translation>
 <translation id="3828440302402348524"><ph name="USER_NAME"/> néven bejelentkezve...</translation>
+<translation id="3938113500786732264">Gyorsabb váltás a felhasználók között</translation>
 <translation id="5222676887888702881">Kijelentkezés</translation>
 <translation id="3522159121915794564">Lehetővé teszi a felhasználók számára az érvénytelen TLS/SSL tanúsítványláncok gyűjtését.</translation>
 <translation id="6978121630131642226">Keresők</translation>
@@ -1482,7 +1476,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="3128230619496333808">6. lap</translation>
 <translation id="6655190889273724601">Fejlesztői mód</translation>
 <translation id="1071917609930274619">Adattitkosítás</translation>
-<translation id="5055073909323877129">Wallet-kártyák importálása</translation>
 <translation id="3473105180351527598">Adathalászat és kártékony programok elleni védelem bekapcsolása</translation>
 <translation id="6151323131516309312">Nyomja meg a(z) <ph name="SEARCH_KEY"/> gombot a(z) <ph name="SITE_NAME"/> kereséshez</translation>
 <translation id="5015762597229892204">Válassza ki a nyomtatóillesztő-alkalmazást</translation>
@@ -1658,7 +1651,6 @@ Győződjön meg arról, hogy nem ad ki bizalmas adatokat.</translation>
 <translation id="4421932782753506458">Bolyhos</translation>
 <translation id="962520199903263026">Helyesírási visszajelzés – próbaidőszak.</translation>
 <translation id="6051086608691487286">Fedvénygörgetősávok</translation>
-<translation id="6132509723755265994">A Google Wallet nem támogatja ezt a kereskedőt.</translation>
 <translation id="4886021172213954916">Tamil billentyűzet (írógép)</translation>
 <translation id="4698435846585701394">Titkosított médiabővítmények letiltása video- és audioelemeken.</translation>
 <translation id="2378075407703503998"><ph name="SELCTED_FILE_COUNT"/> fájl kiválasztva</translation>
@@ -1671,7 +1663,6 @@ Győződjön meg arról, hogy nem ad ki bizalmas adatokat.</translation>
         <ph name="MARKUP_4"/>töröljön fájlokat a Letöltések mappából<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Kérjük, csatlakozzon egy hálózathoz</translation>
 <translation id="6913830198853875055">Ha engedélyezve van, elvégezheti a keresési eredmények előzetes lehívását, és kicserélheti azokat az eredeti oldallal a letöltés és megjelenítés után.</translation>
-<translation id="5332360333956573658">Nem sikerült az adatok mentése a Walletba.</translation>
 <translation id="3759371141211657149">Kezelő beállításainak megadása...</translation>
 <translation id="8856844195561710094">Nem sikerült leállítani a Bluetooth-eszközkeresést.</translation>
 <translation id="2246340272688122454">Helyreállító képfájl letöltése...</translation>
@@ -1735,7 +1726,6 @@ Győződjön meg arról, hogy nem ad ki bizalmas adatokat.</translation>
 <translation id="23030561267973084">A(z) „<ph name="EXTENSION_NAME"/>” további engedélyeket kért.</translation>
 <translation id="6957887021205513506">A szerver tanúsítványa hamisítványnak tűnik.</translation>
 <translation id="8957709627709183338">Felügyelt felhasználókat csak ennek az eszköznek a tulajdonosa hozhat létre.</translation>
-<translation id="5810680593770884357">Wallet Kártya mentésének engedélyezése jelölőnégyzet</translation>
 <translation id="3511399794969432965">Problémája akadt a csatlakozással?</translation>
 <translation id="8551494947769799688">lett</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1847,7 +1837,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Kézmozdulatokkal történő szerkesztés be-/kikapcsolása a virtuális billentyűzet beállításainak oldalán.</translation>
 <translation id="8899388739470541164">vietnámi</translation>
-<translation id="1828473288054410476">Kártyák importálása a Wallet-fiókomból.</translation>
 <translation id="6423064450797205562">Annak mérőszámai, hogy a(z) <ph name="SHORT_PRODUCT_NAME"/> milyen sebességgel végzi el a kért műveleteket</translation>
 <translation id="4091434297613116013">papírlap</translation>
 <translation id="9039890312082871605">Lapok némítása</translation>
@@ -1896,7 +1885,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="2529133382850673012">USA billentyűzet</translation>
 <translation id="4352850459590683051">Fájl- és eszközhozzáférés visszavonása</translation>
 <translation id="4411578466613447185">Kód aláírója</translation>
-<translation id="3029595853063638932">Google Wallet virtuális kártya létrehozása...</translation>
 <translation id="1354868058853714482">Az Adobe Reader elavult, ezért lehet, hogy nem biztonságos.</translation>
 <translation id="6200903742087665630">Folyamaton kívüli iframe-ek engedélyezése</translation>
 <translation id="6095666334801788310">Kérjük, adja meg újra jelszavát</translation>
@@ -1913,7 +1901,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="6914291514448387591">A(z) <ph name="PLUGIN_NAME"/> plug-in engedélyt kér Öntől a futásra.</translation>
 <translation id="1123316951456119629">Azzal, hogy megszünteti Google-fiókja és a(z) <ph name="PRODUCT_NAME"/> összekapcsolását, az adatai megmaradnak ezen a számítógépen, ám a módosítások nem lesznek szinkronizálva Google-fiókjával. A már a Google-fiókban tárolt adatok mindaddig ott maradnak, amíg el nem távolítja azokat a <ph name="BEGIN_LINK"/>Google Irányítópult<ph name="END_LINK"/> segítségével.</translation>
 <translation id="8705331520020532516">Sorozatszám</translation>
-<translation id="1665770420914915777">Használja az &quot;Új lap&quot; oldalt</translation>
+<translation id="1665770420914915777">Használja az „Új lap” oldalt</translation>
 <translation id="4002375579798873279">A tulajdonosnak be kell jelentkeznie, hogy befejezze a regisztrációt a Google Eszközkezelő szolgáltatásban.</translation>
 <translation id="160747070824041275">Bővítmény frissítve</translation>
 <translation id="3582742550193309836">Ismétlési sebesség:</translation>
@@ -2755,7 +2743,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="8282947398454257691">Az egyedi eszközazonosító megtekintése</translation>
 <translation id="2553340429761841190">A <ph name="PRODUCT_NAME"/> nem tudott kapcsolódni a következőhöz: <ph name="NETWORK_ID"/>. Válasszon másik hálózatot és próbálja újra.</translation>
 <translation id="2086712242472027775">Fiókja nem működik a <ph name="PRODUCT_NAME"/> rendszerben. Kérjük, lépjen kapcsolatba domain-rendszergazdájával, vagy használjon egy normál Google Fiókot a bejelentkezéshez.</translation>
-<translation id="1970103697564110434">A Google Wallet megvédi a kártyáját</translation>
 <translation id="7222232353993864120">E-mail cím</translation>
 <translation id="2128531968068887769">Natív kliens</translation>
 <translation id="7175353351958621980">Betöltve innen:</translation>
@@ -2808,6 +2795,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="222949136907494149">A(z) <ph name="URL"/> az Ön számítógépének helyadatait akarja használni.</translation>
 <translation id="7654941827281939388">Ezt a fiókot már használják ezen a számítógépen.</translation>
 <translation id="204914487372604757">Parancsikon létrehozása</translation>
+<translation id="5957613098218939406">További lehetőségek</translation>
 <translation id="696036063053180184">3 készletes (nincs shift)</translation>
 <translation id="452785312504541111">Teljes szélességű angol</translation>
 <translation id="7589461650300748890">Hoppá! Legyen óvatosabb.</translation>
@@ -3474,7 +3462,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="4330523403413375536">A Fejlesztői eszközök kísérleteinek engedélyezése. A Fejlesztői eszközök Beállítások paneljén kapcsolhatja be/ki az egyes kísérleteket.</translation>
 <translation id="2017334798163366053">Teljesítményadatok gyűjtésének letiltása</translation>
 <translation id="3833761542219863804">Átírás (mausam → ਮੌਸਮ)</translation>
-<translation id="7004499039102548441">Mostanában megjelenített lapok</translation>
+<translation id="7004499039102548441">Nemrég megnyitott lapok</translation>
 <translation id="7644029910725868934">A kezelt könyvjelzők mappa engedélyezése a felügyelt felhasználóknál.</translation>
 <translation id="2386171414103162062">Lapösszeomlási alkalmak („<ph name="IDS_SAD_TAB_TITLE"/>”)</translation>
 <translation id="761779991806306006">Nincs mentett jelszó.</translation>
@@ -3591,7 +3579,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="2148716181193084225">Ma</translation>
 <translation id="7816975051619137001">Helyesírás automatikus kijavítása</translation>
 <translation id="4608500690299898628">&amp;Keresés...</translation>
-<translation id="7068997575282883954">Mentse el és védje meg adatait a Google Wallet segítségével.</translation>
 <translation id="7582582252461552277">Ezt a hálózatot részesítse előnyben</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">&amp;Megjelenítés mappában</translation>
@@ -3645,6 +3632,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="3543393733900874979">A frissítés sikertelen (hiba: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Mi a teendő?</translation>
 <translation id="1017280919048282932">&amp;Hozzáadás a szótárhoz</translation>
+<translation id="5117348049661313125">Megjeleníti a tárolt mód be- és kikapcsológombját.</translation>
 <translation id="3534879087479077042">Mi az a felügyelt felhasználó?</translation>
 <translation id="5115563688576182185">(64 bites)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Letöltés folyamatban}other{Letöltések folyamatban}}</translation>
@@ -3906,7 +3894,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">ablakváltás</translation>
 <translation id="3523642406908660543">Kérdezzen rá, ha egy webhely beépülő modul segítségével akar hozzáférni a számítógéphez (ajánlott)</translation>
-<translation id="8211868401977897190">A Wallet nem tudja kezelni ezt a tranzakciót.</translation>
 <translation id="8240697550402899963">A klasszikus téma használata</translation>
 <translation id="2882943222317434580">A(z) <ph name="IDS_SHORT_PRODUCT_NAME"/> rövidesen újraindul, és alapállapotba áll</translation>
 <translation id="2890624088306605051">Csak a szinkronizált beállítások és adatok lekérése</translation>
@@ -3937,7 +3924,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="2059334576206320859">Wi-Fi hitelesítő adatok szinkronizálásának bekapcsolása.</translation>
 <translation id="7361039089383199231">$1 bájt</translation>
 <translation id="191688485499383649">Ismeretlen hiba történt a következőhöz való kapcsolódás során: „<ph name="DEVICE_NAME"/>”.</translation>
-<translation id="7208594729785140450">A Google Wallet nem támogatja a Chrome jelen verzióját, vagy nem ismeri fel a Google API-kulcsot.</translation>
 <translation id="6874681241562738119">Bejelentkezési hiba</translation>
 <translation id="5135533361271311778">Nem sikerült létrehozni a könyvjelzőelemet.</translation>
 <translation id="2828650939514476812">Csatlakozás Wi-Fi-hálózathoz</translation>
@@ -4147,7 +4133,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="1427049173708736891"><ph name="DEVICE_TYPE"/> eszközét feloldva tarthatja olyankor, amikor androidos telefonja fel van oldva és a közelben található – nem kell begépelnie a jelszavát.</translation>
 <translation id="5934281776477898549">Nincs frissítés</translation>
 <translation id="8432745813735585631">Amerikai Colemak billentyűzet</translation>
-<translation id="43594494162958796">A szerverről letöltött Wallet hitelkártya helyi mentésének felkínálásához jelölőnégyzet megjelenítése.</translation>
 <translation id="537813040452600081">Az oldalak, melyeket ebben az ablakban megtekint, a kijelentkezést követően nem fognak megjelenni a böngészési előzmények között, és nem hagynak egyéb nyomokat a számítógépen (mint pl. cookie-k). Az Ön által letöltött fájlokat és a létrehozott könyvjelzőket a rendszer nem őrzi meg.</translation>
 <translation id="2608770217409477136">Alapbeállítások használata</translation>
 <translation id="3157931365184549694">Visszaállítás</translation>
@@ -4432,7 +4417,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="6860097299815761905">Proxy-beállítások...</translation>
 <translation id="241082044617551207">Ismeretlen beépülő modul</translation>
 <translation id="3672159315667503033">A(z) <ph name="URL"/> webhely állandó, nagy méretű adatokat akar tárolni a helyi számítógépen.</translation>
-<translation id="6190185222845843088">Wallet tesztkörnyezeti szerverek használata</translation>
 <translation id="3574772456110518971">Az internetes videók Chromecast eszközökön való lejátszását és vezérlését lehetővé tevő kísérleti Chromecast-támogatás tiltása.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (a név már használatban van ezen az eszközön)</translation>
 <translation id="3177048931975664371">Kattintson ide a jelszó elrejtéséhez</translation>
@@ -4440,7 +4424,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="3092544800441494315">A következő képernyőkép mellékelése:</translation>
 <translation id="479989351350248267">search</translation>
 <translation id="2633199387167390344">A(z) <ph name="NAME"/> <ph name="USAGE"/> MB lemezterületet használ.</translation>
-<translation id="472177018469288237">A Google Wallet letiltva</translation>
 <translation id="7730449930968088409">Képernyőtartalom rögzítése</translation>
 <translation id="5330145655348521461">Ezek a fájlok meg vannak nyitva egy másik asztalon. A megtekintésükhöz váltson át <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>) profiljára.</translation>
 <translation id="7714464543167945231">Tanúsítvány</translation>
@@ -4465,7 +4448,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="1029595648591494741">Kipróbálja a következőt: „<ph name="EXTENSION_NAME"/>”?</translation>
 <translation id="5423849171846380976">Aktiválva</translation>
 <translation id="8261673729476082470"><ph name="FILE_COUNT"/> fotó biztonsági mentésének végrehajtása folyamatban van a <ph name="BEGIN_LINK"/>Google Drive-on<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">A Google Wallet letiltása</translation>
 <translation id="7077872827894353012">Figyelmen kívül hagyott protokollkezelők</translation>
 <translation id="7655364957661536693">Bővítményei mostantól itt találhatók.</translation>
 <translation id="3158564748719736353">Ha engedélyezett, akkor a rendszer egy értesítést jelenít meg minden alkalommal, amikor az eszköz egy captive portál mögötti hálózathoz csatlakozik.</translation>
@@ -4652,7 +4634,6 @@ Elindítja a következőt: <ph name="CONTROL_PANEL_APPLET_NAME"/>?</translation>
 <translation id="357479282490346887">litván</translation>
 <translation id="9203478404496196495">Lap némításának feloldása</translation>
 <translation id="2143778271340628265">Proxy beállítása kézzel</translation>
-<translation id="440150639010863291">Google Wallet használata</translation>
 <translation id="8888432776533519951">Szín:</translation>
 <translation id="5247176778442128277">Intelligens zárolás kikapcsolása</translation>
 <translation id="5294529402252479912">Az Adobe Reader frissítése most</translation>
@@ -4844,7 +4825,6 @@ Elindítja a következőt: <ph name="CONTROL_PANEL_APPLET_NAME"/>?</translation>
 <translation id="3718288130002896473">Viselkedés</translation>
 <translation id="4813512666221746211">Hálózati hiba</translation>
 <translation id="8711402221661888347">Hamburger</translation>
-<translation id="1967178421351654130">Kártyáját a Google Wallet virtuális kártya (<ph name="FRONTING_CREDIT_CARD"/>) védelmezte, és ez a szám megjelenik majd a nyugtán. A vásárlás ellenértéke ettől függetlenül a következő kártyára lesz terhelve: <ph name="BACKING_CREDIT_CARD"/>.</translation>
 <translation id="1254117744268754948">Mappa kiválasztása</translation>
 <translation id="2168725742002792683">Fájlkiterjesztések</translation>
 <translation id="7936369818837152377">Korábbi böngészési munkamenet helyreállításához szükséges idő</translation>
@@ -4985,7 +4965,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="713888829801648570">Jelszavát nem tudtuk ellenőrizni, mert offline állapotban van.</translation>
 <translation id="7464861219980961605">A mentett jelszavak törlése</translation>
 <translation id="7507930499305566459">Állapotjelentő tanúsítvány</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Könyvjelzők és beállítások importálása</translation>
 <translation id="8518865679229538285">Tamil beviteli mód (írógép)</translation>
 <translation id="1545177026077493356">Automatikus kioszk mód</translation>
@@ -5164,7 +5143,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="1698647588772720278">Az előtaggal ellátott titkosított médiabővítmények letiltása.</translation>
 <translation id="2286454467119466181">Egyszerű</translation>
 <translation id="6666647326143344290">Google Fiókjával</translation>
-<translation id="4564097437843356814">Valami gond van az Ön Google Wallet-fiókjával.</translation>
 <translation id="4547992677060857254">A kiválasztott mappa érzékeny fájlokat tartalmaz. Biztosan állandó írási hozzáférést szeretne adni a következőnek a mappához: „$1”?</translation>
 <translation id="4980112683975062744">Ismétlődő fejléc érkezett a szervertől</translation>
 <translation id="3828029223314399057">Könyvjelzők keresése</translation>
@@ -5197,7 +5175,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="3819415294190923087">Válasszon hálózatot</translation>
 <translation id="7325437708553334317">Kontrasztos megjelenítés bővítmény</translation>
 <translation id="9203394577866137354">Ellenőrzés állapota</translation>
-<translation id="4076313158939304412">Védje meg kifizetéseit a Google Wallet segítségével.</translation>
 <translation id="2080070583977670716">További beállítások</translation>
 <translation id="6708242697268981054">Forrás:</translation>
 <translation id="1909880997794698664">Biztosan állandó kioszk módban szeretné tartani ezt az eszközt?</translation>
@@ -5278,7 +5255,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="33022249435934718">GDI azonosítók</translation>
 <translation id="1055806300943943258">Bluetooth- és USB-eszközök keresése…</translation>
 <translation id="6308937455967653460">Link mentése &amp;másként...</translation>
-<translation id="741689768643916402">Sajnos a Google Walletot ennél a kereskedőnél csak az amerikai egyesült államokbeli címmel rendelkező vásárlók használhatják. Ha Ön az Amerikai Egyesült Államokban él, |változtassa meg a Walletban szereplő lakcímét|, vagy a Google Wallet használata nélkül fizessen.</translation>
 <translation id="5828633471261496623">Nyomtatás...</translation>
 <translation id="3519867315646775981">Átírás (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Böngészési adatok törlése...</translation>
@@ -5435,7 +5411,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="7549053541268690807">Keresés a szótárban</translation>
 <translation id="8911079125461595075">A Google a(z) „<ph name="EXTENSION_NAME"/>” bővítményt rosszindulatúként jelölte meg, és megakadályozta a telepítését.</translation>
 <translation id="5870086504539785141">A kisegítő lehetőségek menüjének bezárása</translation>
-<translation id="9102800320402283920">A Google Wallet megköveteli legalább a családnév és az utónév megadását.</translation>
 <translation id="7005848115657603926">Érvénytelen oldaltartomány; próbálja így: <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337"><ph name="DOMAIN"/> – Általános szerződési feltételek</translation>
@@ -5670,7 +5645,6 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="2989474696604907455">nincs csatlakoztatva</translation>
 <translation id="6612358246767739896">Védett tartalom</translation>
 <translation id="1593594475886691512">Formázás...</translation>
-<translation id="8860520442470629999">Ennél a tranzakciónál Google Wallet virtuális kártyát fog használni. A virtuális kártya egy új kártyaszámot jelent, így az eladó soha nem fogja látni az Ön hitelkártyájának számát.</translation>
 <translation id="6586451623538375658">Az elsődleges egérgomb cseréje</translation>
 <translation id="6937152069980083337">Google japán beviteli mód (US billentyűzetre)</translation>
 <translation id="475088594373173692">Első felhasználó</translation>
@@ -5773,6 +5747,7 @@ letiltásához nyomja le a Ctrl+Alt+Z billentyűkombinációt.</translation>
 <translation id="962416441122492777">Bejelentkezés befejezése</translation>
 <translation id="2049137146490122801">A rendszergazda letiltotta a számítógép helyi fájljaihoz való hozzáférést.</translation>
 <translation id="225240747099314620">Azonosítók engedélyezése védett tartalomhoz (a számítógép újraindítását igényelheti)</translation>
+<translation id="8611705542165748884">Tárolt mód bekapcsolása</translation>
 <translation id="1146498888431277930">SSL kapcsolódási hiba</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Vessző</translation>

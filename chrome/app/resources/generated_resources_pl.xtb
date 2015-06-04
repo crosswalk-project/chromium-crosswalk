@@ -107,7 +107,6 @@
 <translation id="4274187853770964845">Błąd synchronizacji: zatrzymaj i ponownie uruchom synchronizację.</translation>
 <translation id="4209562316857013835">Włącza synchronizację ustawień sieci Wi-Fi na urządzeniach. Gdy ta funkcja jest włączona, typ danych logowania do sieci Wi-Fi jest zapisywany przy użyciu Synchronizacji Chrome, a dane logowania do sieci Wi-Fi są synchronizowane zgodnie z ustawieniami użytkownika (zobacz też chrome://settings/syncSetup).</translation>
 <translation id="5029568752722684782">Usuń kopię</translation>
-<translation id="6499114579475440437">Zaloguj się, by zapłacić, korzystając z Portfela Google</translation>
 <translation id="656293578423618167">Ścieżka do pliku lub jego nazwa jest zbyt długa. Zapisz pod krótszą nazwą lub w innej lokalizacji.</translation>
 <translation id="3484869148456018791">Pobierz nowy certyfikat</translation>
 <translation id="6766534397406211000">Włącza funkcję eksperymentalną, która po usunięciu powiadomienia w centrum wiadomości powoduje przewinięcie listy w górę.</translation>
@@ -218,7 +217,6 @@
 <translation id="1461041542809785877">Wydajność</translation>
 <translation id="2861301611394761800">Aktualizacja systemu zakończona. Uruchom system ponownie.</translation>
 <translation id="551752069230578406">Dodaję drukarkę do konta. Może to chwilę potrwać...</translation>
-<translation id="2108058520826444209">Ostrzeżenie: nie masz połączenia z oficjalnymi serwerami Portfela. Wydane karty będą nieprawidłowe.</translation>
 <translation id="5228962187251412618">Tylko kontrola online</translation>
 <translation id="8518901949365209398">Ta witryna używa słabej konfiguracji zabezpieczeń (podpisy SHA-1), więc połączenie może nie być poufne.</translation>
 <translation id="4858913220355269194">Fritz</translation>
@@ -226,7 +224,6 @@
 <translation id="2231238007119540260">Jeśli usuniesz certyfikat serwera, przywrócisz zwykłe sprawdzenia zabezpieczeń w odniesieniu do tego serwera z wymogiem używania przez niego ważnego certyfikatu.</translation>
 <translation id="5428707027149023335">Włącz: główny</translation>
 <translation id="8259581864063078725">Kliknij, by znaleźć aplikację, która pozwala drukować na tej drukarce.</translation>
-<translation id="6489433341782457580">Programiści: w przypadku wywołań requestAutocomplete() interfejsu API Portfela należy używać usługi piaskownicy.</translation>
 <translation id="8186609076106987817">Serwer nie znalazł pliku.</translation>
 <translation id="4873312501243535625">Kontroler plików multimedialnych</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 karta}few{# karty}many{# kart}other{# karty}}</translation>
@@ -261,6 +258,7 @@
 <translation id="7693221960936265065">od samego początku</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">Następującym witrynom zablokowano możliwość śledzenia Twojej lokalizacji na tej stronie:</translation>
+<translation id="3025729795978504041">Kliknij powyższy przycisk prawym przyciskiem myszy, by zobaczyć inne osoby.</translation>
 <translation id="8133676275609324831">&amp;Pokaż w folderze</translation>
 <translation id="302014277942214887">Wpisz ID aplikacji lub URL sklepu internetowego.</translation>
 <translation id="26224892172169984">Nie zezwalaj żadnej witrynie na obsługę protokołów</translation>
@@ -494,7 +492,6 @@
 <translation id="1751752860232137596">Włącz eksperymentalną implementację płynnego przewijania.</translation>
 <translation id="6438234780621650381">Resetowanie ustawień</translation>
 <translation id="7389722738210761877">Klawiatura tajska (TIS 820-2531)</translation>
-<translation id="9142627797714859698">Klikając Kontynuuj, zgadzasz się na używanie Portfela Google. Aby chronić Cię przed oszustwami, usłudze zostaną udostępnione informacje o Twoim komputerze (w tym o jego lokalizacji).</translation>
 <translation id="4130750466177569591">Zgadzam się</translation>
 <translation id="6993929801679678186">Pokaż podpowiedzi autouzupełniania</translation>
 <translation id="4425149324548788773">Mój dysk</translation>
@@ -687,7 +684,6 @@
 <translation id="7088434364990739311">Uruchamianie sprawdzania aktualizacji nie powiodło się (kod błędu <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">Strony otwierane po uruchomieniu</translation>
 <translation id="5233019165164992427">Port debugowania NaCl</translation>
-<translation id="2038896902310685531">Ups, <ph name="WALLET_ERROR"/> Możesz zrealizować tę transakcję bez Portfela Google.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Możesz też pominąć logowanie i <ph name="LINK_START"/>przeglądać internet jako gość<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">Serwer jest niedostępny.</translation>
@@ -893,6 +889,7 @@ Aby kontynuować, wszyscy użytkownicy muszą się wylogować.</translation>
 <translation id="3872166400289564527">Zewnętrzna pamięć masowa</translation>
 <translation id="1442912890475371290">Zablokowano próbę <ph name="BEGIN_LINK"/>wejścia na stronę w domenie <ph name="DOMAIN"/><ph name="END_LINK"/>.</translation>
 <translation id="5912378097832178659">&amp;Edytuj wyszukiwarki...</translation>
+<translation id="8013526960933383914">Włącz ujednolicony pulpit</translation>
 <translation id="6732586201820838268">Nie można nawiązać połączenia z telefonem. Upewnij się, że używasz zgodnego telefonu z Androidem oraz że jest on włączony i w zasięgu ręki. &lt;a&gt;Więcej informacji&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Nazwa pliku</translation>
 <translation id="3893630138897523026">ChromeVox (potwierdzenia głosowe)</translation>
@@ -1005,7 +1002,6 @@ Aby kontynuować, wszyscy użytkownicy muszą się wylogować.</translation>
 <translation id="7977551819349545646">Aktualizuję Chromeboksa...</translation>
 <translation id="9001035236599590379">Typ MIME</translation>
 <translation id="1624026626836496796">Wystarczy, że zrobisz to tylko raz. Twoje dane logowania nie zostaną zapisane.</translation>
-<translation id="7238207184783103780">Portfel Google jest obecnie niedostępny.</translation>
 <translation id="9153341767479566106">Inne rozszerzenia, których nie udało się załadować:</translation>
 <translation id="1864111464094315414">Zaloguj się</translation>
 <translation id="3451859089869683931">Nieprawidłowy numer telefonu. Sprawdź wpisane informacje i spróbuj ponownie.</translation>
@@ -1042,7 +1038,7 @@ Aby kontynuować, wszyscy użytkownicy muszą się wylogować.</translation>
 <translation id="3825863595139017598">Klawiatura mongolska</translation>
 <translation id="8184538546369750125">Użyj globalnej wartości domyślnej (Zezwalaj)</translation>
 <translation id="1506687042165942984">Pokaż zapisaną (tzn. nieaktualną) kopię tej strony.</translation>
-<translation id="4594109696316595112">Aktywacja jednorazowa: wpisz hasło, by aktywować funkcję Smart Lock na urządzeniu <ph name="DEVICE_TYPE"/>. Dzięki niej Twój telefon będzie odblokowywać to urządzenie bez konieczności wpisywania hasła. Aby zmienić lub wyłączyć tę funkcję, otwórz ustawienia urządzenia <ph name="DEVICE_TYPE"/>.</translation>
+<translation id="4594109696316595112">Aktywacja jednorazowa: wpisz hasło, by aktywować funkcję Smart Lock na urządzeniu <ph name="DEVICE_TYPE"/>. Dzięki niej Twój telefon będzie odblokowywać to urządzenie bez konieczności wpisywania hasła. Aby wyłączyć tę funkcję lub zmienić jej ustawienia, otwórz ustawienia urządzenia <ph name="DEVICE_TYPE"/>.</translation>
 <translation id="2018352199541442911">Niestety, to urządzenie zewnętrznej pamięci masowej nie jest obecnie obsługiwane.</translation>
 <translation id="2678063897982469759">Włącz ponownie</translation>
 <translation id="1779766957982586368">Zamknij okno</translation>
@@ -1173,7 +1169,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="4592444333660235848">Jesteś na stronie, której być może nie chcesz w rzeczywistości przeglądać.</translation>
 <translation id="37613671848467444">Otwórz w oknie &amp;incognito</translation>
 <translation id="159359590073980872">Pamięć podręczna grafiki</translation>
-<translation id="7142571697412577603">Pokaż adresy i karty kredytowe z Portfela Google</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Ukryj szczegóły</translation>
 <translation id="7170467426996704624">Transliteracja (salam → ሰላም)</translation>
@@ -1213,7 +1208,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="4801512016965057443">Zezwól na przesył danych w roamingu</translation>
 <translation id="2971213274238188218">zmniejsz jasność</translation>
 <translation id="473546211690256853">To konto jest zarządzane w domenie <ph name="DOMAIN"/></translation>
-<translation id="7952477692462853927">W Portfelu Google wystąpił błąd.</translation>
 <translation id="288024221176729610">Czeski</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">Zastąp listę renderowania programowego</translation>
@@ -1301,7 +1295,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="1357589289913453911">Identyfikator rozszerzenia</translation>
 <translation id="8688579245973331962">Nie widzisz swojej nazwy?</translation>
 <translation id="3226128629678568754">Naciśnij przycisk ponownego załadowania, by przesłać dane wymagane do wczytania strony.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> Aby chronić Cię przed oszustwami, Portfelowi Google zostaną udostępnione informacje o Twoim komputerze (w tym o jego lokalizacji).</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Włącz link do zdalnego zarządzania hasłem</translation>
 <translation id="529034129044944303">Usuń pliki cookie oraz inne dane stron i wtyczek po zamknięciu przeglądarki</translation>
@@ -1374,6 +1367,7 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="5990559369517809815">Żądania do serwera zostały zablokowane przez rozszerzenie.</translation>
 <translation id="7208342137985015640">Zapisuje dane</translation>
 <translation id="3828440302402348524">Jesteś zalogowany(a) jako <ph name="USER_NAME"/>...</translation>
+<translation id="3938113500786732264">Szybsze przełączanie się między użytkownikami</translation>
 <translation id="5222676887888702881">Wyloguj się</translation>
 <translation id="3522159121915794564">Umożliwia użytkownikom wyrażenie zgody na zbieranie danych o nieprawidłowych łańcuchach certyfikatów TLS/SSL.</translation>
 <translation id="6978121630131642226">Wyszukiwarki</translation>
@@ -1464,7 +1458,7 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="297870353673992530">Serwer DNS:</translation>
 <translation id="6445450263907939268">Jeśli nie chcesz tych zmian, możesz przywrócić poprzednie ustawienia.</translation>
 <translation id="8279388322240498158">Klawiatura dla języka sorani oparta na angielskiej</translation>
-<translation id="7273774418879988007">Sprawia, że strumienie z wyjść audio sprawdzają, czy dostępne są układy kanału inne niż domyślny układ sprzętowy. Włączenie tego ustawienia pozwala systemowi operacyjnemu używać rozszerzenia dźwięku stereo lub przestrzennego (jeśli jest ono obsługiwane) i może spowodować wystąpienie błędów związanych z działaniem sterownika firmy zewnętrznej. Korzystaj z tego ustawienia rozważnie.</translation>
+<translation id="7273774418879988007">Sprawia, że strumienie z wyjść audio sprawdzają, czy dostępne są układy kanału inne niż domyślny układ sprzętowy. Włączenie tego ustawienia pozwala systemowi operacyjnemu używać rozszerzenia dźwięku stereo do przestrzennego (jeśli jest ono obsługiwane) i może spowodować wystąpienie błędów związanych z działaniem sterownika firmy zewnętrznej. Korzystaj z tego ustawienia rozważnie.</translation>
 <translation id="3130528281680948470">Twoje urządzenie zostanie zresetowane. Wszystkie zapisane lokalnie konta użytkowników i dane zostaną usunięte. Tej czynności nie można cofnąć.</translation>
 <translation id="3222066309010235055">Wstępne renderowanie: <ph name="PRERENDER_CONTENTS_NAME"/></translation>
 <translation id="7742762435724633909">Nazwa dostawcy:</translation>
@@ -1482,7 +1476,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="3128230619496333808">Karta 6</translation>
 <translation id="6655190889273724601">Tryb programisty</translation>
 <translation id="1071917609930274619">Szyfrowanie danych</translation>
-<translation id="5055073909323877129">Importuj karty Portfela</translation>
 <translation id="3473105180351527598">Włącz ochronę przed wyłudzaniem danych (phishingiem) i złośliwym oprogramowaniem</translation>
 <translation id="6151323131516309312">Kliknij przycisk <ph name="SEARCH_KEY"/>, aby przeszukać witrynę <ph name="SITE_NAME"/></translation>
 <translation id="5015762597229892204">Wybierz aplikację sterownika drukarki</translation>
@@ -1657,7 +1650,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="4421932782753506458">Puszysty</translation>
 <translation id="962520199903263026">Test funkcjonalny informacji o sprawdzaniu pisowni.</translation>
 <translation id="6051086608691487286">Nakładane paski przewijania</translation>
-<translation id="6132509723755265994">Portfel Google nie jest obsługiwany u tego sprzedawcy.</translation>
 <translation id="4886021172213954916">Klawiatura tamilska (maszyna do pisania)</translation>
 <translation id="4698435846585701394">Wyłącza rozszerzenia zaszyfrowanych multimediów w elementach wideo i dźwiękowych.</translation>
 <translation id="2378075407703503998">Wybrano <ph name="SELCTED_FILE_COUNT"/> pliki(ów)</translation>
@@ -1670,7 +1662,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
     <ph name="MARKUP_4"/>usuń pliki z folderu Pobrane pliki<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Połącz się z siecią</translation>
 <translation id="6913830198853875055">Jeśli ta opcja jest włączona, wstępnie pobiera podglądy stron wymienionych w wynikach wyszukiwania oraz zastępuje je oryginalnymi stronami w chwili pobrania i wyrenderowania.</translation>
-<translation id="5332360333956573658">Nie można zapisać danych w Portfelu.</translation>
 <translation id="3759371141211657149">Zarządzaj ustawieniami modułów obsługi...</translation>
 <translation id="8856844195561710094">Zatrzymywanie wykrywania urządzeń Bluetooth nie powiodło się.</translation>
 <translation id="2246340272688122454">Trwa pobieranie obrazu odzyskiwania...</translation>
@@ -1736,7 +1727,6 @@ Psst! Następnym razem możesz użyć trybu incognito <ph name="SHORTCUT_KEY"/>.
 <translation id="23030561267973084">„<ph name="EXTENSION_NAME"/>” żąda dodatkowych pozwoleń.</translation>
 <translation id="6957887021205513506">Certyfikat serwera wydaje się sfałszowany.</translation>
 <translation id="8957709627709183338">Tworzenie użytkowników nadzorowanych jest ograniczone przez właściciela tego urządzenia.</translation>
-<translation id="5810680593770884357">Włącz pole wyboru zapisywania danych kart z Portfela</translation>
 <translation id="3511399794969432965">Problemy z połączeniem?</translation>
 <translation id="8551494947769799688">Łotewski</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1848,7 +1838,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Włącz/wyłącz opcję edytowania gestów na stronie ustawień klawiatury wirtualnej.</translation>
 <translation id="8899388739470541164">Wietnamski</translation>
-<translation id="1828473288054410476">Importuj karty z Portfela.</translation>
 <translation id="6423064450797205562">Statystyki dotyczące szybkości, z jaką <ph name="SHORT_PRODUCT_NAME"/> wykonuje żądane działania</translation>
 <translation id="4091434297613116013">kartki</translation>
 <translation id="9039890312082871605">Wycisz karty</translation>
@@ -1890,7 +1879,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="2529133382850673012">Klawiatura amerykańska</translation>
 <translation id="4352850459590683051">Anuluj dostęp do plików i urządzeń</translation>
 <translation id="4411578466613447185">Certyfikat do podpisywania kodu</translation>
-<translation id="3029595853063638932">Generuję wirtualną kartę Portfela Google...</translation>
 <translation id="1354868058853714482">Program Adobe Reader jest nieaktualny i może mieć luki w zabezpieczeniach.</translation>
 <translation id="6200903742087665630">Włącz elementy iframe poza procesem</translation>
 <translation id="6095666334801788310">Ponownie wpisz hasło</translation>
@@ -1927,7 +1915,7 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="391445228316373457">Klawiatura nepalska (fonetyczna)</translation>
 <translation id="8071942001314758122">Po prostu powiedz trzy razy „Ok Google”</translation>
 <translation id="4089521618207933045">Ma menu podrzędne</translation>
-<translation id="4793866834012505469">Przeszkól ponownie model głosu</translation>
+<translation id="4793866834012505469">Naucz ponownie modelu głosu</translation>
 <translation id="3470442499439619530">Usuń tego użytkownika</translation>
 <translation id="1936157145127842922">Pokaż w folderze</translation>
 <translation id="2209593327042758816">2 element na półce</translation>
@@ -2751,7 +2739,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="8282947398454257691">Odczytywać unikalny identyfikator Twojego urządzenia</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> nie może nawiązać połączenia z siecią <ph name="NETWORK_ID"/>. Wybierz inną sieć lub spróbuj ponownie.</translation>
 <translation id="2086712242472027775">Twoje konto nie działa w <ph name="PRODUCT_NAME"/>. Skontaktuj się z administratorem domeny lub zaloguj się przy użyciu zwykłego konta Google.</translation>
-<translation id="1970103697564110434">Portfel Google chroni Twoją kartę</translation>
 <translation id="7222232353993864120">Adres e-mail</translation>
 <translation id="2128531968068887769">Klient natywny</translation>
 <translation id="7175353351958621980">Załadowane z:</translation>
@@ -2804,6 +2791,7 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="222949136907494149"><ph name="URL"/> chce użyć lokalizacji Twojego komputera.</translation>
 <translation id="7654941827281939388">To konto jest już używane na tym komputerze.</translation>
 <translation id="204914487372604757">Utwórz skrót</translation>
+<translation id="5957613098218939406">Więcej opcji</translation>
 <translation id="696036063053180184">3 Set (bez klawisza Shift)</translation>
 <translation id="452785312504541111">Angielski pełnej szerokości</translation>
 <translation id="7589461650300748890">Nie tak szybko. Zachowaj ostrożność.</translation>
@@ -3590,7 +3578,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="2148716181193084225">Dzisiaj</translation>
 <translation id="7816975051619137001">Sprawdzaj pisownię automatycznie</translation>
 <translation id="4608500690299898628">&amp;Znajdź</translation>
-<translation id="7068997575282883954">Zapisz i chroń moje dane w Portfelu Google.</translation>
 <translation id="7582582252461552277">Preferuj tę sieć</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">&amp;Pokaż w folderze</translation>
@@ -3644,6 +3631,7 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="3543393733900874979">Aktualizacja zakończona niepowodzeniem (błąd: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Co musisz zrobić?</translation>
 <translation id="1017280919048282932">&amp;Dodaj do słownika</translation>
+<translation id="5117348049661313125">Pozwala włączyć lub wyłączyć tryb hostowany.</translation>
 <translation id="3534879087479077042">Kto to jest użytkownik nadzorowany?</translation>
 <translation id="5115563688576182185">(64-bitowa)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Pobieranie w toku}few{Pobieranie w toku}many{Pobieranie w toku}other{Pobieranie w toku}}</translation>
@@ -3905,7 +3893,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">przełącz okno</translation>
 <translation id="3523642406908660543">Pytaj, gdy strona chce uzyskać dostęp do komputera przez wtyczkę (zalecane)</translation>
-<translation id="8211868401977897190">Portfel nie może obsłużyć tej transakcji.</translation>
 <translation id="8240697550402899963">Użyj motywu klasycznego</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> za chwilę uruchomi się ponownie i zresetuje.</translation>
 <translation id="2890624088306605051">Pobierz tylko zsynchronizowane ustawienia i dane</translation>
@@ -3936,7 +3923,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="2059334576206320859">Włącz synchronizację danych logowania do sieci Wi-Fi.</translation>
 <translation id="7361039089383199231">$1 bajty(ów)</translation>
 <translation id="191688485499383649">Podczas próby połączenia z urządzeniem „<ph name="DEVICE_NAME"/>” wystąpił nieznany błąd.</translation>
-<translation id="7208594729785140450">Portfel Google nie obsługuje tej wersji Chrome lub nie rozpoznaje klucza interfejsu API Google.</translation>
 <translation id="6874681241562738119">Błąd logowania</translation>
 <translation id="5135533361271311778">Nie można utworzyć zakładki.</translation>
 <translation id="2828650939514476812">Połącz z siecią Wi-Fi</translation>
@@ -4146,7 +4132,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="1427049173708736891"><ph name="DEVICE_TYPE"/> pozostanie odblokowany, gdy Twój odblokowany telefon z Androidem będzie w pobliżu – nie musisz wpisywać hasła.</translation>
 <translation id="5934281776477898549">Brak aktualizacji</translation>
 <translation id="8432745813735585631">Klawiatura amerykańska (Colemak)</translation>
-<translation id="43594494162958796">Pokaż pole wyboru, które umożliwia zapisanie lokalnie danych karty kredytowej z Portfela po ich pobraniu z serwera.</translation>
 <translation id="537813040452600081">Strony wyświetlane w tym oknie nie pojawią się w historii przeglądarki. Po wylogowaniu się nie zostanie po nich na komputerze żaden ślad (np. w postaci plików cookie). Nie zostaną też zachowane pobrane pliki ani utworzone zakładki.</translation>
 <translation id="2608770217409477136">Użyj ustawień domyślnych</translation>
 <translation id="3157931365184549694">Przywróć</translation>
@@ -4431,7 +4416,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="6860097299815761905">Ustawienia serwera proxy...</translation>
 <translation id="241082044617551207">Nieznana wtyczka</translation>
 <translation id="3672159315667503033">Witryna <ph name="URL"/> chce na stałe przechowywać dużą ilość danych lokalnych na Twoim komputerze.</translation>
-<translation id="6190185222845843088">Użyj serwerów piaskownicy Portfela</translation>
 <translation id="3574772456110518971">Wyłącz eksperymentalną obsługę Chromecasta, która pozwala na odtwarzanie filmów z internetu i sterowanie nim na urządzeniach Chromecast.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (nazwa używana na tym urządzeniu)</translation>
 <translation id="3177048931975664371">Kliknij, aby ukryć hasło</translation>
@@ -4439,7 +4423,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="3092544800441494315">Dołącz następujący zrzut ekranu:</translation>
 <translation id="479989351350248267">search</translation>
 <translation id="2633199387167390344">Aplikacja <ph name="NAME"/> używa <ph name="USAGE"/> MB na dysku.</translation>
-<translation id="472177018469288237">Portfel Google jest wyłączony</translation>
 <translation id="7730449930968088409">Przechwytywanie zawartości ekranu</translation>
 <translation id="5330145655348521461">Te pliki zostały otwarte na innym pulpicie. Przejdź do <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>), aby je zobaczyć.</translation>
 <translation id="7714464543167945231">Certyfikat</translation>
@@ -4464,7 +4447,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="1029595648591494741">Wypróbować „<ph name="EXTENSION_NAME"/>”?</translation>
 <translation id="5423849171846380976">Aktywowano</translation>
 <translation id="8261673729476082470">Tworzenie kopii zapasowej <ph name="FILE_COUNT"/> zdjęć na <ph name="BEGIN_LINK"/>Dysku Google<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">Wyłącz Portfel Google</translation>
 <translation id="7077872827894353012">Ignorowane moduły obsługi</translation>
 <translation id="7655364957661536693">Rozszerzenia możesz teraz znaleźć tutaj.</translation>
 <translation id="3158564748719736353">Jeśli ta opcja jest włączona, wyświetlane jest powiadomienie, gdy urządzenie zostanie podłączone do sieci poprzez portal przechwytujący.</translation>
@@ -4652,7 +4634,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="357479282490346887">Litewski</translation>
 <translation id="9203478404496196495">Wyłącz wyciszenie karty</translation>
 <translation id="2143778271340628265">Ręczna konfiguracja serwera proxy</translation>
-<translation id="440150639010863291">Użyj Portfela Google</translation>
 <translation id="8888432776533519951">Kolor:</translation>
 <translation id="5247176778442128277">Wyłącz inteligentną blokadę</translation>
 <translation id="5294529402252479912">Aktualizuj program Adobe Reader teraz</translation>
@@ -4844,7 +4825,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="3718288130002896473">Zachowanie</translation>
 <translation id="4813512666221746211">Błąd sieci</translation>
 <translation id="8711402221661888347">Pikle</translation>
-<translation id="1967178421351654130">Twoja karta jest chroniona za pomocą karty wirtualnej Portfela Google (<ph name="FRONTING_CREDIT_CARD"/>) i na potwierdzeniu będzie widoczny ten numer. Kosztami tego zakupu zostanie jednak obciążona karta <ph name="BACKING_CREDIT_CARD"/>.</translation>
 <translation id="1254117744268754948">Wybierz folder</translation>
 <translation id="2168725742002792683">Rozszerzenia plików</translation>
 <translation id="7936369818837152377">Czas do pełnego przywrócenia poprzedniej sesji przeglądania</translation>
@@ -4983,7 +4963,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="713888829801648570">Nie można zweryfikować Twojego hasła, bo jesteś offline.</translation>
 <translation id="7464861219980961605">Usuń zapisane hasła</translation>
 <translation id="7507930499305566459">Certyfikat obiektu odpowiadającego w zakresie stanu</translation>
-<translation id="5831217499016131155">Portfel Google</translation>
 <translation id="3958088479270651626">Importuj zakładki i ustawienia</translation>
 <translation id="8518865679229538285">Metoda wprowadzania znaków tamilskich (maszyna do pisania)</translation>
 <translation id="1545177026077493356">Automatyczny tryb kiosku</translation>
@@ -5162,7 +5141,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="1698647588772720278">Wyłącz rozszerzenia zaszyfrowanych multimediów z przedrostkiem.</translation>
 <translation id="2286454467119466181">Prosty</translation>
 <translation id="6666647326143344290">za pomocą konta Google</translation>
-<translation id="4564097437843356814">Coś jest nie tak z Twoim kontem w Portfelu Google.</translation>
 <translation id="4547992677060857254">Wybrany folder zawiera poufne pliki. Czy na pewno chcesz, by aplikacja „$1” miała do niego stały dostęp z uprawnieniami do zapisu?</translation>
 <translation id="4980112683975062744">Odebrano zduplikowane nagłówki z serwera</translation>
 <translation id="3828029223314399057">Przeszukaj zakładki</translation>
@@ -5195,7 +5173,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="3819415294190923087">Wybierz sieć</translation>
 <translation id="7325437708553334317">Rozszerzenie High Contrast</translation>
 <translation id="9203394577866137354">Stan weryfikacji</translation>
-<translation id="4076313158939304412">Chroń swoje płatności za pomocą Portfela Google.</translation>
 <translation id="2080070583977670716">Więcej ustawień</translation>
 <translation id="6708242697268981054">Pochodzenie:</translation>
 <translation id="1909880997794698664">Czy na pewno chcesz trwale utrzymywać to urządzenie w trybie kiosku?</translation>
@@ -5276,7 +5253,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="33022249435934718">Uchwyty GDI</translation>
 <translation id="1055806300943943258">Szukam urządzeń Bluetooth i USB...</translation>
 <translation id="6308937455967653460">Zapisz link ja&amp;ko...</translation>
-<translation id="741689768643916402">Portfela Google u tego sprzedawcy mogą niestety używać tylko kupujący posiadający adres w Stanach Zjednoczonych. Jeśli jesteś rezydentem Stanów Zjednoczonych, |zmień swój adres domowy w Portfelu| lub zapłać w inny sposób.</translation>
 <translation id="5828633471261496623">Trwa drukowanie...</translation>
 <translation id="3519867315646775981">Transliteracja (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Wyczyść dane przeglądania...</translation>
@@ -5432,7 +5408,6 @@ Po utworzeniu nowego nadzorowanego użytkownika w każdej chwili możesz zarzą
 <translation id="7549053541268690807">Szukaj w słowniku</translation>
 <translation id="8911079125461595075">Google uznaje rozszerzenie „<ph name="EXTENSION_NAME"/>” za złośliwe, dlatego jego instalacja została powstrzymana.</translation>
 <translation id="5870086504539785141">Zamknij menu ułatwień dostępu</translation>
-<translation id="9102800320402283920">Portfel Google wymaga podania przynajmniej imienia i nazwiska.</translation>
 <translation id="7005848115657603926">Nieprawidłowy zakres stron, użyj formatu <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337"><ph name="DOMAIN"/> – warunki korzystania</translation>
@@ -5665,7 +5640,6 @@ Naciśnij dowolny klawisz, by kontynuować przeglądanie.</translation>
 <translation id="2989474696604907455">niepodłączone</translation>
 <translation id="6612358246767739896">Treść chroniona</translation>
 <translation id="1593594475886691512">Formatuję...</translation>
-<translation id="8860520442470629999">W tej transakcji zostanie użyta karta wirtualna Portfela Google. Jest to po prostu nowy numer karty, dzięki któremu sprzedawca nigdy nie widzi prawdziwych danych Twojej karty kredytowej.</translation>
 <translation id="6586451623538375658">Zamień główny przycisk myszy</translation>
 <translation id="6937152069980083337">japoński – Google (dla klawiatury amerykańskiej)</translation>
 <translation id="475088594373173692">Pierwszy użytkownik</translation>
@@ -5768,6 +5742,7 @@ Naciśnij dowolny klawisz, by kontynuować przeglądanie.</translation>
 <translation id="962416441122492777">Dokończ logowanie</translation>
 <translation id="2049137146490122801">Dostęp do plików lokalnych na tym komputerze został wyłączony przez administratora.</translation>
 <translation id="225240747099314620">Zezwól na identyfikatory chronionych treści (może być wymagane ponowne uruchomienie komputera)</translation>
+<translation id="8611705542165748884">Włącz tryb hostowany</translation>
 <translation id="1146498888431277930">Błąd połączenia SSL</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Przecinek</translation>

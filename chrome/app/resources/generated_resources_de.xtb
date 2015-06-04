@@ -107,7 +107,6 @@
 <translation id="4274187853770964845">Synchronisierungsfehler: Halten Sie die Synchronisierung an und starten Sie sie dann erneut.</translation>
 <translation id="4209562316857013835">Hiermit wird die Synchronisierung von WLAN-Einstellungen zwischen Geräten ermöglicht. Wenn die Funktion aktiviert ist, wird der WLAN-Anmeldedatentyp bei der Chrome-Synchronisierung registriert und die WLAN-Anmeldedaten werden gemäß den Nutzereinstellungen synchronisiert. Siehe auch chrome://settings/syncSetup</translation>
 <translation id="5029568752722684782">Kopie löschen</translation>
-<translation id="6499114579475440437">Anmelden, um mit Google Wallet zu zahlen</translation>
 <translation id="656293578423618167">Der Dateipfad oder Dateiname ist zu lang. Verwenden Sie bitte einen kürzeren Namen oder einen anderen Speicherort.</translation>
 <translation id="3484869148456018791">Neues Zertifikat anfordern</translation>
 <translation id="6766534397406211000">Bei Aktivierung dieser Testfunktion wird das Nachrichten-Center immer nach oben ausgeblendet, sobald eine Benachrichtigung gelöscht wurde.</translation>
@@ -218,7 +217,6 @@
 <translation id="1461041542809785877">Leistung</translation>
 <translation id="2861301611394761800">Systemupdate abgeschlossen. Starten Sie das System jetzt neu.</translation>
 <translation id="551752069230578406">Drucker wird zu Ihrem Konto hinzugefügt. Bitte warten...</translation>
-<translation id="2108058520826444209">Achtung: Sie sind nicht mit den Produktionsservern von Google Wallet verbunden. Ausgestellte Karten sind ungültig.</translation>
 <translation id="5228962187251412618">Nur Onlineprüfung</translation>
 <translation id="8518901949365209398">Diese Website verwendet eine schwache Sicherheitskonfiguration (SHA-1-Signaturen). Daher ist Ihre Verbindung möglicherweise nicht geschützt.</translation>
 <translation id="4858913220355269194">Fußball</translation>
@@ -226,7 +224,6 @@
 <translation id="2231238007119540260">Wenn Sie ein Serverzertifikat löschen, werden die üblichen Sicherheitsprüfungen für den jeweiligen Server wieder aktiviert und es muss ein gültiges Zertifikat verwendet werden.</translation>
 <translation id="5428707027149023335">Aktivieren: Primär</translation>
 <translation id="8259581864063078725">Klicken Sie hier, um eine App für diesen Drucker zu finden.</translation>
-<translation id="6489433341782457580">Für Entwickler: Verwenden Sie den Sandbox-Dienst für Wallet API-Aufrufe für requestAutocomplete().</translation>
 <translation id="8186609076106987817">Die Datei konnte nicht gefunden werden.</translation>
 <translation id="4873312501243535625">Mediendatei-Prüfung</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 Tab}other{# Tabs}}</translation>
@@ -261,6 +258,7 @@
 <translation id="7693221960936265065">Gesamter Zeitraum</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">Die folgenden Websites dürfen Ihren Standort auf dieser Seite nicht verfolgen:</translation>
+<translation id="3025729795978504041">Klicken Sie mit der rechten Maustaste auf die Schaltfläche oben, um andere Nutzer zu sehen.</translation>
 <translation id="8133676275609324831">&amp;In Ordner anzeigen</translation>
 <translation id="302014277942214887">Geben Sie die App-ID oder die Webstore-URL ein.</translation>
 <translation id="26224892172169984">Verarbeitung von Protokollen für keine Website zulassen</translation>
@@ -501,7 +499,6 @@
 <translation id="1751752860232137596">Testimplementierung für optimiertes Scrollen aktivieren</translation>
 <translation id="6438234780621650381">Einstellungen zurücksetzen</translation>
 <translation id="7389722738210761877">Thailändische Tastatur (TIS 820-2531)</translation>
-<translation id="9142627797714859698">Durch einen Klick auf &quot;Weiter&quot; stimmen Sie der Nutzung von Google Wallet zu. Um Sie vor Betrug zu schützen, werden Informationen über Ihren Computer (einschließlich des Standorts) für Google Wallet freigegeben.</translation>
 <translation id="4130750466177569591">Ich stimme zu</translation>
 <translation id="6993929801679678186">AutoFill-Vorschläge anzeigen</translation>
 <translation id="4425149324548788773">Meine Ablage</translation>
@@ -689,7 +686,6 @@ nicht auf unsichere Verbindungen zurück.</translation>
 <translation id="7088434364990739311">Update-Prüfung konnte nicht gestartet werden. Fehlercode: <ph name="ERROR"/></translation>
 <translation id="1353966721814789986">Startseiten</translation>
 <translation id="5233019165164992427">NaCl-Debug-Port</translation>
-<translation id="2038896902310685531">Hoppla! <ph name="WALLET_ERROR"/> Sie können die Transaktion ohne Google Wallet nicht ausführen.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Sie können die Anmeldung auch überspringen und <ph name="LINK_START"/>als Gast surfen<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">Der Server ist nicht verfügbar.</translation>
@@ -895,6 +891,7 @@ Alle Nutzer müssen sich abmelden, um fortfahren zu können.</translation>
 <translation id="3872166400289564527">Externer Speicher</translation>
 <translation id="1442912890475371290">Versuch zum <ph name="BEGIN_LINK"/>Besuch einer Seite unter <ph name="DOMAIN"/><ph name="END_LINK"/> blockiert</translation>
 <translation id="5912378097832178659">Such&amp;maschinen bearbeiten...</translation>
+<translation id="8013526960933383914">Unified Desktop-Modus aktivieren</translation>
 <translation id="6732586201820838268">Es konnte keine Verbindung zu Ihrem Smartphone hergestellt werden. Vergewissern Sie sich, dass Sie ein kompatibles Android-Smartphone verwenden, das eingeschaltet ist und sich in Reichweite befindet. &lt;a&gt;Weitere Informationen&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Dateiname</translation>
 <translation id="3893630138897523026">ChromeVox (gesprochenes Feedback)</translation>
@@ -1007,7 +1004,6 @@ Alle Nutzer müssen sich abmelden, um fortfahren zu können.</translation>
 <translation id="7977551819349545646">Chromebox wird aktualisiert...</translation>
 <translation id="9001035236599590379">MIME-Typ</translation>
 <translation id="1624026626836496796">Die Anmeldung ist nur einmalig erforderlich und Ihre Anmeldedaten werden nicht gespeichert.</translation>
-<translation id="7238207184783103780">Google Wallet ist momentan nicht verfügbar.</translation>
 <translation id="9153341767479566106">Andere Erweiterungen, die nicht geladen werden konnten:</translation>
 <translation id="1864111464094315414">Anmeldung</translation>
 <translation id="3451859089869683931">Ungültige Telefonnummer. Bitte überprüfen Sie Ihre Angaben und versuchen Sie es erneut.</translation>
@@ -1175,7 +1171,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="4592444333660235848">Sie befinden sich auf einer Website, die Sie möglicherweise nicht besuchen möchten.</translation>
 <translation id="37613671848467444">In &amp;Inkognito-Fenster öffnen</translation>
 <translation id="159359590073980872">Bilder-Cache</translation>
-<translation id="7142571697412577603">Adressen und Kreditkarten aus Google Wallet anzeigen</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Details ausblenden</translation>
 <translation id="7170467426996704624">Transliteration (salam → ሰላም)</translation>
@@ -1215,7 +1210,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="4801512016965057443">Mobilfunk-Roaming zulassen</translation>
 <translation id="2971213274238188218">Dunkler</translation>
 <translation id="473546211690256853">Dieses Konto wird von <ph name="DOMAIN"/> verwaltet.</translation>
-<translation id="7952477692462853927">In Google Wallet ist ein Fehler aufgetreten.</translation>
 <translation id="288024221176729610">Tschechisch</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">Software-Rendering-Liste überschreiben</translation>
@@ -1303,7 +1297,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="1357589289913453911">Erweiterungs-ID</translation>
 <translation id="8688579245973331962">Wird Ihr Name nicht angezeigt?</translation>
 <translation id="3226128629678568754">Klicken Sie auf die Schaltfläche zum erneuten Laden, um die für das Laden der Seite erforderlichen Daten erneut zu senden.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> Um Sie vor Betrug zu schützen, werden Informationen über Ihren Computer (einschließlich des Standorts) für Google Wallet freigegeben.</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Link zur Remote-Passwortverwaltung aktivieren</translation>
 <translation id="529034129044944303">Cookies und andere Website- und Plug-in-Daten beim Schließen des Browsers löschen</translation>
@@ -1376,6 +1369,7 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="5990559369517809815">Anfragen an den Server wurden durch eine Erweiterung blockiert.</translation>
 <translation id="7208342137985015640">Speichert Daten</translation>
 <translation id="3828440302402348524">Angemeldet als <ph name="USER_NAME"/>...</translation>
+<translation id="3938113500786732264">Schneller zwischen Nutzern wechseln</translation>
 <translation id="5222676887888702881">Abmelden</translation>
 <translation id="3522159121915794564">Hiermit können Nutzer die Erfassung ungültiger TLS/SSL-Zertifikatketten aktivieren.</translation>
 <translation id="6978121630131642226">Suchmaschinen</translation>
@@ -1484,7 +1478,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="3128230619496333808">Tab 6</translation>
 <translation id="6655190889273724601">Entwicklermodus</translation>
 <translation id="1071917609930274619">Datenverschlüsselung</translation>
-<translation id="5055073909323877129">Wallet-Karten importieren</translation>
 <translation id="3473105180351527598">Phishing- und Malware-Schutz aktivieren</translation>
 <translation id="6151323131516309312">Drücken Sie <ph name="SEARCH_KEY"/>, um <ph name="SITE_NAME"/> zu durchsuchen.</translation>
 <translation id="5015762597229892204">Druckertreiber-App auswählen</translation>
@@ -1659,7 +1652,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="4421932782753506458">Miez</translation>
 <translation id="962520199903263026">Feldtest für Rechtschreibprüfungs-Feedback</translation>
 <translation id="6051086608691487286">Overlay-Bildlaufleiste</translation>
-<translation id="6132509723755265994">Google Wallet wird für diesen Händler nicht unterstützt.</translation>
 <translation id="4886021172213954916">Tamil-Tastatur (Schreibmaschine)</translation>
 <translation id="4698435846585701394">Deaktiviert verschlüsselte Medienerweiterungen für Video- und Audioelemente</translation>
 <translation id="2378075407703503998"><ph name="SELCTED_FILE_COUNT"/> Dateien ausgewählt</translation>
@@ -1672,7 +1664,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
     <ph name="MARKUP_4"/>Löschen Sie Dateien aus dem Ordner &quot;Downloads&quot;.<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Bitte stellen Sie eine Verbindung zu einem Netzwerk her.</translation>
 <translation id="6913830198853875055">Wenn diese Option aktiviert ist, wird vorab eine Vorschau der Suchergebnisse abgerufen. Die Vorschau wird durch die ursprüngliche Seite ersetzt, nachdem diese heruntergeladen und gerendert wurde.</translation>
-<translation id="5332360333956573658">Daten konnten nicht in Wallet gespeichert werden.</translation>
 <translation id="3759371141211657149">Handler-Einstellungen verwalten...</translation>
 <translation id="8856844195561710094">Bluetooth-Geräteerkennung konnte nicht beendet werden.</translation>
 <translation id="2246340272688122454">Wiederherstellungsabbild wird heruntergeladen...</translation>
@@ -1735,7 +1726,6 @@ Geheimtipp: Verwenden Sie nächstes Mal den Inkognitomodus (<ph name="SHORTCUT_K
 <translation id="23030561267973084">&quot;<ph name="EXTENSION_NAME"/>&quot; hat zusätzliche Berechtigungen angefordert.</translation>
 <translation id="6957887021205513506">Das Zertifikat des Servers ist möglicherweise eine Fälschung.</translation>
 <translation id="8957709627709183338">Nur der Eigentümer dieses Geräts kann betreute Nutzer erstellen.</translation>
-<translation id="5810680593770884357">Anzeige des Kontrollkästchens zum Speichern von Wallet-Karten aktivieren</translation>
 <translation id="3511399794969432965">Treten bei der Verbindung Probleme auf?</translation>
 <translation id="8551494947769799688">Lettisch</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1847,7 +1837,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Aktiviert/Deaktiviert die Option zum Bearbeiten mit Bewegungen auf der Einstellungsseite der Bildschirmtastatur.</translation>
 <translation id="8899388739470541164">Vietnamesisch</translation>
-<translation id="1828473288054410476">Karten aus meinem Wallet-Konto importieren</translation>
 <translation id="6423064450797205562">Messwerte in Bezug auf die Geschwindigkeit, mit der <ph name="SHORT_PRODUCT_NAME"/> die geforderten Aktionen durchführt</translation>
 <translation id="4091434297613116013">Blatt Papier</translation>
 <translation id="9039890312082871605">Tabs stummschalten</translation>
@@ -1899,7 +1888,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="2529133382850673012">US-amerikanische Tastatur</translation>
 <translation id="4352850459590683051">Datei- und Gerätezugriff aufheben</translation>
 <translation id="4411578466613447185">Code-Signaturgeber</translation>
-<translation id="3029595853063638932">Virtuelle Google Wallet-Karte wird erstellt...</translation>
 <translation id="1354868058853714482">Adobe Reader ist veraltet und somit möglicherweise unsicher.</translation>
 <translation id="6200903742087665630">Out-of-Process-Iframes aktivieren</translation>
 <translation id="6095666334801788310">Bitte geben Sie Ihr Passwort erneut ein.</translation>
@@ -2752,7 +2740,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="8282947398454257691">Ihre eindeutige Geräte-ID abrufen</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> konnte keine Verbindung zu <ph name="NETWORK_ID"/> herstellen. Wählen Sie ein anderes Netzwerk oder versuchen Sie es erneut.</translation>
 <translation id="2086712242472027775">Dieses Konto funktioniert nicht bei <ph name="PRODUCT_NAME"/>. Wenden Sie sich an Ihren Domain-Administrator oder melden Sie sich mit einem Google-Standardkonto an.</translation>
-<translation id="1970103697564110434">Google Wallet schützt Ihre Karte</translation>
 <translation id="7222232353993864120">E-Mail-Adresse</translation>
 <translation id="2128531968068887769">Native Client</translation>
 <translation id="7175353351958621980">Geladen von:</translation>
@@ -2805,6 +2792,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="222949136907494149"><ph name="URL"/> möchte den Standort Ihres Computers nutzen.</translation>
 <translation id="7654941827281939388">Dieses Konto wird bereits auf dem Computer verwendet.</translation>
 <translation id="204914487372604757">Verknüpfung erstellen</translation>
+<translation id="5957613098218939406">Weitere Optionen</translation>
 <translation id="696036063053180184">3 Set (Kein Shift)</translation>
 <translation id="452785312504541111">Englisch in voller Breite</translation>
 <translation id="7589461650300748890">Vorsicht!</translation>
@@ -3580,7 +3568,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="2148716181193084225">Heute</translation>
 <translation id="7816975051619137001">Rechtschreibung automatisch korrigieren</translation>
 <translation id="4608500690299898628">&amp;Suchen...</translation>
-<translation id="7068997575282883954">Ihre Details mit Google Wallet speichern und schützen</translation>
 <translation id="7582582252461552277">Dieses Netzwerk bevorzugen</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">&amp;In Ordner anzeigen</translation>
@@ -3634,6 +3621,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="3543393733900874979">Fehler bei der Aktualisierung (Fehler: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Was sollten Sie tun?</translation>
 <translation id="1017280919048282932">&amp;Zum Wörterbuch hinzufügen</translation>
+<translation id="5117348049661313125">Bietet einen Ein-/Aus-Schalter für den gehosteten Modus</translation>
 <translation id="3534879087479077042">Was ist ein betreuter Nutzer?</translation>
 <translation id="5115563688576182185">(64-Bit)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Download wird durchgeführt}other{Downloads werden durchgeführt}}</translation>
@@ -3891,7 +3879,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">Fenster wechseln</translation>
 <translation id="3523642406908660543">Nachfragen, wenn eine Website ein Plug-in für den Zugriff auf Ihren Computer verwenden möchte (empfohlen)</translation>
-<translation id="8211868401977897190">Google Wallet kann diese Transaktion nicht ausführen.</translation>
 <translation id="8240697550402899963">Klassisches Design verwenden</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> wird in wenigen Augenblicken neu gestartet und zurückgesetzt.</translation>
 <translation id="2890624088306605051">Nur synchronisierte Einstellungen und Daten abrufen</translation>
@@ -3922,7 +3909,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="2059334576206320859">Synchronisierung von WLAN-Anmeldedaten aktivieren</translation>
 <translation id="7361039089383199231">$1 Byte</translation>
 <translation id="191688485499383649">Beim Herstellen der Verbindung zu &quot;<ph name="DEVICE_NAME"/>&quot; ist ein unbekannter Fehler aufgetreten.</translation>
-<translation id="7208594729785140450">Google Wallet unterstützt diese Chrome-Version nicht oder erkennt Ihren Google API-Schlüssel nicht.</translation>
 <translation id="6874681241562738119">Fehler bei der Anmeldung</translation>
 <translation id="5135533361271311778">Lesezeichenelement konnte nicht erstellt werden.</translation>
 <translation id="2828650939514476812">Mit WLAN verbinden</translation>
@@ -4132,7 +4118,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="1427049173708736891">Ihr <ph name="DEVICE_TYPE"/> bleibt entsperrt, solange Ihr entsperrtes Android-Telefon in der Nähe ist. Sie brauchen kein Passwort einzugeben.</translation>
 <translation id="5934281776477898549">Kein Update</translation>
 <translation id="8432745813735585631">US-amerikanische Colemak-Tastatur</translation>
-<translation id="43594494162958796">Kontrollkästchen anzeigen, über das eine vom Server heruntergeladene Wallet-Kreditkarte lokal gespeichert werden kann</translation>
 <translation id="537813040452600081">In diesem Fenster aufgerufene Seiten erscheinen nicht im Browserverlauf und hinterlassen auch keine anderweitigen Spuren wie Cookies auf dem Computer, nachdem Sie sich abgemeldet haben. Ihre Lesezeichen und Ihre heruntergeladenen Dateien bleiben nicht erhalten.</translation>
 <translation id="2608770217409477136">Standardeinstellungen verwenden</translation>
 <translation id="3157931365184549694">Wiederherstellen</translation>
@@ -4417,7 +4402,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="6860097299815761905">Proxy-Einstellungen...</translation>
 <translation id="241082044617551207">Unbekanntes Plug-in</translation>
 <translation id="3672159315667503033"><ph name="URL"/> möchte umfangreiche Daten dauerhaft auf Ihrem lokalen Computer speichern.</translation>
-<translation id="6190185222845843088">Wallet-Sandbox-Server verwenden</translation>
 <translation id="3574772456110518971">Die Deaktivierung des experimentellen Chromecast-Supports ermöglicht das Abspielen und Steuern von Videos im Web auf Chromecast-Geräten.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (auf diesem Gerät verwendeter Name)</translation>
 <translation id="3177048931975664371">Hier klicken, um Passwort zu verbergen</translation>
@@ -4425,7 +4409,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="3092544800441494315">Diesen Screenshot einfügen:</translation>
 <translation id="479989351350248267">Suchen</translation>
 <translation id="2633199387167390344"><ph name="NAME"/> nutzt <ph name="USAGE"/> MB an Festplattenspeicher.</translation>
-<translation id="472177018469288237">Google Wallet deaktiviert</translation>
 <translation id="7730449930968088409">Inhalt Ihres Bildschirms erfassen</translation>
 <translation id="5330145655348521461">Diese Dateien wurden auf einem anderen Desktop geöffnet. Wechseln Sie zu <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>), um sie anzusehen.</translation>
 <translation id="7714464543167945231">Zertifikat</translation>
@@ -4450,7 +4433,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="1029595648591494741">&quot;<ph name="EXTENSION_NAME"/>&quot; testen?</translation>
 <translation id="5423849171846380976">Aktiviert</translation>
 <translation id="8261673729476082470">Sicherung von <ph name="FILE_COUNT"/> Fotos auf <ph name="BEGIN_LINK"/>Google Drive<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">Google Wallet deaktivieren</translation>
 <translation id="7077872827894353012">Ignorierte Protokoll-Handler</translation>
 <translation id="7655364957661536693">Ihre Erweiterungen finden Sie jetzt hier.</translation>
 <translation id="3158564748719736353">Wenn Sie diese Option auswählen, erhalten Sie Benachrichtigungen, sobald das Gerät mit einem Netzwerk hinter einem Erfassungsportal verbunden ist.</translation>
@@ -4638,7 +4620,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="357479282490346887">Litauisch</translation>
 <translation id="9203478404496196495">Stummschaltung des Tabs aufheben</translation>
 <translation id="2143778271340628265">Manuelle Proxy-Konfiguration</translation>
-<translation id="440150639010863291">Google Wallet verwenden</translation>
 <translation id="8888432776533519951">Farbe:</translation>
 <translation id="5247176778442128277">Smart Lock deaktivieren</translation>
 <translation id="5294529402252479912">Adobe Reader jetzt aktualisieren</translation>
@@ -4830,7 +4811,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="3718288130002896473">Verhalten</translation>
 <translation id="4813512666221746211">Netzwerkfehler</translation>
 <translation id="8711402221661888347">Burger</translation>
-<translation id="1967178421351654130">Ihre Karte wurde durch die virtuelle Google Wallet-Karte (&quot;<ph name="FRONTING_CREDIT_CARD"/>&quot;) geschützt. Die Nummer der virtuellen Karte erscheint auf der Rechnung. Mit dem Kauf wird jedoch Ihre Karte &quot;<ph name="BACKING_CREDIT_CARD"/>&quot; belastet.</translation>
 <translation id="1254117744268754948">Ordner wählen</translation>
 <translation id="2168725742002792683">Dateiendungen</translation>
 <translation id="7936369818837152377">Erforderliche Zeit für die Wiederherstellung einer Browsersitzung</translation>
@@ -4970,7 +4950,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="713888829801648570">Ihr Passwort konnte nicht überprüft werden, da Sie offline sind.</translation>
 <translation id="7464861219980961605">Gespeicherte Passwörter löschen</translation>
 <translation id="7507930499305566459">Zertifikat für Statusantwortdienst</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Lesezeichen und Einstellungen importieren</translation>
 <translation id="8518865679229538285">Tamilische Eingabemethode (Typewriter)</translation>
 <translation id="1545177026077493356">Automatischer Kioskmodus</translation>
@@ -5149,7 +5128,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="1698647588772720278">Vorangestellte verschlüsselte Medienerweiterungen deaktivieren</translation>
 <translation id="2286454467119466181">Einfach</translation>
 <translation id="6666647326143344290">mit Ihrem Google-Konto</translation>
-<translation id="4564097437843356814">Bei Ihrem Google Wallet-Konto ist ein Problem aufgetreten.</translation>
 <translation id="4547992677060857254">Der ausgewählte Ordner enthält sensible Dateien. Möchten Sie &quot;$1&quot; wirklich dauerhaft Schreibzugriff auf diesen Ordner gewähren?</translation>
 <translation id="4980112683975062744">Doppelte Header vom Server erhalten</translation>
 <translation id="3828029223314399057">In Lesezeichen suchen</translation>
@@ -5182,7 +5160,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="3819415294190923087">Netzwerk auswählen</translation>
 <translation id="7325437708553334317">High Contrast-Erweiterung</translation>
 <translation id="9203394577866137354">Überprüfungsstatus</translation>
-<translation id="4076313158939304412">Ihre Zahlung mit Google Wallet schützen</translation>
 <translation id="2080070583977670716">Weitere Einstellungen</translation>
 <translation id="6708242697268981054">Ursprung:</translation>
 <translation id="1909880997794698664">Möchten Sie das Gerät wirklich dauerhaft im Kioskmodus betreiben?</translation>
@@ -5263,7 +5240,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="33022249435934718">GDI-Handles</translation>
 <translation id="1055806300943943258">Suche nach Bluetooth- und USB-Geräten...</translation>
 <translation id="6308937455967653460">&amp;Link speichern unter...</translation>
-<translation id="741689768643916402">Google Wallet kann für diesen Händler nur von Käufern mit Adresse in den USA verwendet werden. Wenn Sie ein US-Einwohner sind, |ändern Sie Ihre Privatadresse in Wallet| oder bezahlen Sie ohne Google Wallet.</translation>
 <translation id="5828633471261496623">Wird gedruckt...</translation>
 <translation id="3519867315646775981">Transliteration (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Browserdaten löschen...</translation>
@@ -5419,7 +5395,6 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME"/> starten?</translation>
 <translation id="7549053541268690807">Im Wörterbuch suchen</translation>
 <translation id="8911079125461595075">&quot;<ph name="EXTENSION_NAME"/>&quot; wurde von Google als schädlich eingestuft und die Installation wurde blockiert.</translation>
 <translation id="5870086504539785141">Bedienungshilfemenü schließen</translation>
-<translation id="9102800320402283920">Es müssen mindestens Vor- und Nachname angegeben werden.</translation>
 <translation id="7005848115657603926">Ungültiger Seitenbereich, verwenden Sie <ph name="EXAMPLE_PAGE_RANGE"/>.</translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337">Nutzungsbedingungen für <ph name="DOMAIN"/></translation>
@@ -5652,7 +5627,6 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="2989474696604907455">Nicht angeschlossen</translation>
 <translation id="6612358246767739896">Geschützte Inhalte</translation>
 <translation id="1593594475886691512">Formatierung wird ausgeführt...</translation>
-<translation id="8860520442470629999">Für die Transaktion wird eine virtuelle Google Wallet-Karte verwendet, also eine neu generierte Kartennummer. Ihre echte Kartennummer bleibt somit vor dem Käufer verborgen.</translation>
 <translation id="6586451623538375658">Primäre Maustaste tauschen</translation>
 <translation id="6937152069980083337">Google Japanese Input (für US-Tastatur)</translation>
 <translation id="475088594373173692">Erster Nutzer</translation>
@@ -5755,6 +5729,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="962416441122492777">Anmeldung abschließen</translation>
 <translation id="2049137146490122801">Der Zugriff auf lokale Dateien auf Ihrem Gerät wurde von Ihrem Administrator deaktiviert.</translation>
 <translation id="225240747099314620">Kennungen für geschützte Inhalte ermöglichen (erfordert eventuell einen Neustart des Computers)</translation>
+<translation id="8611705542165748884">Gehosteten Modus aktivieren</translation>
 <translation id="1146498888431277930">SSL-Verbindungsfehler</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Komma</translation>

@@ -106,7 +106,6 @@
 <translation id="4274187853770964845">การซิงค์มีข้อผิดพลาด: โปรดหยุดและเริ่มการซิงค์ใหม่</translation>
 <translation id="4209562316857013835">เปิดใช้การซิงค์การตั้งค่าเครือข่าย Wi-F ในอุปกรณ์ต่างๆ เมื่อเปิดใช้งาน จะมีการลงทะเบียนประเภทข้อมูลของข้อมูลรับรองบน Wi-Fi กับการซิงค์ของ Chrome และจะมีการซิงค์ข้อมูลรับรองบน Wi-Fi ตามค่ากำหนดของผู้ใช้ (โปรดดูเพิ่มเติมที่ chrome://settings/syncSetup)</translation>
 <translation id="5029568752722684782">ล้างสำเนา</translation>
-<translation id="6499114579475440437">เข้าสู่ระบบเพื่อชำระเงินด้วย Google Wallet</translation>
 <translation id="656293578423618167">เส้นทางหรือชื่อของไฟล์ยาวเกินไป โปรดบันทึกด้วยชื่อที่สั้นกว่านี้หรือบันทึกลงในตำแหน่งอื่น</translation>
 <translation id="3484869148456018791">รับใบรับรองใหม่</translation>
 <translation id="6766534397406211000">เปิดใช้การทดลองที่ศูนย์ข้อความจะเลื่อนขึ้นทุกครั้งเมื่อมีการนำการแจ้งเตือนออก</translation>
@@ -215,7 +214,6 @@
 <translation id="1461041542809785877">ประสิทธิภาพ</translation>
 <translation id="2861301611394761800">การอัปเดตระบบเสร็จสมบูรณ์ โปรดรีสตาร์ทระบบ</translation>
 <translation id="551752069230578406">กำลังเพิ่มเครื่องพิมพ์ไปยังบัญชีของคุณ อาจใช้เวลาสักครู่...</translation>
-<translation id="2108058520826444209">คำเตือน: คุณไม่ได้เชื่อมต่อกับเซิร์ฟเวอร์ Wallet ในสภาพแวดล้อมการใช้งานจริง บัตรที่ออกจะไม่ถูกต้อง</translation>
 <translation id="5228962187251412618">ตรวจสอบทางออนไลน์เท่านั้น</translation>
 <translation id="8518901949365209398">ไซต์นี้ใช้การกำหนดค่าความปลอดภัยที่หละหลวม (ลายเซ็นแบบ SHA-1) ดังนั้น การเชื่อมต่อของคุณอาจไม่เป็นส่วนตัว</translation>
 <translation id="4858913220355269194">ฟริทซ์</translation>
@@ -223,7 +221,6 @@
 <translation id="2231238007119540260">หากคุณลบใบรับรองเซิร์ฟเวอร์ คุณจะเรียกคืนการตรวจสอบความปลอดภัยตามปกติสำหรับเซิร์ฟเวอร์นั้น และกำหนดให้เซิร์ฟเวอร์ใช้ใบรับรองที่ถูกต้อง</translation>
 <translation id="5428707027149023335">เปิดใช้: หลัก</translation>
 <translation id="8259581864063078725">คลิกเพื่อค้นหาแอปการพิมพ์เพื่อใช้เครื่องพิมพ์เครื่องนี้</translation>
-<translation id="6489433341782457580">สำหรับนักพัฒนาซอฟต์แวร์ ให้ใช้บริการแซนด์บ็อกซ์สำหรับ Wallet API เรียก requestAutocomplete()</translation>
 <translation id="8186609076106987817">เซิร์ฟเวอร์ไม่พบไฟล์</translation>
 <translation id="4873312501243535625">ตัวตรวจสอบไฟล์สื่อ</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 แท็บ}other{# แท็บ}}</translation>
@@ -258,6 +255,7 @@
 <translation id="7693221960936265065">ตั้งแต่เริ่มต้น</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">ไซต์ต่อไปนี้ถูกปิดกั้นไม่ให้ติดตามตำแหน่งของคุณบนหน้าเว็บนี้</translation>
+<translation id="3025729795978504041">คลิกขวาที่ปุ่มด้านบนเพื่อดูคนอื่น</translation>
 <translation id="8133676275609324831">แ&amp;สดงในโฟลเดอร์</translation>
 <translation id="302014277942214887">ป้อน ID แอปพลิเคชันหรือ URL เว็บสโตร์</translation>
 <translation id="26224892172169984">ไม่อนุญาตให้ไซต์ใดๆ จัดการโปรโตคอล</translation>
@@ -491,7 +489,6 @@
 <translation id="1751752860232137596">เปิดใช้งาน Smooth Scrolling แบบทดลอง</translation>
 <translation id="6438234780621650381">รีเซ็ตการตั้งค่า</translation>
 <translation id="7389722738210761877">แป้นพิมพ์ภาษาไทย (มอก. 820-2531)</translation>
-<translation id="9142627797714859698">การคลิก &quot;ดำเนินการต่อ&quot; หมายถึงคุณตกลงที่จะใช้ Google Wallet และเพื่อปกป้องคุณจากการทุจริต ข้อมูลเกี่ยวกับคอมพิวเตอร์ของคุณ (รวมถึงตำแหน่งของคอมพิวเตอร์) จะถูกแชร์กับ Google Wallet</translation>
 <translation id="4130750466177569591">ฉันยอมรับ</translation>
 <translation id="6993929801679678186">แสดงการคาดคะเนการป้อนอัตโนมัติ</translation>
 <translation id="4425149324548788773">ไดรฟ์ของฉัน</translation>
@@ -680,7 +677,6 @@
 <translation id="7088434364990739311">การเริ่มต้นการตรวจสอบการอัปเดตล้มเหลว (รหัสข้อผิดพลาด <ph name="ERROR"/>)</translation>
 <translation id="1353966721814789986">หน้าเริ่มต้นใช้งาน</translation>
 <translation id="5233019165164992427">พอร์ตแก้ปัญหา NaCl</translation>
-<translation id="2038896902310685531">อ๊ะ <ph name="WALLET_ERROR"/> คุณสามารถทำธุรกรรมนี้ให้เสร็จสมบูรณ์ได้โดยไม่ต้องใช้ Google Wallet</translation>
 <translation id="3925573269917483990">กล้อง:</translation>
 <translation id="3170072451822350649">คุณสามารถข้ามการลงชื่อเข้าใช้และ<ph name="LINK_START"/>เรียกดูในฐานะผู้เยี่ยมชม<ph name="LINK_END"/>ได้ด้วย</translation>
 <translation id="8390449457866780408">เซิร์ฟเวอร์ไม่พร้อมใช้งาน</translation>
@@ -886,6 +882,7 @@
 <translation id="3872166400289564527">พื้นที่จัดเก็บข้อมูลภายนอก</translation>
 <translation id="1442912890475371290">บล็อกความพยายาม<ph name="BEGIN_LINK"/>ที่จะเข้าชมหน้าเว็บใน <ph name="DOMAIN"/><ph name="END_LINK"/></translation>
 <translation id="5912378097832178659">แ&amp;ก้ไขเครื่องมือค้นหา...</translation>
+<translation id="8013526960933383914">เปิดใช้เดสก์ท็อปแบบรวม</translation>
 <translation id="6732586201820838268">ไม่สามารถเชื่อมต่อโทรศัพท์ได้ โปรดตรวจสอบว่าคุณใช้โทรศัพท์ Android ที่เข้ากันได้ซึ่งเปิดอยู่และอยู่ใกล้ๆ มือคุณ &lt;a&gt;เรียนรู้เพิ่มเติม&lt;/a&gt;</translation>
 <translation id="3749289110408117711">ชื่อไฟล์</translation>
 <translation id="3893630138897523026">ChromeVox (การตอบสนองด้วยเสียง)</translation>
@@ -998,7 +995,6 @@
 <translation id="7977551819349545646">กำลังอัปเดต Chromebox...</translation>
 <translation id="9001035236599590379">ชนิดของ MIME</translation>
 <translation id="1624026626836496796">การดำเนินการนี้จะเกิดขึ้นเพียงครั้งเดียว และจะไม่มีการจัดเก็บข้อมูลประจำตัวของคุณ</translation>
-<translation id="7238207184783103780">Google Wallet ไม่สามารถใช้งานได้ในขณะนี้</translation>
 <translation id="9153341767479566106">ส่วนขยายอื่นๆ ที่ไม่สามารถโหลดได้:</translation>
 <translation id="1864111464094315414">ลงชื่อเข้าใช้</translation>
 <translation id="3451859089869683931">หมายเลขโทรศัพท์ไม่ถูกต้อง โปรดตรวจสอบและลองอีกครั้ง</translation>
@@ -1167,7 +1163,6 @@
 <translation id="4592444333660235848">คุณกำลังเรียกดูไซต์ที่คุณอาจไม่ได้ต้องการดูจริงๆ</translation>
 <translation id="37613671848467444">เปิดใน&amp;หน้าต่างที่ไม่ระบุตัวตน</translation>
 <translation id="159359590073980872">แคชของภาพ</translation>
-<translation id="7142571697412577603">แสดงที่อยู่และบัตรเครดิตจาก Google Wallet</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">ซ่อนรายละเอียด</translation>
 <translation id="7170467426996704624">การทับศัพท์ (salam → ሰላም)</translation>
@@ -1207,7 +1202,6 @@
 <translation id="4801512016965057443">อนุญาตการโรมมิ่งข้อมูลมือถือ</translation>
 <translation id="2971213274238188218">มืดลง</translation>
 <translation id="473546211690256853">บัญชีนี้จัดการโดย <ph name="DOMAIN"/></translation>
-<translation id="7952477692462853927">Google Wallet ได้ประสบกับข้อผิดพลาด</translation>
 <translation id="288024221176729610">เช็ก</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">แทนที่รายการการแสดงผลของซอฟต์แวร์</translation>
@@ -1295,7 +1289,6 @@
 <translation id="1357589289913453911">รหัสส่วนขยาย</translation>
 <translation id="8688579245973331962">หากไม่เห็นชื่อของคุณ</translation>
 <translation id="3226128629678568754">กดปุ่มโหลดซ้ำเพื่อส่งซ้ำข้อมูลที่จำเป็นในการโหลดหน้าเว็บ</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> เพื่อปกป้องคุณจากการทุจริต ข้อมูลเกี่ยวกับคอมพิวเตอร์ของคุณ (รวมถึงตำแหน่งของคอมพิวเตอร์) จะถูกแชร์กับ Google Wallet</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">เปิดใช้ลิงก์การจัดการรหัสผ่านระยะไกล</translation>
 <translation id="529034129044944303">ล้างคุกกี้และข้อมูลอื่นๆ ของเว็บไซต์ ตลอดจนข้อมูลปลั๊กอินเมื่อคุณปิดเบราว์เซอร์</translation>
@@ -1368,6 +1361,7 @@
 <translation id="5990559369517809815">คำขอไปยังเซิร์ฟเวอร์ถูกบล็อกโดยส่วนขยาย</translation>
 <translation id="7208342137985015640">จัดเก็บข้อมูล</translation>
 <translation id="3828440302402348524">ลงชื่อเข้าใช้ด้วยชื่อ <ph name="USER_NAME"/>...</translation>
+<translation id="3938113500786732264">เปลี่ยนคนได้เร็วขึ้น</translation>
 <translation id="5222676887888702881">ออกจากระบบ</translation>
 <translation id="3522159121915794564">อนุญาตให้ผู้ใช้เลือกใช้คอลเล็กชันของห่วงโซ่ใบอนุญาต TLS/SSL ที่ไม่ถูกต้อง</translation>
 <translation id="6978121630131642226">เครื่องมือค้นหา</translation>
@@ -1475,7 +1469,6 @@
 <translation id="3128230619496333808">แท็บ 6</translation>
 <translation id="6655190889273724601">โหมดนักพัฒนาซอฟต์แวร์</translation>
 <translation id="1071917609930274619">การเข้ารหัสข้อมูล</translation>
-<translation id="5055073909323877129">นำเข้าบัตร Wallet</translation>
 <translation id="3473105180351527598">เปิดใช้งานการป้องกันฟิชชิ่งและมัลแวร์</translation>
 <translation id="6151323131516309312">กด <ph name="SEARCH_KEY"/> เพื่อค้นหา <ph name="SITE_NAME"/></translation>
 <translation id="5015762597229892204">เลือกแอปไดรเวอร์ของเครื่องพิมพ์</translation>
@@ -1650,7 +1643,6 @@
 <translation id="4421932782753506458">ฟลัฟฟี</translation>
 <translation id="962520199903263026">การทดลองใช้ช่องความคิดเห็นเกี่ยวกับการสะกดคำ</translation>
 <translation id="6051086608691487286">วางซ้อนแถบเลื่อน</translation>
-<translation id="6132509723755265994">Google Wallet ไม่ได้รับการสนับสนุนกับผู้ขายรายนี้</translation>
 <translation id="4886021172213954916">แป้นพิมพ์ภาษาทมิฬ (เครื่องพิมพ์ดีด)</translation>
 <translation id="4698435846585701394">ปิดใช้ส่วนขยายสื่อที่เข้ารหัสในองค์ประกอบวิดีโอและเสียง</translation>
 <translation id="2378075407703503998">เลือก <ph name="SELCTED_FILE_COUNT"/> ไฟล์</translation>
@@ -1663,7 +1655,6 @@
     <ph name="MARKUP_4"/>ลบไฟล์จากโฟลเดอร์ &quot;ดาวน์โหลด&quot;<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">โปรดเชื่อมต่อเครือข่าย</translation>
 <translation id="6913830198853875055">เมื่อเปิดใช้ การเรียกใช้โฆษณาจะแสดงตัวอย่างผลการค้นหาและสลับกับหน้าดั้งเดิมเมื่อมีการดาวน์โหลดและแสดงผล</translation>
-<translation id="5332360333956573658">ไม่สามารถบันทึกข้อมูลไปยัง Wallet</translation>
 <translation id="3759371141211657149">จัดการการตั้งค่าตัวจัดการ...</translation>
 <translation id="8856844195561710094">ไม่สามารถหยุดการค้นหาอุปกรณ์บลูทูธ</translation>
 <translation id="2246340272688122454">กำลังดาวน์โหลดอิมเมจการกู้คืน...</translation>
@@ -1729,7 +1720,6 @@
 <translation id="23030561267973084">&quot;<ph name="EXTENSION_NAME"/>&quot; ขออนุญาตเพิ่มเติม</translation>
 <translation id="6957887021205513506">ใบรับรองของเซิร์ฟเวอร์น่าจะเป็นของปลอม</translation>
 <translation id="8957709627709183338">เจ้าของของอุปกรณ์นี้จำกัดการสร้างผู้ใช้ภายใต้การดูแล</translation>
-<translation id="5810680593770884357">เปิดใช้ช่องทำเครื่องหมายบันทึกบัตร Wallet</translation>
 <translation id="3511399794969432965">หากมีปัญหาในการเชื่อมต่อ</translation>
 <translation id="8551494947769799688">ลัตเวีย</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1841,7 +1831,6 @@
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">เปิด/ปิดใช้ตัวเลือกการแก้ไขด้วยท่าทางสัมผัสในหน้าการตั้งค่าสำหรับแป้นพิมพ์เสมือน</translation>
 <translation id="8899388739470541164">เวียดนาม</translation>
-<translation id="1828473288054410476">นำเข้าบัตรจาก Wallet ของฉัน</translation>
 <translation id="6423064450797205562">เมตริกที่เกี่ยวข้องกับความเร็วซึ่ง <ph name="SHORT_PRODUCT_NAME"/> ใช้เพื่อทำตามการทำงานที่ได้รับคำขอ</translation>
 <translation id="4091434297613116013">หน้ากระดาษ</translation>
 <translation id="9039890312082871605">ปิดเสียงแท็บ</translation>
@@ -1890,7 +1879,6 @@
 <translation id="2529133382850673012">แป้นพิมพ์ภาษาอังกฤษสหรัฐอเมริกา</translation>
 <translation id="4352850459590683051">เพิกถอนสิทธิ์การเข้าถึงไฟล์และอุปกรณ์</translation>
 <translation id="4411578466613447185">ผู้เซ็นชื่อบนโค้ด</translation>
-<translation id="3029595853063638932">กำลังสร้างบัตรเสมือน Google Wallet...</translation>
 <translation id="1354868058853714482">Adobe Reader ไม่ได้รับการอัปเดตและอาจไม่ปลอดภัย</translation>
 <translation id="6200903742087665630">เปิดใช้ iframe ที่อยู่นอกขั้นตอน</translation>
 <translation id="6095666334801788310">โปรดป้อนรหัสผ่านอีกครั้ง</translation>
@@ -2747,7 +2735,6 @@
 <translation id="8282947398454257691">ทราบตัวระบุอุปกรณ์ที่ไม่ซ้ำกัน</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> ไม่สามารถเชื่อมต่อกับ <ph name="NETWORK_ID"/> โปรดเลือกเครือข่ายอื่นหรือลองอีกครั้ง</translation>
 <translation id="2086712242472027775">บัญชีของคุณไม่ทำงานใน <ph name="PRODUCT_NAME"/> โปรดติดต่อผู้ดูแลระบบโดเมนของคุณหรือใช้บัญชี Google ปกติเพื่อลงชื่อเข้าใช้</translation>
-<translation id="1970103697564110434">Google Wallet ปกป้องบัตรของคุณอยู่</translation>
 <translation id="7222232353993864120">ที่อยู่อีเมล</translation>
 <translation id="2128531968068887769">Native Client</translation>
 <translation id="7175353351958621980">โหลดจาก:</translation>
@@ -2800,6 +2787,7 @@
 <translation id="222949136907494149"><ph name="URL"/> ต้องการใช้ตำแหน่งเครื่องคอมพิวเตอร์ของคุณ</translation>
 <translation id="7654941827281939388">ใช้บัญชีนี้ในคอมพิวเตอร์เครื่องนี้อยู่แล้ว</translation>
 <translation id="204914487372604757">สร้างทางลัด</translation>
+<translation id="5957613098218939406">ตัวเลือกเพิ่มเติม</translation>
 <translation id="696036063053180184">3 Set (No shift)</translation>
 <translation id="452785312504541111">ภาษาอังกฤษแบบเต็ม</translation>
 <translation id="7589461650300748890">อ๊ะ โปรดระวัง</translation>
@@ -3577,7 +3565,6 @@
 <translation id="2148716181193084225">วันนี้</translation>
 <translation id="7816975051619137001">แก้ไขการสะกดคำโดยอัตโนมัติ</translation>
 <translation id="4608500690299898628">&amp;ค้นหา...</translation>
-<translation id="7068997575282883954">บันทึกและปกป้องรายละเอียดของคุณด้วย Google Wallet</translation>
 <translation id="7582582252461552277">ต้องการใช้เครือข่ายนี้</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">&amp;แสดงในโฟลเดอร์</translation>
@@ -3631,6 +3618,7 @@
 <translation id="3543393733900874979">การอัปเดตล้มเหลว (ข้อผิดพลาด: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">คุณควรทำอย่างไร</translation>
 <translation id="1017280919048282932">&amp;เพิ่มลงในพจนานุกรม</translation>
+<translation id="5117348049661313125">มอบสวิตช์เปิดและปิดสำหรบโหมดโฮสต์</translation>
 <translation id="3534879087479077042">ผู้ใช้ภายใต้การดูแลคืออะไร</translation>
 <translation id="5115563688576182185">(64 บิต)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{อยู่ระหว่างการดาวน์โหลด}other{อยู่ระหว่างการดาวน์โหลด}}</translation>
@@ -3892,7 +3880,6 @@
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">สลับหน้าต่าง</translation>
 <translation id="3523642406908660543">ถามเมื่อเว็บไซต์ต้องการใช้ปลั๊กอินเพื่อเข้าถึงคอมพิวเตอร์ของคุณ (แนะนำ)</translation>
-<translation id="8211868401977897190">Wallet ไม่สามารถจัดการธุรกรรมนี้</translation>
 <translation id="8240697550402899963">ใช้ธีมคลาสสิก</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> จะรีสตาร์ทและรีเซ็ตในอีกสักครู่</translation>
 <translation id="2890624088306605051">ดึงเฉพาะการตั้งค่าและข้อมูลที่ซิงค์เท่านั้น</translation>
@@ -3923,7 +3910,6 @@
 <translation id="2059334576206320859">เปิดใช้การซิงค์ข้อมูลรับรองผ่าน Wi-Fi</translation>
 <translation id="7361039089383199231">$1 ไบต์</translation>
 <translation id="191688485499383649">เกิดข้อผิดพลาดที่ไม่รู้จักขณะพยายามเชื่อมต่อกับ &quot;<ph name="DEVICE_NAME"/>&quot;</translation>
-<translation id="7208594729785140450">Google Wallet ไม่สนับสนุน Chrome เวอร์ชันนี้หรือไม่รู้จักคีย์ Google API ของคุณ</translation>
 <translation id="6874681241562738119">ข้อผิดพลาดในการลงชื่อเข้าใช้</translation>
 <translation id="5135533361271311778">ไม่สามารถสร้างรายการบุ๊กมาร์ก</translation>
 <translation id="2828650939514476812">เชื่อมต่อเครือข่าย Wi-Fi</translation>
@@ -4134,7 +4120,6 @@
 <translation id="1427049173708736891">ไม่ต้องล็อก <ph name="DEVICE_TYPE"/> เมื่อโทรศัพท์ Android ไม่ได้ล็อกอยู่และอยู่ใกล้ๆ ไม่ต้องพิมพ์รหัสผ่าน</translation>
 <translation id="5934281776477898549">ไม่มีการอัปเดต</translation>
 <translation id="8432745813735585631">แป้นพิมพ์ Colemak สหรัฐอเมริกา</translation>
-<translation id="43594494162958796">แสดงช่องทำเครื่องหมายเพื่อเสนอให้บันทึกบัตรเครดิต Wallet ที่ดาวน์โหลดจากเซิร์ฟเวอร์ไว้ในเครื่อง</translation>
 <translation id="537813040452600081">หน้าที่คุณดูในหน้าต่างนี้จะไม่ปรากฏในประวัติเบราว์เซอร์และจะไม่ทิ้งร่องรอยอื่นๆ เช่น คุกกี้ ไว้ในคอมพิวเตอร์หลังจากที่คุณออกจากระบบ ไฟล์ที่คุณดาวน์โหลดและบุ๊กมาร์กที่คุณสร้างจะหายไป</translation>
 <translation id="2608770217409477136">ใช้การตั้งค่าเริ่มต้น</translation>
 <translation id="3157931365184549694">คืนค่า</translation>
@@ -4418,7 +4403,6 @@
 <translation id="6860097299815761905">การตั้งค่าพร็อกซี...</translation>
 <translation id="241082044617551207">ปลั๊กอินที่ไม่รู้จัก</translation>
 <translation id="3672159315667503033"><ph name="URL"/> ต้องการที่จะจัดเก็บข้อมูลขนาดใหญ่อย่างถาวรในเครื่องคอมพิวเตอร์ของคุณ</translation>
-<translation id="6190185222845843088">ใช้เซิร์ฟเวอร์แซนด์บ็อกซ์ Wallet</translation>
 <translation id="3574772456110518971">ปิดการสนับสนุน Chromecast แบบทดลองที่อนุญาตให้เล่นและควบคุมวิดีโอจากเว็บบนอุปกรณ์ Chromecast</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (ชื่อที่ใช้ในอุปกรณ์นี้)</translation>
 <translation id="3177048931975664371">คลิกเพื่อซ่อนรหัสผ่าน</translation>
@@ -4426,7 +4410,6 @@
 <translation id="3092544800441494315">รวมภาพหน้าจอนี้:</translation>
 <translation id="479989351350248267">ค้นหา</translation>
 <translation id="2633199387167390344"><ph name="NAME"/> กำลังใช้พื้นที่ดิสก์ <ph name="USAGE"/> MB</translation>
-<translation id="472177018469288237">Google Wallet ปิดใช้งาน</translation>
 <translation id="7730449930968088409">จับภาพเนื้อหาบนหน้าจอ</translation>
 <translation id="5330145655348521461">ไฟล์เหล่านี้เปิดอยู่บนเดสก์ท็อปเครื่องอื่น โปรดย้ายมายัง <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>) เพื่อดู</translation>
 <translation id="7714464543167945231">ใบรับรอง</translation>
@@ -4451,7 +4434,6 @@
 <translation id="1029595648591494741">ลองใช้ &quot;<ph name="EXTENSION_NAME"/>&quot; ดูไหม</translation>
 <translation id="5423849171846380976">เปิดอยู่</translation>
 <translation id="8261673729476082470">กำลังสำรองรูปภาพ <ph name="FILE_COUNT"/> รูปไปยัง <ph name="BEGIN_LINK"/>Google ไดรฟ์<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">ปิดใช้งาน Google Wallet</translation>
 <translation id="7077872827894353012">ตัวจัดการโปรโตคอลที่ละเว้น</translation>
 <translation id="7655364957661536693">สามารถดูส่วนขยายของคุณได้ที่นี่</translation>
 <translation id="3158564748719736353">ถ้าเปิดใช้ การแจ้งเตือนจะแสดงเมื่ออุปกรณ์เชื่อมต่อกับเครือข่ายที่อยู่หลัง Captive Portal</translation>
@@ -4639,7 +4621,6 @@
 <translation id="357479282490346887">ลิทัวเนีย</translation>
 <translation id="9203478404496196495">เปิดเสียงแท็บ</translation>
 <translation id="2143778271340628265">กำหนดค่าพร็อกซีด้วยตนเอง</translation>
-<translation id="440150639010863291">ใช้ Google Wallet</translation>
 <translation id="8888432776533519951">สี:</translation>
 <translation id="5247176778442128277">ปิดใช้ Smart Lock</translation>
 <translation id="5294529402252479912">อัปเดต Adobe Reader ตอนนี้</translation>
@@ -4831,7 +4812,6 @@
 <translation id="3718288130002896473">การทำงาน</translation>
 <translation id="4813512666221746211">ข้อผิดพลาดของเครือข่าย</translation>
 <translation id="8711402221661888347">พิกเคิลส์</translation>
-<translation id="1967178421351654130">บัตรของคุณได้รับการปกป้องด้วยบัตรเสมือน Google Wallet (<ph name="FRONTING_CREDIT_CARD"/>) และหมายเลขนี้จะปรากฏบนใบเสร็จของคุณ การซื้อนี้จะยังคงถูกเรียกเก็บเงินไปยัง <ph name="BACKING_CREDIT_CARD"/></translation>
 <translation id="1254117744268754948">เลือกโฟลเดอร์</translation>
 <translation id="2168725742002792683">ส่วนขยายไฟล์</translation>
 <translation id="7936369818837152377">เวลาที่ใช้ในการคืนค่าเซสชันการเรียกดูก่อนหน้า</translation>
@@ -4971,7 +4951,6 @@
 <translation id="713888829801648570">ขออภัย ไม่สามารถยืนยันรหัสผ่านของคุณได้เพราะคุณออฟไลน์อยู่</translation>
 <translation id="7464861219980961605">ลบรหัสผ่านที่บันทึกไว้</translation>
 <translation id="7507930499305566459">ใบรับรอง Status Responder</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">นำเข้าบุ๊กมาร์กและการตั้งค่า</translation>
 <translation id="8518865679229538285">วิธีการป้อนข้อมูลภาษาทมิฬ (พิมพ์ดีด)</translation>
 <translation id="1545177026077493356">โหมดคีออสก์อัตโนมัติ</translation>
@@ -5149,7 +5128,6 @@
 <translation id="1698647588772720278">ปิดใช้งานส่วนขยายสื่อที่เข้ารหัสที่มีคำนำหน้า</translation>
 <translation id="2286454467119466181">ง่าย</translation>
 <translation id="6666647326143344290">ด้วยบัญชี Google ของคุณ</translation>
-<translation id="4564097437843356814">มีบางอย่างผิดปกติกับบัญชี Google Wallet ของคุณ</translation>
 <translation id="4547992677060857254">โฟลเดอร์ที่คุณเลือกมีไฟล์ที่ละเอียดอ่อน คุณต้องการให้สิทธิ์การเข้าถึงในการเขียนโฟลเดอร์นี้อย่างถาวรแก่ &quot;$1&quot; ไหม</translation>
 <translation id="4980112683975062744">ได้รับส่วนหัวที่ซ้ำกันจากเซิร์ฟเวอร์</translation>
 <translation id="3828029223314399057">ค้นหาบุ๊กมาร์ก</translation>
@@ -5182,7 +5160,6 @@
 <translation id="3819415294190923087">เลือกเครือข่าย</translation>
 <translation id="7325437708553334317">ส่วนขยายภาพความคมชัดสูง</translation>
 <translation id="9203394577866137354">สถานะการตรวจสอบ</translation>
-<translation id="4076313158939304412">ปกป้องการชำระเงินของคุณด้วย Google Wallet</translation>
 <translation id="2080070583977670716">การตั้งค่าเพิ่มเติม</translation>
 <translation id="6708242697268981054">ต้นทาง:</translation>
 <translation id="1909880997794698664">คุณต้องการเก็บอุปกรณ์นี้ไว้ในโหมดคีออสก์อย่างถาวรหรือไม่</translation>
@@ -5263,7 +5240,6 @@
 <translation id="33022249435934718">GDI จัดการ</translation>
 <translation id="1055806300943943258">กำลังค้นหาอุปกรณ์บลูทูธและอุปกรณ์ USB...</translation>
 <translation id="6308937455967653460">บันทึก&amp;ลิงก์เป็น...</translation>
-<translation id="741689768643916402">ขออภัย Google Wallet สามารถใช้งานที่ผู้ขายรายนี้โดยผู้ซื้อที่มีที่อยู่ในสหรัฐอเมริกาเท่านั้น หากคุณเป็นผู้พำนักในสหรัฐอเมริกา โปรด |เปลี่ยนที่อยู่บ้านของคุณด้วย Wallet| หรือชำระเงินโดยไม่ใช้ Google Wallet</translation>
 <translation id="5828633471261496623">กำลังพิมพ์...</translation>
 <translation id="3519867315646775981">การทับศัพท์ (shalom ← שלום)</translation>
 <translation id="5421136146218899937">ล้างข้อมูลการท่องเว็บ...</translation>
@@ -5420,7 +5396,6 @@
 <translation id="7549053541268690807">ค้นหาพจนานุกรม</translation>
 <translation id="8911079125461595075">Google ได้ตั้งค่าสถานะ &quot;<ph name="EXTENSION_NAME"/>&quot; ว่าเป็นอันตราย และป้องกันไม่ให้มีการติดตั้งแล้ว</translation>
 <translation id="5870086504539785141">ปิดเมนูการเข้าถึง</translation>
-<translation id="9102800320402283920">Google Wallet ต้องการชื่อและนามสกุลเป็นอย่างน้อย</translation>
 <translation id="7005848115657603926">ช่วงของหน้าไม่ถูกต้อง ให้ใช้ <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337">ข้อกำหนดในการให้บริการของ <ph name="DOMAIN"/></translation>
@@ -5656,7 +5631,6 @@
 <translation id="2989474696604907455">ไม่ได้แนบ</translation>
 <translation id="6612358246767739896">เนื้อหาที่ได้รับความคุ้มครอง</translation>
 <translation id="1593594475886691512">กำลังจัดรูปแบบ...</translation>
-<translation id="8860520442470629999">จะมีการใช้บัตรเสมือน Google Wallet สำหรับธุรกรรมนี้ บัตรเสมือนเป็นหมายเลขบัตรใหม่ ดังนั้นผู้ขายจะไม่มีทางเห็นหมายเลขบัตรเครดิตจริงของคุณ</translation>
 <translation id="6586451623538375658">สลับปุ่มเมาส์หลัก</translation>
 <translation id="6937152069980083337">การป้อนข้อมูลภาษาญี่ปุ่นของ Google (สำหรับแป้นพิมพ์สหรัฐฯ)</translation>
 <translation id="475088594373173692">ผู้ใช้แรก</translation>
@@ -5759,6 +5733,7 @@
 <translation id="962416441122492777">ลงชื่อเข้าใช้ให้เสร็จสิ้น</translation>
 <translation id="2049137146490122801">ผู้ดูแลระบบของคุณได้ปิดใช้งานการเข้าถึงไฟล์ในตัวเครื่องของคุณ</translation>
 <translation id="225240747099314620">อนุญาตตัวระบุสำหรับเนื้อหาที่มีการป้องกัน (อาจจำเป็นต้องรีสตาร์ทคอมพิวเตอร์)</translation>
+<translation id="8611705542165748884">เปิดใช้โหมดโฮสต์</translation>
 <translation id="1146498888431277930">ข้อผิดพลาดในการเชื่อมต่อ SSL</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">จุลภาค</translation>

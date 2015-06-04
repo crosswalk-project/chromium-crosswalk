@@ -105,7 +105,6 @@
 <translation id="4274187853770964845">Synkroniseringsfeil: Stopp synkronisering, og start den på nytt.</translation>
 <translation id="4209562316857013835">Slå på synkronisering av Wi-Fi-nettverksinnstillinger på alle enheter. Når dette er på, er Wi-Fi-legitimasjonsdatatypen registrert med Chrome-synkronisering, og Wi-Fi-legitimasjon er synkronisert avhengig av brukerinnstillingene. (Se også chrome://settings/syncSetup.)</translation>
 <translation id="5029568752722684782">Slett kopi</translation>
-<translation id="6499114579475440437">Logg på for å betale med Google Wallet</translation>
 <translation id="656293578423618167">Filbanen- eller -navnet er for langt. Lagre med et annet navn eller på et annet sted.</translation>
 <translation id="3484869148456018791">Hent nytt sertifikat</translation>
 <translation id="6766534397406211000">Aktivér en eksperimentell funksjon som gjør at meldingssenteret alltid ruller opp når du fjerner varsler.</translation>
@@ -214,7 +213,6 @@
 <translation id="1461041542809785877">Ytelse</translation>
 <translation id="2861301611394761800">Systemoppdateringen er fullført. Start på nytt.</translation>
 <translation id="551752069230578406">Legger til skriveren i kontoen din – dette kan ta en liten stund …</translation>
-<translation id="2108058520826444209">Advarsel: Du er ikke tilkoblet produksjonstjenere for Wallet. Utstedte kort blir ugyldige.</translation>
 <translation id="5228962187251412618">Sjekker bare på nettet</translation>
 <translation id="8518901949365209398">Dette nettstedet bruker en svak sikkerhetskonfigurasjon (SHA-1-signaturer). Det kan derfor hende at tilkoblingen mellom deg og nettstedet ikke er privat.</translation>
 <translation id="4858913220355269194">Drible</translation>
@@ -222,7 +220,6 @@
 <translation id="2231238007119540260">Hvis du sletter et tjenersertifikat, gjenoppretter du de vanlige sikkerhetskontrollene for tjeneren og krever at den bruker et gyldig sertifikat.</translation>
 <translation id="5428707027149023335">Slå på: Primær</translation>
 <translation id="8259581864063078725">Klikk for å finne en utskriftsapp og bruke denne skriveren.</translation>
-<translation id="6489433341782457580">For utviklere: bruk prosessisolering for Wallet API-anrop for requestAutocomplete().</translation>
 <translation id="8186609076106987817">Tjeneren fant ikke filen.</translation>
 <translation id="4873312501243535625">Media File Checker</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 fane}other{# faner}}</translation>
@@ -257,6 +254,7 @@
 <translation id="7693221960936265065">tidenes morgen</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">Følgende nettsteder har blitt nektet tillatelse til å spore posisjonen din på siden:</translation>
+<translation id="3025729795978504041">Høyreklikk på knappen ovenfor for å se andre personer.</translation>
 <translation id="8133676275609324831">&amp;Vis i mappe</translation>
 <translation id="302014277942214887">Skriv inn app-ID-en eller nettadressen til nettbutikken.</translation>
 <translation id="26224892172169984">Ikke tillat noen nettsteder å behandle protokoller</translation>
@@ -496,7 +494,6 @@
 <translation id="1751752860232137596">Aktiver implementering av eksperimentell jevn rulling.</translation>
 <translation id="6438234780621650381">Tilbakestilling av innstillinger</translation>
 <translation id="7389722738210761877">Thai-tastatur (TIS 820-2531)</translation>
-<translation id="9142627797714859698">Ved å klikke «Fortsett» godtar du å bruke Google Wallet. For å beskytte deg mot svindel, deles informasjon om datamaskinen din (inkludert plasseringen) med Google Wallet.</translation>
 <translation id="4130750466177569591">Godta</translation>
 <translation id="6993929801679678186">Vis autofyll-forslag</translation>
 <translation id="4425149324548788773">Min disk</translation>
@@ -688,7 +685,6 @@ Sjekk e-posten din på <ph name="ACCOUNT_EMAIL"/> for instruksjoner om dette og 
 <translation id="7088434364990739311">Kunne ikke starte søk etter oppdateringer (feilkode <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">Oppstartsider</translation>
 <translation id="5233019165164992427">NaCl-feilsøkingsport</translation>
-<translation id="2038896902310685531">Beklager. <ph name="WALLET_ERROR"/> – Du kan fullføre denne transaksjonen uten Google Wallet.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Du kan også hoppe over påloggingen og <ph name="LINK_START"/>surfe som gjest<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">Tjeneren er ikke tilgjengelig.</translation>
@@ -895,6 +891,7 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="3872166400289564527">Ekstern lagring</translation>
 <translation id="1442912890475371290">Blokkerte forsøket <ph name="BEGIN_LINK"/> på å besøke en side på <ph name="DOMAIN"/><ph name="END_LINK"/></translation>
 <translation id="5912378097832178659">R&amp;ediger søkemotorer...</translation>
+<translation id="8013526960933383914">Slå på enhetlig skrivebord</translation>
 <translation id="6732586201820838268">Det var ikke mulig å opprette en tilkobling til telefonen din. Sørg for at du bruker en kompatibel Android-telefon, at den er slått på, og at den er innenfor en armlengdes avstand. &lt;a&gt;Finn ut mer&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Filnavn</translation>
 <translation id="3893630138897523026">ChromeVox (muntlig tilbakemelding)</translation>
@@ -1007,7 +1004,6 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="7977551819349545646">Oppdaterer Chromebox …</translation>
 <translation id="9001035236599590379">MIME-type</translation>
 <translation id="1624026626836496796">Dette skjer bare én gang. Påloggingsinformasjonen din lagres ikke.</translation>
-<translation id="7238207184783103780">Google Wallet er utilgjengelig for øyeblikket.</translation>
 <translation id="9153341767479566106">Andre utvidelser som ikke kunne lastes inn:</translation>
 <translation id="1864111464094315414">Pålogging</translation>
 <translation id="3451859089869683931">Ugyldig telefonnummer. Sjekk det og prøv på nytt.</translation>
@@ -1176,7 +1172,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="4592444333660235848">Du surfer på et nettsted du kanskje egentlig ikke ønsker å være på.</translation>
 <translation id="37613671848467444">Åpne i &amp;inkognitovindu</translation>
 <translation id="159359590073980872">Bildebuffer</translation>
-<translation id="7142571697412577603">Vis adresser og kredittkort fra Google Wallet</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Skjul detaljer</translation>
 <translation id="7170467426996704624">Translitterasjon (salam → ሰላም)</translation>
@@ -1216,7 +1211,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="4801512016965057443">Tillat mobildatabruk på andre nettverk</translation>
 <translation id="2971213274238188218">redusert lysstyrke</translation>
 <translation id="473546211690256853">Denne kontoen administreres av <ph name="DOMAIN"/>.</translation>
-<translation id="7952477692462853927">Google Wallet har støtt på et problem.</translation>
 <translation id="288024221176729610">Tsjekkisk</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">Liste over gjengivelsesprogramvare som skal overstyres</translation>
@@ -1304,7 +1298,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="1357589289913453911">Utvidelses-ID</translation>
 <translation id="8688579245973331962">Ser du ikke navnet ditt?</translation>
 <translation id="3226128629678568754">Trykk på knappen for å laste inn på nytt, for å sende inn dataene som trengs for å laste inn siden på nytt.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> For å beskytte deg mot svindel, deles informasjon om datamaskinen din (inkludert plasseringen) med Google Wallet.</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Aktivér linken for fjernbehandling av passord</translation>
 <translation id="529034129044944303">Slett informasjonskapsler og andre nettsteds- og programtilleggsdata når du lukker nettleseren</translation>
@@ -1376,6 +1369,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="5990559369517809815">Forespørsler til tjeneren har blitt blokkert av en utvidelse.</translation>
 <translation id="7208342137985015640">Lagrer data</translation>
 <translation id="3828440302402348524">Pålogget som <ph name="USER_NAME"/></translation>
+<translation id="3938113500786732264">Bytt folk raskere</translation>
 <translation id="5222676887888702881">Logg av</translation>
 <translation id="3522159121915794564">Gir brukere mulighet til å velge å delta i innsamlingen av ugyldige TLS-/SSL-sertifikatkjeder.</translation>
 <translation id="6978121630131642226">Søkemotorer</translation>
@@ -1484,7 +1478,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="3128230619496333808">Fane 6</translation>
 <translation id="6655190889273724601">Utviklermodus</translation>
 <translation id="1071917609930274619">Datachiffrering</translation>
-<translation id="5055073909323877129">Importér Wallet-kort</translation>
 <translation id="3473105180351527598">Slå på beskyttelse mot nettfisking og skadelig programvare</translation>
 <translation id="6151323131516309312">Trykk <ph name="SEARCH_KEY"/> for å søke på <ph name="SITE_NAME"/></translation>
 <translation id="5015762597229892204">Velg en skriverdriverapp</translation>
@@ -1659,7 +1652,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="4421932782753506458">Pus</translation>
 <translation id="962520199903263026">Feltprøve for tilbakemelding til stavekontrollen</translation>
 <translation id="6051086608691487286">Rullefelt for overlegg</translation>
-<translation id="6132509723755265994">Google Wallet støttes ikke med denne selgeren.</translation>
 <translation id="4886021172213954916">Tamilsk tastatur (skrivemaskin)</translation>
 <translation id="4698435846585701394">Slår av krypterte medieutvidelser for video- og lydelementer.</translation>
 <translation id="2378075407703503998"><ph name="SELCTED_FILE_COUNT"/> filer valgt</translation>
@@ -1672,7 +1664,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
         <ph name="MARKUP_4"/>Slett filer du har i Nedlastinger-mappen.<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Du må koble til et nettverk</translation>
 <translation id="6913830198853875055">Hvis denne funksjonen er slått på, hentes forhåndsvisninger for søkeresultater som byttes ut med originalsidene når de er lastet ned og gjengitt.</translation>
-<translation id="5332360333956573658">Kunne ikke lagre data i Wallet.</translation>
 <translation id="3759371141211657149">Administrer innstillinger for behandler</translation>
 <translation id="8856844195561710094">Kunne ikke stoppe utforsking av Bluetooth-enhet.</translation>
 <translation id="2246340272688122454">Laster ned gjenopprettingsbilde …</translation>
@@ -1736,7 +1727,6 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="23030561267973084">«<ph name="EXTENSION_NAME"/>» har bedt om ekstra tilgang.</translation>
 <translation id="6957887021205513506">Tjenersertifikatet ser ut til å være forfalsket.</translation>
 <translation id="8957709627709183338">Det er bare eieren av enheten som kan opprette administrerte brukere.</translation>
-<translation id="5810680593770884357">Slå på avmerkingsboksen for lagring av Wallet-kort</translation>
 <translation id="3511399794969432965">Har du problemer med å koble til?</translation>
 <translation id="8551494947769799688">Latvisk</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1848,7 +1838,6 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Slå på/av alternativet for endring av bevegelser på innstillingssiden for det virtuelle tastaturet.</translation>
 <translation id="8899388739470541164">Vietnamesisk</translation>
-<translation id="1828473288054410476">Importér kort fra Wallet.</translation>
 <translation id="6423064450797205562">Beregninger knyttet til hvor raskt <ph name="SHORT_PRODUCT_NAME"/> utfører forespurte handlinger</translation>
 <translation id="4091434297613116013">ark</translation>
 <translation id="9039890312082871605">Slå av lyden for fanene</translation>
@@ -1891,7 +1880,6 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
 <translation id="2529133382850673012">Amerikansk tastatur (USA)</translation>
 <translation id="4352850459590683051">Opphev fil- og enhetstilgangen</translation>
 <translation id="4411578466613447185">Kodesignatar</translation>
-<translation id="3029595853063638932">Genererer virtuelt kort for Google Wallet …</translation>
 <translation id="1354868058853714482">Adobe Reader er utdatert og kan være usikkert.</translation>
 <translation id="6200903742087665630">Slå på selvstendige iframes</translation>
 <translation id="6095666334801788310">Skriv inn passordet ditt på nytt</translation>
@@ -2756,7 +2744,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="8282947398454257691">få kjennskap til den unike enhetsidentifikatoren</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> kan ikke koble til <ph name="NETWORK_ID"/>. Velg et annet nettverk eller prøv på nytt senere.</translation>
 <translation id="2086712242472027775">Kontoen din fungerer ikke med <ph name="PRODUCT_NAME"/>. Kontakt domeneadministrator, eller logg deg på med en vanlig Google-konto.</translation>
-<translation id="1970103697564110434">Google Wallet beskytter kortet ditt</translation>
 <translation id="7222232353993864120">E-postadresse</translation>
 <translation id="2128531968068887769">Native Client</translation>
 <translation id="7175353351958621980">Lastet fra:</translation>
@@ -2809,6 +2796,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="222949136907494149"><ph name="URL"/> ønsker å bruke posisjonen til enheten din.</translation>
 <translation id="7654941827281939388">Denne kontoen er allerede i bruk på denne datamaskinen.</translation>
 <translation id="204914487372604757">Opprett snarvei</translation>
+<translation id="5957613098218939406">Flere alternativer</translation>
 <translation id="696036063053180184">3 sett (ikke skift)</translation>
 <translation id="452785312504541111">Engelsk med full bredde</translation>
 <translation id="7589461650300748890">Oops! Vær forsiktig.</translation>
@@ -3595,7 +3583,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="2148716181193084225">I dag</translation>
 <translation id="7816975051619137001">Korriger staving automatisk</translation>
 <translation id="4608500690299898628">&amp;Finn</translation>
-<translation id="7068997575282883954">Lagre og beskytt opplysningene dine med Google Wallet.</translation>
 <translation id="7582582252461552277">Foretrekk dette nettverket</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/>, <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">&amp;Vis i mappe</translation>
@@ -3649,6 +3636,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="3543393733900874979">Oppdatering mislyktes (feil: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Hva bør du gjøre?</translation>
 <translation id="1017280919048282932">&amp;Legg til i ordliste</translation>
+<translation id="5117348049661313125">Legger til en på- og av-bryter for vertsmodus.</translation>
 <translation id="3534879087479077042">Hva er en administrert bruker?</translation>
 <translation id="5115563688576182185">(64-bit)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Nedlasting pågår}other{Nedlastinger pågår}}</translation>
@@ -3907,7 +3895,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">bytt vindu</translation>
 <translation id="3523642406908660543">Spør når et nettsted ønsker å bruke et programtillegg for å få tilgang til datamaskinen (anbefales)</translation>
-<translation id="8211868401977897190">Wallet kan ikke behandle denne transaksjonen.</translation>
 <translation id="8240697550402899963">Bruk klassisk tema</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> startes på nytt og tilbakestilles øyeblikkelig</translation>
 <translation id="2890624088306605051">Bare hent synkroniserte innstillinger og data</translation>
@@ -3938,7 +3925,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="2059334576206320859">Slå på synkronisering av Wi-Fi-legitimasjon.</translation>
 <translation id="7361039089383199231">$1 bytes</translation>
 <translation id="191688485499383649">En ukjent feil oppsto under tilkoblingen til <ph name="DEVICE_NAME"/>.</translation>
-<translation id="7208594729785140450">Google Wallet støtter ikke denne versjonen av Chrome, eller gjenkjenner ikke Google API-nøkkelen din.</translation>
 <translation id="6874681241562738119">Påloggingsfeil</translation>
 <translation id="5135533361271311778">Kan ikke opprette bokmerkeelement.</translation>
 <translation id="2828650939514476812">Koble til Wi-Fi-nettverk</translation>
@@ -4149,7 +4135,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="1427049173708736891">Hold <ph name="DEVICE_TYPE"/>-enheten ulåst når Android-telefonen er låst opp og i nærheten – du trenger ikke å skrive inn passordet ditt.</translation>
 <translation id="5934281776477898549">Ingen oppdatering</translation>
 <translation id="8432745813735585631">Amerikansk tastatur (Colemak)</translation>
-<translation id="43594494162958796">Vis avmerkingsboksen som tilbyr lokal lagring av Wallet-kredittkort som lastes ned fra tjeneren.</translation>
 <translation id="537813040452600081">Sider i dette vinduet vises ikke i nettleserloggen, og de legger ikke igjen andre spor (f.eks. informasjonskapsler) på datamaskinen etter at du har logget av. Filer du laster ned og bokmerker du oppretter, lagres ikke.</translation>
 <translation id="2608770217409477136">Bruk standardinnstillinger</translation>
 <translation id="3157931365184549694">Gjenopprett</translation>
@@ -4433,7 +4418,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="6860097299815761905">Innstillinger for proxy-tjener</translation>
 <translation id="241082044617551207">Ukjent programtillegg</translation>
 <translation id="3672159315667503033"><ph name="URL"/> ønsker permanent å lagre data lokalt på datamaskinen din.</translation>
-<translation id="6190185222845843088">Bruk prosessisoleringstjenere for Wallet</translation>
 <translation id="3574772456110518971">Deaktiver eksperimentell Chromecast-støtte som gir muligheten for avspilling og kontroll av videoer fra nettet på Chromecast-enheter.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (navnet som brukes på denne enheten)</translation>
 <translation id="3177048931975664371">Klikk for å skjule passord</translation>
@@ -4441,7 +4425,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="3092544800441494315">Inkluder denne skjermdumpen:</translation>
 <translation id="479989351350248267">søk</translation>
 <translation id="2633199387167390344"><ph name="NAME"/> bruker <ph name="USAGE"/> MB lagringsplass.</translation>
-<translation id="472177018469288237">Google Wallet er deaktivert</translation>
 <translation id="7730449930968088409">ta bilde av innhold på skjermen din</translation>
 <translation id="5330145655348521461">Disse filene ble åpnet på et annet skrivebord. Flytt til <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>) for å se dem.</translation>
 <translation id="7714464543167945231">Sertifikat</translation>
@@ -4466,7 +4449,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="1029595648591494741">Vil du prøve <ph name="EXTENSION_NAME"/>?</translation>
 <translation id="5423849171846380976">Aktivert</translation>
 <translation id="8261673729476082470">Sikkerhetskopierer <ph name="FILE_COUNT"/> bilder til <ph name="BEGIN_LINK"/>Google Disk<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">Deaktiver Google Wallet</translation>
 <translation id="7077872827894353012">Ignorerte protokollbehandlere</translation>
 <translation id="7655364957661536693">Du kan nå finne utvidelsene dine her.</translation>
 <translation id="3158564748719736353">Hvis dette er aktivert, vises varsler når enheten er koblet til et nettverk via en autentiseringsportal.</translation>
@@ -4652,7 +4634,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="357479282490346887">Litauisk</translation>
 <translation id="9203478404496196495">Slå på lyden for fanen</translation>
 <translation id="2143778271340628265">Manuell konfigurasjon av mellomtjener</translation>
-<translation id="440150639010863291">Bruk Google Wallet</translation>
 <translation id="8888432776533519951">Farge:</translation>
 <translation id="5247176778442128277">Slå av Smart Lock</translation>
 <translation id="5294529402252479912">Oppdater Adobe Reader nå</translation>
@@ -4846,7 +4827,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="3718288130002896473">Funksjonalitet</translation>
 <translation id="4813512666221746211">Nettverksfeil</translation>
 <translation id="8711402221661888347">Burger</translation>
-<translation id="1967178421351654130">Kortet ditt har blitt beskyttet med det virtuelle kortet for Google Wallet (<ph name="FRONTING_CREDIT_CARD"/>), og dette nummeret kommer til å vises på kvitteringen. Dette kjøpet blir fortsatt belastet til <ph name="BACKING_CREDIT_CARD"/>.</translation>
 <translation id="1254117744268754948">Valg av mappe</translation>
 <translation id="2168725742002792683">Filetternavn</translation>
 <translation id="7936369818837152377">Tiden det tar å gjenopprette en tidligere nettleserøkt</translation>
@@ -4985,7 +4965,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="713888829801648570">Beklager. Passordet ditt kunne ikke bekreftes fordi du ikke har nettilkobling.</translation>
 <translation id="7464861219980961605">Slett lagrede passord</translation>
 <translation id="7507930499305566459">Sertifikat for statussvar</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Importer bokmerker og innstillinger</translation>
 <translation id="8518865679229538285">Inndatametode for tamil (skrivemaskin)</translation>
 <translation id="1545177026077493356">Automatisk kioskmodus</translation>
@@ -5163,7 +5142,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="1698647588772720278">Deaktiver krypterte mediautvidelser med prefiks.</translation>
 <translation id="2286454467119466181">Enkel</translation>
 <translation id="6666647326143344290">med Google-kontoen din</translation>
-<translation id="4564097437843356814">Det er noe galt med Google Wallet-kontoen din.</translation>
 <translation id="4547992677060857254">Mappen du valgte inneholder sensitive filer. Er du sikker på at du vil gi «$ 1» permanent skrivetilgang til denne mappen?</translation>
 <translation id="4980112683975062744">Dupliserte overskrifter mottatt fra tjener</translation>
 <translation id="3828029223314399057">Søk i bokmerker</translation>
@@ -5196,7 +5174,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="3819415294190923087">Velg nettverk</translation>
 <translation id="7325437708553334317">Høy kontrast-utvidelse</translation>
 <translation id="9203394577866137354">Bekreftelsesstatus</translation>
-<translation id="4076313158939304412">Beskytt betalingen din med Google Wallet.</translation>
 <translation id="2080070583977670716">Flere innstillinger</translation>
 <translation id="6708242697268981054">Opprinnelse:</translation>
 <translation id="1909880997794698664">Er du sikker på at du vil beholde denne enheten permanent i kioskmodus?</translation>
@@ -5277,7 +5254,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="33022249435934718">GDI håndterer</translation>
 <translation id="1055806300943943258">Søker etter Bluetooth og USB-enheter …</translation>
 <translation id="6308937455967653460">Lagre lin&amp;ken som…</translation>
-<translation id="741689768643916402">Dessverre kan Google Wallet bare brukes med denne selgeren av kunder med adresse i USA. Hvis du er bosatt i USA, kan du endre bostedsadressen din med Wallet, eller betale uten å bruke Google Wallet.</translation>
 <translation id="5828633471261496623">Skriver ut …</translation>
 <translation id="3519867315646775981">Translitterasjon (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Slett nettleserdata</translation>
@@ -5433,7 +5409,6 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="7549053541268690807">Søk i ordboken</translation>
 <translation id="8911079125461595075">Google har rapportert <ph name="EXTENSION_NAME"/> som skadelig og installasjonen har blitt avbrutt.</translation>
 <translation id="5870086504539785141">Lukk tilgjengelighetsmenyen</translation>
-<translation id="9102800320402283920">Google Wallet krever minst et fornavn og et etternavn.</translation>
 <translation id="7005848115657603926">Ugyldig sideområde. Bruk <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337"><ph name="DOMAIN"/>-vilkår</translation>
@@ -5669,7 +5644,6 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="2989474696604907455">ikke tilkoblet</translation>
 <translation id="6612358246767739896">Beskyttet innhold</translation>
 <translation id="1593594475886691512">Formaterer …</translation>
-<translation id="8860520442470629999">Et virtuelt Google Wallet-kort blir brukt for denne transaksjonen. Et virtuelt kort er et nytt kortnummer som gjør at selgeren aldri ser det virkelige kredittkortnummeret ditt.</translation>
 <translation id="6586451623538375658">Bytt primær museknapp</translation>
 <translation id="6937152069980083337">Google-inndatametode for japansk (for amerikansk tastatur)</translation>
 <translation id="475088594373173692">Første bruker</translation>
@@ -5772,6 +5746,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="962416441122492777">Fullfør påloggingen</translation>
 <translation id="2049137146490122801">Tilgang til lokale filer på maskinen er deaktivert av administratoren.</translation>
 <translation id="225240747099314620">Tillat identifikatorer for beskyttet innhold (du må kanskje stare datamaskinen på nytt)</translation>
+<translation id="8611705542165748884">Slå på vertsmodus</translation>
 <translation id="1146498888431277930">SSL-tilkoblingsfeil</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Komma</translation>

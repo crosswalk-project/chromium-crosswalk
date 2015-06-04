@@ -16,7 +16,7 @@
 <translation id="8996941253935762404">Sivusto sisältää haitallisia ohjelmia</translation>
 <translation id="3595596368722241419">Akku täynnä</translation>
 <translation id="8098352321677019742">Tuotteen <ph name="PRODUCT_NAME"/> ilmoitukset</translation>
-<translation id="5186650237607254032">Päivitä puhelimesi ruudun lukitus, niin se poistetaan käytöstä ollessasi lähistöllä. Puhelimen lukitus avautuu nopeammin, ja Smart Lock -käyttökokemus laitteellasi (<ph name="DEVICE_TYPE"/>) on parempi.</translation>
+<translation id="5186650237607254032">Päivitä puhelimesi näytön lukitus, niin se poistetaan käytöstä ollessasi lähistöllä. Puhelimen lukitus avautuu nopeammin, ja Smart Lock -käyttökokemus laitteellasi (<ph name="DEVICE_TYPE"/>) on parempi.</translation>
 <translation id="3566021033012934673">Yhteytesi ei ole salattu</translation>
 <translation id="3751522270321808809">Sivusto voi yrittää varastaa tietojasi (esimerkiksi salasanoja, viestejä tai luottokorttien tietoja) huijaamalla sinua.</translation>
 <translation id="3228679360002431295">Muodostetaan yhteys ja tarkistetaan<ph name="ANIMATED_ELLIPSIS"/></translation>
@@ -106,7 +106,6 @@
 <translation id="4274187853770964845">Synkronointivirhe: Pysäytä synkronointi ja käynnistä se uudelleen.</translation>
 <translation id="4209562316857013835">Ottaa käyttöön Wi-Fi-verkon synkronointiasetukset eri laitteissa. Kun tämä on käytössä, Wi-Fi-verkon kirjautumistietojen tietotyyppi on rekisteröity Chromen synkronointiin ja Wi-Fi-kirjautumistiedot on synkronoitu käyttäjän toiveiden mukaan. (Katso myös chrome://settings/syncSetup.)</translation>
 <translation id="5029568752722684782">Poista kopio</translation>
-<translation id="6499114579475440437">Kirjaudu sisään maksaaksesi Google Walletin avulla</translation>
 <translation id="656293578423618167">Tiedostonimi tai -polku on liian pitkä. Lyhennä nimeä tai tallenna muuhun sijaintiin.</translation>
 <translation id="3484869148456018791">Hanki uusi varmenne</translation>
 <translation id="6766534397406211000">Ottaa käyttöön kokeilun, jossa viestikeskus vierittää aina ylös, kun ilmoitus poistetaan.</translation>
@@ -217,7 +216,6 @@
 <translation id="1461041542809785877">Suorituskyky</translation>
 <translation id="2861301611394761800">Järjestelmän päivitys valmis. Käynnistä järjestelmä uudelleen.</translation>
 <translation id="551752069230578406">Lisätään tulostinta tiliisi – tässä voi kestää hetki…</translation>
-<translation id="2108058520826444209">Varoitus: et ole yhteydessä Walletin tuotantopalvelimeen. Myönnetyt kortit eivät kelpaa.</translation>
 <translation id="5228962187251412618">Vain verkkotarkistus</translation>
 <translation id="8518901949365209398">Sivusto käyttää heikkoa suojausta (SHA-1-allekirjoitukset), joten yhteytesi ei välttämättä ole täysin turvallinen.</translation>
 <translation id="4858913220355269194">Litti</translation>
@@ -225,7 +223,6 @@
 <translation id="2231238007119540260">Jos poistat palvelimen varmenteen, palautat käyttöön palvelimen tavalliset turvatarkastukset ja edellytät siltä kelvollista varmennetta.</translation>
 <translation id="5428707027149023335">Ota käyttöön: ensisijainen</translation>
 <translation id="8259581864063078725">Klikkaa tätä ja etsi tulostussovellus, jos haluat käyttää tätä tulostinta.</translation>
-<translation id="6489433341782457580">Kehittäjille: käytä Wallet-sovellusliittymän requestAutocomplete()-kutsuissa hiekkalaatikkopalvelua.</translation>
 <translation id="8186609076106987817">Palvelin ei löydä tiedostoa.</translation>
 <translation id="4873312501243535625">Mediatiedostojen tarkistaja</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 välilehti}other{# välilehteä}}</translation>
@@ -260,6 +257,7 @@
 <translation id="7693221960936265065">kaikki</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">Seuraavia sivustoja on estetty käyttämästä sijaintiasi tällä sivulla:</translation>
+<translation id="3025729795978504041">Voit katsoa muita ihmisiä klikkaamalla yllä olevaa painiketta hiiren kakkospainikkeella.</translation>
 <translation id="8133676275609324831">Näytä kan&amp;siossa</translation>
 <translation id="302014277942214887">Anna sovellustunnus tai verkkomyymälän URL-osoite.</translation>
 <translation id="26224892172169984">Älä anna sivustojen määrittää protokollien käsittelypalveluita</translation>
@@ -493,7 +491,6 @@
 <translation id="1751752860232137596">Ota kokeellinen tasainen vieritys -toiminto käyttöön.</translation>
 <translation id="6438234780621650381">Asetusten palauttaminen</translation>
 <translation id="7389722738210761877">Thainkielinen näppäimistö (TIS 820-2531)</translation>
-<translation id="9142627797714859698">Klikkaamalla Jatka hyväksyt Google Walletin käytön. Petosten estämiseksi tietokonettasi koskevia tietoja (kuten sen sijainti) jaetaan Google Walletin kanssa.</translation>
 <translation id="4130750466177569591">Hyväksyn</translation>
 <translation id="6993929801679678186">Näytä automaattisen täytön ennusteet</translation>
 <translation id="4425149324548788773">Oma Drive</translation>
@@ -686,7 +683,6 @@ suojaamattomia yhteyksiä.<ph name="PRODUCT_NAME"/></translation>
 <translation id="7088434364990739311">Päivitystarkistuksen käynnistäminen epäonnistui (virhekoodi <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">Käynnistyssivut:</translation>
 <translation id="5233019165164992427">NaCl-vianetsintäportti</translation>
-<translation id="2038896902310685531">Hups, <ph name="WALLET_ERROR"/> Et voi suorittaa ostotapahtumaa ilman Google Walletia.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Voit myös ohittaa sisäänkirjautumisen ja <ph name="LINK_START"/>selata vierailijana<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">Palvelin ei ole käytettävissä.</translation>
@@ -892,6 +888,7 @@ Kaikkien käyttäjien täytyy kirjautua ulos jatkaakseen käyttöä.</translatio
 <translation id="3872166400289564527">Ulkoinen tallennustila</translation>
 <translation id="1442912890475371290">Estetty yritys <ph name="BEGIN_LINK"/> siirtyä sivulle <ph name="DOMAIN"/><ph name="END_LINK"/>.</translation>
 <translation id="5912378097832178659">&amp;Muokkaa hakukoneita...</translation>
+<translation id="8013526960933383914">Ota käyttöön yhtenäinen työpöytä</translation>
 <translation id="6732586201820838268">Puhelimeesi ei voitu muodostaa yhteyttä. Varmista, että käytät yhteensopivaa Android-laitetta ja että se on käden ulottuvilla. &lt;a&gt;Lisätietoja&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Tiedostonimi</translation>
 <translation id="3893630138897523026">ChromeVox (äänipalaute)</translation>
@@ -1004,7 +1001,6 @@ Kaikkien käyttäjien täytyy kirjautua ulos jatkaakseen käyttöä.</translatio
 <translation id="7977551819349545646">Päivitetään Chromeboxia…</translation>
 <translation id="9001035236599590379">MIME-tyyppi</translation>
 <translation id="1624026626836496796">Tämä tehdään vain kerran, eikä kirjautumistietoja tallenneta.</translation>
-<translation id="7238207184783103780">Google Wallet ei ole tällä hetkellä käytettävissä.</translation>
 <translation id="9153341767479566106">Muut laajennukset, joiden lataus ei onnistunut:</translation>
 <translation id="1864111464094315414">Kirjaudu</translation>
 <translation id="3451859089869683931">Virheellinen puhelinnumero. Tarkista tiedot ja yritä uudelleen.</translation>
@@ -1172,7 +1168,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="4592444333660235848">Selaat sivua, joka ei välttämättä sisällä haluamaasi sisältöä.</translation>
 <translation id="37613671848467444">Avaa incognito-ikkunassa</translation>
 <translation id="159359590073980872">Kuvavälimuisti</translation>
-<translation id="7142571697412577603">Näytä Google Walletiin lisätyt osoitteet ja luottokortit.</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Piilota lisätiedot</translation>
 <translation id="7170467426996704624">Translitterointi (salam → ሰላም)</translation>
@@ -1212,7 +1207,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="4801512016965057443">Salli mobiilitiedonsiirto roaming-tilassa</translation>
 <translation id="2971213274238188218">vähennä kirkkautta</translation>
 <translation id="473546211690256853">Tätä tiliä hallitsee <ph name="DOMAIN"/></translation>
-<translation id="7952477692462853927">Google Wallet havaitsi virheen.</translation>
 <translation id="288024221176729610">tšekki</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">Ohita ohjelmistohahmonnuksen luettelo</translation>
@@ -1300,7 +1294,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="1357589289913453911">Laajennustunnus</translation>
 <translation id="8688579245973331962">Eikö nimeäsi näy?</translation>
 <translation id="3226128629678568754">Paina päivityspainiketta, niin sivun lataukseen tarvittavat tiedot lähetetään uudelleen.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> Petosten estämiseksi tietokonettasi koskevia tietoja (kuten sen sijainti) jaetaan Google Walletin kanssa.</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Ota käyttöön salasanan etähallinnointilinkki</translation>
 <translation id="529034129044944303">Poista evästeet ja muut sivuston ja laajennuksien tiedot, kun suljet selaimen.</translation>
@@ -1373,6 +1366,7 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="5990559369517809815">Laajennus esti palvelinpyynnöt.</translation>
 <translation id="7208342137985015640">Tallentaa tiedot</translation>
 <translation id="3828440302402348524">Kirjautunut käyttäjänä <ph name="USER_NAME"/>...</translation>
+<translation id="3938113500786732264">Siirry ihmisten välillä nopeammin</translation>
 <translation id="5222676887888702881">Kirjaudu ulos</translation>
 <translation id="3522159121915794564">Antaa käyttäjien sallia virheellisten TLS/SSL-varmenneketjujen keräämisen.</translation>
 <translation id="6978121630131642226">Hakukoneet</translation>
@@ -1481,7 +1475,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="3128230619496333808">Välilehti 6</translation>
 <translation id="6655190889273724601">Kehittäjätila</translation>
 <translation id="1071917609930274619">Tiedon salakoodaus</translation>
-<translation id="5055073909323877129">Tuo Wallet Kortit</translation>
 <translation id="3473105180351527598">Aktivoi tietojenkalastelu- ja haittaohjelmasuojaus</translation>
 <translation id="6151323131516309312">Paina <ph name="SEARCH_KEY"/> ja hae sivustosta <ph name="SITE_NAME"/></translation>
 <translation id="5015762597229892204">Valitse tulostimen ajurisovellus</translation>
@@ -1656,7 +1649,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="4421932782753506458">Pörrö</translation>
 <translation id="962520199903263026">Oikeinkirjoituspalautteen testi.</translation>
 <translation id="6051086608691487286">Peitä vierityspalkit</translation>
-<translation id="6132509723755265994">Tämä kauppias ei tue Google Walletia.</translation>
 <translation id="4886021172213954916">Tamilinkielinen näppäimistö (kirjoituskone)</translation>
 <translation id="4698435846585701394">Poista salatut medialaajennukset käytöstä video- ja äänielementeissä.</translation>
 <translation id="2378075407703503998"><ph name="SELCTED_FILE_COUNT"/> tiedostoa on valittu</translation>
@@ -1669,7 +1661,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
     <ph name="MARKUP_4"/>poista tiedostoja Lataukset-kansiosta.<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Muodosta verkkoyhteys</translation>
 <translation id="6913830198853875055">Jos käytössä, hakutulosten esikatselut haetaan valmiiksi ja vaihdetaan alkuperäiseen sivuun, kun se on ladattu ja hahmonnettu.</translation>
-<translation id="5332360333956573658">Tietojen tallentaminen Walletiin epäonnistui.</translation>
 <translation id="3759371141211657149">Hallinnoi käsittelypalveluasetuksia...</translation>
 <translation id="8856844195561710094">Bluetooth-laitehaun pysäyttäminen epäonnistui.</translation>
 <translation id="2246340272688122454">Ladataan palautusnäköistiedostoa...</translation>
@@ -1734,7 +1725,6 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="23030561267973084"><ph name="EXTENSION_NAME"/> on pyytänyt lisäoikeuksia.</translation>
 <translation id="6957887021205513506">Palvelimen varmenne näyttää olevan väärennös.</translation>
 <translation id="8957709627709183338">Laitteen omistaja rajoittaa valvottujen käyttäjien luomista.</translation>
-<translation id="5810680593770884357">Ota käyttöön Wallet-kortin tallentaminen -ruutu.</translation>
 <translation id="3511399794969432965">Onko yhteyden muodostamisessa ongelmia?</translation>
 <translation id="8551494947769799688">latvia</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1846,7 +1836,6 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Poista tai ota käyttöön eleillä muokkaaminen virtuaalisen näppäimistön asetuksissa.</translation>
 <translation id="8899388739470541164">vietnam</translation>
-<translation id="1828473288054410476">Tuo kortit Walletistani.</translation>
 <translation id="6423064450797205562">Tilastot, jotka liittyvät nopeuteen, jolla <ph name="SHORT_PRODUCT_NAME"/> suorittaa pyydetyt toiminnot</translation>
 <translation id="4091434297613116013">paperiarkkia</translation>
 <translation id="9039890312082871605">Mykistä välilehdet</translation>
@@ -1894,7 +1883,6 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="2529133382850673012">Näppäimistö: US</translation>
 <translation id="4352850459590683051">Peruuta tiedoston ja laitteen käyttöoikeudet</translation>
 <translation id="4411578466613447185">Koodin allekirjoittaja</translation>
-<translation id="3029595853063638932">Google Walletin virtuaalista korttia luodaan…</translation>
 <translation id="1354868058853714482">Adobe Reader on vanhentunut ja siinä voi olla tietosuoja-aukkoja.</translation>
 <translation id="6200903742087665630">Poista käytöstä prosessin ulkopuoliset iframe-kehykset.</translation>
 <translation id="6095666334801788310">Kirjoita salasanasi uudelleen</translation>
@@ -2748,7 +2736,6 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="8282947398454257691">Saada selville laitetunnuksesi.</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> ei voinut yhdistää verkkoon <ph name="NETWORK_ID"/>. Valitse toinen verkko tai yritä uudelleen.</translation>
 <translation id="2086712242472027775">Tililläsi ei voi käyttää tuotetta <ph name="PRODUCT_NAME"/>. Ota yhteyttä verkkotunnuksesi järjestelmänvalvojaan tai kirjaudu sisään tavallisella Google-tilillä.</translation>
-<translation id="1970103697564110434">Google Wallet suojelee korttiasi</translation>
 <translation id="7222232353993864120">Sähköpostiosoite</translation>
 <translation id="2128531968068887769">Asiakassovellus</translation>
 <translation id="7175353351958621980">Ladattu kohteesta:</translation>
@@ -2801,6 +2788,7 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="222949136907494149"><ph name="URL"/> haluaa käyttää tietokoneesi sijaintia.</translation>
 <translation id="7654941827281939388">Tämä tili on jo käytössä tässä tietokoneessa.</translation>
 <translation id="204914487372604757">Luo pikakuvake</translation>
+<translation id="5957613098218939406">Lisäasetukset</translation>
 <translation id="696036063053180184">3 Set (No shift)</translation>
 <translation id="452785312504541111">Leveä englanti</translation>
 <translation id="7589461650300748890">Hei, varo vähän.</translation>
@@ -3578,7 +3566,6 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="2148716181193084225">Tänään</translation>
 <translation id="7816975051619137001">Korjaa oikeinkirjoitus automaattisesti</translation>
 <translation id="4608500690299898628">&amp;Haku...</translation>
-<translation id="7068997575282883954">Tallenna tietosi Google Walletiin ja suojaa tietojasi palvelun avulla.</translation>
 <translation id="7582582252461552277">Käytä tätä verkkoa</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">Näytä ka&amp;nsiossa</translation>
@@ -3632,6 +3619,7 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="3543393733900874979">Päivitys epäonnistui (virhe <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Mitä pitäisi tehdä?</translation>
 <translation id="1017280919048282932">&amp;Lisää sanakirjaan</translation>
+<translation id="5117348049661313125">Lisää isännöidyn tilan käyttöönottokytkimen.</translation>
 <translation id="3534879087479077042">Mikä on valvottu käyttäjä?</translation>
 <translation id="5115563688576182185">(64-bittinen)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Lataus käynnissä}other{Latauksia käynnissä}}</translation>
@@ -3892,7 +3880,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">vaihda ikkunaa</translation>
 <translation id="3523642406908660543">Kysy aina, kun sivusto haluaa käyttää tietokonettasi laajennuksen avulla (suositus).</translation>
-<translation id="8211868401977897190">Wallet ei voi käsitellä tätä tapahtumaa.</translation>
 <translation id="8240697550402899963">Käytä perinteistä teemaa</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> käynnistyy uudelleen ja nollautuu hetkellisesti</translation>
 <translation id="2890624088306605051">Nouda vain synkronoidut asetukset ja tiedot</translation>
@@ -3923,7 +3910,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="2059334576206320859">Ota käyttöön Wi-Fi-kirjautumistietojen synkronointi.</translation>
 <translation id="7361039089383199231">$1 tavua</translation>
 <translation id="191688485499383649">Kohdattiin tuntematon virhe muodostettaessa yhteyttä laitteeseen <ph name="DEVICE_NAME"/>.</translation>
-<translation id="7208594729785140450">Google Wallet ei tue tätä Chrome-versiota tai tunnista Google-sovellusliittymän avainta.</translation>
 <translation id="6874681241562738119">Kirjautumisvirhe</translation>
 <translation id="5135533361271311778">Kirjanmerkin luominen epäonnistui.</translation>
 <translation id="2828650939514476812">Yhdistä Wi-Fi-verkkoon</translation>
@@ -4133,7 +4119,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="1427049173708736891">Pidä <ph name="DEVICE_TYPE"/> auki, kun Android-puhelimesi lukitus on auki ja se on lähellä – salasanaa ei tarvitse kirjoittaa.</translation>
 <translation id="5934281776477898549">Ei päivitystä</translation>
 <translation id="8432745813735585631">Näppäimistö: US, Colemak</translation>
-<translation id="43594494162958796">Näytä valintaruutu, jonka avulla käyttäjä voi tallentaa laitteelle palvelimelta ladatun Wallet-luottokortin.</translation>
 <translation id="537813040452600081">Tässä ikkunassa katselemiasi sivuja ei lisätä selaushistoriaan, eikä niistä jää tietokoneelle muita jälkiä, kuten evästeitä, kirjauduttuasi ulos. Lataamiasi tiedostoja ja luomiasi kirjanmerkkejä ei tallenneta.</translation>
 <translation id="2608770217409477136">Käytä oletusasetuksia</translation>
 <translation id="3157931365184549694">Palauta</translation>
@@ -4418,7 +4403,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="6860097299815761905">Välityspalvelimen asetukset...</translation>
 <translation id="241082044617551207">Tuntematon laajennus</translation>
 <translation id="3672159315667503033"><ph name="URL"/> haluaa tallentaa suuria tietomääriä pysyvästi paikalliselle tietokoneelle.</translation>
-<translation id="6190185222845843088">Käytä Walletin hiekkalaatikkopalvelimia</translation>
 <translation id="3574772456110518971">Poista käytöstä kokeellinen Chromecast-tuki, joka mahdollistaa verkkovideoiden toistamisen ja hallinnan Chromecast-laitteilla.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (nimi on jo käytössä tällä laitteella)</translation>
 <translation id="3177048931975664371">Piilota salasana klikkaamalla</translation>
@@ -4426,7 +4410,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="3092544800441494315">Liitä mukaan tämä kuvakaappaus:</translation>
 <translation id="479989351350248267">haku</translation>
 <translation id="2633199387167390344"><ph name="NAME"/> käyttää <ph name="USAGE"/> Mt levytilaa.</translation>
-<translation id="472177018469288237">Google Wallet ei ole käytössä</translation>
 <translation id="7730449930968088409">Ota ruutukaappaus</translation>
 <translation id="5330145655348521461">Nämä tiedostot avattiin toisella työpöydällä. Näet tiedostot siirtymällä profiiliin <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>).</translation>
 <translation id="7714464543167945231">Varmenne</translation>
@@ -4451,7 +4434,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="1029595648591494741">Haluatko kokeilla sovellusta <ph name="EXTENSION_NAME"/>?</translation>
 <translation id="5423849171846380976">Aktivoitu</translation>
 <translation id="8261673729476082470">Varmuuskopioidaan <ph name="FILE_COUNT"/> valokuvaa <ph name="BEGIN_LINK"/>Google Driveen<ph name="END_LINK"/>.</translation>
-<translation id="4080955692611561961">Poista Google Wallet käytöstä</translation>
 <translation id="7077872827894353012">Ohitetut protokollan käsittelijät</translation>
 <translation id="7655364957661536693">Laajennuksesi löytyvät nyt täältä.</translation>
 <translation id="3158564748719736353">Jos asetus on käytössä, sinulle näytetään viesti, kun laite on yhteydessä verkkoon captive portalin kautta.</translation>
@@ -4636,7 +4618,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="357479282490346887">liettua</translation>
 <translation id="9203478404496196495">Poista välilehden mykistys</translation>
 <translation id="2143778271340628265">Määritä välityspalvelin manuaalisesti</translation>
-<translation id="440150639010863291">Käytä Google Walletia</translation>
 <translation id="8888432776533519951">Väri:</translation>
 <translation id="5247176778442128277">Poista Smart Lock käytöstä</translation>
 <translation id="5294529402252479912">Päivitä Adobe Reader nyt</translation>
@@ -4828,7 +4809,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="3718288130002896473">Käytös</translation>
 <translation id="4813512666221746211">Verkkovirhe</translation>
 <translation id="8711402221661888347">Hamppari</translation>
-<translation id="1967178421351654130">Korttisi on suojattu Google Walletin virtuaalisella kortilla (<ph name="FRONTING_CREDIT_CARD"/>), ja tämä numero näkyy kuitissasi. Tämä ostos veloitetaan kortilta <ph name="BACKING_CREDIT_CARD"/>.</translation>
 <translation id="1254117744268754948">Valitse kansio</translation>
 <translation id="2168725742002792683">Tiedostotunnisteet</translation>
 <translation id="7936369818837152377">Edellisen selausistunnon palauttamiseen kulunut aika</translation>
@@ -4968,7 +4948,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="713888829801648570">Salasanaasi ei voi vahvistaa, koska olet offline-tilassa.</translation>
 <translation id="7464861219980961605">Poista tallennetut salasanat</translation>
 <translation id="7507930499305566459">Tilavastausvarmenne</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Kirjanmerkkien ja asetusten tuominen</translation>
 <translation id="8518865679229538285">Tamilin syöttötapa (kirjoituskone)</translation>
 <translation id="1545177026077493356">Automaattinen kioskitila</translation>
@@ -5146,7 +5125,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="1698647588772720278">Poista käytöstä etuliitteelliset salatut medialaajennukset.</translation>
 <translation id="2286454467119466181">Yksinkertainen</translation>
 <translation id="6666647326143344290">Google-tilisi avulla</translation>
-<translation id="4564097437843356814">Google Wallet -tilissäsi on jotain vikaa.</translation>
 <translation id="4547992677060857254">Valitsemasi kansio sisältää arkaluonteisia tiedostoja. Haluatko varmasti myöntää käyttäjälle &quot;$1&quot; pysyvän kirjoitusoikeuden tähän kansioon?</translation>
 <translation id="4980112683975062744">Päällekkäisiä ylätunnisteita saatu palvelimelta</translation>
 <translation id="3828029223314399057">Hae kirjanmerkeistä</translation>
@@ -5170,7 +5148,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="7540972813190816353">Virhe tarkistettaessa päivityksiä: <ph name="ERROR"/></translation>
 <translation id="7664620655576155379">Tukematon Bluetooth-laite: <ph name="DEVICE_NAME"/>.</translation>
 <translation id="8859174528519900719">Alakehys: <ph name="SUBFRAME_SITE"/></translation>
-<translation id="6771713287216370711">Poista ruudun suunnan lukitus käytöstä.</translation>
+<translation id="6771713287216370711">Poista näytön suunnan lukitus käytöstä.</translation>
 <translation id="2049639323467105390">Tätä laitetta hallinnoi <ph name="DOMAIN"/>.</translation>
 <translation id="1932098463447129402">Ei aiemmin kuin</translation>
 <translation id="5409029099497331039">Yllätä minut</translation>
@@ -5179,7 +5157,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="3819415294190923087">Valitse verkko</translation>
 <translation id="7325437708553334317">Suuri kontrasti -laajennus</translation>
 <translation id="9203394577866137354">Vahvistuksen tila</translation>
-<translation id="4076313158939304412">Suojaa maksujasi Google Walletin avulla.</translation>
 <translation id="2080070583977670716">Lisää asetuksia</translation>
 <translation id="6708242697268981054">Alkuperä:</translation>
 <translation id="1909880997794698664">Haluatko varmasti pitää laitteen pysyvästi kioskitilassa?</translation>
@@ -5260,7 +5237,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="33022249435934718">GDI-kahvat</translation>
 <translation id="1055806300943943258">Etsitään Bluetoothia ja USB-laitteita…</translation>
 <translation id="6308937455967653460">Tallenna lin&amp;kki nimellä...</translation>
-<translation id="741689768643916402">Valitettavasti tämän kauppiaan kohdalla Google Walletia voivat käyttää vain ostajat, joilla on osoite Yhdysvalloissa. Jos olet Yhdysvaltain asukas, |muuta kotiosoitteesi Walletissa| tai maksa jollain muulla tavalla kuin Google Walletilla.</translation>
 <translation id="5828633471261496623">Tulostetaan...</translation>
 <translation id="3519867315646775981">Translitterointi (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Poista selaustiedot...</translation>
@@ -5416,7 +5392,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="7549053541268690807">Hae sanakirjasta</translation>
 <translation id="8911079125461595075">Google on merkinnyt laajennuksen <ph name="EXTENSION_NAME"/> haitalliseksi, joten sen asennus on estetty.</translation>
 <translation id="5870086504539785141">Sulje käytettävyysvalikko</translation>
-<translation id="9102800320402283920">Google Wallet vaatii vähintään etu- ja sukunimen.</translation>
 <translation id="7005848115657603926">Virheellinen sivualue, käytä esimerkiksi aluetta <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337">Verkkotunnuksen <ph name="DOMAIN"/> käyttöehdot</translation>
@@ -5647,7 +5622,6 @@ Julkinen eksponentti (<ph name="PUBLIC_EXPONENT_NUM_BITS"/> bittiä):
 <translation id="2989474696604907455">ei yhdistetty</translation>
 <translation id="6612358246767739896">Suojattu sisältö</translation>
 <translation id="1593594475886691512">Alustetaan…</translation>
-<translation id="8860520442470629999">Google Walletin virtuaalista korttia käytetään tähän tapahtumaan. Virtuaalinen kortti antaa luottokortillesi uuden numeron, joten myyjä ei koskaan näe luottokorttisi oikeaa numeroa.</translation>
 <translation id="6586451623538375658">Vaihda hiiren ykköspainiketta</translation>
 <translation id="6937152069980083337">Googlen japanilainen syöttötapa (yhdysvaltalaiselle näppäimistölle)</translation>
 <translation id="475088594373173692">Ensimmäinen käyttäjä</translation>
@@ -5750,6 +5724,7 @@ Julkinen eksponentti (<ph name="PUBLIC_EXPONENT_NUM_BITS"/> bittiä):
 <translation id="962416441122492777">Suorita kirjautuminen loppuun</translation>
 <translation id="2049137146490122801">Järjestelmänvalvojasi on estänyt sinua käyttämästä koneelle tallennettuja tiedostoja.</translation>
 <translation id="225240747099314620">Salli suojatun sisällön tunnisteet (voi edellyttää tietokoneen uudelleenkäynnistystä)</translation>
+<translation id="8611705542165748884">Ota käyttöön isännöity tila</translation>
 <translation id="1146498888431277930">SSL-yhteysvirhe</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Pilkku</translation>

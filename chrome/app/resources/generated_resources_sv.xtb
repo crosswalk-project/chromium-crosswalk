@@ -107,7 +107,6 @@
 <translation id="4274187853770964845">Synkroniseringsfel. Avbryt och starta om synkroniseringen.</translation>
 <translation id="4209562316857013835">Aktiverar synkronisering av inställningar för Wi-Fi-nätverk på enheter. När detta är aktiverat registreras datatypen för Wi-Fi-användaruppgifter hos Chrome Sync och Wi-Fi-användaruppgifterna synkroniseras enligt användarens inställningar. (Mer information finns på chrome://settings/syncSetup.)</translation>
 <translation id="5029568752722684782">Ta bort kopia</translation>
-<translation id="6499114579475440437">Logga in för att betala med Google Wallet</translation>
 <translation id="656293578423618167">För lång sökväg eller för långt filnamn. Spara med ett kortare namn eller på en annan plats.</translation>
 <translation id="3484869148456018791">Hämta nytt certifikat</translation>
 <translation id="6766534397406211000">Aktiverar experiment som gör att Meddelandecenter alltid rullar upp när en avisering tas bort.</translation>
@@ -218,7 +217,6 @@
 <translation id="1461041542809785877">Prestanda</translation>
 <translation id="2861301611394761800">Systemuppdateringen har slutförts. Starta om systemet.</translation>
 <translation id="551752069230578406">Skrivaren läggs till i kontot. Det kan ta en stund ...</translation>
-<translation id="2108058520826444209">Varning! Du är inte ansluten till någon aktiv Wallet-server. Kort som utfärdas är ogiltiga.</translation>
 <translation id="5228962187251412618">Endast onlinekontroll</translation>
 <translation id="8518901949365209398">Den här webbplatsen använder en svag säkerhetskonfiguration (signaturer med SHA-1), så anslutningen kanske inte är privat.</translation>
 <translation id="4858913220355269194">Fotboll</translation>
@@ -226,7 +224,6 @@
 <translation id="2231238007119540260">Om du tar bort ett servercertifikat återställer du de vanliga säkerhetskontrollerna för servern. Därefter måste servern använda ett giltigt certifikat.</translation>
 <translation id="5428707027149023335">Aktivera: Primär</translation>
 <translation id="8259581864063078725">Klicka här om du vill leta efter en utskriftsapp för skrivaren.</translation>
-<translation id="6489433341782457580">För utvecklare: använd sandlådstjänsten för anropet requestAutocomplete() för Wallets API.</translation>
 <translation id="8186609076106987817">Servern kunde inte hitta filen.</translation>
 <translation id="4873312501243535625">Mediefilkontroll</translation>
 <translation id="4152670763139331043">{NUM_TABS,plural, =1{1 flik}other{# flikar}}</translation>
@@ -265,6 +262,7 @@
 <translation id="7693221960936265065">tidens början</translation>
 <translation id="9105212490906037469">F2</translation>
 <translation id="4920887663447894854">Följande webbplatser har förhindrats att spåra din plats på sidan:</translation>
+<translation id="3025729795978504041">Högerklicka på knappen ovan om du vill visa för andra.</translation>
 <translation id="8133676275609324831">&amp;Visa i mapp</translation>
 <translation id="302014277942214887">Ange program-ID eller adress till webbutik.</translation>
 <translation id="26224892172169984">Tillåt inte att någon webbplats hanterar protokoll</translation>
@@ -288,7 +286,7 @@
 <translation id="4395129973926795186"><ph name="START_DATE"/> till <ph name="END_DATE"/></translation>
 <translation id="98515147261107953">Liggande</translation>
 <translation id="7334190995941642545">Smart Lock är för närvarande inte tillgängligt. Försök igen senare.</translation>
-<translation id="1303101771013849280">Skapar bokmärke för HTML-fil</translation>
+<translation id="1303101771013849280">HTML-fil med bokmärken</translation>
 <translation id="8974161578568356045">Upptäck automatiskt</translation>
 <translation id="1549045574060481141">Bekräfta nedladdning</translation>
 <translation id="5388588172257446328">Användarnamn:</translation>
@@ -505,7 +503,6 @@
 <translation id="1751752860232137596">Aktivera implementeringen av den experimentella jämna rullningen.</translation>
 <translation id="6438234780621650381">Återställ inställningarna</translation>
 <translation id="7389722738210761877">Tangentbord för thailändska (TIS 820-2531)</translation>
-<translation id="9142627797714859698">Genom att klicka på Fortsätt godkänner du användningen av Google Wallet. Information om din dator (inklusive datorns plats) delas med Google Wallet för att skydda dig mot bedrägeri.</translation>
 <translation id="4130750466177569591">Jag godkänner</translation>
 <translation id="6993929801679678186">Visa förslag från Autofyll</translation>
 <translation id="4425149324548788773">Min enhet</translation>
@@ -698,7 +695,6 @@ Läs din e-post på <ph name="ACCOUNT_EMAIL"/>. Där finns dessa och andra anvis
 <translation id="7088434364990739311">Det gick inte att starta uppdateringskontrollen (felkod <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">Startsidor</translation>
 <translation id="5233019165164992427">Felsökningsport för Native Client</translation>
-<translation id="2038896902310685531">Hoppsan, <ph name="WALLET_ERROR"/>. Du kan slutföra transaktionen utan Google Wallet.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
 <translation id="3170072451822350649">Du kan även hoppa över inloggningen och <ph name="LINK_START"/>surfa som gäst<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">Servern är inte tillgänglig.</translation>
@@ -905,6 +901,7 @@ Alla användare måste logga ut för att fortsätta.</translation>
 <translation id="3872166400289564527">Extern lagring</translation>
 <translation id="1442912890475371290">Blockerade ett försök <ph name="BEGIN_LINK"/>att besöka en sida på <ph name="DOMAIN"/><ph name="END_LINK"/>.</translation>
 <translation id="5912378097832178659">&amp;Redigera sökmotorer...</translation>
+<translation id="8013526960933383914">Aktivera enhetligt skrivbord</translation>
 <translation id="6732586201820838268">Det gick inte att upprätta någon anslutning till mobilen. Använd en kompatibel Android-mobil som är på och finns på armlängds avstånd. &lt;a&gt;Läs mer&lt;/a&gt;</translation>
 <translation id="3749289110408117711">Filnamn</translation>
 <translation id="3893630138897523026">ChromeVox (talad feedback)</translation>
@@ -1016,7 +1013,6 @@ Alla användare måste logga ut för att fortsätta.</translation>
 <translation id="7977551819349545646">Uppdaterar Chromebox ...</translation>
 <translation id="9001035236599590379">MIME-typ</translation>
 <translation id="1624026626836496796">Det här händer bara en gång och dina uppgifter sparas inte.</translation>
-<translation id="7238207184783103780">Google Wallet är inte tillgängligt för tillfället.</translation>
 <translation id="9153341767479566106">Andra tillägg som inte kunde läsas in:</translation>
 <translation id="1864111464094315414">Inloggning</translation>
 <translation id="3451859089869683931">Ogiltigt telefonnummer. Kontrollera uppgiften och försök igen.</translation>
@@ -1185,7 +1181,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="4592444333660235848">Du besöker en webbplats som du kanske egentligen inte vill se.</translation>
 <translation id="37613671848467444">Öppna i &amp;inkognitofönster</translation>
 <translation id="159359590073980872">Cacheminne för bilder</translation>
-<translation id="7142571697412577603">Visa adresser och kreditkort från Google Wallet</translation>
 <translation id="4668711410219362250">https://support.google.com/chrome/bin/answer.py?hl=<ph name="GRITLANGCODE_1"/>&amp;answer=165139&amp;p=settings_sign_in</translation>
 <translation id="3586931643579894722">Dölj detaljerad information</translation>
 <translation id="7170467426996704624">Translitterering (salam → ሰላም)</translation>
@@ -1225,7 +1220,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="4801512016965057443">Tillåt mobil dataroaming</translation>
 <translation id="2971213274238188218">mörkare</translation>
 <translation id="473546211690256853">Detta konto hanteras av <ph name="DOMAIN"/></translation>
-<translation id="7952477692462853927">Ett fel har uppstått i Google Wallet.</translation>
 <translation id="288024221176729610">tjeckiska</translation>
 <translation id="2515586267016047495">Alt</translation>
 <translation id="4839122884004914586">Åsidosätt lista för programrendering</translation>
@@ -1313,7 +1307,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="1357589289913453911">Tilläggs-ID</translation>
 <translation id="8688579245973331962">Hittar du inte ditt namn?</translation>
 <translation id="3226128629678568754">Om du på nytt vill skicka datan som behövs för att läsa in sidan trycker du på knappen Läs in igen.</translation>
-<translation id="1384035515048721170"><ph name="LEGAL_DOC_AGREEMENT"/> Information om din dator (inklusive datorns plats) delas med Google Wallet för att skydda dig mot bedrägeri.</translation>
 <translation id="702455272205692181"><ph name="EXTENSION_NAME"/></translation>
 <translation id="3589283827341767588">Aktivera länken för fjärrhantering av lösenord</translation>
 <translation id="529034129044944303">Ta bort cookies och andra webbplats- och plugindata när du stänger webbläsaren</translation>
@@ -1386,6 +1379,7 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="5990559369517809815">Förfrågningar till servern har blockerats av ett tillägg.</translation>
 <translation id="7208342137985015640">Lagrar data</translation>
 <translation id="3828440302402348524">Inloggad som <ph name="USER_NAME"/> ...</translation>
+<translation id="3938113500786732264">Byt mellan personer snabbare</translation>
 <translation id="5222676887888702881">Logga ut</translation>
 <translation id="3522159121915794564">Tillåter att användarna tillåter att ogiltiga TLS/SSL-certifikatkedjor samlas in.</translation>
 <translation id="6978121630131642226">Sökmotorer</translation>
@@ -1494,7 +1488,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="3128230619496333808">Flik 6</translation>
 <translation id="6655190889273724601">Programmerarläge</translation>
 <translation id="1071917609930274619">Datachiffrering</translation>
-<translation id="5055073909323877129">Importera Wallet-kort</translation>
 <translation id="3473105180351527598">Aktivera skydd mot lösenordsfiske och skadlig programvara</translation>
 <translation id="6151323131516309312">Tryck på <ph name="SEARCH_KEY"/> för att söka i <ph name="SITE_NAME"/></translation>
 <translation id="5015762597229892204">Välj en drivrutinsapp för en skrivare</translation>
@@ -1669,7 +1662,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="4421932782753506458">Misse</translation>
 <translation id="962520199903263026">Fälttest för att skicka feedback till en stavningstjänst.</translation>
 <translation id="6051086608691487286">Rullningslister för överlagring</translation>
-<translation id="6132509723755265994">Google Wallet stöds inte för den här säljaren.</translation>
 <translation id="4886021172213954916">Tangentbord för tamil (skrivmaskin)</translation>
 <translation id="4698435846585701394">Inaktivera krypterade medietillägg på video- och ljudobjekt.</translation>
 <translation id="2378075407703503998"><ph name="SELCTED_FILE_COUNT"/> filer har valts</translation>
@@ -1682,7 +1674,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
     <ph name="MARKUP_4"/>ta bort filer från mappen Nedladdningar<ph name="MARKUP_5"/></translation>
 <translation id="4737715515457435632">Anslut till ett nätverk</translation>
 <translation id="6913830198853875055">Om alternativet är aktiverat hämtas förhandsgranskningar av sökresultat. Sedan byts de ut när originalsidan laddas ned och renderas.</translation>
-<translation id="5332360333956573658">Det gick inte att spara uppgifterna i Wallet.</translation>
 <translation id="3759371141211657149">Hantera inställningar för hanterare</translation>
 <translation id="8856844195561710094">Det gick inte att avbryta identifiering av Bluetooth-enheter.</translation>
 <translation id="2246340272688122454">Laddar ned återställningsavbildning...</translation>
@@ -1748,7 +1739,6 @@ Psst! Nästa gång kanske inkognitoläget <ph name="SHORTCUT_KEY"/> kan vara nå
 <translation id="23030561267973084"><ph name="EXTENSION_NAME"/> har begärt ytterligare behörigheter.</translation>
 <translation id="6957887021205513506">Serverns certifikat verkar vara falskt.</translation>
 <translation id="8957709627709183338">Skapandet av övervakade användare begränsas av ägaren till den här enheten.</translation>
-<translation id="5810680593770884357">Aktivera kryssrutan för att spara kort i Wallet</translation>
 <translation id="3511399794969432965">Anslutningsproblem?</translation>
 <translation id="8551494947769799688">lettiska</translation>
 <translation id="2440300961915670171"><ph name="REASON"/>
@@ -1860,7 +1850,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="6736329909263487977"><ph name="ISSUED_BY"/> [<ph name="ISSUED_TO"/>]</translation>
 <translation id="1196789802623400962">Aktivera/inaktivera alternativet att redigera rörelser på inställningssidan för det virtuella tangentbordet.</translation>
 <translation id="8899388739470541164">vietnamesiska</translation>
-<translation id="1828473288054410476">Importera kort från mitt Wallet-konto.</translation>
 <translation id="6423064450797205562">Statistik för den hastighet med vilken <ph name="SHORT_PRODUCT_NAME"/> utför begärda åtgärder</translation>
 <translation id="4091434297613116013">pappersark</translation>
 <translation id="9039890312082871605">Stäng av ljud från flikar</translation>
@@ -1908,7 +1897,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="2529133382850673012">USA-tangentbord</translation>
 <translation id="4352850459590683051">Återkalla åtkomst till enheten och filer</translation>
 <translation id="4411578466613447185">Kodsigneringscertifikat</translation>
-<translation id="3029595853063638932">Genererar ett virtuellt kort för Google Wallet ...</translation>
 <translation id="1354868058853714482">Adobe Reader är inte uppdaterat och kan vara osäkert.</translation>
 <translation id="6200903742087665630">Aktivera iframe utanför processen</translation>
 <translation id="6095666334801788310">Ange ditt lösenord på nytt</translation>
@@ -2771,7 +2759,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="8282947398454257691">Veta din unika enhetsidentifierare</translation>
 <translation id="2553340429761841190"><ph name="PRODUCT_NAME"/> kunde inte ansluta till <ph name="NETWORK_ID"/>. Välj ett annat nätverk eller försök igen.</translation>
 <translation id="2086712242472027775">Kontot fungerar inte på <ph name="PRODUCT_NAME"/>. Kontakta domänadministratören eller logga in med ett vanligt Google-konto.</translation>
-<translation id="1970103697564110434">Google Wallet skyddar ditt kort</translation>
 <translation id="7222232353993864120">E-postadress</translation>
 <translation id="2128531968068887769">Native Client</translation>
 <translation id="7175353351958621980">Överförd från:</translation>
@@ -2824,6 +2811,7 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="222949136907494149"><ph name="URL"/> vill använda enhetens platsinfo.</translation>
 <translation id="7654941827281939388">Kontot används redan på den här datorn.</translation>
 <translation id="204914487372604757">Skapa genväg</translation>
+<translation id="5957613098218939406">Fler alternativ</translation>
 <translation id="696036063053180184">3 Set (No shift)</translation>
 <translation id="452785312504541111">Engelska - helbredd</translation>
 <translation id="7589461650300748890">Ta det försiktigt.</translation>
@@ -3428,7 +3416,7 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="3972425373133383637">Var ansluten till allt du behöver veta på alla enheter.</translation>
 <translation id="8493236660459102203">Mikrofon:</translation>
 <translation id="4788968718241181184">Vietnamesisk inmatningsmetod (TCVN6064)</translation>
-<translation id="3254409185687681395">Lägg till bokmärke för den här sidan</translation>
+<translation id="3254409185687681395">Bokmärk sidan</translation>
 <translation id="5694501201003948907">$1 objekt komprimeras ...</translation>
 <translation id="3815571115159309122"><ph name="FILE_COUNT"/> nya foton hittades
     <ph name="LINE_BREAK1"/>
@@ -3610,7 +3598,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="2148716181193084225">Idag</translation>
 <translation id="7816975051619137001">Rätta stavning automatiskt</translation>
 <translation id="4608500690299898628">&amp;Sök...</translation>
-<translation id="7068997575282883954">Spara och skydda dina uppgifter med Google Wallet.</translation>
 <translation id="7582582252461552277">Föredra det här nätverket</translation>
 <translation id="3574305903863751447"><ph name="CITY"/>, <ph name="STATE"/> <ph name="COUNTRY"/></translation>
 <translation id="8724859055372736596">Visa i &amp;mapp</translation>
@@ -3664,6 +3651,7 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="3543393733900874979">Uppdatering misslyckades (fel: <ph name="ERROR_NUMBER"/>)</translation>
 <translation id="991969738502325513">Vad bör du göra?</translation>
 <translation id="1017280919048282932">&amp;Lägg till i ordlistan</translation>
+<translation id="5117348049661313125">Har en strömbrytare för värdläget.</translation>
 <translation id="3534879087479077042">Vad är en övervakad användare?</translation>
 <translation id="5115563688576182185">(64 bitar)</translation>
 <translation id="1594233345027811150">{NUM_DOWNLOAD,plural, =1{Nedladdning pågår}other{Nedladdningar pågår}}</translation>
@@ -3926,7 +3914,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="2336381494582898602">Powerwash</translation>
 <translation id="5855119960719984315">växla fönster</translation>
 <translation id="3523642406908660543">Fråga om en webbplats försöker använda en plugin för att få åtkomst till datorn (rekommenderas)</translation>
-<translation id="8211868401977897190">Den här transaktionen kan inte hanteras av Wallet.</translation>
 <translation id="8240697550402899963">Använd klassiskt tema</translation>
 <translation id="2882943222317434580"><ph name="IDS_SHORT_PRODUCT_NAME"/> startar om och återställs tillfälligt</translation>
 <translation id="2890624088306605051">Hämta bara synkroniserade inställningar och uppgifter</translation>
@@ -3957,7 +3944,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="2059334576206320859">Aktivera synkronisering av Wi-Fi-användaruppgifter.</translation>
 <translation id="7361039089383199231">$1 byte</translation>
 <translation id="191688485499383649">Ett okänt fel uppstod vid försök att ansluta till <ph name="DEVICE_NAME"/>.</translation>
-<translation id="7208594729785140450">Google Wallet har inte stöd för den här versionen av Chrome eller känner inte igen Googles API-nyckel.</translation>
 <translation id="6874681241562738119">Inloggningsfel</translation>
 <translation id="5135533361271311778">Det gick inte att skapa bokmärkesobjektet.</translation>
 <translation id="2828650939514476812">Anslut till ett Wi-Fi-nätverk</translation>
@@ -4169,7 +4155,6 @@ När du har skapat en kontrollerad användare kan du hantera inställningarna n�
 <translation id="1427049173708736891">Låt <ph name="DEVICE_TYPE"/> vara olåst när din Android-mobil är olåst och i närheten. Du behöver inte ange något lösenord.</translation>
 <translation id="5934281776477898549">Det finns ingen uppdatering</translation>
 <translation id="8432745813735585631">Colemak-tangentbord för USA</translation>
-<translation id="43594494162958796">Visa kryssrutan för att erbjuda lokal lagring av ett kreditkort i Wallet som laddats ned från servern.</translation>
 <translation id="537813040452600081">Sidor du visar i det här fönstret syns inte i webbläsarhistoriken och de lämnar inga andra spår efter sig (till exempel cookies) på datorn när du har loggat ut till. Filer som du laddar ned och bokmärken du skapar sparas inte.</translation>
 <translation id="2608770217409477136">Använd standardinställningar</translation>
 <translation id="3157931365184549694">Återställ</translation>
@@ -4456,7 +4441,6 @@ hanteraren
 <translation id="6860097299815761905">Proxyinställningar...</translation>
 <translation id="241082044617551207">Okänt pluginprogram</translation>
 <translation id="3672159315667503033"><ph name="URL"/> vill lagra data permanent på din lokala dator.</translation>
-<translation id="6190185222845843088">Använd Wallets sandlådeservrar</translation>
 <translation id="3574772456110518971">Inaktivera experimentellt stöd för Chromecast så att du kan spela upp och styra videor från webben eller Chromecast-enheter.</translation>
 <translation id="3911073280391218446"><ph name="USER_DISPLAY_NAME"/> (namn som används på enheten)</translation>
 <translation id="3177048931975664371">Klicka om du vill dölja lösenordet</translation>
@@ -4464,7 +4448,6 @@ hanteraren
 <translation id="3092544800441494315">Ta med skärmdump:</translation>
 <translation id="479989351350248267">sök</translation>
 <translation id="2633199387167390344"><ph name="NAME"/> använder <ph name="USAGE"/> MB diskutrymme.</translation>
-<translation id="472177018469288237">Google Wallet har inaktiverats</translation>
 <translation id="7730449930968088409">Ta en bild av innehållet på skärmen</translation>
 <translation id="5330145655348521461">Filerna öppnades på ett annat skrivbord. Byt till <ph name="USER_NAME"/> (<ph name="MAIL_ADDRESS"/>) om du vill visa dem.</translation>
 <translation id="7714464543167945231">Certifikat</translation>
@@ -4489,7 +4472,6 @@ hanteraren
 <translation id="1029595648591494741">Vill du testa <ph name="EXTENSION_NAME"/>?</translation>
 <translation id="5423849171846380976">Aktiverat</translation>
 <translation id="8261673729476082470">Säkerhetskopierar <ph name="FILE_COUNT"/> foton till <ph name="BEGIN_LINK"/>Google Drive<ph name="END_LINK"/></translation>
-<translation id="4080955692611561961">Inaktivera Google Wallet</translation>
 <translation id="7077872827894353012">Ignorerade protokollhanterare</translation>
 <translation id="7655364957661536693">Dina tillägg finns nu här.</translation>
 <translation id="3158564748719736353">Om alternativet är aktiverat visas ett meddelande när enheten är ansluten till ett nätverk som finns bakom en infångstportal.</translation>
@@ -4677,7 +4659,6 @@ hanteraren
 <translation id="357479282490346887">litauiska</translation>
 <translation id="9203478404496196495">Slå på ljudet i flik</translation>
 <translation id="2143778271340628265">Manuell proxykonfiguration</translation>
-<translation id="440150639010863291">Använd Google Wallet</translation>
 <translation id="8888432776533519951">Färg:</translation>
 <translation id="5247176778442128277">Inaktivera Smart Lock</translation>
 <translation id="5294529402252479912">Uppdatera Adobe Reader nu</translation>
@@ -4869,7 +4850,6 @@ hanteraren
 <translation id="3718288130002896473">Beteende</translation>
 <translation id="4813512666221746211">Nätverksfel</translation>
 <translation id="8711402221661888347">Burgare</translation>
-<translation id="1967178421351654130">Kortet har skyddats med det virtuella kortet för Google Wallet (<ph name="FRONTING_CREDIT_CARD"/>) och det här numret kommer att visas på ditt kvitto. Köpet kommer fortfarande att debiteras <ph name="BACKING_CREDIT_CARD"/>.</translation>
 <translation id="1254117744268754948">Välj mapp</translation>
 <translation id="2168725742002792683">Filtillägg</translation>
 <translation id="7936369818837152377">Den tid det tar att återställa en tidigare webbläsarsession</translation>
@@ -5009,7 +4989,6 @@ hanteraren
 <translation id="713888829801648570">Ditt lösenord kunde tyvärr inte verifieras eftersom du är offline.</translation>
 <translation id="7464861219980961605">Ta bort sparade lösenord</translation>
 <translation id="7507930499305566459">Status för svarscertifikat</translation>
-<translation id="5831217499016131155">Google Wallet</translation>
 <translation id="3958088479270651626">Importera bokmärken och inställningar</translation>
 <translation id="8518865679229538285">Inmatningsmetod för tamil (Typewriter)</translation>
 <translation id="1545177026077493356">Automatiskt kioskläge</translation>
@@ -5188,7 +5167,6 @@ hanteraren
 <translation id="1698647588772720278">Inaktivera krypterade medietillägg med prefix.</translation>
 <translation id="2286454467119466181">Enkel</translation>
 <translation id="6666647326143344290">med ditt Google-konto</translation>
-<translation id="4564097437843356814">Det är något fel med ditt Google Wallet-konto.</translation>
 <translation id="4547992677060857254">Mappen som du valde innehåller känsliga filer. Vill du bevilja $1 permanent skrivåtkomst till den här mappen?</translation>
 <translation id="4980112683975062744">Dubbla rubriker togs emot från servern</translation>
 <translation id="3828029223314399057">Sök efter bokmärken</translation>
@@ -5221,7 +5199,6 @@ hanteraren
 <translation id="3819415294190923087">Välj ett nätverk</translation>
 <translation id="7325437708553334317">Högkontrasttillägg</translation>
 <translation id="9203394577866137354">Valideringsstatus</translation>
-<translation id="4076313158939304412">Skydda din betalning med Google Wallet.</translation>
 <translation id="2080070583977670716">Fler inställningar</translation>
 <translation id="6708242697268981054">Ursprung:</translation>
 <translation id="1909880997794698664">Är du säker på att du vill använda kioskläge på enheten permanent?</translation>
@@ -5302,7 +5279,6 @@ hanteraren
 <translation id="33022249435934718">GDI-handtag</translation>
 <translation id="1055806300943943258">Söker efter Bluetooth- och USB-enheter …</translation>
 <translation id="6308937455967653460">Spara l&amp;änk som...</translation>
-<translation id="741689768643916402">Tyvärr kan Google Wallet endast användas hos den här säljaren av köpare med en amerikansk adress. Om du är bosatt i USA |ändrar du din hemadress för Wallet| eller betalar utan att använda Google Wallet.</translation>
 <translation id="5828633471261496623">Skriver ut...</translation>
 <translation id="3519867315646775981">Translitterera (shalom ← שלום)</translation>
 <translation id="5421136146218899937">Ta bort webbinformation...</translation>
@@ -5459,7 +5435,6 @@ hanteraren
 <translation id="7549053541268690807">Sök ordbok</translation>
 <translation id="8911079125461595075">Google har flaggat <ph name="EXTENSION_NAME"/> som skadligt och installationen har förhindrats.</translation>
 <translation id="5870086504539785141">Stäng tillgänglighetsmenyn</translation>
-<translation id="9102800320402283920">Ett för- och efternamn krävs för Google Wallet.</translation>
 <translation id="7005848115657603926">Ogiltigt sidintervall, använd <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337">Användarvillkor för <ph name="DOMAIN"/></translation>
@@ -5697,7 +5672,6 @@ Tryck på någon tangent om du vill fortsätta utforska.</translation>
 <translation id="2989474696604907455">inte ansluten</translation>
 <translation id="6612358246767739896">Skyddat innehåll</translation>
 <translation id="1593594475886691512">Formaterar ...</translation>
-<translation id="8860520442470629999">Ett virtuellt kort för Google Wallet används för den här transaktionen. Ett virtuellt kort är ett nytt kortnummer så att säljaren aldrig ser ditt riktiga kortnummer.</translation>
 <translation id="6586451623538375658">Byt primär musknapp</translation>
 <translation id="6937152069980083337">Googles japanska inmatning (för amerikanskt tangentbord)</translation>
 <translation id="475088594373173692">Första användare</translation>
@@ -5800,6 +5774,7 @@ Tryck på någon tangent om du vill fortsätta utforska.</translation>
 <translation id="962416441122492777">Slutför inloggningen</translation>
 <translation id="2049137146490122801">Administratören har avaktiverat tillgång till lokala filer på datorn.</translation>
 <translation id="225240747099314620">Tillåt identifierare för skyddat innehåll (datorn kan behöva startas om)</translation>
+<translation id="8611705542165748884">Aktivera värdläget</translation>
 <translation id="1146498888431277930">SSL-anslutningsfel</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT"/>)</translation>
 <translation id="6394627529324717982">Komma</translation>
