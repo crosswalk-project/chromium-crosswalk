@@ -162,6 +162,18 @@ class PushMessagingBrowserTest : public InProcessBrowserTest {
   gcm::FakeGCMProfileService* gcm_service() const { return gcm_service_; }
 
 #if defined(ENABLE_NOTIFICATIONS)
+  // To be called when delivery of a push message has finished. The |run_loop|
+  // will be told to quit after |messages_required| messages were received.
+  void OnDeliveryFinished(std::vector<size_t>* number_of_notifications_shown,
+                          const base::Closure& done_closure) {
+    DCHECK(number_of_notifications_shown);
+
+    number_of_notifications_shown->push_back(
+        notification_manager_->GetNotificationCount());
+
+    done_closure.Run();
+  }
+
   StubNotificationUIManager* notification_manager() const {
     return notification_manager_.get();
   }
@@ -189,7 +201,10 @@ class PushMessagingBrowserTest : public InProcessBrowserTest {
   scoped_ptr<net::SpawnedTestServer> https_server_;
   gcm::FakeGCMProfileService* gcm_service_;
   PushMessagingServiceImpl* push_service_;
+
+#if defined(ENABLE_NOTIFICATIONS)
   scoped_ptr<StubNotificationUIManager> notification_manager_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(PushMessagingBrowserTest);
 };
@@ -608,6 +623,58 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
   ASSERT_TRUE(RunScript("resultQueue.pop()", &script_result, web_contents));
   EXPECT_EQ("testdata", script_result);
   EXPECT_EQ(0u, notification_manager()->GetNotificationCount());
+}
+
+IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
+                       PushEventEnforcesUserVisibleNotificationAfterQueue) {
+  std::string script_result;
+
+  TryToSubscribeSuccessfully("1-0" /* expected_push_subscription_id */);
+
+  PushMessagingAppIdentifier app_identifier =
+      GetAppIdentifierForServiceWorkerRegistration(0LL);
+  EXPECT_EQ(app_identifier.app_id(), gcm_service()->last_registered_app_id());
+  EXPECT_EQ("1234567890", gcm_service()->last_registered_sender_ids()[0]);
+
+  ASSERT_TRUE(RunScript("isControlled()", &script_result));
+  ASSERT_EQ("false - is not controlled", script_result);
+
+  LoadTestPage();  // Reload to become controlled.
+
+  ASSERT_TRUE(RunScript("isControlled()", &script_result));
+  ASSERT_EQ("true - is controlled", script_result);
+
+  // Fire off two push messages in sequence, only the second one of which will
+  // display a notification. The additional round-trip and I/O required by the
+  // second message, which shows a notification, should give us a reasonable
+  // confidence that the ordering will be maintained.
+
+  std::vector<size_t> number_of_notifications_shown;
+
+  gcm::GCMClient::IncomingMessage message;
+  message.sender_id = "1234567890";
+
+  {
+    base::RunLoop run_loop;
+    push_service()->SetMessageCallbackForTesting(
+        base::Bind(&PushMessagingBrowserTest::OnDeliveryFinished,
+                   base::Unretained(this),
+                   &number_of_notifications_shown,
+                   base::BarrierClosure(2 /* num_closures */,
+                                        run_loop.QuitClosure())));
+
+    message.data["data"] = "testdata";
+    push_service()->OnMessage(app_identifier.app_id(), message);
+
+    message.data["data"] = "shownotification";
+    push_service()->OnMessage(app_identifier.app_id(), message);
+
+    run_loop.Run();
+  }
+
+  ASSERT_EQ(2u, number_of_notifications_shown.size());
+  EXPECT_EQ(0u, number_of_notifications_shown[0]);
+  EXPECT_EQ(1u, number_of_notifications_shown[1]);
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
