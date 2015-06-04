@@ -24,7 +24,6 @@
 #include "remoting/host/clipboard.h"
 #include "remoting/host/linux/unicode_to_keysym.h"
 #include "remoting/proto/internal.pb.h"
-#include "remoting/protocol/usb_key_codes.h"
 #include "third_party/webrtc/modules/desktop_capture/desktop_geometry.h"
 #include "ui/events/keycodes/dom/keycode_converter.h"
 
@@ -89,14 +88,14 @@ bool FindKeycodeForUnicode(Display* display,
 }
 
 bool IsModifierKey(int usb_keycode) {
-  return usb_keycode == kUsbLeftControl ||
-         usb_keycode == kUsbLeftShift ||
-         usb_keycode == kUsbLeftAlt ||
-         usb_keycode == kUsbLeftOs ||
-         usb_keycode == kUsbRightControl ||
-         usb_keycode == kUsbRightShift ||
-         usb_keycode == kUsbRightAlt ||
-         usb_keycode == kUsbRightOs;
+  return usb_keycode == 0x0700e0 ||  // Left Ctrl
+         usb_keycode == 0x0700e1 ||  // Left Shift
+         usb_keycode == 0x0700e2 ||  // Left Alt
+         usb_keycode == 0x0700e3 ||  // Left OS
+         usb_keycode == 0x0700e4 ||  // Right Ctrl
+         usb_keycode == 0x0700e5 ||  // Right Shift
+         usb_keycode == 0x0700e6 ||  // Right Alt
+         usb_keycode == 0x0700e7;    // Right OS
 }
 
 // Pixel-to-wheel-ticks conversion ratio used by GTK.
