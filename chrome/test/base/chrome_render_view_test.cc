@@ -70,7 +70,8 @@ void ChromeRenderViewTest::SetUp() {
   password_autofill_agent_ =
       new autofill::TestPasswordAutofillAgent(view_->GetMainRenderFrame());
   password_generation_ =
-      new autofill::TestPasswordGenerationAgent(view_->GetMainRenderFrame());
+      new autofill::TestPasswordGenerationAgent(view_->GetMainRenderFrame(),
+                                                password_autofill_agent_);
   autofill_agent_ =
       new AutofillAgent(view_->GetMainRenderFrame(), password_autofill_agent_,
                         password_generation_);
