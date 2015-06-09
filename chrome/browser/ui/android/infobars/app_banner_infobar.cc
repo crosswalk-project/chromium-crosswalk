@@ -49,7 +49,6 @@ AppBannerInfoBar::CreateRenderInfoBar(JNIEnv* env) {
   if (!japp_data_.is_null()) {
     infobar.Reset(Java_AppBannerInfoBar_createNativeAppInfoBar(
         env,
-        reinterpret_cast<intptr_t>(this),
         app_title.obj(),
         java_bitmap.obj(),
         japp_data_.obj()));
@@ -65,7 +64,6 @@ AppBannerInfoBar::CreateRenderInfoBar(JNIEnv* env) {
 
     infobar.Reset(Java_AppBannerInfoBar_createWebAppInfoBar(
         env,
-        reinterpret_cast<intptr_t>(this),
         app_title.obj(),
         java_bitmap.obj(),
         app_url.obj()));
