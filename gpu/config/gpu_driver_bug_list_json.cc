@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.05",
+  "version": "8.12",
   "entries": [
     {
       "id": 1,
@@ -1338,6 +1338,19 @@ LONG_STRING_CONST(
       "gl_renderer": ".*4\\d\\d",
       "features": [
         "disable_blend_equation_advanced"
+      ]
+    },
+    {
+      "id": 119,
+      "description": "Context lost recovery often fails on Mali-400/450 on Android.",
+      "cr_bugs": [496438],
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "ARM.*",
+      "gl_renderer": ".*Mali-4.*",
+      "features": [
+        "exit_on_context_lost"
       ]
     }
   ]
