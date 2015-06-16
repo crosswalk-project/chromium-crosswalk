@@ -220,7 +220,7 @@ class CONTENT_EXPORT ServiceWorkerProviderHost
   // for current document.
   ServiceWorkerRegistration* MatchRegistration() const;
 
-  void NotifyControllerActivationFailed();
+  void NotifyControllerLost();
 
  private:
   friend class ServiceWorkerProviderHostTest;

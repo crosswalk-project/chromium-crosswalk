@@ -323,7 +323,7 @@ void ServiceWorkerRegistration::DeleteVersion(
        !it->IsAtEnd(); it->Advance()) {
     ServiceWorkerProviderHost* host = it->GetProviderHost();
     if (host->controlling_version() == version)
-      host->NotifyControllerActivationFailed();
+      host->NotifyControllerLost();
   }
 
   version->Doom();
