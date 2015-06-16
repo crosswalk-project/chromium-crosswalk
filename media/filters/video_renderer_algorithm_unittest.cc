@@ -385,6 +385,40 @@ TEST_F(VideoRendererAlgorithmTest, AccountForMissingIntervals) {
   ASSERT_TRUE(frame);
   EXPECT_EQ(tg.interval(3), frame->timestamp());
   EXPECT_EQ(0u, frames_dropped);
+  EXPECT_EQ(1, GetCurrentFrameDisplayCount());
+
+  // Stop the time source and verify AccountForMissedIntervals() doesn't try to
+  // account for intervals from pause behavior.
+  time_source_.StopTicking();
+  frame = RenderAndStep(&tg, &frames_dropped);
+  ASSERT_TRUE(frame);
+  EXPECT_EQ(tg.interval(3), frame->timestamp());
+  EXPECT_EQ(0u, frames_dropped);
+  EXPECT_EQ(1, GetCurrentFrameDisplayCount());
+
+  tg.step(100);
+  frame = RenderAndStep(&tg, &frames_dropped);
+  ASSERT_TRUE(frame);
+  EXPECT_EQ(tg.interval(3), frame->timestamp());
+  EXPECT_EQ(0u, frames_dropped);
+  EXPECT_EQ(1, GetCurrentFrameDisplayCount());
+
+  time_source_.StartTicking();
+
+  // Now run the same test using set_time_stopped();
+  frame = RenderAndStep(&tg, &frames_dropped);
+  ASSERT_TRUE(frame);
+  EXPECT_EQ(tg.interval(3), frame->timestamp());
+  EXPECT_EQ(0u, frames_dropped);
+  EXPECT_EQ(2, GetCurrentFrameDisplayCount());
+
+  algorithm_.set_time_stopped();
+  tg.step(100);
+  frame = RenderAndStep(&tg, &frames_dropped);
+  ASSERT_TRUE(frame);
+  EXPECT_EQ(tg.interval(3), frame->timestamp());
+  EXPECT_EQ(0u, frames_dropped);
+  EXPECT_EQ(3, GetCurrentFrameDisplayCount());
 }
 
 TEST_F(VideoRendererAlgorithmTest, OnLastFrameDropped) {
@@ -1004,6 +1038,9 @@ TEST_F(VideoRendererAlgorithmTest, CadenceCalculations) {
 TEST_F(VideoRendererAlgorithmTest, RemoveExpiredFrames) {
   TickGenerator tg(tick_clock_->NowTicks(), 50);
 
+  // Removing expired frames before anything is enqueued should do nothing.
+  ASSERT_EQ(0u, algorithm_.RemoveExpiredFrames(tg.current()));
+
   algorithm_.EnqueueFrame(CreateFrame(tg.interval(0)));
   ASSERT_EQ(0u, algorithm_.RemoveExpiredFrames(tg.current()));
   EXPECT_EQ(1u, algorithm_.EffectiveFramesQueued());
@@ -1201,6 +1238,7 @@ TEST_F(VideoRendererAlgorithmTest, EnqueueFrames) {
       RenderAndStep(&tg, &frames_dropped);
   EXPECT_EQ(1u, frames_queued());
   EXPECT_EQ(frame_1, rendered_frame);
+  EXPECT_EQ(1, GetCurrentFrameDisplayCount());
 
   // The replaced frame should count as dropped.
   EXPECT_EQ(1u, frames_dropped);
@@ -1213,6 +1251,7 @@ TEST_F(VideoRendererAlgorithmTest, EnqueueFrames) {
   EXPECT_EQ(1u, frames_queued());
   EXPECT_EQ(frame_1, rendered_frame);
   EXPECT_EQ(1u, frames_dropped);
+  EXPECT_EQ(2, GetCurrentFrameDisplayCount());
 
   // Trying to add a frame < 1 ms after the last frame should drop the frame.
   algorithm_.EnqueueFrame(CreateFrame(base::TimeDelta::FromMicroseconds(999)));
@@ -1220,6 +1259,7 @@ TEST_F(VideoRendererAlgorithmTest, EnqueueFrames) {
   EXPECT_EQ(1u, frames_queued());
   EXPECT_EQ(frame_1, rendered_frame);
   EXPECT_EQ(1u, frames_dropped);
+  EXPECT_EQ(3, GetCurrentFrameDisplayCount());
 
   scoped_refptr<VideoFrame> frame_3 = CreateFrame(tg.interval(1));
   algorithm_.EnqueueFrame(frame_3);
@@ -1232,6 +1272,7 @@ TEST_F(VideoRendererAlgorithmTest, EnqueueFrames) {
   EXPECT_EQ(1u, frames_queued());
   EXPECT_EQ(frame_3, rendered_frame);
   EXPECT_EQ(1u, frames_dropped);
+  EXPECT_EQ(1, GetCurrentFrameDisplayCount());
 }
 
 TEST_F(VideoRendererAlgorithmTest, CadenceForFutureFrames) {
