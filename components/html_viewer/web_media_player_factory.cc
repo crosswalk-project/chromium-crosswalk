@@ -63,12 +63,7 @@ WebMediaPlayerFactory::WebMediaPlayerFactory(
           audio_manager_->GetInputStreamParameters(
               media::AudioManagerBase::kDefaultDeviceId),
           audio_manager_->GetDefaultOutputStreamParameters()) {
-
-  if (!media::IsMediaLibraryInitialized()) {
-    base::FilePath module_dir;
-    CHECK(PathService::Get(base::DIR_EXE, &module_dir));
-    CHECK(media::InitializeMediaLibrary(module_dir));
-  }
+  media::InitializeMediaLibrary()
 }
 
 WebMediaPlayerFactory::~WebMediaPlayerFactory() {

@@ -559,7 +559,7 @@ void BrowserMainLoop::MainMessageLoopStart() {
 #if !defined(OS_IOS)
   {
     TRACE_EVENT0("startup", "BrowserMainLoop::Subsystem:MediaFeatures");
-    media::InitializeCPUSpecificMediaFeatures();
+    media::InitializeMediaLibrary();
   }
   {
     TRACE_EVENT0("startup",
