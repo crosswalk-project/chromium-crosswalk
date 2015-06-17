@@ -135,6 +135,7 @@ void AudioRendererImpl::StopRendering_Locked() {
 
   base::AutoUnlock auto_unlock(lock_);
   sink_->Pause();
+  stop_rendering_time_ = last_render_time_;
 }
 
 void AudioRendererImpl::SetMediaTime(base::TimeDelta time) {
@@ -147,7 +148,7 @@ void AudioRendererImpl::SetMediaTime(base::TimeDelta time) {
 
   start_timestamp_ = time;
   ended_timestamp_ = kInfiniteDuration();
-  last_render_ticks_ = base::TimeTicks();
+  last_render_time_ = stop_rendering_time_ = base::TimeTicks();
   first_packet_timestamp_ = kNoTimestamp();
   audio_clock_.reset(new AudioClock(time, audio_parameters_.sample_rate()));
 }
@@ -168,8 +169,11 @@ base::TimeDelta AudioRendererImpl::CurrentMediaTime() {
 
 base::TimeTicks AudioRendererImpl::GetWallClockTime(base::TimeDelta time) {
   base::AutoLock auto_lock(lock_);
-  if (last_render_ticks_.is_null() || playback_rate_ == 0.0)
+  if (last_render_time_.is_null() || !stop_rendering_time_.is_null() ||
+      !playback_rate_ || buffering_state_ != BUFFERING_HAVE_ENOUGH ||
+      !sink_playing_) {
     return base::TimeTicks();
+  }
 
   base::TimeDelta base_time;
   if (time < audio_clock_->front_timestamp()) {
@@ -179,12 +183,12 @@ base::TimeTicks AudioRendererImpl::GetWallClockTime(base::TimeDelta time) {
     base_time = audio_clock_->back_timestamp();
   } else {
     // No need to estimate time, so return the actual wallclock time.
-    return last_render_ticks_ + audio_clock_->TimeUntilPlayback(time);
+    return last_render_time_ + audio_clock_->TimeUntilPlayback(time);
   }
 
   // In practice, most calls will be estimates given the relatively small window
   // in which clients can get the actual time.
-  return last_render_ticks_ + audio_clock_->TimeUntilPlayback(base_time) +
+  return last_render_time_ + audio_clock_->TimeUntilPlayback(base_time) +
          base::TimeDelta::FromMicroseconds((time - base_time).InMicroseconds() /
                                            playback_rate_);
 }
@@ -580,7 +584,12 @@ int AudioRendererImpl::Render(AudioBus* audio_bus,
   int frames_written = 0;
   {
     base::AutoLock auto_lock(lock_);
-    last_render_ticks_ = base::TimeTicks::Now();
+    last_render_time_ = base::TimeTicks::Now();
+
+    if (!stop_rendering_time_.is_null()) {
+      // TODO(dalecurtis): Use |stop_rendering_time_| to advance the AudioClock.
+      stop_rendering_time_ = base::TimeTicks();
+    }
 
     // Ensure Stop() hasn't destroyed our |algorithm_| on the pipeline thread.
     if (!algorithm_) {
