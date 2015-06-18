@@ -20,6 +20,7 @@ SyncManager::InitArgs::InitArgs()
     : extensions_activity(NULL),
       change_delegate(NULL),
       encryptor(NULL),
+      report_unrecoverable_error_function(NULL),
       cancelation_signal(NULL) {
 }
 
