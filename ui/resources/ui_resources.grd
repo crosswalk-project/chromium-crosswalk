@@ -12,6 +12,7 @@
   </outputs>
   <release seq="1">
     <structures fallback_to_low_resolution="true">
+      <if expr="not pp_ifdef('use_minimum_resources')">
       <!-- KEEP THESE IN ALPHABETICAL ORDER!  DO NOT ADD TO RANDOM PLACES JUST
            BECAUSE YOUR RESOURCES ARE FUNCTIONALLY RELATED OR FALL UNDER THE
            SAME CONDITIONALS. -->
@@ -593,6 +594,7 @@
         <structure type="chrome_scaled_image" name="IDR_WINDOW_BUBBLE_SHADOW_SPIKE_SMALL_LEFT" file="common/window_bubble_shadow_spike_small_left.png" />
         <structure type="chrome_scaled_image" name="IDR_WINDOW_BUBBLE_SHADOW_SPIKE_SMALL_RIGHT" file="common/window_bubble_shadow_spike_small_right.png" />
         <structure type="chrome_scaled_image" name="IDR_WINDOW_BUBBLE_SHADOW_SPIKE_SMALL_TOP" file="common/window_bubble_shadow_spike_small_top.png" />
+      </if>
       </if>
     </structures>
   </release>

@@ -7,14 +7,32 @@
 #include "base/logging.h"
 #include "base/strings/utf_string_conversions.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#endif
+
 namespace base {
 namespace i18n {
 
 // Compares the character data stored in two different string16 strings by
 // specified Collator instance.
-UCollationResult CompareString16WithCollator(const icu::Collator* collator,
-                                             const string16& lhs,
-                                             const string16& rhs) {
+UCollationResult CompareString16WithCollator(
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    const std::string& locale,
+#else
+    const icu::Collator* collator,
+#endif
+    const string16& lhs,
+    const string16& rhs) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  int result = base::icu_utils::CompareString16WithCollator(locale, lhs, rhs);
+  if (result == 0)
+    return UCOL_EQUAL;
+  else if (result > 0)
+    return UCOL_GREATER;
+  else
+    return UCOL_LESS;
+#else
   DCHECK(collator);
   UErrorCode error = U_ZERO_ERROR;
   UCollationResult result = collator->compare(
@@ -23,6 +41,7 @@ UCollationResult CompareString16WithCollator(const icu::Collator* collator,
       error);
   DCHECK(U_SUCCESS(error));
   return result;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 
 }  // namespace i18n

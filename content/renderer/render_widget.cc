@@ -980,7 +980,7 @@ scoped_ptr<cc::OutputSurface> RenderWidget::CreateOutputSurface(bool fallback) {
   // never get a request for a cc::OutputSurface.
   DCHECK(!never_visible_);
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance()) {
     return factory->CreateOutputSurface(routing_id(),

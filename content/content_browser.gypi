@@ -1744,6 +1744,11 @@
         'DEBUG_DEVTOOLS=1',
       ],
     }],
+    ['OS=="android" and disable_angle==1', {
+      'dependencies!': [
+        '../third_party/angle/src/angle.gyp:commit_id',
+      ],
+    }],
     ['enable_basic_printing==1 or enable_print_preview==1', {
       'dependencies': [
         '../printing/printing.gyp:printing',
@@ -1814,6 +1819,12 @@
       'sources': [
         'browser/renderer_host/media/video_capture_texture_wrapper.cc',
         'browser/renderer_host/media/video_capture_texture_wrapper.h',
+      ],
+    }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^browser/android/in_process/'],
+        ['exclude', '^public/browser/android/synchronous_compositor*'],
       ],
     }],
     ['OS=="win"', {

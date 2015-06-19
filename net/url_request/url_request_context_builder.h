@@ -78,8 +78,10 @@ class NET_EXPORT URLRequestContextBuilder {
     NextProtoVector next_protos;
     std::string trusted_spdy_proxy;
     bool use_alternate_protocols;
+#if !defined(DISABLE_QUIC_SUPPORT)
     bool enable_quic;
     QuicTagVector quic_connection_options;
+#endif
   };
 
   URLRequestContextBuilder();

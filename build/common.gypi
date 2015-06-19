@@ -553,8 +553,32 @@
       # Enable FTP support by default.
       'disable_ftp_support%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
+      # Enable media stream support by default.
+      'disable_media_stream%': 0,
+
+      # Enable Inspector by default.
+      'disable_inspector%': 0,
+
+      # Enable sync compositor by default.
+      'disable_sync_compositor%': 0,
+
+      # Enable XSLT support by deafult.
+      'disable_xslt%': 0,
+
+      # Enable Webp support by default.
+      'disable_webp%': 0,
+
+      # Enable angle by default.
+      'disable_angle%': 0,
+
       # Enable web audio hrtf by default.
       'disable_webaudio_hrtf%': 0,
+
+      # Include all resources by default.
+      'use_minimum_resources%': 0,
 
       # Use native android functions in place of ICU.  Not supported by most
       # components.
@@ -782,6 +806,13 @@
           'enable_print_preview%': 0,
           'enable_task_manager%':0,
           'video_hole%': 1,
+          'conditions': [
+            ['use_icu_alternatives_on_android==1', {
+              'disable_ftp_support%': 1,
+            }, {
+              'disable_ftp_support%': 0,
+            }],
+          ],
         }],
 
         # Android OS includes support for proprietary codecs regardless of
@@ -809,7 +840,14 @@
         }],
 
         ['OS=="android"', {
-          'enable_webrtc%': 1,
+          'conditions': [
+            ['disable_media_stream==1', {
+              # if media stream is disabled, webrtc should be disabled as well.
+              'enable_webrtc%': 0,
+            }, {
+              'enable_webrtc%': 1,
+            }],
+          ],
         }],
 
         ['OS=="ios"', {
@@ -1206,6 +1244,13 @@
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
+    'disable_quic_support%': '<(disable_quic_support)',
+    'disable_media_stream%': '<(disable_media_stream)',
+    'disable_inspector%': '<(disable_inspector)',
+    'disable_sync_compositor%': '<(disable_sync_compositor)',
+    'disable_xslt%': '<(disable_xslt)',
+    'disable_webp%': '<(disable_webp)',
+    'disable_angle%': '<(disable_angle)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -1538,6 +1583,9 @@
         # official deterministic build has high value too but MSVC toolset can't
         # generate anything deterministic with WPO enabled AFAIK.
         'dont_embed_build_metadata%': 0,
+      }],
+      ['OS=="android" and use_icu_alternatives_on_android', {
+        'v8_enable_i18n_support': 0,
       }],
       # Enable the Syzygy optimization step for the official builds.
       ['OS=="win" and buildtype=="Official" and syzyasan!=1 and clang!=1', {
@@ -2980,6 +3028,30 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
+      }],
+      ['disable_media_stream==1', {
+        'defines': ['DISABLE_MEDIA_STREAM=1'],
+      }],
+      ['disable_inspector==1', {
+        'defines': ['DISABLE_INSPECTOR=1'],
+      }],
+      ['disable_sync_compositor==1', {
+        'defines': ['DISABLE_SYNC_COMPOSITOR=1'],
+      }],
+      ['disable_xslt==1', {
+        'defines': ['DISABLE_XSLT=1'],
+      }],
+      ['disable_webp==1', {
+        'defines': ['DISABLE_WEBP=1'],
+      }],
+      ['OS=="android" and disable_angle==1', {
+        'defines': ['DISABLE_ANGLE_ON_ANDROID=1'],
+      }],
+      ['use_icu_alternatives_on_android==1', {
+        'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
       }],
       ['spdy_proxy_auth_property != ""', {
         'defines': ['SPDY_PROXY_AUTH_PROPERTY="<(spdy_proxy_auth_property)"'],

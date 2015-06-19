@@ -117,6 +117,34 @@
         'base/net_string_util_icu.cc',
         'base/net_util_icu.cc',
       ],
+      'conditions': [
+        [ 'use_icu_alternatives_on_android == 1', {
+            'dependencies!': [
+              '../base/base.gyp:base_i18n',
+              '../third_party/icu/icu.gyp:icui18n',
+              '../third_party/icu/icu.gyp:icuuc',
+            ],
+            'sources!': [
+              'base/net_string_util_icu.cc',
+              'base/net_util_icu.cc',
+            ],
+            'sources': [
+              'base/net_string_util_icu_alternatives_android.cc',
+              'base/net_string_util_icu_alternatives_android.h',
+              'base/net_util_icu_alternatives.cc',
+            ],
+          },
+        ],
+        ['disable_quic_support==1', {
+          'sources/': [
+            ['exclude', '^quic/'],
+          ],
+          'sources!': [
+            'http/disk_cache_based_quic_server_info.cc',
+            'http/disk_cache_based_quic_server_info.h',
+          ],
+        }],
+      ],
       'includes': [ 'net_common.gypi' ],
     },
     {
@@ -283,6 +311,18 @@
             ],
             'sources!': [
               'url_request/url_request_ftp_job_unittest.cc',
+            ],
+          },
+        ],
+        [ 'disable_quic_support==1', {
+            'sources/': [
+              ['exclude', '^quic/'],
+            ],
+            'sources!': [
+              'http/disk_cache_based_quic_server_info_unittest.cc',
+            ],
+            'dependencies!': [
+              'quic_tools',
             ],
           },
         ],

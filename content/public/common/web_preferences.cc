@@ -105,7 +105,11 @@ WebPreferences::WebPreferences()
       allow_scripts_to_close_windows(false),
       remote_fonts_enabled(true),
       javascript_can_access_clipboard(false),
+#if defined(DISABLE_XSLT)
+      xslt_enabled(false),
+#else
       xslt_enabled(true),
+#endif
       xss_auditor_enabled(true),
       dns_prefetching_enabled(true),
       local_storage_enabled(false),

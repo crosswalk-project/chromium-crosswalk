@@ -763,9 +763,6 @@
         'renderer/external_popup_menu.cc',
         'renderer/external_popup_menu.h',
       ],
-      'dependencies': [
-        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
-      ],
       'includes': [
         '../build/android/cpufeatures.gypi',
       ],
@@ -783,6 +780,17 @@
       'dependencies': [
         '../media/cast/cast.gyp:cast_sender',
       ]
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android!=1', {
+      'dependencies': [
+        '../third_party/libphonenumber/libphonenumber.gyp:libphonenumber',
+      ],
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icui18n',
+        '../third_party/icu/icu.gyp:icuuc',
+      ],
     }],
     # TODO(jrg): remove the OS=="android" section?
     # http://crbug.com/113172
@@ -809,6 +817,11 @@
       'sources': [
         'renderer/media/webrtc_logging.h',
         'renderer/media/webrtc_logging_noop.cc',
+      ],
+    }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^renderer/android/synchronous_compositor*'],
       ],
     }],
     ['enable_plugins==1', {

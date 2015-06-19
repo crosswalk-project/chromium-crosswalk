@@ -16,14 +16,20 @@
 #include "base/strings/sys_string_conversions.h"
 #include "base/strings/utf_string_conversions.h"
 #include "build/build_config.h"
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/uniset.h"
 #include "third_party/icu/source/i18n/unicode/coll.h"
+#endif
 
 namespace base {
 namespace i18n {
 
 namespace {
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 class IllegalCharacters {
  public:
   static IllegalCharacters* GetInstance() {
@@ -93,19 +99,42 @@ IllegalCharacters::IllegalCharacters() {
   illegal_anywhere_->freeze();
   illegal_at_ends_->freeze();
 }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
 }  // namespace
 
 bool IsFilenameLegal(const string16& file_name) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  int cursor = 0;  // The ICU macros expect an int.
+  while (cursor < static_cast<int>(file_name.size())) {
+    uint32 code_point;
+    // Linux doesn't actually define an encoding. It basically allows anything
+    // except for a few special ASCII characters.
+    unsigned char cur_char = static_cast<unsigned char>(file_name[cursor++]);
+    if (cur_char >= 0x80)
+      continue;
+    code_point = cur_char;
+    if (base::icu_utils::IsCharInFilenameIllegal(code_point))
+      return false;
+  }
+  return true;
+#else
   return IllegalCharacters::GetInstance()->IsAllowedName(file_name);
+#endif
 }
 
 void ReplaceIllegalCharactersInPath(FilePath::StringType* file_name,
                                     char replace_char) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   IllegalCharacters* illegal = IllegalCharacters::GetInstance();
+#endif
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  DCHECK(!(base::icu_utils::IsCharInFilenameIllegal(replace_char)));
+#else
   DCHECK(!(illegal->DisallowedEverywhere(replace_char)));
   DCHECK(!(illegal->DisallowedLeadingOrTrailing(replace_char)));
+#endif
 
   int cursor = 0;  // The ICU macros expect an int.
   while (cursor < static_cast<int>(file_name->size())) {
@@ -130,9 +159,13 @@ void ReplaceIllegalCharactersInPath(FilePath::StringType* file_name,
     NOTREACHED();
 #endif
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    if (base::icu_utils::IsCharInFilenameIllegal(code_point)) {
+#else
     if (illegal->DisallowedEverywhere(code_point) ||
         ((char_begin == 0 || cursor == static_cast<int>(file_name->length())) &&
          illegal->DisallowedLeadingOrTrailing(code_point))) {
+#endif
       file_name->replace(char_begin, cursor - char_begin, 1, replace_char);
       // We just made the potentially multi-byte/word char into one that only
       // takes one byte/word, so need to adjust the cursor to point to the next
@@ -143,6 +176,7 @@ void ReplaceIllegalCharactersInPath(FilePath::StringType* file_name,
 }
 
 bool LocaleAwareCompareFilenames(const FilePath& a, const FilePath& b) {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   UErrorCode error_code = U_ZERO_ERROR;
   // Use the default collator. The default locale should have been properly
   // set by the time this constructor is called.
@@ -150,6 +184,7 @@ bool LocaleAwareCompareFilenames(const FilePath& a, const FilePath& b) {
   DCHECK(U_SUCCESS(error_code));
   // Make it case-sensitive.
   collator->setStrength(icu::Collator::TERTIARY);
+#endif
 
 #if defined(OS_WIN)
   return CompareString16WithCollator(collator.get(),
@@ -159,7 +194,11 @@ bool LocaleAwareCompareFilenames(const FilePath& a, const FilePath& b) {
   // On linux, the file system encoding is not defined. We assume
   // SysNativeMBToWide takes care of it.
   return CompareString16WithCollator(
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+      "",
+#else
       collator.get(),
+#endif
       WideToUTF16(SysNativeMBToWide(a.value().c_str())),
       WideToUTF16(SysNativeMBToWide(b.value().c_str()))) == UCOL_LESS;
 #else

@@ -12,8 +12,13 @@
 #include "base/strings/string_util.h"
 #include "base/time/time.h"
 #include "jni/LocalizationUtils_jni.h"
+
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/uloc.h"
 #include "ui/base/l10n/time_format.h"
+#endif
 
 namespace l10n_util {
 
@@ -39,6 +44,7 @@ bool IsLayoutRtl() {
 
 namespace {
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // Common prototype of ICU uloc_getXXX() functions.
 typedef int32_t (*UlocGetComponentFunc)(const char*, char*, int32_t,
                                         UErrorCode*);
@@ -73,16 +79,24 @@ ScopedJavaLocalRef<jobject> NewJavaLocale(
           base::android::ConvertUTF8ToJavaString(env, country).obj(),
           base::android::ConvertUTF8ToJavaString(env, variant).obj());
 }
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 
 }  // namespace
 
 base::string16 GetDisplayNameForLocale(const std::string& locale,
                                        const std::string& display_locale) {
   JNIEnv* env = base::android::AttachCurrentThread();
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  ScopedJavaLocalRef<jobject> java_locale =
+      base::icu_utils::getJavaLocale(locale);
+  ScopedJavaLocalRef<jobject> java_display_locale =
+      base::icu_utils::getJavaLocale(display_locale);
+#else
   ScopedJavaLocalRef<jobject> java_locale =
       NewJavaLocale(env, locale);
   ScopedJavaLocalRef<jobject> java_display_locale =
       NewJavaLocale(env, display_locale);
+#endif
 
   ScopedJavaLocalRef<jstring> java_result(
       Java_LocalizationUtils_getDisplayNameForLocale(
@@ -93,6 +107,10 @@ base::string16 GetDisplayNameForLocale(const std::string& locale,
 }
 
 jstring GetDurationString(JNIEnv* env, jclass clazz, jlong timeInMillis) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // return NULL to use java implementation.
+  return NULL;
+#else
   ScopedJavaLocalRef<jstring> jtime_remaining =
       base::android::ConvertUTF16ToJavaString(
           env,
@@ -100,6 +118,7 @@ jstring GetDurationString(JNIEnv* env, jclass clazz, jlong timeInMillis) {
               ui::TimeFormat::FORMAT_REMAINING, ui::TimeFormat::LENGTH_SHORT,
               base::TimeDelta::FromMilliseconds(timeInMillis)));
   return jtime_remaining.Release();
+#endif
 }
 
 bool RegisterLocalizationUtil(JNIEnv* env) {
