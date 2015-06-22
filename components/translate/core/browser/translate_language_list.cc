@@ -257,17 +257,16 @@ void TranslateLanguageList::NotifyEvent(int line, const std::string& message) {
 void TranslateLanguageList::SetSupportedLanguages(
     const std::string& language_list) {
   // The format is:
-  // sl({
+  // /* API response */ sl({
   //   "sl": {"XX": "LanguageName", ...},
   //   "tl": {"XX": "LanguageName", ...},
   //   "al": {"XX": 1, ...}
   // })
   // Where "sl(" is set in kLanguageListCallbackName, "tl" is
   // kTargetLanguagesKey and "al" kAlphaLanguagesKey.
-  if (!StartsWithASCII(language_list,
-                       TranslateLanguageList::kLanguageListCallbackName,
-                       false) ||
-      !EndsWith(language_list, ")", false)) {
+  size_t start =
+      language_list.find(TranslateLanguageList::kLanguageListCallbackName);
+  if (start == std::string::npos || !EndsWith(language_list, ")", false)) {
     // We don't have a NOTREACHED here since this can happen in ui_tests, even
     // though the the BrowserMain function won't call us with parameters.ui_task
     // is NULL some tests don't set it, so we must bail here.
@@ -276,8 +275,8 @@ void TranslateLanguageList::SetSupportedLanguages(
   static const size_t kLanguageListCallbackNameLength =
       strlen(TranslateLanguageList::kLanguageListCallbackName);
   std::string languages_json = language_list.substr(
-      kLanguageListCallbackNameLength,
-      language_list.size() - kLanguageListCallbackNameLength - 1);
+      start + kLanguageListCallbackNameLength,
+      language_list.size() - start - kLanguageListCallbackNameLength - 1);
 
   scoped_ptr<base::Value> json_value(
       base::JSONReader::Read(languages_json, base::JSON_ALLOW_TRAILING_COMMAS));
