@@ -317,6 +317,10 @@ void RenderFrameDevToolsAgentHost::FrameDeleted(RenderFrameHost* rfh) {
   // |this| may be deleted at this point.
 }
 
+void RenderFrameDevToolsAgentHost::RenderFrameDeleted(RenderFrameHost* rfh) {
+  FrameDeleted(rfh);
+}
+
 void RenderFrameDevToolsAgentHost::DestroyOnRenderFrameGone() {
   DCHECK(render_frame_host_);
   scoped_refptr<RenderFrameDevToolsAgentHost> protect(this);
