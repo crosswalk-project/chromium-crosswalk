@@ -9,6 +9,7 @@
 #include "base/metrics/field_trial.h"
 #include "base/numerics/safe_conversions.h"
 #include "base/process/kill.h"
+#include "base/strings/string_util.h"
 #include "base/win/windows_version.h"
 
 namespace {
@@ -188,8 +189,10 @@ bool Process::SetProcessBackgrounded(bool value) {
     DWORD background_priority = IDLE_PRIORITY_CLASS;
     base::FieldTrial* trial =
         base::FieldTrialList::Find("BackgroundRendererProcesses");
-    if (trial && trial->group_name() == "AllowBelowNormalFromBrowser")
+    if (trial && StartsWithASCII(trial->group_name(),
+                                 "AllowBelowNormalFromBrowser", true)) {
       background_priority = BELOW_NORMAL_PRIORITY_CLASS;
+    }
 
     priority = value ? background_priority : NORMAL_PRIORITY_CLASS;
   }
