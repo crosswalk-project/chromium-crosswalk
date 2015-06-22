@@ -1470,10 +1470,7 @@ TEST_F(DisplayManagerTest, UnifiedDesktopBasic) {
 
   UpdateDisplay("300x200,400x500");
 
-  // Switch to unified desktop.
-  display_manager()->SetDefaultMultiDisplayMode(DisplayManager::UNIFIED);
-  display_manager()->ReconfigureDisplays();
-
+  // Defaults to the unified desktop.
   gfx::Screen* screen =
       gfx::Screen::GetScreenByType(gfx::SCREEN_TYPE_ALTERNATE);
   EXPECT_EQ("700x500", screen->GetPrimaryDisplay().size().ToString());
@@ -1507,7 +1504,6 @@ TEST_F(DisplayManagerTest, ConfigureUnifiedTwice) {
   // Don't check root window destruction in unified mode.
   Shell::GetPrimaryRootWindow()->RemoveObserver(this);
 
-  display_manager()->SetDefaultMultiDisplayMode(DisplayManager::UNIFIED);
   UpdateDisplay("300x200,400x500");
   // Mirror windows are created in a posted task.
   RunAllPendingInMessageLoop();
@@ -1524,8 +1520,6 @@ TEST_F(DisplayManagerTest, RotateUnifiedDesktop) {
   // Don't check root window destruction in unified mode.
   Shell::GetPrimaryRootWindow()->RemoveObserver(this);
 
-  display_manager()->SetDefaultMultiDisplayMode(DisplayManager::UNIFIED);
-  display_manager()->SetMultiDisplayMode(DisplayManager::UNIFIED);
   UpdateDisplay("300x200,400x500");
 
   gfx::Screen* screen =
@@ -1553,8 +1547,6 @@ TEST_F(DisplayManagerTest, UnifiedWithDockWindows) {
   // Don't check root window destruction in unified mode.
   Shell::GetPrimaryRootWindow()->RemoveObserver(this);
 
-  display_manager()->SetDefaultMultiDisplayMode(DisplayManager::UNIFIED);
-  display_manager()->SetMultiDisplayMode(DisplayManager::UNIFIED);
   UpdateDisplay("300x200,400x500");
 
   scoped_ptr<aura::Window> docked(
