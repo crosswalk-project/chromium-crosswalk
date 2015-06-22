@@ -758,7 +758,6 @@ class CONTENT_EXPORT RenderFrameImpl
   void InitializeUserMediaClient();
 
   blink::WebMediaPlayer* CreateWebMediaPlayerForMediaStream(
-      const blink::WebURL& url,
       blink::WebMediaPlayerClient* client);
 
   // Creates a factory object used for creating audio and video renderers.
@@ -805,7 +804,6 @@ class CONTENT_EXPORT RenderFrameImpl
 
 #if defined(OS_ANDROID)
   blink::WebMediaPlayer* CreateAndroidWebMediaPlayer(
-      const blink::WebURL& url,
       blink::WebMediaPlayerClient* client,
       media::MediaPermission* media_permission,
       blink::WebContentDecryptionModule* initial_cdm);
