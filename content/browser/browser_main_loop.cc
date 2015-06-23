@@ -505,8 +505,12 @@ void BrowserMainLoop::EarlyInitialization() {
       gfx::GpuMemoryBuffer::SCANOUT);
 #endif
 
-  base::DiscardableMemoryAllocator::SetInstance(
-      HostDiscardableSharedMemoryManager::current());
+  // TODO(boliu): kSingleProcess check is a temporary workaround for
+  // in-process Android WebView. crbug.com/503724 tracks proper fix.
+  if (!parsed_command_line_.HasSwitch(switches::kSingleProcess)) {
+    base::DiscardableMemoryAllocator::SetInstance(
+        HostDiscardableSharedMemoryManager::current());
+  }
 
   if (parts_)
     parts_->PostEarlyInitialization();
