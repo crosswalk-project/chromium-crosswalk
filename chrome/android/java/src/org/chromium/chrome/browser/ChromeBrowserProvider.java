@@ -273,7 +273,7 @@ public class ChromeBrowserProvider extends ContentProvider {
         return sb.toString();
     }
 
-    private String getReadWritePermissionNameForBookmarkFolders() {
+    protected String getReadWritePermissionNameForBookmarkFolders() {
         return getContext().getApplicationContext().getPackageName() + ".permission."
                 + PERMISSION_READ_WRITE_BOOKMARKS;
     }
