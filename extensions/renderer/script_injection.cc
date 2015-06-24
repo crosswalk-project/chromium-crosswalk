@@ -7,10 +7,13 @@
 #include <map>
 
 #include "base/lazy_instance.h"
+#include "base/memory/scoped_vector.h"
 #include "base/metrics/histogram.h"
 #include "base/timer/elapsed_timer.h"
 #include "base/values.h"
 #include "content/public/child/v8_value_converter.h"
+#include "content/public/renderer/render_frame.h"
+#include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/render_view.h"
 #include "extensions/common/extension_messages.h"
 #include "extensions/common/host_id.h"
@@ -43,13 +46,32 @@ const int64 kInvalidRequestId = -1;
 // The id of the next pending injection.
 int64 g_next_pending_id = 0;
 
+class FrameWatcher : public content::RenderFrameObserver {
+ public:
+  FrameWatcher(blink::WebFrame* web_frame)
+      : content::RenderFrameObserver(
+            content::RenderFrame::FromWebFrame(web_frame)),
+        valid_(true) {}
+  ~FrameWatcher() override {}
+
+  bool valid() const { return valid_; }
+
+ private:
+  void FrameDetached() override { valid_ = false; }
+  void OnDestruct() override { valid_ = false; }
+
+  bool valid_;
+
+  DISALLOW_COPY_AND_ASSIGN(FrameWatcher);
+};
+
 // Append all the child frames of |parent_frame| to |frames_vector|.
 void AppendAllChildFrames(blink::WebFrame* parent_frame,
-                          std::vector<blink::WebFrame*>* frames_vector) {
+                          ScopedVector<FrameWatcher>* frames_vector) {
   DCHECK(parent_frame);
   for (blink::WebFrame* child_frame = parent_frame->firstChild(); child_frame;
        child_frame = child_frame->nextSibling()) {
-    frames_vector->push_back(child_frame);
+    frames_vector->push_back(new FrameWatcher(child_frame));
     AppendAllChildFrames(child_frame, frames_vector);
   }
 }
@@ -215,8 +237,8 @@ ScriptInjection::InjectionResult ScriptInjection::Inject(
   if (injection_host_->ShouldNotifyBrowserOfInjection())
     SendInjectionMessage(false /* don't request permission */);
 
-  std::vector<blink::WebFrame*> frame_vector;
-  frame_vector.push_back(web_frame_);
+  ScopedVector<FrameWatcher> frame_vector;
+  frame_vector.push_back(new FrameWatcher(web_frame_));
   if (injector_->ShouldExecuteInChildFrames())
     AppendAllChildFrames(web_frame_, &frame_vector);
 
@@ -225,12 +247,14 @@ ScriptInjection::InjectionResult ScriptInjection::Inject(
   DCHECK(inject_js || inject_css);
 
   GURL top_url = web_frame_->top()->document().url();
-  for (std::vector<blink::WebFrame*>::iterator iter = frame_vector.begin();
-       iter != frame_vector.end();
-       ++iter) {
-    // TODO(dcheng): Unfortunately, the code as written won't work in an OOPI
-    // world. This is just a temporary hack to make things compile.
-    blink::WebLocalFrame* frame = (*iter)->toWebLocalFrame();
+  for (FrameWatcher* frame_watcher : frame_vector) {
+    // It's possible that a previous script has removed the frame before it had
+    // a chance to inject. Skip any now-invalid frames.
+    // crbug.com/500574
+    if (!frame_watcher->valid())
+      continue;
+
+    blink::WebLocalFrame* frame = frame_watcher->render_frame()->GetWebFrame();
 
     // We recheck access here in the renderer for extra safety against races
     // with navigation, but different frames can have different URLs, and the
