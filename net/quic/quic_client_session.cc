@@ -98,6 +98,7 @@ void RecordHandshakeState(HandshakeState state) {
 
 base::Value* NetLogQuicClientSessionCallback(
     const QuicServerId* server_id,
+    int cert_verify_flags,
     bool require_confirmation,
     NetLogCaptureMode /* capture_mode */) {
   base::DictionaryValue* dict = new base::DictionaryValue();
@@ -107,6 +108,7 @@ base::Value* NetLogQuicClientSessionCallback(
   dict->SetBoolean("privacy_mode",
                    server_id->privacy_mode() == PRIVACY_MODE_ENABLED);
   dict->SetBoolean("require_confirmation", require_confirmation);
+  dict->SetInteger("cert_verify_flags", cert_verify_flags);
   return dict;
 }
 
@@ -157,6 +159,7 @@ QuicClientSession::QuicClientSession(
     QuicStreamFactory* stream_factory,
     TransportSecurityState* transport_security_state,
     scoped_ptr<QuicServerInfo> server_info,
+    int cert_verify_flags,
     const QuicConfig& config,
     const char* const connection_description,
     base::TimeTicks dns_resolution_end_time,
@@ -168,6 +171,7 @@ QuicClientSession::QuicClientSession(
       socket_(socket.Pass()),
       transport_security_state_(transport_security_state),
       server_info_(server_info.Pass()),
+      cert_verify_flags_(cert_verify_flags),
       num_total_streams_(0),
       task_runner_(task_runner),
       net_log_(BoundNetLog::Make(net_log, NetLog::SOURCE_QUIC_SESSION)),
@@ -191,18 +195,18 @@ void QuicClientSession::InitializeSession(
     QuicCryptoClientStreamFactory* crypto_client_stream_factory) {
   server_id_ = server_id;
   crypto_stream_.reset(
-      crypto_client_stream_factory ?
-          crypto_client_stream_factory->CreateQuicCryptoClientStream(
-              server_id, this, crypto_config) :
-          new QuicCryptoClientStream(server_id, this,
-                                     new ProofVerifyContextChromium(net_log_),
-                                     crypto_config));
+      crypto_client_stream_factory
+          ? crypto_client_stream_factory->CreateQuicCryptoClientStream(
+                server_id, this, crypto_config)
+          : new QuicCryptoClientStream(
+                server_id, this,
+                new ProofVerifyContextChromium(cert_verify_flags_, net_log_),
+                crypto_config));
   QuicClientSessionBase::InitializeSession();
   // TODO(rch): pass in full host port proxy pair
   net_log_.BeginEvent(NetLog::TYPE_QUIC_SESSION,
-                      base::Bind(NetLogQuicClientSessionCallback,
-                                 &server_id,
-                                 require_confirmation_));
+                      base::Bind(NetLogQuicClientSessionCallback, &server_id,
+                                 cert_verify_flags_, require_confirmation_));
 }
 
 QuicClientSession::~QuicClientSession() {

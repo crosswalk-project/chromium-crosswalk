@@ -97,6 +97,7 @@ class NET_EXPORT_PRIVATE QuicClientSession : public QuicClientSessionBase,
                     QuicStreamFactory* stream_factory,
                     TransportSecurityState* transport_security_state,
                     scoped_ptr<QuicServerInfo> server_info,
+                    int cert_verify_flags,
                     const QuicConfig& config,
                     const char* const connection_description,
                     base::TimeTicks dns_resolution_end_time,
@@ -249,6 +250,7 @@ class NET_EXPORT_PRIVATE QuicClientSession : public QuicClientSessionBase,
   TransportSecurityState* transport_security_state_;
   scoped_ptr<QuicServerInfo> server_info_;
   scoped_ptr<CertVerifyResult> cert_verify_result_;
+  int cert_verify_flags_;
   std::string pinning_failure_log_;
   ObserverSet observers_;
   StreamRequestQueue stream_requests_;

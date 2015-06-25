@@ -48,6 +48,7 @@ class QuicClientSessionTest : public ::testing::TestWithParam<QuicVersion> {
                  nullptr,
                  &transport_security_state_,
                  make_scoped_ptr((QuicServerInfo*)nullptr),
+                 /*cert_verify_flags=*/0,
                  DefaultQuicConfig(),
                  "CONNECTION_UNKNOWN",
                  base::TimeTicks::Now(),
