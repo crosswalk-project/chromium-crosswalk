@@ -41,7 +41,7 @@ class PictureLayerImplPerfTest : public testing::Test {
  public:
   PictureLayerImplPerfTest()
       : proxy_(base::ThreadTaskRunnerHandle::Get()),
-        host_impl_(ImplSidePaintingSettings(10000),
+        host_impl_(ImplSidePaintingSettings(),
                    &proxy_,
                    &shared_bitmap_manager_,
                    &task_graph_runner_),
