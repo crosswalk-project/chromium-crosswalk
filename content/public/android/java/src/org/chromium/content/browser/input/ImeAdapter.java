@@ -477,7 +477,8 @@ public class ImeAdapter {
         return true;
     }
 
-    void finishComposingText() {
+    @VisibleForTesting
+    protected void finishComposingText() {
         mLastComposeText = null;
         if (mNativeImeAdapterAndroid == 0) return;
         nativeFinishComposingText(mNativeImeAdapterAndroid);
