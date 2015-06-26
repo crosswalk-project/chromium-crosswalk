@@ -664,6 +664,11 @@ Gallery.prototype.onContentChange_ = function(event) {
  * @private
  */
 Gallery.prototype.onKeyDown_ = function(event) {
+  // Do not capture keys when share dialog is shown.
+  if (this.shareDialog_.isShowing())
+    return;
+
+  // Handle mode specific shortcut keys.
   if (this.currentMode_.onKeyDown(event))
     return;
 
