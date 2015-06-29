@@ -350,7 +350,7 @@ class CONTENT_EXPORT ServiceWorkerDatabase {
       const tracked_objects::Location& from_here,
       Status status);
 
-  base::FilePath path_;
+  const base::FilePath path_;
   scoped_ptr<leveldb::Env> env_;
   scoped_ptr<leveldb::DB> db_;
 
@@ -364,6 +364,8 @@ class CONTENT_EXPORT ServiceWorkerDatabase {
     DISABLED,
   };
   State state_;
+
+  bool IsDatabaseInMemory() const;
 
   base::SequenceChecker sequence_checker_;
 
