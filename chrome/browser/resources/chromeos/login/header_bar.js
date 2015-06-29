@@ -312,6 +312,8 @@ cr.define('login', function() {
      */
     updateUI_: function() {
       var gaiaIsActive = (this.signinUIState_ == SIGNIN_UI_STATE.GAIA_SIGNIN);
+      var enrollmentIsActive =
+          (this.signinUIState_ == SIGNIN_UI_STATE.ENROLLMENT);
       var accountPickerIsActive =
           (this.signinUIState_ == SIGNIN_UI_STATE.ACCOUNT_PICKER);
       var supervisedUserCreationDialogIsActive =
@@ -340,6 +342,7 @@ cr.define('login', function() {
       $('add-user-button').hidden =
           (!this.isNewGaiaFlow_ && !accountPickerIsActive) ||
           (this.isNewGaiaFlow_ && gaiaIsActive) ||
+          enrollmentIsActive ||
           isMultiProfilesUI ||
           isLockScreen ||
           supervisedUserCreationDialogIsActiveAndNotIntro;

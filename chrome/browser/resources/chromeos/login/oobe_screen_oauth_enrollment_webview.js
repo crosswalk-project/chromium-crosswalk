@@ -177,6 +177,7 @@ login.createScreen('OAuthEnrollmentScreen', 'oauth-enrollment', function() {
      * URL.
      */
     onBeforeShow: function(data) {
+      $('login-header-bar').signinUIState = SIGNIN_UI_STATE.ENROLLMENT;
       var gaiaParams = {};
       gaiaParams.gaiaUrl = data.gaiaUrl;
       gaiaParams.gaiaPath = 'embedded/setup/chromeos';
@@ -197,6 +198,10 @@ login.createScreen('OAuthEnrollmentScreen', 'oauth-enrollment', function() {
       }
       this.isCancelDisabled = true;
       this.showStep(STEP_SIGNIN);
+    },
+
+    onBeforeHide: function() {
+      $('login-header-bar').signinUIState = SIGNIN_UI_STATE.HIDDEN;
     },
 
     /**
