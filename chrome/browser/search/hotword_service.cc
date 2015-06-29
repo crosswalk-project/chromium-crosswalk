@@ -642,6 +642,7 @@ bool HotwordService::IsServiceAvailable() {
 }
 
 bool HotwordService::IsHotwordAllowed() {
+#if defined(ENABLE_HOTWORDING)
   std::string group = base::FieldTrialList::FindFullName(
       hotword_internal::kHotwordFieldTrialName);
   // Allow hotwording by default, and only disable if the field trial has been
@@ -650,6 +651,9 @@ bool HotwordService::IsHotwordAllowed() {
     return false;
 
   return DoesHotwordSupportLanguage(profile_);
+#else
+  return false;
+#endif
 }
 
 bool HotwordService::IsOptedIntoAudioLogging() {
