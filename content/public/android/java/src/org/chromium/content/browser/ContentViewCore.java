@@ -663,6 +663,14 @@ public class ContentViewCore
     }
 
     /**
+     * @return The WindowAndroid associated with this ContentViewCore.
+     */
+    public WindowAndroid getWindowAndroid() {
+        if (mNativeContentViewCore == 0) return null;
+        return nativeGetJavaWindowAndroid(mNativeContentViewCore);
+    }
+
+    /**
      *
      * @param topControlsHeightPix       The height of the top controls in pixels.
      * @param topControlsShrinkBlinkSize The Y amount in pixels to shrink the viewport by.  This
@@ -3069,9 +3077,6 @@ public class ContentViewCore
         if (potentiallyActiveFlingCount > 0) updateGestureStateListener(GestureEventType.FLING_END);
     }
 
-    private native long nativeInit(WebContents webContents, ViewAndroidDelegate viewAndroidDelegate,
-            long windowAndroidPtr, HashSet<Object> retainedObjectSet);
-    private static native ContentViewCore nativeFromWebContentsAndroid(WebContents webContents);
     ContentVideoViewClient getContentVideoViewClient() {
         return getContentViewClient().getContentVideoViewClient();
     }
@@ -3117,7 +3122,12 @@ public class ContentViewCore
         mContextualSearchClient = contextualSearchClient;
     }
 
+    private native long nativeInit(WebContents webContents, ViewAndroidDelegate viewAndroidDelegate,
+            long windowAndroidPtr, HashSet<Object> retainedObjectSet);
+    private static native ContentViewCore nativeFromWebContentsAndroid(WebContents webContents);
+
     private native WebContents nativeGetWebContentsAndroid(long nativeContentViewCoreImpl);
+    private native WindowAndroid nativeGetJavaWindowAndroid(long nativeContentViewCoreImpl);
 
     private native void nativeOnJavaContentViewCoreDestroyed(long nativeContentViewCoreImpl);
 
