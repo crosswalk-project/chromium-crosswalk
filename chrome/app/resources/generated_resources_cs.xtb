@@ -736,6 +736,7 @@ Všichni uživatelé se před pokračováním musejí odhlásit.</translation>
 <translation id="5759728514498647443">Dokumenty odeslané k tisku prostřednictvím aplikace <ph name="APP_NAME"/> lze číst v aplikaci <ph name="APP_NAME"/>.</translation>
 <translation id="2401053206567162910">Tato aplikace není v současné době v tomto zařízení podporována, ale Chromoví skřítci usilovně pracují na tom, aby ji brzy zprovoznili.</translation>
 <translation id="3273410961255278341">Komu odesílat:</translation>
+<translation id="4255096080864111471">Určete maximální počet dlaždic v oblasti zájmu.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">Nová karta</translation>
 <translation id="6567688344210276845">Nelze načíst ikonu „<ph name="ICON"/>“ pro akci stránky.</translation>
@@ -1680,6 +1681,7 @@ Pokud nezměníte výchozí nastavení, uživatel <ph name="USER_DISPLAY_NAME"/>
 <translation id="4811502511369621968">Neplatná e-mailová adresa. Zkontrolujte zadaný údaj a zkuste to znovu.</translation>
 <translation id="175196451752279553">Znovu ot&amp;evřít zavřenou kartu</translation>
 <translation id="8602851771975208551">Jiný program ve vašem počítači nainstaloval aplikaci, která může měnit funkce Chromu.</translation>
+<translation id="9154967591629748964">Maximální počet dlaždic v oblasti zájmu</translation>
 <translation id="2655386581175833247">Certifikát uživatele:</translation>
 <translation id="5039804452771397117">Povolit</translation>
 <translation id="5435964418642993308">Zpět se dostanete stiskem klávesy Enter, historii zobrazíte pomocí klávesy kontextové nabídky</translation>
@@ -1753,7 +1755,7 @@ Tento web by podle mě neměl být blokován.</translation>
 <translation id="189210018541388520">Otevřít v režimu celé obrazovky</translation>
 <translation id="8795668016723474529">Přidat platební kartu</translation>
 <translation id="8194707225379193471">Zobrazuje obrázky</translation>
-<translation id="5860033963881614850">VYP</translation>
+<translation id="5860033963881614850">Vypnuto</translation>
 <translation id="7483734554143933755">Pokračovat v blokování pluginů</translation>
 <translation id="6575251558004911012">Zeptat se, když web požaduje přístup k vaší kameře (doporučeno)</translation>
 <translation id="4116663294526079822">Povolit vždy na tomto webu</translation>
@@ -1854,6 +1856,7 @@ Po vytvoření nového dozorovaného uživatele můžete jeho nastavení spravov
 <translation id="1901377140875308934">Přihlásit se do prohlížeče <ph name="SHORT_PRODUCT_NAME"/>...</translation>
 <translation id="5529098031581368697">Aktuální tapetu nastavila aplikace <ph name="APP_NAME"/></translation>
 <translation id="5074318175948309511">Aby nové nastavení vstoupilo v platnost, pravděpodobně bude nutné načíst stránku znovu.</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">Zobrazovat tlačítko režimu čtečky na všech stránkách</translation>
 <translation id="3947376313153737208">Žádný výběr</translation>
 <translation id="6405640832764359650">Aktivovat zaškrtávací políčko k uložení karty do služby Google Payments</translation>
@@ -2297,7 +2300,7 @@ Po vytvoření nového dozorovaného uživatele můžete jeho nastavení spravov
 <translation id="9157595877708044936">Nastavování...</translation>
 <translation id="499955951116857523">Správce souborů</translation>
 <translation id="9033453977881595182">ID tokenu</translation>
-<translation id="4475552974751346499">Prohledat stažené soubory</translation>
+<translation id="4475552974751346499">Hledat stažené soubory</translation>
 <translation id="6624687053722465643">Zákusek</translation>
 <translation id="8083739373364455075">Získejte zdarma 100 GB na Disku Google</translation>
 <translation id="271083069174183365">Nastavení zadávání japonštiny</translation>
@@ -2920,7 +2923,7 @@ Po vytvoření nového dozorovaného uživatele můžete jeho nastavení spravov
 <translation id="5148652308299789060">Deaktivovat 3D softwarový rasterizér</translation>
 <translation id="9205143043463108573">Umístí spouštěč aplikací doprostřed obrazovky s orientací na šířku.</translation>
 <translation id="7996005831155352675">Aktivovat automatické vyplňování jedním kliknutím</translation>
-<translation id="870112442358620996">Nabízet ukládání hesel pomocí funkce Google Smart Lock pro hesla.</translation>
+<translation id="870112442358620996">Nabízet ukládání hesel pomocí funkce Google Smart Lock na hesla.</translation>
 <translation id="1414648216875402825">Provádíte upgrade na nestabilní verzi systému <ph name="PRODUCT_NAME"/>, která obsahuje funkce ve fázi vývoje. Bude docházet k selháním a neočekávaným chybám. Pokračujte s nejvyšší opatrností.</translation>
 <translation id="8382913212082956454">Kopírovat &amp;e-mailovou adresu</translation>
 <translation id="7887192723714330082">Reagovat na „Ok Google“, když je zapnuta a odemknuta obrazovka</translation>
@@ -4044,7 +4047,7 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="1859234291848436338">Směr textu</translation>
 <translation id="5038625366300922036">Zobrazit více...</translation>
 <translation id="8437209419043462667">Americká klávesnice</translation>
-<translation id="3172213052701798825">Google Smart Lock pro hesla</translation>
+<translation id="3172213052701798825">Google Smart Lock na hesla</translation>
 <translation id="5045550434625856497">Nesprávné heslo</translation>
 <translation id="6397592254427394018">Otevřít všechny záložky v &amp;anonymním okně</translation>
 <translation id="8155481074575809396">Pokud je tato možnost aktivována, bude se text vykreslovat pomocí polí orientované vzdálenosti (namísto bitmapových masek alfa).</translation>
@@ -4185,7 +4188,7 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="249113932447298600">Je nám líto, zařízení <ph name="DEVICE_LABEL"/> není v současné době podporováno.</translation>
 <translation id="6401445054534215853">Položka č. 1 v poličce</translation>
 <translation id="6113134669445407638">Umožňuje deaktivovat funkci Delay Agnostic AEC v rozhraní WebRTC. Funkce bude použita, pokud nahlášené prodlevy systému jsou vysoce důvěryhodné nebo ostatní uživatelé zaznamenali z vašeho počítače ozvěnu.</translation>
-<translation id="2365626167708453863">Zvolte účet ze své funkce Google Smart Lock</translation>
+<translation id="2365626167708453863">Zvolte účet z funkce Google Smart Lock</translation>
 <translation id="232562464593865424">Pojďme Chromebook zacvičit</translation>
 <translation id="2351520734632194850"><ph name="MHZ"/> MHz</translation>
 <translation id="2799223571221894425">Restartovat</translation>
@@ -4314,7 +4317,7 @@ Zde poskytnutý diagnostický nástroj na řešení problémů s připojením v�
 <translation id="338583716107319301">Oddělovač</translation>
 <translation id="2079053412993822885">Smažete-li jeden z vlastních certifikátů, nebudete ho již moci používat k identifikaci své osoby.</translation>
 <translation id="7221869452894271364">Načíst tuto stránku znovu</translation>
-<translation id="8446884382197647889">Další informace</translation>
+<translation id="8446884382197647889">Další informace</translation>
 <translation id="9006533633560719845">Souhlas uživatele se skripty rozšíření</translation>
 <translation id="4555769855065597957">Stín</translation>
 <translation id="4366837566726634418">Kombinované využití sdílené paměti všemi procesy, které souvisí s <ph name="SHORT_PRODUCT_NAME"/></translation>
@@ -5131,7 +5134,7 @@ Když je tato možnost aktivována, element document.scrollingElement odpovídá
 <translation id="3610026512250613395">Povolí používání pluginů NPAPI. Tento příznak a podpora pluginů NPAPI budou v Chromu 45 odebrány. Viz g.co/npapi.</translation>
 <translation id="4074900173531346617">Certifikát autora podpisu e-mailu</translation>
 <translation id="437184764829821926">Rozšířené nastavení písma</translation>
-<translation id="6165508094623778733">Další informace</translation>
+<translation id="6165508094623778733">Další informace</translation>
 <translation id="9052208328806230490">Registrovali jste tiskárny ve službě <ph name="CLOUD_PRINT_NAME"/> pomocí účtu <ph name="EMAIL"/></translation>
 <translation id="2803887722080936828"><ph name="BEGIN_H3"/>Funkce ladění<ph name="END_H3"/>
     <ph name="BR"/>
@@ -5176,7 +5179,7 @@ Když je tato možnost aktivována, element document.scrollingElement odpovídá
 <translation id="169515659049020177">Shift</translation>
 <translation id="4800132727771399293">Zkontrolujte datum vypršení platnosti a kód CVC a zkuste to znovu.</translation>
 <translation id="3551117997325569860">Pokud chcete změnit proxy server, aktivujte nastavení <ph name="USE_SHARED_PROXIES"/>.</translation>
-<translation id="2810731435681289055">Při příštím odemknutí tohoto zařízení <ph name="DEVICE_TYPE"/> se Smart Lock aktualizujte a budete se moci přihlásit pouhým kliknutím na obrázek.</translation>
+<translation id="2810731435681289055">Při příštím odemknutí tohoto zařízení <ph name="DEVICE_TYPE"/> se funkce Smart Lock aktualizuje a budete se moci přihlásit pouhým kliknutím na obrázek.</translation>
 <translation id="6110413515502722199">Pokud je tento příznak nastaven, bude přihlašování namísto procesu založeného na webovém zobrazení probíhat pomocí starého procesu GAIA.</translation>
 <translation id="6268747994388690914">Importovat záložky ze souboru HTML...</translation>
 <translation id="6096047740730590436">Otevřít maximalizované</translation>

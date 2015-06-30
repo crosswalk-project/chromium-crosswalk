@@ -11,7 +11,7 @@
 <translation id="166179487779922818">Passordet er for kort.</translation>
 <translation id="2345460471437425338">Feil sertifikat for vert.</translation>
 <translation id="3688507211863392146">skrive til filer og mapper du åpner i appen</translation>
-<translation id="226269835214688456">Hvis du slår av Smart Lock for Chromebook, kan du ikke låse opp Chrome-enhetene dine ved hjelp av telefonen. Du må skrive inn passordet.</translation>
+<translation id="226269835214688456">Hvis du slår av Smart Lock for Chromebook, kan du ikke låse opp Chrome-enhetene dine ved hjelp av telefonen. Du må da skrive inn passordet.</translation>
 <translation id="8996941253935762404">Nettstedet du er i ferd med å åpne, inneholder skadelige programmer</translation>
 <translation id="3595596368722241419">Batteriet er fullt</translation>
 <translation id="8098352321677019742"><ph name="PRODUCT_NAME"/>-varsler</translation>
@@ -277,7 +277,7 @@
 <translation id="558170650521898289">Verifisering av maskinvaredriver for Microsoft Windows</translation>
 <translation id="4395129973926795186"><ph name="START_DATE"/> til <ph name="END_DATE"/></translation>
 <translation id="98515147261107953">Liggende</translation>
-<translation id="7334190995941642545">Smart Lock er for øyeblikket ikke tilgjengelig. Prøv igjen senere.</translation>
+<translation id="7334190995941642545">Smart Lock er for øyeblikket utilgjengelig. Prøv igjen senere.</translation>
 <translation id="1303101771013849280">HTML-fil med bokmerker</translation>
 <translation id="8974161578568356045">Oppdag automatisk</translation>
 <translation id="1549045574060481141">Bekreft nedlastingen</translation>
@@ -581,7 +581,7 @@ Sjekk e-posten din på <ph name="ACCOUNT_EMAIL"/> for instruksjoner om dette og 
 <translation id="715487527529576698">Opprinnelig kinesisk modus er forenklet kinesisk</translation>
 <translation id="6522350652862471760">Slå på Google-profilnavn og -ikon</translation>
 <translation id="2164862903024139959">Vietnamesisk tastatur (TCVN)</translation>
-<translation id="8885197664446363138">Smartlås er utilgjengelig</translation>
+<translation id="8885197664446363138">Smart Lock er utilgjengelig</translation>
 <translation id="1697532407822776718">Da er alt klart!</translation>
 <translation id="8373553483208508744">Slå av lyden for fanene</translation>
 <translation id="8703575177326907206">Tilkoblingen til <ph name="DOMAIN"/> er ikke kryptert.</translation>
@@ -720,7 +720,7 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="337286756654493126">lese mapper du åpner i appen</translation>
 <translation id="2783661497142353826">Administrer kiosk-apper</translation>
 <translation id="1310751437842832374">Translitterasjon (mausam → ନମସ୍ତେ)</translation>
-<translation id="5701101281789450335">Språk og inndatainnstillinger</translation>
+<translation id="5701101281789450335">Språk- og inndatainnstillinger</translation>
 <translation id="467662567472608290">Denne tjeneren kunne ikke bevise at den er <ph name="DOMAIN"/>. Sikkerhetssertifikatet til tjeneren inneholder feil. Dette kan være forårsaket av en feilkonfigurering eller en angriper som avskjærer tilkoblingen din.</translation>
 <translation id="1572876035008611720">Skriv inn e-postadressen din</translation>
 <translation id="6431347207794742960"><ph name="PRODUCT_NAME"/> velger automatiske oppdateringer for alle brukerne på datamaskinen.</translation>
@@ -742,6 +742,7 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="5759728514498647443">Dokumenter du sender til utskrift via <ph name="APP_NAME"/>, kan leses av <ph name="APP_NAME"/>.</translation>
 <translation id="2401053206567162910">Denne appen støttes foreløpig ikke på denne enheten, men Chrome-gjengen jobber hardt for å få den til å fungere snart.</translation>
 <translation id="3273410961255278341">Send til:</translation>
+<translation id="4255096080864111471">Angi maks antall paneler for interesseområdet.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">Ny fane</translation>
 <translation id="6567688344210276845">Kan ikke laste inn ikonet «<ph name="ICON"/>» for sidehandling.</translation>
@@ -1009,7 +1010,7 @@ Alle brukere må logge av for å fortsette.</translation>
 <translation id="9153341767479566106">Andre utvidelser som ikke kunne lastes inn:</translation>
 <translation id="1864111464094315414">Pålogging</translation>
 <translation id="3451859089869683931">Ugyldig telefonnummer. Sjekk det og prøv på nytt.</translation>
-<translation id="7130666834200497454">For å holde <ph name="DEVICE_TYPE"/>-enheten trygg krever Smart Lock for Chromebook skjermlås på telefonen som låser den opp. Har du allerede sikret telefonen? Klikk på «Sjekk på nytt» for å bekrefte og fortsette konfigurasjonen.</translation>
+<translation id="7130666834200497454">For å holde <ph name="DEVICE_TYPE"/>-enheten trygg, krever Smart Lock for Chromebook skjermlås på telefonen som låser den opp. Har du allerede sikret telefonen? Klikk på «Sjekk på nytt» for å bekrefte og fortsette konfigurasjonen.</translation>
 <translation id="5414882716132603766">Fjern påloggingsinformasjonen for synkronisering fra passordbehandleren.</translation>
 <translation id="6353618411602605519">Kroatisk tastatur</translation>
 <translation id="7986039047000333986">Det ble nettopp gjennomført en spesiell sikkerhetsoppdatering for <ph name="PRODUCT_NAME"/>. Du bør starte på nytt nå for at den skal tre i kraft (vi gjenoppretter fanene dine).</translation>
@@ -1687,6 +1688,7 @@ Forresten: Inkognitomodus (<ph name="SHORTCUT_KEY"/>) kan være kjekt neste gang
 <translation id="4811502511369621968">Ugyldig e-postadresse. Sjekk den og prøv på nytt.</translation>
 <translation id="175196451752279553">Gj&amp;enåpne den lukkede fanen</translation>
 <translation id="8602851771975208551">Et annet program på datamaskinen la til en app som kan endre måten Chrome fungerer på.</translation>
+<translation id="9154967591629748964">Maks antall paneler for interesseområde</translation>
 <translation id="2655386581175833247">Brukersertifikat:</translation>
 <translation id="5039804452771397117">Tillat</translation>
 <translation id="5435964418642993308">Trykk på Enter for å gå tilbake, eller hurtigmenyknappen for å se på loggen</translation>
@@ -1859,6 +1861,7 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
 <translation id="1901377140875308934">Logg på <ph name="SHORT_PRODUCT_NAME"/></translation>
 <translation id="5529098031581368697">Gjeldende bakgrunn er angitt av «<ph name="APP_NAME"/>»</translation>
 <translation id="5074318175948309511">Du må kanskje laste inn denne siden på nytt for at innstillingene skal bli gjeldende.</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">Vis Lesermodus-knappen på alle sider</translation>
 <translation id="3947376313153737208">Ingen valgt</translation>
 <translation id="6405640832764359650">Slå på avmerkingsboksen for lagring av Google Payments-kort</translation>
@@ -2088,7 +2091,7 @@ Når du har opprettet en ny administrert bruker, kan du når som helst administr
           å laste inn siden på nytt.</translation>
 <translation id="6316671927443834085">Kunne ikke fjerne tilknytning til «<ph name="DEVICE_NAME"/>».</translation>
 <translation id="1962233722219655970">Denne siden bruker en Native Client-app som ikke fungerer på datamaskinen din.</translation>
-<translation id="5458733660263868683">Ikke bruk Smart Lock, som lar deg låse opp Chromebooken når den i nærheten av telefonen. Hvis du er eieren av enheten, slår dette også av Smart Lock på påloggingsskjermen.</translation>
+<translation id="5458733660263868683">Ikke bruk Smart Lock, som du kan bruke til å låse opp Chromebook når den er i nærheten av telefonen. Hvis du er eieren av enheten, slår dette også av Smart Lock på påloggingsskjermen.</translation>
 <translation id="1108685299869803282">Mer enn 80 % av personene som ser denne advarselen, går tilbake til en sikker side i stedet for å risikere å utsettes for skadelig programvare. Men hvis du forstår sikkerhetsrisikoen, kan du <ph name="BEGIN_LINK"/>gå til denne usikre siden<ph name="END_LINK"/> før de farlige programmene er fjernet.</translation>
 <translation id="219008588003277019">Native Client-modul: <ph name="NEXE_NAME"/></translation>
 <translation id="8228447825257396644">Slå av tastaturet med visning av inntasting i «material design».</translation>
@@ -2627,7 +2630,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="7314244761674113881">SOCKS-vert</translation>
 <translation id="4630590996962964935">Ugyldig tegn: $1</translation>
 <translation id="7709980197120276510">Ved å klikke på «Fortsett» godtar du <ph name="LEGAL_DOC_LINK_TEXT_1"/>, <ph name="LEGAL_DOC_LINK_TEXT_2"/>, <ph name="LEGAL_DOC_LINK_TEXT_3"/>, <ph name="LEGAL_DOC_LINK_TEXT_4"/> og <ph name="LEGAL_DOC_LINK_TEXT_5"/>.</translation>
-<translation id="8556377764941071135">Aktivér Smart Lock-nærhetspåvisning.</translation>
+<translation id="8556377764941071135">Aktivér nærhetsidentifisering i Smart Lock.</translation>
 <translation id="7533451546919522717">Slett informasjonskapsler og andre programtilleggsdata når du logger av</translation>
 <translation id="8382645631174981738"><ph name="EXTENSION_NAME"/> ble installert eksternt</translation>
 <translation id="542872847390508405">Du surfer som gjest</translation>
@@ -2919,7 +2922,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="346431825526753">Dette er en konto for barn, som administreres av <ph name="CUSTODIAN_EMAIL"/>.</translation>
 <translation id="4479639480957787382">Ethernet</translation>
 <translation id="1541724327541608484">Kontroller stavingen i tekstfelter</translation>
-<translation id="2784556410206159845">For å holde <ph name="DEVICE_TYPE"/>-enheten trygg krever Smart Lock for Chromebook skjermlås på telefonen.</translation>
+<translation id="2784556410206159845">For å holde <ph name="DEVICE_TYPE"/>-enheten trygg, krever Smart Lock for Chromebook skjermlås på telefonen.</translation>
 <translation id="8637688295594795546">Systemoppdatering er tilgjengelig. Forbereder nedlasting ...</translation>
 <translation id="560715638468638043">Forrige versjon</translation>
 <translation id="1122960773616686544">Bokmerkenavn</translation>
@@ -3155,11 +3158,11 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="3678156199662914018">Utvidelse: <ph name="EXTENSION_NAME"/></translation>
 <translation id="3047477924825107454">Dette er en konto for barn, som administreres av <ph name="MANAGER_EMAIL"/></translation>
 <translation id="2620090360073999360">Google Disk kan ikke nås for øyeblikket.</translation>
-<translation id="1413372529771027206">Telefonen som brukes for Smart Lock, er endret. Skriv inn passordet ditt for å oppdatere Smart Lock for Chromebook på denne enheten. Neste gang kan du bare klikke på bildet for å gå inn.</translation>
+<translation id="1413372529771027206">Telefonen som brukes for Smart Lock, er endret. Skriv inn passordet ditt for å oppdatere Smart Lock for Chromebook på denne enheten. Neste gang kan du bare klikke på bildet for å få tilgang.</translation>
 <translation id="1370646789215800222">Vil du fjerne personen?</translation>
 <translation id="725387188884494207">Er du sikker på at du vil slette denne brukere og alle dataene som er tilknyttet vedkommende, fra denne datamaskinen? Denne handlingen kan ikke angres.</translation>
 <translation id="3531250013160506608">Passordets tekstboks</translation>
-<translation id="2169062631698640254">Logg inn likevel</translation>
+<translation id="2169062631698640254">Logg på likevel</translation>
 <translation id="506228266759207354">Deaktiver menyen for siden Ny fane, som gir adgang til faner på andre enheter.</translation>
 <translation id="2478076885740497414">Installér appen</translation>
 <translation id="1781502536226964113">Åpne siden Ny fane</translation>
@@ -3585,7 +3588,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="1747687775439512873">Deaktiver WiMAX</translation>
 <translation id="6691936601825168937">&amp;Frem</translation>
 <translation id="6566142449942033617">Kan ikke laste inn «<ph name="PLUGIN_PATH"/>» for programtillegg.</translation>
-<translation id="7299337219131431707">Aktiver gjestesurfing</translation>
+<translation id="7299337219131431707">Slå på gjestesurfing</translation>
 <translation id="2312980885338881851">Ojsann! Det ser ut til at du ikke har noen eksisterende overvåkende brukere å importere. Opprett én eller flere fra en annen enhet, og så kan du importere dem hit etterpå.</translation>
 <translation id="6823506025919456619">Du må logge på Chrome for å se enhetene dine</translation>
 <translation id="8477885780684655676">TLS 1.0</translation>
@@ -4203,7 +4206,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="5469954281417596308">Bokmerkebehandling</translation>
 <translation id="106153153543631784">Gjenta passordet for å oppdatere Chromebook-profilen din.</translation>
 <translation id="3064388234319122767">Translitterasjon (zdravo → здраво)</translation>
-<translation id="5425722269016440406">Du må være koblet til nettet for å slå av Smart Lock fordi denne innstillingen er synkronisert til telefonen og andre enheter. Koble til et nettverk først.</translation>
+<translation id="5425722269016440406">Du må være koblet til nettet for å slå av Smart Lock, fordi denne innstillingen er synkronisert til telefonen og andre enheter. Koble til et nettverk først.</translation>
 <translation id="5288481194217812690"><ph name="FILENAME"/></translation>
 <translation id="7730494089396812859">Vis detaljer for skybasert sikkerhetskopiering</translation>
 <translation id="1143142264369994168">Sertifikat-signatar</translation>
@@ -4609,7 +4612,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="8434480141477525001">Feilsøkingsport for NaCl</translation>
 <translation id="8957210676456822347">Captive Portal-autorisasjon</translation>
 <translation id="1979444449436715782">Nedskaleringskvalitet for avbildning av faner.</translation>
-<translation id="7002055706763150362">For å konfigurere Smart Lock for Chromebook må Google være sikker på at det er deg. Skriv inn passordet for å begynne.</translation>
+<translation id="7002055706763150362">For å konfigurere Smart Lock for Chromebook, må Google være sikker på at det er deg. Skriv inn passordet for å begynne.</translation>
 <translation id="8579549103199280730">Spør som standard</translation>
 <translation id="1330145147221172764">Slå på skjermtastaturet</translation>
 <translation id="8925458182817574960">&amp;Innstillinger</translation>
@@ -5180,7 +5183,7 @@ annet sertifikat, kan du prøve å bruke dette. Ellers kan du forsøke å
 <translation id="169515659049020177">Shift</translation>
 <translation id="4800132727771399293">Kontrollér utløpsdatoen og CVC-koden, og prøv igjen.</translation>
 <translation id="3551117997325569860">Hvis du vil endre mellomtjenerinnstillingene, aktiverer du innstillingen «<ph name="USE_SHARED_PROXIES"/>».</translation>
-<translation id="2810731435681289055">Neste gang du låser opp <ph name="DEVICE_TYPE"/>-enheten, blir Smart Lock oppdatert så du enkelt kan klikke på bildet ditt for å delta.</translation>
+<translation id="2810731435681289055">Neste gang du låser opp <ph name="DEVICE_TYPE"/>-enheten, blir Smart Lock oppdatert så du enkelt kan klikke på bildet ditt for å få tilgang.</translation>
 <translation id="6110413515502722199">Hvis dette er valgt, blir den gamle GAIA-flyten brukt til påloggingsprosessen i stedet for den nye WebView-baserte flyten.</translation>
 <translation id="6268747994388690914">Importér bokmerker fra HTML-fil</translation>
 <translation id="6096047740730590436">Maksimer ved åpning</translation>
@@ -5906,7 +5909,7 @@ Oppbevar nøkkelfilen på et trygt sted. Du får bruk for den når du skal oppre
 <translation id="7685049629764448582">JavaScript-minne</translation>
 <translation id="6398765197997659313">Avslutt fullskjerm</translation>
 <translation id="4641635164232599739"><ph name="FILE_NAME"/> lastes sjelden ned, og kan inneholde skadelig programvare.</translation>
-<translation id="7974067550340408553">Få varsler på telefonen din hver gang Smart Lock låser opp <ph name="DEVICE_TYPE"/>.</translation>
+<translation id="7974067550340408553">Få varsler på telefonen hver gang Smart Lock låser opp <ph name="DEVICE_TYPE"/>.</translation>
 <translation id="6059652578941944813">Sertifikathierarki</translation>
 <translation id="3153094071447713741">Eksperimentelle funksjoner for inndatavisning.</translation>
 <translation id="5729712731028706266">&amp;Vis</translation>

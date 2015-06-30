@@ -731,6 +731,7 @@
 <translation id="5759728514498647443">「<ph name="APP_NAME"/>」可以讀取您透過「<ph name="APP_NAME"/>」傳送的待列印文件。</translation>
 <translation id="2401053206567162910">這個應用程式目前不適用於這個裝置，不過 Chrome GNOME 正積極設法解決問題，希望近期內就能讓這個應用程式順利運作。</translation>
 <translation id="3273410961255278341">送至：</translation>
+<translation id="4255096080864111471">指定目標區域的圖標上限。</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">新增分頁</translation>
 <translation id="6567688344210276845">無法載入網頁動作的圖示「<ph name="ICON"/>」。</translation>
@@ -1675,6 +1676,7 @@
 <translation id="4811502511369621968">輸入的電子郵件地址有誤。請檢查拼寫是否正確，然後再試一次。</translation>
 <translation id="175196451752279553">重新開啟已關閉分頁(&amp;E)</translation>
 <translation id="8602851771975208551">電腦中其他程式所新增的應用程式可能會變更 Chrome 的運作方式。</translation>
+<translation id="9154967591629748964">目標區域的圖標上限</translation>
 <translation id="2655386581175833247">使用者憑證：</translation>
 <translation id="5039804452771397117">允許</translation>
 <translation id="5435964418642993308">按 Enter 鍵可返回上一頁，按相關內容選單鍵可查看記錄</translation>
@@ -1850,6 +1852,7 @@
 <translation id="1901377140875308934">登入 <ph name="SHORT_PRODUCT_NAME"/>...</translation>
 <translation id="5529098031581368697">目前使用的桌布是由「<ph name="APP_NAME"/>」設定</translation>
 <translation id="5074318175948309511">您可能需要重新載入這個網頁，新設定才會生效。</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">在所有網頁上顯示 [閱讀器模式] 按鈕</translation>
 <translation id="3947376313153737208">未選取任何項目</translation>
 <translation id="6405640832764359650">啟用 Google Payments 信用卡儲存功能核取方塊</translation>
@@ -2926,7 +2929,7 @@
 <translation id="5148652308299789060">停用 3D 軟體點陣圖轉換器</translation>
 <translation id="9205143043463108573">將應用程式啟動器置於橫向畫面中央的位置。</translation>
 <translation id="7996005831155352675">啟用按一下即可自動填入功能</translation>
-<translation id="870112442358620996">詢問是否使用「密碼管理專用 Google Smart Lock」儲存密碼。</translation>
+<translation id="870112442358620996">詢問是否使用「密碼專用 Google Smart Lock」儲存密碼。</translation>
 <translation id="1414648216875402825">您即將更新為不穩定的 <ph name="PRODUCT_NAME"/>版本，其中含有仍在開發中的功能。系統可能會發生當機情況和無法預期的錯誤，執行時請特別注意。</translation>
 <translation id="8382913212082956454">複製電子郵件地址(&amp;E)</translation>
 <translation id="7887192723714330082">螢幕開啟且已解鎖時回應「Ok Google」</translation>
@@ -4040,7 +4043,7 @@
 <translation id="1859234291848436338">文字方向</translation>
 <translation id="5038625366300922036">顯示更多...</translation>
 <translation id="8437209419043462667">美式配置</translation>
-<translation id="3172213052701798825">密碼管理專用 Google Smart Lock</translation>
+<translation id="3172213052701798825">密碼專用 Google Smart Lock</translation>
 <translation id="5045550434625856497">密碼不正確</translation>
 <translation id="6397592254427394018">在無痕式視窗中開啟所有書籤(&amp;I)</translation>
 <translation id="8155481074575809396">啟用時，系統將使用簽署的距離欄位轉譯文字，而不使用點陣圖 Alpha 遮罩。</translation>

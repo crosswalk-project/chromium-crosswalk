@@ -728,6 +728,7 @@
 <translation id="5759728514498647443">您通过“<ph name="APP_NAME"/>”发送以进行打印的文档可由“<ph name="APP_NAME"/>”读取。</translation>
 <translation id="2401053206567162910">目前此设备不支持该应用，但 Chrome Gnomes 正设法解决这一问题，使该应用能够尽快在此设备上顺利运行。</translation>
 <translation id="3273410961255278341">发送用途：</translation>
+<translation id="4255096080864111471">指定关注区域的图块数上限。</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">打开新的标签页</translation>
 <translation id="6567688344210276845">无法加载网页操作的“<ph name="ICON"/>”图标。</translation>
@@ -1670,6 +1671,7 @@
 <translation id="4811502511369621968">电子邮件地址无效。请进行检查，然后重试。</translation>
 <translation id="175196451752279553">重新打开关闭的标签页(&amp;E)</translation>
 <translation id="8602851771975208551">您计算机上的其他程序添加了一个应用，该应用可能会改变 Chrome 的工作方式。</translation>
+<translation id="9154967591629748964">关注区域的图块数上限</translation>
 <translation id="2655386581175833247">用户证书：</translation>
 <translation id="5039804452771397117">允许</translation>
 <translation id="5435964418642993308">按 Enter 键即可返回，按右键菜单键即可查看历史记录</translation>
@@ -1843,6 +1845,7 @@
 <translation id="1901377140875308934">登录到 <ph name="SHORT_PRODUCT_NAME"/>...</translation>
 <translation id="5529098031581368697">当前壁纸是由“<ph name="APP_NAME"/>”设置的</translation>
 <translation id="5074318175948309511">您可能需要重新加载此页面，才能使新设置生效。</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">在所有页面上显示“阅读器模式”按钮</translation>
 <translation id="3947376313153737208">未选择</translation>
 <translation id="6405640832764359650">显示用于指定是否保存 Google Payments 卡数据的复选框</translation>
@@ -2905,7 +2908,7 @@
 <translation id="5148652308299789060">停用 3D 软件光栅器</translation>
 <translation id="9205143043463108573">将应用启动器横向置于屏幕中心。</translation>
 <translation id="7996005831155352675">启用“点击一次即自动填充”功能</translation>
-<translation id="870112442358620996">询问是否通过密码专用 Google Smart Lock 保存密码。</translation>
+<translation id="870112442358620996">询问是否向 Google Smart Lock（密码专用）保存密码。</translation>
 <translation id="1414648216875402825">您即将更新到 <ph name="PRODUCT_NAME"/>的不稳定版本，其中含有尚处于开发阶段的功能。系统可能会出现崩溃和意外错误。继续操作前，请三思。</translation>
 <translation id="8382913212082956454">复制电子邮件地址(&amp;E)</translation>
 <translation id="7887192723714330082">当屏幕处于开启状态并且未锁定时，对“Ok Google”做出回应</translation>
@@ -4022,7 +4025,7 @@
 <translation id="1859234291848436338">书写方向</translation>
 <translation id="5038625366300922036">查看更多…</translation>
 <translation id="8437209419043462667">美国英语</translation>
-<translation id="3172213052701798825">密码专用 Google Smart Lock</translation>
+<translation id="3172213052701798825">Google Smart Lock（密码专用）</translation>
 <translation id="5045550434625856497">密码不正确</translation>
 <translation id="6397592254427394018">在隐身窗口中打开所有书签(&amp;I)</translation>
 <translation id="8155481074575809396">启用此选项后，文字会采用勾边（而不是位图alpha蒙版）渲染。</translation>
@@ -5234,7 +5237,7 @@
 <translation id="6886871292305414135">在新标签页中打开链接(&amp;T)</translation>
 <translation id="4499634737431431434">周</translation>
 <translation id="5863445608433396414">启用调试功能</translation>
-<translation id="7961015016161918242">永不保存</translation>
+<translation id="7961015016161918242">一律不</translation>
 <translation id="3950924596163729246">无法访问网络。</translation>
 <translation id="5212461935944305924">Cookie 和网站数据例外情况</translation>
 <translation id="1543152709146436555">停用触摸调整。</translation>
@@ -5343,7 +5346,7 @@
 <translation id="9003647077635673607">允许在所有网站上运行脚本</translation>
 <translation id="6837930996380214191">目前权限</translation>
 <translation id="8689341121182997459">过期时间：</translation>
-<translation id="236128817791440714">推荐：设置 Android 版 Smart Lock</translation>
+<translation id="236128817791440714">推荐：设置 Smart Lock（Android 版）</translation>
 <translation id="899403249577094719">Netscape 证书基本网址</translation>
 <translation id="2737363922397526254">折叠...</translation>
 <translation id="8605428685123651449">SQLite 使用的内存</translation>

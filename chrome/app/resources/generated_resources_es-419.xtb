@@ -740,6 +740,7 @@ Todos los usuarios deben salir de sus cuentas para continuar.</translation>
 <translation id="5759728514498647443"><ph name="APP_NAME"/> podrá leer los documentos que envíes a imprimir a través de <ph name="APP_NAME"/>.</translation>
 <translation id="2401053206567162910">Actualmente, este dispositivo no admite esta aplicación, pero los gnomos de Chrome están trabajando arduamente para que la aplicación funcione pronto.</translation>
 <translation id="3273410961255278341">Enviar para:</translation>
+<translation id="4255096080864111471">Especifica la cantidad máxima de mosaicos para el área de interés.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">Nueva pestaña</translation>
 <translation id="6567688344210276845">No se pudo cargar el ícono '<ph name="ICON"/>' para las acciones de la página.</translation>
@@ -1523,7 +1524,7 @@ Todos los usuarios deben salir de sus cuentas para continuar.</translation>
 <translation id="7079038783243627996">&quot;<ph name="EXTENSION"/>&quot; podrá leer y eliminar archivos de sonido, video e imagen almacenados en las carpetas seleccionadas.</translation>
 <translation id="1737968601308870607">Incluir error</translation>
 <translation id="3831688386498123870">Accede a tu cuenta para pagar con Google Payments</translation>
-<translation id="852605377609758011">Se usará una tarjeta virtual para la transacción. Una tarjeta virtual te brinda un nuevo número de tarjeta para que el vendedor no tenga acceso al número real de tu tarjeta de crédito.</translation>
+<translation id="852605377609758011">Se usará una tarjeta virtual de Google Payments para la transacción. Una tarjeta virtual te brinda un nuevo número de tarjeta para que el vendedor no tenga acceso al número real de tu tarjeta de crédito.</translation>
 <translation id="2594056015203442344">Al habilitar esta marca, los indicadores de audio en la barra de pestañas también funcionan como controles para silenciar el audio de las pestañas.  Además, se agregan comandos en el menú contextual de la pestaña para poder silenciar rápidamente varias pestañas seleccionadas.</translation>
 <translation id="5316588172263354223">Búsqueda por voz en cualquier momento</translation>
 <translation id="1389297115360905376">Esto se puede agregar solamente desde <ph name="CHROME_WEB_STORE"/>.</translation>
@@ -1628,7 +1629,7 @@ Todos los usuarios deben salir de sus cuentas para continuar.</translation>
 <translation id="3574210789297084292">acceder</translation>
 <translation id="5254480569305195883">Habilitar compatibilidad con evento de sincronización en segundo plano de ServiceWorker</translation>
 <translation id="2134149231879627725">Deja que Google te ayude de manera remota a bloquear y a localizar tu dispositivo, así como a borrar sus datos.</translation>
-<translation id="5151034238407558331">Lamentablemente, solamente los compradores que tengan una dirección en EE.UU. podrán usar Google Payments con este comerciante. Si resides en EE.UU., |cambia tu dirección particular en Google Payments| o realiza el pago sin usar Google Payments.</translation>
+<translation id="5151034238407558331">Lamentablemente, solamente los compradores que tengan una dirección en EE. UU. podrán usar Google Payments con este comerciante. Si resides en EE. UU., |cambia tu dirección particular en Google Payments| o realiza el pago sin usar Google Payments.</translation>
 <translation id="1146204723345436916">Importar marcadores de un archivo HTML...</translation>
 <translation id="2113921862428609753">Acceso de información de la entidad</translation>
 <translation id="9190063653747922532">L2TP/IPsec + clave previamente compartida</translation>
@@ -1684,6 +1685,7 @@ Todos los usuarios deben salir de sus cuentas para continuar.</translation>
 <translation id="4811502511369621968">La dirección de correo electrónico no es válida. Compruébala y vuelve a intentarlo.</translation>
 <translation id="175196451752279553">Volver a abrir una pestaña cerrada</translation>
 <translation id="8602851771975208551">Otro programa en tu computadora agregó una aplicación que puede cambiar el funcionamiento de Chrome.</translation>
+<translation id="9154967591629748964">Cantidad máxima de mosaicos para el área de interés</translation>
 <translation id="2655386581175833247">Certificado de usuario:</translation>
 <translation id="5039804452771397117">Permitir</translation>
 <translation id="5435964418642993308">Pulsa enter para volver, tecla para menú contextual para ver historial</translation>
@@ -1859,6 +1861,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="1901377140875308934">Accede a <ph name="SHORT_PRODUCT_NAME"/>...</translation>
 <translation id="5529098031581368697">&quot;<ph name="APP_NAME"/>&quot; estableció el fondo de pantalla actual.</translation>
 <translation id="5074318175948309511">Es posible que debas actualizar la página para que se aplique la nueva configuración.</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">Mostrar el botón de modo de lectura en todas las páginas</translation>
 <translation id="3947376313153737208">Sin selección</translation>
 <translation id="6405640832764359650">Habilitar la casilla de verificación para guardar tarjetas en Google Payments</translation>
@@ -2262,7 +2265,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="6955446738988643816">Inspeccionar ventana emergente</translation>
 <translation id="172612876728038702">Se está configurando el TPM. Ten paciencia; esto puede tardar unos minutos.</translation>
 <translation id="3442535954345742822">Leer y modificar todos los datos del dispositivo y los sitios web que visites</translation>
-<translation id="6748140994595080445">Cambiar cómo administra y muestra <ph name="APP_NAME"/> los idiomas.</translation>
+<translation id="6748140994595080445">Cambiar cómo administra y muestra <ph name="APP_NAME"/> los idiomas</translation>
 <translation id="2836635946302913370">El administrador ha inhabilitado el inicio de sesión para este nombre de usuario.</translation>
 <translation id="3512307528596687562">La página web en <ph name="URL"/> produjo
           demasiados redireccionamientos. Borrar las cookies de este sitio o habilitar las cookies de terceros puede solucionar el problema. Si
@@ -3325,7 +3328,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="4853020600495124913">Abrir en una ventana &amp;nueva</translation>
 <translation id="6847758263950452722">Guardar página como MHTML</translation>
 <translation id="3563432852173030730">No se pudo descargar la aplicación del kiosco.</translation>
-<translation id="324743268744517458">Advertencia: No estás conectado a los servidores de producción de Google Payments; en consecuencia, las tarjetas emitidas no serán válidas.</translation>
+<translation id="324743268744517458">Advertencia: no estás conectado a los servidores de producción de Google Payments; en consecuencia, las tarjetas emitidas no serán válidas.</translation>
 <translation id="4711094779914110278">Turco</translation>
 <translation id="2572032849266859634">Se concedió acceso de solo lectura a <ph name="VOLUME_NAME"/>.</translation>
 <translation id="8193362611902704788">Habilita el Selector de aplicaciones. Al habilitarlo, se crean accesos directos del sistema operativo en el Selector de aplicaciones.</translation>
@@ -3676,7 +3679,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="1464258312790801189">Tus cuentas</translation>
 <translation id="163309982320328737">El ancho del carácter inicial está completo</translation>
 <translation id="6596092346130528198">¿Esta es la página Nueva pestaña que esperabas ver?</translation>
-<translation id="3926002189479431949">Cambió el teléfono con Smart Block</translation>
+<translation id="3926002189479431949">Cambió el teléfono con Smart Lock</translation>
 <translation id="6965648386495488594">Puerto</translation>
 <translation id="7631887513477658702">&amp;Abrir siempre archivos de este tipo</translation>
 <translation id="3858027520442213535">Actualizar fecha y hora</translation>
@@ -3782,7 +3785,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="6325191661371220117">Inhabilitar inicio automático</translation>
 <translation id="6817358880000653228">Contraseñas guardadas para este sitio:</translation>
 <translation id="4613271546271159013">Una extensión cambió la página que se muestra al abrir una nueva pestaña.</translation>
-<translation id="3378630551672149129">Accede a tu cuenta y presiona la clave de pestaña para interactuar con los elementos de entrada</translation>
+<translation id="3378630551672149129">Accede a tu cuenta y presiona la tecla de tabulación para interactuar con los elementos de entrada</translation>
 <translation id="351152300840026870">Fuente de ancho fijo</translation>
 <translation id="4301786491084298653">Inhabilitar en <ph name="DOMAIN"/></translation>
 <translation id="5827266244928330802">Safari</translation>
@@ -4176,7 +4179,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="1792705092719258158">Habilitar el modo de pantalla espejada</translation>
 <translation id="6982896539684144327">Se detectó una impresora de <ph name="VENDOR_NAME"/>.</translation>
 <translation id="8050038245906040378">Firma de código comercial de Microsoft</translation>
-<translation id="8684255857039823328">Se guardó la contraseña. Accede a tus contraseñas en cualquier dispositivo en <ph name="MANAGEMENT_LINK"/>.</translation>
+<translation id="8684255857039823328">Se guardó la contraseña. Accede a tus contraseñas desde cualquier dispositivo en <ph name="MANAGEMENT_LINK"/>.</translation>
 <translation id="3031557471081358569">Selecciona elementos para importar:</translation>
 <translation id="6728144975495880845">Si se habilita esta opción, los subprocesos de la trama escriben en la memoria GPU.</translation>
 <translation id="1368832886055348810">De izquierda a derecha</translation>
@@ -4287,7 +4290,7 @@ Luego de crear un usuario supervisado, puedes administrar su configuración en c
 <translation id="2885378588091291677">Administrador de tareas</translation>
 <translation id="7412226954991670867">Memoria de GPU</translation>
 <translation id="4916679969857390442">Lupa</translation>
-<translation id="8688644143607459122">Al hacer clic en Continuar, aceptas usar Google Payments. Para protegerte contra fraudes, se compartirá con Google Payments la información de la computadora (incluida la ubicación).</translation>
+<translation id="8688644143607459122">Al hacer clic en Continuar, aceptas usar Google Payments. Para protegerte contra fraudes, se compartirá con Google Payments la información de la computadora que usas (incluida la ubicación).</translation>
 <translation id="2080796051686842158">Inhabilita la animación de inicio del fondo de pantalla (excepto en el caso de OOBE).</translation>
 <translation id="305932878998873762">La caché simple para HTTP es una nueva caché. Depende del sistema de archivos para la asignación de espacio en disco.</translation>
 <translation id="8962083179518285172">Ocultar detalles</translation>

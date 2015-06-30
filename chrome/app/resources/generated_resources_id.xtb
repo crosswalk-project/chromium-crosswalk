@@ -17,7 +17,7 @@
 <translation id="8996941253935762404">Situs yang akan dibuka berisi program berbahaya</translation>
 <translation id="3595596368722241419">Baterai penuh</translation>
 <translation id="8098352321677019742">Notifikasi <ph name="PRODUCT_NAME"/></translation>
-<translation id="5186650237607254032">Perbarui kunci layar ponsel sehingga kunci nonaktif saat Anda berada di sekitar. Anda akan dapat membuka kunci ponsel dengan lebih cepat dan menikmati pengalaman Smart Lock yang lebih baik di <ph name="DEVICE_TYPE"/>.</translation>
+<translation id="5186650237607254032">Perbarui kunci layar ponsel sehingga kunci nonaktif saat Anda berada di sekitar. Anda dapat membuka kunci ponsel dengan lebih cepat dan menikmati pengalaman Smart Lock yang lebih baik di <ph name="DEVICE_TYPE"/>.</translation>
 <translation id="3566021033012934673">Sambungan Anda tidak pribadi</translation>
 <translation id="3751522270321808809">Situs ini mungkin mencoba mengelabui Anda untuk mencuri informasi (misalnya: sandi, pesan, atau kartu kredit).</translation>
 <translation id="3228679360002431295">Menyambungkan dan memverifikasi<ph name="ANIMATED_ELLIPSIS"/></translation>
@@ -740,6 +740,7 @@ Semua pengguna harus keluar untuk melanjutkan.</translation>
 <translation id="5759728514498647443">Dokumen yang Anda kirim untuk dicetak melalui <ph name="APP_NAME"/> dapat dibaca oleh <ph name="APP_NAME"/>.</translation>
 <translation id="2401053206567162910">Aplikasi saat ini tidak didukung pada perangkat ini, tetapi gnome Chrome bekerja keras agar ini segera bekerja.</translation>
 <translation id="3273410961255278341">Kirim untuk:</translation>
+<translation id="4255096080864111471">Menentukan ubin maksimum bagi area minat.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">Tab baru</translation>
 <translation id="6567688344210276845">Tidak dapat memuat ikon '<ph name="ICON"/>' untuk tindakan laman.</translation>
@@ -1685,6 +1686,7 @@ Ssst! <ph name="SHORTCUT_KEY"/> mode penyamaran mungkin berguna suatu saat nanti
 <translation id="4811502511369621968">Alamat email tidak valid. Harap periksa dan coba lagi.</translation>
 <translation id="175196451752279553">Buka k&amp;embali tab yang tertutup</translation>
 <translation id="8602851771975208551">Program lain di komputer Anda menambahkan aplikasi yang dapat mengubah cara kerja Chrome.</translation>
+<translation id="9154967591629748964">Ubin maksimum untuk area minat</translation>
 <translation id="2655386581175833247">Sertifikat pengguna:</translation>
 <translation id="5039804452771397117">Izinkan</translation>
 <translation id="5435964418642993308">Tekan enter untuk kembali, tombol menu konteks untuk melihat riwayat</translation>
@@ -1859,6 +1861,7 @@ Setelan Anda membuat pengguna yang dilindungi baru, Anda dapat mengelola setelan
 <translation id="1901377140875308934">Masuk ke <ph name="SHORT_PRODUCT_NAME"/>...</translation>
 <translation id="5529098031581368697">Wallpaper saat ini disetel dengan '<ph name="APP_NAME"/>'</translation>
 <translation id="5074318175948309511">Laman ini mungkin perlu dimuat ulang sebelum setelan baru berpengaruh.</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">Tampilkan tombol Mode Pembaca di semua laman</translation>
 <translation id="3947376313153737208">Tidak ada pilihan</translation>
 <translation id="6405640832764359650">Aktifkan kotak centang penyimpanan kartu Google Payments</translation>
@@ -4274,7 +4277,7 @@ Setelan Anda membuat pengguna yang dilindungi baru, Anda dapat mengelola setelan
 <translation id="676881925959847033">Nonaktifkan munculan bilah info secara default saat mengakses pengenal media yang dilindungi.</translation>
 <translation id="952992212772159698">Tidak diaktifkan</translation>
 <translation id="443464694732789311">Lanjutkan</translation>
-<translation id="140250605646987970">Menemukan ponsel Anda. Namun Smart Lock hanya bekerja di perangkat dengan Android 5.0 dan di atasnya. &lt;a&gt;Pelajari lebih lanjut&lt;/a&gt;</translation>
+<translation id="140250605646987970">Ponsel Anda telah ditemukan. Namun Smart Lock hanya bekerja di perangkat dengan Android 5.0 dan yang lebih baru. &lt;a&gt;Pelajari lebih lanjut&lt;/a&gt;</translation>
 <translation id="8299269255470343364">Jepang</translation>
 <translation id="9088659014978240063">Metrik yang terkait dengan pengaruh <ph name="SHORT_PRODUCT_NAME"/> pada CPU sistem</translation>
 <translation id="5187826826541650604"><ph name="KEY_NAME"/> (<ph name="DEVICE"/>)</translation>
@@ -4616,7 +4619,7 @@ Setelan Anda membuat pengguna yang dilindungi baru, Anda dapat mengelola setelan
 <translation id="8434480141477525001">Port Debug NaCl</translation>
 <translation id="8957210676456822347">Otorisasi Portal Tawanan</translation>
 <translation id="1979444449436715782">Kualitas pengecilan tangkapan tab.</translation>
-<translation id="7002055706763150362">Untuk menyiapkan Smart Lock untuk Chromebook, Google perlu memastikan bahwa memang Anda yang mengakses—ketik sandi untuk memulai.</translation>
+<translation id="7002055706763150362">Untuk menyiapkan Smart Lock untuk Chromebook, Google perlu memastikan bahwa memang Andalah yang mengaksesnya. Ketik sandi untuk memulai.</translation>
 <translation id="8579549103199280730">Ditanyakan secara default</translation>
 <translation id="1330145147221172764">Aktifkan keyboard di layar</translation>
 <translation id="8925458182817574960">&amp;Setelan</translation>
@@ -4733,7 +4736,7 @@ Setelan Anda membuat pengguna yang dilindungi baru, Anda dapat mengelola setelan
 <translation id="7179921470347911571">Luncurkan Ulang Sekarang</translation>
 <translation id="9065203028668620118">Edit</translation>
 <translation id="6978611942794658017">File ini dirancang untuk PC yang menggunakan perangkat lunak Windows. File ini tidak kompatibel dengan perangkat Anda yang menjalankan Chrome OS. Telusuri di Toko Web Chrome untuk mendapatkan aplikasi pengganti yang sesuai.</translation>
-<translation id="3002017044809397427">Menemukan <ph name="PHONE_TYPE"/> Anda. Namun Smart Lock hanya bekerja di perangkat dengan Android 5.0 dan di atasnya. &lt;a&gt;Pelajari lebih lanjut&lt;/a&gt;</translation>
+<translation id="3002017044809397427"><ph name="PHONE_TYPE"/> Anda telah ditemukan. Namun Smart Lock hanya bekerja di perangkat dengan Android 5.0 dan yang lebih baru. &lt;a&gt;Pelajari lebih lanjut&lt;/a&gt;</translation>
 <translation id="2251218783371366160">Buka menggunakan penampil sistem</translation>
 <translation id="1177863135347784049">Sesuaikan</translation>
 <translation id="4881695831933465202">Buka</translation>

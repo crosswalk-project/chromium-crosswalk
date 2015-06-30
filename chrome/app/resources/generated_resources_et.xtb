@@ -13,7 +13,7 @@
 <translation id="166179487779922818">Parool on liiga lühike.</translation>
 <translation id="2345460471437425338">Hosti vale sertifikaat.</translation>
 <translation id="3688507211863392146">Failidesse ja kaustadesse kirjutamine, mille rakenduses avate</translation>
-<translation id="226269835214688456">Kui lülitate teenuse Smart Lock Chromebookile välja, siis ei saa te Chrome'i seadmeid telefoniga avada. Sel juhul peate sisestama parooli.</translation>
+<translation id="226269835214688456">Kui lülitate funktsiooni Smart Lock Chromebookile välja, siis ei saa te Chrome'i seadmeid telefoniga avada. Sel juhul peate sisestama parooli.</translation>
 <translation id="8996941253935762404">Sait, mille soovite avada, sisaldab kahjulikke programme</translation>
 <translation id="3595596368722241419">Aku on täis</translation>
 <translation id="8098352321677019742">Toote <ph name="PRODUCT_NAME"/> märguanded</translation>
@@ -749,6 +749,7 @@ Jätkamiseks peavad kõik kasutajad välja logima.</translation>
 <translation id="5759728514498647443">Rakenduse <ph name="APP_NAME"/> kaudu printimiseks saadetud dokumente saab lugeda rakenduse <ph name="APP_NAME"/> järgi.</translation>
 <translation id="2401053206567162910">Seda rakendust praegu selles seadmes ei toetata, aga Chrome'i gnoomid töötavad selle nimel, et see peagi toimima hakkaks.</translation>
 <translation id="3273410961255278341">Saada:</translation>
+<translation id="4255096080864111471">Määrab huviala paanide maksimaalse koguse.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">Uus vaheleht</translation>
 <translation id="6567688344210276845">Lehe toimingu jaoks ei õnnestunud laadida ikooni <ph name="ICON"/>.</translation>
@@ -1696,6 +1697,7 @@ Inkognito režiim <ph name="SHORTCUT_KEY"/> võib järgmisel korral kasulikuks o
 <translation id="4811502511369621968">Vale e-posti aadress. Kontrollige ja proovige uuesti.</translation>
 <translation id="175196451752279553">&amp;Ava suletud vaheleht uuesti</translation>
 <translation id="8602851771975208551">Teine programm teie arvutis lisas rakenduse, mis võib muuta Chrome'i toimimist.</translation>
+<translation id="9154967591629748964">Huviala paanide maksimaalne arv</translation>
 <translation id="2655386581175833247">Kasutaja sertifikaat:</translation>
 <translation id="5039804452771397117">Luba</translation>
 <translation id="5435964418642993308">Vajutage tagasiminemiseks sisestusklahvi, ajaloo nägemiseks kontekstimenüü klahvi</translation>
@@ -1870,6 +1872,7 @@ Pärast uue jälgitava kasutaja loomist saate igal ajal ja igas seadmes saidil w
 <translation id="1901377140875308934">Sisselogimine teenusesse <ph name="SHORT_PRODUCT_NAME"/> ...</translation>
 <translation id="5529098031581368697">Praeguse taustapildi määras „<ph name="APP_NAME"/>”</translation>
 <translation id="5074318175948309511">Uute seadete jõustamiseks peate lehe võib-olla uuesti laadima.</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">Kuva nupp Lugejarežiim kõikidel lehtedel</translation>
 <translation id="3947376313153737208">Ühtegi valikut pole tehtud</translation>
 <translation id="6405640832764359650">Teenuse Google Payments kaardi salvestamise märkeruudu lubamine</translation>
@@ -2102,7 +2105,7 @@ Pärast uue jälgitava kasutaja loomist saate igal ajal ja igas seadmes saidil w
 <translation id="158917669717260118">Veebilehte ei saa laadida, kuna teie arvutis aktiveerus une- või puhkerežiim. Sel juhul katkestatakse võrguühendused ja uued võrgutaotlused ebaõnnestuvad. Lehe uuesti laadimine lahendab tõenäoliselt probleemi.</translation>
 <translation id="6316671927443834085">Seadmega „<ph name="DEVICE_NAME"/>” loodud ühendust ei õnnestunud katkestada.</translation>
 <translation id="1962233722219655970">Leht kasutab omakliendi rakendust, mis ei tööta teie arvutis.</translation>
-<translation id="5458733660263868683">Ärge kasutage Smart Locki, mis võimaldab avada Chromebooki, kui see on telefoni läheduses. Kui olete seadme omanik, siis lülitab see Smart Locki välja ka sisselogimiskuval.</translation>
+<translation id="5458733660263868683">Funktsiooni Smart Lock ei kasutata, mis võimaldab avada Chromebooki, kui see on telefoni läheduses. Kui olete seadme omanik, siis lülitab see funktsiooni Smart Lock välja ka sisselogimiskuval.</translation>
 <translation id="1108685299869803282">Rohkem kui 80% inimestest, kes näevad seda hoiatust, lähevad tagasi turvalisse keskkonda ega riski pahavaraga. Kui mõistate, kuidas teie turvalisust ohustatakse, siis võite <ph name="BEGIN_LINK"/>seda ebaturvalist saiti külastada<ph name="END_LINK"/> enne, kui ohtlikud programmid on eemaldatud.</translation>
 <translation id="219008588003277019">Omakliendi moodul: <ph name="NEXE_NAME"/></translation>
 <translation id="8228447825257396644">Sisendkuva klaviatuuri keelamine materiaalse disaini puhul.</translation>
@@ -2292,7 +2295,7 @@ Pärast uue jälgitava kasutaja loomist saate igal ajal ja igas seadmes saidil w
 <translation id="2485056306054380289">Serveri CA-sertifikaat</translation>
 <translation id="5631861698741076898">Vabandust, ei saanud teid sisse logida. Sisselogimine ebaõnnestus, sest see oli konfigureeritud kasutama ebaturvalist URL-i (<ph name="BLOCKED_URL"/>).</translation>
 <translation id="6462109140674788769">Kreeka klaviatuur</translation>
-<translation id="9191610850443814852">Lubab Smart Locki seade, mis võimaldab Chromebookil telefone avastada funktsiooniga Bluetooth Low Energy, et Chromebook avada, kui telefon on läheduses.</translation>
+<translation id="9191610850443814852">Lubab funktsiooni Smart Lock, mis võimaldab Chromebookil telefone avastada funktsiooniga Bluetooth Low Energy, et Chromebook avada, kui telefon on läheduses.</translation>
 <translation id="2727712005121231835">Tegelik suurus</translation>
 <translation id="1377600615067678409">Jäta praegu vahele</translation>
 <translation id="5581211282705227543">Ühtki pistikprogrammi ei ole installitud</translation>
@@ -2935,7 +2938,7 @@ Proovige uuesti mõne muu sertifikaadiga (kui teil on teisi sertifikaate). Kui t
 <translation id="1122960773616686544">Järjehoidja nimi</translation>
 <translation id="5966707198760109579">Nädal</translation>
 <translation id="7854323427075506422">Keela uus ZIP-lahtipakkija voog File System Provider API põhjal.</translation>
-<translation id="4635114802498986446">Lubab funktsiooni Smart Lock seade, mis lubab seadme avada vaid siis, kui telefon on Chrome'i seadmele väga lähedal (ligikaudu käeulatuses).</translation>
+<translation id="4635114802498986446">Lubab funktsiooni Smart Lock, mis lubab seadme avada vaid siis, kui telefon on Chrome'i seadmele väga lähedal (ligikaudu käeulatuses).</translation>
 <translation id="7371490661692457119">Paani vaikelaius</translation>
 <translation id="5148652308299789060">Keela 3D tarkvararasterdaja</translation>
 <translation id="9205143043463108573">Paigutab rakenduste käivitaja ekraani keskele horisontaalaspektiga.</translation>
@@ -3165,7 +3168,7 @@ Proovige uuesti mõne muu sertifikaadiga (kui teil on teisi sertifikaate). Kui t
 <translation id="3678156199662914018">Laiend: <ph name="EXTENSION_NAME"/></translation>
 <translation id="3047477924825107454">Seda lastekontot haldab <ph name="MANAGER_EMAIL"/></translation>
 <translation id="2620090360073999360">Google Drive'iga ei saa praegu ühendust.</translation>
-<translation id="1413372529771027206">Smart Locki jaoks kasutatud telefon on muutunud. Sisestage parool, et värskendada funktsioon Smart Lock Chromebookile selles seadmes. Järgmine kord piisab sisenemiseks oma pildil klõpsamisest.</translation>
+<translation id="1413372529771027206">Funktsiooni Smart Lock jaoks kasutatud telefon on muutunud. Sisestage parool, et värskendada funktsioon Smart Lock Chromebookile selles seadmes. Järgmine kord piisab sisenemiseks oma pildil klõpsamisest.</translation>
 <translation id="1370646789215800222">Kas eemaldada isik?</translation>
 <translation id="725387188884494207">Kas soovite kindlasti arvutist kustutada selle kasutaja ja kõik temaga seotud andmed? Seda toimingut ei saa tagasi võtta.</translation>
 <translation id="3531250013160506608">Parooli tekstiväli</translation>
@@ -5040,7 +5043,7 @@ kasutades juhtpaneeli funktsiooni <ph name="CONTROL_PANEL_APPLET_NAME"/>.
 <translation id="3581912141526548234">Jõustada (proovige hankida räsi ja jõustage see, kui õnnestub)</translation>
 <translation id="1974371662733320303">Kasutatav mälu tühistamise strateegia</translation>
 <translation id="3991936620356087075">Sisestasite liiga palju kordi vale PIN-koodi. Teie SIM-kaart on jäädavalt keelatud.</translation>
-<translation id="9217413363143870800">Luba Smart Lock funktsiooni Bluetooth Low Energy avastamiseks.</translation>
+<translation id="9217413363143870800">Luba funktsioon Smart Lock funktsiooni Bluetooth Low Energy abil telefonide avastamiseks.</translation>
 <translation id="5367091008316207019">Faili lugemine ...</translation>
 <translation id="936801553271523408">Süsteemidiagnostika andmed</translation>
 <translation id="7951415247503192394">(32-bitine)</translation>

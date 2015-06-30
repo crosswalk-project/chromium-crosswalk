@@ -580,7 +580,7 @@
 <translation id="715487527529576698">初期の中国語モードを簡体中国語にする</translation>
 <translation id="6522350652862471760">Google プロフィール名とアイコンを有効にする</translation>
 <translation id="2164862903024139959">ベトナム語キーボード（TCVN）　　</translation>
-<translation id="8885197664446363138">スマートロックは使用できません</translation>
+<translation id="8885197664446363138">Smart Lock は使用できません</translation>
 <translation id="1697532407822776718">設定が完了しました。</translation>
 <translation id="8373553483208508744">タブをミュート</translation>
 <translation id="8703575177326907206"><ph name="DOMAIN"/> への接続は暗号化されていません。</translation>
@@ -742,6 +742,7 @@
 <translation id="5759728514498647443">「<ph name="APP_NAME"/>」を使用して印刷に送信したドキュメントは「<ph name="APP_NAME"/>」で読めます。</translation>
 <translation id="2401053206567162910">このアプリは現在このデバイスではサポートされていませんが、今後ご利用いただけるように取り組んでおります。</translation>
 <translation id="3273410961255278341">送信先:</translation>
+<translation id="4255096080864111471">対象領域の最大タイル数を指定します。</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5233638681132016545">新しいタブ</translation>
 <translation id="6567688344210276845">ページ操作のアイコン「<ph name="ICON"/>」を読み込むことができませんでした。</translation>
@@ -1687,6 +1688,7 @@
 <translation id="4811502511369621968">メール アドレスが無効です。確認してから、もう一度お試しください。</translation>
 <translation id="175196451752279553">閉じたタブを開く(&amp;R)</translation>
 <translation id="8602851771975208551">パソコン上の別のプログラムにより、Chrome の動作方法を変更する可能性のあるアプリが追加されました。</translation>
+<translation id="9154967591629748964">対象領域の最大タイル数</translation>
 <translation id="2655386581175833247">ユーザー証明書:</translation>
 <translation id="5039804452771397117">許可</translation>
 <translation id="5435964418642993308">Enter キーを押すと前に戻り、コンテキスト メニュー キーを押すと履歴が表示されます</translation>
@@ -1862,6 +1864,7 @@
 <translation id="1901377140875308934"><ph name="SHORT_PRODUCT_NAME"/> にログイン...</translation>
 <translation id="5529098031581368697">現在の壁紙は「<ph name="APP_NAME"/>」により設定されています</translation>
 <translation id="5074318175948309511">新しい設定を有効にするには、ページの再読み込みが必要な可能性があります。</translation>
+<translation id="7664333939334980398">64</translation>
 <translation id="3740150184898623344">すべてのページにリーダーモード ボタンを表示する</translation>
 <translation id="3947376313153737208">未選択</translation>
 <translation id="6405640832764359650">Google ペイメント カードの保存チェックボックスを有効にする</translation>
@@ -2099,7 +2102,7 @@
           ページを再読み込みしてください。</translation>
 <translation id="6316671927443834085">「<ph name="DEVICE_NAME"/>」との接続を切断できませんでした。</translation>
 <translation id="1962233722219655970">このページは、お使いのパソコンでは動作しないネイティブ クライアント アプリを使用しています。</translation>
-<translation id="5458733660263868683">スマートフォンが近くにある場合に Chromebook のロックを解除できる Smart Lock の使用を無効にします。デバイスの所有者である場合、ログイン画面でも Smart Lock がオフになります。</translation>
+<translation id="5458733660263868683">スマートフォンが近くにある場合に Chromebook のロックを解除できる Smart Lock を無効にします。デバイスの所有者である場合、ログイン画面でも Smart Lock がオフになります。</translation>
 <translation id="1108685299869803282">この警告を見たユーザーの 80% 以上は、安全のため、不正なソフトウェアに近づかないことを選んでいます。危険なプログラムが削除されるより前に<ph name="BEGIN_LINK"/>この安全でないサイトにアクセスする<ph name="END_LINK"/>場合は、セキュリティ上のリスクについてご承知おきください。</translation>
 <translation id="219008588003277019">ネイティブ クライアント モジュール: <ph name="NEXE_NAME"/></translation>
 <translation id="8228447825257396644">マテリアル デザインの入力画面キーボードを無効にする。</translation>
@@ -4164,7 +4167,7 @@
 <translation id="6374100501221763867">ハードウェア アクセラレーションによる動画デコードを無効にする</translation>
 <translation id="9101691533782776290">アプリを起動</translation>
 <translation id="4057896668975954729">ストアで見る</translation>
-<translation id="7477347901712410606">パスフレーズをお忘れの場合、<ph name="BEGIN_LINK"/>Google ダッシュボード<ph name="END_LINK"/>から同期を停止してリセットしてください。</translation>
+<translation id="7477347901712410606">パスフレーズをお忘れの場合は、<ph name="BEGIN_LINK"/>Google ダッシュボード<ph name="END_LINK"/>から同期の停止とリセットを行ってください。</translation>
 <translation id="2262903407161221567">一部のユーザー インターフェース要素で、タッチ操作に対して視覚的なフィードバックが返されます。</translation>
 <translation id="4677772697204437347">GPU メモリ</translation>
 <translation id="3085235303151103497">パッケージ化されたアプリのデバッグの有効化。</translation>
@@ -4221,7 +4224,7 @@
 <translation id="5469954281417596308">ブックマーク マネージャ</translation>
 <translation id="106153153543631784">Chromebook プロフィールを更新するにはパスワードを再入力してください。</translation>
 <translation id="3064388234319122767">文字変換（zdravo → здраво）</translation>
-<translation id="5425722269016440406">スマートロック設定はスマートフォンおよび他のデバイスと同期しているため、オフにするにはインターネットに接続する必要があります。まずネットワークに接続してください。</translation>
+<translation id="5425722269016440406">Smart Lock 設定はスマートフォンおよび他のデバイスと同期しているため、オフにするにはインターネットに接続する必要があります。まずネットワークに接続してください。</translation>
 <translation id="5288481194217812690"><ph name="FILENAME"/></translation>
 <translation id="7730494089396812859">クラウド バックアップの詳細を表示します</translation>
 <translation id="1143142264369994168">証明書の署名者</translation>
@@ -5839,7 +5842,7 @@
 <translation id="5826507051599432481">一般名（CN）</translation>
 <translation id="8914326144705007149">極大</translation>
 <translation id="5154702632169343078">サブジェクト</translation>
-<translation id="2817861546829549432">「トラッキング拒否」を有効にすると、リクエストが閲覧トラフィックに組み込まれます。その効果は、ウェブサイトがリクエストに応じるかどうか、およびリクエストがどう解釈されるかによって異なります。たとえば、一部のウェブサイトでは、その閲覧者のウェブサイト アクセス履歴を基にした広告表示を行わない、という対応をしています。今後もたとえば、セキュリティの向上、そのサイト上のコンテンツ、サービス、広告、おすすめの提供、レポート統計の生成のために、多くのウェブサイトが閲覧データの収集と使用を続けるものと思われます。</translation>
+<translation id="2817861546829549432">「トラッキング拒否」を有効にすると、リクエストが閲覧トラフィックに組み込まれます。その効果は、ウェブサイトがリクエストに応じるかどうか、およびリクエストがどう解釈されるかによって異なります。たとえば、一部のウェブサイトでは、その閲覧者のウェブサイト アクセス履歴を基にした広告表示を行わない、という対応をしています。トラッキングを拒否しても、多くのウェブサイトではユーザーの閲覧データが収集され利用されるのが現状です。たとえば、セキュリティの強化、コンテンツ、サービス、広告、ウェブサイトのおすすめ情報の提供、レポート統計情報の作成などにこれらのデータが利用されます。</translation>
 <translation id="5228076606934445476">デバイスに問題があります。このエラーから回復するには、デバイスを再起動して、もう一度お試しください。</translation>
 <translation id="8241806945692107836">デバイスの設定を確認しています...</translation>
 <translation id="2273562597641264981">事業者:</translation>
