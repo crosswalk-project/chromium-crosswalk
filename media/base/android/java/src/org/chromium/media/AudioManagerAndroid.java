@@ -160,9 +160,6 @@ class AudioManagerAndroid {
     // granted. Required to shift system-wide audio settings.
     private boolean mHasModifyAudioSettingsPermission = false;
 
-    // Enabled during initialization if RECORD_AUDIO permission is granted.
-    private boolean mHasRecordAudioPermission = false;
-
     // Enabled during initialization if BLUETOOTH permission is granted.
     private boolean mHasBluetoothPermission = false;
 
@@ -242,11 +239,6 @@ class AudioManagerAndroid {
                 android.Manifest.permission.MODIFY_AUDIO_SETTINGS);
         if (DEBUG && !mHasModifyAudioSettingsPermission) {
             logd("MODIFY_AUDIO_SETTINGS permission is missing");
-        }
-        mHasRecordAudioPermission = hasPermission(
-                android.Manifest.permission.RECORD_AUDIO);
-        if (DEBUG && !mHasRecordAudioPermission) {
-            logd("RECORD_AUDIO permission is missing");
         }
 
         // Initialize audio device list with things we know is always available.
@@ -372,9 +364,11 @@ class AudioManagerAndroid {
     private boolean setDevice(String deviceId) {
         if (DEBUG) logd("setDevice: " + deviceId);
         if (!mIsInitialized) return false;
-        if (!mHasModifyAudioSettingsPermission || !mHasRecordAudioPermission) {
-            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO");
-            Log.w(TAG, "Selected device will not be available for recording");
+
+        boolean hasRecordAudioPermission = hasPermission(android.Manifest.permission.RECORD_AUDIO);
+        if (!mHasModifyAudioSettingsPermission || !hasRecordAudioPermission) {
+            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. "
+                    + "Selected device will not be available for recording");
             return false;
         }
 
@@ -415,9 +409,11 @@ class AudioManagerAndroid {
     private AudioDeviceName[] getAudioInputDeviceNames() {
         if (DEBUG) logd("getAudioInputDeviceNames");
         if (!mIsInitialized) return null;
-        if (!mHasModifyAudioSettingsPermission || !mHasRecordAudioPermission) {
-            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO");
-            Log.w(TAG, "No audio device will be available for recording");
+
+        boolean hasRecordAudioPermission = hasPermission(android.Manifest.permission.RECORD_AUDIO);
+        if (!mHasModifyAudioSettingsPermission || !hasRecordAudioPermission) {
+            Log.w(TAG, "Requires MODIFY_AUDIO_SETTINGS and RECORD_AUDIO. "
+                    + "No audio device will be available for recording");
             return null;
         }
 
