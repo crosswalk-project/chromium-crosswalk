@@ -370,6 +370,7 @@ class CONTENT_EXPORT ServiceWorkerVersion
   void OnStarted() override;
   void OnStopping() override;
   void OnStopped(EmbeddedWorkerInstance::Status old_status) override;
+  void OnDetached(EmbeddedWorkerInstance::Status old_status) override;
   void OnReportException(const base::string16& error_message,
                          int line_number,
                          int column_number,
@@ -493,6 +494,8 @@ class CONTENT_EXPORT ServiceWorkerVersion
   ServiceWorkerStatusCode DeduceStartWorkerFailureReason(
       ServiceWorkerStatusCode default_code);
 
+  void OnStoppedInternal(EmbeddedWorkerInstance::Status old_status);
+
   const int64 version_id_;
   const int64 registration_id_;
   const GURL script_url_;
@@ -531,6 +534,8 @@ class CONTENT_EXPORT ServiceWorkerVersion
   base::TimeTicks idle_time_;
   // Holds the time that the outstanding StartWorker() request started.
   base::TimeTicks start_time_;
+  // Holds the time the worker entered STOPPING status.
+  base::TimeTicks stop_time_;
 
   // New requests are added to |requests_| along with their entry in a callback
   // map. The timeout timer periodically checks |requests_| for entries that
