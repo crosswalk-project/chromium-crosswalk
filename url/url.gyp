@@ -33,6 +33,28 @@
       'defines': [
         'URL_IMPLEMENTATION',
       ],
+      'conditions': [
+        ['use_icu_alternatives_on_android==1', {
+          'sources!': [
+            'url_canon_icu.cc',
+            'url_canon_icu.h',
+          ],
+          'dependencies!': [
+            '../third_party/icu/icu.gyp:icui18n',
+            '../third_party/icu/icu.gyp:icuuc',
+          ],
+        }],
+        ['use_icu_alternatives_on_android==1 and OS=="android"', {
+          'dependencies': [
+            'url_java',
+            'url_jni_headers',
+          ],
+          'sources': [
+            'url_canon_icu_alternatives_android.cc',
+            'url_canon_icu_alternatives_android.h',
+          ],
+        }],
+      ],
       # TODO(jschuh): crbug.com/167187 fix size_t to int truncations.
       'msvs_disabled_warnings': [4267, ],
     },
@@ -59,6 +81,16 @@
           {
             'dependencies': [
               '../base/allocator/allocator.gyp:allocator',
+            ],
+          }
+        ],
+        ['use_icu_alternatives_on_android==1',
+          {
+            'sources!': [
+              'url_canon_icu_unittest.cc',
+            ],
+            'dependencies!': [
+              '../third_party/icu/icu.gyp:icuuc',
             ],
           }
         ],

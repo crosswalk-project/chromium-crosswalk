@@ -83,6 +83,13 @@ ScopedJavaLocalRef<jobject> NewJavaLocale(
 
 }  // namespace
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+//Note:Compiler complains Java_Locali_getJavaLocale defined but not used.
+void fake_call_getJavaLocale(JNIEnv* env,jstring str) {
+  Java_LocalizationUtils_getJavaLocale(env,str,str,str);
+}
+#endif
+
 base::string16 GetDisplayNameForLocale(const std::string& locale,
                                        const std::string& display_locale) {
   JNIEnv* env = base::android::AttachCurrentThread();

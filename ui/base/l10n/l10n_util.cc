@@ -24,6 +24,13 @@
 #include "base/strings/sys_string_conversions.h"
 #include "base/strings/utf_string_conversions.h"
 #include "build/build_config.h"
+#if defined(OS_ANDROID)
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "third_party/icu/source/common/unicode/rbbi.h"
+#include "third_party/icu/source/common/unicode/uloc.h"
+#include "ui/base/l10n/l10n_util_plurals.h"
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#endif  // defined(OS_ANDROID)
 #include "ui/base/l10n/l10n_util_collator.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/base/ui_base_paths.h"
@@ -31,11 +38,6 @@
 #if defined(OS_ANDROID)
 #include "base/android/locale_utils.h"
 #include "ui/base/l10n/l10n_util_android.h"
-#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
-#include "third_party/icu/source/common/unicode/rbbi.h"
-#include "third_party/icu/source/common/unicode/uloc.h"
-#include "ui/base/l10n/l10n_util_plurals.h"
-#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #endif  // defined(OS_ANDROID)
 
 #if defined(USE_GLIB)

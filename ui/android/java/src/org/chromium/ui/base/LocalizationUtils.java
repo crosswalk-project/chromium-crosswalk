@@ -29,7 +29,7 @@ public class LocalizationUtils {
     private static Boolean sIsLayoutRtl;
 
     private LocalizationUtils() { /* cannot be instantiated */ }
-
+    @CalledByNative
     private static Locale getJavaLocale(String language, String country, String variant) {
         return new Locale(language, country, variant);
     }
