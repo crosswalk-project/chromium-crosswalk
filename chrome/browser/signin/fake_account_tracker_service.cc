@@ -39,8 +39,7 @@ void FakeAccountTrackerService::FakeUserInfoFetchSuccess(
   user_info.SetString("id", gaia);
   user_info.SetString("email", email);
   user_info.SetString("hd", hosted_domain);
-  std::vector<std::string> service_flags;
-  SetAccountStateFromUserInfo(account_id, &user_info, &service_flags);
+  SetAccountStateFromUserInfo(account_id, &user_info);
 }
 
 void FakeAccountTrackerService::SendRefreshTokenAnnotationRequest(
