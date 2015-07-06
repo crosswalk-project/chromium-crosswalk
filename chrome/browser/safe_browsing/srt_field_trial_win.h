@@ -13,6 +13,10 @@ namespace safe_browsing {
 // prompt.
 bool IsInSRTPromptFieldTrialGroups();
 
+// Returns true if this Chrome is in a field trial group which doesn't need an
+// elevation icon, i.e., the SRT won't ask for elevation on startup.
+bool SRTPromptNeedsElevationIcon();
+
 // Returns the correct SRT download URL for the current field trial.
 const char* GetSRTDownloadURL();
 
