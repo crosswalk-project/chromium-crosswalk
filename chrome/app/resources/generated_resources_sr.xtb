@@ -69,7 +69,7 @@
 <translation id="7627349730328142646">Омогући експерименте у којима се центар за поруке увек помера нагоре после уклањања обавештења.</translation>
 <translation id="3275778913554317645">Отвори као прозор</translation>
 <translation id="5671961047338275645">Управљајте сајтовима</translation>
-<translation id="2302685579236571180">Иди у режим без архивирања</translation>
+<translation id="2302685579236571180">Режим без архивирања</translation>
 <translation id="7994370417837006925">Вишеструко пријављивање</translation>
 <translation id="1420684932347524586">Генерисање насумичног RSA приватног кључа није успело.</translation>
 <translation id="2501173422421700905">Сертификат на чекању</translation>
@@ -1341,6 +1341,7 @@
 <translation id="813082847718468539">Погледајте информације о сајту</translation>
 <translation id="127353061808977798">Фонтови и кодирање</translation>
 <translation id="3122464029669770682">CPU</translation>
+<translation id="4518677423782794009">Да ли Chrome отказује, приказује необичне почетне странице, траке с алаткама или неочекиване огласе које не можете да уклоните или на други начин мења доживљај прегледања? Можда ћете моћи да решите проблем ако покренете Алатку за чишћење Chrome-а.</translation>
 <translation id="6080689532560039067">Проверите системско време</translation>
 <translation id="6092270396854197260">MSPY</translation>
 <translation id="6802031077390104172"><ph name="USAGE"/> (<ph name="OID"/>)</translation>
@@ -2379,6 +2380,7 @@
 <translation id="389589731200570180">Делите са гостима</translation>
 <translation id="1510200760579344855">Овај уређај је закључао администратор домена <ph name="SAML_DOMAIN"/>.</translation>
 <translation id="7205869271332034173">SSID:</translation>
+<translation id="3335561837873115802">Преузми Алатку за чишћење Chrome-а</translation>
 <translation id="4731351517694976331">Дозволи Google услугама да приступају локацији</translation>
 <translation id="5815645614496570556">X.400 адреса</translation>
 <translation id="1223853788495130632">Администратор препоручује одређену вредност за ово подешавање.</translation>
@@ -2570,6 +2572,7 @@
 <translation id="409579654357498729">Додај у Cloud штампање</translation>
 <translation id="2120316813730635488">Догађаји током којих су инсталирани додаци</translation>
 <translation id="8398877366907290961">Ипак настави</translation>
+<translation id="2797019681257472009">Откривено је необично понашање</translation>
 <translation id="5063180925553000800">Нови PIN:</translation>
 <translation id="4883178195103750615">Извоз обележивача у HTML датотеку...</translation>
 <translation id="2496540304887968742">Уређај мора да има капацитет од 4 GB или више.</translation>
@@ -3134,7 +3137,6 @@
 <translation id="3858678421048828670">Језик тастатуре: италијански</translation>
 <translation id="1436784010935106834">Уклоњено</translation>
 <translation id="3730639321086573427">Локална одредишта</translation>
-<translation id="399856887277429830">Покрени Алатку за уклањање софтвера</translation>
 <translation id="7918257978052780342">Пријави ме</translation>
 <translation id="2863937263901630331">Необрађени подаци су доступни преко NetLog-а. Погледајте помоћ за више информација.</translation>
 <translation id="4195814663415092787">Настави претходну сесију</translation>
@@ -3888,7 +3890,6 @@
 <translation id="4871308555310586478">Није из Chrome веб-продавнице.</translation>
 <translation id="3578594933904494462">Садржај ове картице се дели.</translation>
 <translation id="7423080529544781027">Користи додатне компоненте</translation>
-<translation id="3401079963003821207">Преузми алатку за уклањање софтвера</translation>
 <translation id="4243835228168841140"><ph name="FULLSCREEN_ORIGIN"/> жели да онемогући курсор.</translation>
 <translation id="5473075389972733037">IBM</translation>
 <translation id="7807711621188256451">Увек дозволи да <ph name="HOST"/> приступа камери</translation>
@@ -4109,6 +4110,7 @@
 <translation id="5264252276333215551">Успоставите везу са интернетом да бисте покренули апликацију у режиму киоска.</translation>
 <translation id="7180865173735832675">Прилагоди</translation>
 <translation id="7054808953701320293">Важи, не приказуј ми ово поново.</translation>
+<translation id="4903369323166982260">Покрени Алатку за чишћење Chrome-а</translation>
 <translation id="144932861331386147">Повежите се са интернетом да бисте ажурирали Chromebook.</translation>
 <translation id="2938685643439809023">монголски</translation>
 <translation id="4530494379350999373">Извор</translation>
@@ -4314,6 +4316,7 @@
 <translation id="7863133010182113457">Брише уштеду података добијену коришћењем проксија за смањење података када се Chrome покрене.</translation>
 <translation id="4235200303672858594">Цео екран</translation>
 <translation id="5951823343679007761">Нема батерије</translation>
+<translation id="806705617346045388">Откривено је необично понашање</translation>
 <translation id="2518024842978892609">Користи сертификате клијента</translation>
 <translation id="479555359673800162">Онемогући поновну потврду аутентичности менаџера лозинки</translation>
 <translation id="8569682776816196752">Нема пронађених одредишта</translation>
@@ -4938,7 +4941,6 @@
 <translation id="9149866541089851383">Измени...</translation>
 <translation id="8735794438432839558">Повежите се са интернетом да бисте се пријавили на Chromebook.</translation>
 <translation id="3356395591469757189">Предлози за Аутоматско попуњавање у помоћном приказу на тастатури</translation>
-<translation id="2194802420977819330">Имате проблеме који, на пример, изазивају отказивања, необичне почетне странице или траке с алаткама или неочекиване огласе које не можете да уклоните, односно на други начин мењају доживљај прегледања? Можда ћете моћи да решите проблем ако покренете Алатку за уклањање софтвера.</translation>
 <translation id="7939412583708276221">Ипак задржи</translation>
 <translation id="8579285237314169903">Синхронизују се ставке (<ph name="NUMBER_OF_FILES"/>)...</translation>
 <translation id="8140778357236808512">Увези постојећег корисника под надзором</translation>

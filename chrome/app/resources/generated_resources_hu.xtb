@@ -1334,6 +1334,7 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY"/>) hasznos lehet a következő 
 <translation id="813082847718468539">Az oldalinformációk megtekintése</translation>
 <translation id="127353061808977798">Betűtípusok és karakterkódolás</translation>
 <translation id="3122464029669770682">CPU</translation>
+<translation id="4518677423782794009">Összeomlott a Chrome, szokatlan kezdőlapokat, eszköztárat mutat, vagy váratlan hirdetéseket jelenít meg, amelyektől nem tud megszabadulni, esetleg bármilyen más módon befolyásolja a böngészési élményt? Megoldhatja ezeket a problémákat a Chrome Cleanup Tool futtatásával.</translation>
 <translation id="6080689532560039067">Ellenőrizze a rendszeridőt</translation>
 <translation id="6092270396854197260">MSPY</translation>
 <translation id="6802031077390104172"><ph name="USAGE"/> (<ph name="OID"/>)</translation>
@@ -2369,6 +2370,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="389589731200570180">Megosztás vendégekkel</translation>
 <translation id="1510200760579344855">Az eszközt zárolta a(z) <ph name="SAML_DOMAIN"/> rendszergazdája.</translation>
 <translation id="7205869271332034173">SSID:</translation>
+<translation id="3335561837873115802">A Chrome Cleanup Tool letöltése</translation>
 <translation id="4731351517694976331">A Google-szolgáltatások hozzáférhetnek az Ön tartózkodási helyéhez</translation>
 <translation id="5815645614496570556">X.400 cím</translation>
 <translation id="1223853788495130632">Rendszergazdája egy meghatározott értéket javasol ehhez a beállításhoz.</translation>
@@ -2560,6 +2562,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="409579654357498729">Hozzáadás a Cloud Printhez</translation>
 <translation id="2120316813730635488">Bővítménytelepítési alkalmak</translation>
 <translation id="8398877366907290961">Továbblépés</translation>
+<translation id="2797019681257472009">Szokatlan viselkedés észlelve</translation>
 <translation id="5063180925553000800">Új PIN kód:</translation>
 <translation id="4883178195103750615">Könyvjelzők exportálása HTML-fájlba...</translation>
 <translation id="2496540304887968742">Az eszköznek legalább 4 GB kapacitásúnak kell lennie.</translation>
@@ -3119,7 +3122,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="3858678421048828670">Olasz billentyűzet</translation>
 <translation id="1436784010935106834">Eltávolítva</translation>
 <translation id="3730639321086573427">Helyi célhely</translation>
-<translation id="399856887277429830">A Szoftvereltávolító eszköz futtatása</translation>
 <translation id="7918257978052780342">Feliratkozás</translation>
 <translation id="2863937263901630331">A nyers adatok a NetLogon keresztül érhetők el. További részleteket a súgó tartalmaz.</translation>
 <translation id="4195814663415092787">Folytatás ott, ahol abbahagyta</translation>
@@ -3870,7 +3872,6 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="4871308555310586478">Nem a Chrome Internetes áruházból származik.</translation>
 <translation id="3578594933904494462">A lap tartalma meg lesz osztva.</translation>
 <translation id="7423080529544781027">Plug-ineket használ</translation>
-<translation id="3401079963003821207">A Szoftvereltávolító eszköz beszerzése</translation>
 <translation id="4243835228168841140">A(z) <ph name="FULLSCREEN_ORIGIN"/> le akarja tiltani az egérmutatót.</translation>
 <translation id="5473075389972733037">IBM</translation>
 <translation id="7807711621188256451">A(z) <ph name="HOST"/> mindig hozzáférhet az Ön kamerájához</translation>
@@ -4091,6 +4092,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="5264252276333215551">Csatlakozzon az internethez az alkalmazás kioszk módban való indításához.</translation>
 <translation id="7180865173735832675">Testreszabás</translation>
 <translation id="7054808953701320293">Értem, ne jelenjen meg újra ez az üzenet.</translation>
+<translation id="4903369323166982260">Chrome Cleanup Tool futtatása</translation>
 <translation id="144932861331386147">Csatlakozzon az internethez, hogy frissítse Chromebookját.</translation>
 <translation id="2938685643439809023">mongol</translation>
 <translation id="4530494379350999373">Eredet</translation>
@@ -4297,6 +4299,7 @@ Ha létrehozott egy felügyelt felhasználót, annak beállításait bármikor, 
 <translation id="7863133010182113457">A Chrome indításakor törli az adatfelhasználás-csökkentő proxyval nyert adatmegtakarítást.</translation>
 <translation id="4235200303672858594">Teljes képernyő</translation>
 <translation id="5951823343679007761">Nincs akkumulátor</translation>
+<translation id="806705617346045388">Szokatlan viselkedés észlelve</translation>
 <translation id="2518024842978892609">Klienstanúsítványok használata</translation>
 <translation id="479555359673800162">Jelszókezelő újrahitelesítésének letiltása</translation>
 <translation id="8569682776816196752">Nem található célhely</translation>
@@ -4917,7 +4920,6 @@ Elindítja a következőt: <ph name="CONTROL_PANEL_APPLET_NAME"/>?</translation>
 <translation id="9149866541089851383">Szerkesztés...</translation>
 <translation id="8735794438432839558">A Chromebookra való bejelentkezéshez kérjük, csatlakozzon az internethez.</translation>
 <translation id="3356395591469757189">Automatikus kitöltés javaslatai a billentyűzet mellett</translation>
-<translation id="2194802420977819330">Például rendszerösszeomlást okoz, szokatlan kezdőlapokat vagy eszköztárakat, illetve váratlan és nem eltüntethető hirdetéseket jelenít meg, illetve másként befolyásolja a böngészési élményt? A Szoftvereltávolító eszköz futtatásával esetleg orvosolhatja a problémát.</translation>
 <translation id="7939412583708276221">Megtartás</translation>
 <translation id="8579285237314169903"><ph name="NUMBER_OF_FILES"/> elem szinkronizálása…</translation>
 <translation id="8140778357236808512">Már meglévő felügyelt felhasználó importálása</translation>

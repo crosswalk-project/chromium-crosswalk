@@ -284,7 +284,7 @@
 <translation id="1303101771013849280">Lisää HTML-tiedoston kirjanmerkkeihin</translation>
 <translation id="8974161578568356045">Automaattinen</translation>
 <translation id="1549045574060481141">Vahvista lataus</translation>
-<translation id="5388588172257446328">Käyttäjänimi:</translation>
+<translation id="5388588172257446328">Käyttäjätunnus:</translation>
 <translation id="1657406563541664238">Auta parantamaan tuotetta <ph name="PRODUCT_NAME"/> lähettämällä automaattisesti käyttötilastoja ja virheraportteja Googlelle.</translation>
 <translation id="1010366937854368312">Lisää esteettömyystoimintoja</translation>
 <translation id="8339012082103782726">Älä anna sivustojen käyttää mikrofonia</translation>
@@ -1333,6 +1333,7 @@ Psst! Suosittelemme käyttämään ensi kerralla incognito-tilaa <ph name="SHORT
 <translation id="813082847718468539">Näytä sivuston tiedot</translation>
 <translation id="127353061808977798">Kirjasimet ja koodaus</translation>
 <translation id="3122464029669770682">Keskusyksikkö</translation>
+<translation id="4518677423782794009">Kaatuileeko Chrome? Näyttääkö se epätavallisia aloitussivuja, työkalupalkkeja tai mainoksia, joista et pääse eroon? Onko selaimen käyttökokemus muuttunut jollakin muulla tavalla? Ongelmien korjaaminen voi onnistua Chromen poistotyökalun avulla.</translation>
 <translation id="6080689532560039067">Tarkista järjestelmän aika</translation>
 <translation id="6092270396854197260">MSPY</translation>
 <translation id="6802031077390104172"><ph name="USAGE"/> (<ph name="OID"/>)</translation>
@@ -2362,6 +2363,7 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="389589731200570180">Jaa vierailijoiden kanssa</translation>
 <translation id="1510200760579344855">Verkkotunnuksen <ph name="SAML_DOMAIN"/> järjestelmänvalvoja on lukinnut tämän laitteen.</translation>
 <translation id="7205869271332034173">SSID:</translation>
+<translation id="3335561837873115802">Lataa Chromen poistotyökalu</translation>
 <translation id="4731351517694976331">Salli Googlen palveluiden käyttää sijaintitietojasi</translation>
 <translation id="5815645614496570556">X.400-osoite</translation>
 <translation id="1223853788495130632">Järjestelmänvalvoja suosittelee tälle asetukselle tiettyä arvoa.</translation>
@@ -2553,6 +2555,7 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="409579654357498729">Lisää Cloud Printiin</translation>
 <translation id="2120316813730635488">Esiintymät, kun laajennus asennettiin</translation>
 <translation id="8398877366907290961">Jatka silti</translation>
+<translation id="2797019681257472009">Epätavallista toimintaa havaittiin</translation>
 <translation id="5063180925553000800">Uusi PIN-koodi:</translation>
 <translation id="4883178195103750615">Vie kirjanmerkit HTML-tiedostoon...</translation>
 <translation id="2496540304887968742">Laitteella on oltava vähintään 4 Gt tallennustilaa.</translation>
@@ -3103,7 +3106,6 @@ Kun olet luonut uuden valvotun käyttäjän, voit hallinnoida hänen asetuksiaan
 <translation id="3858678421048828670">Näppäimistö: italia</translation>
 <translation id="1436784010935106834">Poistettu</translation>
 <translation id="3730639321086573427">Paikalliset kohteet</translation>
-<translation id="399856887277429830">Suorita Software Removal Tool</translation>
 <translation id="7918257978052780342">Rekisteröidy</translation>
 <translation id="2863937263901630331">Käsittelemättömät tiedot ovat saatavilla NetLogin kautta. Saat lisätietoja ohjeista.</translation>
 <translation id="4195814663415092787">Jatka siitä, mihin jäit</translation>
@@ -3706,7 +3708,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="6410328738210026208">Vaihda kanavaa ja tee Powerwash</translation>
 <translation id="4261901459838235729">Google-esitys</translation>
 <translation id="5982621672636444458">Lajitteluasetukset</translation>
-<translation id="529172024324796256">Käyttäjänimi:</translation>
+<translation id="529172024324796256">Käyttäjätunnus:</translation>
 <translation id="8232829399891359332">Istuntojen palautus</translation>
 <translation id="3308116878371095290">Tämä sivu ei saa asettaa evästeitä.</translation>
 <translation id="7521387064766892559">JavaScript</translation>
@@ -3856,7 +3858,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="4871308555310586478">Ei peräisin Chrome Web Storesta.</translation>
 <translation id="3578594933904494462">Tämän välilehden sisältöä jaetaan.</translation>
 <translation id="7423080529544781027">Käyttää laajennuksia</translation>
-<translation id="3401079963003821207">Hanki Software Removal Tool</translation>
 <translation id="4243835228168841140"><ph name="FULLSCREEN_ORIGIN"/> haluaa poistaa hiiren osoittimen käytöstä.</translation>
 <translation id="5473075389972733037">IBM</translation>
 <translation id="7807711621188256451">Anna aina sivuston <ph name="HOST"/> käyttää kameraasi</translation>
@@ -4063,7 +4064,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="3221634914176615296">Tutustu laitteen sisältöön Tiedostot-sovelluksen kautta.</translation>
 <translation id="6981982820502123353">Esteettömyys</translation>
 <translation id="6474884162850599008">Katkaise yhteys Google Drive -tiliin.</translation>
-<translation id="7210998213739223319">Käyttäjänimi.</translation>
+<translation id="7210998213739223319">Käyttäjätunnus.</translation>
 <translation id="4478664379124702289">Tallenna lin&amp;kki nimellä...</translation>
 <translation id="8725066075913043281">Yritä uudelleen</translation>
 <translation id="8590375307970699841">Ota käyttöön automaattiset päivitykset</translation>
@@ -4077,6 +4078,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="5264252276333215551">Yhdistä internetiin, jos haluat käynnistää sovelluksesi kioskitilassa.</translation>
 <translation id="7180865173735832675">Muokkaa</translation>
 <translation id="7054808953701320293">Selvä, älä näytä tätä uudelleen.</translation>
+<translation id="4903369323166982260">Käynnistä Chromen poistotyökalu</translation>
 <translation id="144932861331386147">Muodosta internetyhteys, niin voit päivittää Chromebookin.</translation>
 <translation id="2938685643439809023">mongolia</translation>
 <translation id="4530494379350999373">Alkuperä</translation>
@@ -4283,6 +4285,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="7863133010182113457">Tyhjentää tiedonsiirron vähentämisen välityspalvelimen avulla saavutetun pienemmän tiedonsiirtomäärän tiedot Chromen käynnistyessä.</translation>
 <translation id="4235200303672858594">Koko ruutu</translation>
 <translation id="5951823343679007761">Ei akkua</translation>
+<translation id="806705617346045388">Epätavallista toimintaa havaittiin</translation>
 <translation id="2518024842978892609">Käyttää käyttöoikeusvarmenteita.</translation>
 <translation id="479555359673800162">Poista käytöstä salasanojen hallintaohjelman uudelleentodennus</translation>
 <translation id="8569682776816196752">Kohteita ei löytynyt</translation>
@@ -4901,7 +4904,6 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="9149866541089851383">Muokkaa...</translation>
 <translation id="8735794438432839558">Kirjaudu Chromebookiin muodostamalla verkkoyhteys.</translation>
 <translation id="3356395591469757189">Automaattisen täytön ehdotukset näppäimistön lisäosana</translation>
-<translation id="2194802420977819330">Huomaatko esimerkiksi kaatuilua, outoja aloitussivuja, työkalupalkkeja tai mainoksia, joista et pääse eroon, tai muita muutoksia selauskokemuksessasi? Ongelma saattaa selvitä Software Removal Toolin avulla.</translation>
 <translation id="7939412583708276221">Säilytä</translation>
 <translation id="8579285237314169903">Synkronoidaan <ph name="NUMBER_OF_FILES"/> kohdetta…</translation>
 <translation id="8140778357236808512">Tuo olemassa oleva valvottu käyttäjä</translation>
@@ -5462,7 +5464,7 @@ ei saa yhteyttä sivustoon. Syynä on yleensä verkon ongelma, mutta ongelma saa
 <translation id="3030138564564344289">Yritä latausta uudelleen</translation>
 <translation id="2603463522847370204">Avaa incognito-ikkunassa</translation>
 <translation id="1035094536595558507">Dianäkymä</translation>
-<translation id="4381091992796011497">Käyttäjänimi:</translation>
+<translation id="4381091992796011497">Käyttäjätunnus:</translation>
 <translation id="568428328938709143">Tili poistettu</translation>
 <translation id="5830720307094128296">Tallenn&amp;a sivu nimellä...</translation>
 <translation id="2448312741937722512">Tyyppi</translation>
