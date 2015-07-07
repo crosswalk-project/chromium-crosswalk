@@ -30,7 +30,7 @@ void MockDownloadControllerAndroid::OnDownloadStarted(
 void MockDownloadControllerAndroid::StartContextMenuDownload(
     const content::ContextMenuParams& params,
     content::WebContents* web_contents,
-    bool is_link, const std::string& extra_headers) {
+    bool is_link) {
 }
 
 void MockDownloadControllerAndroid::DangerousDownloadValidated(

@@ -31,7 +31,7 @@ class MockDownloadControllerAndroid
   void StartContextMenuDownload(
       const content::ContextMenuParams& params,
       content::WebContents* web_contents,
-      bool is_link, const std::string& extra_headers) override;
+      bool is_link) override;
   void DangerousDownloadValidated(
       content::WebContents* web_contents, int download_id,
       bool accept) override;
