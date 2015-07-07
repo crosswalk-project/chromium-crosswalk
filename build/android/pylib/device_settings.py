@@ -28,13 +28,24 @@ def ConfigureContentSettings(device, desired_settings):
     desired_settings: A list of (table, [(key: value), ...]) for all
         settings to configure.
   """
-  for table, key_value in desired_settings:
-    settings = content_settings.ContentSettings(table, device)
-    for key, value in key_value:
-      settings[key] = value
-    logging.info('\n%s %s', table, (80 - len(table)) * '-')
-    for key, value in sorted(settings.iteritems()):
-      logging.info('\t%s: %s', key, value)
+  try:
+    sdk_version = device.build_version_sdk
+  except device_errors.CommandFailedError as exc:
+    logging.error('Skipping content settings configuration: %s', str(exc))
+    return
+
+  if sdk_version < constants.ANDROID_SDK_VERSION_CODES.JELLY_BEAN:
+    logging.error('Skipping content settings configuration due to outdated sdk')
+    return
+
+  if device.build_type in _COMPATIBLE_BUILD_TYPES:
+    for table, key_value in desired_settings:
+      settings = content_settings.ContentSettings(table, device)
+      for key, value in key_value:
+        settings[key] = value
+      logging.info('\n%s %s', table, (80 - len(table)) * '-')
+      for key, value in sorted(settings.iteritems()):
+        logging.info('\t%s: %s', key, value)
 
 
 def SetLockScreenSettings(device):
