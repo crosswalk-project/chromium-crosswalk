@@ -23,6 +23,8 @@ class GL_EXPORT SurfaceTexture
  public:
   static scoped_refptr<SurfaceTexture> Create(int texture_id);
 
+  static scoped_refptr<SurfaceTexture> CreateSingleBuffered(int texture_id);
+
   // Set the listener callback, which will be invoked on the same thread that
   // is being called from here for registration.
   // Note: Since callbacks come in from Java objects that might outlive objects
@@ -32,6 +34,13 @@ class GL_EXPORT SurfaceTexture
 
   // Update the texture image to the most recent frame from the image stream.
   void UpdateTexImage();
+
+  // Release the texture content. This is needed only in single buffered mode
+  // to allow the image content producer to take ownership
+  // of the image buffer.
+  // This is *only* supported on SurfaceTexture instantiated via
+  // |CreateSingleBuffered(...)|.
+  void ReleaseTexImage();
 
   // Retrieve the 4x4 texture coordinate transform matrix associated with the
   // texture image set by the most recent call to updateTexImage.
@@ -53,6 +62,10 @@ class GL_EXPORT SurfaceTexture
   const base::android::JavaRef<jobject>& j_surface_texture() const {
     return j_surface_texture_;
   }
+
+  // This should only be used to guard the SurfaceTexture instantiated via
+  // |CreateSingleBuffered(...)|
+  static bool IsSingleBufferModeSupported();
 
   static bool RegisterSurfaceTexture(JNIEnv* env);
 
