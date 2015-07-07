@@ -31,6 +31,11 @@ import java.util.List;
  */
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
 public class ActivityDelegate {
+    public static final String LEGACY_CLASS_NAME =
+            "com.google.android.apps.chrome.document.DocumentActivity";
+    public static final String LEGACY_INCOGNITO_CLASS_NAME =
+            "com.google.android.apps.chrome.document.IncognitoDocumentActivity";
+
     private final Class<?> mRegularClass;
     private final Class<?> mIncognitoClass;
 
@@ -63,6 +68,9 @@ public class ActivityDelegate {
     public boolean isValidActivity(boolean isIncognito, Intent intent) {
         if (intent == null) return false;
         String desiredClassName = isIncognito ? mIncognitoClass.getName() : mRegularClass.getName();
+        String desiredLegacyClassName = isIncognito
+                ? LEGACY_INCOGNITO_CLASS_NAME
+                : LEGACY_CLASS_NAME;
         String className = null;
         if (intent.getComponent() == null) {
             Context context = ApplicationStatus.getApplicationContext();
@@ -73,7 +81,8 @@ public class ActivityDelegate {
             className = intent.getComponent().getClassName();
         }
 
-        return TextUtils.equals(className, desiredClassName);
+        return TextUtils.equals(className, desiredClassName)
+                || TextUtils.equals(className, desiredLegacyClassName);
     }
 
     /**
