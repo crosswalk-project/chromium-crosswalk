@@ -17,6 +17,7 @@ import android.test.suitebuilder.annotation.SmallTest;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.annotations.SuppressFBWarnings;
 import org.chromium.base.test.util.Feature;
+import org.chromium.base.test.util.MinAndroidSdkLevel;
 import org.chromium.chrome.browser.preferences.website.ContentSetting;
 import org.chromium.chrome.browser.preferences.website.PushNotificationInfo;
 import org.chromium.chrome.browser.widget.RoundedIconGenerator;
@@ -39,6 +40,7 @@ import java.util.concurrent.TimeoutException;
  */
 // TODO(peter): remove @SuppressLint once crbug.com/501900 is fixed.
 @SuppressLint("NewApi")
+@MinAndroidSdkLevel(Build.VERSION_CODES.JELLY_BEAN)
 public class NotificationUIManagerTest extends ChromeShellTestBase {
     private static final String NOTIFICATION_TEST_PAGE =
             TestHttpServerClient.getUrl("chrome/test/data/notifications/android_test.html");
