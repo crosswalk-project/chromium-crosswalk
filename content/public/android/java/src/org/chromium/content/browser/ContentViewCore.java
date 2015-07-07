@@ -2907,7 +2907,8 @@ public class ContentViewCore
         }
 
         if (mNativeAccessibilityAllowed && !mNativeAccessibilityEnabled
-                && mNativeContentViewCore != 0) {
+                && mNativeContentViewCore != 0
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mNativeAccessibilityEnabled = true;
             nativeSetAccessibilityEnabled(mNativeContentViewCore, true);
         }
