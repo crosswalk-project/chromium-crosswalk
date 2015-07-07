@@ -7,7 +7,6 @@ package org.chromium.chrome.browser.media.remote;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.util.Log;
 import android.view.KeyEvent;
 
@@ -107,7 +106,7 @@ public abstract class LockScreenTransportControl
                 // wallpaper (which we set to the poster of the current video) when the phone is
                 // locked. Also, once the minSdkVersion is updated in the manifest, get rid of the
                 // code for older SDK versions.
-                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                if (android.os.Build.VERSION.SDK_INT < 18) {
                     sInstance = new LockScreenTransportControlV16(context);
                 } else {
                     sInstance = new LockScreenTransportControlV18(context);

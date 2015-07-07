@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -233,7 +234,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         }
 
         // Don't animate the menu items for low end devices.
-        if (!SysUtils.isLowEndDevice()) {
+        if (!SysUtils.isLowEndDevice()
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mPopup.getListView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
                 public void onLayoutChange(View v, int left, int top, int right, int bottom,
