@@ -5,6 +5,7 @@
 package org.chromium.chrome.browser.externalnav;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
+import android.os.Build;
 import android.os.SystemClock;
 import android.provider.Browser;
 import android.test.InstrumentationTestCase;
@@ -1255,6 +1257,7 @@ public class ExternalNavigationHandlerTest extends InstrumentationTestCase {
                 intent.getComponent());
     }
 
+    @TargetApi(Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1)
     public void check(String url,
                       String referrerUrl,
                       boolean isIncognito,
@@ -1289,9 +1292,11 @@ public class ExternalNavigationHandlerTest extends InstrumentationTestCase {
 
         if (startActivityCalled && expectSaneIntent) {
             checkIntentSanity(mDelegate.startActivityIntent, "Intent");
-            if (mDelegate.startActivityIntent.getSelector() != null) {
-                checkIntentSanity(mDelegate.startActivityIntent.getSelector(),
-                        "Intent's selector");
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH_MR1) {
+                if (mDelegate.startActivityIntent.getSelector() != null) {
+                    checkIntentSanity(mDelegate.startActivityIntent.getSelector(),
+                            "Intent's selector");
+                }
             }
         }
     }
