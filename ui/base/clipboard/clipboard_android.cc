@@ -167,6 +167,10 @@ void ClipboardMap::UpdateFromAndroidClipboard() {
   ScopedJavaLocalRef<jstring> jhtml =
       Java_Clipboard_getHTMLText(env, clipboard_manager_.obj());
 
+  if (!Java_Clipboard_isHTMLClipboardSupported(env)) {
+    return;
+  }
+
   AddMapEntry(env, &android_clipboard_state, kPlainTextFormat, jtext);
   AddMapEntry(env, &android_clipboard_state, kHTMLFormat, jhtml);
 
