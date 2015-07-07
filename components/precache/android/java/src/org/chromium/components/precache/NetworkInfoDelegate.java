@@ -7,6 +7,7 @@ package org.chromium.components.precache;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Build;
 
 import org.chromium.base.VisibleForTesting;
 
@@ -51,6 +52,10 @@ public class NetworkInfoDelegate {
     }
 
     protected boolean isActiveNetworkMetered() {
+        // ConnectivityManager.isActiveNetworkMetered was added in SDK API 16.
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            return false;
+        }
         return mConnectivityManager.isActiveNetworkMetered();
     }
 }
