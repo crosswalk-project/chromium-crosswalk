@@ -89,6 +89,10 @@ public class AwContentsStatics {
         nativeSetLegacyCacheRemovalDelayForTest(timeoutMs);
     }
 
+    public static String getProductVersion() {
+        return nativeGetProductVersion();
+    }
+
     //--------------------------------------------------------------------------------------------
     //  Native methods
     //--------------------------------------------------------------------------------------------
@@ -99,4 +103,5 @@ public class AwContentsStatics {
     private static native void nativeSetRecordFullDocument(boolean recordFullDocument);
     private static native void nativeRegisterCrashHandler(String version);
     private static native void nativeSetLegacyCacheRemovalDelayForTest(long timeoutMs);
+    private static native String nativeGetProductVersion();
 }
