@@ -14,6 +14,11 @@ import org.chromium.content_public.common.TopControlsState;
  */
 public interface ContextualSearchManagementDelegate {
     /**
+     * @return Whether the Search Panel is showing.
+     */
+    boolean isShowingSearchPanel();
+
+    /**
      * Sets the preference state to enabled or disabled.
      *
      * @param enabled Whether the preference should be set to enabled.
