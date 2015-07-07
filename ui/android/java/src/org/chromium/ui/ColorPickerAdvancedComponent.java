@@ -4,8 +4,11 @@
 
 package org.chromium.ui;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.GradientDrawable.Orientation;
+import android.os.Build;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
@@ -79,9 +82,15 @@ public class ColorPickerAdvancedComponent {
      *
      * @param newColors The set of colors representing the interpolation points for the gradient.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     public void setGradientColors(int[] newColors) {
         mGradientColors = newColors.clone();
-        mGradientDrawable.setColors(mGradientColors);
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            Orientation currentOrientation = Orientation.LEFT_RIGHT;
+            mGradientDrawable = new GradientDrawable(currentOrientation, mGradientColors);
+        } else {
+            mGradientDrawable.setColors(mGradientColors);
+        }
         mGradientView.setBackground(mGradientDrawable);
     }
 }
