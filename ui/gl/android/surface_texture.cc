@@ -6,6 +6,8 @@
 
 #include <android/native_window_jni.h>
 
+// TODO(boliu): Remove this include when we move off ICS.
+#include "base/android/build_info.h"
 #include "base/android/jni_android.h"
 #include "base/logging.h"
 #include "jni/SurfaceTexturePlatformWrapper_jni.h"
@@ -13,12 +15,28 @@
 #include "ui/gl/android/surface_texture_listener.h"
 #include "ui/gl/gl_bindings.h"
 
+// TODO(boliu): Remove this method when Chromium stops supporting ICS.
+bool GlContextMethodsAvailable() {
+  bool available = base::android::BuildInfo::GetInstance()->sdk_int() >= 16;
+  if (!available)
+    LOG(WARNING) << "Running on unsupported device: rendering may not work";
+  return available;
+}
+
 namespace gfx {
 
 scoped_refptr<SurfaceTexture> SurfaceTexture::Create(int texture_id) {
   JNIEnv* env = base::android::AttachCurrentThread();
   return new SurfaceTexture(
       Java_SurfaceTexturePlatformWrapper_create(env, texture_id));
+}
+
+scoped_refptr<SurfaceTexture> SurfaceTexture::CreateSingleBuffered(
+    int texture_id) {
+  DCHECK(IsSingleBufferModeSupported());
+  JNIEnv* env = base::android::AttachCurrentThread();
+  return new SurfaceTexture(
+      Java_SurfaceTexturePlatformWrapper_createSingleBuffered(env, texture_id));
 }
 
 SurfaceTexture::SurfaceTexture(
@@ -46,6 +64,13 @@ void SurfaceTexture::UpdateTexImage() {
                                                     j_surface_texture_.obj());
 }
 
+void SurfaceTexture::ReleaseTexImage() {
+  DCHECK(IsSingleBufferModeSupported());
+  JNIEnv* env = base::android::AttachCurrentThread();
+  Java_SurfaceTexturePlatformWrapper_releaseTexImage(env,
+                                                     j_surface_texture_.obj());
+}
+
 void SurfaceTexture::GetTransformMatrix(float mtx[16]) {
   JNIEnv* env = base::android::AttachCurrentThread();
 
@@ -63,18 +88,22 @@ void SurfaceTexture::GetTransformMatrix(float mtx[16]) {
 }
 
 void SurfaceTexture::AttachToGLContext() {
-  int texture_id;
-  glGetIntegerv(GL_TEXTURE_BINDING_EXTERNAL_OES, &texture_id);
-  DCHECK(texture_id);
-  JNIEnv* env = base::android::AttachCurrentThread();
-  Java_SurfaceTexturePlatformWrapper_attachToGLContext(
-      env, j_surface_texture_.obj(), texture_id);
+  if (GlContextMethodsAvailable()) {
+    int texture_id;
+    glGetIntegerv(GL_TEXTURE_BINDING_EXTERNAL_OES, &texture_id);
+    DCHECK(texture_id);
+    JNIEnv* env = base::android::AttachCurrentThread();
+    Java_SurfaceTexturePlatformWrapper_attachToGLContext(
+        env, j_surface_texture_.obj(), texture_id);
+  }
 }
 
 void SurfaceTexture::DetachFromGLContext() {
-  JNIEnv* env = base::android::AttachCurrentThread();
-  Java_SurfaceTexturePlatformWrapper_detachFromGLContext(
-      env, j_surface_texture_.obj());
+  if (GlContextMethodsAvailable()) {
+    JNIEnv* env = base::android::AttachCurrentThread();
+    Java_SurfaceTexturePlatformWrapper_detachFromGLContext(
+        env, j_surface_texture_.obj());
+  }
 }
 
 ANativeWindow* SurfaceTexture::CreateSurface() {
@@ -87,6 +116,11 @@ ANativeWindow* SurfaceTexture::CreateSurface() {
   ANativeWindow* native_window = ANativeWindow_fromSurface(
       env, surface.j_surface().obj());
   return native_window;
+}
+
+// static
+bool SurfaceTexture::IsSingleBufferModeSupported() {
+  return base::android::BuildInfo::GetInstance()->sdk_int() >= 19;
 }
 
 bool SurfaceTexture::RegisterSurfaceTexture(JNIEnv* env) {
