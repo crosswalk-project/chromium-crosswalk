@@ -155,6 +155,11 @@ public class AwContentViewClient extends ContentViewClient implements ContentVid
     }
 
     @Override
+    public boolean isJavascriptEnabled() {
+        return mAwSettings != null && mAwSettings.getJavaScriptEnabled();
+    }
+
+    @Override
     public boolean isExternalFlingActive() {
         return mAwContents.isFlingActive();
     }
