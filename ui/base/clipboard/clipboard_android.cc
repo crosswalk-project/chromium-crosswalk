@@ -156,6 +156,10 @@ void ClipboardMap::SyncWithAndroidClipboard() {
     }
   }
 
+  if (!Java_Clipboard_isHTMLClipboardSupported(env)) {
+    return;
+  }
+
   // Update the html clipboard entry
   ScopedJavaLocalRef<jstring> java_string_html =
       Java_Clipboard_getHTMLText(env, clipboard_manager_.obj());
