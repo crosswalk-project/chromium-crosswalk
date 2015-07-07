@@ -240,7 +240,8 @@ public class AppMenu implements OnItemClickListener, OnKeyListener {
         }
 
         // Don't animate the menu items for low end devices.
-        if (!SysUtils.isLowEndDevice()) {
+        if (!SysUtils.isLowEndDevice()
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mPopup.getListView().addOnLayoutChangeListener(new View.OnLayoutChangeListener() {
                 @Override
                 public void onLayoutChange(View v, int left, int top, int right, int bottom,
