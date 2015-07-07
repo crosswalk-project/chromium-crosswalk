@@ -20,7 +20,7 @@ import org.chromium.content.browser.ContentViewCore;
  */
 @JNINamespace("content")
 @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-public class LollipopBrowserAccessibilityManager extends BrowserAccessibilityManager {
+public class LollipopBrowserAccessibilityManager extends JellyBeanBrowserAccessibilityManager {
     LollipopBrowserAccessibilityManager(long nativeBrowserAccessibilityManagerAndroid,
             ContentViewCore contentViewCore) {
         super(nativeBrowserAccessibilityManagerAndroid, contentViewCore);
