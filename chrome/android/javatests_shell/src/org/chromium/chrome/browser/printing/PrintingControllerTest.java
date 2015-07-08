@@ -196,6 +196,7 @@ public class PrintingControllerTest extends ChromeShellTestBase {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     private void callLayoutOnUiThread(
             final PrintingControllerImpl controller,
             final PrintAttributes oldAttributes,

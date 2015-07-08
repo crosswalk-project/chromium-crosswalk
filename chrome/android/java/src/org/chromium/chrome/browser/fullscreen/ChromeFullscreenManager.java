@@ -9,6 +9,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.os.SystemClock;
@@ -22,6 +23,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import org.chromium.base.ActivityState;
+import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ApplicationStatus.ActivityStateListener;
 import org.chromium.base.BaseChromiumApplication;
@@ -50,7 +52,8 @@ public class ChromeFullscreenManager
     // Maximum length of the slide in/out animation of the toolbar (in ms).
     private static final long MAX_ANIMATION_DURATION_MS = 500;
 
-    private static final int MSG_ID_HIDE_CONTROLS = 1;
+    private static final int MSG_ID_CONTROLS_REQUEST_LAYOUT = 1;
+    private static final int MSG_ID_HIDE_CONTROLS = 2;
 
     private final HashSet<Integer> mPersistentControlTokens = new HashSet<Integer>();
 
@@ -164,6 +167,9 @@ public class ChromeFullscreenManager
             ChromeFullscreenManager chromeFullscreenManager = mChromeFullscreenManager.get();
             if (chromeFullscreenManager == null) return;
             switch (msg.what) {
+                case MSG_ID_CONTROLS_REQUEST_LAYOUT:
+                    chromeFullscreenManager.mControlContainer.requestLayout();
+                    break;
                 case MSG_ID_HIDE_CONTROLS:
                     chromeFullscreenManager.update(false);
                     break;
@@ -486,7 +492,7 @@ public class ChromeFullscreenManager
         final int desiredVisibility = shouldShowAndroidControls() ? View.VISIBLE : View.INVISIBLE;
         if (mControlContainer.getVisibility() == desiredVisibility) return;
         mControlContainer.removeCallbacks(mUpdateVisibilityRunnable);
-        mControlContainer.postOnAnimation(mUpdateVisibilityRunnable);
+        ApiCompatibilityUtils.postOnAnimation(mControlContainer, mUpdateVisibilityRunnable);
     }
 
     private void updateVisuals() {
@@ -500,6 +506,14 @@ public class ChromeFullscreenManager
             scheduleVisibilityUpdate();
             if (shouldShowAndroidControls()) mControlContainer.setTranslationY(getControlOffset());
 
+            // In ICS, the toolbar can appear clipped when compositor content is not being drawn
+            // beneath it (at the top of the page, during side swipe).  Requesting a layout clears
+            // up the issue (see crbug.com/172631).
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+                if (!mHandler.hasMessages(MSG_ID_CONTROLS_REQUEST_LAYOUT)) {
+                    mHandler.sendEmptyMessage(MSG_ID_CONTROLS_REQUEST_LAYOUT);
+                }
+            }
             for (int i = 0; i < mListeners.size(); i++) {
                 mListeners.get(i).onVisibleContentOffsetChanged(getVisibleContentOffset());
             }
