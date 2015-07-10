@@ -5,6 +5,7 @@
 package org.chromium.content.browser.accessibility;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Build;
@@ -32,8 +33,14 @@ import java.util.Locale;
 
 /**
  * Native accessibility for a {@link ContentViewCore}.
+ *
+ * This class is safe to load on ICS and can be used to run tests, but
+ * only the subclass, JellyBeanBrowserAccessibilityManager, actually
+ * has a AccessibilityNodeProvider implementation needed for native
+ * accessibility.
  */
 @JNINamespace("content")
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 public class BrowserAccessibilityManager {
     private static final String TAG = "BrowserAccessibilityManager";
 
@@ -42,7 +49,6 @@ public class BrowserAccessibilityManager {
     private static final String ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE =
             "ACTION_ARGUMENT_SET_TEXT_CHARSEQUENCE";
 
-    private final AccessibilityNodeProvider mAccessibilityNodeProvider;
     private ContentViewCore mContentViewCore;
     private final AccessibilityManager mAccessibilityManager;
     private final RenderCoordinates mRenderCoordinates;
@@ -75,6 +81,9 @@ public class BrowserAccessibilityManager {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             return new LollipopBrowserAccessibilityManager(
                     nativeBrowserAccessibilityManagerAndroid, contentViewCore);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            return new JellyBeanBrowserAccessibilityManager(
+                    nativeBrowserAccessibilityManagerAndroid, contentViewCore);
         } else {
             return new BrowserAccessibilityManager(
                     nativeBrowserAccessibilityManagerAndroid, contentViewCore);
@@ -94,25 +103,6 @@ public class BrowserAccessibilityManager {
             (AccessibilityManager) mContentViewCore.getContext()
             .getSystemService(Context.ACCESSIBILITY_SERVICE);
 
-        final BrowserAccessibilityManager delegate = this;
-        mAccessibilityNodeProvider = new AccessibilityNodeProvider() {
-            @Override
-            public AccessibilityNodeInfo createAccessibilityNodeInfo(int virtualViewId) {
-                return delegate.createAccessibilityNodeInfo(virtualViewId);
-            }
-
-            @Override
-            public List<AccessibilityNodeInfo> findAccessibilityNodeInfosByText(String text,
-                    int virtualViewId) {
-                return delegate.findAccessibilityNodeInfosByText(text, virtualViewId);
-            }
-
-            @Override
-            public boolean performAction(int virtualViewId, int action, Bundle arguments) {
-                return delegate.performAction(virtualViewId, action, arguments);
-            }
-        };
-
         // This must occur last as it may cause a call to notifyFrameInfoInitialized.
         mContentViewCore.setBrowserAccessibilityManager(this);
     }
@@ -127,10 +117,10 @@ public class BrowserAccessibilityManager {
     }
 
     /**
-     * @return An AccessibilityNodeProvider.
+     * @return An AccessibilityNodeProvider on JellyBean, and null on previous versions.
      */
     public AccessibilityNodeProvider getAccessibilityNodeProvider() {
-        return mAccessibilityNodeProvider;
+        return null;
     }
 
     /**
