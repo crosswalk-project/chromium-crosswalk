@@ -146,5 +146,9 @@ public class AwContentViewClient extends ContentViewClient implements ContentVid
     @Override
     public boolean isExternalScrollActive() {
         return mAwContents.isSmoothScrollingActive();
+
+    @Override
+    public boolean isJavascriptEnabled() {
+        return mAwSettings != null && mAwSettings.getJavaScriptEnabled();
     }
 }
