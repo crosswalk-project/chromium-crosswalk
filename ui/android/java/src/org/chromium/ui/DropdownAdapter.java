@@ -56,7 +56,7 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
             LayoutInflater inflater =
                     (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             layout = inflater.inflate(R.layout.dropdown_item, null);
-            layout.setBackground(new DropdownDividerDrawable());
+            ApiCompatibilityUtils.setBackgroundForView(layout, new DropdownDividerDrawable());
         }
 
         DropdownDividerDrawable divider = (DropdownDividerDrawable) layout.getBackground();
@@ -70,10 +70,10 @@ public class DropdownAdapter extends ArrayAdapter<DropdownItem> {
             divider.setHeight(dividerHeight);
             if (mSeparators != null && mSeparators.contains(position)) {
                 divider.setColor(ApiCompatibilityUtils.getColor(mContext.getResources(),
-                        R.color.dropdown_dark_divider_color));
+                                 R.color.dropdown_dark_divider_color));
             } else {
                 divider.setColor(ApiCompatibilityUtils.getColor(mContext.getResources(),
-                        R.color.dropdown_divider_color));
+                                 R.color.dropdown_divider_color));
             }
         }
 
