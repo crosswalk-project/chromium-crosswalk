@@ -91,6 +91,6 @@ public class ColorPickerAdvancedComponent {
         } else {
             mGradientDrawable.setColors(mGradientColors);
         }
-        mGradientView.setBackground(mGradientDrawable);
+        ApiCompatibilityUtils.setBackgroundForView(mGradientView, mGradientDrawable);
     }
 }
