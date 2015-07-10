@@ -4,7 +4,9 @@
 
 package org.chromium.ui;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.Choreographer;
@@ -14,9 +16,13 @@ import org.chromium.base.TraceEvent;
 
 /**
  * Notifies clients of the default displays's vertical sync pulses.
+ * On ICS, VSyncMonitor relies on setVSyncPointForICS() being called to set a reasonable
+ * approximation of a vertical sync starting point; see also http://crbug.com/156397.
  */
+@SuppressLint("NewApi")
 public class VSyncMonitor {
     private static final long NANOSECONDS_PER_SECOND = 1000000000;
+    private static final long NANOSECONDS_PER_MILLISECOND = 1000000;
     private static final long NANOSECONDS_PER_MICROSECOND = 1000;
 
     private boolean mInsideVSync = false;
@@ -44,9 +50,14 @@ public class VSyncMonitor {
 
     private boolean mHaveRequestInFlight;
 
+    // Choreographer is used to detect vsync on >= JB.
     private final Choreographer mChoreographer;
     private final Choreographer.FrameCallback mVSyncFrameCallback;
+
+    // On ICS we just post a task through the handler (http://crbug.com/156397)
+    private final Runnable mVSyncRunnableCallback;
     private long mGoodStartingPointNano;
+    private long mLastPostedNano;
 
     // If the monitor is activated after having been idle, we synthesize the first vsync to reduce
     // latency.
@@ -60,6 +71,16 @@ public class VSyncMonitor {
      * @param listener The listener receiving VSync notifications.
      */
     public VSyncMonitor(Context context, VSyncMonitor.Listener listener) {
+        this(context, listener, true);
+    }
+
+    /**
+     * Constructs a VSyncMonitor
+     * @param context The application context.
+     * @param listener The listener receiving VSync notifications.
+     * @param enableJBVsync Whether to allow Choreographer-based notifications on JB and up.
+     */
+    public VSyncMonitor(Context context, VSyncMonitor.Listener listener, boolean enableJBVSync) {
         mListener = listener;
         float refreshRate = ((WindowManager) context.getSystemService(Context.WINDOW_SERVICE))
                 .getDefaultDisplay().getRefreshRate();
@@ -68,26 +89,44 @@ public class VSyncMonitor {
         if (refreshRate <= 0) refreshRate = 60;
         mRefreshPeriodNano = (long) (NANOSECONDS_PER_SECOND / refreshRate);
 
-        mChoreographer = Choreographer.getInstance();
-        mVSyncFrameCallback = new Choreographer.FrameCallback() {
-            @Override
-            public void doFrame(long frameTimeNanos) {
-                TraceEvent.begin("VSync");
-                mHandler.removeCallbacks(mSyntheticVSyncRunnable);
-                if (useEstimatedRefreshPeriod && mConsecutiveVSync) {
-                    // Display.getRefreshRate() is unreliable on some platforms.
-                    // Adjust refresh period- initial value is based on Display.getRefreshRate()
-                    // after that it asymptotically approaches the real value.
-                    long lastRefreshDurationNano = frameTimeNanos - mGoodStartingPointNano;
-                    float lastRefreshDurationWeight = 0.1f;
-                    mRefreshPeriodNano += (long) (lastRefreshDurationWeight
-                            * (lastRefreshDurationNano - mRefreshPeriodNano));
+        if (enableJBVSync && Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            // Use Choreographer on JB+ to get notified of vsync.
+            mChoreographer = Choreographer.getInstance();
+            mVSyncFrameCallback = new Choreographer.FrameCallback() {
+                @Override
+                public void doFrame(long frameTimeNanos) {
+                    TraceEvent.begin("VSync");
+                    mHandler.removeCallbacks(mSyntheticVSyncRunnable);
+                    if (useEstimatedRefreshPeriod && mConsecutiveVSync) {
+                        // Display.getRefreshRate() is unreliable on some platforms.
+                        // Adjust refresh period- initial value is based on Display.getRefreshRate()
+                        // after that it asymptotically approaches the real value.
+                        long lastRefreshDurationNano = frameTimeNanos - mGoodStartingPointNano;
+                        float lastRefreshDurationWeight = 0.1f;
+                        mRefreshPeriodNano += (long) (lastRefreshDurationWeight
+                                * (lastRefreshDurationNano - mRefreshPeriodNano));
+                    }
+                    mGoodStartingPointNano = frameTimeNanos;
+                    onVSyncCallback(frameTimeNanos, getCurrentNanoTime());
+                    TraceEvent.end("VSync");
+                 }
+            };
+            mVSyncRunnableCallback = null;
+        } else {
+            // On ICS we just hope that running tasks is relatively predictable.
+            mChoreographer = null;
+            mVSyncFrameCallback = null;
+            mVSyncRunnableCallback = new Runnable() {
+                @Override
+                public void run() {
+                    TraceEvent.begin("VSyncTimer");
+                    final long currentTime = getCurrentNanoTime();
+                    onVSyncCallback(currentTime, currentTime);
+                    TraceEvent.end("VSyncTimer");
                 }
-                mGoodStartingPointNano = frameTimeNanos;
-                onVSyncCallback(frameTimeNanos, getCurrentNanoTime());
-                TraceEvent.end("VSync");
-            }
-        };
+            };
+            mLastPostedNano = 0;
+        }
         mSyntheticVSyncRunnable = new Runnable() {
             @Override
             public void run() {
@@ -111,11 +150,26 @@ public class VSyncMonitor {
     /**
      * Request to be notified of the closest display vsync events. This should
      * always be called on the same thread used to create the VSyncMonitor.
+     * Determine whether a true vsync signal is available on this platform.
+     */
+    private boolean isVSyncSignalAvailable() {
+        return mChoreographer != null;
+    }
+
+    /**
      * Listener.onVSync() will be called soon after the upcoming vsync pulses.
      */
     public void requestUpdate() {
         assert mHandler.getLooper() == Looper.myLooper();
         postCallback();
+    }
+
+    /**
+     * Set the best guess of the point in the past when the vsync has happened.
+     * @param goodStartingPointNano Known vsync point in the past.
+     */
+    public void setVSyncPointForICS(long goodStartingPointNano) {
+        mGoodStartingPointNano = goodStartingPointNano;
     }
 
     /**
@@ -157,8 +211,13 @@ public class VSyncMonitor {
         // frame callback even when we post a synthetic frame callback. If the
         // frame callback is honored before the synthetic callback, we simply
         // remove the synthetic callback.
-        postSyntheticVSyncIfNecessary();
-        mChoreographer.postFrameCallback(mVSyncFrameCallback);
+        if (isVSyncSignalAvailable()) {
+            mConsecutiveVSync = mInsideVSync;
+            postSyntheticVSyncIfNecessary();
+            mChoreographer.postFrameCallback(mVSyncFrameCallback);
+        } else {
+            postRunnableCallback();
+        }
     }
 
     private void postSyntheticVSyncIfNecessary() {
@@ -177,5 +236,21 @@ public class VSyncMonitor {
                 + ((currentTime - mGoodStartingPointNano) / mRefreshPeriodNano)
                 * mRefreshPeriodNano;
         return lastRefreshTime;
+    }
+
+    private void postRunnableCallback() {
+        assert !isVSyncSignalAvailable();
+        final long currentTime = getCurrentNanoTime();
+        final long lastRefreshTime = estimateLastVSyncTime(currentTime);
+        long delay = (lastRefreshTime + mRefreshPeriodNano) - currentTime;
+        assert delay > 0 && delay <= mRefreshPeriodNano;
+
+        if (currentTime + delay <= mLastPostedNano + mRefreshPeriodNano / 2) {
+            delay += mRefreshPeriodNano;
+        }
+
+        mLastPostedNano = currentTime + delay;
+        if (delay == 0) mHandler.post(mVSyncRunnableCallback);
+        else mHandler.postDelayed(mVSyncRunnableCallback, delay / NANOSECONDS_PER_MILLISECOND);
     }
 }
