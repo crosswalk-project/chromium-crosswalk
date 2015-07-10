@@ -4,11 +4,13 @@
 
 package org.chromium.media;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.media.MediaCodec;
 import android.media.MediaCodec.BufferInfo;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
+import android.os.Build;
 import android.os.ParcelFileDescriptor;
 
 import org.chromium.base.Log;
@@ -19,6 +21,7 @@ import java.io.File;
 import java.nio.ByteBuffer;
 
 @JNINamespace("media")
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 class WebAudioMediaCodecBridge {
     private static final String TAG = "cr.media";
     // TODO(rtoy): What is the correct timeout value for reading
@@ -33,10 +36,13 @@ class WebAudioMediaCodecBridge {
 
     @SuppressWarnings("deprecation")
     @CalledByNative
-    private static boolean decodeAudioFile(Context ctx, long nativeMediaCodecBridge,
-            int inputFD, long dataSize) {
+    private static boolean decodeAudioFile(Context ctx,
+                                           long nativeMediaCodecBridge,
+                                           int inputFD,
+                                           long dataSize) {
 
-        if (dataSize < 0 || dataSize > 0x7fffffff) return false;
+        if (dataSize < 0 || dataSize > 0x7fffffff)
+            return false;
 
         MediaExtractor extractor = new MediaExtractor();
 
