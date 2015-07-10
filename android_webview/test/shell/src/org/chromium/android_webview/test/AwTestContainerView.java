@@ -16,6 +16,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.accessibility.AccessibilityNodeProvider;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
@@ -408,6 +410,20 @@ public class AwTestContainerView extends FrameLayout {
         AccessibilityNodeProvider provider =
                 mAwContents.getAccessibilityNodeProvider();
         return provider == null ? super.getAccessibilityNodeProvider() : provider;
+    }
+
+    @Override
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+        super.onInitializeAccessibilityNodeInfo(info);
+        info.setClassName(AwContents.class.getName());
+        mAwContents.onInitializeAccessibilityNodeInfo(info);
+    }
+
+    @Override
+    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+        super.onInitializeAccessibilityEvent(event);
+        event.setClassName(AwContents.class.getName());
+        mAwContents.onInitializeAccessibilityEvent(event);
     }
 
     @Override
