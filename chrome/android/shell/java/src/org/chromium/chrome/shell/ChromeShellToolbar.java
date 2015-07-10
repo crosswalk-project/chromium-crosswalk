@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.OnEditorActionListener;
 
+import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.CommandLine;
 import org.chromium.chrome.browser.UrlUtilities;
 import org.chromium.chrome.browser.appmenu.AppMenuButtonHelper;
@@ -126,7 +127,7 @@ public class ChromeShellToolbar extends LinearLayout {
         removeCallbacks(mUpdateProgressRunnable);
         mProgress = progress;
         mLoading = progress != 100;
-        postOnAnimation(mUpdateProgressRunnable);
+        ApiCompatibilityUtils.postOnAnimation(this, mUpdateProgressRunnable);
     }
 
     /**
