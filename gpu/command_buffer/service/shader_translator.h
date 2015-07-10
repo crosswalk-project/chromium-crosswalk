@@ -14,9 +14,7 @@
 #include "base/observer_list.h"
 #include "gpu/gpu_export.h"
 
-#if !defined(DISABLE_ANGLE_ON_ANDROID)
 #include "third_party/angle/include/GLSLANG/ShaderLang.h"
-#endif
 
 namespace gpu {
 namespace gles2 {
@@ -63,11 +61,9 @@ class ShaderTranslatorInterface
                          VaryingMap* varying_map,
                          NameMap* name_map) const = 0;
 
-#if !defined(DISABLE_ANGLE_ON_ANDROID)
   // Return a string that is unique for a specfic set of options that would
   // possibly affect compilation.
   virtual std::string GetStringForOptionsThatWouldAffectCompilation() const = 0;
-#endif
 
  protected:
   virtual ~ShaderTranslatorInterface() {}
@@ -112,9 +108,7 @@ class GPU_EXPORT ShaderTranslator
                  VaryingMap* varying_map,
                  NameMap* name_map) const override;
 
-#if !defined(DISABLE_ANGLE_ON_ANDROID)
   std::string GetStringForOptionsThatWouldAffectCompilation() const override;
-#endif
 
   void AddDestructionObserver(DestructionObserver* observer);
   void RemoveDestructionObserver(DestructionObserver* observer);
