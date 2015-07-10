@@ -5,6 +5,10 @@
 #ifndef MEDIA_AUDIO_AUDIO_OUTPUT_PROXY_H_
 #define MEDIA_AUDIO_AUDIO_OUTPUT_PROXY_H_
 
+#if defined(OS_TIZEN)
+#include <string>
+#endif
+
 #include "base/basictypes.h"
 #include "base/compiler_specific.h"
 #include "base/memory/ref_counted.h"
@@ -38,6 +42,11 @@ class MEDIA_EXPORT AudioOutputProxy
   void SetVolume(double volume) override;
   void GetVolume(double* volume) override;
   void Close() override;
+
+#if defined(OS_TIZEN)
+  void SetMediaStreamProperties(const std::string& app_id,
+                                const std::string& app_class) override;
+#endif
 
  private:
   enum State {

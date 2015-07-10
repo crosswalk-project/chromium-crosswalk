@@ -98,6 +98,15 @@ class CONTENT_EXPORT AudioRendererHost : public BrowserMessageFilter {
   // |render_frame_id| are actively playing. Can be called from any thread.
   bool RenderFrameHasActiveAudio(int render_frame_id) const;
 
+#if defined(OS_TIZEN)
+  // Sets an application ID and class properties, which are used to tag audio
+  // streams in pulseaudio/Murphy.
+  virtual void SetMediaStreamProperties(const std::string& app_id,
+                                        const std::string& app_class);
+  const std::string& app_id() const { return app_id_; }
+  const std::string& app_class() const { return app_class_; }
+#endif
+
  private:
   friend class AudioRendererHostTest;
   friend class BrowserThread;
@@ -221,6 +230,12 @@ class CONTENT_EXPORT AudioRendererHost : public BrowserMessageFilter {
 
   // Salt required to translate renderer device IDs to raw device IDs
   ResourceContext::SaltCallback salt_callback_;
+
+#if defined(OS_TIZEN)
+  // Application ID and class for the Murphy resource set.
+  std::string app_id_;
+  std::string app_class_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(AudioRendererHost);
 };
