@@ -67,6 +67,19 @@ class UnregistrationCallback {
   std::string app_id_;
 };
 
+// The Push API depends on Web Notifications, which is only available on Android
+// Jelly Bean and later.
+bool IsPushSupported() {
+#if defined(OS_ANDROID)
+  if (base::android::BuildInfo::GetInstance()->sdk_int() <
+      base::android::SDK_VERSION_JELLY_BEAN) {
+    DVLOG(0) << "The Push API is only supported in Android 4.1 and later.";
+    return false;
+  }
+#endif
+  return true;
+}
+
 }  // namespace
 
 class PushMessagingBrowserTest : public InProcessBrowserTest {
@@ -219,6 +232,9 @@ class PushMessagingBrowserTestEmptySubscriptionOptions
 };
 
 void PushMessagingBrowserTest::RequestAndAcceptPermission() {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
   GetPermissionBubbleManager()->set_auto_response_for_test(
       PermissionBubbleManager::ACCEPT_ALL);
@@ -270,7 +286,10 @@ void PushMessagingBrowserTest::SendMessageAndWaitUntilHandled(
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        SubscribeSuccessNotificationsGranted) {
-  TryToSubscribeSuccessfully("1-0" /* expected_push_subscription_id */);
+  if (!IsPushSupported())
+    return;
+
+  TryToRegisterSuccessfully("1-0" /* expected_push_registration_id */);
 
   PushMessagingAppIdentifier app_identifier =
       GetAppIdentifierForServiceWorkerRegistration(0LL);
@@ -280,6 +299,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        SubscribeSuccessNotificationsPrompt) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -298,6 +320,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        SubscribeFailureNotificationsBlocked) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -311,6 +336,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, SubscribeFailureNoManifest) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -330,6 +358,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, SubscribeFailureNoManifest) {
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTestEmptySubscriptionOptions,
                        RegisterFailureEmptyPushSubscriptionOptions) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -342,7 +373,54 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTestEmptySubscriptionOptions,
             script_result);
 }
 
+IN_PROC_BROWSER_TEST_F(PushMessagingBadManifestBrowserTest,
+                       RegisterFailsNotVisibleMessages) {
+  if (!IsPushSupported())
+    return;
+
+  std::string script_result;
+
+  ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
+  ASSERT_EQ("ok - service worker registered", script_result);
+  ASSERT_TRUE(RunScript("subscribePush()", &script_result));
+  EXPECT_EQ("AbortError - Registration failed - permission denied",
+            script_result);
+}
+
+IN_PROC_BROWSER_TEST_F(PushMessagingManifestUserVisibleOnlyTrueTest,
+                       ManifestKeyConsidered) {
+  if (!IsPushSupported())
+    return;
+
+  // Chrome 42 introduced the "gcm_user_visible_only" manifest key, but Chrome
+  // 43 supersedes this by the standardized PushSubscriptionOptions.userVisible
+  // option. We maintain support for the manifest key without specifying the
+  // subscription option, so verify that it is still being considered.
+  std::string script_result;
+
+  ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
+  ASSERT_EQ("ok - service worker registered", script_result);
+
+  InfoBarResponder accepting_responder(GetInfoBarService(), true);
+  ASSERT_TRUE(RunScript("requestNotificationPermission();", &script_result));
+  EXPECT_EQ("permission status - granted", script_result);
+
+  ASSERT_TRUE(RunScript("subscribePush()", &script_result));
+  EXPECT_EQ(GetEndpointForSubscriptionId("1-0"), script_result);
+
+  // permissionState has been introduced later so it does not
+  // respect the manifest key.
+  ASSERT_TRUE(RunScript("permissionState()", &script_result));
+  EXPECT_EQ(
+      "NotSupportedError - Push subscriptions that don't enable"
+      " userVisibleOnly are not supported.",
+      script_result);
+}
+
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, SubscribePersisted) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   // First, test that Service Worker registration IDs are assigned in order of
@@ -400,6 +478,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, SubscribePersisted) {
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventSuccess) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   TryToSubscribeSuccessfully("1-0" /* expected_push_subscription_id */);
@@ -425,7 +506,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventSuccess) {
   EXPECT_EQ("testdata", script_result);
 }
 
-IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventNoServiceWorker) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   TryToSubscribeSuccessfully("1-0" /* expected_push_subscription_id */);
@@ -469,6 +552,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventNoServiceWorker) {
 #if defined(ENABLE_NOTIFICATIONS)
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        PushEventEnforcesUserVisibleNotification) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   TryToSubscribeSuccessfully("1-0" /* expected_push_subscription_id */);
@@ -627,6 +713,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        PushEventNotificationWithoutEventWaitUntil) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
   content::WebContents* web_contents =
       GetBrowser()->tab_strip_model()->GetActiveWebContents();
@@ -671,6 +760,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
 #endif
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysPrompt) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -681,6 +773,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysPrompt) {
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysGranted) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -697,6 +792,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysGranted) {
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysDenied) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   ASSERT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -713,6 +811,9 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PermissionStateSaysDenied) {
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, UnsubscribeSuccess) {
+  if (!IsPushSupported())
+    return;
+
   std::string script_result;
 
   EXPECT_TRUE(RunScript("registerServiceWorker()", &script_result));
@@ -753,6 +854,19 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, UnsubscribeSuccess) {
   ASSERT_TRUE(RunScript("unsubscribePush()", &script_result));
   EXPECT_EQ("unsubscribe result: false", script_result);
 }
+
+#if defined(OS_ANDROID)
+IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushUnavailableOnAndroidICS) {
+  // This test should only run on Android ICS to confirm that the Push API
+  // is not available on that version of Android.
+  if (IsPushSupported())
+    return;
+
+  std::string script_result;
+  ASSERT_TRUE(RunScript("window.PushManager", &script_result));
+  EXPECT_EQ("undefined", script_result);
+}
+#endif
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest,
                        GlobalResetPushPermissionUnsubscribes) {
