@@ -23,6 +23,7 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import org.chromium.base.ActivityState;
+import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ApplicationStatus.ActivityStateListener;
 import org.chromium.base.BaseChromiumApplication;
@@ -481,7 +482,7 @@ public class ChromeFullscreenManager
         final int desiredVisibility = shouldShowAndroidControls() ? View.VISIBLE : View.INVISIBLE;
         if (mControlContainer.getVisibility() == desiredVisibility) return;
         mControlContainer.removeCallbacks(mUpdateVisibilityRunnable);
-        mControlContainer.postOnAnimation(mUpdateVisibilityRunnable);
+        ApiCompatibilityUtils.postOnAnimation(mControlContainer, mUpdateVisibilityRunnable);
     }
 
     private void updateVisuals() {
