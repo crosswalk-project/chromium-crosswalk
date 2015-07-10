@@ -18,6 +18,10 @@
 #ifndef MEDIA_AUDIO_AUDIO_OUTPUT_DISPATCHER_H_
 #define MEDIA_AUDIO_AUDIO_OUTPUT_DISPATCHER_H_
 
+#if defined(OS_TIZEN)
+#include <string>
+#endif
+
 #include "base/basictypes.h"
 #include "base/memory/ref_counted.h"
 #include "media/audio/audio_io.h"
@@ -66,6 +70,11 @@ class MEDIA_EXPORT AudioOutputDispatcher
 
   const std::string& device_id() const { return device_id_; }
 
+#if defined(OS_TIZEN)
+  virtual void SetMediaStreamProperties(const std::string& app_id,
+                                        const std::string& app_class);
+#endif
+
  protected:
   friend class base::RefCountedThreadSafe<AudioOutputDispatcher>;
   virtual ~AudioOutputDispatcher();
@@ -76,6 +85,11 @@ class MEDIA_EXPORT AudioOutputDispatcher
   const scoped_refptr<base::SingleThreadTaskRunner> task_runner_;
   const AudioParameters params_;
   std::string device_id_;
+
+#if defined(OS_TIZEN)
+  std::string app_id_;
+  std::string app_class_;
+#endif
 
  private:
   DISALLOW_COPY_AND_ASSIGN(AudioOutputDispatcher);

@@ -5,6 +5,10 @@
 #ifndef MEDIA_AUDIO_AUDIO_IO_H_
 #define MEDIA_AUDIO_AUDIO_IO_H_
 
+#if defined(OS_TIZEN)
+#include <string>
+#endif
+
 #include "base/basictypes.h"
 #include "media/base/audio_bus.h"
 
@@ -96,6 +100,13 @@ class MEDIA_EXPORT AudioOutputStream {
   // Close the stream. This also generates AudioSourceCallback::OnClose().
   // After calling this method, the object should not be used anymore.
   virtual void Close() = 0;
+
+#if defined(OS_TIZEN)
+  // Sets an application ID and class properties, which are used to tag audio
+  // streams in pulseaudio/Murphy.
+  virtual void SetMediaStreamProperties(const std::string& app_id,
+                                        const std::string& app_class) {}
+#endif
 };
 
 // Models an audio sink receiving recorded audio from the audio driver.
