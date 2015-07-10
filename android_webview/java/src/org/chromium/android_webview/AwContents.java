@@ -2479,14 +2479,14 @@ public class AwContents implements SmartClipProvider,
      * @see android.webkit.WebView#onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo)
      */
     public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
-        // TODO(boliu): remove this method.
+        if (!isDestroyed()) mContentViewCore.onInitializeAccessibilityNodeInfo(info);
     }
 
     /**
      * @see android.webkit.WebView#onInitializeAccessibilityEvent(AccessibilityEvent)
      */
     public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
-     // TODO(boliu): remove this method.
+        if (!isDestroyed()) mContentViewCore.onInitializeAccessibilityEvent(event);
     }
 
     public boolean supportsAccessibilityAction(int action) {
