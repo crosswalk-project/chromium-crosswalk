@@ -4,6 +4,7 @@
 
 #include "content/renderer/media/android/webmediaplayer_android.h"
 
+#include <algorithm>
 #include <limits>
 
 #include "base/android/build_info.h"
@@ -775,7 +776,7 @@ void WebMediaPlayerAndroid::OnMediaMetadataChanged(
   DCHECK(main_thread_checker_.CalledOnValidThread());
   bool need_to_signal_duration_changed = false;
 
-  if (is_local_resource_)
+  if (is_local_resource_ || url_.SchemeIs("app"))
     UpdateNetworkState(WebMediaPlayer::NetworkStateLoaded);
 
   // For HLS streams, the reported duration may be zero for infinite streams.
