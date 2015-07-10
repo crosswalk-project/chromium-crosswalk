@@ -16,7 +16,8 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewStructure;
-import android.view.accessibility.AccessibilityNodeProvider;
+import android.view.accessibility.AccessibilityEvent;
+import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.widget.FrameLayout;
@@ -67,25 +68,6 @@ public class ContentView extends FrameLayout
         setFocusableInTouchMode(true);
 
         mContentViewCore = cvc;
-    }
-
-    @Override
-    public boolean performAccessibilityAction(int action, Bundle arguments) {
-        if (mContentViewCore.supportsAccessibilityAction(action)) {
-            return mContentViewCore.performAccessibilityAction(action, arguments);
-        }
-
-        return super.performAccessibilityAction(action, arguments);
-    }
-
-    @Override
-    public AccessibilityNodeProvider getAccessibilityNodeProvider() {
-        AccessibilityNodeProvider provider = mContentViewCore.getAccessibilityNodeProvider();
-        if (provider != null) {
-            return provider;
-        } else {
-            return super.getAccessibilityNodeProvider();
-        }
     }
 
     // Needed by ContentViewCore.InternalAccessDelegate
@@ -269,6 +251,22 @@ public class ContentView extends FrameLayout
     }
 
     @Override
+    public void onInitializeAccessibilityNodeInfo(AccessibilityNodeInfo info) {
+        super.onInitializeAccessibilityNodeInfo(info);
+        mContentViewCore.onInitializeAccessibilityNodeInfo(info);
+    }
+
+    /**
+     * Fills in scrolling values for AccessibilityEvents.
+     * @param event Event being fired.
+     */
+    @Override
+    public void onInitializeAccessibilityEvent(AccessibilityEvent event) {
+        super.onInitializeAccessibilityEvent(event);
+        mContentViewCore.onInitializeAccessibilityEvent(event);
+    }
+
+    @Override
     protected void onAttachedToWindow() {
         super.onAttachedToWindow();
         mContentViewCore.onAttachedToWindow();
@@ -300,7 +298,6 @@ public class ContentView extends FrameLayout
             return;
         }
         mContentViewCore.setSmartClipDataListener(new ContentViewCore.SmartClipDataListener() {
-            @Override
             public void onSmartClipDataExtracted(String text, String html, Rect clipRect) {
                 Bundle bundle = new Bundle();
                 bundle.putString("url", mContentViewCore.getWebContents().getVisibleUrl());
