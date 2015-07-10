@@ -184,7 +184,8 @@ public class CardUnmaskPrompt
         setOverlayVisibility(View.VISIBLE);
         mVerificationProgressBar.setVisibility(View.VISIBLE);
         mVerificationView.setText(R.string.autofill_card_unmask_verification_in_progress);
-        mVerificationView.announceForAccessibility(mVerificationView.getText());
+        ApiCompatibilityUtils.announceForAccessibility(
+                mVerificationView, mVerificationView.getText());
         setInputError(null);
     }
 
@@ -298,7 +299,7 @@ public class CardUnmaskPrompt
         });
         mStoreLocallyTooltipPopup.showAsDropDown(mStoreLocallyCheckbox,
                 ViewCompat.getPaddingStart(mStoreLocallyCheckbox), 0);
-        text.announceForAccessibility(text.getText());
+        ApiCompatibilityUtils.announceForAccessibility(text, text.getText());
     }
 
     private void onNewCardLinkClicked() {
@@ -379,7 +380,7 @@ public class CardUnmaskPrompt
         // A null message is passed in during card verification, which also makes an announcement.
         // Announcing twice in a row may cancel the first announcement.
         if (message != null) {
-            mErrorMessage.announceForAccessibility(message);
+            ApiCompatibilityUtils.announceForAccessibility(mErrorMessage, message);
         }
 
         // The rest of this code makes L-specific assumptions about the background being used to
@@ -406,7 +407,7 @@ public class CardUnmaskPrompt
     private void setNoRetryError(String message) {
         mNoRetryErrorMessage.setText(message);
         mNoRetryErrorMessage.setVisibility(View.VISIBLE);
-        mNoRetryErrorMessage.announceForAccessibility(message);
+        ApiCompatibilityUtils.announceForAccessibility(mNoRetryErrorMessage, message);
     }
 
     /**
