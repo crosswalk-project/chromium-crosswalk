@@ -27,6 +27,7 @@ import java.nio.ByteBuffer;
  * audio rendering.
  */
 @JNINamespace("media")
+@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 class MediaCodecBridge {
     private static final String TAG = "cr_media";
 
