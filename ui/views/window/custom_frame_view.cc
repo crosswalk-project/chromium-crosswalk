@@ -338,7 +338,8 @@ bool CustomFrameView::ShouldShowTitleBarAndBorder() const {
     return false;
 
   if (ViewsDelegate::GetInstance()) {
-    return !ViewsDelegate::GetInstance()->WindowManagerProvidesTitleBar(
+    return ViewsDelegate::GetInstance()->ShouldShowTitleBar() &&
+        !ViewsDelegate::GetInstance()->WindowManagerProvidesTitleBar(
         frame_->IsMaximized());
   }
 

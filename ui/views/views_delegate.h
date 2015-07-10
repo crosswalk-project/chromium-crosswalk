@@ -162,7 +162,10 @@ class VIEWS_EXPORT ViewsDelegate {
   // Returns a blocking pool task runner given a TaskRunnerType.
   virtual scoped_refptr<base::TaskRunner> GetBlockingPoolTaskRunner();
 
- protected:
+  virtual void SetShouldShowTitleBar(bool show_title_bar);
+  virtual bool ShouldShowTitleBar() const;
+
+protected:
   ViewsDelegate();
 
  private:
@@ -171,6 +174,9 @@ class VIEWS_EXPORT ViewsDelegate {
 #if defined(USE_AURA)
   scoped_ptr<TouchSelectionMenuRunnerViews> touch_selection_menu_runner_;
 #endif
+
+  // Set to true if the window should have the title bar.
+  bool should_show_titlebar_;
 
   DISALLOW_COPY_AND_ASSIGN(ViewsDelegate);
 };

@@ -114,7 +114,8 @@ scoped_refptr<base::TaskRunner> ViewsDelegate::GetBlockingPoolTaskRunner() {
 }
 
 ViewsDelegate::ViewsDelegate()
-    : views_tsc_factory_(new ViewsTouchEditingControllerFactory) {
+    : views_tsc_factory_(new ViewsTouchEditingControllerFactory),
+    should_show_titlebar_(true) {
   DCHECK(!views_delegate);
   views_delegate = this;
 
@@ -123,6 +124,14 @@ ViewsDelegate::ViewsDelegate()
 #if defined(USE_AURA)
   touch_selection_menu_runner_.reset(new TouchSelectionMenuRunnerViews());
 #endif
+}
+
+void ViewsDelegate::SetShouldShowTitleBar(bool show_title_bar) {
+  should_show_titlebar_ = show_title_bar;
+}
+
+bool ViewsDelegate::ShouldShowTitleBar() const {
+  return should_show_titlebar_;
 }
 
 }  // namespace views
