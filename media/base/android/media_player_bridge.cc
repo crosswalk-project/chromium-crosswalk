@@ -88,7 +88,7 @@ MediaPlayerBridge::~MediaPlayerBridge() {
 
 void MediaPlayerBridge::Initialize() {
   cookies_.clear();
-  if (url_.SchemeIsFile() || url_.SchemeIs("data")) {
+  if (url_.SchemeIsFile() || url_.SchemeIs("data") || url_.SchemeIs("app")) {
     ExtractMediaMetadata(url_.spec());
     return;
   }
