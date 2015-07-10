@@ -36,7 +36,20 @@ import java.util.HashMap;
 @JNINamespace("media")
 public class MediaPlayerBridge {
 
-    private static final String TAG = "cr.media";
+    public static class ResourceLoadingFilter {
+        public boolean shouldOverrideResourceLoading(
+                MediaPlayer mediaPlayer, Context context, Uri uri) {
+            return false;
+        }
+    }
+
+    private static ResourceLoadingFilter sResourceLoadFilter = null;
+
+    public static void setResourceLoadingFilter(ResourceLoadingFilter filter) {
+        sResourceLoadFilter = filter;
+    }
+
+    private static final String TAG = "MediaPlayerBridge";
 
     // Local player to forward this to. We don't initialize it here since the subclass might not
     // want it.
@@ -189,6 +202,11 @@ public class MediaPlayerBridge {
             headersMap.put("allow-cross-domain-redirect", "false");
         }
         try {
+            if (sResourceLoadFilter != null &&
+                    sResourceLoadFilter.shouldOverrideResourceLoading(
+                            getLocalPlayer(), context, uri)) {
+                return true;
+            }
             getLocalPlayer().setDataSource(context, uri, headersMap);
             return true;
         } catch (Exception e) {
