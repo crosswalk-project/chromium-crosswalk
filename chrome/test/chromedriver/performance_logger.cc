@@ -43,8 +43,7 @@ bool IsEnabled(const PerfLoggingPrefs::InspectorDomainStatus& domain_status) {
 bool ShouldRequestTraceEvents(const std::string& command) {
   for (size_t i_domain = 0; i_domain < arraysize(kRequestTraceCommands);
        ++i_domain) {
-    if (base::EqualsCaseInsensitiveASCII(command,
-                                         kRequestTraceCommands[i_domain]))
+    if (base::strcasecmp(command.c_str(), kRequestTraceCommands[i_domain]) == 0)
       return true;
   }
   return false;

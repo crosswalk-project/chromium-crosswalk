@@ -315,11 +315,11 @@ scoped_ptr<FormDataParser> FormDataParser::CreateFromContentTypeHeader(
     const std::string content_type(
         content_type_header->substr(0, content_type_header->find(';')));
 
-    if (base::EqualsCaseInsensitiveASCII(content_type,
-                                         "application/x-www-form-urlencoded")) {
+    if (base::strcasecmp(
+        content_type.c_str(), "application/x-www-form-urlencoded") == 0) {
       choice = URL_ENCODED;
-    } else if (base::EqualsCaseInsensitiveASCII(content_type,
-                                                "multipart/form-data")) {
+    } else if (base::strcasecmp(
+        content_type.c_str(), "multipart/form-data") == 0) {
       static const char kBoundaryString[] = "boundary=";
       size_t offset = content_type_header->find(kBoundaryString);
       if (offset == std::string::npos) {

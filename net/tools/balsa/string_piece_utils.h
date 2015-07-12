@@ -65,10 +65,31 @@ struct StringPieceCaseHash {
 };
 #endif  // COMPILER_MSVC
 
+struct StringPieceUtils {
+  // ASCII case-insensitive equality.
+  static bool EqualIgnoreCase(const base::StringPiece& piece1,
+                              const base::StringPiece& piece2) {
+    base::StringPiece::const_iterator p1i = piece1.begin();
+    base::StringPiece::const_iterator p2i = piece2.begin();
+    if (piece1.empty() && piece2.empty()) {
+      return true;
+    } else if (piece1.size() != piece2.size()) {
+      return false;
+    }
+    while (p1i != piece1.end() && p2i != piece2.end()) {
+      if (base::ToLowerASCII(*p1i) != base::ToLowerASCII(*p2i))
+        return false;
+      ++p1i;
+      ++p2i;
+    }
+    return true;
+  }
+};
+
 struct StringPieceCaseEqual {
   bool operator()(const base::StringPiece& piece1,
                   const base::StringPiece& piece2) const {
-    return base::EqualsCaseInsensitiveASCII(piece1, piece2);
+    return StringPieceUtils::EqualIgnoreCase(piece1, piece2);
   }
 };
 

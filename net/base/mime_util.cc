@@ -116,11 +116,8 @@ const char* FindMimeType(const MimeInfo* mappings,
     const char* extensions = mappings[i].extensions;
     for (;;) {
       size_t end_pos = strcspn(extensions, ",");
-      // The length check is required to prevent the StringPiece below from
-      // including uninitialized memory if ext is longer than extensions.
       if (end_pos == ext.size() &&
-          base::EqualsCaseInsensitiveASCII(
-              base::StringPiece(extensions, ext.size()), ext))
+          base::strncasecmp(extensions, ext.data(), ext.size()) == 0)
         return mappings[i].mime_type;
       extensions += end_pos;
       if (!*extensions)
@@ -271,10 +268,13 @@ bool MimeUtil::MatchesMimeType(const std::string& mime_type_pattern,
 
   const std::string::size_type star = base_pattern.find('*');
   if (star == std::string::npos) {
-    if (base::EqualsCaseInsensitiveASCII(base_pattern, base_type))
+    if (base_pattern.size() == base_type.size() &&
+        base::strncasecmp(base_pattern.data(), base_type.data(),
+                          base_pattern.size()) == 0) {
       return MatchesMimeTypeParameters(mime_type_pattern, mime_type);
-    else
+    } else {
       return false;
+    }
   }
 
   // Test length to prevent overlap between |left| and |right|.

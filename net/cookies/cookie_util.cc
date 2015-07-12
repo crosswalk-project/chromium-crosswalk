@@ -125,8 +125,7 @@ base::Time ParseCookieTime(const std::string& time_string) {
       if (!found_month) {
         for (int i = 0; i < kMonthsLen; ++i) {
           // Match prefix, so we could match January, etc
-          if (base::StartsWith(token, base::StringPiece(kMonths[i], 3),
-                               base::CompareCase::INSENSITIVE_ASCII)) {
+          if (base::strncasecmp(token.c_str(), kMonths[i], 3) == 0) {
             exploded.month = i + 1;
             found_month = true;
             break;

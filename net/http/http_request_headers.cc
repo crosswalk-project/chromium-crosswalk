@@ -241,7 +241,8 @@ HttpRequestHeaders::HeaderVector::iterator
 HttpRequestHeaders::FindHeader(const base::StringPiece& key) {
   for (HeaderVector::iterator it = headers_.begin();
        it != headers_.end(); ++it) {
-    if (base::EqualsCaseInsensitiveASCII(key, it->key))
+    if (key.length() == it->key.length() &&
+        !base::strncasecmp(key.data(), it->key.data(), key.length()))
       return it;
   }
 
@@ -252,7 +253,8 @@ HttpRequestHeaders::HeaderVector::const_iterator
 HttpRequestHeaders::FindHeader(const base::StringPiece& key) const {
   for (HeaderVector::const_iterator it = headers_.begin();
        it != headers_.end(); ++it) {
-    if (base::EqualsCaseInsensitiveASCII(key, it->key))
+    if (key.length() == it->key.length() &&
+        !base::strncasecmp(key.data(), it->key.data(), key.length()))
       return it;
   }
 

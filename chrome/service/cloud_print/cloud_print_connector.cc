@@ -653,7 +653,7 @@ void CloudPrintConnector::OnReceivePrinterCaps(
 
 bool CloudPrintConnector::IsSamePrinter(const std::string& name1,
                                         const std::string& name2) const {
-  return base::EqualsCaseInsensitiveASCII(name1, name2);
+  return (0 == base::strcasecmp(name1.c_str(), name2.c_str()));
 }
 
 }  // namespace cloud_print

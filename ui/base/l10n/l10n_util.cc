@@ -205,7 +205,7 @@ bool IsDuplicateName(const std::string& locale_name) {
     return !base::EndsWith(locale_name, "419", true);
 
   for (size_t i = 0; i < arraysize(kDuplicateNames); ++i) {
-    if (base::EqualsCaseInsensitiveASCII(kDuplicateNames[i], locale_name))
+    if (base::strcasecmp(kDuplicateNames[i], locale_name.c_str()) == 0)
       return true;
   }
   return false;

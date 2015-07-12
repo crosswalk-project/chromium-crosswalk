@@ -538,7 +538,7 @@ class BalsaHeaders {
       do {
         iterator_base::increment();
       } while (!AtEnd() &&
-               !base::EqualsCaseInsensitiveASCII(key_, (**this).first));
+               !StringPieceUtils::EqualIgnoreCase(key_, (**this).first));
       return *this;
     }
 

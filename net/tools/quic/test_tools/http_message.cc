@@ -158,8 +158,8 @@ void HTTPMessage::ValidateMessage() const {
   for (vector<StringPiece>::iterator it = transfer_encodings.begin();
        it != transfer_encodings.end();
        ++it) {
-    CHECK(base::EqualsCaseInsensitiveASCII("identity", *it) ||
-          base::EqualsCaseInsensitiveASCII("chunked", *it)) << *it;
+    CHECK(StringPieceUtils::EqualIgnoreCase("identity", *it) ||
+          StringPieceUtils::EqualIgnoreCase("chunked", *it)) << *it;
   }
 
   vector<StringPiece> content_lengths;

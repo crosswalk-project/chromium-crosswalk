@@ -50,7 +50,7 @@ const StringMethodPair resize_methods[] = {
 bool StringToMethod(const std::string& arg,
                     skia::ImageOperations::ResizeMethod* method) {
   for (size_t i = 0; i < arraysize(resize_methods); ++i) {
-    if (base::EqualsCaseInsensitiveASCII(arg, resize_methods[i].name)) {
+    if (base::strcasecmp(arg.c_str(), resize_methods[i].name) == 0) {
       *method = resize_methods[i].method;
       return true;
     }
