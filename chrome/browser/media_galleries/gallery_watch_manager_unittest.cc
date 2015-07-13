@@ -62,7 +62,8 @@ class GalleryWatchManagerTest : public GalleryWatchManagerObserver,
   ~GalleryWatchManagerTest() override {}
 
   void SetUp() override {
-    ASSERT_TRUE(storage_monitor::TestStorageMonitor::CreateAndInstall());
+    monitor_ = storage_monitor::TestStorageMonitor::CreateAndInstall();
+    ASSERT_TRUE(monitor_);
 
     extensions::TestExtensionSystem* extension_system(
         static_cast<extensions::TestExtensionSystem*>(
@@ -86,7 +87,9 @@ class GalleryWatchManagerTest : public GalleryWatchManagerObserver,
   }
 
   void TearDown() override {
-    manager_->RemoveObserver(profile_.get());
+    if (profile_) {
+      manager_->RemoveObserver(profile_.get());
+    }
     manager_.reset();
     storage_monitor::TestStorageMonitor::Destroy();
   }
@@ -123,6 +126,8 @@ class GalleryWatchManagerTest : public GalleryWatchManagerObserver,
 
   MediaGalleriesPreferences* gallery_prefs() { return gallery_prefs_; }
 
+  storage_monitor::TestStorageMonitor* storage_monitor() { return monitor_; }
+
   bool GalleryWatchesSupported() {
     return base::FilePathWatcher::RecursiveWatchAvailable();
   }
@@ -145,6 +150,8 @@ class GalleryWatchManagerTest : public GalleryWatchManagerObserver,
     expect_gallery_watch_dropped_ = true;
     pending_loop_ = loop;
   }
+
+  void ShutdownProfile() { profile_.reset(nullptr); }
 
  private:
   // GalleryWatchManagerObserver implementation.
@@ -175,7 +182,7 @@ class GalleryWatchManagerTest : public GalleryWatchManagerObserver,
   chromeos::ScopedTestUserManager test_user_manager_;
 #endif
 
-  storage_monitor::TestStorageMonitor monitor_;
+  storage_monitor::TestStorageMonitor* monitor_;
   scoped_ptr<TestingProfile> profile_;
   MediaGalleriesPreferences* gallery_prefs_;
 
@@ -312,6 +319,28 @@ TEST_F(GalleryWatchManagerTest, DropWatchOnGalleryPermissionRevoked) {
   success_loop.Run();
 }
 
+TEST_F(GalleryWatchManagerTest, DropWatchOnStorageRemoved) {
+  if (!GalleryWatchesSupported())
+    return;
+
+  // Create a temporary directory and treat is as a removable storage device.
+  base::ScopedTempDir temp_dir;
+  ASSERT_TRUE(temp_dir.CreateUniqueTempDir());
+  storage_monitor()->AddRemovablePath(temp_dir.path());
+  storage_monitor::StorageInfo storage_info;
+  ASSERT_TRUE(
+      storage_monitor()->GetStorageInfoForPath(temp_dir.path(), &storage_info));
+  storage_monitor()->receiver()->ProcessAttach(storage_info);
+
+  MediaGalleryPrefId id = AddGallery(temp_dir.path());
+  AddAndConfirmWatch(id);
+
+  base::RunLoop success_loop;
+  ExpectGalleryWatchDropped(&success_loop);
+  storage_monitor()->receiver()->ProcessDetach(storage_info.device_id());
+  success_loop.Run();
+}
+
 TEST_F(GalleryWatchManagerTest, TestWatchOperation) {
   if (!GalleryWatchesSupported())
     return;
@@ -326,6 +355,50 @@ TEST_F(GalleryWatchManagerTest, TestWatchOperation) {
   ASSERT_EQ(
       4, base::WriteFile(temp_dir.path().AppendASCII("fake file"), "blah", 4));
   success_loop.Run();
+}
+
+TEST_F(GalleryWatchManagerTest, TestWatchOperationAfterProfileShutdown) {
+  if (!GalleryWatchesSupported())
+    return;
+
+  base::ScopedTempDir temp_dir;
+  ASSERT_TRUE(temp_dir.CreateUniqueTempDir());
+  MediaGalleryPrefId id = AddGallery(temp_dir.path());
+  AddAndConfirmWatch(id);
+
+  ShutdownProfile();
+
+  // Trigger a watch that should have been removed when the profile was
+  // destroyed to catch regressions. crbug.com/467627
+  base::RunLoop run_loop;
+  ASSERT_EQ(
+      4, base::WriteFile(temp_dir.path().AppendASCII("fake file"), "blah", 4));
+  run_loop.RunUntilIdle();
+}
+
+TEST_F(GalleryWatchManagerTest, TestStorageRemovedAfterProfileShutdown) {
+  if (!GalleryWatchesSupported())
+    return;
+
+  // Create a temporary directory and treat is as a removable storage device.
+  base::ScopedTempDir temp_dir;
+  ASSERT_TRUE(temp_dir.CreateUniqueTempDir());
+  storage_monitor()->AddRemovablePath(temp_dir.path());
+  storage_monitor::StorageInfo storage_info;
+  ASSERT_TRUE(
+      storage_monitor()->GetStorageInfoForPath(temp_dir.path(), &storage_info));
+  storage_monitor()->receiver()->ProcessAttach(storage_info);
+
+  MediaGalleryPrefId id = AddGallery(temp_dir.path());
+  AddAndConfirmWatch(id);
+
+  ShutdownProfile();
+
+  // Trigger a removable storage event that should be ignored now that the
+  // profile has been destroyed to catch regressions. crbug.com/467627
+  base::RunLoop run_loop;
+  storage_monitor()->receiver()->ProcessDetach(storage_info.device_id());
+  run_loop.RunUntilIdle();
 }
 
 }  // namespace component_updater
