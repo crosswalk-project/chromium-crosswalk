@@ -288,6 +288,13 @@ Textfield::Textfield()
     password_reveal_duration_ = ViewsDelegate::views_delegate->
         GetDefaultTextfieldObscuredRevealDuration();
   }
+
+  // These allow BrowserView to pass edit commands from the Chrome menu to us
+  // when we're focused by simply asking the FocusManager to
+  // ProcessAccelerator() with the relevant accelerators.
+  AddAccelerator(ui::Accelerator(ui::VKEY_X, ui::EF_CONTROL_DOWN));
+  AddAccelerator(ui::Accelerator(ui::VKEY_C, ui::EF_CONTROL_DOWN));
+  AddAccelerator(ui::Accelerator(ui::VKEY_V, ui::EF_CONTROL_DOWN));
 }
 
 Textfield::~Textfield() {}
@@ -815,6 +822,10 @@ bool Textfield::AcceleratorPressed(const ui::Accelerator& accelerator) {
                      accelerator.modifiers());
   ExecuteCommand(GetCommandForKeyEvent(event, HasSelection()));
   return true;
+}
+
+bool Textfield::CanHandleAccelerators() const {
+  return GetRenderText()->focused() && View::CanHandleAccelerators();
 }
 
 void Textfield::AboutToRequestFocusFromTabTraversal(bool reverse) {
