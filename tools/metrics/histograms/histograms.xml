@@ -50357,6 +50357,17 @@ Therefore, the affected-histogram name has to have at least one dot in it.
   <int value="123" label="xsl"/>
   <int value="124" label="xslt"/>
   <int value="125" label="website"/>
+  <int value="126" label="msh1"/>
+  <int value="127" label="msh2"/>
+  <int value="128" label="msh1xml"/>
+  <int value="129" label="msh2xml"/>
+  <int value="130" label="ps1"/>
+  <int value="131" label="ps1xml"/>
+  <int value="132" label="ps2"/>
+  <int value="133" label="ps2xml"/>
+  <int value="134" label="psc1"/>
+  <int value="135" label="psc2"/>
+  <int value="136" label="xnk"/>
 </enum>
 
 <enum name="DownloadItem.DangerType" type="int">
@@ -62785,6 +62796,32 @@ To add a new entry, add it with any value and run test to compute valid value.
   <int value="23" label="TORRENT"/>
   <int value="24" label="WEBSITE"/>
   <int value="25" label="URL"/>
+  <int value="26" label="VBE"/>
+  <int value="27" label="VBS"/>
+  <int value="28" label="JS"/>
+  <int value="29" label="JSE"/>
+  <int value="30" label="MHT"/>
+  <int value="31" label="MHTML"/>
+  <int value="32" label="MSC"/>
+  <int value="33" label="MSP"/>
+  <int value="34" label="MST"/>
+  <int value="35" label="BAS"/>
+  <int value="36" label="HTA"/>
+  <int value="37" label="MSH"/>
+  <int value="38" label="MSH1"/>
+  <int value="39" label="MSH1XML"/>
+  <int value="40" label="MSH2"/>
+  <int value="41" label="MSH2XML"/>
+  <int value="42" label="MSHXML"/>
+  <int value="43" label="PS1"/>
+  <int value="44" label="PS1XML"/>
+  <int value="45" label="PS2"/>
+  <int value="46" label="PS2XML"/>
+  <int value="47" label="PSC1"/>
+  <int value="48" label="PSC2"/>
+  <int value="49" label="SCF"/>
+  <int value="50" label="SCT"/>
+  <int value="51" label="WSF"/>
 </enum>
 
 <enum name="SBClientDownloadIsSignedBinary" type="int">
