@@ -558,8 +558,6 @@ public class AwContentsTest extends AwTestBase {
         }
     }
 
-    private float mPageScale;
-
     private AccessibilitySnapshotNode receiveAccessibilitySnapshot(String data) throws Throwable {
         final AwTestContainerView testView = createAwTestContainerViewOnMainSync(mContentsClient);
         final AwContents awContents = testView.getAwContents();
@@ -582,7 +580,6 @@ public class AwContentsTest extends AwTestBase {
             @Override
             public void run() {
                 awContents.requestAccessibilitySnapshot(callback);
-                mPageScale = awContents.getScale();
             }
         });
         callbackHelper.waitForCallback(callbackCount);
@@ -634,7 +631,7 @@ public class AwContentsTest extends AwTestBase {
         AccessibilitySnapshotNode child = root.children.get(0);
         assertTrue(child.hasStyle);
         assertEquals("foo", child.text);
-        assertEquals(11.0 * mPageScale, child.textSize, 0.01);
+        assertEquals(11.0, child.textSize, 0.01);
     }
 
     @Feature({"AndroidWebView"})
