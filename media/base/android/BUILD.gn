@@ -70,6 +70,9 @@ source_set("unittests") {
     "media_codec_bridge_unittest.cc",
     "media_drm_bridge_unittest.cc",
     "media_source_player_unittest.cc",
+    "test_data_factory.cc",
+    "test_data_factory.h",
+    "test_statistics.h",
   ]
   deps = [
     ":android",
