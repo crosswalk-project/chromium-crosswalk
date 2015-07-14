@@ -48,8 +48,8 @@ void UpdateActiveSetupVersionWorkItem::Rollback() {
 
 base::string16 UpdateActiveSetupVersionWorkItem::GetUpdatedActiveSetupVersion(
     const base::string16& existing_version) {
-  std::vector<base::string16> version_components = base::SplitString(
-      existing_version, L",", base::TRIM_WHITESPACE, base::SPLIT_WANT_NONEMPTY);
+  std::vector<base::string16> version_components;
+  base::SplitString(existing_version, L',', &version_components);
 
   // If |existing_version| was empty or otherwise corrupted, turn it into a
   // valid one.

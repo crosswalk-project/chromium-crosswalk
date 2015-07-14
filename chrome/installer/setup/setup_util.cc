@@ -118,9 +118,8 @@ bool UpdateLastOSUpgradeHandledByActiveSetup(BrowserDistribution* dist) {
       base::string16 existing_version;
       if (active_setup_key.ReadValue(L"Version",
                                      &existing_version) == ERROR_SUCCESS) {
-        std::vector<base::string16> version_components =
-            base::SplitString(existing_version, L",", base::TRIM_WHITESPACE,
-                              base::SPLIT_WANT_NONEMPTY);
+        std::vector<base::string16> version_components;
+        base::SplitString(existing_version, L',', &version_components);
         uint32_t latest_os_upgrade_uint = 0;
         if (version_components.size() == 4U &&
             base::StringToUint(
