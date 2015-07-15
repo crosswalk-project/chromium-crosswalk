@@ -300,9 +300,10 @@
   OP(DiscardBackbufferCHROMIUM)                /* 541 */ \
   OP(ScheduleOverlayPlaneCHROMIUM)             /* 542 */ \
   OP(SwapInterval)                             /* 543 */ \
-  OP(MatrixLoadfCHROMIUMImmediate)             /* 544 */ \
-  OP(MatrixLoadIdentityCHROMIUM)               /* 545 */ \
-  OP(BlendBarrierKHR)                          /* 546 */
+  OP(FlushDriverCachesCHROMIUM)                /* 544 */ \
+  OP(MatrixLoadfCHROMIUMImmediate)             /* 545 */ \
+  OP(MatrixLoadIdentityCHROMIUM)               /* 546 */ \
+  OP(BlendBarrierKHR)                          /* 547 */
 
 enum CommandId {
   kStartPoint = cmd::kLastCommonId,  // All GLES2 commands start after this.

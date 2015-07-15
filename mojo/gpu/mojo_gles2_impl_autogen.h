@@ -784,6 +784,7 @@ class MojoGLES2Impl : public gpu::gles2::GLES2Interface {
                                     GLfloat uv_width,
                                     GLfloat uv_height) override;
   void SwapInterval(GLint interval) override;
+  void FlushDriverCachesCHROMIUM() override;
   void MatrixLoadfCHROMIUM(GLenum matrixMode, const GLfloat* m) override;
   void MatrixLoadIdentityCHROMIUM(GLenum matrixMode) override;
   GLenum GetGraphicsResetStatusKHR() override;
