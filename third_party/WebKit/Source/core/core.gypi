@@ -1495,6 +1495,8 @@
             'frame/History.h',
             'frame/ImageBitmap.cpp',
             'frame/ImageBitmap.h',
+            'frame/LayoutSubtreeRootList.cpp',
+            'frame/LayoutSubtreeRootList.h',
             'frame/LocalDOMWindow.cpp',
             'frame/LocalDOMWindow.h',
             'frame/LocalFrame.cpp',
