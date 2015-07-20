@@ -311,11 +311,6 @@ public class IcuUtils {
     }
 
     @CalledByNative
-    private static boolean isLineSeparator(int codePoint) {
-        return (Character.getType(codePoint) & Character.LINE_SEPARATOR) != 0;
-    }
-
-    @CalledByNative
     private static int mirroredChar(int codePoint) {
         // AndroidCharacter.getMirror ?
         return codePoint;

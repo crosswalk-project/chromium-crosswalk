@@ -303,9 +303,9 @@ bool isPunct(UChar32 c) {
 }
 
 bool hasLineBreakingPropertyComplexContext(UChar32 c) {
-  // Java:: Character getType LINE_SEPARATOR
-  JNIEnv* env = AttachCurrentThread();
-  return Java_IcuUtils_isLineSeparator(env, c);
+  // Don't support this now. Need UCharacter(ICU4j).
+  // Impact line breaks in THAI,LAO,KHmer.
+  return false;
 }
 
 UChar32 mirroredChar(UChar32 c) {
