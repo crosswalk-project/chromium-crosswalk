@@ -56,8 +56,12 @@ const base::TimeDelta kMinDeltaToSwitchToAsync =
 - (CGLContextObj)copyCGLContextForPixelFormat:(CGLPixelFormatObj)pixelFormat {
   if (!storageProvider_)
     return NULL;
-  didDrawCallback_ = storageProvider_->LayerShareGroupContextDirtiedCallback();
-  return CGLRetainContext(storageProvider_->LayerShareGroupContext());
+  CGLContextObj context = NULL;
+  CGLError error = CGLCreateContext(
+      pixelFormat, storageProvider_->LayerShareGroupContext(), &context);
+  if (error != kCGLNoError)
+    LOG(ERROR) << "CGLCreateContext failed with CGL error: " << error;
+  return context;
 }
 
 - (BOOL)canDrawInCGLContext:(CGLContextObj)glContext
@@ -87,10 +91,6 @@ const base::TimeDelta kMinDeltaToSwitchToAsync =
               pixelFormat:pixelFormat
              forLayerTime:timeInterval
               displayTime:timeStamp];
-
-
-  DCHECK(!didDrawCallback_.is_null());
-  didDrawCallback_.Run();
 }
 
 @end
