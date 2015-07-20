@@ -2279,7 +2279,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
           problema com o dispositivo.</translation>
 <translation id="2078019350989722914">Avisar antes de sair (<ph name="KEY_EQUIVALENT"/>)</translation>
 <translation id="7965010376480416255">Memória partilhada</translation>
-<translation id="1309804047705294744">Ativar transferências de Material design</translation>
+<translation id="1309804047705294744">Ativar transferências de material design</translation>
 <translation id="6248988683584659830">Pesquisar definições</translation>
 <translation id="7262221505565121">Exceções de acesso de plug-in sem isolamento de processos</translation>
 <translation id="7273110280511444812">última ligação em <ph name="DATE"/></translation>
@@ -2833,7 +2833,6 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="6702639462873609204">&amp;Editar...</translation>
 <translation id="9148126808321036104">Iniciar sessão novamente</translation>
 <translation id="2282146716419988068">Processo GPU</translation>
-<translation id="3113334552982755865">Se desativado, os tópicos de matriz não são escritos na memória GPU.</translation>
 <translation id="4690246192099372265">Sueco</translation>
 <translation id="1682548588986054654">Nova janela de navegação anónima</translation>
 <translation id="6833901631330113163">Sul da Europa</translation>
@@ -3526,7 +3525,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="4322394346347055525">Fechar os Outros Separadores</translation>
 <translation id="2562743677925229011">Não tem sessão iniciada no <ph name="SHORT_PRODUCT_NAME"/></translation>
 <translation id="5592595402373377407">Ainda não estão disponíveis dados suficientes.</translation>
-<translation id="2890333672271810534">&amp;Histórico e Separadores recentes</translation>
+<translation id="2890333672271810534">&amp;Histórico e separadores recentes</translation>
 <translation id="1556189134700913550">Aplicar a todas</translation>
 <translation id="881799181680267069">Ocultar as outras</translation>
 <translation id="4724850507808590449">Foi feita uma cópia de segurança de <ph name="FILE_COUNT"/> fotografias</translation>
@@ -3820,6 +3819,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="4619415398457343772">AA Compromise</translation>
 <translation id="7450732239874446337">E/S da rede suspensa.</translation>
 <translation id="6107079717483424262">Reconhecer a sua voz quando diz &quot;Ok Google&quot;</translation>
+<translation id="4003393903129308792">Ativar rasterizador de cópia única</translation>
 <translation id="5178667623289523808">Localizar anterior</translation>
 <translation id="1510785804673676069">Se utilizar um servidor proxy, verifique as definições de proxy ou
     contacte o administrador de rede para se certificar de que o servidor
@@ -4084,7 +4084,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="265390580714150011">Campo Valor</translation>
 <translation id="3869917919960562512">Índice errado.</translation>
 <translation id="7031962166228839643">O TPM está a ser preparado, aguarde (pode demorar alguns minutos)...</translation>
-<translation id="7757728985316497492">Ativar descodificação de mjpeg acelerada por hardware para frame capturado.</translation>
+<translation id="7757728985316497492">Ativar descodificação de mjpeg acelerada por hardware por frame capturado.</translation>
 <translation id="715118844758971915">Impressoras clássicas</translation>
 <translation id="5242724311594467048">Ativar a extensão &quot;<ph name="EXTENSION_NAME"/>&quot;?</translation>
 <translation id="7877451762676714207">Erro de servidor desconhecido. Tente novamente ou contacte o administrador do servidor.</translation>
@@ -4176,6 +4176,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="8050038245906040378">Assinatura de código comercial Microsoft</translation>
 <translation id="8684255857039823328">Palavra-passe guardada. Aceda às suas palavras-passe a partir de qualquer dispositivo em <ph name="MANAGEMENT_LINK"/>.</translation>
 <translation id="3031557471081358569">Seleccione os itens a importar:</translation>
+<translation id="6728144975495880845">Se ativado, os tópicos de matriz são escritos na memória GPU.</translation>
 <translation id="1368832886055348810">Da esquerda para a direita</translation>
 <translation id="8689102680909215706">A extensão &quot;<ph name="EXTENSION_NAME"/>&quot; foi instalada remotamente.</translation>
 <translation id="133014027510889724">Ativar a monitorização de desempenho</translation>
@@ -4386,6 +4387,7 @@ Depois de criar um novo utilizador supervisionado, pode gerir as respetivas defi
 <translation id="884923133447025588">Não foi encontrado qualquer mecanismo de revogação.</translation>
 <translation id="8830796635868321089">A verificação de atualizações falhou utilizando as definições de proxy atuais. Ajuste as <ph name="PROXY_SETTINGS_LINK_START"/>definições de proxy<ph name="PROXY_SETTINGS_LINK_END"/>.</translation>
 <translation id="7801746894267596941">Só alguém com a sua frase de acesso pode ler os seus dados encriptados. A frase de acesso não é enviada a ninguém nem é guardada pelo Google. Se se esquecer da sua frase de acesso, terá de</translation>
+<translation id="5967271952920681214">https://passwords.google.com/?hl=<ph name="GRITLANGCODE_1"/></translation>
 <translation id="9218350802691534808">Ativar a apresentação na primeira execução para as aplicações.</translation>
 <translation id="5771849619911534867">Análise ao dispositivo interrompida.</translation>
 <translation id="3783640748446814672">alt</translation>
@@ -5541,7 +5543,7 @@ Prima qualquer tecla para continuar a explorar.</translation>
 <translation id="2773948261276885771">Definir páginas</translation>
 <translation id="3688526734140524629">Alterar canal</translation>
 <translation id="7030084719913890980">Utilizadores mal intencionados podem ter comprometido este site e podem tentar instalar programas perigosos no seu computador que roubam ou eliminam as suas informações (exemplos: fotos, palavras-passe, mensagens e cartões de crédito).</translation>
-<translation id="1376740484579795545">Se ativado, o URL chrome://downloads/ carrega a página de transferências de Material design.</translation>
+<translation id="1376740484579795545">Se ativado, o URL chrome://downloads/ carrega a página de transferências de material design.</translation>
 <translation id="6263625581655667292">Força o modo Lo-Fi da Poupança de dados a estar sempre ativado, ativado apenas em redes móveis ou desativado. A Poupança de dados tem de estar ativada para que o modo Lo-Fi possa ser utilizado.</translation>
 <translation id="5941153596444580863">Adicionar pessoa...</translation>
 <translation id="4503387275462811823">Descrição da Extensão</translation>
@@ -5907,7 +5909,6 @@ Mantenha o seu ficheiro de chave num local seguro, pois irá precisar dele para 
 <translation id="2817109084437064140">Importar e vincular ao dispositivo...</translation>
 <translation id="3331321258768829690">(<ph name="UTCOFFSET"/>) <ph name="LONGTZNAME"/> (<ph name="EXEMPLARCITY"/>)</translation>
 <translation id="2813137708069460534">Métricas relacionadas com a utilização da rede do <ph name="SHORT_PRODUCT_NAME"/></translation>
-<translation id="2491341326828824053">Desativar rasterizador de cópia única</translation>
 <translation id="7775325654940954648">Ocorreu um erro ao apresentar esta página Web. Experimente fechar as aplicações e os separadores de que não necessita para libertar alguma memória.</translation>
 <translation id="7250799832286185545">Anos</translation>
 <translation id="5849869942539715694">Comprimir extensão...</translation>

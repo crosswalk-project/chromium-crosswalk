@@ -2820,7 +2820,6 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="6702639462873609204">&amp;Bearbeiten...</translation>
 <translation id="9148126808321036104">Erneut anmelden</translation>
 <translation id="2282146716419988068">GPU-Verarbeitung</translation>
-<translation id="3113334552982755865">Wenn diese Option deaktiviert ist, werden Rasterungs-Threads nicht in den GPU-Speicher geschrieben.</translation>
 <translation id="4690246192099372265">Schwedisch</translation>
 <translation id="1682548588986054654">Neues &amp;Inkognito-Fenster</translation>
 <translation id="6833901631330113163">Südeuropäisch</translation>
@@ -3795,6 +3794,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="4619415398457343772">Mögliche Kompromittierung (AA Compromise)</translation>
 <translation id="7450732239874446337">Netzwerk-E/A unterbrochen</translation>
 <translation id="6107079717483424262">Ihre Stimme erkennen, wenn Sie &quot;Ok Google&quot; sagen</translation>
+<translation id="4003393903129308792">Rasterung mit 1 Kopie aktivieren</translation>
 <translation id="5178667623289523808">Vorherige Übereinstimmung suchen</translation>
 <translation id="1510785804673676069">Wenn Sie einen Proxy-Server verwenden, überprüfen Sie Ihre Proxy-Einstellungen oder erkundigen Sie sich bei Ihrem Netzwerkadministrator, ob der Proxy-Server funktioniert. Wenn Sie keinen Proxy-Server verwenden möchten, ändern Sie Ihre <ph name="LINK_START"/>Proxy-Einstellungen<ph name="LINK_END"/>.</translation>
 <translation id="6773575010135450071">Weitere Aktionen...</translation>
@@ -4148,6 +4148,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="8050038245906040378">Kommerzielle Microsoft-Codesignatur</translation>
 <translation id="8684255857039823328">Passwort gespeichert. Unter <ph name="MANAGEMENT_LINK"/> können Sie auf alle Ihre Passwörter zugreifen.</translation>
 <translation id="3031557471081358569">Zu importierende Daten wählen:</translation>
+<translation id="6728144975495880845">Wenn diese Option aktiviert ist, werden Raster-Threads in den GPU-Speicher geschrieben.</translation>
 <translation id="1368832886055348810">Rechtsläufig</translation>
 <translation id="8689102680909215706">Die Erweiterung &quot;<ph name="EXTENSION_NAME"/>&quot; wurde remote installiert.</translation>
 <translation id="133014027510889724">Leistungsüberwachung aktivieren</translation>
@@ -4358,6 +4359,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie dessen Einstellung
 <translation id="884923133447025588">Kein Sperrmechanismus gefunden.</translation>
 <translation id="8830796635868321089">Mit den aktuellen Proxyeinstellungen ist bei der Suche nach Updates ein Fehler aufgetreten. Passen Sie Ihre <ph name="PROXY_SETTINGS_LINK_START"/>Proxyeinstellungen<ph name="PROXY_SETTINGS_LINK_END"/> an.</translation>
 <translation id="7801746894267596941">Verschlüsselte Daten können nur von jemandem gelesen werden, der Ihre Passphrase kennt. Diese wird nicht an Google gesendet oder von Google gespeichert. Falls Sie Ihre Passphrase vergessen, müssen Sie</translation>
+<translation id="5967271952920681214">https://passwords.google.com/?hl=<ph name="GRITLANGCODE_1"/></translation>
 <translation id="9218350802691534808">Anzeige bei Erstverwendung für Apps aktivieren</translation>
 <translation id="5771849619911534867">Suche nach Geräten abgebrochen</translation>
 <translation id="3783640748446814672">Alt</translation>
@@ -5876,7 +5878,6 @@ Speichern Sie Ihre Schlüsseldatei an einem sicheren Ort. Sie benötigen die Dat
 <translation id="2817109084437064140">Importieren und an Gerät binden...</translation>
 <translation id="3331321258768829690">(<ph name="UTCOFFSET"/>) <ph name="LONGTZNAME"/> (<ph name="EXEMPLARCITY"/>)</translation>
 <translation id="2813137708069460534">Messwerte im Zusammenhang mit der Netzwerkauslastung durch <ph name="SHORT_PRODUCT_NAME"/></translation>
-<translation id="2491341326828824053">Rasterung mit 1 Kopie deaktivieren</translation>
 <translation id="7775325654940954648">Beim Anzeigen dieser Webseite ist ein Fehler aufgetreten. Durch das Schließen nicht benötigter Apps und Tabs können Sie mehr Speicherplatz freigeben und das Problem so möglicherweise beheben.</translation>
 <translation id="7250799832286185545">Jahre</translation>
 <translation id="5849869942539715694">Erweiterung packen...</translation>

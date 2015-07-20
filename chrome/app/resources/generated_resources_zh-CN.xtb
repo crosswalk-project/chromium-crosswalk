@@ -2799,7 +2799,6 @@
 <translation id="6702639462873609204">修改(&amp;E)...</translation>
 <translation id="9148126808321036104">重新登录</translation>
 <translation id="2282146716419988068">GPU 进程</translation>
-<translation id="3113334552982755865">停用此项后，光栅线程将不会对 GPU 内存执行写操作。</translation>
 <translation id="4690246192099372265">瑞典语</translation>
 <translation id="1682548588986054654">打开新的隐身窗口</translation>
 <translation id="6833901631330113163">南欧语言</translation>
@@ -3785,6 +3784,7 @@
 <translation id="4619415398457343772">AA Compromise</translation>
 <translation id="7450732239874446337">网络 IO 已暂停。</translation>
 <translation id="6107079717483424262">听到您说“Ok Google”后，识别您说的内容</translation>
+<translation id="4003393903129308792">启用单副本光栅化处理程序</translation>
 <translation id="5178667623289523808">查找上一个</translation>
 <translation id="1510785804673676069">如果您使用的是代理服务器，请检查您的代理设置，或与网络管理员核实代理服务器是否运转正常。如果您认为自己使用的不是代理服务器，请调整您的<ph name="LINK_START"/>代理设置<ph name="LINK_END"/>。</translation>
 <translation id="6773575010135450071">更多操作…</translation>
@@ -4138,6 +4138,7 @@
 <translation id="8050038245906040378">Microsoft 商业代码签名</translation>
 <translation id="8684255857039823328">密码已保存。您可以在任意设备上通过 <ph name="MANAGEMENT_LINK"/> 获取自己的密码。</translation>
 <translation id="3031557471081358569">选择要导入的内容：</translation>
+<translation id="6728144975495880845">启用此项后，光栅线程会对GPU内存执行写操作。</translation>
 <translation id="1368832886055348810">从左向右</translation>
 <translation id="8689102680909215706">已远程安装扩展程序“<ph name="EXTENSION_NAME"/>”。</translation>
 <translation id="133014027510889724">启用性能监控</translation>
@@ -4348,6 +4349,7 @@
 <translation id="884923133447025588">未找到任何吊销机制。</translation>
 <translation id="8830796635868321089">无法使用当前代理设置来检查更新，请调整您的<ph name="PROXY_SETTINGS_LINK_START"/>代理设置<ph name="PROXY_SETTINGS_LINK_END"/>。</translation>
 <translation id="7801746894267596941">只有知道您密码的人才能读取您已加密的数据；该密码不会发送给 Google，也不会被 Google 存储。如果您忘记了密码，则需要</translation>
+<translation id="5967271952920681214">https://passwords.google.com/?hl=<ph name="GRITLANGCODE_1"/></translation>
 <translation id="9218350802691534808">启用初次渲染后即显示应用窗口的功能。</translation>
 <translation id="5771849619911534867">设备扫描已停止。</translation>
 <translation id="3783640748446814672">alt</translation>
@@ -5387,7 +5389,7 @@
 <translation id="7549053541268690807">搜索字典</translation>
 <translation id="8911079125461595075">Google 已将“<ph name="EXTENSION_NAME"/>”标记为恶意扩展程序并阻止安装。</translation>
 <translation id="5870086504539785141">关闭无障碍功能菜单</translation>
-<translation id="6809448577646370871">针对 Chrome 应用自定义的窗口循环切换。</translation>
+<translation id="6809448577646370871">Chrome 应用的自定义窗口循环切换。</translation>
 <translation id="7005848115657603926">页码范围无效，请使用 <ph name="EXAMPLE_PAGE_RANGE"/></translation>
 <translation id="3705722231355495246">-</translation>
 <translation id="6251889282623539337"><ph name="DOMAIN"/> 服务条款</translation>
@@ -5861,7 +5863,6 @@
 <translation id="2817109084437064140">导入并绑定到设备...</translation>
 <translation id="3331321258768829690">(<ph name="UTCOFFSET"/>) <ph name="LONGTZNAME"/> (<ph name="EXEMPLARCITY"/>)</translation>
 <translation id="2813137708069460534">与 <ph name="SHORT_PRODUCT_NAME"/>的网络使用情况相关的指标</translation>
-<translation id="2491341326828824053">停用单副本光栅化处理程序</translation>
 <translation id="7775325654940954648">显示此网页时出了点问题。关闭您不需要的应用和标签页可释放部分内存，从而可能会有所帮助。</translation>
 <translation id="7250799832286185545">年</translation>
 <translation id="5849869942539715694">打包扩展程序...</translation>
