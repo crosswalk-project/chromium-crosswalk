@@ -4,6 +4,7 @@
 
 package org.chromium.chrome.browser.sync.ui;
 
+import android.accounts.Account;
 import android.app.DialogFragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
@@ -35,6 +36,7 @@ import org.chromium.chrome.browser.sync.SyncController;
 import org.chromium.sync.AndroidSyncSettings;
 import org.chromium.sync.internal_api.pub.PassphraseType;
 import org.chromium.sync.internal_api.pub.base.ModelType;
+import org.chromium.sync.signin.AccountManagerHelper;
 
 import java.util.HashSet;
 import java.util.Set;

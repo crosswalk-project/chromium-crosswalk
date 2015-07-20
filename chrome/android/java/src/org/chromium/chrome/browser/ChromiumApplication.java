@@ -40,6 +40,9 @@ import org.chromium.chrome.browser.services.AndroidEduOwnerCheckCallback;
 import org.chromium.chrome.browser.smartcard.PKCS11AuthenticationManager;
 import org.chromium.content.app.ContentApplication;
 import org.chromium.content.browser.BrowserStartupController;
+import org.chromium.sync.signin.AccountManagerDelegate;
+import org.chromium.sync.signin.AccountManagerHelper;
+import org.chromium.sync.signin.SystemAccountManagerDelegate;
 import org.chromium.ui.base.ActivityWindowAndroid;
 
 /**
@@ -52,6 +55,20 @@ public abstract class ChromiumApplication extends ContentApplication {
     private static final String PREF_BOOT_TIMESTAMP =
             "com.google.android.apps.chrome.ChromeMobileApplication.BOOT_TIMESTAMP";
     private static final long BOOT_TIMESTAMP_MARGIN_MS = 1000;
+
+    /**
+     * This is called once per ChromiumApplication instance, which get created per process
+     * (browser OR renderer).  Don't stick anything in here that shouldn't be called multiple times
+     * during Chrome's lifetime.
+     */
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        // Set the default AccountManagerDelegate to ensure it is always used when the instance
+        // of the AccountManagerHelper is created. Must be done before AccountMangerHelper.get(...)
+        // is called.
+        AccountManagerHelper.setDefaultAccountManagerDelegate(createAccountManagerDelegate());
+    }
 
     /**
      * Returns whether the Activity is being shown in multi-window mode.
@@ -185,6 +202,14 @@ public abstract class ChromiumApplication extends ContentApplication {
      */
     protected void initializeGoogleServicesManager() {
         // TODO(yusufo): Make this private when GoogleServicesManager is upstreamed.
+    }
+
+    /**
+     * Creates a new {@link AccountManagerDelegate}.
+     * @return the created {@link AccountManagerDelegate}.
+     */
+    public AccountManagerDelegate createAccountManagerDelegate() {
+        return new SystemAccountManagerDelegate(this);
     }
 
     /**
