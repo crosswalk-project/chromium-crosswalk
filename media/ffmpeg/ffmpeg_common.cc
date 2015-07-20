@@ -533,12 +533,17 @@ ChannelLayout ChannelLayoutToChromeChannelLayout(int64_t layout, int channels) {
 }
 
 VideoFrame::Format PixelFormatToVideoFormat(PixelFormat pixel_format) {
+  // The YUVJ alternatives are FFmpeg's (deprecated, but still in use) way to
+  // specify a pixel format and full range color combination
   switch (pixel_format) {
     case PIX_FMT_YUV422P:
+    case PIX_FMT_YUVJ422P:
       return VideoFrame::YV16;
     case PIX_FMT_YUV444P:
+    case PIX_FMT_YUVJ444P:
       return VideoFrame::YV24;
     case PIX_FMT_YUV420P:
+    case PIX_FMT_YUVJ420P:
       return VideoFrame::YV12;
     case PIX_FMT_YUVA420P:
       return VideoFrame::YV12A;
