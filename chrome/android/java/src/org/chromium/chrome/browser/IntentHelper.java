@@ -47,7 +47,7 @@ public abstract class IntentHelper {
             possibleEmails.add(email);
         } else {
             Pattern emailPattern = Patterns.EMAIL_ADDRESS;
-            Account[] accounts = AccountManagerHelper.get(context).getAccounts();
+            Account[] accounts = AccountManagerHelper.get(context).getGoogleAccounts();
             for (Account account : accounts) {
                 if (emailPattern.matcher(account.name).matches()) {
                     possibleEmails.add(account.name);
