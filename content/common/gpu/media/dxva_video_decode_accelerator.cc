@@ -29,6 +29,7 @@
 #include "base/path_service.h"
 #include "base/trace_event/trace_event.h"
 #include "base/win/windows_version.h"
+#include "content/public/common/content_switches.h"
 #include "media/base/win/mf_initializer.h"
 #include "media/video/video_decode_accelerator.h"
 #include "ui/gl/gl_bindings.h"
@@ -967,8 +968,10 @@ bool DXVAVideoDecodeAccelerator::InitDecoder(media::VideoCodecProfile profile) {
                       "blacklisted version of msmpeg2vdec.dll 6.7.7140",
                       false);
     codec_ = media::kCodecH264;
-  } else if (profile == media::VP8PROFILE_ANY ||
-             profile == media::VP9PROFILE_ANY) {
+  } else if ((profile == media::VP8PROFILE_ANY ||
+              profile == media::VP9PROFILE_ANY) &&
+             base::CommandLine::ForCurrentProcess()->HasSwitch(
+                 switches::kEnableAcceleratedVpxDecode)) {
     int program_files_key = base::DIR_PROGRAM_FILES;
     if (base::win::OSInfo::GetInstance()->wow64_status() ==
         base::win::OSInfo::WOW64_ENABLED) {
