@@ -4,8 +4,8 @@
 
 package org.chromium.chrome.browser.toolbar;
 
-import android.graphics.Bitmap;
 import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.View.OnClickListener;
 
@@ -38,10 +38,10 @@ public interface Toolbar {
 
     /**
      * Adds a custom action button to the {@link Toolbar} if it is supported.
-     * @param buttonSource The {@link Bitmap} resource to use as the source for the button.
+     * @param drawable The {@link Drawable} to use as the background for the button.
      * @param listener The {@link OnClickListener} to use for clicks to the button.
      */
-    void addCustomActionButton(Bitmap buttonSource, OnClickListener listener);
+    void addCustomActionButton(Drawable drawable, OnClickListener listener);
 
     /**
      * Sets the OnClickListener that will be notified when the TabSwitcher button is pressed.
