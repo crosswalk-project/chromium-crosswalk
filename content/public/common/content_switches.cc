@@ -994,6 +994,9 @@ const char kDisableLegacyIntermediateWindow[] = "disable-legacy-window";
 const char kDisableWin32kRendererLockDown[] =
     "disable-win32k-renderer-lockdown";
 
+// Enables experimental hardware acceleration for VP8/VP9 video decoding.
+const char kEnableAcceleratedVpxDecode[] = "enable-accelerated-vpx-decode";
+
 // DirectWrite FontCache is shared by browser to renderers using shared memory.
 // This switch allows us to pass the shared memory handle to the renderer.
 const char kFontCacheSharedHandle[] = "font-cache-shared-handle";
