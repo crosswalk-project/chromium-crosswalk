@@ -216,15 +216,17 @@ bool ShaderTranslator::Translate(const std::string& shader_source,
 #endif  // defined(DISABLE_ANGLE_ON_ANDROID)
 }
 
-#if !defined(DISABLE_ANGLE_ON_ANDROID)
 std::string ShaderTranslator::GetStringForOptionsThatWouldAffectCompilation()
     const {
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  return std::string("");
+#else
   DCHECK(compiler_ != NULL);
   return std::string(":CompileOptions:" +
          base::IntToString(GetCompileOptions())) +
          ShGetBuiltInResourcesString(compiler_);
-}
 #endif
+}
 
 void ShaderTranslator::AddDestructionObserver(
     DestructionObserver* observer) {
