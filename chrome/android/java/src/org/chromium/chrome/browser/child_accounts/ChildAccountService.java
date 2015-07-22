@@ -224,6 +224,9 @@ public class ChildAccountService {
     }
 
     private boolean isChildAccountDetectionEnabled() {
+        if (!AccountManagerHelper.get(mContext).hasGetAccountsPermission()) {
+            return false;
+        }
         return nativeIsChildAccountDetectionEnabled();
     }
 
