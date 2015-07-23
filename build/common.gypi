@@ -839,17 +839,6 @@
           ]
         }],
 
-        ['OS=="android"', {
-          'conditions': [
-            ['disable_media_stream==1', {
-              # if media stream is disabled, webrtc should be disabled as well.
-              'enable_webrtc%': 0,
-            }, {
-              'enable_webrtc%': 1,
-            }],
-          ],
-        }],
-
         ['OS=="ios"', {
           'disable_ftp_support%': 1,
           'enable_extensions%': 0,
