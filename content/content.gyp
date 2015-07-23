@@ -455,6 +455,14 @@
             'top_controls_state_java',
             'screen_orientation_values_java',
           ],
+          # TODO(sgurun) remove this when M is public. crbug/512264.
+          'conditions': [
+            ['android_sdk_version != "M"', {
+              'dependencies': [
+                '../third_party/android_tools/android_tools.gyp:preview_java_sources',
+              ],
+            }],
+          ],
           'variables': {
             'java_in_dir': '../content/public/android/java',
             'has_java_resources': 1,

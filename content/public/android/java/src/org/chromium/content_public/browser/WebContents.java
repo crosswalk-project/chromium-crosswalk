@@ -248,8 +248,11 @@ public interface WebContents {
      * using the callback
      * @param callback The callback to be called when the snapshot is ready. The callback
      *                 cannot be null.
+     * @param offsetY The Physical on-screen Y offset amount below the top controls.
+     * @param scrollX Horizontal scroll offset in physical pixels
      */
-    public void requestAccessibilitySnapshot(AccessibilitySnapshotCallback callback);
+    void requestAccessibilitySnapshot(AccessibilitySnapshotCallback callback, float offsetY,
+            float scrollX);
 
     /**
      * Add an observer to the WebContents

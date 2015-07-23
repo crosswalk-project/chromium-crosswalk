@@ -337,8 +337,10 @@ import org.chromium.ui.accessibility.AXTextStyle;
     }
 
     @Override
-    public void requestAccessibilitySnapshot(AccessibilitySnapshotCallback callback) {
-        nativeRequestAccessibilitySnapshot(mNativeWebContentsAndroid, callback);
+    public void requestAccessibilitySnapshot(AccessibilitySnapshotCallback callback,
+            float offsetY, float scrollX) {
+        nativeRequestAccessibilitySnapshot(mNativeWebContentsAndroid, callback,
+                offsetY, scrollX);
     }
 
     // root node can be null if parsing fails.
@@ -436,5 +438,5 @@ import org.chromium.ui.accessibility.AXTextStyle;
             long nativeWebContentsAndroid);
     private native int nativeGetThemeColor(long nativeWebContentsAndroid);
     private native void nativeRequestAccessibilitySnapshot(long nativeWebContentsAndroid,
-            AccessibilitySnapshotCallback callback);
+            AccessibilitySnapshotCallback callback, float offsetY, float scrollX);
 }
