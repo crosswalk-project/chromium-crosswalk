@@ -1257,6 +1257,11 @@ static bool isTextFormControl(const VisibleSelection& selection)
     return enclosingTextFormControl(selection.start());
 }
 
+LayoutBlock* FrameSelection::caretLayoutObject() const
+{
+    return CaretBase::caretLayoutObject(m_selection.start().anchorNode());
+}
+
 IntRect FrameSelection::absoluteCaretBounds()
 {
     ASSERT(m_frame->document()->lifecycle().state() != DocumentLifecycle::InPaintInvalidation);

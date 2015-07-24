@@ -40,8 +40,7 @@
 namespace blink {
 
 CaretBase::CaretBase(CaretVisibility visibility)
-    : m_caretPainter(nullptr)
-    , m_caretVisibility(visibility)
+    : m_caretVisibility(visibility)
 {
 }
 
@@ -116,7 +115,6 @@ DEFINE_TRACE(DragCaretController)
 
 void CaretBase::clearCaretRect()
 {
-    m_caretPainter = nullptr;
     m_caretLocalRect = LayoutRect();
 }
 
@@ -164,7 +162,6 @@ static void mapCaretRectToCaretPainter(LayoutObject* caretLayoutObject, LayoutBl
 
 bool CaretBase::updateCaretRect(Document* document, const PositionWithAffinity& caretPosition)
 {
-    m_caretPainter = nullptr;
     m_caretLocalRect = LayoutRect();
 
     if (caretPosition.position().isNull())
@@ -180,7 +177,7 @@ bool CaretBase::updateCaretRect(Document* document, const PositionWithAffinity& 
     // (which is either the layoutObject we just found, or one of its containers).
     m_caretPainter = caretLayoutObject(caretPosition.position().deprecatedNode());
 
-    mapCaretRectToCaretPainter(layoutObject, m_caretPainter, m_caretLocalRect);
+    mapCaretRectToCaretPainter(layoutObject, caretPainter, m_caretLocalRect);
 
     return true;
 }
