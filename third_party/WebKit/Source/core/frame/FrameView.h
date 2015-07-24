@@ -175,8 +175,7 @@ public:
 
     virtual void setScrollPosition(const DoublePoint&, ScrollType, ScrollBehavior = ScrollBehaviorInstant) override;
 
-    FloatSize elasticOverscroll() const { return m_elasticOverscroll; }
-    void setElasticOverscroll(const FloatSize&);
+    void didUpdateElasticOverscroll();
 
     void viewportSizeChanged(bool widthChanged, bool heightChanged);
 
@@ -831,8 +830,6 @@ private:
 
     int m_scrollbarsAvoidingResizer;
     bool m_scrollbarsSuppressed;
-
-    FloatSize m_elasticOverscroll;
 
     bool m_inUpdateScrollbars;
 

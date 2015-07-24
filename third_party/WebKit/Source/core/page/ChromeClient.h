@@ -247,6 +247,8 @@ public:
     virtual void registerPopupOpeningObserver(PopupOpeningObserver*) = 0;
     virtual void unregisterPopupOpeningObserver(PopupOpeningObserver*) = 0;
 
+    virtual FloatSize elasticOverscroll() const { return FloatSize(); }
+
 protected:
     virtual ~ChromeClient() { }
 
