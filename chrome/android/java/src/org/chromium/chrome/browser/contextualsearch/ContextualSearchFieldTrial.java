@@ -60,6 +60,8 @@ public class ContextualSearchFieldTrial {
 
     // Cached value to avoid repeated and redundant JNI operations.
     private static Boolean sEnabled;
+    private static Boolean sArrowIconEnabled;
+    private static Boolean sSideSearchProviderIconEnabled;
 
     /**
      * Don't instantiate.
@@ -240,14 +242,20 @@ public class ContextualSearchFieldTrial {
      * @return {@code true} Whether the arrow icon should be displayed.
      */
     public static boolean isArrowIconEnabled() {
-        return getBooleanParam(ARROW_ICON_ENABLED);
+        if (sArrowIconEnabled == null) {
+            sArrowIconEnabled = getBooleanParam(ARROW_ICON_ENABLED);
+        }
+        return sArrowIconEnabled.booleanValue();
     }
 
     /**
      * @return {@code true} Whether the search provider icon should be displayed on the side.
      */
     public static boolean isSideSearchProviderIconEnabled() {
-        return getBooleanParam(SIDE_SEARCH_PROVIDER_ICON_ENABLED);
+        if (sSideSearchProviderIconEnabled == null) {
+            sSideSearchProviderIconEnabled = getBooleanParam(SIDE_SEARCH_PROVIDER_ICON_ENABLED);
+        }
+        return sSideSearchProviderIconEnabled.booleanValue();
     }
 
     // --------------------------------------------------------------------------------------------
