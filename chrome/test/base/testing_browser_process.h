@@ -121,6 +121,8 @@ class TestingBrowserProcess : public BrowserProcess {
   network_time::NetworkTimeTracker* network_time_tracker() override;
 
   gcm::GCMDriver* gcm_driver() override;
+  ShellIntegration::DefaultWebClientState CachedDefaultWebClientState()
+      override;
 
   // Set the local state for tests. Consumer is responsible for cleaning it up
   // afterwards (using ScopedTestingLocalState, for example).
