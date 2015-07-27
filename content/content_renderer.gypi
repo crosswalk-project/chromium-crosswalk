@@ -734,6 +734,9 @@
     '<@(private_renderer_sources)',
   ],
   'conditions': [
+    ['disable_devtools == 1', {
+      'defines': ['DISABLE_DEVTOOLS'],
+    }],
     ['OS=="mac"', {
       'sources!': [
         'common/process_watcher_posix.cc',

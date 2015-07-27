@@ -18,7 +18,7 @@ using blink::WebString;
 namespace content {
 
 namespace {
-
+#ifndef DISABLE_DEVTOOLS
 class MessageImpl : public WebDevToolsAgent::MessageDescriptor {
  public:
   MessageImpl(const std::string& message, int routing_id)
@@ -37,7 +37,7 @@ class MessageImpl : public WebDevToolsAgent::MessageDescriptor {
   std::string msg_;
   int routing_id_;
 };
-
+#endif
 }  // namespace
 
 DevToolsAgentFilter::DevToolsAgentFilter()
@@ -64,11 +64,13 @@ void DevToolsAgentFilter::OnDispatchOnInspectorBackend(
     return;
   }
 
+#ifndef DISABLE_DEVTOOLS
   if (WebDevToolsAgent::shouldInterruptForMessage(
           WebString::fromUTF8(message))) {
     WebDevToolsAgent::interruptAndDispatch(
         new MessageImpl(message, current_routing_id_));
   }
+#endif
 
 }
 
