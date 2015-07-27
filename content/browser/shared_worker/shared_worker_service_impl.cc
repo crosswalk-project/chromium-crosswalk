@@ -196,11 +196,13 @@ class SharedWorkerServiceImpl::SharedWorkerReserver
       return;
     }
     bool pause_on_start = false;
+#ifndef DISABLE_DEVTOOLS
     if (is_new_worker_) {
       pause_on_start =
           SharedWorkerDevToolsManager::GetInstance()->WorkerCreated(
               worker_process_id_, worker_route_id_, instance_);
     }
+#endif
     BrowserThread::PostTask(
         BrowserThread::IO, FROM_HERE, base::Bind(success_cb, pause_on_start));
   }

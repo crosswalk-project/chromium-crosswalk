@@ -5,7 +5,9 @@
 #include "content/browser/shared_worker/shared_worker_host.h"
 
 #include "base/metrics/histogram.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/browser/devtools/shared_worker_devtools_manager.h"
+#endif
 #include "content/browser/frame_host/render_frame_host_delegate.h"
 #include "content/browser/frame_host/render_frame_host_impl.h"
 #include "content/browser/message_port_message_filter.h"
@@ -32,6 +34,7 @@ void WorkerCrashCallback(int render_process_unique_id, int render_frame_id) {
     host->delegate()->WorkerCrashed(host);
 }
 
+#ifndef DISABLE_DEVTOOLS
 void NotifyWorkerReadyForInspection(int worker_process_id,
                                     int worker_route_id) {
   if (!BrowserThread::CurrentlyOn(BrowserThread::UI)) {
@@ -45,6 +48,7 @@ void NotifyWorkerReadyForInspection(int worker_process_id,
   SharedWorkerDevToolsManager::GetInstance()->WorkerReadyForInspection(
       worker_process_id, worker_route_id);
 }
+#endif
 
 void NotifyWorkerDestroyed(int worker_process_id, int worker_route_id) {
   if (!BrowserThread::CurrentlyOn(BrowserThread::UI)) {
@@ -54,8 +58,10 @@ void NotifyWorkerDestroyed(int worker_process_id, int worker_route_id) {
         base::Bind(NotifyWorkerDestroyed, worker_process_id, worker_route_id));
     return;
   }
+#ifndef DISABLE_DEVTOOLS
   SharedWorkerDevToolsManager::GetInstance()->WorkerDestroyed(
       worker_process_id, worker_route_id);
+#endif
 }
 
 }  // namespace
@@ -178,7 +184,9 @@ void SharedWorkerHost::WorkerContextDestroyed() {
 }
 
 void SharedWorkerHost::WorkerReadyForInspection() {
+#ifndef DISABLE_DEVTOOLS
   NotifyWorkerReadyForInspection(worker_process_id_, worker_route_id_);
+#endif
 }
 
 void SharedWorkerHost::WorkerScriptLoaded() {

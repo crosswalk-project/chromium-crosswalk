@@ -55,7 +55,9 @@ bool SyncResourceHandler::OnRequestRedirected(
         response);
   }
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
   // TODO(darin): It would be much better if this could live in WebCore, but
   // doing so requires API changes at all levels.  Similar code exists in
   // WebCore/platform/network/cf/ResourceHandleCFNet.cpp :-(
@@ -81,7 +83,9 @@ bool SyncResourceHandler::OnResponseStarted(
         request(), info->GetContext(), response, info->filter());
   }
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
 
   // We don't care about copying the status here.
   result_.headers = response->head.headers;
