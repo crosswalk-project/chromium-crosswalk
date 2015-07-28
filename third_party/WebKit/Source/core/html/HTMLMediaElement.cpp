@@ -1158,7 +1158,7 @@ void HTMLMediaElement::textTrackModeChanged(TextTrack* track)
     if (track->trackType() == TextTrack::TrackElement)
         track->setHasBeenConfigured(true);
 
-    configureTextTrackDisplay(AssumeVisibleChange);
+    configureTextTrackDisplay();
 
     ASSERT(textTracks()->contains(track));
     textTracks()->scheduleChangeEvent();
@@ -3057,9 +3057,6 @@ void HTMLMediaElement::clearMediaPlayer(int flags)
     if (mediaControls())
         mediaControls()->refreshCastButtonVisibility();
 
-    if (m_textTracks)
-        configureTextTrackDisplay(AssumeNoVisibleChange);
-
     if (layoutObject())
         layoutObject()->setShouldDoFullPaintInvalidation();
 }
@@ -3403,7 +3400,7 @@ CueTimeline& HTMLMediaElement::cueTimeline()
     return *m_cueTimeline;
 }
 
-void HTMLMediaElement::configureTextTrackDisplay(VisibilityChangeAssumption assumption)
+void HTMLMediaElement::configureTextTrackDisplay()
 {
     ASSERT(m_textTracks);
     WTF_LOG(Media, "HTMLMediaElement::configureTextTrackDisplay(%p)", this);
@@ -3411,14 +3408,7 @@ void HTMLMediaElement::configureTextTrackDisplay(VisibilityChangeAssumption assu
     if (m_processingPreferenceChange)
         return;
 
-    bool haveVisibleTextTrack = m_textTracks->hasShowingTracks();
-
-    if (assumption == AssumeNoVisibleChange
-        && m_haveVisibleTextTrack == haveVisibleTextTrack) {
-        cueTimeline().updateActiveCues(currentTime());
-        return;
-    }
-    m_haveVisibleTextTrack = haveVisibleTextTrack;
+    m_haveVisibleTextTrack = m_textTracks->hasShowingTracks();
     m_closedCaptionsVisible = m_haveVisibleTextTrack;
 
     if (!m_haveVisibleTextTrack && !mediaControls())
