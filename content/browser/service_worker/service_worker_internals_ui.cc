@@ -11,8 +11,10 @@
 #include "base/memory/scoped_vector.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/values.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/browser/devtools/devtools_agent_host_impl.h"
 #include "content/browser/devtools/service_worker_devtools_manager.h"
+#endif
 #include "content/browser/service_worker/service_worker_context_observer.h"
 #include "content/browser/service_worker/service_worker_context_wrapper.h"
 #include "content/browser/service_worker/service_worker_registration.h"
@@ -459,14 +461,19 @@ ServiceWorkerInternalsUI::~ServiceWorkerInternalsUI() {
 }
 
 void ServiceWorkerInternalsUI::GetOptions(const ListValue* args) {
+#ifndef DISABLE_DEVTOOLS
   DictionaryValue options;
   options.SetBoolean("debug_on_start",
                      ServiceWorkerDevToolsManager::GetInstance()
                          ->debug_service_worker_on_start());
   web_ui()->CallJavascriptFunction("serviceworker.onOptions", options);
+#else
+  (void) args;
+#endif
 }
 
 void ServiceWorkerInternalsUI::SetOption(const ListValue* args) {
+#ifndef DISABLE_DEVTOOLS
   std::string option_name;
   bool option_boolean;
   if (!args->GetString(0, &option_name) || option_name != "debug_on_start" ||
@@ -475,6 +482,9 @@ void ServiceWorkerInternalsUI::SetOption(const ListValue* args) {
   }
   ServiceWorkerDevToolsManager::GetInstance()
       ->set_debug_service_worker_on_start(option_boolean);
+#else
+  (void) args;
+#endif
 }
 
 void ServiceWorkerInternalsUI::GetAllRegistrations(const ListValue* args) {
@@ -605,6 +615,7 @@ void ServiceWorkerInternalsUI::DispatchPushEvent(
 }
 
 void ServiceWorkerInternalsUI::InspectWorker(const ListValue* args) {
+#ifndef DISABLE_DEVTOOLS
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
   int callback_id;
   const DictionaryValue* cmd_args = NULL;
@@ -628,6 +639,9 @@ void ServiceWorkerInternalsUI::InspectWorker(const ListValue* args) {
   }
   agent_host->Inspect(web_ui()->GetWebContents()->GetBrowserContext());
   callback.Run(SERVICE_WORKER_OK);
+#else
+  (void) args;
+#endif
 }
 
 void ServiceWorkerInternalsUI::Unregister(const ListValue* args) {

@@ -11,7 +11,9 @@
 #include "base/stl_util.h"
 #include "base/trace_event/trace_event.h"
 #include "content/browser/child_process_security_policy_impl.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/browser/devtools/render_frame_devtools_agent_host.h"
+#endif
 #include "content/browser/frame_host/cross_site_transferring_request.h"
 #include "content/browser/frame_host/debug_urls.h"
 #include "content/browser/frame_host/interstitial_page_impl.h"
@@ -1941,9 +1943,11 @@ RenderFrameHostManager::UnsetPendingRenderFrameHost() {
   scoped_ptr<RenderFrameHostImpl> pending_render_frame_host =
       pending_render_frame_host_.Pass();
 
+#ifndef DISABLE_DEVTOOLS
   RenderFrameDevToolsAgentHost::OnCancelPendingNavigation(
       pending_render_frame_host.get(),
       render_frame_host_.get());
+#endif
 
   // We no longer need to prevent the process from exiting.
   pending_render_frame_host->GetProcess()->RemovePendingView();

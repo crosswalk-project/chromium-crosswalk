@@ -14,21 +14,27 @@
 #include "content/renderer/render_view_impl.h"
 #include "third_party/WebKit/public/platform/WebFloatPoint.h"
 #include "third_party/WebKit/public/platform/WebString.h"
+#ifndef DISABLE_DEVTOOLS
 #include "third_party/WebKit/public/web/WebDevToolsFrontend.h"
+#endif
 #include "ui/base/ui_base_switches.h"
 
+#ifndef DISABLE_DEVTOOLS
 using blink::WebDevToolsFrontend;
+#endif
 using blink::WebString;
 
 namespace content {
 
 DevToolsClient::DevToolsClient(RenderFrame* main_render_frame)
     : RenderFrameObserver(main_render_frame) {
+#ifndef DISABLE_DEVTOOLS
   const base::CommandLine& command_line =
       *base::CommandLine::ForCurrentProcess();
   web_tools_frontend_.reset(WebDevToolsFrontend::create(
       main_render_frame->GetRenderView()->GetWebView(), this,
       base::ASCIIToUTF16(command_line.GetSwitchValueASCII(switches::kLang))));
+#endif
 }
 
 DevToolsClient::~DevToolsClient() {

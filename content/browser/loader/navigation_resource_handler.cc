@@ -60,7 +60,9 @@ bool NavigationResourceHandler::OnRequestRedirected(
 
   // TODO(davidben): Perform a CSP check here, and anything else that would have
   // been done renderer-side.
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
   core_->NotifyRequestRedirected(redirect_info, response);
   *defer = true;
   return true;
@@ -89,7 +91,9 @@ bool NavigationResourceHandler::OnResponseStarted(ResourceResponse* response,
 
   // Detach from the loader; at this point, the request is now owned by the
   // StreamHandle.
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
   core_->NotifyResponseStarted(response, writer_.stream()->CreateHandle());
   DetachFromCore();
   return true;
