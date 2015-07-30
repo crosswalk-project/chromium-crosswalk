@@ -2678,10 +2678,6 @@ interface MIDIPort
     method constructor
     method open
     setter onstatechange
-interface MediaDevices
-    method constructor
-    method enumerateDevices
-    method getUserMedia
 interface MediaElementAudioSourceNode
     getter mediaElement
     method constructor
@@ -2912,7 +2908,6 @@ interface Navigator
     getter language
     getter languages
     getter maxTouchPoints
-    getter mediaDevices
     getter mimeTypes
     getter onLine
     getter permissions
