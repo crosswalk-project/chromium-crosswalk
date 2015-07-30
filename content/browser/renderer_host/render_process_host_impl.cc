@@ -342,7 +342,7 @@ class RendererSandboxedProcessLauncherDelegate
         base::win::GetVersion() == base::win::VERSION_WIN8_1) {
       const base::CommandLine& command_line =
           *base::CommandLine::ForCurrentProcess();
-      if (!command_line.HasSwitch(switches::kDisableAppContainer)) {
+      if (command_line.HasSwitch(switches::kEnableAppContainer)) {
         // TODO(shrikant): Check if these constants should be different across
         // various versions of Chromium code base or could be same.
         // If there should be different SID per channel then move this code
