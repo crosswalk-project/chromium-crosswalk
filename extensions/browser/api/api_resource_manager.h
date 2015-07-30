@@ -23,6 +23,7 @@
 #include "extensions/common/extension.h"
 
 namespace extensions {
+class CastChannelAsyncApiFunction;
 
 namespace core_api {
 class BluetoothSocketApiFunction;
@@ -192,6 +193,7 @@ class ApiResourceManager : public BrowserContextKeyedAPI,
   // TODO(rockot): ApiResourceData could be moved out of ApiResourceManager and
   // we could avoid maintaining a friends list here.
   friend class BluetoothAPI;
+  friend class CastChannelAsyncApiFunction;
   friend class core_api::BluetoothSocketApiFunction;
   friend class core_api::BluetoothSocketEventDispatcher;
   friend class core_api::SerialEventDispatcher;
