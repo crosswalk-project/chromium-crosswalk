@@ -2118,7 +2118,7 @@ public class AwContents implements SmartClipProvider,
             callback.onAccessibilitySnapshot(null);
             return;
         }
-        mWebContents.requestAccessibilitySnapshot(callback);
+        mWebContents.requestAccessibilitySnapshot(callback, 0, 0);
     }
 
     //--------------------------------------------------------------------------------------------
