@@ -39,7 +39,7 @@ class CdmSessionAdapter : public base::RefCounted<CdmSessionAdapter> {
                  const std::string& key_system,
                  const GURL& security_origin,
                  const CdmConfig& cdm_config,
-                 blink::WebContentDecryptionModuleResult result);
+                 scoped_ptr<blink::WebContentDecryptionModuleResult> result);
 
   // Provides a server certificate to be used to encrypt messages to the
   // license server.
@@ -110,7 +110,6 @@ class CdmSessionAdapter : public base::RefCounted<CdmSessionAdapter> {
 
   // Callback for CreateCdm().
   void OnCdmCreated(const std::string& key_system,
-                    blink::WebContentDecryptionModuleResult result,
                     scoped_ptr<MediaKeys> cdm,
                     const std::string& error_message);
 
@@ -140,6 +139,8 @@ class CdmSessionAdapter : public base::RefCounted<CdmSessionAdapter> {
 
   std::string key_system_;
   std::string key_system_uma_prefix_;
+
+  scoped_ptr<blink::WebContentDecryptionModuleResult> cdm_created_result_;
 
   // NOTE: Weak pointers must be invalidated before all other member variables.
   base::WeakPtrFactory<CdmSessionAdapter> weak_ptr_factory_;
