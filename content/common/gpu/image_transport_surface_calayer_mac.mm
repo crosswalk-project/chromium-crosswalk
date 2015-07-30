@@ -40,9 +40,11 @@ bool CanUseIOSurface() {
   if (disabled_at_command_line)
     return false;
 
-  // Ignore blacklist settings.
-  // TODO(ccameron): Remove fields for blacklist settings.
-  return true;
+  // This has hit a number of bugs. Let's not ship it.
+  // http://crbug.com/507090
+  // http://crbug.com/513024
+  // http://crbug.com/515252
+  return false;
 }
 
 }  // namespace
