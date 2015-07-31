@@ -83,67 +83,24 @@ DEFINE_TRACE(PopupMenuCSSFontSelector)
     CSSFontSelectorClient::trace(visitor);
 }
 
-// ----------------------------------------------------------------
-
 class PopupMenuImpl::ItemIterationContext {
     STACK_ALLOCATED();
 public:
-    ItemIterationContext(const ComputedStyle& style, SharedBuffer* buffer)
-        : m_direction(style.direction())
-        , m_foregroundColor(style.visitedDependentColor(CSSPropertyColor))
-        , m_backgroundColor(style.visitedDependentColor(CSSPropertyBackgroundColor))
-        , m_textTransform(style.textTransform())
-        , m_fontDescription(style.fontDescription())
+    ItemIterationContext(bool enableExtraStyling, TextDirection dir, SharedBuffer* buffer)
+        : m_enableExtraStyling(enableExtraStyling)
+        , m_direction(dir)
         , m_listIndex(0)
         , m_buffer(buffer)
     {
         ASSERT(m_buffer);
-#if OS(LINUX)
-        // On other platforms, the <option> background color is the same as the
-        // <select> background color. On Linux, that makes the <option>
-        // background color very dark, so by default, try to use a lighter
-        // background color for <option>s.
-        if (LayoutTheme::theme().systemColor(CSSValueButtonface) == m_backgroundColor)
-            m_backgroundColor = LayoutTheme::theme().systemColor(CSSValueMenu);
-#endif
     }
 
-    void serializeBaseStyle()
-    {
-        PagePopupClient::addString("baseStyle: {", m_buffer);
-        addProperty("backgroundColor", m_backgroundColor.serialized(), m_buffer);
-        addProperty("color", m_foregroundColor.serialized(), m_buffer);
-        addProperty("textTransform", String(textTransformToString(m_textTransform)), m_buffer);
-        addProperty("fontSize", fontSize(), m_buffer);
-        addProperty("fontStyle", String(fontStyleToString(fontStyle())), m_buffer);
-        addProperty("fontVariant", String(fontVariantToString(fontVariant())), m_buffer);
-
-        PagePopupClient::addString("fontFamily: [", m_buffer);
-        for (const FontFamily* f = &fontFamily(); f; f = f->next()) {
-            addJavaScriptString(f->family().string(), m_buffer);
-            if (f->next())
-                PagePopupClient::addString(",", m_buffer);
-        }
-        PagePopupClient::addString("]", m_buffer);
-        PagePopupClient::addString("},\n", m_buffer);
-    }
-
-    int fontSize() const { return m_fontDescription.computedPixelSize(); }
-    FontStyle fontStyle() const { return m_fontDescription.style(); }
-    FontVariant fontVariant() const { return m_fontDescription.variant(); }
-    const FontFamily& fontFamily() const { return m_fontDescription.family(); }
-
+    bool m_enableExtraStyling;
     TextDirection m_direction;
-    Color m_foregroundColor;
-    Color m_backgroundColor;
-    ETextTransform m_textTransform;
-    const FontDescription& m_fontDescription;
 
     int m_listIndex;
     SharedBuffer* m_buffer;
 };
-
-// ----------------------------------------------------------------
 
 PassRefPtrWillBeRawPtr<PopupMenuImpl> PopupMenuImpl::create(ChromeClientImpl* chromeClient, PopupMenuClient* client)
 {
@@ -168,6 +125,19 @@ IntSize PopupMenuImpl::contentSize()
     return IntSize();
 }
 
+// We don't make child style information if the popup will have a lot of items
+// because of a performance problem.
+// TODO(tkent): This is a workaround.  We should do a performance optimization.
+bool PopupMenuImpl::hasTooManyItemsForStyling()
+{
+    // 300 is enough for world-wide countries.
+    const unsigned styledChildrenLimit = 300;
+
+    if (!isHTMLSelectElement(ownerElement()))
+        return false;
+    return toHTMLSelectElement(ownerElement()).listItems().size() > styledChildrenLimit;
+}
+
 void PopupMenuImpl::writeDocument(SharedBuffer* data)
 {
     IntRect anchorRectInScreen = m_chromeClient->viewportToScreen(m_client->elementRectRelativeToViewport());
@@ -179,9 +149,8 @@ void PopupMenuImpl::writeDocument(SharedBuffer* data)
         "window.dialogArguments = {\n", data);
     addProperty("selectedIndex", m_client->selectedIndex(), data);
     const ComputedStyle* ownerStyle = ownerElement().computedStyle();
-    ItemIterationContext context(*ownerStyle, data);
-    context.serializeBaseStyle();
     PagePopupClient::addString("children: [\n", data);
+    ItemIterationContext context(!hasTooManyItemsForStyling(), ownerStyle->direction(), data);
     for (HTMLElement& child : Traversal<HTMLElement>::childrenOf(ownerElement())) {
         if (isHTMLOptionElement(child))
             addOption(context, toHTMLOptionElement(child));
@@ -191,8 +160,17 @@ void PopupMenuImpl::writeDocument(SharedBuffer* data)
             addSeparator(context, toHTMLHRElement(child));
     }
     PagePopupClient::addString("],\n", data);
-
     addProperty("anchorRectInScreen", anchorRectInScreen, data);
+    Color backgroundColor = ownerStyle->visitedDependentColor(CSSPropertyBackgroundColor);
+#if OS(LINUX)
+    // On other platforms, the <option> background color is the same as the
+    // <select> background color. On Linux, that makes the <option>
+    // background color very dark, so by default, try to use a lighter
+    // background color for <option>s.
+    if (LayoutTheme::theme().systemColor(CSSValueButtonface) == backgroundColor)
+        backgroundColor = LayoutTheme::theme().systemColor(CSSValueMenu);
+#endif
+    addProperty("backgroundColor", backgroundColor.serialized(), data);
     bool isRTL = !ownerStyle->isLeftToRightDirection();
     addProperty("isRTL", isRTL, data);
     addProperty("paddingStart", isRTL ? m_client->clientPaddingRight().toDouble() : m_client->clientPaddingLeft().toDouble(), data);
@@ -278,9 +256,14 @@ void PopupMenuImpl::addElementStyle(ItemIterationContext& context, HTMLElement& 
 {
     const ComputedStyle* style = m_client->computedStyleForItem(element);
     ASSERT(style);
+    if (style->visibility() != HIDDEN
+        && style->display() != NONE
+        && context.m_direction == style->direction()
+        && !isOverride(style->unicodeBidi())
+        && !context.m_enableExtraStyling)
+        return;
+
     SharedBuffer* data = context.m_buffer;
-    // TODO(tkent): We generate unnecessary "style: {\n},\n" even if no
-    // additional style.
     PagePopupClient::addString("style: {\n", data);
     if (style->visibility() == HIDDEN)
         addProperty("visibility", String("hidden"), data);
@@ -290,19 +273,12 @@ void PopupMenuImpl::addElementStyle(ItemIterationContext& context, HTMLElement& 
         addProperty("direction", String(style->direction() == RTL ? "rtl" : "ltr"), data);
     if (isOverride(style->unicodeBidi()))
         addProperty("unicodeBidi", String("bidi-override"), data);
-    Color foregroundColor = style->visitedDependentColor(CSSPropertyColor);
-    if (context.m_foregroundColor != foregroundColor)
-        addProperty("color", foregroundColor.serialized(), data);
-    Color backgroundColor = style->visitedDependentColor(CSSPropertyBackgroundColor);
-    if (context.m_backgroundColor != backgroundColor && backgroundColor != Color::transparent)
-        addProperty("backgroundColor", backgroundColor.serialized(), data);
-    const FontDescription& fontDescription = style->font().fontDescription();
-    if (context.fontSize() != fontDescription.computedPixelSize())
+    if (context.m_enableExtraStyling) {
+        addProperty("color", style->visitedDependentColor(CSSPropertyColor).serialized(), data);
+        addProperty("backgroundColor", style->visitedDependentColor(CSSPropertyBackgroundColor).serialized(), data);
+        const FontDescription& fontDescription = style->font().fontDescription();
         addProperty("fontSize", fontDescription.computedPixelSize(), data);
-    // Our UA stylesheet has font-weight:normal for OPTION.
-    if (FontWeightNormal != fontDescription.weight())
         addProperty("fontWeight", String(fontWeightToString(fontDescription.weight())), data);
-    if (context.fontFamily() != fontDescription.family()) {
         PagePopupClient::addString("fontFamily: [\n", data);
         for (const FontFamily* f = &fontDescription.family(); f; f = f->next()) {
             addJavaScriptString(f->family().string(), data);
@@ -310,14 +286,10 @@ void PopupMenuImpl::addElementStyle(ItemIterationContext& context, HTMLElement& 
                 PagePopupClient::addString(",\n", data);
         }
         PagePopupClient::addString("],\n", data);
-    }
-    if (context.fontStyle() != fontDescription.style())
         addProperty("fontStyle", String(fontStyleToString(fontDescription.style())), data);
-    if (context.fontVariant() != fontDescription.variant())
         addProperty("fontVariant", String(fontVariantToString(fontDescription.variant())), data);
-    if (context.m_textTransform != style->textTransform())
         addProperty("textTransform", String(textTransformToString(style->textTransform())), data);
-
+    }
     PagePopupClient::addString("},\n", data);
 }
 
@@ -478,9 +450,8 @@ void PopupMenuImpl::update()
     RefPtr<SharedBuffer> data = SharedBuffer::create();
     PagePopupClient::addString("window.updateData = {\n", data.get());
     PagePopupClient::addString("type: \"update\",\n", data.get());
-    ItemIterationContext context(*ownerElement().computedStyle(), data.get());
-    context.serializeBaseStyle();
     PagePopupClient::addString("children: [", data.get());
+    ItemIterationContext context(!hasTooManyItemsForStyling(), ownerElement().computedStyle()->direction(), data.get());
     for (HTMLElement& child : Traversal<HTMLElement>::childrenOf(ownerElement())) {
         if (isHTMLOptionElement(child))
             addOption(context, toHTMLOptionElement(child));
