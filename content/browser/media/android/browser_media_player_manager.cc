@@ -144,7 +144,9 @@ BrowserMediaPlayerManager::BrowserMediaPlayerManager(
     RenderFrameHost* render_frame_host,
     MediaPlayersObserver* audio_monitor)
     : render_frame_host_(render_frame_host),
+#ifndef DISABLE_WEB_AUDIO
       audio_monitor_(audio_monitor),
+#endif
       fullscreen_player_id_(kInvalidMediaPlayerId),
       fullscreen_player_is_released_(false),
       web_contents_(WebContents::FromRenderFrameHost(render_frame_host)),
@@ -283,8 +285,13 @@ void BrowserMediaPlayerManager::OnVideoSizeChanged(
 
 void BrowserMediaPlayerManager::OnAudibleStateChanged(
     int player_id, bool is_audible) {
+#ifndef DISABLE_WEB_AUDIO
   audio_monitor_->OnAudibleStateChanged(
       render_frame_host_, player_id, is_audible);
+#else
+  (void) player_id;
+  (void) is_audible;
+#endif
 }
 
 void BrowserMediaPlayerManager::OnWaitingForDecryptionKey(int player_id) {
@@ -550,7 +557,9 @@ void BrowserMediaPlayerManager::RemovePlayer(int player_id) {
       ReleaseMediaResources(player_id);
       (*it)->DeleteOnCorrectThread();
       players_.weak_erase(it);
+#ifndef DISABLE_WEB_AUDIO
       audio_monitor_->RemovePlayer(render_frame_host_, player_id);
+#endif
       break;
     }
   }

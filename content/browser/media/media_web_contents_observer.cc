@@ -39,9 +39,11 @@ void MediaWebContentsObserver::RenderFrameDeleted(
   // detaching CDMs from media players yet. See http://crbug.com/330324
   media_player_managers_.erase(key);
 
+#ifndef DISABLE_WEB_AUDIO
   MediaPlayersObserver* audio_observer = GetMediaPlayersObserver();
   if (audio_observer)
     audio_observer->RenderFrameDeleted(render_frame_host);
+#endif
 #endif
   // TODO(xhwang): Currently MediaWebContentsObserver, BrowserMediaPlayerManager
   // and BrowserCdmManager all run on browser UI thread. So this call is okay.

@@ -176,7 +176,9 @@ class CONTENT_EXPORT BrowserMediaPlayerManager
 
   RenderFrameHost* const render_frame_host_;
 
+#ifndef DISABLE_WEB_AUDIO
   MediaPlayersObserver* audio_monitor_;
+#endif
 
   // An array of managed players.
   ScopedVector<media::MediaPlayerAndroid> players_;
