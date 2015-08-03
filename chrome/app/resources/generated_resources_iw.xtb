@@ -249,7 +249,7 @@
 <translation id="2296019197782308739">‏שיטת EAP:</translation>
 <translation id="572328651809341494">כרטיסיות אחרונות</translation>
 <translation id="42981349822642051">הרחב</translation>
-<translation id="7774497835322490043">‏אפשר מקטע ניקוי באגים מסוג GDB. דבר זה יגרום לעצירת יישום Native Client בעת האתחול והמתנה ל-nacl-gdb (מה-NaCl SDK) כדי לצרף אליו.</translation>
+<translation id="7774497835322490043">‏אפשר מקטע ניפוי באגים מסוג GDB. דבר זה יגרום לעצירת יישום Native Client בעת האתחול והמתנה ל-nacl-gdb (מה-NaCl SDK) כדי לצרף אליו.</translation>
 <translation id="2686444421126615064">הצג חשבון</translation>
 <translation id="9215293857209265904">&quot;<ph name="EXTENSION_NAME"/>&quot; נוסף</translation>
 <translation id="8089515035584227384">{NUM_DOWNLOADS,plural, =1{מוריד קובץ}two{מוריד # קבצים}many{מוריד # קבצים}other{מוריד # קבצים}}</translation>
@@ -685,7 +685,7 @@
 <translation id="5948544841277865110">הוסף רשת פרטית</translation>
 <translation id="7088434364990739311">המערכת לא הצליחה להפעיל את בדיקת העדכונים (קוד שגיאה <ph name="ERROR"/>).</translation>
 <translation id="1353966721814789986">דפי הפעלה</translation>
-<translation id="5233019165164992427">‏יציאת ניקוי באגים של NaCl</translation>
+<translation id="5233019165164992427">‏יציאת ניפוי באגים של NaCl</translation>
 <translation id="3925573269917483990">מצלמה:</translation>
 <translation id="3170072451822350649">ניתן גם לדלג על הכניסה ו<ph name="LINK_START"/>לגלוש כאורח<ph name="LINK_END"/>.</translation>
 <translation id="8390449457866780408">השרת אינו זמין.</translation>
@@ -1702,7 +1702,7 @@
 <translation id="2907619724991574506">כתובות אתרים בהפעלה</translation>
 <translation id="6780476430578694241">מפעיל היישום</translation>
 <translation id="5328285148748012771">‏גש אל כל היישומים שלך ממפעיל האפליקציות השימושי הזה. שחק במשחקים, נהל צ'אטים בווידאו, האזן למוסיקה, ערוך מסמכים או קבל יישומים נוספים מחנות האינטרנט של Chrome.</translation>
-<translation id="2739191690716947896">ניקוי באגים</translation>
+<translation id="2739191690716947896">ניפוי באגים</translation>
 <translation id="3100609564180505575">מודולים (<ph name="TOTAL_COUNT"/>) - התנגשויות ידועות: <ph name="BAD_COUNT"/>, חשודות: <ph name="SUSPICIOUS_COUNT"/></translation>
 <translation id="641702813324074008">הפעל את ממשק המשתמש 'שמור בועת סיסמה'</translation>
 <translation id="3627671146180677314">‏מועד חידוש של אישור Netscape</translation>
@@ -2758,7 +2758,7 @@
 <translation id="6052976518993719690">‏רשות אישורי SSL </translation>
 <translation id="1482124012545051544">מוכן לגבות <ph name="FILE_COUNT"/> תמונות חדשות</translation>
 <translation id="1175364870820465910">הדפס...</translation>
-<translation id="3502662168994969388">‏הגבלת ניקוי באגים מבוסס GDB של היישום Native Client לפי כתובת אתר של קובץ מניפסט. יש להפעיל ניקוי באגים מבוסס GDB של Native Client כדי שאפשרות זו תפעל.</translation>
+<translation id="3502662168994969388">‏הגבלת ניפוי באגים מבוסס GDB של היישום Native Client לפי כתובת אתר של קובץ מניפסט. יש להפעיל ניפוי באגים מבוסס GDB של Native Client כדי שאפשרות זו תפעל.</translation>
 <translation id="588258955323874662">מסך מלא</translation>
 <translation id="6800914069727136216">בחבילת תוכן</translation>
 <translation id="3866249974567520381">תיאור</translation>
@@ -2968,7 +2968,7 @@
 <translation id="8871696467337989339">אתה משתמש בסימון שורת פקודה שאינו נתמך: <ph name="BAD_FLAG"/>. היציבות והאבטחה ייפגעו.</translation>
 <translation id="5163869187418756376">השיתוף נכשל. בדוק את החיבור ונסה שוב מאוחר יותר.</translation>
 <translation id="1774833706453699074">הוספת דפים פתוחים לסימניות...</translation>
-<translation id="8381055888183086563">הפעלת אפשרויות תפריט ההקשר של ניקוי באגים, כגון בדיקת רכיב ביישומים ארוזים.</translation>
+<translation id="8381055888183086563">הפעלת אפשרויות תפריט ההקשר של ניפוי באגים, כגון בדיקת רכיב ביישומים ארוזים.</translation>
 <translation id="8145409227593688472">‏שיטת קלט Wubi</translation>
 <translation id="4037732314385844870">‏הפעל את ממשק ה-API הניסיוני לניהול אישורי כניסה.</translation>
 <translation id="7017004637493394352">‏אמור שוב &quot;Ok Google&quot;</translation>
@@ -3346,7 +3346,7 @@
 <translation id="5017508259293544172">LEAP</translation>
 <translation id="3093245981617870298">אתה במצב לא מקוון.</translation>
 <translation id="5657667036353380798">‏על מנת להתקין את התוסף החיצוני, על Chrome להיות מגרסה <ph name="MINIMUM_CHROME_VERSION"/> ומעלה.</translation>
-<translation id="3113551216836192921">‏הקובץ המצורף מועלה לשרתים של Google לצורך ניקוי באגים.</translation>
+<translation id="3113551216836192921">‏הקובץ המצורף מועלה לשרתים של Google לצורך ניפוי באגים.</translation>
 <translation id="2498765460639677199">ענק</translation>
 <translation id="4801448226354548035">הסתר חשבונות</translation>
 <translation id="2378982052244864789">בחר את ספריית ההרחבה.</translation>
@@ -3563,7 +3563,7 @@
         <ph name="PRODUCT_NAME"/>
 	הפסיק באופן זמני לאפשר בקשות מתוספים לכתובת אתר זו.
         <ph name="LINE_BREAK"/>
-        אם אתה סבור שאופן פעולה זה אינו רצוי, לדוגמה, אם אתה מנקה באגים באתר שלך, בקר ב-<ph name="URL_FOR_MORE_INFO"/>,
+        אם אתה סבור שאופן פעולה זה אינו רצוי, לדוגמה, אם אתה מנפה באגים באתר שלך, בקר ב-<ph name="URL_FOR_MORE_INFO"/>,
         שם תוכל למצוא מידע נוסף, כולל האופן שבו ניתן להשבית את התכונה.</translation>
 <translation id="7572787314531933228">הפעל סימניות מנוהלות בשביל משתמשים בפיקוח.</translation>
 <translation id="5411769601840150972">תאריך ושעה מוגדרים אוטומטית.</translation>
@@ -4120,7 +4120,7 @@
 <translation id="7477347901712410606">‏אם שכחת את משפט-הסיסמה, עצור ואפס את הסינכרון דרך <ph name="BEGIN_LINK"/>לוח הבקרה של Google‏<ph name="END_LINK"/></translation>
 <translation id="2262903407161221567">רכיבי ממשק משתמש מסוימים יציגו משוב חזותי בעת אינטראקציות מגע.</translation>
 <translation id="4677772697204437347">‏זיכרון GPU</translation>
-<translation id="3085235303151103497">הפעל ניקוי באגים ביישומים ארוזים.</translation>
+<translation id="3085235303151103497">הפעל ניפוי באגים ביישומים ארוזים.</translation>
 <translation id="2433728760128592593">‏הקש על ALT + SHIFT כדי לעבור בין שיטות קלט.</translation>
 <translation id="1056898198331236512">אזהרה</translation>
 <translation id="1427049173708736891">‏השאר את ה-<ph name="DEVICE_TYPE"/> לא נעול בזמן שטלפון ה-Android שלך נמצא בקרבתך ואינו נעול - אין צורך להקליד סיסמה.</translation>
@@ -4355,7 +4355,7 @@
 <translation id="3454157711543303649">ההפעלה הושלמה</translation>
 <translation id="6498855056513831869">השבת עדכון אוטומטי של אזור הזמן לפי מיקום גיאוגרפי</translation>
 <translation id="2131077480075264">לא ניתן להתקין את '<ph name="APP_NAME"/>' מכיוון שהוא לא מאושר על ידי '<ph name="IMPORT_NAME"/>'</translation>
-<translation id="3895034729709274924">הפעל ניקוי באגים שקט.</translation>
+<translation id="3895034729709274924">הפעל ניפוי באגים שקט.</translation>
 <translation id="884923133447025588">לא נמצא מנגנון ביטול</translation>
 <translation id="8830796635868321089">‏בדיקת העדכון נכשלה עם ההגדרות הנוכחיות של שרת ה-proxy‏. התאם את <ph name="PROXY_SETTINGS_LINK_START"/>הגדרות שרת ה-proxy שלך<ph name="PROXY_SETTINGS_LINK_END"/>.</translation>
 <translation id="7801746894267596941">‏רק משתמש עם משפט הסיסמה שלך יוכל לקרוא את הנתונים המוצפנים שלך. משפט הסיסמה אינו נשלח אל Google או מאוחסן אצלה. אם שכחת אותו, תצטרך לבצע</translation>
@@ -4579,7 +4579,7 @@
 <translation id="8263231521757761563">תוכניות פעילות לטיפול בפרוטוקולים</translation>
 <translation id="6930242544192836755">משך החיבור</translation>
 <translation id="2749756011735116528">היכנס אל <ph name="PRODUCT_NAME"/></translation>
-<translation id="8434480141477525001">יציאת ניקוי באגים של לקוח מקומי</translation>
+<translation id="8434480141477525001">יציאת ניפוי באגים של לקוח מקומי</translation>
 <translation id="8957210676456822347">הרשאת פורטל חובה</translation>
 <translation id="1979444449436715782">איכות בעת הקטנת קנה מידה של צילום כרטיסייה.</translation>
 <translation id="7002055706763150362">‏כדי להגדיר את ‏Smart Lock for Chromebook‏, Google צריכה לאמת את הזהות שלך - כדי להתחיל הזן את הסיסמה.</translation>
@@ -4971,7 +4971,7 @@
 <translation id="8570618730045879048">האתר נחסם עקב הכנסה ידנית לרשימה שחורה.</translation>
 <translation id="4370975561335139969">כתובת האימייל והסיסמה שהזנת אינן תואמות</translation>
 <translation id="4557136421275541763">אזהרה:</translation>
-<translation id="3872687746103784075">‏ניקוי באגים מבוסס Native Client GDB</translation>
+<translation id="3872687746103784075">‏ניפוי באגים מבוסס Native Client GDB</translation>
 <translation id="4467798014533545464">הצג כתובת אתר</translation>
 <translation id="1227507814927581609">האימות נכשל בעת ההתחברות אל &quot;<ph name="DEVICE_NAME"/>&quot;.</translation>
 <translation id="7136694880210472378">הפוך לברירת מחדל</translation>
@@ -5113,7 +5113,7 @@
 <translation id="437184764829821926">הגדרות גופן מתקדמות</translation>
 <translation id="6165508094623778733">למידע נוסף</translation>
 <translation id="9052208328806230490">רשמת את המדפסות שלך ב-<ph name="CLOUD_PRINT_NAME"/> באמצעות החשבון <ph name="EMAIL"/></translation>
-<translation id="2803887722080936828">‏<ph name="BEGIN_H3"/>תכונות של ניקוי באגים<ph name="END_H3"/>
+<translation id="2803887722080936828">‏<ph name="BEGIN_H3"/>תכונות של ניפוי באגים<ph name="END_H3"/>
 <ph name="BR"/>
 אפשר להפעיל את תכונות ניקוי הבאגים במכשיר ה-Chrome כדי לבצע במכשיר התקנה ובדיקה של קוד בהתאמה אישית. כך תוכל:<ph name="BR"/>
 <ph name="BEGIN_LIST"/>
@@ -5183,7 +5183,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="1986281090560408715">מאפשר תצוגת התראות מראש בפינה הימנית העליונה של המסך, אשר מציגה מידע על נקודות המגע במסך.</translation>
 <translation id="1547964879613821194">אנגלית קנדית</translation>
 <translation id="2986010903908656993">‏האפשרות לשליטה מלאה על מכשירי MIDI נחסמה עבור דף זה.</translation>
-<translation id="4264549073314009907">‏הגבל ניקוי באגים מבוסס GDB של Native Client לפי דפוס</translation>
+<translation id="4264549073314009907">‏הגבל ניפוי באגים מבוסס GDB של Native Client לפי דפוס</translation>
 <translation id="4786993863723020412">שגיאת קריאה בקובץ השמור</translation>
 <translation id="6630452975878488444">קיצור דרך של בחירה</translation>
 <translation id="2934522647674136521">‏השתמש ב-GPU כדי ליצור רשת נקודות של תוכן אינטרנט. יש צורך ב-impl-side painting.</translation>
