@@ -763,6 +763,7 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       BrowserMainLoop::GetInstance()->user_input_monitor()));
   // The AudioRendererHost needs to be available for lookup, so it's
   // stashed in a member variable.
+#ifndef DISABLE_WEB_AUDIO
   audio_renderer_host_ = new AudioRendererHost(
       GetID(),
       audio_manager,
@@ -770,6 +771,7 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       media_internals,
       media_stream_manager);
   AddFilter(audio_renderer_host_.get());
+#endif
   AddFilter(
       new MidiHost(GetID(), BrowserMainLoop::GetInstance()->midi_manager()));
   AddFilter(new VideoCaptureHost(media_stream_manager));
@@ -2210,9 +2212,11 @@ void RenderProcessHostImpl::SetBackgrounded(bool backgrounded) {
   if (!child_process_launcher_.get() || child_process_launcher_->IsStarting())
     return;
 
+#ifndef DISABLE_WEB_AUDIO
   // Don't background processes which have active audio streams.
   if (backgrounded_ && audio_renderer_host_->HasActiveAudio())
     return;
+#endif
 
 #if defined(OS_WIN)
   // The cbstext.dll loads as a global GetMessage hook in the browser process
@@ -2336,7 +2340,11 @@ void RenderProcessHostImpl::OnProcessLaunchFailed() {
 
 scoped_refptr<AudioRendererHost>
 RenderProcessHostImpl::audio_renderer_host() const {
+#ifndef DISABLE_WEB_AUDIO
   return audio_renderer_host_;
+#else
+  return nullptr;
+#endif
 }
 
 void RenderProcessHostImpl::OnUserMetricsRecordAction(
@@ -2466,7 +2474,9 @@ void RenderProcessHostImpl::DecrementWorkerRefCount() {
 
 void RenderProcessHostImpl::GetAudioOutputControllers(
     const GetAudioOutputControllersCallback& callback) const {
+#ifndef DISABLE_WEB_AUDIO
   audio_renderer_host()->GetOutputControllers(callback);
+#endif
 }
 
 }  // namespace content
