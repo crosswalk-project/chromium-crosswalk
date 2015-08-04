@@ -1148,8 +1148,8 @@ void RenderWidgetHostImpl::GetWebScreenInfo(blink::WebScreenInfo* result) {
   else
     RenderWidgetHostViewBase::GetDefaultScreenInfo(result);
 
-  //[device-radius]
-  //FIXME
+  // FIXME(hyojin): find a ways how to get a hardware information
+  // and where to set the device radius
   if (base::CommandLine::ForCurrentProcess()->HasSwitch(switches::kRoundDisplay))
     result->deviceRadius = result->rect.width / 2;
   else

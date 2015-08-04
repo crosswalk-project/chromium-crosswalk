@@ -302,7 +302,7 @@ CONTENT_EXPORT extern const char kTraceExportEventsToETW[];
 
 CONTENT_EXPORT extern const char kEnableNpapi[];
 
-CONTENT_EXPORT extern const char kRoundDisplay[]; //[device-radius]
+CONTENT_EXPORT extern const char kRoundDisplay[];
 
 // DON'T ADD RANDOM STUFF HERE. Put it in the main section above in
 // alphabetical order, or in one of the ifdefs (also in order in each section).
