@@ -1015,6 +1015,8 @@ const char kTraceExportEventsToETW[] = "trace-export-events-to-etw";
 // Enables the use of NPAPI plugins.
 const char kEnableNpapi[]                   = "enable-npapi";
 
+const char kRoundDisplay[]                 = "round-display"; //[device-radius]
+
 // Don't dump stuff here, follow the same order as the header.
 
 }  // namespace switches

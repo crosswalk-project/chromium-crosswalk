@@ -392,6 +392,13 @@ void RenderWidget::ScreenMetricsEmulator::Apply(
       params_.deviceScaleFactor : original_screen_info_.deviceScaleFactor;
   widget_->screen_info_.deviceScaleFactor = applied_device_scale_factor;
 
+  //[device-radius]
+  //FIXME
+  if (base::CommandLine::ForCurrentProcess()->HasSwitch(switches::kRoundDisplay))
+    widget_->screen_info_.deviceRadius = widget_->screen_info_.rect.width / 2;
+  else
+    widget_->screen_info_.deviceRadius = -1;
+
   // Pass three emulation parameters to the blink side:
   // - we keep the real device scale factor in compositor to produce sharp image
   //   even when emulating different scale factor;
