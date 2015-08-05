@@ -72,6 +72,39 @@ class MockRequestPeer : public content::RequestPeer {
       const std::string& security_info,
       const base::TimeTicks& completion_time,
       int64_t total_transfer_size));
+  void OnReceivedCompletedResponse(const content::ResourceResponseInfo& info,
+                                   const char* data,
+                                   int data_length,
+                                   int encoded_data_length,
+                                   int error_code,
+                                   bool was_ignored_by_handler,
+                                   bool stale_copy_in_cache,
+                                   const std::string& security_info,
+                                   const base::TimeTicks& completion_time,
+                                   int64_t total_transfer_size) override {
+    if (data) {
+      OnReceivedCompletedResponseInternal(
+          info, data, data_length, encoded_data_length, error_code,
+          was_ignored_by_handler, stale_copy_in_cache, security_info,
+          completion_time, total_transfer_size);
+    } else {
+      OnReceivedCompletedResponseInternal(info, nullptr, 0, 0, error_code,
+                                          was_ignored_by_handler,
+                                          stale_copy_in_cache, security_info,
+                                          completion_time, total_transfer_size);
+    }
+  }
+  MOCK_METHOD10(OnReceivedCompletedResponseInternal,
+                void(const content::ResourceResponseInfo& info,
+                     const char* data,
+                     int data_length,
+                     int encoded_data_length,
+                     int error_code,
+                     bool was_ignored_by_handler,
+                     bool stale_copy_in_cache,
+                     const std::string& security_info,
+                     const base::TimeTicks& completion_time,
+                     int64_t total_transfer_size));
 
  private:
   DISALLOW_COPY_AND_ASSIGN(MockRequestPeer);
@@ -139,9 +172,9 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestBadURLRequestStatus) {
   // It will self-delete once it exits OnCompletedRequest.
   ExtensionLocalizationPeer* filter_peer = filter_peer_.release();
 
-  EXPECT_CALL(*original_peer_, OnReceivedResponse(_));
-  EXPECT_CALL(*original_peer_, OnCompletedRequest(
-      net::ERR_ABORTED, false, false, "", base::TimeTicks(), -1));
+  EXPECT_CALL(*original_peer_, OnReceivedCompletedResponseInternal(
+                                   _, nullptr, 0, 0, net::ERR_ABORTED, false,
+                                   false, "", base::TimeTicks(), -1));
 
   filter_peer->OnCompletedRequest(
       net::ERR_FAILED, false, false, std::string(), base::TimeTicks(), -1);
@@ -154,9 +187,9 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestEmptyData) {
   EXPECT_CALL(*original_peer_, OnReceivedData(_, _, _)).Times(0);
   EXPECT_CALL(*sender_, Send(_)).Times(0);
 
-  EXPECT_CALL(*original_peer_, OnReceivedResponse(_));
-  EXPECT_CALL(*original_peer_, OnCompletedRequest(
-      net::OK, false, false, "", base::TimeTicks(), -1));
+  EXPECT_CALL(*original_peer_, OnReceivedCompletedResponseInternal(
+                                   _, nullptr, 0, 0, net::OK, false, false, "",
+                                   base::TimeTicks(), -1));
 
   filter_peer->OnCompletedRequest(
       net::OK, false, false, std::string(), base::TimeTicks(), -1);
@@ -172,11 +205,9 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestNoCatalogs) {
 
   std::string data = GetData(filter_peer);
   EXPECT_CALL(*original_peer_,
-              OnReceivedData(StrEq(data.data()), data.length(), -1)).Times(2);
-
-  EXPECT_CALL(*original_peer_, OnReceivedResponse(_)).Times(2);
-  EXPECT_CALL(*original_peer_, OnCompletedRequest(
-      net::OK, false, false, "", base::TimeTicks(), -1)).Times(2);
+              OnReceivedCompletedResponseInternal(
+                  _, StrEq(data.c_str()), data.size(), -1, net::OK, false,
+                  false, "", base::TimeTicks(), -1)).Times(2);
 
   filter_peer->OnCompletedRequest(
       net::OK, false, false, std::string(), base::TimeTicks(), -1);
@@ -209,11 +240,9 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestWithCatalogs) {
   // __MSG_text__ gets replaced with "new text".
   std::string data("some new text");
   EXPECT_CALL(*original_peer_,
-              OnReceivedData(StrEq(data.data()), data.length(), -1));
-
-  EXPECT_CALL(*original_peer_, OnReceivedResponse(_));
-  EXPECT_CALL(*original_peer_, OnCompletedRequest(
-      net::OK, false, false, "", base::TimeTicks(), -1));
+              OnReceivedCompletedResponseInternal(
+                  _, StrEq(data.c_str()), data.size(), -1, net::OK, false,
+                  false, std::string(), base::TimeTicks(), -1));
 
   filter_peer->OnCompletedRequest(
       net::OK, false, false, std::string(), base::TimeTicks(), -1);
@@ -238,11 +267,9 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestReplaceMessagesFails) {
 
   // __MSG_missing_message__ is missing, so message stays the same.
   EXPECT_CALL(*original_peer_,
-              OnReceivedData(StrEq(message.data()), message.length(), -1));
-
-  EXPECT_CALL(*original_peer_, OnReceivedResponse(_));
-  EXPECT_CALL(*original_peer_, OnCompletedRequest(
-      net::OK, false, false, "", base::TimeTicks(), -1));
+              OnReceivedCompletedResponseInternal(
+                  _, StrEq(message.c_str()), message.size(), -1, net::OK, false,
+                  false, "", base::TimeTicks(), -1));
 
   filter_peer->OnCompletedRequest(
       net::OK, false, false, std::string(), base::TimeTicks(), -1);

@@ -97,6 +97,26 @@ class TestRequestPeer : public RequestPeer {
     complete_ = true;
   }
 
+  void OnReceivedCompletedResponse(const ResourceResponseInfo& info,
+                                   const char* data,
+                                   int data_length,
+                                   int encoded_data_length,
+                                   int error_code,
+                                   bool was_ignored_by_handler,
+                                   bool stale_copy_in_cache,
+                                   const std::string& security_info,
+                                   const base::TimeTicks& completion_time,
+                                   int64 total_transfer_size) override {
+    bool cancel_on_receive_response = cancel_on_receive_response_;
+    OnReceivedResponse(info);
+    if (cancel_on_receive_response)
+      return;
+    if (data_length)
+      OnReceivedData(data, data_length, encoded_data_length);
+    OnCompletedRequest(error_code, was_ignored_by_handler, stale_copy_in_cache,
+                       security_info, completion_time, total_transfer_size);
+  }
+
   void set_follow_redirects(bool follow_redirects) {
     follow_redirects_ = follow_redirects;
   }
@@ -744,6 +764,17 @@ class TimeConversionTest : public ResourceDispatcherTest,
                           const std::string& security_info,
                           const base::TimeTicks& completion_time,
                           int64 total_transfer_size) override {}
+
+  void OnReceivedCompletedResponse(const ResourceResponseInfo& info,
+                                   const char* data,
+                                   int data_length,
+                                   int encoded_data_length,
+                                   int error_code,
+                                   bool was_ignored_by_handler,
+                                   bool stale_copy_in_cache,
+                                   const std::string& security_info,
+                                   const base::TimeTicks& completion_time,
+                                   int64 total_transfer_size) override {}
 
   const ResourceResponseInfo& response_info() const { return response_info_; }
 

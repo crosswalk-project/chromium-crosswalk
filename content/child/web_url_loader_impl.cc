@@ -323,6 +323,16 @@ class WebURLLoaderImpl::Context : public base::RefCounted<Context>,
                           const std::string& security_info,
                           const base::TimeTicks& completion_time,
                           int64 total_transfer_size) override;
+  void OnReceivedCompletedResponse(const ResourceResponseInfo& info,
+                                   const char* data,
+                                   int data_length,
+                                   int encoded_data_length,
+                                   int error_code,
+                                   bool was_ignored_by_handler,
+                                   bool stale_copy_in_cache,
+                                   const std::string& security_info,
+                                   const base::TimeTicks& completion_time,
+                                   int64 total_transfer_size) override;
 
  private:
   friend class base::RefCounted<Context>;
@@ -760,6 +770,26 @@ void WebURLLoaderImpl::Context::OnCompletedRequest(
       }
     }
   }
+}
+
+void WebURLLoaderImpl::Context::OnReceivedCompletedResponse(
+    const ResourceResponseInfo& info,
+    const char* data,
+    int data_length,
+    int encoded_data_length,
+    int error_code,
+    bool was_ignored_by_handler,
+    bool stale_copy_in_cache,
+    const std::string& security_info,
+    const base::TimeTicks& completion_time,
+    int64 total_transfer_size) {
+  scoped_refptr<Context> protect(this);
+
+  OnReceivedResponse(info);
+  if (data_length)
+    OnReceivedData(data, data_length, encoded_data_length);
+  OnCompletedRequest(error_code, was_ignored_by_handler, stale_copy_in_cache,
+                     security_info, completion_time, total_transfer_size);
 }
 
 WebURLLoaderImpl::Context::~Context() {
