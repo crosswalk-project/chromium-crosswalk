@@ -394,7 +394,7 @@ void PluginURLFetcher::OnReceivedCompletedResponse(
 
   if (!weak_this)
     return;
-  if (data)
+  if (data_length)
     OnReceivedData(data, data_length, encoded_data_length);
 
   if (!weak_this)

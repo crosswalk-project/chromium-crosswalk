@@ -188,8 +188,8 @@ TEST_F(ExtensionLocalizationPeerTest, OnCompletedRequestEmptyData) {
   EXPECT_CALL(*sender_, Send(_)).Times(0);
 
   EXPECT_CALL(*original_peer_, OnReceivedCompletedResponseInternal(
-                                   _, nullptr, 0, 0, net::OK, false, false, "",
-                                   base::TimeTicks(), -1));
+                                   _, StrEq(""), 0, -1, net::OK, false, false,
+                                   "", base::TimeTicks(), -1));
 
   filter_peer->OnCompletedRequest(
       net::OK, false, false, std::string(), base::TimeTicks(), -1);
