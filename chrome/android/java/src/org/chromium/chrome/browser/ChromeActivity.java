@@ -115,8 +115,6 @@ import org.chromium.chrome.browser.toolbar.ToolbarManager;
 import org.chromium.chrome.browser.util.FeatureUtilities;
 import org.chromium.chrome.browser.webapps.AddToHomescreenDialog;
 import org.chromium.chrome.browser.widget.ControlContainer;
-import org.chromium.components.bookmarks.BookmarkId;
-import org.chromium.components.bookmarks.BookmarkType;
 import org.chromium.content.browser.ContentReadbackHandler;
 import org.chromium.content.browser.ContentReadbackHandler.GetBitmapCallback;
 import org.chromium.content.browser.ContentViewCore;
@@ -193,6 +191,7 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
     private ChromeAppMenuPropertiesDelegate mAppMenuPropertiesDelegate;
     private AppMenuHandler mAppMenuHandler;
     private ToolbarManager mToolbarManager;
+    private BookmarkModelObserver mBookmarkObserver;
 
     // Time in ms that it took took us to inflate the initial layout
     private long mInflateInitialLayoutDurationMs;
@@ -914,28 +913,22 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
 
         if (EnhancedBookmarkUtils.isEnhancedBookmarkEnabled(tabToBookmark.getProfile())) {
             final EnhancedBookmarksModel bookmarkModel = new EnhancedBookmarksModel();
-
-            BookmarkModelObserver modelObserver = new BookmarkModelObserver() {
-                @Override
-                public void bookmarkModelChanged() {}
-
-                @Override
-                public void bookmarkModelLoaded() {
-                    if (bookmarkId == ChromeBrowserProviderClient.INVALID_BOOKMARK_ID) {
-                        EnhancedBookmarkUtils.addBookmarkAndShowSnackbar(bookmarkModel,
-                                tabToBookmark, getSnackbarManager(), ChromeActivity.this);
-                    } else {
-                        EnhancedBookmarkUtils.startEditActivity(ChromeActivity.this,
-                                new BookmarkId(bookmarkId, BookmarkType.NORMAL));
-                    }
-                    bookmarkModel.removeModelObserver(this);
-                }
-            };
-
             if (bookmarkModel.isBookmarkModelLoaded()) {
-                modelObserver.bookmarkModelLoaded();
-            } else {
-                bookmarkModel.addModelObserver(modelObserver);
+                EnhancedBookmarkUtils.addOrEditBookmark(bookmarkId, bookmarkModel,
+                        tabToBookmark, getSnackbarManager(), ChromeActivity.this);
+            } else if (mBookmarkObserver == null) {
+                mBookmarkObserver = new BookmarkModelObserver() {
+                    @Override
+                    public void bookmarkModelChanged() {}
+
+                    @Override
+                    public void bookmarkModelLoaded() {
+                        EnhancedBookmarkUtils.addOrEditBookmark(bookmarkId, bookmarkModel,
+                                tabToBookmark, getSnackbarManager(), ChromeActivity.this);
+                        bookmarkModel.removeModelObserver(this);
+                    }
+                };
+                bookmarkModel.addModelObserver(mBookmarkObserver);
             }
         } else {
             Intent intent = new Intent(this, ManageBookmarkActivity.class);
