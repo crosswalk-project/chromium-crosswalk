@@ -6,11 +6,9 @@ package org.chromium.android_webview.test;
 
 import android.os.Build;
 import android.test.suitebuilder.annotation.MediumTest;
-import android.test.suitebuilder.annotation.SmallTest;
 import android.webkit.GeolocationPermissions;
 
 import org.chromium.android_webview.AwContents;
-import org.chromium.base.annotations.SuppressFBWarnings;
 import org.chromium.base.test.util.Feature;
 import org.chromium.base.test.util.MinAndroidSdkLevel;
 import org.chromium.content.browser.LocationProviderFactory;
@@ -39,17 +37,13 @@ public class GeolocationTest extends AwTestBase {
             + "      function gotPos(position) {\n"
             + "        positionCount++;\n"
             + "      }\n"
-            + "      function errorCallback(error){"
-            + "        window.document.title = 'deny';"
-            + "        console.log('navigator.getCurrentPosition error: ', error);"
-            + "      }"
             + "      function initiate_getCurrentPosition() {\n"
             + "        navigator.geolocation.getCurrentPosition(\n"
-            + "            gotPos, errorCallback, { });\n"
+            + "            gotPos, function() { }, { });\n"
             + "      }\n"
             + "      function initiate_watchPosition() {\n"
             + "        navigator.geolocation.watchPosition(\n"
-            + "            gotPos, errorCallback, { });\n"
+            + "            gotPos, function() { }, { });\n"
             + "      }\n"
             + "    </script>\n"
             + "  </head>\n"
@@ -57,45 +51,36 @@ public class GeolocationTest extends AwTestBase {
             + "  </body>\n"
             + "</html>";
 
-    private static class GrantPermisionAwContentClient extends TestAwContentsClient {
-        @Override
-        public void onGeolocationPermissionsShowPrompt(String origin,
-                GeolocationPermissions.Callback callback) {
-            callback.invoke(origin, true, true);
-        }
-    }
-
-    private static class DefaultPermisionAwContentClient extends TestAwContentsClient {
-        @Override
-        public void onGeolocationPermissionsShowPrompt(String origin,
-                GeolocationPermissions.Callback callback) {
-            // This method is empty intentionally to simulate callback is not referenced.
-        }
-    }
-
-    private void initAwContents(TestAwContentsClient contentsClient) throws Exception {
-        mContentsClient = contentsClient;
-        mAwContents = createAwTestContainerViewOnMainSync(mContentsClient).getAwContents();
-        enableJavaScriptOnUiThread(mAwContents);
-        getInstrumentation().runOnMainSync(new Runnable() {
-            @Override
-            public void run() {
-                mAwContents.getSettings().setGeolocationEnabled(true);
-            }
-        });
-    }
-
     @Override
     public void setUp() throws Exception {
         super.setUp();
-        mMockLocationProvider = new MockLocationProvider();
-        LocationProviderFactory.setLocationProviderImpl(mMockLocationProvider);
+        mContentsClient = new TestAwContentsClient() {
+                @Override
+                public void onGeolocationPermissionsShowPrompt(String origin,
+                        GeolocationPermissions.Callback callback) {
+                    callback.invoke(origin, true, true);
+                }
+        };
+        mAwContents = createAwTestContainerViewOnMainSync(mContentsClient).getAwContents();
+        enableJavaScriptOnUiThread(mAwContents);
+        setupGeolocation();
     }
 
     @Override
     public void tearDown() throws Exception {
         mMockLocationProvider.stopUpdates();
         super.tearDown();
+    }
+
+    private void setupGeolocation() {
+        getInstrumentation().runOnMainSync(new Runnable() {
+            @Override
+            public void run() {
+                mAwContents.getSettings().setGeolocationEnabled(true);
+            }
+        });
+        mMockLocationProvider = new MockLocationProvider();
+        LocationProviderFactory.setLocationProviderImpl(mMockLocationProvider);
     }
 
     private int getPositionCountFromJS() {
@@ -125,7 +110,6 @@ public class GeolocationTest extends AwTestBase {
     @MediumTest
     @Feature({"AndroidWebView"})
     public void testGetPosition() throws Throwable {
-        initAwContents(new GrantPermisionAwContentClient());
         loadDataSync(mAwContents, mContentsClient.getOnPageFinishedHelper(),
                 RAW_HTML, "text/html", false);
 
@@ -153,7 +137,6 @@ public class GeolocationTest extends AwTestBase {
     @MediumTest
     @Feature({"AndroidWebView"})
     public void testWatchPosition() throws Throwable {
-        initAwContents(new GrantPermisionAwContentClient());
         loadDataSync(mAwContents, mContentsClient.getOnPageFinishedHelper(),
                 RAW_HTML, "text/html", false);
 
@@ -170,7 +153,6 @@ public class GeolocationTest extends AwTestBase {
     @MediumTest
     @Feature({"AndroidWebView"})
     public void testPauseGeolocationOnPause() throws Throwable {
-        initAwContents(new GrantPermisionAwContentClient());
         // Start a watch going.
         loadDataSync(mAwContents, mContentsClient.getOnPageFinishedHelper(),
                 RAW_HTML, "text/html", false);
@@ -222,7 +204,6 @@ public class GeolocationTest extends AwTestBase {
     @MediumTest
     @Feature({"AndroidWebView"})
     public void testPauseAwContentsBeforeNavigating() throws Throwable {
-        initAwContents(new GrantPermisionAwContentClient());
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -260,7 +241,6 @@ public class GeolocationTest extends AwTestBase {
     @MediumTest
     @Feature({"AndroidWebView"})
     public void testResumeWhenNotStarted() throws Throwable {
-        initAwContents(new GrantPermisionAwContentClient());
         getInstrumentation().runOnMainSync(new Runnable() {
             @Override
             public void run() {
@@ -279,25 +259,6 @@ public class GeolocationTest extends AwTestBase {
         });
 
         ensureGeolocationRunning(false);
-    }
-
-    @Feature({"AndroidWebView"})
-    @SmallTest
-    public void testDenyAccessByDefault() throws Throwable {
-        initAwContents(new DefaultPermisionAwContentClient());
-        loadDataSync(mAwContents, mContentsClient.getOnPageFinishedHelper(),
-                RAW_HTML, "text/html", false);
-
-        mAwContents.evaluateJavaScriptForTests("initiate_getCurrentPosition();", null);
-
-        poll(new Callable<Boolean>() {
-            @SuppressFBWarnings("DM_GC")
-            @Override
-            public Boolean call() throws Exception {
-                Runtime.getRuntime().gc();
-                return "deny".equals(getTitleOnUiThread(mAwContents));
-            }
-        });
     }
 
 }
