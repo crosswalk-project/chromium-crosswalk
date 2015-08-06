@@ -177,6 +177,7 @@ public class TabDelegate implements TabCreator {
             AsyncTabCreationParams asyncParams, TabLaunchType type, @Nullable Tab parent) {
         assert asyncParams != null;
 
+        Context context = ApplicationStatus.getApplicationContext();
         boolean mayLaunchDocumentActivity = isAllowedToLaunchDocumentActivity(context);
         assert mayLaunchDocumentActivity || (asyncParams.getWebContents() == null);
 
@@ -187,8 +188,6 @@ public class TabDelegate implements TabCreator {
             // TODO(dfalcantara): Start parceling all of the LoadUrlParams when ChromeTabbedActivity
             //                    can use them.  Use the same non-duplication mechanism as the
             //                    WebContents so that they don't get reused across process restarts.
-            Context context = ApplicationStatus.getApplicationContext();
-
             Intent intent = new Intent(
                     Intent.ACTION_VIEW, Uri.parse(asyncParams.getLoadUrlParams().getUrl()));
             intent.setClass(context, ChromeLauncherActivity.class);
