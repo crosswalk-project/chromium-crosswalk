@@ -1522,6 +1522,18 @@
       'browser/android/java/jni_helper.cc',
       'browser/android/java/jni_helper.h',
     ],
+    'private_browser_sources_web_audio': [
+      'browser/android/media_players_observer.cc',
+      'browser/android/media_players_observer.h',
+      'browser/media/audio_state_provider.cc',
+      'browser/media/audio_state_provider.h',
+      'browser/media/audio_stream_monitor.cc',
+      'browser/media/audio_stream_monitor.h',
+      'browser/renderer_host/media/audio_renderer_host.cc',
+      'browser/renderer_host/media/audio_renderer_host.h',
+      'browser/renderer_host/media/audio_sync_reader.cc',
+      'browser/renderer_host/media/audio_sync_reader.h',
+    ],
     'webrtc_browser_sources': [
       'browser/media/webrtc_internals.cc',
       'browser/media/webrtc_internals.h',
@@ -1679,6 +1691,10 @@
       ],
     }, {
       'defines': ['DISABLE_DEVTOOLS'],
+    ['disable_web_audio == 1', {
+      'sources!': [
+        '<@(private_browser_sources_web_audio)',
+      ],
     }],
     ['OS == "win"', {
       'dependencies': [

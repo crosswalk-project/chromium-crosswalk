@@ -354,7 +354,9 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context,
 #endif
 
 #if defined(OS_ANDROID)
+#ifndef DISABLE_WEB_AUDIO
   audio_state_provider_.reset(new MediaPlayersObserver(this));
+#endif
 #else
   audio_state_provider_.reset(new AudioStreamMonitor(this));
 #endif
