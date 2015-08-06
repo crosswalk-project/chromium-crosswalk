@@ -177,7 +177,10 @@ public class TabDelegate implements TabCreator {
             AsyncTabCreationParams asyncParams, TabLaunchType type, @Nullable Tab parent) {
         assert asyncParams != null;
 
-        if (FeatureUtilities.isDocumentMode(ApplicationStatus.getApplicationContext())) {
+        boolean mayLaunchDocumentActivity = isAllowedToLaunchDocumentActivity(context);
+        assert mayLaunchDocumentActivity || (asyncParams.getWebContents() == null);
+
+        if (FeatureUtilities.isDocumentMode(context) && mayLaunchDocumentActivity) {
             ChromeLauncherActivity.launchDocumentInstance(
                     getActivityFromTab(parent), mIsIncognito, asyncParams);
         } else {
@@ -225,5 +228,12 @@ public class TabDelegate implements TabCreator {
             if (activity.getTabModelSelector().getModelForTabId(id) != null) return activity;
         }
         return null;
+    }
+
+    /**
+     * @return Whether the TabDelegate is allowed to directly launch a DocumentActivity.
+     */
+    protected boolean isAllowedToLaunchDocumentActivity(Context context) {
+        return true;
     }
 }
