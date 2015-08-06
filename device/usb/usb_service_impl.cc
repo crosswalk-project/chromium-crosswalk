@@ -529,6 +529,12 @@ void UsbServiceImpl::AddDevice(PlatformUsbDevice platform_device,
                                base::string16 product_string,
                                base::string16 serial_number,
                                std::string device_node) {
+  // Workaround for crbug.com/515663.
+  if (ContainsKey(platform_devices_, platform_device)) {
+    libusb_unref_device(platform_device);
+    return;
+  }
+
   uint32 unique_id;
   do {
     unique_id = ++next_unique_id_;
