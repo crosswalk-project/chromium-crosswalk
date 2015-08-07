@@ -59,7 +59,7 @@ class DeferredGpuCommandService
 
  private:
   friend class ScopedAllowGL;
-  static void RequestProcessGL();
+  static void RequestProcessGL(bool for_idle);
 
   DeferredGpuCommandService();
   size_t IdleQueueSize();
