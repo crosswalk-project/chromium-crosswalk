@@ -73,13 +73,22 @@ bool CSSFontFaceSrcValue::hasFailedOrCanceledSubresources() const
     return m_fetched && m_fetched->loadFailedOrCanceled();
 }
 
+bool CSSFontFaceSrcValue::shouldSetCrossOriginAccessControl(const KURL& resource, SecurityOrigin* securityOrigin)
+{
+    if (resource.isLocalFile() || resource.protocolIsData())
+        return false;
+    return !securityOrigin->canRequest(resource);
+}
+
 FontResource* CSSFontFaceSrcValue::fetch(Document* document)
 {
     if (!m_fetched) {
         FetchRequest request(ResourceRequest(document->completeURL(m_resource)), FetchInitiatorTypeNames::css);
         request.setContentSecurityCheck(m_shouldCheckContentSecurityPolicy);
         SecurityOrigin* securityOrigin = document->securityOrigin();
-        request.setCrossOriginAccessControl(securityOrigin, DoNotAllowStoredCredentials);
+        if (shouldSetCrossOriginAccessControl(request.url(), securityOrigin)) {
+            request.setCrossOriginAccessControl(securityOrigin, DoNotAllowStoredCredentials);
+        }
         request.mutableResourceRequest().setHTTPReferrer(SecurityPolicy::generateReferrer(m_referrer.referrerPolicy, request.url(), m_referrer.referrer));
         m_fetched = FontResource::fetch(request, document->fetcher());
     } else {
