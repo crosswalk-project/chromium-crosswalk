@@ -323,7 +323,7 @@ std::string ForceInstantResultsParam(bool for_prerender) {
 
 bool IsQueryExtractionEnabled() {
 #if defined(OS_IOS) || defined(OS_ANDROID)
-  return true;
+  return false;
 #else
   if (!IsInstantExtendedAPIEnabled())
     return false;
