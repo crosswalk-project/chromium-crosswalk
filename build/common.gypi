@@ -576,6 +576,9 @@
       # Enable QUIC support by default.
       'disable_quic_support%': 0,
 
+      # Enable Devtools by default.
+      'disable_devtools%': 0,
+
       # Enable sync compositor by default.
       'disable_sync_compositor%': 0,
 
@@ -587,9 +590,6 @@
 
       # Enable angle by default.
       'disable_angle%': 0,
-
-      # Enable Inspector by default.
-      'disable_inspector%': 0,
 
       # Use native android functions in place of ICU.  Not supported by most
       # components.
@@ -1226,11 +1226,11 @@
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
     'use_minimum_resources%': '<(use_minimum_resources)',
     'disable_quic_support%': '<(disable_quic_support)',
+    'disable_devtools%': '<(disable_devtools)',
     'disable_sync_compositor%': '<(disable_sync_compositor)',
     'disable_xslt%': '<(disable_xslt)',
     'disable_webp%': '<(disable_webp)',
     'disable_angle%': '<(disable_angle)',
-    'disable_inspector%': '<(disable_inspector)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -3035,6 +3035,9 @@
       ['disable_quic_support==1', {
         'defines': ['DISABLE_QUIC_SUPPORT=1'],
       }],
+      ['disable_devtools==1', {
+        'defines': ['DISABLE_DEVTOOLS=1'],
+      }],
       ['disable_sync_compositor==1', {
         'defines': ['DISABLE_SYNC_COMPOSITOR=1'],
       }],
@@ -3046,9 +3049,6 @@
       }],
       ['OS=="android" and disable_angle==1', {
         'defines': ['DISABLE_ANGLE_ON_ANDROID=1'],
-      }],
-      ['disable_inspector==1', {
-        'defines': ['DISABLE_INSPECTOR=1'],
       }],
       ['use_icu_alternatives_on_android==1', {
         'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],

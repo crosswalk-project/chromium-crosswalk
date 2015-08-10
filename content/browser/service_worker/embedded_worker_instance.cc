@@ -478,7 +478,9 @@ void EmbeddedWorkerInstance::OnNetworkAccessedForScriptLoad() {
 }
 
 void EmbeddedWorkerInstance::ReleaseProcess() {
+#ifndef DISABLE_DEVTOOLS
   devtools_proxy_.reset();
+#endif
   if (context_)
     context_->process_manager()->ReleaseWorkerProcess(embedded_worker_id_);
   status_ = STOPPED;
