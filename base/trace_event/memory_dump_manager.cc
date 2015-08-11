@@ -7,6 +7,7 @@
 #include <algorithm>
 
 #include "base/atomic_sequence_num.h"
+#include "base/command_line.h"
 #include "base/compiler_specific.h"
 #include "base/hash.h"
 #include "base/thread_task_runner_handle.h"
@@ -118,7 +119,15 @@ void MemoryDumpManager::Initialize() {
 
 #if defined(OS_LINUX) || defined(OS_ANDROID)
   g_mmaps_dump_provider = ProcessMemoryMapsDumpProvider::GetInstance();
-  RegisterDumpProvider(g_mmaps_dump_provider);
+
+  // The memory maps dump provider is currently disabled for security reasons
+  // and will be enabled once tracing is more secure (crbug.com/517906).
+  // It is still enabled for running benchmarks.
+  if (CommandLine::ForCurrentProcess()->HasSwitch(
+          "enable-memory-benchmarking")) {
+    RegisterDumpProvider(g_mmaps_dump_provider);
+  }
+
   RegisterDumpProvider(MallocDumpProvider::GetInstance());
 #endif
 
