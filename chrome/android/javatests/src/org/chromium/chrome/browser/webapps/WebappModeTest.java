@@ -21,7 +21,6 @@ import org.chromium.chrome.browser.ChromeActivity;
 import org.chromium.chrome.browser.ChromeSwitches;
 import org.chromium.chrome.browser.ChromeTabbedActivity;
 import org.chromium.chrome.browser.ShortcutHelper;
-import org.chromium.chrome.browser.document.ChromeLauncherActivity;
 import org.chromium.chrome.browser.document.DocumentActivity;
 import org.chromium.chrome.browser.tab.TabIdManager;
 import org.chromium.chrome.test.MultiActivityTestBase;
@@ -86,7 +85,7 @@ public class WebappModeTest extends MultiActivityTestBase {
         Intent intent = new Intent();
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.setPackage(getInstrumentation().getTargetContext().getPackageName());
-        intent.setAction(ChromeLauncherActivity.ACTION_START_WEBAPP);
+        intent.setAction(WebappLauncherActivity.ACTION_START_WEBAPP);
         intent.putExtra(ShortcutHelper.EXTRA_ID, id);
         intent.putExtra(ShortcutHelper.EXTRA_URL, url);
         intent.putExtra(ShortcutHelper.EXTRA_TITLE, title);

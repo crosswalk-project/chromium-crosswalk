@@ -16,7 +16,7 @@ import org.chromium.base.ApplicationStatus;
 import org.chromium.base.CalledByNative;
 import org.chromium.base.VisibleForTesting;
 import org.chromium.chrome.R;
-import org.chromium.chrome.browser.document.ChromeLauncherActivity;
+import org.chromium.chrome.browser.webapps.WebappLauncherActivity;
 import org.chromium.content_public.browser.WebContents;
 import org.chromium.content_public.common.ScreenOrientationConstants;
 
@@ -47,6 +47,7 @@ public class ShortcutHelper {
         void onIconAvailable(Bitmap icon);
     }
 
+    /** Broadcasts Intents out Android for adding the shortcut. */
     public static class Delegate {
         /**
          * Broadcasts an intent to all interested BroadcastReceivers.
@@ -61,7 +62,7 @@ public class ShortcutHelper {
          * Returns the name of the fullscreen Activity to use when launching shortcuts.
          */
         public String getFullscreenAction() {
-            return ChromeLauncherActivity.ACTION_START_WEBAPP;
+            return WebappLauncherActivity.ACTION_START_WEBAPP;
         }
     }
 
