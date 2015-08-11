@@ -148,9 +148,6 @@ bool Display::DrawAndSwap() {
   if (!output_surface_)
     return false;
 
-  if (output_surface_->SurfaceIsSuspendForRecycle())
-    return false;
-
   scoped_ptr<CompositorFrame> frame =
       aggregator_->Aggregate(current_surface_id_);
   if (!frame)
@@ -185,6 +182,14 @@ bool Display::DrawAndSwap() {
   bool avoid_swap = surface_size != current_surface_size_;
   bool should_draw = !frame->metadata.latency_info.empty() ||
                      have_copy_requests || (have_damage && !avoid_swap);
+
+  // If the surface is suspended then the resources to be used by the draw are
+  // likely destroyed.
+  if (output_surface_->SurfaceIsSuspendForRecycle()) {
+    TRACE_EVENT_INSTANT0("cc", "Surface is suspended for recycle.",
+                         TRACE_EVENT_SCOPE_THREAD);
+    should_draw = false;
+  }
 
   if (should_draw) {
     gfx::Rect device_viewport_rect = gfx::Rect(current_surface_size_);
