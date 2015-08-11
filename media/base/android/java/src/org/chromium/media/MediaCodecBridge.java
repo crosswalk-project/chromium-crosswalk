@@ -356,6 +356,7 @@ class MediaCodecBridge {
     @CalledByNative
     private void release() {
         try {
+            Log.w(TAG, "calling MediaCodec.release()");
             mMediaCodec.release();
         } catch (IllegalStateException e) {
             // The MediaCodec is stuck in a wrong state, possibly due to losing
@@ -707,6 +708,7 @@ class MediaCodecBridge {
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, channelConfig,
                         AudioFormat.ENCODING_PCM_16BIT, minBufferSize, AudioTrack.MODE_STREAM);
                 if (mAudioTrack.getState() == AudioTrack.STATE_UNINITIALIZED) {
+                    Log.e(TAG, "Cannot create AudioTrack");
                     mAudioTrack = null;
                     return false;
                 }
