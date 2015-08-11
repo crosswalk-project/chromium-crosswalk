@@ -110,6 +110,8 @@ public class ChromeLauncherActivity extends Activity
     private boolean mIsInMultiInstanceMode;
     private boolean mIsFinishNeeded;
 
+    private boolean mIsCustomTabIntent;
+
     /** When started with an intent, maybe pre-resolve the domain. */
     private void maybePrefetchDnsInBackground() {
         if (getIntent() != null && Intent.ACTION_VIEW.equals(getIntent().getAction())) {
@@ -145,13 +147,10 @@ public class ChromeLauncherActivity extends Activity
         mIntentHandler = new IntentHandler(this, getPackageName());
         maybePerformMigrationTasks();
 
-        if (handleCustomTabActivityIntent()) {
-            finish();
-            return;
-        }
+        mIsCustomTabIntent = isCustomTabIntent();
 
         // Check if we should launch the ChromeTabbedActivity.
-        if (!FeatureUtilities.isDocumentMode(this)) {
+        if (!mIsCustomTabIntent && !FeatureUtilities.isDocumentMode(this)) {
             launchTabbedMode();
             finish();
             return;
@@ -175,6 +174,12 @@ public class ChromeLauncherActivity extends Activity
         // ChromeTabbedActivity because ChromeTabbedActivity handles FRE in its own way.
         if (launchFirstRunExperience()) return;
 
+        if (mIsCustomTabIntent) {
+            launchCustomTabActivity();
+            finish();
+            return;
+        }
+
         // Launch a DocumentActivity to handle the Intent.
         handleDocumentActivityIntent();
         if (!mIsFinishNeeded) ApiCompatibilityUtils.finishAndRemoveTask(this);
@@ -186,7 +191,10 @@ public class ChromeLauncherActivity extends Activity
         if (requestCode == FIRST_RUN_EXPERIENCE_REQUEST_CODE) {
             if (resultCode == Activity.RESULT_OK) {
                 // User might have opted out during FRE, so check again.
-                if (FeatureUtilities.isDocumentMode(this)) {
+                if (mIsCustomTabIntent) {
+                    launchCustomTabActivity();
+                    finish();
+                } else if (FeatureUtilities.isDocumentMode(this)) {
                     handleDocumentActivityIntent();
                     if (!mIsFinishNeeded) ApiCompatibilityUtils.finishAndRemoveTask(this);
                 } else {
@@ -226,11 +234,9 @@ public class ChromeLauncherActivity extends Activity
     }
 
     /**
-     * Handles launching a {@link CustomTabActivity}, which will sit on top of a client's activity
-     * in the same task.
-     * @return True if the intent is handled here.
+     * @return Whether the intent sent is for launching a Custom Tab.
      */
-    private boolean handleCustomTabActivityIntent() {
+    private boolean isCustomTabIntent() {
         if (getIntent() == null || !getIntent().hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
             return false;
         }
@@ -239,18 +245,24 @@ public class ChromeLauncherActivity extends Activity
         if (url == null) return false;
 
         if (!ChromePreferenceManager.getInstance(this).getCustomTabsEnabled()) return false;
+        return true;
+    }
 
+    /**
+     * Handles launching a {@link CustomTabActivity}, which will sit on top of a client's activity
+     * in the same task.
+     */
+    private void launchCustomTabActivity() {
         boolean handled = CustomTabActivity.handleInActiveContentIfNeeded(getIntent());
-        if (handled) return true;
+        if (handled) return;
 
         // Create and fire a launch intent. Use the copy constructor to carry over the myriad of
         // extras.
         Intent newIntent = new Intent(getIntent());
         newIntent.setAction(Intent.ACTION_VIEW);
         newIntent.setClassName(this, CustomTabActivity.class.getName());
-        newIntent.setData(Uri.parse(url));
+        newIntent.setData(Uri.parse(IntentHandler.getUrlFromIntent(getIntent())));
         startActivity(newIntent);
-        return true;
     }
 
     /**
