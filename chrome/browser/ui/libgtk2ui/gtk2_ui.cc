@@ -8,7 +8,6 @@
 #include <set>
 
 #include <pango/pango.h>
-#include <X11/Xlib.h>
 
 #include "base/command_line.h"
 #include "base/debug/leak_annotations.h"
@@ -50,7 +49,6 @@
 #include "ui/gfx/image/image.h"
 #include "ui/gfx/skbitmap_operations.h"
 #include "ui/gfx/skia_util.h"
-#include "ui/gfx/x/x11_types.h"
 #include "ui/resources/grit/ui_resources.h"
 #include "ui/views/controls/button/label_button.h"
 #include "ui/views/controls/button/label_button_border.h"
@@ -380,27 +378,20 @@ gfx::FontRenderParams GetGtkFontRenderParams() {
   return params;
 }
 
-double GetBaseDPI() {
-  XDisplay* xdisplay = gfx::GetXDisplay();
-  int xscreen = DefaultScreen(xdisplay);
-  return (DisplayHeight(xdisplay, xscreen) * 25.4) /
-         DisplayHeightMM(xdisplay, xscreen);
-}
-
-double GetFontDPI() {
+double GetDPI() {
   GtkSettings* gtk_settings = gtk_settings_get_default();
   CHECK(gtk_settings);
   gint gtk_dpi = -1;
   g_object_get(gtk_settings, "gtk-xft-dpi", &gtk_dpi, NULL);
 
   // GTK multiplies the DPI by 1024 before storing it.
-  return (gtk_dpi > 0) ? gtk_dpi / 1024.0 : GetBaseDPI();
+  return (gtk_dpi > 0) ? gtk_dpi / 1024.0 : 96.0;
 }
 
 // Queries GTK for its font DPI setting and returns the number of pixels in a
 // point.
 double GetPixelsInPoint(float device_scale_factor) {
-  double dpi = GetFontDPI();
+  double dpi = GetDPI();
 
   // Take device_scale_factor into account — if Chrome already scales the
   // entire UI up by 2x, we should not also scale up.
@@ -1433,7 +1424,8 @@ void Gtk2UI::UpdateDeviceScaleFactor(float device_scale_factor) {
 }
 
 float Gtk2UI::GetDeviceScaleFactor() const {
-  float scale = GetFontDPI() / GetBaseDPI();
+  const int kCSSDefaultDPI = 96;
+  float scale = GetDPI() / kCSSDefaultDPI;
   // Round to 1 decimal, e.g. to 1.4.
   return roundf(scale * 10) / 10;
 }
