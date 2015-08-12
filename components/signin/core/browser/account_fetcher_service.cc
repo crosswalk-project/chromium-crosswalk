@@ -272,6 +272,11 @@ void AccountFetcherService::EnableNetworkFetches() {
   ScheduleNextRefreshFromTokenService();
 }
 
+void AccountFetcherService::FetchUserInfoBeforeSignin(
+    const std::string& account_id) {
+  RefreshAccountInfo(account_id, true);
+}
+
 void AccountFetcherService::StartFetchingInvalidAccounts() {
   std::vector<std::string> accounts = token_service_->GetAccounts();
   for (std::vector<std::string>::const_iterator it = accounts.begin();
