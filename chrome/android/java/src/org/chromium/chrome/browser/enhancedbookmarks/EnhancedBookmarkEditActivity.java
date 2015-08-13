@@ -99,8 +99,10 @@ public class EnhancedBookmarkEditActivity extends EnhancedBookmarkActivityBase {
         BookmarkItem bookmarkItem = mEnhancedBookmarksModel.getBookmarkById(mBookmarkId);
         mTitleEditText.setText(bookmarkItem.getTitle());
         mUrlEditText.setText(bookmarkItem.getUrl());
+        mUrlEditText.setEnabled(bookmarkItem.isUrlEditable());
         mFolderTextView.setText(
                 mEnhancedBookmarksModel.getBookmarkTitle(bookmarkItem.getParentId()));
+        mFolderTextView.setEnabled(bookmarkItem.isMovable());
     }
 
     @Override
