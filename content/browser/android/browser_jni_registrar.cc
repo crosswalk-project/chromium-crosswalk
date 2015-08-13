@@ -85,8 +85,10 @@ base::android::RegistrationMethod kContentRegisteredMethods[] = {
     {"SensorManagerAndroid", content::SensorManagerAndroid::Register},
     {"ServiceRegistrarAndroid", content::ServiceRegistrarAndroid::Register},
     {"ServiceRegistryAndroid", content::ServiceRegistryAndroid::Register},
+#ifndef DISABLE_SPEECH
     {"SpeechRecognizerImplAndroid",
      content::SpeechRecognizerImplAndroid::RegisterSpeechRecognizer},
+#endif
     {"TimeZoneMonitorAndroid", content::TimeZoneMonitorAndroid::Register},
     {"TouchEventSynthesizer",
      content::SyntheticGestureTargetAndroid::RegisterTouchEventSynthesizer},

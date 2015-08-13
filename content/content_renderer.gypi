@@ -43,6 +43,10 @@
     '<(SHARED_INTERMEDIATE_DIR)',  # Needed by key_systems.cc.
   ],
   'variables': {
+    'public_renderer_sources_speech': [
+      'renderer/speech_recognition_dispatcher.cc',
+      'renderer/speech_recognition_dispatcher.h',
+    ],
     'public_renderer_sources': [
       'public/renderer/android_content_detection_prefixes.cc',
       'public/renderer/android_content_detection_prefixes.h',
@@ -736,6 +740,11 @@
   'conditions': [
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
+    }],
+    ['disable_speech==1', {
+      'sources!': [
+        '<@(public_renderer_sources_speech)',
+      ],
     }],
     ['OS=="mac"', {
       'sources!': [

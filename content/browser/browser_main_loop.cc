@@ -1120,12 +1120,14 @@ int BrowserMainLoop::BrowserThreadsStarted() {
     media_stream_manager_.reset(new MediaStreamManager(audio_manager_.get()));
   }
 
+#ifndef DISABLE_SPEECH
   {
     TRACE_EVENT0("startup",
       "BrowserMainLoop::BrowserThreadsStarted:InitSpeechRecognition");
     speech_recognition_manager_.reset(new SpeechRecognitionManagerImpl(
         audio_manager_.get(), media_stream_manager_.get()));
   }
+#endif
 
   {
     TRACE_EVENT0(

@@ -103,7 +103,9 @@
 #include "content/browser/service_worker/service_worker_dispatcher_host.h"
 #include "content/browser/shared_worker/shared_worker_message_filter.h"
 #include "content/browser/shared_worker/worker_storage_partition.h"
+#ifndef DISABLE_SPEECH
 #include "content/browser/speech/speech_recognition_dispatcher_host.h"
+#endif
 #include "content/browser/storage_partition_impl.h"
 #include "content/browser/streams/stream_context.h"
 #include "content/browser/tracing/trace_message_filter.h"
@@ -801,8 +803,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
 #if defined(ENABLE_PLUGINS)
   AddFilter(new PepperRendererConnection(GetID()));
 #endif
+#ifndef DISABLE_SPEECH
   AddFilter(new SpeechRecognitionDispatcherHost(
       GetID(), storage_partition_impl_->GetURLRequestContext()));
+#endif
   AddFilter(new FileAPIMessageFilter(
       GetID(),
       storage_partition_impl_->GetURLRequestContext(),

@@ -2037,7 +2037,12 @@
         '../third_party/speex/speex.gyp:libspeex',
       ],
     }],
-    ['enable_web_speech==0 and OS=="android"', {
+    ['enable_web_speech==0 and disable_speech==1', {
+      'sources/': [
+        ['exclude', '^browser/speech/'],
+      ],
+    }],
+    ['enable_web_speech==0 and OS=="android" and disable_speech!=1', {
       'sources/': [
         ['exclude', '^browser/speech/'],
         ['include', '^browser/speech/speech_recognition_dispatcher_host\\.(cc|h)$'],

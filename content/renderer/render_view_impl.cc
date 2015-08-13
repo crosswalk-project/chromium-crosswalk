@@ -95,7 +95,9 @@
 #include "content/renderer/renderer_webapplicationcachehost_impl.h"
 #include "content/renderer/resizing_mode_selector.h"
 #include "content/renderer/savable_resources.h"
+#ifndef DISABLE_SPEECH
 #include "content/renderer/speech_recognition_dispatcher.h"
+#endif
 #include "content/renderer/text_input_client_observer.h"
 #include "content/renderer/web_ui_extension_data.h"
 #include "content/renderer/web_ui_mojo.h"
@@ -639,7 +641,9 @@ RenderViewImpl::RenderViewImpl(const ViewMsg_New_Params& params)
       top_controls_constraints_(TOP_CONTROLS_STATE_BOTH),
 #endif
       has_scrolled_focused_editable_node_into_rect_(false),
+#ifndef DISABLE_SPEECH
       speech_recognition_dispatcher_(NULL),
+#endif
       mouse_lock_dispatcher_(NULL),
 #if defined(OS_ANDROID)
       expected_content_intent_id_(0),
@@ -3147,8 +3151,10 @@ void RenderViewImpl::OnWasHidden() {
 #if defined(OS_ANDROID) && defined(ENABLE_WEBRTC)
   RenderThreadImpl::current()->video_capture_impl_manager()->
       SuspendDevices(true);
+#ifndef DISABLE_SPEECH
   if (speech_recognition_dispatcher_)
     speech_recognition_dispatcher_->AbortAllRecognitions();
+#endif
 #endif
 
   if (webview())
@@ -3468,9 +3474,13 @@ bool RenderViewImpl::ScheduleFileChooser(
 }
 
 blink::WebSpeechRecognizer* RenderViewImpl::speechRecognizer() {
+#ifndef DISABLE_SPEECH
   if (!speech_recognition_dispatcher_)
     speech_recognition_dispatcher_ = new SpeechRecognitionDispatcher(this);
   return speech_recognition_dispatcher_;
+#else
+  return nullptr;
+#endif
 }
 
 void RenderViewImpl::zoomLimitsChanged(double minimum_level,
