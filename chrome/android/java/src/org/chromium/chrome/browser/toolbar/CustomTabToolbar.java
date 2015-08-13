@@ -163,7 +163,8 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
     }
 
     @Override
-    public void addCustomActionButton(Drawable drawable, OnClickListener listener) {
+    public void addCustomActionButton(Drawable drawable, String description,
+            OnClickListener listener) {
         Resources resources = getResources();
 
         // The height will be scaled to match spec while keeping the aspect ratio, so get the scaled
@@ -180,6 +181,7 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
         mCustomActionButton.setPadding(sidePadding, topPadding, sidePadding, bottomPadding);
         mCustomActionButton.setImageDrawable(drawable);
 
+        mCustomActionButton.setContentDescription(description);
         mCustomActionButton.setOnClickListener(listener);
         mCustomActionButton.setVisibility(VISIBLE);
     }
@@ -492,15 +494,15 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
 
     @Override
     public boolean onLongClick(View v) {
-        int stringResourceId = 0;
+        CharSequence description = null;
         if (v == mCloseButton) {
-            stringResourceId = R.string.close_tab;
+            description = getResources().getString(R.string.close_tab);
         } else if (v == mCustomActionButton) {
-            stringResourceId = R.string.accessibility_toolbar_btn_custom;
+            description = mCustomActionButton.getContentDescription();
         } else {
             return false;
         }
-        return showAccessibilityToast(v, stringResourceId);
+        return showAccessibilityToast(v, description);
     }
 
     // Toolbar and LocationBar calls that are not relevant here.
