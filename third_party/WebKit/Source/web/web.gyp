@@ -222,6 +222,11 @@
                     '<@(web_files_notifications)',
                   ],
                 }],
+                ['enable_web_speech==0', {
+                  'sources!': [
+                    '<@(web_files_speech)',
+                  ],
+                }],
             ],
             'direct_dependent_settings': {
                 'include_dirs': [

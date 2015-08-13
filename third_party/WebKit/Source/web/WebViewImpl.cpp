@@ -163,7 +163,9 @@
 #include "web/PrerendererClientImpl.h"
 #include "web/ResizeViewportAnchor.h"
 #include "web/RotationViewportAnchor.h"
+#ifndef DISABLE_SPEECH
 #include "web/SpeechRecognitionClientProxy.h"
+#endif
 #include "web/StorageQuotaClientImpl.h"
 #include "web/ValidationMessageClientImpl.h"
 #include "web/ViewportAnchor.h"
@@ -470,7 +472,9 @@ WebViewImpl::WebViewImpl(WebViewClient* client)
 
     m_page = adoptPtrWillBeNoop(new Page(pageClients));
     MediaKeysController::provideMediaKeysTo(*m_page, &m_mediaKeysClientImpl);
+#ifndef DISABLE_SPEECH
     provideSpeechRecognitionTo(*m_page, SpeechRecognitionClientProxy::create(client ? client->speechRecognizer() : 0));
+#endif
     provideContextFeaturesTo(*m_page, ContextFeaturesClientImpl::create());
     provideDatabaseClientTo(*m_page, DatabaseClientImpl::create());
 

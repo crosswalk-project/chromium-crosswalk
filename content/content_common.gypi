@@ -181,6 +181,14 @@
       'common/notification_constants.h',
       'common/platform_notification_messages.h',
     ],
+    'private_common_sources_speech': [
+      'public/common/speech_recognition_error.h',
+      'public/common/speech_recognition_grammar.h',
+      'public/common/speech_recognition_result.cc',
+      'public/common/speech_recognition_result.h',
+
+      'common/speech_recognition_messages.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -1160,6 +1168,11 @@
     ['disable_notifications==1', {
       'sources!': [
         '<@(private_common_sources_notifications)',
+      ],
+    }],
+    ['enable_web_speech==0', {
+      'sources!': [
+        '<@(private_common_sources_speech)',
       ],
     }],
   ],
