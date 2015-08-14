@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.Log;
@@ -120,6 +121,7 @@ public class CustomTabActivity extends ChromeActivity {
             }
         });
         mIntentDataProvider = new CustomTabIntentDataProvider(getIntent(), this);
+        supportRequestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
     }
 
     @Override
@@ -246,6 +248,7 @@ public class CustomTabActivity extends ChromeActivity {
     @Override
     public boolean createContextualSearchTab(ContentViewCore searchContentViewCore) {
         if (mTab == null) return false;
+        getCurrentContentViewCore().clearSelection();
         NavigationEntry entry =
                 searchContentViewCore.getWebContents().getNavigationController().getPendingEntry();
         String url = entry != null
