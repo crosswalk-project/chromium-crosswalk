@@ -3,6 +3,7 @@
 // found in the LICENSE file.
 
 #include "base/i18n/break_iterator.h"
+#include "base/icu_alternatives_on_android/break_iterator_bridge.h"
 
 #include "base/logging.h"
 
