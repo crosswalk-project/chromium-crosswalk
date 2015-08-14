@@ -429,9 +429,10 @@ void CreateOrUpdateShortcuts(
 
   ShellUtil::ShortcutProperties start_menu_properties(base_properties);
   // IMPORTANT: Only the default (no arguments and default browserappid) browser
-  // shortcut in the Start menu (Start screen on Win8+) should be made dual
-  // mode.
-  start_menu_properties.set_dual_mode(true);
+  // shortcut in the Start menu (Start screen on Win8+) should be considered for
+  // dual mode.
+  if (InstallUtil::ShouldInstallMetroProperties())
+    start_menu_properties.set_dual_mode(true);
   if (!do_not_create_taskbar_shortcut &&
       (shortcut_operation == ShellUtil::SHELL_SHORTCUT_CREATE_ALWAYS ||
        shortcut_operation ==
@@ -624,8 +625,8 @@ void HandleOsUpgradeForBrowser(const installer::InstallerState& installer_state,
     InstallShortcutLevel level = installer_state.system_install() ?
         ALL_USERS : CURRENT_USER;
     base::FilePath chrome_exe(installer_state.target_path().Append(kChromeExe));
-    CreateOrUpdateShortcuts(
-        chrome_exe, chrome, prefs, level, INSTALL_SHORTCUT_REPLACE_EXISTING);
+    CreateOrUpdateShortcuts(chrome_exe, chrome, prefs, level,
+                            INSTALL_SHORTCUT_CREATE_EACH_IF_NO_SYSTEM_LEVEL);
     RegisterChromeOnMachine(installer_state, chrome, false);
 
     UpdateOsUpgradeBeacon(installer_state.system_install(),

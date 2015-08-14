@@ -51331,6 +51331,7 @@ Therefore, the affected-histogram name has to have at least one dot in it.
       label="Allow users to opt in to Safe Browsing extended reporting"/>
   <int value="300" label="Allow proceeding from the SSL warning page"/>
   <int value="301" label="Allow QUIC protocol"/>
+  <int value="303" label="Welcome page on OS upgrade enabled"/>
 </enum>
 
 <enum name="EnterprisePolicyInvalidations" type="int">

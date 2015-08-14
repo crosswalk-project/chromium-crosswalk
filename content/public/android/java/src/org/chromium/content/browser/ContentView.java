@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewStructure;
+import android.view.accessibility.AccessibilityNodeProvider;
 import android.view.accessibility.AccessibilityEvent;
 import android.view.accessibility.AccessibilityNodeInfo;
 import android.view.inputmethod.EditorInfo;
@@ -23,6 +25,7 @@ import android.view.inputmethod.InputConnection;
 import android.widget.FrameLayout;
 
 import org.chromium.base.TraceEvent;
+import org.chromium.base.VisibleForTesting;
 
 /**
  * The containing view for {@link ContentViewCore} that exists in the Android UI hierarchy and
@@ -62,6 +65,31 @@ public class ContentView extends FrameLayout
         setFocusableInTouchMode(true);
 
         mContentViewCore = cvc;
+    }
+
+    @Override
+    public boolean performAccessibilityAction(int action, Bundle arguments) {
+        if (mContentViewCore.supportsAccessibilityAction(action)) {
+            return mContentViewCore.performAccessibilityAction(action, arguments);
+        }
+
+        return super.performAccessibilityAction(action, arguments);
+    }
+
+    @Override
+    public AccessibilityNodeProvider getAccessibilityNodeProvider() {
+        AccessibilityNodeProvider provider = mContentViewCore.getAccessibilityNodeProvider();
+        if (provider != null) {
+            return provider;
+        } else {
+            return super.getAccessibilityNodeProvider();
+        }
+    }
+
+    // @Override[ANDROID-M] TODO(sgurun) override and also remove VisibleForTesting. crbug/512264
+    @VisibleForTesting
+    public void onProvideVirtualStructure(final ViewStructure structure) {
+        mContentViewCore.onProvideVirtualStructure(structure);
     }
 
     // Needed by ContentViewCore.InternalAccessDelegate
