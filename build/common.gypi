@@ -870,10 +870,6 @@
           'enable_hotwording%': 1,
         }],
 
-        ['OS=="android"', {
-          'enable_webrtc%': 1,
-        }],
-
         ['OS=="ios"', {
           'disable_ftp_support%': 1,
           'enable_extensions%': 0,
@@ -3061,6 +3057,9 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['use_icu_alternatives_on_android==1', {
+        'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
       }],
       ['enable_mdns==1', {
         'defines': ['ENABLE_MDNS=1'],

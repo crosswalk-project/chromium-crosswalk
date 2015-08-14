@@ -1045,9 +1045,6 @@
             'sources!': [
               'i18n/break_iterator.cc',
               'i18n/time_formatting.cc',
-              # string search is only used in ash/chrome/chromeos
-              'i18n/string_search.cc',
-              'i18n/string_search.h',
               # bidi is never used any where
               'i18n/bidi_line_iterator.cc',
               'i18n/bidi_line_iterator.h',

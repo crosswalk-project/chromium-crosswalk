@@ -117,6 +117,25 @@
         'base/net_string_util_icu.cc',
         'base/net_util_icu.cc',
       ],
+      'conditions': [
+        [ 'use_icu_alternatives_on_android == 1', {
+            'dependencies!': [
+              '../base/base.gyp:base_i18n',
+              '../third_party/icu/icu.gyp:icui18n',
+              '../third_party/icu/icu.gyp:icuuc',
+            ],
+            'sources!': [
+              'base/net_string_util_icu.cc',
+              'base/net_util_icu.cc',
+            ],
+            'sources': [
+              'base/net_string_util_icu_alternatives_android.cc',
+              'base/net_string_util_icu_alternatives_android.h',
+              'base/net_util_icu_alternatives.cc',
+            ],
+          },
+        ],
+      ],
       'includes': [ 'net_common.gypi' ],
     },
     {
