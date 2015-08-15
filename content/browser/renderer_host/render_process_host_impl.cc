@@ -1,4 +1,4 @@
-// Copyright 2012 The Chromium Authors. All rights reserved.
+﻿// Copyright 2012 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
@@ -342,7 +342,7 @@ class RendererSandboxedProcessLauncherDelegate
         base::win::GetVersion() == base::win::VERSION_WIN8_1) {
       const base::CommandLine& command_line =
           *base::CommandLine::ForCurrentProcess();
-      if (command_line.HasSwitch(switches::kEnableAppContainer)) {
+      if (!command_line.HasSwitch(switches::kDisableAppContainer)) {
         // TODO(shrikant): Check if these constants should be different across
         // various versions of Chromium code base or could be same.
         // If there should be different SID per channel then move this code
@@ -1379,6 +1379,7 @@ void RenderProcessHostImpl::PropagateBrowserCommandLineToRenderer(
 #if defined(OS_CHROMEOS)
     switches::kDisableVaapiAcceleratedVideoEncode,
 #endif
+    switches::kRoundDisplay,
   };
   renderer_cmd->CopySwitchesFrom(browser_cmd, kSwitchNames,
                                  arraysize(kSwitchNames));

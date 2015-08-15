@@ -1147,6 +1147,14 @@ void RenderWidgetHostImpl::GetWebScreenInfo(blink::WebScreenInfo* result) {
     view_->GetScreenInfo(result);
   else
     RenderWidgetHostViewBase::GetDefaultScreenInfo(result);
+
+  // FIXME(hyojin): find a ways how to get a hardware information
+  // and where to set the device radius
+  if (base::CommandLine::ForCurrentProcess()->HasSwitch(switches::kRoundDisplay))
+    result->deviceRadius = result->rect.width / 2;
+  else
+    result->deviceRadius = -1;
+
   // TODO(sievers): find a way to make this done another way so the method
   // can be const.
   latency_tracker_.set_device_scale_factor(result->deviceScaleFactor);

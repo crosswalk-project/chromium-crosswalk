@@ -84,7 +84,11 @@ deps = {
   'src/testing/gtest':
     (Var("chromium_git")) + '/external/googletest.git@23574bf2333f834ff665f894c97bef8a5b33a0a9',
   'src/third_party/WebKit':
+<<<<<<< HEAD
+    (Var("chromium_git")) + '/chromium/blink.git@9b1f68fafb21bde3121c83ca5cb2a885c63f9330',
+=======
     (Var("chromium_git")) + '/chromium/blink.git@607abbc77d316988d9121937b7e21d4d3ca51698',
+>>>>>>> upstream/master
   'src/third_party/angle':
     (Var("chromium_git")) + '/angle/angle.git@fa9744b09e2478c75a25fd1b497469d429e81591',
   'src/third_party/bidichecker':
@@ -154,7 +158,11 @@ deps = {
   'src/third_party/sfntly/cpp/src':
     (Var("chromium_git")) + '/external/sfntly/cpp/src.git@1bdaae8fc788a5ac8936d68bf24f37d977a13dac',
   'src/third_party/skia':
+<<<<<<< HEAD
+    (Var("chromium_git")) + '/skia.git@21518b1ea326e93676131b1936fcb06a7da53f64',
+=======
     (Var("chromium_git")) + '/skia.git@f2b95f63de2ec93ef0cb1c3bbcef88cf0c0368f5',
+>>>>>>> upstream/master
   'src/third_party/smhasher/src':
     (Var("chromium_git")) + '/external/smhasher.git@e87738e57558e0ec472b2fc3a643b838e5b6e88f',
   'src/third_party/snappy/src':
@@ -192,7 +200,11 @@ deps_os = {
     'src/third_party/android_protobuf/src':
       (Var("chromium_git")) + '/external/android_protobuf.git@94f522f907e3f34f70d9e7816b947e62fddbb267',
     'src/third_party/android_tools':
+<<<<<<< HEAD
+      (Var("chromium_git")) + '/android_tools.git@dc0f059b989df0f0a4c3bf2aebd691c4dfb00c94',
+=======
       (Var("chromium_git")) + '/android_tools.git@e0ab396314ac4f2fdbb5538597914a0fd3cb447d',
+>>>>>>> upstream/master
     'src/third_party/apache-mime4j':
       (Var("chromium_git")) + '/chromium/deps/apache-mime4j.git@28cb1108bff4b6cf0a2e86ff58b3d025934ebe3a',
     'src/third_party/appurify-python/src':

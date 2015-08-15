@@ -630,8 +630,8 @@ const char kNoReferrers[]                   = "no-referrers";
 // Disables the sandbox for all process types that are normally sandboxed.
 const char kNoSandbox[]                     = "no-sandbox";
 
-// Enables appcontainer/lowbox for renderer on Win8+ platforms.
-const char kEnableAppContainer[]           = "enable-appcontainer";
+// Disables appcontainer/lowbox for renderer on Win8+ platforms.
+const char kDisableAppContainer[]           = "disable-appcontainer";
 
 // Number of worker threads used to rasterize content.
 const char kNumRasterThreads[]              = "num-raster-threads";
@@ -1014,6 +1014,8 @@ const char kTraceExportEventsToETW[] = "trace-export-events-to-etw";
 
 // Enables the use of NPAPI plugins.
 const char kEnableNpapi[]                   = "enable-npapi";
+
+const char kRoundDisplay[] = "round-display";
 
 // Don't dump stuff here, follow the same order as the header.
 
