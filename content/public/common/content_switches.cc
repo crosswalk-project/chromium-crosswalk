@@ -1015,6 +1015,9 @@ const char kTraceExportEventsToETW[] = "trace-export-events-to-etw";
 // Enables the use of NPAPI plugins.
 const char kEnableNpapi[]                   = "enable-npapi";
 
+// Enables the 'device-radius' media feature in CSS Media Queries.
+const char kRoundDisplay[] = "round-display";
+
 // Don't dump stuff here, follow the same order as the header.
 
 }  // namespace switches
