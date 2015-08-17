@@ -4,7 +4,6 @@
 
 #include "device/usb/usb_service_impl.h"
 
-#include <algorithm>
 #include <list>
 #include <set>
 
@@ -236,17 +235,14 @@ void OnReadStringDescriptor(
     UsbTransferStatus status,
     scoped_refptr<net::IOBuffer> buffer,
     size_t length) {
-  if (status != USB_TRANSFER_COMPLETED || length < 2) {
-    callback.Run(base::string16());
+  base::string16 string;
+  if (status == USB_TRANSFER_COMPLETED &&
+      ParseUsbStringDescriptor(
+          std::vector<uint8>(buffer->data(), buffer->data() + length),
+          &string)) {
+    callback.Run(string);
   } else {
-    // Take the lesser of the length of data returned by the device and the
-    // length reported in the descriptor.
-    size_t internal_length = reinterpret_cast<uint8*>(buffer->data())[0];
-    length = std::min(length, internal_length);
-    // Cut off the first 2 bytes of the descriptor which are the length and
-    // descriptor type (always STRING).
-    callback.Run(base::string16(
-        reinterpret_cast<base::char16*>(buffer->data() + 2), length / 2 - 1));
+    callback.Run(base::string16());
   }
 }
 
