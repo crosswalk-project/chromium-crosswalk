@@ -784,6 +784,8 @@ public:
         V8SharedWorker_WorkerStart_AttributeGetter = 885,
         HTMLKeygenElement = 886,
 
+        FetchAPIRequestContext = 925,
+
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
         // Also, run update_use_counter_feature_enum.py in chromium/src/tools/metrics/histograms/

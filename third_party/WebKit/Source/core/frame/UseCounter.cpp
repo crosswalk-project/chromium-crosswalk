@@ -941,6 +941,9 @@ String UseCounter::deprecationMessage(Feature feature)
     case PermissionStatusStatus:
         return "PermissionStatus.status is deprecated and will be removed in M47, around November 2015. Please use PermissionStatus.state instead.";
 
+    case FetchAPIRequestContext:
+        return "Request.context is deprecated and will be removed in M46 (see: https://www.chromestatus.com/feature/5534702526005248).";
+
     // Features that aren't deprecated don't have a deprecation message.
     default:
         return String();
