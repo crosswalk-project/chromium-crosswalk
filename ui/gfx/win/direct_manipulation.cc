@@ -89,8 +89,12 @@ void DirectManipulationHelper::SetBounds(const gfx::Rect& bounds) {
 
 void DirectManipulationHelper::Activate(HWND window) {
   DCHECK(::IsWindow(window));
-  HRESULT hr = manager_->Activate(window);
-  CHECK(SUCCEEDED(hr));
+  manager_->Activate(window);
+}
+
+void DirectManipulationHelper::Deactivate(HWND window) {
+  DCHECK(::IsWindow(window));
+  manager_->Deactivate(window);
 }
 
 void DirectManipulationHelper:: HandleMouseWheel(HWND window, UINT message,
