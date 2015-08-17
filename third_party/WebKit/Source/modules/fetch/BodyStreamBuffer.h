@@ -49,7 +49,7 @@ private:
 
     void setDrainingStreamNotificationClient(DrainingStreamNotificationClient*);
 
-    void startLoading(FetchDataLoader*, FetchDataLoader::Client*);
+    void startLoading(ExecutionContext*, FetchDataLoader*, FetchDataLoader::Client*);
     // Call DrainingStreamNotificationClient.
     void doDrainingStreamNotification();
     // Clear DrainingStreamNotificationClient without calling.
@@ -58,7 +58,7 @@ private:
     friend class DrainingBodyStreamBuffer;
 
     OwnPtr<FetchDataConsumerHandle> m_handle;
-    Member<FetchDataLoader> m_fetchDataLoader;
+    Member<FetchDataLoader::Client> m_fetchDataLoader;
     Member<DrainingStreamNotificationClient> m_drainingStreamNotificationClient;
 };
 
@@ -81,7 +81,7 @@ public:
         return adoptPtr(new DrainingBodyStreamBuffer(buffer, client));
     }
     ~DrainingBodyStreamBuffer();
-    void startLoading(FetchDataLoader*, FetchDataLoader::Client*);
+    void startLoading(ExecutionContext*, FetchDataLoader*, FetchDataLoader::Client*);
     BodyStreamBuffer* leakBuffer();
     PassRefPtr<BlobDataHandle> drainAsBlobDataHandle(FetchDataConsumerHandle::Reader::BlobSizePolicy);
 

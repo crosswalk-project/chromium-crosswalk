@@ -582,7 +582,7 @@ ScriptPromise Cache::putImpl(ScriptState* scriptState, const HeapVector<Member<R
             // If the response has body, read the all data and create
             // the blob handle and dispatch the put batch asynchronously.
             FetchDataLoader* loader = FetchDataLoader::createLoaderAsBlobHandle(responses[i]->internalMIMEType());
-            buffer->startLoading(loader, new BlobHandleCallbackForPut(i, barrierCallback, requests[i], responses[i]));
+            buffer->startLoading(scriptState->executionContext(), loader, new BlobHandleCallbackForPut(i, barrierCallback, requests[i], responses[i]));
             continue;
         }
 

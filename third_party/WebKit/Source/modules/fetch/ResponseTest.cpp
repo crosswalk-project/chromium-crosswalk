@@ -149,7 +149,7 @@ void loadInternalBufferAsString(Response* response, FetchDataLoader::Client* cli
 {
     FetchDataLoader* fetchDataLoader = FetchDataLoader::createLoaderAsString();
     OwnPtr<DrainingBodyStreamBuffer> buffer = response->createInternalDrainingStream();
-    buffer->startLoading(fetchDataLoader, client);
+    buffer->startLoading(response->executionContext(), fetchDataLoader, client);
 }
 
 void checkResponseStream(Response* response, bool checkResponseBodyStreamBuffer)

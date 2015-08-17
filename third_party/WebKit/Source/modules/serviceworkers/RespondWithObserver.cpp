@@ -164,7 +164,7 @@ void RespondWithObserver::responseWasFulfilled(const ScriptValue& value)
         webResponse.setStreamURL(outStream->url());
         ServiceWorkerGlobalScopeClient::from(executionContext())->didHandleFetchEvent(m_eventID, webResponse);
         FetchDataLoader* loader = FetchDataLoader::createLoaderAsStream(outStream);
-        buffer->startLoading(loader, nullptr);
+        buffer->startLoading(executionContext(), loader, nullptr);
         m_state = Done;
         return;
     }

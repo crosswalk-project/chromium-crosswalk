@@ -5,6 +5,7 @@
 #include "config.h"
 #include "modules/fetch/BodyStreamBuffer.h"
 
+#include "core/testing/DummyPageHolder.h"
 #include "modules/fetch/DataConsumerHandleTestUtil.h"
 #include "platform/testing/UnitTestHelpers.h"
 
@@ -40,7 +41,19 @@ public:
     MOCK_METHOD0(didFetchDataLoadFinishedFromDrainingStream, void());
 };
 
-TEST(DrainingBodyStreamBufferTest, NotifyOnDestruction)
+class DrainingBodyStreamBufferTest : public ::testing::Test {
+public:
+    DrainingBodyStreamBufferTest()
+        : m_page(DummyPageHolder::create(IntSize(1, 1))) { }
+
+    ScriptState* scriptState() { return ScriptState::forMainWorld(m_page->document().frame()); }
+    ExecutionContext* executionContext() { return scriptState()->executionContext(); }
+
+private:
+    OwnPtr<DummyPageHolder> m_page;
+};
+
+TEST_F(DrainingBodyStreamBufferTest, NotifyOnDestruction)
 {
     Checkpoint checkpoint;
     InSequence s;
@@ -58,7 +71,7 @@ TEST(DrainingBodyStreamBufferTest, NotifyOnDestruction)
     checkpoint.Call(2);
 }
 
-TEST(DrainingBodyStreamBufferTest, NotifyWhenBlobDataHandleIsDrained)
+TEST_F(DrainingBodyStreamBufferTest, NotifyWhenBlobDataHandleIsDrained)
 {
     Checkpoint checkpoint;
     InSequence s;
@@ -90,7 +103,7 @@ TEST(DrainingBodyStreamBufferTest, NotifyWhenBlobDataHandleIsDrained)
     checkpoint.Call(4);
 }
 
-TEST(DrainingBodyStreamBufferTest, DoNotNotifyWhenNullBlobDataHandleIsDrained)
+TEST_F(DrainingBodyStreamBufferTest, DoNotNotifyWhenNullBlobDataHandleIsDrained)
 {
     Checkpoint checkpoint;
     InSequence s;
@@ -111,7 +124,7 @@ TEST(DrainingBodyStreamBufferTest, DoNotNotifyWhenNullBlobDataHandleIsDrained)
     checkpoint.Call(3);
 }
 
-TEST(DrainingBodyStreamBufferTest, DoNotNotifyWhenBufferIsLeaked)
+TEST_F(DrainingBodyStreamBufferTest, DoNotNotifyWhenBufferIsLeaked)
 {
     Checkpoint checkpoint;
     InSequence s;
@@ -132,7 +145,7 @@ TEST(DrainingBodyStreamBufferTest, DoNotNotifyWhenBufferIsLeaked)
     checkpoint.Call(3);
 }
 
-TEST(DrainingBodyStreamBufferTest, NotifyOnStartLoading)
+TEST_F(DrainingBodyStreamBufferTest, NotifyOnStartLoading)
 {
     Checkpoint checkpoint;
     InSequence s;
@@ -156,7 +169,7 @@ TEST(DrainingBodyStreamBufferTest, NotifyOnStartLoading)
     Persistent<BodyStreamBuffer> buffer = BodyStreamBuffer::create(createFetchDataConsumerHandleFromWebHandle(src.release()));
     OwnPtr<DrainingBodyStreamBuffer> drainingBuffer = DrainingBodyStreamBuffer::create(buffer, client);
     checkpoint.Call(1);
-    drainingBuffer->startLoading(fetchDataLoader, fetchDataLoaderClient);
+    drainingBuffer->startLoading(executionContext(), fetchDataLoader, fetchDataLoaderClient);
     checkpoint.Call(2);
     drainingBuffer.clear();
     checkpoint.Call(3);

@@ -102,7 +102,7 @@ private:
         m_reader = m_bodyStreamBuffer->handle()->obtainReader(this);
     }
 
-    void didFetchDataLoadFinishedFromDrainingStream()
+    void didFetchDataLoadFinishedFromDrainingStream() override
     {
         ASSERT(m_bodyStreamBuffer);
         ASSERT(m_drained);
@@ -302,7 +302,7 @@ void Body::readAsyncFromDrainingBodyStreamBuffer(PassOwnPtr<DrainingBodyStreamBu
         return;
     }
 
-    buffer->startLoading(fetchDataLoader, this);
+    buffer->startLoading(executionContext(), fetchDataLoader, this);
 }
 
 ScriptPromise Body::arrayBuffer(ScriptState* scriptState)

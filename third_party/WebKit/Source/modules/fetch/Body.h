@@ -86,8 +86,6 @@ private:
     void readAsyncFromDrainingBodyStreamBuffer(PassOwnPtr<DrainingBodyStreamBuffer>, const String& mimeType);
     void resolveJSON(const String&);
 
-    void didFetchDataLoadFinishedFromDrainingStream();
-
     // FetchDataLoader::Client functions.
     void didFetchDataLoadFailed() override;
     void didFetchDataLoadedBlobHandle(PassRefPtr<BlobDataHandle>) override;
