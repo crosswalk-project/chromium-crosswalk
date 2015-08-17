@@ -7,6 +7,7 @@ package org.chromium.chrome.browser;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.text.TextUtils;
@@ -310,6 +311,8 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
      * Reference to the current sadTabView if one is defined.
      */
     private View mSadTabView;
+
+    private final int mDefaultThemeColor;
 
     /**
      * A default {@link ChromeContextMenuItemDelegate} that supports some of the context menu
@@ -775,8 +778,13 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
         mLaunchType = type;
         if (mContext != null) {
             mNumPixel16DP = (int) (DeviceDisplayInfo.create(mContext).getDIPScale() * 16);
+            Resources resources = mContext.getResources();
+            mDefaultThemeColor = mIncognito ? resources.getColor(R.color.incognito_primary_color)
+                : resources.getColor(R.color.default_primary_color);
+        } else {
+            mNumPixel16DP = 16;
+            mDefaultThemeColor = 0;
         }
-        if (mNumPixel16DP == 0) mNumPixel16DP = 16;
 
         // Restore data from the TabState, if it existed.
         if (frozenState == null) {
@@ -1345,7 +1353,10 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
         NativePage previousNativePage = mNativePage;
         mNativePage = nativePage;
         pushNativePageStateToNavigationEntry();
-        for (TabObserver observer : mObservers) observer.onContentChanged(this);
+        for (TabObserver observer : mObservers) {
+            observer.onContentChanged(this);
+            observer.onDidChangeThemeColor(this, mDefaultThemeColor);
+        }
         destroyNativePageInternal(previousNativePage);
     }
 
