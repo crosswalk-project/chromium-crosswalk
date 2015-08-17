@@ -164,6 +164,8 @@ class CONTENT_EXPORT PepperUDPSocketMessageFilter
   int render_process_id_;
   int render_frame_id_;
 
+  const bool is_potentially_secure_plugin_context_;
+
   DISALLOW_COPY_AND_ASSIGN(PepperUDPSocketMessageFilter);
 };
 
