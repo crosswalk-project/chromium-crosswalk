@@ -83,6 +83,7 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
 
     private ChromeSwitchPreference mSyncSwitchPreference;
     private boolean mIsSyncInitialized;
+    private boolean mIsPassphraseRequired;
 
     @VisibleForTesting
     public static final String[] PREFS_TO_SAVE = {
@@ -116,6 +117,8 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
                              Bundle savedInstanceState) {
         mProfileSyncService = ProfileSyncService.get(getActivity());
         mIsSyncInitialized = mProfileSyncService.isSyncInitialized();
+        mIsPassphraseRequired =
+                mIsSyncInitialized && mProfileSyncService.isPassphraseRequiredForDecryption();
 
         getActivity().setTitle(R.string.sign_in_sync);
 
@@ -220,6 +223,8 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
     public void onResume() {
         super.onResume();
         mIsSyncInitialized = mProfileSyncService.isSyncInitialized();
+        mIsPassphraseRequired =
+                mIsSyncInitialized && mProfileSyncService.isPassphraseRequiredForDecryption();
         // This prevents sync from actually syncing until the dialog is closed.
         mProfileSyncService.setSetupInProgress(true);
         mProfileSyncService.addSyncStateChangedListener(this);
@@ -289,6 +294,9 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
             closeDialogIfOpen(FRAGMENT_CUSTOM_PASSWORD);
             closeDialogIfOpen(FRAGMENT_ENTER_PASSWORD);
             return;
+        }
+        if (!mProfileSyncService.isPassphraseRequiredForDecryption()) {
+            closeDialogIfOpen(FRAGMENT_ENTER_PASSPHRASE);
         }
         if (mProfileSyncService.isPassphraseRequiredForDecryption() && isAdded()) {
             mSyncEncryption.setSummary(
@@ -532,8 +540,12 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
     @Override
     public void syncStateChanged() {
         boolean wasSyncInitialized = mIsSyncInitialized;
+        boolean wasPassphraseRequired = mIsPassphraseRequired;
         mIsSyncInitialized = mProfileSyncService.isSyncInitialized();
-        if (mIsSyncInitialized != wasSyncInitialized) {
+        mIsPassphraseRequired =
+                mIsSyncInitialized && mProfileSyncService.isPassphraseRequiredForDecryption();
+        if (mIsSyncInitialized != wasSyncInitialized
+                || mIsPassphraseRequired != wasPassphraseRequired) {
             // Update all because Password syncability is also affected by the backend.
             updateSyncStateFromSwitch();
         }
