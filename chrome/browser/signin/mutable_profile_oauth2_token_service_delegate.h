@@ -34,6 +34,7 @@ class MutableProfileOAuth2TokenServiceDelegate
                        const GoogleServiceAuthError& error) override;
 
   bool RefreshTokenIsAvailable(const std::string& account_id) const override;
+  bool RefreshTokenHasError(const std::string& account_id) const override;
   std::vector<std::string> GetAccounts() override;
   net::URLRequestContextGetter* GetRequestContext() const override;
 
@@ -149,4 +150,5 @@ class MutableProfileOAuth2TokenServiceDelegate
 
   DISALLOW_COPY_AND_ASSIGN(MutableProfileOAuth2TokenServiceDelegate);
 };
-#endif
+
+#endif  // CHROME_BROWSER_SIGNIN_MUTABLE_PROFILE_OAUTH2_TOKEN_SERVICE_DELEGATE_H_

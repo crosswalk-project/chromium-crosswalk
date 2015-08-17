@@ -318,6 +318,14 @@ bool ProfileOAuth2TokenServiceIOSDelegate::RefreshTokenIsAvailable(
   return iter != accounts_.end() && !iter->second->marked_for_removal();
 }
 
+bool ProfileOAuth2TokenServiceIOSDelegate::RefreshTokenHasError(
+    const std::string& account_id) const {
+  DCHECK(thread_checker_.CalledOnValidThread());
+  auto it = accounts_.find(account_id);
+  // TODO(rogerta): should we distinguish between transient and persistent?
+  return it == accounts_.end() ? false : IsError(it->second->GetAuthStatus());
+}
+
 void ProfileOAuth2TokenServiceIOSDelegate::UpdateAuthError(
     const std::string& account_id,
     const GoogleServiceAuthError& error) {
