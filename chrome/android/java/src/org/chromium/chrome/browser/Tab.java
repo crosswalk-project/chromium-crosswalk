@@ -1355,7 +1355,7 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
         pushNativePageStateToNavigationEntry();
         for (TabObserver observer : mObservers) {
             observer.onContentChanged(this);
-            observer.onDidChangeThemeColor(this, mDefaultThemeColor);
+            observer.onDidChangeThemeColor(mDefaultThemeColor);
         }
         destroyNativePageInternal(previousNativePage);
     }
