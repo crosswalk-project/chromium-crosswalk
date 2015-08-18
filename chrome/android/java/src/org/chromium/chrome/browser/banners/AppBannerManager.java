@@ -39,7 +39,7 @@ public class AppBannerManager extends EmptyTabObserver {
     private static Boolean sIsEnabled;
 
     /** Pointer to the native side AppBannerManager. */
-    private final long mNativePointer;
+    private long mNativePointer;
 
     /** Tab that the AppBannerView/AppBannerManager is owned by. */
     private final Tab mTab;
@@ -92,6 +92,7 @@ public class AppBannerManager extends EmptyTabObserver {
      */
     public void destroy() {
         nativeDestroy(mNativePointer);
+        mNativePointer = 0;
     }
 
     /**
@@ -122,7 +123,7 @@ public class AppBannerManager extends EmptyTabObserver {
              */
             @Override
             public void onAppDetailsRetrieved(AppData data) {
-                if (data == null) return;
+                if (data == null || mNativePointer == 0) return;
 
                 String imageUrl = data.imageUrl();
                 if (TextUtils.isEmpty(imageUrl)) return;
