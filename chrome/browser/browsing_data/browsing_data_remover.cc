@@ -803,7 +803,8 @@ void BrowsingDataRemover::RemoveImpl(int remove_mask,
   }
 
   UMA_HISTOGRAM_ENUMERATION(
-      "ClearBrowsingData.UserDeletedCookieOrCache", choice, MAX_CHOICE_VALUE);
+      "History.ClearBrowsingData.UserDeletedCookieOrCache",
+      choice, MAX_CHOICE_VALUE);
 }
 
 void BrowsingDataRemover::AddObserver(Observer* observer) {
