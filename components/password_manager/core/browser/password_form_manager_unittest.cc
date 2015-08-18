@@ -11,6 +11,7 @@
 #include "base/single_thread_task_runner.h"
 #include "base/strings/string_util.h"
 #include "base/strings/utf_string_conversions.h"
+#include "base/test/histogram_tester.h"
 #include "base/thread_task_runner_handle.h"
 #include "components/autofill/core/browser/autofill_manager.h"
 #include "components/autofill/core/browser/test_autofill_client.h"
@@ -21,6 +22,7 @@
 #include "components/password_manager/core/browser/password_form_manager.h"
 #include "components/password_manager/core/browser/password_manager.h"
 #include "components/password_manager/core/browser/password_manager_driver.h"
+#include "components/password_manager/core/browser/password_manager_metrics_util.h"
 #include "components/password_manager/core/browser/password_store.h"
 #include "components/password_manager/core/browser/stub_password_manager_client.h"
 #include "components/password_manager/core/browser/stub_password_manager_driver.h"
@@ -1584,6 +1586,8 @@ TEST_F(PasswordFormManagerTest, GenerationStatusChangedWithPassword) {
 }
 
 TEST_F(PasswordFormManagerTest, GenerationStatusNotUpdatedIfPasswordUnchanged) {
+  base::HistogramTester histogram_tester;
+
   TestPasswordManagerClient client_with_store(mock_store());
 
   TestPasswordManager manager(&client_with_store);
@@ -1618,6 +1622,8 @@ TEST_F(PasswordFormManagerTest, GenerationStatusNotUpdatedIfPasswordUnchanged) {
   form_manager.Save();
 
   EXPECT_EQ(PasswordForm::TYPE_GENERATED, new_credentials.type);
+  histogram_tester.ExpectBucketCount("PasswordGeneration.SubmissionEvent",
+                                     metrics_util::PASSWORD_USED, 1);
 }
 
 }  // namespace password_manager
