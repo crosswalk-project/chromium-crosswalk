@@ -395,7 +395,7 @@ public class SyncCustomizationFragmentTest extends SyncTestBase {
 
     private PassphraseDialogFragment getPassphraseDialogFragment() {
         return (PassphraseDialogFragment) mActivity.getFragmentManager().findFragmentByTag(
-                SyncCustomizationFragment.FRAGMENT_ENTER_PASSPHRASE);
+                SyncCustomizationFragment.FRAGMENT_ENTER_PASSWORD);
     }
 
     private PassphraseTypeDialogFragment getPassphraseTypeDialogFragment() {

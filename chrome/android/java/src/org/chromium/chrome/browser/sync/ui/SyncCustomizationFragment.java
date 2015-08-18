@@ -296,7 +296,7 @@ public class SyncCustomizationFragment extends PreferenceFragment implements
             return;
         }
         if (!mProfileSyncService.isPassphraseRequiredForDecryption()) {
-            closeDialogIfOpen(FRAGMENT_ENTER_PASSPHRASE);
+            closeDialogIfOpen(FRAGMENT_ENTER_PASSWORD);
         }
         if (mProfileSyncService.isPassphraseRequiredForDecryption() && isAdded()) {
             mSyncEncryption.setSummary(
