@@ -1330,7 +1330,7 @@ RenderThreadImpl::GetGpuFactories() {
 
   const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory::GetInstance()) {
     if (!cmd_line->HasSwitch(switches::kDisableAcceleratedVideoDecode)) {
       DLOG(WARNING) << "Accelerated video decoding is not explicitly disabled, "
@@ -1535,7 +1535,7 @@ cc::ContextProvider* RenderThreadImpl::GetSharedMainThreadContextProvider() {
 
 scoped_ptr<cc::BeginFrameSource>
 RenderThreadImpl::CreateExternalBeginFrameSource(int routing_id) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     return factory->CreateExternalBeginFrameSource(routing_id);

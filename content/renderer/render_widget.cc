@@ -2126,6 +2126,9 @@ void RenderWidget::DidChangeBodyBackgroundColor(SkColor bg_color) {
 }
 
 bool RenderWidget::DoesRecordFullLayer() const {
+#if defined(DISABLE_SYNC_COMPOSITOR)
+  return false;
+#else
   SynchronousCompositorFactory* synchronous_compositor_factory =
       SynchronousCompositorFactory::GetInstance();
 
@@ -2136,6 +2139,7 @@ bool RenderWidget::DoesRecordFullLayer() const {
     return false;
 
   return synchronous_compositor_factory->RecordFullLayer();
+#endif
 }
 #endif
 

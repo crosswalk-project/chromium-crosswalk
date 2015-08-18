@@ -632,7 +632,7 @@ bool RendererBlinkPlatformImpl::databaseSetFileSize(
 }
 
 bool RendererBlinkPlatformImpl::canAccelerate2dCanvas() {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance();
   if (factory && factory->OverrideWithFactory()) {
@@ -958,7 +958,7 @@ RendererBlinkPlatformImpl::createOffscreenGraphicsContext3D(
   if (!RenderThreadImpl::current())
     return NULL;
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance();
   if (factory && factory->OverrideWithFactory()) {

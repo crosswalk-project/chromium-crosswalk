@@ -1300,6 +1300,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
   int output_width = output_size_in_pixel.width();
   int output_height = output_size_in_pixel.height();
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositor* compositor =
       SynchronousCompositorImpl::FromID(host_->GetProcess()->GetID(),
                                         host_->GetRoutingID());
@@ -1307,6 +1308,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
     callback.Run(SkBitmap(), READBACK_FAILED);
     return;
   }
+#endif
 
   SkBitmap bitmap;
   bitmap.allocPixels(SkImageInfo::Make(output_width,
@@ -1497,6 +1499,7 @@ void RenderWidgetHostViewAndroid::SendBeginFrame(base::TimeTicks frame_time,
         cc::BeginFrameArgs::Create(BEGINFRAME_FROM_HERE, frame_time, deadline,
                                    vsync_period, cc::BeginFrameArgs::NORMAL)));
   } else {
+#if !defined(DISABLE_SYNC_COMPOSITOR)
     SynchronousCompositorImpl* compositor = SynchronousCompositorImpl::FromID(
         host_->GetProcess()->GetID(), host_->GetRoutingID());
     if (compositor) {
@@ -1506,6 +1509,7 @@ void RenderWidgetHostViewAndroid::SendBeginFrame(base::TimeTicks frame_time,
           BEGINFRAME_FROM_HERE, frame_time, base::TimeTicks(), vsync_period,
           cc::BeginFrameArgs::NORMAL));
     }
+#endif
   }
 }
 
