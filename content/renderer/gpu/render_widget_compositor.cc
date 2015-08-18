@@ -422,7 +422,7 @@ void RenderWidgetCompositor::Initialize() {
       base::SysInfo::IsLowEndDevice() && !synchronous_compositor_factory;
 #else
   settings.ignore_root_layer_flings = false;
-  bool is_low_end_device = base::SysInfo::IsLowEndDevice();
+  bool use_low_memory_policy = base::SysInfo::IsLowEndDevice();
 #endif
   // RGBA_4444 textures are only enabled for low end devices
   // and are disabled for Android WebView as it doesn't support the format.

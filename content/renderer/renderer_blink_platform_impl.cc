@@ -936,7 +936,7 @@ RendererBlinkPlatformImpl::createOffscreenGraphicsContext3D(
   if (!RenderThreadImpl::current())
     return NULL;
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance()) {
     scoped_ptr<gpu_blink::WebGraphicsContext3DInProcessCommandBufferImpl>

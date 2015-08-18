@@ -1442,7 +1442,7 @@ cc::ContextProvider* RenderThreadImpl::GetSharedMainThreadContextProvider() {
 
 scoped_ptr<cc::BeginFrameSource>
 RenderThreadImpl::CreateExternalBeginFrameSource(int routing_id) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     return factory->CreateExternalBeginFrameSource(routing_id);
