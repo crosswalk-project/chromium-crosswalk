@@ -198,6 +198,7 @@ AlternativeService HttpStreamFactoryImpl::GetAlternativeServiceFor(
   if (alternative_service.host != origin.host())
     return kNoAlternativeService;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (!session_->params().enable_quic)
     return kNoAlternativeService;
 
@@ -208,6 +209,7 @@ AlternativeService HttpStreamFactoryImpl::GetAlternativeServiceFor(
       !original_url.SchemeIs("https")) {
     return kNoAlternativeService;
   }
+#endif
 
   return alternative_service;
 }

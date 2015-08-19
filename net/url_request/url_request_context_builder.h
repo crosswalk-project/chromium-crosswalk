@@ -175,8 +175,10 @@ class NET_EXPORT URLRequestContextBuilder {
 
   void set_quic_connection_options(
       const QuicTagVector& quic_connection_options) {
+#if !defined(DISABLE_QUIC_SUPPORT)
     http_network_session_params_.quic_connection_options =
         quic_connection_options;
+#endif
   }
 
   void set_throttling_enabled(bool throttling_enabled) {

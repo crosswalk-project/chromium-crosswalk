@@ -986,12 +986,14 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
     return OK;
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (proxy_info_.is_quic() && using_quic_ &&
       (result == ERR_QUIC_PROTOCOL_ERROR ||
        result == ERR_QUIC_HANDSHAKE_FAILED)) {
     using_quic_ = false;
     return ReconsiderProxyAfterError(result);
   }
+#endif
 
   // TODO(willchan): Make this a bit more exact. Maybe there are recoverable
   // errors, such as ignoring certificate errors for Alternate-Protocol.
