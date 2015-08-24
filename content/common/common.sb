@@ -43,3 +43,6 @@
 ; Enables reading file metadata for the Chrome bundle and its parent paths.
 ; http://crbug.com/127465
 @COMPONENT_BUILD_WORKAROUND@
+
+; https://crbug.com/515280
+;10.11_OR_ABOVE  (allow file-read* (regex #"^/System/Library/Extensions($|/)"))

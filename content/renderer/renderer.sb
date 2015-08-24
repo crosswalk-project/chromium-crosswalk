@@ -38,3 +38,10 @@
 (allow file-read-metadata
   (regex #"^/(private/)?etc$")
 )
+
+; Need on 10.11 for http://crbug.com/508935
+;10.11_OR_ABOVE  (allow file-read*
+;10.11_OR_ABOVE    (literal "/usr/lib/libcsfde.dylib")
+;10.11_OR_ABOVE    (literal "/usr/lib/libcurl.4.dylib")
+;10.11_OR_ABOVE    (literal "/usr/lib/libCoreStorage.dylib")
+;10.11_OR_ABOVE    (literal "/usr/lib/libutil.dylib"))

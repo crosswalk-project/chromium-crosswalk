@@ -584,6 +584,10 @@ bool Sandbox::EnableSandbox(int sandbox_type,
     // >=10.7 Sandbox rules.
     [tokens_to_remove addObject:@";10.7_OR_ABOVE"];
   }
+  if (base::mac::IsOSElCapitanOrLater()) {
+    // >=10.11 Sandbox rules
+    [tokens_to_remove addObject:@";10.11_OR_ABOVE"];
+  }
 
   substitutions["COMPONENT_BUILD_WORKAROUND"] = SandboxSubstring("");
 #if defined(COMPONENT_BUILD)
