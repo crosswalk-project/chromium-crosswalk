@@ -132,6 +132,10 @@ public class ContextualSearchManager extends ContextualSearchObservable
 
     private TabRedirectHandler mTabRedirectHandler;
 
+    // http://crbug.com/522266 : An instance of InterceptNavigationDelegateImpl should be kept in
+    // java layer. Otherwise, the instance could be garbage-collected unexpectedly.
+    private InterceptNavigationDelegateImpl mInterceptNavigationDelegate;
+
     /**
      * The delegate that is notified when the Search Panel ContentViewCore is ready to be rendered.
      */
@@ -897,8 +901,9 @@ public class ContextualSearchManager extends ContextualSearchObservable
                 };
 
         mSearchContentViewDelegate.setContextualSearchContentViewCore(mSearchContentViewCore);
+        mInterceptNavigationDelegate = new InterceptNavigationDelegateImpl();
         nativeSetInterceptNavigationDelegate(mNativeContextualSearchManagerPtr,
-                new InterceptNavigationDelegateImpl(), mSearchContentViewCore.getWebContents());
+                mInterceptNavigationDelegate, mSearchContentViewCore.getWebContents());
     }
 
     @Override
