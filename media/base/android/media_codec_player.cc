@@ -4,9 +4,16 @@
 
 #include "media/base/android/media_codec_player.h"
 
+#include "base/barrier_closure.h"
 #include "base/bind.h"
 #include "base/lazy_instance.h"
 #include "base/logging.h"
+#include "base/thread_task_runner_handle.h"
+#include "base/threading/thread.h"
+#include "media/base/android/media_codec_audio_decoder.h"
+#include "media/base/android/media_codec_video_decoder.h"
+#include "media/base/android/media_player_manager.h"
+#include "media/base/buffers.h"
 
 #define RUN_ON_MEDIA_THREAD(METHOD, ...)                                      \
   do {                                                                        \

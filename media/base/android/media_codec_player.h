@@ -9,9 +9,13 @@
 #include "base/memory/scoped_ptr.h"
 #include "base/memory/weak_ptr.h"
 #include "base/threading/thread.h"
+#include "base/time/default_tick_clock.h"
 #include "media/base/android/demuxer_android.h"
 #include "media/base/android/media_player_android.h"
+#include "media/base/demuxer_stream.h"
 #include "media/base/media_export.h"
+#include "media/base/time_delta_interpolator.h"
+#include "ui/gfx/geometry/size.h"
 #include "ui/gl/android/scoped_java_surface.h"
 
 // The MediaCodecPlayer class implements the media player by using Android's
