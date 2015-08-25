@@ -306,8 +306,6 @@ class DownloadProtectionService::CheckClientDownloadRequest
         FILE_PATH_LITERAL(".zip"))) {
       StartExtractZipFeatures();
     } else {
-      DCHECK(!download_protection_util::IsArchiveFile(
-          item_->GetTargetFilePath()));
       StartExtractFileFeatures();
     }
   }
