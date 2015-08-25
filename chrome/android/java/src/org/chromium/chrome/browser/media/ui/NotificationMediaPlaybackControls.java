@@ -19,6 +19,7 @@ import android.widget.RemoteViews;
 import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.IntentHandler.TabOpenType;
+import org.chromium.chrome.browser.metrics.MediaSessionUMA;
 
 /**
  * A class for notifications that provide information and optional media controls for a given media.
@@ -83,9 +84,15 @@ public class NotificationMediaPlaybackControls {
             if (ACTION_PLAY.equals(action)) {
                 sInstance.mMediaNotificationInfo.listener.onPlay();
                 sInstance.onPlaybackStateChanged(false);
+
+                MediaSessionUMA.recordPlay(
+                        MediaSessionUMA.MEDIA_SESSION_ACTION_SOURCE_MEDIA_NOTIFICATION);
             } else if (ACTION_PAUSE.equals(action)) {
                 sInstance.mMediaNotificationInfo.listener.onPause();
                 sInstance.onPlaybackStateChanged(true);
+
+                MediaSessionUMA.recordPause(
+                        MediaSessionUMA.MEDIA_SESSION_ACTION_SOURCE_MEDIA_NOTIFICATION);
             }
 
             return START_NOT_STICKY;
