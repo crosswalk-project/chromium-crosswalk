@@ -129,7 +129,9 @@ class RenderViewObserver;
 class RenderViewTest;
 class RendererDateTimePicker;
 class RendererWebColorChooserImpl;
+#ifndef DISABLE_SPEECH
 class SpeechRecognitionDispatcher;
+#endif
 class WebPluginDelegateProxy;
 struct DropData;
 struct FaviconURL;
@@ -910,8 +912,9 @@ class CONTENT_EXPORT RenderViewImpl
 
   // The speech recognition dispatcher attached to this view, lazily
   // initialized.
+#ifndef DISABLE_SPEECH
   SpeechRecognitionDispatcher* speech_recognition_dispatcher_;
-
+#endif
   // Mouse Lock dispatcher attached to this view.
   MouseLockDispatcher* mouse_lock_dispatcher_;
 
