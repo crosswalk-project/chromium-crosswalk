@@ -6,6 +6,7 @@
 #define MEDIA_BASE_ANDROID_MEDIA_CODEC_BRIDGE_H_
 
 #include <jni.h>
+#include <set>
 #include <string>
 
 #include "base/android/scoped_java_ref.h"
@@ -200,6 +201,11 @@ class MEDIA_EXPORT MediaCodecBridge {
   // configuring media codec. Returns whether media codec was successfully
   // started.
   bool StartInternal() WARN_UNUSED_RESULT;
+
+  // Called to get the buffer address given the output buffer index and offset.
+  // This function returns the size of the output and |addr| is the pointer to
+  // the address to read.
+  int GetOutputBufferAddress(int index, size_t offset, void** addr);
 
   jobject media_codec() { return j_media_codec_.obj(); }
   MediaCodecDirection direction_;
