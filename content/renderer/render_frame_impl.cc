@@ -2020,7 +2020,14 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
     blink::WebLocalFrame* frame,
     const blink::WebURL& url,
     blink::WebMediaPlayerClient* client) {
+#ifdef DISABLE_WEB_VIDEO
+  (void) frame;
+  (void) url;
+  (void) client;
+  return nullptr;
+#else
   return createMediaPlayer(frame, url, client, nullptr);
+#endif
 }
 
 blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
@@ -2028,6 +2035,13 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
     const blink::WebURL& url,
     blink::WebMediaPlayerClient* client,
     blink::WebContentDecryptionModule* initial_cdm) {
+#ifdef DISABLE_WEB_VIDEO
+  (void) frame;
+  (void) url;
+  (void) client;
+  (void) initial_cdm;
+  return nullptr;
+#else  // #ifdef DISABLE_WEB_VIDEO
 #if defined(VIDEO_HOLE)
   if (!contains_media_player_) {
     render_view_->RegisterVideoHoleFrame(this);
@@ -2084,6 +2098,7 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
       frame, client, weak_factory_.GetWeakPtr(), media_renderer_factory.Pass(),
       GetCdmFactory(), params);
 #endif  // defined(OS_ANDROID)
+#endif  // #ifdef DISABLE_WEB_VIDEO
 }
 
 #if defined(OS_TIZEN) && defined(ENABLE_MURPHY)
@@ -4663,7 +4678,7 @@ void RenderFrameImpl::InitializeUserMediaClient() {
 
 WebMediaPlayer* RenderFrameImpl::CreateWebMediaPlayerForMediaStream(
     WebMediaPlayerClient* client) {
-#if defined(ENABLE_WEBRTC)
+#if defined(ENABLE_WEBRTC) || !defined(DISABLE_WEB_VIDEO)
 #if defined(OS_ANDROID) && defined(ARCH_CPU_ARMEL)
   bool found_neon =
       (android_getCpuFeatures() & ANDROID_CPU_ARM_FEATURE_NEON) != 0;
@@ -4902,6 +4917,13 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
     WebMediaPlayerClient* client,
     media::MediaPermission* media_permission,
     blink::WebContentDecryptionModule* initial_cdm) {
+#ifdef DISABLE_WEB_VIDEO
+  (void) url;
+  (void) client;
+  (void) media_permission;
+  (void) initial_cdm;
+  return nullptr;
+#else
   GpuChannelHost* gpu_channel_host =
       RenderThreadImpl::current()->EstablishGpuChannelSync(
           CAUSE_FOR_GPU_LAUNCH_VIDEODECODEACCELERATOR_INITIALIZE);
@@ -4936,12 +4958,17 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
       GetCdmFactory(), media_permission, initial_cdm, stream_texture_factory,
       RenderThreadImpl::current()->GetMediaThreadTaskRunner(),
       new RenderMediaLog());
+#endif
 }
 
 RendererMediaPlayerManager* RenderFrameImpl::GetMediaPlayerManager() {
+#ifdef DISABLE_WEB_VIDEO
+  return nullptr;
+#else
   if (!media_player_manager_)
     media_player_manager_ = new RendererMediaPlayerManager(this);
   return media_player_manager_;
+#endif
 }
 
 #endif  // defined(OS_ANDROID)
