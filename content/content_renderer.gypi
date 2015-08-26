@@ -446,6 +446,12 @@
       'renderer/websharedworker_proxy.cc',
       'renderer/websharedworker_proxy.h',
     ],
+    'private_renderer_sources_web_video': [
+      'renderer/media/android/renderer_media_player_manager.cc',
+      'renderer/media/android/renderer_media_player_manager.h',
+      'renderer/media/android/webmediaplayer_android.cc',
+      'renderer/media/android/webmediaplayer_android.h',
+    ],
     # Put WebRTC-related sources in the plugin+WebRTC section below.
     'private_renderer_plugin_sources': [
       'renderer/npapi/plugin_channel_host.cc',
@@ -740,6 +746,10 @@
   'conditions': [
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
+    ['disable_web_video', {
+      'sources!': [
+        '<@(private_renderer_sources_web_video)',
+      ],
     }],
     ['disable_speech==1', {
       'sources!': [
