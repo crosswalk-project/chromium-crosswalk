@@ -15,6 +15,8 @@ import android.support.customtabs.ICustomTabsCallback;
 import android.test.InstrumentationTestCase;
 import android.test.suitebuilder.annotation.SmallTest;
 
+import org.chromium.base.ThreadUtils;
+
 /** Tests for CustomTabsConnection. */
 public class CustomTabsConnectionTest extends InstrumentationTestCase {
     private CustomTabsConnection mCustomTabsConnection;
@@ -32,7 +34,16 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
     @Override
     protected void tearDown() throws Exception {
         super.tearDown();
-        mCustomTabsConnection.cleanupAll();
+        cleanupSessions();
+    }
+
+    private void cleanupSessions() {
+        ThreadUtils.runOnUiThreadBlocking(new Runnable() {
+            @Override
+            public void run() {
+                mCustomTabsConnection.cleanupAll();
+            }
+        });
     }
 
     private ICustomTabsCallback newDummyCallback() {
@@ -132,7 +143,7 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
     @SmallTest
     public void testForgetsSession() {
         ICustomTabsCallback cb = assertWarmupAndMayLaunchUrl(null, URL, true);
-        mCustomTabsConnection.cleanupAll();
+        cleanupSessions();
         assertWarmupAndMayLaunchUrl(cb, URL, false);
     }
 

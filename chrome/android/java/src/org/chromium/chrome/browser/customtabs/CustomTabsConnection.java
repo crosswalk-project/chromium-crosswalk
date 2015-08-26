@@ -98,13 +98,16 @@ class CustomTabsConnection extends ICustomTabsService.Stub {
     private static class SessionParams {
         public final int mUid;
         public final ICustomTabsCallback mCallback;
+        public final IBinder.DeathRecipient mDeathRecipient;
         private ServiceConnection mServiceConnection;
         private String mPredictedUrl;
         private long mLastMayLaunchUrlTimestamp;
 
-        public SessionParams(int uid, ICustomTabsCallback callback) {
+        public SessionParams(int uid, ICustomTabsCallback callback,
+                IBinder.DeathRecipient deathRecipient) {
             mUid = uid;
             mCallback = callback;
+            mDeathRecipient = deathRecipient;
             mServiceConnection = null;
             mPredictedUrl = null;
             mLastMayLaunchUrlTimestamp = 0;
@@ -154,19 +157,26 @@ class CustomTabsConnection extends ICustomTabsService.Stub {
     public boolean newSession(ICustomTabsCallback callback) {
         if (callback == null) return false;
         final int uid = Binder.getCallingUid();
-        SessionParams sessionParams = new SessionParams(uid, callback);
         final IBinder session = callback.asBinder();
+        IBinder.DeathRecipient deathRecipient =
+                new IBinder.DeathRecipient() {
+                    @Override
+                    public void binderDied() {
+                        ThreadUtils.postOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                synchronized (mLock) {
+                                    cleanupAlreadyLocked(session);
+                                }
+                            }
+                        });
+                    }
+                };
+        SessionParams sessionParams = new SessionParams(uid, callback, deathRecipient);
         synchronized (mLock) {
             if (mSessionParams.containsKey(session)) return false;
             try {
-                callback.asBinder().linkToDeath(new IBinder.DeathRecipient() {
-                    @Override
-                    public void binderDied() {
-                        synchronized (mLock) {
-                            cleanupAlreadyLocked(session);
-                        }
-                    }
-                }, 0);
+                callback.asBinder().linkToDeath(deathRecipient, 0);
             } catch (RemoteException e) {
                 // The return code doesn't matter, because this executes when
                 // the caller has died.
@@ -481,6 +491,7 @@ class CustomTabsConnection extends ICustomTabsService.Stub {
 
     @VisibleForTesting
     void cleanupAll() {
+        ThreadUtils.assertOnUiThread();
         synchronized (mLock) {
             Set<IBinder> sessions = mSessionParams.keySet();
             for (IBinder session : sessions) cleanupAlreadyLocked(session);
@@ -491,7 +502,12 @@ class CustomTabsConnection extends ICustomTabsService.Stub {
      * Called when a remote client has died.
      */
     private void cleanupAlreadyLocked(IBinder session) {
+        ThreadUtils.assertOnUiThread();
+        SessionParams params = mSessionParams.get(session);
+        if (params == null) return;
         mSessionParams.remove(session);
+        IBinder binder = params.mCallback.asBinder();
+        binder.unlinkToDeath(params.mDeathRecipient, 0);
         if (mPrerender != null && session.equals(mPrerender.mSession)) {
             prerenderUrl(session, null, null); // Cancels the pre-render.
         }
