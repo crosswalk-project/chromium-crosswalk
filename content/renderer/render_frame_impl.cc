@@ -4918,7 +4918,6 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
     media::MediaPermission* media_permission,
     blink::WebContentDecryptionModule* initial_cdm) {
 #ifdef DISABLE_WEB_VIDEO
-  (void) url;
   (void) client;
   (void) media_permission;
   (void) initial_cdm;

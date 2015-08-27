@@ -727,6 +727,7 @@
   'conditions': [
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
+    }],
     ['disable_web_video', {
       'sources!': [
         '<@(private_renderer_sources_web_video)',
