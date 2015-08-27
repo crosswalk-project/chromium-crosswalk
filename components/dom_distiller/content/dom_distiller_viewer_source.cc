@@ -13,7 +13,6 @@
 #include "base/message_loop/message_loop.h"
 #include "base/metrics/user_metrics.h"
 #include "base/strings/utf_string_conversions.h"
-#include "components/dom_distiller/content/browser/distiller_javascript_utils.h"
 #include "components/dom_distiller/core/distilled_page_prefs.h"
 #include "components/dom_distiller/core/dom_distiller_request_view_base.h"
 #include "components/dom_distiller/core/dom_distiller_service.h"
@@ -107,7 +106,8 @@ void DomDistillerViewerSource::RequestViewerHandle::SendJavaScript(
     buffer_ += buffer;
   } else {
     if (web_contents()) {
-      RunIsolatedJavaScript(web_contents()->GetMainFrame(), buffer);
+      web_contents()->GetMainFrame()->ExecuteJavaScript(
+          base::UTF8ToUTF16(buffer));
     }
   }
 }
@@ -149,7 +149,6 @@ void DomDistillerViewerSource::RequestViewerHandle::DidFinishLoad(
     const GURL& validated_url) {
   if (IsErrorPage()) {
     waiting_for_page_ready_ = false;
-    SendJavaScript(viewer::GetJavaScript());
     SendJavaScript(viewer::GetErrorPageJs());
     std::string title(l10n_util::GetStringUTF8(
         IDS_DOM_DISTILLER_VIEWER_FAILED_TO_FIND_ARTICLE_CONTENT));
@@ -168,7 +167,7 @@ void DomDistillerViewerSource::RequestViewerHandle::DidFinishLoad(
   if (buffer_.empty()) {
     return;
   }
-  RunIsolatedJavaScript(web_contents()->GetMainFrame(), buffer_);
+  web_contents()->GetMainFrame()->ExecuteJavaScript(base::UTF8ToUTF16(buffer_));
   buffer_.clear();
 }
 
@@ -204,6 +203,10 @@ void DomDistillerViewerSource::StartDataRequest(
   if (kViewerCssPath == path) {
     std::string css = viewer::GetCss();
     callback.Run(base::RefCountedString::TakeString(&css));
+    return;
+  } else if (kViewerJsPath == path) {
+    std::string js = viewer::GetJavaScript();
+    callback.Run(base::RefCountedString::TakeString(&js));
     return;
   } else if (kViewerViewOriginalPath == path) {
     content::RecordAction(base::UserMetricsAction("DomDistiller_ViewOriginal"));
