@@ -58,7 +58,8 @@ bool MediaCodecAudioDecoder::HasStream() const {
 void MediaCodecAudioDecoder::SetDemuxerConfigs(const DemuxerConfigs& configs) {
   DCHECK(media_task_runner_->BelongsToCurrentThread());
 
-  DVLOG(1) << class_name() << "::" << __FUNCTION__ << " " << configs;
+  // FIXME:(jondwillis)
+  // DVLOG(1) << class_name() << "::" << __FUNCTION__ << " " << configs;
 
   configs_ = configs;
   if (!media_codec_bridge_)
