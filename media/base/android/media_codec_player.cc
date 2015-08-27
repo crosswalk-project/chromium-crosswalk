@@ -15,16 +15,16 @@
 #include "media/base/android/media_player_manager.h"
 #include "media/base/buffers.h"
 
-#define RUN_ON_MEDIA_THREAD(METHOD, ...)                                      \
-  do {                                                                        \
-    if (!GetMediaTaskRunner()->BelongsToCurrentThread()) {                    \
-      GetMediaTaskRunner()->PostTask(                                         \
-          FROM_HERE,                                                          \
-          base::Bind(&MediaCodecPlayer:: METHOD, weak_this_, ##__VA_ARGS__)); \
-      return;                                                                 \
-    }                                                                         \
-  } while(0)
-
+#define RUN_ON_MEDIA_THREAD(METHOD, ...)                                     \
+  do {                                                                       \
+    if (!GetMediaTaskRunner()->BelongsToCurrentThread()) {                   \
+      DCHECK(ui_task_runner_->BelongsToCurrentThread());                     \
+      GetMediaTaskRunner()->PostTask(                                        \
+          FROM_HERE, base::Bind(&MediaCodecPlayer::METHOD, media_weak_this_, \
+                                ##__VA_ARGS__));                             \
+      return;                                                                \
+    }                                                                        \
+  } while (0)
 
 namespace media {
 
@@ -48,15 +48,15 @@ scoped_refptr<base::SingleThreadTaskRunner> GetMediaTaskRunner() {
 
 MediaCodecPlayer::MediaCodecPlayer(
     int player_id,
-    MediaPlayerManager* manager,
+    base::WeakPtr<MediaPlayerManager> manager,
     const RequestMediaResourcesCB& request_media_resources_cb,
     scoped_ptr<DemuxerAndroid> demuxer,
     const GURL& frame_url)
     : MediaPlayerAndroid(player_id,
-                         manager,
+                         manager.get(),
                          request_media_resources_cb,
                          frame_url),
-      ui_task_runner_(base::MessageLoopProxy::current()),
+      ui_task_runner_(base::ThreadTaskRunnerHandle::Get()),
       demuxer_(demuxer.Pass()),
       state_(kStatePaused),
       interpolator_(&default_tick_clock_),
@@ -87,12 +87,11 @@ MediaCodecPlayer::MediaCodecPlayer(
 
   // Finish initializaton on Media thread
   GetMediaTaskRunner()->PostTask(
-      FROM_HERE, base::Bind(&MediaCodecPlayer::Initialize, weak_this_));
+      FROM_HERE, base::Bind(&MediaCodecPlayer::Initialize, media_weak_this_));
 }
 
 MediaCodecPlayer::~MediaCodecPlayer()
 {
-  // Media thread
   DVLOG(1) << "MediaCodecPlayer::~MediaCodecPlayer";
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
 
@@ -108,22 +107,29 @@ MediaCodecPlayer::~MediaCodecPlayer()
 }
 
 void MediaCodecPlayer::Initialize() {
-  // Media thread
   DVLOG(1) << __FUNCTION__;
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
 
+  interpolator_.SetUpperBound(base::TimeDelta());
+
+  CreateDecoders();
+
+  // This call might in turn call MediaCodecPlayer::OnDemuxerConfigsAvailable()
+  // which propagates configs into decoders. Therefore CreateDecoders() should
+  // be called first.
   demuxer_->Initialize(this);
 }
 
-// MediaPlayerAndroid implementation.
+// The implementation of MediaPlayerAndroid interface.
 
 void MediaCodecPlayer::DeleteOnCorrectThread() {
-  // UI thread
   DVLOG(1) << __FUNCTION__;
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
 
-  // The listener-related portion of the base class has to be
-  // destroyed on UI thread.
+  DetachListener();
+
+  // The base class part that deals with MediaPlayerListener
+  // has to be destroyed on UI thread.
   DestroyListenerOnUIThread();
 
   // Post deletion onto Media thread
@@ -197,7 +203,6 @@ void MediaCodecPlayer::SetVideoSurface(gfx::ScopedJavaSurface surface) {
 void MediaCodecPlayer::Start() {
   RUN_ON_MEDIA_THREAD(Start);
 
-  // Media thread
   DVLOG(1) << __FUNCTION__;
 
   switch (state_) {
@@ -229,7 +234,6 @@ void MediaCodecPlayer::Start() {
 void MediaCodecPlayer::Pause(bool is_media_related_action) {
   RUN_ON_MEDIA_THREAD(Pause, is_media_related_action);
 
-  // Media thread
   DVLOG(1) << __FUNCTION__;
 
   SetPendingStart(false);
@@ -259,7 +263,6 @@ void MediaCodecPlayer::Pause(bool is_media_related_action) {
 void MediaCodecPlayer::SeekTo(base::TimeDelta timestamp) {
   RUN_ON_MEDIA_THREAD(SeekTo, timestamp);
 
-  // Media thread
   DVLOG(1) << __FUNCTION__ << " " << timestamp;
 
   switch (state_) {
@@ -298,7 +301,6 @@ void MediaCodecPlayer::SeekTo(base::TimeDelta timestamp) {
 void MediaCodecPlayer::Release() {
   RUN_ON_MEDIA_THREAD(Release);
 
-  // Media thread
   DVLOG(1) << __FUNCTION__;
 
   // Stop decoding threads and delete MediaCodecs, but keep IPC between browser
@@ -322,44 +324,31 @@ void MediaCodecPlayer::Release() {
 void MediaCodecPlayer::SetVolume(double volume) {
   RUN_ON_MEDIA_THREAD(SetVolume, volume);
 
-  // Media thread
   DVLOG(1) << __FUNCTION__ << " " << volume;
-
-  NOTIMPLEMENTED();
+  audio_decoder_->SetVolume(volume);
 }
 
 int MediaCodecPlayer::GetVideoWidth() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
-
-  NOTIMPLEMENTED();
-  return 320;
+  return metadata_cache_.video_size.width();
 }
 
 int MediaCodecPlayer::GetVideoHeight() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
-
-  NOTIMPLEMENTED();
-  return 240;
+  return metadata_cache_.video_size.height();
 }
 
 base::TimeDelta MediaCodecPlayer::GetCurrentTime() {
-  // UI thread, Media thread
-  NOTIMPLEMENTED();
-  return base::TimeDelta();
+  DCHECK(ui_task_runner_->BelongsToCurrentThread());
+  return current_time_cache_;
 }
 
 base::TimeDelta MediaCodecPlayer::GetDuration() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
-
-  NOTIMPLEMENTED();
-  return base::TimeDelta();
+  return metadata_cache_.duration;
 }
 
 bool MediaCodecPlayer::IsPlaying() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
 
   // TODO(timav): Use another variable since |state_| should only be accessed on
@@ -368,35 +357,31 @@ bool MediaCodecPlayer::IsPlaying() {
 }
 
 bool MediaCodecPlayer::CanPause() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
   NOTIMPLEMENTED();
   return false;
 }
 
 bool MediaCodecPlayer::CanSeekForward() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
   NOTIMPLEMENTED();
   return false;
 }
 
 bool MediaCodecPlayer::CanSeekBackward() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
   NOTIMPLEMENTED();
   return false;
 }
 
 bool MediaCodecPlayer::IsPlayerReady() {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
-  NOTIMPLEMENTED();
+  // This method is called to check whether it's safe to release the player when
+  // the OS needs more resources. This class can be released at any time.
   return true;
 }
 
 void MediaCodecPlayer::SetCdm(BrowserCdm* cdm) {
-  // UI thread
   DCHECK(ui_task_runner_->BelongsToCurrentThread());
   NOTIMPLEMENTED();
 }
@@ -405,21 +390,37 @@ void MediaCodecPlayer::SetCdm(BrowserCdm* cdm) {
 
 void MediaCodecPlayer::OnDemuxerConfigsAvailable(
     const DemuxerConfigs& configs) {
-  // Media thread
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
 
-  NOTIMPLEMENTED();
+  DVLOG(1) << __FUNCTION__;
+
+  duration_ = configs.duration;
+
+  SetDemuxerConfigs(configs);
+
+  // Update cache and notify manager on UI thread
+  gfx::Size video_size = HasVideo() ? configs.video_size : gfx::Size();
+  ui_task_runner_->PostTask(
+      FROM_HERE, base::Bind(metadata_changed_cb_, duration_, video_size));
 }
 
 void MediaCodecPlayer::OnDemuxerDataAvailable(const DemuxerData& data) {
-  // Media thread
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
-  NOTIMPLEMENTED();
+
+  DCHECK_LT(0u, data.access_units.size());
+  CHECK_GE(1u, data.demuxer_configs.size());
+
+  DVLOG(2) << "Player::" << __FUNCTION__;
+
+  if (data.type == DemuxerStream::AUDIO)
+    audio_decoder_->OnDemuxerDataAvailable(data);
+
+  if (data.type == DemuxerStream::VIDEO)
+    video_decoder_->OnDemuxerDataAvailable(data);
 }
 
 void MediaCodecPlayer::OnDemuxerSeekDone(
     base::TimeDelta actual_browser_seek_time) {
-  // Media thread
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
 
   DVLOG(1) << __FUNCTION__ << " actual_time:" << actual_browser_seek_time;
@@ -485,7 +486,6 @@ void MediaCodecPlayer::OnDemuxerSeekDone(
 
 void MediaCodecPlayer::OnDemuxerDurationChanged(
     base::TimeDelta duration) {
-  // Media thread
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
   DVLOG(1) << __FUNCTION__ << " duration:" << duration;
 
@@ -765,7 +765,8 @@ bool MediaCodecPlayer::HasVideo() const {
 
 void MediaCodecPlayer::SetDemuxerConfigs(const DemuxerConfigs& configs) {
   DCHECK(GetMediaTaskRunner()->BelongsToCurrentThread());
-  DVLOG(1) << __FUNCTION__ << " " << configs;
+  // FIXME(jondwillis)
+  // DVLOG(1) << __FUNCTION__ << " " << configs;
 
   DCHECK(audio_decoder_);
   DCHECK(video_decoder_);
@@ -1099,5 +1100,7 @@ const char* MediaCodecPlayer::AsString(PlayerState state) {
   }
   return nullptr;  // crash early
 }
+
+#undef RETURN_STRING
 
 }  // namespace media

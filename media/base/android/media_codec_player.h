@@ -142,11 +142,6 @@ class MediaCodecVideoDecoder;
 // Returns the task runner for the media thread
 MEDIA_EXPORT scoped_refptr<base::SingleThreadTaskRunner> GetMediaTaskRunner();
 
-
-// This class implements the media player using Android's MediaCodec.
-// It differs from MediaSourcePlayer in that it removes most
-// processing away from UI thread: it uses a dedicated Media thread
-// to receive the data and to handle commands.
 class MEDIA_EXPORT MediaCodecPlayer : public MediaPlayerAndroid,
                                       public DemuxerAndroidClient {
  public:
@@ -170,11 +165,14 @@ class MEDIA_EXPORT MediaCodecPlayer : public MediaPlayerAndroid,
   // Constructs a player with the given ID and demuxer. |manager| must outlive
   // the lifetime of this object.
   MediaCodecPlayer(int player_id,
-                   MediaPlayerManager* manager,
+                   base::WeakPtr<MediaPlayerManager> manager,
                    const RequestMediaResourcesCB& request_media_resources_cb,
                    scoped_ptr<DemuxerAndroid> demuxer,
                    const GURL& frame_url);
   ~MediaCodecPlayer() override;
+
+  // A helper method that performs the media thread part of initialization.
+  void Initialize();
 
   // MediaPlayerAndroid implementation.
   void DeleteOnCorrectThread() override;
@@ -294,10 +292,10 @@ class MEDIA_EXPORT MediaCodecPlayer : public MediaPlayerAndroid,
 
   // Data.
 
- private:
   // Object for posting tasks on UI thread.
   scoped_refptr<base::SingleThreadTaskRunner> ui_task_runner_;
 
+  // Major components: demuxer, audio and video decoders.
   scoped_ptr<DemuxerAndroid> demuxer_;
   scoped_ptr<MediaCodecAudioDecoder> audio_decoder_;
   scoped_ptr<MediaCodecVideoDecoder> video_decoder_;
@@ -353,7 +351,7 @@ class MEDIA_EXPORT MediaCodecPlayer : public MediaPlayerAndroid,
 
   base::WeakPtr<MediaCodecPlayer> media_weak_this_;
   // NOTE: Weak pointers must be invalidated before all other member variables.
-  base::WeakPtrFactory<MediaCodecPlayer> weak_factory_;
+  base::WeakPtrFactory<MediaCodecPlayer> media_weak_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(MediaCodecPlayer);
 };
