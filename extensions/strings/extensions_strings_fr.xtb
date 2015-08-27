@@ -26,7 +26,7 @@
 <translation id="3393440416772303020"><ph name="PRODUCT_NAME"/> (numéro de série : <ph name="SERIAL_NUMBER"/>)</translation>
 <translation id="344630545793878684">Lire vos données sur plusieurs sites web</translation>
 <translation id="3466070586188012397"><ph name="PRODUCT_NAME"/> du fournisseur <ph name="VENDOR_ID"/> (numéro de série : <ph name="SERIAL_NUMBER"/>)</translation>
-<translation id="3560114062880914682">{1,select, single{Sélectionner un appareil USB}multiple{Sélectionner des appareils USB}other{INUTILISÉ}}</translation>
+<translation id="3560114062880914682">{1,select, single{Sélectionner un appareil USB}multiple{Sélectionner des appareils USB}other{NON UTILISÉ}}</translation>
 <translation id="3624204664103857160">Impossible de charger la page du lanceur d'applications &quot;<ph name="PAGE"/>&quot;.</translation>
 <translation id="3759933321830434300">Bloquer des parties de pages Web</translation>
 <translation id="388442998277590542">Impossible de charger la page d'options &quot;<ph name="OPTIONS_PAGE"/>&quot;.</translation>
@@ -41,12 +41,11 @@
 <translation id="4883436287898674711">Tous les sites <ph name="WEBSITE_1"/></translation>
 <translation id="5026754133087629784">Affichage du site Web : <ph name="WEBVIEW_TAG_NAME"/></translation>
 <translation id="5127881134400491887">Gérer les connexions réseau</translation>
-<translation id="5165983846722506205">{1,select, single{Sélectionner un appareil HID}multiple{Sélectionner des appareils HID}other{INUTILISÉ}}</translation>
+<translation id="5165983846722506205">{1,select, single{Sélectionner un appareil HID}multiple{Sélectionner des appareils HID}other{NON UTILISÉ}}</translation>
 <translation id="5356315618422219272">Appview : <ph name="APPVIEW_TAG_NAME"/></translation>
 <translation id="5456409301717116725">Cette extension comprend le fichier clé <ph name="KEY_PATH"/>. Vous ne voulez probablement pas poursuivre.</translation>
 <translation id="5627523580512561598">Extension <ph name="EXTENSION_NAME"/></translation>
 <translation id="5678955352098267522">Lire vos données sur <ph name="WEBSITE_1"/></translation>
-<translation id="588705686677293479">SurfaceWorker : <ph name="SURFACEWORKER_TAG_NAME"/></translation>
 <translation id="5960890139610307736">ExtensionView : <ph name="EXTENSIONVIEW_TAG_NAME"/></translation>
 <translation id="5971037678316050792">Contrôler l'état et l'association de l'adaptateur Bluetooth</translation>
 <translation id="5972529113578162692">L'administrateur de cet ordinateur exige que l'extension <ph name="EXTENSION_NAME"/> soit installée. Cette extension ne pourra pas être désinstallée.</translation>
@@ -54,7 +53,7 @@
 <translation id="6068932090455285721"><ph name="PRODUCT_NAME"/> du fournisseur <ph name="VENDOR_ID"/></translation>
 <translation id="6075907793831890935">Échanger des données avec l'appareil suivant : &quot;<ph name="HOSTNAME"/>&quot;</translation>
 <translation id="6143635259298204954">Impossible d'extraire les fichiers de l'extension. Pour effectuer cette opération en toute sécurité, vous devez disposer d'un chemin d'accès à votre répertoire de profils ne contenant pas de lien symbolique. Aucun chemin de ce type n'existe pour votre profil.</translation>
-<translation id="616804573177634438">{0,select, single{L'application <ph name="APP_NAME"/> demande l'accès à l'un de vos appareils.}multiple{L'application <ph name="APP_NAME"/> demande l'accès à un ou plusieurs de vos appareils.}other{INUTILISÉ}}</translation>
+<translation id="616804573177634438">{0,select, single{L'application <ph name="APP_NAME"/> demande l'accès à l'un de vos appareils.}multiple{L'application <ph name="APP_NAME"/> demande l'accès à un ou plusieurs de vos appareils.}other{NON UTILISÉ}}</translation>
 <translation id="6241530762627360640">Accéder aux informations relatives aux appareils Bluetooth associés à votre système et détecter les appareils Bluetooth à proximité</translation>
 <translation id="6344170822609224263">Accéder à la liste des connexions réseau</translation>
 <translation id="6384275966486438344">Modifier les paramètres de la recherche pour utiliser l'adresse <ph name="SEARCH_HOST"/>.</translation>

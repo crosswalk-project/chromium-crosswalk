@@ -26,6 +26,7 @@
 <translation id="3393440416772303020"><ph name="PRODUCT_NAME"/> (número de serie <ph name="SERIAL_NUMBER"/>)</translation>
 <translation id="344630545793878684">Leer los datos en un número de sitios web</translation>
 <translation id="3466070586188012397"><ph name="PRODUCT_NAME"/> del proveedor <ph name="VENDOR_ID"/> (número de serie <ph name="SERIAL_NUMBER"/>)</translation>
+<translation id="3560114062880914682">{1,select, single{Selecciona un dispositivo USB}multiple{Selecciona dispositivos USB}other{UNUSED}}</translation>
 <translation id="3624204664103857160">No se pudo cargar la página &quot;<ph name="PAGE"/>&quot; del selector.</translation>
 <translation id="3759933321830434300">Bloquear partes de páginas web</translation>
 <translation id="388442998277590542">No se pudo cargar la página de opciones '<ph name="OPTIONS_PAGE"/>'.</translation>
@@ -40,11 +41,11 @@
 <translation id="4883436287898674711">Todos los sitios de <ph name="WEBSITE_1"/></translation>
 <translation id="5026754133087629784">Vista web: <ph name="WEBVIEW_TAG_NAME"/></translation>
 <translation id="5127881134400491887">Administrar conexiones de red</translation>
+<translation id="5165983846722506205">{1,select, single{Selecciona un dispositivo HID}multiple{Selecciona dispositivos HID}other{UNUSED}}</translation>
 <translation id="5356315618422219272">Appview: <ph name="APPVIEW_TAG_NAME"/></translation>
 <translation id="5456409301717116725">Esta extensión incluye el archivo de clave &quot;<ph name="KEY_PATH"/>&quot;. Probablemente no desees incluir ese archivo.</translation>
 <translation id="5627523580512561598">extensión <ph name="EXTENSION_NAME"/></translation>
 <translation id="5678955352098267522">Leer los datos en <ph name="WEBSITE_1"/></translation>
-<translation id="588705686677293479">SurfaceWorker: <ph name="SURFACEWORKER_TAG_NAME"/></translation>
 <translation id="5960890139610307736">ExtensionView: <ph name="EXTENSIONVIEW_TAG_NAME"/></translation>
 <translation id="5971037678316050792">Controlar el estado y la sincronización del adaptador Bluetooth</translation>
 <translation id="5972529113578162692">El administrador de esta computadora requiere que <ph name="EXTENSION_NAME"/> esté instalada. No se puede desinstalar.</translation>
@@ -52,6 +53,7 @@
 <translation id="6068932090455285721"><ph name="PRODUCT_NAME"/> del proveedor <ph name="VENDOR_ID"/></translation>
 <translation id="6075907793831890935">Intercambiar datos con el dispositivo <ph name="HOSTNAME"/></translation>
 <translation id="6143635259298204954">No se puede desempaquetar la extensión. Para desempaquetar una extensión de manera segura, debe haber una ruta de acceso al directorio de tu perfil que no contenga un symlink. No existe esa ruta de acceso para tu perfil.</translation>
+<translation id="616804573177634438">{0,select, single{La aplicación &quot;<ph name="APP_NAME"/>&quot; está solicitando acceso a uno de tus dispositivos.}multiple{La aplicación &quot;<ph name="APP_NAME"/>&quot; está solicitando acceso a uno o más de tus dispositivos.}other{UNUSED}}</translation>
 <translation id="6241530762627360640">Acceder a la información sobre los dispositivos Bluetooth sincronizados con el sistema y detectar dispositivos Bluetooth cercanos.</translation>
 <translation id="6344170822609224263">Acceder a la lista de conexiones de red</translation>
 <translation id="6384275966486438344">Cambiar la configuración de búsqueda por <ph name="SEARCH_HOST"/></translation>

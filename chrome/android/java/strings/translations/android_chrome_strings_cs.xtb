@@ -35,7 +35,6 @@
 <translation id="1445680696957526815">Součásti prohlížeče Chrome navzájem nejsou kompatibilní. Je možné, že se Chrome zrovna upgraduje. Pokud problém přetrvává, zkuste Chrome odinstalovat a poté znovu nainstalovat.</translation>
 <translation id="1446450296470737166">Povolit úplné ovládání zařízení MIDI</translation>
 <translation id="145097072038377568">Vypnuto v Nastavení pro Android</translation>
-<translation id="1491151370853475546">Načíst tuto stránku znovu</translation>
 <translation id="1506061864768559482">Vyhledávač</translation>
 <translation id="1513352483775369820">Záložky a webová historie</translation>
 <translation id="1521530746149324532">Jste v anonymním režimu.</translation>
@@ -96,7 +95,6 @@
 <translation id="2440823041667407902">Přístup k poloze</translation>
 <translation id="2476578072172137802">Nastavení webu</translation>
 <translation id="2482878487686419369">Oznámení</translation>
-<translation id="2487368562788861256">Využijte Google k <ph name="BEGIN_LINK"/>optimalizaci navštěvovaných stránek<ph name="END_LINK"/> a utrácejte za data méně.</translation>
 <translation id="2496180316473517155">Historie procházení</translation>
 <translation id="2498359688066513246">Nápověda a zpětná vazba</translation>
 <translation id="2501278716633472235">Zpět</translation>
@@ -110,7 +108,6 @@
 <translation id="2707726405694321444">Obnovit stránku</translation>
 <translation id="2709516037105925701">Automatické vyplňování</translation>
 <translation id="2718352093833049315">Pouze v sítích Wi-Fi</translation>
-<translation id="2731700343119398978">Čekejte prosím...</translation>
 <translation id="2748463065602559597">Zobrazujete zabezpečenou stránku Google Chrome.</translation>
 <translation id="2770465223704140727">Odstranit ze seznamu</translation>
 <translation id="2816165854387457183">Bylo zjištěno pomalé připojení.</translation>
@@ -172,7 +169,6 @@ Chcete-li vyhledávací dotaz upravit, proveďte výběr dlouhým stisknutím. C
 <translation id="3828029223314399057">Hledat v záložkách</translation>
 <translation id="3894427358181296146">Přidat složku</translation>
 <translation id="3895926599014793903">Vynutit aktivaci přiblížení</translation>
-<translation id="3896036286668839683">Prohlížeč certifikátů</translation>
 <translation id="3917783807003067648">Přístup k poloze je blokován</translation>
 <translation id="3927692899758076493">Bezpatková</translation>
 <translation id="393697183122708255">Hlasové vyhledávání není k dispozici</translation>
@@ -189,7 +185,6 @@ Chcete-li vyhledávací dotaz upravit, proveďte výběr dlouhým stisknutím. C
 <translation id="4099578267706723511">Pomozte Chrome zlepšovat – posílejte Googlu statistiky využití a zprávy o selhání.</translation>
 <translation id="411254640334432676">Stahování se nezdařilo.</translation>
 <translation id="4113030288477039509">Spravováno vaším administrátorem</translation>
-<translation id="4148957013307229264">Instalace...</translation>
 <translation id="4165986682804962316">Nastavení webu</translation>
 <translation id="4170011742729630528">Služba není k dispozici, zkuste to později.</translation>
 <translation id="4195643157523330669">Otevřít na nové kartě</translation>
@@ -207,10 +202,9 @@ Chcete-li vyhledávací dotaz upravit, proveďte výběr dlouhým stisknutím. C
 <translation id="4378154925671717803">Telefon</translation>
 <translation id="4412992751769744546">Povolit cookies třetích stran</translation>
 <translation id="4440256989292146959">Více webu za méně peněz</translation>
-<translation id="4510973599275542560">Nenačítat znovu</translation>
+<translation id="4505554159887937799">Uloženo offline</translation>
 <translation id="4522570452068850558">Podrobnosti</translation>
 <translation id="4526249700380860531">Uložená hesla můžete zobrazit a upravit na adrese <ph name="BEGIN_LINK"/>passwords.google.com<ph name="END_LINK"/></translation>
-<translation id="4526792582053123229">Stránky zobrazené prostřednictvím protokolu HTTPS nebo v anonymním režimu nebudou pro Google viditelné a nebudou optimalizovány.</translation>
 <translation id="4532845899244822526">Výběr složky</translation>
 <translation id="4543087392704641517">Název záložky</translation>
 <translation id="4543661749405994812">Kopírovat e-mailovou adresu</translation>
@@ -230,6 +224,7 @@ Chcete-li vyhledávací dotaz upravit, proveďte výběr dlouhým stisknutím. C
 <translation id="4807098396393229769">Jméno na kartě</translation>
 <translation id="4816465935029283692">Typy dat</translation>
 <translation id="4827948050554950725">Přidat platební kartu</translation>
+<translation id="4836364883164334657">Připojení k tomuto webu není soukromé. Útočníci se mohou pokusit ukrást vaše údaje na webu <ph name="DOMAIN_NAME"/> (například fotky, hesla, zprávy nebo informace o platebních kartách).</translation>
 <translation id="4871370605780490696">Přidat záložku</translation>
 <translation id="4881695831933465202">Otevřít</translation>
 <translation id="4885273946141277891">Nepodporovaný počet instancí Chromu.</translation>
@@ -243,7 +238,6 @@ Stačí otevřít Chrome v počítači, přejít do nabídky a zvolit možnost P
 <translation id="5000922062037820727">Blokováno (doporučeno)</translation>
 <translation id="5016205925109358554">Patková</translation>
 <translation id="5017989644593831205">Nejste <ph name="NOT_YOU_USER_NAME"/>?</translation>
-<translation id="5032574515228824816">Výzva</translation>
 <translation id="5039804452771397117">Povolit</translation>
 <translation id="5040262127954254034">Ochrana soukromí</translation>
 <translation id="5042680980623431490">Při importu záložek z prohlížeče Android nastal problém.</translation>
@@ -285,6 +279,7 @@ Stačí otevřít Chrome v počítači, přejít do nabídky a zvolit možnost P
 <translation id="5511351932351731210">Vždy odesílat</translation>
 <translation id="5512137114520586844">Tento účet je spravován uživatelem <ph name="PARENT_NAME"/>.</translation>
 <translation id="5530766185686772672">Zavřít anonymní karty</translation>
+<translation id="5556459405103347317">Načíst znovu</translation>
 <translation id="5565871407246142825">Platební karty</translation>
 <translation id="5578795271662203820">Hledat obrázek pomocí <ph name="SEARCH_ENGINE"/></translation>
 <translation id="5595485650161345191">Upravit adresu</translation>
@@ -343,7 +338,6 @@ Některé weby mohou například na tento požadavek reagovat tak, že vám zobr
 <translation id="6140912465461743537">Země/Region</translation>
 <translation id="6159335304067198720">Úspora dat: <ph name="PERCENT"/></translation>
 <translation id="6165508094623778733">Další informace</translation>
-<translation id="6177390657002841081">Zapnutí Spořiče dat</translation>
 <translation id="6192792657125177640">Výjimky</translation>
 <translation id="6208263165776660488">Karty Chrome byly přesunuty</translation>
 <translation id="6231464350722415003">Povolit JavaScript na webech, které uvedete, ale na zbytku webu jej blokovat.</translation>
@@ -365,7 +359,6 @@ Některé weby mohou například na tento požadavek reagovat tak, že vám zobr
 <translation id="6458785801851713928">Synchronizace není pro vaši doménu k dispozici.</translation>
 <translation id="6464825623202322042">Toto zařízení</translation>
 <translation id="6476911854266661814">Pozastaveno – <ph name="VIDEO_TITLE"/></translation>
-<translation id="6512448926095770873">Opustit tuto stránku</translation>
 <translation id="654446541061731451">Vyberte kartu, kterou chcete přenést</translation>
 <translation id="6550675742724504774">Možnosti</translation>
 <translation id="656628257199996201">Vždy překládat jazyk <ph name="SOURCE_LANGUAGE"/></translation>
@@ -381,12 +374,15 @@ Některé weby mohou například na tento požadavek reagovat tak, že vám zobr
 <translation id="666981079809192359">Ochrana soukromí v Chromu</translation>
 <translation id="6671495933530132209">Zkopírovat obrázek</translation>
 <translation id="6675018499747166670">Přehrává se zvuk. Klepnutím se vrátíte na kartu <ph name="URL_OF_THE_CURRENT_TAB"/>.</translation>
+<translation id="6697251040310467641">Stránka byla uložena offline</translation>
 <translation id="6698801883190606802">Správa synchronizovaných dat</translation>
+<translation id="6699351163704950317">Všechny uložené stránky</translation>
 <translation id="6710213216561001401">Předchozí</translation>
 <translation id="6738867403308150051">Stahování…</translation>
 <translation id="6770414673596662518">Chrome bude také používat systém Bezpečné prohlížení, který umožňuje zjistit škodlivé stránky a ochránit vás před phishingem, malwarem a škodlivými soubory ke stažení.</translation>
 <translation id="6784675033504223784">Vyhledat výraz „<ph name="SEARCH_TERM"/>“</translation>
 <translation id="6790428901817661496">Přehrát</translation>
+<translation id="6792460226655139786">Uložené stránky</translation>
 <translation id="6820607729870073286">Nemáte žádná uložená nastavení webů.</translation>
 <translation id="6820686453637990663">Bezpečnostní kód platební karty (CVC)</translation>
 <translation id="6831043979455480757">Přeložit</translation>
@@ -441,7 +437,6 @@ Některé weby mohou například na tento požadavek reagovat tak, že vám zobr
 <translation id="7626032353295482388">Vítá vás Chrome</translation>
 <translation id="7634554953375732414">Spojení s tímto webem není soukromé.</translation>
 <translation id="7638584964844754484">Nesprávná heslová fráze</translation>
-<translation id="7644305409888602715">Překlad stránky do jazyka: <ph name="SOURCE_LANGUAGE"/>...</translation>
 <translation id="764743049316168389">Složka <ph name="FOLDER_NAME"/></translation>
 <translation id="7648120236428811856">Přihlaste se do Chromu, abyste ke svým záložkám měli přístup v libovolném zařízení</translation>
 <translation id="7648422057306047504">Šifrovat hesla pomocí identifikačních údajů Google</translation>
@@ -551,7 +546,6 @@ Chcete-li získat nové licence, připojte se k internetu a přehrajte stažen
 <translation id="9100610230175265781">Je vyžadována heslová fráze</translation>
 <translation id="9133515669113036225">Resetovat identifikační údaje zařízení</translation>
 <translation id="9137013805542155359">Zobrazit originál</translation>
-<translation id="9154176715500758432">Zůstat na této stránce</translation>
 <translation id="9156605176886108508">Žádné složky se záložkami</translation>
 <translation id="9206873250291191720">A</translation>
 <translation id="932327136139879170">Domovská stránka</translation>
