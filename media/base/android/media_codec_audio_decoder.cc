@@ -168,6 +168,7 @@ void MediaCodecAudioDecoder::OnOutputFormatChanged() {
 }
 
 void MediaCodecAudioDecoder::Render(int buffer_index,
+                                    size_t offset,
                                     size_t size,
                                     RenderMode render_mode,
                                     base::TimeDelta pts,
@@ -188,16 +189,11 @@ void MediaCodecAudioDecoder::Render(int buffer_index,
     const bool postpone = (render_mode == kRenderAfterPreroll);
 
     int64 head_position =
-<<<<<<< HEAD
-        (static_cast<AudioCodecBridge*>(media_codec_bridge_.get()))
-            ->PlayOutputBuffer(buffer_index, size);
-=======
         audio_codec->PlayOutputBuffer(buffer_index, size, offset, postpone);
 
     DVLOG(2) << class_name() << "::" << __FUNCTION__ << " pts:" << pts
              << (postpone ? " POSTPONE" : "")
              << " head_position:" << head_position;
->>>>>>> 17658f6... MediaCodecPlayer implementation (stage 4 - preroll)
 
     size_t new_frames_count = size / bytes_per_frame_;
     frame_count_ += new_frames_count;

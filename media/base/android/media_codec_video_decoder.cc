@@ -201,6 +201,7 @@ void MediaCodecVideoDecoder::OnOutputFormatChanged() {
 }
 
 void MediaCodecVideoDecoder::Render(int buffer_index,
+                                    size_t offset,
                                     size_t size,
                                     RenderMode render_mode,
                                     base::TimeDelta pts,

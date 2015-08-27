@@ -136,6 +136,8 @@
 namespace media {
 
 class BrowserCdm;
+class MediaCodecAudioDecoder;
+class MediaCodecVideoDecoder;
 
 // Returns the task runner for the media thread
 MEDIA_EXPORT scoped_refptr<base::SingleThreadTaskRunner> GetMediaTaskRunner();

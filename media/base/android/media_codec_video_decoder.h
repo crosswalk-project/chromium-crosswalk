@@ -58,6 +58,7 @@ class MediaCodecVideoDecoder : public MediaCodecDecoder {
   void DissociatePTSFromTime() override;
   void OnOutputFormatChanged() override;
   void Render(int buffer_index,
+              size_t offset,
               size_t size,
               RenderMode render_mode,
               base::TimeDelta pts,
