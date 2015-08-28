@@ -274,6 +274,20 @@
       'public/browser/zoom_level_delegate.h',
       'public/browser/zygote_host_linux.h',
     ],
+    'private_browser_sources_notifications': [
+      'browser/notifications/notification_database.cc',
+      'browser/notifications/notification_database.h',
+      'browser/notifications/notification_database_data_conversions.cc',
+      'browser/notifications/notification_database_data_conversions.h',
+      'browser/notifications/notification_event_dispatcher_impl.cc',
+      'browser/notifications/notification_event_dispatcher_impl.h',
+      'browser/notifications/notification_message_filter.cc',
+      'browser/notifications/notification_message_filter.h',
+      'browser/notifications/page_notification_delegate.cc',
+      'browser/notifications/page_notification_delegate.h',
+      'browser/notifications/platform_notification_context_impl.cc',
+      'browser/notifications/platform_notification_context_impl.h',
+    ],
     'private_browser_sources': [
       '<(SHARED_INTERMEDIATE_DIR)/content/browser/tracing/grit/tracing_resources.h',
       '<(SHARED_INTERMEDIATE_DIR)/ui/resources/grit/webui_resources_map.cc',
@@ -1694,6 +1708,14 @@
     ['disable_web_audio == 1', {
       'sources!': [
         '<@(private_browser_sources_web_audio)',
+      ],
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_browser_sources_notifications)',
+      ],
+      'dependencies!': [
+        'browser/notifications/notification_proto.gyp:notification_proto',
       ],
     }],
     ['OS == "win"', {

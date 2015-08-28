@@ -426,8 +426,10 @@ StoragePartitionImpl::~StoragePartitionImpl() {
   if (GetGeofencingManager())
     GetGeofencingManager()->Shutdown();
 
+#ifndef DISABLE_NOTIFICATIONS
   if (GetPlatformNotificationContext())
     GetPlatformNotificationContext()->Shutdown();
+#endif
 }
 
 StoragePartitionImpl* StoragePartitionImpl::Create(
@@ -515,10 +517,13 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   navigator_connect_context->AddFactory(make_scoped_ptr(
       new NavigatorConnectServiceWorkerServiceFactory(service_worker_context)));
 
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<PlatformNotificationContextImpl> platform_notification_context =
       new PlatformNotificationContextImpl(path, service_worker_context);
   platform_notification_context->Initialize();
+#endif
 
+#ifndef DISABLE_NOTIFICATIONS
   StoragePartitionImpl* storage_partition = new StoragePartitionImpl(
       context, partition_path, quota_manager.get(), appcache_service.get(),
       filesystem_context.get(), database_tracker.get(),
@@ -528,6 +533,17 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
       geofencing_manager.get(), host_zoom_level_context.get(),
       navigator_connect_context.get(),
       platform_notification_context.get());
+#else
+  StoragePartitionImpl* storage_partition = new StoragePartitionImpl(
+      context, partition_path, quota_manager.get(), appcache_service.get(),
+      filesystem_context.get(), database_tracker.get(),
+      dom_storage_context.get(), indexed_db_context.get(),
+      cache_storage_context.get(), service_worker_context.get(),
+      webrtc_identity_store.get(), special_storage_policy.get(),
+      geofencing_manager.get(), host_zoom_level_context.get(),
+      navigator_connect_context.get(),
+      nullptr);
+#endif
 
   service_worker_context->set_storage_partition(storage_partition);
 
@@ -604,7 +620,11 @@ StoragePartitionImpl::GetNavigatorConnectContext() {
 
 PlatformNotificationContextImpl*
 StoragePartitionImpl::GetPlatformNotificationContext() {
+#ifndef DISABLE_NOTIFICATIONS
   return platform_notification_context_.get();
+#else
+  return nullptr;
+#endif
 }
 
 void StoragePartitionImpl::ClearDataImpl(
