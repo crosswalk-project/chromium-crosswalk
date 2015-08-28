@@ -1161,7 +1161,6 @@ protected:
         const LayoutRect& oldPaintInvalidationRect, const LayoutPoint& oldPositionFromPaintInvalidationBacking,
         const LayoutRect& newPaintInvalidationRect, const LayoutPoint& newPositionFromPaintInvalidationBacking) const;
     virtual void incrementallyInvalidatePaint(const LayoutBoxModelObject& paintInvalidationContainer, const LayoutRect& oldBounds, const LayoutRect& newBounds, const LayoutPoint& positionFromPaintInvalidationBacking);
-    void fullyInvalidatePaint(const LayoutBoxModelObject& paintInvalidationContainer, PaintInvalidationReason, const LayoutRect& oldBounds, const LayoutRect& newBounds);
 
     virtual bool hasNonCompositedScrollbars() const { return false; }
 
@@ -1184,6 +1183,8 @@ protected:
     void setIsSlowRepaintObject(bool);
 
 private:
+    void fullyInvalidatePaint(const LayoutBoxModelObject& paintInvalidationContainer, PaintInvalidationReason, const LayoutRect& oldBounds, const LayoutRect& newBounds);
+
     const LayoutRect& previousPaintInvalidationRect() const { return m_previousPaintInvalidationRect; }
 
     // Adjusts a paint invalidation rect in the space of |m_previousPaintInvalidationRect| and |m_previousPositionFromPaintInvalidationBacking|
