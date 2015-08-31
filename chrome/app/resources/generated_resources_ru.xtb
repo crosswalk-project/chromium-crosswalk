@@ -9,6 +9,7 @@
 <translation id="1010366937854368312">Добавить другие специальные возможности</translation>
 <translation id="1010833424573920260">{NUM_PAGES,plural, =1{Страница не отвечает}one{Страницы не отвечают}few{Страницы не отвечают}many{Страницы не отвечают}other{Страницы не отвечают}}</translation>
 <translation id="1012794136286421601">Ваши документы, таблицы, презентации и рисунки синхронизируются. Запустите приложение "Google Диск", чтобы получить к ним доступ в режиме онлайн или офлайн.</translation>
+<translation id="1012876632442809908">Устройство USB-C (порт спереди)</translation>
 <translation id="1013707859758800957">На этой странице был запущен плагин, работающий вне тестовой среды.</translation>
 <translation id="1014321050861012327">Автоматически сохранять пароли</translation>
 <translation id="1015255576907412255">За дополнительной информацией обращайтесь к системному администратору.</translation>
@@ -197,6 +198,7 @@
 <translation id="1285484354230578868">Сохранение данных на вашем Google Диске</translation>
 <translation id="1286637972568390913">Включить поддержку аппаратного кодирования видео WebRTC.</translation>
 <translation id="1290223615328246825">Автоматический вход не выполнен</translation>
+<translation id="1293264513303784526">Устройство USB-C (порт слева)</translation>
 <translation id="1293556467332435079">Файлы</translation>
 <translation id="1294298200424241932">Изменить настройки доверия:</translation>
 <translation id="129553762522093515">Недавно закрытые</translation>
@@ -519,6 +521,7 @@
 <translation id="1718396316646584626">Спрашивать самостоятельно</translation>
 <translation id="1718559768876751602">Создать аккаунт Google</translation>
 <translation id="1720318856472900922">Аутентификация сервера TLS WWW</translation>
+<translation id="1720372306711178108">Расширенное отображение</translation>
 <translation id="1721937473331968728">В <ph name="CLOUD_PRINT_NAME" /> можно добавлять обычные принтеры, подключенные к компьютеру.</translation>
 <translation id="1722567105086139392">Ссылка</translation>
 <translation id="1723824996674794290">&amp;Новое окно</translation>
@@ -610,6 +613,7 @@
 <translation id="1859234291848436338">Направление письма</translation>
 <translation id="1864111464094315414">Вход</translation>
 <translation id="1864146862702347178">Включить предсказывание движений пальцев при прокрутке</translation>
+<translation id="1864454756846565995">Устройство USB-C (порт сзади)</translation>
 <translation id="1864676585353837027">Измените настройки доступа к файлам.</translation>
 <translation id="1864756863218646478">Не удалось найти файл.</translation>
 <translation id="186612162884103683">Расширению "<ph name="EXTENSION" />" будет предоставлен доступ для чтения и записи к изображениям, видео- и аудиофайлам в отмеченных папках.</translation>
@@ -852,6 +856,15 @@
 <translation id="2242603986093373032">Устройства не найдены</translation>
 <translation id="2242687258748107519">Информация о файле</translation>
 <translation id="2246340272688122454">Скачивание образа для восстановления…</translation>
+<translation id="2249499294612408921">Владелец аккаунта c контролируемыми профилями может делать следующее:
+
+ • разрешать или запрещать посещение определенных сайтов;
+ • проверять, какие сайты открывал пользователь;
+ • менять настройки.
+
+Контролируемый профиль не является аккаунтом Google. Его настройки и данные не будут доступны на других устройствах с помощью Синхронизации Chrome.
+
+Владелец может менять настройки контролируемого профиля на странице <ph name="DISPLAY_LINK" />, открыв ее на любом устройстве. <ph name="BEGIN_LINK" />Подробнее…<ph name="END_LINK" /></translation>
 <translation id="2249605167705922988">Например: 1–5, 8, 11–13</translation>
 <translation id="2251218783371366160">Открыть в программе просмотра по умолчанию</translation>
 <translation id="225163402930830576">Обновить сети</translation>
@@ -1118,6 +1131,7 @@
 <translation id="2597852038534460976">Chrome не может открыть список обоев. Подключитесь к сети.</translation>
 <translation id="2603463522847370204">Открыть в режиме &amp;инкогнито</translation>
 <translation id="2607101320794533334">Информация об открытом ключе субъекта</translation>
+<translation id="2607459012323956820">Менеджер может просматривать настройки и историю этого контролируемого профиля на странице <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />.</translation>
 <translation id="2607991137469694339">Способ ввода для тамильского языка (фонетический)</translation>
 <translation id="2608770217409477136">Использовать настройки по умолчанию</translation>
 <translation id="2609371827041010694">Всегда запускать на этом сайте</translation>
@@ -1232,6 +1246,7 @@
 <translation id="2766006623206032690">Вс&amp;тавить из буфера и перейти</translation>
 <translation id="276969039800130567">Вы вошли как <ph name="USER_EMAIL_ADDRESS" />.</translation>
 <translation id="2770465223704140727">Удалить из списка</translation>
+<translation id="2772486706456906761">Устройство USB-C (дальний порт справа)</translation>
 <translation id="2772936498786524345">Ниндзя</translation>
 <translation id="2773948261276885771">Добавить</translation>
 <translation id="2776441542064982094">Устройства для регистрации в сети не найдены. Если ваше устройство включено и подключено к Интернету, зарегистрируйте его согласно инструкциям, содержащимся в его руководстве по эксплуатации.</translation>
@@ -1325,6 +1340,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="2862043554446264826">Не включать отладку только для протокола SSH и транслятора PNaCl</translation>
 <translation id="2867768963760577682">Открыть в закрепленной вкладке</translation>
 <translation id="2868746137289129307">Это устаревшее расширение отключено в соответствии с корпоративной политикой. Когда появится новая версия, оно может включиться автоматически.</translation>
+<translation id="2868979525648340289">Размещаемые приложения открываются в отдельных окнах, а не во вкладках браузера.</translation>
 <translation id="2869742291459757746">Пользователь может разрешить Chrome создавать пароли на страницах регистрации аккаунтов.</translation>
 <translation id="2870560284913253234">Сайт</translation>
 <translation id="2870836398458454343">Транслитерация (marhaban ← مرحبا)</translation>
@@ -1375,6 +1391,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="2924296707677495905">Транслитерация (namaskaram → ನಮಸ್ಕಾರ)</translation>
 <translation id="2925966894897775835">Таблицы</translation>
 <translation id="2927657246008729253">Изменить...</translation>
+<translation id="2928129671333858270">Устройство USB-C (ближний порт справа)</translation>
 <translation id="2928526264833629376">Перейти к Hangouts</translation>
 <translation id="2930644991850369934">При скачивании образа для восстановления произошла ошибка. Нет подключения к сети.</translation>
 <translation id="2932330436172705843"><ph name="PROFILE_DISPLAY_NAME" /> (детский аккаунт)</translation>
@@ -1746,6 +1763,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="3444783709767514481">Первая передача</translation>
 <translation id="3445092916808119474">Сделать основным</translation>
 <translation id="3445830502289589282">Двухэтапная аутентификация:</translation>
+<translation id="3445925074670675829">Устройство USB-C</translation>
 <translation id="3447661539832366887">Владелец этого устройства отключил игру с динозавром.</translation>
 <translation id="3449839693241009168">Нажмите <ph name="SEARCH_KEY" /> для отправки команд в <ph name="EXTENSION_NAME" /></translation>
 <translation id="3450157232394774192">Продолжительность состояния бездействия в процентах</translation>
@@ -1881,6 +1899,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="3593152357631900254">Включить режим Fuzzy-Pinyin</translation>
 <translation id="3593965109698325041">Ограничения имени сертификата</translation>
 <translation id="3595596368722241419">Аккумулятор заряжен</translation>
+<translation id="3599388054163874639">Устройство USB-C (дальний порт слева)</translation>
 <translation id="3600456501114769456">Доступ к локальным файлам на вашем мобильном устройстве отключен администратором.</translation>
 <translation id="3601395307734599350">Все ваши расширения теперь здесь</translation>
 <translation id="3603385196401704894">Канадская (французская)</translation>
@@ -1913,6 +1932,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="3633997706330212530">Если требуется, эти службы можно отключить.</translation>
 <translation id="3635030235490426869">Вкладка 1</translation>
 <translation id="3636096452488277381">Привет, <ph name="USER_GIVEN_NAME" />!</translation>
+<translation id="3636766455281737684"><ph name="PERCENTAGE" />% (ещё <ph name="TIME" />)</translation>
 <translation id="363903084947548957">Следующий способ ввода</translation>
 <translation id="3640214691812501263">Добавить расширение "<ph name="EXTENSION_NAME" />" для пользователя <ph name="USER_NAME" />?</translation>
 <translation id="3643454140968246241">Выполняется синхронизация такого количества файлов: <ph name="COUNT" />...</translation>
@@ -2452,11 +2472,13 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="4394049700291259645">Отключить</translation>
 <translation id="4395129973926795186">С <ph name="START_DATE" /> по <ph name="END_DATE" /></translation>
 <translation id="4396124683129237657">Новая карта…</translation>
+<translation id="4399752472093110946">Устройство USB-C (порт сзади справа)</translation>
 <translation id="4405141258442788789">Тайм-аут операции.</translation>
 <translation id="4406896451731180161">Результаты поиска</translation>
 <translation id="4409697491990005945">Поля</translation>
 <translation id="4411578466613447185">Сертификат кода</translation>
 <translation id="4414232939543644979">Новое окно в режиме инкогнито</translation>
+<translation id="441468701424154954">Показывать окно на нескольких устройствах</translation>
 <translation id="4416628180566102937">Зарегистрировать и перезагрузить</translation>
 <translation id="4419409365248380979">Разрешить сайту <ph name="HOST" /> сохранять файлы cookie</translation>
 <translation id="4421932782753506458">Пушистик</translation>
@@ -2476,6 +2498,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="444134486829715816">Развернуть...</translation>
 <translation id="444267095790823769">Исключения для защищенного контента</translation>
 <translation id="4443536555189480885">&amp;Справка</translation>
+<translation id="4446933390699670756">Зеркальное отображение</translation>
 <translation id="4447465454292850432">Батарея:</translation>
 <translation id="4448186133363537200">Запрещает Javascript блокировать ориентацию экрана.</translation>
 <translation id="4449935293120761385">Подробнее…</translation>
@@ -2682,6 +2705,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="4755351698505571593">Изменять данные настройки может только владелец.</translation>
 <translation id="4756388243121344051">&amp;История</translation>
 <translation id="4759238208242260848">Скачанные файлы</translation>
+<translation id="4760518129520351035">Не спрашивать</translation>
 <translation id="4761104368405085019">Использование микрофона</translation>
 <translation id="4763830802490665879">Файлы cookie с нескольких сайтов будут удалены при завершении сеанса.</translation>
 <translation id="4764029864566166446">Обновить плагин...</translation>
@@ -2751,6 +2775,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="4850258771229959924">Просмотреть в Инструментах разработчика</translation>
 <translation id="4850458635498951714">Добавить устройство</translation>
 <translation id="4850886885716139402">Посмотреть</translation>
+<translation id="4851891636342244617">Устройство USB-C (ближний порт слева)</translation>
 <translation id="4853020600495124913">Открыть в &amp;новом окне</translation>
 <translation id="485316830061041779">Немецкий</translation>
 <translation id="4856478137399998590">Служба передачи данных в мобильных сетях активирована и готова к использованию</translation>
@@ -2930,6 +2955,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="5129301143853688736">Подключение не защищено. Злоумышленники могут пытаться похитить ваши данные (например, пароли, сообщения или номера банковских карт) в домене <ph name="DOMAIN" />.</translation>
 <translation id="5129662217315786329">Польский</translation>
 <translation id="5130080518784460891">Этен</translation>
+<translation id="5130850353323170739">Устройство USB-C (порт сзади слева)</translation>
 <translation id="5135533361271311778">Не удалось создать закладку.</translation>
 <translation id="5136529877787728692">F7</translation>
 <translation id="5137501176474113045">Удалить</translation>
@@ -3329,6 +3355,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="5649823029736413118">Для воспроизведения премиум-контента <ph name="URL" /> запрашивает уникальный код устройства.</translation>
 <translation id="5650203097176527467">Загрузка информации о платеже</translation>
 <translation id="5650551054760837876">Ничего не найдено.</translation>
+<translation id="5651448275201436327">Открывать размещаемые приложения в окнах</translation>
 <translation id="5653140146600257126">Папка "$1" уже существует. Выберите другое название.</translation>
 <translation id="5657667036353380798">Для установки внешнего расширения требуется версия Chrome <ph name="MINIMUM_CHROME_VERSION" /> или выше.</translation>
 <translation id="5659593005791499971">Электронная почта</translation>
@@ -3897,6 +3924,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="6485352695865682479">Статус подключения</translation>
 <translation id="648927581764831596">Отсутствуют</translation>
 <translation id="6489534406876378309">Начать загрузку сведений об ошибках</translation>
+<translation id="6490471652906364588">Устройство USB-C (порт справа)</translation>
 <translation id="6490936204492416398">Установите новые расширения в Интернет-магазине</translation>
 <translation id="6492313032770352219">Объем на диске:</translation>
 <translation id="6498855056513831869">Отключить автоматическое обновление часового пояса на основании геоданных</translation>
@@ -3917,6 +3945,9 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="6514565641373682518">Эта страница скрыла курсор.</translation>
 <translation id="6516193643535292276">Не удается подключиться к Интернету</translation>
 <translation id="6518014396551869914">Коп&amp;ировать картинку</translation>
+<translation id="6518066513180887959">Создан контролируемый профиль <ph name="NEW_PROFILE_NAME" />. Чтобы запретить ему посещение каких-либо страниц, перейдите на <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />. Если вы оставите настройки по умолчанию, <ph name="NEW_PROFILE_NAME" /> сможет открывать все сайты.
+
+  Дальнейшие инструкции отправлены на адрес <ph name="ACCOUNT_EMAIL" />.</translation>
 <translation id="6518133107902771759">Подтвердить</translation>
 <translation id="651942933739530207">Предоставить приложению "<ph name="APP_NAME" />" доступ к вашему экрану и звуку?</translation>
 <translation id="6519437681804756269">[<ph name="TIMESTAMP" />]
@@ -4423,6 +4454,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="7273110280511444812">последнее подключение: <ph name="DATE" /></translation>
 <translation id="7273774418879988007">Передает звук через аудиовыход, чтобы проверить доступность дополнительных каналов, не настроенных по умолчанию. Включив эту функцию, вы разрешаете операционной системе воспроизводить стерео в режиме Surround expansion (если поддерживается). Может содержать ошибки сторонних драйверов. Используйте с осторожностью.</translation>
 <translation id="7274090186291031608">Экран <ph name="SCREEN_INDEX" /></translation>
+<translation id="727441411541283857"><ph name="PERCENTAGE" />% (<ph name="TIME" /> до полной зарядки)</translation>
 <translation id="7278870042769914968">Использовать тему GTK+</translation>
 <translation id="727952162645687754">Не удалось скачать</translation>
 <translation id="7279701417129455881">Настроить блокировку cookie…</translation>
@@ -5063,6 +5095,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="8165208966034452696"><ph name="PLUGIN_NAME" /></translation>
 <translation id="8165383685500900731">Настройки микрофона</translation>
 <translation id="81686154743329117">ZRM</translation>
+<translation id="8168808299436928592">Не спрашивать</translation>
 <translation id="8169977663846153645">Расчет времени работы от батареи</translation>
 <translation id="8172078946816149352">Исключения Adobe Flash Player для микрофона отличаются.</translation>
 <translation id="8174047975335711832">Сведения об устройстве</translation>
@@ -5314,6 +5347,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="8528962588711550376">Выполняется вход.</translation>
 <translation id="8535005006684281994">URL обновления сертификатов Netscape</translation>
 <translation id="8539727552378197395">Нет (HttpOnly)</translation>
+<translation id="8543181531796978784"><ph name="BEGIN_ERROR_LINK" />Сообщите о зараженном сайте<ph name="END_ERROR_LINK" />. Если вы готовы подвергнуть риску личные данные, то можете <ph name="BEGIN_LINK" />перейти на страницу<ph name="END_LINK" />.</translation>
 <translation id="8545107379349809705">Скрыть сведения</translation>
 <translation id="8545211332741562162">Использование в веб-страницах элементов экспериментального JavaScript.</translation>
 <translation id="8545575359873600875">Не удалось проверить пароль. Возможно, его недавно сменил администратор, управляющий этим профилем. В этом случае новый пароль потребуется при следующем входе. Попробуйте использовать прежний пароль.</translation>
