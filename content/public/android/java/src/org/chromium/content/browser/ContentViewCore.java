@@ -2039,6 +2039,15 @@ public class ContentViewCore implements
         // Start a new action mode with a WebActionModeCallback.
         if (mActionHandler == null) {
             mActionHandler = new WebActionModeCallback.ActionHandler() {
+                /**
+                 * Android Intent size limitations prevent sending over a megabyte of data. Limit
+                 * query lengths to 100kB because other things may be added to the Intent.
+                 */
+                private static final int MAX_SHARE_QUERY_LENGTH = 100000;
+
+                /** Google search doesn't support requests slightly larger than this. */
+                private static final int MAX_SEARCH_QUERY_LENGTH = 1000;
+
                 @Override
                 public void selectAll() {
                     mWebContents.selectAll();
@@ -2061,7 +2070,7 @@ public class ContentViewCore implements
 
                 @Override
                 public void share() {
-                    final String query = getSelectedText();
+                    final String query = sanitizeQuery(getSelectedText(), MAX_SHARE_QUERY_LENGTH);
                     if (TextUtils.isEmpty(query)) return;
 
                     Intent send = new Intent(Intent.ACTION_SEND);
@@ -2079,7 +2088,7 @@ public class ContentViewCore implements
 
                 @Override
                 public void search() {
-                    final String query = getSelectedText();
+                    final String query = sanitizeQuery(getSelectedText(), MAX_SEARCH_QUERY_LENGTH);
                     if (TextUtils.isEmpty(query)) return;
 
                     // See if ContentViewClient wants to override.
@@ -2155,6 +2164,12 @@ public class ContentViewCore implements
                 @Override
                 public boolean isIncognito() {
                     return mWebContents.isIncognito();
+                }
+
+                private String sanitizeQuery(String query, int maxLength) {
+                    if (TextUtils.isEmpty(query) || query.length() < maxLength) return query;
+                    Log.w(TAG, "Truncating oversized query (" + query.length() + ").");
+                    return query.substring(0, maxLength) + "…";
                 }
             };
         }
