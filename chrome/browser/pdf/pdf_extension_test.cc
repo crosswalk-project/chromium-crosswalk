@@ -167,10 +167,10 @@ class PDFExtensionTest : public ExtensionApiTest,
   }
 
   void TestGetSelectedTextReply(GURL url, bool expect_success) {
-    ui_test_utils::NavigateToURL(browser(), url);
+    ASSERT_TRUE(LoadPdf(url));
+
     content::WebContents* web_contents =
         browser()->tab_strip_model()->GetActiveWebContents();
-    ASSERT_TRUE(pdf_extension_test_util::EnsurePDFHasLoaded(web_contents));
 
     // Reach into the guest and hook into it such that it posts back a 'flush'
     // message after every getSelectedTextReply message sent.
