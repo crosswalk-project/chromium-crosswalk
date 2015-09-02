@@ -1389,7 +1389,7 @@ WebInspector.TimelineUIUtils.generateDetailsContentForFrame = function(frameMode
         var filmStripPreview = createElementWithClass("img", "timeline-filmstrip-preview");
         filmStripFrame.imageDataPromise().then(onGotImageData.bind(null, filmStripPreview));
         contentHelper.appendElementRow(WebInspector.UIString("Screenshot"), filmStripPreview);
-        filmStripPreview.addEventListener("click", filmStripClicked.bind(null, filmStripFrame), false);
+        filmStripPreview.addEventListener("click", frameClicked.bind(null, filmStripFrame), false);
     }
     contentHelper.appendTextRow(WebInspector.UIString("Duration"), durationText);
     contentHelper.appendTextRow(WebInspector.UIString("FPS"), Math.floor(1000 / durationInMillis));
@@ -1413,9 +1413,9 @@ WebInspector.TimelineUIUtils.generateDetailsContentForFrame = function(frameMode
     /**
      * @param {!WebInspector.FilmStripModel.Frame} filmStripFrame
      */
-    function filmStripClicked(filmStripFrame)
+    function frameClicked(filmStripFrame)
     {
-        WebInspector.Dialog.show(null, new WebInspector.FilmStripView.DialogDelegate(filmStripFrame, 0));
+        new WebInspector.FilmStripView.DialogDelegate(filmStripFrame, 0);
     }
 
     return contentHelper.element;
