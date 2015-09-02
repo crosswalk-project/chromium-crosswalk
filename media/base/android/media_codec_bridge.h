@@ -6,6 +6,7 @@
 #define MEDIA_BASE_ANDROID_MEDIA_CODEC_BRIDGE_H_
 
 #include <jni.h>
+#include <set>
 #include <string>
 
 #include "base/android/scoped_java_ref.h"
@@ -201,6 +202,11 @@ class MEDIA_EXPORT MediaCodecBridge {
   // started.
   bool StartInternal() WARN_UNUSED_RESULT;
 
+  // Called to get the buffer address given the output buffer index and offset.
+  // This function returns the size of the output and |addr| is the pointer to
+  // the address to read.
+  int GetOutputBufferAddress(int index, size_t offset, void** addr);
+
   jobject media_codec() { return j_media_codec_.obj(); }
   MediaCodecDirection direction_;
 
@@ -232,10 +238,18 @@ class AudioCodecBridge : public MediaCodecBridge {
              int64 codec_delay_ns, int64 seek_preroll_ns,
              bool play_audio, jobject media_crypto) WARN_UNUSED_RESULT;
 
-  // Play the output buffer. This call must be called after
-  // DequeueOutputBuffer() and before ReleaseOutputBuffer. Returns the playback
-  // head position expressed in frames.
-  int64 PlayOutputBuffer(int index, size_t size);
+  // Plays the output buffer right away or save for later playback if |postpone|
+  // is set to true. This call must be called after DequeueOutputBuffer() and
+  // before ReleaseOutputBuffer. The data is extracted from the output buffers
+  // using |index|, |size| and |offset|. Returns the playback head position
+  // expressed in frames.
+  // When |postpone| is set to true, the next PlayOutputBuffer() should have
+  // postpone == false, and it will play two buffers: the postponed one and
+  // the one identified by |index|.
+  int64 PlayOutputBuffer(int index,
+                         size_t size,
+                         size_t offset,
+                         bool postpone = false);
 
   // Set the volume of the audio output.
   void SetVolume(double volume);

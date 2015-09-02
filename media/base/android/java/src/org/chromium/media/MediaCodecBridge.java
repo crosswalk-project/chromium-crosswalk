@@ -75,6 +75,7 @@ class MediaCodecBridge {
 
     private MediaCodec mMediaCodec;
     private AudioTrack mAudioTrack;
+    private byte[] mPendingAudioBuffer;
     private boolean mFlushed;
     private long mLastPresentationTimeUs;
     private String mMime;
@@ -303,6 +304,7 @@ class MediaCodecBridge {
             MediaCodec mediaCodec, String mime, boolean adaptivePlaybackSupported) {
         assert mediaCodec != null;
         mMediaCodec = mediaCodec;
+        mPendingAudioBuffer = null;
         mMime = mime;
         mLastPresentationTimeUs = 0;
         mFlushed = true;
@@ -356,6 +358,7 @@ class MediaCodecBridge {
     @CalledByNative
     private void release() {
         try {
+            Log.w(TAG, "calling MediaCodec.release()");
             mMediaCodec.release();
         } catch (IllegalStateException e) {
             // The MediaCodec is stuck in a wrong state, possibly due to losing
@@ -366,6 +369,7 @@ class MediaCodecBridge {
         if (mAudioTrack != null) {
             mAudioTrack.release();
         }
+        mPendingAudioBuffer = null;
     }
 
     @SuppressWarnings("deprecation")
@@ -414,6 +418,7 @@ class MediaCodecBridge {
                 // Need to call pause() here, or otherwise flush() is a no-op.
                 mAudioTrack.pause();
                 mAudioTrack.flush();
+                mPendingAudioBuffer = null;
             }
             mMediaCodec.flush();
         } catch (IllegalStateException e) {
@@ -707,6 +712,7 @@ class MediaCodecBridge {
                 mAudioTrack = new AudioTrack(AudioManager.STREAM_MUSIC, sampleRate, channelConfig,
                         AudioFormat.ENCODING_PCM_16BIT, minBufferSize, AudioTrack.MODE_STREAM);
                 if (mAudioTrack.getState() == AudioTrack.STATE_UNINITIALIZED) {
+                    Log.e(TAG, "Cannot create AudioTrack");
                     mAudioTrack = null;
                     return false;
                 }
@@ -722,19 +728,39 @@ class MediaCodecBridge {
      *  Play the audio buffer that is passed in.
      *
      *  @param buf Audio buffer to be rendered.
+     *  @param postpone If true, save audio buffer for playback with the next
+     *  audio buffer. Must be followed by playOutputBuffer() without postpone,
+     *  flush() or release().
      *  @return The number of frames that have already been consumed by the
      *  hardware. This number resets to 0 after each flush call.
      */
     @CalledByNative
-    private long playOutputBuffer(byte[] buf) {
+    private long playOutputBuffer(byte[] buf, boolean postpone) {
         if (mAudioTrack == null) {
+            return 0;
+        }
+
+        if (postpone) {
+            assert mPendingAudioBuffer == null;
+            mPendingAudioBuffer = buf;
             return 0;
         }
 
         if (AudioTrack.PLAYSTATE_PLAYING != mAudioTrack.getPlayState()) {
             mAudioTrack.play();
         }
-        int size = mAudioTrack.write(buf, 0, buf.length);
+
+        int size = 0;
+        if (mPendingAudioBuffer != null) {
+            size = mAudioTrack.write(mPendingAudioBuffer, 0, mPendingAudioBuffer.length);
+            if (mPendingAudioBuffer.length != size) {
+                Log.i(TAG, "Failed to send all data to audio output, expected size: "
+                                + mPendingAudioBuffer.length + ", actual size: " + size);
+            }
+            mPendingAudioBuffer = null;
+        }
+
+        size = mAudioTrack.write(buf, 0, buf.length);
         if (buf.length != size) {
             Log.i(TAG, "Failed to send all data to audio output, expected size: "
                     + buf.length + ", actual size: " + size);

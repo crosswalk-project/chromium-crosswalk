@@ -12,6 +12,8 @@ assert(is_android)
 
 source_set("android") {
   sources = [
+    "access_unit_queue.cc",
+    "access_unit_queue.h",
     "audio_decoder_job.cc",
     "audio_decoder_job.h",
     "browser_cdm_factory_android.cc",
@@ -21,10 +23,16 @@ source_set("android") {
     "demuxer_stream_player_params.h",
     "media_client_android.cc",
     "media_client_android.h",
+    "media_codec_audio_decoder.cc",
+    "media_codec_audio_decoder.h",
     "media_codec_bridge.cc",
     "media_codec_bridge.h",
+    "media_codec_decoder.cc",
+    "media_codec_decoder.h",
     "media_codec_player.cc",
     "media_codec_player.h",
+    "media_codec_video_decoder.cc",
+    "media_codec_video_decoder.h",
     "media_decoder_job.cc",
     "media_decoder_job.h",
     "media_drm_bridge.cc",
@@ -67,9 +75,15 @@ source_set("android") {
 source_set("unittests") {
   testonly = true
   sources = [
+    "access_unit_queue_unittest.cc",
     "media_codec_bridge_unittest.cc",
+    "media_codec_decoder_unittest.cc",
+    "media_codec_player_unittest.cc",
     "media_drm_bridge_unittest.cc",
     "media_source_player_unittest.cc",
+    "test_data_factory.cc",
+    "test_data_factory.h",
+    "test_statistics.h",
   ]
   deps = [
     ":android",
@@ -104,8 +118,8 @@ generate_jni("video_capture_jni_headers") {
 
 java_cpp_enum("media_java_enums_srcjar") {
   sources = [
-    "//media/video/capture/android/video_capture_device_android.h",
-    "//media/video/capture/video_capture_device.h",
+    "//media/capture/video/android/video_capture_device_android.h",
+    "//media/capture/video/video_capture_device.h",
   ]
   outputs = [
     "org/chromium/media/AndroidImageFormat.java",
