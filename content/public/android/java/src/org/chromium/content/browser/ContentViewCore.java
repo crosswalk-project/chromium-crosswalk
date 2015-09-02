@@ -662,7 +662,8 @@ public class ContentViewCore implements
         mEditable = Editable.Factory.getInstance().newEditable("");
         Selection.setSelection(mEditable, 0);
         mContainerViewObservers = new ObserverList<ContainerViewObserver>();
-        mCurrentConfig = getContext().getResources().getConfiguration();
+        // Deep copy newConfig so that we can notice the difference.
+        mCurrentConfig = new Configuration(getContext().getResources().getConfiguration());
     }
 
     /**
@@ -1614,7 +1615,8 @@ public class ContentViewCore implements
             // onConfigurationChange and layout has to be changed in most case.
             mContainerView.requestLayout();
         } finally {
-            mCurrentConfig = newConfig;
+            // Deep copy newConfig so that we can notice the difference.
+            mCurrentConfig = new Configuration(newConfig);
             TraceEvent.end("ContentViewCore.onConfigurationChanged");
         }
     }
