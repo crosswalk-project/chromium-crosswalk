@@ -1415,8 +1415,6 @@ void RenderWidgetHostViewAndroid::AttachLayers() {
     return;
 
   content_view_core_->AttachLayer(layer_);
-  if (overscroll_controller_)
-    overscroll_controller_->Enable();
   layer_->SetHideLayerAndSubtree(!is_showing_);
 }
 
@@ -1428,8 +1426,6 @@ void RenderWidgetHostViewAndroid::RemoveLayers() {
     return;
 
   content_view_core_->RemoveLayer(layer_);
-  if (overscroll_controller_)
-    overscroll_controller_->Disable();
 }
 
 void RenderWidgetHostViewAndroid::RequestVSyncUpdate(uint32 requests) {
