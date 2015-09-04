@@ -1132,10 +1132,11 @@ WebInspector.ElementsTreeElement.prototype = {
                 return;
 
             var colors = new Set();
-            var titles = [];
+            var titles = createElement("div");
 
             for (var decoration of decorations) {
-                titles.push(decoration.title);
+                var titleElement = titles.createChild("div");
+                titleElement.textContent = decoration.title;
                 colors.add(decoration.color);
             }
             if (this.expanded && !decorations.length)
@@ -1143,9 +1144,12 @@ WebInspector.ElementsTreeElement.prototype = {
 
             var descendantColors = new Set();
             if (descendantDecorations.length) {
-                titles.push(WebInspector.UIString("Children:"));
+                var element = titles.createChild("div");
+                element.textContent = WebInspector.UIString("Children:");
                 for (var decoration of descendantDecorations) {
-                    titles.push(decoration.title);
+                    element = titles.createChild("div");
+                    element.style.marginLeft = "15px";
+                    element.textContent = decoration.title;
                     descendantColors.add(decoration.color);
                 }
             }
@@ -1154,7 +1158,7 @@ WebInspector.ElementsTreeElement.prototype = {
             processColors.call(this, colors, "elements-gutter-decoration");
             if (!this.expanded)
                 processColors.call(this, descendantColors, "elements-gutter-decoration elements-has-decorated-children");
-            WebInspector.Tooltip.install(this._decorationsElement, titles.join("\n"));
+            WebInspector.Tooltip.install(this._decorationsElement, titles);
 
             /**
              * @param {!Set<string>} colors
