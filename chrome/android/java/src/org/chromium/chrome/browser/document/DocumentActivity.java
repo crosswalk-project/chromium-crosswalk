@@ -519,6 +519,10 @@ public class DocumentActivity extends ChromeActivity {
                 getToolbarManager().getActionModeController()
                         .getActionModeCallback());
 
+        if (getContextualSearchManager() != null) {
+            getContextualSearchManager().setFindToolbarManager(mFindToolbarManager);
+        }
+
         getToolbarManager().initializeWithNative(getTabModelSelector(), getFullscreenManager(),
                 mFindToolbarManager, null, layoutDriver, null, null, null, null);
 
