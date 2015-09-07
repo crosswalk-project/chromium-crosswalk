@@ -2129,7 +2129,6 @@ No creo que este sitio deba estar bloqueado.</translation>
 <translation id="3893536212201235195">Leer y cambiar la configuración de accesibilidad</translation>
 <translation id="3893630138897523026">ChromeVox (comentarios por voz)</translation>
 <translation id="3893977120523121937">Ejecutar todo el contenido del complemento</translation>
-<translation id="3894828473520419515">Mostrar copia en la caché</translation>
 <translation id="3895034729709274924">Habilitar la depuración silenciosa</translation>
 <translation id="389589731200570180">Compartir con usuarios invitados</translation>
 <translation id="3897092660631435901">Menú</translation>
@@ -3581,7 +3580,6 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="5972017421290582825">Administrar configuración MIDI</translation>
 <translation id="5972826969634861500">Comienzo <ph name="PRODUCT_NAME" /></translation>
 <translation id="5975083100439434680">Alejar</translation>
-<translation id="5975501027219721441">Mostrar la página guardada en la caché</translation>
 <translation id="5975792506968920132">Porcentaje de carga de batería</translation>
 <translation id="5976160379964388480">Otros</translation>
 <translation id="5978264784700053212">Centro de mensajes</translation>
@@ -3945,9 +3943,9 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="6514565641373682518">Esta página ha inhabilitado el cursor del mouse.</translation>
 <translation id="6516193643535292276">No se pudo conectar a Internet</translation>
 <translation id="6518014396551869914">Copia&amp;r imagen</translation>
-<translation id="6518066513180887959">Se creó un usuario supervisado con el nombre <ph name="NEW_PROFILE_NAME" />. Para definir los sitio web que podrá ver el usuario supervisado, puedes configurar restricciones y opciones de configuración en <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />. Si no cambias la configuración predeterminada, <ph name="NEW_PROFILE_NAME" /> podrá navegar por todos los sitios en la Web.
+<translation id="6518066513180887959">Se creó un usuario supervisado con el nombre <ph name="NEW_PROFILE_NAME" />. Para definir los sitios web que podrá ver el usuario supervisado, puedes configurar restricciones y opciones de configuración en <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />. Si no cambias la configuración predeterminada, <ph name="NEW_PROFILE_NAME" /> podrá navegar por todos los sitios de la Web.
 
-  Revisa tu correo electrónico <ph name="ACCOUNT_EMAIL" /> para consultar estas y otras instrucciones.</translation>
+ Revisa tu correo electrónico <ph name="ACCOUNT_EMAIL" /> para consultar estas y otras instrucciones.</translation>
 <translation id="6518133107902771759">Verificar</translation>
 <translation id="651942933739530207">¿Deseas que <ph name="APP_NAME" /> comparta tu pantalla y la salida de audio?</translation>
 <translation id="6519437681804756269">[<ph name="TIMESTAMP" />]
@@ -4453,7 +4451,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="7273110280511444812">conectado por última vez el <ph name="DATE" /></translation>
 <translation id="7273774418879988007">Permite que las transmisiones continuas de audio saliente verifiquen si hay disponibles disposiciones de canal distintas a la predeterminada del hardware. Al activar esta opción, el SO podrá llevar a cabo una expansión envolvente, de admitirse. Es posible que exponga errores de los controladores de terceros; por lo tanto, debe usarse con precaución.</translation>
 <translation id="7274090186291031608">Pantalla <ph name="SCREEN_INDEX" /></translation>
-<translation id="727441411541283857"><ph name="PERCENTAGE" />% - <ph name="TIME" /> hasta cargarse por completo</translation>
+<translation id="727441411541283857"><ph name="PERCENTAGE" />% - <ph name="TIME" /> hasta completar la carga</translation>
 <translation id="7278870042769914968">Usar tema GTK+</translation>
 <translation id="727952162645687754">Error de descarga</translation>
 <translation id="7279701417129455881">Administrar el bloqueo de cookies...</translation>
@@ -5346,7 +5344,7 @@ Mantén el archivo de clave en un lugar seguro. Debes crear las nuevas versiones
 <translation id="8528962588711550376">Accediendo.</translation>
 <translation id="8535005006684281994">URL de renovación del certificado Netscape</translation>
 <translation id="8539727552378197395">No (HttpOnly)</translation>
-<translation id="8543181531796978784">Puedes <ph name="BEGIN_ERROR_LINK" />informar un problema de detección<ph name="END_ERROR_LINK" /> o, si comprendes los riesgos relacionados con la seguridad, puedes <ph name="BEGIN_LINK" />visitar el sitio no seguro<ph name="END_LINK" />.</translation>
+<translation id="8543181531796978784">Puedes <ph name="BEGIN_ERROR_LINK" />informar un problema de detección<ph name="END_ERROR_LINK" /> o, si comprendes los riesgos de seguridad, puedes <ph name="BEGIN_LINK" />visitar el sitio no seguro<ph name="END_LINK" />.</translation>
 <translation id="8545107379349809705">Ocultar información...</translation>
 <translation id="8545211332741562162">Permite habilitar las páginas que utilizan funciones de JavaScript experimentales.</translation>
 <translation id="8545575359873600875">No se pudo verificar la contraseña. Es posible que el administrador de este usuario supervisado haya cambiado la contraseña recientemente. De ser así, la nueva contraseña se aplicará la próxima vez que accedas. Intenta utilizar la contraseña antigua.</translation>
