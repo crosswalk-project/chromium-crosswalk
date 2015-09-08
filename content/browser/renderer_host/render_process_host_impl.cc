@@ -83,7 +83,9 @@
 #include "content/browser/mime_registry_message_filter.h"
 #include "content/browser/mojo/mojo_application_host.h"
 #include "content/browser/navigator_connect/service_port_service_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/browser/notifications/notification_message_filter.h"
+#endif
 #include "content/browser/permissions/permission_service_context.h"
 #include "content/browser/permissions/permission_service_impl.h"
 #include "content/browser/profiler_message_filter.h"
@@ -133,8 +135,10 @@
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/content_browser_client.h"
 #include "content/public/browser/navigator_connect_context.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_process_host_factory.h"
 #include "content/public/browser/render_process_host_observer.h"
 #include "content/public/browser/render_widget_host.h"
@@ -930,12 +934,14 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       storage_partition_impl_->GetQuotaManager(),
       GetContentClient()->browser()->CreateQuotaPermissionContext()));
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_message_filter_ = new NotificationMessageFilter(
       GetID(),
       storage_partition_impl_->GetPlatformNotificationContext(),
       resource_context,
       browser_context);
   AddFilter(notification_message_filter_.get());
+#endif
 
   AddFilter(new GamepadBrowserMessageFilter());
   AddFilter(new DeviceLightMessageFilter());
@@ -1706,10 +1712,12 @@ void RenderProcessHostImpl::Cleanup() {
     FOR_EACH_OBSERVER(RenderProcessHostObserver,
                       observers_,
                       RenderProcessHostDestroyed(this));
+#ifndef DISABLE_NOTIFICATIONS
     NotificationService::current()->Notify(
         NOTIFICATION_RENDERER_PROCESS_TERMINATED,
         Source<RenderProcessHost>(this),
         NotificationService::NoDetails());
+#endif
 
 #ifndef NDEBUG
     is_self_deleted_ = true;
@@ -2155,10 +2163,12 @@ void RenderProcessHostImpl::ProcessDied(bool already_dead,
   }
 
   within_process_died_observer_ = true;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDERER_PROCESS_CLOSED,
       Source<RenderProcessHost>(this),
       Details<RendererClosedDetails>(&details));
+#endif
   FOR_EACH_OBSERVER(RenderProcessHostObserver,
                     observers_,
                     RenderProcessExited(this, status, exit_code));
@@ -2358,10 +2368,12 @@ void RenderProcessHostImpl::OnProcessLaunched() {
   // The queued messages contain such things as "navigate". If this notification
   // was after, we can end up executing JavaScript before the initialization
   // happens.
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDERER_PROCESS_CREATED,
       Source<RenderProcessHost>(this),
       NotificationService::NoDetails());
+#endif
 
   // TODO(erikchen): Remove ScopedTracker below once http://crbug.com/465841
   // is fixed.

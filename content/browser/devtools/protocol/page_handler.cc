@@ -23,8 +23,10 @@
 #include "content/public/browser/javascript_dialog_manager.h"
 #include "content/public/browser/navigation_controller.h"
 #include "content/public/browser/navigation_entry.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/storage_partition.h"
 #include "content/public/browser/web_contents_delegate.h"
 #include "content/public/common/referrer.h"
@@ -117,23 +119,27 @@ void PageHandler::SetRenderFrameHost(RenderFrameHostImpl* host) {
 
   RenderWidgetHostImpl* widget_host =
       host_ ? host_->GetRenderWidgetHost() : nullptr;
+#ifndef DISABLE_NOTIFICATIONS
   if (widget_host) {
     registrar_.Remove(
         this,
         content::NOTIFICATION_RENDER_WIDGET_VISIBILITY_CHANGED,
         content::Source<RenderWidgetHost>(widget_host));
   }
+#endif
 
   host_ = host;
   widget_host = host_ ? host_->GetRenderWidgetHost() : nullptr;
   color_picker_->SetRenderWidgetHost(widget_host);
 
+#ifndef DISABLE_NOTIFICATIONS
   if (widget_host) {
     registrar_.Add(
         this,
         content::NOTIFICATION_RENDER_WIDGET_VISIBILITY_CHANGED,
         content::Source<RenderWidgetHost>(widget_host));
   }
+#endif
 }
 
 void PageHandler::SetClient(scoped_ptr<Client> client) {
@@ -166,6 +172,7 @@ void PageHandler::OnSynchronousSwapCompositorFrame(
   color_picker_->OnSwapCompositorFrame();
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void PageHandler::Observe(int type,
                           const NotificationSource& source,
                           const NotificationDetails& details) {
@@ -175,6 +182,7 @@ void PageHandler::Observe(int type,
   bool visible = *Details<bool>(details).ptr();
   NotifyScreencastVisibility(visible);
 }
+#endif
 
 void PageHandler::DidAttachInterstitialPage() {
   if (!enabled_)

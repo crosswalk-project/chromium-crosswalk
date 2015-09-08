@@ -66,8 +66,10 @@
 #include "content/public/browser/content_browser_client.h"
 #include "content/public/browser/invalidate_type.h"
 #include "content/public/browser/navigation_details.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_widget_host.h"
 #include "content/public/browser/render_widget_host_view.h"
 #include "content/public/browser/storage_partition.h"
@@ -89,6 +91,7 @@ namespace {
 void NotifyPrunedEntries(NavigationControllerImpl* nav_controller,
                          bool from_front,
                          int count) {
+#ifndef DISABLE_NOTIFICATIONS
   PrunedDetails details;
   details.from_front = from_front;
   details.count = count;
@@ -96,6 +99,11 @@ void NotifyPrunedEntries(NavigationControllerImpl* nav_controller,
       NOTIFICATION_NAV_LIST_PRUNED,
       Source<NavigationController>(nav_controller),
       Details<PrunedDetails>(&details));
+#else
+  (void) nav_controller;
+  (void) from_front;
+  (void) count;
+#endif
 }
 
 // Ensure the given NavigationEntry has a valid state, so that WebKit does not
@@ -427,10 +435,12 @@ void NavigationControllerImpl::SetPendingEntry(
     scoped_ptr<NavigationEntryImpl> entry) {
   DiscardNonCommittedEntriesInternal();
   pending_entry_ = entry.release();
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_NAV_ENTRY_PENDING,
       Source<NavigationController>(this),
       Details<NavigationEntry>(pending_entry_));
+#endif
 }
 
 NavigationEntryImpl* NavigationControllerImpl::GetActiveEntry() const {
@@ -1858,6 +1868,7 @@ void NavigationControllerImpl::NotifyNavigationEntryCommitted(
   delegate_->NotifyNavigationStateChanged(INVALIDATE_TYPE_ALL);
   delegate_->NotifyNavigationEntryCommitted(*details);
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   NotificationDetails notification_details =
       Details<LoadCommittedDetails>(details);
@@ -1865,6 +1876,7 @@ void NavigationControllerImpl::NotifyNavigationEntryCommitted(
       NOTIFICATION_NAV_ENTRY_COMMITTED,
       Source<NavigationController>(this),
       notification_details);
+#endif
 }
 
 // static
@@ -1900,6 +1912,7 @@ void NavigationControllerImpl::LoadIfNecessary() {
 
 void NavigationControllerImpl::NotifyEntryChanged(
     const NavigationEntry* entry) {
+#ifndef DISABLE_NOTIFICATIONS
   EntryChangedDetails det;
   det.changed_entry = entry;
   det.index = GetIndexOfEntry(
@@ -1908,6 +1921,9 @@ void NavigationControllerImpl::NotifyEntryChanged(
       NOTIFICATION_NAV_ENTRY_CHANGED,
       Source<NavigationController>(this),
       Details<EntryChangedDetails>(&det));
+#else
+  (void) entry;
+#endif
 }
 
 void NavigationControllerImpl::FinishRestore(int selected_index,

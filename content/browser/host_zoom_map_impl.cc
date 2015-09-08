@@ -17,8 +17,10 @@
 #include "content/common/view_messages.h"
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/browser_thread.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/resource_context.h"
 #include "content/public/browser/site_instance.h"
 #include "content/public/browser/storage_partition.h"
@@ -115,9 +117,11 @@ void HostZoomMap::SendErrorPageZoomLevelRefresh(
 
 HostZoomMapImpl::HostZoomMapImpl()
     : default_zoom_level_(0.0) {
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(
       this, NOTIFICATION_RENDER_VIEW_HOST_WILL_CLOSE_RENDER_VIEW,
       NotificationService::AllSources());
+#endif
 }
 
 void HostZoomMapImpl::CopyFrom(HostZoomMap* copy_interface) {
@@ -428,6 +432,7 @@ double HostZoomMapImpl::GetZoomLevelForView(const GURL& url,
                                               net::GetHostOrSpecFromURL(url));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void HostZoomMapImpl::Observe(int type,
                               const NotificationSource& source,
                               const NotificationDetails& details) {
@@ -444,6 +449,7 @@ void HostZoomMapImpl::Observe(int type,
       NOTREACHED() << "Unexpected preference observed.";
   }
 }
+#endif
 
 void HostZoomMapImpl::ClearTemporaryZoomLevel(int render_process_id,
                                               int render_view_id) {

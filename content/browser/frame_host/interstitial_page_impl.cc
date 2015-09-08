@@ -37,8 +37,10 @@
 #include "content/public/browser/dom_operation_notification_details.h"
 #include "content/public/browser/interstitial_page_delegate.h"
 #include "content/public/browser/invalidate_type.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_source.h"
+#endif
 #include "content/public/browser/storage_partition.h"
 #include "content/public/browser/user_metrics.h"
 #include "content/public/browser/web_contents_delegate.h"
@@ -177,7 +179,9 @@ InterstitialPageImpl::InterstitialPageImpl(
       original_rvh_id_(web_contents->GetRenderViewHost()->GetRoutingID()),
       should_revert_web_contents_title_(false),
       web_contents_was_loading_(false),
+#ifndef DISABLE_NOTIFICATIONS
       resource_dispatcher_host_notified_(false),
+#endif
       rvh_delegate_view_(new InterstitialPageRVHDelegateView(this)),
       create_view_(true),
       delegate_(delegate),
@@ -225,9 +229,11 @@ void InterstitialPageImpl::Show() {
   // cancel the blocked requests.  We cannot do that on
   // NOTIFY_WEB_CONTENTS_DESTROYED as at that point the RenderViewHost has
   // already been destroyed.
+#ifndef DISABLE_NOTIFICATIONS
   notification_registrar_.Add(
       this, NOTIFICATION_RENDER_WIDGET_HOST_DESTROYED,
       Source<RenderWidgetHost>(controller_->delegate()->GetRenderViewHost()));
+#endif
 
   // Update the g_web_contents_to_interstitial_page map.
   iter = g_web_contents_to_interstitial_page->find(web_contents_);
@@ -261,8 +267,10 @@ void InterstitialPageImpl::Show() {
       GetAccessibilityMode());
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_registrar_.Add(this, NOTIFICATION_NAV_ENTRY_PENDING,
       Source<NavigationController>(controller_));
+#endif
 }
 
 void InterstitialPageImpl::Hide() {
@@ -324,6 +332,7 @@ void InterstitialPageImpl::Hide() {
   web_contents_ = NULL;
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void InterstitialPageImpl::Observe(
     int type,
     const NotificationSource& source,
@@ -359,6 +368,7 @@ void InterstitialPageImpl::Observe(
       NOTREACHED();
   }
 }
+#endif
 
 bool InterstitialPageImpl::OnMessageReceived(RenderFrameHost* render_frame_host,
                                              const IPC::Message& message) {
@@ -829,11 +839,13 @@ void InterstitialPageImpl::TakeActionOnResourceDispatcher(
     ResourceRequestAction action) {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
 
+#ifndef DISABLE_NOTIFICATIONS
   if (action == CANCEL || action == RESUME) {
     if (resource_dispatcher_host_notified_)
       return;
     resource_dispatcher_host_notified_ = true;
   }
+#endif
 
   // The tab might not have a render_view_host if it was closed (in which case,
   // we have taken care of the blocked requests when processing
@@ -861,10 +873,12 @@ void InterstitialPageImpl::OnDomOperationResponse(
     int automation_id) {
   // Needed by test code.
   DomOperationNotificationDetails details(json_string, automation_id);
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_DOM_OPERATION_RESPONSE,
       Source<WebContents>(web_contents()),
       Details<DomOperationNotificationDetails>(&details));
+#endif
 
   if (!enabled())
     return;

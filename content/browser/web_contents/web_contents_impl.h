@@ -99,7 +99,9 @@ class CONTENT_EXPORT WebContentsImpl
       public RenderViewHostDelegate,
       public RenderWidgetHostDelegate,
       public RenderFrameHostManager::Delegate,
+#ifndef DISABLE_NOTIFICATIONS
       public NotificationObserver,
+#endif
       public NON_EXPORTED_BASE(NavigationControllerDelegate),
       public NON_EXPORTED_BASE(NavigatorDelegate) {
  public:
@@ -633,10 +635,11 @@ class CONTENT_EXPORT WebContentsImpl
   int GetOuterDelegateFrameTreeNodeID() override;
 
   // NotificationObserver ------------------------------------------------------
-
+#ifndef DISABLE_NOTIFICATIONS
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   // NavigationControllerDelegate ----------------------------------------------
 
@@ -1256,9 +1259,11 @@ class CONTENT_EXPORT WebContentsImpl
   scoped_ptr<PluginContentOriginWhitelist> plugin_content_origin_whitelist_;
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   // This must be at the end, or else we might get notifications and use other
   // member variables that are gone.
   NotificationRegistrar registrar_;
+#endif
 
   // Used during IPC message dispatching from the RenderView/RenderFrame so that
   // the handlers can get a pointer to the RVH through which the message was

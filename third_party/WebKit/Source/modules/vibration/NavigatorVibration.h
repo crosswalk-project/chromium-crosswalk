@@ -31,7 +31,9 @@ namespace blink {
 
 class LocalFrame;
 class Navigator;
+#ifndef DISABLE_NOTIFICATIONS
 class UnsignedLongOrUnsignedLongSequence;
+#endif
 
 class MODULES_EXPORT NavigatorVibration final
     : public NoBaseWillBeGarbageCollectedFinalized<NavigatorVibration>
@@ -55,8 +57,9 @@ public:
     static bool vibrate(Navigator&, unsigned time);
     static bool vibrate(Navigator&, const VibrationPattern&);
     static NavigatorVibration& from(Page&);
+#ifndef DISABLE_NOTIFICATIONS
     static VibrationPattern sanitizeVibrationPattern(const UnsignedLongOrUnsignedLongSequence&);
-
+#endif
     bool isVibrating() const { return m_isVibrating; }
 
     VibrationPattern pattern() const { return m_pattern; }

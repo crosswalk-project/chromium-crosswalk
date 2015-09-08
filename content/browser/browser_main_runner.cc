@@ -171,7 +171,9 @@ class BrowserMainRunnerImpl : public BrowserMainRunner {
 
       base::StatisticsRecorder::Initialize();
 
+#ifndef DISABLE_NOTIFICATIONS
       notification_service_.reset(new NotificationServiceImpl);
+#endif
 
 #if defined(OS_WIN)
       // Ole must be initialized before starting message pump, so that TSF
@@ -273,7 +275,9 @@ class BrowserMainRunnerImpl : public BrowserMainRunner {
   #endif
       main_loop_.reset(NULL);
 
+#ifndef DISABLE_NOTIFICATIONS
       notification_service_.reset(NULL);
+#endif
 
       is_shutdown_ = true;
     }
@@ -285,8 +289,9 @@ class BrowserMainRunnerImpl : public BrowserMainRunner {
 
   // True if the runner has been shut down.
   bool is_shutdown_;
-
+#ifndef DISABLE_NOTIFICATIONS
   scoped_ptr<NotificationServiceImpl> notification_service_;
+#endif
   scoped_ptr<BrowserMainLoop> main_loop_;
 #if defined(OS_WIN)
   scoped_ptr<ui::ScopedOleInitializer> ole_initializer_;

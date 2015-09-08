@@ -408,8 +408,10 @@ StoragePartitionImpl::~StoragePartitionImpl() {
     GetGeofencingManager()->Shutdown();
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   if (GetPlatformNotificationContext())
     GetPlatformNotificationContext()->Shutdown();
+#endif
 
   if (GetBackgroundSyncContext())
     GetBackgroundSyncContext()->Shutdown();
@@ -504,10 +506,12 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   scoped_refptr<NavigatorConnectContextImpl> navigator_connect_context =
       new NavigatorConnectContextImpl(service_worker_context);
 
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<PlatformNotificationContextImpl> platform_notification_context =
       new PlatformNotificationContextImpl(path, context,
                                           service_worker_context);
   platform_notification_context->Initialize();
+#endif
 
   scoped_refptr<BackgroundSyncContextImpl> background_sync_context =
       new BackgroundSyncContextImpl();
@@ -528,7 +532,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 #else
       nullptr, host_zoom_level_context.get(),
 #endif
+#ifndef DISABLE_NOTIFICATIONS
       navigator_connect_context.get(), platform_notification_context.get(),
+#else
+      navigator_connect_context.get(), nullptr,
+#endif
       background_sync_context.get());
 
   service_worker_context->set_storage_partition(storage_partition);
@@ -608,7 +616,11 @@ StoragePartitionImpl::GetNavigatorConnectContext() {
 
 PlatformNotificationContextImpl*
 StoragePartitionImpl::GetPlatformNotificationContext() {
+#ifndef DISABLE_NOTIFICATIONS
   return platform_notification_context_.get();
+#else
+  return nullptr;
+#endif
 }
 
 BackgroundSyncContextImpl* StoragePartitionImpl::GetBackgroundSyncContext() {

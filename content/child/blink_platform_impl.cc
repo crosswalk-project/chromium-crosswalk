@@ -458,8 +458,10 @@ void BlinkPlatformImpl::InternalInit() {
         ChildThreadImpl::current()->thread_safe_sender()));
 #endif
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();
+#ifndef DISABLE_NOTIFICATIONS
     notification_dispatcher_ =
         ChildThreadImpl::current()->notification_dispatcher();
+#endif
     push_dispatcher_ = ChildThreadImpl::current()->push_dispatcher();
     permission_client_.reset(new PermissionDispatcher(
         ChildThreadImpl::current()->service_registry()));
@@ -1169,6 +1171,7 @@ blink::WebGeofencingProvider* BlinkPlatformImpl::geofencingProvider() {
 }
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
 blink::WebNotificationManager*
 BlinkPlatformImpl::notificationManager() {
   if (!thread_safe_sender_.get() || !notification_dispatcher_.get())
@@ -1179,6 +1182,7 @@ BlinkPlatformImpl::notificationManager() {
       main_thread_task_runner_.get(),
       notification_dispatcher_.get());
 }
+#endif
 
 blink::WebPushProvider* BlinkPlatformImpl::pushProvider() {
   if (!thread_safe_sender_.get() || !push_dispatcher_.get())

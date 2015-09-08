@@ -35,7 +35,9 @@ class MessageLoop;
 namespace content {
 class BackgroundSyncProvider;
 class FlingCurveConfiguration;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationDispatcher;
+#endif
 class PermissionDispatcher;
 class PushDispatcher;
 class ThreadSafeSender;
@@ -169,7 +171,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
 #ifndef DISABLE_GEO_FEATURES
   virtual blink::WebGeofencingProvider* geofencingProvider();
 #endif
+#ifndef DISABLE_NOTIFICATIONS
   virtual blink::WebNotificationManager* notificationManager();
+#endif
   virtual blink::WebPushProvider* pushProvider();
   virtual blink::WebServicePortProvider* createServicePortProvider(
       blink::WebServicePortProviderClient*);
@@ -200,7 +204,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
       memory_dump_providers_;
 
   scoped_refptr<ThreadSafeSender> thread_safe_sender_;
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<NotificationDispatcher> notification_dispatcher_;
+#endif
   scoped_refptr<PushDispatcher> push_dispatcher_;
   scoped_ptr<PermissionDispatcher> permission_client_;
   scoped_ptr<BackgroundSyncProvider> sync_provider_;

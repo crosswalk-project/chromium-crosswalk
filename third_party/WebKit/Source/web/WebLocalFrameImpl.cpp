@@ -160,7 +160,9 @@
 #ifndef DISABLE_GEO_FEATURES
 #include "modules/geolocation/GeolocationController.h"
 #endif
+#ifndef DISABLE_NOTIFICATIONS
 #include "modules/notifications/NotificationPermissionClient.h"
+#endif
 #include "modules/permissions/PermissionController.h"
 #include "modules/presentation/PresentationController.h"
 #include "modules/push_messaging/PushController.h"
@@ -229,7 +231,9 @@
 #include "web/LocalFileSystemClient.h"
 #include "web/MIDIClientProxy.h"
 #include "web/NavigatorContentUtilsClientImpl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "web/NotificationPermissionClientImpl.h"
+#endif
 #include "web/PageOverlay.h"
 #include "web/RemoteBridgeFrameOwner.h"
 #include "web/SharedWorkerRepositoryClientImpl.h"
@@ -1722,7 +1726,9 @@ void WebLocalFrameImpl::setCoreFrame(PassRefPtrWillBeRawPtr<LocalFrame> frame)
         if (m_client)
             providePushControllerTo(*m_frame, m_client->pushClient());
 
+#ifndef DISABLE_NOTIFICATIONS
         provideNotificationPermissionClientTo(*m_frame, NotificationPermissionClientImpl::create());
+#endif
         provideUserMediaTo(*m_frame, &m_userMediaClientImpl);
 #ifndef DISABLE_GEO_FEATURES
         provideGeolocationTo(*m_frame, m_geolocationClientProxy.get());

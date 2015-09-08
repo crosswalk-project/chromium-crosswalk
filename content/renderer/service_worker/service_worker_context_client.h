@@ -51,7 +51,9 @@ class Message;
 namespace content {
 
 struct NavigatorConnectClient;
+#ifndef DISABLE_NOTIFICATIONS
 struct PlatformNotificationData;
+#endif
 struct ServiceWorkerClientInfo;
 class ServiceWorkerProviderContext;
 class ServiceWorkerContextClient;
@@ -129,9 +131,11 @@ class ServiceWorkerContextClient
   virtual void didHandleFetchEvent(
       int request_id,
       const blink::WebServiceWorkerResponse& response);
+#ifndef DISABLE_NOTIFICATIONS
   virtual void didHandleNotificationClickEvent(
       int request_id,
       blink::WebServiceWorkerEventResult result);
+#endif
   virtual void didHandlePushEvent(int request_id,
                                   blink::WebServiceWorkerEventResult result);
   virtual void didHandleSyncEvent(int request_id,
@@ -176,11 +180,13 @@ class ServiceWorkerContextClient
   void OnActivateEvent(int request_id);
   void OnInstallEvent(int request_id);
   void OnFetchEvent(int request_id, const ServiceWorkerFetchRequest& request);
+#ifndef DISABLE_NOTIFICATIONS
   void OnNotificationClickEvent(
       int request_id,
       int64_t persistent_notification_id,
       const PlatformNotificationData& notification_data,
       int action_index);
+#endif
   void OnPushEvent(int request_id, const std::string& data);
 #ifndef DISABLE_GEO_FEATURES
   void OnGeofencingEvent(int request_id,

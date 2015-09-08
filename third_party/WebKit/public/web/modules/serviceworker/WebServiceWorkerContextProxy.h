@@ -67,7 +67,9 @@ public:
 
     virtual void dispatchMessageEvent(const WebString& message, const WebMessagePortChannelArray& channels) = 0;
 
+#ifndef DISABLE_NOTIFICATIONS
     virtual void dispatchNotificationClickEvent(int eventID, int64_t notificationID, const WebNotificationData&, int actionIndex) = 0;
+#endif
 
     virtual void dispatchPushEvent(int eventID, const WebString& data) = 0;
 

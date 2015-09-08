@@ -104,7 +104,9 @@ class MediaStreamRendererFactory;
 class MediaPermissionDispatcher;
 class MidiDispatcher;
 class NavigationState;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationPermissionDispatcher;
+#endif
 class PageState;
 class PepperPluginInstanceImpl;
 class PermissionDispatcher;
@@ -461,9 +463,11 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual void didUpdateCurrentHistoryItem(blink::WebLocalFrame* frame);
   virtual void didChangeThemeColor();
   virtual void dispatchLoad();
+#ifndef DISABLE_NOTIFICATIONS
   virtual void requestNotificationPermission(
       const blink::WebSecurityOrigin& origin,
       blink::WebNotificationPermissionCallback* callback);
+#endif
   virtual void didChangeSelection(bool is_empty_selection);
   virtual blink::WebColorChooser* createColorChooser(
       blink::WebColorChooserClient* client,
@@ -946,8 +950,10 @@ class CONTENT_EXPORT RenderFrameImpl
   // along with the RenderFrame automatically.  This is why we just store weak
   // references.
 
+#ifndef DISABLE_NOTIFICATIONS
   // Dispatches permission requests for Web Notifications.
   NotificationPermissionDispatcher* notification_permission_dispatcher_;
+#endif
 
   // Destroyed via the RenderFrameObserver::OnDestruct() mechanism.
   UserMediaClientImpl* web_user_media_client_;

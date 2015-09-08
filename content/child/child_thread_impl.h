@@ -49,7 +49,9 @@ class ChildResourceMessageFilter;
 class ChildSharedBitmapManager;
 class FileSystemDispatcher;
 class InProcessChildThreadParams;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationDispatcher;
+#endif
 class PushDispatcher;
 class ServiceWorkerMessageFilter;
 class QuotaDispatcher;
@@ -134,9 +136,11 @@ class CONTENT_EXPORT ChildThreadImpl
     return quota_dispatcher_.get();
   }
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationDispatcher* notification_dispatcher() const {
     return notification_dispatcher_.get();
   }
+#endif
 
   PushDispatcher* push_dispatcher() const {
     return push_dispatcher_.get();
@@ -274,7 +278,9 @@ class CONTENT_EXPORT ChildThreadImpl
 
   scoped_refptr<QuotaMessageFilter> quota_message_filter_;
 
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<NotificationDispatcher> notification_dispatcher_;
+#endif
 
   scoped_refptr<PushDispatcher> push_dispatcher_;
 

@@ -31,9 +31,14 @@ struct MediaLogEvent;
 namespace content {
 
 // This class stores information about currently active media.
+#ifndef DISABLE_NOTIFICATIONS
 class CONTENT_EXPORT MediaInternals
     : NON_EXPORTED_BASE(public media::AudioLogFactory),
       public NotificationObserver {
+#else
+class CONTENT_EXPORT MediaInternals
+    : NON_EXPORTED_BASE(public media::AudioLogFactory) {
+#endif
  public:
   // Called with the update string.
   typedef base::Callback<void(const base::string16&)> UpdateCallback;
@@ -42,10 +47,12 @@ class CONTENT_EXPORT MediaInternals
 
   ~MediaInternals() override;
 
+#ifndef DISABLE_NOTIFICATIONS
   // NotificationObserver implementation.
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   // Called when a MediaEvent occurs.
   void OnMediaEvents(int render_process_id,
@@ -129,7 +136,9 @@ class CONTENT_EXPORT MediaInternals
   // Must only be accessed on the IO thread.
   base::ListValue video_capture_capabilities_cached_data_;
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationRegistrar registrar_;
+#endif
 
   // All variables below must be accessed under |lock_|.
   base::Lock lock_;

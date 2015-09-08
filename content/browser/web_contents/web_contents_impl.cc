@@ -458,11 +458,13 @@ WebContentsImpl::~WebContentsImpl() {
 
   NotifyDisconnected();
 
+#ifndef DISABLE_NOTIFICATIONS
   // Notify any observer that have a reference on this WebContents.
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_DESTROYED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 
   // Destroy all frame tree nodes except for the root; this notifies observers.
   frame_tree_.root()->ResetForNewProcess();
@@ -1323,6 +1325,7 @@ WebContents* WebContentsImpl::Clone() {
   return tc;
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void WebContentsImpl::Observe(int type,
                               const NotificationSource& source,
                               const NotificationDetails& details) {
@@ -1352,6 +1355,7 @@ void WebContentsImpl::Observe(int type,
       NOTREACHED();
   }
 }
+#endif
 
 WebContents* WebContentsImpl::GetWebContents() {
   return this;
@@ -1402,9 +1406,11 @@ void WebContentsImpl::Init(const WebContents::CreateParams& params) {
       new PluginContentOriginWhitelist(this));
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this,
                  NOTIFICATION_RENDER_WIDGET_HOST_DESTROYED,
                  NotificationService::AllBrowserContextsAndSources());
+#endif
 
   screen_orientation_dispatcher_host_.reset(
       new ScreenOrientationDispatcherHostImpl(this));
@@ -2575,11 +2581,13 @@ void WebContentsImpl::DidGetRedirectForResourceRequest(
       observers_,
       DidGetRedirectForResourceRequest(render_frame_host, details));
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   NotificationService::current()->Notify(
       NOTIFICATION_RESOURCE_RECEIVED_REDIRECT,
       Source<WebContents>(this),
       Details<const ResourceRedirectDetails>(&details));
+#endif
 
   if (IsResourceTypeFrame(details.resource_type)) {
     NavigationHandleImpl* navigation_handle =
@@ -3227,11 +3235,16 @@ void WebContentsImpl::OnOpenDateTimeDialog(
 
 void WebContentsImpl::OnDomOperationResponse(const std::string& json_string,
                                              int automation_id) {
+#ifndef DISABLE_NOTIFICATIONS
   DomOperationNotificationDetails details(json_string, automation_id);
   NotificationService::current()->Notify(
       NOTIFICATION_DOM_OPERATION_RESPONSE,
       Source<WebContents>(this),
       Details<DomOperationNotificationDetails>(&details));
+#else
+  (void) json_string;
+  (void) automation_id;
+#endif
 }
 
 void WebContentsImpl::OnAppCacheAccessed(const GURL& manifest_url,
@@ -3530,6 +3543,7 @@ void WebContentsImpl::SetIsLoading(bool is_loading,
     FOR_EACH_OBSERVER(WebContentsObserver, observers_, DidStopLoading());
   }
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   int type = is_loading ? NOTIFICATION_LOAD_START : NOTIFICATION_LOAD_STOP;
   NotificationDetails det = NotificationService::NoDetails();
@@ -3537,6 +3551,7 @@ void WebContentsImpl::SetIsLoading(bool is_loading,
       det = Details<LoadNotificationDetails>(details);
   NotificationService::current()->Notify(
       type, Source<NavigationController>(&controller_), det);
+#endif
 }
 
 void WebContentsImpl::UpdateMaxPageIDIfNecessary(RenderViewHost* rvh) {
@@ -3633,10 +3648,12 @@ void WebContentsImpl::NotifyDisconnected() {
     return;
 
   notify_disconnection_ = false;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_DISCONNECTED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 }
 
 void WebContentsImpl::NotifyNavigationEntryCommitted(
@@ -3807,10 +3824,12 @@ void WebContentsImpl::RenderViewCreated(RenderViewHost* render_view_host) {
   if (delegate_)
     view_->SetOverscrollControllerEnabled(CanOverscrollContent());
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_RENDER_VIEW_HOST_CREATED,
       Source<WebContents>(this),
       Details<RenderViewHost>(render_view_host));
+#endif
 
   // When we're creating views, we're still doing initial setup, so we always
   // use the pending Web UI rather than any possibly existing committed one.
@@ -3846,10 +3865,12 @@ void WebContentsImpl::RenderViewReady(RenderViewHost* rvh) {
 
   notify_disconnection_ = true;
   // TODO(avi): Remove. http://crbug.com/170921
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_CONNECTED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 
   bool was_crashed = IsCrashed();
   SetIsCrashed(base::TERMINATION_STATUS_STILL_RUNNING, 0);
@@ -4091,11 +4112,13 @@ void WebContentsImpl::DocumentOnLoadCompleted(
   FOR_EACH_OBSERVER(WebContentsObserver, observers_,
                     DocumentOnLoadCompletedInMainFrame());
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   NotificationService::current()->Notify(
       NOTIFICATION_LOAD_COMPLETED_MAIN_FRAME,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 }
 
 void WebContentsImpl::UpdateTitle(RenderFrameHost* render_frame_host,

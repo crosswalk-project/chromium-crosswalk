@@ -44,6 +44,18 @@
       'child/geofencing/web_geofencing_provider_impl.cc',
       'child/geofencing/web_geofencing_provider_impl.h',
     ],
+    'private_child_sources_notifications': [
+      'child/notifications/notification_data_conversions.cc',
+      'child/notifications/notification_data_conversions.h',
+      'child/notifications/notification_dispatcher.cc',
+      'child/notifications/notification_dispatcher.h',
+      'child/notifications/notification_image_loader.cc',
+      'child/notifications/notification_image_loader.h',
+      'child/notifications/notification_manager.cc',
+      'child/notifications/notification_manager.h',
+      'child/notifications/pending_notifications_tracker.cc',
+      'child/notifications/pending_notifications_tracker.h',
+    ],
     'private_child_sources': [
       'child/appcache/appcache_backend_proxy.cc',
       'child/appcache/appcache_backend_proxy.h',
@@ -372,6 +384,11 @@
     ['disable_geo_features==1', {
       'sources!': [
         '<@(private_child_sources_geo)',
+      ],
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_child_sources_notifications)',
       ],
     }],
   ],
