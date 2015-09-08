@@ -907,7 +907,6 @@ const DataResource kDataResources[] = {
     {"mediaplayerOverlayPlay",
      IDR_MEDIAPLAYER_OVERLAY_PLAY_BUTTON,
      ui::SCALE_FACTOR_100P},
-    {"html.css", IDR_UASTYLE_HTML_CSS, ui::SCALE_FACTOR_NONE},
 #endif
     {"panIcon", IDR_PAN_SCROLL_ICON, ui::SCALE_FACTOR_100P},
     {"searchCancel", IDR_SEARCH_CANCEL, ui::SCALE_FACTOR_100P},
@@ -922,6 +921,7 @@ const DataResource kDataResources[] = {
     {"generatePasswordHover",
      IDR_PASSWORD_GENERATION_ICON_HOVER,
      ui::SCALE_FACTOR_100P},
+    {"html.css", IDR_UASTYLE_HTML_CSS, ui::SCALE_FACTOR_NONE},
     {"quirks.css", IDR_UASTYLE_QUIRKS_CSS, ui::SCALE_FACTOR_NONE},
     {"view-source.css", IDR_UASTYLE_VIEW_SOURCE_CSS, ui::SCALE_FACTOR_NONE},
     {"themeChromium.css",
