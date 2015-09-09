@@ -910,12 +910,14 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       storage_partition_impl_->GetQuotaManager(),
       GetContentClient()->browser()->CreateQuotaPermissionContext()));
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_message_filter_ = new NotificationMessageFilter(
       GetID(),
       storage_partition_impl_->GetPlatformNotificationContext(),
       resource_context,
       browser_context);
   AddFilter(notification_message_filter_.get());
+#endif
 
   AddFilter(new GamepadBrowserMessageFilter());
   AddFilter(new DeviceLightMessageFilter());
