@@ -76,6 +76,7 @@ Capabilities::Capabilities()
       image_ycbcr_422(false),
       render_buffer_format_bgra8888(false),
       occlusion_query_boolean(false),
+      timer_queries(false),
       surfaceless(false),
       major_version(2),
       minor_version(0) {}
