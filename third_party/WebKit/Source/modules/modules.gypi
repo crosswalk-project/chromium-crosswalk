@@ -1791,6 +1791,7 @@
       'indexeddb/IDBTransactionTest.cpp',
       'mediastream/RTCDataChannelTest.cpp',
       'notifications/NotificationDataTest.cpp',
+      'presentation/PresentationAvailabilityTest.cpp',
       'serviceworkers/ServiceWorkerContainerTest.cpp',
       'webaudio/AudioBasicProcessorHandlerTest.cpp',
       'webaudio/ConvolverNodeTest.cpp',
