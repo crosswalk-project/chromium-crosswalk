@@ -3263,7 +3263,7 @@ void LayoutObject::invalidateDisplayItemClientForNonCompositingDescendantsOf(con
         explicit Functor(const LayoutBoxModelObject& paintInvalidationContainer) : m_paintInvalidationContainer(paintInvalidationContainer) { }
         void operator()(LayoutObject& object) const override
         {
-            m_paintInvalidationContainer.invalidateDisplayItemClientOnBacking(object);
+            object.invalidateDisplayItemClients(m_paintInvalidationContainer);
         }
     private:
         const LayoutBoxModelObject& m_paintInvalidationContainer;

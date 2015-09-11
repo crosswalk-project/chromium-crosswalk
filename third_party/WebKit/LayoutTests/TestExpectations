@@ -1064,11 +1064,8 @@ crbug.com/374936 [ Linux Win Debug ] svg/dynamic-updates/SVGImageElement-dom-wid
 
 crbug.com/506525 [ XP ] paint/masks/fieldset-mask.html [ ImageOnlyFailure ]
 
-crbug.com/375565 [ Mac ] fast/repaint/caret-with-transformation.html [ Pass Failure ]
-
-crbug.com/375567 web-animations-api/w3c/simple-keyframes.html [ Pass Failure ]
-
-crbug.com/376597 web-animations-api/player.html [ Pass Failure ]
+crbug.com/509179 fast/forms/button/button-reset-focus-by-mouse-then-keydown.html [ NeedsRebaseline ]
+crbug.com/509179 fast/forms/submit/submit-focus-by-mouse-then-keydown.html [ NeedsRebaseline ]
 
 crbug.com/400841 media/video-canvas-draw.html [ ImageOnlyFailure ]
 crbug.com/400829 media/video-object-fit.html [ ImageOnlyFailure ]
