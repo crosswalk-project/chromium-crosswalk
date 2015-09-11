@@ -203,11 +203,13 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
   {
     base::DictionaryValue* dict = new base::DictionaryValue();
 
+#if !defined(DISABLE_QUIC_SUPPORT)
     for (QuicErrorCode error = QUIC_NO_ERROR; error < QUIC_LAST_ERROR;
          error = static_cast<QuicErrorCode>(error + 1)) {
       dict->SetInteger(QuicUtils::ErrorToString(error),
                        static_cast<int>(error));
     }
+#endif
 
     constants_dict->Set("quicError", dict);
   }
@@ -217,12 +219,14 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
   {
     base::DictionaryValue* dict = new base::DictionaryValue();
 
+#if !defined(DISABLE_QUIC_SUPPORT)
     for (QuicRstStreamErrorCode error = QUIC_STREAM_NO_ERROR;
          error < QUIC_STREAM_LAST_ERROR;
          error = static_cast<QuicRstStreamErrorCode>(error + 1)) {
       dict->SetInteger(QuicUtils::StreamErrorToString(error),
                        static_cast<int>(error));
     }
+#endif
 
     constants_dict->Set("quicRstStreamError", dict);
   }
@@ -458,10 +462,12 @@ NET_EXPORT scoped_ptr<base::DictionaryValue> GetNetInfo(
         http_server_properties.GetAlternativeServiceInfoAsValue());
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (info_sources & NET_INFO_QUIC) {
     net_info_dict->Set(NetInfoSourceToString(NET_INFO_QUIC),
                        http_network_session->QuicInfoToValue());
   }
+#endif
 
   if (info_sources & NET_INFO_HTTP_CACHE) {
     base::DictionaryValue* info_dict = new base::DictionaryValue();

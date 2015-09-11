@@ -549,8 +549,10 @@ void DevToolsHttpHandler::OnJsonRequest(
 
   if (command == "version") {
     base::DictionaryValue version;
+#ifndef DISABLE_DEVTOOLS
     version.SetString("Protocol-Version",
         DevToolsAgentHost::GetProtocolVersion().c_str());
+#endif
     version.SetString("WebKit-Version", content::GetWebKitVersion());
     version.SetString("Browser", product_name_);
     version.SetString("User-Agent", user_agent_);
@@ -685,6 +687,7 @@ void DevToolsHttpHandler::OnWebSocketRequest(
   std::string browser_prefix = "/devtools/browser";
   size_t browser_pos = request.path.find(browser_prefix);
   if (browser_pos == 0) {
+#ifndef DISABLE_DEVTOOLS
     scoped_refptr<DevToolsAgentHost> browser_agent =
         DevToolsAgentHost::CreateForBrowser(
             thread_->message_loop_proxy(),
@@ -692,6 +695,7 @@ void DevToolsHttpHandler::OnWebSocketRequest(
                        base::Unretained(socket_factory_)));
     connection_to_client_[connection_id] = new DevToolsAgentHostClientImpl(
         thread_->message_loop(), server_wrapper_, connection_id, browser_agent);
+#endif
     AcceptWebSocket(connection_id, request);
     return;
   }

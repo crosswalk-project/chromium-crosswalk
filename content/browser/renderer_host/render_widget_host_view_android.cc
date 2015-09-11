@@ -1232,6 +1232,7 @@ void RenderWidgetHostViewAndroid::SynchronousFrameMetadata(
   OnFrameMetadataUpdated(frame_metadata);
   ComputeContentsSize(frame_metadata);
 
+#ifndef DISABLE_DEVTOOLS
   // DevTools ScreenCast support for Android WebView.
   WebContents* web_contents = content_view_core_->GetWebContents();
   if (DevToolsAgentHost::HasFor(web_contents)) {
@@ -1245,6 +1246,7 @@ void RenderWidgetHostViewAndroid::SynchronousFrameMetadata(
             static_cast<RenderFrameDevToolsAgentHost*>(dtah.get()),
             frame_metadata));
   }
+#endif
 }
 
 void RenderWidgetHostViewAndroid::SetOverlayVideoMode(bool enabled) {
