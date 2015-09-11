@@ -251,18 +251,15 @@ static inline bool hasGeneratedAnonymousTableCells(const LayoutObject& parent)
     return false;
 }
 
-static inline bool nodeAllowsAdjacentWhitespace(Node* node)
-{
-    if (!node)
-        return true;
-    const ComputedStyle* style = node->ensureComputedStyle();
-    return style && style->originalDisplay() != TABLE_CELL && !isHTMLTableCellElement(node);
-}
-
-static inline bool canHaveWhitespaceChildren(const LayoutObject& parent, Text* text)
+static inline bool canHaveWhitespaceChildren(const LayoutObject& parent)
 {
     // <button> should allow whitespace even though LayoutFlexibleBox doesn't.
     if (parent.isLayoutButton())
+        return true;
+
+    // Allow whitespace when the text is inside a table, section or row element that
+    // has generated anonymous table cells to hold its contents.
+    if (hasGeneratedAnonymousTableCells(parent))
         return true;
 
     if (parent.isTable() || parent.isTableRow() || parent.isTableSection()
@@ -271,13 +268,8 @@ static inline bool canHaveWhitespaceChildren(const LayoutObject& parent, Text* t
         || parent.isSVGRoot()
         || parent.isSVGContainer()
         || parent.isSVGImage()
-        || parent.isSVGShape()) {
-        // Allow whitespace when the text is inside a table, section or row element that
-        // has generated anonymous table cells to hold its contents.
-        if (hasGeneratedAnonymousTableCells(parent))
-            return nodeAllowsAdjacentWhitespace(text->previousSibling()) && nodeAllowsAdjacentWhitespace(text->nextSibling());
+        || parent.isSVGShape())
         return false;
-    }
     return true;
 }
 
@@ -298,7 +290,7 @@ bool Text::textLayoutObjectIsNeeded(const ComputedStyle& style, const LayoutObje
     if (!containsOnlyWhitespace())
         return true;
 
-    if (!canHaveWhitespaceChildren(parent, this))
+    if (!canHaveWhitespaceChildren(parent))
         return false;
 
     // pre-wrap in SVG never makes layoutObject.
