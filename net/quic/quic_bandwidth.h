@@ -17,8 +17,13 @@ typedef uint64 QuicPacketCount;
 
 class NET_EXPORT_PRIVATE QuicBandwidth {
  public:
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Creates a new QuicBandwidth with an internal value of 0.
   static QuicBandwidth Zero();
+#else
+  QuicBandwidth(int bits_per_second) { bits_per_second_ = 0; }
+  static QuicBandwidth Zero() { return QuicBandwidth(0); }
+#endif
 
   // Create a new QuicBandwidth holding the bits per second.
   static QuicBandwidth FromBitsPerSecond(int64 bits_per_second);
@@ -65,7 +70,11 @@ class NET_EXPORT_PRIVATE QuicBandwidth {
 
 // Non-member relational operators for QuicBandwidth.
 inline bool operator==(QuicBandwidth lhs, QuicBandwidth rhs) {
+#if !defined(DISABLE_QUIC_SUPPORT)
   return lhs.ToBitsPerSecond() == rhs.ToBitsPerSecond();
+#else
+  return true;
+#endif
 }
 inline bool operator!=(QuicBandwidth lhs, QuicBandwidth rhs) {
   return !(lhs == rhs);

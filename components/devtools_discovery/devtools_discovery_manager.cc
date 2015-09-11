@@ -32,12 +32,16 @@ DevToolsTargetDescriptor::List DevToolsDiscoveryManager::GetDescriptors() {
   if (providers_.size())
     return GetDescriptorsFromProviders();
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsAgentHost::List agent_hosts = DevToolsAgentHost::GetOrCreateAll();
   DevToolsTargetDescriptor::List result;
   result.reserve(agent_hosts.size());
   for (const auto& agent_host : agent_hosts)
     result.push_back(new BasicTargetDescriptor(agent_host));
   return result;
+#else
+  return DevToolsTargetDescriptor::List();
+#endif
 }
 
 void DevToolsDiscoveryManager::SetCreateCallback(
