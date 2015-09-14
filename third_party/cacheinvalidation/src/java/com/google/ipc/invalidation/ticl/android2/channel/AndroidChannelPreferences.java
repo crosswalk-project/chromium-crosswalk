@@ -35,6 +35,8 @@ import android.util.Base64;
    */
   private static final String BUFFERED_MSG_PREF = "buffered-msg";
 
+  private static final String GCM_REGISTRATION_ID_PREF = "gcm_registration_id";
+
   private static final Logger logger = AndroidLogger.forTag("ChannelPrefs");
 
   /** Sets the token echoed on subsequent HTTP requests. */
@@ -51,9 +53,22 @@ import android.util.Base64;
   }
 
   /** Returns the echo token that should be included on HTTP requests. */
-  
   public static String getEchoToken(Context context) {
     return getPreferences(context).getString(C2dmConstants.ECHO_PARAM, null);
+  }
+
+  /** Sets the GCM registration id. */
+  public static void setRegistrationId(Context context, String regId) {
+    SharedPreferences.Editor editor = getPreferences(context).edit();
+    editor.putString(GCM_REGISTRATION_ID_PREF, regId);
+    if (!editor.commit()) {
+      logger.warning("Failed writing shared preferences for: setRegistrationId");
+    }
+  }
+
+  /** Returns the GCM registration id. */
+  public static String getRegistrationId(Context context) {
+    return getPreferences(context).getString(GCM_REGISTRATION_ID_PREF, "");
   }
 
   /** Buffers the last message sent by the Ticl. Overwrites any previously buffered message. */

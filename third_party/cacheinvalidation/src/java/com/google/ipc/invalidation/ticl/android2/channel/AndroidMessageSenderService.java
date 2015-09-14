@@ -342,7 +342,7 @@ public class AndroidMessageSenderService extends IntentService {
    * @param authToken auth token to provide in the request header
    * @param isOAuth2Token whether the token is an OAuth2 token (vs. a GoogleLogin token)
    */
-  
+
   public static HttpURLConnection createUrlConnectionForPost(
       Context context, URL url, String authToken, boolean isOAuth2Token) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -360,7 +360,7 @@ public class AndroidMessageSenderService extends IntentService {
     connection.setRequestProperty("Content-Type", HttpConstants.PROTO_CONTENT_TYPE);
     connection.setRequestProperty(
         "User-Agent", context.getApplicationInfo().className + "(" + Build.VERSION.RELEASE + ")");
-    
+
     String echoToken = AndroidChannelPreferences.getEchoToken(context);
     if (echoToken != null) {
       // If we have a token to echo to the server, echo it.
@@ -386,15 +386,13 @@ public class AndroidMessageSenderService extends IntentService {
   }
 
   /** Returns the network id for this channel, or {@code null} if one cannot be determined. */
-  
-  
   public static NetworkEndpointId getNetworkEndpointId(Context context, Logger logger) {
     String registrationId;
     try {
-      registrationId = GCMRegistrar.getRegistrationId(context);
+      registrationId = AndroidChannelPreferences.getRegistrationId(context);
     } catch (RuntimeException exception) {
-      // GCMRegistrar#getRegistrationId occasionally throws a runtime exception. Catching the
-      // exception rather than crashing.
+      // AndroidChannelPreferences#getRegistrationId should not throw a runtime exception. This was
+      // used with GCMRegistrar#getRegistrationId but we don't want to remove it now.
       logger.warning("Unable to get GCM registration id: %s", exception);
       registrationId = null;
     }

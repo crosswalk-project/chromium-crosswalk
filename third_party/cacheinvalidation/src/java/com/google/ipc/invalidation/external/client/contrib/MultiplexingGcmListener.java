@@ -22,6 +22,7 @@ import com.google.android.gcm.GCMRegistrar;
 import com.google.ipc.invalidation.external.client.SystemResources.Logger;
 import com.google.ipc.invalidation.external.client.android.service.AndroidLogger;
 import com.google.ipc.invalidation.ticl.android2.WakeLockManager;
+import com.google.ipc.invalidation.ticl.android2.channel.AndroidChannelPreferences;
 
 import android.app.IntentService;
 import android.content.BroadcastReceiver;
@@ -328,7 +329,7 @@ public class MultiplexingGcmListener extends GCMBaseIntentService {
   public static String initializeGcm(Context context) {
     GCMRegistrar.checkDevice(context);
     GCMRegistrar.checkManifest(context);
-    final String regId = GCMRegistrar.getRegistrationId(context);
+    final String regId = AndroidChannelPreferences.getRegistrationId(context);
     if (regId.isEmpty()) {
       GCMRegistrar.register(context, readSenderIdsFromManifestOrDie(context));
     }
