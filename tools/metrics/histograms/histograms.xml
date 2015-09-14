@@ -58481,6 +58481,7 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="1075" label="CASTDEVICESPRIVATE_UPDATEDEVICES"/>
   <int value="1076" label="SYSTEM_DISPLAY_ENABLEUNIFIEDDESKTOP"/>
   <int value="1078" label="VIRTUALKEYBOARDPRIVATE_SETKEYBOARDSTATE"/>
+  <int value="1079" label="VIRTUALKEYBOARDPRIVATE_SETHOTRODKEYBOARD"/>
 </enum>
 
 <enum name="ExtensionInstallCause" type="int">
