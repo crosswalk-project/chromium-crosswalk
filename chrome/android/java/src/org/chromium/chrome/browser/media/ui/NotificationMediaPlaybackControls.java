@@ -67,6 +67,9 @@ public class NotificationMediaPlaybackControls {
         @Override
         public void onDestroy() {
             super.onDestroy();
+
+            if (sInstance == null) return;
+
             onServiceDestroyed();
         }
 
