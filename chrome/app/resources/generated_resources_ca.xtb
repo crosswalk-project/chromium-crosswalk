@@ -1580,7 +1580,7 @@ No crec que calgui bloquejar aquest lloc.</translation>
 <translation id="3189728638771818048">Testimonis rebuts</translation>
 <translation id="3190494989851933547">Font d'alimentació:</translation>
 <translation id="3190558889382726167">S'ha desat la contrasenya</translation>
-<translation id="3192478164181859944">Activa la segona fase de Slimming Paint</translation>
+<translation id="3192478164181859944">Activa la segona fase de Slimming Paint.</translation>
 <translation id="3192947282887913208">Fitxers d'àudio</translation>
 <translation id="3193734264051635522">Velocitat:</translation>
 <translation id="3195029830833421520">Activa l'emmagatzematge local de les pàgines per fer-les servir sense connexió. Requereix que l'extensió Adreces d'interès millorades estigui activada.</translation>
@@ -3953,11 +3953,8 @@ Consulteu el vostre correu electrònic (<ph name="ACCOUNT_EMAIL" />) per obtenir
 <translation id="653019979737152879">S'està sincronitzant <ph name="FILE_NAME" />...</translation>
 <translation id="6533019874004191247">URL no admès.</translation>
 <translation id="6533965071487181681">Si s'activa, l'URL chrome://md-settings/ carrega la pàgina de configuració de material design.</translation>
-<translation id="6535131196824081346">Aquest error es pot produir quan es connecta amb un servidor segur (HTTPS). Això vol
-        dir que el servidor prova de configurar una connexió segura, però a causa d'un
-        error greu de configuració, la connexió no ho seria.
-        <ph name="LINE_BREAK" /> En aquest cas, cal
-        reparar el servidor. Per protegir la vostra privadesa,
+<translation id="6535131196824081346">Aquest error es pot produir en establir connexió amb un servidor segur (HTTPS) si el servidor prova de configurar una connexió segura, però una configuració incorrecta ho impedeix.
+        <ph name="LINE_BREAK" /> En aquest cas, cal reparar el servidor. Per protegir la vostra privadesa,
         <ph name="PRODUCT_NAME" />
         no utilitzarà connexions que no siguin segures.</translation>
 <translation id="654039047105555694"><ph name="BEGIN_BOLD" />Nota:<ph name="END_BOLD" /> activeu aquesta opció només si sabeu què esteu fent o si se us ha demanat que ho feu, ja que la recopilació de dades pot reduir el rendiment.</translation>
@@ -4448,7 +4445,7 @@ Consulteu el vostre correu electrònic (<ph name="ACCOUNT_EMAIL" />) per obtenir
 <translation id="7273110280511444812">darrera connexió el <ph name="DATE" /></translation>
 <translation id="7273774418879988007">Fa que l'emissió de sortida d'àudio comprovi si hi ha altres canals per emetre que no siguin el maquinari predeterminat. Si s'activa aquesta funció el sistema operatiu podrà millorar el so d'estèreo a envoltant, si s'admet. Pot fer que apareguin errors als controladors de tercers i, per tant, s'ha d'utilitzar amb precaució.</translation>
 <translation id="7274090186291031608">Pantalla <ph name="SCREEN_INDEX" /></translation>
-<translation id="727441411541283857"><ph name="PERCENTAGE" />% - Temps restant fins que es completi càrrega: <ph name="TIME" /></translation>
+<translation id="727441411541283857"><ph name="PERCENTAGE" />% - Temps restant fins que es completi la càrrega: <ph name="TIME" /></translation>
 <translation id="7278870042769914968">Utilitza el tema GTK+</translation>
 <translation id="727952162645687754">Error de baixada</translation>
 <translation id="7279701417129455881">Gestiona el bloqueig de galetes...</translation>
