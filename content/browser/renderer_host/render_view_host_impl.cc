@@ -229,7 +229,6 @@ RenderViewHostImpl::RenderViewHostImpl(
 
   GetProcess()->EnableSendQueue();
 
-#ifndef DISABLE_WEB_AUDIO
   if (ResourceDispatcherHostImpl::Get()) {
     bool has_active_audio = false;
     if (has_initialized_audio_host) {
@@ -250,7 +249,6 @@ RenderViewHostImpl::RenderViewHostImpl(
                    !is_hidden(),
                    has_active_audio));
   }
-#endif
 }
 
 RenderViewHostImpl::~RenderViewHostImpl() {
