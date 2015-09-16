@@ -47,6 +47,8 @@ TEST_F(ScreenRotationAnimationTest, LayerTransformGetsSetToTargetWhenAborted) {
       new ScreenRotationAnimation(
           layer, 45 /* start_degrees */, 0 /* end_degrees */,
           0.5f /* initial_opacity */, 1.0f /* target_opacity */,
+          gfx::Point3F(1.0f, 1.0f, 1.0f) /* initial_scale */,
+          gfx::Point3F(1.0f, 1.0f, 1.0f) /* target_scale */,
           gfx::Point(10, 10) /* pivot */,
           base::TimeDelta::FromSeconds(10) /* duration */, gfx::Tween::LINEAR));
 
