@@ -900,7 +900,7 @@ bool HTMLInputElement::isTextField() const
 void HTMLInputElement::dispatchChangeEventIfNeeded()
 {
     if (inDocument() && m_inputType->shouldSendChangeEventAfterCheckedChanged())
-        dispatchFormControlChangeEvent();
+        dispatchChangeEvent();
 }
 
 bool HTMLInputElement::checked() const
