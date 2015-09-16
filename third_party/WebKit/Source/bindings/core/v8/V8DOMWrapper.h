@@ -31,8 +31,10 @@
 #ifndef V8DOMWrapper_h
 #define V8DOMWrapper_h
 
+#include "bindings/core/v8/BindingSecurity.h"
 #include "bindings/core/v8/DOMDataStore.h"
 #include "bindings/core/v8/ScriptWrappable.h"
+#include "bindings/core/v8/V8Binding.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RawPtr.h"
 #include "wtf/text/AtomicString.h"
@@ -106,7 +108,7 @@ inline v8::Local<v8::Object> V8DOMWrapper::associateObjectWithWrapper(v8::Isolat
 
 class V8WrapperInstantiationScope {
 public:
-    V8WrapperInstantiationScope(v8::Local<v8::Object> creationContext, v8::Isolate* isolate)
+    V8WrapperInstantiationScope(v8::Local<v8::Object> creationContext, v8::Isolate* isolate, bool withSecurityCheck = true)
         : m_didEnterContext(false)
         , m_context(isolate->GetCurrentContext())
     {
@@ -119,6 +121,8 @@ public:
         // is different from the context that we are about to enter.
         if (contextForWrapper == m_context)
             return;
+        if (withSecurityCheck)
+            SecurityCheck(isolate, contextForWrapper);
         m_context = v8::Local<v8::Context>::New(isolate, contextForWrapper);
         m_didEnterContext = true;
         m_context->Enter();
@@ -134,6 +138,8 @@ public:
     v8::Local<v8::Context> context() const { return m_context; }
 
 private:
+    void SecurityCheck(v8::Isolate*, v8::Local<v8::Context> contextForWrapper);
+
     bool m_didEnterContext;
     v8::Local<v8::Context> m_context;
 };
