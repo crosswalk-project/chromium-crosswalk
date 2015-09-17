@@ -1395,6 +1395,8 @@ public class AwContents implements SmartClipProvider,
     public void loadDataWithBaseURL(
             String baseUrl, String data, String mimeType, String encoding, String historyUrl) {
         if (TRACE) Log.d(TAG, "loadDataWithBaseURL=" + baseUrl);
+        if (isDestroyed()) return;
+
         data = fixupData(data);
         mimeType = fixupMimeType(mimeType);
         LoadUrlParams loadUrlParams;
