@@ -182,10 +182,10 @@ public class MediaNotificationService extends Service {
             PendingIntent contentIntent = PendingIntent.getActivity(
                     mContext, notificationId, tabIntent, 0);
             builder.setContentIntent(contentIntent);
-            contentText.append(url);
-        } else {
             contentText.append(
                     mContext.getResources().getString(R.string.media_notification_link_text, url));
+        } else {
+            contentText.append(" ").append(url);
         }
         builder.setContentText(contentText);
 
