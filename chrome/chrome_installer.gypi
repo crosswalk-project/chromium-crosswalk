@@ -211,6 +211,7 @@
           'target_name': 'setup',
           'type': 'executable',
           'dependencies': [
+            'chrome_version_header',
             'installer_util',
             'installer_util_strings',
             '../base/base.gyp:base',
