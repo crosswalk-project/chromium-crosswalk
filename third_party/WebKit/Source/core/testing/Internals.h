@@ -261,6 +261,8 @@ public:
     void setPageScaleFactor(float scaleFactor, ExceptionState&);
     void setPageScaleFactorLimits(float minScaleFactor, float maxScaleFactor, ExceptionState&);
 
+    bool magnifyScaleAroundAnchor(float factor, float x, float y);
+
     void setIsCursorVisible(Document*, bool, ExceptionState&);
 
     double effectiveMediaVolume(HTMLMediaElement*);
