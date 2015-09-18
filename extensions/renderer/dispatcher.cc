@@ -278,6 +278,13 @@ Dispatcher::Dispatcher(DispatcherDelegate* delegate)
       extension_scheme);
   WebSecurityPolicy::registerURLSchemeAsBypassingContentSecurityPolicy(
       extension_resource_scheme);
+
+  // Extension resources, when loaded as the top-level document, should
+  // bypass Blink's strict first-party origin checks.
+  WebSecurityPolicy::registerURLSchemeAsFirstPartyWhenTopLevel(
+      extension_scheme);
+  WebSecurityPolicy::registerURLSchemeAsFirstPartyWhenTopLevel(
+      extension_resource_scheme);
 }
 
 Dispatcher::~Dispatcher() {
