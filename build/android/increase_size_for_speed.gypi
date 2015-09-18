@@ -14,7 +14,11 @@
       'target_conditions': [
         ['_toolset=="target"', {
           'conditions': [
-            ['OS=="android"', {
+            ['OS=="android" and use_optimize_for_size_compile_option==1', {
+              'cflags!': ['-O2'],
+              'cflags': ['-Os'],
+            }],
+            ['OS=="android" and use_optimize_for_size_compile_option==0', {
               'cflags!': ['-Os'],
               'cflags': ['-O2'],
             }],
