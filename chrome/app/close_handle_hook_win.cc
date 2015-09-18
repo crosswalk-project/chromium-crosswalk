@@ -185,8 +185,7 @@ bool UseHooks() {
 #elif defined(NDEBUG)
   chrome::VersionInfo::Channel channel = chrome::VersionInfo::GetChannel();
   if (channel == chrome::VersionInfo::CHANNEL_CANARY ||
-      channel == chrome::VersionInfo::CHANNEL_DEV ||
-      channel == chrome::VersionInfo::CHANNEL_UNKNOWN) {
+      channel == chrome::VersionInfo::CHANNEL_DEV) {
     return true;
   }
 
@@ -222,6 +221,8 @@ void InstallCloseHandleHooks() {
     // threads attempting to call CloseHandle.
     hooks->AddEATPatch();
     PatchLoadedModules(hooks);
+  } else {
+    base::win::DisableHandleVerifier();
   }
 }
 
