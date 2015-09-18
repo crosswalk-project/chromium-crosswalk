@@ -91,6 +91,10 @@ public:
     static void registerURLSchemeAsAllowingServiceWorkers(const String& scheme);
     static bool shouldTreatURLSchemeAsAllowingServiceWorkers(const String& scheme);
 
+    // Schemes which override the first-/third-party checks on a Document.
+    static void registerURLSchemeAsFirstPartyWhenTopLevel(const String& scheme);
+    static bool shouldTreatURLSchemeAsFirstPartyWhenTopLevel(const String& scheme);
+
     // Allow resources from some schemes to load on a page, regardless of its
     // Content Security Policy.
     // This enum should be kept in sync with public/web/WebSecurityPolicy.h.
