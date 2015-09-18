@@ -659,11 +659,23 @@ bool ThreadState::shouldSchedulePreciseGC()
 
 bool ThreadState::shouldSchedulePageNavigationGC(float estimatedRemovalRatio)
 {
+    if (UNLIKELY(isGCForbidden()))
+        return false;
+
+    if (shouldForceMemoryPressureGC())
+        return true;
+
     return judgeGCThreshold(1024 * 1024, 1.5 * (1 - estimatedRemovalRatio));
 }
 
 bool ThreadState::shouldForceConservativeGC()
 {
+    if (UNLIKELY(isGCForbidden()))
+        return false;
+
+    if (shouldForceMemoryPressureGC())
+        return true;
+
     // TODO(haraken): 400% is too large. Lower the heap growing factor.
     return judgeGCThreshold(32 * 1024 * 1024, 5.0);
 }
@@ -707,10 +719,6 @@ void ThreadState::scheduleGCIfNeeded()
 
     Heap::reportMemoryUsageForTracing();
 
-    if (shouldForceMemoryPressureGC()) {
-        Heap::collectGarbage(HeapPointersOnStack, GCWithoutSweep, Heap::ConservativeGC);
-        return;
-    }
     if (shouldForceConservativeGC()) {
         Heap::collectGarbage(HeapPointersOnStack, GCWithoutSweep, Heap::ConservativeGC);
         return;
@@ -900,6 +908,18 @@ void ThreadState::setGCState(GCState gcState)
 ThreadState::GCState ThreadState::gcState() const
 {
     return m_gcState;
+}
+
+void ThreadState::didV8MajorGC()
+{
+    ASSERT(checkThread());
+    if (isMainThread()) {
+        if (shouldForceMemoryPressureGC()) {
+            // Under memory pressure, force a conservative GC.
+            Heap::collectGarbage(HeapPointersOnStack, GCWithoutSweep, Heap::ConservativeGC);
+            return;
+        }
+    }
 }
 
 void ThreadState::runScheduledGC(StackState stackState)
