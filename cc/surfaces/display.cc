@@ -250,9 +250,7 @@ void Display::OnDraw() {
 }
 
 void Display::SetNeedsRedrawRect(const gfx::Rect& damage_rect) {
-  aggregator_->SetFullDamageForSurface(current_surface_id_);
-  if (scheduler_)
-    scheduler_->SurfaceDamaged(current_surface_id_);
+  NOTREACHED();
 }
 
 void Display::ReclaimResources(const CompositorFrameAck* ack) {
