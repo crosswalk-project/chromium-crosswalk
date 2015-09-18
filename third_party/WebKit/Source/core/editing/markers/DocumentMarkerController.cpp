@@ -69,6 +69,8 @@ DocumentMarker::MarkerTypeIndex MarkerTypeToMarkerIndex(DocumentMarker::MarkerTy
         return DocumentMarker::TextMatchMarkerIndex;
     case DocumentMarker::InvisibleSpellcheck:
         return DocumentMarker::InvisibleSpellcheckMarkerIndex;
+    case DocumentMarker::Composition:
+        return DocumentMarker::CompositionMarkerIndex;
     }
 
     ASSERT_NOT_REACHED();
@@ -109,6 +111,12 @@ void DocumentMarkerController::addTextMatchMarker(const Range* range, bool activ
     for (TextIterator markedText(range->startPosition(), range->endPosition()); !markedText.atEnd(); markedText.advance())
         addMarker(markedText.currentContainer(), DocumentMarker(markedText.startOffsetInCurrentContainer(), markedText.endOffsetInCurrentContainer(), activeMatch));
     // Don't invalidate tickmarks here. TextFinder invalidates tickmarks using a throttling algorithm. crbug.com/6819.
+}
+
+void DocumentMarkerController::addCompositionMarker(const Position& start, const Position& end, Color underlineColor, bool thick, Color backgroundColor)
+{
+    for (TextIterator markedText(start, end); !markedText.atEnd(); markedText.advance())
+        addMarker(markedText.currentContainer(), DocumentMarker(markedText.startOffsetInCurrentContainer(), markedText.endOffsetInCurrentContainer(), underlineColor, thick, backgroundColor));
 }
 
 void DocumentMarkerController::prepareForDestruction()
@@ -206,7 +214,7 @@ void DocumentMarkerController::addMarker(Node* node, const DocumentMarker& newMa
     if (list->isEmpty() || list->last()->endOffset() < newMarker.startOffset()) {
         list->append(newRenderedMarker.release());
     } else {
-        if (newMarker.type() != DocumentMarker::TextMatch) {
+        if (newMarker.type() != DocumentMarker::TextMatch && newMarker.type() != DocumentMarker::Composition) {
             mergeOverlapping(list.get(), newRenderedMarker.release());
         } else {
             MarkerList::iterator pos = std::lower_bound(list->begin(), list->end(), &newMarker, startsFurther);
