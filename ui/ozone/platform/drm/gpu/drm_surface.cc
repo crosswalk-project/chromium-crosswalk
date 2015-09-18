@@ -99,14 +99,9 @@ void DrmSurface::SchedulePageFlip() {
 
   // Update our front buffer pointer.
   std::swap(front_buffer_, back_buffer_);
-  // First set the pending flag otherwise there could be a re-entrancy issue if
-  // the callback is executed synchronously.
-  pending_pageflip_ = true;
-  if (!window_->SchedulePageFlip(false /* is_sync */,
-                                 base::Bind(&DrmSurface::OnPageFlip,
-                                            weak_ptr_factory_.GetWeakPtr()))) {
-    pending_pageflip_ = false;
-  }
+  pending_pageflip_ = window_->SchedulePageFlip(
+      false /* is_sync */,
+      base::Bind(&DrmSurface::OnPageFlip, weak_ptr_factory_.GetWeakPtr()));
 }
 
 void DrmSurface::OnPageFlip(gfx::SwapResult result) {
