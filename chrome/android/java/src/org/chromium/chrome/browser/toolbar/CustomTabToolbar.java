@@ -60,8 +60,10 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
     private ImageView mSecurityButton;
     private ImageButton mCustomActionButton;
     private int mSecurityIconType;
-    private boolean mUseDarkColors;
     private ImageButton mCloseButton;
+
+    // Whether dark tint should be applied to icons and text.
+    private boolean mUseDarkColors;
 
     private CustomTabToolbarAnimationDelegate mAnimDelegate;
     private boolean mBackgroundColorSet;
@@ -286,10 +288,17 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
         mTitleBar.setTextColor(titleTextColor);
 
         if (getProgressBar() != null) {
-            int progressBarBackgroundColorResource = mUseDarkColors
-                    ? R.color.progress_bar_background : R.color.progress_bar_background_white;
-            getProgressBar().setBackgroundColor(
-                    getResources().getColor(progressBarBackgroundColorResource));
+            if (mBackgroundColorSet && !mUseDarkColors) {
+                getProgressBar().setBackgroundColor(BrandColorUtils
+                        .getLightProgressbarBackground(getToolbarDataProvider().getPrimaryColor()));
+                getProgressBar().setForegroundColor(resources.getColor(
+                        R.color.progress_bar_foreground_white));
+            } else {
+                int progressBarBackgroundColorResource = mUseDarkColors
+                        ? R.color.progress_bar_background : R.color.progress_bar_background_white;
+                getProgressBar().setBackgroundColor(resources.getColor(
+                        progressBarBackgroundColorResource));
+            }
         }
     }
 
@@ -359,11 +368,11 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
     @Override
     protected void onPrimaryColorChanged() {
         if (mBackgroundColorSet) return;
+        mBackgroundColorSet = true;
         int primaryColor = getToolbarDataProvider().getPrimaryColor();
         getBackground().setColor(primaryColor);
         mUseDarkColors = !BrandColorUtils.shouldUseLightDrawablesForToolbar(primaryColor);
         updateVisualsForState();
-        mBackgroundColorSet = true;
     }
 
     @Override

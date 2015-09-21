@@ -16,6 +16,8 @@ public class BrandColorUtils {
     /** Percentage to darken the brand color by when setting the status bar color. */
     private static final float DARKEN_COLOR_FRACTION = 0.6f;
 
+    private static final float LIGHT_PROGRESSBAR_BACKGROUND_ALPHA = 0.5f;
+
     /**
      * Computes the lightness value in HSL standard for the given color.
      */
@@ -53,6 +55,25 @@ public class BrandColorUtils {
         Color.colorToHSV(color, hsv);
         hsv[2] *= DARKEN_COLOR_FRACTION;
         return Color.HSVToColor(hsv);
+    }
+
+    /**
+     * Gets the background color for light theme progress bar.
+     * @param toolbarColor The color of the toolbar.
+     * @return The color of the progress bar in light theme, given the toolbar color.
+     */
+    public static int getLightProgressbarBackground(int toolbarColor) {
+        return getColorWithOverlay(Color.WHITE, toolbarColor, LIGHT_PROGRESSBAR_BACKGROUND_ALPHA);
+    }
+
+    private static int getColorWithOverlay(int baseColor, int overlayColor, float overlayAlpha) {
+        return Color.rgb(
+            (int) (overlayAlpha * Color.red(baseColor)
+                    + (1f - overlayAlpha) * Color.red(overlayColor)),
+            (int) (overlayAlpha * Color.green(baseColor)
+                    + (1f - overlayAlpha) * Color.green(overlayColor)),
+            (int) (overlayAlpha * Color.blue(baseColor)
+                    + (1f - overlayAlpha) * Color.blue(overlayColor)));
     }
 
     /**
