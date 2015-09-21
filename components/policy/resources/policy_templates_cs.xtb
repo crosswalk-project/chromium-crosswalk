@@ -412,6 +412,15 @@ Pokud tuto zásadu ponecháte nenastavenou, bude tato možnost aktivována, ale 
           Každá položka v tomto seznamu představuje vzor odpovídající typu rozšíření (viz stránky http://code.google.com/chrome/extensions/match_patterns.html). Uživatelé budou moci jednoduše instalovat položky z jakékoli adresy, která odpovídá položce v tomto seznamu. V těchto vzorech musí být povoleno umístění souboru *.crx i stránka, ze které bude zahájeno stahování (tj. zdroj odkazu).
 
           Seznam zakázaných položek ExtensionInstallBlacklist je této zásadě nadřazen. Rozšíření v seznamu zakázaných položek nebude nainstalováno ani v případě, že bude pocházet ze stránek, které jsou uvedeny v tomto seznamu.</translation>
+<translation id="2820806665372828299">Uděluje rozšířením přístup k podnikovým klíčům.
+
+      K podnikovému použití jsou určeny ty klíče, které jsou vygenerovány pomocí rozhraní chrome.platformKeys API ve spravovaném účtu. Klíče importované nebo vygenerované jiným způsobem k podnikovému použití určeny nejsou.
+
+      Přístup ke klíčům určeným k podnikovému použití je řízen pouze touto zásadou. Uživatel rozšířením přístup k podnikovým klíčům udělit ani odebrat nemůže.
+
+      Ve výchozím nastavení rozšíření klíč určený k podnikovému použití používat nemůže. Tento stav je ekvivalentní k nastavení zásady allowCorporateKeyUsage pro dané rozšíření na hodnotu false.
+
+      Klíč platformy určený k podnikovému použití může rozšíření k podepisování libovolných dat používat pouze v případě, že je zásada allowCorporateKeyUsage natavena na hodnotu true. Toto oprávnění byste měli udělit, pouze pokud rozšíření důvěřujete, že dokáže přístup ke klíči zabezpečit před útočníky.</translation>
 <translation id="2824715612115726353">Povolit anonymní režim</translation>
 <translation id="285480231336205327">Aktivovat vysoce kontrastní režim</translation>
 <translation id="2872961005593481000">Vypnout</translation>
@@ -1674,6 +1683,11 @@ Pokud ji ponecháte nenastavenou, režim vysokého kontrastu bude ve výchozím 
 <translation id="8369602308428138533">Prodleva vypnutí obrazovky při napájení ze sítě</translation>
 <translation id="8382184662529825177">Povolit použití vzdáleného ověření identity k ochraně obsahu v zařízení</translation>
 <translation id="838870586332499308">Povolit datový roaming</translation>
+<translation id="8412286985859522563">Konfiguruje seznam spravovaných záložek.
+
+      Hodnotou této zásady je seznam záložek. Každá záložka je slovník, který obsahuje název záložky (name) a cílovou adresu URL (url). Záložku lze nakonfigurovat také jako složku. V takovém případě definujte název složky (name), ale nedefinujte adresu (url). Namísto toho obsah složky definujte jako další seznam záložek pod klíčem children. Neúplné adresy URL doplní Chrome stejně, jako kdybyste je odeslali pomocí omniboxu. Například „google.com“ bude doplněno na „http://google.com/“.
+
+      Tyto záložky budou umístěny do složky Spravované záložky, kterou uživatel nemůže upravovat. Může ji však na liště záložek skrýt. Spravované záložky se nesynchronizují do uživatelského účtu a nelze je upravovat pomocí rozšíření.</translation>
 <translation id="8412312801707973447">Zda se budou provádět online kontroly OCSP/CRL</translation>
 <translation id="8451988835943702790">Jako domovskou použít stránku Nová karta</translation>
 <translation id="8465065632133292531">Parametry pro adresu URL dynamického vyhledávání používající metodu POST</translation>

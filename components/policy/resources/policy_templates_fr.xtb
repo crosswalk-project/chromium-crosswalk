@@ -413,6 +413,15 @@ Cette règle n'est respectée que si la règle "DefaultSearchProviderEnabled" es
           Chaque élément de cette liste est un schéma de correspondance de style extension (voir https://developer.chrome.com/extensions/match_patterns). Les utilisateurs pourront facilement installer des éléments depuis n'importe quelle URL correspondant à un élément de cette liste. L'emplacement du fichier *.crx et la page de téléchargement (page de provenance) doivent tous deux être autorisés par ces schémas.
 
           ExtensionInstallBlacklist prévaut sur cette règle : une extension figurant dans la liste noire ne sera pas installée, même si elle provient d'un site mentionné dans cette liste.</translation>
+<translation id="2820806665372828299">Accorder aux extensions l'accès aux clés d'entreprise
+
+      Les clés sont conçues pour une utilisation en entreprise si elles sont générées à l'aide de l'API chrome.platformKeys sur un compte géré. Les clés importées ou générées d'une autre manière ne sont pas prévues pour une utilisation professionnelle.
+
+      L'accès aux clés conçues pour une utilisation en entreprise est entièrement contrôlé par ces règles. L'utilisateur ne peut ni accorder ni retirer l'accès à ces clés vers les extensions, ou à partir de celles-ci.
+
+      Par défaut, une extension ne peut pas utiliser une clé conçue pour une utilisation en entreprise, ce qui équivaut à définir le paramètre "allowCorporateKeyUsage" sur "False" pour l'extension donnée.
+
+      Si le paramètre "allowCorporateKeyUsage" est défini sur "True" pour une extension, et uniquement dans ce cas précis, l'extension peut utiliser n'importe quelle clé de plate-forme marquée pour une utilisation professionnelle afin de signer des données arbitraires. Cette autorisation ne doit être accordée que si l'extension est en mesure de protéger l'accès à la clé contre les pirates.</translation>
 <translation id="2824715612115726353">Activer le mode navigation privée</translation>
 <translation id="285480231336205327">Activer le mode Contraste élevé</translation>
 <translation id="2872961005593481000">Éteindre</translation>
@@ -1690,6 +1699,11 @@ Si aucun paramètre n'est défini, <ph name="PRODUCT_NAME" /> utilise un nom de 
 <translation id="8369602308428138533">Délai d'arrêt de l'écran (secteur)</translation>
 <translation id="8382184662529825177">Autoriser l'utilisation de l'attestation à distance pour assurer la protection du contenu de l'appareil</translation>
 <translation id="838870586332499308">Activer l'itinérance des données</translation>
+<translation id="8412286985859522563">Configurer une liste de favoris gérés
+
+      La règle est une liste de favoris, et chaque favori est un dictionnaire comprenant le nom du favori et l'URL cible. Un favori peut également être configuré en tant que dossier. Dans ce cas, définissez le nom du dossier, mais ne définissez pas d'URL. Définissez le contenu du dossier en tant que liste de favoris distincte sous la clé "Enfants". Chrome modifie les URL incomplètes de la même manière que si elles avaient été saisies via l'omnibox. Par exemple, "google.com" devient "http://google.com/".
+
+      Ces favoris sont placés dans un dossier "Favoris gérés" qui ne peut pas être modifié par l'utilisateur. Ce dernier peut cependant choisir de masquer ce dossier dans la barre des favoris. Les favoris gérés ne sont pas synchronisés avec le compte de l'utilisateur ni ne peuvent être modifiés par des extensions.</translation>
 <translation id="8412312801707973447">Si des contrôles OCSP/CRL en ligne sont effectués</translation>
 <translation id="8451988835943702790">Utiliser la page "Nouvel onglet" comme page d'accueil</translation>
 <translation id="8465065632133292531">Paramètres pour l'URL instantanée utilisant POST</translation>

@@ -412,6 +412,15 @@
           Ang bawat item sa listahang ito ay isang match pattern na uri ng extension (tingnan ang https://developer.chrome.com/extensions/match_patterns). Madaling makakapag-install ang mga user ng mga item mula sa anumang URL na tumutugma sa isang item sa listahang ito. Dapat parehong payagan ng mga pattern na ito ang lokasyon ng *.crx file at ang page kung saan nagsimula ang pag-download (i.e. ang referrer).
 
           Binibigyang-halaga ang ExtensionInstallBlacklist sa patakarang ito. Dahil dito, hindi mai-install ang extension sa blacklist, kahit na mangyari ito mula sa isang site sa listahang ito.</translation>
+<translation id="2820806665372828299">Nagbibigay ng access sa mga pangkumpanyang key sa mga extension.
+
+      Itinatalaga ang mga key para sa pangkumpanyang paggamit kung nabuo ang mga ito gamit ang chrome.platformKeys API sa isang pinamamahalaang account. Hindi itinatalaga ang mga key na na-import o nabuo sa ibang paraan para sa pangkumpanyang paggamit.
+
+      Ang patakarang ito lang ang namamahala sa access sa mga key na itinalaga para sa pangkumpanyang paggamit. Hindi maaaring magbigay o bumawi ng access ang user sa mga pangkumpanyang key sa mga extension o mula sa mga ito.
+
+      Bilang default, hindi maaaring gumamit ang extension ng isang key na itinalaga para sa pangkumpanyang paggamit, na katumbas ng pagtatakda sa allowCorporateKeyUsage sa false para sa extension na iyon.
+
+      Kung itatakda sa true ang allowCorporateKeyUsage, sa pagkakataong iyon pa lang ito maaaring gumamit ng anumang platform key na minarkahan para sa pangkumpanyang paggamit upang makapag-sign sa isang arbitrary na data. Dapat lang ibigay ang pahintulot na ito kung pinagkakatiwalaang pananatilihing ligtas ng extension ang access sa key mula sa mga attacker.</translation>
 <translation id="2824715612115726353">Paganahin ang Incognito mode</translation>
 <translation id="285480231336205327">Paganahin ang mataas na contrast mode</translation>
 <translation id="2872961005593481000">Shut down</translation>
@@ -1675,6 +1684,11 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
 <translation id="8369602308428138533">Delay ng pag-off ng screen kapag tumatakbo habang nakasaksak sa kuryente</translation>
 <translation id="8382184662529825177">I-enable ang paggamit ng malayuang pagpapatotoo para sa pagprotekta sa nilalaman para sa device</translation>
 <translation id="838870586332499308">Payagan ang roaming ng data</translation>
+<translation id="8412286985859522563">Nagko-configure ng isang listahan ng mga pinamamahalaang bookmark.
+
+      Ang patakaran ay isang listahan ng mga bookmark, at ang bawat bookmark ay isang diksyunaryong naglalaman ng "pangalan" ng bookmark at target na "url." Maaari ding ma-configure ang isang bookmark bilang isang folder. Sa pagkakataong iyon, tukuyin ang "pangalan" ng folder ngunit huwag tumukoy ng "url"; sa halip, tukuyin ang mga content ng folder bilang isa pang listahan ng mga bookmark sa ilalim ng key na "children." Aayusin ng Chrome ang mga hindi buong URL na para bang isinumite ang mga ito sa pamamagitan ng Omnibox. Halimbawa, ang "google.com" ay magiging "http://google.com/".
+
+      Nakalagay ang mga bookmark na ito sa folder na Mga pinamamahalaang bookmark na hindi maaaring mabago ng user, ngunit maaari itong itago ng user sa bookmarks bar kung gugustuhin niya. Hindi naka-sync ang Mga pinamamahalaang bookmark sa user account at hindi maaaring mabago ng mga extension ang mga ito.</translation>
 <translation id="8412312801707973447">Kung isinasagawa ang mga online na pagsusuri sa OCSP/CRL</translation>
 <translation id="8451988835943702790">Gamitin ang Pahina ng Bagong Tab bilang homepage</translation>
 <translation id="8465065632133292531">Mga parameter para sa instant na URL na ginagamit ang POST</translation>

@@ -415,6 +415,15 @@ The contents of the list 'URLs to open at start-up' are ignored unless you selec
           Each item in this list is an extension-style match pattern (see https://developer.chrome.com/extensions/match_patterns). Users will be able to easily install items from any URL that matches an item in this list. Both the location of the *.crx file and the page where the download is started from (i.e. the referrer) must be allowed by these patterns.
 
           ExtensionInstallBlacklist takes precedence over this policy. That is, an extension on the blacklist won't be installed, even if it happens from a site on this list.</translation>
+<translation id="2820806665372828299">Grants access to corporate keys to extensions.
+
+      Keys are designated for corporate usage if they're generated using the chrome.platformKeys API on a managed account. Keys imported or generated in another way are not designated for corporate usage.
+
+      Access to keys designated for corporate usage is solely controlled by this policy. The user can neither grant nor withdraw access to corporate keys to or from extensions.
+
+      By default an extension cannot use a key designated for corporate usage, which is equivalent to setting allowCorporateKeyUsage to false for that extension.
+
+      Only if allowCorporateKeyUsage is set to true for an extension, can it use any platform key marked for corporate usage to sign arbitrary data. This permission should only be granted if the extension is trusted to secure access to the key against attackers.</translation>
 <translation id="2824715612115726353">Enable Incognito mode</translation>
 <translation id="285480231336205327">Enable high contrast mode</translation>
 <translation id="2872961005593481000">Shut down</translation>
@@ -1694,6 +1703,12 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="8369602308428138533">Screen off delay when running on AC power</translation>
 <translation id="8382184662529825177">Enable the use of remote attestation for content protection for the device</translation>
 <translation id="838870586332499308">Enable data roaming</translation>
+<translation id="8412286985859522563">Configures a list of managed bookmarks.
+
+      The policy is a list of bookmarks, and each bookmark is a dictionary containing the bookmark "name" and the target "URL". A bookmark can also be configured as a folder. In that case, define the folder "name" but don't define a
+ "URL"; instead, define the folder contents as another list of bookmarks under the "children" key. Chrome will amend incomplete URLs as if they were submitted via the Omnibox. For example, "google.com" becomes "http://google.com/".
+
+      These bookmarks are placed in a Managed bookmarks folder that can't be modified by the user, but the user can choose to hide it from the bookmark bar. Managed bookmarks are not synced to the user account and can't be modified by extensions.</translation>
 <translation id="8412312801707973447">Whether online OCSP/CRL checks are performed</translation>
 <translation id="8451988835943702790">Use New Tab Page as homepage</translation>
 <translation id="8465065632133292531">Parameters for instant URL which uses POST</translation>

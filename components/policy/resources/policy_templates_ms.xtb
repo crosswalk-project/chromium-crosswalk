@@ -415,6 +415,15 @@
           Setiap item dalam senarai ini merupakan pola padanan ala pelanjutan (lihat https://developer.chrome.com/extensions/match_patterns). Pengguna akan dapat memasang item dari mana-mana URL yang sepadan dengan item dalam senarai ini dengan mudah. Kedua-dua lokasi fail *.crx dan halaman tempat muat turun dimulakan (contohnya perujuk) mestilah dibenarkan oleh pola ini.
 
           ExtensionInstallBlacklist diberikan keutamaan melebihi dasar ini. Bermakna, pelanjutan pada senarai hitam tidak akan dipasang walaupun pelanjutan tersebut berasal dari tapak pada senarai ini.</translation>
+<translation id="2820806665372828299">Memberi sambungan akses kepada kunci korporat.
+
+      Kunci ditetapkan untuk kegunaan korporat jika dijana menggunakan API chrome.platformKeys pada akaun terurus. Kunci yang diimport atau dijana dengan cara lain tidak ditetapkan untuk kegunaan korporat.
+
+      Akses kepada kunci yang ditetapkan untuk kegunaan korporat dikawal sepenuhnya oleh dasar ini. Pengguna tidak boleh memberi sambungan akses kepada kunci korporat mahupun menariknya balik.
+
+      Secara lalai, sambungan tidak boleh menggunakan kunci yang ditetapkan untuk kegunaan korporat. Hal ini sama seperti menetapkan allowCorporateKeyUsage kepada salah untuk sambungan itu.
+
+      allowCorporateKeyUsage hanya boleh menggunakan mana-mana kunci platform yang ditandai untuk kegunaan korporat bagi menandatangani data arbitrari jika ditetapkan kepada benar untuk sambungan. Hanya berikan kebenaran ini jika sambungan dipercayai untuk menjamin keselamatan akses kepada kunci daripada penyerang.</translation>
 <translation id="2824715612115726353">Dayakan mod Inkognito</translation>
 <translation id="285480231336205327">Dayakan mod kontras tinggi</translation>
 <translation id="2872961005593481000">Mematikan</translation>
@@ -1680,6 +1689,11 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
 <translation id="8369602308428138533">Kelewatan pemadaman skrin apabila dijalankan dengan kuasa AC</translation>
 <translation id="8382184662529825177">Dayakan penggunaan pembuktian jauh untuk perlindungan kandungan bagi peranti</translation>
 <translation id="838870586332499308">Dayakan perayauan data</translation>
+<translation id="8412286985859522563">Mengkonfigurasikan senarai penanda halaman terurus.
+
+      Dasar ini merupakan senarai penanda halaman dan setiap penanda halaman ialah kamus yang mengandungi "nama" penanda halaman dan "url" sasaran. Penanda halaman turut boleh dikonfigurasikan sebagai folder. Dalam keadaan sedemikian, takrifkan "nama" folder tetapi jangan takrifkan "url"; sebaliknya, takrifkan kandungan folder sebagai satu lagi senarai penanda halaman di bawah kunci "anak". Chrome akan meminda URL yang tidak lengkap seolah-olah URL itu dihantar melalui Kotak Omni. Sebagai contoh, "google.com" akan menjadi "http://google.com/".
+
+      Penanda halaman ini diletakkan dalam folder Penanda halaman terurus yang tidak boleh diubah suai oleh pengguna, tetapi pengguna boleh memilih untuk menyembunyikannya daripada bar penanda halaman. Penanda halaman terurus tidak disegerakkan dengan akaun pengguna dan tidak boleh diubah suai oleh sambungan.</translation>
 <translation id="8412312801707973447">Sama ada semakan OCSP/CRL dalam talian dilaksanakan</translation>
 <translation id="8451988835943702790">Gunakan Halaman Tab Baharu sebagai halaman utama</translation>
 <translation id="8465065632133292531">Parameter untuk URL semerta yang menggunakan POST</translation>

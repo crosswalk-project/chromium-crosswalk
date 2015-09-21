@@ -351,6 +351,15 @@ Se la norma non viene impostata l'impostazione verrà attivata ma gli utenti pot
           Ogni voce presente in questo elenco è uno schema di corrispondenza in stile di estensione (vedi l'indirizzo https://developer.chrome.com/extensions/match_patterns). Gli utenti potranno installare facilmente elementi dagli URL corrispondenti a una voce nell'elenco. Questi schemi devono consentire sia la posizione del file *.crx sia la pagina da cui viene avviato il download (il referrer).
 
           La norma ExtensionInstallBlacklist ha la precedenza su questa norma. Ciò significa che un'estensione presente nella blacklist non verrà installata, anche se è di un sito presente in questo elenco.</translation>
+<translation id="2820806665372828299">Consente di concedere alle chiavi aziendali accesso alle estensioni.
+
+      Le chiavi sono create per l'utilizzo aziendale se generate tramite l'API chrome.platformKeys su un account gestito. Le chiavi importate o generate in altro modo non sono compatibili per l'utilizzo aziendale.
+
+      L'accesso a chiavi create per l'utilizzo aziendale è controllato in modo esclusivo da questo criterio. L'utente non ha facoltà di concedere alle chiavi aziendali accesso alle estensioni, né di revocarlo.
+
+      Per impostazione predefinita, un'estensione non può utilizzare una chiave creata per l'utilizzo aziendale, operazione equivalente a impostare allowCorporateKeyUsage su false per tale estensione.
+
+      Solo quando allowCorporateKeyUsage è impostato su true, l'estensione può utilizzare tutte le chiavi di piattaforma contrassegnate per l'utilizzo aziendale al fine di firmare dati arbitrari. Questa autorizzazione deve essere concessa solamente se l'estensione è attendibile e in grado di accedere alla chiave in modo protetto al fine di evitare potenziali attacchi.</translation>
 <translation id="2824715612115726353">Attiva modalità di navigazione in incognito</translation>
 <translation id="285480231336205327">Attiva modalità ad alto contrasto</translation>
 <translation id="2872961005593481000">Spegni</translation>
@@ -1391,6 +1400,11 @@ Se questa norma non viene impostata, le pagine saranno sottoposte a scansione pe
 <translation id="8369602308428138533">Ritardo disattivazione schermo in caso di utilizzo di CA</translation>
 <translation id="8382184662529825177">Attiva l'utilizzo dell'attestazione remota per la protezione dei contenuti per il dispositivo</translation>
 <translation id="838870586332499308">Attiva roaming dati</translation>
+<translation id="8412286985859522563">Consente di configurare un elenco di Preferiti gestiti.
+
+      Il criterio è un elenco di Preferiti. Ciascun Preferito rappresenta un dizionario contenente i relativi "nome" e "URL" di destinazione. I Preferiti possono inoltre essere configurati sotto forma di cartelle. In questo caso, definisci soltanto il "nome" della cartella, senza definire "l'URL". Definisci invece i contenuti della cartella come un altro elenco di Preferiti sotto la chiave "Secondari". Chrome modificherà gli URL incompleti come se fossero stati trasmessi nella omnibox. Ad esempio, "google.com" diventa "http://google.com/".
+
+      Questi Preferiti sono posizionati in una cartella di Preferiti gestiti che non può essere modificata dall'utente. L'utente può tuttavia scegliere di nasconderla dalla barra dei Preferiti. I Preferiti gestiti non vengono sincronizzati con l'account dell'utente e le estensioni non possono modificarli.</translation>
 <translation id="8412312801707973447">Esecuzione dei controlli OCSP/CRL online</translation>
 <translation id="8451988835943702790">Usa la pagina Nuova scheda come Pagina iniziale</translation>
 <translation id="8465065632133292531">Parametri per l'URL istantaneo che utilizza POST</translation>

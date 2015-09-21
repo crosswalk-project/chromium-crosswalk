@@ -354,6 +354,15 @@
 Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam daftar ini dengan mudah. Lokasi file *.crx dan laman tempat unduhan dimulai (perujuk) harus diizinkan dengan pola ini.
 
           ExtensionInstallBlacklist lebih diutamakan dibandingkan dengan kebijakan ini. Artinya, ekstensi dalam daftar hitam tidak akan dipasang, meskipun berasal dari situs dalam daftar ini.</translation>
+<translation id="2820806665372828299">Memberikan akses ke kunci perusahaan ke ekstensi
+
+      Kunci hanya ditujukan untuk pemakaian dalam perusahaan jika dibuat menggunakan API chrome.platformKeys pada akun yang dikelola. Kunci yang diimpor atau dibuat dengan cara lain tidak boleh digunakan untuk perusahaan.
+
+      Akses ke kunci yang ditujukan untuk pemakaian dalam perusahaan hanya dikontrol oleh kebijakan ini. Pengguna dapat memberikan maupun menarik akses ke kunci perusahaan ke atau dari ekstensi.
+
+      Secara default, ekstensi tidak dapat menggunakan kunci yang ditujukan untuk pemakaian dalam perusahaan, hal ini setara dengan menyetel allowCorporateKeyUsage ke 'false' untuk ekstensi tersebut.
+
+      Hanya jika allowCorporateKeyUsage disetel ke 'true' untuk sebuah ekstensi, maka ekstensi tersebut dapat menggunakan kunci platform apa pun yang ditujukan untuk pemakaian dalam perusahaan, guna menandai data acak. Izin ini hanya boleh diberikan jika ekstensi dapat dipercaya, agar akses ke kunci aman dari serangan orang jahat.</translation>
 <translation id="2824715612115726353">Aktifkan mode Penyamaran</translation>
 <translation id="285480231336205327">Aktifkan mode kontras tinggi</translation>
 <translation id="2872961005593481000">Matikan</translation>
@@ -1413,6 +1422,11 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="8369602308428138533">Penundaan mematikan layar saat menggunakan daya AC</translation>
 <translation id="8382184662529825177">Mengaktifkan penggunaan pengesahan jarak jauh untuk perlindungan konten bagi perangkat</translation>
 <translation id="838870586332499308">Aktifkan roaming data</translation>
+<translation id="8412286985859522563">Mengonfigurasi daftar bookmark yang dikelola.
+
+      Kebijakan merupakan sebuah daftar bookmark dan setiap bookmark merupakan kamus yang berisi "nama" dan "url" target bookmark. Bookmark juga dapat dikonfigurasi sebagai folder. Bila ingin mengonfigurasi sebagai folder, tetapkan "nama" folder, tetapi jangan menetapkan nama "url". Alih-alih, tetapkan konten folder sebagai daftar bookmark lainnya di bawah kunci "turunan". Chrome akan mengubah URL yang tidak lengkap, sehingga URL tersebut seolah dikirimkan melalui Omnibox. Contohnya, "google.com" akan diubah menjadi "http://google.com/".
+
+      Bookmark ini ditempatkan dalam folder Bookmark yang dikelola, yang tidak dapat dimodifikasi oleh pengguna. Namun pengguna dapat memilih untuk menyembunyikannya dari bilah bookmark. Bookmark yang dikelola tidak akan disinkronkan ke akun pengguna dan tidak dapat diubah oleh ekstensi.</translation>
 <translation id="8412312801707973447">Apakah pemeriksaan OCSP/CRL online dilakukan atau tidak</translation>
 <translation id="8451988835943702790">Gunakan Laman Tab Baru sebagai beranda</translation>
 <translation id="8465065632133292531">Parameter untuk URL instan yang menggunakan POST</translation>

@@ -412,6 +412,15 @@
           Elk item in deze lijst is een overeenkomstpatroon op basis van extensies (zie https://developer.chrome.com/extensions/match_patterns). Gebruikers kunnen items gemakkelijk installeren vanaf elke URL die overeenkomt met een item in deze lijst. De locatie van het CRX-bestand en de pagina waar de download wordt gestart (dat wil zeggen, de verwijzing), moeten beide zijn toegestaan op basis van deze patronen.
 
           ExtensionInstallBlacklist krijgt voorrang op dit beleid. Dat wil zeggen, een extensie op de zwarte lijst wordt niet geïnstalleerd, zelfs niet als de installatie wordt gestart vanaf een site in deze lijst.</translation>
+<translation id="2820806665372828299">Geeft extensies toegang tot zakelijke sleutels.
+
+      Sleutels zijn voor zakelijk gebruik bedoeld als ze via een beheerd account worden gegenereerd met de chrome.platformKeys-API. Sleutels die op een andere manier worden geïmporteerd of gegenereerd, worden niet beschouwd als geschikt voor zakelijk gebruik.
+
+      De toegang tot sleutels die zijn bedoeld voor zakelijk gebruik, wordt uitsluitend door dit beleid beheerd. De gebruiker kan de toegang tot zakelijke sleutels niet verlenen aan of verwijderen uit extensies.
+
+      Een extensie kan standaard geen sleutel gebruiken die is bedoeld voor zakelijk gebruik. Dit staat gelijk aan het instellen van allowCorporateKeyUsage op 'onwaar' (false) voor die extensie.
+
+      Alleen als allowCorporateKeyUsage voor een extensie is ingesteld op 'waar' (true), kan deze elke platformsleutel gebruiken die is gemarkeerd voor zakelijk gebruik om willekeurige gegevens te ondertekenen. Deze toestemming mag alleen worden verleend als de extensie toegang tot de sleutel op betrouwbare wijze beveiligt tegen aanvallers.</translation>
 <translation id="2824715612115726353">Incognitomodus inschakelen</translation>
 <translation id="285480231336205327">Modus voor hoog contrast inschakelen</translation>
 <translation id="2872961005593481000">Afsluiten</translation>
@@ -1680,6 +1689,11 @@ Geheugengegevens worden in alle gevallen aan de pagina gerapporteerd, afgezien v
 <translation id="8369602308428138533">Vertraging van scherm uitschakelen wanneer op netstroom wordt gewerkt</translation>
 <translation id="8382184662529825177">Het gebruik van externe verificatie inschakelen voor het beveiligen van inhoud voor het apparaat</translation>
 <translation id="838870586332499308">Gegevensroaming inschakelen</translation>
+<translation id="8412286985859522563">Configureert een lijst met beheerde bladwijzers.
+
+      Het beleid is een lijst bladwijzers en elke bladwijzer is een vermelding die de 'naam' van de bladwijzer en de 'url' bevat die het doel is van de bladwijzer. Een bladwijzer kan ook als een map worden geconfigureerd. In dat geval geef je de 'naam' van de map op, maar niet de 'url'. In plaats daarvan geef je de inhoud van de map op als een nieuwe lijst bladwijzers via de sleutel voor submappen ('children'). Chrome vult onvolledige URL's aan alsof ze via de omnibox zijn opgegeven. Voorbeeld: 'google.com' wordt 'http://google.com/'.
+
+      Deze bladwijzers worden in een beheermap voor bladwijzers geplaatst die niet kan worden bewerkt door de gebruiker. De gebruiker kan er wel voor kiezen de beheermap te verbergen op de bladwijzerbalk. Beheerde bladwijzers worden niet gesynchroniseerd met het gebruikersaccount en kunnen niet worden aangepast door extensies.</translation>
 <translation id="8412312801707973447">Uitvoer van online OCSP/CRL-controles</translation>
 <translation id="8451988835943702790">De pagina 'Nieuw tabblad' als startpagina gebruiken</translation>
 <translation id="8465065632133292531">Parameters voor instant-URL die POST gebruikt</translation>

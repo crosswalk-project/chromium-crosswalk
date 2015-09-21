@@ -417,6 +417,15 @@
           Varje objekt i listan motsvarar en matchning i form av ett tillägg (se http://code.google.com/chrome/extensions/match_patterns.html). Användarna kan enkelt installera objekt från alla webbadresser som matchar ett objekt i listan. Både *.crx-filens plats och sidan där objektet hämtas (dvs. referenten) måste tillåtas enligt matchningsmönstren.
 
           ExtensionInstallBlacklist har företräde framför den här principen. Det innebär att ett tillägg på den svarta listan inte kommer att installeras även om det sker från en webbplats på den här listan.</translation>
+<translation id="2820806665372828299">Ger företagsnycklar åtkomst till tillägg.
+
+      Nycklar som genereras med API:t chrome.platformKeys har utformats för företagsanvändning. Nycklar som importeras eller genereras på annat sätt har inte utformats för företagsanvändning.
+
+      Åtkomst till nycklar för företagsanvändning styrs helt och hållet av den här principen. Användaren kan varken bevilja eller återkalla åtkomst till företagsnycklar för tilläggen.
+
+      Ett tillägg kan som standard inte använda en nyckel som har utformats för företagsanvändning, vilket motsvarar värdet falskt för inställningen allowCorporateKeyUsage för tillägget.
+
+      Ett tillägg kan endast använda en plattformsnyckel för företagsanvändning för att signera arbiträr data om värdet sant har angetts för inställningen allowCorporateKeyUsage. Sådan behörighet ska endast beviljas tillägg som är tillförlitliga nog att utgöra ett skydd mot hackare.</translation>
 <translation id="2824715612115726353">Aktivera inkognitoläge</translation>
 <translation id="285480231336205327">Aktivera läge för hög kontrast</translation>
 <translation id="2872961005593481000">Stäng av</translation>
@@ -1696,6 +1705,11 @@
 <translation id="8369602308428138533">Skärmavstängningstid när enheten är ansluten till elnätet</translation>
 <translation id="8382184662529825177">Aktivera användning av fjärrattestering för innehållsskydd för enheten</translation>
 <translation id="838870586332499308">Aktivera dataroaming</translation>
+<translation id="8412286985859522563">Konfigurerar en lista med hanterade bokmärken.
+
+     Principen är en lista med bokmärken och varje bokmärke är en ordlista som innehåller bokmärkets namn och måladress. Ett bokmärke kan även konfigureras som en mapp. I så fall definierar du mappens namn men inte någon webbadress. Istället definieras mappens innehåll som en annan lista med bokmärken under nyckeln ”underordnade” Chrome ändrar ofullständiga webbadresser precis som när de anges i adressfältet. Alltså blir "google.com" till "http://google.com/".
+
+      Dessa bokmärken placeras i mappen Hanterade bokmärken. Den mappen kan inte ändras av användaren, men användaren kan välja att dölja den från bokmärkesfältet. Hanterade bokmärken synkroniseras inte med användarkontot och kan inte ändras av tillägg.</translation>
 <translation id="8412312801707973447">Anger huruvida OCSP/CRL-onlinekontroller ska utföras</translation>
 <translation id="8451988835943702790">Använd sidan Ny flik som startsida</translation>
 <translation id="8465065632133292531">Parametrar för webbadress för Instant som använder POST</translation>

@@ -353,6 +353,15 @@
          Alle elementerne på denne liste er en slags udvidelse til matchmønstret (se https://developer.chrome.com/extensions/match_patterns). Brugerne vil være i stand til nemt at installere elementer fra enhver webadresse, der matcher et element på denne liste. Både placeringen af *.crx-filen og siden, hvor downloaden er startet fra (dvs. henvisningswebadressen), skal tillades af disse mønstre.
 
          ExtensionInstallBlacklist har forrang i forhold til denne politik. Dvs. at en sortlistet udvidelse ikke vil blive installeret, selvom det sker fra et website på denne liste.</translation>
+<translation id="2820806665372828299">Giver virksomhedsnøgler adgang til udvidelser.
+
+      Nøgler er beregnet til virksomhedsbrug, hvis de er genereret ved hjælp af chrome.platformKeys API på en administreret konto. Nøgler, der er importeret eller genereret på en anden måde, er ikke beregnet til virksomhedsbrug.
+
+      Adgang til nøgler, der er beregnet til virksomhedsbrug, kontrolleres alene af denne politik. Brugeren kan hverken give udvidelser adgang til virksomhedsnøgler eller fjernes deres adgang.
+
+      Som standard kan en udvidelse ikke benytte en nøgle, der er beregnet til virksomhedsbrug, hvilket svarer til at angive allowCorporateKeyUsage til "falsk" for udvidelsen.
+
+      Kun hvis allowCorporateKeyUsage er angivet til "sandt" for en udvidelse, kan den benytte en hvilken som helst platformnøgle, der er markeret til virksomhedsbrug, til at signere vilkårlige data. Denne tilladelse bør kun gives, hvis du stoler på, at udvidelsen beskytter nøglen, så hackere ikke kan få adgang til den.</translation>
 <translation id="2824715612115726353">Aktiver inkognitotilstand</translation>
 <translation id="285480231336205327">Aktivér høj kontrast</translation>
 <translation id="2872961005593481000">Sluk</translation>
@@ -1448,6 +1457,11 @@ Hvis denne politik slås fra eller indstilles til False (falsk), er udviklertils
 <translation id="8369602308428138533">Skærmslukforsinkelse, når strømforsyning er tilsluttet</translation>
 <translation id="8382184662529825177">Aktivér brug af fjernattestering til indholdsbeskyttelse for enheden.</translation>
 <translation id="838870586332499308">Aktivér dataroaming</translation>
+<translation id="8412286985859522563">Konfigurerer en liste over administrerede bogmærker.
+
+      Politikken er en liste over bogmærker, og hvert bogmærke er en ordbog, der indeholder bogmærket "navn" og målet "webadresse". Et bogmærke kan også konfigureres som en mappe. I så fald skal du definere mappens "navn", men ikke dens "webadresse". Istedet skal du definere indholdet af mappen som en anden liste over bogmærker under nøglen "underordnede". Chrome retter ufuldstændige webadresser, som hvis de var blevet indsendt via omnifeltet. F.eks. bliver "google.com" til "http://google.com/".
+
+      Disse bogmærker er placeret i en administreret bogmærkemappe, som ikke kan redigeres af brugeren, men brugeren kan vælge at skjule den fra bogmærkelinjen. Administrerede bogmærker synkroniseres ikke med brugerens konto og kan ikke ændres af udvidelser.</translation>
 <translation id="8412312801707973447">Om der udføres online kontrol af OCSP/CRL</translation>
 <translation id="8451988835943702790">Brug siden Ny fane som startside</translation>
 <translation id="8465065632133292531">Parametre for direkte webadresse, som bruger POST</translation>

@@ -353,6 +353,15 @@ Cada entrada de la llista especifica un identificador, que s'utilitza internamen
           Tots els elements d'aquesta llista són un patró que coincideix amb l'estil de l'extensió (consulteu https://developer.chrome.com/extensions/match_patterns). Els usuaris podran instal·lar fàcilment els elements de qualsevol URL que coincideixi amb un element d'aquesta llista. Aquests patrons han de permetre tant la ubicació del fitxer *.crx com de la pàgina on comença la baixada (p. ex., el remitent).
 
           ExtensionInstallBlacklist té prioritat davant d'aquesta política. Això vol dir que no s'instal·larà cap extensió de la llista negra, encara que provingui d'un lloc d'aquesta llista.</translation>
+<translation id="2820806665372828299">Permet que les extensions tinguin accés a les claus corporatives.
+
+      Si les claus es generen amb l'API chrome.platformKeys en un compte gestionat, es designen per a l'ús corporatiu. Tanmateix, no s'aplica aquesta designació si es generen d'una altra manera o si s'importen.
+
+      Aquesta política és l'única que controla l'accés a claus designades per a l'ús corporatiu. És a dir, l'usuari no pot concedir ni anul·lar l'accés a claus corporatives per part de les extensions.
+
+      De manera predeterminada, una extensió no pot utilitzar una clau designada per a l'ús corporatiu, que equival a establir allowCorporateKeyUsage en "false" per a l'extensió en qüestió.
+
+      L'únic cas en què una extensió pot utilitzar una clau de plataforma marcada per a l'ús corporatiu per signar dades arbitràries és si allowCorporateKeyUsage s'estableix en "true". Aquest permís només s'ha de concedir si es confia que l'extensió protegeixi la clau contra l'accés d'atacants.</translation>
 <translation id="2824715612115726353">Activa el mode d'incògnit</translation>
 <translation id="285480231336205327">Activa el mode de contrast elevat</translation>
 <translation id="2872961005593481000">Apaga</translation>
@@ -1416,6 +1425,11 @@ Aquesta política s'ignora en els comptes d'usuari normals.</translation>
 <translation id="8369602308428138533">Retard de la desactivació de pantalla quan s'utilitza alimentació</translation>
 <translation id="8382184662529825177">Activa l'ús del testimoni remot del contingut protegit al dispositiu.</translation>
 <translation id="838870586332499308">Activa la itinerància de dades</translation>
+<translation id="8412286985859522563">Configura una llista d'adreces d'interès gestionades.
+
+      La política es troba en una llista d'adreces d'interès, i cada adreça d'interès és un diccionari que conté la clau "name" de l'adreça d'interès i l'"url" de destinació. Les adreces d'interès també es poden configurar com una carpeta. En aquest cas, cal definir el valor "name" de la carpeta, però no un "url". Cal definir el contingut de la carpeta com una altra llista d'adreces d'interès a la clau "children". Chrome esmenarà els URL incomplets com si s'haguessin enviat per l'omnibox. Per exemple, "google.com" esdevé "http://google.com/".
+
+      Aquestes adreces d'interès es col·loquen en una carpeta Adreces d'interès. L'usuari no pot modificar-la, però pot treure-la de la barra d'adreces d'interès. Les adreces d'interès gestionades no se sincronitzen amb el compte d'usuari, i les extensions no les poden modificar.</translation>
 <translation id="8412312801707973447">Si es realitzen comprovacions OCSP/CRL en línia</translation>
 <translation id="8451988835943702790">Fes servir la pàgina de pestanya nova com a pàgina d'inici</translation>
 <translation id="8465065632133292531">Paràmetres per a l'URL instantani que utilitza POST</translation>

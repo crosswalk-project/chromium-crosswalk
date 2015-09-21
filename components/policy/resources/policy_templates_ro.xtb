@@ -361,6 +361,15 @@
           Fiecare element din această listă este un model de potrivire pentru stilul extensiei (consultă https://developer.chrome.com/extensions/match_patterns). Utilizatorii vor putea instala cu ușurință elemente de la orice adresă URL care se potrivește cu un element din această listă. Aceste modele trebuie să permită atât locația fișierului *.crx, cât și pagina de pe care a început instalarea (adică adresa URL sursă).
 
           ExtensionInstallBlacklist are prioritate față de această politică. Aceasta înseamnă că o extensie de pe lista neagră nu va fi instalată, chiar dacă provine de la un site de pe această listă.</translation>
+<translation id="2820806665372828299">Acordă extensiilor accesul la cheile companiei.
+
+      Cheile sunt desemnate pentru a fi folosite în cadrul companiei dacă sunt generate folosind API-ul chrome.platformKeys într-un cont gestionat de un administrator. Cheile importate sau generate în alt mod nu sunt desemnate pentru folosirea în cadrul companiei.
+
+      Accesul la cheile desemnate pentru folosirea în cadrul companiei este controlat doar de această politică. Utilizatorul nu poate acorda sau retrage accesul extensiilor la cheile companiei.
+
+      În mod prestabilit, o extensie nu poate folosi o cheie desemnată pentru folosirea în cadrul companiei, ceea ce echivalează cu setarea allowCorporateKeyUsage la „false” pentru acea extensie.
+
+      Numai dacă allowCorporateKeyUsage este setat la „true” pentru o extensie, aceasta poate folosi orice cheie a platformei, marcată ca să fie folosită în cadrul companiei, pentru a semna date arbitrare. Această permisiune ar trebui acordată doar dacă ai încredere că extensia protejează accesul la cheie împotriva atacatorilor.</translation>
 <translation id="2824715612115726353">Activează modul incognito</translation>
 <translation id="285480231336205327">Activați modul de contrast ridicat</translation>
 <translation id="2872961005593481000">Închide</translation>
@@ -1432,6 +1441,11 @@
 <translation id="8369602308428138533">Interval până la oprirea ecranului la funcționarea pe c.a.</translation>
 <translation id="8382184662529825177">Permiteți utilizarea atestării la distanță pentru protejarea conținutului pe dispozitiv</translation>
 <translation id="838870586332499308">Activează roamingul de date</translation>
+<translation id="8412286985859522563">Configurează o listă cu marcaje gestionate.
+
+      Politica este o listă de marcaje, iar fiecare marcaj este un dicționar care conține „numele” marcajului și „adresa URL” țintă. Un marcaj poate fi configurat și ca un dosar. În acest caz, definește „numele” dosarului, dar nu defini o „adresă URL”; în schimb, definește conținutul dosarului ca o altă listă de marcaje sub cheia „copil”. Chrome va modifica adresele URL incomplete ca și cum ar fi trimise prin caseta polivalentă. De exemplu, „google.com” devine „http://google.com/”.
+
+      Aceste marcaje sunt plasate într-un dosar Marcaje gestionate care nu poate fi modificat de utilizator, dar acesta poate alege să îl ascundă din bara de marcaje. Marcajele gestionate nu sunt sincronizate cu contul utilizatorului și nu pot fi modificate de extensii.</translation>
 <translation id="8412312801707973447">Această politică stabilește dacă sunt efectuate verificări OCSP/CRL online</translation>
 <translation id="8451988835943702790">Utilizează pagina Filă nouă ca pagină de pornire</translation>
 <translation id="8465065632133292531">Parametrii pentru adresa URL a căutării instant care utilizează POST</translation>

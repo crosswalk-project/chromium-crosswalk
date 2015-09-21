@@ -415,6 +415,15 @@
           Kiekvienas šio sąrašo elementas yra plėtinio stiliaus atitikmens šablonas (žr. https://developer.chrome.com/extensions/match_patterns). Naudotojai galės paprastai įdiegti elementus iš bet kurio URL, atitinkančio šio sąrašo elementą. Šių šablonų turi būti leidžiama *.crx failo vieta ir puslapis, iš kurio pradedamas atsisiuntimas (pvz., persiuntėjo).
 
           Į „ExtensionInstallBlacklist“ (plėtinių diegimo juodąjį sąrašą) įtrauktiems plėtiniams ši politika negalioja. T. y. juodajame sąraše esantis plėtinys įdiegtas nebus, net jei tai atliekama iš šio sąrašo svetainės.</translation>
+<translation id="2820806665372828299">Plėtiniams suteikiamas leidimas pasiekti įmonės raktus.
+
+      Jei raktai sukurti naudojant „chrome.platformKeys“ API valdomoje paskyroje, jie skirti naudoti įmonėje. Kitu būdu importuoti ar sugeneruoti raktai neskirti naudoti įmonėje.
+
+      Prieiga prie raktų, skirtų naudoti įmonėje, valdoma tik pagal šią politiką. Naudotojas negali suteikti plėtiniams leidimo pasiekti įmonės raktus arba atmesti šio leidimo.
+
+      Pagal numatytuosius nustatymus plėtiniams neleidžiama naudoti rakto, skirto naudoti įmonėje. Tai taip pat nustatoma pasirenkant „allowCorporateKeyUsage“ reikšmę „netiesa“.
+
+      Plėtinys gali pasirašyti pasirenkamus duomenis naudodamas bet kokį platformos raktą, skirtą naudoti įmonėje, tik jei „allowCorporateKeyUsage“ nustatyta kaip „tiesa“. Šį leidimą reikėtų suteikti, tik jei plėtinys patikimas, kad būtų galima apsaugoti raktą nuo užgrobėjų.</translation>
 <translation id="2824715612115726353">Įgalinti inkognito režimą</translation>
 <translation id="285480231336205327">Įgalinti didelio kontrasto būseną</translation>
 <translation id="2872961005593481000">Stabdyti</translation>
@@ -1696,6 +1705,11 @@ Jei plėtinio nėra sąraše arba sąrašas nenustatytas, kreipiantis į API įv
 <translation id="8369602308428138533">Ekrano išjungimo delsa, kai naudojama kintamosios srovės energija</translation>
 <translation id="8382184662529825177">Įgalinti nuotolinio patvirtinimo naudojimą siekiant apsaugoti įrenginio turinį</translation>
 <translation id="838870586332499308">Įgalinti duomenų tarptinklinį ryšį</translation>
+<translation id="8412286985859522563">Sukonfigūruojamas tvarkomų žymių sąrašas.
+
+      Politiką sudaro žymių sąrašas. Kiekviena žymė yra žodynas, kuriame yra žymės „pavadinimas“ ir tikslinis „url“. Žymę taip pat galima konfigūruoti kaip aplanką. Tokiu atveju apibrėžkite aplanko „pavadinimą“, bet ne „url“. Vietoje to apibrėžkite aplanko turinį kaip kitą žymių sąrašą su „priklausomųjų elementų“ raktu. „Chrome“ pataisys neužbaigtus URL taip, lyg jie būtų pateikti per „omnibox“. Pvz., google.com taps http://google.com/.
+
+      Šios žymės bus „Tvarkomų žymių“ aplanke, kurio naudotojas negali keisti, bet gali paslėpti jį žymių juostoje. Tvarkomos žymės nesinchronizuojamos su naudotojo paskyra ir plėtiniai negali jų keisti.</translation>
 <translation id="8412312801707973447">Ar atliekami OCSP / CRL patikrinimai prisijungus</translation>
 <translation id="8451988835943702790">Naudoti naujo skirtuko puslapį kaip pagrindinį puslapį</translation>
 <translation id="8465065632133292531">Intuityviosios paieškos URL parametrai, kuriuose naudojama POST</translation>

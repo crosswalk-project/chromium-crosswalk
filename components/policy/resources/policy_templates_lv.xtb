@@ -412,6 +412,15 @@
           Katrs šī saraksta vienums ir paplašinājuma veida atbilstības modelis (skatiet vietni https://developer.chrome.com/extensions/match_patterns). Lietotāji var ērti instalēt vienumus no jebkura URL, kas atbilst kādam saraksta vienumam. Šiem modeļiem ir jāatļauj gan *.crx faila atrašanās vieta, gan lapa, no kuras tiek sākta lejupielāde (t.i., novirzītājs).
 
           Politika ExtensionInstallBlacklist ir svarīgāka par šo politiku. Tas nozīmē, ka melnajā sarakstā esošs paplašinājums netiks instalēts, pat ja tas atrodas šajā sarakstā minētā vietnē.</translation>
+<translation id="2820806665372828299">Piešķir paplašinājumiem piekļuvi korporatīvajām atslēgām.
+
+      Atslēgas tiek piešķirtas korporatīvai lietošanai, ja tās ir ģenerētas, izmantojot chrome.platformKeys API pārvaldītā kontā. Atslēgas, kuras ir ģenerētas citādi, nav paredzētas korporatīvai lietošanai.
+
+      Piekļuvi korporatīvai lietošanai paredzētājām atslēgām regulē tikai šī politika. Lietotājs nevar piešķirt paplašinājumiem piekļuvi korporatīvajām atslēgām vai to atsaukt.
+
+      Pēc noklusējuma paplašinājumā nevar izmantot korporatīvai lietošanai paredzētu atslēgu, kas ir vienlīdzīgi politikas iestatījuma allowCorporateKeyUsage iestatīšanai uz “false” šim paplašinājumam.
+
+      Jebkādu korporatīvai lietošanai paredzētu atslēgu brīvi noteiktu datu parakstīšanai paplašinājumā var izmantot tikai tad, ja iestatījums allowCorporateKeyUsage tiek iestatīts kā “true”. Šo atļauju ieteicams piešķirt tikai tad, ja uzskatāt, ka paplašinājumā būs iespējams aizsargāt piekļuvi atslēgai pret iespējamiem uzbrukumiem.</translation>
 <translation id="2824715612115726353">Iespējo inkognito režīmu</translation>
 <translation id="285480231336205327">Iespējot augsta kontrasta režīmu</translation>
 <translation id="2872961005593481000">Beidzēt</translation>
@@ -1687,6 +1696,11 @@
 <translation id="8369602308428138533">Aizkave līdz ekrāna izslēgšanai, ja ierīce darbojas ar maiņstrāvu</translation>
 <translation id="8382184662529825177">Iespējot attālās apstiprināšanas lietošanu ierīces satura aizsardzībai</translation>
 <translation id="838870586332499308">Iespējot datu viesabonēšanu</translation>
+<translation id="8412286985859522563">Konfigurē pārvaldītu grāmatzīmju sarakstu.
+
+      Politika ir grāmatzīmju saraksts, savukārt katra grāmatzīme ir vārdnīca, kurā ir ietverta grāmatzīmes vērtība “name” un mērķa vērtība “url”. Grāmatzīmi var arī konfigurēt kā mapi. Tādā gadījumā definējiet mapes vērtību “name”, bet nedefinējiet vērtību “url”. Tā vietā definējiet mapes saturu kā citu grāmatzīmju sarakstu pie atslēgas “children”. Pārlūks Chrome mainīs nepabeigtus URL tā, it kā tie būtu iesniegti, izmantojot universālo lodziņu. Piemēram, “google.com” tiks pārveidots par “http://google.com/”.
+
+      Šīs grāmatzīmes tiek ievietotas mapē “Pārvaldītās grāmatzīmes”, kurā lietotājs nevar veikt izmaiņas, taču var izvēlēties slēpt to no grāmatzīmju joslas. Pārvaldītās grāmatzīmes netiek sinhronizētas ar lietotāja kontu, un paplašinājumi nevar tās mainīt.</translation>
 <translation id="8412312801707973447">Vai tiek veiktas OCSP/CRL pārbaudes tiešsaistē</translation>
 <translation id="8451988835943702790">Jaunas cilnes lapu izmanto kā sākumlapu</translation>
 <translation id="8465065632133292531">Parametri dinamiskās meklēšanas vietrādim URL, kurā izmantota metode POST</translation>

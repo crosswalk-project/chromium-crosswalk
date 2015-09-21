@@ -407,6 +407,15 @@ Kama sera hii haitawekwa, hii itawashwa lakini mtumiaji ataweza kuibadilisha.</t
           Kila kipengee katika orodha hii ni ruwaza ya mtindo wa kiendelezi unaolingana (angalia http://code.google.com/chrome/extensions/match_patterns.html). Watumiaji wataweza kusakinisha vipengee kwa urahisi kutoka kwenye URL yoyote inayolingana na kipengee katika orodha hii. Mahali pa faili ya *.crx na ukurasa ambao upakuaji utaanzia (yaani kirejelea) lazima viruhusiwe na ruwaza hizi.
 
           ExtensionInstallBlacklist inapewa kipaumbele dhidi ya sera hii. Yaani, kiendelezi kwenye orodha ya kuondoa idhini hakitasakinishwa, hata kama utatendeka kutoka kwenye tovuti ya orodha hii.</translation>
+<translation id="2820806665372828299">Hutoa idhini ya kufikia vitufe vya shirika hadi viendelezi.
+
+      Vitufe vinateuliwa kwa matumizi ya shirka ikiwa vitazalishwa kwa ajili ya kutumia API ya chrome.platformKeys kwenye akaunti inayodhibitiwa. Vitufe vinavyoletwa au kuzalishwa kwa njia nyingine haviteuliwi kwa ajili ya matumizi ya shirika.
+
+      Uwezo wa kufikia vitufe vilivyoteuliwa kwa ajili ya matumizi ya shirika unadhibitiwa mahususi na sera hii. Mtumiaji hawezi kutoa idhini wala kuondoa uwezo wa kufikia vitufe vya shirika kuenda au kutoka kwenye viendelezi.
+
+      Kwa chaguo-msingi kiendelezi hakiwezi kutumia kitufe kilichoteuliwa kwa ajili ya matumizi ya shirika, ambayo ni sawa na kuweka allowCorporateKeyUsage kwenye sivyo kwa kiendelezi hicho.
+
+      Ikiwa tu allowCorporateKeyUsage itawekwa kuwa ndivyo kwa kiendelezi, inaweza kutumia mfumo wa kitufe chochote kilichowekewa alama kwa ajili ya matumizi ya shirika kutia sahihi data isiyo na mpangilio. Ruhusa hii inapaswa kutolewa tu kama kiendelezi kinaaminiwa kuweka ufikiaji salama wa kitufe dhidi ya wavamizi.</translation>
 <translation id="2824715612115726353">Washa hali Fiche</translation>
 <translation id="285480231336205327">Wezesha modi ya juu ya kulinganua</translation>
 <translation id="2872961005593481000">Zima</translation>
@@ -1664,6 +1673,11 @@ Kama sera hii haitawekwa, hali ya juu ya utofautishaji itazimwa mwanzoni lakini 
 <translation id="8369602308428138533">Kuchelewa kwa kuzima skirini wakati nishati ya AC inapotumika</translation>
 <translation id="8382184662529825177">Washa matumizi ya usahihishaji wa mbali wa kulinda maudhui ya kifaa</translation>
 <translation id="838870586332499308">Wezesha utumiaji wa data nje ya mtandao wako wa kawaida</translation>
+<translation id="8412286985859522563">Husanidi orodha ya alamisho zinazodhibitiwa.
+
+      Sera ni orodha ya alamisho, na kila alamisho ni kamusi yenye alamisho "jina" na "url" lengwa. Alamisho inaweza pia kusanidiwa kama folda. Kwa hali hiyo, fafanua "jina" la folda lakini usifafanue "url"; badala yake, fafanua maudhui ya folda kama orodha nyingine ya alamisho chini ya kitufe cha "watoto". Chrome itarekebisha URL ambazo hazijakamilika kama kwamba ziliwasilishwa kupitia Sanduku kuu. Kwa mfano , "google.com" huwa "http://google.com/".
+
+      Alamisho hizi zinawekwa katika folda ya alamisho Zinazodhibitiwa ambayo haiwezi kurekebishwa na mtumiaji, lakini mtumiaji anaweza kuamua kuificha dhidi ya sehemu ya alamisho. Alamisho zinazodhibitiwa hazisawazishwi kwenye akaunti ya mtumiaji na haziwezi kurekebishwa na viendelezi.</translation>
 <translation id="8412312801707973447">Ikiwa ukaguzi wa mtandaoni wa OCSP/CRL umeatekelezwa</translation>
 <translation id="8451988835943702790">Tumia Ukurasa Mpya wa Kichupo kama ukurasa wa kwanza</translation>
 <translation id="8465065632133292531">Vigezo vya URL ya papo hapo inayotumia POST</translation>

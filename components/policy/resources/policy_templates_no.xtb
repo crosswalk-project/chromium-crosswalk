@@ -391,6 +391,15 @@
           Hvert element på denne listen er et samsvarsmønster som ligner på en utvidelse (se https://developer.chrome.com/extensions/match_patterns). Brukerne kan enkelt installere elementer fra alle nettadresser som samsvarer med et element på denne listen. Både plasseringen til *.crx-filen og siden der nedlastingen starter fra (dvs. referenten), må tillates av disse mønstrene.
 
           ExtensionInstallBlacklist har forrang over denne innstillingen. Det betyr at en utvidelse på svartelisten ikke blir installert, selv om det skjer fra et nettsted som er på denne listen.</translation>
+<translation id="2820806665372828299">Gir utvidelser tilgang til bedriftsnøkler.
+
+      Nøkler er spesifisert for bedriftsbruk hvis de er generert med chrome.platformKeys-API-en på en administrert konto. Nøkler som importeres eller genereres på annen måte, er ikke spesifisert for bedriftsbruk.
+
+      Tilgang til nøkler som er spesifisert for bedriftsbruk, styres utelukkende av disse retningslinjene. Brukeren kan verken gi utvidelser tilgang til bedriftsnøkler eller trekke slik tilgang tilbake.
+
+      Utvidelser kan som standard ikke bruke nøkler som er spesifisert for bedriftsbruk, noe som tilsvarer å sette allowCorporateKeyUsage til usann for den aktuelle utvidelsen.
+
+      Bare hvis allowCorporateKeyUsage er satt til sann for en utvidelse kan den bruke en plattformnøkkel som er spesifisert for bedriftsbruk, til å signere vilkårlige data. Denne tillatelsen må bare gis hvis du vet at utvidelsen kan sikre tilgangen til nøkkelen mot angripere.</translation>
 <translation id="2824715612115726353">Aktiver inkognitomodus</translation>
 <translation id="285480231336205327">Aktiver modus for høy kontrast</translation>
 <translation id="2872961005593481000">Avslutt</translation>
@@ -1606,6 +1615,11 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
 <translation id="8369602308428138533">Forsinkelse for avslått skjerm når du bruker strømadapteren</translation>
 <translation id="8382184662529825177">Slå på bruken av ekstern attestasjon for innholdsbeskyttelse på enheten</translation>
 <translation id="838870586332499308">Aktiver datastreifing</translation>
+<translation id="8412286985859522563">Konfigurerer en liste over administrerte bokmerker.
+
+      Retningslinjene er en liste over bokmerker, og hvert bokmerke er en ordliste som inneholder bokmerkets «name»-verdi og «url»-verdi (måladressen). Bokmerker kan også konfigureres som mapper. I så fall definerer du mappens «name»-verdi, men ingen «url». I stedet definerer du mappeinnholdet som en annen liste over bokmerker under «children»-nøkkelen. Chrome endrer ufullstendige nettadresser som om de ble sendt inn via multifunksjonfeltet. Eksempel: «google.com» blir til «http://google.com/».
+
+      Disse bokmerkene plasseres i en mappe med administrerte bokmerker, og denne mappen kan ikke endres av brukeren, men brukeren kan velge å skjule den fra bokmerkeraden. Administrerte bokmerker synkroniseres ikke med brukerkontoen, og de kan ikke endres av utvidelser.</translation>
 <translation id="8412312801707973447">Angir om OCSP/CRL-kontroller utføres på nettet</translation>
 <translation id="8451988835943702790">Bruk siden Ny fane som startside</translation>
 <translation id="8465065632133292531">Parametere for Instant-nettadresser som bruker POST</translation>

@@ -350,6 +350,15 @@
           Każda pozycja na liście to wzorzec dopasowania rozszerzenia (zobacz na https://developer.chrome.com/extensions/match_patterns). Użytkownicy mogą łatwo instalować elementy z każdego URL-a, który pasuje do pozycji na liście. Wzorce muszą zezwalać na dostęp zarówno do lokalizacji pliku CRX, jak i strony, na której rozpoczyna się pobieranie (strony odsyłającej).
 
           ExtensionInstallBlacklist ma pierwszeństwo przed tą zasadą. Oznacza to, że rozszerzenie z czarnej listy nie zostanie zainstalowane, nawet jeśli pochodzi ze strony wymienionej w tej zasadzie.</translation>
+<translation id="2820806665372828299">Przyznaje dostęp do kluczy firmowych do rozszerzeń.
+
+      Klucze są przeznaczone do użytku firmowego, jeśli są wygenerowane przy użyciu interfejsu API chrome.platformKeys na koncie zarządzanym. Klucze importowane lub wygenerowane w inny sposób nie są przeznaczone do użytku firmowego.
+
+      Dostęp do kluczy przeznaczonych do użytku firmowego całkowicie kontroluje ta zasada. Użytkownik nie może przyznać ani wycofać dostępu rozszerzeń do kluczy firmowych.
+
+      Domyślnie rozszerzenie nie może używać klucza przeznaczonego do użytku firmowego. Jest to równoznaczne z ustawieniem zasady allowCorporateKeyUsage na wartość fałsz dla tego rozszerzenia.
+
+      Tylko jeśli zasada allowCorporateKeyUsage jest ustawiona na wartość prawda dla rozszerzenia, może ono używać dowolnego klucza platformy oznaczonego jako do użytku firmowego, by podpisywać arbitralne dane. To uprawnienie należy przyznawać, tylko jeśli rozszerzenie jest zaufane do uzyskiwania bezpiecznego dostępu do klucza i zabezpieczone przed hakerami.</translation>
 <translation id="2824715612115726353">Włącz tryb incognito</translation>
 <translation id="285480231336205327">Włącz tryb wysokiego kontrastu</translation>
 <translation id="2872961005593481000">Wyłącz</translation>
@@ -1401,6 +1410,11 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="8369602308428138533">Opóźnienie wyłączenia ekranu przy zasilaniu sieciowym</translation>
 <translation id="8382184662529825177">Włącz używanie zaświadczania zdalnego do ochrony treści na urządzeniu</translation>
 <translation id="838870586332499308">Włącz dane w roamingu</translation>
+<translation id="8412286985859522563">Konfiguruje listę zarządzanych zakładek.
+
+      Zasada jest listą zakładek, a każda zakładka jest katalogiem zawierającym „nazwę” zakładki i docelowy „adres URL”. Zakładka może też być skonfigurowana jako folder. W takim przypadku zdefiniuj „nazwę” folderu, ale nie definiuj „adresu URL”. Zamiast tego zdefiniuj zawartość folderu jako inną listę zakładek w kluczu „podrzędne”. Chrome poprawi niepełne adresy URL, tak jakby zostały przesłane przez Omnibox. Na przykład „google.com” zmieni się w „http://google.com/”.
+
+      Te zakładki są umieszczone w folderze Zakładki zarządzane, którego użytkownik nie może zmodyfikować, ale może go ukryć, by nie był widoczny na pasku zakładek. Zakładki zarządzane nie są synchronizowane z kontem użytkownika, a rozszerzenia nie mogą ich modyfikować.</translation>
 <translation id="8412312801707973447">Czy wykonywane jest sprawdzanie OCSP/CRL online</translation>
 <translation id="8451988835943702790">Używaj strony Nowa karta jako strony początkowej</translation>
 <translation id="8465065632133292531">Parametry dla URL-i dynamicznych używających POST</translation>

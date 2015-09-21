@@ -410,6 +410,15 @@ Khi chính sách này được đặt thành false hoặc không được địn
           Từng mục trong danh sách này là một mẫu khớp với kiểu tiện ích (xem http://code.google.com/chrome/extensions/match_patterns.html). Người dùng có thể cài đặt các mục dễ dàng từ bất kỳ URL nào khớp với mục trong danh sách này. Cả vị trí tệp *.crx lẫn trang bắt đầu tải xuống (nghĩa là liên kết tham chiếu) đều phải được phép theo các mẫu này.
 
           ExtensionInstallBlacklist được ưu tiên hơn so với chính sách này. Điều đó có nghĩa là tiện ích trên danh sách đen sẽ không được cài đặt, ngay cả khi cài đặt này diễn ra từ một trang web trên danh sách này.</translation>
+<translation id="2820806665372828299">Cấp quyền truy cập vào khóa công ty cho tiện ích.
+
+      Khóa được chỉ định để sử dụng trong công ty nếu được tạo bằng API chrome.platformKeys trong tài khoản được quản lý. Khóa được nhập hoặc tạo theo cách khác không được chỉ định để sử dụng trong công ty.
+
+      Quyền truy cập vào khóa được chỉ định để sử dụng trong công ty chỉ được kiểm soát duy nhất bởi chính sách này. Người dùng không thể cấp cũng như không thể thu hồi quyền truy cập vào khóa công ty cho hoặc từ tiện ích.
+
+      Theo mặc định, tiện ích không thể sử dụng khóa được chỉ định để sử dụng trong công ty, điều này tương đương với việc đặt allowCorporateKeyUsage thành sai cho tiện ích đó.
+
+      Chỉ khi allowCorporateKeyUsage được đặt thành đúng cho một tiện ích thì tiện ích đó mới có thể sử dụng bất kỳ khóa nền tảng nào được đánh dấu cho sử dụng trong công ty để ký dữ liệu tùy ý. Chỉ nên cấp quyền này nếu bạn tin tưởng tiện ích sẽ truy cập an toàn vào khóa trước những kẻ tấn công.</translation>
 <translation id="2824715612115726353">Bật chế độ Ẩn danh</translation>
 <translation id="285480231336205327">Bật chế độ tương phản cao</translation>
 <translation id="2872961005593481000">Tắt</translation>
@@ -1661,6 +1670,11 @@ Khi chính sách này được đặt thành false hoặc không được địn
 <translation id="8369602308428138533">Độ trễ tắt màn hình khi chạy trên nguồn AC</translation>
 <translation id="8382184662529825177">Cho phép sử dụng chứng thực từ xa để bảo vệ nội dung cho thiết bị</translation>
 <translation id="838870586332499308">Bật chuyển vùng dữ liệu</translation>
+<translation id="8412286985859522563">Định cấu hình danh sách dấu trang được quản lý.
+
+      Chính sách là một danh sách bao gồm các dấu trang và mỗi dấu trang là một từ điển chứa "tên" dấu trang và "url" đích. Dấu trang cũng có thể được định cấu hình dưới dạng thư mục. Trong trường hợp đó, xác định được "tên" thư mục nhưng không xác định được "url"; thay vào đó, xác định được nội dung thư mục dưới dạng một danh sách dấu trang khác trong khóa "con". Chrome sẽ sửa đổi các URL chưa hoàn chỉnh như thể chúng được gửi qua Thanh địa chỉ. Ví dụ: "google.com" trở thành "http://google.com/".
+
+      Các dấu trang này được đặt trong thư mục Dấu trang được quản lý mà người dùng không thể sửa đổi. Tuy nhiên, người dùng có thể chọn ẩn thư mục khỏi thanh dấu trang. Các dấu trang được quản lý không được đồng bộ hóa với tài khoản người dùng và các tiện ích không thể sửa đổi các dấu trang này.</translation>
 <translation id="8412312801707973447">Liệu các kiểm tra OCSP/CRL trực tuyến có được thực hiện hay không</translation>
 <translation id="8451988835943702790">Sử dụng trang Tab mới làm trang chủ</translation>
 <translation id="8465065632133292531">Tham số cho URL tức thì sử dụng POST</translation>

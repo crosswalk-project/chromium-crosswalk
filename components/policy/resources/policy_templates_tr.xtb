@@ -415,6 +415,15 @@
           Bu listedeki her öğe bir uzantı stili eşleşme kalıbıdır (http://code.google.com/chrome/extensions/match_patterns.html sayfasına (yalnızca İngilizce) bakın). Kullanıcılar, bu listedeki bir öğeyle eşleşen herhangi bir URL'deki öğeleri kolayca yükleyebilirler. Bu kalıplar hem *.crx dosyasının konumuna, hem de indirmenin başlatıldığı sayfaya (başa deyişle yönlendirene) izin vermelidir.
 
           ExtensionInstallBlacklist, bu politikaya göre daha önceliklidir. Diğer bir deyişle, kara listedeki bir uzantı bu listedeki bir sitede bulunsa bile yüklenmeyecektir.</translation>
+<translation id="2820806665372828299">Uzantıların şirket anahtarlarına erişmesine izin verir.
+
+      Anahtarlar, yönetilen bir hesapta chrome.platformKeys API'sı kullanılarak oluşturulmuşsa şirket kullanımı için atanır. İçe aktarılan veya başka bir şekilde oluşturulan anahtarlar şirket kullanımına atanmaz.
+
+      Şirket kullanımı için atanan anahtarlara erişim yalnızca bu politika tarafından kontrol edilir. Kullanıcı, uzantıların şirket anahtarlarına erişmesi için izin veremez veya uzantıların şirket anahtarlarına erişim iznini kaldıramaz.
+
+      Varsayılan olarak bir uzantı, şirket kullanımı için atanmış bir anahtarı kullanamaz. Bu, söz konusu uzantı için allowCorporateKeyUsage öğesini false (yanlış) değerine ayarlamayla eşdeğerdir.
+
+      Yalnızca, bir uzantı için allowCorporateKeyUsage öğesi true (doğru) değerine ayarlandığında, söz konusu uzantı, rastgele verileri imzalamak amacıyla, şirket kullanımı için işaretlenen platform anahtarlarını kullanabilir. Saldırganlara karşı anahtar erişimi güvenliği sağlamak için bu izin yalnızca uzantıya güveniliyorsa verilmelidir.</translation>
 <translation id="2824715612115726353">Gizli modu etkinleştir</translation>
 <translation id="285480231336205327">Yüksek kontrast modunu etkinleştir</translation>
 <translation id="2872961005593481000">Kapat</translation>
@@ -1673,6 +1682,11 @@ politikayı geçersiz kılamaz.
 <translation id="8369602308428138533">AC güçle çalışırken ekran kapatma gecikmesi</translation>
 <translation id="8382184662529825177">Cihazda içerik koruma için uzak onay kullanımını etkinleştir</translation>
 <translation id="838870586332499308">Veri dolaşımını etkinleştir</translation>
+<translation id="8412286985859522563">Yönetilen yer işaretleri listesini yapılandırır.
+
+      Politika, bir yer işaretleri listesidir ve her bir yer işareti, yer işareti "adını" ve hedef "URL'yi" içeren bir sözlüktür. Bir yer işareti, klasör olarak da yapılandırılabilir. Bu durumda, klasör "adını" tanımlayın ancak bir "URL" tanımlamayın. Bunun yerine klasör içeriğini, "alt" anahtar altında başka bir yer işaretleri listesi olarak tanımlayın. Chrome, eksik URL'leri çok amaçlı adres çubuğundan gönderilmişler gibi düzeltir. Örneğin, "google.com", "http://google.com/" olarak düzeltilir.
+
+      Bu yer işaretleri, kullanıcı tarafından değiştirilemeyen bir Yönetilen yer işaretleri klasörüne yerleştirilir, ancak kullanıcı bu klasörü yer işareti çubuğundan gizlemeyi seçebilir. Yönetilen yer işaretleri, kullanıcı hesabıyla senkronize edilmez ve uzantılar tarafından değiştirilemez.</translation>
 <translation id="8412312801707973447">Çevrimiçi OCSP/CRL denetimlerinin yapılıp yapılmayacağı</translation>
 <translation id="8451988835943702790">Ana sayfa olarak Yeni Sekme Sayfası'nı kullan</translation>
 <translation id="8465065632133292531">POST kullanan anlık URL parametreleri</translation>

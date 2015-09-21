@@ -353,6 +353,15 @@ Falls die Richtlinie auf "false" gesetzt wird, kann eine verzögerungsfreie auto
           Bei den Einträgen in dieser Liste handelt es sich um auf die Erweiterung angepasste Übereinstimmungsmuster (siehe https://developer.chrome.com/extensions/match_patterns). Wenn eine URL mit einem Eintrag in dieser Liste übereinstimmt, können Nutzer ihn ganz einfach über diese URL installieren. Sowohl der Speicherort der CRX-Datei als auch die Seite, über die der Download gestartet wird (der Referrer), müssen durch diese Muster zugelassen sein.
 
           "ExtensionInstallBlacklist" hat Vorrang vor dieser Richtlinie. Eine Erweiterung auf der schwarzen Liste wird folglich nicht installiert, auch wenn sie von einer Website auf dieser Liste stammt.</translation>
+<translation id="2820806665372828299">Gewährt Zugriff zu Schlüsseln für die geschäftliche Nutzung in Erweiterungen
+
+      Schlüssel sind für die geschäftliche Nutzung bestimmt, wenn sie über die chrome.platformKey API eines verwalteten Kontos generiert wurden. Schlüssel, die auf eine andere Weise importiert oder generiert wurden, sind nicht für die geschäftliche Nutzung geeignet.
+
+      Der Zugriff auf Schlüssel für die geschäftliche Nutzung wird ausschließlich durch diese Richtlinien geregelt. Der Nutzer kann weder Zugriff auf Schlüssel zur geschäftlichen Nutzung für oder von Erweiterungen erteilen noch verweigern.
+
+      Eine Erweiterung kann standardmäßig einen Schlüssel zur geschäftlichen Nutzung nicht nutzen. Dies entspricht der Festlegung von "false" für "allowCorporateKeyUsage" bei dieser Erweiterung.
+
+      Nur wenn "allowCorporateKeyUsage" für eine Erweiterung auf "true" gestellt ist, kann jeder Plattformschlüssel genutzt werden, der für die geschäftliche Nutzung bestimmt ist, um beliebige Daten zu unterzeichnen. Diese Berechtigung sollte nur dann gestattet werden, wenn die Erweiterung den Zugriff zu dem Schlüssel vor Hackern sicher schützt.</translation>
 <translation id="2824715612115726353">Inkognitomodus aktivieren</translation>
 <translation id="285480231336205327">Modus mit hohem Kontrast aktivieren</translation>
 <translation id="2872961005593481000">Herunterfahren</translation>
@@ -1409,6 +1418,11 @@ Wenn eine Erweiterung nicht in der Liste enthalten ist oder keine Liste festgele
 <translation id="8369602308428138533">Verzögerung für die Bildschirmabschaltung im Netzbetrieb</translation>
 <translation id="8382184662529825177">Verwendung von Remote-Bescheinigung (Remote Attestation) zum Schutz von Inhalten für das Gerät aktivieren</translation>
 <translation id="838870586332499308">Daten-Roaming aktivieren</translation>
+<translation id="8412286985859522563">Konfiguriert eine Liste verwalteter Lesezeichen
+
+      Die Richtlinien bestehen aus einer Liste von Lesezeichen und jedes Lesezeichen ist ein Wörterbuch mit dem Lesezeichen "Name" und der Ziel-URL. Ein Lesezeichen kann auch als Ordner angelegt werden. Legen Sie in diesem Fall den Ordner "Name" fest, aber definieren Sie keine URL. Stattdessen legen Sie den Ordner "Inhalte" unter dem Schlüssel "Kinder" als weitere Liste aus Lesezeichen fest. Chrome bearbeitet unvollständige URLs, wie wenn sie über Omnibox gesendet werden. Beispielsweise wird aus "google.com" dann "http://google.com/".
+
+      Diese Lesezeichen werden in einem Ordner für verwaltete Lesezeichen abgelegt, der vom Nutzer nicht bearbeitet werden kann. Der Nutzer kann aber festlegen, dass der Ordner nicht in der Lesezeichenleiste eingeblendet wird. Verwaltete Lesezeichen werden nicht mit anderen Nutzerkonten synchronisiert und können durch Erweiterungen nicht bearbeitet werden.</translation>
 <translation id="8412312801707973447">Ob online OCSP-/CRL-Prüfungen durchgeführt werden</translation>
 <translation id="8451988835943702790">"Neuer Tab"-Seite als Startseite verwenden</translation>
 <translation id="8465065632133292531">Parameter für URL der Suche im Voraus, die POST verwendet</translation>

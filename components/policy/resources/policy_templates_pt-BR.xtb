@@ -338,6 +338,15 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
       Cada item da lista é um padrão de correspondência de estilo de extensões (ver http://code.google.com/chrome/extensions/match_patterns.html). Os usuários podem instalar itens com facilidade a partir de qualquer URL que corresponda a um item desta lista. Tanto a localização do arquivo *.crx como a página a partir da qual o download é iniciado (ou seja, a referência) devem ser autorizados por esses padrões. 
 
       ExtensionInstallBlacklist tem precedência sobre esta política. Ou seja, as extensões da lista negra não são instaladas, mesmo que sejam de um site desta lista.</translation>
+<translation id="2820806665372828299">Concede acesso a chaves corporativas para extensões.
+
+      As chaves destinam-se a uso corporativo, se tiverem sido geradas por meio da chrome.platformKeys API em uma conta gerenciada. As chaves importadas ou geradas de outra maneira não são destinadas a uso corporativo.
+
+      O acesso às chaves designadas para uso corporativo é controlado somente por esta política. O usuário não pode conceder nem remover o acesso a chaves corporativas para ou das nossas extensões.
+
+      Por padrão, uma extensão não pode usar uma chave designada para uso corporativo, o que é equivalente a configurar allowCorporateKeyUsage como "false" para essa extensão.
+
+      Somente se a opção allowCorporateKeyUsage for configurada como "true" para uma extensão é que ela poderá usar qualquer chave de plataforma marcada como de uso corporativo para assinar dados arbitrários. Essa permissão somente deve ser concedida se há confiança de que a extensão protege o acesso à chave contra invasores.</translation>
 <translation id="2824715612115726353">Ativar o modo de navegação anônima</translation>
 <translation id="285480231336205327">Ativar modo de alto contraste</translation>
 <translation id="2872961005593481000">Encerrar</translation>
@@ -1380,6 +1389,11 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="8369602308428138533">Intervalo de desligamento da tela no funcionamento com alimentação CA</translation>
 <translation id="8382184662529825177">Permitir o uso de declaração remota para proteção de conteúdo no dispositivo</translation>
 <translation id="838870586332499308">Ativa roaming de dados</translation>
+<translation id="8412286985859522563">Configura uma lista de favoritos gerenciados.
+
+      A política é uma lista de favoritos, e cada favorito é um dicionário que contém o favorito "name" e o "url" de destino. Um favorito também pode ser configurado como uma pasta. Nesse caso, defina o "name" da pasta, mas não defina um "url". Em vez disso, defina o conteúdo da pasta como outra lista de favoritos sob a chave "children". O Chrome corrigirá URLs incompletos como se tivessem sido enviados pela omnibox. Por exemplo, "google.com.br" é transformado em "http://google.com.br/".
+
+      Esses favoritos são colocados em uma pasta de favoritos gerenciados que não pode ser modificada pelo usuário, mas o usuário pode optar por ocultá-la da barra de favoritos. Os favoritos gerenciados não são sincronizados com a conta do usuário e não podem ser modificados pelas extensões.</translation>
 <translation id="8412312801707973447">Define se as verificações on-line de OCSP/CRL devem ser executadas</translation>
 <translation id="8451988835943702790">Usar a página "Nova guia" como página inicial</translation>
 <translation id="8465065632133292531">Parâmetros para URL de instantâneos que usa POST</translation>

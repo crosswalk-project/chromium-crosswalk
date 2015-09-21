@@ -353,6 +353,15 @@
           Svaka stavka na tom popisu podudaran je uzorak stila proširenja (pogledajte https://developer.chrome.com/extensions/match_patterns). Korisnici će moći jednostavno instalirati stavke s bilo kojeg URL-a koji se podudara sa stavkom na tom popisu. Ti uzorci moraju dopustiti lokaciju *.crx datoteke kao i stranicu s koje se pokreće preuzimanje (tj. referalnu stranicu).
 
           ExtensionInstallBlacklist ima prednost nad tim pravilom. To znači da proširenje na popisu zabranjenih proširenja neće biti instalirano čak ni ako dolazi s web-lokacije na tom popisu.</translation>
+<translation id="2820806665372828299">Dodjeljuje pristup korporacijskim ključevima za proširenja.
+
+      Ključevi su namijenjeni za korporacijsku upotrebu ako su generirani chrome.platformKeys API-jem na upravljanom računu. Ključevi uvezeni ili generirani na neki drugi način nisu namijenjeni korporacijskoj upotrebi.
+
+      Pristup ključevima za korporacijsku upotrebu određen je isključivo ovim pravilom. Korisnik ne može ni dodijeliti ni povući pristup korporacijskim ključevima za proširenja.
+
+      Prema zadanim postavkama proširenje ne može upotrebljavati ključ za korporacijsku upotrebu, što je ekvivalentno postavljanu pravila allowCorporateKeyUsage na netočno za određeno proširenje.
+
+      Samo ako je pravilo allowCorporateKeyUsage postavljeno na točno za određeno proširenje, ono može upotrebljavati ključ bilo koje platforme označen za korporacijsku upotrebu za potpisivanje arbitrarnih podataka. To bi se dopuštenje trebalo odobriti samo ako proširenje pouzdano može zaštititi pristup ključu od napadača.</translation>
 <translation id="2824715612115726353">Omogući anonimni način</translation>
 <translation id="285480231336205327">Omogućavanje načina visokog kontrasta</translation>
 <translation id="2872961005593481000">Isključi</translation>
@@ -1409,6 +1418,11 @@
 <translation id="8369602308428138533">Odgoda isključivanja zaslona za vrijeme napajanja izmjeničnom strujom</translation>
 <translation id="8382184662529825177">Omogući upotrebu daljinske ovjere za zaštitu sadržaja za uređaj</translation>
 <translation id="838870586332499308">Omogući roaming podataka</translation>
+<translation id="8412286985859522563">Konfigurira popis upravljanih oznaka.
+
+      Pravilo je popis oznaka, a svaka je oznaka rječnik koji sadrži "naziv" oznake i ciljni "URL". Oznaka se može konfigurirati i kao mapa. U tom slučaju definirajte "naziv" mape, ali ne i "URL"; umjesto toga definirajte sadržaj mape kao još jedan popis oznaka pod ključem "podređeno". Chrome će dopuniti nepotpune URL-ove kao da su poslani putem višenamjenskog okvira. Na primjer, "google.com" postaje "http://google.com/".
+
+      Te se oznake spremaju u mapu Upravljane oznake koju korisnik ne može mijenjati, ali je može ukloniti s trake oznaka. Upravljane oznake ne sinkroniziraju se s korisničkim računom i proširenja ih ne mogu mijenjati.</translation>
 <translation id="8412312801707973447">Izvršavaju li se mrežne provjere OCSP/CRL</translation>
 <translation id="8451988835943702790">Upotrijebi web-stranicu nove kartice kao početnu stranicu</translation>
 <translation id="8465065632133292531">Parametri za URL usluge Instant koji upotrebljava POST</translation>

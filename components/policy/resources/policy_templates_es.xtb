@@ -419,6 +419,15 @@ Si se inhabilita o no se configura esta opción, los usuarios podrán decidir si
           Todos los elementos de esta lista son patrones que coinciden con el estilo de las extensiones (consulta la página https://developer.chrome.com/extensions/match_patterns). Los usuarios podrán instalar fácilmente elementos procedentes de cualquier URL que coincida con un elemento de la lista. Estos patrones deben permitir tanto la ubicación del archivo *.crx como la página en la que se inicia la descarga (es decir, la URL de referencia).
 
           ExtensionInstallBlacklist prevalece sobre esta política, lo que significa que las extensiones incluidas en la lista negra no se instalarán aunque procedan de un sitio incluido en esta lista.</translation>
+<translation id="2820806665372828299">Concede acceso a claves corporativas de extensiones.
+
+      Las claves están designadas para un uso corporativo si se generan con la API chrome.platformKeys en una cuenta administrada. Las claves importadas o generadas de otra forma no están designadas para este uso.
+
+      El acceso a las claves designadas para uso corporativo se controla únicamente a través de esta política. El usuario no puede conceder acceso a extensiones mediante claves corporativas ni retirarlo.
+
+      De forma predeterminada, una extensión no puede utilizar una clave designada para uso corporativo, lo que equivale a asignar el valor false a allowCorporateKeyUsage en esa extensión.
+
+      Solo si allowCorporateKeyUsage tiene el valor true en una extensión, esta podrá utilizar cualquier clave de plataforma marcada para uso corporativo para firmar datos arbitrarios. Este permiso solo se debe conceder si se tiene la certeza de que la extensión garantiza un acceso seguro a la clave y la protege de posibles ataques.</translation>
 <translation id="2824715612115726353">Habilitar modo de incógnito</translation>
 <translation id="285480231336205327">Habilitar modo de contraste alto</translation>
 <translation id="2872961005593481000">Apagar</translation>
@@ -1695,6 +1704,11 @@ Si la política está establecida en False, no se informará sobre la lista de i
 <translation id="8369602308428138533">Retraso de desconexión de la pantalla cuando el dispositivo está conectado a la red</translation>
 <translation id="8382184662529825177">Habilitar el uso de la confirmación remota para la protección del contenido del dispositivo</translation>
 <translation id="838870586332499308">Habilitar la itinerancia de datos</translation>
+<translation id="8412286985859522563">Configura una lista de marcadores administrados.
+
+      La política es una lista de marcadores, y cada uno de ellos es un diccionario que contiene el nombre del marcador y la URL de destino. Un marcador también se puede configurar como una carpeta. En ese caso, define el nombre de la carpeta, pero no definas una URL. En su lugar, especifica el contenido de la carpeta como otra lista de marcadores en la misma clave secundaria. Chrome completará las URL incompletas como si se hubieran enviado a través del omnibox. Por ejemplo, "google.com" se convertirá en "http://google.com/".
+
+      Estos marcadores se guardan en la carpeta Marcadores administrados. El usuario no puede modificar esta carpeta, pero sí ocultarla de la barra de marcadores. Los marcadores administrados no se sincronizan con la cuenta del usuario y las extensiones no pueden modificarlos.</translation>
 <translation id="8412312801707973447">Se realizan comprobaciones OCSP/CRL si estás online</translation>
 <translation id="8451988835943702790">Utilizar página Nueva pestaña como página principal</translation>
 <translation id="8465065632133292531">Parámetros para URL instantánea que utiliza POST</translation>

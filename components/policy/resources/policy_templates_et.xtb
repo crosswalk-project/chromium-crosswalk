@@ -411,6 +411,15 @@
           Kõik loendis olevad üksused on laiendusstiilis vastendusmustrid (vt https://developer.chrome.com/extensions/match_patterns). Kasutajad saavad üksused hõlpsasti installida mis tahes URL-ilt, mis vastab loendis olevale üksusele. Need mustrid peavad lubama nii *.crx-faili asukoha kui ka lehe, millelt allalaadimine käivitatakse (st viitaja).
 
           Selle reegli alistab reegel ExtensionInstallBlacklist. See tähendab, et mustas nimekirjas olevat laiendust ei installita isegi siis, kui see toimub loendis olevalt saidilt.</translation>
+<translation id="2820806665372828299">Annab juurdepääsu laienduste ettevõttevõtmetele.
+
+      Võtmed on mõeldud ettevõttes kasutamiseks, kui need luuakse hallatud kontol chrome.platformKeys API-ga. Muul viisil imporditud või loodud võtmed pole määratud ettevõttes kasutamiseks.
+
+      Juurdepääsu ettevõttes kasutamiseks määratud võtmetele juhib vaid see reegel. Kasutaja ei saa laiendustele anda ega keelata juurdepääsu ettevõttevõtmetele.
+
+      Vaikimisi ei saa laiendus ettevõttes kasutamiseks määratud võtit kasutada. See on sama mis laienduse puhul seade allowCorporateKeyUsage määramine väärtusele Väär.
+
+      Ainult siis, kui seade allowCorporateKeyUsage on laienduse puhul määratud väärtusele Tõene, saab see ettevõttes kasutamiseks määratud mis tahes platvormivõtit kasutada mis tahes andmete allkirjastamiseks. See luba tuleks anda vaid siis, kui laienduse juurdepääs võtmele on usaldusväärne ja ründajate eest kaitstud.</translation>
 <translation id="2824715612115726353">Luba inkognitorežiim</translation>
 <translation id="285480231336205327">Luba kõrge kontrastiga režiim</translation>
 <translation id="2872961005593481000">Lülita välja</translation>
@@ -1666,6 +1675,11 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="8369602308428138533">Ekraani väljalülitamise viiteaeg võrgutoite kasutamisel</translation>
 <translation id="8382184662529825177">Kaugatesteerimise lubamine seadme sisu kaitsmiseks</translation>
 <translation id="838870586332499308">Luba andmeside rändlusteenus</translation>
+<translation id="8412286985859522563">Seadistab hallatud järjehoidjate loendi.
+
+      Reegel on järjehoidjate loend, kus iga järjehoidja on sõnastik, mis sisaldab järjehoidja nime ja sihitud URL-i. Järjehoidja saab seadistada ka kaustana. Sellisel juhul määrake kausta nimi, kuid ärge määrake URL-i. Selle asemel määrake kausta sisu võtme „Tütarüksused” all teise järjehoidjate loendina. Chrome parandab poolikud URL-id, nagu need oleks esitatud omnikastikese kaudu. Näiteks URL „google.com” muudetakse URL-iks „http://google.com/”.
+
+      Need järjehoidjad asetatakse kausta Hallatud järjehoidjad, mida kasutaja ei saa muuta, kuid kasutaja saab selle soovi korral järjehoidjate ribal peita. Hallatud järjehoidjaid ei sünkroonita kasutaja kontoga ja laiendused ei saa neid muuta.</translation>
 <translation id="8412312801707973447">Kontrolli võrgus OCSP-d/CRL-i</translation>
 <translation id="8451988835943702790">Kasuta avalehena Uut vahelehte</translation>
 <translation id="8465065632133292531">Parameetrid Instant-URL-i jaoks, mis kasutab POST-meetodit</translation>

@@ -351,6 +351,15 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
               A listában szereplő összes elem bővítmény jellegű egyezési minta (lásd: http://code.google.com/chrome/extensions/match_patterns.html). A felhasználók a listában szereplő bármelyik elemmel egyező URL-ről a könnyű módszerrel telepíthetnek elemeket. A mintáknak a *.crx fájl helye mellett azt az oldalt is engedélyezniük kell, ahonnan a letöltés megkezdődik (azaz a hivatkozó oldalt). 
 
               Az ExtensionInstallBlacklist elsőbbséget élvez ezen házirenddel szemben, azaz a tiltólistán lévő bővítmények akkor sem lesznek telepítve, ha ezen a listán szereplő webhelyről származnak.</translation>
+<translation id="2820806665372828299">Hozzáférést biztosít a vállalati kulcsoknak a bővítményekhez.
+
+      A kulcsok akkor vannak kijelölve vállalati használatra, ha azokat a chrome.platformKeys API-val, egy kezelt fiókban hozták létre. Az importált vagy más módon generált kulcsok nincsenek vállalati használatra kijelölve.
+
+      A vállalati használatra kijelölt kulcsokhoz való hozzáférés irányítása kizárólag ezzel a házirenddel történik. A felhasználó nem adhatja meg, illetve vonhatja vissza a vállalati kulcsok hozzáférését a bővítményekhez.
+
+      A bővítmények alapértelmezés szerint nem vehetik igénybe a vállalati használatra kijelölt kulcsokat, ami megegyezik az allowCorporateKeyUsage hamis beállításával az adott bővítményre vonatkozóan.
+
+      Egy-egy bővítmény csak akkor vehet igénybe vállalati használatra kijelölt platformkulcsot a saját adatok aláírására, ha az allowCorporateKeyUsage értéke igaz az adott bővítményre vonatkozóan. Ez az engedély csak akkor adandó meg, ha a bővítmény elég megbízható ahhoz, hogy biztonságos hozzáférést nyújtson a támadókkal szemben.</translation>
 <translation id="2824715612115726353">Inkognitómód engedélyezése</translation>
 <translation id="285480231336205327">Nagy kontrasztú mód engedélyezése</translation>
 <translation id="2872961005593481000">Leállítás</translation>
@@ -1410,6 +1419,11 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 <translation id="8369602308428138533">Képernyő kikapcsolásának késleltetése hálózati áramról való működés során</translation>
 <translation id="8382184662529825177">Távoli hitelesítés engedélyezése az eszközön lévő tartalmak védelme érdekében</translation>
 <translation id="838870586332499308">Adatbarangolás engedélyezése</translation>
+<translation id="8412286985859522563">A kezelt könyvjelzők listáját konfigurálja.
+
+      A házirend egy könyvjelzőlista, és mindegyik könyvjelző egy szótár, amely tartalmazza a könyvjelző „name” és cél „url” értékét. A könyvjelzők mappaként is konfigurálhatók. Ebben az esetben határozza meg a „name” mappát, de ne határozzon meg „url”-t, hanem helyette határozza meg a mappa tartalmát egy másik könyvjelzőlistaként a „children” kulcs alatt. A Chrome a hiányos URL-eket ugyanúgy kiegészíti, mintha azokat a cím- és keresősávba írták volna be. A „google.com” értéke például „http://google.com/” értékre változik.
+
+      Ezek a könyvjelzők a Kezelt könyvjelzők mappájába kerülnek, amelyet a felhasználó nem módosíthat. Ugyanakkor a felhasználó dönthet úgy, hogy elrejti a könyvjelzőt a könyvjelzősávból. A kezelt könyvjelzők nem szinkronizálódnak a felhasználói fiókkal, illetve a bővítmények sem módosíthatják őket.</translation>
 <translation id="8412312801707973447">Végbemenjenek-e online OCSP-/CRL-ellenőrzések</translation>
 <translation id="8451988835943702790"> való használata</translation>
 <translation id="8465065632133292531">Paraméterek POST metódust használó azonnali URL-hez</translation>

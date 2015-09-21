@@ -353,6 +353,15 @@ Kaikki luettelon kohteet ovat tunnuksia, joiden perusteella erotetaan laitteesee
           Luettelon jokainen kohde on laajennuksen kaltainen kohdistusmalli (lisätietoa osoitteessa http://code.google.com/chrome/extensions/match_patterns.html). Luettelon kohteita vastaavista URL-osoitteista voidaan asentaa kohteita helposti. Malleissa täytyy sallia sekä *.crx-tiedoston sijainti että latauksen käynnistyssivu (eli viittaaja).
 
           ExtensionInstallBlacklist ohittaa kuitenkin tämän käytännön. Kieltolistalla olevaa laajennusta ei siis asenneta, vaikka se olisi sivustoluettelossa.</translation>
+<translation id="2820806665372828299">Antaa käyttöoikeuden laajennuksien yrityskäyttöavaimiin.
+
+      Hallinnoidussa tilissä chrome.platformKeys-sovellusliittymän avulla luodut avaimet on tarkoitettu yrityskäyttöön. Tuotuja tai muulla tavalla luotuja avaimia ei ole tarkoitettu yrityskäyttöön.
+
+      Yrityskäyttöön tarkoitettujen avaimien käyttöoikeus määritetään tämän käytännön kautta. Käyttäjä ei voi myöntää tai kieltää laajennuksien yrityskäyttöavaimien käyttöoikeutta.
+
+      Laajennus ei voi oletuksena käyttää yrityskäyttöön määritettyä avainta. Tämä toimii samoin kuin jos kyseiselle laajennukselle asetetaan allowCorporateKeyUsage-arvoksi epätosi.
+
+      Jos tietyn laajennuksen allowCorporateKeyUsage-arvoksi on annettu tosi, se voi allekirjoittaa satunnaisia tietoja yrityskäyttöön merkityn käyttöympäristöavaimen avulla. Myönnä tämä lupa vain, jos laajennus pystyy luotettavasti suojaamaan avainta hakkereilta.</translation>
 <translation id="2824715612115726353">Ota incognito-tila käyttöön</translation>
 <translation id="285480231336205327">Ota suuri kontrasti -tila käyttöön</translation>
 <translation id="2872961005593481000">Sammuta</translation>
@@ -1409,6 +1418,11 @@ Tämä käytäntö ei ole käytössä tavallisilla käyttäjätileillä.</transl
 <translation id="8369602308428138533">Ruudun sammutuksen viive käytettäessä laitetta verkkovirralla</translation>
 <translation id="8382184662529825177">Poista käytöstä etävahvistuksen käyttö laitteen sisällön suojauksen vuoksi</translation>
 <translation id="838870586332499308">Ota mobiilitiedonsiirto käyttöön roaming-tilassa</translation>
+<translation id="8412286985859522563">Määrittää hallinnoitujen kirjanmerkkien luettelon.
+
+      Käytäntö on kirjanmerkkiluettelo, ja jokainen kirjanmerkki on kohde, joka sisältää kirjanmerkin nimen ja kohde-URL-osoitteen. Myös kansio voidaan määrittää kirjanmerkiksi: anna tässä tapauksessa kansiolle nimi mutta jätä URL-osoite antamatta. Lisää sen sijaan kansion sisältö toiseksi kirjanmerkkiluetteloksi, joka käyttää children-avainta. Chrome täydentää epätäydelliset URL-osoitteet omniboxiin kirjoitettujen osoitteiden tapaan. google.com muunnetaan siis muotoon http://google.com/.
+
+      Nämä kirjanmerkit tallennetaan Hallinnoidut kirjanmerkit -kansioon, joka ei ole käyttäjän muokattavissa. Käyttäjä voi kuitenkin piilottaa kansion kirjanmerkkipalkista. Hallinnoituja kirjanmerkkejä ei synkronoida käyttäjän tiliin, eivätkä laajennukset voi muokata niitä.</translation>
 <translation id="8412312801707973447">OCSP-/CRL-tarkistusten suorittaminen</translation>
 <translation id="8451988835943702790">Käytä Uusi välilehti -sivua etusivuna</translation>
 <translation id="8465065632133292531">POST-metodia käyttävän pikahaun URL-osoitteen parametrit</translation>

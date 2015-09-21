@@ -359,6 +359,15 @@
           Cada item desta lista é um padrão de correspondência do estilo de extensão (ver https://developer.chrome.com/extensions/match_patterns). Os utilizadores poderão instalar itens facilmente a partir de qualquer URL que corresponda a um item desta lista. Tanto a localização do ficheiro *.crx como a página a partir da qual foi iniciada a transferência (ou seja, o referenciador) têm de ser permitidas por estes padrões.
 
           O ExtensionInstallBlacklist tem prioridade sobre esta política. Isto é, uma extensão na lista negra não será instalada mesmo que seja proveniente de um Website incluído nesta lista.</translation>
+<translation id="2820806665372828299">Concede às extensões o acesso às chaves empresariais.
+
+      As chaves são designadas para utilização empresarial se forem geradas através da API chrome.platformKeys numa conta gerida. As chaves importadas ou geradas de outra forma não são designadas para utilização empresarial.
+
+      O acesso às chaves designadas para utilização empresarial é controlado exclusivamente por esta política. O utilizador não pode conceder nem retirar às extensões o acesso às chaves empresariais.
+
+      Por predefinição, uma extensão não pode utilizar uma chave designada para utilização empresarial, o que é equivalente a definir allowCorporateKeyUsage como falso para essa extensão.
+
+      Se allowCorporateKeyUsage for definida para verdadeiro para uma extensão, pode utilizar qualquer chave de plataforma assinalada para utilização empresarial para assinar dados arbitrários. Esta autorização apenas deve ser concedida se a extensão for fidedigna para proteger o acesso à chave por parte de utilizadores mal-intencionados.</translation>
 <translation id="2824715612115726353">Ativar o modo de navegação anónima</translation>
 <translation id="285480231336205327">Ativar modo de alto contraste</translation>
 <translation id="2872961005593481000">Encerrar</translation>
@@ -1419,6 +1428,11 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="8369602308428138533">Atraso para desligar o ecrã quando o dispositivo está ligado à eletricidade</translation>
 <translation id="8382184662529825177">Ativar a utilização da comprovação remota para proteção de conteúdo no dispositivo</translation>
 <translation id="838870586332499308">Ativar roaming de dados</translation>
+<translation id="8412286985859522563">Configura uma lista de marcadores geridos.
+
+      A política é uma lista de marcadores e cada marcador é um dicionário que contém o "nome" do marcador e o "URL" de destino. Também pode configurar um marcador como uma pasta. Nesse caso, defina o "nome" da pasta, mas não defina um "URL". Em vez disso, defina os conteúdos da pasta como outra lista de marcadores com a chave "subordinados". Deste modo, o Chrome corrige os URLs incompletos como se tivessem sido enviados através da Caixa geral. Por exemplo, "google.com" fica "http://google.com/".
+
+      Estes marcadores são colocados na pasta Marcadores geridos, que o utilizador não pode modificar, mas pode optar por ocultar da barra de marcadores. Os marcadores geridos não são sincronizados com a conta do utilizador e não podem ser modificados pelas extensões.</translation>
 <translation id="8412312801707973447">Se são ou não efetuadas verificações OCSP/CRL on-line</translation>
 <translation id="8451988835943702790">Utilizar a página Novo separador como página inicial</translation>
 <translation id="8465065632133292531">Parâmetros do URL instantâneo que utilize POST</translation>

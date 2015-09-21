@@ -415,6 +415,15 @@
           Každá položka v tomto zozname predstavuje vzor zodpovedajúci typu rozšírenia (viac informácií na stránkach http://code.google.com/chrome/extensions/match_patterns.html). Používatelia budú môcť jednoducho inštalovať položky z akejkoľvek adresy, ktorá zodpovedá položke v tomto zozname. V týchto vzoroch musí byť povolené umiestnenie súboru *.crx aj stránka, z ktorej začne sťahovanie (t. j. zdroj odkazu).
 
           Zoznam zakázaných položiek ExtensionInstallBlacklist je tomuto pravidlu nadradený. Rozšírenie v zozname zakázaných položiek nebude nainštalované ani v prípade, že bude pochádzať zo stránok, ktoré sú uvedené v tomto zozname.</translation>
+<translation id="2820806665372828299">Poskytne rozšíreniam prístup k podnikovým kľúčom.
+
+      Kľúče vygenerované pomocou rozhrania chrome.platformKeys API v spravovanom účte sú určené na podnikové využitie. Kľúče importované alebo generované iným spôsobom nie sú určené na podnikové využitie.
+
+      Prístup ku kľúčom určeným na podnikové využitie je výhradne ovládaný týmto pravidlom. Používateľ nemôže udeliť rozšíreniam prístup k podnikovým kľúčom ani nemôže zrušiť ich prístup k podnikovým kľúčom.
+
+      Predvolene nemôže žiadne rozšírenie používať kľúč určený na podnikové využitie, čo je to isté, ako keď je povolenie allowCorporateKeyUsage pre toto rozšírenie nastavené na možnosť false.
+
+      Rozšírenie môže použiť kľúč ľubovoľnej platformy určený na podnikové využitie na podpísanie ľubovoľných dát iba vtedy, keď je povolenie allowCorporateKeyUsage pre toto rozšírenie nastavené na možnosť true. Toto povolenie by ste mali udeliť iba vtedy, keď máte istotu, že rozšírenie určite ochráni prístup ku kľúču pred útočníkmi.</translation>
 <translation id="2824715612115726353">Povoliť režim inkognito</translation>
 <translation id="285480231336205327">Povoliť režim s vysokým kontrastom</translation>
 <translation id="2872961005593481000">Vypnúť</translation>
@@ -1677,6 +1686,11 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
 <translation id="8369602308428138533">Oneskorenie vypnutia obrazovky pri používaní napájacieho zdroja</translation>
 <translation id="8382184662529825177">Povoliť použitie vzdialeného overenia na ochranu obsahu pre zariadenie</translation>
 <translation id="838870586332499308">Povoliť roaming pre dátové prenosy</translation>
+<translation id="8412286985859522563">Konfiguruje zoznam spravovaných záložiek.
+
+      Toto pravidlo pozostáva zo zoznamu záložiek a každá záložka predstavuje slovník obsahujúci „názov“ a cieľovú „webovú adresu“ záložky. Záložku je možné nakonfigurovať aj ako priečinok. V takomto prípade definujte „názov“ priečinka, nie však „webovú adresu“. Namiesto toho definujte obsah tohto priečinka ako ďalší zoznam záložiek v  rámci kľúča „Podriadené“. Chrome doplní neúplné webové adresy, ako keby boli odoslané prostredníctvom všeobecného poľa. Napríklad z adresy „google.sk“ sa stane „http://google.sk/“.
+
+      Tieto záložky sú umiestnené do priečinka Spravované záložky, ktorý používateľ nemôže zmeniť. Môže ho však na paneli so záložkami skryť. Spravované záložky sa nesynchronizujú do účtu používateľa a nemôžu byť upravené rozšíreniami.</translation>
 <translation id="8412312801707973447">Či sa majú vykonávať kontroly OCSP/CRL online</translation>
 <translation id="8451988835943702790">Použiť stránku Nová karta ako domovskú stránku</translation>
 <translation id="8465065632133292531">Parametre pre webovú adresu okamžitého vyhľadávania, ktorá používa metódu POST</translation>
