@@ -85,6 +85,7 @@ class MockPasswordManagerDriver : public StubPasswordManagerDriver {
 
   ~MockPasswordManagerDriver() {}
 
+  MOCK_METHOD1(FillPasswordForm, void(const autofill::PasswordFormFillData&));
   MOCK_METHOD1(AllowPasswordGenerationForForm,
                void(const autofill::PasswordForm&));
 
@@ -168,35 +169,6 @@ class TestPasswordManagerClient : public StubPasswordManagerClient {
   bool filter_all_results_;
 };
 
-class TestPasswordManager : public PasswordManager {
- public:
-  explicit TestPasswordManager(TestPasswordManagerClient* client)
-      : PasswordManager(client), wait_for_username_(false) {}
-
-  void Autofill(password_manager::PasswordManagerDriver* driver,
-                const autofill::PasswordForm& form_for_autofill,
-                const autofill::PasswordFormMap& best_matches,
-                const autofill::PasswordForm& preferred_match,
-                bool wait_for_username) const override {
-    best_matches_ = &best_matches;
-    wait_for_username_ = wait_for_username;
-  }
-
-  const autofill::PasswordFormMap& GetLatestBestMatches() {
-    return *best_matches_;
-  }
-
-  bool GetLatestWaitForUsername() { return wait_for_username_; }
-
- private:
-  // Points to a PasswordFormMap owned by PasswordFormManager.
-  // Marked mutable to get around constness of Autofill().
-  // TODO(vabr): This should be rewritten as a mock of PasswordManager, and the
-  // interesting arguments should be saved via GMock actions instead.
-  mutable const autofill::PasswordFormMap* best_matches_;
-  mutable bool wait_for_username_;
-};
-
 }  // namespace
 
 class PasswordFormManagerTest : public testing::Test {
@@ -242,7 +214,7 @@ class PasswordFormManagerTest : public testing::Test {
 
     mock_store_ = new NiceMock<MockPasswordStore>();
     client_.reset(new TestPasswordManagerClient(mock_store_.get()));
-    password_manager_.reset(new TestPasswordManager(client_.get()));
+    password_manager_.reset(new PasswordManager(client_.get()));
   }
 
   void TearDown() override {
@@ -340,7 +312,7 @@ class PasswordFormManagerTest : public testing::Test {
 
   TestPasswordManagerClient* client() { return client_.get(); }
 
-  TestPasswordManager* password_manager() { return password_manager_.get(); }
+  PasswordManager* password_manager() { return password_manager_.get(); }
 
   // To spare typing for PasswordFormManager instances which need no driver.
   const base::WeakPtr<PasswordManagerDriver> kNoDriver;
@@ -353,7 +325,7 @@ class PasswordFormManagerTest : public testing::Test {
   PasswordForm saved_match_;
   scoped_refptr<NiceMock<MockPasswordStore>> mock_store_;
   scoped_ptr<TestPasswordManagerClient> client_;
-  scoped_ptr<TestPasswordManager> password_manager_;
+  scoped_ptr<PasswordManager> password_manager_;
 };
 
 TEST_F(PasswordFormManagerTest, TestNewLogin) {
@@ -486,23 +458,33 @@ TEST_F(PasswordFormManagerTest, TestBlacklistMatching) {
 }
 
 TEST_F(PasswordFormManagerTest, AutofillBlacklisted) {
+  // Blacklisted best matches credentials should not be autofilled, but the
+  // non-blacklisted should.
   TestPasswordManager password_manager(client());
   PasswordFormManager form_manager(&password_manager, client(),
                                    client()->driver(), *observed_form(), false);
   PasswordForm saved_form = *observed_form();
   saved_form.username_value = ASCIIToUTF16("user");
   saved_form.password_value = ASCIIToUTF16("pass");
+
   PasswordForm blacklisted = *observed_form();
   blacklisted.blacklisted_by_user = true;
-  blacklisted.username_value = base::string16();
+  blacklisted.username_value.clear();
+
   ScopedVector<PasswordForm> result;
   result.push_back(new PasswordForm(saved_form));
   result.push_back(new PasswordForm(blacklisted));
   form_manager.SimulateFetchMatchingLoginsFromPasswordStore();
+
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
   form_manager.OnGetPasswordStoreResults(result.Pass());
-  EXPECT_EQ(1u, password_manager.GetLatestBestMatches().size());
   EXPECT_EQ(1u, form_manager.blacklisted_matches().size());
   EXPECT_TRUE(form_manager.IsBlacklisted());
+  EXPECT_EQ(1u, form_manager.best_matches().size());
+  EXPECT_TRUE(fill_data.additional_logins.empty());
 }
 
 // If PSL-matched credentials had been suggested, but the user has overwritten
@@ -1060,8 +1042,7 @@ TEST_F(PasswordFormManagerTest, TestForceInclusionOfGeneratedPasswords) {
   PasswordFormManager manager_match(password_manager(), client(),
                                     client()->driver(), *observed_form(),
                                     false);
-  EXPECT_CALL(*(client()->mock_driver()), AllowPasswordGenerationForForm(_))
-      .Times(1);
+  EXPECT_CALL(*client()->mock_driver(), AllowPasswordGenerationForForm(_));
 
   ScopedVector<PasswordForm> simulated_results;
   simulated_results.push_back(CreateSavedMatch(false));
@@ -1070,16 +1051,21 @@ TEST_F(PasswordFormManagerTest, TestForceInclusionOfGeneratedPasswords) {
   simulated_results[1]->password_element = ASCIIToUTF16("signup_password");
   simulated_results[1]->username_element = ASCIIToUTF16("signup_username");
   manager_match.SimulateFetchMatchingLoginsFromPasswordStore();
+
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
   manager_match.OnGetPasswordStoreResults(simulated_results.Pass());
-  EXPECT_EQ(1u, password_manager()->GetLatestBestMatches().size());
+  EXPECT_EQ(1u, manager_match.best_matches().size());
+  EXPECT_TRUE(fill_data.additional_logins.empty());
 
   // Same thing, except this time the credentials that don't match quite as
   // well are generated. They should now be sent to Autofill().
   PasswordFormManager manager_no_match(password_manager(), client(),
                                        client()->driver(), *observed_form(),
                                        false);
-  EXPECT_CALL(*(client()->mock_driver()), AllowPasswordGenerationForForm(_))
-      .Times(1);
+  EXPECT_CALL(*(client()->mock_driver()), AllowPasswordGenerationForForm(_));
 
   simulated_results.push_back(CreateSavedMatch(false));
   simulated_results.push_back(CreateSavedMatch(false));
@@ -1088,8 +1074,14 @@ TEST_F(PasswordFormManagerTest, TestForceInclusionOfGeneratedPasswords) {
   simulated_results[1]->username_element = ASCIIToUTF16("signup_username");
   simulated_results[1]->type = PasswordForm::TYPE_GENERATED;
   manager_no_match.SimulateFetchMatchingLoginsFromPasswordStore();
+
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
   manager_no_match.OnGetPasswordStoreResults(simulated_results.Pass());
-  EXPECT_EQ(2u, password_manager()->GetLatestBestMatches().size());
+  EXPECT_EQ(2u, manager_no_match.best_matches().size());
+  EXPECT_EQ(1u, fill_data.additional_logins.size());
 }
 
 TEST_F(PasswordFormManagerTest, TestSanitizePossibleUsernames) {
@@ -1209,12 +1201,17 @@ TEST_F(PasswordFormManagerTest, TestScoringPublicSuffixMatch) {
   simulated_results[1]->action =
       GURL("http://accounts.google.com/a/ServiceLogin2");
   form_manager.SimulateFetchMatchingLoginsFromPasswordStore();
+
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
   form_manager.OnGetPasswordStoreResults(simulated_results.Pass());
-  EXPECT_EQ(1u, password_manager()->GetLatestBestMatches().size());
-  EXPECT_EQ("", password_manager()
-                    ->GetLatestBestMatches()
-                    .begin()
-                    ->second->original_signon_realm);
+  EXPECT_TRUE(fill_data.additional_logins.empty());
+  EXPECT_EQ(1u, form_manager.best_matches().size());
+  EXPECT_TRUE(form_manager.best_matches()
+                  .begin()
+                  ->second->original_signon_realm.empty());
 }
 
 TEST_F(PasswordFormManagerTest, AndroidCredentialsAreAutofilled) {
@@ -1236,10 +1233,15 @@ TEST_F(PasswordFormManagerTest, AndroidCredentialsAreAutofilled) {
   simulated_results[0]->password_value = saved_match()->password_value;
 
   form_manager.SimulateFetchMatchingLoginsFromPasswordStore();
-  form_manager.OnGetPasswordStoreResults(simulated_results.Pass());
 
-  EXPECT_EQ(1u, password_manager()->GetLatestBestMatches().size());
-  EXPECT_FALSE(password_manager()->GetLatestWaitForUsername());
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
+  form_manager.OnGetPasswordStoreResults(simulated_results.Pass());
+  EXPECT_TRUE(fill_data.additional_logins.empty());
+  EXPECT_FALSE(fill_data.wait_for_username);
+  EXPECT_EQ(1u, form_manager.best_matches().size());
 }
 
 TEST_F(PasswordFormManagerTest, InvalidActionURLsDoNotMatch) {
@@ -1696,13 +1698,15 @@ TEST_F(PasswordFormManagerTest, TestSuggestingPasswordChangeForms) {
   manager_creds.SimulateFetchMatchingLoginsFromPasswordStore();
   ScopedVector<PasswordForm> simulated_results;
   simulated_results.push_back(CreateSavedMatch(false));
-  manager_creds.OnGetPasswordStoreResults(simulated_results.Pass());
-  Mock::VerifyAndClearExpectations(client()->mock_driver());
 
-  // Check that Autofill message was sent.
-  EXPECT_EQ(1u, password_manager()->GetLatestBestMatches().size());
-  // Check that we suggest, not autofill.
-  EXPECT_TRUE(password_manager()->GetLatestWaitForUsername());
+  autofill::PasswordFormFillData fill_data;
+  EXPECT_CALL(*client()->mock_driver(), FillPasswordForm(_))
+      .WillOnce(SaveArg<0>(&fill_data));
+
+  manager_creds.OnGetPasswordStoreResults(simulated_results.Pass());
+  EXPECT_EQ(1u, manager_creds.best_matches().size());
+  EXPECT_EQ(0u, fill_data.additional_logins.size());
+  EXPECT_TRUE(fill_data.wait_for_username);
 }
 
 TEST_F(PasswordFormManagerTest, TestUpdateMethod) {
