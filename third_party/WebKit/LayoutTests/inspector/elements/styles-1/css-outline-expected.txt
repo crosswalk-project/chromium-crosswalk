@@ -1,0 +1,126 @@
+The test verifies the CSS outline functionality.
+
+{
+    atRule : "@import url("some-url-to-load-css.css") print"
+    columnNumber : 0
+    lineNumber : 1
+}
+{
+    atRule : "@charset "ISO-8859-15""
+    columnNumber : 0
+    lineNumber : 2
+}
+{
+    atRule : "@namespace svg url(http://www.w3.org/2000/svg)"
+    columnNumber : 0
+    lineNumber : 3
+}
+{
+    atRule : "@font-face"
+    columnNumber : 0
+    lineNumber : 4
+}
+{
+    atRule : "@page"
+    columnNumber : 0
+    lineNumber : 9
+}
+{
+    atRule : "@page :right"
+    columnNumber : 0
+    lineNumber : 12
+}
+{
+    atRule : "@page :first"
+    columnNumber : 0
+    lineNumber : 15
+}
+{
+    columnNumber : 0
+    lineNumber : 19
+    properties : [
+        {
+            name : "color"
+            value : "red"
+        }
+    ]
+    selectorText : "div"
+}
+{
+    columnNumber : 0
+    lineNumber : 20
+    properties : [
+        {
+            name : "border"
+            value : "1px solid black"
+        }
+        {
+            name : "z-index"
+            value : "1"
+        }
+    ]
+    selectorText : "#fluffy"
+}
+{
+    columnNumber : 0
+    lineNumber : 24
+    properties : [
+        {
+            name : "text-overflow"
+            value : "ellipsis"
+        }
+    ]
+    selectorText : "input:-moz-placeholder"
+}
+{
+    columnNumber : 0
+    lineNumber : 25
+    properties : [
+        {
+            name : "border-color"
+            value : "blue"
+        }
+        {
+            name : "-lol-cats"
+            value : ""dogs""
+        }
+    ]
+    selectorText : ".class-name, p /* style all paragraphs as well */"
+}
+{
+    atRule : "@keyframes identifier"
+    columnNumber : 0
+    lineNumber : 30
+}
+{
+    columnNumber : 0
+    lineNumber : 37
+    properties : [
+        {
+            name : "text-decoration"
+            value : "underline"
+        }
+    ]
+    selectorText : "svg|a"
+}
+{
+    atRule : "@media (max-width:500px)"
+    columnNumber : 0
+    lineNumber : 41
+}
+{
+    columnNumber : 4
+    lineNumber : 42
+    properties : [
+        {
+            name : "-webkit-border-radius"
+            value : "10px"
+        }
+        {
+            name : "font-family"
+            value : ""Example Font""
+        }
+    ]
+    selectorText : "span"
+}
+

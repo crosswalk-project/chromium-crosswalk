@@ -31,7 +31,6 @@ vars = {
   # Use this googlecode_url variable only if there is an internal mirror for it.
   # If you do not know, use the full path while defining your new deps entry.
   'googlecode_url': 'http://%s.googlecode.com/svn',
-  'webkit_revision': '5a1bf02f53bd0c5f85fd063b6b2246c23bccdba4', # from svn revision 201026
   'chromium_git': 'https://chromium.googlesource.com',
   'libvpx_revision': '6503766dba4b3c56e7f0c2f6015f66d7416c1103',
   'sfntly_revision': '1bdaae8fc788a5ac8936d68bf24f37d977a13dac',
@@ -119,9 +118,6 @@ deps = {
 
   'src/third_party/crashpad/crashpad':
    Var('chromium_git') + '/crashpad/crashpad.git' + '@' + '14a22412747a79d9511bdf7505ae8b5f1ba3a2c7',
-
-  'src/third_party/WebKit':
-   Var('chromium_git') + '/chromium/blink.git' + '@' +  Var('webkit_revision'),
 
   'src/third_party/icu':
    Var('chromium_git') + '/chromium/deps/icu.git' + '@' + '89dcdec16381883782b9cc9cff38e00f047a0f46',

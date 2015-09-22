@@ -1,0 +1,12 @@
+Test that form submit within onsubmit event handlers are not delayed and sends the form data when invoked
+
+On success, you will see a series of "PASS" messages, followed by "TEST COMPLETE".
+
+
+PASS Both query events received, with correct values: AAA and BBB
+PASS successfullyParsed is true
+
+TEST COMPLETE
+  
+  
+ 

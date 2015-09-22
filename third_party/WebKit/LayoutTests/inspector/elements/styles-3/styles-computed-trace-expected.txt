@@ -1,0 +1,38 @@
+Tests that computed styles expand and allow tracing to style rules.
+
+==== Computed style for ID1 ====
+background-attachment: scroll;
+background-clip: border-box;
+background-color: rgb(128, 128, 128);
+background-image: none;
+background-origin: padding-box;
+background-size: auto;
+display: block;
+font-family: Courier;
+text-decoration: underline solid rgb(0, 0, 0);
+text-decoration-color: rgb(0, 0, 0);
+text-decoration-line: underline;
+text-decoration-style: solid;
+[expanded] 
+element.style  { ()
+
+==== Computed style for ID2 ====
+background-color: rgb(0, 0, 255);
+display: block;
+font-family: Courier;
+text-decoration: underline solid rgb(0, 0, 0);
+text-decoration-color: rgb(0, 0, 0);
+text-decoration-line: underline;
+text-decoration-style: solid;
+[expanded] 
+element.style  { ()
+
+==== Style for ID3 ====
+[expanded] 
+element.style  { ()
+
+[expanded] 
+button[Attributes Style]  { ()
+    display: none;
+
+

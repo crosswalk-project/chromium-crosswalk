@@ -1,0 +1,14 @@
+Tests event listeners output in the Elements sidebar panel when the listeners are added on an element in about:blank page.
+
+
+
+======== click ========
+[expanded] bodyevent-listeners-about-blank.html:9
+    useCapture: true
+    handler: function f() {}
+
+======== hover ========
+[expanded] div#div-in-iframeevent-listeners-about-blank.html:9
+    useCapture: true
+    handler: function f() {}
+
