@@ -1,0 +1,383 @@
+<html>
+<head>
+<script src="../../http/tests/inspector/inspector-test.js"></script>
+<script src="../tracing-test.js"></script>
+<script>
+function test()
+{
+    var sessionId = "6.23";
+    var rawTraceEvents = [
+    {
+        "args": {
+          "name": "Renderer"
+        },
+        "cat": "__metadata",
+        "name": "process_name",
+        "ph": "M",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 0
+    },
+    {
+        "args": {
+            "name": "CrRendererMain"
+        },
+        "cat": "__metadata",
+        "name": "thread_name",
+        "ph": "M",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 0
+    },
+    {
+        "args": {
+            "sessionId": sessionId
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "TracingStartedInPage",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 100000,
+        "tts": 606543
+    },
+    {
+        "args": {},
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "Program",
+        "ph": "B",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 200000,
+        "tts": 5612442
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "c", "callUID": "c", "scriptId": 1 },
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 208000,
+        "tts": 1758056
+    },
+    {
+        "args": {},
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "FunctionCall",
+        "ph": "X",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 210000,
+        "dur": 30000,
+        "tts": 5612442
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "c", "callUID": "c", "scriptId": 1 },
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 211000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": []
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 212000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "c", "callUID": "c", "scriptId": 1 },
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 219875,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "frame": "0x2f7b63884000",
+            "data": {
+                "stackTrace": [
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "InvalidateLayout",
+        "ph": "X",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 220000,
+        "dur": 7000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "c", "callUID": "c", "scriptId": 1 },
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 220125,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "frame": "0x2f7b63884000",
+            "data": {
+                "stackTrace": [
+                    { "functionName": "b", "callUID": "b", "scriptId": 1 },
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "InvalidateLayout",
+        "ph": "X",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 221000,
+        "dur": 3000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "g", "scriptId": 1 },
+                    { "functionName": "f", "scriptId": 1 },
+                    { "functionName": "b", "scriptId": 1 },
+                    { "functionName": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 222000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "g", "scriptId": 1 },
+                    { "functionName": "e", "scriptId": 1 },
+                    { "functionName": "b", "scriptId": 1 },
+                    { "functionName": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 227125,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "g", "scriptId": 1 },
+                    { "functionName": "e", "scriptId": 1 },
+                    { "functionName": "b", "scriptId": 1 },
+                    { "functionName": "a", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 227250,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 },
+                    { "functionName": "l", "callUID": "l", "scriptId": 1 },
+                    { "functionName": "f", "callUID": "f", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 230000,
+        "tts": 1758056
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "a", "callUID": "a", "scriptId": 1 },
+                    { "functionName": "l", "callUID": "l", "scriptId": 1 },
+                    { "functionName": "f", "callUID": "f", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 230125,
+        "tts": 1758056
+    },
+    {
+        "args": {},
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "FunctionCall",
+        "ph": "X",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 250000,
+        "dur": 10000
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "y", "callUID": "y", "scriptId": 1 },
+                    { "functionName": "x", "callUID": "x", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "FunctionCall",
+        "ph": "X",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 251000,
+        "dur": 8000
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "w", "callUID": "w", "scriptId": 1 },
+                    { "functionName": "z", "callUID": "z", "scriptId": 1 },
+                    { "functionName": "y", "callUID": "y", "scriptId": 1 },
+                    { "functionName": "x", "callUID": "x", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 251000,
+    },
+    {
+        "args": {
+            "data": {
+                "stackTrace": [
+                    { "functionName": "w", "callUID": "w", "scriptId": 1 },
+                    { "functionName": "z", "callUID": "z", "scriptId": 1 },
+                    { "functionName": "y", "callUID": "y", "scriptId": 1 },
+                    { "functionName": "x", "callUID": "x", "scriptId": 1 }
+                ]
+            }
+        },
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "JSSample",
+        "ph": "I",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 251100,
+    },
+    {
+        "args": {},
+        "cat": "disabled-by-default-devtools.timeline",
+        "name": "Program",
+        "ph": "E",
+        "pid": 17851,
+        "tid": 23,
+        "ts": 500000,
+        "tts": 5612506
+    }
+    ];
+
+    var tracingTimelineModel = InspectorTest.tracingTimelineModel();
+    tracingTimelineModel.setEventsForTest(rawTraceEvents);
+    var events = WebInspector.TimelineJSProfileProcessor.generateJSFrameEvents(tracingTimelineModel.mainThreadEvents());
+    events = events.mergeOrdered(tracingTimelineModel.mainThreadEvents(), WebInspector.TracingModel.Event.orderedCompareStartTime);
+    events.filter(function(e) { return e.duration; }).forEach(function(e) {
+        InspectorTest.addResult(e.name + ": " + e.startTime.toFixed(3) + " / " + (e.duration.toFixed(3) || 0) + " " + (e.args.data && e.args.data.functionName || ""));
+    });
+
+    InspectorTest.addResult("");
+    tracingTimelineModel._setMainThreadEvents(events);
+    var dataProvider = new WebInspector.TimelineFlameChartBottomUpDataProvider(tracingTimelineModel);
+    dataProvider.setWindowTimes(0, Infinity);
+    var timelineData = dataProvider.timelineData();
+    for (var i = 0; i < timelineData.entryStartTimes.length; ++i) {
+        var name = dataProvider.entryTitle(i);
+        var padding = "  ".repeat(timelineData.entryLevels[i]);
+        InspectorTest.addResult(padding + name + ": " + timelineData.entryTotalTimes[i].toFixed(3) + " @ " + timelineData.entryStartTimes[i].toFixed(3));
+    }
+
+    InspectorTest.completeTest();
+}
+
+</script>
+</head>
+<body onload="runTest()">
+</body>
+</html>

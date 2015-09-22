@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Notifications: The Notification object exposes the expected properties.</title>
+    <script src="../resources/testharness.js"></script>
+    <script src="../resources/testharnessreport.js"></script>
+  </head>
+  <body>
+    <script>
+      // Tests that the Notification object exposes the properties per the
+      // semantics defined by the specification. When the test is being ran
+      // manually, grant Notification permission first.
+      test(function () {
+          var options = {
+                dir: "rtl",
+                lang: "nl-NL",
+                body: "Hallo, wereld!",
+                tag: "notification",
+                icon: "http://localhost/my_icon.png",
+                silent: true,
+                data: "my data"
+            };
+
+            var notification = new Notification("My Notification", options);
+
+            assert_equals(notification.title, "My Notification");
+            assert_equals(notification.dir, options.dir);
+            assert_equals(notification.lang, options.lang);
+            assert_equals(notification.body, options.body);
+            assert_equals(notification.tag, options.tag);
+            assert_equals(notification.icon, options.icon);
+            assert_true(notification.silent);
+            assert_equals(notification.data, options.data);
+
+            var emptyNotification = new Notification("My Notification");
+
+            assert_equals(emptyNotification.title, "My Notification");
+            assert_equals(emptyNotification.dir, "auto");
+            assert_equals(emptyNotification.lang, "");
+            assert_equals(emptyNotification.body, "");
+            assert_equals(emptyNotification.tag, "");
+            assert_equals(emptyNotification.icon, "");
+            assert_equals(notification.vibrate, null);
+            assert_false(emptyNotification.silent);
+            assert_equals(emptyNotification.data, null);
+
+            var invalidIconNotification = new Notification("My Notification", {
+                icon: "http://test:test/"
+            });
+
+            // Invalid icon URLs should be reset to an empty string.
+            assert_equals(invalidIconNotification.icon, "");
+
+            var serializedUrlNotification = new Notification("My Notification", {
+                icon: "http://example.com"
+            });
+
+            // Icon URLs should be returned in serialized form.
+            assert_equals(serializedUrlNotification.icon, "http://example.com/");
+
+            var noTagNotification = new Notification("My Notification"),
+                emptyTagNotification = new Notification("My Notification", { tag: "" });
+
+            // Setting an empty string as the tag should be equal to not setting the tag at all.
+            assert_equals(noTagNotification.tag, emptyTagNotification.tag);
+
+            var vibrateNotification = new Notification("My Notification", {
+                vibrate: 1000
+            });
+
+            // vibrate pattern should be returned in serialized form.
+            assert_array_equals(vibrateNotification.vibrate, [1000]);
+
+            // Tests that it must be a valid vibration sequence.
+            var pattern = new Array(100, 200, 300);
+            var sequenceVibrateNotification = new Notification("My Notification", {
+                vibrate: pattern
+            });
+            assert_array_equals(sequenceVibrateNotification.vibrate, pattern);
+
+            // Invalid vibrate pattern should be reset to 0.
+            var invalidVibrateNotification = new Notification("My Notification", {
+                vibrate: [100, 200, "invalid"]
+            });
+            assert_array_equals(invalidVibrateNotification.vibrate, [100, 200, 0]);
+
+            // Invalid vibrate pattern should be sanitized.
+            // 1. If the vibration pattern is longer than 100 then truncate it.
+            // 2. If the last item in the vibration pattern is a pause then discard it.
+            // 3. If any pattern entry is longer than 10000 then truncate it.
+            var sanitizedVibrateNotification = new Notification("My Notification", {
+                vibrate: Array.apply(null, new Array(101)).map(Number.prototype.valueOf, 20000)
+            });
+            assert_array_equals(sanitizedVibrateNotification.vibrate,
+                    Array.apply(null, new Array(99)).map(Number.prototype.valueOf, 10000));
+
+            // Verifying the exception throwing behavior, when silent set true and vibrate is presented.
+            assert_throws(new TypeError(), function() {
+                var notification = new Notification("My Notification", {
+                    silent: true,
+                    vibrate: 1000
+                });
+            }, 'Set vibrate, when silent is true.');
+
+      }, 'Checks the properties exposed on the Notification object.');
+    </script>
+  </body>
+</html>

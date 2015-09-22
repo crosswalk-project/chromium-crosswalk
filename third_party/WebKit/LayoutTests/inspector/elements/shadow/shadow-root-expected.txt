@@ -1,0 +1,19 @@
+This test verifies that author shadow root's #document-fragment is displayed and user-agent one is hidden by default.
+
+
+- <div id="container">
+    - <div id="test1">
+          #shadow-root
+      </div>
+    - <div id="test2">
+          #shadow-root
+          "only test"
+      </div>
+    - <div id="test3">
+          #shadow-root
+          "with "
+          <span>elements</span>
+      </div>
+      <input type="text" value="Test">
+  </div>
+

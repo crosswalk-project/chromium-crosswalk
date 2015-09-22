@@ -1,0 +1,55 @@
+Tests ServiceWorkersView on resources panel.
+
+Select ServiceWorkers tree element.
+Register ServiceWorker for scope1
+==== ServiceWorkersView ====
+127.0.0.1
+
+Scope: /inspector/service-workers/resources/scope1/
+activated
+inspectrunning
+Script: /inspector/service-workers/resources/service-worker-empty.js
+LAST-MODIFIED
+RESPONSE-TIME
+
+============================
+Register ServiceWorker for scope2
+==== ServiceWorkersView ====
+127.0.0.1
+
+Scope: /inspector/service-workers/resources/scope1/
+activated
+inspectrunning
+Script: /inspector/service-workers/resources/service-worker-empty.js
+LAST-MODIFIED
+RESPONSE-TIME
+
+Scope: /inspector/service-workers/resources/scope2/
+activated
+inspectrunning
+Script: /inspector/service-workers/resources/service-worker-empty.js
+LAST-MODIFIED
+RESPONSE-TIME
+
+============================
+Unegister ServiceWorker for scope1
+==== ServiceWorkersView ====
+127.0.0.1
+
+Scope: /inspector/service-workers/resources/scope1/ - deleted
+redundant
+inspectrunning
+Script: /inspector/service-workers/resources/service-worker-empty.js
+LAST-MODIFIED
+RESPONSE-TIME
+
+Scope: /inspector/service-workers/resources/scope2/
+activated
+inspectrunning
+Script: /inspector/service-workers/resources/service-worker-empty.js
+LAST-MODIFIED
+RESPONSE-TIME
+
+============================
+Unegister ServiceWorker for scope1
+

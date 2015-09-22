@@ -1,0 +1,316 @@
+# This file is used for tests that only need to be suppressed on the Chromium
+# WebKit Leak bots.
+#
+# This list isn't comprehensive yet, and Leak Detector bots are not tree closers atm.
+# Gardeners are welcome to touch this file, but you can ignore the failures
+# and wait for kouhei@ or hajimehoshi@ to maintain this file.
+
+# view-source:// tests are not supported by the leak detector
+crbug.com/364398 fast/frames/viewsource/viewsource-1.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-2.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-3.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-4.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-5.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-6.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-7.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-incomplete-token.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-unfinished-script.html [ Leak ]
+crbug.com/364398 fast/frames/viewsource/viewsource-unfinished-textarea.html [ Leak ]
+crbug.com/364398 http/tests/security/xssAuditor/viewsource-onmouseover.html [ Leak ]
+crbug.com/364398 http/tests/security/xssAuditor/viewsource-script-tag.html [ Leak ]
+
+# FIXME: The below tests fails when the leak detector is disabled.
+crbug.com/366029 compositing/fixed-body-background-positioned.html [ Failure Pass ]
+
+# FIXME: The below tests crashes when the leak detector is run on debug builds
+crbug.com/366043 [ Debug ] fast/history/history-traversal-is-asynchronous.html [ Crash ]
+
+# FIXME: html imports tests are flaky from extra navigation from leak detector
+crbug.com/366477 http/tests/htmlimports/redirect.html [ Failure Pass ]
+
+# crbug.com/371264 also includes inspector/sources/debugger/callstack-placards-discarded.html as a test which times out, but now this is listed as crbug.com/376188.
+
+# The leak detector doesn't wait for worker threads to completely clean up, so leaks are expected.
+crbug.com/301515 fast/workers/worker-terminate.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known real leaks.
+# -----------------------------------------------------------------
+
+crbug.com/327574 permissionclient/image-permissions.html [ Leak ]
+crbug.com/327574 http/tests/permissionclient/image-permissions.html [ Leak ]
+crbug.com/327574 fast/loader/data-images-with-images-disabled.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks which may be false positives.
+# -----------------------------------------------------------------
+
+crbug.com/364411 fast/frames/location-observe-callback-crash.html [ Leak ]
+
+crbug.com/364417 editing/selection/selection-in-iframe-removed-crash.html [ Leak ]
+crbug.com/364417 editing/selection/user-select-js-property.html [ Leak ]
+crbug.com/364417 fast/events/touch/gesture/context-menu-on-long-tap.html [ Leak ]
+crbug.com/364417 fast/repaint/japanese-rl-selection-clear.html [ Leak ]
+crbug.com/364417 fast/text/international/hebrew-selection.html [ Leak ]
+
+crbug.com/455369 fast/html/marquee-destroyed-without-removed-from-crash.html [ Leak Pass ]
+
+crbug.com/366042 fast/history/history-traversal-is-asynchronous.html [ Leak ]
+
+crbug.com/364391 http/tests/misc/acid3.html [ Leak Pass ]
+
+# Resource leak
+crbug.com/403987 fast/dom/element-attribute-js-null.html [ Leak ]
+crbug.com/403363 http/tests/security/mixedContent/insecure-audio-video-in-main-frame.html [ Leak ]
+crbug.com/405125 media/media-controls-clone-crash.html [ Leak Pass ]
+
+# leaks in newly added web-platform tests
+crbug.com/413731 imported/web-platform-tests/shadow-dom/elements-and-dom-objects/shadowroot-object/shadowroot-methods/test-004.html [ Leak Failure ]
+crbug.com/413731 imported/web-platform-tests/shadow-dom/user-interaction/ranges-and-selections/test-001.html [ Leak Failure ]
+crbug.com/413731 imported/web-platform-tests/shadow-dom/user-interaction/ranges-and-selections/test-002.html [ Leak Failure ]
+
+crbug.com/414163 [ Debug ] inspector/sources/debugger/promise-tracker.html [ Crash ]
+
+crbug.com/417752 storage/websql/sql-error-codes.html [ Pass Leak ]
+crbug.com/427628 inspector/sources/debugger-ui/debugger-save-to-temp-var.html [ Leak ]
+crbug.com/480769 http/tests/inspector/service-workers/user-agent-override.html [ Crash ]
+crbug.com/459576 webaudio/dom-exceptions.html [ Crash ]
+
+crbug.com/482050 fast/repaint/fixed-move-after-keyboard-scroll.html [ Leak ]
+crbug.com/482050 fast/repaint/repaint-tile-clipped.html [ Leak ]
+crbug.com/482050 svg/as-object/nested-embedded-svg-size-changes.html [ Leak ]
+crbug.com/482050 svg/custom/hit-test-unclosed-subpaths.svg [ Leak ]
+crbug.com/482050 svg/custom/hit-test-with-br.xhtml [ Leak ]
+crbug.com/482050 svg/custom/js-update-container2.svg [ Leak ]
+crbug.com/482050 svg/custom/prevent-default.svg [ Leak ]
+crbug.com/482050 svg/custom/repaint-shadow.svg [ Leak ]
+crbug.com/482050 svg/custom/scroll-hit-test.xhtml [ Leak ]
+crbug.com/482050 svg/custom/use-event-handler-on-referenced-element.svg [ Leak ]
+crbug.com/482050 svg/custom/use-event-handler-on-use-element.svg [ Leak ]
+crbug.com/482050 svg/dom/SVGPathSegList-xml-dom-synchronization.xhtml [ Leak ]
+crbug.com/482050 svg/zoom/text/absolute-sized-document-no-scrollbars.svg [ Leak ]
+crbug.com/482050 svg/zoom/text/absolute-sized-document-scrollbars.svg [ Leak ]
+crbug.com/482050 svg/zoom/text/relative-sized-document-scrollbars.svg [ Leak ]
+crbug.com/482050 svg/zoom/text/zoom-coords-viewattr-01-b.svg [ Leak ]
+crbug.com/482050 svg/zoom/text/zoom-foreignObject.svg [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of ActiveDOMObject (fast).
+# -----------------------------------------------------------------
+crbug.com/506529 fast/mediastream/MediaStreamConstructor.html [ Leak ]
+crbug.com/506529 fast/speech/scripted/speechrecognition-basics.html [ Leak ]
+crbug.com/506529 fast/speech/scripted/speechrecognition-errors.html [ Leak ]
+crbug.com/506529 fast/speech/scripted/start-exception.html [ Leak ]
+crbug.com/506529 fast/events/constructors/media-stream-event-constructor.html [ Leak ]
+crbug.com/506529 fast/files/workers/worker-read-blob-async-crash.html [ Leak ]
+crbug.com/506529 virtual/pointerevent/fast/events/constructors/media-stream-event-constructor.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of ActiveDOMObject (IndexedDB).
+# -----------------------------------------------------------------
+# The leak detector's result for ActiveDOMObject (especially IndexedDB) is
+# flaky and we need to fix the leak detector (crbug.com/507224). Until then,
+# the tests for IndexedDB are skipped.
+crbug.com/506752 imported/web-platform-tests/IndexedDB/ [ Skip ]
+crbug.com/506752 storage/indexeddb/ [ Skip ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of ActiveDOMObject (http).
+# -----------------------------------------------------------------
+crbug.com/506754 http/tests/cachestorage/window/cache-put.html [ Leak ]
+crbug.com/506754 http/tests/inspector/filesystem/request-file-content.html [ Leak ]
+crbug.com/506754 http/tests/inspector/network/network-xhr-replay.html [ Leak ]
+crbug.com/506754 http/tests/inspector/service-workers/service-worker-agents.html [ Leak ]
+crbug.com/506754 http/tests/security/cross-origin-indexeddb-allowed.html [ Leak ]
+crbug.com/506754 http/tests/serviceworker/chromium/resolve-after-window-close.html [ Leak ]
+crbug.com/506754 http/tests/serviceworker/chromium/window-close-during-registration.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of ActiveDOMObject (inspector).
+# -----------------------------------------------------------------
+crbug.com/506756 inspector/console/console-log-side-effects.html [ Leak ]
+crbug.com/506756 inspector/console/only-one-deprecation-warning.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of ActiveDOMObject (Web Audio).
+# -----------------------------------------------------------------
+crbug.com/506757 webaudio/mediastreamaudiodestinationnode.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of V8PerContextData (CSS).
+# -----------------------------------------------------------------
+crbug.com/508450 fast/css/pseudo-invalid-001.html [ Leak ]
+crbug.com/508450 fast/css/pseudo-invalid-novalidate-001.html [ Leak ]
+crbug.com/508450 fast/css/pseudo-valid-001.html [ Leak ]
+crbug.com/508450 fast/css/pseudo-valid-dynamic.html [ Leak ]
+crbug.com/508450 imported/web-platform-tests/html/semantics/selectors/pseudo-classes/valid-invalid.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of V8PerContextData (events).
+# -----------------------------------------------------------------
+crbug.com/508452 fast/events/invalid-001.html [ Leak ]
+crbug.com/508452 fast/events/invalid-002.html [ Leak ]
+crbug.com/508452 fast/events/invalid-003.html [ Leak ]
+crbug.com/508452 fast/events/invalid-004.html [ Leak ]
+crbug.com/508452 fast/events/invalid-005.html [ Leak ]
+crbug.com/508452 virtual/pointerevent/fast/events/invalid-001.html [ Leak ]
+crbug.com/508452 virtual/pointerevent/fast/events/invalid-002.html [ Leak ]
+crbug.com/508452 virtual/pointerevent/fast/events/invalid-003.html [ Leak ]
+crbug.com/508452 virtual/pointerevent/fast/events/invalid-004.html [ Leak ]
+crbug.com/508452 virtual/pointerevent/fast/events/invalid-005.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of V8PerContextData (forms).
+# -----------------------------------------------------------------
+crbug.com/508453 fast/forms/ValidityState-patternMismatch-unsupported.html [ Leak ]
+crbug.com/508453 fast/forms/ValidityState-patternMismatch.html [ Leak ]
+crbug.com/508453 fast/forms/ValidityState-typeMismatch-email.html [ Leak ]
+crbug.com/508453 fast/forms/checkValidity-002.html [ Leak ]
+crbug.com/508453 fast/forms/checkValidity-004.html [ Leak ]
+crbug.com/508453 fast/forms/datalist/input-list.html [ Leak ]
+crbug.com/508453 fast/forms/editing-value.html [ Leak ]
+crbug.com/508453 fast/forms/email-format-warning.html [ Leak ]
+crbug.com/508453 fast/forms/email-idn-conversion.html [ Leak ]
+crbug.com/508453 fast/forms/input-live-pseudo-selectors.html [ Leak ]
+crbug.com/508453 fast/forms/reportValidity-invalid.html [ Leak ]
+crbug.com/508453 fast/forms/submit-onFocus-invalidForm.html [ Leak ]
+crbug.com/508453 fast/forms/validationMessage.html [ Leak ]
+crbug.com/508453 fast/text-autosizing/form-controls-autosizing-fieldset-element.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-checkValidity.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-reportValidity.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validate.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validity-patternMismatch.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validity-tooLong.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validity-tooShort.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validity-typeMismatch.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/constraints/form-validation-validity-valid.html [ Leak ]
+crbug.com/508453 imported/web-platform-tests/html/semantics/forms/the-input-element/type-change-state.html [ Leak ]
+
+# -----------------------------------------------------------------
+# Untriaged but known leaks of V8PerContextData (inspector).
+# -----------------------------------------------------------------
+crbug.com/508454 http/tests/inspector-enabled/reattach-after-editing-styles.html [ Leak ]
+crbug.com/508454 http/tests/inspector-enabled/shadow-dom-rules-restart.html [ Leak ]
+crbug.com/508454 http/tests/inspector-enabled/shadow-dom-rules.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/edit-css-with-source-url.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/selector-line-deprecated.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/selector-line-sourcemap-header-deprecated.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/selector-line-sourcemap-header.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/selector-line.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/styles-redirected-css.html [ Leak ]
+crbug.com/508454 http/tests/inspector/elements/styles/stylesheet-tracking.html [ Leak ]
+crbug.com/508454 http/tests/inspector/modify-cross-domain-rule.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/search-in-concatenated-script.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/search-in-resource.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/search-in-script.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/sources-search-scope-in-files.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/sources-search-scope-many-projects.html [ Leak ]
+crbug.com/508454 http/tests/inspector/search/sources-search-scope.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-add-rule.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-create-stylesheet-and-add-rule.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-set-effective-property-value.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-set-rule-selector.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-set-style-text.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-shadow-dom-inherits-styles.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-shadow-host-content-selector.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/css-shadow-host-rule.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/cssom-matching-rules-multiple.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/cssom-matching-rules.html [ Leak ]
+crbug.com/508454 inspector-protocol/css/pseudo-element-matching-selectors.html [ Leak ]
+crbug.com/508454 inspector/animation/animation-timeline.html [ Leak ]
+crbug.com/508454 inspector/audits/audits-panel-functional.html [ Leak ]
+crbug.com/508454 inspector/console/console-log-wrapped-in-framework.html [ Leak ]
+crbug.com/508454 inspector/elements/elements-panel-styles.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-node-scaled-and-scrolled.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-node-scaled.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-node-scroll.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-node-transformed.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-node.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-svg-content-inside-iframe.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-svg-root-zoomed.html [ Leak ]
+crbug.com/508454 inspector/elements/highlight/highlight-svg-root.html [ Leak ]
+crbug.com/508454 inspector/elements/inspect-pointer-events-none.html [ Leak ]
+crbug.com/508454 inspector/elements/inspect-pseudo-element.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/add-new-rule-inline-style-csp.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/add-new-rule-with-style-after-body.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/color-swatch.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/commit-selector-mark-matching.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/commit-selector.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/css-live-edit.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/cssom-media-insert-crash.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/disable-property-workingcopy-update.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/dynamic-style-tag.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/edit-inspector-stylesheet.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/edit-media-text.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/edit-resource-referred-by-multiple-styletags.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/empty-background-url.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-1/filter-matched-styles.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/filter-matched-styles-hides-separators.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/force-pseudo-state.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/get-set-stylesheet-text.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/import-pseudoclass-crash.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/inactive-properties.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/inherited-mixed-case-properties.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/inject-stylesheet.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/keyframes-rules.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/lazy-computed-style.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/media-emulation.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/media-queries.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/media-using-same-url.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/metrics-box-sizing.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/multiple-imports-edit-crash.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/parse-comments.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/parse-utf8-bom.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/perform-undo-perform-of-mergable-action.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/property-ui-location.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/pseudo-elements.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-2/region-style-crash.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/selector-list.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/selector-source-data.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/shadow-dom-rules.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/style-rule-from-imported-stylesheet.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-add-new-rule-colon.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-add-new-rule-tab.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-add-new-rule-to-stylesheet.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-add-new-rule.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-computed-trace.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-3/styles-disable-property-after-selector-edit.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-edit-property-after-invalid-rule.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-formatting.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-history.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-iframe.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-live-locations-leak.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-new-API.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-overriden-properties.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-source-lines-inline.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-source-lines-recovery.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-source-lines.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-source-offsets.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-update-from-js.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-update-links.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-url-linkify.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/styles-with-spaces-in-sourceURL.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/svg-style.xhtml [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/undo-add-new-rule.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/undo-add-property.html [ Leak ]
+crbug.com/508454 inspector/elements/styles-4/undo-add-rule-crash.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/cancel-upon-invalid-property.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/undo-after-cancelled-editing.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/undo-change-property.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/undo-set-selector-text.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/up-down-numerics-and-colors.html [ Leak ]
+crbug.com/508454 inspector/elements/styles/url-color-swatch.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-async/async-operation-breakpoints.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-breakpoints/debugger-set-breakpoint-regex.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-dom-xhr-event-breakpoints.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-jquery.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-skip-break-program.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-skip-exceptions.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-skip-step-in.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-step-from-framework.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-step-into-skips-setTimeout.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-steppings.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-frameworks/frameworks-with-async-callstack.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-step/debugger-step-into-async1.html [ Leak ]
+crbug.com/508454 inspector/sources/debugger-step/debugger-step-into-async2.html [ Leak ]
+crbug.com/508454 inspector/tracing/timeline-js-blackboxing.html [ Leak ]

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<title>IndexedDB: Test IDBObjectStore.getAll.</title>
+<script src="../../resources/testharness.js"></script>
+<script src="../../resources/testharnessreport.js"></script>
+<script>
+
+function doSetup(dbName, dbVersion, onsuccess) {
+  var delete_request = indexedDB.deleteDatabase(dbName);
+  delete_request.onerror = function() {
+    assert_unreached('deleteDatabase should not fail');
+  };
+  delete_request.onsuccess = function(e) {
+    var req = indexedDB.open(dbName, dbVersion);
+    req.onsuccess = onsuccess;
+    req.onerror = function() {
+      assert_unreached('open should not fail');
+    };
+    req.onupgradeneeded = function(evt) {
+      var connection = evt.target.result;
+      var alphabet = 'abcdefghijklmnopqrstuvwxyz'.split('');
+
+      var store = connection.createObjectStore('generated',
+            {autoIncrement: true, keyPath: 'id'});
+      alphabet.forEach(function(letter) {
+        store.put({ch: letter});
+      });
+
+      store = connection.createObjectStore('out-of-line', null);
+      alphabet.forEach(function(letter) {
+        store.put(letter, letter);
+      });
+
+      store = connection.createObjectStore('empty', null);
+    };
+  };
+}
+
+function createGetAllRequest(t, storeName, connection, range, maxCount) {
+    var transaction = connection.transaction(storeName, 'readonly');
+    var store = transaction.objectStore(storeName);
+    // TODO(cmumford): Simplify once crbug.com/335871 is closed.
+    var req = maxCount !== undefined ? store.getAll(range, maxCount) :
+              range !== undefined ? store.getAll(range) :  store.getAll();
+    req.onerror = t.unreached_func('getAll request should succeed');
+    return req;
+}
+
+doSetup(location.pathname + '-IDBObjectStore.getAll', 1, function(evt) {
+    var connection = evt.target.result;
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection, 'c');
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, ['c']);
+          t.done();
+      });
+    }, 'Single item get');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'generated', connection, 3);
+      req.onsuccess = t.step_func(function(evt) {
+          var data = evt.target.result;
+          assert_true(Array.isArray(data));
+          assert_equals(data.length, 1);
+          assert_object_equals(data[0], {ch: 'c', id: 3});
+          t.done();
+      });
+    }, 'Single item get (generated key)');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'empty', connection);
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, [],
+              'getAll() on empty object store should return an empty array');
+          t.done();
+      });
+    }, 'getAll on empty object store');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection);
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result,
+              'abcdefghijklmnopqrstuvwxyz'.split(''));
+          t.done();
+      });
+    }, 'Get all values');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection, undefined,
+                                    10);
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result,
+              ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j']);
+          t.done();
+      });
+    }, 'Test maxCount');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection,
+                                    IDBKeyRange.bound('g', 'm'));
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result,
+              ['g', 'h', 'i', 'j', 'k', 'l', 'm']);
+          t.done();
+      });
+    }, 'Get bound range');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection,
+                                    IDBKeyRange.bound('g', 'm'), 3);
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, ['g', 'h', 'i']);
+          t.done();
+      });
+    }, 'Get bound range with maxCount');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection,
+                                    IDBKeyRange.bound('g', 'k', false, true));
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, ['g', 'h', 'i', 'j']);
+          t.done();
+      });
+    }, 'Get upper excluded');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection,
+                                    IDBKeyRange.bound('g', 'k', true, false));
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, ['h', 'i', 'j', 'k']);
+          t.done();
+      });
+    }, 'Get lower excluded');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'generated', connection,
+                                    IDBKeyRange.bound(4, 15), 3);
+      req.onsuccess = t.step_func(function(evt) {
+          var data = evt.target.result;
+          assert_true(Array.isArray(data));
+          assert_equals(data.length, 3);
+          assert_object_equals(data[0], {ch: 'd', id: 4});
+          assert_object_equals(data[1], {ch: 'e', id: 5});
+          assert_object_equals(data[2], {ch: 'f', id: 6});
+          t.done();
+      });
+    }, 'Get bound range (generated) with maxCount');
+
+    async_test(function(t) {
+      var req = createGetAllRequest(t, 'out-of-line', connection,
+                                    "Doesn't exist");
+      req.onsuccess = t.step_func(function(evt) {
+          assert_array_equals(evt.target.result, [],
+              'getAll() using a nonexistent key should return an empty array');
+          t.done();
+      });
+      req.onerror = t.unreached_func('getAll request should succeed');
+    }, 'Non existent key');
+
+    async_test(function(t) {
+      var transaction = connection.transaction('out-of-line', 'readonly');
+      var store = transaction.objectStore('out-of-line');
+      assert_throws(new TypeError(), function () {
+        store.getAll(undefined, 0);
+      }, 'getAll() with maxCount=0 should throw TypeError');
+      t.done();
+    }, 'zero maxCount');
+});
+
+</script>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<style>
+svg {
+  cy: 100px;
+}
+.target {
+  stroke: black;
+  font-size: 16px;
+}
+.expected {
+  stroke: green;
+}
+</style>
+<body>
+<template id="target-template">
+  <svg height="200" width="10">
+    <circle cx="50%" cy="50%" r="25%" class="target">
+  </svg>
+</template>
+<script src="resources/interpolation-test.js"></script>
+<script>
+assertInterpolation({
+  property: 'cy',
+  from: '-10px',
+  to: '10px'
+}, [
+  {at: -0.25, is: '-15px'},
+  {at: 0, is: '-10px'},
+  {at: 0.25, is: '-5px'},
+  {at: 0.5, is: '0px'},
+  {at: 0.75, is: '5px'},
+  {at: 1, is: '10px'},
+  {at: 1.25, is: '15px'},
+]);
+assertInterpolation({
+  property: 'cy',
+  from: '-20px',
+  to: '30em'
+}, [
+  {at: -0.25, is: '-145px'},
+  {at: 0, is: '-20px'},
+  {at: 0.25, is: '105px'},
+  {at: 0.5, is: '230px'},
+  {at: 0.75, is: '355px'},
+  {at: 1, is: '30em'},
+  {at: 1.25, is: '605px'},
+]);
+assertInterpolation({
+  property: 'cy',
+  from: 'inherit',
+  to: '140px'
+}, [
+  {at: -0.25, is: '90px'},
+  {at: 0, is: '100px'},
+  {at: 0.25, is: '110px'},
+  {at: 0.5, is: '120px'},
+  {at: 0.75, is: '130px'},
+  {at: 1, is: '140px'},
+  {at: 1.25, is: '150px'},
+]);
+assertInterpolation({
+  property: 'cy',
+  from: '-10',
+  to: '10'
+}, [
+  {at: -0.25, is: '-15'},
+  {at: 0, is: '-10'},
+  {at: 0.25, is: '-5'},
+  {at: 0.5, is: '0'},
+  {at: 0.75, is: '5'},
+  {at: 1, is: '10'},
+  {at: 1.25, is: '15'},
+]);
+</script>
+</body>

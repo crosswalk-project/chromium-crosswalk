@@ -1,0 +1,42 @@
+<script src="../../resources/js-test.js"></script>
+<script>
+    description("This tests that UIEvent and its subclass will have sourceDevice set to be null by default, and it can also be passed when initialization.")
+
+    // Creating UIEvent.
+    var uievent = document.createEvent('UIEvent');
+    shouldBeNonNull("uievent");
+    shouldBeNull("uievent.sourceDevice");  
+    
+    uievent = new UIEvent('eventType', { sourceDevice: new InputDevice({ firesTouchEvents: false }) });
+    shouldBeNonNull("uievent.sourceDevice");
+    shouldBeFalse("uievent.sourceDevice.firesTouchEvents");
+    
+    uievent = new UIEvent('eventType', { sourceDevice: new InputDevice({ firesTouchEvents: true }) });
+    shouldBeNonNull("uievent.sourceDevice");
+    shouldBeTrue("uievent.sourceDevice.firesTouchEvents");
+    
+    // Creating TouchEvent.
+    var touchevent = document.createEvent("TouchEvent");
+    shouldBeNonNull("touchevent");
+    shouldBeNull("touchevent.sourceDevice");
+    
+    // Creating MouseEvent.
+    var mouseevent = new MouseEvent('mousedown');
+    shouldBeNonNull("mouseevent");
+    shouldBeNull("mouseevent.sourceDevice");
+    
+    var mouseevent = new MouseEvent('mousedown', { sourceDevice: new InputDevice({ firesTouchEvents: false }) });
+    shouldBeNonNull("mouseevent.sourceDevice");
+    shouldBeFalse("mouseevent.sourceDevice.firesTouchEvents");
+
+    
+    // Creating KeyboardEvent.
+    var keyboardevent = new KeyboardEvent("keydown");
+    shouldBeNonNull("keyboardevent");
+    shouldBeNull("keyboardevent.sourceDevice");
+    
+    keyboardevent = new KeyboardEvent("keydown", { sourceDevice: new InputDevice({ firesTouchEvents: false }) });
+    shouldBeNonNull("keyboardevent.sourceDevice");
+    shouldBeFalse("keyboardevent.sourceDevice.firesTouchEvents");
+
+</script>
