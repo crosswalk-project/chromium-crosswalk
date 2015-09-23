@@ -398,7 +398,7 @@
         Webview: <ph name="WEBVIEW_TAG_NAME">$1<ex>Google</ex></ph>
       </message>
       <message name="IDS_EXTENSION_PROMPT_WARNING_USB_DEVICE_SERIAL" desc="Permission string for accessing a USB device with a known vendor name, product name and serial number.">
-        <ph name="PRODUCT_NAME">$1<ex>Nexus 5</ex></ph> from <ph name="VENDOR_NAME">$2<ex>Google Inc.</ex></ph> (serial number <ph name="SERIAL_NUMBER">$3<ex>ABCDEF123456</ex></ph>)
+        <ph name="PRODUCT_NAME">$1<ex>Power Knob</ex></ph> from <ph name="VENDOR_NAME">$2<ex>Griffin Technology</ex></ph> (serial number <ph name="SERIAL_NUMBER">$3<ex>00001</ex></ph>)
       </message>
 
       <!-- Global error messages for extensions. Please keep alphabetized. -->
