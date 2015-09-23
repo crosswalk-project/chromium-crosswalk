@@ -596,13 +596,6 @@
           Hodnota * v zozname zakázaných položiek znamená, že všetci hostitelia pre odosielanie natívnych správ sú zakázaní a načítajú sa iba tí, ktorí sú uvedení na bielej listine.
 
           V predvolenom nastavení sú všetci hostitelia pre odosielanie natívnych správ pridaní na bielu listinu. Ak sú v dôsledku určitého pravidla všetci pridaní na zoznam zakázaných položiek, môžete toto pravidlo prepísať pomocou bielej listiny.</translation>
-<translation id="3844092002200215574">Umožňuje nakonfigurovať adresár, ktorý bude prehliadač <ph name="PRODUCT_NAME" /> používať na ukladanie súborov vo vyrovnávacej pamäti na disku.
-
-      Ak nastavíte toto pravidlo, prehliadač <ph name="PRODUCT_NAME" /> bude používať zadaný adresár bez ohľadu na to, či používateľ uviedol príznak '--disk-cache-dir'.
-
-      Zoznam premenných, ktoré sa dajú použiť, nájdete na stránke http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables (iba v angličtine).
-
-      Ak toto pravidlo ponecháte nenastavené, použije sa predvolený adresár pre vyrovnávaciu pamäť a používateľ ho bude môcť prepísať pomocou príznaku príkazového riadku „--disk-cache-dir“.</translation>
 <translation id="384743459174066962">Umožňuje nastaviť zoznam vzorov webových adries určujúcich webové stránky, ktoré nemôžu otvárať kontextové okná.
 
           Ak toto pravidlo ponecháte nenastavené, použije sa v prípade všetkých webových stránok globálna predvolená hodnota buď z pravidla „DefaultPopupsSetting“ (ak je nastavené), alebo z osobnej konfigurácie používateľa.</translation>
@@ -737,11 +730,6 @@
       Ak toto pravidlo bude mať hodnotu 0, použije sa predvolená veľkosť vyrovnávacej pamäte, ale používateľ ju nebude môcť zmeniť.
 
       Ak toto pravidlo nebude nastavené, použije sa predvolená veľkosť a používateľ ju bude môcť prepísať pomocou príznaku --media-cache-size.</translation>
-<translation id="4507081891926866240">Umožňuje prispôsobiť zoznam vzorov webových adries, ktoré by mal doplnok <ph name="PRODUCT_FRAME_NAME" /> vždy vykresliť.
-
-          Ak toto pravidlo nenastavíte, bude pre všetky webové stránky použitý predvolený vykresľovací modul (ako je určené pravidlom „ChromeFrameRendererSettings“).
-
-          Ukážkové vzory nájdete na adrese http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Opýtať sa vždy, keď chcú stránky sledovať fyzickú polohu používateľa</translation>
 <translation id="4519046672992331730">Vo všeobecnom poli prehliadača <ph name="PRODUCT_NAME" /> povolí funkciu návrhov pre vyhľadávanie a bráni používateľom toto nastavenie zmeniť.
 
@@ -755,11 +743,6 @@
 <translation id="4525521128313814366">Umožňuje nastaviť zoznam vzorov webových adries určujúcich webové stránky, ktoré nemôžu zobrazovať obrázky.
 
           Ak toto pravidlo ponecháte nenastavené, použije sa v prípade všetkých webových stránok globálna predvolená hodnota buď z pravidla „DefaultImagesSetting“ (ak je nastavené), alebo z osobnej konfigurácie používateľa.</translation>
-<translation id="4529945827292143461">Prispôsobte si zoznam vzorov webových adries, ktoré by mali byť vždy vykresľované hostiteľským prehliadačom.
-
-          Ak toto pravidlo nenastavíte, pre všetky webové stránky sa použije predvolený vykresľovací modul (ako je určené pravidlom „ChromeFrameRendererSettings“).
-
-          Príklady vzorov nájdete na stránke http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Miestne účty na zariadení</translation>
 <translation id="4555850956567117258">Povoliť pre používateľa vzdialené overenie</translation>
 <translation id="4557134566541205630">Predvolená webová adresa stránky novej karty poskytovateľa vyhľadávania</translation>
@@ -887,14 +870,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
 <translation id="5148753489738115745">Umožňuje nastaviť dodatočné parametre, ktoré doplnok <ph name="PRODUCT_FRAME_NAME" /> pri spúšťaní aplikácie <ph name="PRODUCT_NAME" /> použije.
 
           Ak toto pravidlo nie je nastavené, použije sa predvolený príkazový riadok.</translation>
-<translation id="5170790754648862683">Určuje zoznam zastaraných funkcií webovej platformy, ktoré budú znova dočasne povolené.
-
-      Toto pravidlo umožňuje správcom na obmedzený čas znova povoliť zastarané funkcie webovej platformy. Funkcie sú identifikované podľa značky reťazca a ak budú zodpovedať značkám zahrnutým v tomto pravidle, budú znova povolené.
-
-      Ak toto pravidlo nenastavíte alebo ak je zoznam prázdny alebo ak sa nezhoduje s jednou z podporovaných značiek reťazca, všetky zastarané funkcie webovej platformy zostanú zakázané.
-
-      Aj keď platformy uvedené vyššie dané pravidlo podporujú, funkcia, ktorú povoľuje, môže byť k dispozícií na menšom počte platforiem. Nie všetky zastarané funkcie webovej platformy je možné opätovne povoliť. Povoliť môžete iba funkcie explicitne uvedené nižšie, a to iba na obmedzený čas, ktorý sa v prípade každej funkcie líši. Všeobecný formát značky reťazca bude [NazovZastaranejFunkcie]_FungujeDo[RRRRMMDD]. Informácie o účele zmeny funkcií webovej platformy nájdete na adrese http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurácia služby Disk Google v systéme <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Umožňuje určiť rozšírenia, ktorých sa netýka zoznam zakázaných rozšírení. Ak je v zozname uvedená hodnota *, znamená to, že sa v ňom nachádzajú všetky rozšírenia a používatelia môžu inštalovať len tie, ktoré sú uvedené v zozname povolených rozšírení. V predvolenom nastavení sú všetky rozšírenia povolené. Ak však boli všetky rozšírenia pridané do zoznamu zakázaných rozšírení pomocou pravidla, je možné toto pravidlo nahradiť pomocou zoznamu povolených rozšírení.</translation>
 <translation id="5192837635164433517">Povoľuje využívať alternatívne chybové stránky vopred definované v prehliadači <ph name="PRODUCT_NAME" /> (napr. webová stránka sa nenašla) a bráni používateľom toto nastavenie zmeniť.
@@ -1059,13 +1034,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
       Ak <ph name="PRODUCT_NAME" /> nedokáže získať informácie o stave odvolania, budú sa takéto certifikáty považovať za odvolané („ťažké zlyhanie“).
 
       Ak toto pravidlo nie je nastavené alebo ak je nastavené na hodnotu False, prehliadač <ph name="PRODUCT_NAME" /> použije existujúce nastavenia kontroly odvolania online.</translation>
-<translation id="5757829681942414015">Umožňuje nakonfigurovať adresár, ktorý bude prehliadač <ph name="PRODUCT_NAME" /> používať na ukladanie údajov používateľa.
-
-      Ak nastavíte toto pravidlo, prehliadač <ph name="PRODUCT_NAME" /> bude používať zadaný adresár bez ohľadu na to, či používateľ uviedol príznak „--user-data-dir“.
-
-      Zoznam premenných, ktoré sa dajú použiť, nájdete na stránke http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables (iba v angličtine).
-
-      Ak toto pravidlo ponecháte nenastavené, použije sa predvolená cesta profilu a používateľ ju bude môcť prepísať pomocou príznaku príkazového riadku „--user-data-dir“.</translation>
 <translation id="5761030451068906335">Nakonfiguruje nastavenia servera proxy pre prehliadač <ph name="PRODUCT_NAME" />. Toto pravidlo ešte nie je pripravené na používanie, preto ho radšej nepoužívajte.</translation>
 <translation id="5765780083710877561">Popis:</translation>
 <translation id="5770738360657678870">Verzia pre vývojárov (môže byť nestabilná)</translation>
@@ -1351,13 +1319,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
 <translation id="6923366716660828830">Určuje názov predvoleného poskytovateľa vyhľadávania. Ak sa pole nevyplní alebo bude pravidlo ponechané nenastavené, použije sa názov hostiteľa určený webovou adresou vyhľadávania.
 
           Toto pravidlo sa vezme do úvahy len v prípade, ak je povolené pravidlo „DefaultSearchProviderEnabled“.</translation>
-<translation id="6925212669267783763">Umožňuje nakonfigurovať adresár, ktorý prehliadač <ph name="PRODUCT_FRAME_NAME" /> použije na ukladanie údajov používateľa.
-
-      Ak toto pravidlo nastavíte, prehliadač <ph name="PRODUCT_FRAME_NAME" /> bude používať zadaný adresár.
-
-      Zoznam premenných, ktoré sa dajú použiť, nájdete na stránke http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables (iba v angličtine).
-
-      Ak toto nastavenie ponecháte nenastavené, použije sa predvolený adresár profilu.</translation>
 <translation id="6931242315485576290">Zakázať synchronizáciu údajov so servermi Google</translation>
 <translation id="6936894225179401731">Určuje maximálny počet súbežných pripojení k serveru proxy.
 
@@ -1518,13 +1479,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
       Ak je toto nastavenie zakázané alebo nenastavené, prehliadač <ph name="PRODUCT_NAME" /> použije preferované miestne nastavenie určené používateľom (ak je nakonfigurované) alebo miestne nastavenie systému alebo záložné nastavenie en-US.</translation>
 <translation id="7651739109954974365">Určuje, či bude v zariadení povolený roaming pre dátové prenosy. Ak je pravidlo nastavené na hodnotu true, roaming pre dátové prenosy bude povolený. Ak ho ponecháte nenakonfigurované alebo ho nastavíte na hodnotu false, roaming pre dátové prenosy nebude k dispozícii.</translation>
 <translation id="7683777542468165012">Obnovenie dynamického pravidla</translation>
-<translation id="7690740696284155549">Umožňuje nakonfigurovať adresár, ktorý bude prehliadač <ph name="PRODUCT_NAME" /> používať na ukladanie stiahnutých súborov.
-
-      Ak nastavíte toto pravidlo, prehliadač <ph name="PRODUCT_NAME" /> bude používať zadaný adresár bez ohľadu na to, či používateľ určil takýto adresár alebo povolil príznak na zobrazenie výzvy na zadanie umiestnenia pre stiahnuté položky pri každom sťahovaní.
-
-      Zoznam premenných, ktoré sa dajú použiť, nájdete na stránke http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables (iba v angličtine).
-
-      Ak toto pravidlo ponecháte nenastavené, použije sa predvolený adresár pre stiahnuté súbory a používateľ ho bude môcť zmeniť.</translation>
 <translation id="7694807474048279351">Naplánuje automatické reštartovanie po použití aktualizácie systému <ph name="PRODUCT_OS_NAME" />.
 
       Ak je toto pravidlo nastavené na hodnotu true, automatické reštartovanie sa naplánuje vždy, keď sa použije aktualizácia systému <ph name="PRODUCT_OS_NAME" /> a dokončenie procesu aktualizácie bude vyžadovať reštartovanie. Automatické reštartovanie sa naplánuje na vybratý čas, ale ak používateľ v danej chvíli zariadenie používa, môže sa reštart zariadenia odložiť až o 24 hodín.
@@ -1686,11 +1640,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
 <translation id="8369602308428138533">Oneskorenie vypnutia obrazovky pri používaní napájacieho zdroja</translation>
 <translation id="8382184662529825177">Povoliť použitie vzdialeného overenia na ochranu obsahu pre zariadenie</translation>
 <translation id="838870586332499308">Povoliť roaming pre dátové prenosy</translation>
-<translation id="8412286985859522563">Konfiguruje zoznam spravovaných záložiek.
-
-      Toto pravidlo pozostáva zo zoznamu záložiek a každá záložka predstavuje slovník obsahujúci „názov“ a cieľovú „webovú adresu“ záložky. Záložku je možné nakonfigurovať aj ako priečinok. V takomto prípade definujte „názov“ priečinka, nie však „webovú adresu“. Namiesto toho definujte obsah tohto priečinka ako ďalší zoznam záložiek v  rámci kľúča „Podriadené“. Chrome doplní neúplné webové adresy, ako keby boli odoslané prostredníctvom všeobecného poľa. Napríklad z adresy „google.sk“ sa stane „http://google.sk/“.
-
-      Tieto záložky sú umiestnené do priečinka Spravované záložky, ktorý používateľ nemôže zmeniť. Môže ho však na paneli so záložkami skryť. Spravované záložky sa nesynchronizujú do účtu používateľa a nemôžu byť upravené rozšíreniami.</translation>
 <translation id="8412312801707973447">Či sa majú vykonávať kontroly OCSP/CRL online</translation>
 <translation id="8451988835943702790">Použiť stránku Nová karta ako domovskú stránku</translation>
 <translation id="8465065632133292531">Parametre pre webovú adresu okamžitého vyhľadávania, ktorá používa metódu POST</translation>
@@ -1811,13 +1760,6 @@ Ak toto pravidlo nie je nastavené alebo je prázdne, akýkoľvek používateľ 
 <translation id="9112897538922695510">Umožňuje zaregistrovať zoznam obslužných nástrojov protokolu. Môže to byť iba odporúčané pravidlo. Vlastnosť |protocol| by mala byť nastavená na schému, ako napríklad „mailto“, a vlasnosť |url| by mala byť nastavená na vzor webovej adresy aplikácie, ktorá danú schému obsluhuje. Vzor môže zahrnovať reťazec „%s“, ktorý bude nahradený obsluhovanou webovou adresou (ak bude použitý).
 
           Obslužné nástroje protokolu, ktoré sú registrované týmto pravidlom, budú zlúčené s nástrojmi registrovanými používateľom a budú všetky k dispozícii na použitie. Používateľ môže prepísať obslužné nástroje protokolu nainštalované pravidlom inštaláciou nového predvoleného obslužného nástroja. Obslužný protokol registrovaný pravidlom však nie je možné odstrániť.</translation>
-<translation id="9120299024216374976">Určuje, ktoré časové pásmo sa má v zariadení použiť. Používatelia môžu prepísať stanovené časové pásmo pre aktuálnu reláciu. Po odhlásení sa však nastaví späť na pôvodne určené časové pásmo. V prípade zadania nesprávnej hodnoty je pravidlo namiesto toho stále aktivované pomocou možnosti GMT. Ak reťazec zostane prázdny, bude sa pravidlo ignorovať.
-
-      Ak sa toto pravidlo nepoužíva, aktuálne aktívne časové pásmo zostane platné aj naďalej. Používatelia ho však môžu zmeniť a zmena bude trvalá. Zmena jedným používateľom preto ovplyvní aj prihlasovaciu obrazovku všetkých ostatných používateľov.
-
-      Pôvodné časové pásmo v nových zariadeniach je nastavené na hodnotu US/Pacific (americký/tichomorský čas).
-
-      Formát hodnoty je stanovený podľa názvov časových pásiem v databáze IANA Time Zone Database (pozrite si stránku http://en.wikipedia.org/wiki/List_of_tz_database_time). Väčšina časových pásiem sa konkrétne udáva ako continent/large_city (kontinent/veľké mesto) alebo ocean/large_city (oceán/veľké mesto).</translation>
 <translation id="913195841488580904">Blokovať prístup k zoznamu webových adries</translation>
 <translation id="9135033364005346124">Povoliť server proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Toto pravidlo je zastarané. Použite namiesto neho pravidlo IncognitoModeAvailability.

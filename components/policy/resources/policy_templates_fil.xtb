@@ -594,13 +594,6 @@
           Ang value ng blacklist na * ay nangangahulugang naka-blacklist ang lahat ng host ng native na pagmemensahe at ang mga host ng native na pagmemensahe lang na nakalista sa whitelist ang ilo-load.
 
           Bilang default, naka-whitelist ang lahat ng host ng native na pagmemensahe, ngunit kung naka-blacklist ang lahat ng host ng native na pagmemensahe alinsunod sa patakaran, maaaring gamitin ang whitelist upang i-override ang patakarang iyon.</translation>
-<translation id="3844092002200215574">Kino-configure ang direktoryong gagamitin ng <ph name="PRODUCT_NAME" /> para sa pag-iimbak ng mga naka-cache na file sa disk.
-
-      Kung itatakda mo ang patakarang ito, gagamitin ng <ph name="PRODUCT_NAME" /> ang ibinigay na direktoryo, tinukoy man ng user ang flag na '--disk-cache-dir' o hindi.
-
-      Tingnan ang http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para sa isang listahan ng mga variable na magagamit.
-
-     Kung hinayaang hindi nakatakda ang patakarang ito, gagamitin ang default na direktoryo ng cache at magagawa itong i-override ng user gamit ang command line flag na ''--disk-cache-dir'.</translation>
 <translation id="384743459174066962">Binibigyang-daan kang magtakda ng isang listahan ng mga pattern ng url na tumutukoy sa mga site na hindi pinapayagang magbukas ng mga popup.
 
           Kung hinayaang hindi nakatakda ang patakarang ito gagamitin ang global na default na halaga para sa lahat ng site mula sa patakarang 'DefaultPopupsSetting' kung nakatakda ito, o kung hindi man ay sa personal na configuration ng user.</translation>
@@ -736,11 +729,6 @@
       Kung ang value ng patakarang ito ay 0, gagamitin ang default na laki ng cache ngunit hindi ito mababago ng user.
 
       Kung hindi nakatakda ang patakarang ito, gagamitin ang default na laki at ma-o-override ito ng user gamit ang --media-cache-size flag.</translation>
-<translation id="4507081891926866240">I-customize ang listahan ng mga pattern ng URL na dapat ay palaging i-render ng <ph name="PRODUCT_FRAME_NAME" />.
-
-          Kung hindi default ang patakarang ito gagamitin ang taga-render para sa lahat ng site tulad ng tinukoy ng patakaran ng 'ChromeFrameRendererSettings'.
-
-          Para sa mga halimbawang pattern tingnan ang http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Magtanong sa tuwing gusto ng site na subaybayan ang aktwal na lokasyon ng mga user</translation>
 <translation id="4519046672992331730">Pinapagana ang mga suhestiyon sa paghahanap sa omnibox ng <ph name="PRODUCT_NAME" /> at pinipigilan ang mga user na baguhin ang setting na ito.
 
@@ -754,11 +742,6 @@
 <translation id="4525521128313814366">Binibigyang-daan kang magtakda ng isang listahan ng mga pattern ng url na tumutukoy sa mga site na hindi pinapayagang magpakita ng mga larawan.
 
           Kung hinayaang hindi nakatakda ang patakarang ito gagamitin ang global na default na halaga para sa lahat ng site mula sa patakarang 'DefaultImagesSetting' kung pinagana, o kung hindi man ay sa personal na configuration ng user.</translation>
-<translation id="4529945827292143461">I-customize ang listahan ng mga pattern ng URL na dapat ay palaging i-render ng browser ng host.
-
-          Kung hindi nakatakda ang  patakarang ito gagamitin ang default na taga-render para sa lahat ng site na tulad ng tinukoy sa patakarang 'ChromeFrameRendererSettings'.
-
-          Para sa mga halimbawang pattern tingnan ang http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Mga account na lokal sa device</translation>
 <translation id="4555850956567117258">I-enable ang malayuang pagpapatotoo para sa user</translation>
 <translation id="4557134566541205630">URL ng pahina ng bagong tab ng default na search provider</translation>
@@ -882,14 +865,6 @@
 <translation id="5148753489738115745">Binibigyang-daan kang tukuyin ang mga karagdagang parameter na ginagamit kapag nilunsad ng <ph name="PRODUCT_FRAME_NAME" /> ang <ph name="PRODUCT_NAME" />.
 
           Kung hindi naitakda ang patakarang ito, ang default na command line ang gagamitin.</translation>
-<translation id="5170790754648862683">Tumukoy ng listahan ng mga hindi na ginagamit na feature ng web platform upang pansamantalang i-enable muli.
-
-     Ang patakarang ito ay nagbibigay sa mga administrator ng kakayahang muling mag-enable ng mga hindi na ginagamit na feature ng web platform sa loob ng limitadong panahon. Tinutukoy ang mga feature gamit ang tag ng string, at muling mae-enable ang mga feature na tumutugma sa mga tag na kasama sa listahan na tinukoy ng patakarang ito.
-
-      Kung iniwang hindi nakatakda ang patakarang ito, o kung walang laman ang listahan o hindi tumutugma sa isa sa mga sinusuportahang tag ng string, mananatiling naka-disable ang lahat ng hindi na ginagamit na feature ng web platform.
-
-      Bagamat ang patakaran mismo ay sinusuportahan sa mga platform sa itaas, ang feature na ine-enable nito ay maaaring available sa mas kaunting platform. Hindi maaaring i-enable ang lahat ng hindi na ginagamit na feature ng Web Platform. Ang mga tahasang inilista lang sa ibaba ang maaaring gamitin sa loob ng limitadong panahon, na naiiba sa bawat feature. Ang pangkalahatang format ng tag ng string ay magiging [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Bilang sanggunian, makikita mo ang intensyon sa mga pagbabago sa feature ng Web Platform sa http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">I-configure ang Google Drive sa <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Pinapayagan kang tukuyin kung aling mga extension ang hindi sumasailalim sa blacklist. Nangangahulugan ang halaga ng blacklist ng* na naka-blacklist ang lahat ng mga extension at mai-install lamang ng mga user ang mga extension na nakalista sa whitelist. Bilang default, naka-whitelist ang lahat ng mga extension, ngunit kung na-blacklist ang lahat ng mga extension ng patakaran, magagamit ang whitelist upang i-override ang patakarang iyon.</translation>
 <translation id="5192837635164433517">Binibigyang-daan ang paggamit ng mga kahaliling pahina ng mga error na built in sa <ph name="PRODUCT_NAME" /> (gaya ng 'hindi natagpuan ang pahina') at pinipigilan ang mga user na baguhin ang setting na ito.
@@ -1056,13 +1031,6 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
       Kung hindi makakuha ang <ph name="PRODUCT_NAME" /> ng impormasyon sa status ng pagbawi, ituturing ang mga naturang certificate bilang nabawi ('hard-fail').
 
       Kung hindi nakatakda ang patakarang ito, o kung nakatakda sa false, gagamitin ng <ph name="PRODUCT_NAME" /> ang umiiral nang mga setting ng online na pagsusuri sa pagbawi.</translation>
-<translation id="5757829681942414015">Kino-configure ang direktoryong gagamitin ng <ph name="PRODUCT_NAME" /> para sa pag-iimbak ng data ng user.
-
-      Kung itatakda mo ang patakarang ito, gagamitin ng <ph name="PRODUCT_NAME" /> ang ibinigay na direktoryo, tinukoy man ng user ang flag na '--user-data-dir' o hindi.
-
-      Tingnan ang http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para sa isang listahan ng mga variable na magagamit.
-
-      Kung hinayaang hindi nakatakda ang patakarang ito, gagamitin ang default na path ng profile at magagawa itong i-override ng user gamit ang command line flag na '--user-data-dir'.</translation>
 <translation id="5761030451068906335">Kino-configure ang mga proxy setting para sa <ph name="PRODUCT_NAME" />. Hindi pa handang gamitin ang patakarang ito, mangyaring huwag itong gamitin.</translation>
 <translation id="5765780083710877561">Paglalarawan:</translation>
 <translation id="5770738360657678870">Dev channel (maaaring hindi stable)</translation>
@@ -1349,13 +1317,6 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
 <translation id="6923366716660828830">Tinutukoy ang pangalan ng default na provider ng paghahanap. Kung hinayaang walang laman o hindi nakatakda, gagamitin ang pangalan ng host na tinukoy ng URL ng paghahanap.
 
           Isinasaalang-alang lamang sa ang patakarang ito kung pinagana ang patakaran ng 'DefaultSearchProviderEnabled.'</translation>
-<translation id="6925212669267783763">Kino-configure ang direktoryong gagamitin ng <ph name="PRODUCT_FRAME_NAME" /> para sa pag-iimbak ng data ng user.
-
-      Kung itatakda mo ang patakarang ito, gagamitin ng <ph name="PRODUCT_FRAME_NAME" /> ang ibinigay na direktoryo.
-
-      Tingnan ang http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para sa isang listahan ng mga variable na magagamit.
-
-      Kung hinayaang hindi nakatakda ang setting na ito, gagamitin ang default na direktoryo ng profile.</translation>
 <translation id="6931242315485576290">Huwag paganahin pag-synchronize ng data sa Google</translation>
 <translation id="6936894225179401731">Tinutukoy ang pinakamataas na bilang ng mga sabay-sabay na koneksyon sa proxy server.
 
@@ -1516,13 +1477,6 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
       Kung hindi pinagana o hindi nakatakda ang setting na ito, ginagamit ng <ph name="PRODUCT_NAME" /> ang piniling lokal na tinukoy ng user (kung na-configure), ang lokal ng system o ang fallback na lokal na 'en-US'.</translation>
 <translation id="7651739109954974365">Tinutukoy kung dapat paganahin ang roaming ng data para sa device. Kung nakatakda sa true, pinapayagan ang roaming ng data. Kung iniwang hindi naka-configure o nakatakda sa false, hindi magiging available ang roaming ng data.</translation>
 <translation id="7683777542468165012">Dynamic na Patakaran sa Pag-refresh</translation>
-<translation id="7690740696284155549">Kino-configure ang direktoryong gagamitin ng <ph name="PRODUCT_NAME" /> para sa pag-download ng mga file.
-
-      Kung itatakda mo ang patakarang ito, gagamitin ng <ph name="PRODUCT_NAME" /> ang ibinigay na direktoryo, tumukoy man ang user ng isa o pinagana niya ang flag upang ma-prompt para sa lokasyon ng download sa bawat pagkakataon.
-
-      Tingnan ang http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para sa isang listahan ng mga variable na magagamit.
-
-      Kung hinayaang hindi nakatakda ang patakarang ito, gagamitin ang default na direktoryo ng download at magagawa itong baguhin ng user.</translation>
 <translation id="7694807474048279351">Mag-schedule ng awtomatikong reboot pagkatapos mailapat ang isang update sa <ph name="PRODUCT_OS_NAME" />.
 
       Kapag nakatakda sa true ang patakarang ito, ise-schedule ang isang awtomatikong reboot kapag nailapat ang isang update sa <ph name="PRODUCT_OS_NAME" /> uat kinakailangan ang isang reboot upang kumpletuhin ang proseso ng pag-update. Naka-schedule kaagad ang reboot ngunit maaaring maantala sa device nang hanggang sa 24 oras kung kasalukuyang ginagamit ng isang user ang device.
@@ -1684,11 +1638,6 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
 <translation id="8369602308428138533">Delay ng pag-off ng screen kapag tumatakbo habang nakasaksak sa kuryente</translation>
 <translation id="8382184662529825177">I-enable ang paggamit ng malayuang pagpapatotoo para sa pagprotekta sa nilalaman para sa device</translation>
 <translation id="838870586332499308">Payagan ang roaming ng data</translation>
-<translation id="8412286985859522563">Nagko-configure ng isang listahan ng mga pinamamahalaang bookmark.
-
-      Ang patakaran ay isang listahan ng mga bookmark, at ang bawat bookmark ay isang diksyunaryong naglalaman ng "pangalan" ng bookmark at target na "url." Maaari ding ma-configure ang isang bookmark bilang isang folder. Sa pagkakataong iyon, tukuyin ang "pangalan" ng folder ngunit huwag tumukoy ng "url"; sa halip, tukuyin ang mga content ng folder bilang isa pang listahan ng mga bookmark sa ilalim ng key na "children." Aayusin ng Chrome ang mga hindi buong URL na para bang isinumite ang mga ito sa pamamagitan ng Omnibox. Halimbawa, ang "google.com" ay magiging "http://google.com/".
-
-      Nakalagay ang mga bookmark na ito sa folder na Mga pinamamahalaang bookmark na hindi maaaring mabago ng user, ngunit maaari itong itago ng user sa bookmarks bar kung gugustuhin niya. Hindi naka-sync ang Mga pinamamahalaang bookmark sa user account at hindi maaaring mabago ng mga extension ang mga ito.</translation>
 <translation id="8412312801707973447">Kung isinasagawa ang mga online na pagsusuri sa OCSP/CRL</translation>
 <translation id="8451988835943702790">Gamitin ang Pahina ng Bagong Tab bilang homepage</translation>
 <translation id="8465065632133292531">Mga parameter para sa instant na URL na ginagamit ang POST</translation>
@@ -1809,13 +1758,6 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
 <translation id="9112897538922695510">Nagbibigay-daan sa iyong magrehistro ng isang listahan ng mga tagapangasiwa ng protocol. Dapat ay isa itong inirerekomendang patakaran. Dapat itakda ang property na |protocol| sa scheme gaya ng 'mailto' at dapat itakda ang property na |url| sa pattern ng URL ng application na nangangasiwa sa scheme. Maaaring maglaman ng '%s' ang pattern, at kung mayroon nito, papalitan ito ng pinapangasiwaang URL.
 
           Ang mga tagapangasiwa ng protocol na irerehistro ng patakaran ay isasama sa mga inirehistro ng user, at available gamitin ang dalawang ito. Maaaring i-override ng user ang mga tagapangasiwa ng protocol na na-install ng patakaran sa pamamagitan ng pag-i-install ng bagong default na tagapangasiwa, ngunit hindi nila maaalis ang isang tagapangasiwa ng protocol na inirehistro ng patakaran.</translation>
-<translation id="9120299024216374976">Tinutukoy ang gagamiting timezone para sa device. Maaaring i-override ng mga user ang tinukoy na timezone para sa kasalukuyang session. Gayunpaman, ibabalik ito sa tinukoy na timezone kapag nag-logout. Kung may ibinigay na di-wastong halaga, i-a-activate pa rin ang patakaran gamit ang "GMT." Kung may ibinigay na walang laman na string, binabalewala ang patakaran.
-
-      Kung hindi ginagamit ang patakarang ito, patuloy na gagamitin ang kasalukuyang aktibong timezone, gayunpaman, mababago ng mga user ang timezone at ang pagbabago ay makakaapekto sa lahat. Samakatuwid, makakaapekto ang pagbabago ng isang user sa screen sa pag-log in at sa lahat ng iba pang user.
-
-      Magsisimula ang mga bagong device na nakatakda ang timezone sa "US/Pacific".
-
-      Sinusunod ng format ng halaga ang pangalan ng mga timezone sa "IANA Time Zone Database" (tingnan ang "http://en.wikipedia.org/wiki/List_of_tz_database_time"). Sa partikular, maaaring tukuyin ang karamihan ng mga timezone ayon sa "continent/large_city" o "ocean/large_city".</translation>
 <translation id="913195841488580904">I-block ang access sa isang listahan ng mga URL</translation>
 <translation id="9135033364005346124">Paganahin ang <ph name="CLOUD_PRINT_NAME" /> proxy</translation>
 <translation id="9150416707757015439">Hindi na ginagamit ang patakarang ito. Pakiusap, sa halip ay gamitin ang IncognitoModeAvailability.

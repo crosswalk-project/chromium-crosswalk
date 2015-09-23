@@ -606,13 +606,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
           Nilai senarai hitam * bermaksud semua hos pemesejan natif disenaraihitamkan dan hanya hos pemesejan natif yang disenaraikan dalam senarai putih akan dimuatkan.
 
           Secara lalainya, semua hos pemesejan natif disenaraiputihkan tetapi jika semua hos pemesejan natif telah disenaraihitamkan oleh dasar, senarai putih boleh digunakan untuk menolak dasar itu.</translation>
-<translation id="3844092002200215574">Mengkonfigurasi direktori yang <ph name="PRODUCT_NAME" /> akan gunakan untuk menyimpan fail yang dicache pada cakera.
-
-      Jika anda menetapkan dasar ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang disediakan tidak kira sama ada pengguna telah menetapkan bendera '--disk-cache-dir' atau tidak.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk mendapatkan senarai pemboleh ubah yang boleh digunakan.
-
-      Jika dasar ini dibiarkan tanpa ditetapkan, direktori cache lalai akan digunakan dan pengguna akan dapat mengatasinya dengan bendera baris perintah '--disk-cache-dir'.</translation>
 <translation id="384743459174066962">Membolehkan anda menetapkan senarai pola url yang menentukan tapak yang tidak dibenarkan untuk membuka pop timbul.
 
           Jika dasar ini dibiarkan tanpa ditetapkan, nilai lalai global akan digunakan untuk semua tapak sama ada dari dasar 'DefaultPopupsSetting' jika ia ditetapkan atau konfigurasi peribadi pengguna tersebut jika sebaliknya.</translation>
@@ -745,11 +738,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
       Jika nilai dasar ini adalah 0, saiz cache lalai akan digunakan tetapi pengguna tidak akan dapat menukar saiz itu.
 
       Jika dasar ini tidak ditetapkan saiz lalai akan digunakan dan pengguna akan dapat mengatasi saiz itu dengan bendera --saiz-cache-media.</translation>
-<translation id="4507081891926866240">Sesuaikan senarai pola URL yang sentiasa harus dipaparkan oleh  <ph name="PRODUCT_FRAME_NAME" />.
-
-          Jika dasar ini tidak ditetapkan, pemapar lalai akan digunakan untuk semua tapak seperti yang dinyatakan oleh dasar 'ChromeFrameRendererSettings'.
-
-          Untuk melihat contoh pola, lawati http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Tanya sama ada tapak mahu menjejak lokasi fizikal pengguna</translation>
 <translation id="4519046672992331730">Mendayakan cadangan carian dalam Kotak Omni <ph name="PRODUCT_NAME" /> dan menghalang pengguna daripada mengubah tetapan ini.
 
@@ -763,11 +751,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
 <translation id="4525521128313814366">Membolehkan anda menetapkan senarai corak url yang menentukan tapak mana yang tidak dibenarkan untuk memaparkan imej.
 
           Jika dasar ini dibiarkan tanpa ditetapkan, nilai lalai global akan digunakan untuk semua tapak sama ada dari dasar 'DefaultImagesSetting' jika dasar ini ditetapkan atau konfigurasi peribadi pengguna tersebut jika sebaliknya.</translation>
-<translation id="4529945827292143461">Sesuaikan senarai pola URL yang sentiasa harus dipaparkan oleh penyemak imbas hos..
-
-          Jika dasar ini tidak ditetapkan, pemapar lalai akan digunakan untuk semua tapak seperti yang dinyatakan oleh dasar 'ChromeFrameRendererSettings'.
-
-          Untuk melihat contoh pola, lihat http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Akaun setempat peranti</translation>
 <translation id="4555850956567117258">Dayakan pembuktian jauh untuk pengguna</translation>
 <translation id="4557134566541205630">URL halaman tab baharu penyedia carian lalai</translation>
@@ -892,14 +875,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
 <translation id="5148753489738115745">Membolehkan anda menentukan parameter tambahan yang digunakan apabila  <ph name="PRODUCT_FRAME_NAME" /> melancarkan <ph name="PRODUCT_NAME" />.
 
           Jika dasar ini tidak ditetapkan, baris perintah lalai akan digunakan.</translation>
-<translation id="5170790754648862683">Tentukan senarai ciri platform web yang disekat untuk didayakan semula secara sementara.
-
-      Dasar ini memberikan pentadbir keupayaan untuk mendayakan semula ciri platform web yang disekat untuk masa yang terhad. Ciri dikenal pasti melalui tanda rentetan dan ciri yang sepadan dengan tanda yang disertakan dalam senarai yang ditentukan oleh dasar ini akan didayakan semula.
-
-      Jika dasar ini dibiarkan tanpa ditetapkan atau senarai ini kosong atau tidak sepadan dengan satu daripada tanda rentetan yang disokong, semua ciri platform web yang disekat akan kekal dilumpuhkan.
-
-      Walaupun dasar ini sendiri disokong pada platform di atas, ciri yang didayakannya mungkin tidak tersedia pada banyak paltform. Bukan semua ciri Platform Web yang disekat boleh didayakan semula. Hanya ciri yang disenaraikan dengan jelas di bawah ini sahaja yang boleh didayakan semula untuk tempoh yang terhad, yang berbeza bagi setiap ciri. Format umum tanda rentetan adalah [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Sebagai rujukan, anda boleh menemui tujuan di sebalik perubahan ciri Platform Web di http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurasi Google Drive dalam <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Membenarkan anda untuk menentukan sambungan yang tidak tertakluk dengan senarai hitam. Nilai senarai hitam bagi * bermakna semua sambungan disenaraihitamkan dan pengguna hanya boleh memasang sambungan yang disenaraikan dalam senarai putih. Secara lalai, semua sambungan adalah disenaraiputihkan, tetapi jika semua sambungan disenaraihitamkan oleh dasar, senarai putih boleh digunakan untuk membatalkan dasar tersebut.</translation>
 <translation id="5192837635164433517">Membolehkan penggunaan halaman ralat ganti yang terbina dalam <ph name="PRODUCT_NAME" /> (seperti 'halaman tidak dijumpai') dan menghalang pengguna daripada mengubah tetapan ini.
@@ -1065,13 +1040,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
       Jika <ph name="PRODUCT_NAME" /> tidak berjaya memperoleh maklumat status pembatalan, sijil seperti itu akan dikendalikan sebagai dibatalkan ('gagal keras').
 
       Jika dasar ini tidak ditetapkan atau ditetapkan kepada palsu, maka <ph name="PRODUCT_NAME" /> akan menggunakan tetapan semakan pembatalan dalam talian yang sedia ada.</translation>
-<translation id="5757829681942414015">Mengkonfigurasi direktori yang <ph name="PRODUCT_NAME" /> akan gunakan untuk menyimpan data pengguna.
-
-      Jika anda menetapkan dasar ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang disediakan tidak kira sama ada pengguna telah menetapkan bendera '--user-data-dir' atau tidak.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk mendapatkan senarai pemboleh ubah yang boleh digunakan.
-
-      Jika dasar ini dibiarkan tanpa ditetapkan, laluan profil lalai akan digunakan dan pengguna akan dapat mengatasinya dengan bendera baris perintah '--user-data-dir'.</translation>
 <translation id="5761030451068906335">Mengkonfigurasi tetapan proksi untuk <ph name="PRODUCT_NAME" />. Dasar ini belum sedia untuk digunakan lagi, jangan gunakannya.</translation>
 <translation id="5765780083710877561">Huraian:</translation>
 <translation id="5770738360657678870">Saluran Dev (mungkin tidak stabil)</translation>
@@ -1354,13 +1322,6 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
 <translation id="6923366716660828830">Menentukan nama penyedia carian lalai. Jika dibiarkan kosong atau tidak ditetapkan, nama hos yang ditentukan oleh URL carian akan digunakan.
 
           Dasar ini hanya dipertimbangkan jika dasar 'DefaultSearchProviderEnabled' didayakan.</translation>
-<translation id="6925212669267783763">Mengkonfigurasi direktori yang <ph name="PRODUCT_FRAME_NAME" /> akan gunakan untuk menyimpan data pengguna.
-
-      Jika anda menetapkan dasar ini, <ph name="PRODUCT_FRAME_NAME" /> akan menggunakan direktori yang disediakan.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk mendapatkan senarai pemboleh ubah yang boleh digunakan.
-
-      Jika tetapan ini dibiarkan tanpa ditetapkan, direktori profil lalai akan digunakan.</translation>
 <translation id="6931242315485576290">Lumpuhkan penyegerakan data dengan Google</translation>
 <translation id="6936894225179401731">Menentukan jumlah maksimum sambungan serentak pada pelayan proksi.
 
@@ -1523,13 +1484,6 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
       Jika tetapan ini dilumpuhkan atau tidak dikonfigurasi, <ph name="PRODUCT_NAME" /> menggunakan sama ada penempatan pilihan yang ditentukan pengguna (jika dikonfigurasi), penempatan sistem atau penempatan bertahan 'en-US'.</translation>
 <translation id="7651739109954974365">Menentukan sama ada data perayauan perlu didayakan untuk peranti. Jika ditetapkan kepada benar, perayauan data dibenarkan. Jika dibiarkan tanpa dikonfigurasi atau ditetapkan kepada palsu, perayauan data tidak akan tersedia.</translation>
 <translation id="7683777542468165012">Segar Semula Dasar Dinamik</translation>
-<translation id="7690740696284155549">Mengkonfigurasi direktori yang <ph name="PRODUCT_NAME" /> akan gunakan untuk memuat turun fail.
-
-      Jika anda menetapkan dasar ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang disediakan tidak kira sama ada pengguna telah menetapkan satu direktori atau mendayakan bendera untuk digesa bagi lokasi muat turun pada setiap kali.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk mendapatkan senarai pemboleh ubah yang boleh digunakan.
-
-      Jika dasar ini dibiarkan tanpa ditetapkan, direktori muat turun lalai akan digunakan dan pengguna akan dapat mengubahnya.</translation>
 <translation id="7694807474048279351">Jadualkan but semula automatik selepas kemas kini <ph name="PRODUCT_OS_NAME" /> telah dilaksanakan.
 
       Apabila dasar ini ditetapkan kepada benar, but semula automatik dijadualkan apabila kemas kini <ph name="PRODUCT_OS_NAME" /> telah dilaksanakan dan but semula diperlukan untuk menyelesaikan proses kemas kini. But semula ini dijadualkan serta-merta tetapi boleh ditangguhkan pada peranti sehingga 24 jam jika pengguna sedang menggunakan peranti.
@@ -1689,11 +1643,6 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
 <translation id="8369602308428138533">Kelewatan pemadaman skrin apabila dijalankan dengan kuasa AC</translation>
 <translation id="8382184662529825177">Dayakan penggunaan pembuktian jauh untuk perlindungan kandungan bagi peranti</translation>
 <translation id="838870586332499308">Dayakan perayauan data</translation>
-<translation id="8412286985859522563">Mengkonfigurasikan senarai penanda halaman terurus.
-
-      Dasar ini merupakan senarai penanda halaman dan setiap penanda halaman ialah kamus yang mengandungi "nama" penanda halaman dan "url" sasaran. Penanda halaman turut boleh dikonfigurasikan sebagai folder. Dalam keadaan sedemikian, takrifkan "nama" folder tetapi jangan takrifkan "url"; sebaliknya, takrifkan kandungan folder sebagai satu lagi senarai penanda halaman di bawah kunci "anak". Chrome akan meminda URL yang tidak lengkap seolah-olah URL itu dihantar melalui Kotak Omni. Sebagai contoh, "google.com" akan menjadi "http://google.com/".
-
-      Penanda halaman ini diletakkan dalam folder Penanda halaman terurus yang tidak boleh diubah suai oleh pengguna, tetapi pengguna boleh memilih untuk menyembunyikannya daripada bar penanda halaman. Penanda halaman terurus tidak disegerakkan dengan akaun pengguna dan tidak boleh diubah suai oleh sambungan.</translation>
 <translation id="8412312801707973447">Sama ada semakan OCSP/CRL dalam talian dilaksanakan</translation>
 <translation id="8451988835943702790">Gunakan Halaman Tab Baharu sebagai halaman utama</translation>
 <translation id="8465065632133292531">Parameter untuk URL semerta yang menggunakan POST</translation>
@@ -1823,13 +1772,6 @@ Jika dasar ini dibiarkan tidak ditetapkan mana-mana pemalam yang sepadan dengan 
 <translation id="9112897538922695510">Membolehkan anda mendaftar senarai pengendali protokol. Langkah ini hanya boleh menjadi dasar yang disyorkan. Sifat |protocol| hendaklah ditetapkan kepada skema seperti 'mailto' dan sifat |url| hendaklah ditetapkan kepada corak URL aplikasi yang mengendalikan skema. Corak boleh mengandungi '%s', di mana apabila disertakan akan digantikan oleh URL yang dikendalikan.
 
           Pengendali protokol yang didaftarkan oleh dasar digabungkan dengan protokol yang didaftarkan oleh pengguna dan kedua-duanya tersedia untuk digunakan. Pengguna boleh mengatasi pengendali protokol yang dipasang oleh dasar dengan memasang pengendali lalai baharu tetapi tidak boleh mengalih keluar pengendali protokol yang didaftarkan oleh dasar.</translation>
-<translation id="9120299024216374976">Menentukan zon waktu yang akan digunakan pada peranti. Pengguna boleh menggantikan zon waktu yang ditentukan untuk sesi semasa. Walau bagaimanapun, semasa log keluar, zon waktu ditetapkan semula kepada zon waktu yang ditentukan. Sebaliknya, jika nilai tidak sah diberikan, dasar masih diaktifkan menggunakan "GMT".
-
-      Jika dasar ini tidak digunakan, zon waktu aktif semasa akan kekal digunakan, walau bagaimanapun, pengguna boleh menukar zon waktu dan perubahan tersebut akan berkekalan. Oleh itu, perubahan oleh seorang pengguna mempengaruhi skrin log masuk dan semua pengguna lain.
-
-      Peranti baharu bermula dengan zon waktu yang ditetapkan kepada "US/Pacific".
-
-      Nilai diformatkan mengikut nama zon waktu dalam "Pangkalan Data Zon Waktu IANA" (lihat "http://en.wikipedia.org/wiki/List_of_tz_database_time"). Secara khususnya, kebanyakan zon waktu boleh dirujuk melalui "continent/large_city" atau "ocean/large_city".</translation>
 <translation id="913195841488580904">Sekat akses kepada senarai URL</translation>
 <translation id="9135033364005346124">Dayakan proksi <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Dasar ini tidak diterima. Sebaliknya, sila gunakan IncognitoModeAvailability.

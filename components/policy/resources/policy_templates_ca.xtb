@@ -178,7 +178,7 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 <translation id="2170233653554726857">Activa l'optimització WPAD</translation>
 <translation id="2188979373208322108">Activa la barra d'adreces d'interès a <ph name="PRODUCT_NAME" />. Si activeu aquest paràmetre, <ph name="PRODUCT_NAME" /> mostrarà una barra d'adreces d'interès. Si el desactiveu, els usuaris no veuran mai la barra d'adreces d'interès. Si l'activeu o el desactiveu, els usuaris no podran canviar-lo ni substituir-lo a <ph name="PRODUCT_NAME" />. Si no es defineix aquest paràmetre, l'usuari podrà decidir si vol utilitzar aquesta funció o no.</translation>
 <translation id="2201555246697292490">Configura la llista blanca de missatgeria nativa</translation>
-<translation id="2204753382813641270">Controla l'opció d'amagar la safata automàticament</translation>
+<translation id="2204753382813641270">Controla l'opció d'amagar el prestatge automàticament</translation>
 <translation id="2208976000652006649">Paràmetres per a l'URL de cerca que utilitza POST</translation>
 <translation id="2223598546285729819">Configuració de notificacions predeterminada</translation>
 <translation id="2231817271680715693">Importació de l'historial de navegació des del navegador predeterminat en la primera execució</translation>
@@ -267,7 +267,7 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
       Si aquesta política no es defineix o si es defineix com a True, en cas que un compte de dispositiu local s'hagi configurat per iniciar la sessió automàticament sense retard i el dispositiu no tingui accés a Internet, <ph name="PRODUCT_OS_NAME" /> mostrarà una sol·licitud de configuració de la xarxa.
 
       Si aquesta política es defineix com a False, es mostrarà un missatge d'error en comptes de la sol·licitud de configuració de la xarxa.</translation>
-<translation id="2498238926436517902">Amaga sempre la safata automàticament</translation>
+<translation id="2498238926436517902">Amaga sempre el prestatge automàticament</translation>
 <translation id="2514328368635166290">Especifica l'URL de la icona preferida del proveïdor de cerca predeterminat. Aquesta política és opcional. Si no es defineix, no apareixerà cap icona per al proveïdor de cerca. Aquesta política només es respecta si la política "DefaultSearchProviderEnabled" està activada.</translation>
 <translation id="2516525961735516234">Indica si l'activitat de vídeo afecta la gestió d'alimentació.
 
@@ -520,13 +520,6 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
           Un valor de llista negra de "*" significa que tots els amfitrions de missatgeria nativa són a la llista negra i que només es carregaran els que s'indiquin a la llista blanca.
 
           De manera predeterminada, tots els amfitrions de missatgeria nativa apareixen a la llista blanca; tanmateix, si una política els ha afegit tots a la llista negra, es pot fer servir la llista blanca per substituir la política.</translation>
-<translation id="3844092002200215574">Configura el directori que <ph name="PRODUCT_NAME" /> utilitzarà per emmagatzemar els fitxers de la memòria cau al disc.
-
-      Si establiu aquesta política, <ph name="PRODUCT_NAME" /> farà servir el directori proporcionat independentment de si l'usuari ha especificat la marca "--disk-cache-dir" o no.
-
-      Visiteu http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per consultar una llista de les variables que es poden utilitzar.
-
-      Si no es defineix aquesta política, s'utilitzarà el directori de la memòria  cau predeterminada i l'usuari podrà anul·lar aquesta opció amb la marca de la línia d'ordres "--disk-cache-dir".</translation>
 <translation id="384743459174066962">Us permet definir una llista de patrons d'URL que especifiquen els llocs en què no està permès obrir finestres emergents. Si no es defineix aquesta política, s'utilitzarà el valor global predeterminat per a tots els llocs tant de la política "DefaultPopupsSetting", si es defineix, com d'un altre tipus de configuració personal de l'usuari.</translation>
 <translation id="3859780406608282662">Afegeix un paràmetre a l'obtenció de la propagació de variacions a <ph name="PRODUCT_OS_NAME" />.
 
@@ -549,7 +542,7 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
 <translation id="3915395663995367577">URL d'un fitxer .pac d'un servidor intermediari</translation>
 <translation id="3964909636571393861">Permet l'accés a una llista d'URL</translation>
 <translation id="3965339130942650562">Temps d'espera fins que s'executi el tancament de sessió de l'usuari inactiu</translation>
-<translation id="3973371701361892765">No amaguis mai la safata automàticament</translation>
+<translation id="3973371701361892765">No amaguis mai el prestatge automàticament</translation>
 <translation id="3984028218719007910">Determina si <ph name="PRODUCT_OS_NAME" /> conserva les dades de comptes locals després de tancar la sessió. Si es defineix a «true» (cert), <ph name="PRODUCT_OS_NAME" /> no conserva cap compte persistent i es descartaran totes les dades de la sessió de l'usuari després de tancar la sessió. Si aquesta política es defineix a «false» (fals) o no es configura, el dispositiu pot conservar dades d'usuari locals (xifrades).</translation>
 <translation id="4001275826058808087">Els administradors de TI de dispositius empresarials poden utilitzar aquesta marca per controlar si es permet als usuaris bescanviar ofertes mitjançant el registre de Chrome OS.
 
@@ -625,7 +618,6 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
       Si el valor d'aquesta política és 0, s'utilitzarà la mida de memòria cau predeterminada, però l'usuari no podrà canviar-la.
 
       Si no definiu aquesta política, s'utilitzarà la mida de memòria cau predeterminada i els usuaris podran substituir-la amb la marca "--disk-cache-size".</translation>
-<translation id="4507081891926866240">Personalitzeu la llista dels patrons d'URL que sempre s'han de representar per <ph name="PRODUCT_FRAME_NAME" />. Si no es defineix aquesta política, s'utilitzarà el processador predeterminat per a tots els llocs especificats per la política "ChromeFrameRendererSettings". Per obtenir patrons d'exemple, consulteu http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Demana permís cada vegada que un lloc vulgui fer un seguiment de la ubicació física dels usuaris</translation>
 <translation id="4519046672992331730">Activa els suggeriments de cerca a l'omnibox de <ph name="PRODUCT_NAME" /> i impedeix que els usuaris puguin canviar aquesta configuració.
 
@@ -637,7 +629,6 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
 
       Si no es defineix aquesta política, aquest paràmetre s'activarà, però l'usuari podrà canviar-lo.</translation>
 <translation id="4525521128313814366">Us permet definir una llista de patrons d'URL que especifiquen els llocs en què no està permès mostrar imatges. Si no es defineix aquesta política, s'utilitzarà el valor global predeterminat per a tots els llocs tant de la política "DefaultImagesSetting", si es defineix, com d'un altre tipus de configuració personal de l'usuari.</translation>
-<translation id="4529945827292143461">Personalitzeu la llista de patrons d'URL que sempre ha d'estar representada pel navegador amfitrió. Si no es defineix aquesta política, el processador predeterminat s'utilitzarà per a tots els llocs tal com especifica la política de "ChromeFrameRendererSettings". Per veure exemples de patrons, consulteu http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Comptes locals del dispositiu</translation>
 <translation id="4555850956567117258">Activa el testimoni remot per a l'usuari.</translation>
 <translation id="4557134566541205630">URL de la pestanya nova del proveïdor de cerca predeterminat</translation>
@@ -744,14 +735,6 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
 <translation id="5148753489738115745">Us permet especificar els paràmetres especials que s'utilitzen quan <ph name="PRODUCT_FRAME_NAME" /> inicia <ph name="PRODUCT_NAME" />.
 
           Si no definiu aquesta política, s'utilitzarà la línia d'ordres predeterminada.</translation>
-<translation id="5170790754648862683">Especifiqueu una llista de funcions obsoletes de la plataforma web per tornar-les a activar temporalment.
-
-      Aquesta política permet que els administradors tornin a activar funcions obsoletes de la plataforma web durant un temps limitat. Les funcions s'identifiquen amb una etiqueta de cadena i les funcions que corresponen a les etiquetes incloses a la llista especificada per aquesta política es tornen a activar.
-
-      Si aquesta política no es defineix o si la llista està buida o no coincideix amb cap de les etiquetes de cadena admeses, totes les funcions obsoletes de la plataforma web continuaran desactivades.
-
-      Tot i que la política s'admet en les plataformes anteriors, pot ser que la funció que activi no estigui disponible en totes les plataformes. No totes les funcions obsoletes de la plataforma web es poden tornar a activar; només les que s'indiquin explícitament a continuació durant un període de temps limitat, que varia segons la funció. El format general de l'etiqueta de cadena és el següent: [FuncióObsoleta]_EffectiveUntil[aaaammdd]. Com a referència, podeu consultar la finalitat dels canvis de la funció de la plataforma web a la pàgina http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configura Google Drive a <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Us permet especificar les extensions que no estan subjectes a la llista negra. Un valor de * a la llista negra significa que s'hi inclouen totes les extensions i que els usuaris només podran instal·lar les que apareixen a la llista blanca. De manera predeterminada, totes les aplicacions apareixen a la llista blanca, però si una política provoca que totes es moguin a la llista negra, pot fer-se servir la llista blanca per substituir aquesta política.</translation>
 <translation id="5192837635164433517">Activa l'ús de les pàgines d'error alternatives que es creen a <ph name="PRODUCT_NAME" /> (per exemple, "pàgina no trobada") i impedeix que els usuaris puguin canviar aquesta configuració. Si activeu aquest paràmetre, s'utilitzaran aquestes pàgines d'error alternatives. Si desactiveu aquest paràmetre, les pàgines d'error alternatives no s'utilitzaran mai. Si activeu o desactiveu aquest paràmetre, els usuaris no podran canviar ni substituir aquesta configuració a <ph name="PRODUCT_NAME" />. Si no es defineix aquesta política, s'activarà aquest paràmetre però l'usuari podrà canviar-lo.</translation>
@@ -872,15 +855,15 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció als tipus d'ex
 
       Si no s'especifica, no modificarà l'URL del valor seed de les variacions.</translation>
 <translation id="5564962323737505851">Configura el gestor de contrasenyes. Si el gestor de contrasenyes està activat, podeu activar o desactivar la possibilitat que l'usuari mostri les contrasenyes emmagatzemades com a text no xifrat.</translation>
-<translation id="556941986578702361">Controla l'ocultació automàtica de la safata de <ph name="PRODUCT_OS_NAME" />.
+<translation id="556941986578702361">Controla l'ocultació automàtica del prestatge de <ph name="PRODUCT_OS_NAME" />.
 
-Si aquesta política es defineix com a "AlwaysAutoHideShelf", la safata s'amagarà sempre automàticament.
+Si aquesta política es defineix com a "AlwaysAutoHideShelf", el prestatge s'amagarà sempre automàticament.
 
-Si aquesta política es defineix com a "NeverAutoHideShelf", la safata no s'amagarà automàticament.
+Si aquesta política es defineix com a "NeverAutoHideShelf", el prestatge no s'amagarà automàticament.
 
 Si es defineix aquesta política, els usuaris no podran canviar-la ni sobreescriure-la.
 
-Si la política no es defineix, els usuaris podran triar si la safata s'ha d'amagar automàticament.</translation>
+Si la política no es defineix, els usuaris podran triar si el prestatge s'ha d'amagar automàticament.</translation>
 <translation id="557658534286111200">Activa o desactiva l'edició d'adreces d'interès.</translation>
 <translation id="5586942249556966598">No facis res</translation>
 <translation id="5630352020869108293">Restaura l'última sessió</translation>
@@ -898,13 +881,6 @@ Si la política no es defineix, els usuaris podran triar si la safata s'ha d'ama
       Si <ph name="PRODUCT_NAME" /> no pot obtenir informació de l'estat de revocació, aquests certificats es consideraran revocats ("hard-fail").
 
       Si aquesta política no està definida o si es defineix com a "false", <ph name="PRODUCT_NAME" /> utilitzarà la configuració de la comprovació de revocació en línia existent.</translation>
-<translation id="5757829681942414015">Configura el directori que <ph name="PRODUCT_NAME" /> farà servir per emmagatzemar les dades de l'usuari.
-
-      Si configureu aquesta política, <ph name="PRODUCT_NAME" /> farà servir el directori proporcionat independentment de si l'usuari ha especificat la marca "--user-data-dir" o no.
-
-      Visiteu http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per consultar una llista de les variables que es poden utilitzar.
-
-      Si no es defineix aquesta política, s'utilitzarà el camí de perfil predeterminat i l'usuari podrà anul·lar-lo amb la marca de la línia d'ordres "--user-data-dir".</translation>
 <translation id="5761030451068906335">Configura el servidor intermediari per a <ph name="PRODUCT_NAME" />.
 
       Aquesta política encara no està llesta; no la feu servir.</translation>
@@ -1137,13 +1113,6 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 
           Si no s'estableix aquesta política, els comentaris per veu es desactivaran inicialment, però l'usuari els podrà activar en qualsevol moment.</translation>
 <translation id="6923366716660828830">Especifica el nom del proveïdor de cerca predeterminat. Si es deixa buit o no es defineix, s'utilitzarà el nom de l'amfitrió especificat a l'URL de cerca. Aquesta política només es tindrà en compte si la política "DefaultSearchProviderEnabled" està activada.</translation>
-<translation id="6925212669267783763">Configura el directori que <ph name="PRODUCT_FRAME_NAME" /> utilitzarà per emmagatzemar les dades de l'usuari.
-
-      Si configureu aquesta política, <ph name="PRODUCT_FRAME_NAME" /> farà servir el directori proporcionat.
-
-      Visiteu http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per consultar una llista de les variables que es poden utilitzar.
-
-      Si no es configura aquesta opció, s'utilitzarà el directori de perfil predeterminat.</translation>
 <translation id="6931242315485576290">Desactiva la sincronització de dades amb Google</translation>
 <translation id="6936894225179401731">Especifica el nombre màxim de connexions simultànies al servidor intermediari.
 
@@ -1279,13 +1248,6 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 <translation id="7635471475589566552">Defineix la configuració regional de les aplicacions a <ph name="PRODUCT_NAME" /> i impedeix que els usuaris la modifiquin. Si activeu aquest paràmetre, <ph name="PRODUCT_NAME" /> fa servir la configuració regional especificada. Si aquesta configuració regional no és compatible, es fa servir "en-US" en lloc seu. Si aquest paràmetre està desactivat o bé si no està configurat, <ph name="PRODUCT_NAME" /> fa servir la configuració regional preferida que hagi especificat l'usuari (en cas que n'hagi configurat cap), la configuració regional del sistema o bé la configuració regional alternativa "en-US".</translation>
 <translation id="7651739109954974365">Determina si cal activar la itinerància de dades per al dispositiu. Si es defineix a «true» (cert), es permet la itinerància de dades. Si es deixa sense configurar o es defineix a «false» (fals), la itinerància de dades no estarà disponible.</translation>
 <translation id="7683777542468165012">Actualització de la política dinàmica</translation>
-<translation id="7690740696284155549">Configura el directori que <ph name="PRODUCT_NAME" /> utilitzarà per baixar fitxers.
-
-      Si heu configurat aquesta política, <ph name="PRODUCT_NAME" /> farà servir el directori proporcionat independentment de si l'usuari n'ha especificat algun o de si ha activat la marca perquè es demani la ubicació de baixada cada vegada.
-
-      Visiteu http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per consultar una llista de les variables que es poden utilitzar.
-
-      Si no es defineix aquesta política, s'utilitzarà el directori de baixada predeterminat i l'usuari podrà canviar-lo.</translation>
 <translation id="7694807474048279351">Programa un reinici automàtic un cop s'hagi aplicat una actualització de <ph name="PRODUCT_OS_NAME" />.
 
       Si el valor d'aquesta política s'estableix com a vertader, es programa un reinici automàtic quan l'actualització de <ph name="PRODUCT_OS_NAME" /> s'ha aplicat i es necessita un reinici per completar el procés d'actualització. El reinici es programa immediatament, però es podria aplaçar al dispositiu fins a 24 hores si un usuari està fent servir el dispositiu actualment.
@@ -1425,11 +1387,6 @@ Aquesta política s'ignora en els comptes d'usuari normals.</translation>
 <translation id="8369602308428138533">Retard de la desactivació de pantalla quan s'utilitza alimentació</translation>
 <translation id="8382184662529825177">Activa l'ús del testimoni remot del contingut protegit al dispositiu.</translation>
 <translation id="838870586332499308">Activa la itinerància de dades</translation>
-<translation id="8412286985859522563">Configura una llista d'adreces d'interès gestionades.
-
-      La política es troba en una llista d'adreces d'interès, i cada adreça d'interès és un diccionari que conté la clau "name" de l'adreça d'interès i l'"url" de destinació. Les adreces d'interès també es poden configurar com una carpeta. En aquest cas, cal definir el valor "name" de la carpeta, però no un "url". Cal definir el contingut de la carpeta com una altra llista d'adreces d'interès a la clau "children". Chrome esmenarà els URL incomplets com si s'haguessin enviat per l'omnibox. Per exemple, "google.com" esdevé "http://google.com/".
-
-      Aquestes adreces d'interès es col·loquen en una carpeta Adreces d'interès. L'usuari no pot modificar-la, però pot treure-la de la barra d'adreces d'interès. Les adreces d'interès gestionades no se sincronitzen amb el compte d'usuari, i les extensions no les poden modificar.</translation>
 <translation id="8412312801707973447">Si es realitzen comprovacions OCSP/CRL en línia</translation>
 <translation id="8451988835943702790">Fes servir la pàgina de pestanya nova com a pàgina d'inici</translation>
 <translation id="8465065632133292531">Paràmetres per a l'URL instantani que utilitza POST</translation>
@@ -1542,13 +1499,6 @@ Aquesta política s'ignora en els comptes d'usuari normals.</translation>
 <translation id="9112897538922695510">Us permet registrar una llista de gestors de protocol. Això només pot ser una política recomanada. El |protocol| de la propietat s'ha de definir a l'esquema, com ara "mailto" i l'|url| de la propietat s'ha de definir al patró d'URL de l'aplicació que gestiona l'esquema. El patró pot incloure "%s" i, en cas que s'hi inclogui, se substituirà per l'URL gestionat.
 
           Els gestors de protocol registrats amb la política es combinen amb els que ha registrat l'usuari i tots dos es poden fer servir. L'usuari pot substituir els gestors de protocol que s'han instal·lat amb la política si instal·la un nou gestor de protocol predeterminat, però no pot suprimir un gestor de protocol que s'hagi registrat amb la política.</translation>
-<translation id="9120299024216374976">Especifica la zona horària que ha d'utilitzar el dispositiu. Els usuaris poden canviar la zona horària especificada a la sessió actual. Tanmateix, en tancar la sessió, torna a la zona horària especificada. Si es proporciona un valor no vàlid, la política fa servir la zona horària "GMT" per activar-se.
-
-      Si no es fa servir aquesta política, es continuarà utilitzant la zona horària activa actualment, tot i que els usuaris podran canviar la zona horària, i el canvi es mantindrà. Els canvis fets per un usuari afecten la pantalla d'inici de sessió i tots els altres usuaris.
-
-      Els dispositius nous s'inicien amb la zona horària definida com a "EUA/Pacífic".
-
-      El format del valor es regeix pels noms de les zones horàries, que podeu consultar a la "Base de dades de zones horàries IANA" (consulteu "http://en.wikipedia.org/wiki/Tz_database", en anglès). En concret, la majoria de zones horàries es descriuen amb el format "continent/ciutat_gran" o "oceà/ciutat_gran".</translation>
 <translation id="913195841488580904">Bloqueja l'accés a una llista d'URL</translation>
 <translation id="9135033364005346124">Activa el servidor intermediari <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Aquesta política està obsoleta. En lloc seu, utilitzeu IncognitoModeAvailability. Activa el mode d'incògnit a <ph name="PRODUCT_NAME" />. Si aquest paràmetre està activat o no està configurat, els usuaris podran obrir pàgines web en mode d'incògnit. Si està desactivat, els usuaris no podran obrir pàgines web en mode d'incògnit. Si no es defineix aquesta política, aquest paràmetre s'activarà i l'usuari podrà utilitzar el mode d'incògnit.</translation>

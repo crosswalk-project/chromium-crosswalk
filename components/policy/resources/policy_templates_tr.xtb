@@ -597,13 +597,6 @@
           Kara liste değerinin * olarak belirtilmesi tüm yerel mesajlaşma ana makinelerinin kara listede olacağı ve yalnızca beyaz listedeki yerel mesajlaşma ana makinelerinin yükleneceği anlamına gelir.
 
           Varsayılan olarak tüm yerel mesajlaşma ana makineleri beyaz listededir, ancak tüm yerel mesajlaşma ana makineleri politika tarafından kara listeye alınırsa beyaz liste bu politikayı geçersiz kılmak için kullanılabilir.</translation>
-<translation id="3844092002200215574"><ph name="PRODUCT_NAME" /> ürününün önbelleğe alınan dosyaları diskte depolamak için kullanacağı dizini yapılandırır.
-
-      Bu politikayı ayarlarsanız <ph name="PRODUCT_NAME" />, kullanıcının '--disk-cache-dir' işaretini belirtip belirtmediğine bakmaksızın sağlanan dizini kullanır.
-
-      Kullanılabilecek değişkenlerin bir listesi için http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables adresine bakın.
-
-      Bu politika ayarlanmadan bırakılırsa, varsayılan önbellek dizini kullanılır ve kullanıcı, '--disk-cache-dir' komut satırı işaretiyle bu ayarı geçersiz kılabilir.</translation>
 <translation id="384743459174066962">Pop-up açmasına izin verilmeyen siteleri belirten bir URL kalıpları listesi ayarlamanıza olanak tanır.
 
           Bu politika ayarlanmadan bırakılırsa, 'DefaultPopupsSetting' politikası ayarlandıysa buradaki değer, aksi takdirde kullanıcının kişisel yapılandırması tüm siteler için genel varsayılan değer olarak kullanılır.</translation>
@@ -740,11 +733,6 @@ politikayı geçersiz kılamaz.
       Bu politikanın değeri 0 olursa varsayılan önbellek boyutu kullanılır, ancak kullanıcı bu değeri değiştiremez.
 
       Bu politika ayarlanmazsa varsayılan boyut kullanılır ve kullanıcı --media-cache-size bayrağıyla bu değeri geçersiz kılabilir.</translation>
-<translation id="4507081891926866240">Her zaman <ph name="PRODUCT_FRAME_NAME" /> tarafından oluşturulması gereken URL kalıplarının listesini özelleştirin.
-
-          Bu politika ayarlanmazsa, 'ChromeFrameRendererSettings' politikasında belirtilen tüm siteler için varsayılan oluşturucu kullanılır.
-
-          Örneğin, kalıplar için bkz. http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Bir site, kullanıcının fiziksel konumunu izlemek istediğinde sor</translation>
 <translation id="4519046672992331730"><ph name="PRODUCT_NAME" /> Çok Amaçlı Adres Çubuğu'nda arama önerilerini etkinleştirir ve kullanıcıların bu ayarı değiştirmesini önler.
 
@@ -758,11 +746,6 @@ politikayı geçersiz kılamaz.
 <translation id="4525521128313814366">Resimleri görüntülemelerine izin verilmeyen sitelerin belirtildiği bir URL kalıpları listesini ayarlamanıza olanak tanır.
 
           Bu politika ayarlanmadan bırakılırsa, 'DefaultImagesSetting' politikası ayarlandıysa buradaki değer, aksi takdirde kullanıcının kişisel yapılandırması tüm siteler için genel varsayılan değer olarak kullanılır.</translation>
-<translation id="4529945827292143461">Her zaman ana makine tarayıcısı tarafından oluşturulması gereken URL kalıplarının listesini özelleştirin.
-
-          Bu politika ayarlanmazsa, tüm siteler için 'ChromeFrameRendererSettings' politikası tarafından belirtilen varsayılan oluşturucu kullanılır.
-
-          Örnek kalıplar için http://www.chromium.org/developers/how-tos/chrome-frame-getting-started sayfasına bakın.</translation>
 <translation id="4541530620466526913">Cihaz-yerel hesaplar</translation>
 <translation id="4555850956567117258">Kullanıcı için uzaktan doğrulamayı etkinleştir</translation>
 <translation id="4557134566541205630">Varsayılan arama sağlayıcısı yeni sekme sayfası URL'si</translation>
@@ -887,14 +870,6 @@ politikayı geçersiz kılamaz.
 <translation id="5148753489738115745"><ph name="PRODUCT_FRAME_NAME" /> tarafından <ph name="PRODUCT_NAME" /> başlatıldığında kullanılan ek parametreleri belirtmenize olanak verir.
 
           Bu politika ayarlanmazsa varsayılan komut satırı kullanılır.</translation>
-<translation id="5170790754648862683">Geçici olarak yeniden etkinleştirmek için, kullanımdan kaldırılan web platformu özelliklerinin bir listesini belirleyin.
-
-      Bu politika, yöneticilere kullanımdan kaldırılan web platformu özelliklerini sınırlı bir süre için yeniden etkinleştirme olanağı verir. Özellikler, bir dize etiketiyle tanımlanır ve bu politikayla belirtilen listedeki etiketlere karşılık gelen özellikler yeniden etkinleştirilir.
-
-      Bu politika ayarlanmadan bırakılırsa, liste boşsa veya desteklenen dize etiketlerinin biriyle eşleşmezse kullanımdan kaldırılan web platformu özelliklerinin tamamı devre dışı kalmaya devam eder.
-
-      Politikanın kendisi yukarıdaki platformlarda desteklenirken, etkinleştirmekte olduğu özellik daha az sayıda platformda kullanılıyor olabilir. Kullanımdan kaldırılan Web Platformu özelliklerinin tümü yeniden etkinleştirilemez. Yalnızca aşağıda açık bir şekilde listelenenler, her özellikte farklı olan sınırlı bir süre için yeniden etkinleştirilebilir. Dize etiketinin genel biçimi şu şekildedir: [KullanımdanKaldırılanÖzelliğinAdı]_[yyyymmdd]TarihineKadarGeçerlidir. Referans olarak, Web Platformu özellik değişikliklerinin nedenlerini http://bit.ly/blinkintents adresinde bulabilirsiniz.
-      </translation>
 <translation id="5182055907976889880"><ph name="PRODUCT_OS_NAME" /> ürününde Google Drive'ı yapılandırın.</translation>
 <translation id="5183383917553127163">Kara listeye alınmayacak uzantıları belirlemenize olanak sağlar. Kara liste değerinin * olması, tüm uzantıların kara listede bulunduğunu ve kullanıcıların yalnızca beyaz listede belirtilen uzantıları yükleyebileceklerini gösterir. Varsayılan olarak tüm uzantılar beyaz listede bulunur, ancak politika gereği tüm uzantılar kara listeye alınmışsa bu politikayı geçersiz kılmak için beyaz liste kullanılabilir.</translation>
 <translation id="5192837635164433517"><ph name="PRODUCT_NAME" /> ürününde bulunan alternatif hata sayfalarını ('sayfa bulunamadı' gibi) etkinleştirir ve kullanıcıların bu ayarı değiştirmesini önler.
@@ -1060,13 +1035,6 @@ politikayı geçersiz kılamaz.
       <ph name="PRODUCT_NAME" />, iptal durumu bilgilerini alamazsa bu tür sertifikalar iptal edilmiş sayılır ("kesin hata").
 
       Bu politika ayarlanmazsa veya yanlış değerine ayarlanırsa <ph name="PRODUCT_NAME" />, varolan çevrimiçi iptal kontrolü ayarlarını kullanır.</translation>
-<translation id="5757829681942414015"><ph name="PRODUCT_NAME" /> ürünün kullanıcı verilerini depolamak için kullanacağı dizini yapılandırır.
-
-      Bu politikayı ayarlarsanız <ph name="PRODUCT_NAME" />, kullanıcının '--user-data-dir' işaretini belirtip belirtmediğine bakmaksızın sağlanan dizini kullanır.
-
-      Kullanılabilecek değişkenlerin bir listesi için http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables adresine bakın.
-
-      Bu politika ayarlanmadan bırakılırsa, varsayılan profil yolu kullanılır ve kullanıcı, '--user-data-dir' komut satırı işaretiyle bu ayarı geçersiz kılabilir.</translation>
 <translation id="5761030451068906335"><ph name="PRODUCT_NAME" /> için proxy ayarlarını yapılandırır. Bu politika henüz kullanıma hazır değildir, lütfen kullanmayın.</translation>
 <translation id="5765780083710877561">Açıklama:</translation>
 <translation id="5770738360657678870">Yeni geliştirilenler kanalı (kararsız olabilir)</translation>
@@ -1351,13 +1319,6 @@ politikayı geçersiz kılamaz.
 <translation id="6923366716660828830">Varsayılan arama sağlayıcısının adını belirtir. Boş bırakılır veya ayarlanmazsa, arama URL'sinin belirttiği ana makine adı kullanılır.
 
           Bu politika, yalnızca 'DefaultSearchProviderEnabled' politikası etkinleştirildiğinde dikkate alınır.</translation>
-<translation id="6925212669267783763"><ph name="PRODUCT_FRAME_NAME" /> ürününün kullanıcı verilerini depolamak için kullanacağı dizini yapılandırır.
-
-      Bu politikayı ayarlarsanız, <ph name="PRODUCT_FRAME_NAME" />, sağlanan dizini kullanır.
-
-      Kullanılabilecek değişkenlerin listesi için http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables adresine bakın.
-
-      Bu ayar ayarlanmadan bırakılırsa, varsayılan profil dizini kullanılır.</translation>
 <translation id="6931242315485576290">Google ile veri senkronizasyonunu devre dışı bırak</translation>
 <translation id="6936894225179401731">Proxy sunucuyla aynı anda yapılabilecek maksimum bağlantı sayısını belirtir.
 
@@ -1517,13 +1478,6 @@ politikayı geçersiz kılamaz.
       Bu ayar devre dışı bırakılırsa veya yapılandırılmazsa, <ph name="PRODUCT_NAME" /> ya kullanıcının belirttiği tercih edilen yerel ayarı (yapılandırıldıysa), ya sistem yerel ayarını ya da yedek yerel ayarı ('en-US') kullanır.</translation>
 <translation id="7651739109954974365">Veri dolaşımının etkin olup olmayacağını belirler. True olarak ayarlanırsa, veri dolaşımına izin verilir. Hiç ayarlanmazsa veya false değerine ayarlanırsa, veri dolaşımına izin verilmez.</translation>
 <translation id="7683777542468165012">Dinamik Politika Yenileme</translation>
-<translation id="7690740696284155549"><ph name="PRODUCT_NAME" /> ürününün dosyaları indirmek için kullanacağı dizini yapılandırır.
-
-      Bu politikayı ayarlarsanız <ph name="PRODUCT_NAME" />, kullanıcının bir dizin belirtip belirtmediğine veya her defasında indirme konumunun sorulmasıyla ilgili işareti etkinleştirip etkinleştirmediğine bakmaksızın sağlanan dizini kullanır.
-
-      Kullanılabilecek değişkenlerin bir listesi için http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables adresine bakın.
-
-      Bu politika ayarlanmadan bırakılırsa, varsayılan indirme dizini kullanılır ve kullanıcı, bu ayarı değiştirebilir.</translation>
 <translation id="7694807474048279351"><ph name="PRODUCT_OS_NAME" /> güncellemesi uygulandıktan sonra otomatik yeniden başlatma planla.
 
       Bu politika true (doğru) olarak ayarlandığında, <ph name="PRODUCT_OS_NAME" /> güncellemesi uygulandıktan sonra güncelleme işleminin tamamlanması için otomatik yeniden başlatma gerekliyse bir otomatik yeniden başlatma planlanır. Yeniden başlatma derhal planlanır, ancak kullanıcı o an cihazı kullanıyorsa bu işlem cihaz üzerinden 24 saate kadar geciktirilebilir.
@@ -1682,11 +1636,6 @@ politikayı geçersiz kılamaz.
 <translation id="8369602308428138533">AC güçle çalışırken ekran kapatma gecikmesi</translation>
 <translation id="8382184662529825177">Cihazda içerik koruma için uzak onay kullanımını etkinleştir</translation>
 <translation id="838870586332499308">Veri dolaşımını etkinleştir</translation>
-<translation id="8412286985859522563">Yönetilen yer işaretleri listesini yapılandırır.
-
-      Politika, bir yer işaretleri listesidir ve her bir yer işareti, yer işareti "adını" ve hedef "URL'yi" içeren bir sözlüktür. Bir yer işareti, klasör olarak da yapılandırılabilir. Bu durumda, klasör "adını" tanımlayın ancak bir "URL" tanımlamayın. Bunun yerine klasör içeriğini, "alt" anahtar altında başka bir yer işaretleri listesi olarak tanımlayın. Chrome, eksik URL'leri çok amaçlı adres çubuğundan gönderilmişler gibi düzeltir. Örneğin, "google.com", "http://google.com/" olarak düzeltilir.
-
-      Bu yer işaretleri, kullanıcı tarafından değiştirilemeyen bir Yönetilen yer işaretleri klasörüne yerleştirilir, ancak kullanıcı bu klasörü yer işareti çubuğundan gizlemeyi seçebilir. Yönetilen yer işaretleri, kullanıcı hesabıyla senkronize edilmez ve uzantılar tarafından değiştirilemez.</translation>
 <translation id="8412312801707973447">Çevrimiçi OCSP/CRL denetimlerinin yapılıp yapılmayacağı</translation>
 <translation id="8451988835943702790">Ana sayfa olarak Yeni Sekme Sayfası'nı kullan</translation>
 <translation id="8465065632133292531">POST kullanan anlık URL parametreleri</translation>
@@ -1807,13 +1756,6 @@ politikayı geçersiz kılamaz.
 <translation id="9112897538922695510">Bir protokol işleyicileri listesini kaydetmenize olanak tanır. Bu, yalnızca önerilen bir politika olabilir. |protocol| özelliğinin "mailto" gibi şemaya ayarlanması ve |url| özelliğinin de şemayı işleyen uygulamanın URL kalıbına ayarlanması gerekir. Kalıp bir "%s" makrosu içerebilir; bu durumda, makro işlenen URL tarafından değiştirilir.
 
           Politika tarafından kaydedilen protokol işleyicileri, kullanıcı tarafından kaydedilenlerle birleştirilir ve her ikisi de kullanılabilir. Kullanıcı, yeni bir varsayılan işleyici yükleyerek politika tarafından yüklenen politika işleyicilerini geçersiz kılabilir, ancak politika tarafından kaydedilen bir protokol işleyicisini kaldıramaz.</translation>
-<translation id="9120299024216374976">Cihazda kullanılacak saat dilimini belirtir. Kullanıcılar belirtilen saat dilimini mevcut oturum için geçersiz kılabilir. Ancak, çıkış yapınca saat dilimi belirtilen dilime geri döner. Geçersiz bir değer sağlanırsa, politika yine etkinleştirilir ve bu durumda saat dilimi olarak "GMT" kullanılır. Boş bir dize sağlanırsa, politika yoksayılır.
-
-      Bu politika kullanılmazsa o anda etkin olan saat dilimi kullanımda kalır, ancak kullanıcılar saat dilimini değiştirebilirler ve bu değişiklik kalıcı olur. Bu durumda bir kullanıcının yaptığı değişiklik giriş ekranını ve diğer tüm kullanıcıları etkiler.
-
-      Yeni cihazlarda saat dilimi "ABD/Pasifik" olarak ayarlıdır.
-
-      Değerin biçimi  "IANA Saat Dilimleri Veritabanı" (bkz."http://en.wikipedia.org/wiki/List_of_tz_database_time") içindeki saat dilimi adlarına uygundur. Özellikle, saat dilimlerinin çoğu "kıta/büyük_kent" veya "okyanus/büyük_kent" olarak anılır.</translation>
 <translation id="913195841488580904">URL listesine erişimi engelle</translation>
 <translation id="9135033364005346124"><ph name="CLOUD_PRINT_NAME" /> proxy'sini etkinleştir</translation>
 <translation id="9150416707757015439">Bu politika uygun bulunmamaktadır. Lütfen, bunun yerine IncognitoModeAvailability politikasını kullanın.

@@ -516,13 +516,6 @@ Questa norma viene rispettata soltanto se viene attivata la norma "DefaultSearch
 Il valore della lista nera * indica che tutti gli host di messaggi nativi non sono autorizzati e che verranno caricati soltanto gli host di messaggi nativi elencati nella whitelist.
 
 Per impostazione predefinita sono autorizzati tutti gli host di messaggi nativi ma, se tutti gli host sono stati aggiunti alla lista nera secondo la norma, è possibile utilizzare la whitelist per ignorare la norma.</translation>
-<translation id="3844092002200215574">Configura la directory che <ph name="PRODUCT_NAME" /> utilizzerà per la memorizzazione dei file della cache su disco.
-
-      Se imposti questa norma, <ph name="PRODUCT_NAME" /> utilizzerà la directory fornita, indipendentemente dal fatto che l'utente abbia specificato o meno il flag "--disk-cache-dir".
-
-      Visita http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per un elenco di variabili utilizzabili.
-
-      Se questa norma non viene impostata, verrà utilizzata la directory della cache predefinita e l'utente sarà in grado di ignorarla con il flag della riga di comando "--disk-cache-dir".</translation>
 <translation id="384743459174066962">Consente di impostare un elenco di pattern URL che specificano i siti in cui non è consentita l'apertura dei popup. Se questa norma non viene impostata, per tutti i siti verrà utilizzato il valore predefinito globale della norma "DefaultPopupsSetting", se è impostata, oppure verrà utilizzata la configurazione personale dell'utente.</translation>
 <translation id="3859780406608282662">Consente di aggiungere un parametro al recupero del numero di inizializzazione delle varianti in <ph name="PRODUCT_OS_NAME" />.
 
@@ -617,7 +610,6 @@ Se questa norma viene impostata, <ph name="PRODUCT_NAME" /> utilizzerà le dimen
 Se il valore di questa norma è 0, verranno utilizzate le dimensioni della cache predefinite, che l'utente non potrà modificare.
 
 Se questa norma non viene impostata, verranno utilizzate le dimensioni predefinite, che l'utente potrà sostituire con il flag --media-cache-size.</translation>
-<translation id="4507081891926866240">Consente di personalizzare l'elenco di pattern URL per i quali il rendering deve sempre essere eseguito da <ph name="PRODUCT_FRAME_NAME" />. Se questa norma non viene impostata, verrà utilizzato per tutti i siti il renderer predefinito specificato dalla norma "ChromeFrameRendererSettings". Per avere dei pattern di esempio, visita il sito all'indirizzo http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Chiedi ogni volta che un sito desidera monitorare la posizione fisica degli utenti</translation>
 <translation id="4519046672992331730">Consente di attivare i suggerimenti di ricerca nella omnibox di <ph name="PRODUCT_NAME" /> e di impedire agli utenti di modificare l'impostazione.
 
@@ -627,7 +619,6 @@ Se questa impostazione viene attivata o disattivata, gli utenti non potranno mod
 
 Se questa norma non viene impostata, l'impostazione verrà attivata ma gli utenti potranno modificarla.</translation>
 <translation id="4525521128313814366">Consente di impostare un elenco di pattern URL che specificano i siti in cui non è consentita la visualizzazione di immagini. Se questa norma non viene impostata, per tutti i siti verrà utilizzato il valore predefinito globale della norma "DefaultImagesSetting", se è impostata, oppure verrà utilizzata la configurazione personale dell'utente.</translation>
-<translation id="4529945827292143461">Consente di personalizzare l'elenco di pattern URL per i quali il rendering deve sempre essere eseguito dal browser host. Se questa norma non viene impostata, verrà utilizzato per tutti i siti il renderer predefinito specificato dalla norma "ChromeFrameRendererSettings". Per avere dei pattern di esempio, visita il sito all'indirizzo http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Account del dispositivo</translation>
 <translation id="4555850956567117258">Attivazione dell'attestazione da remoto per l'utente</translation>
 <translation id="4557134566541205630">URL pagina Nuova scheda provider di ricerca predefinito</translation>
@@ -734,14 +725,6 @@ Se l'azione viene sospesa, <ph name="PRODUCT_OS_NAME" /> può essere configurato
 <translation id="5148753489738115745">Consente di specificare dei parametri aggiuntivi da utilizzare quando <ph name="PRODUCT_FRAME_NAME" /> avvia <ph name="PRODUCT_NAME" />.
 
 Se questa norma non viene impostata viene utilizzata la riga di comando predefinita.</translation>
-<translation id="5170790754648862683">Consente di specificare un elenco di funzioni della piattaforma web obsolete da riattivare.
-
-      Questa norma consente agli amministratori di riattivare le funzioni della piattaforma web obsolete per un periodo di tempo limitato. Le funzioni sono identificate da un tag string e le funzioni corrispondenti ai tag inclusi nell'elenco specificato tramite questa norma verranno riattivate.
-
-      Se questa norma non viene impostata o se l'elenco è vuoto o non corrisponde a uno dei tag string supportati, tutte le funzioni della piattaforma web obsolete rimarranno disattivate.
-
-      Sebbene la norma di per sé sia supportata sulle piattaforme indicate sopra, la funzione che consente di attivare potrebbe essere disponibile su un numero inferiore di piattaforme. Non tutte le funzioni della piattaforma web obsolete possono essere riattivate. Soltanto quelle elencate qui di seguito possono esserlo per un periodo di tempo limitato, che varia in base alla funzione. Il formato generale del tag string sarà [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Come riferimento, il motivo delle modifiche alle funzioni della piattaforma web può essere consultato alla pagina http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configura Google Drive in <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Consente di specificare le estensioni da non includere nella blacklist. Un valore di * riportato nella blacklist indica che tutte le estensioni sono state inserite nella blacklist e che gli utenti possono installare solo quelle elencate nella whitelist. Per impostazione predefinita, tutte le estensioni si trovano nella whitelist, ma se in base alla norma applicata tutte le estensioni sono state inserite nella blacklist, la whitelist può essere utilizzata per annullare tale norma.</translation>
 <translation id="5192837635164433517">Consente di attivare l'utilizzo di pagine di errore alternative integrate in <ph name="PRODUCT_NAME" /> (come "pagina non trovata") e di impedire agli utenti di modificare questa impostazione. Se attivi questa impostazione, vengono utilizzate le pagine di errore alternative. Se la disattivi, le pagine di errore alternative non vengono mai utilizzate. Se l'impostazione viene attivata o disattivata, gli utenti non potranno modificarla o sostituirla in <ph name="PRODUCT_NAME" />. Se questa norma non viene impostata, l'impostazione verrà attivata ma gli utenti potranno modificarla.</translation>
@@ -888,13 +871,6 @@ Se questa norma non viene impostata, il comportamento delle norme più specifich
       Se <ph name="PRODUCT_NAME" /> non riesce ad acquisire informazioni sullo stato delle revoche, tali certificati vengono considerati revocati ("hard-fail").
 
       Se questa norma non viene impostata o se viene impostata su false, <ph name="PRODUCT_NAME" /> utilizzerà le impostazioni di controllo delle revoche online esistenti.</translation>
-<translation id="5757829681942414015">Configura la directory che <ph name="PRODUCT_NAME" /> utilizzerà per la memorizzazione dei dati dell'utente.
-
-      Se imposti questa norma, <ph name="PRODUCT_NAME" /> utilizzerà la directory fornita, indipendentemente dal fatto che l'utente abbia specificato o meno il flag "--user-data-dir".
-
-      Visita http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per un elenco di variabili utilizzabili.
-
-      Se questa norma non viene impostata, verrà utilizzato il percorso del profilo predefinito e l'utente sarà in grado di ignorarlo con il flag della riga di comando "--user-data-dir".</translation>
 <translation id="5761030451068906335">Consente di configurare le impostazioni proxy per <ph name="PRODUCT_NAME" />. Questa norma non è ancora pronta per essere utilizzata, pertanto invitiamo a non utilizzarla.</translation>
 <translation id="5765780083710877561">Descrizione:</translation>
 <translation id="5770738360657678870">Canale Dev (potrebbe essere instabile)</translation>
@@ -1121,13 +1097,6 @@ Se la norma viene impostata, gli utenti non potranno modificarla o ignorarla.
 
 Se la norma non viene configurata, la lettura vocale viene inizialmente disattivata ma potrà essere attivata dagli utenti in qualsiasi momento.</translation>
 <translation id="6923366716660828830">Consente di specificare il nome del provider di ricerca predefinito. Se il nome non viene impostato verrà utilizzato il nome host specificato nell'URL di ricerca. Questa norma viene considerata soltanto se è attiva la norma "DefaultSearchProviderEnabled".</translation>
-<translation id="6925212669267783763">Configura la directory che <ph name="PRODUCT_FRAME_NAME" /> utilizzerà per la memorizzazione dei dati dell'utente.
-
-      Se imposti questa norma, <ph name="PRODUCT_FRAME_NAME" /> utilizzerà la directory fornita.
-
-      Visita http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per un elenco di variabili utilizzabili.
-
-      Se questa norma non viene impostata, verrà utilizzata la directory del profilo predefinita.</translation>
 <translation id="6931242315485576290">Disattiva la sincronizzazione dei dati con Google</translation>
 <translation id="6936894225179401731">Consente di specificare il numero massimo di connessioni simultanee al server proxy.
 
@@ -1255,13 +1224,6 @@ Se questa norma non viene impostata, verranno utilizzate le dimensioni predefini
 <translation id="7635471475589566552">Consente di configurare in <ph name="PRODUCT_NAME" /> le impostazioni della lingua e di impedirne la modifica agli utenti. Se attivi questa impostazione, <ph name="PRODUCT_NAME" /> utilizzerà le impostazioni della lingua specificate. Se la lingua configurata non è supportata, verrà utilizzata la lingua "en-US". Se questa impostazione viene disattivata o non viene impostata, <ph name="PRODUCT_NAME" /> utilizzerà la lingua preferita specificata dall'utente (se configurata), quella del sistema o la lingua di fallback "en-US".</translation>
 <translation id="7651739109954974365">È possibile stabilire se attivare o meno il roaming dei dati per il dispositivo. Se la norma viene impostata su true, il roaming dei dati sarà consentito. Se non viene configurata o viene impostata su false, il roaming dei dati non sarà disponibile.</translation>
 <translation id="7683777542468165012">Aggiornamento dinamico delle norme</translation>
-<translation id="7690740696284155549">Configura la directory che <ph name="PRODUCT_NAME" /> utilizzerà per il download dei file.
-
-      Se imposti questa norma, <ph name="PRODUCT_NAME" /> utilizzerà la directory fornita, indipendentemente dal fatto che l'utente ne abbia specificata una o abbia attivato il flag da attivare ogni volta per il percorso di download.
-
-      Visita http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables per un elenco di variabili utilizzabili.
-
-      Se questa norma non viene impostata, verrà utilizzata la directory di download predefinita e l'utente sarà in grado di modificarla.</translation>
 <translation id="7694807474048279351">Consente di pianificare un riavvio automatico in seguito all'applicazione di un aggiornamento di <ph name="PRODUCT_OS_NAME" />.
 
 Se questa norma viene impostata su true, viene pianificato un riavvio automatico in seguito all'applicazione di un aggiornamento di <ph name="PRODUCT_OS_NAME" /> e quando è necessario un riavvio per completare la procedura di aggiornamento. Il riavvio viene programmato subito ma potrebbe essere ritardato sul dispositivo di massimo 24 ore se un utente sta utilizzando il dispositivo.
@@ -1400,11 +1362,6 @@ Se questa norma non viene impostata, le pagine saranno sottoposte a scansione pe
 <translation id="8369602308428138533">Ritardo disattivazione schermo in caso di utilizzo di CA</translation>
 <translation id="8382184662529825177">Attiva l'utilizzo dell'attestazione remota per la protezione dei contenuti per il dispositivo</translation>
 <translation id="838870586332499308">Attiva roaming dati</translation>
-<translation id="8412286985859522563">Consente di configurare un elenco di Preferiti gestiti.
-
-      Il criterio è un elenco di Preferiti. Ciascun Preferito rappresenta un dizionario contenente i relativi "nome" e "URL" di destinazione. I Preferiti possono inoltre essere configurati sotto forma di cartelle. In questo caso, definisci soltanto il "nome" della cartella, senza definire "l'URL". Definisci invece i contenuti della cartella come un altro elenco di Preferiti sotto la chiave "Secondari". Chrome modificherà gli URL incompleti come se fossero stati trasmessi nella omnibox. Ad esempio, "google.com" diventa "http://google.com/".
-
-      Questi Preferiti sono posizionati in una cartella di Preferiti gestiti che non può essere modificata dall'utente. L'utente può tuttavia scegliere di nasconderla dalla barra dei Preferiti. I Preferiti gestiti non vengono sincronizzati con l'account dell'utente e le estensioni non possono modificarli.</translation>
 <translation id="8412312801707973447">Esecuzione dei controlli OCSP/CRL online</translation>
 <translation id="8451988835943702790">Usa la pagina Nuova scheda come Pagina iniziale</translation>
 <translation id="8465065632133292531">Parametri per l'URL istantaneo che utilizza POST</translation>
@@ -1509,13 +1466,6 @@ Il valore della norma deve essere specificato in millisecondi. I valori devono e
 <translation id="9112897538922695510">Ti consente di registrare un elenco di gestori di protocolli. Questa può essere soltanto una norma consigliata. Per la proprietà |protocol| dovrebbe essere impostato lo schema, ad esempio "mailto", e per la proprietà |url| dovrebbe essere impostato il pattern URL dell'applicazione che gestisce lo schema. Il pattern può includere "%s" che, se presente, verrà sostituito dall'URL gestito.
 
           I gestori di protocolli registrati tramite la norma vengono uniti a quelli registrati dall'utente e possono essere utilizzati entrambi i tipi. L'utente può sostituire i gestori di protocolli installati tramite la norma installando un nuovo gestore predefinito, ma non può rimuovere un gestore di protocollo registrato tramite la norma.</translation>
-<translation id="9120299024216374976">Consente di specificare il fuso orario da utilizzare per il dispositivo. Gli utenti possono sostituire il fuso orario specificato per la sessione corrente. Dopo la disconnessione viene ripristinato il fuso orario specificato. Se viene specificato un valore non valido, la norma viene attivata comunque utilizzando il valore "GMT". Se viene specificata una stringa vuota, la norma viene ignorata.
-
-Se questa norma non viene utilizzata, rimarrà in uso il fuso orario attivo, ma gli utenti potranno modificarlo e tale modifica sarà costante. La modifica di un utente incide sulla schermata di accesso e su tutti gli altri utenti.
-
-Sui nuovi dispositivi è impostato il fuso orario "US/Pacific".
-
-Il formato del valore segue quello dei nomi dei fusi orari del "IANA Time Zone Database" (consultare la pagina "http://en.wikipedia.org/wiki/Tz_database"). In particolare, quasi tutti i fusi orari possono essere indicati come "continente/grande_città" o "oceano/grande_città".</translation>
 <translation id="913195841488580904">Blocca l'accesso a un elenco di URL</translation>
 <translation id="9135033364005346124">Attiva proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Questa norma è obsoleta. Utilizza IncognitoModeAvailability. Consente di attivare la modalità di navigazione in incognito in <ph name="PRODUCT_NAME" />. Se questa impostazione viene attivata o non viene configurata, gli utenti potranno aprire le pagine web in modalità di navigazione in incognito. Se l'impostazione viene disattivata, gli utenti non potranno aprire le pagine web in modalità di navigazione in incognito. Se questa norma non viene impostata, l'impostazione verrà attivata e gli utenti potranno utilizzare la modalità di navigazione in incognito.</translation>

@@ -602,13 +602,6 @@ Pokud tuto zásadu ponecháte nenastavenou, bude tato možnost aktivována, ale 
           Hodnota * v seznamu zakázaných znamená, že jsou všichni hostitelé zasílání nativních zpráv zakázáni a že budou načteni pouze hostitelé uvedení na seznamu povolených hostitelů.
 
           Ve výchozím nastavení jsou povoleni všichni hostitelé zasílání nativních zpráv. Pokud však byly všichni hostitelé zasílání nativních zpráv pomocí zásady přidáni na seznam zakázaných, je možné tuto zásadu pomocí seznamu povolených hostitelů přepsat.</translation>
-<translation id="3844092002200215574">Nastavuje adresář, do kterého bude prohlížeč <ph name="PRODUCT_NAME" /> ukládat soubory diskové mezipaměti.
-
-      Prohlížeč <ph name="PRODUCT_NAME" /> bude ukládat diskovou mezipaměť do adresáře nastaveného pomocí této zásady bez ohledu na to, zda uživatel zadal pomocí parametru --disk-cache-dir jiný adresář.
-
-      Seznam proměnných, které můžete použít, naleznete na stránce http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Není-li tato zásada nastavena, budou soubory ukládány do výchozího adresáře mezipaměti a uživatel bude moci tento adresář změnit pomocí parametru příkazového řádku --disk-cache-dir.</translation>
 <translation id="384743459174066962">Umožňuje nastavit seznam vzorů adres URL stránek, které nemají povoleno otevírat vyskakovací okna.
 
            Pokud zásadu nenastavíte, použije se pro všechny webové stránky globální výchozí hodnota buď ze zásady DefaultPopupsSetting (pokud je nastavena), nebo z osobního nastavení uživatele.</translation>
@@ -742,11 +735,6 @@ Hodnotu zásady je třeba zadat v sekundách. Hodnota musí být minimálně 360
       Pokud pro tuto zásadu nastavíte hodnotu 0, bude použita výchozí velikost mezipaměti, ale uživatel ji nebude moci změnit.
 
       Pokud tuto zásadu nenastavíte, bude použita výchozí velikost a uživatel ji bude moci přepsat pomocí příznaku  „--media-cache-size“.</translation>
-<translation id="4507081891926866240">Umožňuje personalizovat seznam vzorů adres URL, které by měl plugin <ph name="PRODUCT_FRAME_NAME" /> vždy vykreslit.
-
-          Pokud není zásada nastavena, použije se pro všechny webové stránky výchozí modul vykreslení, jak je určeno zásadou ChromeFrameRendererSettings.
-
-          Ukázkové vzory naleznete na adrese http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Dotázat se vždy, když se webové stránky snaží sledovat fyzickou polohu uživatele</translation>
 <translation id="4519046672992331730">Aktivuje v adresním řádku prohlížeče <ph name="PRODUCT_NAME" /> funkci návrhů pro vyhledávání a brání uživatelům, aby toto nastavení změnili.
 
@@ -760,11 +748,6 @@ Hodnotu zásady je třeba zadat v sekundách. Hodnota musí být minimálně 360
 <translation id="4525521128313814366">Umožňuje nastavit seznam vzorů adres URL webových stránek, které nemají povoleno zobrazovat obrázky.
 
           Pokud zásadu nenastavíte, použije se pro všechny webové stránky globální výchozí hodnota buď ze zásady DefaultImagesSetting (pokud je nastavena), nebo z osobního nastavení uživatele.</translation>
-<translation id="4529945827292143461">Umožňuje personalizovat seznam vzorů adres URL, které by měl vždy vykreslit hostitelský prohlížeč.
-
-          Pokud není zásada nastavena, bude pro všechny webové stránky použit výchozí vykreslovací modul, jak je určeno zásadou ChromeFrameRendererSettings.
-
-          Ukázkové vzory naleznete na stránce http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Místní účty v zařízení</translation>
 <translation id="4555850956567117258">Aktivuje vzdálené ověření identity uživatele</translation>
 <translation id="4557134566541205630">Výchozí adresa URL stránky nové karty poskytovatele vyhledávání</translation>
@@ -884,14 +867,6 @@ Tato zásada ovlivňuje kromě integrované webové kamery i všechny ostatní v
 <translation id="5148753489738115745">Umožňuje nastavit dodatečné parametry, které plugin <ph name="PRODUCT_FRAME_NAME" /> při spouštění aplikace <ph name="PRODUCT_NAME" /> použije.
 
           Když tato zásada není nastavena, bude použit výchozí příkazový řádek.</translation>
-<translation id="5170790754648862683">Určuje seznam zastaralých funkcí webové platformy, které budou znovu aktivovány.
-
-      Tato zásada umožňuje administrátorům na omezenou dobu znovu aktivovat zastaralé funkce webové platformy. Funkce jsou označeny pomocí značky řetězce. Znovu budou aktivovány funkce odpovídající značkám uvedeným v seznamu, který určuje tato zásada.
-
-      Pokud je tato zásada ponechána nenastavená nebo je seznam prázdný nebo neodpovídá některé z podporovaných značek řetězců, zůstanou všechny funkce zastaralé webové platformy zakázány.
-
-      Zásada sama o sobě je podporována na výše uvedených platformách. Funkce, které podporuje, však mohou být k dispozici na méně platformách. Některé zastaralé funkce platformy Web Platform nelze znovu povolit. Po různě dlouhou omezenou dobu lze povolit pouze ty, které jsou výslovně uvedeny níže. Obecný formát řetězcové značky je [NázevZastaraléFunkce]_EffectiveUntil[RRRRMMDD]. Důvody změny funkcí platformy Web Platform pro referenci naleznete zde: http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurace Disku Google v systému <ph name="PRODUCT_OS_NAME" /></translation>
 <translation id="5183383917553127163">Umožňuje určit rozšíření, kterých se netýká seznam zakázaných rozšíření.
 
@@ -1058,13 +1033,6 @@ Pokud tuto zásadu ponecháte nenastavenou, uživatelé budou moci nastavit auto
       Pokud se prohlížeči <ph name="PRODUCT_NAME" /> údaje o stavu odvolání získat nepodaří, příslušné certifikáty budou považovány za odvolané (selhání).
 
       Pokud tato zásada není nastavena nebo je nastavena na hodnotu false, prohlížeč <ph name="PRODUCT_NAME" /> použije existující online nastavení kontroly odvolání.</translation>
-<translation id="5757829681942414015">Nastavuje adresář, do kterého bude prohlížeč <ph name="PRODUCT_NAME" /> ukládat uživatelská data.
-
-      Prohlížeč <ph name="PRODUCT_NAME" /> bude ukládat uživatelská data do adresáře nastaveného pomocí této zásady bez ohledu na to, zda uživatel zadal pomocí parametru --user-data-dir jiný adresář.
-
-      Seznam proměnných, které můžete použít, naleznete na stránce http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Není-li tato zásada nastavena, bude data ukládána do výchozího adresáře profilu a uživatel bude moci tento adresář změnit pomocí parametru příkazového řádku --user-data-dir.</translation>
 <translation id="5761030451068906335">Nakonfiguruje nastavení proxy serveru pro službu <ph name="PRODUCT_NAME" />.
 
       Tato zásada zatím není připravena k použití. Nepoužívejte ji prosím.</translation>
@@ -1349,13 +1317,6 @@ Pokud ji ponecháte nenastavenou, bude hlasová odezva ve výchozím nastavení 
 <translation id="6923366716660828830">Určuje název výchozího poskytovatele vyhledávání. Je-li toto pole ponecháno prázdné, bude použit název hostitele určený adresou URL vyhledávání.
 
           Tato zásada bude dodržována pouze v případě, že je aktivována zásada DefaultSearchProviderEnabled.</translation>
-<translation id="6925212669267783763">Nastavuje adresář, do kterého bude doplněk <ph name="PRODUCT_FRAME_NAME" /> ukládat uživatelská data.
-
-      Doplněk <ph name="PRODUCT_FRAME_NAME" /> bude ukládat stažené soubory do adresáře nastaveného pomocí této zásady.
-
-      Seznam proměnných, které můžete použít, naleznete na stránce http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Není-li tato zásada nastavena, budou data ukládána do výchozího adresáře profilu.</translation>
 <translation id="6931242315485576290">Deaktivovat synchronizaci dat se servery Google</translation>
 <translation id="6936894225179401731">Určuje maximální počet souběžných připojení k proxy serveru.
 
@@ -1519,13 +1480,6 @@ Pokud tuto zásadu nenastavíte, bude při prvním zobrazení přihlašovací ob
       Pokud je toto nastavení deaktivováno nebo není nakonfigurováno, použije aplikace <ph name="PRODUCT_NAME" /> buď preferovaný jazyk nastavený uživatelem (je-li nakonfigurován), jazyk systému, nebo základní nastavení „en-US“.</translation>
 <translation id="7651739109954974365">Určuje, zda bude v zařízení povolen datový roaming. Pokud je tato zásada nastavena na hodnotu True, je datový roaming povolen. Pokud tato zásada není nastavena nebo je nastavena na hodnotu False, datový roaming nebude k dispozici.</translation>
 <translation id="7683777542468165012">Dynamická aktualizace zásad</translation>
-<translation id="7690740696284155549">Nastavuje adresář, do kterého bude prohlížeč <ph name="PRODUCT_NAME" /> ukládat stažené soubory.
-
-      Prohlížeč <ph name="PRODUCT_NAME" /> bude ukládat stažené soubory do adresáře nastaveného pomocí této zásady bez ohledu na to, zda uživatel vybral jiný adresář nebo nastavil, aby se před každým stahováním zobrazil dotaz na cílové umístění.
-
-      Seznam proměnných, které můžete použít, naleznete na stránce http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Není-li tato zásada nastavena, budou soubory ukládány do výchozího adresáře a uživatel bude moci tento adresář změnit.</translation>
 <translation id="7694807474048279351">Naplánuje automatický restart po použití aktualizace systému <ph name="PRODUCT_OS_NAME" />.
 
 Pokud je tato zásada nastavena na hodnotu true, bude v případě, že je použita aktualizace <ph name="PRODUCT_OS_NAME" /> a k dokončení procesu je potřeba restart, naplánován automatický restart. Restart bude naplánován na zvolený čas, ale pokud bude uživatel zařízení používat, bude možné automatický restart odložit až o 24 hodin.
@@ -1683,11 +1637,6 @@ Pokud ji ponecháte nenastavenou, režim vysokého kontrastu bude ve výchozím 
 <translation id="8369602308428138533">Prodleva vypnutí obrazovky při napájení ze sítě</translation>
 <translation id="8382184662529825177">Povolit použití vzdáleného ověření identity k ochraně obsahu v zařízení</translation>
 <translation id="838870586332499308">Povolit datový roaming</translation>
-<translation id="8412286985859522563">Konfiguruje seznam spravovaných záložek.
-
-      Hodnotou této zásady je seznam záložek. Každá záložka je slovník, který obsahuje název záložky (name) a cílovou adresu URL (url). Záložku lze nakonfigurovat také jako složku. V takovém případě definujte název složky (name), ale nedefinujte adresu (url). Namísto toho obsah složky definujte jako další seznam záložek pod klíčem children. Neúplné adresy URL doplní Chrome stejně, jako kdybyste je odeslali pomocí omniboxu. Například „google.com“ bude doplněno na „http://google.com/“.
-
-      Tyto záložky budou umístěny do složky Spravované záložky, kterou uživatel nemůže upravovat. Může ji však na liště záložek skrýt. Spravované záložky se nesynchronizují do uživatelského účtu a nelze je upravovat pomocí rozšíření.</translation>
 <translation id="8412312801707973447">Zda se budou provádět online kontroly OCSP/CRL</translation>
 <translation id="8451988835943702790">Jako domovskou použít stránku Nová karta</translation>
 <translation id="8465065632133292531">Parametry pro adresu URL dynamického vyhledávání používající metodu POST</translation>
@@ -1816,13 +1765,6 @@ Hodnota prodloužení musí být 100 % nebo více. Hodnoty, které by prodlevu 
 <translation id="9112897538922695510">Umožňuje zaregistrovat seznam obslužných nástrojů protokolů. Tato zásada může být pouze doporučena. Vlastnost |protocol| musí být nastavena na schéma jako „mailto“ a vlastnost |url| musí být nastavena na vzorec adresy URL aplikace, která schéma zpracovává. Vzorec může obsahovat specifikátor „%s“, který (bude-li zadán) bude nahrazen zpracovanou adresou URL.
 
           Obslužné nástroje protokolů zaregistrované pomocí této zásady budou sloučeny s obslužnými nástroji zaregistrovanými uživatelem a k dispozici budou všechny. Obslužné nástroje protokolů nainstalované zásadou může uživatel přepsat tím, že nainstaluje nový výchozí obslužný nástroj, avšak nemůže je odstranit.</translation>
-<translation id="9120299024216374976">Určuje, které časové pásmo se má v zařízení použít. Uživatelé mohou stanovené časové pásmo v aktuální relaci přepsat. Po odhlášení se však nastaví zpět na původně určené časové pásmo. Je-li zadána nesprávná hodnota, zásada se i tak aktivuje a použije pásmo GMT. Pokud řetězec zůstane prázdný, bude zásada ignorována.
-
-      Pokud se zásada nepoužívá, zůstane i nadále platné aktuální aktivní časové pásmo. Uživatelé je však budou moci změnit a změna bude trvalá. Změna provedená jedním uživatelem proto ovlivní přihlašovací obrazovku i všechny ostatní uživatele.
-
-      Časové pásmo je v nových zařízeních nastaveno na americký tichomořský čas.
-
-      Formát hodnot je stanoven podle názvu časových pásem v databázi „IANA Time Zone Database“ (viz http://en.wikipedia.org/wiki/Tz_database). Většina časových pásem se udává jako kontinent/velké_město nebo oceán/velké_město.</translation>
 <translation id="913195841488580904">Blokování přístupu k seznamu adres URL</translation>
 <translation id="9135033364005346124">Aktivovat proxy server služby <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Tato zásada se již nepoužívá. Namísto ní prosím použijte zásadu IncognitoModeAvailability. 

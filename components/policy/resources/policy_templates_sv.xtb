@@ -607,13 +607,6 @@
           Om svarta listan har värdet * betyder det att alla värdar för Native Messaging är otillåtna och att endast de som står med på vitlistan läses in.
 
           Som standard är alla värdar för Native Messaging tillåtna, men om alla sådana värdar har satts på svarta listan av en princip kan du åsidosätta den principen med hjälp av vitlistan.</translation>
-<translation id="3844092002200215574">Konfigurerar vilken katalog som ska användas av <ph name="PRODUCT_NAME" /> för att spara cachefiler på disken.
-
-      Om du ställer in den här policyn används den katalog som du angav av <ph name="PRODUCT_NAME" /> oavsett om användaren har ställt in flaggan --disk-cache-dir eller inte.
-
-      En lista med variabler som kan användas finns på http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Om policyn inte ställs in används standardkatalogen för cacheminnet och användaren kan åsidosätta den med kommandoradsflaggan --disk-cache-dir.</translation>
 <translation id="384743459174066962">Policyn gör att du kan ange en lista med webbadressmönster som anger webbplatser som inte får öppna popupfönster.
 
           Om policyn inte anges används det globala standardvärdet för alla webbplatser. Standardvärdet hämtas från policyn DefaultPopupsSetting om den har angetts, eller från användarens personliga konfiguration om den inte har det.</translation>
@@ -749,11 +742,6 @@
       Om principen har värdet 0 används cacheminnets standardstorlek men användaren får inte ändra den.
 
       Om inget värde har angetts används standardstorleken och användaren kan åsidosätta den med flaggan --media-cache-size.</translation>
-<translation id="4507081891926866240">Anpassa listan med webbadressmönster som alltid ska renderas av <ph name="PRODUCT_FRAME_NAME" />.
-
-          Om policyn inte anges används standardrenderaren för alla webbplatser enligt specifikationen i policyn ChromeFrameRendererSettings.
-
-          Exempel på mönster finns på http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Fråga när en webbplats vill spåra användarens fysiska plats</translation>
 <translation id="4519046672992331730">Policyn aktiverar sökförslag i adressfältet i <ph name="PRODUCT_NAME" /> och förhindrar att användarna ändrar inställningen.
 
@@ -767,11 +755,6 @@
 <translation id="4525521128313814366">Policyn gör att du kan ställa in en lista med adressmönster som anger webbplatser som får visa bilder.
 
           Om den här policyn inte ställs in används det globala standardvärdet för alla webbplatser, antingen från policyn DefaultImagesSetting om den är inställd, eller från användarens personliga konfiguration om den inte är det.</translation>
-<translation id="4529945827292143461">Policyn anpassar listan med webbadressmönster som alltid ska renderas av värdwebbläsaren.
-
-          Om policyn inte ställs in används standardrenderaren för alla webbplatser enligt specifikationen i policyn ChromeFrameRendererSettings.
-
-          Exempel på mönster finns på http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Lokala konton på enheten</translation>
 <translation id="4555850956567117258">Aktivera fjärrattestering för användaren</translation>
 <translation id="4557134566541205630">Webbadress för standardsökleverantören av ny fliksida</translation>
@@ -895,14 +878,6 @@
 <translation id="5148753489738115745">Innebär att du kan ange ytterligare parametrar som används när <ph name="PRODUCT_FRAME_NAME" /> startar <ph name="PRODUCT_NAME" />.
 
           Om policyn inte anges används standardkommandoraden.</translation>
-<translation id="5170790754648862683">Ange en lista över föråldrade webbplattformsfunktioner som ska kunna återaktiveras tillfälligt.
-
-      Med den här principen får administratörer möjlighet att återaktivera föråldrade webbplattformsfunktioner under en begränsad tid. Funktionerna identifieras med hjälp av en strängtagg och de funktioner som motsvarar taggarna och ingår i listan som angetts via den här principen återaktiveras.
-
-      Om denna princip inte aktiveras eller om listan är tom eller saknar motsvarighet till de strängtaggar som stöds förblir samtliga webbplattformsfunktioner inaktiverade.
-
-      Denna princip i sig stöds av plattformarna ovan, men den återaktiverade funktionen stöds kanske inte av alla dessa plattformar. Det är inte alla föråldrade webbplattformsfunktioner som kan återaktiveras. Endast de funktioner som explicit tas upp i listan nedan kan återaktiveras under en begränsad tid som varierar mellan olika funktioner. Strängtaggens allmänna format är [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. För information om syftet med förändringarna gällande webbplattformsfunktioner hänvisar vi till http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurera Google Drive i <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Innebär att du kan ange vilka tillägg som inte omfattas av svartlistan.
 
@@ -1072,13 +1047,6 @@
       Om <ph name="PRODUCT_NAME" /> inte kan hämta statusinformation för återkallning kommer sådana certifikat att behandlas som återkallade ("hard-fail").
 
       Om ingen inställning görs för principen eller om den har värdet falskt använder <ph name="PRODUCT_NAME" /> de befintliga inställningarna för kontroller för återkallning online.</translation>
-<translation id="5757829681942414015">Konfigurerar vilken katalog som används för att spara användardata i <ph name="PRODUCT_NAME" />.
-
-      Om du ställer in policyn används den katalog du anger av <ph name="PRODUCT_NAME" /> oavsett om användaren har angett flaggan --user-data-dir eller inte.
-
-      En lista med variabler som kan användas finns på http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Om den här policyn inte ställs in används profilens standardsökväg och användaren kan åsidosätta den med kommandoradsflaggan --user-data-dir.</translation>
 <translation id="5761030451068906335">Konfigurerar proxyinställningarna för <ph name="PRODUCT_NAME" />. Använd inte policyn. Den är inte redo ännu.</translation>
 <translation id="5765780083710877561">Beskrivning:</translation>
 <translation id="5770738360657678870">Kanal för utvecklare (kan vara instabil)</translation>
@@ -1364,13 +1332,6 @@
 <translation id="6923366716660828830">Policyn anger namnet på standardsökleverantören. Om värdet lämnas tomt eller inte anges används det värdnamn som angavs av sökadressen.
 
           Policyn används bara om policyn DefaultSearchProviderEnabled är aktiverad.</translation>
-<translation id="6925212669267783763">Konfigurerar vilken katalog som <ph name="PRODUCT_FRAME_NAME" /> ska använda för att spara användardata.
-
-      Om du anger den här policyn använder <ph name="PRODUCT_FRAME_NAME" /> den katalog som anges.
-
-      En lista med variabler som kan användas finns på http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Om inställningen inte anges används profilens standardkatalog.</translation>
 <translation id="6931242315485576290">Inaktivera synkronisering av data med Google</translation>
 <translation id="6936894225179401731">Policyn anger det maximala antalet anslutningar till proxyservern som kan göras samtidigt.
 
@@ -1536,13 +1497,6 @@
       Om inställningen inaktiveras eller inte är konfigurerad använder <ph name="PRODUCT_NAME" /> antingen den språkversion som användaren anger (om den är konfigurerad), samma språk som datorn eller standardversionen en-US.</translation>
 <translation id="7651739109954974365">Avgör om dataroaming ska vara tillåtet för enheten. Om värdet är sant är dataroaming tillåten. Om policyn inte är konfigurerad eller om värdet är falskt är dataroaming inte tillåten.</translation>
 <translation id="7683777542468165012">Dynamisk policyuppdatering</translation>
-<translation id="7690740696284155549">Konfigurerar vilken katalog som ska användas av <ph name="PRODUCT_NAME" /> för att ladda ned filer.
-
-      Om du ställer in den här policyn används den angivna katalogen av <ph name="PRODUCT_NAME" /> oavsett om användaren har angett en katalog eller aktiverat flaggan för att bli tillfrågad om hämtningsplats varje gång.
-
-      En lista med variabler som kan användas finns på http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Om policyn inte anges används standardhämtningsplatsen. Inställningen kan ändras av användaren.</translation>
 <translation id="7694807474048279351">Schemalägg en automatisk omstart efter uppdatering av <ph name="PRODUCT_OS_NAME" />.
 
       När den här principen är sann schemaläggs en automatisk omstart när <ph name="PRODUCT_OS_NAME" /> har uppdaterats och en omstart krävs för att slutföra processen. Omstarten schemaläggs omedelbart man kan fördröjas i upp till 24 timmar om någon använder enheten.
@@ -1705,11 +1659,6 @@
 <translation id="8369602308428138533">Skärmavstängningstid när enheten är ansluten till elnätet</translation>
 <translation id="8382184662529825177">Aktivera användning av fjärrattestering för innehållsskydd för enheten</translation>
 <translation id="838870586332499308">Aktivera dataroaming</translation>
-<translation id="8412286985859522563">Konfigurerar en lista med hanterade bokmärken.
-
-     Principen är en lista med bokmärken och varje bokmärke är en ordlista som innehåller bokmärkets namn och måladress. Ett bokmärke kan även konfigureras som en mapp. I så fall definierar du mappens namn men inte någon webbadress. Istället definieras mappens innehåll som en annan lista med bokmärken under nyckeln ”underordnade” Chrome ändrar ofullständiga webbadresser precis som när de anges i adressfältet. Alltså blir "google.com" till "http://google.com/".
-
-      Dessa bokmärken placeras i mappen Hanterade bokmärken. Den mappen kan inte ändras av användaren, men användaren kan välja att dölja den från bokmärkesfältet. Hanterade bokmärken synkroniseras inte med användarkontot och kan inte ändras av tillägg.</translation>
 <translation id="8412312801707973447">Anger huruvida OCSP/CRL-onlinekontroller ska utföras</translation>
 <translation id="8451988835943702790">Använd sidan Ny flik som startsida</translation>
 <translation id="8465065632133292531">Parametrar för webbadress för Instant som använder POST</translation>
@@ -1838,13 +1787,6 @@
 <translation id="9112897538922695510">Gör att du kan registrera en lista över protokollhanterare. Detta kan bara vara en rekommenderad policy. Egendomen |protokoll| ska anges till systemet som "mailto" och egendomen |webbadress| ska anges till webbadressmönstret i appen som hanterar systemet. Mönstret kan innehålla "%s", som ersätts av den hanterade webbadressen vid förekomst.
 
           Protokollhanterare som registreras av policyn slås ihop med de som registreras av användaren och båda går att använda. Användare kan åsidosätta protokollhanterarna som har installerats av policyn genom att installera en ny standardhanterare, men användare kan inte ta bort en protokollhanterare som har registrerats av policyn.</translation>
-<translation id="9120299024216374976">Anger vilken tidszon som används på enheten. Användare kan åsidosätta den angivna tidszonen för den aktuella sessionen. När användaren loggar ut återgår dock inställningen till den angivna tidszonen. Om en ogiltig tidszon anges är policyn fortfarande aktiverad och använder GMT istället.
-
-      Om denna policy inte används är det den tidszon som för närvarande är aktiv som används. Användare kan dock ändra tidszonen och ändringen är permanent. Därför påverkas inloggningsskärmen och alla användare av de ändringar som en enskild användare gör.
-
-      På nya enheter har tidszonen US/Pacific angetts.
-
-      Formatvärdet följer namnen på tidszonerna i databasen IANA Time Zone Database (besök http://en.wikipedia.org/wiki/List_of_tz_database_time). Det går att hänvisa till de flesta tidszoner som "continent/large_city" eller "ocean/large_city".</translation>
 <translation id="913195841488580904">Blockera åtkomst till en lista med webbadresser</translation>
 <translation id="9135033364005346124">Aktivera <ph name="CLOUD_PRINT_NAME" />-proxy</translation>
 <translation id="9150416707757015439">Policyn är föråldrad. Använd IncognitoModeAvailability istället.

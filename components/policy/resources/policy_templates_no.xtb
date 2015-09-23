@@ -563,13 +563,6 @@
           Svartelisteverdien * betyr at alle innebygde meldingsverter er svartelistet, og bare de innebygde meldingsvertene som er registrert som godkjente, blir lastet inn.
 
           Som standard er alle innebygde meldingsverter godkjente, men hvis alle meldingsverter har blitt svartelistet av retningslinjene, kan godkjenningslisten brukes for å overkjøre dem.</translation>
-<translation id="3844092002200215574">Konfigurerer katalogen som <ph name="PRODUCT_NAME" /> skal bruke til lagring av bufrede filer på disken.
-
-      Hvis du angir denne retningslinjen, bruker <ph name="PRODUCT_NAME" /> den angitte katalogen uansett om brukeren har spesifisert flagget «--disk-cache-dir» eller ikke.
-
-      Gå til http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for å se en liste over variabler som kan brukes.
-
-      Hvis denne retningslinjen ikke angis, brukes standard bufferkatalog, og brukeren kan overstyre den med kommandolinjeflagget «--disk-cache-dir».</translation>
 <translation id="384743459174066962">Gjør at du kan angi en liste over nettadressemønstre som spesifiserer hvilke nettsteder som får åpne forgrunnsvinduer. Hvis denne retningslinjen ikke angis, brukes den globale standardverdien for alle nettsteder, enten fra retningslinjen DefaultPopupsSetting hvis denne er angitt, eller fra brukerens egen konfigurasjon hvis den nevnte retningslinjen ikke er angitt.</translation>
 <translation id="3859780406608282662">Legg til en parameter i hentingen av Variasjoner-utgangsverdien i <ph name="PRODUCT_OS_NAME" />.
 
@@ -693,11 +686,6 @@
       Hvis verdien for innstillingen er 0, brukes standard bufferstørrelse, og brukeren kan ikke endre den.
 
       Hvis innstillingen ikke er angitt, brukes standard bufferstørrelse, og brukeren kan overstyre den med «--media-cache-size»-flagget.</translation>
-<translation id="4507081891926866240">Tilpass listen over nettadressmønstre som alltid skal gjengis av <ph name="PRODUCT_FRAME_NAME" />.
-
-          Hvis denne retningslinjen ikke er angitt, brukes standardgjengiveren for alle nettsteder, som angitt i retningslinjen ChromeFrameRendererSettings.
-
-          Hvis du vil se eksempelmønstre, kan du gå til http://www.chromium.org/developers/how-tos/chrome-frame-getting-started</translation>
 <translation id="4518251772179446575">Spør hver gang et nettsted ønsker å spore brukernes fysiske plassering</translation>
 <translation id="4519046672992331730">Aktiverer søkeforslag i søkefeltet til <ph name="PRODUCT_NAME" />, og hindrer brukerne i å endre på dette.
 
@@ -709,9 +697,6 @@
 
       Hvis denne retningslinjen ikke angis, aktiveres den, men brukeren kan endre på dette.</translation>
 <translation id="4525521128313814366">Gjør at du kan angi en liste over nettadressemønstre som spesifiserer nettsteder som ikke får vise bilder. Hvis denne retningslinjen ikke angis, brukes den globale standardverdien for alle nettsteder, enten fra retningslinjen DefaultImagesSetting, eller fra brukerens egne retningslinjer hvis den nevnte retningslinjen ikke er angitt.</translation>
-<translation id="4529945827292143461">Tilpass listen over nettadressemønstre som alltid skal gjengis av vertsnettleseren. Hvis denne retningslinjen ikke er angitt, vil standardgjengivelsen brukes for alle nettsteder sånn som det er angitt av retningslinjen ChromeFrameRendererSettings.
-
-          Se http://www.chromium.org/developers/how-tos/chrome-frame-getting-started for eksempelmønstre.</translation>
 <translation id="4541530620466526913">Lokale kontoer på enheten</translation>
 <translation id="4555850956567117258">Slå på ekstern attestasjon for brukeren</translation>
 <translation id="4557134566541205630">Nettadresse for ny fane for standard søkeleverandør</translation>
@@ -830,14 +815,6 @@
 <translation id="5148753489738115745">Lar deg spesifisere ytterligere parametere som brukes når <ph name="PRODUCT_FRAME_NAME" /> kjører <ph name="PRODUCT_NAME" />.
 
           Hvis denne tillatelsen ikke er angitt, blir standardkommandolinjen brukt.</translation>
-<translation id="5170790754648862683">Angi en liste over avviklede nettplattformfunksjoner som skal aktiveres midlertidig.
-
-      Denne innstillingen gir administratorene mulighet til å aktivere avviklede nettplattformfunksjoner på nytt for en begrenset periode. Funksjonene angis med en strengkode, og funksjonene som tilsvarer kodene på listen denne innstillingen angir, aktiveres på nytt.
-
-      Hvis denne innstillingen ikke angis, eller hvis listen er tom eller ikke passer med en av de støttede strengkodene, forblir alle avviklede nettplattformfunksjoner deaktiverte.
-
-      Selv om selve innstillingen støttes på plattformene ovenfor, kan funksjonene den aktiverer, være tilgjengelig på færre plattformer. Ikke alle avviklede nettplattformfunksjoner kan aktiveres på nytt. Bare de som uttrykkelig er angitt på listen nedenfor, kan aktiveres på nytt i en begrenset periode. Det generelle formatet til strengkoden er [NavnPåAvvikletFunksjon]_EffectiveUntil[ååååmmdd]. Du finner hensikten med endringer i nettplattformfunksjoner på http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurer Google Disk i <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Lar deg angi hvilke utvidelser som ikke omfattes av sperrelisten. En sperrelisteverdi på * betyr at alle utvidelser settes på sperrelisten, og at brukere kun kan installere utvidelser som står oppført på godkjenningslisten. Alle utvidelser står på godkjenningslisten som standard. Men hvis alle utvidelser har blitt oppført på sperrelisten, kan godkjenningslisten overstyre dette.</translation>
 <translation id="5192837635164433517">Aktiverer bruken av alternative sider for feilmeldinger som er innebygd i <ph name="PRODUCT_NAME" /> (for eksempel «Siden ble ikke funnet»), og hindrer brukerne i å endre denne innstillingen. 
@@ -1002,13 +979,6 @@
       Hvis <ph name="PRODUCT_NAME" /> ikke finner informasjon om opphevelsesstatusen, blir disse sertifikatene behandlet som opphevede («hard-fail»).
 
       Hvis denne innstillingen ikke er angitt, eller er angitt til «false», kommer <ph name="PRODUCT_NAME" /> til å bruke de gjeldende alternativene for opphevelsessjekking på nettet.</translation>
-<translation id="5757829681942414015">Konfigurerer katalogen <ph name="PRODUCT_NAME" /> bruker til lagring av brukerdata.
-
-      Hvis du angir denne retningslinjen, bruker <ph name="PRODUCT_NAME" /> den oppgitte katalogen uansett om brukeren har angitt  «--user-data-dir»-flagget eller ikke. 
-
-      Gå til http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for å se en liste over variabler som kan brukes.
-
-        Hvis denne retningslinjen ikke angis, brukes standard profilbane, og brukeren kan overstyre det med «--user-data-dir»-kommandolinjeflagget.</translation>
 <translation id="5761030451068906335">Konfigurerer innstillinger for mellomtjener i <ph name="PRODUCT_NAME" />. Disse retningslinjene er ikke klare for bruk ennå, så vi ber deg om ikke å bruke dem.</translation>
 <translation id="5765780083710877561">Beskrivelse:</translation>
 <translation id="5770738360657678870">Utviklerkanal (kan være ustabil)</translation>
@@ -1287,13 +1257,6 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
 <translation id="6923366716660828830">Angir navnet på standard søkeleverandør. Hvis dette ikke angis, brukes vertsnavnet angitt av søkenettadressen.
 
           Denne retningslinjen tas bare i betraktning hvis retningslinjen DefaultSearchProviderEnabled er aktivert.</translation>
-<translation id="6925212669267783763">Konfigurerer katalogen <ph name="PRODUCT_FRAME_NAME" /> bruker til lagring av brukerdata. 
-
-       Hvis du angir denne retningslinjen, bruker <ph name="PRODUCT_FRAME_NAME" /> den oppgitte katalogen.
-
-      Gå til http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for å se en liste over variabler som kan brukes.
-
-     Hvis denne innstillingen ikke angis, brukes standard profilkatalog.</translation>
 <translation id="6931242315485576290">Deaktiver synkronisering av data med Google</translation>
 <translation id="6936894225179401731">Angir det maksimalt tillate antallet samtidige tilkoblinger til proxytjeneren.
 
@@ -1453,13 +1416,6 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
       Hvis denne innstillingen er deakivert eller ikke angis, bruker <ph name="PRODUCT_NAME" /> enten det brukerspesifikke foretrukne språket (hvis dette er konfiguert), systemspråket eller, som siste mulighet, en-US.</translation>
 <translation id="7651739109954974365">Avgjør om datastreifing skal aktiveres for enheten. Hvis innstillingen er angitt som Sann, tillates datastreifing. Hvis innstillingen er angitt som Usann eller ikke er konfigurert, blir ikke datastreifing tilgjengelig.</translation>
 <translation id="7683777542468165012">Dynamisk oppdatering av retningslinje</translation>
-<translation id="7690740696284155549">Konfigurerer katalogen <ph name="PRODUCT_NAME" /> bruker for å laste ned filer. 
-
-      Hvis du angir denne retningslinjen, bruker <ph name="PRODUCT_NAME" /> den oppgitte katalogen uansett om brukeren har angitt en eller aktivert flagget for å bli med om nedlastingsposisjon hver gang.
-
-      Gå til http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for å se en liste over variabler som kan brukes.
-
-        Hvis denne retningslinjen ikke angis, brukes standard nedlastingskatalog, og brukeren kan endre på dette.</translation>
 <translation id="7694807474048279351">Angi en automatisk omstart etter en oppdatering for <ph name="PRODUCT_OS_NAME" /> er lagt til.
 
       Når denne innstillingen angis til «true», angis automatisk omstart når en oppdatering for <ph name="PRODUCT_OS_NAME" /> er lagt til og omstart påkreves for å fullføre oppdateringsprosessen. Omstarten trer i kraft umiddelbart, men kan forsinkes med opptil 24 timer hvis brukeren er i gang med enheten på det gitte tidspunktet.
@@ -1615,11 +1571,6 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
 <translation id="8369602308428138533">Forsinkelse for avslått skjerm når du bruker strømadapteren</translation>
 <translation id="8382184662529825177">Slå på bruken av ekstern attestasjon for innholdsbeskyttelse på enheten</translation>
 <translation id="838870586332499308">Aktiver datastreifing</translation>
-<translation id="8412286985859522563">Konfigurerer en liste over administrerte bokmerker.
-
-      Retningslinjene er en liste over bokmerker, og hvert bokmerke er en ordliste som inneholder bokmerkets «name»-verdi og «url»-verdi (måladressen). Bokmerker kan også konfigureres som mapper. I så fall definerer du mappens «name»-verdi, men ingen «url». I stedet definerer du mappeinnholdet som en annen liste over bokmerker under «children»-nøkkelen. Chrome endrer ufullstendige nettadresser som om de ble sendt inn via multifunksjonfeltet. Eksempel: «google.com» blir til «http://google.com/».
-
-      Disse bokmerkene plasseres i en mappe med administrerte bokmerker, og denne mappen kan ikke endres av brukeren, men brukeren kan velge å skjule den fra bokmerkeraden. Administrerte bokmerker synkroniseres ikke med brukerkontoen, og de kan ikke endres av utvidelser.</translation>
 <translation id="8412312801707973447">Angir om OCSP/CRL-kontroller utføres på nettet</translation>
 <translation id="8451988835943702790">Bruk siden Ny fane som startside</translation>
 <translation id="8465065632133292531">Parametere for Instant-nettadresser som bruker POST</translation>
@@ -1735,13 +1686,6 @@ programtillegg. Shockwave Flash-programtillegget tilhører for eksempel Adobe Fl
 <translation id="9112897538922695510">Med denne innstillingen kan du registrere en liste over protokollbehandlere. Dette er bare en anbefalt innstilling. Egenskapen |protocol| bør settes til det aktuelle skjemaet, for eksempel «mailto», og egenskapen |url| bør settes til nettadressemønsteret for appen som behandler skjemaet. Mønsteret kan inkludere en «%s» som, hvis den brukes, erstattes av nettadressen som behandles.
 
           Protokollbehandlere som registreres via denne innstillingen, slås sammen med de som er registrert av brukeren, og begge er tilgjengelige for bruk. Brukeren kan overstyre protokollbehandlerne som innstillingen har installert, ved å installere en ny standardbehandler, men kan ikke fjerne en protokollbehandler som er registrert via en innstilling.</translation>
-<translation id="9120299024216374976">Angir tidssonen som skal brukes for enheten. Brukere kan overstyre den angitte tidssone for den gjeldende økten. Men ved avlogging tilbakestilles denne til den angitte tidssone. Hvis en ugyldig verdi angis, er innstillingen fremdeles aktivert, og benytter «GMT» i stedet.
-
-      Hvis denne innstillingen ikke brukes, blir den gjeldende tidssonen fremdeles brukt, men brukere kan endre tidssonen, og endringen er vedvarende. Dermed kommer en endring som gjøres av én bruker til å påvirke påloggingssiden og alle andre brukere.
-
-      Nye enheter har tidssonen for USA og Stillehavskysten som standard.
-
-      Formatet på verdien følger navnene på tidssoner i tidssonedatabasen «IANA Time Zone Database» (les mer her: http://en.wikipedia.org/wiki/List_of_tz_database_time). De fleste tidssoner kan refereres til som «continent/large_city» eller «ocean/large_city».</translation>
 <translation id="913195841488580904">Blokker tilgang til en liste over nettadresser</translation>
 <translation id="9135033364005346124">Aktiver mellomtjener for <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Denne retningslinjen er foreldet. Bruk IncognitoModeAvailability i stedet.

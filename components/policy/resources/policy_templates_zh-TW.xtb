@@ -519,13 +519,6 @@
           如果黑名單的值指定為 *，表示將所有內建訊息傳遞主機列入黑名單，只載入許可清單中列出的內建訊息傳遞主機。
 
           根據預設，所有內建訊息傳遞主機都會列入許可清單。不過，如果透過政策將所有內建訊息傳遞主機列入黑名單，則可使用許可清單來覆寫政策。</translation>
-<translation id="3844092002200215574">設定 <ph name="PRODUCT_NAME" /> 用來在磁碟中儲存快取檔案的目錄。
-
-      如果設定這項政策，則不論使用者是否指定「--disk-cache-dir」參數，<ph name="PRODUCT_NAME" /> 都會使用提供的目錄。
-
-      如需可用變數的清單，請參閱 http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables。
-
-      如未設定這項政策，系統會使用預設的快取目錄，而且使用者可以用「--disk-cache-dir」命令列參數加以覆寫。</translation>
 <translation id="384743459174066962">允許您設定網址模式清單，指定不可以開啟彈出式視窗的網站。如果未設定這項政策，系統會從「DefaultPopupsSetting」政策 (如果有設定的話) 或使用者的個人設定，將通用預設值套用至所有網站。</translation>
 <translation id="3859780406608282662">在 <ph name="PRODUCT_OS_NAME" /> 中擷取變異版本種子時新增參數。
 
@@ -624,7 +617,6 @@
       如果這項政策的值為 0，系統會使用預設快取大小，但使用者無法變更。
 
       如果未設定這項政策，系統會使用預設大小，使用者則可使用 -media-cache-size 參數予以覆寫。</translation>
-<translation id="4507081891926866240">自訂網址模式清單，其中的網址模式應一律由「<ph name="PRODUCT_FRAME_NAME" />」轉譯。如果未設定這項政策，所有網站都會使用「ChromeFrameRendererSettings」政策指定的預設轉譯器。如需模式範例，請參閱 http://www.chromium.org/developers/how-tos/chrome-frame-getting-started。</translation>
 <translation id="4518251772179446575">詢問網站何時要追蹤使用者的實際位置</translation>
 <translation id="4519046672992331730">啟用 <ph name="PRODUCT_NAME" /> 網址列的搜尋建議，並且禁止使用者變更這項設定。
 
@@ -636,7 +628,6 @@
 
       如果您未設定這項政策，系統會使用這項設定，不過使用者可以加以變更。</translation>
 <translation id="4525521128313814366">允許您設定網址模式清單，指定不可以展示圖片的網站。如果未設定這項政策，系統會從「DefaultImagesSetting」政策 (如果有設定的話) 或使用者的個人設定，將通用預設值套用至所有網站。</translation>
-<translation id="4529945827292143461">自訂網址模式清單，其中的網址模式應一律由主機瀏覽器轉譯。如果未設定這項政策，所有網站都會使用「ChromeFrameRendererSettings」政策指定的預設轉譯器。如需模式範例，請參閱 http://www.chromium.org/developers/how-tos/chrome-frame-getting-started。</translation>
 <translation id="4541530620466526913">裝置本機帳戶</translation>
 <translation id="4555850956567117258">為使用者啟用遠端認證機制</translation>
 <translation id="4557134566541205630">預設搜尋引擎新分頁網址</translation>
@@ -746,14 +737,6 @@
 <translation id="5148753489738115745">允許您指定 <ph name="PRODUCT_FRAME_NAME" /> 啟動 <ph name="PRODUCT_NAME" /> 時使用的其他參數。
 
           如果未設定這項政策，系統會使用預設命令列。</translation>
-<translation id="5170790754648862683">指定要暫時重新啟用的已淘汰網路平台功能清單。
-
-      這項政策可讓管理員在限定時間內重新啟用已淘汰的網路平台功能。系統會使用字串標記辨識功能，並根據這項政策在清單中指定的標記重新啟用對應的功能。
-
-      如未設定這項政策或是清單沒有任何內容，已淘汰的網路平台功能將維持停用狀態。
-
-      雖然政策本身受到以上平台支援，但是可啟用功能的平台數量較少。部分已淘汰網路平台的功能是無法再次啟用的，唯有下方明確列出者可在限定時間內啟用，啟用時限則視功能而異。字串標記的通用格式是 [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]。如需參考，請前往 http://bit.ly/blinkintents 查閱網路平台功能變更背後的意圖。
-      </translation>
 <translation id="5182055907976889880">設定在 <ph name="PRODUCT_OS_NAME" /> 中使用 Google 雲端硬碟。</translation>
 <translation id="5183383917553127163">允許您指定不應列入黑名單的擴充功能。星號 (*) 代表排除所有的擴充功能，而使用者只能安裝許可清單所列的擴充功能。根據預設，所有擴充功能都會列入許可清單，但如果因為政策而導致所有擴充功能都進入黑名單，則您可以使用許可清單覆寫該政策。</translation>
 <translation id="5192837635164433517">啟用「 <ph name="PRODUCT_NAME" />」內建的替代錯誤網頁 (例如「找不到網頁」)，並且禁止使用者變更設定。如果啟用這項設定，系統會使用替代錯誤網頁。如果停用這項設定，系統就不會使用替代錯誤網頁。不論您啟用或停用這項設定，使用者都無法變更或覆寫「<ph name="PRODUCT_NAME" />」中的這項設定。如果未設定這項政策，系統就會啟用這項設定，不過使用者可以變更設定。</translation>
@@ -900,13 +883,6 @@
       如果 <ph name="PRODUCT_NAME" /> 無法取得撤銷狀態資訊，這類憑證將被視為已撤銷 (也就是「作業失敗」) 來處理。
 
       如未設定這項政策，或是設定為 False，<ph name="PRODUCT_NAME" /> 將會套用目前的線上撤銷檢查設定。</translation>
-<translation id="5757829681942414015">設定 <ph name="PRODUCT_NAME" /> 會用來儲存使用者資料的目錄。
-
-      如果您設定這項政策，則不論使用者是否指定「--user-data-dir」參數，<ph name="PRODUCT_NAME" /> 都會使用提供的目錄。
-
-      您可以上網查詢可用變數有哪些，網址為：http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables。
-
-      如未設定這項政策，系統會使用預設的設定檔路徑，而且使用者還可用「--user-data-dir」命令列參數加以覆寫。</translation>
 <translation id="5761030451068906335">調整 <ph name="PRODUCT_NAME" /> 的 Proxy 設定。
 
       這項政策尚未準備完成，請勿使用。</translation>
@@ -1137,13 +1113,6 @@
 
           如果您未設定這項政策，系統預設會停用互動朗讀，但使用者隨時均可予以啟用。</translation>
 <translation id="6923366716660828830">指定預設搜尋引擎名稱。如果名稱欄位留空或未設定，系統會使用搜尋網址指定的主機名稱。只有在啟用「DefaultSearchProviderEnabled」政策時，系統才會遵循這項政策。</translation>
-<translation id="6925212669267783763">設定 <ph name="PRODUCT_FRAME_NAME" /> 會用來儲存使用者資料的目錄。
-
-      如果設定這項政策，<ph name="PRODUCT_FRAME_NAME" /> 就會使用提供的目錄。
-
-      如需可用變數的清單，請參閱 http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables。
-
-      如果尚未調整這項設定，系統會使用預設的設定檔目錄。</translation>
 <translation id="6931242315485576290">停用 Google 資料同步處理功能</translation>
 <translation id="6936894225179401731">指定 Proxy 伺服器的同時連線數量上限。
 
@@ -1276,13 +1245,6 @@
 <translation id="7635471475589566552">設定「<ph name="PRODUCT_NAME" />」的應用程式語言代碼，並且禁止使用者變更語言代碼。如果您啟用這項設定，「<ph name="PRODUCT_NAME" />」就會使用指定的語言代碼。如果設定的語言代碼不受支援，就會改用「en-US」。如果停用或尚未調整這項設定，「<ph name="PRODUCT_NAME" />」就會使用使用者指定的偏好語言代碼 (如果已設定)、系統語言代碼或備用語言代碼「en-US」。</translation>
 <translation id="7651739109954974365">決定是否要為裝置啟用數據漫遊。如果設為 True，就會允許數據漫遊。如未設定或設為 False，就不支援數據漫遊。</translation>
 <translation id="7683777542468165012">動態政策更新</translation>
-<translation id="7690740696284155549">設定 <ph name="PRODUCT_NAME" /> 會用來下載檔案的目錄。
-
-      如果設定這項政策，則不論使用者是否指定政策或啟用每次都要提示下載位置的參數，<ph name="PRODUCT_NAME" /> 都會使用提供的目錄。
-
-      如需可用變數的清單，請參閱 http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables。
-
-      如未設定這項政策，系統會使用預設的下載目錄，使用者之後可以自行變更這個目錄。</translation>
 <translation id="7694807474048279351">在系統已套用 <ph name="PRODUCT_OS_NAME" />更新之後安排自動重新啟動。
 
       如果您將這項政策設為 True，當系統已套用 <ph name="PRODUCT_OS_NAME" />更新且必須重新啟動以完成更新程序時，即會安排自動重新啟動。系統會立即排定重新啟動，但如果使用者正在使用裝置，最多可能會延遲 24 小時才會重新啟動。
@@ -1421,11 +1383,6 @@
 <translation id="8369602308428138533">在 AC 供電環境下執行時的螢幕關閉延遲時間</translation>
 <translation id="8382184662529825177">啟用可用於保護裝置內容的遠端認證機制</translation>
 <translation id="838870586332499308">啟用數據漫遊</translation>
-<translation id="8412286985859522563">設定受管理書籤清單。
-
-      這項政策是由書籤清單所構成，每個書籤都是一組包含書籤「名稱」和指定「網址」的條目。您也可以將書籤設定為資料夾。在這種情況下，請定義資料夾「名稱」，但不要定義「網址」，而且資料夾內容必須定義為另一份書籤清單 (索引鍵為「children」)。如果網址不完整，Chrome 會自動補足 (就像在網址列中輸入不完整的網址時一樣)。舉例來說，「google.com」會變成「http://google.com/」。
-
-      這些書籤位於「受管理書籤」資料夾中，使用者無法修改這類書籤，但可以選擇在書籤列中隱藏這類書籤。系統不會將受管理書籤同步到使用者帳戶，且擴充功能無法修改受管理書籤。</translation>
 <translation id="8412312801707973447">不論線上 OCSP/CRL 檢查是否執行</translation>
 <translation id="8451988835943702790">將新分頁設為首頁</translation>
 <translation id="8465065632133292531">使用 POST 的互動智慧搜尋網址參數</translation>
@@ -1530,13 +1487,6 @@
 <translation id="9112897538922695510">允許您註冊通訊協定處理常式清單 (這是一律建議使用的政策)。屬性 |protocol| 應設定為配置 (例如「mailto」)，而屬性 |url| 則應設定為處理該配置的應用程式的網址模式。模式可包含「%s」(如果有的話，會由受處理的網址取代)。
 
           由政策註冊的通訊協定處理常式會與由使用者註冊的通訊協定處理常式合併，兩者皆可供使用。使用者可以安裝新的預設處理常式來覆寫由政策安裝的通訊協定處理常式，但無法移除由政策註冊的通訊協定處理常式。</translation>
-<translation id="9120299024216374976">指定裝置上所使用的時區。使用者可以為目前工作階段覆寫指定時區；不過登出後，系統將會恢復原本指定的時區。如果提供無效值，系統仍會啟用這項政策，自動套用「GMT」時區設定。若提供空值，則系統會忽視這項政策。
-
-      如果不啟用這項政策，系統雖仍會套用目前作用中的時區，但這時使用者不僅可變更時區，且變更將永久有效；這也意味著某個使用者所做的變更將會影響登入畫面與其他使用者。
-
-      新裝置的出廠預設時區為「美國/太平洋」。
-
-      時區值格式是採用「IANA 時區資料庫」中訂定的時區名稱 (請參閱：http://en.wikipedia.org/wiki/List_of_tz_database_time)。基本上，大部分時區均是依照「洲/大城市」或「洋/大城市」的格式定名。</translation>
 <translation id="913195841488580904">禁止存取清單中的網址</translation>
 <translation id="9135033364005346124">啟用 <ph name="CLOUD_PRINT_NAME" /> Proxy</translation>
 <translation id="9150416707757015439">這項政策已被取代，請改用 IncognitoModeAvailability。在「<ph name="PRODUCT_NAME" />」中啟用無痕模式。如果這項設定已啟用或尚未設定，使用者皆可在無痕模式中開啟網頁。如果這項設定已停用，使用者就無法在無痕模式中開啟網頁。如果未設定這項政策，系統會啟用這項設定，且使用者可以使用無痕模式。</translation>

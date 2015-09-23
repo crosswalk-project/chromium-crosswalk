@@ -600,13 +600,6 @@
           Ja melnā saraksta vērtība ir “*”, visi vietējās ziņojumapmaiņas saimniekdatori ir iekļauti melnajā sarakstā un tiks ielādēti tikai tie vietējās ziņojumapmaiņas saimniekdatori, kas ir iekļauti baltajā sarakstā.
 
           Pēc noklusējuma visi vietējās ziņojumapmaiņas saimniekdatori ir iekļauti baltajā sarakstā, taču, ja saskaņā ar šo politiku visi vietējās ziņojumapmaiņas saimniekdatori ir iekļauti melnajā sarakstā, balto sarakstu var izmantot, lai ignorētu šo politiku.</translation>
-<translation id="3844092002200215574">Tiek konfigurēts direktorijs, kas pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots kešatmiņā saglabāto failu glabāšanai diskā.
-
-      Ja šī politika ir iestatīta, pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots norādītais direktorijs neatkarīgi no tā, vai lietotājs ir norādījis karogu “--disk-cache-dir”.
-
-      Izmantojamo mainīgo sarakstu skatiet šeit: http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Ja šī politika nav iestatīta, tiek lietots noklusējuma kešatmiņas direktorijs un lietotājs to var ignorēt, izmantojot komandrindas karogu “--disk-cache-dir”.</translation>
 <translation id="384743459174066962">Ļauj iestatīt URL rakstu sarakstu, kurā ir norādītas vietnes, kurām nav atļauts atvērt uznirstošos logus.
 
           Ja šī politika nav iestatīta, visām vietnēm tiks izmantota globālā noklusējuma vērtība no politikas DefaultPopupsSetting (ja tā ir iestatīta) vai pretējā gadījumā no lietotāja personīgās konfigurācijas.</translation>
@@ -742,11 +735,6 @@
       Ja šīs politikas vērtība ir “0”, tiks izmantots noklusējuma kešatmiņas lielums, taču lietotājs to nevarēs mainīt.
 
       Ja šī politika nav iestatīta, tiks izmantots noklusējuma kešatmiņas lielums, kuru lietotājs varēs ignorēt, izmantojot atzīmi “--media-cache-size”.</translation>
-<translation id="4507081891926866240">Pielāgo URL rakstu sarakstu, kas vienmēr jārenderē ar <ph name="PRODUCT_FRAME_NAME" />.
-
-          Ja šī politika nav iestatīta, visām vietnēm tiks izmantots politikā ChromeFrameRendererSettings norādītais noklusējuma renderētājs.
-
-          Rakstu piemērus skatiet vietnē: http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Vaicāt ikreiz, kad vietne vēlas izsekot lietotāju fizisko atrašanās vietu</translation>
 <translation id="4519046672992331730">Tiek iespējota meklēšanas ieteikumu rādīšana produkta <ph name="PRODUCT_NAME" /> universālajā lodziņā, un lietotāji nevar mainīt šo iestatījumu.
 
@@ -760,11 +748,6 @@
 <translation id="4525521128313814366">Ļauj iestatīt URL rakstu sarakstu, kurā ir norādītas vietnes, kurām nav atļauts attēlot attēlus.
 
           Ja šī politika nav iestatīta, visām vietnēm tiks izmantota globālā noklusējuma vērtība no politikas DefaultImagesSetting (ja tā ir iestatīta) vai pretējā gadījumā no lietotāja personīgās konfigurācijas.</translation>
-<translation id="4529945827292143461">Pielāgo URL rakstu sarakstu, kas vienmēr jārenderē saimniekdatora pārlūkam.
-
-          Ja šī politika nav iestatīta, visām vietnēm tiks izmantots politikā ChromeFrameRendererSettings norādītais noklusējuma renderētājs.
-
-          Rakstu piemērus skatiet vietnē: http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Ierīces lokālie konti</translation>
 <translation id="4555850956567117258">Iespējo lietotājam attālināto apstiprināšanu.</translation>
 <translation id="4557134566541205630">Jaunas cilnes lapas noklusējuma URL meklēšanas nodrošinātājam</translation>
@@ -888,14 +871,6 @@
 <translation id="5148753489738115745">Ļauj noteikt papildu parametrus, kas tiek lietoti, kad spraudnis <ph name="PRODUCT_FRAME_NAME" /> palaiž pārlūkprogrammu <ph name="PRODUCT_NAME" />.
 
           Ja šī politika nav iestatīta, tiks izmantota noklusējuma komandrinda.</translation>
-<translation id="5170790754648862683">Norādiet sarakstu ar novecojušām tīmekļa platformu funkcijām, kuras ir atkārtoti jāiespējo.
-
-      Ar šo politiku administratori var uz ierobežotu laiku atkārtoti iespējot novecojošu tīmekļa platformu funkcijas. Funkcijas ir norādītas ar virknes tagu, un funkcijas, kuras atbilst šīs politikas noteiktajā sarakstā iekļautajiem tagiem, tiks atkārtoti iespējotas.
-
-      Ja šī politika nav iestatīta, saraksts ir tukšs vai neatbilst kādai no atbalstītajiem virknes tagiem, visas novecojušo tīmekļa platformu funkcijas joprojām būs atspējotas.
-
-      Lai gan pati politika tiek atbalstīta iepriekš minētajās platformās, funkcija, kuru tā iespējo, var nebūt pieejama visās minētajās platformās. Ne visas novecojušo tīmekļa platformu funkcijas var atkārtoti iespējot. Tikai tālāk tieši norādītās funkcijas var atkārtoti iespējot uz noteiktu laiku (katrai funkcijai šis laiks ir atšķirīgs). Virknes taga vispārīgais formāts būs šāds: [NovecojušāsFunkcijasNosaukums]_SpēkāLīdz[ggggmmdd]. Uzziņām varat skatīt tīmekļa platformu funkciju izmaiņu nolūku dokumentu, kas atrodams šeit: http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Tiek konfigurēta pakalpojuma Google disks lietošana operētājsistēmā <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Ļauj norādīt, kurus paplašinājumus nevar ietvert melnajā sarakstā.
 
@@ -1065,13 +1040,6 @@
       Ja <ph name="PRODUCT_NAME" /> nevar iegūt atcelšanas statusa informāciju, šādi sertifikāti tiks uzskatīti par atceltiem (“hard-fail”).
 
       Ja šī politika nav iestatīta vai tai ir iestatīta vērtība Nepatiesa, <ph name="PRODUCT_NAME" /> izmantos esošos tiešsaistes atcelšanas pārbaudes iestatījumus.</translation>
-<translation id="5757829681942414015">Tiek konfigurēts direktorijs, kas pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots lietotāja datu glabāšanai.
-
-      Ja šī politika ir iestatīta, pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots norādītais direktorijs neatkarīgi no tā, vai lietotājs ir norādījis karogu “--user-data-dir”.
-
-      Izmantojamo mainīgo sarakstu skatiet šeit: http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Ja šī politika nav iestatīta, tiek lietots noklusējuma profila ceļš un lietotājs to var ignorēt, izmantojot komandrindas karogu “--user-data-dir”.</translation>
 <translation id="5761030451068906335">Konfigurē pakalpojuma <ph name="PRODUCT_NAME" /> starpniekservera iestatījumus. Šī politika nav vēl gatava lietošanai; nelietojiet to.</translation>
 <translation id="5765780083710877561">Apraksts:</translation>
 <translation id="5770738360657678870">Izstrādātāju versija (var būt nestabila)</translation>
@@ -1354,13 +1322,6 @@
 <translation id="6923366716660828830">Norāda noklusējuma meklētājprogrammas nosaukumu. Ja nekas nav ievadīts vai šī politika nav iestatīta, tiks lietots ar meklēšanas URL norādītais saimniekdatora nosaukums.
 
           Šī politika tiek ievērota tikai tad, ja ir iespējota politika DefaultSearchProviderEnabled.</translation>
-<translation id="6925212669267783763">Tiek konfigurēts direktorijs, kas spraudnī <ph name="PRODUCT_FRAME_NAME" /> tiek izmantots datu glabāšanai.
-
-      Ja šī politika ir iestatīta, spraudnī <ph name="PRODUCT_FRAME_NAME" /> tiek lietots norādītais direktorijs.
-
-      Izmantojamo mainīgo sarakstu skatiet šeit: http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Ja šis iestatījums nav iestatīts, tiek lietots noklusējuma profila direktorijs.</translation>
 <translation id="6931242315485576290">Atspējo datu sinhronizāciju ar Google</translation>
 <translation id="6936894225179401731">Norāda maksimālo vienlaicīgo savienojumu skaitu ar starpniekserveri.
 
@@ -1527,13 +1488,6 @@
       Ja šis iestatījums ir atspējots vai nav iestatīts, <ph name="PRODUCT_NAME" /> lieto lietotāja vēlamo lokalizāciju (ja tā ir konfigurēta), sistēmas lokalizāciju vai atkāpšanās lokalizāciju en-US.</translation>
 <translation id="7651739109954974365">Nosaka, vai datu viesabonēšana ir jāiespējo ierīcei. Ja politika ir iestatīta uz Patiesa, datu viesabonēšana ir atļauta. Ja politika nav konfigurēta vai iestatīta uz Aplama, datu viesabonēšana nav atļauta.</translation>
 <translation id="7683777542468165012">Dinamiskā politikas atsvaidzināšana</translation>
-<translation id="7690740696284155549">Tiek konfigurēts direktorijs, kas pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots failu lejupielādei.
-
-      Ja šī politika ir iestatīta, pārlūkprogrammā <ph name="PRODUCT_NAME" /> tiek lietots norādītais direktorijs neatkarīgi no tā, vai lietotājs ir norādījis direktoriju vai iespējojis karogu, lai ikreiz tiktu pieprasīts norādīt lejupielādes vietu.
-
-      Izmantojamo mainīgo sarakstu skatiet šeit: http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Ja šī politika nav iestatīta, tiek lietots noklusējuma lejupielādes direktorijs un lietotājs to var mainīt.</translation>
 <translation id="7694807474048279351">Plānojiet automātisku atkārtotu palaišanu pēc <ph name="PRODUCT_OS_NAME" /> atjauninājuma piemērošanas.
 
       Ja šī politika ir iestatīta uz “true”, automātiska atkārtota palaišana tiek plānota, kad tiek piemērots <ph name="PRODUCT_OS_NAME" /> atjauninājums un atjaunināšanas pabeigšanai ir nepieciešama atkārtota palaišana. Atkārtota palaišana tiek plānota nekavējoties, taču to var atspējot ierīcē līdz 24 stundām, ja lietotājs attiecīgajā brīdī izmanto ierīci.
@@ -1696,11 +1650,6 @@
 <translation id="8369602308428138533">Aizkave līdz ekrāna izslēgšanai, ja ierīce darbojas ar maiņstrāvu</translation>
 <translation id="8382184662529825177">Iespējot attālās apstiprināšanas lietošanu ierīces satura aizsardzībai</translation>
 <translation id="838870586332499308">Iespējot datu viesabonēšanu</translation>
-<translation id="8412286985859522563">Konfigurē pārvaldītu grāmatzīmju sarakstu.
-
-      Politika ir grāmatzīmju saraksts, savukārt katra grāmatzīme ir vārdnīca, kurā ir ietverta grāmatzīmes vērtība “name” un mērķa vērtība “url”. Grāmatzīmi var arī konfigurēt kā mapi. Tādā gadījumā definējiet mapes vērtību “name”, bet nedefinējiet vērtību “url”. Tā vietā definējiet mapes saturu kā citu grāmatzīmju sarakstu pie atslēgas “children”. Pārlūks Chrome mainīs nepabeigtus URL tā, it kā tie būtu iesniegti, izmantojot universālo lodziņu. Piemēram, “google.com” tiks pārveidots par “http://google.com/”.
-
-      Šīs grāmatzīmes tiek ievietotas mapē “Pārvaldītās grāmatzīmes”, kurā lietotājs nevar veikt izmaiņas, taču var izvēlēties slēpt to no grāmatzīmju joslas. Pārvaldītās grāmatzīmes netiek sinhronizētas ar lietotāja kontu, un paplašinājumi nevar tās mainīt.</translation>
 <translation id="8412312801707973447">Vai tiek veiktas OCSP/CRL pārbaudes tiešsaistē</translation>
 <translation id="8451988835943702790">Jaunas cilnes lapu izmanto kā sākumlapu</translation>
 <translation id="8465065632133292531">Parametri dinamiskās meklēšanas vietrādim URL, kurā izmantota metode POST</translation>
@@ -1830,13 +1779,6 @@ definēts Atvērta tīkla konfigurācijas formātā, kas aprakstīts šeit: <ph 
 <translation id="9112897538922695510">Ļauj reģistrēt protokolu apdarinātāju sarakstu. Šī var būt tikai ieteicama politika. Rekvizītā |protocol| ir jāiestata shēma, piemēram “mailto”, un rekvizītā |url| ir jāiestata tās lietojumprogrammas URL raksts, kura apstrādā shēmu. Parametrā var iekļaut “%s”, kas tiks aizstāts ar apstrādāto URL.
 
           Politikas reģistrētie protokolu apdarinātāji tiek apvienoti ar lietotāja reģistrētajiem, un tie visi ir pieejami lietošanai. Lietotājs var ignorēt politikas instalētos protokolu apdarinātājus, instalējot jaunu noklusējuma apdarinātāju, bet nevar noņemt politikas reģistrētu protokola apdarinātāju.</translation>
-<translation id="9120299024216374976">Tiek norādīts, kāda laika josla tiks izmantota ierīcē. Sesijas laikā lietotāji var ignorēt norādīto laika joslu, tomēr atsakoties tā tiek atiestatīta uz norādīto laika joslu. Šī politika tiek aktivizēta arī tad, ja ir norādīta nederīga vērtība, taču šajā gadījumā tiek izmantots Griničas laiks (GMT). Ja tiek norādīta tukša virkne, politika tiek ignorēta.
-
-      Ja šī politika netiek lietota, joprojām tiek izmantota pašreizējā aktīvā laika josla, taču lietotāji var to mainīt un šīs izmaiņas paliek spēkā. Tas nozīmē, ka izmaiņas, ko veic kāds lietotājs, ietekmē gan pieteikšanās ekrānu, gan visus pārējos lietotājus.
-
-      Jaunās ierīcēs sākotnēji ir iestatīta laika josla “ASV/Klusā okeāna piekrastes laiks”.
-
-      Vērtības formāts tiek rādīts atbilstoši datu bāzē "IANA Time Zone Database" (skatiet vietni http://en.wikipedia.org/wiki/List_of_tz_database_time) norādītajiem laika joslu nosaukumiem. Lielākā daļa laika joslu tiek attēlotas formātā “kontinents/liela_pilsēta” vai “okeāns/liela_pilsēta”.</translation>
 <translation id="913195841488580904">Bloķēt piekļuvi vietrāžu URL sarakstam</translation>
 <translation id="9135033364005346124">Iespējo <ph name="CLOUD_PRINT_NAME" /> starpniekserveri</translation>
 <translation id="9150416707757015439">Šī politika ir izbeigta. Tās vietā lietojiet IncognitoModeAvailability.

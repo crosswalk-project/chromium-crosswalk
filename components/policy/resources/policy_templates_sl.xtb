@@ -605,13 +605,6 @@ napravi konfiguriran tako, da pri samodejni prijavi ni zakasnitve, naprava pa ni
           Vrednost * na seznamu blokiranih pomeni, da so vsi gostitelji izvornega pošiljanja sporočil blokirani in da bodo naloženi samo gostitelji izvornega pošiljanja sporočil, ki so na seznamu dovoljenih.
 
           Na seznamu dovoljenih so privzeto vsi gostitelji izvornega pošiljanja sporočil, vendar če se s pravilnikom vse gostitelje izvornega pošiljanja sporočil uvrsti na seznam blokiranih, se s seznamom dovoljenih lahko ta pravilnik preglasi.</translation>
-<translation id="3844092002200215574">Konfigurira imenik, ki ga bo <ph name="PRODUCT_NAME" /> uporabljal za shranjevanje predpomnjenih datotek na disk.
-
-     Če ta pravilnik nastavite, bo <ph name="PRODUCT_NAME" /> uporabljal navedeni imenik ne glede na to, ali je uporabnik določil zastavico »--disk-cache-dir«.
-
-      Za seznam spremenljivk, ki jih je mogoče uporabiti, glejte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Če tega pravilnika ne nastavite, bo uporabljen privzeti imenik predpomnilnika in uporabnik ga bo lahko preglasil z zastavico »--disk-cache-dir«.</translation>
 <translation id="384743459174066962">Omogoča nastavitev seznama vzorcev URL-jev, s katerim so določena spletna mesta, ki jim ni dovoljeno odpirati pojavnih oken.
 
           Če ta pravilnik ni nastavljen, bo za vsa spletna mesta uporabljena splošna privzeta vrednost iz pravilnika »DefaultPopupsSetting«, kadar je ta nastavljen, ali iz uporabnikove osebne konfiguracije, kadar pravilnik »DefaultImagesSetting« ni nastavljen.</translation>
@@ -747,11 +740,6 @@ Vrednost pravilnika mora vedno biti navedena v sekundah. Vrednosti so navzdol om
 Če je vrednost tega pravilnika nastavljena na 0, bo uporabljena privzeta velikost predpomnilnika, vendar je uporabnik ne bo mogel spremeniti.
 
 Če ta pravilnik ni nastavljen, bo uporabljena privzeta vrednost in jo bo uporabnik lahko preglasil z zastavico »--media-cache-size«.</translation>
-<translation id="4507081891926866240">Prilagaja seznam vzorcev URL-jev, ki jih vedno upodobi <ph name="PRODUCT_FRAME_NAME" />.
-
-          Če ta pravilnik ni nastavljen, bo za vsa spletna mesta uporabljen privzeti upodabljalnik, kot ga določa pravilnik »ChromeFrameRendererSettings«.
-
-          Primere vzorcev si lahko ogledate na http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Vprašaj, ko želi mesto spremljati fizično lokacijo uporabnika</translation>
 <translation id="4519046672992331730">Omogoča predloge za iskanje v naslovni vrstici brskalnika <ph name="PRODUCT_NAME" /> in preprečuje uporabnikom spreminjanje te nastavitve.
 
@@ -765,11 +753,6 @@ Vrednost pravilnika mora vedno biti navedena v sekundah. Vrednosti so navzdol om
 <translation id="4525521128313814366">Omogoča nastavitev seznama vzorcev URL-jev, s katerim so določena spletna mesta, ki jim ni dovoljeno prikazovati slik.
 
           Če ta pravilnik ni nastavljen, bo za vsa spletna mesta uporabljena splošna privzeta vrednost iz pravilnika »DefaultImagesSetting«, kadar je ta nastavljen, ali iz uporabnikove osebne konfiguracije, kadar pravilnik »DefaultImagesSetting« ni nastavljen.</translation>
-<translation id="4529945827292143461">Prilagodi seznam vzorcev URL-jev, ki naj jih vedno upodobi gostiteljski brskalnik.
-
-          Če ta pravilnik ni nastavljen, bo za vsa spletna mesta, določena s pravilnikom »ChromeFrameRendererSettings«, uporabljen privzeti upodabljalnik.
-
-          Primere vzorcev si lahko ogledate na http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Lokalni računi za napravo</translation>
 <translation id="4555850956567117258">Omogoči oddaljeno potrditev za uporabnika</translation>
 <translation id="4557134566541205630">URL novega zavihka s povezavami privzetega iskalnika</translation>
@@ -893,14 +876,6 @@ Vrednost pravilnika mora vedno biti navedena v sekundah. Vrednosti so navzdol om
 <translation id="5148753489738115745">Določite lahko dodatne parametre, ki so uporabljeni, ko <ph name="PRODUCT_FRAME_NAME" /> zažene <ph name="PRODUCT_NAME" />.
 
           Če ta pravilnik ni nastavljen, je uporabljena privzeta ukazna vrstica.</translation>
-<translation id="5170790754648862683">Določanje seznama zastarelih funkcij spletnega okolja za vnovično začasno omogočanje.
-
-      Ta pravilnik skrbnikom omogoča vnovično omogočanje zastarelih funkcij spletnega okolja za omejen čas. Funkcije določajo oznake nizov in funkcije, ki ustrezajo oznakam, vključenim na seznam, ki ga določa ta pravilnik, bodo znova omogočene.
-
-      Če ta pravilnik ni nastavljen ali je seznam prazen oziroma se ne ujema z nobeno od podprtih oznak nizov, bodo ostale vse zastarele funkcije spletnega okolja onemogočene.
-
-      Medtem ko je ta pravilnik podprt v zgornjih okoljih, je funkcija, ki jo omogoča, morda na voljo v manj okoljih. Vseh zastarelih funkcij spletnega okolja ni mogoče znova omogočiti; za omejen čas (različno od funkcije do funkcije) je mogoče samo tiste, ki so izrecno navedene spodaj. Splošna oblika zapisa oznake niza bo [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Če vas zanima referenčno gradivo in namen spremembe funkcij spletnega okolja, obiščite http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurira Google Drive v brskalniku <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Omogoča, da določite, za katere razširitve ne velja seznam prepovedanih.
 
@@ -1068,13 +1043,6 @@ Vrednost pravilnika mora vedno biti navedena v sekundah. Vrednosti so navzdol om
       Če <ph name="PRODUCT_NAME" /> ne more dobiti podatkov o stanju preklica, se taka potrdila obravnavajo kot preklicana (»hard-fail«).
 
       Če ta pravilnik ni nastavljen ali je nastavljen na »false«, bo <ph name="PRODUCT_NAME" /> uporabil obstoječe nastavitve za preverjanje preklica v spletu.</translation>
-<translation id="5757829681942414015">Konfigurira imenik, ki ga bo <ph name="PRODUCT_NAME" /> uporabljal za shranjevanje uporabniških podatkov.
-
-      Če ta pravilnik nastavite, bo <ph name="PRODUCT_NAME" /> uporabljal navedeni imenik ne glede na to, ali je uporabnik določil zastavico »--user-data-dir«.
-
-      Za seznam spremenljivk, ki jih je mogoče uporabiti, glejte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Če tega pravilnika ne nastavite, bo uporabljena pot privzetega profila in uporabnik bo lahko to preglasil z zastavico »--user-data-dir« v ukazni vrstici.</translation>
 <translation id="5761030451068906335">Določi nastavitve proxyja za <ph name="PRODUCT_NAME" />.
 
       Ta pravilnik še ni primeren za uporabo, zato ga ne uporabljajte.</translation>
@@ -1363,13 +1331,6 @@ URL-ji, ki uporabljajo sheme s tega seznama, se ne bodo naložili in dostop do n
 <translation id="6923366716660828830">Določa ime privzetega ponudnika iskanja. Če pravilnik ostane prazen ali če ni nastavljen, bo uporabljeno ime gostitelja, določeno z URL-jem iskanja.
 
           Ta pravilnik velja le, če je omogočen pravilnik »DefaultSearchProviderEnabled«.</translation>
-<translation id="6925212669267783763">Konfigurira imenik, ki ga bo <ph name="PRODUCT_FRAME_NAME" /> uporabljal za shranjevanje uporabniških podatkov.
-
-      Če ta pravilnik nastavite, bo <ph name="PRODUCT_FRAME_NAME" /> uporabil navedeni imenik.
-
-      Za seznam spremenljivk, ki jih je mogoče uporabiti, glejte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Če te nastavitve ne določite, bo uporabljen privzeti imenik profila.</translation>
 <translation id="6931242315485576290">Onemogoči sinhroniziranje podatkov z Googlom</translation>
 <translation id="6936894225179401731">Določa največje število hkratnih povezav v strežnik proxy.
 
@@ -1536,13 +1497,6 @@ URL-ji, ki uporabljajo sheme s tega seznama, se ne bodo naložili in dostop do n
      Če to nastavitev onemogočite ali je ne nastavite, <ph name="PRODUCT_NAME" /> uporabi prednostne območne nastavitve, ki jih izbere uporabnik (če so nastavljene), sistemske območne nastavitve ali rezervne območne nastavitve (»en-US«).</translation>
 <translation id="7651739109954974365">Določa, ali je podatkovno gostovanje za napravo omogočeno. Če je pravilnik omogočen, je podatkovno gostovanje omogočeno. Če ni nastavljen ali je onemogočen, podatkovno gostovanje ni na voljo.</translation>
 <translation id="7683777542468165012">Dinamična osvežitev pravilnika</translation>
-<translation id="7690740696284155549">Konfigurira imenik, ki ga bo <ph name="PRODUCT_NAME" /> uporabljal za prenašanje datotek.
-
-      Če ta pravilnik nastavite, bo <ph name="PRODUCT_NAME" /> uporabljal navedeni imenik ne glede na to, ali ga je uporabnik določil ali omogočil zastavico za vsakokraten poziv za mesto prenosa.
-
-      Za seznam spremenljivk, ki jih je mogoče uporabiti, glejte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Če tega pravilnika ne nastavite, bo uporabljen privzeti imenik s prenosi in uporabnik bo lahko to spremenil.</translation>
 <translation id="7694807474048279351">Načrtovanje samodejnega vnovičnega zagona po namestitvi posodobitve za <ph name="PRODUCT_OS_NAME" />.
 
       Če je ta pravilnik vklopljen, se načrtuje samodejni vnovični zagon, kadar je potreben za dokončanje postopka posodobitve za <ph name="PRODUCT_OS_NAME" />. Samodejni vnovični zagon se v napravi načrtuje za določeno uro, vendar se lahko odloži do 24 ur, če nekdo trenutno uporablja napravo.
@@ -1702,11 +1656,6 @@ URL-ji, ki uporabljajo sheme s tega seznama, se ne bodo naložili in dostop do n
 <translation id="8369602308428138533">Časovni zamik izklopa zaslona, če se napaja iz električnega omrežja</translation>
 <translation id="8382184662529825177">Omogoči uporabo oddaljenega potrjevanja za zaščito vsebine za napravo</translation>
 <translation id="838870586332499308">Omogoči podatkovno gostovanje</translation>
-<translation id="8412286985859522563">Konfigurira seznam upravljanih zaznamkov.
-
-      Pravilnik je seznam zaznamkov, vsak zaznamek pa je slovar, ki vsebuje »ime« zaznamka in ciljni »URL«. Zaznamek je prav tako mogoče konfigurirati kot mapo. V tem primeru določite »ime« mape, vendar ne določite »URL-ja«; vsebino mape določite kot nov seznam zaznamkov pod ključem »podrejeno«. Chrome bo dopolnil nepopolne URL-je, kot bi bili poslani prek iskalne vrstice. Tako »google.com« na primer postane »http://google.com/«.
-
-      Ti zaznamki so dani v upravljano mapo z zaznamki, ki je uporabnik ne more spreminjati, lahko pa izbere, da je na vrstici z zaznamki skrita. Upravljani zaznamki se ne sinhronizirajo z računom uporabnika in razširitve jih ne morejo spreminjati.</translation>
 <translation id="8412312801707973447">Ali se izvaja spletni pregled OCSP/CRL</translation>
 <translation id="8451988835943702790">Uporabi stran za nov zavihek kot domačo stran</translation>
 <translation id="8465065632133292531">Parametri za takojšnji URL, ki uporablja POST</translation>
@@ -1835,13 +1784,6 @@ URL-ji, ki uporabljajo sheme s tega seznama, se ne bodo naložili in dostop do n
 <translation id="9112897538922695510">Omogoča registracijo seznama rutin za obravnavo protokolov. Ta pravilnik je lahko samo priporočen. Lastnost |protocol| mora biti nastavljena na shemo, kot je »mailto«, in lastnost |url| mora biti nastavljena na vzorec URL aplikacije, ki obravnava shemo. Vzorec lahko vsebuje »%s«. Če ga, ta nadomesti obravnavani URL.
 
           Rutine za obravnavo protokola, registrirane s pravilnikom, so združene z rutinami, ki jih registrira uporabnik, oboje pa je na voljo za uporabo. Uporabnik lahko preglasi rutine za obravnavo protokola, nameščene s pravilnikom, tako da namesti novo privzeto rutino za obravnavo protokola, vendar ne more odstraniti rutine za obravnavo protokola, registrirane s pravilnikom.</translation>
-<translation id="9120299024216374976">Določi časovni pas za napravo. Uporabniki lahko določeni časovni pas za trenutno sejo preglasijo. Pri odjavi je spet nastavljen določeni časovni pas. Če je vnesena neveljavna vrednost, je pravilnik kljub temu aktiviran s časovnim pasom »GMT«. Če je vnesen prazen niz, je pravilnik prezrt.
-
-      Če ta pravilnik ni uporabljen, se uporablja trenutno aktivni časovni pas. Če uporabniki spremenijo časovni pas, je sprememba vidna povsod. Sprememba časovnega pasu zato vpliva na zaslon za prijavo in na vse druge uporabnike.
-
-      Nove naprave imajo na začetku nastavljen časovni pas »ameriški/tihomorski«.
-
-      Oblika vrednosti je v skladu z imeni časovnih pasov v zbirki podatkov o časovnih pasovih IANA (glejte »http://en.wikipedia.org/wiki/List_of_tz_database_time«). Veliko časovnih pasov je mogoče navesti kot »celina/vele_mesto« ali »ocean/vele_mesto«.</translation>
 <translation id="913195841488580904">Blokiranje dostopa do seznama spletnih naslovov</translation>
 <translation id="9135033364005346124">Omogoči proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Ta pravilnik je zastarel. Uporabite pravilnik »IncognitoModeAvailability«.

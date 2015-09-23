@@ -419,7 +419,7 @@
 
       Vaikimisi ei saa laiendus ettevõttes kasutamiseks määratud võtit kasutada. See on sama mis laienduse puhul seade allowCorporateKeyUsage määramine väärtusele Väär.
 
-      Ainult siis, kui seade allowCorporateKeyUsage on laienduse puhul määratud väärtusele Tõene, saab see ettevõttes kasutamiseks määratud mis tahes platvormivõtit kasutada mis tahes andmete allkirjastamiseks. See luba tuleks anda vaid siis, kui laienduse juurdepääs võtmele on usaldusväärne ja ründajate eest kaitstud.</translation>
+      Ainult siis, kui seade allowCorporateKeyUsage on laienduse puhul määratud väärtusele Tõene, saab laiendus ettevõttes kasutamiseks määratud mis tahes platvormivõtit kasutada mis tahes andmete allkirjastamiseks. See luba tuleks anda vaid siis, kui laienduse juurdepääs võtmele on usaldusväärne ja ründajate eest kaitstud.</translation>
 <translation id="2824715612115726353">Luba inkognitorežiim</translation>
 <translation id="285480231336205327">Luba kõrge kontrastiga režiim</translation>
 <translation id="2872961005593481000">Lülita välja</translation>
@@ -587,13 +587,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
           Musta nimekirja väärtus * tähendab, et kõik omasõnumside hostid on mustas nimekirjas ja laaditakse ainult lubatud üksuste loendisse lisatud omasõnumside hostid.
 
           Vaikimisi on kõik omasõnumside hostid lubatud üksuste loendis, kui aga reegli kohaselt on kõik omasõnumside hostid mustas nimekirjas, siis saab kasutada lubatud üksuste loendit selle reegli alistamiseks.</translation>
-<translation id="3844092002200215574">Seadistab kataloogi, mida <ph name="PRODUCT_NAME" /> kasutab vahemälus olevate failide kettale salvestamiseks.
-
-      Kui selle reegli määrate, kasutab <ph name="PRODUCT_NAME" /> antud kataloogi olenemata sellest, kas kasutaja on märgistuse „--disk-cache-dir” määranud või mitte.
-
-      Saidilt http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables leiate loendi muutujatest, mida saab kasutada.
-
-      Kui seda reeglit ei määrata, kasutatakse vahemälu vaikekataloogi ja kasutaja saab selle käsurea märgistusega „--disk-cache-dir” alistada.</translation>
 <translation id="384743459174066962">Võimaldab määrata URL-i mustrite loendi, mis määrab saidid, millel ei ole lubatud hüpikuid avada.
 
           Kui jätate selle reegli määramata, siis kasutatakse kõikide saitide puhul globaalset vaikeväärtust, mis pärineb reeglist „DefaultPopupsSetting”, kui see on määratud, või kasutaja isiklikku konfigureerimist.</translation>
@@ -729,11 +722,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
       Kui reegli väärtus on 0, siis kasutatakse vahemälu vaikemahtu, kuid kasutaja ei saa seda muuta.
 
       Kui reeglit pole määratud, siis kasutatakse vaikemahtu ja kasutaja saab selle alistada märgendiga --meedia-vahemälu-maht.</translation>
-<translation id="4507081891926866240">Kohandage loendit URL-i mustritest, mida renderdab alati rakendus <ph name="PRODUCT_FRAME_NAME" />.
-
-          Kui jätate selle reegli määramata, siis kasutatakse kõikide saitide puhul vaikerenderdajat, mis on määratud reegliga „ChromeFrameRendererSettings”.
-
-          Vaadake näidismustreid aadressilt http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Küsi iga kord, kui sait tahab jälgida kasutajate füüsilist asukohta</translation>
 <translation id="4519046672992331730">Lubab otsingusoovitused rakenduse <ph name="PRODUCT_NAME" /> omnikastikeses ja takistab kasutajatel seade muutmist.
 
@@ -747,11 +735,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="4525521128313814366">Võimaldab määrata URL-i mustrite loendi, mis määrab saidid, millel ei ole lubatud kujutisi kuvada.
 
           Kui jätate selle reegli määramata, siis kasutatakse kõikide saitide puhul globaalset vaikeväärtust, mis pärineb reeglist „DefaultImagesSetting”, kui see on määratud, või kasutaja isiklikku konfigureerimist.</translation>
-<translation id="4529945827292143461">Kohandage URL-i mustrite loend, mille peab alati renderdama hostbrauser.
-
-          Kui seda reeglit ei määrata, siis kasutatakse kõikide saitide puhul vaikerenderdajat, mis on määratud reegliga „ChromeFrameRendererSettings”.
-
-          Vaadake näidismustreid aadressilt http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Seadmepõhised kontod</translation>
 <translation id="4555850956567117258">Kasutajale kaugatesteerimise lubamine</translation>
 <translation id="4557134566541205630">Otsingupakkuja uue vahelehe vaike-URL</translation>
@@ -875,14 +858,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="5148753489738115745">Võimaldab teil määrata täiendavad parameetrid, mida kasutatakse siis, kui <ph name="PRODUCT_FRAME_NAME" /> käivitab rakenduse <ph name="PRODUCT_NAME" />.
 
           Kui jätate eeskirjad määramata, siis kasutatakse vaikekäsurida.</translation>
-<translation id="5170790754648862683">Määrake loend iganenud veebiplatvormi funktsioonide kohta, mis tuleb ajutiselt uuesti lubada.
-
-      See reegel võimaldab administraatoritel piiratud ajaks uuesti lubada iganenud veebiplatvormide funktsioonid. Funktsioonid tuvastatakse stringimärgenditega ja märgenditele vastavad funktsioonid, mis on lisatud selle reegliga määratud loendisse, lubatakse uuesti.
-
-      Kui seda reeglit ei määrata või on loend tühi või ei ole vastavuses ühegi toetatud stringimärgendiga, siis jäävad kõik iganenud veebiplatvormi funktsioonid keelatuks.
-
-      Reegel on küll toetatud ülalnimetatud platvormidel, kuid lubatud funktsioon ei pruugi olla saadaval kõikidel platvormidel. Kõiki iganenud veebiplatvormi funktsioone ei saa uuesti lubada. Piiatud ajaks saab lubada ainult allnimetatud funktsioone ja iga funktsiooni ajalimiit on erinev. Stringimärgendi üldine vorming on [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Veebiplatvormi funktsiooni muudatuste eesmärgi kohta leiate lisateavet aadressil http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Google Drive'i seadistamine teenuses <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Võimaldab määrata, millised laiendused ei kuulu musta nimekirja. Musta nimekirja väärtus * tähendab, et kõik laiendused on mustas nimekirjas ja kasutajad saavad installida vaid lubatud nimekirjas olevaid laiendusi. Vaikimisi on kõik laiendused lubatud nimekirjas, kuid kui kõik laiendused on reegliga musta nimekirja kantud, saab lubatud nimekirjaga seda reeglit alistada.</translation>
 <translation id="5192837635164433517">Lubab alternatiivsed vealehed, mis on rakendusse <ph name="PRODUCT_NAME" /> sisse ehitatud (näiteks teade „lehte ei leitud”), ja takistab kasutajatel seade muutmist.
@@ -1048,13 +1023,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
       Kui toode <ph name="PRODUCT_NAME" /> ei saa tühistamise oleku teavet hankida, siis käideldakse selliseid sertifikaate tühistatutena („hard-fail”).
 
       Kui seda reeglit pole määratud või on selle olekuks määratud Väär, siis kasutab <ph name="PRODUCT_NAME" /> olemasolevaid tühistamise kontrollimise veebiseadeid.</translation>
-<translation id="5757829681942414015">Seadistab kataloogi, mida <ph name="PRODUCT_NAME" /> kasutab kasutajate andmete salvestamiseks.
-
-      Kui selle reegli määrate, kasutab <ph name="PRODUCT_NAME" /> antud kataloogi olenemata sellest, kas kasutaja on märgistuse „--user-data-dir” määranud või mitte.
-
-      Saidilt http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables leiate loendi muutujatest, mida saab kasutada.
-
-      Kui seda reeglit ei määrata, kasutatakse profiili vaiketeed ja kasutaja saab selle käsurea märgistusega „--user-data-dir” alistada.</translation>
 <translation id="5761030451068906335">Seadistab rakenduse <ph name="PRODUCT_NAME" /> puhverserveri seaded. See reegel ei ole veel valmis, seetõttu ärge kasutage seda.</translation>
 <translation id="5765780083710877561">Kirjeldus:</translation>
 <translation id="5770738360657678870">Arendaja kanal (võib olla ebastabiilne)</translation>
@@ -1341,13 +1309,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="6923366716660828830">Määrab vaikeotsingupakkuja nime. Kui see jäetakse tühjaks või määramata, siis kasutatakse otsingu URL-i määratud hosti nime.
 
           See reegel kehtib vaid juhul, kui reegel „DefaultSearchProviderEnabled” on lubatud.</translation>
-<translation id="6925212669267783763">Seadistab kataloogi, mida <ph name="PRODUCT_FRAME_NAME" /> kasutab kasutajate andmete salvestamiseks.
-
-      Kui selle reegli määrate, kasutab teenus <ph name="PRODUCT_FRAME_NAME" /> antud kataloogi.
-
-      Saidilt http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables leiate loendi muutujatest, mida saate kasutada.
-
-      Kui seda seadet ei määrata, kasutatakse profiili vaikekataloogi.</translation>
 <translation id="6931242315485576290">Keela andmete sünkroonimine Google'iga</translation>
 <translation id="6936894225179401731">Määrab puhverserveri samaaegsete ühenduste maksimumarvu.
 
@@ -1508,13 +1469,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
       Kui keelate seade või jätate selle määramata, kasutab rakendus <ph name="PRODUCT_NAME" /> kasutaja määratud eelistatud lokaati (kui see on seadistatud), süsteemi lokaati või varulokaati „en-US”.</translation>
 <translation id="7651739109954974365">Määrab, kas seadmes on andmeside rändlusteenus lubatud. Selle reegli aktiveerimisel on andmeside rändlusteenus lubatud. Kui jätate selle reegli seadistamata või keelate, siis ei ole andmeside rändlusteenus saadaval.</translation>
 <translation id="7683777542468165012">Dünaamiline reeglivärskendus</translation>
-<translation id="7690740696284155549">Seadistab kataloogi, mida <ph name="PRODUCT_NAME" /> kasutab failide allalaadimiseks.
-
-      Kui selle reegli määrate, kasutab <ph name="PRODUCT_NAME" /> antud kataloogi olenemata sellest, kas kasutaja on selle määranud või lubanud allalaadimise asukoha valimisel iga kord märgistuse esitamise.
-
-      Saidilt http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables leiate loendi muutujatest, mida saab kasutada.
-
-      Kui seda reeglit ei määrata, kasutatakse allalaadimise vaikekataloogi ja kasutaja saab seda muuta.</translation>
 <translation id="7694807474048279351">Toote <ph name="PRODUCT_OS_NAME" /> värskenduse rakendamise järgse automaatse taaskäivitamise ajastamine.
 
       Kui reegel on seatud väärtusele Tõene, ajastatakse pärast toote <ph name="PRODUCT_OS_NAME" /> värskenduse rakendamist automaatne taaskäivitus, kui taaskäivitus on värskendustoimingu lõpuleviimiseks vajalik. Taaskäivitus ajastatakse kohe, kuid võib viibida kuni 24 tundi, kui kasutaja parajasti seadet kasutab.
@@ -1675,11 +1629,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="8369602308428138533">Ekraani väljalülitamise viiteaeg võrgutoite kasutamisel</translation>
 <translation id="8382184662529825177">Kaugatesteerimise lubamine seadme sisu kaitsmiseks</translation>
 <translation id="838870586332499308">Luba andmeside rändlusteenus</translation>
-<translation id="8412286985859522563">Seadistab hallatud järjehoidjate loendi.
-
-      Reegel on järjehoidjate loend, kus iga järjehoidja on sõnastik, mis sisaldab järjehoidja nime ja sihitud URL-i. Järjehoidja saab seadistada ka kaustana. Sellisel juhul määrake kausta nimi, kuid ärge määrake URL-i. Selle asemel määrake kausta sisu võtme „Tütarüksused” all teise järjehoidjate loendina. Chrome parandab poolikud URL-id, nagu need oleks esitatud omnikastikese kaudu. Näiteks URL „google.com” muudetakse URL-iks „http://google.com/”.
-
-      Need järjehoidjad asetatakse kausta Hallatud järjehoidjad, mida kasutaja ei saa muuta, kuid kasutaja saab selle soovi korral järjehoidjate ribal peita. Hallatud järjehoidjaid ei sünkroonita kasutaja kontoga ja laiendused ei saa neid muuta.</translation>
 <translation id="8412312801707973447">Kontrolli võrgus OCSP-d/CRL-i</translation>
 <translation id="8451988835943702790">Kasuta avalehena Uut vahelehte</translation>
 <translation id="8465065632133292531">Parameetrid Instant-URL-i jaoks, mis kasutab POST-meetodit</translation>
@@ -1800,13 +1749,6 @@ Kui jätate reegli määramata või keelate selle, siis kasutatakse kirjete jaga
 <translation id="9112897538922695510">Lubab teil registreerida protokollitöötlejate loendi. See saab olla ainult soovitatud reegel. Atribuut |protocol| tuleb määrata skeemile (nagu „mailto”) ja atribuut |url| tuleb määrata skeemi käsitleva rakenduse URL-i mustrile. Muster võib sisaldada märgendit „%s”, mis asendatakse sellisel juhul käsitletava URL-iga.
 
           Reegliga registreeritud protokollitöötlejad liidetakse kasutaja registreeritud töötlejatega ja mõlemad on kasutamiseks saadaval. Kasutajad saavad alistada reegliga installitud protokollitöötlejad, kui installivad uue vaiketöötleja, kuid nad ei saa eemaldada reegliga registreeritud protokollitöötlejat.</translation>
-<translation id="9120299024216374976">Määrab seadmes kasutatava ajavööndi. Kasutajad saavad käimasoleva seansi puhul määratud ajavööndi alistada. Väljalogimisel aga määratakse see tagasi määratud ajavööndile. Kui esitatakse kehtetu väärtus, aktiveeritakse reegel siiski „GMT” abil. Kui esitatakse tühi string, eiratakse reeglit.
-
-      Kui seda reeglit ei kasutata, jääb kasutusse praegu aktiivne ajavöönd, kuid kasutajad saavad seda muuta ja muudatus jääb kehtima. Seega mõjutab ühe kasutaja tehtud muudatus sisselogimisekraani ja kõiki teisi kasutajaid.
-
-      Uute seadmete puhul on ajavööndiks „USA / Vaikse ookeani aeg”.
-
-      Väärtuse vorming järgneb ajavööndite nimedele loendis „IANA ajavööndite andmebaas” (vt saiti „http://en.wikipedia.org/wiki/List_of_tz_database_time”). Täpsemalt saab enamikule ajavöönditele viidata märksõnadega „kontinent/suur_linn” või „ookean/suur_linn".</translation>
 <translation id="913195841488580904">URL-ide loendile juurdepääsu blokeerimine</translation>
 <translation id="9135033364005346124">Teenuse <ph name="CLOUD_PRINT_NAME" /> puhverserveri lubamine</translation>
 <translation id="9150416707757015439">Reegel on aegunud. Kasutage selle asemel reeglit IncognitoModeAvailability.

@@ -532,13 +532,6 @@
           O valoare * în lista neagră înseamnă că toate gazdele de mesagerie nativă sunt trecute în lista neagră și că numai gazdele de mesagerie nativă trecute în lista albă se vor încărca.
 
           În mod prestabilit, toate gazdele de mesagerie nativă sunt trecute în lista albă, dar dacă toate gazdele de mesagerie nativă au fost trecute în lista neagră prin această politică, lista albă poate fi folosită pentru a înlocui politica.</translation>
-<translation id="3844092002200215574">Configurează directorul pe care <ph name="PRODUCT_NAME" /> îl va utiliza pentru a stoca pe disc fișierele memorate în cache.
-
-      Dacă setați această politică, <ph name="PRODUCT_NAME" /> va utiliza directorul furnizat, indiferent dacă utilizatorul a specificat sau nu semnalizatorul „--disk-cache-dir”.
-
-      Pentru o listă a variabilelor care pot fi utilizate, accesați http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Dacă această politică nu este setată, va fi utilizat directorul prestabilit pentru memoria cache, dar utilizatorul îl va putea suprascrie folosind semnalizatorul de linie de comandă „--disk-cache-dir”.</translation>
 <translation id="384743459174066962">Vă permite să setați o listă de modele pentru adresele URL care specifică site-urile ce nu au permisiunea să deschidă ferestre de tip pop-up. Dacă această politică este lăsată nesetată, va fi utilizată valoarea prestabilită la nivel global pentru toate site-urile, fie din politica „DefaultPopupsSetting”, în cazul în care aceasta este setată, fie din configurația personală a utilizatorului, în caz contrar.</translation>
 <translation id="3859780406608282662">Adăugați un parametru la preluarea valorii inițiale Variante din <ph name="PRODUCT_OS_NAME" />.
 
@@ -637,7 +630,6 @@
       Dacă valoarea pentru această politică este 0, se va utiliza dimensiunea prestabilită a memoriei cache, dar utilizatorul nu o va putea modifica.
 
       Dacă această politică nu este setată, se va utiliza dimensiunea prestabilită, iar utilizatorul o va putea modifica folosind parametrul --media-cache-size.</translation>
-<translation id="4507081891926866240">Personalizați lista cu modele pentru adresele URL care trebuie redate întotdeauna de <ph name="PRODUCT_FRAME_NAME" />. Dacă această politică nu este setată, va fi utilizat programul de redare prestabilit pentru toate site-urile, așa cum se specifică în politica „ChromeFrameRendererSettings”. Pentru exemple de modele, consultați http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Notifică-mă dacă un site încearcă să urmărească locația fizică a utilizatorilor</translation>
 <translation id="4519046672992331730">Activează sugestiile de căutare în caseta polivalentă din <ph name="PRODUCT_NAME" /> și împiedică modificarea acestei setări de către utilizatori.
 
@@ -649,7 +641,6 @@
 
       Dacă această politică nu este setată, această setare va fi activată, dar utilizatorul va putea să o schimbe.</translation>
 <translation id="4525521128313814366">Vă permite să setați o listă de modele pentru adresele URL ce specifică site-urile care nu au permisiunea de a afișa imagini. Dacă această politică rămâne nesetată, valoarea prestabilită la nivel global va fi folosită pentru toate site-urile, fie din politica „DefaultImagesSetting”, în cazul în care politica este setată, fie din configurația personală a utilizatorului, în caz contrar.</translation>
-<translation id="4529945827292143461">Personalizați lista cu modele pentru adresele URL care trebuie să fie întotdeauna afișate de browserul gazdă. Dacă această politică nu este setată, programul de redare prestabilit va fi folosit pentru toate site-urile așa cum se specifică în politica „ChromeFrameRendererSettings”. Pentru exemple de modele, accesați http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Conturi locale de pe gadget</translation>
 <translation id="4555850956567117258">Activați atestarea la distanță pentru utilizator</translation>
 <translation id="4557134566541205630">Adresa URL pentru pagina Filă nouă a furnizorului de căutare prestabilit</translation>
@@ -759,14 +750,6 @@
 <translation id="5148753489738115745">Vă permite să specificați parametri suplimentari, care vor fi utilizați atunci când <ph name="PRODUCT_FRAME_NAME" /> lansează <ph name="PRODUCT_NAME" />.
 
           Dacă această politică nu este setată, va fi utilizată linia de comandă prestabilită.</translation>
-<translation id="5170790754648862683">Specifică o listă a funcțiilor învechite ale platformei web care pot fi reactivate temporar.
-
-      Această politică oferă administratorilor posibilitatea de a reactiva funcții învechite ale platformei web, pentru o perioadă limitată. Funcțiile sunt identificate printr-o etichetă de tip șir de caractere, iar funcțiile care corespund etichetelor incluse în lista specificată de această politică vor fi reactivate.
-
-      Dacă politica nu este configurată sau dacă lista este goală ori nu se potrivește cu una dintre etichetele de tip șir de caractere acceptate, toate funcțiile învechite ale platformei web vor rămâne neactivate.
-
-      Deși politica în sine este acceptată pe platformele de mai sus, funcția pe care o activează poate fi disponibilă pe mai puține platforme. Nu toate funcțiile învechite ale platformei web pot fi reactivate. Numai cele specificate mai jos pot fi reactivate, pentru o perioadă limitată, aceasta variind de la o funcție la alta. Formatul general al etichetei de tip șir de caractere va fi [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Ca referință, poți să te informezi despre scopul modificărilor privind funcțiile platformei web la http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configurați Google Drive în <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Îți permite să specifici ce extensii nu sunt pasibile să apară pe lista neagră.
 
@@ -917,13 +900,6 @@
       Dacă <ph name="PRODUCT_NAME" /> nu poate obține informații despre starea revocării, certificatele de acest fel vor fi considerate revocate („blocate”).
 
       Dacă politica nu este configurată sau nu este activată, <ph name="PRODUCT_NAME" /> va folosi setările existente pentru verificarea revocărilor online.</translation>
-<translation id="5757829681942414015">Configurează directorul pe care <ph name="PRODUCT_NAME" /> îl va utiliza pentru stocarea datelor de utilizator.
-
-      Dacă setați această politică, <ph name="PRODUCT_NAME" /> va utiliza directorul furnizat indiferent dacă utilizatorul a specificat sau nu semnalizatorul „--user-data-dir”.
-
-      Pentru o listă a variabilelor care pot fi utilizate, accesați http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Dacă această politică nu este setată, va fi utilizată calea prestabilită pentru profil, iar utilizatorul va putea să o suprascrie cu semnalizatorul de linie de comandă „--user-data-dir”.</translation>
 <translation id="5761030451068906335">Configurează setările de proxy pentru <ph name="PRODUCT_NAME" />. Această politică nu este gata pentru utilizare încă, deci vă rugăm să nu o utilizați.</translation>
 <translation id="5765780083710877561">Descriere:</translation>
 <translation id="5770738360657678870">Canalul pentru dezvoltatori (poate fi instabil)</translation>
@@ -1154,13 +1130,6 @@
 
           Dacă această politică nu este configurată, feedbackul vocal este inițial dezactivat, dar poate fi activat oricând de utilizator.</translation>
 <translation id="6923366716660828830">Specifică numele furnizorului de căutare prestabilit. Dacă nu este completată sau este nesetată, va fi utilizat numele de gazdă specificat de adresa URL de căutare. Această politică este luată în considerare numai în cazul în care este activată politica „DefaultSearchProviderEnabled”.</translation>
-<translation id="6925212669267783763">Configurează directorul pe care <ph name="PRODUCT_FRAME_NAME" /> îl va utiliza pentru stocarea datelor de utilizator.
-
-      Dacă setați această politică, <ph name="PRODUCT_FRAME_NAME" /> va utiliza directorul furnizat.
-
-      Pentru o listă a variabilelor care pot fi utilizate, accesați http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Dacă această setare nu este configurată, va fi utilizat directorul profilului prestabilit.</translation>
 <translation id="6931242315485576290">Dezactivează sincronizarea datelor cu Google</translation>
 <translation id="6936894225179401731">Specifică numărul maxim de conexiuni simultane la serverul proxy.
 
@@ -1293,13 +1262,6 @@
 <translation id="7635471475589566552">Configurează limba aplicației din <ph name="PRODUCT_NAME" /> și împiedică modificarea limbii de către utilizatori. Dacă activați această setare, <ph name="PRODUCT_NAME" /> utilizează limba indicată. Dacă limba configurată nu este acceptată, este utilizată „en-US”. Dacă această setare este dezactivată sau nu este configurată, <ph name="PRODUCT_NAME" /> utilizează limba preferată specificată de utilizator (dacă este configurată), limba sistemului sau limba „en-US” alternativă.</translation>
 <translation id="7651739109954974365">Această politică stabilește dacă roamingul de date trebuie să fie activat pentru dispozitiv. Dacă această politică este activată, roamingul de date este permis. Dacă politica nu este configurată sau este neactivată, roamingul de date nu va fi disponibil.</translation>
 <translation id="7683777542468165012">Actualizează politica dinamică</translation>
-<translation id="7690740696284155549">Configurează directorul pe care <ph name="PRODUCT_NAME" /> îl va utiliza pentru descărcarea fișierelor.
-
-      Dacă setați această politică, <ph name="PRODUCT_NAME" /> va folosi directorul furnizat, indiferent dacă utilizatorul a specificat unul sau a activat opțiunea de a fi întrebat de fiecare dată în privința locației descărcării.
-
-      Pentru o listă a variabilelor care pot fi utilizate, accesați http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Dacă această politică este lăsată nesetată, va fi utilizat directorul prestabilit pentru descărcare, dar utilizatorul îl va putea schimba.</translation>
 <translation id="7694807474048279351">Programați o repornire automată după aplicarea unei actualizări <ph name="PRODUCT_OS_NAME" />.
 
       Dacă această politică este activată, se programează o repornire automată după aplicarea unei actualizări <ph name="PRODUCT_OS_NAME" /> și repornirea este obligatorie pentru a finaliza procesul de instalare. Repornirea este programată imediat, dar poate fi amânată pe dispozitiv cu până la 24 de ore dacă dispozitivul este folosit în acel moment de un utilizator.
@@ -1441,11 +1403,6 @@
 <translation id="8369602308428138533">Interval până la oprirea ecranului la funcționarea pe c.a.</translation>
 <translation id="8382184662529825177">Permiteți utilizarea atestării la distanță pentru protejarea conținutului pe dispozitiv</translation>
 <translation id="838870586332499308">Activează roamingul de date</translation>
-<translation id="8412286985859522563">Configurează o listă cu marcaje gestionate.
-
-      Politica este o listă de marcaje, iar fiecare marcaj este un dicționar care conține „numele” marcajului și „adresa URL” țintă. Un marcaj poate fi configurat și ca un dosar. În acest caz, definește „numele” dosarului, dar nu defini o „adresă URL”; în schimb, definește conținutul dosarului ca o altă listă de marcaje sub cheia „copil”. Chrome va modifica adresele URL incomplete ca și cum ar fi trimise prin caseta polivalentă. De exemplu, „google.com” devine „http://google.com/”.
-
-      Aceste marcaje sunt plasate într-un dosar Marcaje gestionate care nu poate fi modificat de utilizator, dar acesta poate alege să îl ascundă din bara de marcaje. Marcajele gestionate nu sunt sincronizate cu contul utilizatorului și nu pot fi modificate de extensii.</translation>
 <translation id="8412312801707973447">Această politică stabilește dacă sunt efectuate verificări OCSP/CRL online</translation>
 <translation id="8451988835943702790">Utilizează pagina Filă nouă ca pagină de pornire</translation>
 <translation id="8465065632133292531">Parametrii pentru adresa URL a căutării instant care utilizează POST</translation>
@@ -1558,13 +1515,6 @@
 <translation id="9112897538922695510">Vă permite să înregistrați o listă de handlere de protocol. Aceasta poate fi doar o politică recomandată. Valoarea proprietății |protocol| trebuie setată la o schemă ca „mailto”, iar valoarea proprietății |url| trebuie setată la șablonul adresei URL al aplicației care gestionează schema. Șablonul poate include „%s”, care, dacă este prezent, va fi înlocuit cu adresa URL gestionată.
 
           Handlerele de protocol înregistrate de politică sunt combinate cu cele înregistrate de utilizator și ambele sunt disponibile pentru a fi utilizate. Utilizatorul poate înlocui handlerele de protocol instalate de politică instalând un nou handler prestabilit, dar nu poate elimina un handler de protocol înregistrat de politică.</translation>
-<translation id="9120299024216374976">Specifică fusul orar de utilizat pentru dispozitiv. Utilizatorii pot schimba fusul orar specificat pentru sesiunea actuală. Cu toate acestea, la deconectare, setarea revine la fusul orar specificat. Dacă se indică o valoare incorectă, politica este activată utilizând în schimb fusul orar „GMT”. Dacă este specificat un șir gol, politica este ignorată.
-
-      Dacă nu se utilizează această politică, se va utiliza în continuare fusul orar activ la momentul respectiv. Totuși, utilizatorii pot modifica fusul orar și se va păstra această schimbare. Prin urmare, schimbarea făcută de un utilizator afectează ecranul de conectare și pe toți ceilalți utilizatori.
-
-      Dispozitivele noi pornesc cu fusul orar setat la „SUA/Pacific”.
-
-      Formatul valorii respectă denumirile fusurilor orare din „Baza de date de fusuri orare IANA” (accesați „http://en.wikipedia.org/wiki/List_of_tz_database_time”). Mai exact, majoritatea fusurilor orare sunt denumite după „continent/oraș_mare” sau „ocean/oraș_mare”.</translation>
 <translation id="913195841488580904">Blocați accesul la o listă de adrese URL</translation>
 <translation id="9135033364005346124">Activează proxy-ul <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Această politică este învechită. Puteți să utilizați IncognitoModeAvailability. Activați modul incognito în <ph name="PRODUCT_NAME" />. Dacă această setare este activată sau nu este configurată, utilizatorii pot deschide pagini web în modul incognito. Dacă această setare este dezactivată, utilizatorii nu pot deschide pagini web în modul incognito. Dacă această politică rămâne nesetată, setarea va fi activată, dar utilizatorul va putea folosi modul incognito.</translation>

@@ -517,13 +517,6 @@ Falls die Richtlinie auf "false" gesetzt oder nicht festgelegt wird, treten bei 
           Der Wert "*" für die schwarze Liste bedeutet, dass alle Hosts für natives Messaging in die schwarze Liste aufgenommen werden und dass nur Hosts für natives Messaging geladen werden, die auf der weißen Liste stehen.
 
           Standardmäßig stehen alle Hosts für natives Messaging auf der weißen Liste. Wenn jedoch alle Hosts für natives Messaging durch eine Richtlinie zur schwarzen Liste hinzugefügt wurden, kann diese Richtlinie mithilfe der weißen Liste außer Kraft gesetzt werden.</translation>
-<translation id="3844092002200215574">Konfiguriert das Verzeichnis, in dem <ph name="PRODUCT_NAME" /> Dateien aus dem Cache auf der Festplatte speichert.
-
-      Wenn Sie diese Richtlinie festlegen, verwendet <ph name="PRODUCT_NAME" /> das angegebene Verzeichnis unabhängig davon, ob der Nutzer die Markierung "--disk-cache-dir" festgelegt hat.
-
-      Unter "http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables" finden Sie eine Liste der Variablen, die verwendet werden können.
-
-      Bleibt diese Richtlinie unkonfiguriert, wird das Cache-Standardverzeichnis verwendet. Dieses kann dann vom Nutzer mit der Befehlszeilenmarkierung "--disk-cache-dir" überschrieben werden.</translation>
 <translation id="384743459174066962">Ermöglicht Ihnen die Zusammenstellung einer Liste mit URL-Mustern, die Websites angeben, denen das Öffnen von Pop-ups nicht gestattet ist. Wenn diese Richtlinie nicht konfiguriert ist, kommt für alle Websites der globale Standardwert der Richtlinie "DefaultPopupsSetting", sofern konfiguriert, oder der persönlichen Konfiguration des Nutzers zum Einsatz.</translation>
 <translation id="3859780406608282662">Fügt einen Parameter für den Abruf des Varianten-Seeds in <ph name="PRODUCT_OS_NAME" /> hinzu.
 
@@ -622,7 +615,6 @@ Falls die Richtlinie nicht festgelegt wird, bleibt die Varianten-Seed-URL unver�
       Wenn der Wert dieser Richtlinie 0 beträgt, wird die Standard-Cache-Größe verwendet. Der Nutzer kann diese jedoch nicht ändern.
 
       Wird diese Richtlinie nicht festgelegt, wird die Standardgröße verwendet und der Nutzer kann diese mit dem Parameter "--media-cache-size" überschreiben.</translation>
-<translation id="4507081891926866240">Passt die Liste mit URL-Mustern an, die immer von <ph name="PRODUCT_FRAME_NAME" /> gerendert werden müssen. Wenn diese Richtlinie nicht konfiguriert ist, kommt der über die Richtlinie "ChromeFrameRendererSettings" festgelegte Standard-Renderer zum Einsatz. Beispielmuster finden Sie unter http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Nachfragen, wenn eine Website den physischen Standort der Nutzer verfolgen möchte</translation>
 <translation id="4519046672992331730">Aktiviert Suchvorschläge in der Omnibox von <ph name="PRODUCT_NAME" /> und verhindert, dass Nutzer diese Einstellung ändern.
 
@@ -634,7 +626,6 @@ Falls die Richtlinie nicht festgelegt wird, bleibt die Varianten-Seed-URL unver�
 
       Ist die Richtlinie nicht konfiguriert, so wird die Einstellung aktiviert, wobei der Nutzer dies ändern kann.</translation>
 <translation id="4525521128313814366">Ermöglicht Ihnen die Zusammenstellung einer Liste mit URL-Mustern, die Websites angeben, denen das Anzeigen von Bildern nicht gestattet ist. Wenn diese Richtlinie nicht konfiguriert ist, kommt für alle Websites entweder der globale Standardwert der Richtlinie "DefaultImagesSetting", falls konfiguriert, oder der persönlichen Konfiguration des Nutzers zum Einsatz.</translation>
-<translation id="4529945827292143461">Zur Anpassung der Liste mit URL-Mustern, die immer vom Hostbrowser gerendert werden müssen. Wenn diese Richtlinie nicht konfiguriert ist, so kommt der über die Richtlinie "ChromeFrameRendererSettings" festgelegte Standard-Renderer zum Einsatz. Beispielmuster finden Sie unter http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Lokale Gerätekonten</translation>
 <translation id="4555850956567117258">Remote-Bescheinigung (Remote Attestation) für den Nutzer aktivieren</translation>
 <translation id="4557134566541205630">Standardsuchanbieter-URL für die "Neuer Tab"-Seite</translation>
@@ -744,14 +735,6 @@ Falls die Richtlinie auf "false" gesetzt wird, werden Anfragen für Bildschirm-W
 <translation id="5148753489738115745">Ermöglicht die Verwendung zusätzlicher Parameter, die beim Start von <ph name="PRODUCT_NAME" /> durch <ph name="PRODUCT_FRAME_NAME" /> eingesetzt werden.
 
           Wenn diese Richtlinie nicht festgelegt wird, wird die Standardbefehlszeile verwendet.</translation>
-<translation id="5170790754648862683">Gibt eine Liste mit veralteten Webplattformfunktionen an, die vorübergehend wieder aktiviert werden sollen.
-
-      Mit dieser Richtlinie haben Administratoren die Möglichkeit, veraltete Webplattformfunktionen für einen begrenzten Zeitraum wieder zu aktivieren. Die Funktionen werden durch ein String-Tag identifiziert und die Funktionen, die den Tags in der Liste entsprechen, welche durch diese Richtlinie festgelegt wurde, werden wieder aktiviert.
-
-      Falls diese Richtlinie nicht konfiguriert wird, die Liste leer ist oder mit keinem unterstützten String-Tag übereinstimmt, bleiben alle veralteten Webplattformfunktionen deaktiviert.
-
-      Die Richtlinie selbst wird zwar auf den genannten Plattformen unterstützt, die damit aktivierten Funktionen sind aber möglicherweise nicht auf allen Plattformen verfügbar. Nicht alle veralteten Webplattformfunktionen können wieder aktiviert werden. Nur die nachfolgend ausdrücklich aufgeführten Funktionen können für einen begrenzten Zeitraum wieder aktiviert werden. Der Zeitraum variiert je nach Funktion. Das allgemeine Format des String-Tags lautet [Name der veralteten Funktion]_EffectiveUntil[jjjjmmtt]. Weitere Informationen zu Änderungen der Webplattformfunktionen erhalten Sie unter http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Google Drive in <ph name="PRODUCT_OS_NAME" /> konfigurieren</translation>
 <translation id="5183383917553127163">Mit dieser Richtlinie können Sie festlegen, welche Erweiterungen nicht auf die schwarze Liste gesetzt werden. Der Wert "*" in der schwarzen Liste gibt an, dass alle Erweiterungen ausgeschlossen sind und dass Nutzer nur Erweiterungen installieren können, die in der weißen Liste enthalten sind. Standardmäßig können alle Erweiterungen installiert werden. Wurden jedoch alle Erweiterungen durch eine Richtlinie auf die schwarze Liste gesetzt, kann diese Richtlinie mithilfe der weißen Liste außer Kraft gesetzt werden.</translation>
 <translation id="5192837635164433517">Aktiviert die Verwendung alternativer Fehlerseiten, die in <ph name="PRODUCT_NAME" /> integriert sind, etwa "Seite nicht gefunden", und verhindert, dass die Einstellung durch Nutzer geändert wird. Wenn Sie diese Einstellung aktivieren, kommen alternative Fehlerseiten zum Einsatz. Sollten Sie sie deaktivieren, werden alternative Fehlerseiten grundsätzlich nicht verwendet. Ist diese Einstellung aktiviert oder deaktiviert, können Nutzer sie in <ph name="PRODUCT_NAME" /> nicht ändern oder außer Kraft setzen. Wird die Richtlinie nicht konfiguriert, so ist die Funktion aktiv, aber der Nutzer kann dies ändern.</translation>
@@ -898,13 +881,6 @@ Falls die Richtlinie auf "false" gesetzt wird, werden Anfragen für Bildschirm-W
       Wenn <ph name="PRODUCT_NAME" /> keine Informationen zum Widerrufsstatus abrufen kann, werden solche Zertifikate als widerrufen behandelt ("hard-fail").
 
       Wenn diese Richtlinie nicht festgelegt oder auf "false" gesetzt ist, verwendet <ph name="PRODUCT_NAME" /> die vorhandenen Online-Einstellungen zur Widerrufsprüfung.</translation>
-<translation id="5757829681942414015">Konfiguriert das Verzeichnis, in dem <ph name="PRODUCT_NAME" /> Nutzerdaten speichert.
-
-      Wenn Sie diese Richtlinie festlegen, verwendet <ph name="PRODUCT_NAME" /> das angegebene Verzeichnis unabhängig davon, ob der Nutzer die Markierung "--user-data-dir" festgelegt hat.
-
-      Unter "http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables" finden Sie eine Liste der Variablen, die verwendet werden können.
-
-      Bleibt diese Richtlinie unkonfiguriert, wird der Standardpfad des Profils verwendet. Dieser kann dann vom Nutzer mit der Befehlszeilenmarkierung "--user-data-dir" überschrieben werden.</translation>
 <translation id="5761030451068906335">Hiermit werden die Proxy-Einstellungen für <ph name="PRODUCT_NAME" /> konfiguriert. Diese Richtlinie ist noch nicht einsatzbereit und sollte daher nicht verwendet werden.</translation>
 <translation id="5765780083710877561">Beschreibung:</translation>
 <translation id="5770738360657678870">Entwicklerkanal (möglicherweise nicht stabil)</translation>
@@ -1133,13 +1109,6 @@ Speicherinformationen werden unabhängig von der gewählten Option an die Seite 
 
           Wird diese Richtlinie nicht konfiguriert, ist das gesprochene Feedback zunächst deaktiviert, kann aber von den Nutzern jederzeit aktiviert werden.</translation>
 <translation id="6923366716660828830">Gibt den Namen des Standardsuchanbieters an. Wenn die Richtlinie leer oder nicht konfiguriert ist, so wird der durch die Such-URL angegebene Hostname verwendet. Diese Richtlinie wird nur dann umgesetzt, wenn "DefaultSearchProviderEnabled" aktiviert ist.</translation>
-<translation id="6925212669267783763">Konfiguriert das Verzeichnis, in dem <ph name="PRODUCT_FRAME_NAME" /> Nutzerdaten speichert.
-
-      Wenn Sie diese Richtlinie festlegen, verwendet <ph name="PRODUCT_FRAME_NAME" /> das angegebene Verzeichnis.
-
-      Unter "http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables" finden Sie eine Liste der Variablen, die verwendet werden können.
-
-      Bleibt diese Einstellung unkonfiguriert, wird das Standardverzeichnis des Profils verwendet.</translation>
 <translation id="6931242315485576290">Synchronisierung der Daten mit Google deaktivieren</translation>
 <translation id="6936894225179401731">Legt die maximale Anzahl gleichzeitiger Verbindungen zum Proxyserver fest.
 
@@ -1272,13 +1241,6 @@ Speicherinformationen werden unabhängig von der gewählten Option an die Seite 
 <translation id="7635471475589566552">Konfiguriert das App-Gebietsschema in <ph name="PRODUCT_NAME" /> und verhindert, dass Nutzer das Gebietsschema ändern. Wenn Sie diese Einstellung aktivieren, verwendet <ph name="PRODUCT_NAME" /> das angegebene Gebietsschema. Wird das konfigurierte Gebietsschema nicht unterstützt, kommt stattdessen "en-US" zum Einsatz. Ist diese Einstellung deaktiviert oder nicht konfiguriert, verwendet <ph name="PRODUCT_NAME" /> das vom Nutzer angegebene bevorzugte Gebietsschema (sofern konfiguriert), das Gebietsschema des Systems oder das Ersatz-Gebietsschema "en-US".</translation>
 <translation id="7651739109954974365">Legt fest, ob Daten-Roaming für das Gerät aktiviert werden soll. Bei Einstellung auf "true" ist das Roaming erlaubt. Ist die Richtlinie nicht konfiguriert oder auf "false" gesetzt, ist kein Roaming verfügbar.</translation>
 <translation id="7683777542468165012">Dynamische Richtlinienaktualisierung</translation>
-<translation id="7690740696284155549">Konfiguriert das Verzeichnis, das <ph name="PRODUCT_NAME" /> zum Herunterladen von Dateien verwendet.
-
-      Wenn Sie diese Richtlinie festlegen, verwendet <ph name="PRODUCT_NAME" /> das angegebene Verzeichnis unabhängig davon, ob der Nutzer selbst eines angegeben oder die Markierung zur Einblendung einer Eingabeaufforderung zur Angabe des Downloadpfads aktiviert hat.
-
-      Unter "http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables" finden Sie eine Liste der Variablen, die verwendet werden können.
-
-      Bleibt diese Richtlinie unkonfiguriert, wird der Standard-Downloadpfad verwendet, wobei dieser vom Nutzer geändert werden kann.</translation>
 <translation id="7694807474048279351">Hiermit wird ein automatischer Neustart nach einem Update von <ph name="PRODUCT_OS_NAME" /> geplant.
 
       Ist diese Richtlinie auf "true" gesetzt, ist ein automatischer Neustart geplant, nachdem <ph name="PRODUCT_OS_NAME" /> aktualisiert wurde und ein Neustart erforderlich ist, um den Updatevorgang abzuschließen. Die Ausführung des Neustarts ist sofort geplant, kann aber bis zu 24 Stunden auf dem Gerät verzögert werden, wenn das Gerät gerade von einem Nutzer verwendet wird.
@@ -1418,11 +1380,6 @@ Wenn eine Erweiterung nicht in der Liste enthalten ist oder keine Liste festgele
 <translation id="8369602308428138533">Verzögerung für die Bildschirmabschaltung im Netzbetrieb</translation>
 <translation id="8382184662529825177">Verwendung von Remote-Bescheinigung (Remote Attestation) zum Schutz von Inhalten für das Gerät aktivieren</translation>
 <translation id="838870586332499308">Daten-Roaming aktivieren</translation>
-<translation id="8412286985859522563">Konfiguriert eine Liste verwalteter Lesezeichen
-
-      Die Richtlinien bestehen aus einer Liste von Lesezeichen und jedes Lesezeichen ist ein Wörterbuch mit dem Lesezeichen "Name" und der Ziel-URL. Ein Lesezeichen kann auch als Ordner angelegt werden. Legen Sie in diesem Fall den Ordner "Name" fest, aber definieren Sie keine URL. Stattdessen legen Sie den Ordner "Inhalte" unter dem Schlüssel "Kinder" als weitere Liste aus Lesezeichen fest. Chrome bearbeitet unvollständige URLs, wie wenn sie über Omnibox gesendet werden. Beispielsweise wird aus "google.com" dann "http://google.com/".
-
-      Diese Lesezeichen werden in einem Ordner für verwaltete Lesezeichen abgelegt, der vom Nutzer nicht bearbeitet werden kann. Der Nutzer kann aber festlegen, dass der Ordner nicht in der Lesezeichenleiste eingeblendet wird. Verwaltete Lesezeichen werden nicht mit anderen Nutzerkonten synchronisiert und können durch Erweiterungen nicht bearbeitet werden.</translation>
 <translation id="8412312801707973447">Ob online OCSP-/CRL-Prüfungen durchgeführt werden</translation>
 <translation id="8451988835943702790">"Neuer Tab"-Seite als Startseite verwenden</translation>
 <translation id="8465065632133292531">Parameter für URL der Suche im Voraus, die POST verwendet</translation>
@@ -1527,13 +1484,6 @@ Wenn eine Erweiterung nicht in der Liste enthalten ist oder keine Liste festgele
 <translation id="9112897538922695510">Damit können Sie eine Liste mit Protokoll-Handlern registrieren, wobei dies lediglich eine empfohlene Richtlinie sein kann. Für die Eigenschaft |protocol| sollte ein Schema wie "mailto" und für die Eigenschaft |url| das URL-Muster der Anwendung festgelegt werden, die das Schema verwaltet. Das Muster kann "%s" enthalten, was später durch die jeweilige URL ersetzt wird.
 
           Die von der Richtlinie registrierten Protokoll-Handler werden mit den Protokoll-Handlern zusammengeführt, die vom Nutzer registriert wurden, und können gemeinsam verwendet werden. Der Nutzer kann die durch die Richtlinie installierten Protokoll-Handler durch Installieren eines neuen standardmäßigen Handlers überschreiben. Ein von der Richtlinie registrierter Protokoll-Handler kann jedoch nicht entfernt werden.</translation>
-<translation id="9120299024216374976">Mit dieser Richtlinie wird die für das Gerät zu verwendende Zeitzone festgelegt. Die Nutzer können die festgelegte Zeitzone für die aktuelle Sitzung außer Kraft setzen. Sobald sie sich abmelden, wird die Zeitzone jedoch wieder auf die festgelegte Einstellung zurückgesetzt. Bei Angabe eines ungültigen Werts greift die Richtlinie weiterhin und es wird stattdessen "GMT" verwendet.
-
-      Wird die Richtlinie nicht angewendet, wird die derzeit aktive Zeitzone verwendet. Allerdings können die Nutzer die Zeitzone dann ändern und die Änderung wird beibehalten. Die Änderung durch einen Nutzer wirkt sich dann auf die Anmeldeseite und die Einstellungen für alle Nutzer aus.
-
-      Bei neuen Geräten ist die Zeitzone "US/Pacific Time" voreingestellt.
-
-      Das Format des Werts entspricht den Namen der Zeitzonen in der "IANA Time Zone Database" (siehe "http://en.wikipedia.org/wiki/List_of_tz_database_time_zones"). Auf die meisten Zeitzonen kann über "Kontinent/Stadt" oder "Ozean/Stadt" verwiesen werden.</translation>
 <translation id="913195841488580904">Zugriff auf aufgelistete URLs blockieren</translation>
 <translation id="9135033364005346124"><ph name="CLOUD_PRINT_NAME" />-Proxy aktivieren</translation>
 <translation id="9150416707757015439">Diese Richtlinie ist veraltet. Bitte verwenden Sie stattdessen "IncognitoModeAvailability". Aktiviert den Inkognitomodus in <ph name="PRODUCT_NAME" />. Wenn diese Einstellung aktiviert oder nicht konfiguriert ist, können Nutzer Webseiten im Inkognitomodus öffnen. Sollte die Einstellung deaktiviert sein, können Nutzer Webseiten nicht im Inkognitomodus öffnen. Ist die Richtlinie nicht konfiguriert, so ist die Funktion aktiviert, sodass Nutzer den Inkognitomodus verwenden können.</translation>

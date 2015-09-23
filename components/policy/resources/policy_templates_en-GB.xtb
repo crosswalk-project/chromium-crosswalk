@@ -605,13 +605,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
           A blacklist value of * means that all native messaging hosts are blacklisted and only native messaging hosts listed in the whitelist will be loaded.
 
           By default, all native messaging hosts are whitelisted, but if all native messaging hosts have been blacklisted by policy, the whitelist can be used to override that policy.</translation>
-<translation id="3844092002200215574">Configures the directory that <ph name="PRODUCT_NAME" /> will use for storing cached files on the disk.
-
-      If you set this policy, <ph name="PRODUCT_NAME" /> will use the provided directory regardless of whether the user has specified the '--disk-cache-dir' flag or not.
-
-      See http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for a list of variables that can be used.
-
-      If this policy is left not set the default cache directory will be used and the user will be able to override it with the '--disk-cache-dir' command line flag.</translation>
 <translation id="384743459174066962">Allows you to set a list of url patterns that specify sites which are not allowed to open pop-ups.
 
           If this policy is left unset, the global default value will be used for all sites either from the 'DefaultPop-upsSetting' policy, if it is set, or the user's personal configuration otherwise.</translation>
@@ -747,11 +740,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
       If the value of this policy is 0, the default cache size will be used but the user will not be able to change it.
 
       If this policy is not set, the default size will be used and the user will be able to override it with the --media-cache-size flag.</translation>
-<translation id="4507081891926866240">Customise the list of URL patterns that should always be rendered by <ph name="PRODUCT_FRAME_NAME" />.
-
-          If this policy is not set the default renderer will be used for all sites as specified by the 'ChromeFrameRendererSettings' policy.
-
-          For example patterns see http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Ask whenever a site wants to track the users' physical location</translation>
 <translation id="4519046672992331730">Enables search suggestions in <ph name="PRODUCT_NAME" />'s omnibox and prevents users from changing this setting.
 
@@ -765,11 +753,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="4525521128313814366">Allows you to set a list of url patterns that specify sites which are not allowed to display images.
 
           If this policy is left unset, the global default value will be used for all sites either from the 'DefaultImagesSetting' policy, if it is set, or the user's personal configuration otherwise.</translation>
-<translation id="4529945827292143461">Customise the list of URL patterns that should always be rendered by the host browser.
-
-          If this policy is not set, the default renderer will be used for all sites as specified by the 'ChromeFrameRendererSettings' policy.
-
-          For example patterns see http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Device-local accounts</translation>
 <translation id="4555850956567117258">Enable remote attestation for the user</translation>
 <translation id="4557134566541205630">Default search provider new tab page URL</translation>
@@ -893,14 +876,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="5148753489738115745">Allows you to specify additional parameters that are used when <ph name="PRODUCT_FRAME_NAME" /> launches <ph name="PRODUCT_NAME" />.
 
           If this policy is not set the default command line will be used.</translation>
-<translation id="5170790754648862683">Specify a list of deprecated web platform features to re-enable temporarily.
-
-      This policy gives administrators the ability to re-enable deprecated web platform features for a limited time. Features are identified by a string tag and the features corresponding to the tags included in the list specified by this policy will be re-enabled.
-
-      If this policy is left unset, or the list is empty or does not match one of the supported string tags, all deprecated web platform features will remain disabled.
-
-      While the policy itself is supported on the above platforms, the feature it is enabling may be available on fewer platforms. Not all deprecated Web Platform features can be re-enabled. Only the ones explicitly listed below can be for a limited period of time, which is different per feature. The general format of the string tag will be [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. As reference, you can find the intent behind the Web Platform feature changes at http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configure Google Drive in <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Allows you to specify which extensions are not subject to the blacklist.
 
@@ -1070,13 +1045,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
       If <ph name="PRODUCT_NAME" /> is unable to obtain revocation status information, such certificates will be treated as revoked ('hard-fail').
 
       If this policy is not set, or it is set to false, then <ph name="PRODUCT_NAME" /> will use the existing online revocation checking settings.</translation>
-<translation id="5757829681942414015">Configures the directory that <ph name="PRODUCT_NAME" /> will use for storing user data.
-
-      If you set this policy, <ph name="PRODUCT_NAME" /> will use the provided directory regardless of whether the user has specified the '--user-data-dir' flag or not.
-
-      See http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for a list of variables that can be used.
-
-      If this policy is left not set the default profile path will be used and the user will be able to override it with the '--user-data-dir' command line flag.</translation>
 <translation id="5761030451068906335">Configures the proxy settings for <ph name="PRODUCT_NAME" />.
 
       This policy isn't ready for usage yet, please don't use it.</translation>
@@ -1361,13 +1329,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="6923366716660828830">Specifies the name of the default search provider. If left empty or not set, the host name specified by the search URL will be used.
 
           This policy is only considered if the 'DefaultSearchProviderEnabled' policy is enabled.</translation>
-<translation id="6925212669267783763">Configures the directory that <ph name="PRODUCT_FRAME_NAME" /> will use for storing user data.
-
-      If you set this policy, <ph name="PRODUCT_FRAME_NAME" /> will use the provided directory.
-
-      See http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for a list of variables that can be used.
-
-      If this setting is left not set the default profile directory will be used.</translation>
 <translation id="6931242315485576290">Disable synchronisation of data with Google</translation>
 <translation id="6936894225179401731">Specifies the maximal number of simultaneous connections to the proxy server.
 
@@ -1534,13 +1495,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
       If this setting is disabled or not set, <ph name="PRODUCT_NAME" /> uses either the user-specified preferred locale (if configured), the system locale or the default locale 'en-US'.</translation>
 <translation id="7651739109954974365">Determines whether data roaming should be enabled for the device. If set to true, data roaming is allowed. If left unconfigured or set to false, data roaming will be unavailable.</translation>
 <translation id="7683777542468165012">Dynamic Policy Refresh</translation>
-<translation id="7690740696284155549">Configures the directory that <ph name="PRODUCT_NAME" /> will use for downloading files.
-
-      If you set this policy, <ph name="PRODUCT_NAME" /> will use the provided directory regardless of whether the user has specified one or enabled the flag to be prompted for download location every time.
-
-      See http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables for a list of variables that can be used.
-
-      If this policy is left not set the default download directory will be used and the user will be able to change it.</translation>
 <translation id="7694807474048279351">Schedule an automatic reboot after a <ph name="PRODUCT_OS_NAME" /> update has been applied.
 
       When this policy is set to true, an automatic reboot is scheduled when a <ph name="PRODUCT_OS_NAME" /> update has been applied and a reboot is required to complete the update process. The reboot is scheduled immediately but may be delayed on the device by up to 24 hours if a user is currently using the device.
@@ -1703,12 +1657,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="8369602308428138533">Screen off delay when running on AC power</translation>
 <translation id="8382184662529825177">Enable the use of remote attestation for content protection for the device</translation>
 <translation id="838870586332499308">Enable data roaming</translation>
-<translation id="8412286985859522563">Configures a list of managed bookmarks.
-
-      The policy is a list of bookmarks, and each bookmark is a dictionary containing the bookmark "name" and the target "URL". A bookmark can also be configured as a folder. In that case, define the folder "name" but don't define a
- "URL"; instead, define the folder contents as another list of bookmarks under the "children" key. Chrome will amend incomplete URLs as if they were submitted via the Omnibox. For example, "google.com" becomes "http://google.com/".
-
-      These bookmarks are placed in a Managed bookmarks folder that can't be modified by the user, but the user can choose to hide it from the bookmark bar. Managed bookmarks are not synced to the user account and can't be modified by extensions.</translation>
 <translation id="8412312801707973447">Whether online OCSP/CRL checks are performed</translation>
 <translation id="8451988835943702790">Use New Tab Page as homepage</translation>
 <translation id="8465065632133292531">Parameters for instant URL which uses POST</translation>
@@ -1831,13 +1779,6 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="9112897538922695510">Allows you to register a list of protocol handlers. This can only be a recommended policy. The property |protocol| should be set to the scheme such as 'mailto' and the property |url| should be set to the URL pattern of the application that handles the scheme. The pattern can include a '%s', which if present will be replaced by the handled URL.
 
           The protocol handlers registered by policy are merged with the ones registered by the user and both are available for use. The user can override the protocol handlers installed by policy by installing a new default handler, but cannot remove a protocol handler registered by policy.</translation>
-<translation id="9120299024216374976">Specifies the timezone to be used for the device. Users can override the specified timezone for the current session. However, on logout it is set back to the specified timezone. If an invalid value is provided, the policy is still activated using "GMT" instead. If an empty string is provided, the policy is ignored.
-
-      If this policy is not used, the currently active timezone will remain in use however users can change the timezone and the change is persistent. Thus a change by one user affects the login-screen and all other users.
-
-      New devices start out with the timezone set to "US/Pacific".
-
-      The format of the value follows the names of timezones in the "IANA Time Zone Database" (see "http://en.wikipedia.org/wiki/List_of_tz_database_time"). In particular, most timezones can be referred to by "continent/large_city" or "ocean/large_city".</translation>
 <translation id="913195841488580904">Block access to a list of URLs</translation>
 <translation id="9135033364005346124">Enable <ph name="CLOUD_PRINT_NAME" /> proxy</translation>
 <translation id="9150416707757015439">This policy is deprecated. Please, use IncognitoModeAvailability instead.

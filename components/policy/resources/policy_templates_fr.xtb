@@ -601,13 +601,6 @@ Si elle n'est pas configurée, l'utilisateur peut être invité à effectuer l'i
           Si vous définissez la valeur liée à la liste noire sur "*", cela signifie que tous les hôtes de messagerie native sont ajoutés à la liste noire et que seuls les hôtes de messagerie native figurant sur la liste blanche sont chargés.
 
           Par défaut, tous les hôtes de messagerie native figurent sur la liste blanche, mais si tous les hôtes de messagerie native ont été ajoutés à la liste noire via cette règle, la liste blanche peut être utilisée pour ignorer celle-ci.</translation>
-<translation id="3844092002200215574">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour stocker les fichiers mis en cache sur le disque.
-
-      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur ait spécifié l'indicateur "--disk-cache-dir" ou non.
-
-      Consultez une liste des variables utilisables à l'adresse http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Si vous ne définissez pas cette règle, le répertoire de cache par défaut est utilisé et l'utilisateur est en mesure de le remplacer à l'aide de l'indicateur de ligne de commande "--disk-cache-dir".</translation>
 <translation id="384743459174066962">Permet de définir une liste de formats d'URL spécifiant les sites qui ne sont pas autorisés à ouvrir des pop-ups. 
 
 Si cette règle n'est pas configurée, la valeur par défaut globale sera utilisée pour tous les sites à partir de la règle "DefaultPopupsSetting", si elle est définie, ou à défaut, à partir de la configuration personnelle de l'utilisateur.</translation>
@@ -743,11 +736,6 @@ Si cette règle n'est pas configurée, l'utilisateur peut décider d'afficher ou
       Si la valeur de cette règle est définie sur 0, la taille du cache par défaut est utilisée, mais l'utilisateur n'est pas en mesure de la modifier.
 
       Si cette règle n'est pas définie, la taille par défaut est utilisée, et l'utilisateur est en mesure de la remplacer à l'aide de l'indicateur "--media-cache-size".</translation>
-<translation id="4507081891926866240">Personnalise la liste des formats d'URL qui doivent toujours être affichés par <ph name="PRODUCT_FRAME_NAME" />. 
-
-Si cette règle n'est pas configurée, le moteur de rendu par défaut est utilisé pour tous les sites, tel que spécifié par la règle "ChromeFrameRendererSettings". 
-
-Pour voir des exemples de formats, accédez à l'adresse http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Demander chaque fois qu'un site veut suivre la position géographique des utilisateurs</translation>
 <translation id="4519046672992331730">Activer les suggestions de recherche dans l'Omnibox de <ph name="PRODUCT_NAME" /> et empêcher les utilisateurs de modifier ce paramètre
 
@@ -761,12 +749,6 @@ Pour voir des exemples de formats, accédez à l'adresse http://www.chromium.org
 <translation id="4525521128313814366">Permet de définir une liste de formats d'URL spécifiant les sites qui ne sont pas autorisés à afficher des images. 
 
 Si cette règle n'est pas configurée, la valeur par défaut globale est utilisée pour tous les sites à partir de la règle "DefaultImagesSetting" si elle est configurée, ou à défaut, à partir de la configuration personnelle de l'utilisateur.</translation>
-<translation id="4529945827292143461">Personnalisez la liste des formats d'URL qui doivent toujours être affichés par le navigateur hôte. 
-
-
-Si cette règle n'est pas configurée, le moteur de rendu par défaut sera utilisé pour tous les sites, tel que spécifié par la règle "ChromeFrameRendererSettings". 
-
-Pour voir des exemples de format, accédez à http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Comptes locaux de l'appareil</translation>
 <translation id="4555850956567117258">Activer l'attestation à distance pour l'utilisateur</translation>
 <translation id="4557134566541205630">URL de la page Nouvel onglet du moteur de recherche par défaut</translation>
@@ -892,14 +874,6 @@ Si cette règle n'est pas configurée, Google Sync est disponible et l'utilisate
 <translation id="5148753489738115745">Permet de spécifier les paramètres supplémentaires utilisés lorsque <ph name="PRODUCT_FRAME_NAME" /> lance <ph name="PRODUCT_NAME" />.
 
           Si cette règle n'est pas configurée, la ligne de commande par défaut est utilisée.</translation>
-<translation id="5170790754648862683">Répertorier les fonctionnalités obsolètes de la plate-forme Web à réactiver temporairement
-
-      Cette règle permet aux administrateurs de réactiver des fonctionnalités obsolètes de la plate-forme Web, pendant une durée limitée. Ces fonctionnalités sont identifiées par une balise de chaîne. Les fonctionnalités correspondant aux balises incluses dans la liste renvoyée par cette règle sont réactivées.
-
-      Si cette règle n'est pas définie ou si la liste est vide ou ne correspond pas à l'une des balises de chaîne compatibles, toutes les fonctionnalités obsolètes de la plate-forme Web restent désactivées.
-
-      Cette règle est compatible avec les plates-formes mentionnées ci-dessus, mais la fonctionnalité qu'elle active peut être disponible sur un nombre réduit de plates-formes. Toutes les fonctionnalités obsolètes d'une plate-forme en ligne ne peuvent pas être réactivées. Seules les fonctionnalités répertoriées ci-dessous de manière explicite peuvent l'être et ce, pour une période limitée qui varie d'une fonctionnalité à l'autre. Le format général de la balise de chaîne sera le suivant : [NomFonctionnalitéObsolète]_EffectiveUntil[aaaammjj]. À titre de référence, vous pouvez découvrir les raisons pour lesquelles des modifications ont été apportées aux fonctionnalités des plates-formes en ligne en consultant la page http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configurer Google Drive dans <ph name="PRODUCT_OS_NAME" /></translation>
 <translation id="5183383917553127163">Permet de définir les extensions non régies par la liste noire.
 
@@ -1070,13 +1044,6 @@ Si cette règle n'est pas configurée, la valeur par défaut globale sera utilis
       S'il est impossible d'obtenir des informations relatives à l'état de la révocation par le biais de <ph name="PRODUCT_NAME" />, ces certificats sont considérés comme révoqués ("échec").
 
       Si cette règle n'est pas définie ou si elle est définie sur "false", les paramètres de vérification en ligne de la révocation sont alors utilisés dans <ph name="PRODUCT_NAME" />.</translation>
-<translation id="5757829681942414015">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour stocker les données utilisateur.
-
-      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur ait spécifié l'indicateur "--user-data-dir" ou non.
-
-      Consultez une liste des variables utilisables à l'adresse http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Si vous ne définissez pas cette règle, le chemin d'accès du profil par défaut est utilisé, et l'utilisateur est en mesure de le remplacer à l'aide de l'indicateur de ligne de commande "--user-data-dir".</translation>
 <translation id="5761030451068906335">Configurer les paramètres de proxy pour <ph name="PRODUCT_NAME" />. Cette règle n'est pas encore prête, veuillez donc ne pas l'utiliser pour le moment.</translation>
 <translation id="5765780083710877561">Description :</translation>
 <translation id="5770738360657678870">Version en développement (peut être instable)</translation>
@@ -1362,13 +1329,6 @@ Si vous désactivez cette option ou si vous ne la définissez pas, l'outil de re
 <translation id="6923366716660828830">Indique le nom du moteur de recherche par défaut. Si cette règle n'est pas configurée, le nom d'hôte spécifié par l'URL de recherche est utilisé. 
 
 Cette règle n'est prise en compte que si la règle "DefaultSearchProviderEnabled" est activée.</translation>
-<translation id="6925212669267783763">Configure le répertoire que <ph name="PRODUCT_FRAME_NAME" /> utilise pour stocker les données utilisateur.
-
-      Si vous définissez cette règle, <ph name="PRODUCT_FRAME_NAME" /> utilise le répertoire fourni.
-
-      Consultez une liste des variables utilisables à l'adresse http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Si vous ne définissez pas ce paramètre, le répertoire de profil par défaut est utilisé.</translation>
 <translation id="6931242315485576290">Désactiver la synchronisation des données avec Google</translation>
 <translation id="6936894225179401731">Indique le nombre maximal de connexions simultanées au serveur proxy.
 
@@ -1529,13 +1489,6 @@ Si vous activez ce paramètre, <ph name="PRODUCT_NAME" /> utilise les paramètre
 Si ce paramètre est désactivé ou s'il n'est pas configuré, <ph name="PRODUCT_NAME" /> utilise les paramètres régionaux favoris de l'utilisateur (s'ils ont été configurés), les paramètres régionaux du système ou les paramètres régionaux de remplacement ("en-US").</translation>
 <translation id="7651739109954974365">Détermine si l'itinérance des données doit être activée pour l'appareil. Si cette règle est définie sur "true", l'itinérance des données est autorisée. Si cette règle n'est pas configurée ou si elle est définie sur "false", l'itinérance des données n'est pas possible.</translation>
 <translation id="7683777542468165012">Actualisation dynamique des stratégies</translation>
-<translation id="7690740696284155549">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour télécharger les fichiers.
-
-      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur en ait spécifié un ou non, ou qu'il ait ou non activé l'indicateur permettant d'être invité à renseigner l'emplacement du téléchargement à chaque fois.
-
-      Consultez une liste des variables utilisables à l'adresse http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Si vous ne définissez pas cette règle, le répertoire de téléchargement par défaut est utilisé et l'utilisateur est en mesure de le modifier.</translation>
 <translation id="7694807474048279351">Planifie un démarrage automatique après une mise à jour de <ph name="PRODUCT_OS_NAME" />.
 
       Si vous définissez cette règle sur "True", un démarrage automatique est planifié après la mise à jour de <ph name="PRODUCT_OS_NAME" /> et le redémarrage de l'appareil. Le redémarrage est planifié immédiatement, mais peut être reporté de 24 heures
@@ -1699,11 +1652,6 @@ Si aucun paramètre n'est défini, <ph name="PRODUCT_NAME" /> utilise un nom de 
 <translation id="8369602308428138533">Délai d'arrêt de l'écran (secteur)</translation>
 <translation id="8382184662529825177">Autoriser l'utilisation de l'attestation à distance pour assurer la protection du contenu de l'appareil</translation>
 <translation id="838870586332499308">Activer l'itinérance des données</translation>
-<translation id="8412286985859522563">Configurer une liste de favoris gérés
-
-      La règle est une liste de favoris, et chaque favori est un dictionnaire comprenant le nom du favori et l'URL cible. Un favori peut également être configuré en tant que dossier. Dans ce cas, définissez le nom du dossier, mais ne définissez pas d'URL. Définissez le contenu du dossier en tant que liste de favoris distincte sous la clé "Enfants". Chrome modifie les URL incomplètes de la même manière que si elles avaient été saisies via l'omnibox. Par exemple, "google.com" devient "http://google.com/".
-
-      Ces favoris sont placés dans un dossier "Favoris gérés" qui ne peut pas être modifié par l'utilisateur. Ce dernier peut cependant choisir de masquer ce dossier dans la barre des favoris. Les favoris gérés ne sont pas synchronisés avec le compte de l'utilisateur ni ne peuvent être modifiés par des extensions.</translation>
 <translation id="8412312801707973447">Si des contrôles OCSP/CRL en ligne sont effectués</translation>
 <translation id="8451988835943702790">Utiliser la page "Nouvel onglet" comme page d'accueil</translation>
 <translation id="8465065632133292531">Paramètres pour l'URL instantanée utilisant POST</translation>
@@ -1832,13 +1780,6 @@ Si vous désactivez ce paramètre ou s'il n'est pas défini, le nom canonique du
 <translation id="9112897538922695510">Permettre d'inscrire une liste de gestionnaires de protocoles. Cette règle ne peut être qu'une recommandation. La propriété |protocol| doit être définie sur un schéma tel que "mailto", et la propriété |url| doit être définie sur le format d'URL de l'application qui gère le schéma. Le modèle peut inclure une variable "%s", qui sera remplacée par l'URL traitée le cas échéant.
 
           Les gestionnaires de protocoles inscrits via la règle sont fusionnés avec ceux inscrits par l'utilisateur, et tous sont disponibles. L'utilisateur peut remplacer les gestionnaires de protocoles installés via la règle en installant un nouveau gestionnaire par défaut, mais il ne peut pas supprimer un gestionnaire de protocoles inscrit via la règle.</translation>
-<translation id="9120299024216374976">Indique le fuseau horaire à utiliser sur l'appareil. Les utilisateurs peuvent modifier le fuseau horaire spécifié pendant la session en cours. Cependant, le paramètre est de nouveau défini sur le fuseau horaire spécifié lors de la déconnexion. Si une valeur non valide est utilisée, la règle est toutefois activée avec le fuseau horaire "GMT". Si une chaîne vide est utilisée, cette règle est ignorée.
-
-      Si la règle n'est pas appliquée, le fuseau horaire actif continue d'être utilisé. Cependant, les utilisateurs peuvent modifier le fuseau horaire, et cette modification est permanente. En conséquence, toute modification apportée par un utilisateur a une incidence sur l'écran de connexion de tous les autres utilisateurs.
-
-      Le fuseau horaire est défini sur "États-Unis/Pacifique" pour tous les nouveaux appareils.
-
-      Le format de la valeur correspond aux noms des fuseaux horaires de la "IANA Time Zone Database" (voir la page "http://en.wikipedia.org/wiki/List_of_tz_database_time"). La plupart des fuseaux horaires se présentent sous la forme "continent/grande_ville" ou "océan/grande_ville".</translation>
 <translation id="913195841488580904">Bloquer l'accès à une liste d'URL</translation>
 <translation id="9135033364005346124">Activer le proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Cette règle est obsolète. Veuillez utiliser la règle "IncognitoModeAvailability". 

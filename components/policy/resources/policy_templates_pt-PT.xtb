@@ -524,13 +524,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
           Um valor de * na lista negra significa que todos os anfitriões de mensagens nativas estão na lista negra e que apenas os anfitriões de mensagens nativas na lista de autorizações serão carregados.
 
           Por predefinição, todos os anfitriões de mensagens nativas estão na lista de autorizações, mas, se todos os anfitriões de mensagens nativas tiverem sido colocados na lista negra devido a uma política, a lista de autorizações pode ser utilizada para substituir essa política.</translation>
-<translation id="3844092002200215574">Configura o diretório que o <ph name="PRODUCT_NAME" /> vai utilizar para armazenar ficheiros em cache no disco.
-
-      Se definir esta política, o <ph name="PRODUCT_NAME" /> vai utilizar o diretório fornecido, independentemente de o utilizador ter especificado o sinalizador "--disk-cache-dir" ou não.
-
-      Consulte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para obter uma lista das variáveis que podem ser utilizadas.
-
-      Se a política não for definida, será utilizado o diretório em cache predefinido e o utilizador será capaz de o substituir pelo sinalizador de linha de comandos "--disk-cache-dir".</translation>
 <translation id="384743459174066962">Permite definir uma lista de padrões de URL que especificam os Web sites não autorizados a abrir janelas de pop-up. Se esta política não for definida, será utilizado o valor global predefinido para todos os Web sites, seja a partir da política "DefaultPopupsSetting", caso esteja definida, ou a partir da configuração pessoal do utilizador.</translation>
 <translation id="3859780406608282662">Adiciona um parâmetro para a obtenção da semente Variações no <ph name="PRODUCT_OS_NAME" />.
 
@@ -629,7 +622,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
       Se o valor desta política for igual a 0, será utilizado o tamanho da cache predefinido, mas o utilizador não poderá alterá-lo.
 
       Se esta política não for definida, será utilizado o tamanho predefinido e o utilizador poderá substituí-lo com a sinalização "--media-cache-size".</translation>
-<translation id="4507081891926866240">Personaliza a lista de padrões de URL que devem ser sempre processados pelo <ph name="PRODUCT_FRAME_NAME" />. Se esta política não for definida, será utilizado o processador predefinido para todos os Web sites, conforme especificado pela política "ChromeFrameRendererSettings". Para obter exemplos de padrões, consulte http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Perguntar sempre que um site pretender registar a localização física dos utilizadores</translation>
 <translation id="4519046672992331730">Ativa as sugestões de pesquisa na caixa geral do <ph name="PRODUCT_NAME" /> e impede que os utilizadores alterem esta definição.
 
@@ -641,7 +633,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Se deixar esta política por definir, a definição será ativada mas o utilizador poderá alterá-la.</translation>
 <translation id="4525521128313814366">Permite definir uma lista de padrões de URL que especificam os Web sites não autorizados a apresentar imagens. Se esta política não for definida, será utilizado o valor global predefinido para todos os Web sites, seja a partir da política "DefaultImagesSetting", caso esteja definida, ou a partir da configuração pessoal do utilizador.</translation>
-<translation id="4529945827292143461">Personaliza a lista de padrões de URL que devem ser sempre processados pelo navegador anfitrião. Se esta política não for definida, será utilizado o processador predefinido para todos os Web sites, conforme especificado pela política "ChromeFrameRendererSettings". Para obter exemplos de padrões, consulte http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Contas locais do dispositivo</translation>
 <translation id="4555850956567117258">Permitir a comprovação remota para o utilizador</translation>
 <translation id="4557134566541205630">URL da página Novo separador do motor de pesquisa predefinido</translation>
@@ -751,15 +742,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="5148753489738115745">Permite especificar parâmetros adicionais utilizados quando o <ph name="PRODUCT_FRAME_NAME" /> iniciar o <ph name="PRODUCT_NAME" />.
 
           Se esta política não estiver definida, será utilizada a linha de comandos predefinida.</translation>
-<translation id="5170790754648862683">Especifica uma lista de funcionalidades das plataformas Web desatualizadas para reativar temporariamente.
-
-      Esta política concede aos administradores a capacidade de reativar funcionalidades das plataformas Web desatualizadas por um tempo limitado. As funcionalidades estão identificadas por uma etiqueta de cadeia e as funcionalidades que correspondem às etiquetas incluídas na lista especificadas por esta política serão reativadas.
-
-      Se esta política não estiver definida ou a lista estiver vazia ou não corresponder a uma das etiquetas em cadeia suportadas, todas as funcionalidades das plataformas Web desatualizadas permanecerão desativadas.
-
-      Embora a política em si seja suportada nas plataformas acima, a funcionalidade que está a ativar poderá está disponível em menos plataformas. Nem todas as funcionalidades das plataformas Web desatualizadas podem ser reativadas. Apenas poderão ser reativadas as que estão indicadas explicitamente na lista abaixo, o que difere consoante a funcionalidade. O formato geral da etiqueta em cadeia será 
-[DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Como referência, pode encontrar a intenção por detrás das alterações às funcionalidades das plataformas Web em http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Configurar o Google Drive no <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Permite-lhe indicar quais as extensões que não estão sujeitas à lista negra. Um valor de lista negra de * significa que todas as extensões foram adicionadas à lista negra e os utilizadores só podem instalar extensões incluídas na lista de autorizações. Por predefinição, todas as extensões estão na lista de autorizações, mas se todas elas tiverem sido adicionadas à lista negra devido à política, a lista de autorizações pode ser utilizada para substituir essa política.</translation>
 <translation id="5192837635164433517">Ativa a utilização de páginas de erro alternativas incorporadas no <ph name="PRODUCT_NAME" /> (como "página não encontrada") e impede que os utilizadores alterem esta definição. Se ativar esta definição, serão utilizadas páginas de erro alternativas. Se desativar esta definição, não serão utilizadas páginas de erro alternativas. Se ativar ou desativar esta definição, os utilizadores não a poderão alterar ou substituir no <ph name="PRODUCT_NAME" />. Se deixar esta política por definir, a definição será ativada e o utilizador poderá alterá-la.</translation>
@@ -906,13 +888,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
       Se o <ph name="PRODUCT_NAME" /> não conseguir obter informações sobre o estado da revogação, tais certificados serão considerados revogados ("falha grave").
 
       Se esta política não estiver definida ou estiver definida como falsa, o <ph name="PRODUCT_NAME" /> utilizará as definições de verificação da revogação online existentes.</translation>
-<translation id="5757829681942414015">Configura o diretório que o <ph name="PRODUCT_NAME" /> vai utilizar para armazenar os dados do utilizador.
-
-      Se definir esta política, o <ph name="PRODUCT_NAME" /> vai utilizar o diretório fornecido, independentemente de o utilizador ter especificado o sinalizador "--user-data-dir" ou não.
-
-      Consulte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para obter uma lista das variáveis que podem ser utilizadas.
-
-      Se a política não for definida, será utilizado o caminho de perfil predefinido e o utilizador será capaz de o substituir pelo sinalizador de linha de comandos "--user-data-dir".</translation>
 <translation id="5761030451068906335">Configura as definições de proxy para <ph name="PRODUCT_NAME" />. Esta política ainda não está pronta para ser utilizada, por isso, não a utilize.</translation>
 <translation id="5765780083710877561">Descrição:</translation>
 <translation id="5770738360657678870">Canal para programadores (pode ser instável)</translation>
@@ -1143,13 +1118,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
            Se esta política não for definida, as respostas faladas estão inicialmente desativadas, mas poderão ser ativadas a qualquer momento pelo utilizador.</translation>
 <translation id="6923366716660828830">Especifica o nome do fornecedor de pesquisas predefinido. Se deixar esta política em branco ou por definir, será utilizado o nome de anfitrião especificado pelo URL de pesquisa. Esta política apenas será considerada se a política "DefaultSearchProviderEnabled" estiver ativada.</translation>
-<translation id="6925212669267783763">Configura o diretório que o <ph name="PRODUCT_FRAME_NAME" /> vai utilizar para armazenar os dados do utilizador.
-
-      Se definir esta política, o <ph name="PRODUCT_FRAME_NAME" /> vai utilizar o diretório fornecido.
-
-      Para obter uma lista de variáveis que podem ser utilizadas, consulte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
-
-      Se esta definição não for definida, será utilizado o diretório de perfil predefinido.</translation>
 <translation id="6931242315485576290">Desativar a sincronização de dados com o Google</translation>
 <translation id="6936894225179401731">Especifica o número máximo de ligações simultâneas ao servidor proxy.
 
@@ -1282,13 +1250,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="7635471475589566552">Configura o local da aplicação no <ph name="PRODUCT_NAME" /> e impede que os utilizadores o alterem. Se ativar esta definição, o <ph name="PRODUCT_NAME" /> utilizará o local indicado. Se o local configurado não for suportado, será utilizado "en-US". Se esta definição estiver desativada ou não for definida, o <ph name="PRODUCT_NAME" /> utilizará o local preferencial indicado pelo utilizador (se estiver configurado), o local do sistema ou o local alternativo "en-US".</translation>
 <translation id="7651739109954974365">Determina se o roaming de dados deve estar ativado para o aparelho. Se a política estiver definida como verdadeira, o roaming de dados é permitido. Se ficar por configurar ou for definida como falsa, o roaming de dados não estará disponível.</translation>
 <translation id="7683777542468165012">Atualização Dinâmica de Políticas</translation>
-<translation id="7690740696284155549">Configura o diretório que o <ph name="PRODUCT_NAME" /> vai utilizar para transferir ficheiros.
-
-      Se definir esta política, o <ph name="PRODUCT_NAME" /> vai utilizar o diretório fornecido, independentemente de o utilizador ter especificado um diretório ou ativado o sinalizador para que seja sempre pedida a localização da transferência.
-
-      Consulte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables  para obter uma lista das variáveis que podem ser utilizadas.
-
-      Se a política não for definida, será utilizado o diretório de transferência predefinido e o utilizador será capaz de o alterar.</translation>
 <translation id="7694807474048279351">Agendar um reinício automático depois de ter sido aplicada uma atualização do <ph name="PRODUCT_OS_NAME" />.
 
       Quando esta política estiver definida como verdadeira, é agendado um reinício automático, assim que tiver sido aplicada uma atualização do <ph name="PRODUCT_OS_NAME" />; é necessário reiniciar, para concluir o processo de atualização. O reinício é imediatamente agendado, mas pode ser adiado no dispositivo até 24 horas se um utilizador estiver atualmente a utilizar o dispositivo.
@@ -1428,11 +1389,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="8369602308428138533">Atraso para desligar o ecrã quando o dispositivo está ligado à eletricidade</translation>
 <translation id="8382184662529825177">Ativar a utilização da comprovação remota para proteção de conteúdo no dispositivo</translation>
 <translation id="838870586332499308">Ativar roaming de dados</translation>
-<translation id="8412286985859522563">Configura uma lista de marcadores geridos.
-
-      A política é uma lista de marcadores e cada marcador é um dicionário que contém o "nome" do marcador e o "URL" de destino. Também pode configurar um marcador como uma pasta. Nesse caso, defina o "nome" da pasta, mas não defina um "URL". Em vez disso, defina os conteúdos da pasta como outra lista de marcadores com a chave "subordinados". Deste modo, o Chrome corrige os URLs incompletos como se tivessem sido enviados através da Caixa geral. Por exemplo, "google.com" fica "http://google.com/".
-
-      Estes marcadores são colocados na pasta Marcadores geridos, que o utilizador não pode modificar, mas pode optar por ocultar da barra de marcadores. Os marcadores geridos não são sincronizados com a conta do utilizador e não podem ser modificados pelas extensões.</translation>
 <translation id="8412312801707973447">Se são ou não efetuadas verificações OCSP/CRL on-line</translation>
 <translation id="8451988835943702790">Utilizar a página Novo separador como página inicial</translation>
 <translation id="8465065632133292531">Parâmetros do URL instantâneo que utilize POST</translation>
@@ -1537,13 +1493,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="9112897538922695510">Permite-lhe registar uma lista de controladores de protocolos. Esta apenas pode ser uma política recomendada. A propriedade |protocol| deve ser definida para um esquema como "mailto" e a propriedade |url| deve ser definida para o padrão do URL da aplicação que controla o esquema. O padrão pode incluir um "%s" que, caso esteja presente, é substituído pelo URL controlado.
 
           Os controladores de protocolos registados pela política são unidos com os que são registados pelo utilizador e ambos estão disponíveis para utilização. O utilizador pode substituir os controladores de protocolos instalados pela política ao instalar um novo controlador predefinido, mas não pode remover um controlador de protocolos registado pela política.</translation>
-<translation id="9120299024216374976">Especifica o fuso horário a ser utilizado para o dispositivo. Os utilizadores podem substituir o fuso horário especificado da sessão atual. No entanto, quando a sessão for terminada, este regressará ao fuso horário especificado. Se for fornecido um valor inválido, a política ainda é ativada utilizando o "GMT" como alternativa. Se for fornecida uma cadeia vazia, a política é ignorada.
-
-      Se esta política não for utilizada, o fuso horário atualmente ativo permanecerá em utilização apesar de os utilizadores poderem alterar o fuso horário e a alteração ser permanente. Desta forma, uma alteração de um utilizador afeta o ecrã de início de sessão e todos os outros utilizadores.
-
-      Os novos dispositivos começam com o fuso horário definido para "EUA/Pacífico".
-
-      O formato do valor segue os nomes dos fusos horários na "Base de Dados de Fuso Horário IANA" (consultar "http://en.wikipedia.org/wiki/List_of_tz_database_time"). Em particular, a maioria dos fusos horários pode ser referida como "continente/grande_cidade" ou "oceano/grande_cidade".</translation>
 <translation id="913195841488580904">Bloquear o acesso a uma lista de URLs</translation>
 <translation id="9135033364005346124">Ativar proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Esta política está obsoleta. Em alternativa, utilize IncognitoModeAvailability. Ativa o modo de navegação anónima no <ph name="PRODUCT_NAME" />. Se esta definição estiver ativada ou não estiver configurada, os utilizadores podem abrir páginas Web no modo de navegação anónima. Se esta definição estiver desativada, os utilizadores não podem abrir páginas Web no modo de navegação anónima. Se deixar esta política por definir, a definição estará ativada e o utilizador poderá utilizar o modo de navegação anónima.</translation>

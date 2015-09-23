@@ -519,13 +519,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
           Nilai daftar hitam * menunjukkan bahwa semua hosting perpesanan asli dimasukkan dalam daftar hitam dan hanya hosting perpesanan asli yang tercantum dalam daftar putih yang akan dimuat.
 
           Secara default, semua hosting perpesanan asli dimasukkan dalam daftar putih, namun jika semua hosting perpesanan asli telah dimasukkan dalam daftar hitam sesuai dengan kebijakan, daftar putih dapat digunakan untuk menggantikan kebijakan tersebut.</translation>
-<translation id="3844092002200215574">Mengonfigurasi direktori yang akan digunakan oleh <ph name="PRODUCT_NAME" /> untuk menyimpan file yang tersimpan dalam cache di disk.
-
-      Jika Anda menyetel kebijakan ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang diberikan terlepas apakah pengguna telah menandai '--disk-cache-dir' atau belum.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk daftar variabel yang dapat digunakan.
-
-      Jika kebijakan ini dibiarkan tidak disetel, direktori cache default akan digunakan dan pengguna akan dapat menggantikannya dengan tanda baris perintah '--disk-cache-dir'.</translation>
 <translation id="384743459174066962">Memungkinkan Anda menyetel daftar pola URL yang menentukan situs yang tidak diizinkan untuk membuka munculan. Jika kebijakan ini tidak disetel, nilai default global akan digunakan untuk semua situs baik dari kebijakan 'DefaultPopupsSetting', jika disetel, atau konfigurasi pribadi pengguna.</translation>
 <translation id="3859780406608282662">Tambahkan parameter untuk mengambil sumber Variasi di <ph name="PRODUCT_OS_NAME" />.
 
@@ -624,7 +617,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       Jika nilai kebijakan ini 0, ukuran cache default akan digunakan namun pengguna tidak akan dapat mengubahnya.
 
       Jika kebijakan ini tidak disetel, ukuran default akan digunakan dan pengguna dapat menimpanya dengan tanda --media-cache-size.</translation>
-<translation id="4507081891926866240">Sesuaikan daftar pola URL yang harus selalu dirender oleh <ph name="PRODUCT_FRAME_NAME" />. Jika kebijakan ini tidak disetel, perender default akan digunakan untuk semua situs yang ditentukan oleh kebijakan 'ChromeFrameRendererSettings'. Untuk contoh pola, lihat http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4518251772179446575">Tanyakan setiap kali situs ingin melacak lokasi fisik pengguna</translation>
 <translation id="4519046672992331730">Mengaktifkan saran penelusuran dalam omnibox <ph name="PRODUCT_NAME" /> dan mencegah pengguna mengganti setelan ini.
 
@@ -636,7 +628,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 
       Jika kebijakan ini dibiarkan tidak disetel, kebijakan ini akan diaktifkan namun pengguna akan dapat mengubahnya.</translation>
 <translation id="4525521128313814366">Memungkinkan Anda menyetel daftar pola URL yang menentukan situs yang tidak diizinkan untuk menampilkan gambar. Jika kebijakan ini tidak disetel, nilai global default akan digunakan untuk semua situs, baik dari kebijakan 'DefaultImagesSetting', jika disetel, atau konfigurasi pribadi pengguna.</translation>
-<translation id="4529945827292143461">Sesuaikan daftar pola URL yang harus selalu dirender oleh browser host. Jika kebijakan ini tidak disetel, perender default akan digunakan untuk semua situs yang ditentukan oleh kebijakan 'ChromeFrameRendererSettings'. Untuk contoh pola, lihat http://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="4541530620466526913">Akun lokal perangkat</translation>
 <translation id="4555850956567117258">Mengaktifkan pengesahan jarak jauh bagi pengguna</translation>
 <translation id="4557134566541205630">URL laman tab baru penyedia penelusuran default</translation>
@@ -746,14 +737,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="5148753489738115745">Memungkinkan Anda menentukan parameter tambahan yang digunakan saat <ph name="PRODUCT_FRAME_NAME" /> meluncurkan <ph name="PRODUCT_NAME" />.
 
           Jika kebijakan ini tidak disetel, baris perintah default akan digunakan.</translation>
-<translation id="5170790754648862683">Menentukan daftar fitur platform web usang guna diaktifkan kembali untuk sementara.
-
-      Kebijakan ini memberi kemampuan kepada administrator untuk mengaktifkan kembali fitur platform web usang dalam waktu yang terbatas. Fitur yang diidentifikasi dengan tag string dan fitur yang sesuai dengan tag yang termasuk dalam daftar yang ditentukan oleh kebijakan ini akan diaktifkan kembali.
-
-      Jika kebijakan dibiarkan tidak disetel, daftar kosong, atau tidak cocok dengan salah satu tag string yang didukung, semua fitur platform web usang akan tetap dinonaktifkan.
-
-      Meskipun kebijakan itu sendiri didukung di platform di atas, fitur yang diaktifkannya mungkin hanya tersedia di lebih sedikit platform. Tidak semua fitur Platform Web Usang dapat diaktifkan kembali. Hanya fitur yang tercantum dengan jelas pada daftar di bawah dapat diaktifkan kembali selama periode waktu yang terbatas, yang berbeda per fiturnya. Format umum tag string adalah [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Sebagai referensi, Anda dapat menemukan tujuan atas perubahan fitur Platform Web di http://bit.ly/blinkintents.
-      </translation>
 <translation id="5182055907976889880">Konfigurasi Google Drive di <ph name="PRODUCT_OS_NAME" />.</translation>
 <translation id="5183383917553127163">Memungkinkan Anda menentukan ekstensi mana yang tidak masuk daftar hitam. Nilai daftar hitam * berarti semua ekstensi dimasukkan ke daftar hitam dan pengguna hanya dapat memasang ekstensi yang tercantum dalam daftar putih. Jika tidak diubah, semua ekstensi dimasukkan ke daftar putih, tetapi jika semua ekstensi telah dimasukkan ke daftar hitam karena kebijakan, daftar putih dapat digunakan untuk mengesampingkan kebijakan tersebut.</translation>
 <translation id="5192837635164433517">Memungkinkan penggunaan laman kesalahan alternatif yang disertakan di dalam <ph name="PRODUCT_NAME" /> (misalnya 'laman tidak ditemukan') dan mencegah pengguna mengubah setelan ini. Jika Anda mengaktifkan setelan ini, laman kesalahan alternatif akan digunakan. Jika Anda menonaktifkan setelan ini, laman kesalahan alternatif tidak akan pernah digunakan. Jika Anda mengaktifkan atau menonaktifkan setelan ini, pengguna tidak dapat mengubah atau menimpa setelan di <ph name="PRODUCT_NAME" />. Jika kebijakan ini dibiarkan tidak disetel, setelan ini akan diaktifkan, namun pengguna dapat mengubahnya.</translation>
@@ -900,13 +883,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       Jika <ph name="PRODUCT_NAME" /> tidak dapat memperoleh informasi status pembatalan, sertifikat tersebut yang akan diperlakukan sebagai dicabut ('kegagalan fatal').
 
       Jika kebijakan tidak disetel, atau disetel ke false, <ph name="PRODUCT_NAME" /> akan menggunakan setelan pemeriksaan pembatalan online yang ada.</translation>
-<translation id="5757829681942414015">Mengonfigurasi direktori yang akan digunakan oleh <ph name="PRODUCT_NAME" /> untuk menyimpan data pengguna.
-
-      Jika Anda menyetel kebijakan ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang diberikan terlepas apakah pengguna telah menandai '--user-data-dir' atau belum.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk daftar variabel yang dapat digunakan.
-
-      Jika kebijakan ini dibiarkan tidak disetel, jalur profil default akan digunakan dan pengguna akan dapat menggantikannya dengan tanda baris perintah '--user-data-dir'.</translation>
 <translation id="5761030451068906335">Mengonfigurasi setelan proxy untuk <ph name="PRODUCT_NAME" />. Kebijakan ini belum siap untuk digunakan, jangan menggunakannya.</translation>
 <translation id="5765780083710877561">Deskripsi:</translation>
 <translation id="5770738360657678870">Saluran pengembang (mungkin tidak stabil)</translation>
@@ -1137,13 +1113,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 
           Jika kebijakan ini tidak disetel, masukan yang diucapkan pertama-tama dinonaktifkan, namun dapat diaktifkan oleh pengguna kapan saja.</translation>
 <translation id="6923366716660828830">Menentukan nama penyedia penelusuran default. Jika dibiarkan kosong atau tidak disetel, nama host yang ditentukan oleh URL penelusuran akan digunakan. Kebijakan ini hanya dipertimbangkan jika kebijakan 'DefaultSearchProviderEnabled' diaktifkan.</translation>
-<translation id="6925212669267783763">Mengonfigurasi direktori yang akan gunakan <ph name="PRODUCT_FRAME_NAME" /> untuk menyimpan data pengguna.
-
-      Jika Anda menyetel kebijakan ini, <ph name="PRODUCT_FRAME_NAME" /> akan menggunakan direktori yang diberikan.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk daftar variabel yang dapat digunakan.
-
-      Jika setelan ini dibiarkan tidak disetel, direktori profil default akan digunakan.</translation>
 <translation id="6931242315485576290">Nonaktifkan sinkronisasi data dengan Google</translation>
 <translation id="6936894225179401731">Menentukan jumlah maksimum sambungan bersama ke server proxy.
 
@@ -1276,13 +1245,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="7635471475589566552">Mengonfigurasi lokal aplikasi di <ph name="PRODUCT_NAME" /> dan mencegah pengguna mengubah lokal tersebut. Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> akan menggunakan lokal yang ditentukan. Jika lokal terkonfigurasi tidak didukung, 'en-US' akan digunakan. Jika setelan ini dinonaktifkan atau tidak disetel, <ph name="PRODUCT_NAME" /> akan menggunakan lokal terpilih yang ditentukan pengguna (jika dikonfigurasi), lokal sistem, atau lokal pengganti 'en-US'.</translation>
 <translation id="7651739109954974365">Menentukan apakah roaming data harus diaktifkan untuk perangkat. Jika disetel ke true, roaming data akan diizinkan. Jika dibiarkan tanpa konfigurasi atau disetel ke false, roaming data tidak akan tersedia.</translation>
 <translation id="7683777542468165012">Penyegaran Kebijakan Dinamis</translation>
-<translation id="7690740696284155549">Mengonfigurasi direktori yang akan digunakan oleh <ph name="PRODUCT_NAME" /> untuk mengunduh file.
-
-      Jika Anda menyetel kebijakan ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang diberikan terlepas apakah pengguna telah menentukan satu tanda atau menonaktifkan tanda untuk dimintai lokasi unduhan setiap saat.
-
-      Lihat http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables untuk daftar variabel yang dapat digunakan.
-
-      Jika kebijakan ini dibiarkan tidak disetel, direktori unduhan default akan digunakan dan pengguna akan dapat mengubahnya.</translation>
 <translation id="7694807474048279351">Menjadwalkan mulai ulang otomatis setelah pembaruan <ph name="PRODUCT_OS_NAME" /> diterapkan.
 
       Saat kebijakan ini disetel ke true, mulai ulang otomatis akan dijadwalkan saat pembaruan <ph name="PRODUCT_OS_NAME" /> diterapkan dan diperlukan mulai ulang untuk menyelesaikan proses pembaruan. Mulai ulang dijadwalkan langsung namun mungkin ditunda di perangkat hingga 24 jam jika pengguna sedang menggunakan perangkat.
@@ -1422,11 +1384,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="8369602308428138533">Penundaan mematikan layar saat menggunakan daya AC</translation>
 <translation id="8382184662529825177">Mengaktifkan penggunaan pengesahan jarak jauh untuk perlindungan konten bagi perangkat</translation>
 <translation id="838870586332499308">Aktifkan roaming data</translation>
-<translation id="8412286985859522563">Mengonfigurasi daftar bookmark yang dikelola.
-
-      Kebijakan merupakan sebuah daftar bookmark dan setiap bookmark merupakan kamus yang berisi "nama" dan "url" target bookmark. Bookmark juga dapat dikonfigurasi sebagai folder. Bila ingin mengonfigurasi sebagai folder, tetapkan "nama" folder, tetapi jangan menetapkan nama "url". Alih-alih, tetapkan konten folder sebagai daftar bookmark lainnya di bawah kunci "turunan". Chrome akan mengubah URL yang tidak lengkap, sehingga URL tersebut seolah dikirimkan melalui Omnibox. Contohnya, "google.com" akan diubah menjadi "http://google.com/".
-
-      Bookmark ini ditempatkan dalam folder Bookmark yang dikelola, yang tidak dapat dimodifikasi oleh pengguna. Namun pengguna dapat memilih untuk menyembunyikannya dari bilah bookmark. Bookmark yang dikelola tidak akan disinkronkan ke akun pengguna dan tidak dapat diubah oleh ekstensi.</translation>
 <translation id="8412312801707973447">Apakah pemeriksaan OCSP/CRL online dilakukan atau tidak</translation>
 <translation id="8451988835943702790">Gunakan Laman Tab Baru sebagai beranda</translation>
 <translation id="8465065632133292531">Parameter untuk URL instan yang menggunakan POST</translation>
@@ -1531,13 +1488,6 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="9112897538922695510">Memungkinkan Anda mendaftarkan daftar penangan protokol. Ini hanya dapat menjadi kebijakan yang disarankan. Properti |protokol| sebaiknya disetel ke skema seperti 'mailto' dan properti |url| sebaiknya disetel ke pola URL aplikasi yang menangani skema. Pola tersebut dapat berisi '%s', yang apabila disajikan akan menggantikan URL yang ditangani.
 
           Penangan protokol yang didaftarkan oleh kebijakan digabung dengan penangan protokol yang didaftarkan oleh pengguna dan keduanya tersedia untuk digunakan. Pengguna dapat mengganti penangan protokol yang dipasang oleh kebijakan dengan memasang penangan default baru, namun pengguna tidak dapat membuang penangan protokol yang didaftarkan oleh kebijakan.</translation>
-<translation id="9120299024216374976">Menentukan zona waktu yang akan digunakan di perangkat. Pengguna dapat mengganti zona waktu yang telah ditentukan untuk sesi ini. Namun, zona waktu tersebut akan kembali ke zona waktu yang telah ditentukan saat keluar. Jika nilai yang diberikan tidak valid, maka kebijakan ini tetap diaktifkan menggunakan "GMT" sebagai gantinya. Jika string yang diberikan kosong, kebijakan tersebut diabaikan
-
-      Jika kebijakan ini tidak digunakan, zona waktu yang aktif saat ini akan digunakan. Namun, pengguna dapat mengubah zona waktu ini dan perubahan tersebut akan tetap digunakan. Perubahan yang dilakukan oleh pengguna itu memengaruhi layar masuk dan semua pengguna lain.
-
-      Perangkat baru memulai dengan zona waktu disetel ke "AS/Pasifik".
-
-      Format nilai mengikuti nama zona waktu dalam "Basis Data Zona Waktu IANA" (lihat "http://en.wikipedia.org/wiki/List_of_tz_database_time"). Secara khusus, hampir semua zona waktu dapat direferensikan dengan "continent/large_city" atau "ocean/large_city".</translation>
 <translation id="913195841488580904">Cekal akses ke daftar URL</translation>
 <translation id="9135033364005346124">Mengaktifkan proxy <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="9150416707757015439">Kebijakan ini sudah tidak digunakan lagi. Gunakan IncognitoModeAvailability sebagai gantinya. Aktifkan mode Penyamaran di <ph name="PRODUCT_NAME" />. Jika setelan ini diaktifkan atau tidak dikonfigurasi, pengguna dapat membuka laman web dalam mode penyamaran. Jika setelan ini dinonaktifkan, pengguna tidak dapat membuka laman web dalam mode penyamaran. Jika kebijakan ini dibiarkan tanpa disetel, kebijakan ini akan diaktifkan dan pengguna akan dapat menggunakan mode penyamaran.</translation>
