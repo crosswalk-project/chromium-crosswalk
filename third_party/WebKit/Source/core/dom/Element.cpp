@@ -766,7 +766,7 @@ int Element::scrollWidth()
     }
 
     if (LayoutBox* box = layoutBox())
-        return adjustLayoutUnitForAbsoluteZoom(box->scrollWidth(), *box).round();
+        return adjustForAbsoluteZoom(box->pixelSnappedScrollWidth(), box);
     return 0;
 }
 
@@ -781,7 +781,7 @@ int Element::scrollHeight()
     }
 
     if (LayoutBox* box = layoutBox())
-        return adjustLayoutUnitForAbsoluteZoom(box->scrollHeight(), *box).round();
+        return adjustForAbsoluteZoom(box->pixelSnappedScrollHeight(), box);
     return 0;
 }
 
