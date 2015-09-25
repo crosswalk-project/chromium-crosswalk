@@ -10,8 +10,10 @@
  */
 WebInspector.TracingModel = function(backingStorage)
 {
-    this._backingStorage = backingStorage;
     this.reset();
+    // Set backing storage after reset so that we do not perform
+    // an extra reset of backing storage -- this is not free.
+    this._backingStorage = backingStorage;
 }
 
 /**
@@ -216,7 +218,8 @@ WebInspector.TracingModel.prototype = {
         this._sessionId = null;
         this._devtoolsPageMetadataEvents = [];
         this._devtoolsWorkerMetadataEvents = [];
-        this._backingStorage.reset();
+        if (this._backingStorage)
+            this._backingStorage.reset();
         this._appendDelimiter = false;
         this._loadedFromFile = false;
         /** @type {!Array<!WebInspector.TracingModel.Event>} */
