@@ -1803,7 +1803,7 @@ static Node* nextRenderedEditable(Node* node)
         // TODO(yosin) We should have a function to check |InlineBox| types
         // in layout rather than using |InlineBox| here. See also
         // |previousRenderedEditable()| which has a same condition.
-        if ((layoutObject->isBox() && toLayoutBox(layoutObject)->inlineBoxWrapper()) || (layoutObject->isText() && toLayoutText(layoutObject)->firstTextBox()))
+        if ((layoutObject->isBox() && toLayoutBox(layoutObject)->inlineBoxWrapper()) || (layoutObject->isText() && toLayoutText(layoutObject)->hasTextBoxes()))
             return node;
     }
     return 0;
@@ -1820,7 +1820,7 @@ static Node* previousRenderedEditable(Node* node)
         // TODO(yosin) We should have a function to check |InlineBox| types
         // in layout rather than using |InlineBox| here. See also
         // |nextRenderedEditable()| which has a same condition.
-        if ((layoutObject->isBox() && toLayoutBox(layoutObject)->inlineBoxWrapper()) || (layoutObject->isText() && toLayoutText(layoutObject)->firstTextBox()))
+        if ((layoutObject->isBox() && toLayoutBox(layoutObject)->inlineBoxWrapper()) || (layoutObject->isText() && toLayoutText(layoutObject)->hasTextBoxes()))
             return node;
     }
     return 0;
