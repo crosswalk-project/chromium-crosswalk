@@ -134,6 +134,10 @@ IOSurfaceRef ChildIOSurfaceManager::AcquireIOSurface(
     MACH_LOG(ERROR, kr) << "mach_msg";
     return nullptr;
   }
+  if (!data.reply.msg.result) {
+    DLOG(ERROR) << "Browser refused AcquireIOSurface request";
+    return nullptr;
+  }
 
   // Deallocate the right after creating an IOSurface reference.
   base::mac::ScopedMachSendRight scoped_io_surface_right(
