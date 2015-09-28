@@ -355,7 +355,7 @@ Falls die Richtlinie auf "false" gesetzt wird, kann eine verzögerungsfreie auto
           "ExtensionInstallBlacklist" hat Vorrang vor dieser Richtlinie. Eine Erweiterung auf der schwarzen Liste wird folglich nicht installiert, auch wenn sie von einer Website auf dieser Liste stammt.</translation>
 <translation id="2820806665372828299">Gewährt Zugriff zu Schlüsseln für die geschäftliche Nutzung in Erweiterungen
 
-      Schlüssel sind für die geschäftliche Nutzung bestimmt, wenn sie über die chrome.platformKey API eines verwalteten Kontos generiert wurden. Schlüssel, die auf eine andere Weise importiert oder generiert wurden, sind nicht für die geschäftliche Nutzung geeignet.
+      Schlüssel sind für die geschäftliche Nutzung bestimmt, wenn sie über die chrome.platformKeys API eines verwalteten Kontos generiert wurden. Schlüssel, die auf eine andere Weise importiert oder generiert wurden, sind nicht für die geschäftliche Nutzung geeignet.
 
       Der Zugriff auf Schlüssel für die geschäftliche Nutzung wird ausschließlich durch diese Richtlinien geregelt. Der Nutzer kann weder Zugriff auf Schlüssel zur geschäftlichen Nutzung für oder von Erweiterungen erteilen noch verweigern.
 

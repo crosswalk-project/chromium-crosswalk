@@ -399,7 +399,7 @@
 
       Utvidelser kan som standard ikke bruke nøkler som er spesifisert for bedriftsbruk, noe som tilsvarer å sette allowCorporateKeyUsage til usann for den aktuelle utvidelsen.
 
-      Bare hvis allowCorporateKeyUsage er satt til sann for en utvidelse kan den bruke en plattformnøkkel som er spesifisert for bedriftsbruk, til å signere vilkårlige data. Denne tillatelsen må bare gis hvis du vet at utvidelsen kan sikre tilgangen til nøkkelen mot angripere.</translation>
+      Bare hvis allowCorporateKeyUsage er satt til sann for en utvidelse, kan den bruke en plattformnøkkel som er spesifisert for bedriftsbruk, til å signere vilkårlige data. Denne tillatelsen må bare gis hvis du vet at utvidelsen kan sikre tilgangen til nøkkelen mot angripere.</translation>
 <translation id="2824715612115726353">Aktiver inkognitomodus</translation>
 <translation id="285480231336205327">Aktiver modus for høy kontrast</translation>
 <translation id="2872961005593481000">Avslutt</translation>

@@ -361,7 +361,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
 
       De forma predeterminada, una extensión no puede usar una clave designada para uso corporativo, lo que es equivalente a configurar allowCorporateKeyUsage como falso para esa extensión.
 
-      Únicamente si allowCorporateKeyUsage está configurado como verdadero para una extensión, puede usar cualquier clave de plataforma marcada para uso corporativo para firmar datos arbitrarios. Este permiso solo se debe otorgar si la extensión es de confianza para acceder a la clave de forma segura contra atacantes.</translation>
+      Únicamente si allowCorporateKeyUsage está configurado como verdadero para una extensión, puede usar cualquier clave de plataforma marcada para uso corporativo para firmar datos arbitrarios. Este permiso solo se debe otorgar si se confía en que la extensión permite el acceso a la clave de forma segura contra atacantes.</translation>
 <translation id="2824715612115726353">Activar el modo de incógnito</translation>
 <translation id="285480231336205327">Habilitar el modo de contraste alto</translation>
 <translation id="2872961005593481000">Cerrar</translation>

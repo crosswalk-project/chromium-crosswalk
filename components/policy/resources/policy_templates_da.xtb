@@ -359,9 +359,9 @@
 
       Adgang til nøgler, der er beregnet til virksomhedsbrug, kontrolleres alene af denne politik. Brugeren kan hverken give udvidelser adgang til virksomhedsnøgler eller fjernes deres adgang.
 
-      Som standard kan en udvidelse ikke benytte en nøgle, der er beregnet til virksomhedsbrug, hvilket svarer til at angive allowCorporateKeyUsage til "falsk" for udvidelsen.
+      Som standard kan en udvidelse ikke benytte en nøgle, der er beregnet til virksomhedsbrug, hvilket svarer til at angive allowCorporateKeyUsage som "falsk" for udvidelsen.
 
-      Kun hvis allowCorporateKeyUsage er angivet til "sandt" for en udvidelse, kan den benytte en hvilken som helst platformnøgle, der er markeret til virksomhedsbrug, til at signere vilkårlige data. Denne tilladelse bør kun gives, hvis du stoler på, at udvidelsen beskytter nøglen, så hackere ikke kan få adgang til den.</translation>
+      Kun hvis allowCorporateKeyUsage er angivet som "sandt" for en udvidelse, kan den benytte en hvilken som helst platformnøgle, der er markeret til virksomhedsbrug, til at signere vilkårlige data. Denne tilladelse bør kun gives, hvis du stoler på, at udvidelsen beskytter nøglen, så hackere ikke kan få adgang til den.</translation>
 <translation id="2824715612115726353">Aktiver inkognitotilstand</translation>
 <translation id="285480231336205327">Aktivér høj kontrast</translation>
 <translation id="2872961005593481000">Sluk</translation>

@@ -351,15 +351,15 @@ Se la norma non viene impostata l'impostazione verrà attivata ma gli utenti pot
           Ogni voce presente in questo elenco è uno schema di corrispondenza in stile di estensione (vedi l'indirizzo https://developer.chrome.com/extensions/match_patterns). Gli utenti potranno installare facilmente elementi dagli URL corrispondenti a una voce nell'elenco. Questi schemi devono consentire sia la posizione del file *.crx sia la pagina da cui viene avviato il download (il referrer).
 
           La norma ExtensionInstallBlacklist ha la precedenza su questa norma. Ciò significa che un'estensione presente nella blacklist non verrà installata, anche se è di un sito presente in questo elenco.</translation>
-<translation id="2820806665372828299">Consente di concedere alle chiavi aziendali accesso alle estensioni.
+<translation id="2820806665372828299">Concede alle estensioni l'accesso alle chiavi aziendali.
 
-      Le chiavi sono create per l'utilizzo aziendale se generate tramite l'API chrome.platformKeys su un account gestito. Le chiavi importate o generate in altro modo non sono compatibili per l'utilizzo aziendale.
+      Le chiavi sono designate per l'utilizzo aziendale se generate tramite l'API chrome.platformKeys su un account gestito. Le chiavi importate o generate in altro modo non sono designate per l'utilizzo aziendale.
 
-      L'accesso a chiavi create per l'utilizzo aziendale è controllato in modo esclusivo da questo criterio. L'utente non ha facoltà di concedere alle chiavi aziendali accesso alle estensioni, né di revocarlo.
+      L'accesso a chiavi designate per l'utilizzo aziendale è controllato in modo esclusivo da questa norma. L'utente non può concedere né revocare l'accesso delle estensioni alle chiavi aziendali.
 
-      Per impostazione predefinita, un'estensione non può utilizzare una chiave creata per l'utilizzo aziendale, operazione equivalente a impostare allowCorporateKeyUsage su false per tale estensione.
+      Per impostazione predefinita, un'estensione non può utilizzare una chiave designata per l'utilizzo aziendale, operazione equivalente a impostare allowCorporateKeyUsage su false per tale estensione.
 
-      Solo quando allowCorporateKeyUsage è impostato su true, l'estensione può utilizzare tutte le chiavi di piattaforma contrassegnate per l'utilizzo aziendale al fine di firmare dati arbitrari. Questa autorizzazione deve essere concessa solamente se l'estensione è attendibile e in grado di accedere alla chiave in modo protetto al fine di evitare potenziali attacchi.</translation>
+      Solo se allowCorporateKeyUsage è impostato su true, l'estensione può utilizzare qualsiasi chiave di piattaforma contrassegnata per l'utilizzo aziendale per firmare dati arbitrari. Questa autorizzazione deve essere concessa solo se l'estensione è ritenuta attendibile ai fini della protezione della chiave da potenziali attacchi.</translation>
 <translation id="2824715612115726353">Attiva modalità di navigazione in incognito</translation>
 <translation id="285480231336205327">Attiva modalità ad alto contrasto</translation>
 <translation id="2872961005593481000">Spegni</translation>
