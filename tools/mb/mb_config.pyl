@@ -33,7 +33,7 @@
     'gn_debug_bot_minimal_symbols': ['gn', 'debug_bot_minimal_symbols'],
     'gn_debug_bot_minimal_symbols_x86': ['gn', 'debug_bot_minimal_symbols', 'x86'],
     'gn_debug_static_bot': ['gn', 'debug_static_bot'],
-    'gn_linux_upload': ['gn_linux_upload'],
+    'gn_linux_upload': ['gn_linux_upload', 'official', 'goma'],
     'gn_release_bot': ['gn', 'release_bot'],
     'gn_release_bot_minimal_symbols': ['gn', 'release_bot_minimal_symbols'],
     'gn_release_bot_minimal_symbols_x86': ['gn', 'release_bot_minimal_symbols', 'x86'],
@@ -41,6 +41,15 @@
     'gn_release_trybot_x86': ['gn', 'release_trybot', 'x86'],
     'gyp_debug_bot': ['gyp', 'debug_bot'],
     'gyp_debug_bot_x86': ['gyp', 'debug_bot', 'x86'],
+    'gyp_official': ['gyp', 'official'],
+    'gyp_official_goma': ['gyp', 'official', 'goma'],
+    'gyp_official_goma_chromeos': ['gyp', 'official', 'goma', 'chromeos'],
+    'gyp_official_goma_x86': ['gyp', 'official', 'goma', 'x86'],
+    'gyp_official_goma_minimal_symbols': ['gyp', 'official', 'goma', 'minimal_symbols'],
+    'gyp_official_goma_minimal_symbols_android': ['gyp', 'official', 'goma', 'minimal_symbols', 'android'],
+    'gyp_official_goma_minimal_symbols_android_arm64': ['gyp', 'official', 'goma', 'minimal_symbols', 'android', 'arm64'],
+    'gyp_official_goma_minimal_symbols_x64': ['gyp', 'official', 'goma', 'minimal_symbols', 'x64'],
+    'gyp_official_goma_minimal_symbols_x86': ['gyp', 'official', 'goma', 'minimal_symbols', 'x86'],
     'gyp_release_bot_arm': ['gyp', 'release_bot', 'arm', 'crosscompile'],
     'gyp_release_trybot': ['gyp', 'release_trybot'],
 
@@ -50,10 +59,13 @@
     'swarming_asan_lsan_gyp_release_trybot': ['swarming', 'asan', 'lsan', 'release_trybot'],
     'swarming_msan_gyp_release_trybot': ['swarming', 'chromeos', 'msan', 'gyp', 'release_trybot'],
     'swarming_deterministic_gyp_release_bot': ['swarming', 'deterministic', 'gyp', 'release_bot'],
+    'swarming_gpu_tests_gn_release_trybot': ['swarming', 'gpu_tests', 'gn', 'release_trybot'],
+    'swarming_gpu_tests_gyp_debug_trybot': ['swarming', 'gpu_tests', 'gyp', 'debug_trybot'],
     'swarming_gpu_tests_gyp_release_trybot': ['swarming', 'gpu_tests', 'gyp', 'release_trybot'],
-    'swarming_gyp_debug_bot': ['swarming', 'gyp', 'debug_bot'],
+    'swarming_gn_debug_bot': ['swarming', 'gn', 'debug_bot'],
+    'swarming_gn_debug_trybot': ['swarming', 'gn', 'debug_trybot'],
+    'swarming_gn_release_bot': ['swarming', 'gn', 'release_bot'],
     'swarming_gyp_debug_bot_no_symbols_x86': ['swarming', 'gyp', 'debug_bot', 'no_symbols', 'x86'],
-    'swarming_gyp_debug_trybot': ['swarming', 'gyp', 'debug_trybot'],
     'swarming_gyp_debug_trybot_x86': ['swarming', 'gyp', 'debug_trybot', 'x86'],
     'swarming_gyp_release_bot': ['swarming', 'gyp', 'release_bot'],
     'swarming_gyp_release_trybot': ['swarming', 'gyp', 'release_trybot'],
@@ -101,6 +113,11 @@
       'gyp_defines': 'target_arch=arm',
     },
 
+    'arm64': {
+      'gn_args': 'target_cpu="arm64"',
+      'gyp_defines': 'target_arch=arm64',
+    },
+
     'arm_float': {
       'gn_args': 'error',
       'gyp_defines': 'target_arch=arm arm_float_abi=hard',
@@ -146,7 +163,6 @@
 
     'debug': {
       'gn_args': 'is_debug=true',
-      'gyp_config': 'Debug',
     },
 
     'debug_bot': {
@@ -192,18 +208,20 @@
       # GN binary; ideally we could just turn glib off, but that doesn't
       # actually work, so we need to pretend to be doing an ozone build
       # in order for the flag to actually take effect.
-      'gn_args': 'use_ozone=true use_glib=false',
+      'gn_args': 'use_ozone=true',
     },
 
     'gn': {'type': 'gn'},
 
     'goma': {
+      # The MB code will properly escape goma_dir if necessary in the GYP
+      # code path; the GN code path needs no escaping.
       'gn_args': 'use_goma=true goma_dir="$(goma_dir)"',
       'gyp_defines': 'use_goma=1 gomadir=$(goma_dir)',
     },
 
     'gpu_tests': {
-      'gn_args': 'archive_gpu_tests=true',
+      'gn_args': '', # not needed in GN builds.
       'gyp_defines': 'archive_gpu_tests=1',
     },
 
@@ -238,9 +256,13 @@
       'gyp_defines': 'target_arch=unknown',
     },
 
+    'official': {
+      'gn_args': 'is_chrome_branded=true is_official_build=true is_debug=false',
+      'gyp_defines': 'branding=Chrome buildtype=Official',
+    },
+
     'release': {
       'gn_args': 'is_debug=false',
-      'gyp_config': 'Release',
     },
 
     'release_bot': {
@@ -275,9 +297,14 @@
       'gyp_defines': 'tsan=1',
     },
 
+    'x64': {
+      'gn_args': 'target_cpu="x64"',
+      'gyp_defines': 'target_arch=x64',
+    },
+
     'x86': {
       'gn_args': 'target_cpu="x86"',
-      'gyp_args': 'target_arch=ia32',
+      'gyp_defines': 'target_arch=ia32',
     },
   },
 
@@ -289,17 +316,27 @@
   #
   # TODO(crbug.com/481692): Add in remaining bots on the waterfalls.
   'masters': {
+    'chrome': {
+      'precise64': 'gyp_official',
+    },
+    'chromium.chrome': {
+      'Google Chrome Win': 'gyp_official_goma_minimal_symbols_x86',
+      'Google Chrome Linux': 'gyp_official_goma_x86',
+      'Google Chrome Linux x64': 'gyp_official_goma',
+      'Google Chrome Mac': 'gyp_official_goma',
+      'Google Chrome ChromeOS': 'gyp_official_goma_chromeos',
+    },
     'chromium.chromiumos': {
       'Linux ChromiumOS GN': 'chromeos_gn_release_bot',
       'Linux ChromiumOS GN (dbg)': 'chromeos_gn_debug_bot',
     },
     'chromium.linux': {
-      'Linux Builder': 'swarming_gyp_release_bot',
-      'Linux Tests': 'swarming_gyp_release_bot',
+      'Linux Builder': 'swarming_gn_release_bot',
+      'Linux Tests': 'swarming_gn_release_bot',
       'Linux Builder (dbg)(32)': 'swarming_gyp_debug_bot_no_symbols_x86',
       'Linux Tests (dbg)(1)(32)': 'swarming_gyp_debug_bot_no_symbols_x86',
-      'Linux Builder (dbg)': 'swarming_gyp_debug_bot',
-      'Linux Tests (dbg)(1)': 'swarming_gyp_debug_bot',
+      'Linux Builder (dbg)': 'swarming_gn_debug_bot',
+      'Linux Tests (dbg)(1)': 'swarming_gn_debug_bot',
       'Linux GN': 'gn_release_bot',
       'Linux GN Clobber': 'gn_release_bot',
       'Linux GN (dbg)': 'gn_debug_bot',
@@ -326,6 +363,14 @@
       'Chromium Mojo Windows': 'gn_release_bot_minimal_symbols_x86',
       'Chromium Mojo Linux': 'gn_release_bot',
       'Chromium Mojo Windows 7 Perf': 'gn_release_bot_minimal_symbols_x86',
+    },
+    'chromium.perf': {
+      'Android Builder': 'gyp_official_goma_minimal_symbols_android',
+      'Android arm64 Builder': 'gyp_official_goma_minimal_symbols_android_arm64',
+      'Win Builder': 'gyp_official_goma_minimal_symbols_x86',
+      'Win x64 Builder': 'gyp_official_goma_minimal_symbols_x64',
+      'Mac Builder': 'gyp_official_goma',
+      'Linux Builder': 'gyp_official_goma',
     },
     'chromium.win': {
       # Windows bots take too long to link w/ full symbols and time out.
@@ -370,17 +415,21 @@
       'android_chromium_gn_compile_rel': 'android_gn_release_bot',
       'linux_chromium_gn_rel': 'gn_release_bot',
     },
+    'tryserver.chromium.angle': {
+      'linux_angle_rel_ng': 'swarming_gpu_tests_gyp_release_trybot',
+      'linux_angle_dbg_ng': 'swarming_gpu_tests_gyp_debug_trybot',
+    },
     'tryserver.chromium.linux': {
       'linux_chromium_asan_rel_ng': 'swarming_asan_lsan_gyp_release_trybot',
       'linux_full_bisect_builder': 'swarming_gyp_release_bot',
       'linux_site_isolation': 'gyp_release_trybot',
       'linux_chromium_compile_rel_ng': 'swarming_gyp_release_trybot',
-      'linux_chromium_rel_ng': 'swarming_gpu_tests_gyp_release_trybot',
+      'linux_chromium_rel_ng': 'swarming_gpu_tests_gn_release_trybot',
       'linux_chromium_gn_rel': 'gn_release_trybot',
       'linux_chromium_gn_chromeos_rel': 'chromeos_gn_release_trybot',
       'android_chromium_gn_compile_rel': 'android_gn_release_trybot',
-      'linux_chromium_compile_dbg_ng': 'swarming_gyp_debug_trybot',
-      'linux_chromium_dbg_ng': 'swarming_gyp_debug_trybot',
+      'linux_chromium_compile_dbg_ng': 'swarming_gn_debug_trybot',
+      'linux_chromium_dbg_ng': 'swarming_gn_debug_trybot',
       'linux_chromium_trusty_dbg': 'gyp_debug_bot',
       'linux_chromium_trusty32_dbg': 'gyp_debug_bot_x86',
       'linux_chromium_gn_dbg': 'gn_debug_bot',
@@ -405,13 +454,21 @@
       'mac_chromium_gn_rel': 'gn_release_trybot',
       'mac_chromium_gn_upload': 'gn_release_bot',
     },
+    'tryserver.chromium.perf': {
+      'android_perf_bisect_builder': 'gyp_official_goma_minimal_symbols_android',
+      'android_arm64_perf_bisect_builder': 'gyp_official_goma_minimal_symbols_android_arm64',
+      'linux_perf_bisect_builder': 'gyp_official_goma',
+      'mac_perf_bisect_builder': 'gyp_official_goma',
+      'win_perf_bisect_builder': 'gyp_official_goma_minimal_symbols_x86',
+      'winx64_bisect_builder': 'gyp_official_goma_minimal_symbols',
+    },
     'tryserver.chromium.win': {
-      'win_chromium_gn_x64_dbg': 'gn_debug_bot',
+      'win_chromium_gn_x64_dbg': 'gn_debug_bot_minimal_symbols',
       'win_chromium_gn_x64_rel': 'gn_release_trybot',
       'win8_chromium_ng': 'gn_release_trybot_x86',
       'win8_chromium_gn_dbg': 'gn_debug_bot_minimal_symbols_x86',
       'win8_chromium_gn_rel': 'gn_release_trybot_x86',
-      'win8_chromium_gn_upload': 'gn_release_bot_minimal_symbols',
+      'win8_chromium_gn_upload': 'gn_release_bot_minimal_symbols_x86',
       'win_clang_x64_dbg': 'win_clang_debug_bot',
     },
     'tryserver.v8': {
