@@ -44,6 +44,15 @@ class ComparablePermission {
 };
 using ComparablePermissions = std::vector<ComparablePermission>;
 
+void DropPermissionParameter(APIPermission::ID id,
+                             PermissionIDSet* permissions) {
+  if (permissions->ContainsID(id)) {
+    // Erase the permission, and insert it again without a parameter.
+    permissions->erase(id);
+    permissions->insert(id);
+  }
+}
+
 }  // namespace
 
 typedef std::set<PermissionMessage> PermissionMsgSet;
@@ -184,6 +193,20 @@ bool ChromePermissionMessageProvider::IsAPIPrivilegeIncrease(
   AddAPIPermissions(old_permissions, &old_ids);
   PermissionIDSet new_ids;
   AddAPIPermissions(new_permissions, &new_ids);
+
+  // Ugly hack: Before M46 beta, we didn't store the parameter for settings
+  // override permissions in prefs (which is where |old_permissions| is coming
+  // from). To avoid a spurious permission increase warning, drop the parameter.
+  // See crbug.com/533086.
+  // TODO(treib,devlin): Remove this for M48, when hopefully all users will have
+  // updated prefs.
+  const APIPermission::ID kSettingsOverrideIDs[] = {
+      APIPermission::kHomepage, APIPermission::kSearchProvider,
+      APIPermission::kStartupPages};
+  for (auto id : kSettingsOverrideIDs) {
+    DropPermissionParameter(id, &old_ids);
+    DropPermissionParameter(id, &new_ids);
+  }
 
   // A special hack: kFileSystemWriteDirectory implies kFileSystemDirectory.
   // TODO(sammc): Remove this. See http://crbug.com/284849.
