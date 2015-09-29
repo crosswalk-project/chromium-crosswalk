@@ -64,14 +64,16 @@ bool CompositorPendingAnimations::update(bool startOnCompositor)
     WillBeHeapVector<RefPtrWillBeMember<Animation>> animations;
     animations.swap(m_pending);
     int compositorGroup = ++m_compositorGroup;
-    if (compositorGroup == 0) {
-        // Wrap around, skipping 0.
+    while (compositorGroup == 0 || compositorGroup == 1) {
+        // Wrap around, skipping 0, 1.
+        // * 0 is reserved for automatic assignment
+        // * 1 is used for animations with a specified start time
         compositorGroup = ++m_compositorGroup;
     }
 
     for (auto& animation : animations) {
         bool hadCompositorAnimation = animation->hasActiveAnimationsOnCompositor();
-        animation->preCommit(compositorGroup, startOnCompositor);
+        animation->preCommit(animation->hasStartTime() ? 1 : compositorGroup, startOnCompositor);
         if (animation->hasActiveAnimationsOnCompositor() && !hadCompositorAnimation) {
             startedSynchronizedOnCompositor = true;
         }
