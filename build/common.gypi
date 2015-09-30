@@ -3676,6 +3676,11 @@
           '-fstack-protector',
           '--param=ssp-buffer-size=4',
         ],
+        'conditions':[
+          ['OS=="android" and use_optimize_for_size_compile_option==1', {
+            'cflags!': ['-fstack-protector'],
+          }],
+        ],
       },
     }],
     ['os_posix==1 and OS=="linux"', {
@@ -4910,6 +4915,14 @@
               }],
               ['target_arch=="ia32"', {
                 # The x86 toolchain currently has problems with stack-protector.
+                'cflags!': [
+                  '-fstack-protector',
+                ],
+                'cflags': [
+                  '-fno-stack-protector',
+                ],
+              }],
+              ['use_optimize_for_size_compile_option==1', {
                 'cflags!': [
                   '-fstack-protector',
                 ],
