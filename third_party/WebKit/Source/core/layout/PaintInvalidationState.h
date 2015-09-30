@@ -37,6 +37,9 @@ public:
     bool ancestorHadPaintInvalidationForLocationChange() const { return m_ancestorHadPaintInvalidationForLocationChange; }
     void setAncestorHadPaintInvalidationForLocationChange() { m_ancestorHadPaintInvalidationForLocationChange = true; }
 
+    bool forcedSubtreeInvalidationRectUpdateWithinContainer() const { return m_forcedSubtreeInvalidationRectUpdateWithinContainer; }
+    void setForceSubtreeInvalidationRectUpdateWithinContainer() { m_forcedSubtreeInvalidationRectUpdateWithinContainer = true; }
+
     const LayoutBoxModelObject& paintInvalidationContainer() const { return m_paintInvalidationContainer; }
 
     bool canMapToContainer(const LayoutBoxModelObject* container) const
@@ -59,6 +62,7 @@ private:
     bool m_clipped;
     mutable bool m_cachedOffsetsEnabled;
     bool m_ancestorHadPaintInvalidationForLocationChange;
+    bool m_forcedSubtreeInvalidationRectUpdateWithinContainer;
 
     LayoutRect m_clipRect;
 

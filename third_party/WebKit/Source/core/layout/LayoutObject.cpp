@@ -1343,6 +1343,11 @@ PaintInvalidationReason LayoutObject::invalidatePaintIfNeeded(PaintInvalidationS
     setPreviousPaintInvalidationRect(newBounds);
     setPreviousPositionFromPaintInvalidationBacking(newLocation);
 
+    if (!shouldCheckForPaintInvalidationRegardlessOfPaintInvalidationState() && !paintInvalidationState.ancestorHadPaintInvalidationForLocationChange()) {
+        ASSERT(paintInvalidationState.forcedSubtreeInvalidationRectUpdateWithinContainer());
+        return PaintInvalidationNone;
+    }
+
     PaintInvalidationReason invalidationReason = paintInvalidationReason(paintInvalidationContainer, oldBounds, oldLocation, newBounds, newLocation);
 
     // We need to invalidate the selection before checking for whether we are doing a full invalidation.
@@ -3201,7 +3206,7 @@ void LayoutObject::clearPaintInvalidationState(const PaintInvalidationState& pai
 {
     // paintInvalidationStateIsDirty should be kept in sync with the
     // booleans that are cleared below.
-    ASSERT(paintInvalidationState.ancestorHadPaintInvalidationForLocationChange() || paintInvalidationStateIsDirty());
+    ASSERT(paintInvalidationState.ancestorHadPaintInvalidationForLocationChange() || paintInvalidationState.forcedSubtreeInvalidationRectUpdateWithinContainer() || paintInvalidationStateIsDirty());
     clearShouldDoFullPaintInvalidation();
     m_bitfields.setChildShouldCheckForPaintInvalidation(false);
     m_bitfields.setNeededLayoutBecauseOfChildren(false);

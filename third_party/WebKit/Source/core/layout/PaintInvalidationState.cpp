@@ -17,6 +17,7 @@ PaintInvalidationState::PaintInvalidationState(const LayoutView& layoutView, Vec
     : m_clipped(false)
     , m_cachedOffsetsEnabled(true)
     , m_ancestorHadPaintInvalidationForLocationChange(false)
+    , m_forcedSubtreeInvalidationRectUpdateWithinContainer(false)
     , m_paintInvalidationContainer(*layoutView.containerForPaintInvalidation())
     , m_pendingDelayedPaintInvalidations(pendingDelayedPaintInvalidations)
 {
@@ -41,6 +42,7 @@ PaintInvalidationState::PaintInvalidationState(PaintInvalidationState& next, Lay
     : m_clipped(false)
     , m_cachedOffsetsEnabled(true)
     , m_ancestorHadPaintInvalidationForLocationChange(next.m_ancestorHadPaintInvalidationForLocationChange)
+    , m_forcedSubtreeInvalidationRectUpdateWithinContainer(next.m_forcedSubtreeInvalidationRectUpdateWithinContainer)
     , m_paintInvalidationContainer(paintInvalidationContainer)
     , m_pendingDelayedPaintInvalidations(next.pendingDelayedPaintInvalidationTargets())
 {
@@ -97,6 +99,7 @@ PaintInvalidationState::PaintInvalidationState(PaintInvalidationState& next, con
     : m_clipped(next.m_clipped)
     , m_cachedOffsetsEnabled(next.m_cachedOffsetsEnabled)
     , m_ancestorHadPaintInvalidationForLocationChange(next.m_ancestorHadPaintInvalidationForLocationChange)
+    , m_forcedSubtreeInvalidationRectUpdateWithinContainer(next.m_forcedSubtreeInvalidationRectUpdateWithinContainer)
     , m_clipRect(next.m_clipRect)
     , m_paintOffset(next.m_paintOffset)
     , m_paintInvalidationContainer(next.m_paintInvalidationContainer)

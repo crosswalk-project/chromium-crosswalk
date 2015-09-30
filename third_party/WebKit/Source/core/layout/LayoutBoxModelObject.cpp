@@ -336,6 +336,8 @@ void LayoutBoxModelObject::invalidateTreeIfNeeded(PaintInvalidationState& paintI
     // FIXME: This assert should be re-enabled when we move paint invalidation to after compositing update. crbug.com/360286
     // ASSERT(&newPaintInvalidationContainer == containerForPaintInvalidation());
 
+    LayoutRect previousPaintInvalidationRect = this->previousPaintInvalidationRect();
+
     PaintInvalidationReason reason = invalidatePaintIfNeeded(paintInvalidationState, newPaintInvalidationContainer);
     clearPaintInvalidationState(paintInvalidationState);
 
@@ -345,6 +347,15 @@ void LayoutBoxModelObject::invalidateTreeIfNeeded(PaintInvalidationState& paintI
     PaintInvalidationState childTreeWalkState(paintInvalidationState, *this, newPaintInvalidationContainer);
     if (reason == PaintInvalidationLocationChange)
         childTreeWalkState.setAncestorHadPaintInvalidationForLocationChange();
+
+    // TODO(wangxianzhu): This is a workaround for crbug.com/490725. We don't have enough saved information to do accurate check
+    // of clipping change. Will remove when we remove rect-based paint invalidation.
+    if (!RuntimeEnabledFeatures::slimmingPaintV2Enabled()
+        && previousPaintInvalidationRect != this->previousPaintInvalidationRect()
+        && !usesCompositedScrolling()
+        && hasOverflowClip())
+        childTreeWalkState.setForceSubtreeInvalidationRectUpdateWithinContainer();
+
     invalidatePaintOfSubtreesIfNeeded(childTreeWalkState);
 }
 
