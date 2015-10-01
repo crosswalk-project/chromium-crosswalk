@@ -160,7 +160,7 @@ bool OverlayStrategyCommon::GetIOSurfaceQuadInfo(const IOSurfaceDrawQuad& quad,
   quad_info->resource_id = quad.io_surface_resource_id();
   quad_info->resource_size_in_pixels = quad.io_surface_size;
   quad_info->transform = overlay_transform;
-  quad_info->uv_rect = gfx::Rect(0, 0, 1, 1);
+  quad_info->uv_rect = gfx::RectF(1.f, 1.f);
   return true;
 }
 
@@ -194,6 +194,10 @@ bool OverlayStrategyCommon::GetCandidateQuadInfo(const DrawQuad& draw_quad,
   quad_info->format = RGBA_8888;
   quad_info->display_rect = OverlayCandidate::GetOverlayRect(
       draw_quad.shared_quad_state->quad_to_target_transform, draw_quad.rect);
+  quad_info->quad_rect_in_target_space = MathUtil::MapEnclosingClippedRect(
+      draw_quad.shared_quad_state->quad_to_target_transform, draw_quad.rect);
+  quad_info->clip_rect = draw_quad.shared_quad_state->clip_rect;
+  quad_info->is_clipped = draw_quad.shared_quad_state->is_clipped;
   return true;
 }
 
