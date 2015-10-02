@@ -4155,6 +4155,7 @@
                     { "name": "columnNumber", "type": "integer", "description": "1-based column number of the function start position." },
                     { "name": "hitCount", "type": "integer", "description": "Number of samples where this node was on top of the call stack." },
                     { "name": "callUID", "type": "number", "description": "Call UID." },
+                    { "name": "stackEntryLine", "type": "integer", "description": "Hit line for entry in stack." },
                     { "name": "children", "type": "array", "items": { "$ref": "CPUProfileNode" }, "description": "Child nodes." },
                     { "name": "deoptReason", "type": "string", "description": "The reason of being not optimized. The function may be deoptimized or marked as don't optimize."},
                     { "name": "id", "type": "integer", "description": "Unique id of the node." },
@@ -4237,7 +4238,20 @@
                 "id": "HeapSnapshotObjectId",
                 "type": "string",
                 "description": "Heap snapshot object id."
-            }
+            },
+            {
+                "id": "HeapEventXDK",
+                "type": "object",
+                "description": "",
+                "properties": [
+                    { "name": "duration", "type": "integer" },
+                    { "name": "symbols", "type": "string" },
+                    { "name": "frames", "type": "string" },
+                    { "name": "types", "type": "string" },
+                    { "name": "chunks", "type": "string" },
+		                { "name": "retentions", "type": "string" }
+                ]
+             }
         ],
         "commands": [
             {
@@ -4258,6 +4272,20 @@
                     { "name": "reportProgress", "type": "boolean", "optional": true, "description": "If true 'reportHeapSnapshotProgress' events will be generated while snapshot is being taken when the tracking is stopped." }
                 ]
 
+            },
+            {
+                "name": "startTrackingHeapXDK",
+                "parameters": [
+                    { "name": "stack_depth", "type": "integer", "optional": true },
+                    { "name": "sav", "type": "integer", "optional": true },
+                    { "name": "retentions", "type": "boolean", "optional": true }
+                ]
+            },
+            {
+                "name": "stopTrackingHeapXDK",
+                "returns": [
+                    { "name": "profileXDK", "$ref": "HeapEventXDK", "description": "Recorded profile." }
+                ]
             },
             {
                 "name": "takeHeapSnapshot",
@@ -4327,7 +4355,17 @@
                 "parameters": [
                     { "name": "statsUpdate", "type": "array", "items": { "type": "integer" }, "description": "An array of triplets. Each triplet describes a fragment. The first integer is the fragment index, the second integer is a total count of objects for the fragment, the third integer is a total size of the objects for the fragment."}
                 ]
-            }
+            },
+	          {
+                "name": "heapXDKUpdate",
+                "parameters": [
+		                { "name": "symbols", "type": "string" },
+		                { "name": "frames", "type": "string" },
+		                { "name": "types", "type": "string" },
+		                { "name": "chunks", "type": "string" },
+		                { "name": "retentions", "type": "string" }
+		            ]
+	          }
         ]
     },
     {
