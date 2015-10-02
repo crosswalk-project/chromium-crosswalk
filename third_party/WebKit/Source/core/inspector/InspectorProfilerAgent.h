@@ -38,6 +38,7 @@
 #include "wtf/Noncopyable.h"
 #include "wtf/PassOwnPtr.h"
 #include "wtf/text/WTFString.h"
+#include <v8-profiler.h>
 
 namespace v8 {
 class CpuProfile;
@@ -52,6 +53,31 @@ class InspectorOverlay;
 
 typedef String ErrorString;
 
+class HeapProfileXDK final : public RefCountedWillBeGarbageCollectedFinalized<HeapProfileXDK> {
+public:
+    static PassRefPtrWillBeRawPtr<HeapProfileXDK> create(v8::HeapEventXDK* event, v8::Isolate* isolate)
+    {
+        return adoptRefWillBeNoop(new HeapProfileXDK(event, isolate));
+    }
+
+    String getSymbols() const;
+    String getFrames() const;
+    String getTypes() const;
+    String getChunks() const;
+    String getRetentions() const;
+    int getDuration() const;
+
+private:
+    HeapProfileXDK(v8::HeapEventXDK* event, v8::Isolate* isolate)
+      : m_event(event),
+        m_isolate(isolate)
+    {
+    }
+
+    v8::HeapEventXDK* m_event;
+    v8::Isolate* m_isolate;
+};
+
 class CORE_EXPORT InspectorProfilerAgent final : public InspectorBaseAgent<InspectorProfilerAgent, InspectorFrontend::Profiler>, public InspectorBackendDispatcher::ProfilerCommandHandler {
     WTF_MAKE_NONCOPYABLE(InspectorProfilerAgent);
     WTF_MAKE_FAST_ALLOCATED_WILL_BE_REMOVED(InspectorProfilerAgent);
@@ -59,6 +85,17 @@ public:
     static PassOwnPtrWillBeRawPtr<InspectorProfilerAgent> create(v8::Isolate*, InjectedScriptManager*, InspectorOverlay*);
     ~InspectorProfilerAgent() override;
     DECLARE_VIRTUAL_TRACE();
+
+    class OutputStream {
+    public:
+      virtual ~OutputStream() { }
+      virtual void write(const uint32_t* chunk, const int size) = 0;
+      virtual void write(const char* symbols, int symbolsSize,
+                         const char* frames, int framesSize,
+                         const char* types, int typesSize,
+                         const char* chunks, int chunksSize,
+                         const char* retentions, int retentionsSize) { };
+    };
 
     void consoleProfile(ExecutionContext*, const String& title);
     void consoleProfileEnd(const String& title);
@@ -75,6 +112,10 @@ public:
     void didProcessTask();
     void willEnterNestedRunLoop();
     void didLeaveNestedRunLoop();
+
+    static void startTrackingHeapObjectsXDK(int stackDepth, bool retentions);
+    static PassRefPtr<HeapProfileXDK> stopTrackingHeapObjectsXDK();
+    static void requestHeapXDKUpdate(OutputStream*);
 
 private:
     InspectorProfilerAgent(v8::Isolate*, InjectedScriptManager*, InspectorOverlay*);
