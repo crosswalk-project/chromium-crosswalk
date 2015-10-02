@@ -148,7 +148,7 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
     /** Per-session values. */
     private static class SessionParams {
         public final int mUid;
-        public final Referrer mReferrer;
+        public final String mPackageName;
         public final ICustomTabsCallback mCallback;
         public final IBinder.DeathRecipient mDeathRecipient;
         private ServiceConnection mServiceConnection;
@@ -163,14 +163,14 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
             mServiceConnection = null;
             mPredictedUrl = null;
             mLastMayLaunchUrlTimestamp = 0;
-            mReferrer = constructReferrer(context);
+            mPackageName = getPackageName(context);
         }
 
-        private Referrer constructReferrer(Context context) {
+        private String getPackageName(Context context) {
             PackageManager packageManager = context.getPackageManager();
             String[] packageList = packageManager.getPackagesForUid(mUid);
             if (packageList.length != 1 || TextUtils.isEmpty(packageList[0])) return null;
-            return IntentHandler.constructValidReferrerForAuthority(packageList[0]);
+            return packageList[0];
         }
 
         public ServiceConnection getServiceConnection() {
@@ -486,7 +486,8 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
 
     public Referrer getReferrerForSession(IBinder session) {
         if (!mSessionParams.containsKey(session)) return null;
-        return mSessionParams.get(session).mReferrer;
+        return IntentHandler.constructValidReferrerForAuthority(
+                mSessionParams.get(session).mPackageName);
     }
 
     private ICustomTabsCallback getCallbackForSession(IBinder session) {
@@ -495,6 +496,11 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
             if (sessionParams == null) return null;
             return sessionParams.mCallback;
         }
+    }
+
+    public String getClientPackageNameForSession(IBinder session) {
+        if (!mSessionParams.containsKey(session)) return null;
+        return mSessionParams.get(session).mPackageName;
     }
 
     /**
