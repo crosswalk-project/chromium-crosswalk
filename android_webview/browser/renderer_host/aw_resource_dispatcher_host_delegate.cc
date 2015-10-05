@@ -221,16 +221,15 @@ void AwResourceDispatcherHostDelegate::RequestBeginning(
   throttles->push_back(new IoThreadClientThrottle(
       request_info->GetChildID(), request_info->GetRenderFrameID(), request));
 
-  if (resource_type == content::RESOURCE_TYPE_MAIN_FRAME ||
-      (resource_type == content::RESOURCE_TYPE_SUB_FRAME &&
-       !request->url().SchemeIs(url::kHttpScheme) &&
-       !request->url().SchemeIs(url::kHttpsScheme) &&
-       !request->url().SchemeIs(url::kAboutScheme))) {
+  // We allow intercepting only navigations within main frames. This
+  // is used to post onPageStarted. We handle shouldOverrideUrlLoading
+  // via a sync IPC.
+  if (resource_type == content::RESOURCE_TYPE_MAIN_FRAME) {
     throttles->push_back(InterceptNavigationDelegate::CreateThrottleFor(
         request));
-  }
-  if (resource_type != content::RESOURCE_TYPE_MAIN_FRAME)
+  } else {
     InterceptNavigationDelegate::UpdateUserGestureCarryoverInfo(request);
+  }
 }
 
 void AwResourceDispatcherHostDelegate::OnRequestRedirected(
