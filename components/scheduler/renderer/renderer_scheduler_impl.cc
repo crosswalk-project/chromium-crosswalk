@@ -472,7 +472,6 @@ void RendererSchedulerImpl::UpdatePolicyLocked(UpdateType update_type) {
     case Policy::COMPOSITOR_CRITICAL_PATH_PRIORITY:
       compositor_queue_priority = TaskQueue::HIGH_PRIORITY;
       loading_queue_priority = TaskQueue::DISABLED_PRIORITY;
-      timer_queue_priority = TaskQueue::DISABLED_PRIORITY;
       break;
     case Policy::TOUCHSTART_PRIORITY:
       compositor_queue_priority = TaskQueue::HIGH_PRIORITY;
