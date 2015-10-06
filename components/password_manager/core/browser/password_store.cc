@@ -389,6 +389,10 @@ void PasswordStore::GetLoginsWithAffiliationsImpl(
     ScopedVector<PasswordForm> more_results(
         AffiliatedMatchHelper::TransformAffiliatedAndroidCredentials(
             form, FillMatchingLogins(android_form, DISALLOW_PROMPT)));
+    ScopedVector<PasswordForm>::iterator it_first_federated = std::partition(
+        more_results.begin(), more_results.end(),
+        [](PasswordForm* form) { return form->federation_url.is_empty(); });
+    more_results.erase(it_first_federated, more_results.end());
     results.insert(results.end(), more_results.begin(), more_results.end());
     more_results.weak_clear();
   }
