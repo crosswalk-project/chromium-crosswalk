@@ -61,6 +61,11 @@
 #include "components/nacl/common/nacl_sandbox_type.h"
 #endif
 
+#if defined(ENABLE_EXTENSIONS)
+#include "extensions/common/features/behavior_feature.h"
+#include "extensions/common/features/feature_provider.h"
+#endif
+
 #if defined(ENABLE_PLUGINS)
 #include "content/public/common/pepper_plugin_info.h"
 #include "flapper_version.h"  // In SHARED_INTERMEDIATE_DIR.
@@ -610,5 +615,11 @@ void ChromeContentClient::AddSecureSchemesAndOrigins(
 
 void ChromeContentClient::AddServiceWorkerSchemes(
     std::set<std::string>* schemes) {
-  schemes->insert(extensions::kExtensionScheme);
+#if defined(ENABLE_EXTENSIONS)
+  if (extensions::FeatureProvider::GetBehaviorFeature(
+          extensions::BehaviorFeature::kServiceWorker)
+          ->IsAvailableToEnvironment()
+          .is_available())
+    schemes->insert(extensions::kExtensionScheme);
+#endif
 }
