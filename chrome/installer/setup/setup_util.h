@@ -124,6 +124,10 @@ base::string16 GetRegistrationDataCommandKey(
     const AppRegistrationData& reg_data,
     const wchar_t* name);
 
+// Converts a product GUID into a SQuished gUID that is used for MSI installer
+// registry entries.
+base::string16 GuidToSquid(const base::string16& guid);
+
 // This class will enable the privilege defined by |privilege_name| on the
 // current process' token. The privilege will be disabled upon the
 // ScopedTokenPrivilege's destruction (unless it was already enabled when the
