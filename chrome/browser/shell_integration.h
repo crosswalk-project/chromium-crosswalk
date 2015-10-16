@@ -12,12 +12,12 @@
 #include "base/memory/ref_counted.h"
 #include "base/strings/string16.h"
 #include "base/time/time.h"
+#include "base/timer/timer.h"
 #include "ui/gfx/image/image_family.h"
 #include "url/gurl.h"
 
 namespace base {
 class CommandLine;
-class OneShotTimer;
 }
 
 class ShellIntegration {
@@ -354,7 +354,7 @@ class ShellIntegration {
     static bool SetAsDefaultBrowserAsynchronous();
 
     // Used to determine if setting the default browser was unsuccesful.
-    scoped_ptr<base::OneShotTimer> async_timer_;
+    scoped_ptr<base::OneShotTimer<DefaultWebClientWorker>> async_timer_;
 #endif  // !defined(OS_WIN)
 
     DISALLOW_COPY_AND_ASSIGN(DefaultBrowserWorker);

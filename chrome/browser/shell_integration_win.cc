@@ -678,7 +678,7 @@ bool ShellIntegration::DefaultBrowserWorker::InitializeSetAsDefault() {
 
   // Start the timer.
   if (!async_timer_)
-    async_timer_.reset(new base::OneShotTimer());
+    async_timer_.reset(new base::OneShotTimer<DefaultWebClientWorker>());
   std::string value = variations::GetVariationParamValue(
       kAsyncSetAsDefaultExperimentName, "TimerDuration");
   int seconds = 0;
