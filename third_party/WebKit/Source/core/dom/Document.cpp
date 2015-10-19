@@ -2351,7 +2351,7 @@ void Document::open()
 
     if (m_frame)
         m_frame->loader().didExplicitOpen();
-    if (m_loadEventProgress != LoadEventInProgress && m_loadEventProgress != UnloadEventInProgress)
+    if (m_loadEventProgress != LoadEventInProgress && pageDismissalEventBeingDispatched() == NoDismissal)
         m_loadEventProgress = LoadEventNotRun;
 }
 
