@@ -228,6 +228,11 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
           blink::WebString::fromLatin1(feature), false);
     }
   }
+
+// Make the tags of  disabled features unknown for WebKit
+#ifdef DISABLE_WEB_VIDEO
+  WebRuntimeFeatures::enableMediaPlayer(false);
+#endif
 }
 
 }  // namespace content
