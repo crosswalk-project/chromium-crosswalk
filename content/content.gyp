@@ -440,7 +440,6 @@
             '../ui/android/ui_android.gyp:ui_java',
             '../ui/touch_selection/ui_touch_selection.gyp:selection_event_type_java',
             '../ui/touch_selection/ui_touch_selection.gyp:touch_handle_orientation_java',
-            '../third_party/android_tools/android_tools.gyp:android_support_v13_javalib',
             '../third_party/WebKit/public/blink_headers.gyp:blink_headers_java',
             '../ui/mojo/geometry/mojo_bindings.gyp:mojo_geometry_bindings',
             'common_aidl',
@@ -461,6 +460,7 @@
           ],
           'variables': {
             'java_in_dir': '../content/public/android/java',
+            'filtered_java_files': ' ! -name BackgroundSyncLauncherService.java',
             'has_java_resources': 1,
             'R_package': 'org.chromium.content',
             'R_package_relpath': 'org/chromium/content',

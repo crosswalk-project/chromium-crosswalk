@@ -56,6 +56,7 @@
     'input_jars_paths': [ '<(android_jar)' ],
     'additional_src_dirs': [],
     'javac_includes': [],
+    'filtered_java_files%': '',
     'jar_name': '<(_target_name).jar',
     'jar_dir': '<(PRODUCT_DIR)/lib.java',
     'jar_path': '<(intermediate_dir)/<(jar_name)',
@@ -260,7 +261,7 @@
       'variables': {
         'extra_args': [],
         'extra_inputs': [],
-        'java_sources': ['>!@(find >(java_in_dir)>(java_in_dir_suffix) >(additional_src_dirs) -name "*.java")'],
+        'java_sources': ['>!@(find >(java_in_dir)>(java_in_dir_suffix) >(additional_src_dirs) -name "*.java" >(filtered_java_files))'],
         'conditions': [
           ['enable_errorprone == 1', {
             'extra_inputs': [
