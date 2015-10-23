@@ -83,6 +83,7 @@ class CONTENT_EXPORT RenderFrameHost : public IPC::Listener,
   virtual void ExecuteJavaScriptWithUserGestureForTests(
       const base::string16& javascript) = 0;
 
+#ifndef DISABLE_ACCESSIBILITY
   // Accessibility actions - these send a message to the RenderFrame
   // to trigger an action on an accessibility object.
   virtual void AccessibilitySetFocus(int acc_obj_id) = 0;
@@ -98,6 +99,7 @@ class CONTENT_EXPORT RenderFrameHost : public IPC::Listener,
   // the result object on the page, navigating assistive technology to that
   // result.
   virtual void ActivateFindInPageResultForAccessibility(int request_id) = 0;
+#endif
 
   // Roundtrips through the renderer and compositor pipeline to ensure that any
   // changes to the contents resulting from operations executed prior to this

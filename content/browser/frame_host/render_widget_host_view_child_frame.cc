@@ -290,6 +290,7 @@ gfx::GLSurfaceHandle RenderWidgetHostViewChildFrame::GetCompositingSurface() {
   return gfx::GLSurfaceHandle(gfx::kNullPluginWindow, gfx::NULL_TRANSPORT);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 #if defined(OS_WIN)
 void RenderWidgetHostViewChildFrame::SetParentNativeViewAccessible(
     gfx::NativeViewAccessible accessible_parent) {
@@ -307,5 +308,5 @@ RenderWidgetHostViewChildFrame::CreateBrowserAccessibilityManager(
   return BrowserAccessibilityManager::Create(
       BrowserAccessibilityManager::GetEmptyDocument(), delegate);
 }
-
+#endif
 }  // namespace content

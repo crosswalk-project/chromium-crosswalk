@@ -19,8 +19,10 @@
 #include "base/time/time.h"
 #include "base/trace_event/trace_event.h"
 #include "components/mime_util/mime_util.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/accessibility_mode_helper.h"
 #include "content/browser/accessibility/browser_accessibility_state_impl.h"
+#endif
 #include "content/browser/bad_message.h"
 #include "content/browser/browser_plugin/browser_plugin_embedder.h"
 #include "content/browser/browser_plugin/browser_plugin_guest.h"
@@ -177,6 +179,7 @@ bool ForEachFrameInternal(
   return true;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 bool ForEachPendingFrameInternal(
     const base::Callback<void(RenderFrameHost*)>& on_frame,
     FrameTreeNode* node) {
@@ -186,6 +189,7 @@ bool ForEachPendingFrameInternal(
     on_frame.Run(pending_frame_host);
   return true;
 }
+#endif
 
 void SendToAllFramesInternal(IPC::Message* message, RenderFrameHost* rfh) {
   IPC::Message* message_copy = new IPC::Message(*message);
@@ -339,8 +343,10 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context,
       force_disable_overscroll_content_(false),
       last_dialog_suppressed_(false),
       geolocation_service_context_(new GeolocationServiceContext()),
+#ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(
           BrowserAccessibilityStateImpl::GetInstance()->accessibility_mode()),
+#endif
       virtual_keyboard_requested_(false),
       loading_weak_factory_(this) {
   frame_tree_.SetFrameRemoveListener(
@@ -720,6 +726,7 @@ SkColor WebContentsImpl::GetThemeColor() const {
   return theme_color_;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void WebContentsImpl::SetAccessibilityMode(AccessibilityMode mode) {
   if (mode == accessibility_mode_)
     return;
@@ -747,6 +754,7 @@ void WebContentsImpl::RequestAXTreeSnapshot(AXTreeSnapshotCallback callback) {
   // same site instance.
   GetMainFrame()->RequestAXTreeSnapshot(callback);
 }
+#endif
 
 void WebContentsImpl::ClearNavigationTransitionData() {
   FrameTreeNode* node = frame_tree_.root();
@@ -801,6 +809,7 @@ const std::string& WebContentsImpl::GetUserAgentOverride() const {
   return renderer_preferences_.user_agent_override;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void WebContentsImpl::EnableTreeOnlyAccessibilityMode() {
   AddAccessibilityMode(AccessibilityModeTreeOnly);
 }
@@ -812,6 +821,7 @@ bool WebContentsImpl::IsTreeOnlyAccessibilityModeForTesting() const {
 bool WebContentsImpl::IsFullAccessibilityModeForTesting() const {
   return accessibility_mode_ == AccessibilityModeComplete;
 }
+#endif
 
 #if defined(OS_WIN)
 void WebContentsImpl::SetParentNativeViewAccessible(
@@ -1941,6 +1951,7 @@ void WebContentsImpl::DidSendScreenRects(RenderWidgetHostImpl* rwh) {
     browser_plugin_embedder_->DidSendScreenRects();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 BrowserAccessibilityManager*
     WebContentsImpl::GetRootBrowserAccessibilityManager() {
   RenderFrameHostImpl* rfh = GetMainFrame();
@@ -1952,6 +1963,7 @@ BrowserAccessibilityManager*
   RenderFrameHostImpl* rfh = GetMainFrame();
   return rfh ? rfh->GetOrCreateBrowserAccessibilityManager() : nullptr;
 }
+#endif
 
 void WebContentsImpl::UpdatePreferredSize(const gfx::Size& pref_size) {
   const gfx::Size old_size = GetPreferredSize();
@@ -2600,6 +2612,7 @@ void WebContentsImpl::DidStartProvisionalLoad(
           render_frame_host, validated_url, is_error_page, is_iframe_srcdoc));
 
   // Notify accessibility if this is a reload.
+#ifndef DISABLE_ACCESSIBILITY
   NavigationEntry* entry = controller_.GetVisibleEntry();
   if (entry && ui::PageTransitionCoreTypeIs(
           entry->GetTransitionType(), ui::PAGE_TRANSITION_RELOAD)) {
@@ -2609,6 +2622,7 @@ void WebContentsImpl::DidStartProvisionalLoad(
     if (manager)
       manager->UserIsReloading();
   }
+#endif
 }
 
 void WebContentsImpl::DidStartNavigationTransition(
@@ -2631,11 +2645,13 @@ void WebContentsImpl::DidFailProvisionalLoadWithError(
                                            params.error_code,
                                            params.error_description));
 
+#ifndef DISABLE_ACCESSIBILITY
   FrameTreeNode* ftn = render_frame_host->frame_tree_node();
   BrowserAccessibilityManager* manager =
       ftn->current_frame_host()->browser_accessibility_manager();
   if (manager)
     manager->NavigationFailed();
+#endif
 }
 
 void WebContentsImpl::DidFailLoadWithError(
@@ -2711,10 +2727,12 @@ void WebContentsImpl::DidCommitProvisionalLoad(
                     DidCommitProvisionalLoadForFrame(
                         render_frame_host, url, transition_type));
 
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* manager =
       render_frame_host->browser_accessibility_manager();
   if (manager)
     manager->NavigationSucceeded();
+#endif
 }
 
 void WebContentsImpl::DidNavigateMainFramePreCommit(
@@ -3750,10 +3768,12 @@ void WebContentsImpl::DidStartLoading(FrameTreeNode* frame_tree_node,
   // current document.
   //
   // TODO(dmazzoni): do this using a WebContentsObserver.
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* manager =
       frame_tree_node->current_frame_host()->browser_accessibility_manager();
   if (manager)
     manager->UserIsNavigatingAway();
+#endif
 }
 
 void WebContentsImpl::DidStopLoading() {

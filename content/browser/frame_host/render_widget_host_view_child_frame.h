@@ -125,6 +125,7 @@ class CONTENT_EXPORT RenderWidgetHostViewChildFrame
   void UnlockCompositingSurface() override;
 #endif  // defined(OS_ANDROID)
 
+#ifndef DISABLE_ACCESSIBILITY
 #if defined(OS_WIN)
   void SetParentNativeViewAccessible(
       gfx::NativeViewAccessible accessible_parent) override;
@@ -132,6 +133,7 @@ class CONTENT_EXPORT RenderWidgetHostViewChildFrame
 #endif
   BrowserAccessibilityManager* CreateBrowserAccessibilityManager(
       BrowserAccessibilityDelegate* delegate) override;
+#endif
 
  protected:
   friend class RenderWidgetHostView;
