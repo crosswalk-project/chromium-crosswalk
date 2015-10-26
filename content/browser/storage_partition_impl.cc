@@ -478,6 +478,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 
   // BrowserMainLoop may not be initialized in unit tests. Tests will
   // need to inject their own task runner into the IndexedDBContext.
+#ifndef DISABLE_INDEXEDDB
   base::SequencedTaskRunner* idb_task_runner =
       BrowserThread::CurrentlyOn(BrowserThread::UI) &&
               BrowserMainLoop::GetInstance()
@@ -489,6 +490,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
                                context->GetSpecialStoragePolicy(),
                                quota_manager->proxy(),
                                idb_task_runner);
+#endif
 
   scoped_refptr<CacheStorageContextImpl> cache_storage_context =
       new CacheStorageContextImpl(context);
@@ -536,7 +538,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   StoragePartitionImpl* storage_partition = new StoragePartitionImpl(
       context, partition_path, quota_manager.get(), appcache_service.get(),
       filesystem_context.get(), database_tracker.get(),
+#ifndef DISABLE_INDEXEDDB
       dom_storage_context.get(), indexed_db_context.get(),
+#else
+      dom_storage_context.get(), nullptr,
+#endif
       cache_storage_context.get(), service_worker_context.get(),
       webrtc_identity_store.get(), special_storage_policy.get(),
       geofencing_manager.get(), host_zoom_level_context.get(),

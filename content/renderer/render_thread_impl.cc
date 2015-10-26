@@ -502,8 +502,10 @@ void RenderThreadImpl::Init() {
   appcache_dispatcher_.reset(
       new AppCacheDispatcher(Get(), new AppCacheFrontendImpl()));
   dom_storage_dispatcher_.reset(new DomStorageDispatcher());
+#ifndef DISABLE_INDEXEDDB
   main_thread_indexed_db_dispatcher_.reset(new IndexedDBDispatcher(
       thread_safe_sender()));
+#endif
   renderer_scheduler_ = scheduler::RendererScheduler::Create();
   channel()->SetListenerTaskRunner(renderer_scheduler_->DefaultTaskRunner());
   main_thread_cache_storage_dispatcher_.reset(
@@ -558,7 +560,9 @@ void RenderThreadImpl::Init() {
   midi_message_filter_ = new MidiMessageFilter(GetIOMessageLoopProxy());
   AddFilter(midi_message_filter_.get());
 
+#ifndef DISABLE_INDEXEDDB
   AddFilter((new IndexedDBMessageFilter(thread_safe_sender()))->GetFilter());
+#endif
 
   AddFilter((new CacheStorageMessageFilter(thread_safe_sender()))->GetFilter());
 
