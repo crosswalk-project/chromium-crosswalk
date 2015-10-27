@@ -247,15 +247,10 @@ IN_PROC_BROWSER_TEST_F(GalleryBrowserTest,
   StartTest();
 }
 
-#if defined(DISABLE_SLOW_FILESAPP_TESTS)
-#define MAYBE_DeleteAllImagesInThumbnailModeWithEnterKey \
-  DISABLED_DeleteAllImagesInThumbnailModeWithEnterKey
-#else
-#define MAYBE_DeleteAllImagesInThumbnailModeWithEnterKey \
-  DeleteAllImagesInThumbnailModeWithEnterKey
-#endif
+// Since this test case uses newly added test utility function after M46, this
+// test case doesn't work on M46.
 IN_PROC_BROWSER_TEST_F(GalleryBrowserTest,
-                       MAYBE_DeleteAllImagesInThumbnailModeWithEnterKey) {
+                       DISABLED_DeleteAllImagesInThumbnailModeWithEnterKey) {
   set_test_case_name("deleteAllImagesInThumbnailModeWithEnterKey");
   StartTest();
 }
