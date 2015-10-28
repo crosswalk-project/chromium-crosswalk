@@ -4,7 +4,9 @@
 
 #include "content/browser/webui/content_web_ui_controller_factory.h"
 
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/accessibility_ui.h"
+#endif
 #include "content/browser/gpu/gpu_internals_ui.h"
 #include "content/browser/indexed_db/indexed_db_internals_ui.h"
 #include "content/browser/media/media_internals_ui.h"
@@ -63,8 +65,10 @@ WebUIController* ContentWebUIControllerFactory::CreateWebUIControllerForURL(
 #endif
   if (url.host() == kChromeUIMediaInternalsHost)
     return new MediaInternalsUI(web_ui);
+#ifndef DISABLE_ACCESSIBILITY
   if (url.host() == kChromeUIAccessibilityHost)
     return new AccessibilityUI(web_ui);
+#endif
   if (url.host() == kChromeUIServiceWorkerInternalsHost)
     return new ServiceWorkerInternalsUI(web_ui);
 #if !defined(OS_ANDROID)

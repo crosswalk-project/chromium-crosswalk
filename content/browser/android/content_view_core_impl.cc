@@ -1298,6 +1298,7 @@ bool ContentViewCoreImpl::IsFullscreenRequiredForOrientationLock() const {
 }
 
 void ContentViewCoreImpl::SetAccessibilityEnabledInternal(bool enabled) {
+#ifndef DISABLE_ACCESSIBILITY
   accessibility_enabled_ = enabled;
   BrowserAccessibilityStateImpl* accessibility_state =
       BrowserAccessibilityStateImpl::GetInstance();
@@ -1315,6 +1316,9 @@ void ContentViewCoreImpl::SetAccessibilityEnabledInternal(bool enabled) {
           accessibility_state->accessibility_mode());
     }
   }
+#else
+  (void) enabled;
+#endif
 }
 
 void ContentViewCoreImpl::SendOrientationChangeEventInternal() {

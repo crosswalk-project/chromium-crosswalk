@@ -10,8 +10,10 @@
 #include "base/command_line.h"
 #include "base/json/json_writer.h"
 #include "base/logging.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/browser_accessibility_android.h"
 #include "content/browser/accessibility/browser_accessibility_manager_android.h"
+#endif
 #include "content/browser/android/content_view_core_impl.h"
 #include "content/browser/android/interstitial_page_delegate_android.h"
 #include "content/browser/frame_host/interstitial_page_impl.h"
@@ -54,6 +56,7 @@ void JavaScriptResultCallback(const ScopedJavaGlobalRef<jobject>& callback,
       env, j_json.obj(), callback.obj());
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 ScopedJavaLocalRef<jobject> WalkAXTreeDepthFirst(JNIEnv* env,
       BrowserAccessibilityAndroid* node, float scale_factor,
       float y_offset, float x_scroll) {
@@ -117,6 +120,11 @@ void AXTreeSnapshotCallback(const ScopedJavaGlobalRef<jobject>& callback,
   Java_WebContentsImpl_onAccessibilitySnapshot(
       env, j_root.obj(), callback.obj());
 }
+#else
+const int p001 = (int) Java_WebContentsImpl_onAccessibilitySnapshot;
+const int p002 = (int) Java_WebContentsImpl_createAccessibilitySnapshotNode;
+const int p003 = (int) Java_WebContentsImpl_addAccessibilityNodeAsChild;
+#endif // DISABLE_ACCESSIBILITY
 
 void ReleaseAllMediaPlayers(WebContents* web_contents,
                             RenderFrameHost* render_frame_host) {
@@ -575,8 +583,14 @@ void WebContentsAndroid::AddMessageToDevToolsConsole(JNIEnv* env,
 jboolean WebContentsAndroid::HasAccessedInitialDocument(
     JNIEnv* env,
     jobject jobj) {
+#ifndef DISABLE_ACCESSIBILITY
   return static_cast<WebContentsImpl*>(web_contents_)->
       HasAccessedInitialDocument();
+#else
+  (void) env;
+  (void) jobj;
+  return false;
+#endif
 }
 
 jint WebContentsAndroid::GetThemeColor(JNIEnv* env, jobject obj) {
@@ -588,6 +602,7 @@ void WebContentsAndroid::RequestAccessibilitySnapshot(JNIEnv* env,
                                                       jobject callback,
                                                       jfloat y_offset,
                                                       jfloat x_scroll) {
+#ifndef DISABLE_ACCESSIBILITY
   // Secure the Java callback in a scoped object and give ownership of it to the
   // base::Callback.
   ScopedJavaGlobalRef<jobject> j_callback;
@@ -600,6 +615,13 @@ void WebContentsAndroid::RequestAccessibilitySnapshot(JNIEnv* env,
           contentViewCore->GetScaleFactor(), y_offset, x_scroll);
   static_cast<WebContentsImpl*>(web_contents_)->RequestAXTreeSnapshot(
       snapshot_callback);
+#else
+  (void) env;
+  (void) obj;
+  (void) callback;
+  (void) y_offset;
+  (void) x_scroll;
+#endif
 }
 
 }  // namespace content

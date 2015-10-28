@@ -58,7 +58,9 @@
 #include "content/public/renderer/navigation_state.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/renderer_ppapi_host.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/renderer/accessibility/renderer_accessibility.h"
+#endif
 #include "content/renderer/browser_plugin/browser_plugin.h"
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/child_frame_compositing_helper.h"
@@ -704,8 +706,10 @@ RenderFrameImpl::RenderFrameImpl(RenderViewImpl* render_view, int routing_id)
       presentation_dispatcher_(NULL),
       screen_orientation_dispatcher_(NULL),
       manifest_manager_(NULL),
+#ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(AccessibilityModeOff),
       renderer_accessibility_(NULL),
+#endif
       weak_factory_(this) {
   std::pair<RoutingIDFrameMap::iterator, bool> result =
       g_routing_id_frame_map.Get().insert(std::make_pair(routing_id_, this));
@@ -1078,10 +1082,12 @@ bool RenderFrameImpl::OnMessageReceived(const IPC::Message& msg) {
                         OnTextSurroundingSelectionRequest)
     IPC_MESSAGE_HANDLER(FrameMsg_AddStyleSheetByURL,
                         OnAddStyleSheetByURL)
+#ifndef DISABLE_ACCESSIBILITY
     IPC_MESSAGE_HANDLER(FrameMsg_SetAccessibilityMode,
                         OnSetAccessibilityMode)
     IPC_MESSAGE_HANDLER(AccessibilityMsg_SnapshotTree,
                         OnSnapshotAccessibilityTree)
+#endif
     IPC_MESSAGE_HANDLER(FrameMsg_DisownOpener, OnDisownOpener)
     IPC_MESSAGE_HANDLER(FrameMsg_CommitNavigation, OnCommitNavigation)
     IPC_MESSAGE_HANDLER(FrameMsg_DidUpdateSandboxFlags, OnDidUpdateSandboxFlags)
@@ -1564,6 +1570,7 @@ void RenderFrameImpl::OnExtendSelectionAndDelete(int before, int after) {
   frame_->extendSelectionAndDelete(before, after);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::OnSetAccessibilityMode(AccessibilityMode new_mode) {
   if (accessibility_mode_ == new_mode)
     return;
@@ -1590,6 +1597,7 @@ void RenderFrameImpl::OnSnapshotAccessibilityTree(int callback_id) {
   Send(new AccessibilityHostMsg_SnapshotResponse(
       routing_id_, callback_id, response));
 }
+#endif // DISABLE_ACCESSIBILITY
 
 void RenderFrameImpl::OnDisownOpener() {
   // TODO(creis): We should only see this for main frames for now.  To support
@@ -3782,6 +3790,7 @@ int64_t RenderFrameImpl::serviceWorkerID(WebDataSource& data_source) {
   return kInvalidServiceWorkerVersionId;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::postAccessibilityEvent(const blink::WebAXObject& obj,
                                              blink::WebAXEvent event) {
   HandleWebAccessibilityEvent(obj, event);
@@ -3800,6 +3809,7 @@ void RenderFrameImpl::handleAccessibilityFindInPageResult(
         end_object, end_offset);
   }
 }
+#endif
 
 void RenderFrameImpl::didChangeManifest(blink::WebLocalFrame* frame) {
   DCHECK(!frame_ || frame_ == frame);
@@ -4111,19 +4121,25 @@ void RenderFrameImpl::didChangeLoadProgress(double load_progress) {
   Send(new FrameHostMsg_DidChangeLoadProgress(routing_id_, load_progress));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::HandleWebAccessibilityEvent(
     const blink::WebAXObject& obj, blink::WebAXEvent event) {
   if (renderer_accessibility_)
     renderer_accessibility_->HandleWebAccessibilityEvent(obj, event);
 }
+#endif
 
 void RenderFrameImpl::FocusedNodeChanged(const WebNode& node) {
   FOR_EACH_OBSERVER(RenderFrameObserver, observers_, FocusedNodeChanged(node));
 }
 
 void RenderFrameImpl::FocusedNodeChangedForAccessibility(const WebNode& node) {
+#ifndef DISABLE_ACCESSIBILITY
   if (renderer_accessibility())
     renderer_accessibility()->AccessibilityFocusedNodeChanged(node);
+#else
+  (void) node;
+#endif
 }
 
 // PlzNavigate

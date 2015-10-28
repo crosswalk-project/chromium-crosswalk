@@ -18,7 +18,9 @@
 #include "cc/output/begin_frame_args.h"
 #include "cc/surfaces/surface_factory_client.h"
 #include "cc/surfaces/surface_id.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/browser_accessibility_manager.h"
+#endif
 #include "content/browser/renderer_host/delegated_frame_evictor.h"
 #include "content/browser/renderer_host/ime_adapter_android.h"
 #include "content/browser/renderer_host/input/stylus_text_selector.h"
@@ -146,8 +148,10 @@ class CONTENT_EXPORT RenderWidgetHostViewAndroid
   void OnSetNeedsFlushInput() override;
   void GestureEventAck(const blink::WebGestureEvent& event,
                        InputEventAckState ack_result) override;
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* CreateBrowserAccessibilityManager(
       BrowserAccessibilityDelegate* delegate) override;
+#endif
   bool LockMouse() override;
   void UnlockMouse() override;
   void OnSwapCompositorFrame(uint32 output_surface_id,

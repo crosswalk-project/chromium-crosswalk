@@ -45,8 +45,10 @@ namespace {
 base::android::RegistrationMethod kContentRegisteredMethods[] = {
     {"AndroidLocationApiAdapter",
      content::AndroidLocationApiAdapter::RegisterGeolocationService},
+#ifndef DISABLE_ACCESSIBILITY
     {"BrowserAccessibilityManager",
      content::RegisterBrowserAccessibilityManager},
+#endif
     {"BrowserStartupController", content::RegisterBrowserStartupController},
     {"ChildProcessLauncher", content::RegisterChildProcessLauncher},
     {"ContentReadbackHandler",

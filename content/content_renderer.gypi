@@ -725,6 +725,16 @@
     '<@(private_renderer_sources)',
   ],
   'conditions': [
+    ['disable_accessibility==1', {
+      'sources!': [
+        'renderer/accessibility/blink_ax_enum_conversion.cc',
+        'renderer/accessibility/blink_ax_enum_conversion.h',
+        'renderer/accessibility/blink_ax_tree_source.cc',
+        'renderer/accessibility/blink_ax_tree_source.h',
+        'renderer/accessibility/renderer_accessibility.cc',
+        'renderer/accessibility/renderer_accessibility.h',
+      ],
+    }],
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
     }],

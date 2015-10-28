@@ -204,6 +204,7 @@ class CONTENT_EXPORT WebContentsImpl
   void WasOccluded();
   void WasUnOccluded();
 
+#ifndef DISABLE_ACCESSIBILITY
   // Broadcasts the mode change to all frames.
   void SetAccessibilityMode(AccessibilityMode mode);
 
@@ -222,6 +223,7 @@ class CONTENT_EXPORT WebContentsImpl
   typedef base::Callback<void(const ui::AXTreeUpdate&)>
       AXTreeSnapshotCallback;
   void RequestAXTreeSnapshot(AXTreeSnapshotCallback callback);
+#endif
 
   // Clear the navigation transition data when the user navigates back to Chrome
   // from a native app.
@@ -254,9 +256,11 @@ class CONTENT_EXPORT WebContentsImpl
   WebUI* GetCommittedWebUI() const override;
   void SetUserAgentOverride(const std::string& override) override;
   const std::string& GetUserAgentOverride() const override;
+#ifndef DISABLE_ACCESSIBILITY
   void EnableTreeOnlyAccessibilityMode() override;
   bool IsTreeOnlyAccessibilityModeForTesting() const override;
   bool IsFullAccessibilityModeForTesting() const override;
+#endif
 #if defined(OS_WIN)
   void SetParentNativeViewAccessible(
       gfx::NativeViewAccessible accessible_parent) override;
@@ -576,9 +580,11 @@ class CONTENT_EXPORT WebContentsImpl
   bool HandleWheelEvent(const blink::WebMouseWheelEvent& event) override;
   bool PreHandleGestureEvent(const blink::WebGestureEvent& event) override;
   void DidSendScreenRects(RenderWidgetHostImpl* rwh) override;
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* GetRootBrowserAccessibilityManager() override;
   BrowserAccessibilityManager* GetOrCreateRootBrowserAccessibilityManager()
       override;
+#endif
 
   // RenderFrameHostManager::Delegate ------------------------------------------
 
