@@ -342,7 +342,11 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context,
       is_subframe_(false),
       force_disable_overscroll_content_(false),
       last_dialog_suppressed_(false),
+#ifndef DISABLE_GEO_FEATURES
       geolocation_service_context_(new GeolocationServiceContext()),
+#else
+      geolocation_service_context_(nullptr),
+#endif
 #ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(
           BrowserAccessibilityStateImpl::GetInstance()->accessibility_mode()),

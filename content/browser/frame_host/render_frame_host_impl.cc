@@ -1554,6 +1554,7 @@ static void CreateMediaRendererService(
 #endif
 
 void RenderFrameHostImpl::RegisterMojoServices() {
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* geolocation_service_context =
       delegate_ ? delegate_->GetGeolocationServiceContext() : NULL;
   if (geolocation_service_context) {
@@ -1566,6 +1567,7 @@ void RenderFrameHostImpl::RegisterMojoServices() {
                    base::Bind(&RenderFrameHostImpl::DidUseGeolocationPermission,
                               base::Unretained(this))));
   }
+#endif
 
   if (!permission_service_context_)
     permission_service_context_.reset(new PermissionServiceContext(this));

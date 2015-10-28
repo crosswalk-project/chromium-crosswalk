@@ -734,6 +734,15 @@
         '../third_party/icu/icu.gyp:icuuc',
       ],
     }],
+    ['OS=="android" and disable_geo_features==1', {
+      'sources!': [
+        'public/common/geoposition.cc',
+        'public/common/geoposition.h',
+        'common/geofencing_messages.h',
+        'common/geofencing_types.cc',
+        'common/geofencing_types.h',
+      ],
+    }],
     ['use_pango == 1', {
       'dependencies': [
         '../build/linux/system.gyp:pangocairo',

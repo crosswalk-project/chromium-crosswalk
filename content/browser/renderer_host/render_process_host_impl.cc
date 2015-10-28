@@ -936,8 +936,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
 #if defined(OS_ANDROID)
   AddFilter(new ScreenOrientationMessageFilterAndroid());
 #endif
+#ifndef DISABLE_GEO_FEATURES
   AddFilter(new GeofencingDispatcherHost(
       storage_partition_impl_->GetGeofencingManager()));
+#endif
   AddFilter(new NavigatorConnectDispatcherHost(
       storage_partition_impl_->GetNavigatorConnectContext(),
       message_port_message_filter_.get()));

@@ -354,8 +354,10 @@ void ChildThreadImpl::Init(const Options& options) {
       new QuotaMessageFilter(thread_safe_sender_.get());
   quota_dispatcher_.reset(new QuotaDispatcher(thread_safe_sender_.get(),
                                               quota_message_filter_.get()));
+#ifndef DISABLE_GEO_FEATURES
   geofencing_message_filter_ =
       new GeofencingMessageFilter(thread_safe_sender_.get());
+#endif
   bluetooth_message_filter_ =
       new BluetoothMessageFilter(thread_safe_sender_.get());
   notification_dispatcher_ =
@@ -371,7 +373,9 @@ void ChildThreadImpl::Init(const Options& options) {
   channel_->AddFilter(notification_dispatcher_->GetFilter());
   channel_->AddFilter(push_dispatcher_->GetFilter());
   channel_->AddFilter(service_worker_message_filter_->GetFilter());
+#ifndef DISABLE_GEO_FEATURES
   channel_->AddFilter(geofencing_message_filter_->GetFilter());
+#endif
   channel_->AddFilter(bluetooth_message_filter_->GetFilter());
   channel_->AddFilter(navigator_connect_dispatcher_->GetFilter());
 

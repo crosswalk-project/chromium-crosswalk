@@ -24,6 +24,13 @@
           'public/common/mojo_geoposition.mojom',
           'public/common/permission_status.mojom',
         ],
+        'conditions': [
+          ['disable_geo_features==1 and OS=="android"', {
+            'mojom_files!': [
+              'common/geolocation_service.mojom',
+            ],
+          }],
+        ],
       },
       'includes': [ '../third_party/mojo/mojom_bindings_generator_explicit.gypi' ],
     },

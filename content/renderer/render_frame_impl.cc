@@ -3609,9 +3609,13 @@ void RenderFrameImpl::willOpenWebSocket(blink::WebSocketHandle* handle) {
 }
 
 blink::WebGeolocationClient* RenderFrameImpl::geolocationClient() {
+#ifndef DISABLE_GEO_FEATURES
   if (!geolocation_dispatcher_)
     geolocation_dispatcher_ = new GeolocationDispatcher(this);
   return geolocation_dispatcher_;
+#else
+  return NULL;
+#endif
 }
 
 blink::WebPresentationClient* RenderFrameImpl::presentationClient() {

@@ -114,7 +114,9 @@ void ServiceWorkerScriptContext::OnMessageReceived(
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_NotificationClickEvent,
                         OnNotificationClickEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_PushEvent, OnPushEvent)
+#ifndef DISABLE_GEO_FEATURES
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_GeofencingEvent, OnGeofencingEvent)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_CrossOriginConnectEvent,
                         OnCrossOriginConnectEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_MessageToWorker, OnPostMessage)
@@ -389,12 +391,16 @@ void ServiceWorkerScriptContext::OnGeofencingEvent(
     blink::WebGeofencingEventType event_type,
     const std::string& region_id,
     const blink::WebCircularGeofencingRegion& region) {
+#ifndef DISABLE_GEO_FEATURES
   TRACE_EVENT0("ServiceWorker",
                "ServiceWorkerScriptContext::OnGeofencingEvent");
   proxy_->dispatchGeofencingEvent(
       request_id, event_type, blink::WebString::fromUTF8(region_id), region);
   Send(new ServiceWorkerHostMsg_GeofencingEventFinished(GetRoutingID(),
                                                         request_id));
+#else
+  return;
+#endif
 }
 
 void ServiceWorkerScriptContext::OnCrossOriginConnectEvent(
