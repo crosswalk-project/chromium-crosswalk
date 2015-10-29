@@ -819,6 +819,7 @@ void ServiceWorkerVersion::DispatchGeofencingEvent(
     blink::WebGeofencingEventType event_type,
     const std::string& region_id,
     const blink::WebCircularGeofencingRegion& region) {
+#ifndef DISABLE_GEO_FEATURES
   DCHECK_EQ(ACTIVATED, status()) << status();
 
   if (!base::CommandLine::ForCurrentProcess()->HasSwitch(
@@ -850,6 +851,7 @@ void ServiceWorkerVersion::DispatchGeofencingEvent(
     geofencing_callbacks_.Remove(request_id);
     RunSoon(base::Bind(callback, status));
   }
+#endif
 }
 
 void ServiceWorkerVersion::DispatchCrossOriginConnectEvent(
@@ -1115,8 +1117,10 @@ bool ServiceWorkerVersion::OnMessageReceived(const IPC::Message& message) {
                         OnNotificationClickEventFinished)
     IPC_MESSAGE_HANDLER(ServiceWorkerHostMsg_PushEventFinished,
                         OnPushEventFinished)
+#ifndef DISABLE_GEO_FEATURES
     IPC_MESSAGE_HANDLER(ServiceWorkerHostMsg_GeofencingEventFinished,
                         OnGeofencingEventFinished)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerHostMsg_CrossOriginConnectEventFinished,
                         OnCrossOriginConnectEventFinished)
     IPC_MESSAGE_HANDLER(ServiceWorkerHostMsg_OpenWindow,
@@ -1335,6 +1339,7 @@ void ServiceWorkerVersion::OnPushEventFinished(
 }
 
 void ServiceWorkerVersion::OnGeofencingEventFinished(int request_id) {
+#ifndef DISABLE_GEO_FEATURES
   TRACE_EVENT1("ServiceWorker",
                "ServiceWorkerVersion::OnGeofencingEventFinished",
                "Request id",
@@ -1348,6 +1353,7 @@ void ServiceWorkerVersion::OnGeofencingEventFinished(int request_id) {
   scoped_refptr<ServiceWorkerVersion> protect(this);
   callback->Run(SERVICE_WORKER_OK);
   RemoveCallbackAndStopIfRedundant(&geofencing_callbacks_, request_id);
+#endif
 }
 
 void ServiceWorkerVersion::OnCrossOriginConnectEventFinished(
@@ -1830,7 +1836,9 @@ bool ServiceWorkerVersion::HasInflightRequests() const {
     !sync_callbacks_.IsEmpty() ||
     !notification_click_callbacks_.IsEmpty() ||
     !push_callbacks_.IsEmpty() ||
+#ifndef DISABLE_GEO_FEATURES
     !geofencing_callbacks_.IsEmpty() ||
+#endif
     !cross_origin_connect_callbacks_.IsEmpty() ||
     !streaming_url_request_jobs_.empty();
 }
@@ -1918,8 +1926,12 @@ bool ServiceWorkerVersion::OnRequestTimeout(const RequestInfo& info) {
       return RunIDMapCallback(&push_callbacks_, info.id,
                               SERVICE_WORKER_ERROR_TIMEOUT);
     case REQUEST_GEOFENCING:
+#ifndef DISABLE_GEO_FEATURES
       return RunIDMapCallback(&geofencing_callbacks_, info.id,
                               SERVICE_WORKER_ERROR_TIMEOUT);
+#else
+      return false;
+#endif
     case REQUEST_CROSS_ORIGIN_CONNECT:
       return RunIDMapCallback(&cross_origin_connect_callbacks_, info.id,
                               SERVICE_WORKER_ERROR_TIMEOUT,
@@ -2003,7 +2015,9 @@ void ServiceWorkerVersion::OnStoppedInternal(
   RunIDMapCallbacks(&notification_click_callbacks_,
                     SERVICE_WORKER_ERROR_FAILED);
   RunIDMapCallbacks(&push_callbacks_, SERVICE_WORKER_ERROR_FAILED);
+#ifndef DISABLE_GEO_FEATURES
   RunIDMapCallbacks(&geofencing_callbacks_, SERVICE_WORKER_ERROR_FAILED);
+#endif
   RunIDMapCallbacks(&cross_origin_connect_callbacks_,
                     SERVICE_WORKER_ERROR_FAILED, false);
 

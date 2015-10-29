@@ -735,6 +735,12 @@
         'renderer/accessibility/renderer_accessibility.h',
       ],
     }],
+    ['disable_geo_features==1 and OS=="android"', {
+      'sources!': [
+        'renderer/geolocation_dispatcher.cc',
+        'renderer/geolocation_dispatcher.h',
+      ],
+    }],
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
     }],

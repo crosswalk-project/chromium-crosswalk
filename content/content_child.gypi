@@ -301,6 +301,16 @@
         ],
       }
     ],
+    ['disable_geo_features==1 and OS=="android"', {
+      'sources!': [
+        'child/geofencing/geofencing_dispatcher.cc',
+        'child/geofencing/geofencing_dispatcher.h',
+        'child/geofencing/geofencing_message_filter.cc',
+        'child/geofencing/geofencing_message_filter.h',
+        'child/geofencing/web_geofencing_provider_impl.cc',
+        'child/geofencing/web_geofencing_provider_impl.h',
+      ],
+    }],
     ['use_default_render_theme==0',
       {
         'sources/': [

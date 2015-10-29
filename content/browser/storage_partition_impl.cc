@@ -425,8 +425,10 @@ StoragePartitionImpl::~StoragePartitionImpl() {
   if (GetCacheStorageContext())
     GetCacheStorageContext()->Shutdown();
 
+#ifndef DISABLE_GEO_FEATURES
   if (GetGeofencingManager())
     GetGeofencingManager()->Shutdown();
+#endif
 
 #ifndef DISABLE_NOTIFICATIONS
   if (GetPlatformNotificationContext())
@@ -511,9 +513,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   scoped_refptr<storage::SpecialStoragePolicy> special_storage_policy(
       context->GetSpecialStoragePolicy());
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_refptr<GeofencingManager> geofencing_manager =
       new GeofencingManager(service_worker_context);
   geofencing_manager->Init();
+#endif
 
   scoped_refptr<HostZoomLevelContext> host_zoom_level_context(
       new HostZoomLevelContext(
@@ -545,7 +549,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 #endif
       cache_storage_context.get(), service_worker_context.get(),
       webrtc_identity_store.get(), special_storage_policy.get(),
+#ifndef DISABLE_GEO_FEATURES
       geofencing_manager.get(), host_zoom_level_context.get(),
+#else
+      nullptr, host_zoom_level_context.get(),
+#endif
 #ifndef DISABLE_NOTIFICATIONS
       navigator_connect_context.get(), platform_notification_context.get(),
 #else

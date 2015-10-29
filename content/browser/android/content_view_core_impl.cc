@@ -373,10 +373,12 @@ jint ContentViewCoreImpl::GetBackgroundColor(JNIEnv* env, jobject obj) {
 }
 
 void ContentViewCoreImpl::PauseOrResumeGeolocation(bool should_pause) {
+#ifndef DISABLE_GEO_FEATURES
   if (should_pause)
     web_contents_->GetGeolocationServiceContext()->PauseUpdates();
   else
     web_contents_->GetGeolocationServiceContext()->ResumeUpdates();
+#endif
 }
 
 // All positions and sizes are in CSS pixels.

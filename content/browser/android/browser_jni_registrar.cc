@@ -43,8 +43,10 @@
 
 namespace {
 base::android::RegistrationMethod kContentRegisteredMethods[] = {
+#ifndef DISABLE_GEO_FEATURES
     {"AndroidLocationApiAdapter",
      content::AndroidLocationApiAdapter::RegisterGeolocationService},
+#endif
 #ifndef DISABLE_ACCESSIBILITY
     {"BrowserAccessibilityManager",
      content::RegisterBrowserAccessibilityManager},

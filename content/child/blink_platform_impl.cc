@@ -447,8 +447,12 @@ BlinkPlatformImpl::BlinkPlatformImpl(
 void BlinkPlatformImpl::InternalInit() {
   // ChildThread may not exist in some tests.
   if (ChildThreadImpl::current()) {
+#ifndef DISABLE_GEO_FEATURES
     geofencing_provider_.reset(new WebGeofencingProviderImpl(
         ChildThreadImpl::current()->thread_safe_sender()));
+#else
+    geofencing_provider_.reset(nullptr);
+#endif
     bluetooth_.reset(
         new WebBluetoothImpl(ChildThreadImpl::current()->thread_safe_sender()));
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();

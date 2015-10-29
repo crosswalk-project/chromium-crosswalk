@@ -71,6 +71,7 @@ void EmulationHandler::Detached() {
 
 Response EmulationHandler::SetGeolocationOverride(
     double* latitude, double* longitude, double* accuracy) {
+#ifndef DISABLE_GEO_FEATURES
   if (!GetWebContents())
     return Response::InternalError("Could not connect to view");
 
@@ -89,16 +90,19 @@ Response EmulationHandler::SetGeolocationOverride(
     geoposition->error_code = Geoposition::ERROR_CODE_POSITION_UNAVAILABLE;
   }
   geolocation_context->SetOverride(geoposition.Pass());
+#endif
   return Response::OK();
 }
 
 Response EmulationHandler::ClearGeolocationOverride() {
+#ifndef DISABLE_GEO_FEATURES
   if (!GetWebContents())
     return Response::InternalError("Could not connect to view");
 
   GeolocationServiceContext* geolocation_context =
       GetWebContents()->GetGeolocationServiceContext();
   geolocation_context->ClearOverride();
+#endif
   return Response::OK();
 }
 
