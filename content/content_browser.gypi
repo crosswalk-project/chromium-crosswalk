@@ -1969,6 +1969,13 @@
         'browser/notifications/notification_proto.gyp:notification_proto',
       ],
     }],
+
+    ['disable_webdatabase==1 and OS=="android"', {
+      'sources!': [
+       'browser/renderer_host/database_message_filter.cc',
+       'browser/renderer_host/database_message_filter.h',
+      ],
+    }],
     ['OS == "win"', {
       'dependencies': [
         '../third_party/power_gadget/power_gadget.gyp:power_gadget',

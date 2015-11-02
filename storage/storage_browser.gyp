@@ -196,6 +196,23 @@
             '<(DEPTH)/third_party/WebKit/public/blink.gyp:blink',
           ],
         }],
+        ['disable_webdatabase==1', {
+          'dependencies!': [
+            '<(DEPTH)/third_party/sqlite/sqlite.gyp:sqlite',
+          ],
+          'source!': [
+            'browser/database/database_quota_client.cc',
+            'browser/database/database_quota_client.h',
+            'browser/database/database_tracker.cc',
+            'browser/database/database_tracker.h',
+            'browser/database/database_util.cc',
+            'browser/database/database_util.h',
+            'browser/database/databases_table.cc',
+            'browser/database/databases_table.h',
+            'browser/database/vfs_backend.cc',
+            'browser/database/vfs_backend.h',
+          ],
+        }],
       ],
     },
     {

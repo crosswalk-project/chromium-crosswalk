@@ -44,6 +44,14 @@
       'child/geofencing/web_geofencing_provider_impl.cc',
       'child/geofencing/web_geofencing_provider_impl.h',
     ],
+    'private_child_sources_webdatabase': [
+      'child/database_util.cc',
+      'child/database_util.h',
+      'child/db_message_filter.cc',
+      'child/db_message_filter.h',
+      'child/web_database_observer_impl.cc',
+      'child/web_database_observer_impl.h',
+    ],
     'private_child_sources_notifications': [
       'child/notifications/notification_data_conversions.cc',
       'child/notifications/notification_data_conversions.h',
@@ -397,6 +405,11 @@
     ['disable_notifications==1', {
       'sources!': [
         '<@(private_child_sources_notifications)',
+      ],
+    }],
+    ['disable_webdatabase==1', {
+      'sources!': [
+        '<@(private_child_sources_webdatabase)',
       ],
     }],
   ],
