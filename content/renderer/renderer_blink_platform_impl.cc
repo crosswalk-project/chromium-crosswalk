@@ -249,8 +249,10 @@ RendererBlinkPlatformImpl::RendererBlinkPlatformImpl(
 #ifndef DISABLE_INDEXEDDB
     web_idb_factory_.reset(new WebIDBFactoryImpl(thread_safe_sender_.get()));
 #endif
+#ifndef DISABLE_WEBDATABASE
     web_database_observer_impl_.reset(
         new WebDatabaseObserverImpl(sync_message_filter_.get()));
+#endif
   }
 }
 
@@ -589,6 +591,7 @@ void RendererBlinkPlatformImpl::SandboxSupport::getRenderStyleForStrike(
 
 //------------------------------------------------------------------------------
 
+#ifndef DISABLE_WEBDATABASE
 Platform::FileHandle RendererBlinkPlatformImpl::databaseOpenFile(
     const WebString& vfs_file_name,
     int desired_flags) {
@@ -626,6 +629,7 @@ bool RendererBlinkPlatformImpl::databaseSetFileSize(
   return DatabaseUtil::DatabaseSetFileSize(
       vfs_file_name, size, sync_message_filter_.get());
 }
+#endif // DISABLE_WEBDATABASE
 
 bool RendererBlinkPlatformImpl::canAccelerate2dCanvas() {
   RenderThreadImpl* thread = RenderThreadImpl::current();

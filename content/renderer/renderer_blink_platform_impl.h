@@ -85,6 +85,7 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
   virtual blink::WebString defaultLocale();
   virtual void suddenTerminationChanged(bool enabled);
   virtual blink::WebStorageNamespace* createLocalStorageNamespace();
+#ifndef DISABLE_WEBDATABASE
   virtual blink::Platform::FileHandle databaseOpenFile(
       const blink::WebString& vfs_file_name, int desired_flags);
   virtual int databaseDeleteFile(const blink::WebString& vfs_file_name,
@@ -97,6 +98,7 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
       const blink::WebString& origin_identifier);
   virtual bool databaseSetFileSize(
       const blink::WebString& vfs_file_name, long long size);
+#endif
   virtual blink::WebString signedPublicKeyAndChallengeString(
       unsigned key_size_index,
       const blink::WebString& challenge,

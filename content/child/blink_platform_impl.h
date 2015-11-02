@@ -55,6 +55,7 @@ class CONTENT_EXPORT BlinkPlatformImpl
   // Platform methods (partial implementation):
   virtual blink::WebThemeEngine* themeEngine();
   virtual blink::WebFallbackThemeEngine* fallbackThemeEngine();
+#ifndef DISABLE_WEBDATABASE
   virtual blink::Platform::FileHandle databaseOpenFile(
       const blink::WebString& vfs_file_name, int desired_flags);
   virtual int databaseDeleteFile(const blink::WebString& vfs_file_name,
@@ -66,6 +67,7 @@ class CONTENT_EXPORT BlinkPlatformImpl
       const blink::WebString& origin_identifier);
   virtual bool databaseSetFileSize(
       const blink::WebString& vfs_file_name, long long size);
+#endif
   virtual blink::WebString signedPublicKeyAndChallengeString(
       unsigned key_size_index, const blink::WebString& challenge,
       const blink::WebURL& url);
