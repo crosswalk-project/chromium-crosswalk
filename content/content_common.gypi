@@ -549,6 +549,14 @@
     }],
   ],
   'conditions': [
+    ['disable_bluetooth==1', {
+      'sources!': [
+        'common/bluetooth/bluetooth_device.cc',
+        'common/bluetooth/bluetooth_device.h',
+        'common/bluetooth/bluetooth_error.h',
+        'common/bluetooth/bluetooth_messages.h',
+      ],
+    }],
     ['disable_indexeddb==1', {
       'sources!': [
         'common/indexed_db/indexed_db_constants.h',

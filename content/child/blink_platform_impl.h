@@ -163,7 +163,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
   virtual void didStopWorkerRunLoop();
   virtual blink::WebCrypto* crypto();
   virtual blink::WebGeofencingProvider* geofencingProvider();
+#ifndef DISABLE_BLUETOOTH
   virtual blink::WebBluetooth* bluetooth();
+#endif
   virtual blink::WebNotificationManager* notificationManager();
   virtual blink::WebPushProvider* pushProvider();
   virtual blink::WebNavigatorConnectProvider* navigatorConnectProvider();
@@ -174,7 +176,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
   void ResumeSharedTimer();
   virtual void OnStartSharedTimer(base::TimeDelta delay) {}
 
+#ifndef DISABLE_BLUETOOTH
   WebBluetoothImpl* BluetoothImplForTesting() { return bluetooth_.get(); }
+#endif
 
   virtual blink::WebString domCodeStringFromEnum(int dom_code);
   virtual int domEnumFromCodeString(const blink::WebString& codeString);
@@ -203,7 +207,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
   base::ThreadLocalStorage::Slot current_thread_slot_;
   webcrypto::WebCryptoImpl web_crypto_;
   scoped_ptr<WebGeofencingProviderImpl> geofencing_provider_;
+#ifndef DISABLE_BLUETOOTH
   scoped_ptr<WebBluetoothImpl> bluetooth_;
+#endif
   base::ScopedPtrHashMap<blink::WebMemoryDumpProvider*,
                          scoped_ptr<WebMemoryDumpProviderAdapter>>
       memory_dump_providers_;

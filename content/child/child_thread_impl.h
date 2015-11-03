@@ -290,7 +290,9 @@ class CONTENT_EXPORT ChildThreadImpl
   scoped_ptr<base::PowerMonitor> power_monitor_;
 
   scoped_refptr<ChildMessageFilter> geofencing_message_filter_;
+#ifndef DISABLE_BLUETOOTH
   scoped_refptr<ChildMessageFilter> bluetooth_message_filter_;
+#endif
 
   scoped_refptr<NavigatorConnectDispatcher> navigator_connect_dispatcher_;
 

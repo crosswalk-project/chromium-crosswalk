@@ -8,7 +8,9 @@
 
 #include "content/common/accessibility_messages.h"
 #include "content/common/appcache_messages.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/common/bluetooth/bluetooth_messages.h"
+#endif
 #include "content/common/browser_plugin/browser_plugin_messages.h"
 #include "content/common/cache_storage/cache_storage_messages.h"
 #include "content/common/cc_messages.h"

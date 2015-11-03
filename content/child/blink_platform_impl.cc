@@ -35,7 +35,9 @@
 #include "content/app/strings/grit/content_strings.h"
 #include "content/child/background_sync/background_sync_provider.h"
 #include "content/child/background_sync/background_sync_provider_thread_proxy.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/child/bluetooth/web_bluetooth_impl.h"
+#endif
 #include "content/child/child_thread_impl.h"
 #include "content/child/content_child_helpers.h"
 #include "content/child/geofencing/web_geofencing_provider_impl.h"
@@ -453,8 +455,11 @@ void BlinkPlatformImpl::InternalInit() {
 #else
     geofencing_provider_.reset(nullptr);
 #endif
+
+#ifndef DISABLE_BLUETOOTH
     bluetooth_.reset(
         new WebBluetoothImpl(ChildThreadImpl::current()->thread_safe_sender()));
+#endif
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();
     notification_dispatcher_ =
         ChildThreadImpl::current()->notification_dispatcher();
@@ -1167,9 +1172,11 @@ blink::WebGeofencingProvider* BlinkPlatformImpl::geofencingProvider() {
   return geofencing_provider_.get();
 }
 
+#ifndef DISABLE_BLUETOOTH
 blink::WebBluetooth* BlinkPlatformImpl::bluetooth() {
   return bluetooth_.get();
 }
+#endif
 
 blink::WebNotificationManager*
 BlinkPlatformImpl::notificationManager() {
