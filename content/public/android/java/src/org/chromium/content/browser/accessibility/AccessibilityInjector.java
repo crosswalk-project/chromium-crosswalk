@@ -7,6 +7,7 @@ package org.chromium.content.browser.accessibility;
 import android.accessibilityservice.AccessibilityServiceInfo;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
@@ -15,8 +16,6 @@ import android.view.View;
 import android.view.accessibility.AccessibilityManager;
 import android.view.accessibility.AccessibilityNodeInfo;
 
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
 import org.chromium.base.CommandLine;
 import org.chromium.content.browser.ContentViewCore;
 import org.chromium.content.browser.JavascriptInterface;
@@ -24,8 +23,6 @@ import org.chromium.content.common.ContentSwitches;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -305,16 +302,11 @@ public class AccessibilityInjector {
         }
 
         try {
-            List<NameValuePair> params = URLEncodedUtils.parse(
-                    new URI(mContentViewCore.getWebContents().getUrl()), null);
-
-            for (NameValuePair param : params) {
-                if ("axs".equals(param.getName())) {
-                    return Integer.parseInt(param.getValue());
-                }
+            Uri uri = Uri.parse(mContentViewCore.getWebContents().getUrl());
+            String axs = uri.getQueryParameter("axs");
+            if (axs != null) {
+                return Integer.parseInt(axs);
             }
-        } catch (URISyntaxException ex) {
-            // Intentional no-op.
         } catch (NumberFormatException ex) {
             // Intentional no-op.
         } catch (IllegalArgumentException ex) {
