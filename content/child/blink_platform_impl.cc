@@ -1236,6 +1236,7 @@ WebFallbackThemeEngine* BlinkPlatformImpl::fallbackThemeEngine() {
   return &fallback_theme_engine_;
 }
 
+#ifndef DISABLE_WEBDATABASE
 blink::Platform::FileHandle BlinkPlatformImpl::databaseOpenFile(
     const blink::WebString& vfs_file_name, int desired_flags) {
 #if defined(OS_WIN)
@@ -1269,6 +1270,7 @@ bool BlinkPlatformImpl::databaseSetFileSize(
     const blink::WebString& vfs_file_name, long long size) {
   return false;
 }
+#endif //DISABLE_WEBDATABASE
 
 blink::WebString BlinkPlatformImpl::signedPublicKeyAndChallengeString(
     unsigned key_size_index,

@@ -275,8 +275,10 @@ void BrowserContext::EnsureResourceContextInitialized(BrowserContext* context) {
 }
 
 void BrowserContext::SaveSessionState(BrowserContext* browser_context) {
+#ifndef DISABLE_WEBDATABASE
   GetDefaultStoragePartition(browser_context)->GetDatabaseTracker()->
       SetForceKeepSessionState();
+#endif
   StoragePartition* storage_partition =
       BrowserContext::GetDefaultStoragePartition(browser_context);
 

@@ -405,6 +405,7 @@ StoragePartitionImpl::~StoragePartitionImpl() {
   browser_context_ = nullptr;
 
   // These message loop checks are just to avoid leaks in unittests.
+#ifndef DISABLE_WEBDATABASE
   if (GetDatabaseTracker() &&
       BrowserThread::IsMessageLoopValid(BrowserThread::FILE)) {
     BrowserThread::PostTask(
@@ -412,6 +413,7 @@ StoragePartitionImpl::~StoragePartitionImpl() {
         FROM_HERE,
         base::Bind(&storage::DatabaseTracker::Shutdown, GetDatabaseTracker()));
   }
+#endif
 
   if (GetFileSystemContext())
     GetFileSystemContext()->Shutdown();
@@ -466,6 +468,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
       CreateFileSystemContext(
           context, partition_path, in_memory, quota_manager->proxy());
 
+#ifndef DISABLE_WEBDATABASE
   scoped_refptr<storage::DatabaseTracker> database_tracker =
       new storage::DatabaseTracker(partition_path,
                                    in_memory,
@@ -473,6 +476,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
                                    quota_manager->proxy(),
                                    BrowserThread::GetMessageLoopProxyForThread(
                                        BrowserThread::FILE).get());
+#endif
 
   base::FilePath path = in_memory ? base::FilePath() : partition_path;
   scoped_refptr<DOMStorageContextWrapper> dom_storage_context =
@@ -541,7 +545,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 
   StoragePartitionImpl* storage_partition = new StoragePartitionImpl(
       context, partition_path, quota_manager.get(), appcache_service.get(),
+#ifndef DISABLE_WEBDATABASE
       filesystem_context.get(), database_tracker.get(),
+#else
+      filesystem_context.get(), nullptr,
+#endif
 #ifndef DISABLE_INDEXEDDB
       dom_storage_context.get(), indexed_db_context.get(),
 #else

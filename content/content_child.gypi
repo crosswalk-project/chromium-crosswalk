@@ -323,6 +323,16 @@
         'child/geofencing/web_geofencing_provider_impl.h',
       ],
     }],
+    ['disable_webdatabase==1 and OS=="android"', {
+      'sources!': [
+        'child/database_util.cc',
+        'child/database_util.h',
+        'child/db_message_filter.cc',
+        'child/db_message_filter.h',
+        'child/web_database_observer_impl.cc',
+        'child/web_database_observer_impl.h',
+      ],
+    }],
     ['use_default_render_theme==0',
       {
         'sources/': [

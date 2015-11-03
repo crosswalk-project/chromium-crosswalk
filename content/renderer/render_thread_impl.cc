@@ -522,8 +522,12 @@ void RenderThreadImpl::Init() {
 
   media_stream_center_ = NULL;
 
+#ifndef DISABLE_WEBDATABASE
   db_message_filter_ = new DBMessageFilter();
   AddFilter(db_message_filter_.get());
+#else
+  db_message_filter_ = NULL;
+#endif
 
   vc_manager_.reset(new VideoCaptureImplManager());
   AddFilter(vc_manager_->video_capture_message_filter());
@@ -712,6 +716,7 @@ void RenderThreadImpl::Shutdown() {
     memory_observer_.reset();
   }
 
+#ifndef DISABLE_WEBDATABASE
   // Wait for all databases to be closed.
   if (blink_platform_impl_) {
     // WaitForAllDatabasesToClose might run a nested message loop. To avoid
@@ -722,6 +727,7 @@ void RenderThreadImpl::Shutdown() {
         ->WaitForAllDatabasesToClose();
     WebView::didExitModalLoop();
   }
+#endif
 
   // Shutdown in reverse of the initialization order.
   if (devtools_agent_message_filter_.get()) {
@@ -743,8 +749,10 @@ void RenderThreadImpl::Shutdown() {
   RemoveFilter(vc_manager_->video_capture_message_filter());
   vc_manager_.reset();
 
+#ifndef DISABLE_WEBDATABASE
   RemoveFilter(db_message_filter_.get());
   db_message_filter_ = NULL;
+#endif
 
   // Shutdown the file thread if it's running.
   if (file_thread_)

@@ -1878,6 +1878,12 @@
        'browser/geolocation/wifi_polling_policy.h',
       ],
     }],
+    ['disable_webdatabase==1 and OS=="android"', {
+      'sources!': [
+        'browser/renderer_host/database_message_filter.cc',
+        'browser/renderer_host/database_message_filter.h',
+      ],
+    }],
     ['disable_devtools!=1', {
       'sources': [
         '<@(private_browser_sources_devtools)',

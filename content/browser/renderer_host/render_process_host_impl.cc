@@ -841,8 +841,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       StreamContext::GetFor(browser_context)));
   AddFilter(new FileUtilitiesMessageFilter(GetID()));
   AddFilter(new MimeRegistryMessageFilter());
+#ifndef DISABLE_WEBDATABASE
   AddFilter(new DatabaseMessageFilter(
       storage_partition_impl_->GetDatabaseTracker()));
+#endif
 #if defined(OS_MACOSX)
   AddFilter(new TextInputClientMessageFilter(GetID()));
 #elif defined(OS_WIN)
