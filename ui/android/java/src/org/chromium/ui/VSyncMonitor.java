@@ -96,6 +96,7 @@ public class VSyncMonitor {
                 @Override
                 public void doFrame(long frameTimeNanos) {
                     TraceEvent.begin("VSync");
+                    mHandler.removeCallbacks(mSyntheticVSyncRunnable);
                     if (useEstimatedRefreshPeriod && mConsecutiveVSync) {
                         // Display.getRefreshRate() is unreliable on some platforms.
                         // Adjust refresh period- initial value is based on Display.getRefreshRate()
@@ -210,10 +211,9 @@ public class VSyncMonitor {
         // frame callback even when we post a synthetic frame callback. If the
         // frame callback is honored before the synthetic callback, we simply
         // remove the synthetic callback.
-        postSyntheticVSyncIfNecessary(); //check this
-        mChoreographer.postFrameCallback(mVSyncFrameCallback);
         if (isVSyncSignalAvailable()) {
             mConsecutiveVSync = mInsideVSync;
+            postSyntheticVSyncIfNecessary();
             mChoreographer.postFrameCallback(mVSyncFrameCallback);
         } else {
             postRunnableCallback();
