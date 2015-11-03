@@ -66,8 +66,10 @@ bool EnsureJniRegistered(JNIEnv* env) {
     if (!content::android::RegisterAppJni(env))
       return false;
 
+#ifndef DISABLE_BLUETOOTH
     if (!device::android::RegisterBluetoothJni(env))
       return false;
+#endif
 
     if (!device::android::RegisterVibrationJni(env))
       return false;

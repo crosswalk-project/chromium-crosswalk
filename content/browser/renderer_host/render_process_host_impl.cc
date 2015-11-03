@@ -39,7 +39,9 @@
 #include "content/browser/appcache/appcache_dispatcher_host.h"
 #include "content/browser/appcache/chrome_appcache_service.h"
 #include "content/browser/bad_message.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/browser/bluetooth/bluetooth_dispatcher_host.h"
+#endif
 #include "content/browser/browser_child_process_host_impl.h"
 #include "content/browser/browser_main.h"
 #include "content/browser/browser_main_loop.h"
@@ -943,10 +945,12 @@ void RenderProcessHostImpl::CreateMessageFilters() {
   AddFilter(new NavigatorConnectDispatcherHost(
       storage_partition_impl_->GetNavigatorConnectContext(),
       message_port_message_filter_.get()));
+#ifndef DISABLE_BLUETOOTH
   if (browser_command_line.HasSwitch(
           switches::kEnableExperimentalWebPlatformFeatures)) {
     AddFilter(new BluetoothDispatcherHost());
   }
+#endif
 }
 
 void RenderProcessHostImpl::RegisterMojoServices() {

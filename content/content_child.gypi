@@ -283,6 +283,18 @@
     '<@(private_child_sources)',
   ],
   'conditions': [
+    ['disable_bluetooth==1',
+      {
+        'sources!':[
+          'child/bluetooth/bluetooth_dispatcher.cc',
+          'child/bluetooth/bluetooth_dispatcher.h',
+          'child/bluetooth/bluetooth_message_filter.cc',
+          'child/bluetooth/bluetooth_message_filter.h',
+          'child/bluetooth/web_bluetooth_impl.cc',
+          'child/bluetooth/web_bluetooth_impl.h',
+        ],
+      }
+    ],
     ['disable_indexeddb==1',
       {
         'sources!': [

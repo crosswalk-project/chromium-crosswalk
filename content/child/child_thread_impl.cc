@@ -29,7 +29,9 @@
 #include "base/trace_event/memory_dump_manager.h"
 #include "base/tracked_objects.h"
 #include "components/tracing/child_trace_message_filter.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/child/bluetooth/bluetooth_message_filter.h"
+#endif
 #include "content/child/child_discardable_shared_memory_manager.h"
 #include "content/child/child_gpu_memory_buffer_manager.h"
 #include "content/child/child_histogram_message_filter.h"
@@ -358,8 +360,11 @@ void ChildThreadImpl::Init(const Options& options) {
   geofencing_message_filter_ =
       new GeofencingMessageFilter(thread_safe_sender_.get());
 #endif
+
+#ifndef DISABLE_BLUETOOTH
   bluetooth_message_filter_ =
       new BluetoothMessageFilter(thread_safe_sender_.get());
+#endif
   notification_dispatcher_ =
       new NotificationDispatcher(thread_safe_sender_.get());
   push_dispatcher_ = new PushDispatcher(thread_safe_sender_.get());
@@ -376,7 +381,10 @@ void ChildThreadImpl::Init(const Options& options) {
 #ifndef DISABLE_GEO_FEATURES
   channel_->AddFilter(geofencing_message_filter_->GetFilter());
 #endif
+
+#ifndef DISABLE_BLUETOOTH
   channel_->AddFilter(bluetooth_message_filter_->GetFilter());
+#endif
   channel_->AddFilter(navigator_connect_dispatcher_->GetFilter());
 
   if (!IsInBrowserProcess()) {

@@ -1975,6 +1975,15 @@
         'DEBUG_DEVTOOLS=1',
       ],
     }],
+    ['disable_bluetooth==1', {
+      'sources!': [
+        'browser/bluetooth/bluetooth_dispatcher_host.cc',
+        'browser/bluetooth/bluetooth_dispatcher_host.h',
+      ],
+      'dependencies!': [
+        '../device/bluetooth/bluetooth.gyp:device_bluetooth',
+      ],
+    }],
     ['OS=="android" and disable_angle==1', {
       'dependencies!': [
         '../third_party/angle/src/angle.gyp:commit_id',
