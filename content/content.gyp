@@ -607,7 +607,6 @@
           'type': 'none',
           'dependencies': [
             'java_set_jni_headers',
-            '../third_party/android_tools/android_tools.gyp:legacy_http_javalib',
           ],
           'includes': [ 'content_jni.gypi' ],
           'conditions': [
