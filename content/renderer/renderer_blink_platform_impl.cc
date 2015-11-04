@@ -753,6 +753,7 @@ bool RendererBlinkPlatformImpl::loadAudioResource(
 
 //------------------------------------------------------------------------------
 
+#ifndef DISABLE_WEBMIDI
 blink::WebMIDIAccessor* RendererBlinkPlatformImpl::createMIDIAccessor(
     blink::WebMIDIAccessorClient* client) {
   blink::WebMIDIAccessor* accessor =
@@ -762,6 +763,7 @@ blink::WebMIDIAccessor* RendererBlinkPlatformImpl::createMIDIAccessor(
 
   return new RendererWebMIDIAccessorImpl(client);
 }
+#endif
 
 void RendererBlinkPlatformImpl::getPluginList(
     bool refresh,

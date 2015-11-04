@@ -796,8 +796,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       media_internals,
       media_stream_manager);
   AddFilter(audio_renderer_host_.get());
+#ifndef DISABLE_WEBMIDI
   AddFilter(
       new MidiHost(GetID(), BrowserMainLoop::GetInstance()->midi_manager()));
+#endif
   AddFilter(new VideoCaptureHost(media_stream_manager));
   AddFilter(new AppCacheDispatcherHost(
       storage_partition_impl_->GetAppCacheService(),

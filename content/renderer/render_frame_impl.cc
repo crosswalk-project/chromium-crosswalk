@@ -3658,11 +3658,13 @@ blink::WebEncryptedMediaClient* RenderFrameImpl::encryptedMediaClient() {
   return web_encrypted_media_client_.get();
 }
 
+#ifndef DISABLE_WEBMIDI
 blink::WebMIDIClient* RenderFrameImpl::webMIDIClient() {
   if (!midi_dispatcher_)
     midi_dispatcher_ = new MidiDispatcher(this);
   return midi_dispatcher_;
 }
+#endif
 
 bool RenderFrameImpl::willCheckAndDispatchMessageEvent(
     blink::WebLocalFrame* source_frame,

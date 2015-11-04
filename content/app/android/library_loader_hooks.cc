@@ -77,8 +77,10 @@ bool EnsureJniRegistered(JNIEnv* env) {
     if (!media::RegisterJni(env))
       return false;
 
+#ifndef DISABLE_WEBMIDI
     if (!media::midi::RegisterJni(env))
       return false;
+#endif
 
     if (!ui::RegisterUIAndroidJni(env))
       return false;
