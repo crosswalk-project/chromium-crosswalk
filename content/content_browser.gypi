@@ -1884,6 +1884,12 @@
         'browser/renderer_host/database_message_filter.h',
       ],
     }],
+    ['disable_webmidi==1 and OS=="android"', {
+      'sources!': [
+        'browser/media/midi_host.cc',
+        'browser/media/midi_host.h',
+      ],
+    }],
     ['disable_devtools!=1', {
       'sources': [
         '<@(private_browser_sources_devtools)',

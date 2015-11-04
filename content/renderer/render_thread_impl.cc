@@ -561,8 +561,10 @@ void RenderThreadImpl::Init() {
   audio_message_filter_ = new AudioMessageFilter(GetIOMessageLoopProxy());
   AddFilter(audio_message_filter_.get());
 
+#ifndef DISABLE_WEBMIDI
   midi_message_filter_ = new MidiMessageFilter(GetIOMessageLoopProxy());
   AddFilter(midi_message_filter_.get());
+#endif
 
 #ifndef DISABLE_INDEXEDDB
   AddFilter((new IndexedDBMessageFilter(thread_safe_sender()))->GetFilter());

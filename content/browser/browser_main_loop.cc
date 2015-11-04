@@ -1173,10 +1173,12 @@ int BrowserMainLoop::BrowserThreadsStarted() {
         MediaInternals::GetInstance(), io_thread_->task_runner()));
   }
 
+#ifndef DISABLE_WEBMIDI
   {
     TRACE_EVENT0("startup", "BrowserThreadsStarted::Subsystem:MidiManager");
     midi_manager_.reset(media::midi::MidiManager::Create());
   }
+#endif
 
 #if defined(OS_LINUX) && defined(USE_UDEV)
   device_monitor_linux_.reset(new DeviceMonitorLinux());

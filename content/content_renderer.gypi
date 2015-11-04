@@ -741,6 +741,16 @@
         'renderer/geolocation_dispatcher.h',
       ],
     }],
+    ['disable_webmidi==1 and OS=="android"', {
+      'sources!': [
+        'renderer/media/midi_dispatcher.cc',
+        'renderer/media/midi_dispatcher.h',
+        'renderer/media/midi_message_filter.cc',
+        'renderer/media/midi_message_filter.h',
+        'renderer/media/renderer_webmidiaccessor_impl.cc',
+        'renderer/media/renderer_webmidiaccessor_impl.h',
+      ],
+    }],
     ['disable_devtools == 1', {
       'defines': ['DISABLE_DEVTOOLS'],
     }],

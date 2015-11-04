@@ -751,6 +751,11 @@
         'common/geofencing_types.h',
       ],
     }],
+    ['OS=="android" and disable_webmidi==1', {
+      'dependencies!': [
+        '../media/midi/midi.gyp:midi',
+      ],
+    }],
     ['use_pango == 1', {
       'dependencies': [
         '../build/linux/system.gyp:pangocairo',

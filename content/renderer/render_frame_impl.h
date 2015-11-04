@@ -516,7 +516,9 @@ class CONTENT_EXPORT RenderFrameImpl
       blink::WebRTCPeerConnectionHandler* handler);
   virtual blink::WebUserMediaClient* userMediaClient();
   virtual blink::WebEncryptedMediaClient* encryptedMediaClient();
+#ifndef DISABLE_WEBMIDI
   virtual blink::WebMIDIClient* webMIDIClient();
+#endif
   virtual bool willCheckAndDispatchMessageEvent(
       blink::WebLocalFrame* source_frame,
       blink::WebFrame* target_frame,
