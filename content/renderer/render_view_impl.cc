@@ -1348,9 +1348,7 @@ bool RenderViewImpl::OnMessageReceived(const IPC::Message& message) {
                         OnDisableScrollbarsForSmallWindows)
     IPC_MESSAGE_HANDLER(ViewMsg_SetRendererPrefs, OnSetRendererPrefs)
     IPC_MESSAGE_HANDLER(ViewMsg_MediaPlayerActionAt, OnMediaPlayerActionAt)
-#ifndef DISABLE_PLUGINS
     IPC_MESSAGE_HANDLER(ViewMsg_PluginActionAt, OnPluginActionAt)
-#endif
     IPC_MESSAGE_HANDLER(ViewMsg_SetActive, OnSetActive)
     IPC_MESSAGE_HANDLER(ViewMsg_GetAllSavableResourceLinksForCurrentPage,
                         OnGetAllSavableResourceLinksForCurrentPage)
@@ -2285,7 +2283,6 @@ blink::WebElement RenderViewImpl::GetFocusedElement() const {
 }
 
 blink::WebPlugin* RenderViewImpl::GetWebPluginForFind() {
-#ifndef DISABLE_PLUGINS
   if (!webview())
     return NULL;
 
@@ -2293,7 +2290,7 @@ blink::WebPlugin* RenderViewImpl::GetWebPluginForFind() {
   if (main_frame->isWebLocalFrame() &&
       main_frame->document().isPluginDocument())
     return webview()->mainFrame()->document().to<WebPluginDocument>().plugin();
-#endif
+
 #if defined(ENABLE_PLUGINS)
   if (plugin_find_handler_)
     return plugin_find_handler_->container()->plugin();
@@ -2788,13 +2785,11 @@ void RenderViewImpl::OnOrientationChange() {
     webview()->mainFrame()->toWebLocalFrame()->sendOrientationChangeEvent();
 }
 
-#ifndef DISABLE_PLUGINS
 void RenderViewImpl::OnPluginActionAt(const gfx::Point& location,
                                       const WebPluginAction& action) {
   if (webview())
     webview()->performPluginAction(action, location);
 }
-#endif
 
 void RenderViewImpl::OnGetAllSavableResourceLinksForCurrentPage(
     const GURL& page_url) {
