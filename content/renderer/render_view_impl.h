@@ -651,8 +651,10 @@ class CONTENT_EXPORT RenderViewImpl
       const base::FilePath& local_directory_name);
   void OnMediaPlayerActionAt(const gfx::Point& location,
                              const blink::WebMediaPlayerAction& action);
+#ifndef DISABLE_PLUGINS
   void OnPluginActionAt(const gfx::Point& location,
                         const blink::WebPluginAction& action);
+#endif
   void OnMoveOrResizeStarted();
   void OnReleaseDisambiguationPopupBitmap(const cc::SharedBitmapId& id);
   void OnResetPageEncodingToDefault();
