@@ -33,7 +33,7 @@ class CrosPowerMonitor(sysfs_power_monitor.SysfsPowerMonitor):
     return super(CrosPowerMonitor, self).CanMonitorPower()
 
   def StartMonitoringPower(self, browser):
-    self._CheckStart()
+    super(CrosPowerMonitor, self).StartMonitoringPower(browser)
     if self._IsOnBatteryPower():
       sample = self._platform.RunCommand(['dump_power_status;', 'date', '+%s'])
       self._initial_power, self._start_time = CrosPowerMonitor.SplitSample(
@@ -43,7 +43,7 @@ class CrosPowerMonitor(sysfs_power_monitor.SysfsPowerMonitor):
                       'Results may be incorrect.')
 
   def StopMonitoringPower(self):
-    self._CheckStop()
+    # Don't need to call self._CheckStop here; it's called by the superclass
     cpu_stats = super(CrosPowerMonitor, self).StopMonitoringPower()
     power_stats = {}
     if self._IsOnBatteryPower():
