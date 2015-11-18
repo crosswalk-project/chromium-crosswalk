@@ -523,6 +523,7 @@ void MediaDrmBridge::SetMediaCryptoReadyCB(
   media_crypto_ready_cb_ = media_crypto_ready_cb;
 }
 
+//------------------------------------------------------------------------------
 // The following OnXxx functions are called from Java. The implementation must
 // only do minimal work and then post tasks to avoid reentrancy issues.
 
@@ -654,9 +655,10 @@ void MediaDrmBridge::OnSessionExpirationUpdate(JNIEnv* env,
                                                jbyteArray j_session_id,
                                                jlong expiry_time_ms) {
   DVLOG(2) << __FUNCTION__ << ": " << expiry_time_ms << " ms";
-  session_expiration_update_cb_.Run(
-      GetSessionId(env, j_session_id),
-      base::Time::FromDoubleT(expiry_time_ms / 1000.0));
+  task_runner_->PostTask(
+      FROM_HERE,
+      base::Bind(session_expiration_update_cb_, GetSessionId(env, j_session_id),
+                 base::Time::FromDoubleT(expiry_time_ms / 1000.0)));
 }
 
 void MediaDrmBridge::OnLegacySessionError(JNIEnv* env,
@@ -683,6 +685,7 @@ void MediaDrmBridge::OnResetDeviceCredentialsCompleted(JNIEnv* env,
       base::Bind(base::ResetAndReturn(&reset_credentials_cb_), success));
 }
 
+//------------------------------------------------------------------------------
 // The following are private methods.
 
 MediaDrmBridge::MediaDrmBridge(
