@@ -873,6 +873,7 @@ public:
         SelectionDeleteDromDocument = 1011,
         SelectionDOMString = 1012,
         InputTypeRangeVerticalAppearance = 1013,
+        BackgroundSyncRegister = 1025,
 
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
