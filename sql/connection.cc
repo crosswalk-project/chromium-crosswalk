@@ -362,6 +362,8 @@ void Connection::StatementRef::Close(bool forced) {
   was_valid_ = was_valid_ && forced;
 }
 
+// TODO(shess): |mmap_disabled_| is set to disable memory-mapped I/O for M48,
+// because of http://crbug.com/537742 .
 Connection::Connection()
     : db_(NULL),
       page_size_(0),
@@ -372,7 +374,7 @@ Connection::Connection()
       needs_rollback_(false),
       in_memory_(false),
       poisoned_(false),
-      mmap_disabled_(false),
+      mmap_disabled_(true),
       mmap_enabled_(false),
       total_changes_at_last_release_(0),
       stats_histogram_(NULL),
