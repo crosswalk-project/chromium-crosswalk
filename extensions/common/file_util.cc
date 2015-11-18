@@ -45,6 +45,13 @@ namespace extensions {
 namespace file_util {
 namespace {
 
+enum SafeInstallationFlag {
+  DEFAULT,   // Default case, controlled by a field trial.
+  DISABLED,  // Safe installation is disabled.
+  ENABLED,   // Safe installation is enabled.
+};
+SafeInstallationFlag g_use_safe_installation = DEFAULT;
+
 // Returns true if the given file path exists and is not zero-length.
 bool ValidateFilePath(const base::FilePath& path) {
   int64 size = 0;
@@ -60,9 +67,13 @@ bool ValidateFilePath(const base::FilePath& path) {
 // Returns true if the extension installation should flush all files and the
 // directory.
 bool UseSafeInstallation() {
-  const char kFieldTrialName[] = "ExtensionUseSafeInstallation";
-  const char kEnable[] = "Enable";
-  return base::FieldTrialList::FindFullName(kFieldTrialName) == kEnable;
+  if (g_use_safe_installation == DEFAULT) {
+    const char kFieldTrialName[] = "ExtensionUseSafeInstallation";
+    const char kEnable[] = "Enable";
+    return base::FieldTrialList::FindFullName(kFieldTrialName) == kEnable;
+  }
+
+  return g_use_safe_installation == ENABLED;
 }
 
 enum FlushOneOrAllFiles {
@@ -96,6 +107,10 @@ void FlushFilesInDir(const base::FilePath& path,
 }  // namespace
 
 const base::FilePath::CharType kTempDirectoryName[] = FILE_PATH_LITERAL("Temp");
+
+void SetUseSafeInstallation(bool use_safe_installation) {
+  g_use_safe_installation = use_safe_installation ? ENABLED : DISABLED;
+}
 
 base::FilePath InstallExtension(const base::FilePath& unpacked_source_dir,
                                 const std::string& id,
