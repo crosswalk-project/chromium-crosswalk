@@ -109,7 +109,9 @@ class RendererDemuxerAndroid;
 class ResourceDispatchThrottler;
 class ResourceSchedulingFilter;
 class V8SamplingProfiler;
+#ifndef DISABLE_MEDIASTREAM
 class VideoCaptureImplManager;
+#endif
 class WebGraphicsContext3DCommandBufferImpl;
 class WebRTCIdentityService;
 
@@ -304,9 +306,11 @@ class CONTENT_EXPORT RenderThreadImpl
   }
 #endif
 
+#ifndef DISABLE_MEDIASTREAM
   VideoCaptureImplManager* video_capture_impl_manager() const {
     return vc_manager_.get();
   }
+#endif
 
   // Get the GPU channel. Returns NULL if the channel is not established or
   // has been lost.
@@ -511,8 +515,10 @@ class CONTENT_EXPORT RenderThreadImpl
   scoped_refptr<P2PSocketDispatcher> p2p_socket_dispatcher_;
 #endif
 
+#ifndef DISABLE_MEDIASTREAM
   // Used on the render thread.
   scoped_ptr<VideoCaptureImplManager> vc_manager_;
+#endif
 
   // Used for communicating registering AEC dump consumers with the browser and
   // receving AEC dump file handles when AEC dump is enabled. An AEC dump is

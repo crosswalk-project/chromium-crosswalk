@@ -592,6 +592,18 @@
       'public/renderer/media_stream_video_sink.h',
       'public/renderer/webrtc_log_message_delegate.h',
     ],
+
+    'private_renderer_mediastream': [
+      'renderer/media/video_capture_impl.cc',
+      'renderer/media/video_capture_impl.h',
+      'renderer/media/video_capture_impl_manager.cc',
+      'renderer/media/video_capture_impl_manager.h',
+      'renderer/media/video_capture_message_filter.cc',
+      'renderer/media/video_capture_message_filter.h',
+      'renderer/media/video_frame_provider.cc',
+      'renderer/media/video_frame_provider.h',
+    ],
+
     # WebRTC-specific sources. Put WebRTC plugin-related stuff in the
     # Plugin+WebRTC section below.
     'private_renderer_webrtc_sources': [
@@ -735,12 +747,20 @@
         'renderer/accessibility/renderer_accessibility.h',
       ],
     }],
+
     ['disable_geo_features==1 and OS=="android"', {
       'sources!': [
         'renderer/geolocation_dispatcher.cc',
         'renderer/geolocation_dispatcher.h',
       ],
     }],
+
+    ['disable_mediastream==1', {
+      'sources!': [
+        '<@(private_renderer_mediastream)',
+      ],
+    }],
+
     ['disable_webmidi==1 and OS=="android"', {
       'sources!': [
         'renderer/media/midi_dispatcher.cc',
