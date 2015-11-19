@@ -39,11 +39,11 @@ import java.util.zip.GZIPOutputStream;
  * and false otherwise.
  */
 public class MinidumpUploadCallable implements Callable<Integer> {
-    private static final String TAG = "cr.MDUploadCallable";
     @VisibleForTesting protected static final int LOG_SIZE_LIMIT_BYTES = 2 * 1024 * 1024; // 2MB
     @VisibleForTesting protected static final int LOG_UPLOAD_LIMIT_PER_DAY = 5;
     @VisibleForTesting
     protected static final int LOG_WEEKLY_SIZE_LIMIT_BYTES = 5 * 1024 * 1024; // 5MB
+    private static final String TAG = "MDUploadCallable";
 
     @VisibleForTesting
     protected static final String PREF_DAY_UPLOAD_COUNT = "crash_day_dump_upload_count";
@@ -94,13 +94,15 @@ public class MinidumpUploadCallable implements Callable<Integer> {
 
     @Override
     public Integer call() {
-        if (!mPermManager.isUploadPermitted()) {
-            Log.i(TAG, "Minidump upload is not permitted");
+        if (!mPermManager.isUploadUserPermitted()) {
+            Log.i(TAG, "Minidump upload is not permitted by user. Marking file as uploaded for "
+                    + "cleanup to prevent future uploads.");
+            cleanupMinidumpFile();
             return UPLOAD_DISABLED;
         }
 
         boolean isLimited = mPermManager.isUploadLimited();
-        if (isLimited) {
+        if (isLimited || !mPermManager.isUploadPermitted()) {
             Log.i(TAG, "Minidump cannot currently be uploaded due to constraints.");
             return UPLOAD_FAILURE;
         }
