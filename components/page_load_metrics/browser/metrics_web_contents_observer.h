@@ -180,6 +180,7 @@ class PageLoadTracker {
                   PageLoadMetricsEmbedderInterface* embedder_interface,
                   base::ObserverList<PageLoadMetricsObserver, true>* observers);
   ~PageLoadTracker();
+  void Redirect(content::NavigationHandle* navigation_handle);
   void Commit(content::NavigationHandle* navigation_handle);
   void WebContentsHidden();
   void WebContentsShown();
@@ -247,6 +248,8 @@ class MetricsWebContentsObserver
   void DidStartNavigation(
       content::NavigationHandle* navigation_handle) override;
   void DidFinishNavigation(
+      content::NavigationHandle* navigation_handle) override;
+  void DidRedirectNavigation(
       content::NavigationHandle* navigation_handle) override;
 
   void WasShown() override;
