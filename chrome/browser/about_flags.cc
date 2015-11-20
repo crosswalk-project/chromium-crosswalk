@@ -2122,7 +2122,7 @@ const FeatureEntry kFeatureEntries[] = {
      IDS_FLAGS_DISABLE_AUTO_HIDING_TOOLBAR_DESCRIPTION,
      kOsAndroid,
      SINGLE_VALUE_TYPE_AND_VALUE(switches::kDisableAutoHidingToolbarThreshold,
-                                 "0")},
+                                 "800")},
 #endif
     // NOTE: Adding new command-line switches requires adding corresponding
     // entries to enum "LoginCustomFlags" in histograms.xml. See note in
