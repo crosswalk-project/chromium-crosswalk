@@ -124,9 +124,8 @@ bool UserMatches(const AccountId& account_id,
   if (has_email && account_id.GetUserEmail() == value)
     return true;
 
-  // TODO(antrim): update code once user id is really a struct.
   bool has_gaia_id = dict.GetString(kGAIAIdKey, &value);
-  if (has_gaia_id && account_id.GetUserEmail() == value)
+  if (has_gaia_id && account_id.GetGaiaId() == value)
     return true;
 
   return false;
