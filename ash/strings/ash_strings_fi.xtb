@@ -2,6 +2,7 @@
 <!DOCTYPE translationbundle>
 <translationbundle lang="fi">
 <translation id="1013923882670373915">Bluetooth-laite <ph name="DEVICE_NAME" /> pyytää lupaa laiteparin muodostamiseen. Anna tämä PIN-koodi kyseisellä laitteella: <ph name="PINCODE" /></translation>
+<translation id="1021311941847921177">Seuraavaan syöttötapaan vaihtamisen pikanäppäin on muuttunut. Käytä uutta pikanäppäintä <ph name="NEW_SHORTCUT" /> vanhan (<ph name="OLD_SHORTCUT" />) sijaan.</translation>
 <translation id="112308213915226829">Piilota hylly automaattisesti</translation>
 <translation id="1195412055398077112">kuvasta rajataan pois osa</translation>
 <translation id="1270290102613614947">Ruutunäppäimistö poistettiin käytöstä</translation>
@@ -25,10 +26,10 @@
 <translation id="1812696562331527143">Syöttötapa on vaihtunut. Uusi syöttötapa on <ph name="INPUT_METHOD_ID" />*(<ph name="BEGIN_LINK" />kolmas osapuoli<ph name="END_LINK" />).
 Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="1882897271359938046">Peilataan: <ph name="DISPLAY_NAME" /></translation>
+<translation id="1919743966458266018">Tehtävänhallinnan avaamisen pikanäppäin on muuttunut. Käytä uutta pikanäppäintä <ph name="NEW_SHORTCUT" /> vanhan (<ph name="OLD_SHORTCUT" />) sijaan.</translation>
 <translation id="1923539912171292317">Automaattiset klikkaukset</translation>
-<translation id="1950626184269948555">Tehtävänhallinnan pikanäppäin on muuttunut. Käytä yhdistelmää Search+Esc yhdistelmän Vaihto+Esc sijaan.</translation>
+<translation id="1938872420421548906">Shift+Alt</translation>
 <translation id="1957803754585243749">0°</translation>
-<translation id="1963814843110128691">Suoratoistetaan kohteesta $1 kohteeseen $2</translation>
 <translation id="1969011864782743497"><ph name="DEVICE_NAME" /> (USB)</translation>
 <translation id="1987317783729300807">Tilit</translation>
 <translation id="2127372758936585790">Pienitehoinen laturi</translation>
@@ -93,6 +94,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="3783640748446814672">alt</translation>
 <translation id="3784455785234192852">Lukitse</translation>
 <translation id="3799026279081545374">Laturisi voi olla virheellinen. Jos asut Yhdysvalloissa, saat ohjeita ja voit tilata uuden laturin soittamalla numeroon 866 628 1371. Jos asut Isossa-Britanniassa, soita numeroon 0800 026 0613. Jos asut Irlannissa, soita numeroon 1 800 832 664. Jos asut Kanadassa, soita numeroon 866 628 1372. Jos asut Australiassa, soita numeroon 1 800 067 460.</translation>
+<translation id="3866182280516392520">IPv6-osoite</translation>
 <translation id="3891340733213178823">Kirjaudu ulos painamalla Ctrl+Shift+Q kahdesti.</translation>
 <translation id="3892641579809465218">Sisäinen näyttö</translation>
 <translation id="3963445509666917109">Kaiutin (sisäinen)</translation>
@@ -108,6 +110,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="4421231901400348175">Näyttösi hallinta jaetaan käyttäjän <ph name="HELPER_NAME" /> kanssa Etätuen kautta.</translation>
 <translation id="4430019312045809116">Äänenvoimakkuus</translation>
 <translation id="4527045527269911712">Bluetooth-laite <ph name="DEVICE_NAME" /> pyytää lupaa laiteparin muodostamiseen.</translation>
+<translation id="4544944664594876241">Näytön lukituksen pikanäppäin on muuttunut. Käytä uutta pikanäppäintä <ph name="NEW_SHORTCUT" /> vanhan (<ph name="OLD_SHORTCUT" />) sijaan.</translation>
 <translation id="479989351350248267">haku</translation>
 <translation id="4804818685124855865">Katkaise yhteys</translation>
 <translation id="4872237917498892622">Alt + haku tai Shift</translation>
@@ -116,6 +119,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="4957722034734105353">Lisätietoja...</translation>
 <translation id="4961318399572185831">Suoratoista näyttö</translation>
 <translation id="5011233892417813670">Chromebook</translation>
+<translation id="5012744545445585468">Ctrl+Shift+välilyönti</translation>
 <translation id="5045002648206642691">Google Driven asetukset...</translation>
 <translation id="5102001756192215136"><ph name="HOUR" />.<ph name="MINUTE" /> jäljellä</translation>
 <translation id="511445211639755999"><ph name="RESOLUTION" />, <ph name="OVERSCAN" /></translation>
@@ -135,6 +139,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="5871632337994001636">Hallinnoi laitteita…</translation>
 <translation id="5895138241574237353">Käynnistä uudelleen</translation>
+<translation id="5901316534475909376">Shift+Esc</translation>
 <translation id="5927132638760172455">Suoratoistetaan tuntemattomaan vastaanottimeen</translation>
 <translation id="5932901536148835538">Chromebit</translation>
 <translation id="5947494881799873997">Palauta</translation>
@@ -151,7 +156,6 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="6165508094623778733">Lisätietoja</translation>
 <translation id="6247708409970142803"><ph name="PERCENTAGE" /> %</translation>
 <translation id="6248847161401822652">Lopeta painamalla kahdesti Control Shift Q.</translation>
-<translation id="6287020362823083378">Näytön lukituksen pikanäppäin on muuttunut. Käytä yhdistelmää Search+L yhdistelmän Ctrl+Vaihto+L sijaan.</translation>
 <translation id="6310121235600822547"><ph name="DISPLAY_NAME" /> käännettiin asentoon <ph name="ROTATION" /></translation>
 <translation id="6359806961507272919">Tekstiviesti lähettäjältä <ph name="PHONE_NUMBER" /></translation>
 <translation id="639644700271529076">CAPS LOCK on pois päältä</translation>
@@ -159,6 +163,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="6426039856985689743">Poista mobiilitiedonsiirto käytöstä</translation>
 <translation id="6452181791372256707">Hylkää</translation>
 <translation id="6459472438155181876">Ruutua laajennetaan: <ph name="DISPLAY_NAME" /></translation>
+<translation id="6501401484702599040">Näkymä peilataan kohteeseen <ph name="RECEIVER_NAME" />.</translation>
 <translation id="6550675742724504774">Asetukset</translation>
 <translation id="6585808820553845416">Istunnon loppumiseen on <ph name="SESSION_TIME_REMAINING" />.</translation>
 <translation id="6596816719288285829">IP-osoite</translation>
@@ -166,6 +171,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="6713285437468012787">Bluetooth-laitteeseen <ph name="DEVICE_NAME" /> on nyt muodostettu laitepariyhteys, ja se on kaikkien käyttäjien saatavilla. Voit poistaa laiteparin Asetuksien kautta.</translation>
 <translation id="6785414152754474415">Akussa on virtaa <ph name="PERCENTAGE" /> %, ja laite on kytketty laturiin.</translation>
 <translation id="6803622936009808957">Näyttöjen peilaaminen ei onnistunut, sillä tuettua resoluutiota ei löytynyt. Sen sijaan valittiin työpöydän laajennus.</translation>
+<translation id="683971173229319003">Haku+L</translation>
 <translation id="68610848741840742">ChromeVox (äänipalaute)</translation>
 <translation id="6895424601869865703">Lisää tili käyttäjälle <ph name="GIVEN_NAME" /></translation>
 <translation id="6911468394164995108">Liity muuhun verkkoon...</translation>
@@ -174,6 +180,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="6981982820502123353">Esteettömyys</translation>
 <translation id="7029814467594812963">Sulje käyttökerta</translation>
 <translation id="703171847531699602">Ei suoratoistolaitteita</translation>
+<translation id="7034339000180558234">Välilehti <ph name="TAB_NAME" /> peilataan kohteeseen <ph name="RECEIVER_NAME" />.</translation>
 <translation id="7052914147756339792">Aseta taustakuva...</translation>
 <translation id="7097613348211027502">ChromeVox (äänipalaute) on käytössä. Poista se käytöstä painamalla Ctrl+Alt+Z.</translation>
 <translation id="714034171374937760">Chromebase</translation>
@@ -183,6 +190,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="737451040872859086">Mikrofoni (sisäinen)</translation>
 <translation id="742594950370306541">Kamera on käytössä.</translation>
 <translation id="743058460480092004">Kamera ja mikrofoni ovat käytössä.</translation>
+<translation id="7510334386202674593">Ctrl+Shift+L</translation>
 <translation id="7561014039265304140"><ph name="DISPLAY_NAME" /> ei tue resoluutiota <ph name="SPECIFIED_RESOLUTION" />. Resoluutioksi valittiin <ph name="FALLBACK_RESOLUTION" />.</translation>
 <translation id="7573962313813535744">Telakoitu tila</translation>
 <translation id="7593891976182323525">Haku tai Shift</translation>
@@ -202,7 +210,6 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="8308637677604853869">Edellinen valikko</translation>
 <translation id="8356164830168736643">Sulje <ph name="WINDOW_TITLE" /></translation>
 <translation id="8428213095426709021">Asetukset</translation>
-<translation id="8443356412772935865">Suoratoistetaan näyttö kohteeseen $1</translation>
 <translation id="8456362689280298700"><ph name="HOUR" />:<ph name="MINUTE" /> kunnes akku on ladattu</translation>
 <translation id="8517041960877371778"><ph name="DEVICE_TYPE" /> ei välttämättä lataudu, kun se on käynnissä.</translation>
 <translation id="8528322925433439945">Mobiiliverkot...</translation>
@@ -211,6 +218,7 @@ Vaihda syöttötapaa painamalla Shift + Alt.</translation>
 <translation id="8814190375133053267">Wi-Fi</translation>
 <translation id="882279321799040148">Näytä klikkaamalla</translation>
 <translation id="8828714802988429505">90°</translation>
+<translation id="8850991929411075241">Haku+Esc</translation>
 <translation id="8878886163241303700">Laajennettu näyttö</translation>
 <translation id="8940956008527784070">Akku vähissä (<ph name="PERCENTAGE" /> %)</translation>
 <translation id="9074739597929991885">Bluetooth</translation>

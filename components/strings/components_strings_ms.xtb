@@ -9,6 +9,7 @@
 <translation id="1113869188872983271">&amp;Buat asal susun semula</translation>
 <translation id="111844081046043029">Adakah anda pasti anda mahu meninggalkan halaman ini?</translation>
 <translation id="112840717907525620">Cache dasar OK</translation>
+<translation id="113188000913989374"><ph name="SITE" /> menyatakan:</translation>
 <translation id="1132774398110320017">Tetapan Auto Isi Chrome...</translation>
 <translation id="1146673768181266552">ID Ranap Sistem <ph name="CRASH_ID" /> (<ph name="CRASH_LOCAL_ID" />)</translation>
 <translation id="1150979032973867961">Pelayan ini tidak dapat membuktikan bahawa domainnya ialah <ph name="DOMAIN" />; sijil keselamatannya tidak dipercayai oleh sistem pengendalian komputer anda. Ini mungkin disebabkan oleh kesilapan konfigurasi atau penyerang yang memintasi sambungan anda.</translation>
@@ -28,6 +29,9 @@
 <translation id="1519264250979466059">Tarikh Bina</translation>
 <translation id="1549470594296187301">Javascript mesti didayakan untuk menggunakan ciri ini.</translation>
 <translation id="1559528461873125649">Tiada fail atau direktori sedemikian</translation>
+<translation id="1559572115229829303">&lt;p&gt;Sambungan peribadi ke <ph name="BEGIN_BOLD" /><ph name="DOMAIN" /><ph name="END_BOLD" /> tidak boleh diwujudkan kerana tarikh dan masa peranti anda (<ph name="DATE_AND_TIME" />) tidak betul.&lt;/p&gt;
+
+          &lt;p&gt;Sila laraskan tarikh dan masa daripada bahagian &lt;strong&gt;Umum&lt;/strong&gt; bagi apl &lt;strong&gt;Tetapan&lt;/strong&gt;.&lt;/p&gt;</translation>
 <translation id="1629803312968146339">Adakah anda mahu Chrome menyimpan kad ini?</translation>
 <translation id="1640180200866533862">Dasar pengguna</translation>
 <translation id="1644184664548287040">Konfigurasi rangkaian tidak sah dan tidak boleh diimport.</translation>
@@ -95,6 +99,7 @@
 <translation id="2922350208395188000">Sijil pelayan tidak boleh diperiksa.</translation>
 <translation id="2941952326391522266">Pelayan ini tidak dapat membuktikan bahawa domainnya ialah <ph name="DOMAIN" />; sijil keselamatannya adalah dari <ph name="DOMAIN2" />. Ini mungkin disebabkan oleh kesilapan konfigurasi atau penyerang yang memintasi sambungan anda.</translation>
 <translation id="2958431318199492670">Konfigurasi rangkaian tidak mematuhi piawaian ONC. Sebahagian konfigurasi tidak boleh diimport.</translation>
+<translation id="2969319727213777354">Untuk mewujudkan sambungan yang selamat, jam anda perlu ditetapkan dengan betul. Perkara ini perlu dilakukan kerana sijil yang digunakan laman web untuk mengenal pastinya hanya sah untuk tempoh masa yang tertentu. Memandangkan jam peranti anda tidak betul, Google Chrome tidak boleh mengesahkan sijil ini.</translation>
 <translation id="2972581237482394796">&amp;Buat Semula</translation>
 <translation id="3010559122411665027">Masukan senarai "<ph name="ENTRY_INDEX" />": <ph name="ERROR" /></translation>
 <translation id="3024663005179499861">Jenis dasar salah</translation>
@@ -207,6 +212,7 @@
 <translation id="5523118979700054094">Nama dasar</translation>
 <translation id="552553974213252141">Adakah teks diekstrak dengan betul?</translation>
 <translation id="5540224163453853">Tidak menemui artikel yang diminta.</translation>
+<translation id="5544037170328430102">Halaman terbenam di <ph name="SITE" /> menyatakan:</translation>
 <translation id="5556459405103347317">Muat Semula</translation>
 <translation id="5565735124758917034">Aktif</translation>
 <translation id="560412284261940334">Pengurusan tidak disokong</translation>
@@ -277,6 +283,7 @@
 <translation id="7378627244592794276">Tidak</translation>
 <translation id="7400418766976504921">URL</translation>
 <translation id="7419106976560586862">Laluan Profil</translation>
+<translation id="7424977062513257142">Halaman terbenam pada halaman web ini menyatakan:</translation>
 <translation id="7441627299479586546">Subjek dasar salah</translation>
 <translation id="7485870689360869515">Tiada data dijumpai.</translation>
 <translation id="7537536606612762813">Wajib</translation>
@@ -338,6 +345,7 @@
 <translation id="883848425547221593">Penanda Halaman Lain</translation>
 <translation id="884923133447025588">Tiada mekanisme pembatalan dijumpai.</translation>
 <translation id="8866481888320382733">Ralat semasa menghuraikan tetapan dasar</translation>
+<translation id="8866959479196209191">Halaman ini menyatakan:</translation>
 <translation id="8876793034577346603">Konfigurasi rangkaian gagal dihuraikan.</translation>
 <translation id="8891727572606052622">Mod proksi tidak sah.</translation>
 <translation id="889901481107108152">Maaf, eksperimen ini tidak tersedia pada platform anda.</translation>

@@ -64,6 +64,9 @@ Cette règle est facultative. Si elle n'est pas configurée, aucun résultat de 
 
 Cette règle n'est respectée que si la règle "DefaultSearchProviderEnabled" est activée.</translation>
 <translation id="1265053460044691532">Limiter la durée pendant laquelle un utilisateur authentifié via SAML peut se connecter hors connexion</translation>
+<translation id="1291880496936992484">Avertissement : RC4 sera intégralement supprimé de <ph name="PRODUCT_NAME" /> après la version 52 (autour de septembre 2016) et cette règle ne sera plus valable.
+
+      Si cette règle n'est pas configurée, ou si elle est définie sur "False", les suites de chiffrement RC4 dans TLS ne seront pas activées. La règle peut être définie sur "True" pour assurer la compatibilité avec un serveur obsolète. Il s'agit là d'une solution provisoire, et le serveur devrait être reconfiguré.</translation>
 <translation id="1297182715641689552">Utiliser un script de proxy .pac</translation>
 <translation id="1300635491585192248">Prédire les actions réseau sur tous les réseaux,
           sauf les réseaux mobiles</translation>
@@ -528,6 +531,9 @@ Cette règle n'est respectée que si la règle "DefaultSearchProviderEnabled" es
       Si vous activez ou désactivez ce paramètre, les utilisateurs ne peuvent pas modifier ni ignorer le paramètre "Activer la protection contre le phishing et les logiciels malveillants" dans <ph name="PRODUCT_NAME" />.
 
       Si vous ne définissez pas cette règle, la navigation sécurisée est activée, mais les utilisateurs peuvent la modifier.</translation>
+<translation id="2801230735743888564">Autoriser les utilisateurs à jouer au jeu Easter Egg du dinosaure lorsque l'appareil est déconnecté.
+
+Si cette règle est définie sur "False", les utilisateurs ne pourront pas jouer au jeu Easter Egg du dinosaure lorsque l'appareil est déconnecté. Si ce paramètre est défini sur "True", les utilisateurs sont autorisés à jouer au jeu des dinosaures. Si cette règle n'est pas définie, les utilisateurs ne sont pas autorisés à jouer au jeu Easter Egg du dinosaure sur les appareils équipés de Chrome OS et enregistrés, mais ils peuvent y jouer dans d'autres circonstances.</translation>
 <translation id="2805707493867224476">Autoriser tous les sites à afficher des fenêtres pop-up</translation>
 <translation id="2808013382476173118">Permet l'utilisation de serveurs STUN lorsque les clients distants tentent d'établir une connexion avec ce poste.
 
@@ -811,6 +817,13 @@ Si elle n'est pas configurée, l'utilisateur peut être invité à effectuer l'i
       Si ce paramètre est désactivé, <ph name="PRODUCT_NAME" /> ne vérifiera jamais s'il s'agit du navigateur par défaut et désactivera les contrôles utilisateur pour définir cette option.
 
       Si ce paramètre n'est pas défini, <ph name="PRODUCT_NAME" /> autorisera l'utilisateur à déterminer s'il s'agit du navigateur par défaut et si des notifications aux utilisateurs doivent être affichées dans le cas contraire.</translation>
+<translation id="3800626789999016379">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour télécharger les fichiers.
+
+      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur en ait spécifié un ou non, ou qu'il ait ou non activé l'indicateur permettant d'être invité à renseigner l'emplacement du téléchargement à chaque fois.
+
+      Vous pouvez consulter la liste des variables utilisables à l'adresse https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
+
+      Si vous ne définissez pas cette règle, le répertoire de téléchargement par défaut est utilisé et l'utilisateur est en mesure d'en changer.</translation>
 <translation id="3805659594028420438">Activer l'extension des certificats TLS liés au domaine (obsolète)</translation>
 <translation id="3806576699227917885">Autoriser la lecture audio
 
@@ -951,6 +964,13 @@ Si vous activez cette règle ou si vous ne la configurez pas, les utilisateurs p
           Cette règle n'est respectée que si la règle "DefaultSearchProviderEnabled" est activée.</translation>
 <translation id="4320376026953250541">Microsoft Windows XP SP2 ou version ultérieure</translation>
 <translation id="4325690621216251241">Ajouter un bouton de déconnexion dans la barre d'état système</translation>
+<translation id="4349746760316962317">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour stocker les fichiers mis en cache sur le disque.
+
+      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur ait spécifié l'indicateur "--disk-cache-dir" ou non.
+
+      Vous pouvez consulter la liste des variables utilisables à l'adresse https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
+
+      Si vous ne définissez pas cette règle, le répertoire de cache par défaut est utilisé et l'utilisateur est en mesure de le remplacer à l'aide de l'indicateur de ligne de commande "--disk-cache-dir".</translation>
 <translation id="436581050240847513">Générer un rapport sur les interfaces réseau de l'appareil</translation>
 <translation id="4372704773119750918">Ne pas autoriser l'utilisateur d'entreprise à participer aux sessions à plusieurs profils, que ce soit en tant qu'utilisateur principal ou secondaire</translation>
 <translation id="4377599627073874279">Autoriser tous les sites à afficher toutes les images</translation>
@@ -1034,6 +1054,11 @@ Si vous désactivez ce paramètre, il est impossible d'ajouter, de supprimer ou 
 <translation id="4665897631924472251">Paramètres de gestion pour les extensions</translation>
 <translation id="4668325077104657568">Paramètres d'images par défaut</translation>
 <translation id="467236746355332046">Fonctionnalités compatibles :</translation>
+<translation id="4674167212832291997">Personnalise la liste des formats d'URL qui doivent toujours être affichés par <ph name="PRODUCT_FRAME_NAME" />.
+
+          Si vous ne définissez pas cette règle, le moteur de rendu par défaut est utilisé pour tous les sites, tel que spécifié par la règle "ChromeFrameRendererSettings".
+
+          Pour voir des exemples de formats, accédez à l'adresse https://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="467449052039111439">Ouvrir une liste d'URL</translation>
 <translation id="4680961954980851756">Activer la saisie automatique</translation>
 <translation id="4723829699367336876">Activer la traversée de pare-feu depuis le client d'accès à distance</translation>
@@ -1138,6 +1163,14 @@ Si cette règle n'est pas configurée, Google Sync est disponible et l'utilisate
 
 
           Si la mesure est la mise en veille, <ph name="PRODUCT_OS_NAME" /> peut être configuré séparément pour que l'écran soit verrouillé ou non avant la mise en veille.</translation>
+<translation id="5111712393799006197">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour stocker les données utilisateur.
+
+      Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur ait spécifié l'indicateur "--user-data-dir" ou non.
+
+      Vous pouvez consulter la liste des variables utilisables à l'adresse https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
+
+      Si vous ne définissez pas cette règle, le chemin d'accès au profil par défaut est utilisé, et l'utilisateur est en mesure de le remplacer à l'aide de l'indicateur de ligne de commande "--user-data-dir".</translation>
+<translation id="5130288486815037971">Activation ou non des suites de chiffrement RC4 dans TLS</translation>
 <translation id="5141670636904227950">Activer la loupe plein écran sur l'écran de connexion</translation>
 <translation id="5142301680741828703">Toujours rendre les formats d'URL suivants dans <ph name="PRODUCT_FRAME_NAME" /></translation>
 <translation id="5148753489738115745">Permet de spécifier les paramètres supplémentaires utilisés lorsque <ph name="PRODUCT_FRAME_NAME" /> lance <ph name="PRODUCT_NAME" />.
@@ -1330,6 +1363,20 @@ Si cette règle n'est pas configurée, la valeur par défaut globale sera utilis
 <translation id="5809728392451418079">Définir le nom à afficher pour les comptes locaux des appareils</translation>
 <translation id="5814301096961727113">Définir l'état par défaut des commentaires audio sur l'écran de connexion</translation>
 <translation id="5815129011704381141">Redémarrer automatiquement après une mise à jour</translation>
+<translation id="5815353477778354428">Configure le répertoire que <ph name="PRODUCT_FRAME_NAME" /> utilise pour stocker les données utilisateur.
+
+      Si vous définissez cette règle, <ph name="PRODUCT_FRAME_NAME" /> utilise le répertoire fourni.
+
+      Vous pouvez consulter la liste des variables utilisables à l'adresse https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
+
+      Si vous ne définissez pas ce paramètre, le répertoire de profil par défaut est utilisé.</translation>
+<translation id="5819660021114910752">Indique le fuseau horaire à utiliser sur l'appareil. Les utilisateurs peuvent changer le fuseau horaire spécifié pour la session en cours. Cependant, en cas de déconnexion, le paramètre est de nouveau défini sur le fuseau horaire spécifié. Si une valeur non valide est utilisée, la règle est toutefois activée avec le fuseau horaire "GMT". Si une chaîne vide est utilisée, cette règle est ignorée.
+
+      Si la règle n'est pas appliquée, le fuseau horaire actif continue d'être utilisé. Les utilisateurs peuvent néanmoins changer le fuseau horaire ; la modification est alors permanente. En conséquence, toute modification apportée par un utilisateur a une incidence sur l'écran de connexion de tous les autres utilisateurs.
+
+      Le fuseau horaire est défini sur "États-Unis/Pacifique" pour tous les nouveaux appareils.
+
+      Le format de la valeur correspond aux noms des fuseaux horaires de la "IANA Time Zone Database" (voir la page https://fr.wikipedia.org/wiki/Tz_database). La plupart des fuseaux horaires se présentent sous la forme "continent/grande_ville" ou "océan/grande_ville".</translation>
 <translation id="5826047473100157858">Indique si l'utilisateur peut ouvrir des pages en mode navigation privée dans <ph name="PRODUCT_NAME" />. 
 
 Si l'option "Activé" est sélectionnée ou si la règle n'est pas configurée, les pages peuvent être ouvertes en mode navigation privée. 
@@ -1427,6 +1474,7 @@ Si cette règle n'est pas configurée, le moteur de rendu par défaut est utilis
 
           La méthode recommandée pour verrouiller l'écran en cas d'inactivité consiste à activer le verrouillage de l'écran lors de l'arrêt de <ph name="PRODUCT_OS_NAME" />, qui survient au terme de la durée d'inactivité définie. Cette règle ne devrait être utilisée que lorsque le verrouillage de l'écran doit avoir lieu bien avant l'arrêt du système, ou lorsque l'arrêt du système en cas d'inactivité n'est absolument pas souhaitable.
           La valeur de la règle doit être définie en millisecondes. Les valeurs ne peuvent pas être supérieures au délai d'inactivité.</translation>
+<translation id="6111936128861357925">Autoriser le jeu Easter Egg du dinosaure</translation>
 <translation id="6114416803310251055">obsolète</translation>
 <translation id="6145799962557135888">Permet de définir une liste de formats d'URL spécifiant les sites qui sont autorisés à exécuter JavaScript. 
 
@@ -2057,6 +2105,18 @@ Si ce paramètre n'est pas défini, l'utilisateur peut décider d'utiliser cette
 
       Si vous ne définissez pas cette règle, il n'y a pas d'exceptions à la liste noire définie par la règle "URLBlacklist".</translation>
 <translation id="8176035528522326671">Autoriser l'utilisateur d'entreprise à participer aux sessions à plusieurs profils en tant qu'utilisateur principal seulement (comportement par défaut pour les utilisateurs gérés par une entreprise)</translation>
+<translation id="8191318459035150777">Configure l'URL de la page d'accueil par défaut dans <ph name="PRODUCT_NAME" /> et empêche les utilisateurs de la modifier.
+
+          La page d'accueil est celle qui s'ouvre à l'aide du bouton Accueil. Les pages ouvertes au démarrage sont contrôlées par les règles RestoreOnStartup.
+
+          Le type de la page d'accueil peut être défini sur une URL que vous indiquez ici ou être défini sur la page Nouvel onglet. Si vous sélectionnez la page Nouvel onglet, cette règle n'est pas appliquée.
+
+          Si vous activez ce paramètre, les utilisateurs ne peuvent pas modifier l'URL de la page d'accueil dans <ph name="PRODUCT_NAME" />, mais ils peuvent toujours choisir la page Nouvel onglet comme page d'accueil.
+
+          Si cette règle n'est pas définie, l'utilisateur peut choisir sa page d'accueil lui-même si la règle HomepageIsNewTabPage n'est pas définie non plus.
+
+          Cette règle n'est pas disponible sur les instances Windows qui ne sont pas associées
+          à un domaine Active Directory.</translation>
 <translation id="8197918588508433925">Cette règle définit les extensions autorisées à utiliser l'API Enterprise Platform Keys "chrome.enterprise.platformKeysPrivate.challengeUserKey()" pour l'attestation à distance. Pour pouvoir utiliser l'API, les extensions doivent être ajoutées à cette liste.
 
           Si une extension ne figure pas dans la liste, ou si la liste n'est pas définie, l'appel vers l'API échoue, et un code d'erreur est renvoyé.</translation>
@@ -2098,6 +2158,11 @@ Si ce paramètre n'est pas défini, l'utilisateur peut décider d'utiliser cette
 <translation id="8465065632133292531">Paramètres pour l'URL instantanée utilisant POST</translation>
 <translation id="847472800012384958">Interdire à tous les sites d'afficher des fenêtres pop-up</translation>
 <translation id="8477885780684655676">TLS 1.0</translation>
+<translation id="8484458986062090479">Personnalise la liste des formats d'URL qui doivent toujours être affichés par le navigateur hôte.
+
+          Si vous ne définissez pas cette règle, le moteur de rendu par défaut est utilisé pour tous les sites, tel que spécifié par la règle "ChromeFrameRendererSettings".
+
+          Pour voir des exemples de formats, accédez à l'adresse https://www.chromium.org/developers/how-tos/chrome-frame-getting-started.</translation>
 <translation id="8493645415242333585">Désactiver l'enregistrement de l'historique du navigateur</translation>
 <translation id="8499172469244085141">Paramètres par défaut (les utilisateurs peuvent les contourner)</translation>
 <translation id="8501011084242226370">Indique une liste de plug-ins que l'utilisateur peut activer ou désactiver dans <ph name="PRODUCT_NAME" />.
@@ -2173,6 +2238,8 @@ Cette règle n'est prise en compte que si la règle "DefaultSearchProviderEnable
 Si vous activez ce paramètre, la recherche du CNAME sera ignorée et le nom du serveur sera utilisé tel qu'il a été saisi. 
 
 Si vous désactivez ce paramètre ou s'il n'est pas défini, le nom canonique du serveur sera déterminé par le biais de la recherche du CNAME.</translation>
+<translation id="8774131509736383471">Si cette règle est définie sur "True",  la première fenêtre affichée lors de la première exécution est automatiquement agrandie dans <ph name="PRODUCT_NAME" />.
+      Si cette règle est définie sur "False" ou si elle n'est pas configurée, la décision d'agrandir ou non la première fenêtre affichée dépend de la taille de l'écran.</translation>
 <translation id="8777120694819070607">Permet à <ph name="PRODUCT_NAME" /> d'exécuter des plug-ins obsolètes.
 
       Si vous activez ce paramètre, les plug-ins obsolètes sont utilisés comme des plug-ins normaux.

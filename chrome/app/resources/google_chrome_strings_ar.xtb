@@ -80,7 +80,6 @@
 <translation id="345171907106878721">‏إضافة نفسك إلى Chrome</translation>
 <translation id="3612333635265770873">‏هناك وحدة تحمل الاسم نفسه ومعروف أنها تتعارض مع Google Chrome.</translation>
 <translation id="3622797965165704966">‏الآن أصبح استخدام Chrome مع حسابك في Google وفي أجهزة الكمبيوتر المشتركة أكثر سهولة.</translation>
-<translation id="3656661827369545115">‏تشغيل Chromium تلقائيًا عندما يتم تشغيل جهاز الكمبيوتر</translation>
 <translation id="3735758079232443276">‏غيّرت الإضافة "<ph name="EXTENSION_NAME" />" الصفحة التي تظهر عند بدء Chrome.</translation>
 <translation id="3738139272394829648">المس للبحث</translation>
 <translation id="3784527566857328444">‏إزالة من Chrome</translation>
@@ -91,6 +90,7 @@
 <translation id="3881912906674381083">‏تحقق Chrome من أن <ph name="ISSUER" /> أصدر شهادة موقع الويب هذا. وقدم الخادم معلومات شفافية الشهادة، ولكن لم يتعرّف Chrome على أي سجلات لشفافية الشهادة.</translation>
 <translation id="3889417619312448367">‏إزالة Google Chrome</translation>
 <translation id="4011219958405096740">‏عند تمكينه، سيستخدم تدفق تسجيل دخول Chrome القائم على iframe؛ وإلا سيستخدم تدفقًا قائمًا على عرض الويب.</translation>
+<translation id="4042449298237264661">‏لن يستلم هذا الكمبيوتر تحديثات لـ Google Chrome لأن Windows XP وWindows Vista أصبحا غير مدعومين.</translation>
 <translation id="4050175100176540509">تحسينات الأمان المهمة والميزات الجديدة متاحة في أحدث إصدار.</translation>
 <translation id="4053720452172726777">‏تخصيص Google Chrome والتحكم فيه</translation>
 <translation id="4147555960264124640">‏إنك تسجل الدخول باستخدام حساب مُدار وتمنح المشرف إمكانية التحكم في ملفك الشخصي في Google Chrome. وسيتم ربط بيانات Chrome التابعة لك، مثل التطبيقات والإشارات المرجعية والسجلّ وكلمات المرور والإعدادات الأخرى بالمستخدم <ph name="USER_NAME" />. وستتمكن من حذف هذه البيانات عبر لوحة تحكم حسابات Google، ولكنك لن تتمكن من إقران هذه البيانات بحساب آخر. <ph name="LEARN_MORE" /></translation>
@@ -98,10 +98,8 @@
 <translation id="4167057906098955729">‏يُمكنك الاطلاع على جميع إشعاراتك من تطبيقات Chrome والإضافات ومواقع الويب هنا.</translation>
 <translation id="423410644998903704">‏يحتاج Chrome إلى الحصول على حق الوصول إلى الأذونات لمشاركتها مع موقع الويب هذا.</translation>
 <translation id="4251615635259297716">‏هل ترغب في ربط بياناتك في Chrome بهذا الحساب؟</translation>
-<translation id="4273752058983339720">‏تمت تهيئة Google Chrome لإطلاقه تلقائيًا عند بدء تشغيل جهاز الكمبيوتر.</translation>
 <translation id="4309555186815777032">‏(<ph name="BEGIN_BUTTON" />إعادة تشغيل<ph name="END_BUTTON" /> Chrome مطلوبة)</translation>
 <translation id="4331809312908958774">Chrome OS</translation>
-<translation id="4367618624832907428">‏لم يتمكن Google Chrome من عرض صفحة الويب لأن الكمبيوتر غير متصل بالإنترنت.</translation>
 <translation id="4407807842708586359">‏نظام تشغيل Google Chrome</translation>
 <translation id="4458285410772214805">الرجاء الخروج ثم تسجيل الدخول حتى يسري هذا التغيير.</translation>
 <translation id="4480040274068703980">‏تعذر على نظام التشغيل Chrome مزامنة البيانات نظرًا لوجود خطأ في تسجيل الدخول.</translation>
@@ -110,7 +108,6 @@
 <translation id="4567424176335768812">لقد سجلت دخولك باعتبارك <ph name="USER_EMAIL_ADDRESS" />. ويُمكنك الآن الاستمتاع بالدخول إلى الإشارات المرجعية، والسجلّ، والإعدادات الأخرى على جميع الأجهزة التي تسجّل الدخول إليها.</translation>
 <translation id="4631713731678262610">‏الإخفاء في قائمة Chrome</translation>
 <translation id="4633000520311261472">‏لجعل Chrome أكثر أمانًا، تم تعطيل بعض الإضافات غير المدرجة في <ph name="IDS_EXTENSION_WEB_STORE_TITLE" /> والتي ربما تمت إضافتها بدون علمك.</translation>
-<translation id="4692614041509923516">‏يشغل جهاز الكمبيوتر إصدارًا قديمًا من Microsoft Windows لا يمكنها معالجة شهادة أمان موقع الويب. وبسبب هذه المشكلة، لا يمكن لـ Google Chrome أن يخبر ما إذا كانت الشهادة قادمة من <ph name="SITE" /> أو من شخص ما على الشبكة يتظاهر بأنه <ph name="SITE" />. يُرجى تحديث جهاز الكمبيوتر إلى الإصدار الأكثر حداثة من Windows.</translation>
 <translation id="4700157086864140907">‏يمكن أن يقدم Google Chrome تدقيقًا إملائيًا أكثر دقة من خلال إرسال ما تكتبه في المتصفح إلى خوادم Google، مما يتيح لك استخدام تقنية التدقيق الإملائي ذاتها المستخدمة في بحث Google.</translation>
 <translation id="4728575227883772061">‏فشلت عملية التثبيت بسبب خطأ غير محدد. إذا كان Google Chrome في حالة التشغيل حاليًا، يُرجى إغلاقه وإعادة المحاولة.</translation>
 <translation id="473775607612524610">تحديث</translation>
@@ -152,6 +149,7 @@
 <translation id="5799551393681493217">‏يمكن تدفقات تسجيل الدخول لمتصفح Chrome القائمة على iframe. تلغي هذه العلامة تمكين-تسجيل الدخول-القائم-على الموقع.</translation>
 <translation id="5855036575689098185">‏البرامج التي تعمل على جهاز الكمبيوتر لا تتوافق مع Google Chrome.</translation>
 <translation id="5877064549588274448">تم تغيير القناة. يمكنك إعادة تشغيل الجهاز لتدخل التغييرات حيز التنفيذ.</translation>
+<translation id="5890698319714066019">‏يتعذر على Google Chrome عرض صفحة الويب لأن الكمبيوتر غير متصل بالإنترنت.</translation>
 <translation id="5931853610562009806">‏في نظام التشغيل Mac، قد يتم حفظ كلمات المرور في تطبيق Keychain والدخول إليها أو مزامنتها من قبل مستخدمي Chrome الآخرين الذين يشاركون حساب نظام التشغيل X هذا.</translation>
 <translation id="5940385492829620908">‏الويب والإشارات المرجعية وغيرها من عناصر Chrome توجد هنا.</translation>
 <translation id="5941830788786076944">‏جعل Google Chrome المتصفّح الافتراضي</translation>
@@ -174,6 +172,8 @@
 <translation id="6236285698028833233">‏توقف تحديث Google Chrome ولم يعد متوافقًا مع هذا الإصدار من نظام التشغيل.</translation>
 <translation id="629218512217695915">‏استخدام كلمة المرور التي تم إنشاؤها بواسطة Chrome</translation>
 <translation id="6368958679917195344">‏أصبح نظام التشغيل Chrome متاحًا من خلال <ph name="BEGIN_LINK_CROS_OSS" />برنامج مفتوح المصدر<ph name="END_LINK_CROS_OSS" /> إضافي.</translation>
+<translation id="6400076122676892962">‏سيتوقف هذا الكمبيوتر قريبًا عن استلام تحديثات Google Chrome لأن أنظمة Mac OS X 10.6 و10.7 و10.8 ستصبح غير مدعومة.</translation>
+<translation id="6470176598693778404">‏لن يستلم هذا الكمبيوتر تحديثات Google Chrome لأن أنظمة Mac OS X 10.6 و10.7 و10.8 أصبحت غير مدعومة.</translation>
 <translation id="6477562832195530369">{NUM_DOWNLOAD,plural, =1{‏هناك تنزيل قيد التقدم حاليًا. هل تريد إلغاء التنزيل والخروج من Google Chrome؟}zero{‏هناك # من التنزيلات قيد التقدم حاليًا. هل تريد إلغاء التنزيلات والخروج من Google Chrome؟}two{‏هناك تنزيلان (#) قيد التقدم حاليًا. هل تريد إلغاء التنزيلين والخروج من Google Chrome؟}few{‏هناك # تنزيلات قيد التقدم حاليًا. هل تريد إلغاء التنزيلات والخروج من Google Chrome؟}many{‏هناك # تنزيلاً قيد التقدم حاليًا. هل تريد إلغاء التنزيلات والخروج من Google Chrome؟}other{‏هناك # من التنزيلات قيد التقدم حاليًا. هل تريد إلغاء التنزيلات والخروج من Google Chrome؟}}</translation>
 <translation id="6598387184982954187">‏أنت تستخدم <ph name="PROFILE_EMAIL" /> لمزامنة عناصرك في Chrome. لتحديث تفضيل المزامنة أو استخدام Chrome بدون حساب Google، يمكنك الانتقال إلى <ph name="SETTINGS_LINK" />.</translation>
 <translation id="6600954340915313787">‏تم النسخ إلى Chrome</translation>
@@ -199,7 +199,6 @@
 <translation id="6989339256997917931">‏تم تحديث متصفح Google Chrome، ولكنك لم تستخدمه منذ أكثر من 30 يومًا.</translation>
 <translation id="699076943483372849">‏يستخدم هذا الموقع المكوّن الإضافي Chrome Frame الذي تم إيقافه ولم يعد يتلقى تحديثات الأمان والاستقرار. الرجاء إزالته والترقية إلى متصفح حديث.</translation>
 <translation id="6991142834212251086">‏ربط بياناتي في Chrome بهذا الحساب</translation>
-<translation id="7054640471403081847">‏سيتوقف هذا الكمبيوتر قريبًا عن تلقي تحديثات Google Chrome نظرًا لأن أجهزته لم تعد متوافقة.</translation>
 <translation id="7060865993964054389">‏مشغل تطبيقات Google Chrome</translation>
 <translation id="7084448929020576097">‏<ph name="FILE_NAME" /> برنامج ضار، وقد أجرى Chrome حظره.</translation>
 <translation id="7098166902387133879">‏يستخدم Google Chrome الميكروفون.</translation>
@@ -212,6 +211,7 @@
 <translation id="7196020411877309443">لماذا أرى مربع الحوار هذا؟</translation>
 <translation id="7242029209006116544">‏إنك تسجل الدخول باستخدام حساب مُدار وتمنح المشرف إمكانية التحكم في ملفك الشخصي في Google Chrome. وسيتم ربط بيانات Chrome التابعة لك، مثل التطبيقات والإشارات المرجعية والسجلّ وكلمات المرور والإعدادات الأخرى بالمستخدم <ph name="USER_NAME" />. وستتمكن من حذف هذه البيانات عبر لوحة تحكم حسابات Google، ولكنك لن تتمكن من إقران هذه البيانات بحساب آخر. ويُمكنك اختيار إنشاء ملف شخصي جديد للإبقاء على بياناتك الحالية في Chrome بشكل مستقل. <ph name="LEARN_MORE" /></translation>
 <translation id="7282192067747128786">‏Chrome - الإشعارات (<ph name="QUANTITY" /> غير مقروءة)</translation>
+<translation id="729375352412857283">‏سيتوقف هذا الكمبيوتر قريبًا عن استلام تحديثات Google Chrome لأن أنظمة Windows XP وWindows Vista لن تصبح مدعومة بعد الآن.</translation>
 <translation id="7339898014177206373">نافذة جديدة</translation>
 <translation id="7396375882099008034">‏اسمح للمتصفح Chrome بالدخول إلى الشبكة من خلال إعدادات الجدار الناري أو
         برنامج مكافحة الفيروسات.</translation>
@@ -236,7 +236,6 @@
 <translation id="781069973841903133">‏ستؤدي إعادة التشغيل في وضع Chrome المجسم إلى إغلاق تطبيقات Chrome وإعادة تشغيلها.</translation>
 <translation id="7825851276765848807">‏فشل التثبيت نظرًا لحدوث خطأ غير محدد. الرجاء تنزيل Google Chrome مرة أخرى.</translation>
 <translation id="7890208801193284374">‏إذا كنت تشارك الكمبيوتر مع أصدقائك وعائلتك، فبإمكانهم التصفح على حدة وإعداد Chrome على النحو الذي يريدونه.</translation>
-<translation id="7908968924842975895">‏لن يتلقى هذا الكمبيوتر تحديثات Google Chrome بعد الآن نظرًا لأن أجهزته لم تعد متوافقة.</translation>
 <translation id="7984945080620862648">‏لا يمكنك زيارة <ph name="SITE" /> الآن لأن موقع الويب أرسل بيانات اعتماد مختلطة يتعذر على Chrome معالجتها. أخطاء الشبكة والهجمات عليها عادةً ما تكون مؤقتة، لذا ستعمل هذه الصفحة لاحقًا على الأرجح.</translation>
 <translation id="8000275528373650868">‏يتطلب Google Chrome نظام التشغيل Windows Vista أو Windows XP المزود بحزمة الخدمة SP2 أو الأعلى منها.</translation>
 <translation id="8005540215158006229">‏Chrome جاهز تقريبًا.</translation>

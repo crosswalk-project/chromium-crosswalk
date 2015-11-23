@@ -9,6 +9,7 @@
 <translation id="1113869188872983271">&amp;Ångra Ändra ordning</translation>
 <translation id="111844081046043029">Vill du lämna den här sidan?</translation>
 <translation id="112840717907525620">Cacheminnet för policyn är OK</translation>
+<translation id="113188000913989374"><ph name="SITE" /> säger:</translation>
 <translation id="1132774398110320017">Inställningar för Autofyll i Chrome …</translation>
 <translation id="1146673768181266552">Krasch-id <ph name="CRASH_ID" /> (<ph name="CRASH_LOCAL_ID" />)</translation>
 <translation id="1150979032973867961">Servern kunde inte bevisa att den är <ph name="DOMAIN" /> eftersom datorns operativsystem inte litar på dess säkerhetscertifikat. Detta kan orsakas av en felaktig konfigurering eller att någon spärrar anslutningen.</translation>
@@ -28,6 +29,9 @@
 <translation id="1519264250979466059">Programversionsdatum</translation>
 <translation id="1549470594296187301">JavaScript måste aktiveras för att du ska kunna använda den här funktionen.</translation>
 <translation id="1559528461873125649">Filen eller katalogen finns inte</translation>
+<translation id="1559572115229829303">&lt;p&gt;Det gick inte att upprätta en privat anslutning till <ph name="BEGIN_BOLD" /><ph name="DOMAIN" /><ph name="END_BOLD" /> eftersom enhetens datum och tid (<ph name="DATE_AND_TIME" />) inte stämmer.&lt;/p&gt;
+
+      &lt;p&gt;Ändra datumet och tiden under &lt;strong&gt;Allmänt&lt;/strong&gt; i appen &lt;strong&gt;Inställningar&lt;/strong&gt;.&lt;/p&gt;</translation>
 <translation id="1629803312968146339">Vill du att Chrome sparar det här kortet?</translation>
 <translation id="1640180200866533862">Användarpolicyer</translation>
 <translation id="1644184664548287040">Nätverkskonfigurationen är ogiltig och kan inte importeras.</translation>
@@ -95,6 +99,7 @@
 <translation id="2922350208395188000">Servercertifikatet kan inte kontrolleras.</translation>
 <translation id="2941952326391522266">Servern kunde inte bevisa att den är <ph name="DOMAIN" /> eftersom dess säkerhetscertifikat kommer från <ph name="DOMAIN2" />. Detta kan orsakas av en felaktig konfigurering eller att någon spärrar anslutningen.</translation>
 <translation id="2958431318199492670">Nätverkskonfigurationen uppfyller inte ONC-standarden. Det kan hända att delar av konfigurationen inte kan importeras.</translation>
+<translation id="2969319727213777354">Om du vill upprätta en säker anslutning måste klockan vara rätt inställd. Det beror på att certifikaten som webbplatserna använder för att identifiera sig har en bestämd giltighetstid. Google Chrome kan inte verifiera certifikaten eftersom klockan på enheten inte går rätt.</translation>
 <translation id="2972581237482394796">&amp;Upprepa</translation>
 <translation id="3010559122411665027">Listposten <ph name="ENTRY_INDEX" />: <ph name="ERROR" /></translation>
 <translation id="3024663005179499861">Felaktig policytyp</translation>
@@ -207,6 +212,7 @@
 <translation id="5523118979700054094">Policynamn</translation>
 <translation id="552553974213252141">Extraherades texten korrekt?</translation>
 <translation id="5540224163453853">Det gick inte att hitta den önskade artikeln.</translation>
+<translation id="5544037170328430102">På en inbäddad sida på <ph name="SITE" /> står det:</translation>
 <translation id="5556459405103347317">Hämta igen</translation>
 <translation id="5565735124758917034">Aktiv</translation>
 <translation id="560412284261940334">Hantering stöds inte</translation>
@@ -277,6 +283,7 @@
 <translation id="7378627244592794276">Nej</translation>
 <translation id="7400418766976504921">Webbadress</translation>
 <translation id="7419106976560586862">Profilsökväg</translation>
+<translation id="7424977062513257142">På en inbäddad sida på den här webbplatsen står det:</translation>
 <translation id="7441627299479586546">Felaktigt policyämne</translation>
 <translation id="7485870689360869515">Ingen data hittades.</translation>
 <translation id="7537536606612762813">Obligatorisk</translation>
@@ -338,6 +345,7 @@
 <translation id="883848425547221593">Övriga bokmärken</translation>
 <translation id="884923133447025588">Ingen återkallningsmekanism har hittats.</translation>
 <translation id="8866481888320382733">Det uppstod ett fel när policyinställningarna analyserades</translation>
+<translation id="8866959479196209191">På den här sidan står det:</translation>
 <translation id="8876793034577346603">Det gick inte att tolka nätverkskonfigurationen.</translation>
 <translation id="8891727572606052622">Ogiltigt proxyläge.</translation>
 <translation id="889901481107108152">Experimentet finns tyvärr inte på din plattform.</translation>
