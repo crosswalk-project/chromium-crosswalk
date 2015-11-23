@@ -202,6 +202,8 @@ component("base") {
     "touch/touch_device.h",
     "touch/touch_editing_controller.cc",
     "touch/touch_editing_controller.h",
+    "touch/touch_enabled.cc",
+    "touch/touch_enabled.h",
     "ui_base_export.h",
     "ui_base_exports.cc",
     "ui_base_paths.cc",
@@ -318,15 +320,15 @@ component("base") {
   public_deps = [
     "//base",
     "//skia",
-    "//ui/events/platform",
     "//ui/events:events_base",
+    "//ui/events/platform",
     "//ui/gfx",
     "//ui/gfx/geometry",
   ]
   deps = [
-    "//base/third_party/dynamic_annotations",
     "//base:base_static",
     "//base:i18n",
+    "//base/third_party/dynamic_annotations",
     "//net",
     "//third_party/icu",
     "//ui/events",
@@ -735,8 +737,8 @@ test("ui_base_unittests") {
   if (build_ime) {
     sources += [
       "ime/candidate_window_unittest.cc",
-      "ime/composition_text_unittest.cc",
       "ime/chromeos/character_composer_unittest.cc",
+      "ime/composition_text_unittest.cc",
       "ime/input_method_base_unittest.cc",
       "ime/input_method_chromeos_unittest.cc",
       "ime/remote_input_method_win_unittest.cc",
