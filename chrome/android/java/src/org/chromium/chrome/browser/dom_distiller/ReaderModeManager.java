@@ -153,7 +153,7 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
 
     @Override
     public void onHidden(Tab tab) {
-        mReaderModePanel.closePanel(StateChangeReason.UNKNOWN, false);
+        closeReaderPanel(StateChangeReason.UNKNOWN, false);
     }
 
     @Override
@@ -198,7 +198,7 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
             if (DomDistillerUrlUtils.isDistilledPage(tab.getUrl())) {
                 tabInfo.setStatus(STARTED);
                 mReaderModePageUrl = tab.getUrl();
-                mReaderModePanel.closePanel(StateChangeReason.CONTENT_CHANGED, true);
+                closeReaderPanel(StateChangeReason.CONTENT_CHANGED, true);
             }
         }
 
@@ -207,12 +207,10 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
 
     @Override
     public void onToggleFullscreenMode(Tab tab, boolean enable) {
-        if (mReaderModePanel == null) return;
-
         // Temporarily hide the reader mode panel while fullscreen is enabled.
         if (enable) {
             mIsFullscreenModeEntered = true;
-            mReaderModePanel.closePanel(StateChangeReason.FULLSCREEN_ENTERED, false);
+            closeReaderPanel(StateChangeReason.FULLSCREEN_ENTERED, false);
         } else {
             mIsFullscreenModeEntered = false;
             requestReaderPanelShow(StateChangeReason.FULLSCREEN_EXITED);
@@ -224,16 +222,16 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
     @Override
     public void onAddInfoBar(InfoBarContainer container, InfoBar infoBar, boolean isFirst) {
         // Temporarily hides the reader mode button while the infobars are shown.
-        if (isFirst && mReaderModePanel != null) {
+        if (isFirst) {
             mIsInfobarContainerShown = true;
-            mReaderModePanel.closePanel(StateChangeReason.INFOBAR_SHOWN, false);
+            closeReaderPanel(StateChangeReason.INFOBAR_SHOWN, false);
         }
     }
 
     @Override
     public void onRemoveInfoBar(InfoBarContainer container, InfoBar infoBar, boolean isLast) {
         // Re-shows the reader mode button if necessary once the infobars are dismissed.
-        if (isLast && mReaderModePanel != null) {
+        if (isLast) {
             mIsInfobarContainerShown = false;
             requestReaderPanelShow(StateChangeReason.INFOBAR_HIDDEN);
         }
@@ -320,7 +318,7 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
                 mTabStatusMap.get(readerTabId).setUrl(validatedUrl);
                 if (DomDistillerUrlUtils.isDistilledPage(validatedUrl)) {
                     mTabStatusMap.get(readerTabId).setStatus(STARTED);
-                    mReaderModePanel.closePanel(StateChangeReason.UNKNOWN, true);
+                    closeReaderPanel(StateChangeReason.UNKNOWN, true);
                     mReaderModePageUrl = validatedUrl;
                 }
             }
@@ -346,7 +344,7 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
                 mReaderModePageUrl = null;
                 if (mTabStatusMap.containsKey(readerTabId)
                         && mTabStatusMap.get(readerTabId).getStatus() != POSSIBLE) {
-                    mReaderModePanel.closePanel(StateChangeReason.UNKNOWN, false);
+                    closeReaderPanel(StateChangeReason.UNKNOWN, false);
                 } else {
                     requestReaderPanelShow(StateChangeReason.UNKNOWN);
                 }
@@ -374,12 +372,22 @@ public class ReaderModeManager extends TabModelSelectorTabObserver
     }
 
     /**
+     * A wrapper for the close method of the Reader Mode panel that checks for null and can be
+     * overridden for testing.
+     * @param reason The reason the panel is closing.
+     * @param animate True if the panel should animate closed.
+     */
+    private void closeReaderPanel(StateChangeReason reason, boolean animate) {
+        if (mReaderModePanel == null) return;
+        mReaderModePanel.closePanel(reason, animate);
+    }
+
+    /**
      * Orientation change event handler. Simply close the panel.
      */
     public void onOrientationChange() {
-        if (mReaderModePanel == null) return;
         // Close to reset the panel then immediately show again.
-        mReaderModePanel.closePanel(StateChangeReason.UNKNOWN, false);
+        closeReaderPanel(StateChangeReason.UNKNOWN, false);
         requestReaderPanelShow(StateChangeReason.UNKNOWN);
     }
 
