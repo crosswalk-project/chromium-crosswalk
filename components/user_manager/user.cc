@@ -124,6 +124,12 @@ const gfx::ImageSkia& User::GetImage() const {
 }
 
 AccountId User::GetAccountId() const {
+  if (email() == chromeos::login::kStubUser)
+    return chromeos::login::StubAccountId();
+
+  if (email() == chromeos::login::kGuestUserName)
+    return chromeos::login::GuestAccountId();
+
   return AccountId::FromUserEmail(
       gaia::CanonicalizeEmail(gaia::SanitizeEmail(email())));
 }
