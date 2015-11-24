@@ -139,7 +139,6 @@ class TestPairingDelegate : public BluetoothDevice::PairingDelegate {
   void AuthorizePairing(BluetoothDevice* device) override {}
 };
 
-
 TEST(BluetoothAdapterTest, NoDefaultPairingDelegate) {
   scoped_refptr<BluetoothAdapter> adapter = new TestBluetoothAdapter();
 
@@ -465,9 +464,8 @@ TEST_F(BluetoothTest, DiscoverySession) {
   EXPECT_TRUE(discovery_sessions_[0]->IsActive());
 
   ResetEventCounts();
-  discovery_sessions_[0]->Stop(GetCallback(), GetErrorCallback());
-  EXPECT_EQ(1, callback_count_);
-  EXPECT_EQ(0, error_callback_count_);
+  discovery_sessions_[0]->Stop(GetCallback(Call::EXPECTED),
+                               GetErrorCallback(Call::NOT_EXPECTED));
   EXPECT_FALSE(adapter_->IsDiscovering());
   EXPECT_FALSE(discovery_sessions_[0]->IsActive());
 }
