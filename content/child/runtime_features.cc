@@ -171,8 +171,13 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
         std::string("GeometryInterfaces"), true);
   }
 
+#if defined(OS_WIN)
+  // FIXME: Remove this condition after rebase to chromium v47.
+  WebRuntimeFeatures::enablePresentationAPI(true);
+#else
   if (command_line.HasSwitch(switches::kDisablePresentationAPI))
     WebRuntimeFeatures::enablePresentationAPI(false);
+#endif
 
   if (base::FeatureList::IsEnabled(features::kWebFontsInterventionV2)) {
     WebRuntimeFeatures::enableWebFontsInterventionV2(true);
