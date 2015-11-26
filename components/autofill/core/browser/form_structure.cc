@@ -535,15 +535,12 @@ bool FormStructure::EncodeFieldAssignments(
 bool FormStructure::EncodeQueryRequest(
     const std::vector<FormStructure*>& forms,
     std::vector<std::string>* encoded_signatures,
-    std::vector<FormStructure*>* queried_forms,
     std::string* encoded_xml) {
   DCHECK(encoded_signatures);
   DCHECK(encoded_xml);
   encoded_xml->clear();
   encoded_signatures->clear();
   encoded_signatures->reserve(forms.size());
-  queried_forms->clear();
-  queried_forms->reserve(forms.size());
 
   // Set up the <autofillquery> element and attributes.
   buzz::XmlElement autofill_request_xml(
@@ -571,7 +568,6 @@ bool FormStructure::EncodeQueryRequest(
 
     autofill_request_xml.AddElement(encompassing_xml_element.release());
     encoded_signatures->push_back(signature);
-    queried_forms->push_back(it);
   }
 
   if (!encoded_signatures->size())
