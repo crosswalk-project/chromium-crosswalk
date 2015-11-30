@@ -684,7 +684,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="350797926066071931">Ativar Traduzir</translation>
 <translation id="3516856976222674451">Limita a duração máxima de uma sessão do usuário.
 
-      Quando esta política estiver definida, especificará depois de quanto tempo um usuário será automaticamente desconectado, encerrando a sessão. O usuário é informado sobre o tempo restante por um cronômetro mostrado na bandeja do sistema.
+      Quando esta política estiver definida, especificará depois de quanto tempo um usuário será automaticamente desconectado, encerrando a sessão. O usuário é informado sobre o tempo restante por um timer de contagem regressiva mostrado na bandeja do sistema.
 
       Quando esta política não estiver definida, a duração da sessão será ilimitada.
 
@@ -2002,7 +2002,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="8965758116018152083">Se esta política for definida para um string em branco ou não for configurada, o <ph name="PRODUCT_OS_NAME" /> não mostrará uma opção de preenchimento automático durante o fluxo de login.
       Se esta política for definida para um string representando um nome de domínio, o <ph name="PRODUCT_OS_NAME" /> mostrará uma opção de preenchimento automático durante o login do usuário, permitindo que o mesmo digite apenas seu nome de usuário sem a extensão de nome de domínio. O usuário poderá substituir essa extensão de nome de domínio.</translation>
 <translation id="8970205333161758602">Remover a solicitação de recusa do <ph name="PRODUCT_FRAME_NAME" /></translation>
-<translation id="8971221018777092728">Temporizador de login automático na sessão pública</translation>
+<translation id="8971221018777092728">Timer de login automático na sessão pública</translation>
 <translation id="8976248126101463034">Permitir autenticação gnubby para hosts de acesso remoto</translation>
 <translation id="8992176907758534924">Não permitir que nenhum site exiba imagens</translation>
 <translation id="9035964157729712237">IDs de extensão que serão isentos da lista negra</translation>

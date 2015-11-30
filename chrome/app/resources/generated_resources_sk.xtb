@@ -522,6 +522,7 @@
 <translation id="1699395855685456105">Revízia hardvéru:</translation>
 <translation id="1701062906490865540">Odstrániť túto osobu</translation>
 <translation id="1702534956030472451">Západné</translation>
+<translation id="1702987929180449188">Keď je táto možnosť povolená, panel s nástrojmi sa nikdy neskryje pri posúvaní na zariadeniach s veľkosťou obrazovky väčšou alebo rovnajúcou sa hodnote 800dp. Stále sa však skryje, keď sa zobrazí obsah stránky na celej obrazovke.</translation>
 <translation id="1707463636381878959">Zdieľať túto sieť s ďalšími používateľmi</translation>
 <translation id="1708338024780164500">(Neaktívne)</translation>
 <translation id="1711973684025117106">Komprimovanie zlyhalo, neočakávaná chyba: $1</translation>
@@ -1093,7 +1094,7 @@ Tieto webové stránky by podľa mňa nemali byť blokované.</translation>
 <translation id="2541423446708352368">Zobraziť všetky stiahnuté súbory</translation>
 <translation id="2542049655219295786">Tabuľka Google</translation>
 <translation id="254416073296957292">&amp;Nastavenie jazyka...</translation>
-<translation id="2546283357679194313">Súbory cookie a údaje stránok</translation>
+<translation id="2546283357679194313">Súbory cookie a dáta webov</translation>
 <translation id="2549646943416322527">Seccomp Detector</translation>
 <translation id="2552545117464357659">Novšie</translation>
 <translation id="2553100941515833716">Obnoviť stav inštalácie Spúšťača aplikácii pri každom reštartovaní.</translation>
@@ -1897,7 +1898,7 @@ z domény <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="3603622770190368340">Získanie certifkátu siete</translation>
 <translation id="3605780360466892872">Manažér</translation>
 <translation id="3606220979431771195">Turecká (typ F)</translation>
-<translation id="3608308818141211642">Klient a server nepodporujú spoločnú verziu protokolu SSL ani šifrovaciu súpravu. Je to pravdepodobne spôsobné tým, že server vyžaduje podporu šifrovacieho algoritmu RC4, ktorý sa už nepovažuje za bezpečný.</translation>
+<translation id="3608308818141211642">Klient a server nepodporujú spoločnú verziu protokolu SSL ani šifrovaciu súpravu. Je to pravdepodobne spôsobené tým, že server vyžaduje podporu šifrovacieho algoritmu RC4, ktorý sa už nepovažuje za bezpečný.</translation>
 <translation id="3608454375274108141">F10</translation>
 <translation id="3608576286259426129">Ukážka obrázka používateľa</translation>
 <translation id="3609138628363401169">Server nepodporuje rozšírenie opätovného vyjednávania TLS.</translation>
@@ -2474,7 +2475,6 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="4439318412377770121">Chcete zariadenie <ph name="DEVICE_NAME" /> zaregistrovať v službe Google Cloud Devices?</translation>
 <translation id="4441124369922430666">Chcete automaticky spustiť túto aplikáciu po zapnutí zariadenia?</translation>
 <translation id="444134486829715816">Rozbaliť...</translation>
-<translation id="4442309605992420742">Povoliť párovanie pomocou protokolu Weave</translation>
 <translation id="444267095790823769">Výnimky chráneného obsahu</translation>
 <translation id="4443536555189480885">&amp;Pomocník</translation>
 <translation id="4444304522807523469">Mať prístup ku skenerom dokumentov pripojeným cez USB alebo v miestnej sieti</translation>
@@ -2881,7 +2881,7 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="5038863510258510803">Prebieha povoľovanie...</translation>
 <translation id="5039512255859636053">$1 TB</translation>
 <translation id="5039804452771397117">Povoliť</translation>
-<translation id="5040262127954254034">Súkromie</translation>
+<translation id="5040262127954254034">Ochrana súkromia</translation>
 <translation id="5045550434625856497">Nesprávne heslo</translation>
 <translation id="5048179823246820836">Severské</translation>
 <translation id="5050209346295804497">Zakázať požadovanie gest na prehrávanie médií.</translation>
@@ -4238,7 +4238,6 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="7015226785571892184">Ak túto žiadosť prijmete, spustí sa nasledovná aplikácia:
 
 <ph name="APPLICATION" /></translation>
-<translation id="7016688023264690202">Párovanie pomocou protokolu Weave používa aplikácia Weave na zabezpečenú komunikáciu so zariadeniami v miestnej sieti.</translation>
 <translation id="7017004637493394352">Vyslovte „Ok Google“ ešte raz</translation>
 <translation id="7017219178341817193">Pridať novú stránku</translation>
 <translation id="7017354871202642555">Po nastavení okna nie je možné nastaviť režim.</translation>
@@ -4348,6 +4347,7 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="7177840076592118126">Použiť v prehľade stabilné poradie okien.</translation>
 <translation id="7180611975245234373">Obnoviť</translation>
 <translation id="7180865173735832675">Prispôsobiť</translation>
+<translation id="7184428045150946911">Zakázanie automatického skrývania panela s nástrojmi</translation>
 <translation id="7186088072322679094">Ponechať na paneli s nástrojmi</translation>
 <translation id="719009910964971313">Klávesnica US Programmer Dvorak</translation>
 <translation id="7191454237977785534">Uložiť súbor ako</translation>
@@ -4944,7 +4944,7 @@ Súbor kľúča uložte na bezpečné miesto. Budete ho potrebovať na vytvoreni
 <translation id="8023801379949507775">Aktualizovať rozšírenia</translation>
 <translation id="8025789898011765392">Úlohy</translation>
 <translation id="802597130941734897">Spravovať dodacie adresy...</translation>
-<translation id="8026334261755873520">Vymazať údaje prehliadania</translation>
+<translation id="8026334261755873520">Vymazať dáta prehliadania</translation>
 <translation id="8026964361287906498">(Spravované podnikovými pravidlami)</translation>
 <translation id="8028060951694135607">Obnovenie kľúčov spoločnosti Microsoft</translation>
 <translation id="8028993641010258682">Veľkosť</translation>
