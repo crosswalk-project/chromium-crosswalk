@@ -765,8 +765,6 @@ public class ChromeTabbedActivity extends ChromeActivity implements OverviewMode
             }
         }
 
-        commandLine.appendSwitch(ChromeSwitches.ENABLE_HIGH_END_UI_UNDO);
-
         supportRequestWindowFeature(Window.FEATURE_ACTION_MODE_OVERLAY);
 
         // We are starting from history with a URL after data has been cleared. On Samsung this
