@@ -261,7 +261,7 @@ public final class OAuth2TokenService
     * refreshed.
     */
     @Override
-    public void onSystemAccountsForceRefreshed() {
+    public void onSystemAccountsChanged() {
         mPendingValidationContext = null;
         mPendingValidationForceNotifications = false;
     }
@@ -269,7 +269,7 @@ public final class OAuth2TokenService
     @CalledByNative
     public void validateAccounts(Context context, boolean forceNotifications) {
         ThreadUtils.assertOnUiThread();
-        if (!AccountTrackerService.get(context).isSystemAccountsSeeded()) {
+        if (!AccountTrackerService.get(context).checkAndSeedSystemAccounts()) {
             mPendingValidationContext = context;
             mPendingValidationForceNotifications = forceNotifications;
             return;
