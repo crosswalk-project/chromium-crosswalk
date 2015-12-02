@@ -536,8 +536,17 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
     return web::WEB_VIEW_DOCUMENT_TYPE_GENERIC;
   }
 
-  std::string MIMEType = self.webState->GetContentsMimeType();
-  return [self documentTypeFromMIMEType:base::SysUTF8ToNSString(MIMEType)];
+  std::string mimeType = self.webState->GetContentsMimeType();
+  if (mimeType.empty()) {
+    return web::WEB_VIEW_DOCUMENT_TYPE_UNKNOWN;
+  }
+
+  if (mimeType == "text/html" || mimeType == "application/xhtml+xml" ||
+      mimeType == "application/xml") {
+    return web::WEB_VIEW_DOCUMENT_TYPE_HTML;
+  }
+
+  return web::WEB_VIEW_DOCUMENT_TYPE_GENERIC;
 }
 
 - (void)loadRequest:(NSMutableURLRequest*)request {
