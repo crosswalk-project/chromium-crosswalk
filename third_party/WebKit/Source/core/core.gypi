@@ -3896,6 +3896,7 @@
             'loader/LinkHeaderTest.cpp',
             'loader/LinkLoaderTest.cpp',
             'loader/MixedContentCheckerTest.cpp',
+            'page/ChromeClientTest.cpp',
             'page/ContextMenuControllerTest.cpp',
             'page/NetworkStateNotifierTest.cpp',
             'page/PagePopupClientTest.cpp',
