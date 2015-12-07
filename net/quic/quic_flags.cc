@@ -123,3 +123,19 @@ bool FLAGS_quic_use_stream_sequencer_buffer = true;
 // If true, don't send QUIC packets if the send alarm is set.
 // Disabled until b/25638635 is resolved.
 bool FLAGS_respect_send_alarm = false;
+
+// If ture, sets callback pointer to nullptr after calling Cancel() in
+// QuicCryptoServerStream::CancelOutstandingCallbacks.
+bool FLAGS_quic_set_client_hello_cb_nullptr = true;
+
+// If treu, Only track a single retransmission in QUIC's TransmissionInfo
+// struct.
+bool FLAGS_quic_track_single_retransmission = true;
+
+// If true, allow each quic stream to write 16k blocks rather than doing a round
+// robin of one packet per session when ack clocked or paced.
+bool FLAGS_quic_batch_writes = true;
+
+// If true, QUIC sessions will write block streams that attempt to write
+// unencrypted data.
+bool FLAGS_quic_block_unencrypted_writes = true;
