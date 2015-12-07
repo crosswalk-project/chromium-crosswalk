@@ -2119,9 +2119,12 @@ IN_PROC_BROWSER_TEST_F(PasswordManagerBrowserTestBase,
   observer.Wait();
   EXPECT_TRUE(prompt_observer->IsShowingUpdatePrompt());
 
-  const autofill::PasswordForm stored_form =
-      password_store->stored_passwords().begin()->second[0];
-  prompt_observer->AcceptUpdatePrompt(stored_form);
+  // We emulate that the user clicks "Update" button.
+  const autofill::PasswordForm& pending_credentials =
+      ManagePasswordsUIController::FromWebContents(WebContents())
+          ->GetPendingPassword();
+  prompt_observer->AcceptUpdatePrompt(pending_credentials);
+
   // Spin the message loop to make sure the password store had a chance to
   // update the password.
   base::RunLoop run_loop;
