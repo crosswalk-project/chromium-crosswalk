@@ -228,7 +228,7 @@ AccessibilityMatchPredicate PredicateForSearchKey(NSString* searchKey) {
     };
   } else if ([searchKey isEqualToString:@"AXTextFieldSearchKey"]) {
     return [](BrowserAccessibility* start, BrowserAccessibility* current) {
-      return current->GetRole() == ui::AX_ROLE_TEXT_FIELD;
+      return current->IsSimpleTextControl() || current->IsRichTextControl();
     };
   } else if ([searchKey isEqualToString:@"AXUnderlineSearchKey"]) {
     // TODO(dmazzoni): implement this.
@@ -867,6 +867,9 @@ bool InitializeAccessibilityTreeSearch(
 
 // Returns a string indicating the NSAccessibility role of this object.
 - (NSString*)role {
+  if (!browserAccessibility_)
+    return nil;
+
   ui::AXRole role = [self internalRole];
   if (role == ui::AX_ROLE_CANVAS &&
       browserAccessibility_->GetBoolAttribute(
@@ -884,8 +887,10 @@ bool InitializeAccessibilityTreeSearch(
     else
       return NSAccessibilityButtonRole;
   }
-  if (role == ui::AX_ROLE_TEXT_FIELD &&
-      browserAccessibility_->HasState(ui::AX_STATE_MULTILINE)) {
+
+  if ((browserAccessibility_->IsSimpleTextControl() &&
+       browserAccessibility_->HasState(ui::AX_STATE_MULTILINE)) ||
+      browserAccessibility_->IsRichTextControl()) {
     return NSAccessibilityTextAreaRole;
   }
 

@@ -296,7 +296,9 @@ class CONTENT_EXPORT BrowserAccessibility {
   bool IsWebAreaForPresentationalIframe() const;
 
   bool IsControl() const;
-  bool IsTextControl() const;
+  bool IsSimpleTextControl() const;
+  // Indicates if this object is at the root of a rich edit text control.
+  bool IsRichTextControl() const;
 
  protected:
   BrowserAccessibility();
