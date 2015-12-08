@@ -123,3 +123,7 @@ bool FLAGS_quic_use_stream_sequencer_buffer = true;
 // If true, don't send QUIC packets if the send alarm is set.
 // Disabled until b/25638635 is resolved.
 bool FLAGS_respect_send_alarm = false;
+
+// If true, QUIC sessions will write block streams that attempt to write
+// unencrypted data.
+bool FLAGS_quic_block_unencrypted_writes = true;
