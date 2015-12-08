@@ -418,8 +418,7 @@ public class ClassName {
       original_do_parse = java_cpp_enum.DoParseHeaderFile
       try:
         java_cpp_enum.DoParseHeaderFile = lambda _: []
-        for _ in java_cpp_enum.DoGenerate(['file']):
-          pass
+        java_cpp_enum.DoGenerate('dir', ['file'])
       finally:
         java_cpp_enum.DoParseHeaderFile = original_do_parse
 
