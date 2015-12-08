@@ -39,5 +39,6 @@ NET_EXPORT_PRIVATE extern bool FLAGS_quic_use_new_idle_timeout;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_use_stream_sequencer_buffer;
 NET_EXPORT_PRIVATE extern bool FLAGS_respect_send_alarm;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_block_unencrypted_writes;
+NET_EXPORT_PRIVATE extern bool FLAGS_quic_never_write_unencrypted_data;
 
 #endif  // NET_QUIC_QUIC_FLAGS_H_
