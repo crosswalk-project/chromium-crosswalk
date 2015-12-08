@@ -255,7 +255,6 @@ void QuicCryptoClientStream::DoSendCHLO(
 
   // Send the client hello in plaintext.
   session()->connection()->SetDefaultEncryptionLevel(ENCRYPTION_NONE);
-  encryption_established_ = false;
   if (num_client_hellos_ > kMaxClientHellos) {
     CloseConnection(QUIC_CRYPTO_TOO_MANY_REJECTS);
     return;

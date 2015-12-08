@@ -60,11 +60,5 @@ void QuicPacketCreatorPeer::FillPacketHeader(QuicPacketCreator* creator,
   creator->FillPacketHeader(fec_group, fec_flag, header);
 }
 
-// static
-EncryptionLevel QuicPacketCreatorPeer::GetEncryptionLevel(
-    QuicPacketCreator* creator) {
-  return creator->encryption_level_;
-}
-
 }  // namespace test
 }  // namespace net

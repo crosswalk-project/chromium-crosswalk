@@ -33,7 +33,6 @@ class QuicPacketCreatorPeer {
                                QuicFecGroupNumber fec_group,
                                bool fec_flag,
                                QuicPacketHeader* header);
-  static EncryptionLevel GetEncryptionLevel(QuicPacketCreator* creator);
 
  private:
   DISALLOW_COPY_AND_ASSIGN(QuicPacketCreatorPeer);
