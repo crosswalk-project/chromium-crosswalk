@@ -84,7 +84,9 @@ Still reading?
     <ignore path="org/chromium/chrome/browser/TtsPlatformImpl.class"/>
     <ignore path="org/chromium/chrome/browser/TtsPlatformImpl$*.class"/>
     <ignore path="chrome/android/java/res/values-v17/styles.xml"/>
-    <ignore path="org/chromium/content/browser/input/JoystickScrollProvider.class" />
+    <ignore path="org/chromium/content/browser/input/JoystickScrollProvider.class"/>
+    <ignore path="org/chromium/ui/resources/dynamics/ViewResourceInflater$ViewInflaterOnDrawListener.class"/>
+    <ignore path="org/chromium/ui/resources/dynamics/ViewResourceInflater.class"/>
   </issue>
   <issue id="OldTargetApi">
     <ignore path="AndroidManifest.xml"/>
