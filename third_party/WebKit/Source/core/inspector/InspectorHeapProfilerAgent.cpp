@@ -428,7 +428,7 @@ void InspectorHeapProfilerAgent::HeapXDKUpdateTask::onTimer(Timer<HeapXDKUpdateT
 void InspectorHeapProfilerAgent::HeapXDKUpdateTask::startTimer(float sav)
 {
     ASSERT(!m_timer.isActive());
-    m_timer.startRepeating(sav, FROM_HERE);
+    m_timer.startRepeating(sav, BLINK_FROM_HERE);
 }
 
 void InspectorHeapProfilerAgent::startTrackingHeapXDK(ErrorString*,
