@@ -26,6 +26,7 @@ public:
             disabledMode = GraphicsContext::FullyDisabled;
 
         m_paintController = PaintController::create();
+        m_paintController->beginSkippingCache();
         m_context = adoptPtr(new GraphicsContext(*m_paintController, disabledMode, metaData));
 
         if (containingContext) {
@@ -39,6 +40,7 @@ public:
     PassRefPtr<const SkPicture> endRecording()
     {
         m_context->beginRecording(m_bounds);
+        m_paintController->endSkippingCache();
         m_paintController->commitNewDisplayItems();
         m_paintController->paintArtifact().replay(*m_context);
         return m_context->endRecording();
