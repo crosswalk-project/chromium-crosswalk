@@ -119,7 +119,7 @@ void OfflinePageBridge::GetAllPages(JNIEnv* env,
                                     jobject j_result_obj) {
   DCHECK(offline_page_model_->is_loaded());
   DCHECK(j_result_obj);
-  const std::vector<OfflinePageItem>& offline_pages =
+  const std::vector<OfflinePageItem> offline_pages =
       offline_page_model_->GetAllPages();
   ToJavaOfflinePageList(env, j_result_obj, offline_pages);
 }
@@ -129,7 +129,7 @@ void OfflinePageBridge::GetPagesToCleanUp(JNIEnv* env,
                                           jobject j_result_obj) {
   DCHECK(offline_page_model_->is_loaded());
   DCHECK(j_result_obj);
-  const std::vector<OfflinePageItem>& offline_pages =
+  const std::vector<OfflinePageItem> offline_pages =
       offline_page_model_->GetPagesToCleanUp();
   ToJavaOfflinePageList(env, j_result_obj, offline_pages);
 }
