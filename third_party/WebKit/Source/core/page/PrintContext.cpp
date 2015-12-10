@@ -24,7 +24,7 @@
 #include "core/frame/FrameView.h"
 #include "core/frame/LocalFrame.h"
 #include "core/layout/LayoutView.h"
-#include "platform/graphics/GraphicsContext.h"
+#include "third_party/skia/include/core/SkAnnotation.h"
 
 namespace blink {
 
@@ -230,7 +230,7 @@ void PrintContext::collectLinkedDestinations(Node* node)
     }
 }
 
-void PrintContext::outputLinkedDestinations(GraphicsContext& context, const IntRect& pageRect)
+void PrintContext::outputLinkedDestinations(SkCanvas* canvas, const IntRect& pageRect)
 {
     if (!m_linkedDestinationsValid) {
         // Collect anchors in the top-level frame only because our PrintContext
@@ -244,11 +244,13 @@ void PrintContext::outputLinkedDestinations(GraphicsContext& context, const IntR
         if (!layoutObject || !layoutObject->frameView())
             continue;
         IntRect boundingBox = layoutObject->absoluteBoundingBoxRect();
-        IntPoint point = layoutObject->frameView()->convertToRootFrame(boundingBox.location());
-        if (!pageRect.contains(point))
+        boundingBox = layoutObject->frameView()->convertToContainingWindow(boundingBox);
+        if (!pageRect.intersects(boundingBox))
             continue;
+        IntPoint point = boundingBox.minXMinYCorner();
         point.clampNegativeToZero();
-        context.setURLDestinationLocation(entry.key, point);
+        SkAutoDataUnref nameData(SkData::NewWithCString(entry.key.utf8().data()));
+        SkAnnotateNamedDestination(canvas, SkPoint::Make(point.x(), point.y()), nameData);
     }
 }
 
