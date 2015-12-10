@@ -127,7 +127,6 @@ protected:
     bool isClickable() const final;
     bool isEnabled() const override;
     AccessibilityExpanded isExpanded() const override;
-    bool isIndeterminate() const final;
     bool isPressed() const final;
     bool isReadOnly() const override;
     bool isRequired() const final;
@@ -220,6 +219,7 @@ private:
     void deprecatedAlternativeText(HeapVector<Member<AccessibilityText>>&) const;
     void deprecatedAriaLabelledbyText(HeapVector<Member<AccessibilityText>>&) const;
 
+    bool isNativeCheckboxInMixedState() const;
     String textFromDescendants(AXObjectSet& visited) const;
     String textFromElements(bool inAriaLabelledByTraversal, AXObjectSet& visited, WillBeHeapVector<RawPtrWillBeMember<Element>>& elements, AXRelatedObjectVector* relatedObjects) const;
     String textFromAriaLabelledby(AXObjectSet& visited, AXRelatedObjectVector* relatedObjects) const;
