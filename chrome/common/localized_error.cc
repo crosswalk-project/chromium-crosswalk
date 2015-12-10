@@ -778,7 +778,6 @@ void LocalizedError::GetStrings(int error_code,
       base::string16 button_text =
           l10n_util::GetStringUTF16(IDS_ERRORPAGES_BUTTON_SHOW_OFFLINE_COPY);
       show_offline_copy_button->SetString("msg", button_text);
-      show_offline_copy_button->SetString("title", button_text);
       error_strings->Set("showOfflineCopyButton", show_offline_copy_button);
     } else if (offline_page_status ==
                OfflinePageStatus::HAS_OTHER_OFFLINE_PAGES) {
@@ -787,7 +786,6 @@ void LocalizedError::GetStrings(int error_code,
       base::string16 button_text =
           l10n_util::GetStringUTF16(IDS_ERRORPAGES_BUTTON_SHOW_OFFLINE_PAGES);
       show_offline_pages_button->SetString("msg", button_text);
-      show_offline_pages_button->SetString("title", button_text);
       error_strings->Set("showOfflinePagesButton", show_offline_pages_button);
     }
   }
