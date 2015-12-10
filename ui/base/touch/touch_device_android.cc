@@ -9,8 +9,8 @@
 
 namespace ui {
 
-bool IsTouchDevicePresent() {
-  return true;
+TouchScreensAvailability GetTouchScreensAvailability() {
+  return TouchScreensAvailability::ENABLED;
 }
 
 int MaxTouchPoints() {
