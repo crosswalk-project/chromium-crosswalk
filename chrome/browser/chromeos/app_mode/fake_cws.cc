@@ -94,6 +94,8 @@ void FakeCWS::InitAsPrivateStore(EmbeddedTestServer* embedded_test_server,
   update_check_end_point_ = update_check_end_point;
 
   SetupWebStoreURL(embedded_test_server->base_url());
+  OverrideGalleryCommandlineSwitches();
+
   embedded_test_server->RegisterRequestHandler(
       base::Bind(&FakeCWS::HandleRequest, base::Unretained(this)));
 }
