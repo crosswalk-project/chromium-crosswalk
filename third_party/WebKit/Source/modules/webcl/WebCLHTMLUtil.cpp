@@ -21,7 +21,7 @@ namespace blink {
 
 bool packImageData(Image* image, WebGLImageConversion::ImageHtmlDomSource domSource, unsigned width, unsigned height, Vector<uint8_t>& data) {
     WebGLImageConversion::ImageExtractor imageExtractor(image, domSource, false, false);
-    if (!imageExtractor.extractSucceeded())
+    if (!imageExtractor.imagePixelData())
         return false;
 
     WebGLImageConversion::DataFormat sourceDataFormat = imageExtractor.imageSourceFormat();
@@ -42,7 +42,7 @@ bool WebCLHTMLUtil::extractDataFromCanvas(HTMLCanvasElement* canvas, Vector<uint
         return false;
     }
 
-    if (!packImageData(canvas->copiedImage(BackBuffer).get(), WebGLImageConversion::HtmlDomCanvas, canvas->width(), canvas->height(), data)) {
+    if (!packImageData(canvas->copiedImage(BackBuffer, PreferAcceleration).get(), WebGLImageConversion::HtmlDomCanvas, canvas->width(), canvas->height(), data)) {
         es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
         return false;
     }
