@@ -531,6 +531,9 @@ class WebMediaPlayerAndroid : public blink::WebMediaPlayer,
 
   scoped_ptr<MediaSourceDelegate> media_source_delegate_;
 
+  // Whether to delete the existing texture and re-create it.
+  bool suppress_deleting_texture_;
+
   // NOTE: Weak pointers must be invalidated before all other member variables.
   base::WeakPtrFactory<WebMediaPlayerAndroid> weak_factory_;
 
