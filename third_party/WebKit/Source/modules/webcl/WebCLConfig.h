@@ -13,7 +13,6 @@
 #include <CL/cl.h>
 #include <CL/cl_platform.h>
 #include <CL/cl_gl.h>
-#include <wtf/NullPtr.h>
 #include <wtf/HashSet.h>
 #include <wtf/text/StringHash.h>
 #include <wtf/text/WTFString.h>
