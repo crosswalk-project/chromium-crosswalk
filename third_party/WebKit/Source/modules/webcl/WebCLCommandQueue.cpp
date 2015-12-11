@@ -1265,7 +1265,7 @@ void WebCLCommandQueue::callbackProxy(cl_event event, cl_int type, void* userDat
     holder->type = type;
 
     if (!isMainThread()) {
-        Platform::current()->mainThread()->postTask(FROM_HERE, threadSafeBind(&WebCLCommandQueue::callbackProxyOnMainThread, holder.release()));
+        Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCLCommandQueue::callbackProxyOnMainThread, holder.release()));
         return;
     }
 

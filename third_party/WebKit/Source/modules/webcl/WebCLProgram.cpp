@@ -478,7 +478,7 @@ void WebCLProgram::callbackProxy(cl_program program, void* userData)
         return;
     }
 
-    Platform::current()->mainThread()->postTask(FROM_HERE, threadSafeBind(&WebCLProgram::callbackProxyOnMainThread, holder.release()));
+    Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCLProgram::callbackProxyOnMainThread, holder.release()));
 }
 
 void WebCLProgram::callbackProxyOnMainThread(PassOwnPtr<WebCLProgramHolder> holder)

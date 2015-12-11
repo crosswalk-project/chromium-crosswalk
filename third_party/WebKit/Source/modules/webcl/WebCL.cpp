@@ -26,6 +26,7 @@
 #include "modules/webcl/WebCLSampler.h"
 #include "platform/ThreadSafeFunctional.h"
 #include "public/platform/Platform.h"
+#include "public/platform/WebTaskRunner.h"
 #include "public/platform/WebTraceLocation.h"
 #include <wtf/MainThread.h>
 
@@ -299,7 +300,7 @@ void WebCL::callbackProxy(cl_event event, cl_int type, void* userData)
     holder->type = type;
 
     if (!isMainThread()) {
-        Platform::current()->mainThread()->postTask(FROM_HERE, threadSafeBind(&WebCL::callbackProxyOnMainThread, holder.release()));
+        Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCL::callbackProxyOnMainThread, holder.release()));
         return;
     }
 
