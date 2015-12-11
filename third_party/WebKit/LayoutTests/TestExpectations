@@ -1416,3 +1416,39 @@ crbug.com/551272 fast/js/pic/cached-named-property-getter.html [ NeedsManualReba
 crbug.com/551272 fast/js/mozilla/strict/15.10.7.html [ NeedsManualRebaseline ]
 crbug.com/555052 http/tests/misc/script-sync-slow-scripts-onerror.html [ Failure Pass ]
 #crbug.com/561595 [ XP ] plugins/webview-plugin-scroll.html [ Failure ]
+crbug.com/563694 [ Linux Mac Debug ] svg/hixie/perf/005.xml [ Failure ]
+
+crbug.com/564109 [ Win7 XP ]  http/tests/webfont/font-display.html [ Pass Timeout Failure ]
+
+crbug.com/558574 [ Win7 ] fast/forms/text/text-font-height-mismatch.html [ Failure ]
+crbug.com/558574 [ Win7 ] fast/text/emphasis.html [ Failure ]
+
+crbug.com/555381 plugins/webview-plugin-scroll.html [ NeedsRebaseline ]
+
+#crbug.com/561595 [ XP ] plugins/webview-plugin-scroll.html [ Failure ]
+crbug.com/561595 [ XP ] plugins/webview-plugin-nested-iframe-scroll.html [ Failure ]
+
+crbug.com/568157 [ XP ] virtual/syncpaint/fast/repaint/details-open-repaint.html [ Failure ]
+crbug.com/568157 [ XP ] virtual/syncpaint/fast/repaint/overflow-scroll-body-appear.html [ Failure ]
+crbug.com/568157 [ XP ] virtual/syncpaint/fast/repaint/resize-scrollable-iframe.html [ Failure ]
+
+crbug.com/568678 [ XP ] ietestcenter/css3/text/textshadow-001.htm [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] ietestcenter/css3/text/textshadow-002.htm [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] ietestcenter/css3/text/textshadow-003.htm [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] ietestcenter/css3/text/textshadow-004.htm [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] ietestcenter/css3/text/textshadow-010.htm [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] paint/roundedrects/circle-with-shadow.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] paint/roundedrects/input-with-rounded-rect-and-shadow.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] svg/css/text-gradient-shadow.svg [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] svg/css/text-shadow-multiple.xhtml [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/display_list_2d_canvas/fast/canvas/canvas-composite-shadow.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/display_list_2d_canvas/fast/canvas/canvas-incremental-repaint.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/display_list_2d_canvas/fast/canvas/canvas-shadow-source-in.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/gpu/fast/canvas/canvas-composite-shadow.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/gpu/fast/canvas/canvas-incremental-repaint.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/gpu/fast/canvas/canvas-shadow-source-in.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/syncpaint/fast/repaint/shadow-multiple.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/syncpaint/paint/roundedrects/circle-with-shadow.html [ NeedsRebaseline ]
+crbug.com/568678 [ XP ] virtual/syncpaint/paint/roundedrects/input-with-rounded-rect-and-shadow.html [ NeedsRebaseline ]
+
+crbug.com/568678 [ XP ] virtual/gpu/fast/canvas/canvas-scale-strokePath-shadow.html [ Failure ]
