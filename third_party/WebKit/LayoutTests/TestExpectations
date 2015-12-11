@@ -38,6 +38,8 @@ crbug.com/527242 virtual/spv2/paint/invalidation/spv2/cached-change-tbody-border
 crbug.com/553905 plugins/webview-plugin-scroll.html [ NeedsRebaseline ]
 
 crbug.com/546730 virtual/syncpaint/paint/invalidation/composited-table-cell-container-background.html [ Failure ]
+crbug.com/555381 plugins/webview-plugin-nested-iframe-scroll.html [ NeedsRebaseline ]
+crbug.com/555381 plugins/webview-plugin-scroll.html [ NeedsRebaseline ]
 
 crbug.com/536138 virtual/spv2/paint/invalidation/repaint-subsequence-on-ancestor-clip-change.html [ Failure ]
 
@@ -1413,3 +1415,4 @@ crbug.com/551272 fast/js/getOwnPropertyDescriptor.html [ NeedsManualRebaseline ]
 crbug.com/551272 fast/js/pic/cached-named-property-getter.html [ NeedsManualRebaseline ]
 crbug.com/551272 fast/js/mozilla/strict/15.10.7.html [ NeedsManualRebaseline ]
 crbug.com/555052 http/tests/misc/script-sync-slow-scripts-onerror.html [ Failure Pass ]
+#crbug.com/561595 [ XP ] plugins/webview-plugin-scroll.html [ Failure ]
