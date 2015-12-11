@@ -498,10 +498,10 @@ void InspectorResourceAgent::willSendRequest(LocalFrame* frame, unsigned long id
         request.setShouldResetAppCache(true);
     }
 
+    willSendRequestInternal(frame, identifier, loader, request, redirectResponse, initiatorInfo);
+
     if (!m_hostId.isEmpty())
         request.addHTTPHeaderField(kDevToolsEmulateNetworkConditionsClientId, AtomicString(m_hostId));
-
-    willSendRequestInternal(frame, identifier, loader, request, redirectResponse, initiatorInfo);
 }
 
 void InspectorResourceAgent::markResourceAsCached(unsigned long identifier)
