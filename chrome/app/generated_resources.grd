@@ -5383,6 +5383,12 @@ Keep your key file in a safe place. You will need it to create new versions of y
         <message name="IDS_FLAGS_ENABLE_ACCESSIBILITY_TAB_SWITCHER_DESCRIPTION" desc="Description of the flag to enable the accessibility tab switcher.">
           Enable the accessibility tab switcher for Android.
         </message>
+        <message name="IDS_FLAGS_ENABLE_ACCESSIBILITY_SCRIPT_INJECTION_NAME" desc="Name of the flag to enable script injection for accessibility.">
+          Enable Script Injection For Accessibility.
+        </message>
+        <message name="IDS_FLAGS_ENABLE_ACCESSIBILITY_SCRIPT_INJECTION_DESCRIPTION" desc="Description of the flag to enable script injection for accessibility.">
+          Enable script injection instead of native Android accessibility.
+        </message>
         <message name="IDS_FLAGS_ENABLE_PHYSICAL_WEB_NAME" desc="Name of the flag to enable the physical web feature.">
           Enable the Physical Web.
         </message>
