@@ -16,6 +16,7 @@ import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.database.ContentObserver;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Rect;
@@ -568,6 +569,9 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
     // WebView.
     private boolean mShouldSetAccessibilityFocusOnPageLoad;
 
+    // Allows us to dynamically respond when the accessibility script injection flag changes.
+    private ContentObserver mAccessibilityScriptInjectionObserver;
+
     // Temporary notification to tell onSizeChanged to focus a form element,
     // because the OSK was just brought up.
     private final Rect mFocusPreOSKViewportRect = new Rect();
@@ -1025,6 +1029,7 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         mNativeContentViewCore = 0;
         mJavaScriptInterfaces.clear();
         mRetainedJavaScriptObjects.clear();
+        unregisterAccessibilityContentObserver();
         for (mGestureStateListenersIterator.rewind(); mGestureStateListenersIterator.hasNext();) {
             mGestureStateListenersIterator.next().onDestroyed();
         }
@@ -1035,6 +1040,15 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         mPastePopupMenu = null;
 
         // See warning in javadoc before adding more clean up code here.
+    }
+
+    private void unregisterAccessibilityContentObserver() {
+        if (mAccessibilityScriptInjectionObserver == null) {
+            return;
+        }
+        getContext().getContentResolver().unregisterContentObserver(
+                mAccessibilityScriptInjectionObserver);
+        mAccessibilityScriptInjectionObserver = null;
     }
 
     /**
@@ -1539,6 +1553,7 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
     public void onDetachedFromWindow() {
         setInjectedAccessibility(false);
         mZoomControlsDelegate.dismissZoomPicker();
+        unregisterAccessibilityContentObserver();
 
         ScreenOrientationListener.getInstance().removeObserver(this);
         GamepadList.onDetachedFromWindow();
