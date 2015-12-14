@@ -1552,6 +1552,7 @@ void LayoutBlock::dirtyForLayoutFromPercentageHeightDescendants(SubtreeLayoutSco
         return;
 
     for (auto* box : *descendants) {
+        ASSERT(box->isDescendantOf(this));
         while (box != this) {
             if (box->normalChildNeedsLayout())
                 break;
