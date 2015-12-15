@@ -16,7 +16,9 @@
 #include "cc/layers/layer.h"
 #include "cc/layers/solid_color_layer.h"
 #include "cc/output/begin_frame_args.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/browser_accessibility_state_impl.h"
+#endif
 #include "content/browser/android/gesture_event_type.h"
 #include "content/browser/android/interstitial_page_delegate_android.h"
 #include "content/browser/android/java/gin_java_bridge_dispatcher_host.h"
@@ -219,8 +221,12 @@ ContentViewCoreImpl::ContentViewCoreImpl(
       view_android_(new ui::ViewAndroid(view_android_delegate, window_android)),
       dpi_scale_(ui::GetScaleFactorForNativeView(view_android_.get())),
       window_android_(window_android),
+#ifndef DISABLE_ACCESSIBILITY
       device_orientation_(0),
       accessibility_enabled_(false) {
+#else
+      device_orientation_(0) {
+#endif
   CHECK(web_contents) <<
       "A ContentViewCoreImpl should be created with a valid WebContents.";
   DCHECK(window_android_);
@@ -335,7 +341,9 @@ void ContentViewCoreImpl::RenderViewHostChanged(RenderViewHost* old_host,
   }
 
   SetFocusInternal(HasFocus());
+#ifndef DISABLE_ACCESSIBILITY
   SetAccessibilityEnabledInternal(accessibility_enabled_);
+#endif
 }
 
 RenderWidgetHostViewAndroid*
@@ -1262,7 +1270,11 @@ void ContentViewCoreImpl::UpdateImeAdapter(long native_ime_adapter,
 
 void ContentViewCoreImpl::SetAccessibilityEnabled(JNIEnv* env, jobject obj,
                                                   bool enabled) {
+#ifndef DISABLE_ACCESSIBILITY
   SetAccessibilityEnabledInternal(enabled);
+#else
+  (void) enabled;
+#endif
 }
 
 void ContentViewCoreImpl::SetTextTrackSettings(JNIEnv* env,
@@ -1303,6 +1315,7 @@ bool ContentViewCoreImpl::IsFullscreenRequiredForOrientationLock() const {
                                                                      obj.obj());
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void ContentViewCoreImpl::SetAccessibilityEnabledInternal(bool enabled) {
   accessibility_enabled_ = enabled;
   BrowserAccessibilityStateImpl* accessibility_state =
@@ -1322,6 +1335,7 @@ void ContentViewCoreImpl::SetAccessibilityEnabledInternal(bool enabled) {
     }
   }
 }
+#endif
 
 void ContentViewCoreImpl::SendOrientationChangeEventInternal() {
   RenderWidgetHostViewAndroid* rwhv = GetRenderWidgetHostViewAndroid();

@@ -73,7 +73,9 @@
 #include "core/layout/LayoutView.h"
 #include "core/page/FocusController.h"
 #include "core/page/Page.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/InspectorAccessibilityAgent.h"
+#endif
 #include "modules/cachestorage/InspectorCacheStorageAgent.h"
 #include "modules/device_orientation/DeviceOrientationInspectorAgent.h"
 #include "modules/filesystem/InspectorFileSystemAgent.h"
@@ -295,7 +297,9 @@ PassOwnPtrWillBeRawPtr<WebDevToolsAgentImpl> WebDevToolsAgentImpl::create(WebLoc
     agent->registerAgent(DeviceOrientationInspectorAgent::create(view->page()));
     agent->registerAgent(InspectorFileSystemAgent::create(view->page()));
     agent->registerAgent(InspectorIndexedDBAgent::create(view->page()));
+#ifndef DISABLE_ACCESSIBILITY
     agent->registerAgent(InspectorAccessibilityAgent::create(view->page()));
+#endif
     agent->registerAgent(InspectorDOMStorageAgent::create(view->page()));
     agent->registerAgent(InspectorCacheStorageAgent::create());
     agent->layerTreeViewChanged(view->layerTreeView());

@@ -144,8 +144,10 @@ class CONTENT_EXPORT RenderWidgetHostViewAndroid
   void OnSetNeedsFlushInput() override;
   void GestureEventAck(const blink::WebGestureEvent& event,
                        InputEventAckState ack_result) override;
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* CreateBrowserAccessibilityManager(
       BrowserAccessibilityDelegate* delegate) override;
+#endif
   bool LockMouse() override;
   void UnlockMouse() override;
   void OnSwapCompositorFrame(uint32 output_surface_id,

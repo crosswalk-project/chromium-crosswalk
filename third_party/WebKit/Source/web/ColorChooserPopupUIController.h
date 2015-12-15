@@ -51,7 +51,9 @@ public:
 
     // ColorChooser functions
     void endChooser() override;
+#ifndef DISABLE_ACCESSIBILITY
     AXObject* rootAXObject() override;
+#endif
 
     // PagePopupClient functions:
     IntSize contentSize() override;

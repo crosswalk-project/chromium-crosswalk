@@ -34,7 +34,9 @@
 #include "config.h"
 
 #include "bindings/core/v8/SerializedScriptValue.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "core/dom/AXObjectCache.h"
+#endif
 #include "core/dom/ExceptionCode.h"
 #include "core/dom/IconURL.h"
 #include "core/editing/SelectionType.h"
@@ -55,7 +57,9 @@
 #include "core/loader/appcache/ApplicationCacheHost.h"
 #include "core/page/PageVisibilityState.h"
 #include "core/style/ComputedStyleConstants.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObject.h"
+#endif
 #include "modules/geolocation/GeolocationError.h"
 #include "modules/geolocation/GeolocationPosition.h"
 #include "modules/indexeddb/IDBKey.h"
@@ -109,8 +113,10 @@
 #include "public/platform/modules/indexeddb/WebIDBKeyPath.h"
 #include "public/platform/modules/indexeddb/WebIDBMetadata.h"
 #include "public/platform/modules/indexeddb/WebIDBTypes.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "public/web/WebAXEnums.h"
 #include "public/web/WebAXObject.h"
+#endif
 #include "public/web/WebConsoleMessage.h"
 #include "public/web/WebContentSecurityPolicy.h"
 #include "public/web/WebFontDescription.h"
@@ -150,6 +156,7 @@ namespace blink {
 #define STATIC_ASSERT_MATCHING_UINT64(public_name, core_name) \
     static_assert(public_name == core_name, "mismatching enum values")
 
+#ifndef DISABLE_ACCESSIBILITY
 STATIC_ASSERT_MATCHING_ENUM(WebAXEventActiveDescendantChanged, AXObjectCache::AXActiveDescendantChanged);
 STATIC_ASSERT_MATCHING_ENUM(WebAXEventAlert, AXObjectCache::AXAlert);
 STATIC_ASSERT_MATCHING_ENUM(WebAXEventAriaAttributeChanged, AXObjectCache::AXAriaAttributeChanged);
@@ -362,6 +369,7 @@ STATIC_ASSERT_MATCHING_ENUM(WebAXNameFromRelatedElement, AXNameFromRelatedElemen
 
 STATIC_ASSERT_MATCHING_ENUM(WebAXDescriptionFromPlaceholder, AXDescriptionFromPlaceholder);
 STATIC_ASSERT_MATCHING_ENUM(WebAXDescriptionFromRelatedElement, AXDescriptionFromRelatedElement);
+#endif //  #ifndef DISABLE_ACCESSIBILITY
 
 STATIC_ASSERT_MATCHING_ENUM(WebApplicationCacheHost::Uncached, ApplicationCacheHost::UNCACHED);
 STATIC_ASSERT_MATCHING_ENUM(WebApplicationCacheHost::Idle, ApplicationCacheHost::IDLE);

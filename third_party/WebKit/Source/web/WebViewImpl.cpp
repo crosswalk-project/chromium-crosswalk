@@ -90,8 +90,10 @@
 #include "core/paint/DeprecatedPaintLayer.h"
 #include "core/timing/DOMWindowPerformance.h"
 #include "core/timing/Performance.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObject.h"
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "modules/credentialmanager/CredentialManagerClient.h"
 #include "modules/encryptedmedia/MediaKeysController.h"
 #include "modules/storage/StorageNamespaceController.h"
@@ -128,7 +130,9 @@
 #include "public/platform/WebLayerTreeView.h"
 #include "public/platform/WebURLRequest.h"
 #include "public/platform/WebVector.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "public/web/WebAXObject.h"
+#endif
 #include "public/web/WebActiveWheelFlingParameters.h"
 #include "public/web/WebAutofillClient.h"
 #include "public/web/WebBeginFrameArgs.h"
@@ -3695,6 +3699,7 @@ void WebViewImpl::disableDeviceEmulation()
     m_devToolsEmulator->disableDeviceEmulation();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 WebAXObject WebViewImpl::accessibilityObject()
 {
     if (!mainFrameImpl())
@@ -3703,6 +3708,7 @@ WebAXObject WebViewImpl::accessibilityObject()
     Document* document = mainFrameImpl()->frame()->document();
     return WebAXObject(toAXObjectCacheImpl(document->axObjectCache())->root());
 }
+#endif
 
 void WebViewImpl::performCustomContextMenuAction(unsigned action)
 {

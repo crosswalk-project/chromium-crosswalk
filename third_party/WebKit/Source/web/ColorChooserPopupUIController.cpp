@@ -74,10 +74,12 @@ void ColorChooserPopupUIController::endChooser()
     closePopup();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 AXObject* ColorChooserPopupUIController::rootAXObject()
 {
     return m_popup ? m_popup->rootAXObject() : 0;
 }
+#endif
 
 IntSize ColorChooserPopupUIController::contentSize()
 {

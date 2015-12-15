@@ -45,8 +45,10 @@
 #include "core/page/FocusController.h"
 #include "core/page/Page.h"
 #include "core/page/PagePopupClient.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObject.h"
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "platform/EventDispatchForbiddenScope.h"
 #include "platform/LayoutTestSupport.h"
 #include "platform/ScriptForbiddenScope.h"
@@ -54,7 +56,9 @@
 #include "platform/heap/Handle.h"
 #include "public/platform/WebCompositeAndReadbackAsyncCallback.h"
 #include "public/platform/WebCursorInfo.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "public/web/WebAXObject.h"
+#endif
 #include "public/web/WebFrameClient.h"
 #include "public/web/WebViewClient.h"
 #include "public/web/WebWidgetClient.h"
@@ -165,12 +169,14 @@ private:
         m_popup->setRootGraphicsLayer(graphicsLayer);
     }
 
+#ifndef DISABLE_ACCESSIBILITY
     void postAccessibilityNotification(AXObject* obj, AXObjectCache::AXNotification notification) override
     {
         WebLocalFrameImpl* frame = WebLocalFrameImpl::fromFrame(m_popup->m_popupClient->ownerElement().document().frame());
         if (obj && frame && frame->client())
             frame->client()->postAccessibilityEvent(WebAXObject(obj), static_cast<WebAXEvent>(notification));
     }
+#endif
 
     void setToolTip(const String& tooltipText, TextDirection dir) override
     {
@@ -251,12 +257,16 @@ bool WebPagePopupImpl::initializePage()
     frame->init();
     frame->view()->resize(m_popupClient->contentSize());
     frame->view()->setTransparent(false);
+#ifndef DISABLE_ACCESSIBILITY
     if (AXObjectCache* cache = m_popupClient->ownerElement().document().existingAXObjectCache())
         cache->childrenChanged(&m_popupClient->ownerElement());
+#endif
 
     ASSERT(frame->localDOMWindow());
     DOMWindowPagePopup::install(*frame->localDOMWindow(), *this, m_popupClient);
+#ifndef DISABLE_ACCESSIBILITY
     ASSERT(m_popupClient->ownerElement().document().existingAXObjectCache() == frame->document()->existingAXObjectCache());
+#endif
 
     RefPtr<SharedBuffer> data = SharedBuffer::create();
     m_popupClient->writeDocument(data.get());
@@ -283,6 +293,7 @@ void WebPagePopupImpl::destroyPage()
     m_page.clear();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 AXObject* WebPagePopupImpl::rootAXObject()
 {
     if (!m_page || !m_page->mainFrame())
@@ -294,6 +305,7 @@ AXObject* WebPagePopupImpl::rootAXObject()
     ASSERT(cache);
     return toAXObjectCacheImpl(cache)->getOrCreate(document->layoutView());
 }
+#endif
 
 void WebPagePopupImpl::setWindowRect(const IntRect& rect)
 {

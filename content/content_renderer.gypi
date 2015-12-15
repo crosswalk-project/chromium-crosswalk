@@ -86,6 +86,14 @@
     'public_renderer_plugin_sources': [
       'public/renderer/plugin_instance_throttler.h',
     ],
+    'private_renderer_sources_accessibility': [
+      'renderer/accessibility/blink_ax_enum_conversion.cc',
+      'renderer/accessibility/blink_ax_enum_conversion.h',
+      'renderer/accessibility/blink_ax_tree_source.cc',
+      'renderer/accessibility/blink_ax_tree_source.h',
+      'renderer/accessibility/renderer_accessibility.cc',
+      'renderer/accessibility/renderer_accessibility.h',
+    ],
     'private_renderer_sources': [
       'renderer/accessibility/blink_ax_enum_conversion.cc',
       'renderer/accessibility/blink_ax_enum_conversion.h',
@@ -874,6 +882,11 @@
         'renderer/vr/vr_type_converters.cc',
         'renderer/vr/vr_type_converters.h',
       ]
+    }],
+    ['disable_accessibility==1', {
+      'sources!': [
+        '<@(private_renderer_sources_accessibility)',
+      ],
     }],
   ],
   'target_conditions': [

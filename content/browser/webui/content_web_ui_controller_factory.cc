@@ -65,8 +65,10 @@ WebUIController* ContentWebUIControllerFactory::CreateWebUIControllerForURL(
     return new IndexedDBInternalsUI(web_ui);
   if (url.host() == kChromeUIMediaInternalsHost)
     return new MediaInternalsUI(web_ui);
+#ifndef DISABLE_ACCESSIBILITY
   if (url.host() == kChromeUIAccessibilityHost)
     return new AccessibilityUI(web_ui);
+#endif
   if (url.host() == kChromeUIServiceWorkerInternalsHost)
     return new ServiceWorkerInternalsUI(web_ui);
 #if !defined(OS_ANDROID)
