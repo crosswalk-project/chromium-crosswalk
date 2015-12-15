@@ -114,6 +114,14 @@ class BluetoothTestBase : public testing::Test {
                                           const std::string& uuid,
                                           int properties) {}
 
+  // Remembers |characteristic|'s platform specific object to be used in a
+  // subsequent call to methods such as SimulateGattCharacteristicRead that
+  // accept a nullptr value to select this remembered characteristic. This
+  // enables tests where the platform attempts to reference characteristic
+  // objects after the Chrome objects have been deleted, e.g. with DeleteDevice.
+  virtual void RememberCharacteristicForSubsequentAction(
+      BluetoothGattCharacteristic* characteristic) {}
+
   // Simulates a Characteristic Set Notify success.
   virtual void SimulateGattNotifySessionStarted(
       BluetoothGattCharacteristic* characteristic) {}
@@ -124,6 +132,8 @@ class BluetoothTestBase : public testing::Test {
       BluetoothGattCharacteristic* characteristic) {}
 
   // Simulates a Characteristic Read operation succeeding, returning |value|.
+  // If |characteristic| is null, acts upon the characteristic provided to
+  // RememberCharacteristicForSubsequentAction.
   virtual void SimulateGattCharacteristicRead(
       BluetoothGattCharacteristic* characteristic,
       const std::vector<uint8>& value) {}
@@ -139,6 +149,8 @@ class BluetoothTestBase : public testing::Test {
       BluetoothGattCharacteristic* characteristic) {}
 
   // Simulates a Characteristic Write operation succeeding, returning |value|.
+  // If |characteristic| is null, acts upon the characteristic provided to
+  // RememberCharacteristicForSubsequentAction.
   virtual void SimulateGattCharacteristicWrite(
       BluetoothGattCharacteristic* characteristic) {}
 
@@ -152,7 +164,7 @@ class BluetoothTestBase : public testing::Test {
   virtual void SimulateGattCharacteristicWriteWillFailSynchronouslyOnce(
       BluetoothGattCharacteristic* characteristic) {}
 
-  // Remove the device from the adapter and delete it.
+  // Removes the device from the adapter and deletes it.
   virtual void DeleteDevice(BluetoothDevice* device);
 
   // Callbacks that increment |callback_count_|, |error_callback_count_|:
