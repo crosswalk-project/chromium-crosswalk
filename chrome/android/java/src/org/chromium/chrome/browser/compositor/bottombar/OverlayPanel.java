@@ -380,7 +380,7 @@ public class OverlayPanel extends ContextualSearchPanelAnimation
      * @return The vertical scroll position of the content.
      */
     public float getContentVerticalScroll() {
-        return mContent.getContentVerticalScroll();
+        return mContent != null ? mContent.getContentVerticalScroll() : 0.0f;
     }
 
     // ============================================================================================
@@ -478,7 +478,7 @@ public class OverlayPanel extends ContextualSearchPanelAnimation
      * @param ty The movement's total displacement in dps.
      */
     public void handleSwipeMove(float ty) {
-        if (ty > 0 && getPanelState() == PanelState.MAXIMIZED) {
+        if (mContent != null && ty > 0 && getPanelState() == PanelState.MAXIMIZED) {
             // Resets the Content View scroll position when swiping the Panel down
             // after being maximized.
             mContent.resetContentViewScroll();
