@@ -99,6 +99,8 @@ const char* VideoCaptureDevice::Name::GetCaptureApiTypeString() const {
       return "Media Foundation";
     case DIRECT_SHOW:
       return "Direct Show";
+    case RSSDK:
+      return "RSSDK";
     default:
       NOTREACHED() << "Unknown Video Capture API type!";
       return "Unknown API";
