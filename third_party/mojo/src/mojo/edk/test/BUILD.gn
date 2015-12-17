@@ -102,6 +102,12 @@ test("mojo_public_bindings_unittests") {
     ":run_all_unittests",
     "//mojo/public/cpp/bindings/tests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
 
 test("mojo_public_bindings_perftests") {
@@ -109,6 +115,12 @@ test("mojo_public_bindings_perftests") {
     ":run_all_perftests",
     "//mojo/public/cpp/bindings/tests:perftests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
 
 test("mojo_public_environment_unittests") {
@@ -116,6 +128,12 @@ test("mojo_public_environment_unittests") {
     ":run_all_unittests",
     "//mojo/public/cpp/environment/tests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
 
 test("mojo_public_system_perftests") {
@@ -123,6 +141,12 @@ test("mojo_public_system_perftests") {
     ":run_all_perftests",
     "//mojo/public/c/system/tests:perftests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
 
 test("mojo_public_system_unittests") {
@@ -130,6 +154,12 @@ test("mojo_public_system_unittests") {
     ":run_all_unittests",
     "//mojo/public/cpp/system/tests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
 
 test("mojo_public_utility_unittests") {
@@ -137,4 +167,10 @@ test("mojo_public_utility_unittests") {
     ":run_all_unittests",
     "//mojo/public/cpp/utility/tests",
   ]
+
+  if (is_linux && !is_component_build) {
+    # This tests dynamically loads libmojo_test_support even in non-component
+    # builds.
+    configs += [ "//build/config/gcc:rpath_for_built_shared_libraries" ]
+  }
 }
