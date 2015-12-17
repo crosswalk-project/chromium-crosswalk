@@ -30,6 +30,7 @@ class MEDIA_EXPORT VideoCaptureDeviceFactoryWin
 
  private:
   bool use_media_foundation_;
+  bool use_rssdk_;
 
   DISALLOW_COPY_AND_ASSIGN(VideoCaptureDeviceFactoryWin);
 };
