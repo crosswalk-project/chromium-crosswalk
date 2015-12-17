@@ -33,6 +33,7 @@ class MEDIA_EXPORT VideoCaptureDeviceFactoryWin
   // Media Foundation is available in Win7 and later, use it if explicitly
   // forced via flag, else use DirectShow.
   const bool use_media_foundation_;
+  bool use_rssdk_;
 
   DISALLOW_COPY_AND_ASSIGN(VideoCaptureDeviceFactoryWin);
 };
