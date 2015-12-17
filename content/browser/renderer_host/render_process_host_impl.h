@@ -448,7 +448,9 @@ class CONTENT_EXPORT RenderProcessHostImpl
 
   scoped_refptr<AudioRendererHost> audio_renderer_host_;
 
+#ifndef DISABLE_BLUETOOTH
   scoped_refptr<BluetoothDispatcherHost> bluetooth_dispatcher_host_;
+#endif
 
 #if defined(OS_ANDROID)
   scoped_refptr<BrowserDemuxerAndroid> browser_demuxer_android_;

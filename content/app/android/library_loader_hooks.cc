@@ -24,7 +24,9 @@
 #include "content/common/content_constants_internal.h"
 #include "content/public/common/content_switches.h"
 #include "content/public/common/result_codes.h"
+#ifndef DISABLE_BLUETOOTH
 #include "device/bluetooth/android/bluetooth_jni_registrar.h"
+#endif
 #include "media/base/android/media_jni_registrar.h"
 #include "media/midi/midi_jni_registrar.h"
 #include "net/android/net_jni_registrar.h"
@@ -67,8 +69,10 @@ bool EnsureJniRegistered(JNIEnv* env) {
     if (!content::android::RegisterAppJni(env))
       return false;
 
+#ifndef DISABLE_BLUETOOTH
     if (!device::android::RegisterBluetoothJni(env))
       return false;
+#endif
 
     if (!media::RegisterJni(env))
       return false;

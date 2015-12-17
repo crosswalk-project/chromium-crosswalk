@@ -154,7 +154,9 @@
 #include "core/timing/DOMWindowPerformance.h"
 #include "core/timing/Performance.h"
 #include "modules/app_banner/AppBannerController.h"
+#ifndef DISABLE_BLUETOOTH
 #include "modules/bluetooth/BluetoothSupplement.h"
+#endif
 #include "modules/geolocation/GeolocationController.h"
 #include "modules/notifications/NotificationPermissionClient.h"
 #include "modules/permissions/PermissionController.h"
@@ -1720,8 +1722,10 @@ void WebLocalFrameImpl::setCoreFrame(PassRefPtrWillBeRawPtr<LocalFrame> frame)
         provideLocalFileSystemTo(*m_frame, LocalFileSystemClient::create());
         provideNavigatorContentUtilsTo(*m_frame, NavigatorContentUtilsClientImpl::create(this));
 
+#ifndef DISABLE_BLUETOOTH
         if (RuntimeEnabledFeatures::webBluetoothEnabled())
             BluetoothSupplement::provideTo(*m_frame, m_client ? m_client->bluetooth() : nullptr);
+#endif
         if (RuntimeEnabledFeatures::screenOrientationEnabled())
             ScreenOrientationController::provideTo(*m_frame, m_client ? m_client->webScreenOrientationClient() : nullptr);
         if (RuntimeEnabledFeatures::presentationEnabled())

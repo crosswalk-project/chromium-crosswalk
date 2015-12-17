@@ -42,7 +42,9 @@
 #include "content/browser/appcache/chrome_appcache_service.h"
 #include "content/browser/background_sync/background_sync_service_impl.h"
 #include "content/browser/bad_message.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/browser/bluetooth/bluetooth_dispatcher_host.h"
+#endif
 #include "content/browser/browser_child_process_host_impl.h"
 #include "content/browser/browser_main.h"
 #include "content/browser/browser_main_loop.h"
@@ -946,10 +948,12 @@ void RenderProcessHostImpl::CreateMessageFilters() {
 #endif
   AddFilter(new GeofencingDispatcherHost(
       storage_partition_impl_->GetGeofencingManager()));
+#ifndef DISABLE_BLUETOOTH
   if (browser_command_line.HasSwitch(switches::kEnableWebBluetooth)) {
     bluetooth_dispatcher_host_ = new BluetoothDispatcherHost(GetID());
     AddFilter(bluetooth_dispatcher_host_.get());
   }
+#endif
 }
 
 void RenderProcessHostImpl::RegisterMojoServices() {
@@ -2536,8 +2540,10 @@ void RenderProcessHostImpl::GetAudioOutputControllers(
   audio_renderer_host()->GetOutputControllers(callback);
 }
 
+#ifndef DISABLE_BLUETOOTH
 BluetoothDispatcherHost* RenderProcessHostImpl::GetBluetoothDispatcherHost() {
   return bluetooth_dispatcher_host_.get();
 }
+#endif
 
 }  // namespace content

@@ -158,6 +158,13 @@
       'public/common/window_container_type.h',
       'public/common/zygote_fork_delegate_linux.h',
     ],
+    'private_common_sources_bluetooth': [
+      'common/bluetooth/bluetooth_device.cc',
+      'common/bluetooth/bluetooth_device.h',
+      'common/bluetooth/bluetooth_messages.h',
+      'common/bluetooth/bluetooth_scan_filter.cc',
+      'common/bluetooth/bluetooth_scan_filter.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -1105,6 +1112,14 @@
         'common/gpu/gpu_memory_buffer_factory_ozone.cc',
         'common/gpu/gpu_memory_buffer_factory_ozone_native_pixmap.cc',
         'common/gpu/gpu_memory_buffer_factory_ozone_native_pixmap.h',
+      ],
+    }],
+    ['disable_bluetooth==1', {
+      'sources!': [
+        '<@(private_common_sources_bluetooth)',
+      ],
+      'dependencies!': [
+        '../device/bluetooth/bluetooth.gyp:device_bluetooth',
       ],
     }],
   ],
