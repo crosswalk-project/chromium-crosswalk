@@ -56,7 +56,12 @@ class MEDIA_EXPORT VideoCaptureDevice {
     };
 #elif defined(OS_WIN)
     // Windows targets Capture Api type: it can only be set on construction.
-    enum CaptureApiType { MEDIA_FOUNDATION, DIRECT_SHOW, API_TYPE_UNKNOWN };
+    enum CaptureApiType {
+      MEDIA_FOUNDATION,
+      DIRECT_SHOW,
+      RSSDK,
+      API_TYPE_UNKNOWN
+    };
 #elif defined(OS_MACOSX)
     // Mac targets Capture Api type: it can only be set on construction.
     enum CaptureApiType { AVFOUNDATION, QTKIT, DECKLINK, API_TYPE_UNKNOWN };
