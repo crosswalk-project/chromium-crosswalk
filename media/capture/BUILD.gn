@@ -6,6 +6,11 @@ import("//build/config/features.gni")
 import("//media/media_options.gni")
 import("//testing/test.gni")
 
+declare_args() {
+  # Windows: whether to use Intel's RealSense SDK for video capture.
+  use_rssdk = false
+}
+
 component("capture") {
   defines = [ "CAPTURE_IMPLEMENTATION" ]
   sources = [
@@ -141,6 +146,20 @@ component("capture") {
 
     # TODO(jschuh): https://crbug.com/167187 fix size_t to int truncations.
     configs += [ "//build/config/compiler:no_size_t_to_int_warning" ]
+
+    if (use_rssdk) {
+      defines += [ "USE_RSSDK" ]
+      deps += [ "//third_party/libpxc" ]
+      sources += [
+        "video/win/video_capture_device_rs_win.cc",
+        "video/win/video_capture_device_rs_win.h",
+      ]
+    } else {
+      sources += [
+        "video/win/video_capture_device_rs_win_null.cc",
+        "video/win/video_capture_device_rs_win_null.h",
+      ]
+    }
   }
 }
 
