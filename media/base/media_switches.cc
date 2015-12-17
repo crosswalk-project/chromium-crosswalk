@@ -83,6 +83,9 @@ const char kForceWaveAudio[] = "force-wave-audio";
 // http://crbug.com/259165 for more details.
 const char kTrySupportedChannelLayouts[] = "try-supported-channel-layouts";
 
+// Use RSSDK for video capture.
+const char kUseRsVideoCapture[] = "use-rs-video-capture";
+
 // Number of buffers to use for WaveOut.
 const char kWaveOutBuffers[] = "waveout-buffers";
 #endif
