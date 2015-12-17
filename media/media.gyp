@@ -11,6 +11,8 @@
     # (DT_NEEDED) instead of using dlopen. This helps with automated
     # detection of ABI mismatches and prevents silent errors.
     'linux_link_pulseaudio%': 0,
+    # Option for Windows to use RSSDK for video capture.
+    'use_rssdk%': 0,
     'conditions': [
       # Enable ALSA and Pulse for runtime selection.
       ['(OS=="linux" or OS=="freebsd" or OS=="solaris") and (embedded!=1 or (chromecast==1 and target_arch!="arm"))', {
@@ -1030,6 +1032,23 @@
           'conditions': [
             ['target_arch=="x64"', {
               'msvs_disabled_warnings': [ 4267, ],
+            }],
+            ['use_rssdk==1', {
+              'defines': [
+                'USE_RSSDK',
+              ],
+              'dependencies': [
+                '../third_party/libpxc/libpxc.gyp:libpxc',
+              ],
+              'sources': [
+                'capture/video/win/video_capture_device_rs_win.cc',
+                'capture/video/win/video_capture_device_rs_win.h',
+              ],
+            }, {  # else use_rssdk==0
+              'sources': [
+                'capture/video/win/video_capture_device_rs_win_null.cc',
+                'capture/video/win/video_capture_device_rs_win_null.h',
+              ],
             }],
           ],
         }],
