@@ -19,6 +19,11 @@
 #include "media/base/media_switches.h"
 #include "media/base/win/mf_initializer.h"
 #include "media/capture/video/win/video_capture_device_mf_win.h"
+#if defined(USE_RSSDK)
+#include "media/capture/video/win/video_capture_device_rs_win.h"
+#else
+#include "media/capture/video/win/video_capture_device_rs_win_null.h"
+#endif
 #include "media/capture/video/win/video_capture_device_win.h"
 
 using base::win::ScopedCoMem;
@@ -374,13 +379,23 @@ VideoCaptureDeviceFactoryWin::VideoCaptureDeviceFactoryWin()
     : use_media_foundation_(base::win::GetVersion() >=
                                 base::win::VERSION_WIN7 &&
                             base::CommandLine::ForCurrentProcess()->HasSwitch(
-                                switches::kForceMediaFoundationVideoCapture)) {}
+                                switches::kForceMediaFoundationVideoCapture)) {
+  const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
+  use_rssdk_ = cmd_line->HasSwitch(switches::kUseRsVideoCapture) &&
+      VideoCaptureDeviceRSWin::IsSupported();
+}
 
 std::unique_ptr<VideoCaptureDevice> VideoCaptureDeviceFactoryWin::Create(
     const Name& device_name) {
   DCHECK(thread_checker_.CalledOnValidThread());
   std::unique_ptr<VideoCaptureDevice> device;
-  if (device_name.capture_api_type() == Name::MEDIA_FOUNDATION) {
+  if (device_name.capture_api_type() == Name::RSSDK) {
+    DCHECK(device_name.capture_api_type() == Name::RSSDK);
+    device.reset(new VideoCaptureDeviceRSWin(device_name));
+    DVLOG(1) << " RSSDK Device: " << device_name.name();
+    if (!static_cast<VideoCaptureDeviceRSWin*>(device.get())->Init())
+      device.reset();
+  } else if (device_name.capture_api_type() == Name::MEDIA_FOUNDATION) {
     DCHECK(PlatformSupportsMediaFoundation());
     device.reset(new VideoCaptureDeviceMFWin(device_name));
     DVLOG(1) << " MediaFoundation Device: " << device_name.name();
@@ -403,7 +418,9 @@ std::unique_ptr<VideoCaptureDevice> VideoCaptureDeviceFactoryWin::Create(
 
 void VideoCaptureDeviceFactoryWin::GetDeviceNames(Names* device_names) {
   DCHECK(thread_checker_.CalledOnValidThread());
-  if (use_media_foundation_)
+  if (use_rssdk_)
+    VideoCaptureDeviceRSWin::GetDeviceNames(device_names);
+  else if (use_media_foundation_)
     GetDeviceNamesMediaFoundation(device_names);
   else
     GetDeviceNamesDirectShow(device_names);
@@ -413,7 +430,9 @@ void VideoCaptureDeviceFactoryWin::GetDeviceSupportedFormats(
     const Name& device,
     VideoCaptureFormats* formats) {
   DCHECK(thread_checker_.CalledOnValidThread());
-  if (use_media_foundation_)
+  if (use_rssdk_)
+    VideoCaptureDeviceRSWin::GetDeviceSupportedFormats(device, formats);
+  else if (use_media_foundation_)
     GetDeviceSupportedFormatsMediaFoundation(device, formats);
   else
     GetDeviceSupportedFormatsDirectShow(device, formats);
