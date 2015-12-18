@@ -555,7 +555,9 @@ class CONTENT_EXPORT RenderFrameImpl
                                        const blink::WebString& title);
   virtual void unregisterProtocolHandler(const blink::WebString& scheme,
                                          const blink::WebURL& url);
+#ifndef DISABLE_BLUETOOTH
   virtual blink::WebBluetooth* bluetooth();
+#endif
   virtual blink::WebUSBClient* usbClient();
 
 #if defined(ENABLE_WEBVR)
@@ -1024,7 +1026,9 @@ class CONTENT_EXPORT RenderFrameImpl
 
   scoped_ptr<blink::WebAppBannerClient> app_banner_client_;
 
+#ifndef DISABLE_BLUETOOTH
   scoped_ptr<blink::WebBluetooth> bluetooth_;
+#endif
 
   scoped_ptr<blink::WebUSBClient> usb_client_;
 

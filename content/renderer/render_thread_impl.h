@@ -581,7 +581,9 @@ class CONTENT_EXPORT RenderThreadImpl
   scoped_ptr<InputHandlerManager> input_handler_manager_;
   scoped_refptr<CompositorForwardingMessageFilter> compositor_message_filter_;
 
+#ifndef DISABLE_BLUETOOTH
   scoped_refptr<BluetoothMessageFilter> bluetooth_message_filter_;
+#endif
 
   scoped_refptr<cc_blink::ContextProviderWebContext>
       shared_main_thread_contexts_;

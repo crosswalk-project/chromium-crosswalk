@@ -94,6 +94,14 @@
       'renderer/accessibility/renderer_accessibility.cc',
       'renderer/accessibility/renderer_accessibility.h',
     ],
+    'private_renderer_sources_bluetooth': [
+      'renderer/bluetooth/bluetooth_dispatcher.cc',
+      'renderer/bluetooth/bluetooth_dispatcher.h',
+      'renderer/bluetooth/bluetooth_message_filter.cc',
+      'renderer/bluetooth/bluetooth_message_filter.h',
+      'renderer/bluetooth/web_bluetooth_impl.cc',
+      'renderer/bluetooth/web_bluetooth_impl.h',
+    ],
     'private_renderer_sources': [
       'renderer/accessibility/blink_ax_enum_conversion.cc',
       'renderer/accessibility/blink_ax_enum_conversion.h',
@@ -886,6 +894,11 @@
     ['disable_accessibility==1', {
       'sources!': [
         '<@(private_renderer_sources_accessibility)',
+      ],
+    }],
+    ['disable_bluetooth==1', {
+      'sources!': [
+        '<@(private_renderer_sources_bluetooth)',
       ],
     }],
   ],

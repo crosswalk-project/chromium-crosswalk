@@ -81,7 +81,9 @@
 #include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/render_process_observer.h"
 #include "content/public/renderer/render_view_visitor.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/renderer/bluetooth/bluetooth_message_filter.h"
+#endif
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/cache_storage/cache_storage_dispatcher.h"
 #include "content/renderer/cache_storage/cache_storage_message_filter.h"
@@ -626,8 +628,10 @@ void RenderThreadImpl::Init() {
   midi_message_filter_ = new MidiMessageFilter(GetIOMessageLoopProxy());
   AddFilter(midi_message_filter_.get());
 
+#ifndef DISABLE_BLUETOOTH
   bluetooth_message_filter_ = new BluetoothMessageFilter(thread_safe_sender());
   AddFilter(bluetooth_message_filter_->GetFilter());
+#endif
 
   AddFilter((new IndexedDBMessageFilter(thread_safe_sender()))->GetFilter());
 

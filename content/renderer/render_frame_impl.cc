@@ -66,7 +66,9 @@
 #ifndef DISABLE_ACCESSIBILITY
 #include "content/renderer/accessibility/renderer_accessibility.h"
 #endif
+#ifndef DISABLE_BLUETOOTH
 #include "content/renderer/bluetooth/web_bluetooth_impl.h"
+#endif
 #include "content/renderer/browser_plugin/browser_plugin.h"
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/child_frame_compositing_helper.h"
@@ -3830,6 +3832,7 @@ void RenderFrameImpl::unregisterProtocolHandler(const WebString& scheme,
       user_gesture));
 }
 
+#ifndef DISABLE_BLUETOOTH
 blink::WebBluetooth* RenderFrameImpl::bluetooth() {
   if (!bluetooth_) {
     bluetooth_.reset(new WebBluetoothImpl(
@@ -3838,6 +3841,7 @@ blink::WebBluetooth* RenderFrameImpl::bluetooth() {
 
   return bluetooth_.get();
 }
+#endif
 
 blink::WebUSBClient* RenderFrameImpl::usbClient() {
 #if !defined(OS_ANDROID)
