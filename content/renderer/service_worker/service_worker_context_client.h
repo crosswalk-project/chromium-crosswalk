@@ -19,7 +19,9 @@
 #include "content/public/common/service_worker_event_status.mojom.h"
 #include "ipc/ipc_listener.h"
 #include "mojo/application/public/interfaces/service_provider.mojom.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "third_party/WebKit/public/platform/WebGeofencingEventType.h"
+#endif
 #include "third_party/WebKit/public/platform/WebMessagePortChannel.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerError.h"
 #include "third_party/WebKit/public/web/modules/serviceworker/WebServiceWorkerContextClient.h"
@@ -31,7 +33,9 @@ class TaskRunner;
 }
 
 namespace blink {
+#ifndef DISABLE_GEO_FEATURES
 struct WebCircularGeofencingRegion;
+#endif
 struct WebCrossOriginServiceWorkerClient;
 class WebDataSource;
 struct WebServiceWorkerClientQueryOptions;
@@ -178,10 +182,12 @@ class ServiceWorkerContextClient
       const PlatformNotificationData& notification_data,
       int action_index);
   void OnPushEvent(int request_id, const std::string& data);
+#ifndef DISABLE_GEO_FEATURES
   void OnGeofencingEvent(int request_id,
                          blink::WebGeofencingEventType event_type,
                          const std::string& region_id,
                          const blink::WebCircularGeofencingRegion& region);
+#endif
   void OnPostMessage(
       const base::string16& message,
       const std::vector<TransferredMessagePort>& sent_message_ports,

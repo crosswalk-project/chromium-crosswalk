@@ -291,7 +291,9 @@ class CONTENT_EXPORT ChildThreadImpl
 
   scoped_ptr<base::PowerMonitor> power_monitor_;
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_refptr<ChildMessageFilter> geofencing_message_filter_;
+#endif
 
   scoped_refptr<base::SequencedTaskRunner> browser_process_io_runner_;
 

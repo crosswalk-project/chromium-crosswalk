@@ -39,7 +39,9 @@
 #include "content/child/child_shared_bitmap_manager.h"
 #include "content/child/fileapi/file_system_dispatcher.h"
 #include "content/child/fileapi/webfilesystem_impl.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/child/geofencing/geofencing_message_filter.h"
+#endif
 #include "content/child/mojo/mojo_application.h"
 #include "content/child/notifications/notification_dispatcher.h"
 #include "content/child/power_monitor_broadcast_source.h"
@@ -386,8 +388,10 @@ void ChildThreadImpl::Init(const Options& options) {
       new QuotaMessageFilter(thread_safe_sender_.get());
   quota_dispatcher_.reset(new QuotaDispatcher(thread_safe_sender_.get(),
                                               quota_message_filter_.get()));
+#ifndef DISABLE_GEO_FEATURES
   geofencing_message_filter_ =
       new GeofencingMessageFilter(thread_safe_sender_.get());
+#endif
   notification_dispatcher_ =
       new NotificationDispatcher(thread_safe_sender_.get());
   push_dispatcher_ = new PushDispatcher(thread_safe_sender_.get());
@@ -398,7 +402,9 @@ void ChildThreadImpl::Init(const Options& options) {
   channel_->AddFilter(notification_dispatcher_->GetFilter());
   channel_->AddFilter(push_dispatcher_->GetFilter());
   channel_->AddFilter(service_worker_message_filter_->GetFilter());
+#ifndef DISABLE_GEO_FEATURES
   channel_->AddFilter(geofencing_message_filter_->GetFilter());
+#endif
 
   if (!IsInBrowserProcess()) {
     // In single process mode, browser-side tracing will cover the whole

@@ -1,5 +1,14 @@
 {
   'variables': {
+    'web_files_geo': [
+      'WebGeolocationController.cpp',
+      'WebGeolocationError.cpp',
+      'WebGeolocationPermissionRequest.cpp',
+      'WebGeolocationPermissionRequestManager.cpp',
+      'WebGeolocationPosition.cpp',
+      'GeolocationClientProxy.cpp',
+      'GeolocationClientProxy.h',
+    ],
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',

@@ -207,6 +207,11 @@
                     '<@(web_files_accessibility)',
                   ],
                 }],
+                ['disable_geo_features==1', {
+                  'sources!': [
+                    '<@(web_files_geo)',
+                  ],
+                }],
             ],
             'direct_dependent_settings': {
                 'include_dirs': [

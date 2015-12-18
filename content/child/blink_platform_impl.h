@@ -166,7 +166,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
   virtual void didStartWorkerRunLoop();
   virtual void didStopWorkerRunLoop();
   virtual blink::WebCrypto* crypto();
+#ifndef DISABLE_GEO_FEATURES
   virtual blink::WebGeofencingProvider* geofencingProvider();
+#endif
   virtual blink::WebNotificationManager* notificationManager();
   virtual blink::WebPushProvider* pushProvider();
   virtual blink::WebServicePortProvider* createServicePortProvider(
@@ -190,7 +192,9 @@ class CONTENT_EXPORT BlinkPlatformImpl
   WebFallbackThemeEngineImpl fallback_theme_engine_;
   base::ThreadLocalStorage::Slot current_thread_slot_;
   webcrypto::WebCryptoImpl web_crypto_;
+#ifndef DISABLE_GEO_FEATURES
   scoped_ptr<WebGeofencingProviderImpl> geofencing_provider_;
+#endif
   base::ScopedPtrHashMap<blink::WebMemoryDumpProvider*,
                          scoped_ptr<WebMemoryDumpProviderAdapter>>
       memory_dump_providers_;

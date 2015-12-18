@@ -36,6 +36,14 @@
       'public/child/v8_value_converter.h',
       'public/child/worker_thread.h',
     ],
+    'private_child_sources_geo': [
+      'child/geofencing/geofencing_dispatcher.cc',
+      'child/geofencing/geofencing_dispatcher.h',
+      'child/geofencing/geofencing_message_filter.cc',
+      'child/geofencing/geofencing_message_filter.h',
+      'child/geofencing/web_geofencing_provider_impl.cc',
+      'child/geofencing/web_geofencing_provider_impl.h',
+    ],
     'private_child_sources': [
       'child/appcache/appcache_backend_proxy.cc',
       'child/appcache/appcache_backend_proxy.h',
@@ -341,6 +349,11 @@
     ['OS=="win"', {
       'sources!': [
         'child/npapi/webplugin_delegate_impl_aura.cc',
+      ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_child_sources_geo)',
       ],
     }],
   ],

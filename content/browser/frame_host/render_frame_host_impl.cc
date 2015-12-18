@@ -31,7 +31,9 @@
 #include "content/browser/frame_host/render_frame_host_delegate.h"
 #include "content/browser/frame_host/render_frame_proxy_host.h"
 #include "content/browser/frame_host/render_widget_host_view_child_frame.h"
+#ifndef DSIABLE_GEO_FEATURES
 #include "content/browser/geolocation/geolocation_service_context.h"
+#endif
 #include "content/browser/permissions/permission_service_context.h"
 #include "content/browser/permissions/permission_service_impl.h"
 #include "content/browser/presentation/presentation_service_impl.h"
@@ -1613,6 +1615,7 @@ void RenderFrameHostImpl::OnHidePopup() {
 #endif
 
 void RenderFrameHostImpl::RegisterMojoServices() {
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* geolocation_service_context =
       delegate_ ? delegate_->GetGeolocationServiceContext() : NULL;
   if (geolocation_service_context) {
@@ -1625,6 +1628,7 @@ void RenderFrameHostImpl::RegisterMojoServices() {
                    base::Bind(&RenderFrameHostImpl::DidUseGeolocationPermission,
                               base::Unretained(this))));
   }
+#endif
 
   if (!permission_service_context_)
     permission_service_context_.reset(new PermissionServiceContext(this));

@@ -45,7 +45,9 @@
 namespace blink {
 
 class ChromePrintContext;
+#ifndef DISABLE_GEO_FEATURES
 class GeolocationClientProxy;
+#endif
 class InspectorOverlay;
 class IntSize;
 class KURL;
@@ -388,7 +390,9 @@ private:
 
     UserMediaClientImpl m_userMediaClientImpl;
 
+#ifndef DISABLE_GEO_FEATURES
     OwnPtrWillBeMember<GeolocationClientProxy> m_geolocationClientProxy;
+#endif
 
     WebDevToolsFrontendImpl* m_webDevToolsFrontend;
 

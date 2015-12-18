@@ -27,7 +27,9 @@
 #include "content/browser/device_sensors/sensor_manager_android.h"
 #include "content/browser/frame_host/navigation_controller_android.h"
 #include "content/browser/gamepad/gamepad_platform_data_fetcher_android.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geolocation/location_api_adapter_android.h"
+#endif
 #include "content/browser/media/android/media_drm_credential_manager.h"
 #include "content/browser/media/android/media_resource_getter_impl.h"
 #include "content/browser/media/android/media_session.h"
@@ -45,8 +47,10 @@
 
 namespace {
 base::android::RegistrationMethod kContentRegisteredMethods[] = {
+#ifndef DISABLE_GEO_FEATURES
     {"AndroidLocationApiAdapter",
      content::AndroidLocationApiAdapter::RegisterGeolocationService},
+#endif
     {"BackgroundSyncLauncherAndroid",
      content::BackgroundSyncLauncherAndroid::RegisterLauncher},
 #ifndef DISABLE_ACCESSIBILITY

@@ -165,6 +165,14 @@
       'common/bluetooth/bluetooth_scan_filter.cc',
       'common/bluetooth/bluetooth_scan_filter.h',
     ],
+    'private_common_sources_geo': [
+      'public/common/geoposition.cc',
+      'public/common/geoposition.h',
+
+      'common/geofencing_messages.h',
+      'common/geofencing_types.cc',
+      'common/geofencing_types.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -1120,6 +1128,11 @@
       ],
       'dependencies!': [
         '../device/bluetooth/bluetooth.gyp:device_bluetooth',
+      ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_common_sources_geo)',
       ],
     }],
   ],

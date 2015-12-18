@@ -58,7 +58,9 @@ struct FrameMsg_PostMessage_Params;
 struct FrameMsg_TextTrackSettings_Params;
 
 namespace blink {
+#ifndef DISABLE_GEO_FEATURES
 class WebGeolocationClient;
+#endif
 class WebMouseEvent;
 class WebContentDecryptionModule;
 class WebMediaPlayer;
@@ -93,7 +95,9 @@ class CompositorDependencies;
 class DevToolsAgent;
 class DocumentState;
 class ExternalPopupMenu;
+#ifndef DISABLE_GEO_FEATURES
 class GeolocationDispatcher;
+#endif
 class ManifestManager;
 class MediaStreamDispatcher;
 class MediaStreamRendererFactory;
@@ -511,7 +515,9 @@ class CONTENT_EXPORT RenderFrameImpl
                                    unsigned long long requested_size,
                                    blink::WebStorageQuotaCallbacks callbacks);
   virtual void willOpenWebSocket(blink::WebSocketHandle* handle);
+#ifndef DISABLE_GEO_FEATURES
   virtual blink::WebGeolocationClient* geolocationClient();
+#endif
   virtual blink::WebPushClient* pushClient();
   virtual blink::WebPresentationClient* presentationClient();
   virtual void willStartUsingPeerConnectionHandler(
@@ -990,8 +996,10 @@ class CONTENT_EXPORT RenderFrameImpl
   // local roots.
   DevToolsAgent* devtools_agent_;
 
+#ifndef DISABLE_GEO_FEATURES
   // The geolocation dispatcher attached to this frame, lazily initialized.
   GeolocationDispatcher* geolocation_dispatcher_;
+#endif
 
   // The push messaging dispatcher attached to this frame, lazily initialized.
   PushMessagingDispatcher* push_messaging_dispatcher_;

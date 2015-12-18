@@ -76,7 +76,9 @@
 #include "content/renderer/devtools/devtools_agent.h"
 #include "content/renderer/dom_automation_controller.h"
 #include "content/renderer/external_popup_menu.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/renderer/geolocation_dispatcher.h"
+#endif
 #include "content/renderer/gpu/gpu_benchmarking_extension.h"
 #include "content/renderer/history_controller.h"
 #include "content/renderer/history_serialization.h"
@@ -687,7 +689,9 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
 #endif
       has_played_media_(false),
       devtools_agent_(nullptr),
+#ifndef DISABLE_GEO_FEATURES
       geolocation_dispatcher_(NULL),
+#endif
       push_messaging_dispatcher_(NULL),
       presentation_dispatcher_(NULL),
       screen_orientation_dispatcher_(NULL),
@@ -3574,11 +3578,13 @@ void RenderFrameImpl::willOpenWebSocket(blink::WebSocketHandle* handle) {
   impl->set_render_frame_id(routing_id_);
 }
 
+#ifndef DISABLE_GEO_FEATURES
 blink::WebGeolocationClient* RenderFrameImpl::geolocationClient() {
   if (!geolocation_dispatcher_)
     geolocation_dispatcher_ = new GeolocationDispatcher(this);
   return geolocation_dispatcher_;
 }
+#endif
 
 blink::WebPresentationClient* RenderFrameImpl::presentationClient() {
   if (!presentation_dispatcher_)

@@ -254,7 +254,9 @@ void ServiceWorkerContextClient::OnMessageReceived(
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_NotificationClickEvent,
                         OnNotificationClickEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_PushEvent, OnPushEvent)
+#ifndef DISABLE_GEO_FEATURES
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_GeofencingEvent, OnGeofencingEvent)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_MessageToWorker, OnPostMessage)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_CrossOriginMessageToWorker,
                         OnCrossOriginMessageToWorker)
@@ -753,6 +755,7 @@ void ServiceWorkerContextClient::OnPushEvent(int request_id,
   proxy_->dispatchPushEvent(request_id, blink::WebString::fromUTF8(data));
 }
 
+#ifndef DISABLE_GEO_FEATURES
 void ServiceWorkerContextClient::OnGeofencingEvent(
     int request_id,
     blink::WebGeofencingEventType event_type,
@@ -765,6 +768,7 @@ void ServiceWorkerContextClient::OnGeofencingEvent(
   Send(new ServiceWorkerHostMsg_GeofencingEventFinished(GetRoutingID(),
                                                         request_id));
 }
+#endif
 
 void ServiceWorkerContextClient::OnPostMessage(
     const base::string16& message,
