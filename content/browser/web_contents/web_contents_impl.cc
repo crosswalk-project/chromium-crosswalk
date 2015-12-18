@@ -43,7 +43,9 @@
 #include "content/browser/frame_host/navigator_impl.h"
 #include "content/browser/frame_host/render_frame_host_impl.h"
 #include "content/browser/frame_host/render_widget_host_view_child_frame.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geolocation/geolocation_service_context.h"
+#endif
 #include "content/browser/host_zoom_map_impl.h"
 #include "content/browser/loader/resource_dispatcher_host_impl.h"
 #include "content/browser/manifest/manifest_manager_host.h"
@@ -408,7 +410,9 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context)
       is_subframe_(false),
       force_disable_overscroll_content_(false),
       last_dialog_suppressed_(false),
+#ifndef DISABLE_GEO_FEATURES
       geolocation_service_context_(new GeolocationServiceContext()),
+#endif
 #ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(
           BrowserAccessibilityStateImpl::GetInstance()->accessibility_mode()),
@@ -2073,9 +2077,11 @@ RenderFrameHost* WebContentsImpl::GetGuestByInstanceID(
   return guest->GetMainFrame();
 }
 
+#ifndef DISABLE_GEO_FEATURES
 GeolocationServiceContext* WebContentsImpl::GetGeolocationServiceContext() {
   return geolocation_service_context_.get();
 }
+#endif
 
 void WebContentsImpl::OnShowValidationMessage(
     const gfx::Rect& anchor_in_root_view,

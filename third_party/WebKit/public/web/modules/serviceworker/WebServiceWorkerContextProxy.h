@@ -31,13 +31,17 @@
 #ifndef WebServiceWorkerContextProxy_h
 #define WebServiceWorkerContextProxy_h
 
+#ifndef DISABLE_GEO_FEATURES
 #include "public/platform/WebGeofencingEventType.h"
+#endif
 #include "public/platform/WebMessagePortChannel.h"
 #include "public/platform/modules/navigator_services/WebServicePortCallbacks.h"
 
 namespace blink {
 
+#ifndef DISABLE_GEO_FEATURES
 struct WebCircularGeofencingRegion;
+#endif
 struct WebCrossOriginServiceWorkerClient;
 struct WebNotificationData;
 class WebServiceWorkerRegistration;
@@ -57,7 +61,9 @@ public:
     virtual void dispatchInstallEvent(int installEventID) = 0;
     virtual void dispatchFetchEvent(int fetchEventID, const WebServiceWorkerRequest& webRequest) = 0;
 
+#ifndef DISABLE_GEO_FEATURES
     virtual void dispatchGeofencingEvent(int eventID, WebGeofencingEventType, const WebString& regionID, const WebCircularGeofencingRegion&) = 0;
+#endif
 
     virtual void dispatchMessageEvent(const WebString& message, const WebMessagePortChannelArray& channels) = 0;
 

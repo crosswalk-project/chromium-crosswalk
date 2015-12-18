@@ -102,6 +102,10 @@
       'renderer/bluetooth/web_bluetooth_impl.cc',
       'renderer/bluetooth/web_bluetooth_impl.h',
     ],
+    'private_renderer_sources_geo': [
+      'renderer/geolocation_dispatcher.cc',
+      'renderer/geolocation_dispatcher.h',
+    ],
     'private_renderer_sources': [
       'renderer/accessibility/blink_ax_enum_conversion.cc',
       'renderer/accessibility/blink_ax_enum_conversion.h',
@@ -900,6 +904,11 @@
       'sources!': [
         '<@(private_renderer_sources_bluetooth)',
       ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_renderer_sources_geo)',
+      ]
     }],
   ],
   'target_conditions': [

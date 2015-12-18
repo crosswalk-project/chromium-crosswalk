@@ -60,7 +60,9 @@ class ContentViewCoreImpl : public ContentViewCore,
       const gfx::Rect& src_subrect,
       ReadbackRequestCallback& result_callback) override;
   float GetDpiScale() const override;
+#ifndef DISABLE_GEO_FEATURES
   void PauseOrResumeGeolocation(bool should_pause) override;
+#endif
   void RequestTextSurroundingSelection(
       int max_length,
       const base::Callback<void(const base::string16& content,

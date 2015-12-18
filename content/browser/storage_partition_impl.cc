@@ -13,7 +13,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "content/browser/browser_main_loop.h"
 #include "content/browser/fileapi/browser_file_system_helper.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geofencing/geofencing_manager.h"
+#endif
 #include "content/browser/gpu/shader_disk_cache.h"
 #include "content/browser/host_zoom_map_impl.h"
 #include "content/browser/navigator_connect/navigator_connect_context_impl.h"
@@ -364,12 +366,17 @@ StoragePartitionImpl::StoragePartitionImpl(
       service_worker_context_(service_worker_context),
       webrtc_identity_store_(webrtc_identity_store),
       special_storage_policy_(special_storage_policy),
+#ifndef DISABLE_GEO_FEATURES
       geofencing_manager_(geofencing_manager),
+#endif
       host_zoom_level_context_(host_zoom_level_context),
       navigator_connect_context_(navigator_connect_context),
       platform_notification_context_(platform_notification_context),
       background_sync_context_(background_sync_context),
       browser_context_(browser_context) {
+#ifndef DISABLE_GEO_FEATURES
+      (void) geofencing_manager;
+#endif
 }
 
 StoragePartitionImpl::~StoragePartitionImpl() {
@@ -396,8 +403,10 @@ StoragePartitionImpl::~StoragePartitionImpl() {
   if (GetCacheStorageContext())
     GetCacheStorageContext()->Shutdown();
 
+#ifndef DISABLE_GEO_FEATURES
   if (GetGeofencingManager())
     GetGeofencingManager()->Shutdown();
+#endif
 
   if (GetPlatformNotificationContext())
     GetPlatformNotificationContext()->Shutdown();
@@ -480,9 +489,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   scoped_refptr<storage::SpecialStoragePolicy> special_storage_policy(
       context->GetSpecialStoragePolicy());
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_refptr<GeofencingManager> geofencing_manager =
       new GeofencingManager(service_worker_context);
   geofencing_manager->Init();
+#endif
 
   scoped_refptr<HostZoomLevelContext> host_zoom_level_context(
       new HostZoomLevelContext(
@@ -506,7 +517,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
       dom_storage_context.get(), indexed_db_context.get(),
       cache_storage_context.get(), service_worker_context.get(),
       webrtc_identity_store.get(), special_storage_policy.get(),
+#ifndef DISABLE_GEO_FEATURES
       geofencing_manager.get(), host_zoom_level_context.get(),
+#else
+      nullptr, host_zoom_level_context.get(),
+#endif
       navigator_connect_context.get(), platform_notification_context.get(),
       background_sync_context.get());
 
@@ -560,9 +575,11 @@ ServiceWorkerContextWrapper* StoragePartitionImpl::GetServiceWorkerContext() {
   return service_worker_context_.get();
 }
 
+#ifndef DISABLE_GEO_FEATURES
 GeofencingManager* StoragePartitionImpl::GetGeofencingManager() {
   return geofencing_manager_.get();
 }
+#endif
 
 HostZoomMap* StoragePartitionImpl::GetHostZoomMap() {
   DCHECK(host_zoom_level_context_.get());

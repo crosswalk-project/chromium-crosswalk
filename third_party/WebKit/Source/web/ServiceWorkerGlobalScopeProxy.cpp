@@ -42,8 +42,10 @@
 #include "modules/background_sync/SyncEvent.h"
 #include "modules/background_sync/SyncRegistration.h"
 #include "modules/fetch/Headers.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "modules/geofencing/CircularGeofencingRegion.h"
 #include "modules/geofencing/GeofencingEvent.h"
+#endif
 #include "modules/navigatorconnect/AcceptConnectionObserver.h"
 #include "modules/navigatorconnect/CrossOriginServiceWorkerClient.h"
 #include "modules/navigatorconnect/ServicePortCollection.h"
@@ -109,12 +111,14 @@ void ServiceWorkerGlobalScopeProxy::dispatchFetchEvent(int eventID, const WebSer
     observer->didDispatchEvent(defaultPrevented);
 }
 
+#ifndef DISABLE_GEO_FEATURES
 void ServiceWorkerGlobalScopeProxy::dispatchGeofencingEvent(int eventID, WebGeofencingEventType eventType, const WebString& regionID, const WebCircularGeofencingRegion& region)
 {
     ASSERT(m_workerGlobalScope);
     const AtomicString& type = eventType == WebGeofencingEventTypeEnter ? EventTypeNames::geofenceenter : EventTypeNames::geofenceleave;
     m_workerGlobalScope->dispatchEvent(GeofencingEvent::create(type, regionID, CircularGeofencingRegion::create(regionID, region)));
 }
+#endif
 
 void ServiceWorkerGlobalScopeProxy::dispatchInstallEvent(int eventID)
 {

@@ -41,7 +41,9 @@
 #include "content/child/background_sync/background_sync_provider_thread_proxy.h"
 #include "content/child/child_thread_impl.h"
 #include "content/child/content_child_helpers.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/child/geofencing/web_geofencing_provider_impl.h"
+#endif
 #include "content/child/navigator_connect/service_port_provider.h"
 #include "content/child/notifications/notification_dispatcher.h"
 #include "content/child/notifications/notification_manager.h"
@@ -451,8 +453,10 @@ BlinkPlatformImpl::BlinkPlatformImpl(
 void BlinkPlatformImpl::InternalInit() {
   // ChildThread may not exist in some tests.
   if (ChildThreadImpl::current()) {
+#ifndef DISABLE_GEO_FEATURES
     geofencing_provider_.reset(new WebGeofencingProviderImpl(
         ChildThreadImpl::current()->thread_safe_sender()));
+#endif
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();
     notification_dispatcher_ =
         ChildThreadImpl::current()->notification_dispatcher();
@@ -1159,9 +1163,11 @@ blink::WebCrypto* BlinkPlatformImpl::crypto() {
   return &web_crypto_;
 }
 
+#ifndef DISABLE_GEO_FEATURES
 blink::WebGeofencingProvider* BlinkPlatformImpl::geofencingProvider() {
   return geofencing_provider_.get();
 }
+#endif
 
 blink::WebNotificationManager*
 BlinkPlatformImpl::notificationManager() {

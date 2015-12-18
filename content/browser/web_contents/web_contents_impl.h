@@ -53,7 +53,9 @@ class BrowserPluginGuest;
 class BrowserPluginGuestManager;
 class DateTimeChooserAndroid;
 class DownloadItem;
+#ifndef DISABLE_GEO_FEATURES
 class GeolocationServiceContext;
+#endif
 class InterstitialPageImpl;
 class JavaScriptDialogManager;
 class ManifestManagerHost;
@@ -429,7 +431,9 @@ class CONTENT_EXPORT WebContentsImpl
   RenderFrameHost* GetGuestByInstanceID(
       RenderFrameHost* render_frame_host,
       int browser_plugin_instance_id) override;
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* GetGeolocationServiceContext() override;
+#endif
   void EnterFullscreenMode(const GURL& origin) override;
   void ExitFullscreenMode() override;
   bool ShouldRouteMessageEvent(
@@ -1289,7 +1293,9 @@ class CONTENT_EXPORT WebContentsImpl
   // Whether the last JavaScript dialog shown was suppressed. Used for testing.
   bool last_dialog_suppressed_;
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_ptr<GeolocationServiceContext> geolocation_service_context_;
+#endif
 
   scoped_ptr<ScreenOrientationDispatcherHost>
       screen_orientation_dispatcher_host_;

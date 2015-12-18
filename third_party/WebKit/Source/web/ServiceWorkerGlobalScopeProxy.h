@@ -75,7 +75,9 @@ public:
     void dispatchActivateEvent(int) override;
     void dispatchCrossOriginMessageEvent(const WebCrossOriginServiceWorkerClient&, const WebString& message, const WebMessagePortChannelArray&) override;
     void dispatchFetchEvent(int, const WebServiceWorkerRequest&) override;
+#ifndef DISABLE_GEO_FEATURES
     void dispatchGeofencingEvent(int, WebGeofencingEventType, const WebString& regionID, const WebCircularGeofencingRegion&) override;
+#endif
     void dispatchInstallEvent(int) override;
     void dispatchMessageEvent(const WebString& message, const WebMessagePortChannelArray&) override;
     void dispatchNotificationClickEvent(int, int64_t notificationID, const WebNotificationData&, int actionIndex) override;
