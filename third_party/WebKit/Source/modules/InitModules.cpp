@@ -13,7 +13,9 @@
 #include "modules/EventModulesNames.h"
 #include "modules/EventTargetModulesNames.h"
 #include "modules/IndexedDBNames.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "modules/canvas2d/CanvasRenderingContext2D.h"
 #include "modules/compositorworker/CompositorWorkerManager.h"
 #include "modules/filesystem/DraggedIsolatedFileSystemImpl.h"
@@ -33,7 +35,9 @@ void ModulesInitializer::init()
     Document::registerEventFactory(EventModulesFactory::create());
     ModuleBindingsInitializer::init();
     IndexedDBNames::init();
+#ifndef DISABLE_ACCESSIBILITY
     AXObjectCache::init(AXObjectCacheImpl::create);
+#endif
     DraggedIsolatedFileSystem::init(DraggedIsolatedFileSystemImpl::prepareForDataObject);
 
     CoreInitializer::init();

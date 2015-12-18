@@ -43,7 +43,9 @@
 
 namespace blink {
 
+#ifndef DISABLE_ACCESSIBILITY
 class WebAXObject;
+#endif
 class WebAutofillClient;
 class WebCompositedDisplayList;
 class WebCredentialManagerClient;
@@ -378,9 +380,10 @@ public:
 
 
     // Accessibility -------------------------------------------------------
-
+#ifndef DISABLE_ACCESSIBILITY
     // Returns the accessibility object for this view.
     virtual WebAXObject accessibilityObject() = 0;
+#endif
 
 
     // Context menu --------------------------------------------------------

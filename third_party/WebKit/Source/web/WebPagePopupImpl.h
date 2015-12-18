@@ -94,8 +94,10 @@ private:
 
     bool isMouseEventInWindow(const WebMouseEvent&);
 
+#ifndef DISABLE_ACCESSIBILITY
     // PagePopup function
     AXObject* rootAXObject() override;
+#endif
     void setWindowRect(const IntRect&) override;
 
     explicit WebPagePopupImpl(WebWidgetClient*);

@@ -1630,6 +1630,7 @@ void RenderWidgetHostViewAndroid::OnSetNeedsFlushInput() {
   RequestVSyncUpdate(FLUSH_INPUT);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 BrowserAccessibilityManager*
     RenderWidgetHostViewAndroid::CreateBrowserAccessibilityManager(
         BrowserAccessibilityDelegate* delegate) {
@@ -1651,6 +1652,7 @@ BrowserAccessibilityManager*
       BrowserAccessibilityManagerAndroid::GetEmptyDocument(),
       delegate);
 }
+#endif
 
 bool RenderWidgetHostViewAndroid::LockMouse() {
   NOTIMPLEMENTED();
@@ -1769,6 +1771,7 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
       content_view_core_ ? content_view_core_->GetWindowAndroid() : nullptr;
   DCHECK_EQ(!!content_view_core_, !!content_view_core_window_android_);
 
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* manager = NULL;
   if (host_)
     manager = host_->GetRootBrowserAccessibilityManager();
@@ -1778,6 +1781,7 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
       obj = content_view_core_->GetJavaObject();
     manager->ToBrowserAccessibilityManagerAndroid()->SetContentViewCore(obj);
   }
+#endif
 
   AttachLayers();
 

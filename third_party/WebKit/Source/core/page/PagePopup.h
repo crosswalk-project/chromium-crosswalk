@@ -34,15 +34,18 @@
 #include "wtf/Forward.h"
 
 namespace blink {
-
+#ifndef DISABLE_ACCESSIBILITY
 class AXObject;
+#endif
 class IntRect;
 
 // A PagePopup object is created by ChromeClient::openPagePopup(), and deleted
 // by ChromeClient::closePagePopup().
 class PagePopup {
 public:
+#ifndef DISABLE_ACCESSIBILITY
     virtual AXObject* rootAXObject() = 0;
+#endif
     virtual void setWindowRect(const IntRect&) = 0;
     virtual void postMessage(const String& message) = 0;
 

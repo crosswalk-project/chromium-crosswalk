@@ -2007,9 +2007,11 @@ void RenderViewImpl::focusedNodeChanged(const WebNode& fromNode,
   if (new_frame)
     new_frame->FocusedNodeChanged(toNode);
 
+#ifndef DISABLE_ACCESSIBILITY
   // TODO(dmazzoni): remove once there's a separate a11y tree per frame.
   if (main_render_frame_)
     main_render_frame_->FocusedNodeChangedForAccessibility(toNode);
+#endif
 }
 
 void RenderViewImpl::didUpdateLayout() {
@@ -3660,6 +3662,7 @@ bool RenderViewImpl::didTapMultipleTargets(
     const WebVector<WebRect>& target_rects) {
   DCHECK(switches::IsLinkDisambiguationPopupEnabled());
 
+#ifndef DISABLE_ACCESSIBILITY
   // Never show a disambiguation popup when accessibility is enabled,
   // as this interferes with "touch exploration".
   AccessibilityMode accessibility_mode =
@@ -3669,6 +3672,7 @@ bool RenderViewImpl::didTapMultipleTargets(
           AccessibilityModeComplete;
   if (matches_accessibility_mode_complete)
     return false;
+#endif
 
   // The touch_rect, target_rects and zoom_rect are in the outer viewport
   // reference frame.

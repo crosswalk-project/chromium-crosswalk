@@ -201,6 +201,12 @@
                         ['exclude', 'default/WebRenderTheme.cpp'],
                     ],
                 }],
+
+                ['disable_accessibility==1', {
+                  'sources!': [
+                    '<@(web_files_accessibility)',
+                  ],
+                }],
             ],
             'direct_dependent_settings': {
                 'include_dirs': [

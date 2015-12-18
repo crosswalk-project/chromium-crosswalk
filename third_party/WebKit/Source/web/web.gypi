@@ -310,6 +310,9 @@
       'tests/WebUserGestureTokenTest.cpp',
       'tests/WebViewTest.cpp',
     ],
+    'web_files_accessibility': [
+      'WebAXObject.cpp',
+    ],
     'conditions': [
       ['OS=="win"',
         {

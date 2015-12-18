@@ -11,10 +11,12 @@
 #include "base/metrics/histogram.h"
 #include "base/process/kill.h"
 #include "base/time/time.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/accessibility_mode_helper.h"
 #include "content/browser/accessibility/ax_tree_id_registry.h"
 #include "content/browser/accessibility/browser_accessibility_manager.h"
 #include "content/browser/accessibility/browser_accessibility_state_impl.h"
+#endif
 #include "content/browser/bad_message.h"
 #include "content/browser/child_process_security_policy_impl.h"
 #include "content/browser/frame_host/cross_process_frame_connector.h"
@@ -41,7 +43,9 @@
 #include "content/browser/renderer_host/render_view_host_impl.h"
 #include "content/browser/renderer_host/render_widget_host_impl.h"
 #include "content/browser/renderer_host/render_widget_host_view_base.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/common/accessibility_messages.h"
+#endif
 #include "content/common/frame_messages.h"
 #include "content/common/input_messages.h"
 #include "content/common/inter_process_time_ticks_converter.h"
@@ -50,7 +54,9 @@
 #include "content/common/site_isolation_policy.h"
 #include "content/common/swapped_out_messages.h"
 #include "content/public/browser/ax_event_notification_details.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/public/browser/browser_accessibility_state.h"
+#endif
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/browser_plugin_guest_manager.h"
 #include "content/public/browser/browser_thread.h"
@@ -66,8 +72,10 @@
 #include "content/public/common/isolated_world_ids.h"
 #include "content/public/common/url_constants.h"
 #include "content/public/common/url_utils.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "ui/accessibility/ax_tree.h"
 #include "ui/accessibility/ax_tree_update.h"
+#endif
 #include "url/gurl.h"
 
 #if defined(OS_ANDROID)
@@ -87,9 +95,10 @@ using base::TimeDelta;
 namespace content {
 
 namespace {
-
+#ifndef DISABLE_ACCESSIBILITY
 // The next value to use for the accessibility reset token.
 int g_next_accessibility_reset_token = 1;
+#endif
 
 // The next value to use for the javascript callback id.
 int g_next_javascript_callback_id = 1;
@@ -154,6 +163,7 @@ RenderFrameHost* RenderFrameHost::FromAXTreeID(
 }
 
 // static
+#ifndef DISABLE_ACCESSIBILITY
 RenderFrameHostImpl* RenderFrameHostImpl::FromAXTreeID(
     AXTreeIDRegistry::AXTreeID ax_tree_id) {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
@@ -161,6 +171,7 @@ RenderFrameHostImpl* RenderFrameHostImpl::FromAXTreeID(
       AXTreeIDRegistry::GetInstance()->GetFrameID(ax_tree_id);
   return RenderFrameHostImpl::FromID(frame_id.first, frame_id.second);
 }
+#endif
 
 RenderFrameHostImpl::RenderFrameHostImpl(SiteInstance* site_instance,
                                          RenderViewHostImpl* render_view_host,
@@ -186,9 +197,11 @@ RenderFrameHostImpl::RenderFrameHostImpl(SiteInstance* site_instance,
       unload_ack_is_for_navigation_(false),
       is_loading_(false),
       pending_commit_(false),
+#ifndef DISABLE_ACCESSIBILITY
       accessibility_reset_token_(0),
       accessibility_reset_count_(0),
       no_create_browser_accessibility_manager_for_testing_(false),
+#endif
       weak_ptr_factory_(this) {
   bool is_swapped_out = !!(flags & CREATE_RF_SWAPPED_OUT);
   bool hidden = !!(flags & CREATE_RF_HIDDEN);
@@ -251,10 +264,12 @@ int RenderFrameHostImpl::GetRoutingID() {
   return routing_id_;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 AXTreeIDRegistry::AXTreeID RenderFrameHostImpl::GetAXTreeID() {
   return AXTreeIDRegistry::GetInstance()->GetOrCreateAXTreeID(
       GetProcess()->GetID(), routing_id_);
 }
+#endif
 
 SiteInstanceImpl* RenderFrameHostImpl::GetSiteInstance() {
   return site_instance_.get();
@@ -456,8 +471,10 @@ bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
                                     OnRunJavaScriptMessage)
     IPC_MESSAGE_HANDLER_DELAY_REPLY(FrameHostMsg_RunBeforeUnloadConfirm,
                                     OnRunBeforeUnloadConfirm)
+#ifndef DISABLE_ACCESSIBILITY
     IPC_MESSAGE_HANDLER(FrameHostMsg_DidAccessInitialDocument,
                         OnDidAccessInitialDocument)
+#endif
     IPC_MESSAGE_HANDLER(FrameHostMsg_DidDisownOpener, OnDidDisownOpener)
     IPC_MESSAGE_HANDLER(FrameHostMsg_DidChangeName, OnDidChangeName)
     IPC_MESSAGE_HANDLER(FrameHostMsg_DidAssignPageId, OnDidAssignPageId)
@@ -470,6 +487,7 @@ bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
     IPC_MESSAGE_HANDLER(FrameHostMsg_DispatchLoad, OnDispatchLoad)
     IPC_MESSAGE_HANDLER(FrameHostMsg_TextSurroundingSelectionResponse,
                         OnTextSurroundingSelectionResponse)
+#ifndef DISABLE_ACCESSIBILITY
     IPC_MESSAGE_HANDLER(AccessibilityHostMsg_Events, OnAccessibilityEvents)
     IPC_MESSAGE_HANDLER(AccessibilityHostMsg_LocationChanges,
                         OnAccessibilityLocationChanges)
@@ -477,6 +495,7 @@ bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
                         OnAccessibilityFindInPageResult)
     IPC_MESSAGE_HANDLER(AccessibilityHostMsg_SnapshotResponse,
                         OnAccessibilitySnapshotResponse)
+#endif
     IPC_MESSAGE_HANDLER(FrameHostMsg_ToggleFullscreen, OnToggleFullscreen)
     // The following message is synthetic and doesn't come from RenderFrame, but
     // from RenderProcessHost.
@@ -495,6 +514,7 @@ bool RenderFrameHostImpl::OnMessageReceived(const IPC::Message &msg) {
   return handled;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameHostImpl::AccessibilitySetFocus(int object_id) {
   Send(new AccessibilityMsg_SetFocus(routing_id_, object_id));
 }
@@ -604,6 +624,7 @@ gfx::NativeViewAccessible
     return view->AccessibilityGetNativeViewAccessible();
   return NULL;
 }
+#endif //  #ifndef DISABLE_ACCESSIBILITY
 
 bool RenderFrameHostImpl::CreateRenderFrame(int parent_routing_id,
                                             int previous_sibling_routing_id,
@@ -913,7 +934,9 @@ void RenderFrameHostImpl::OnDidCommitProvisionalLoad(const IPC::Message& msg) {
         frame_tree_node_->navigator()->GetDelegate());
   }
 
+#ifndef DISABLE_ACCESSIBILITY
   accessibility_reset_count_ = 0;
+#endif
   frame_tree_node()->navigator()->DidNavigate(this, validated_params);
 
   // PlzNavigate
@@ -1148,11 +1171,13 @@ void RenderFrameHostImpl::OnRenderProcessGone(int status, int exit_code) {
   SetRenderFrameCreated(false);
   InvalidateMojoConnection();
 
+#ifndef DISABLE_ACCESSIBILITY
   // Execute any pending AX tree snapshot callbacks with an empty response,
   // since we're never going to get a response from this renderer.
   for (const auto& iter : ax_tree_snapshot_callbacks_)
     iter.second.Run(ui::AXTreeUpdate<ui::AXNodeData>());
   ax_tree_snapshot_callbacks_.clear();
+#endif
 
   // Note: don't add any more code at this point in the function because
   // |this| may be deleted. Any additional cleanup should happen before
@@ -1265,9 +1290,11 @@ void RenderFrameHostImpl::OnTextSurroundingSelectionResponse(
       content, start_offset, end_offset);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameHostImpl::OnDidAccessInitialDocument() {
   delegate_->DidAccessInitialDocument();
 }
+#endif
 
 void RenderFrameHostImpl::OnDidDisownOpener() {
   // This message is only sent for top-level frames for now.
@@ -1381,6 +1408,7 @@ void RenderFrameHostImpl::OnDispatchLoad() {
   proxy->Send(new FrameMsg_DispatchLoad(proxy->GetRoutingID()));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameHostImpl::OnAccessibilityEvents(
     const std::vector<AccessibilityHostMsg_EventParams>& params,
     int reset_token) {
@@ -1506,6 +1534,7 @@ void RenderFrameHostImpl::OnAccessibilitySnapshotResponse(
     NOTREACHED() << "Received AX tree snapshot response for unknown id";
   }
 }
+#endif //  #ifndef DISABLE_ACCESSIBILITY
 
 void RenderFrameHostImpl::OnToggleFullscreen(bool enter_fullscreen) {
   if (enter_fullscreen)
@@ -1949,6 +1978,7 @@ bool RenderFrameHostImpl::IsSameSiteInstance(
   return GetSiteInstance() == other_render_frame_host->GetSiteInstance();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameHostImpl::SetAccessibilityMode(AccessibilityMode mode) {
   Send(new FrameMsg_SetAccessibilityMode(routing_id_, mode));
 }
@@ -1965,6 +1995,7 @@ void RenderFrameHostImpl::SetAccessibilityCallbackForTesting(
     const base::Callback<void(ui::AXEvent, int)>& callback) {
   accessibility_testing_callback_ = callback;
 }
+#endif
 
 void RenderFrameHostImpl::SetTextTrackSettings(
     const FrameMsg_TextTrackSettings_Params& params) {
@@ -1972,6 +2003,7 @@ void RenderFrameHostImpl::SetTextTrackSettings(
   Send(new FrameMsg_SetTextTrackSettings(routing_id_, params));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 const ui::AXTree* RenderFrameHostImpl::GetAXTreeForTesting() {
   return ax_tree_for_testing_.get();
 }
@@ -2003,6 +2035,7 @@ void RenderFrameHostImpl::ActivateFindInPageResultForAccessibility(
       manager->ActivateFindInPageResult(request_id);
   }
 }
+#endif
 
 void RenderFrameHostImpl::InsertVisualStateCallback(
     const VisualStateCallback& callback) {
@@ -2154,6 +2187,7 @@ bool RenderFrameHostImpl::CanExecuteJavaScript() {
          (delegate_->GetAsWebContents() == nullptr);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 AXTreeIDRegistry::AXTreeID RenderFrameHostImpl::RoutingIDToAXTreeID(
     int routing_id) {
   RenderFrameHostImpl* rfh = nullptr;
@@ -2227,5 +2261,6 @@ void RenderFrameHostImpl::AXContentNodeDataToAXNodeData(
     }
   }
 }
+#endif
 
 }  // namespace content

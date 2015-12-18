@@ -49,8 +49,10 @@ base::android::RegistrationMethod kContentRegisteredMethods[] = {
      content::AndroidLocationApiAdapter::RegisterGeolocationService},
     {"BackgroundSyncLauncherAndroid",
      content::BackgroundSyncLauncherAndroid::RegisterLauncher},
+#ifndef DISABLE_ACCESSIBILITY
     {"BrowserAccessibilityManager",
      content::RegisterBrowserAccessibilityManager},
+#endif
     {"BrowserStartupController", content::RegisterBrowserStartupController},
     {"ChildProcessLauncher", content::RegisterChildProcessLauncher},
     {"ContentReadbackHandler",

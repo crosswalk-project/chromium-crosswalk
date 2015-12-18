@@ -1542,9 +1542,14 @@ int32 NavigationControllerImpl::GetMaxRestoredPageID() const {
 }
 
 bool NavigationControllerImpl::IsUnmodifiedBlankTab() const {
+#ifndef DISABLE_ACCESSIBILITY
   return IsInitialNavigation() &&
          !GetLastCommittedEntry() &&
          !delegate_->HasAccessedInitialDocument();
+#else
+  return IsInitialNavigation() &&
+         !GetLastCommittedEntry();
+#endif
 }
 
 SessionStorageNamespace*

@@ -30,7 +30,9 @@
 #include "mojo/application/public/interfaces/service_provider.mojom.h"
 #include "mojo/application/public/interfaces/shell.mojom.h"
 #include "third_party/WebKit/public/platform/modules/app_banner/WebAppBannerClient.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "third_party/WebKit/public/web/WebAXObject.h"
+#endif
 #include "third_party/WebKit/public/web/WebDataSource.h"
 #include "third_party/WebKit/public/web/WebFrameClient.h"
 #include "third_party/WebKit/public/web/WebHistoryCommitType.h"
@@ -228,6 +230,7 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual void didStopLoading();
   virtual void didChangeLoadProgress(double load_progress);
 
+#ifndef DISABLE_ACCESSIBILITY
   AccessibilityMode accessibility_mode() {
     return accessibility_mode_;
   }
@@ -238,15 +241,18 @@ class CONTENT_EXPORT RenderFrameImpl
 
   void HandleWebAccessibilityEvent(const blink::WebAXObject& obj,
                                    blink::WebAXEvent event);
+#endif
 
   // The focused node changed to |node|. If focus was lost from this frame,
   // |node| will be null.
   void FocusedNodeChanged(const blink::WebNode& node);
 
+#ifndef DISABLE_ACCESSIBILITY
   // TODO(dmazzoni): the only reason this is here is to plumb it through to
   // RendererAccessibility. It should use the RenderFrameObserver method, once
   // blink has a separate accessibility tree per frame.
   void FocusedNodeChangedForAccessibility(const blink::WebNode& node);
+#endif
 
 #if defined(ENABLE_PLUGINS)
   // Notification that a PPAPI plugin has been created.
@@ -528,6 +534,7 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual blink::WebScreenOrientationClient* webScreenOrientationClient();
   virtual bool isControlledByServiceWorker(blink::WebDataSource& data_source);
   virtual int64_t serviceWorkerID(blink::WebDataSource& data_source);
+#ifndef DISABLE_ACCESSIBILITY
   virtual void postAccessibilityEvent(const blink::WebAXObject& obj,
                                       blink::WebAXEvent event);
   virtual void handleAccessibilityFindInPageResult(
@@ -537,6 +544,7 @@ class CONTENT_EXPORT RenderFrameImpl
         int start_offset,
         const blink::WebAXObject& end_object,
         int end_offset);
+#endif
   virtual void didChangeManifest(blink::WebLocalFrame*);
   virtual bool enterFullscreen();
   virtual bool exitFullscreen();
@@ -1003,12 +1011,14 @@ class CONTENT_EXPORT RenderFrameImpl
   // process.
   ManifestManager* manifest_manager_;
 
+#ifndef DISABLE_ACCESSIBILITY
   // The current accessibility mode.
   AccessibilityMode accessibility_mode_;
 
   // Only valid if |accessibility_mode_| is anything other than
   // AccessibilityModeOff.
   RendererAccessibility* renderer_accessibility_;
+#endif
 
   scoped_ptr<PermissionDispatcher> permission_client_;
 
