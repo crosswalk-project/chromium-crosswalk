@@ -37,7 +37,7 @@ bool UseWKWebView() {
 }
 }
 
-@interface ViewController () {
+@interface ViewController ()<CRWWebUserInterfaceDelegate> {
   web::BrowserState* _browserState;
   base::scoped_nsobject<CRWWebController> _webController;
   scoped_ptr<web::RequestTrackerFactoryImpl> _requestTrackerFactory;
@@ -119,6 +119,7 @@ bool UseWKWebView() {
       UseWKWebView() ? web::WK_WEB_VIEW_TYPE : web::UI_WEB_VIEW_TYPE;
   _webController.reset(web::CreateWebController(webViewType, webState.Pass()));
   [_webController setDelegate:self];
+  [_webController setUIDelegate:self];
   [_webController setWebUsageEnabled:YES];
 
   [[_webController view] setFrame:[_containerView bounds]];
@@ -350,6 +351,19 @@ bool UseWKWebView() {
                  callback:
                      (const web::WebState::ImageDownloadCallback&)callback {
   return -1;
+}
+
+// -----------------------------------------------------------------------
+// CRWWebUserInterfaceDelegate implementation.
+
+- (void)webController:(CRWWebController*)webController
+    runAuthDialogForProtectionSpace:(NSURLProtectionSpace*)protectionSpace
+                 proposedCredential:(NSURLCredential*)credential
+                  completionHandler:
+                      (void (^)(NSString* user, NSString* password))handler {
+  // Calling |handler| with nil objects is the same as not implemeting it. This
+  // method is implemented to make testing easier.
+  handler(nil, nil);
 }
 
 @end

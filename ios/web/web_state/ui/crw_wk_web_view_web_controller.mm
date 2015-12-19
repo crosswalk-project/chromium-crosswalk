@@ -353,6 +353,20 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
 
 // Used in webView:didReceiveAuthenticationChallenge:completionHandler: to reply
 // with NSURLSessionAuthChallengeDisposition and credentials.
+- (void)handleHTTPAuthForChallenge:(NSURLAuthenticationChallenge*)challenge
+                 completionHandler:
+                     (void (^)(NSURLSessionAuthChallengeDisposition,
+                               NSURLCredential*))completionHandler;
+
+// Used in webView:didReceiveAuthenticationChallenge:completionHandler: to reply
+// with NSURLSessionAuthChallengeDisposition and credentials.
++ (void)processHTTPAuthForUser:(NSString*)user
+                      password:(NSString*)password
+             completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition,
+                                         NSURLCredential*))completionHandler;
+
+// Used in webView:didReceiveAuthenticationChallenge:completionHandler: to
+// reply with NSURLSessionAuthChallengeDisposition and credentials.
 - (void)processAuthChallenge:(NSURLAuthenticationChallenge*)challenge
          forCertAcceptPolicy:(web::CertAcceptPolicy)policy
                   certStatus:(net::CertStatus)certStatus
@@ -975,8 +989,17 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
 
 - (void)webViewWebProcessDidCrash {
   _webProcessIsDead = YES;
-  if ([self.delegate respondsToSelector:
-          @selector(webControllerWebProcessDidCrash:)]) {
+  SEL cancelJSDialogsSelector =
+      @selector(cancelJavaScriptDialogsForWebController:);
+  if ([self.UIDelegate respondsToSelector:cancelJSDialogsSelector])
+    [self.UIDelegate cancelJavaScriptDialogsForWebController:self];
+
+  SEL cancelDialogsSelector = @selector(cancelDialogsForWebController:);
+  if ([self.UIDelegate respondsToSelector:cancelDialogsSelector])
+    [self.UIDelegate cancelDialogsForWebController:self];
+
+  SEL rendererCrashSelector = @selector(webControllerWebProcessDidCrash:);
+  if ([self.delegate respondsToSelector:rendererCrashSelector])
     [self.delegate webControllerWebProcessDidCrash:self];
   }
 }
@@ -1225,6 +1248,54 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
 }
 
 #endif  // !defined(ENABLE_CHROME_NET_STACK_FOR_WKWEBVIEW)
+
+- (void)handleHTTPAuthForChallenge:(NSURLAuthenticationChallenge*)challenge
+                 completionHandler:
+                     (void (^)(NSURLSessionAuthChallengeDisposition,
+                               NSURLCredential*))completionHandler {
+  NSURLProtectionSpace* space = challenge.protectionSpace;
+  DCHECK(
+      [space.authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+      [space.authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest]);
+
+  SEL selector = @selector(webController:
+         runAuthDialogForProtectionSpace:
+                      proposedCredential:
+                       completionHandler:);
+  if (![self.UIDelegate respondsToSelector:selector]) {
+    // Embedder does not support HTTP Authentication.
+    completionHandler(NSURLSessionAuthChallengeRejectProtectionSpace, nil);
+    return;
+  }
+
+  [self.UIDelegate webController:self
+      runAuthDialogForProtectionSpace:space
+                   proposedCredential:challenge.proposedCredential
+                    completionHandler:^(NSString* user, NSString* password) {
+                      [CRWWKWebViewWebController
+                          processHTTPAuthForUser:user
+                                        password:password
+                               completionHandler:completionHandler];
+                    }];
+}
+
++ (void)processHTTPAuthForUser:(NSString*)user
+                      password:(NSString*)password
+             completionHandler:(void (^)(NSURLSessionAuthChallengeDisposition,
+                                         NSURLCredential*))completionHandler {
+  DCHECK_EQ(user == nil, password == nil);
+  if (!user || !password) {
+    // Embedder cancelled authentication.
+    completionHandler(NSURLSessionAuthChallengeRejectProtectionSpace, nil);
+    return;
+  }
+  completionHandler(
+      NSURLSessionAuthChallengeUseCredential,
+      [NSURLCredential
+          credentialWithUser:user
+                    password:password
+                 persistence:NSURLCredentialPersistenceForSession]);
+}
 
 - (void)processAuthChallenge:(NSURLAuthenticationChallenge*)challenge
          forCertAcceptPolicy:(web::CertAcceptPolicy)policy
@@ -1899,9 +1970,16 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
                     completionHandler:
                         (void (^)(NSURLSessionAuthChallengeDisposition,
                                   NSURLCredential*))completionHandler {
-  if (![challenge.protectionSpace.authenticationMethod
-          isEqual:NSURLAuthenticationMethodServerTrust]) {
-    completionHandler(NSURLSessionAuthChallengePerformDefaultHandling, nil);
+  NSString* authMethod = challenge.protectionSpace.authenticationMethod;
+  if ([authMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+      [authMethod isEqual:NSURLAuthenticationMethodHTTPDigest]) {
+    [self handleHTTPAuthForChallenge:challenge
+                   completionHandler:completionHandler];
+    return;
+  }
+
+  if (![authMethod isEqual:NSURLAuthenticationMethodServerTrust]) {
+    completionHandler(NSURLSessionAuthChallengeRejectProtectionSpace, nil);
     return;
   }
 
