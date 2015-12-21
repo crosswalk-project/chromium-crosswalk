@@ -247,8 +247,10 @@ static void extendTextCodecMaps()
     TextCodecReplacement::registerEncodingNames(addToTextEncodingNameMap);
     TextCodecReplacement::registerCodecs(addToTextCodecMap);
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     TextCodecICU::registerEncodingNames(addToTextEncodingNameMap);
     TextCodecICU::registerCodecs(addToTextCodecMap);
+#endif
 
     pruneBlacklistedCodecs();
 }

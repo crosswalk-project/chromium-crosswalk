@@ -39,6 +39,10 @@
 #include "web/WebTextCheckingCompletionImpl.h"
 #include "web/WebViewImpl.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#endif
+
 namespace blink {
 
 SpellCheckerClientImpl::SpellCheckerClientImpl(WebViewImpl* webview)
@@ -168,7 +172,11 @@ String SpellCheckerClientImpl::getAutoCorrectSuggestionForMisspelledWord(const S
     // Do not autocorrect words with capital letters in it except the
     // first letter. This will remove cases changing "IMB" to "IBM".
     for (size_t i = 1; i < misspelledWord.length(); i++) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        if (base::icu_utils::isUpper(static_cast<UChar32>(misspelledWord[i])))
+#else
         if (u_isupper(static_cast<UChar32>(misspelledWord[i])))
+#endif
             return String();
     }
 

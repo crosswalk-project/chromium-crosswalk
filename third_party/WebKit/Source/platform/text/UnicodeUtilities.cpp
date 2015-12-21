@@ -29,7 +29,11 @@
 
 #include "wtf/text/CharacterNames.h"
 #include "wtf/text/StringBuffer.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/unorm.h>
+#endif
 
 using namespace WTF::Unicode;
 
@@ -299,6 +303,11 @@ void normalizeCharactersIntoNFCForm(const UChar* characters, unsigned length, Ve
 
     buffer.resize(length);
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    bool error;
+    base::icu_utils::normalize(characters, length, 4/*UNORM_NFC*/, buffer.data(), length, &error);
+    ASSERT(error == false);
+#else
     UErrorCode status = U_ZERO_ERROR;
     size_t bufferSize = unorm_normalize(characters, length, UNORM_NFC, 0, buffer.data(), length, &status);
     ASSERT(status == U_ZERO_ERROR || status == U_STRING_NOT_TERMINATED_WARNING || status == U_BUFFER_OVERFLOW_ERROR);
@@ -312,6 +321,7 @@ void normalizeCharactersIntoNFCForm(const UChar* characters, unsigned length, Ve
     status = U_ZERO_ERROR;
     unorm_normalize(characters, length, UNORM_NFC, 0, buffer.data(), bufferSize, &status);
     ASSERT(status == U_STRING_NOT_TERMINATED_WARNING);
+#endif
 }
 
 // This function returns kNotFound if |first| and |second| contain different Kana letters.

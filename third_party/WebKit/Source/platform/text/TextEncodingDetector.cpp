@@ -32,14 +32,23 @@
 #include "platform/text/TextEncodingDetector.h"
 
 #include "wtf/text/TextEncoding.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include <unicode/ucnv.h>
 #include <unicode/ucsdet.h>
+#endif
 
 namespace blink {
 
 bool detectTextEncoding(const char* data, size_t length,
     const char* hintEncodingName, WTF::TextEncoding* detectedEncoding)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    if (hintEncodingName) {
+        *detectedEncoding = WTF::TextEncoding(hintEncodingName);
+        return true;
+    }
+    return false;
+#else
     *detectedEncoding = WTF::TextEncoding();
     int matchesCount = 0;
     UErrorCode status = U_ZERO_ERROR;
@@ -111,6 +120,7 @@ bool detectTextEncoding(const char* data, size_t length,
     }
     ucsdet_close(detector);
     return false;
+#endif
 }
 
 }

@@ -23,8 +23,12 @@
 #ifndef WTF_UNICODE_ICU_H
 #define WTF_UNICODE_ICU_H
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/uchar.h>
 #include <unicode/ustring.h>
+#endif
 
 namespace WTF {
 
@@ -116,111 +120,191 @@ enum CharCategory {
 
 inline UChar32 foldCase(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::foldCase(c);
+#else
     return u_foldCase(c, U_FOLD_CASE_DEFAULT);
+#endif
 }
 
 inline int foldCase(UChar* result, int resultLength, const UChar* src, int srcLength, bool* error)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::foldCase(result, resultLength, src, srcLength, error);
+#else
     UErrorCode status = U_ZERO_ERROR;
     int realLength = u_strFoldCase(result, resultLength, src, srcLength, U_FOLD_CASE_DEFAULT, &status);
     *error = !U_SUCCESS(status);
     return realLength;
+#endif
 }
 
 inline int toLower(UChar* result, int resultLength, const UChar* src, int srcLength, bool* error)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::toLower(result, resultLength, src, srcLength, error);
+#else
     UErrorCode status = U_ZERO_ERROR;
     int realLength = u_strToLower(result, resultLength, src, srcLength, "", &status);
     *error = !!U_FAILURE(status);
     return realLength;
+#endif
 }
 
 inline UChar32 toLower(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::toLower(c);
+#else
     return u_tolower(c);
+#endif
 }
 
 inline UChar32 toUpper(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::toUpper(c);
+#else
     return u_toupper(c);
+#endif
 }
 
 inline int toUpper(UChar* result, int resultLength, const UChar* src, int srcLength, bool* error)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::toUpper(result, resultLength, src, srcLength, error);
+#else
     UErrorCode status = U_ZERO_ERROR;
     int realLength = u_strToUpper(result, resultLength, src, srcLength, "", &status);
     *error = !!U_FAILURE(status);
     return realLength;
+#endif
 }
 
 inline UChar32 toTitleCase(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::toTitleCase(c);
+#else
     return u_totitle(c);
+#endif
 }
 
 inline bool isArabicChar(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isArabicChar(c);
+#else
       return ublock_getCode(c) == UBLOCK_ARABIC;
+#endif
 }
 
 inline bool isAlphanumeric(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isAlphanumeric(c);
+#else
     return u_isalnum(c);
+#endif
 }
 
 inline bool isSeparatorSpace(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isSeparatorSpace(c);
+#else
     return u_charType(c) == U_SPACE_SEPARATOR;
+#endif
 }
 
 inline bool isPrintableChar(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isPrintableChar(c);
+#else
     return !!u_isprint(c);
+#endif
 }
 
 inline bool isPunct(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isPunct(c);
+#else
     return !!u_ispunct(c);
+#endif
 }
 
 inline bool hasLineBreakingPropertyComplexContext(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::hasLineBreakingPropertyComplexContext(c);
+#else
     return u_getIntPropertyValue(c, UCHAR_LINE_BREAK) == U_LB_COMPLEX_CONTEXT;
+#endif
 }
 
 inline UChar32 mirroredChar(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::mirroredChar(c);
+#else
     return u_charMirror(c);
+#endif
 }
 
 inline CharCategory category(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return static_cast<CharCategory>(base::icu_utils::category(c));
+#else
     return static_cast<CharCategory>(U_GET_GC_MASK(c));
+#endif
 }
 
 inline Direction direction(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return static_cast<Direction>(base::icu_utils::direction(c));
+#else
     return static_cast<Direction>(u_charDirection(c));
+#endif
 }
 
 inline bool isLower(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::isLower(c);
+#else
     return !!u_islower(c);
+#endif
 }
 
 inline uint8_t combiningClass(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::combiningClass(c);
+#else
     return u_getCombiningClass(c);
+#endif
 }
 
 inline DecompositionType decompositionType(UChar32 c)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return static_cast<DecompositionType>(base::icu_utils::decompositionType(c));
+#else
     return static_cast<DecompositionType>(u_getIntPropertyValue(c, UCHAR_DECOMPOSITION_TYPE));
+#endif
 }
 
 inline int umemcasecmp(const UChar* a, const UChar* b, int len)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return base::icu_utils::umemcasecmp(a, b, len);
+#else
     return u_memcasecmp(a, b, len, U_FOLD_CASE_DEFAULT);
+#endif
 }
 
 } // namespace Unicode
