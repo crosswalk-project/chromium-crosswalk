@@ -9,6 +9,10 @@
       'GeolocationClientProxy.cpp',
       'GeolocationClientProxy.h',
     ],
+    'web_files_indexeddb': [
+      'IndexedDBClientImpl.cpp',
+      'IndexedDBClientImpl.h',
+    ],
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',

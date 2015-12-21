@@ -79,7 +79,9 @@
 #include "modules/cachestorage/InspectorCacheStorageAgent.h"
 #include "modules/device_orientation/DeviceOrientationInspectorAgent.h"
 #include "modules/filesystem/InspectorFileSystemAgent.h"
+#ifndef DISABLE_INDEXEDDB
 #include "modules/indexeddb/InspectorIndexedDBAgent.h"
+#endif
 #include "modules/screen_orientation/ScreenOrientationInspectorAgent.h"
 #include "modules/storage/InspectorDOMStorageAgent.h"
 #include "modules/webdatabase/InspectorDatabaseAgent.h"
@@ -296,7 +298,9 @@ PassOwnPtrWillBeRawPtr<WebDevToolsAgentImpl> WebDevToolsAgentImpl::create(WebLoc
     agent->registerAgent(InspectorDatabaseAgent::create(view->page()));
     agent->registerAgent(DeviceOrientationInspectorAgent::create(view->page()));
     agent->registerAgent(InspectorFileSystemAgent::create(view->page()));
+#ifndef DISABLE_INDEXEDDB
     agent->registerAgent(InspectorIndexedDBAgent::create(view->page()));
+#endif
 #ifndef DISABLE_ACCESSIBILITY
     agent->registerAgent(InspectorAccessibilityAgent::create(view->page()));
 #endif

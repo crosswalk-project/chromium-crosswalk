@@ -575,8 +575,10 @@ void RenderThreadImpl::Init() {
   appcache_dispatcher_.reset(
       new AppCacheDispatcher(Get(), new AppCacheFrontendImpl()));
   dom_storage_dispatcher_.reset(new DomStorageDispatcher());
+#ifndef DISABLE_INDEXEDDB
   main_thread_indexed_db_dispatcher_.reset(new IndexedDBDispatcher(
       thread_safe_sender()));
+#endif
   main_thread_cache_storage_dispatcher_.reset(
       new CacheStorageDispatcher(thread_safe_sender()));
   embedded_worker_dispatcher_.reset(new EmbeddedWorkerDispatcher());
@@ -633,7 +635,9 @@ void RenderThreadImpl::Init() {
   AddFilter(bluetooth_message_filter_->GetFilter());
 #endif
 
+#ifndef DISABLE_INDEXEDDB
   AddFilter((new IndexedDBMessageFilter(thread_safe_sender()))->GetFilter());
+#endif
 
   AddFilter((new CacheStorageMessageFilter(thread_safe_sender()))->GetFilter());
 

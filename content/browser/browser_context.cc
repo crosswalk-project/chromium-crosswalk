@@ -300,6 +300,7 @@ void BrowserContext::SaveSessionState(BrowserContext* browser_context) {
           storage_partition->GetDOMStorageContext());
   dom_storage_context_proxy->SetForceKeepSessionState();
 
+#ifndef DISABLE_INDEXEDDB
   IndexedDBContextImpl* indexed_db_context_impl =
       static_cast<IndexedDBContextImpl*>(
         storage_partition->GetIndexedDBContext());
@@ -310,6 +311,9 @@ void BrowserContext::SaveSessionState(BrowserContext* browser_context) {
         base::Bind(&SaveSessionStateOnIndexedDBThread,
                    make_scoped_refptr(indexed_db_context_impl)));
   }
+#else
+  (void) SaveSessionStateOnIndexedDBThread;
+#endif
 }
 
 void BrowserContext::SetDownloadManagerForTesting(

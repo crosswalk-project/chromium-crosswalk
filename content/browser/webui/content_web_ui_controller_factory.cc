@@ -61,8 +61,10 @@ WebUIController* ContentWebUIControllerFactory::CreateWebUIControllerForURL(
     return new AppCacheInternalsUI(web_ui);
   if (url.host() == kChromeUIGpuHost)
     return new GpuInternalsUI(web_ui);
+#ifndef DISABLE_INDEXEDDB
   if (url.host() == kChromeUIIndexedDBInternalsHost)
     return new IndexedDBInternalsUI(web_ui);
+#endif
   if (url.host() == kChromeUIMediaInternalsHost)
     return new MediaInternalsUI(web_ui);
 #ifndef DISABLE_ACCESSIBILITY
