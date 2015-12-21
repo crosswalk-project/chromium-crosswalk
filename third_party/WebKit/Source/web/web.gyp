@@ -212,6 +212,11 @@
                     '<@(web_files_geo)',
                   ],
                 }],
+                ['disable_indexeddb==1', {
+                  'sources!': [
+                    '<@(web_files_indexeddb)',
+                  ],
+                }],
             ],
             'direct_dependent_settings': {
                 'include_dirs': [

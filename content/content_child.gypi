@@ -301,6 +301,24 @@
     '<@(private_child_sources)',
   ],
   'conditions': [
+    ['disable_indexeddb==1',
+      {
+        'sources!': [
+          'child/indexed_db/indexed_db_dispatcher.cc',
+          'child/indexed_db/indexed_db_dispatcher.h',
+          'child/indexed_db/indexed_db_key_builders.cc',
+          'child/indexed_db/indexed_db_key_builders.h',
+          'child/indexed_db/indexed_db_message_filter.cc',
+          'child/indexed_db/indexed_db_message_filter.h',
+          'child/indexed_db/webidbcursor_impl.cc',
+          'child/indexed_db/webidbcursor_impl.h',
+          'child/indexed_db/webidbdatabase_impl.cc',
+          'child/indexed_db/webidbdatabase_impl.h',
+          'child/indexed_db/webidbfactory_impl.cc',
+          'child/indexed_db/webidbfactory_impl.h',
+        ],
+      }
+    ],
     ['use_default_render_theme==0',
       {
         'sources/': [

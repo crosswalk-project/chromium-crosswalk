@@ -53,7 +53,9 @@
 #include "public/platform/Platform.h"
 #include "public/platform/WebPrerenderingSupport.h"
 #include "public/platform/WebThread.h"
+#ifndef DISABLE_INDEXEDDB
 #include "web/IndexedDBClientImpl.h"
+#endif
 #include "wtf/Assertions.h"
 #include "wtf/CryptographicallyRandomNumber.h"
 #include "wtf/MainThread.h"
@@ -190,8 +192,9 @@ void initializeWithoutV8(Platform* platform)
 
     DEFINE_STATIC_LOCAL(ModulesInitializer, initializer, ());
     initializer.init();
-
+#ifndef DISABLE_INDEXEDDB
     setIndexedDBClientCreateFunction(IndexedDBClientImpl::create);
+#endif
 }
 
 void shutdown()
