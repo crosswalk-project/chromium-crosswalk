@@ -6,6 +6,8 @@
 #include "platform/scroll/ScrollableArea.h"
 
 #include "platform/TestingPlatformSupport.h"
+#include "platform/scroll/ScrollbarTheme.h"
+#include "platform/scroll/ScrollbarThemeMock.h"
 #include "public/platform/Platform.h"
 #include "public/platform/WebScheduler.h"
 #include "public/platform/WebThread.h"
@@ -32,10 +34,10 @@ public:
     MOCK_CONST_METHOD0(enclosingScrollableArea, ScrollableArea*());
     MOCK_CONST_METHOD1(visibleContentRect, IntRect(IncludeScrollbarsInRect));
     MOCK_CONST_METHOD0(contentsSize, IntSize());
-    MOCK_CONST_METHOD0(scrollbarsCanBeActive, bool());
     MOCK_CONST_METHOD0(scrollableAreaBoundingBox, IntRect());
 
     bool userInputScrollable(ScrollbarOrientation) const override { return true; }
+    bool scrollbarsCanBeActive () const override { return true; }
     bool shouldPlaceVerticalScrollbarOnLeft() const override { return false; }
     void setScrollOffset(const IntPoint& offset, ScrollType) override { m_scrollPosition = offset.shrunkTo(m_maximumScrollPosition); }
     IntPoint scrollPosition() const override { return m_scrollPosition; }

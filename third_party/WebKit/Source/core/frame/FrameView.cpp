@@ -2085,8 +2085,10 @@ void FrameView::scrollTo(const DoublePoint& newPosition)
 
 void FrameView::invalidatePaintForTickmarks() const
 {
-    if (Scrollbar* scrollbar = verticalScrollbar())
+    if (Scrollbar* scrollbar = verticalScrollbar()) {
+        scrollbar->setTrackNeedsRepaint(true);
         scrollbar->invalidate();
+    }
 }
 
 void FrameView::invalidateScrollbarRect(Scrollbar* scrollbar, const IntRect& rect)

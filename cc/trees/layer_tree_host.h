@@ -155,7 +155,7 @@ class CC_EXPORT LayerTreeHost : public MutatorHostClient {
     return rendering_stats_instrumentation_.get();
   }
 
-  const RendererCapabilities& GetRendererCapabilities() const;
+  virtual const RendererCapabilities& GetRendererCapabilities() const;
 
   void SetNeedsAnimate();
   virtual void SetNeedsUpdateLayers();

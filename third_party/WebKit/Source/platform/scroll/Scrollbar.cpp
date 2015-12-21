@@ -68,6 +68,8 @@ Scrollbar::Scrollbar(ScrollableArea* scrollableArea, ScrollbarOrientation orient
     , m_suppressInvalidation(false)
     , m_isAlphaLocked(false)
     , m_elasticOverscroll(0)
+    , m_trackNeedsRepaint(true)
+    , m_thumbNeedsRepaint(true)
 {
     if (!m_theme)
         m_theme = ScrollbarTheme::theme();
@@ -516,6 +518,10 @@ void Scrollbar::invalidateRect(const IntRect& rect)
     if (suppressInvalidation())
         return;
 
+    if (m_theme->shouldRepaintAllPartsOnInvalidation()) {
+        m_trackNeedsRepaint = true;
+        m_thumbNeedsRepaint = true;
+    }
     if (m_scrollableArea)
         m_scrollableArea->invalidateScrollbar(this, rect);
 }
