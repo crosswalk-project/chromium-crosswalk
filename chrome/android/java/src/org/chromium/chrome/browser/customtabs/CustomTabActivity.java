@@ -274,6 +274,7 @@ public class CustomTabActivity extends ChromeActivity {
         mTab.getView().requestFocus();
         mTabObserver = new CustomTabObserver(getApplication(), mSession);
         mTab.addObserver(mTabObserver);
+        mTab.getTabRedirectHandler().updateIntent(getIntent());
     }
 
     private void recordClientPackageName() {
@@ -338,6 +339,7 @@ public class CustomTabActivity extends ChromeActivity {
             params.setReferrer(CustomTabsConnection.getInstance(getApplication())
                     .getReferrerForSession(mSession));
         }
+        params.setTransitionType(PageTransition.LINK | PageTransition.FROM_API);
         mTabObserver.trackNextPageLoadFromTimestamp(timeStamp);
         if (mShouldReplaceCurrentEntry) params.setShouldReplaceCurrentEntry(true);
         mShouldReplaceCurrentEntry = false;
