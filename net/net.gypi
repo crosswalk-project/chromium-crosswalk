@@ -45,7 +45,6 @@
       'base/net_string_util.h',
       'base/net_util.cc',
       'base/net_util.h',
-      'base/net_util_icu.cc',
       'base/network_interfaces.cc',
       'base/network_interfaces.h',
       'base/network_interfaces_posix.cc',

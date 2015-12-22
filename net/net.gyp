@@ -126,12 +126,10 @@
             ],
             'sources!': [
               'base/net_string_util_icu.cc',
-              'base/net_util_icu.cc',
             ],
             'sources': [
               'base/net_string_util_icu_alternatives_android.cc',
               'base/net_string_util_icu_alternatives_android.h',
-              'base/net_util_icu_alternatives.cc',
             ],
           },
         ],
