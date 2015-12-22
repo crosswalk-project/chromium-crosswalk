@@ -1943,16 +1943,6 @@ xmlCharEncFirstLineInput(xmlParserInputBufferPtr input, int len)
             ret = -3;
     }
 #endif /* LIBXML_ICONV_ENABLED */
-#ifdef LIBXML_ICU_ENABLED
-    else if (input->encoder->uconv_in != NULL) {
-        ret = xmlUconvWrapper(input->encoder->uconv_in, 1, xmlBufEnd(out),
-                              &c_out, xmlBufContent(in), &c_in);
-        xmlBufShrink(in, c_in);
-        xmlBufAddLen(out, c_out);
-        if (ret == -1)
-            ret = -3;
-    }
-#endif /* LIBXML_ICU_ENABLED */
     switch (ret) {
         case 0:
 #ifdef DEBUG_ENCODING
@@ -2060,16 +2050,6 @@ xmlCharEncInput(xmlParserInputBufferPtr input, int flush)
             ret = -3;
     }
 #endif /* LIBXML_ICONV_ENABLED */
-#ifdef LIBXML_ICU_ENABLED
-    else if (input->encoder->uconv_in != NULL) {
-        ret = xmlUconvWrapper(input->encoder->uconv_in, 1, xmlBufEnd(out),
-                              &c_out, xmlBufContent(in), &c_in);
-        xmlBufShrink(in, c_in);
-        xmlBufAddLen(out, c_out);
-        if (ret == -1)
-            ret = -3;
-    }
-#endif /* LIBXML_ICU_ENABLED */
     switch (ret) {
         case 0:
 #ifdef DEBUG_ENCODING
@@ -2271,13 +2251,6 @@ retry:
             xmlBufAddLen(out, c_out);
         }
 #endif /* LIBXML_ICONV_ENABLED */
-#ifdef LIBXML_ICU_ENABLED
-        else if (output->encoder->uconv_out != NULL) {
-            ret = xmlUconvWrapper(output->encoder->uconv_out, 0, xmlBufEnd(out),
-                                  &c_out, NULL, &c_in);
-            xmlBufAddLen(out, c_out);
-        }
-#endif /* LIBXML_ICU_ENABLED */
 #ifdef DEBUG_ENCODING
 	xmlGenericError(xmlGenericErrorContext,
 		"initialized encoder\n");
@@ -2330,25 +2303,6 @@ retry:
         }
     }
 #endif /* LIBXML_ICONV_ENABLED */
-#ifdef LIBXML_ICU_ENABLED
-    else if (output->encoder->uconv_out != NULL) {
-        ret = xmlUconvWrapper(output->encoder->uconv_out, 0, xmlBufEnd(out),
-                              &c_out, xmlBufContent(in), &c_in);
-        xmlBufShrink(in, c_in);
-        xmlBufAddLen(out, c_out);
-        writtentot += c_out;
-        if (ret == -1) {
-            if (c_out > 0) {
-                /*
-                 * Can be a limitation of uconv
-                 */
-                charref_len = 0;
-                goto retry;
-            }
-            ret = -3;
-        }
-    }
-#endif /* LIBXML_ICU_ENABLED */
     else {
         xmlEncodingErr(XML_I18N_NO_OUTPUT,
                        "xmlCharEncOutFunc: no output function !\n", NULL);

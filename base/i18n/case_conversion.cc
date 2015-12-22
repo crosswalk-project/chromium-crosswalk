@@ -97,7 +97,7 @@ string16 ToUpper(StringPiece16 string) {
 string16 FoldCase(StringPiece16 string) {
 #if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   //TODO: add JNI implemenation for FoldCase.
-  return string.asString();
+  return string.as_string();
 #else
   return CaseMap(string, &FoldCaseMapper);
 #endif

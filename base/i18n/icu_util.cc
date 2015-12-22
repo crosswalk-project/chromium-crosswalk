@@ -77,10 +77,14 @@ const PlatformFile kInvalidPlatformFile =
 #else
     -1;
 #endif
+
 PlatformFile g_icudtl_pf = kInvalidPlatformFile;
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 MemoryMappedFile* g_icudtl_mapped_file = nullptr;
+#endif
 MemoryMappedFile::Region g_icudtl_region;
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 void LazyInitIcuDataFile() {
   if (g_icudtl_pf != kInvalidPlatformFile) {
     return;
@@ -160,6 +164,7 @@ bool InitializeICUWithFileDescriptorInternal(
   udata_setCommonData(const_cast<uint8*>(g_icudtl_mapped_file->data()), &err);
   return err == U_ZERO_ERROR;
 }
+#endif  // USE_ICU_ALTERNATIVES_ON_ANDROID
 #endif  // ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_FILE
 #endif  // !defined(OS_NACL)
 
