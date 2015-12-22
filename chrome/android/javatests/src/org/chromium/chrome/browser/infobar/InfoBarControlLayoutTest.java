@@ -54,7 +54,8 @@ public class InfoBarControlLayoutTest extends InstrumentationTestCase {
         layout.measure(parentWidthSpec, parentHeightSpec);
 
         // Small control takes the full width of the layout because it's put on its own line.
-        ControlLayoutParams params = InfoBarControlLayout.getControlLayoutParams(smallSwitch);
+        InfoBarControlLayout.ControlLayoutParams params =
+                InfoBarControlLayout.getControlLayoutParams(smallSwitch);
         assertEquals(0, params.top);
         assertEquals(0, params.start);
         assertEquals(2, params.columnsRequired);
