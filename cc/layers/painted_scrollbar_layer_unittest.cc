@@ -4,11 +4,11 @@
 
 #include "cc/layers/painted_scrollbar_layer.h"
 
-#include "cc/layers/layer_settings.h"
 #include "cc/test/fake_layer_tree_host.h"
 #include "cc/test/fake_layer_tree_host_client.h"
 #include "cc/test/fake_scrollbar.h"
 #include "cc/test/test_task_graph_runner.h"
+#include "cc/trees/layer_tree_settings.h"
 #include "testing/gmock/include/gmock/gmock.h"
 
 using ::testing::Mock;
