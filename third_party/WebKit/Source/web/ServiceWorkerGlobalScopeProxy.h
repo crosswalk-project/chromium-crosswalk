@@ -80,7 +80,9 @@ public:
 #endif
     void dispatchInstallEvent(int) override;
     void dispatchMessageEvent(const WebString& message, const WebMessagePortChannelArray&) override;
+#ifndef DISABLE_NOTIFICATIONS
     void dispatchNotificationClickEvent(int, int64_t notificationID, const WebNotificationData&, int actionIndex) override;
+#endif
     void dispatchPushEvent(int, const WebString& data) override;
     void dispatchServicePortConnectEvent(WebServicePortConnectEventCallbacks*, const WebURL& targetURL, const WebString& origin, WebServicePortID) override;
     void dispatchSyncEvent(int, const WebSyncRegistration&) override;

@@ -43,7 +43,9 @@
 #include "content/child/geofencing/geofencing_message_filter.h"
 #endif
 #include "content/child/mojo/mojo_application.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/child/notifications/notification_dispatcher.h"
+#endif
 #include "content/child/power_monitor_broadcast_source.h"
 #include "content/child/push_messaging/push_dispatcher.h"
 #include "content/child/quota_dispatcher.h"
@@ -392,14 +394,18 @@ void ChildThreadImpl::Init(const Options& options) {
   geofencing_message_filter_ =
       new GeofencingMessageFilter(thread_safe_sender_.get());
 #endif
+#ifndef DISABLE_NOTIFICATIONS
   notification_dispatcher_ =
       new NotificationDispatcher(thread_safe_sender_.get());
+#endif
   push_dispatcher_ = new PushDispatcher(thread_safe_sender_.get());
 
   channel_->AddFilter(histogram_message_filter_.get());
   channel_->AddFilter(resource_message_filter_.get());
   channel_->AddFilter(quota_message_filter_->GetFilter());
+#ifndef DISABLE_NOTIFICATIONS
   channel_->AddFilter(notification_dispatcher_->GetFilter());
+#endif
   channel_->AddFilter(push_dispatcher_->GetFilter());
   channel_->AddFilter(service_worker_message_filter_->GetFilter());
 #ifndef DISABLE_GEO_FEATURES

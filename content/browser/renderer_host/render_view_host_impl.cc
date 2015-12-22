@@ -56,9 +56,11 @@
 #include "content/public/browser/content_browser_client.h"
 #include "content/public/browser/focused_node_details.h"
 #include "content/public/browser/native_web_keyboard_event.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_details.h"
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/render_widget_host_iterator.h"
 #include "content/public/browser/storage_partition.h"
@@ -555,12 +557,14 @@ void RenderViewHostImpl::ClosePage() {
     // event acknowledgements.
     increment_in_flight_event_count();
 
+#ifndef DISABLE_NOTIFICATIONS
     // TODO(creis): Should this be moved to Shutdown?  It may not be called for
     // RenderViewHosts that have been swapped out.
     NotificationService::current()->Notify(
         NOTIFICATION_RENDER_VIEW_HOST_WILL_CLOSE_RENDER_VIEW,
         Source<RenderViewHost>(this),
         NotificationService::NoDetails());
+#endif
 
     Send(new ViewMsg_ClosePage(GetRoutingID()));
   } else {
@@ -1203,9 +1207,11 @@ void RenderViewHostImpl::OnFocusedNodeChanged(
                                   node_bounds_in_viewport.width(),
                                   node_bounds_in_viewport.height());
   FocusedNodeDetails details = {is_editable_node, node_bounds_in_screen};
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(NOTIFICATION_FOCUS_CHANGED_IN_PAGE,
                                          Source<RenderViewHost>(this),
                                          Details<FocusedNodeDetails>(&details));
+#endif
 }
 
 void RenderViewHostImpl::OnUserGesture() {

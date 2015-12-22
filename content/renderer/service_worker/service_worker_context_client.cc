@@ -13,7 +13,9 @@
 #include "base/threading/thread_local.h"
 #include "base/trace_event/trace_event.h"
 #include "content/child/navigator_connect/service_port_dispatcher_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/child/notifications/notification_data_conversions.h"
+#endif
 #include "content/child/request_extra_data.h"
 #include "content/child/service_worker/service_worker_dispatcher.h"
 #include "content/child/service_worker/service_worker_network_provider.h"
@@ -46,7 +48,9 @@
 #include "third_party/WebKit/public/platform/WebReferrerPolicy.h"
 #include "third_party/WebKit/public/platform/WebString.h"
 #include "third_party/WebKit/public/platform/modules/background_sync/WebSyncRegistration.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "third_party/WebKit/public/platform/modules/notifications/WebNotificationData.h"
+#endif
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerClientQueryOptions.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerRequest.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerResponse.h"
@@ -251,8 +255,10 @@ void ServiceWorkerContextClient::OnMessageReceived(
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_ActivateEvent, OnActivateEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_FetchEvent, OnFetchEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_InstallEvent, OnInstallEvent)
+#ifndef DISABLE_NOTIFICATIONS
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_NotificationClickEvent,
                         OnNotificationClickEvent)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_PushEvent, OnPushEvent)
 #ifndef DISABLE_GEO_FEATURES
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_GeofencingEvent, OnGeofencingEvent)
@@ -503,12 +509,14 @@ void ServiceWorkerContextClient::didHandleFetchEvent(
       response));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void ServiceWorkerContextClient::didHandleNotificationClickEvent(
     int request_id,
     blink::WebServiceWorkerEventResult result) {
   Send(new ServiceWorkerHostMsg_NotificationClickEventFinished(
       GetRoutingID(), request_id));
 }
+#endif
 
 void ServiceWorkerContextClient::didHandlePushEvent(
     int request_id,
@@ -734,6 +742,7 @@ void ServiceWorkerContextClient::OnFetchEvent(
   proxy_->dispatchFetchEvent(request_id, webRequest);
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void ServiceWorkerContextClient::OnNotificationClickEvent(
     int request_id,
     int64_t persistent_notification_id,
@@ -747,6 +756,7 @@ void ServiceWorkerContextClient::OnNotificationClickEvent(
       ToWebNotificationData(notification_data),
       action_index);
 }
+#endif
 
 void ServiceWorkerContextClient::OnPushEvent(int request_id,
                                              const std::string& data) {

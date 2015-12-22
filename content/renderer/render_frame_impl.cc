@@ -98,7 +98,9 @@
 #include "content/renderer/memory_benchmarking_extension.h"
 #include "content/renderer/mojo/service_registry_js_wrapper.h"
 #include "content/renderer/navigation_state_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/renderer/notification_permission_dispatcher.h"
+#endif
 #include "content/renderer/npapi/plugin_channel_host.h"
 #include "content/renderer/pepper/plugin_instance_throttler_impl.h"
 #include "content/renderer/presentation/presentation_dispatcher.h"
@@ -674,7 +676,9 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
       selection_text_offset_(0),
       selection_range_(gfx::Range::InvalidRange()),
       handling_select_range_(false),
+#ifndef DISABLE_NOTIFICATIONS
       notification_permission_dispatcher_(NULL),
+#endif
       web_user_media_client_(NULL),
       media_permission_dispatcher_(NULL),
       midi_dispatcher_(NULL),
@@ -3038,6 +3042,7 @@ void RenderFrameImpl::dispatchLoad() {
   Send(new FrameHostMsg_DispatchLoad(routing_id_));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void RenderFrameImpl::requestNotificationPermission(
     const blink::WebSecurityOrigin& origin,
     blink::WebNotificationPermissionCallback* callback) {
@@ -3048,6 +3053,7 @@ void RenderFrameImpl::requestNotificationPermission(
 
   notification_permission_dispatcher_->RequestPermission(origin, callback);
 }
+#endif
 
 void RenderFrameImpl::didChangeSelection(bool is_empty_selection) {
   if (!GetRenderWidget()->handling_input_event() && !handling_select_range_)
@@ -3871,14 +3877,18 @@ blink::WebVRClient* RenderFrameImpl::webVRClient() {
 
 void RenderFrameImpl::DidPlay(WebMediaPlayer* player) {
   has_played_media_ = true;
+#ifndef DISABLE_NOTIFICATIONS
   Send(new FrameHostMsg_MediaPlayingNotification(
       routing_id_, reinterpret_cast<int64>(player), player->hasVideo(),
       player->hasAudio(), player->isRemote()));
+#endif
 }
 
 void RenderFrameImpl::DidPause(WebMediaPlayer* player) {
+#ifndef DISABLE_NOTIFICATIONS
   Send(new FrameHostMsg_MediaPausedNotification(
       routing_id_, reinterpret_cast<int64>(player)));
+#endif
 }
 
 void RenderFrameImpl::PlayerGone(WebMediaPlayer* player) {

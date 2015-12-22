@@ -10,8 +10,10 @@
 #include "base/thread_task_runner_handle.h"
 #include "content/browser/media/media_internals_handler.h"
 #include "content/public/browser/content_browser_client.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/web_ui.h"
 
@@ -28,10 +30,13 @@ static const net::NetLog::EventType kNetEventTypeFilter[] = {
 };
 
 MediaInternalsProxy::MediaInternalsProxy() {
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this, NOTIFICATION_RENDERER_PROCESS_TERMINATED,
                  NotificationService::AllBrowserContextsAndSources());
+#endif
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void MediaInternalsProxy::Observe(int type,
                                   const NotificationSource& source,
                                   const NotificationDetails& details) {
@@ -41,6 +46,7 @@ void MediaInternalsProxy::Observe(int type,
   CallJavaScriptFunctionOnUIThread("media.onRendererTerminated",
       new base::FundamentalValue(process->GetID()));
 }
+#endif
 
 void MediaInternalsProxy::Attach(MediaInternalsMessageHandler* handler) {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);

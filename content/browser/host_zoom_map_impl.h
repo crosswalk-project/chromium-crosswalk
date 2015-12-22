@@ -13,17 +13,23 @@
 #include "base/sequenced_task_runner_helpers.h"
 #include "base/synchronization/lock.h"
 #include "content/public/browser/host_zoom_map.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_observer.h"
 #include "content/public/browser/notification_registrar.h"
+#endif
 
 namespace content {
 
 class WebContentsImpl;
 
+#ifndef DISABLE_NOTIFICATIONS
 // HostZoomMap needs to be deleted on the UI thread because it listens
 // to notifications on there (and holds a NotificationRegistrar).
 class CONTENT_EXPORT HostZoomMapImpl : public NON_EXPORTED_BASE(HostZoomMap),
                                        public NotificationObserver {
+#else
+class CONTENT_EXPORT HostZoomMapImpl : public NON_EXPORTED_BASE(HostZoomMap) {
+#endif
  public:
   HostZoomMapImpl();
   ~HostZoomMapImpl() override;
@@ -94,10 +100,12 @@ class CONTENT_EXPORT HostZoomMapImpl : public NON_EXPORTED_BASE(HostZoomMap),
                              int render_process_id,
                              int render_view_id) const;
 
+#ifndef DISABLE_NOTIFICATIONS
   // NotificationObserver implementation.
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   void SendErrorPageZoomLevelRefresh();
 
@@ -157,7 +165,9 @@ class CONTENT_EXPORT HostZoomMapImpl : public NON_EXPORTED_BASE(HostZoomMap),
   // guarantee thread safety.
   mutable base::Lock lock_;
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationRegistrar registrar_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(HostZoomMapImpl);
 };

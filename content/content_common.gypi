@@ -173,6 +173,14 @@
       'common/geofencing_types.cc',
       'common/geofencing_types.h',
     ],
+    'private_common_sources_notifications': [
+      'public/common/persistent_notification_status.h',
+      'public/common/platform_notification_data.cc',
+      'public/common/platform_notification_data.h',
+
+      'common/notification_constants.h',
+      'common/platform_notification_messages.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -1147,6 +1155,11 @@
     ['disable_geo_features==1', {
       'sources!': [
         '<@(private_common_sources_geo)',
+      ],
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_common_sources_notifications)',
       ],
     }],
   ],

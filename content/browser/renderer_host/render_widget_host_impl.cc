@@ -56,8 +56,10 @@
 #include "content/common/input_messages.h"
 #include "content/common/view_messages.h"
 #include "content/public/browser/native_web_keyboard_event.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_widget_host_iterator.h"
 #include "content/public/common/content_constants.h"
 #include "content/public/common/content_switches.h"
@@ -521,11 +523,13 @@ void RenderWidgetHostImpl::WasHidden() {
   // Tell the RenderProcessHost we were hidden.
   process_->WidgetHidden();
 
+#ifndef DISABLE_NOTIFICATIONS
   bool is_visible = false;
   NotificationService::current()->Notify(
       NOTIFICATION_RENDER_WIDGET_VISIBILITY_CHANGED,
       Source<RenderWidgetHost>(this),
       Details<bool>(&is_visible));
+#endif
 }
 
 void RenderWidgetHostImpl::WasShown(const ui::LatencyInfo& latency_info) {
@@ -549,11 +553,13 @@ void RenderWidgetHostImpl::WasShown(const ui::LatencyInfo& latency_info) {
 
   process_->WidgetRestored();
 
+#ifndef DISABLE_NOTIFICATIONS
   bool is_visible = true;
   NotificationService::current()->Notify(
       NOTIFICATION_RENDER_WIDGET_VISIBILITY_CHANGED,
       Source<RenderWidgetHost>(this),
       Details<bool>(&is_visible));
+#endif
 
   // It's possible for our size to be out of sync with the renderer. The
   // following is one case that leads to this:
@@ -1313,10 +1319,12 @@ void RenderWidgetHostImpl::SetAutoResize(bool enable,
 }
 
 void RenderWidgetHostImpl::Destroy() {
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDER_WIDGET_HOST_DESTROYED,
       Source<RenderWidgetHost>(this),
       NotificationService::NoDetails());
+#endif
 
   // Tell the view to die.
   // Note that in the process of the view shutting down, it can call a ton
@@ -1331,10 +1339,12 @@ void RenderWidgetHostImpl::Destroy() {
 }
 
 void RenderWidgetHostImpl::RendererIsUnresponsive() {
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDER_WIDGET_HOST_HANG,
       Source<RenderWidgetHost>(this),
       NotificationService::NoDetails());
+#endif
   is_unresponsive_ = true;
   NotifyRendererUnresponsive();
 }
@@ -1541,10 +1551,12 @@ void RenderWidgetHostImpl::DidUpdateBackingStore(
   if (view_)
     view_->MovePluginWindows(params.plugin_window_moves);
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDER_WIDGET_HOST_DID_UPDATE_BACKING_STORE,
       Source<RenderWidgetHost>(this),
       NotificationService::NoDetails());
+#endif
 
   // We don't need to update the view if the view is hidden. We must do this
   // early return after the ACK is sent, however, or the renderer will not send

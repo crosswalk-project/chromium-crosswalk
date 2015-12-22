@@ -217,6 +217,11 @@
                     '<@(web_files_indexeddb)',
                   ],
                 }],
+                ['disable_notifications==1', {
+                  'sources!': [
+                    '<@(web_files_notifications)',
+                  ],
+                }],
             ],
             'direct_dependent_settings': {
                 'include_dirs': [

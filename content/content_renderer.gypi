@@ -106,6 +106,10 @@
       'renderer/geolocation_dispatcher.cc',
       'renderer/geolocation_dispatcher.h',
     ],
+    'private_renderer_sources_notifications': [
+      'renderer/notification_permission_dispatcher.cc',
+      'renderer/notification_permission_dispatcher.h',
+    ],
     'private_renderer_sources': [
       'renderer/accessibility/blink_ax_enum_conversion.cc',
       'renderer/accessibility/blink_ax_enum_conversion.h',
@@ -908,6 +912,11 @@
     ['disable_geo_features==1', {
       'sources!': [
         '<@(private_renderer_sources_geo)',
+      ]
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_renderer_sources_notifications)',
       ]
     }],
   ],

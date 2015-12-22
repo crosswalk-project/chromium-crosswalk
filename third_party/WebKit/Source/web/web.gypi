@@ -13,6 +13,10 @@
       'IndexedDBClientImpl.cpp',
       'IndexedDBClientImpl.h',
     ],
+    'web_files_notifications': [
+      'NotificationPermissionClientImpl.cpp',
+      'NotificationPermissionClientImpl.h',
+    ],
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',

@@ -54,7 +54,9 @@ class GpuMessageFilter;
 class InProcessChildThreadParams;
 class MessagePortMessageFilter;
 class MojoApplicationHost;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationMessageFilter;
+#endif
 #if defined(ENABLE_WEBRTC)
 class P2PSocketDispatcherHost;
 #endif
@@ -252,9 +254,11 @@ class CONTENT_EXPORT RenderProcessHostImpl
     return message_port_message_filter_.get();
   }
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationMessageFilter* notification_message_filter() const {
     return notification_message_filter_.get();
   }
+#endif
 
   void set_is_for_guests_only_for_testing(bool is_for_guests_only) {
     is_for_guests_only_ = is_for_guests_only;
@@ -375,7 +379,9 @@ class CONTENT_EXPORT RenderProcessHostImpl
 
   // The filter for Web Notification messages coming from the renderer. Holds a
   // closure per notification that must be freed when the notification closes.
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<NotificationMessageFilter> notification_message_filter_;
+#endif
 
   // Used in single-process mode.
   scoped_ptr<base::Thread> in_process_renderer_;
