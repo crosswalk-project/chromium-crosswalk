@@ -1011,7 +1011,6 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
   SEL rendererCrashSelector = @selector(webControllerWebProcessDidCrash:);
   if ([self.delegate respondsToSelector:rendererCrashSelector])
     [self.delegate webControllerWebProcessDidCrash:self];
-  }
 }
 
 - (void)queryPageReferrerPolicy:(void(^)(NSString*))responseHandler {
