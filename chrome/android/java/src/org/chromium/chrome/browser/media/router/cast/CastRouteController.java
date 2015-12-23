@@ -331,6 +331,7 @@ public class CastRouteController implements RouteController, MediaNotificationLi
 
     @Override
     public void onStop(int actionSource) {
+        stopApplication();
         mRouteDelegate.onSessionStopAction();
     }
 
