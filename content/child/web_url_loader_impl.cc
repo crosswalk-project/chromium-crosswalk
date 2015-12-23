@@ -795,7 +795,7 @@ void WebURLLoaderImpl::Context::OnReceivedData(scoped_ptr<ReceivedData> data) {
   if (!client_)
     return;
 
-#if defined(DISABLE_FTP_SUPPORT)
+#if !defined(DISABLE_FTP_SUPPORT)
   if (ftp_listing_delegate_) {
     // The FTP listing delegate will make the appropriate calls to
     // client_->didReceiveData and client_->didReceiveResponse.  Since the
@@ -906,10 +906,14 @@ void WebURLLoaderImpl::Context::CancelBodyStreaming() {
   scoped_refptr<Context> protect(this);
 
   // Notify renderer clients that the request is canceled.
+#if !defined(DISABLE_FTP_SUPPORT)
   if (ftp_listing_delegate_) {
     ftp_listing_delegate_->OnCompletedRequest();
     ftp_listing_delegate_.reset(NULL);
   } else if (multipart_delegate_) {
+#else
+  if (multipart_delegate_) {
+#endif
     multipart_delegate_->OnCompletedRequest();
     multipart_delegate_.reset(NULL);
   }

@@ -29,7 +29,6 @@
 #if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/common/unicode/rbbi.h"
 #include "third_party/icu/source/common/unicode/uloc.h"
-#include "ui/base/l10n/l10n_util_plurals.h"
 #endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #endif  // defined(OS_ANDROID)
 #include "ui/base/l10n/l10n_util_collator.h"

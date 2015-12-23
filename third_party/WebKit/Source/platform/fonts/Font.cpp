@@ -232,7 +232,7 @@ void Font::drawEmphasisMarks(SkCanvas* canvas, const TextRunPaintInfo& runInfo, 
 float Font::width(const TextRun& run, HashSet<const SimpleFontData*>* fallbackFonts, FloatRect* glyphBounds) const
 {
     FontCachePurgePreventer purgePreventer;
-#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     if (codePath(TextRunPaintInfo(run)) == ComplexPath)
         return floatWidthForComplexText(run, fallbackFonts, glyphBounds);
 #endif
