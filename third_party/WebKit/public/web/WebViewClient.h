@@ -227,8 +227,10 @@ public:
 
     // Speech --------------------------------------------------------------
 
+#ifndef DISABLE_SPEECH
     // Access the embedder API for speech recognition services.
     virtual WebSpeechRecognizer* speechRecognizer() { return 0; }
+#endif
 
 
     // Zoom ----------------------------------------------------------------

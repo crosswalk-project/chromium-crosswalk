@@ -17,6 +17,14 @@
       'NotificationPermissionClientImpl.cpp',
       'NotificationPermissionClientImpl.h',
     ],
+    'web_files_speech' : [
+      'SpeechRecognitionClientProxy.cpp',
+      'SpeechRecognitionClientProxy.h',
+
+      'WebSpeechGrammar.cpp',
+      'WebSpeechRecognitionHandle.cpp',
+      'WebSpeechRecognitionResult.cpp',
+    ],
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',

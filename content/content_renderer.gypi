@@ -48,6 +48,10 @@
     '<(SHARED_INTERMEDIATE_DIR)',  # Needed by key_systems.cc.
   ],
   'variables': {
+    'public_renderer_sources_speech': [
+      'renderer/speech_recognition_dispatcher.cc',
+      'renderer/speech_recognition_dispatcher.h',
+    ],
     'public_renderer_sources': [
       'public/renderer/android_content_detection_prefixes.cc',
       'public/renderer/android_content_detection_prefixes.h',
@@ -753,6 +757,11 @@
     '<@(private_renderer_sources)',
   ],
   'conditions': [
+    ['enable_web_speech==0', {
+      'sources!': [
+        '<@(public_renderer_sources_speech)',
+      ],
+    }],
     ['OS=="mac"', {
       'sources!': [
         'common/process_watcher_posix.cc',
