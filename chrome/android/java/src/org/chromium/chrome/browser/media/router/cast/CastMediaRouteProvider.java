@@ -142,7 +142,10 @@ public class CastMediaRouteProvider
     @Override
     public void onMessage(String clientId, String message) {
         ClientRecord clientRecord = getClientRecordByClientId(clientId);
-        if (clientRecord == null) return;
+        if (clientRecord == null
+                || clientRecord.clientId.endsWith(RECEIVER_ACTION_PRESENTATION_ID)) {
+            return;
+        }
 
         mManager.onMessage(clientRecord.routeId, message);
     }
