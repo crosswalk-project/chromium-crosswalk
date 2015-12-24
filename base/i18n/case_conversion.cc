@@ -7,13 +7,18 @@
 #include "base/numerics/safe_conversions.h"
 #include "base/strings/string16.h"
 #include "base/strings/string_util.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include "third_party/icu/source/common/unicode/uchar.h"
 #include "third_party/icu/source/common/unicode/unistr.h"
 #include "third_party/icu/source/common/unicode/ustring.h"
+#endif
 
 namespace base {
 namespace i18n {
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 namespace {
 
 // Provides a uniform interface for upper/lower/folding which take take
@@ -71,17 +76,31 @@ string16 CaseMap(StringPiece16 string, CaseMapperFunction case_mapper) {
 }
 
 }  // namespace
+#endif
 
 string16 ToLower(StringPiece16 string) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::ToLower(string);
+#else
   return CaseMap(string, &ToLowerMapper);
+#endif
 }
 
 string16 ToUpper(StringPiece16 string) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return base::icu_utils::ToUpper(string);
+#else
   return CaseMap(string, &ToUpperMapper);
+#endif
 }
 
 string16 FoldCase(StringPiece16 string) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  //TODO: add JNI implemenation for FoldCase.
+  return string.as_string();
+#else
   return CaseMap(string, &FoldCaseMapper);
+#endif
 }
 
 }  // namespace i18n

@@ -17,10 +17,13 @@
 #include "base/path_service.h"
 #include "base/strings/string_util.h"
 #include "base/strings/sys_string_conversions.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/common/unicode/putil.h"
 #include "third_party/icu/source/common/unicode/udata.h"
 #if defined(OS_LINUX) && !defined(OS_CHROMEOS)
 #include "third_party/icu/source/i18n/unicode/timezone.h"
+#endif
 #endif
 
 #if defined(OS_ANDROID)
@@ -74,10 +77,14 @@ const PlatformFile kInvalidPlatformFile =
 #else
     -1;
 #endif
+
 PlatformFile g_icudtl_pf = kInvalidPlatformFile;
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 MemoryMappedFile* g_icudtl_mapped_file = nullptr;
+#endif
 MemoryMappedFile::Region g_icudtl_region;
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 void LazyInitIcuDataFile() {
   if (g_icudtl_pf != kInvalidPlatformFile) {
     return;
@@ -157,6 +164,7 @@ bool InitializeICUWithFileDescriptorInternal(
   udata_setCommonData(const_cast<uint8*>(g_icudtl_mapped_file->data()), &err);
   return err == U_ZERO_ERROR;
 }
+#endif  // USE_ICU_ALTERNATIVES_ON_ANDROID
 #endif  // ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_FILE
 #endif  // !defined(OS_NACL)
 
@@ -171,7 +179,11 @@ bool InitializeICUWithFileDescriptor(
   DCHECK(!g_check_called_once || !g_called_once);
   g_called_once = true;
 #endif
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  return true;
+#else
   return InitializeICUWithFileDescriptorInternal(data_fd, data_region);
+#endif
 }
 
 PlatformFile GetIcuDataFileHandle(MemoryMappedFile::Region* out_region) {
@@ -187,6 +199,10 @@ bool InitializeICU() {
   g_called_once = true;
 #endif
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // There is no icudtl.dat to load any more.
+  return true;
+#else
   bool result;
 #if (ICU_UTIL_DATA_IMPL == ICU_UTIL_DATA_SHARED)
   // We expect to find the ICU data module alongside the current module.
@@ -236,6 +252,7 @@ bool InitializeICU() {
     scoped_ptr<icu::TimeZone> zone(icu::TimeZone::createDefault());
 #endif
   return result;
+#endif  // defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 }
 #endif  // !defined(OS_NACL)
 

@@ -8,8 +8,11 @@
 #include <vector>
 
 #include "base/strings/string16.h"
-#include "third_party/icu/source/i18n/unicode/coll.h"
 #include "ui/base/ui_base_export.h"
+
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "third_party/icu/source/i18n/unicode/coll.h"
+#endif
 
 namespace gfx {
 class ImageSkia;
@@ -80,14 +83,18 @@ class UI_BASE_EXPORT TableModel {
   // comparison.
   virtual int CompareValues(int row1, int row2, int column_id);
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   // Reset the collator.
   void ClearCollator();
+#endif
 
  protected:
   virtual ~TableModel() {}
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
   // Returns the collator used by CompareValues.
   icu::Collator* GetCollator();
+#endif
 };
 
 // TableColumn specifies the title, alignment and size of a particular column.

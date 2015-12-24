@@ -339,6 +339,14 @@
         ],
       }
     ],
+    ['disable_ftp_support==1',
+      {
+        'sources/': [
+          ['exclude', 'child/ftp_directory_listing_response_delegate.cc'],
+          ['exclude', 'child/ftp_directory_listing_response_delegate.h'],
+        ],
+      }
+    ],
     ['OS=="android"', {
       'dependencies': [
         '../build/android/ndk.gyp:cpu_features',

@@ -22,8 +22,13 @@ CaseInsensitiveCompare::~CaseInsensitiveCompare() {
 
 bool CaseInsensitiveCompare::StringsEqual(const base::string16& lhs,
                                           const base::string16& rhs) const {
+#ifndef USE_ICU_ALTERNATIVES_ON_ANDROID
   return base::i18n::CompareString16WithCollator(*collator_, lhs, rhs) ==
          UCOL_EQUAL;
+#else
+  return base::i18n::CompareString16WithCollator("", lhs, rhs) ==
+         UCOL_EQUAL;
+#endif
 }
 
 }  // namespace l10n

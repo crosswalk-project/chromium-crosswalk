@@ -35,8 +35,10 @@
 #include "public/platform/Platform.h"
 #include "wtf/PassOwnPtr.h"
 #include "wtf/text/StringBuilder.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include <unicode/idna.h>
 #include <unicode/unistr.h>
+#endif
 
 namespace blink {
 
@@ -50,13 +52,16 @@ static const char emailPattern[] =
     "[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?" // domain part
     "(?:\\.[a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?)*";
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 // RFC5321 says the maximum total length of a domain name is 255 octets.
 static const int32_t maximumDomainNameLength = 255;
 // Use the same option as in url/url_canon_icu.cc
 static const int32_t idnaConversionOption = UIDNA_CHECK_BIDI;
+#endif
 
 static String convertEmailAddressToASCII(const String& address)
 {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     if (address.containsOnlyASCII())
         return address;
 
@@ -83,6 +88,9 @@ static String convertEmailAddressToASCII(const String& address)
     builder.append(address, 0, atPosition + 1);
     builder.append(domainName.getBuffer(), domainName.length());
     return builder.toString();
+#else
+    return address;
+#endif
 }
 
 String EmailInputType::convertEmailAddressToUnicode(const String& address) const

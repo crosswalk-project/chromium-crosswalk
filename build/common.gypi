@@ -829,6 +829,13 @@
           'enable_print_preview%': 0,
           'enable_task_manager%':0,
           'video_hole%': 1,
+          'conditions': [
+            ['use_icu_alternatives_on_android==1', {
+              'disable_ftp_support%': 1,
+            }, {
+              'disable_ftp_support%': 0,
+            }],
+          ],
         }],
 
         # Android and OSX have built-in spellcheckers that can be utilized.
@@ -861,10 +868,6 @@
         # Enable hotwording on Chrome-branded ChromeOS builds.
         ['branding=="Chrome" and chromeos==1', {
           'enable_hotwording%': 1,
-        }],
-
-        ['OS=="android"', {
-          'enable_webrtc%': 1,
         }],
 
         ['OS=="ios"', {
@@ -1565,6 +1568,9 @@
         # official deterministic build has high value too but MSVC toolset can't
         # generate anything deterministic with WPO enabled AFAIK.
         'dont_embed_build_metadata%': 0,
+      }],
+      ['OS=="android" and use_icu_alternatives_on_android', {
+        'v8_enable_i18n_support': 0,
       }],
       # Enable the Syzygy optimization step for the official builds.
       ['OS=="win" and buildtype=="Official" and syzyasan!=1 and clang!=1', {
@@ -3051,6 +3057,9 @@
       }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['use_icu_alternatives_on_android==1', {
+        'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
       }],
       ['enable_mdns==1', {
         'defines': ['ENABLE_MDNS=1'],

@@ -52,6 +52,10 @@ BASE_I18N_EXPORT bool ConvertToUtf8AndNormalize(const std::string& text,
                                                 const std::string& charset,
                                                 std::string* result);
 
+BASE_I18N_EXPORT bool ConvertToUtf8(const std::string& text,
+                                    const std::string& charset,
+                                    std::string* result);
+
 }  // namespace base
 
 #endif  // BASE_I18N_ICU_STRING_CONVERSIONS_H_

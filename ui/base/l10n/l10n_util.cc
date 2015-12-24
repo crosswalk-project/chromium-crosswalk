@@ -25,8 +25,12 @@
 #include "base/strings/sys_string_conversions.h"
 #include "base/strings/utf_string_conversions.h"
 #include "build/build_config.h"
+#if defined(OS_ANDROID)
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include "third_party/icu/source/common/unicode/rbbi.h"
 #include "third_party/icu/source/common/unicode/uloc.h"
+#endif  // !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#endif  // defined(OS_ANDROID)
 #include "ui/base/l10n/l10n_util_collator.h"
 #include "ui/base/resource/resource_bundle.h"
 #include "ui/base/ui_base_paths.h"
@@ -34,7 +38,7 @@
 #if defined(OS_ANDROID)
 #include "base/android/locale_utils.h"
 #include "ui/base/l10n/l10n_util_android.h"
-#endif
+#endif  // defined(OS_ANDROID)
 
 #if defined(USE_GLIB)
 #include <glib.h>
@@ -825,8 +829,15 @@ base::string16 GetStringFUTF16Int(int message_id, int64 a) {
 }
 
 base::string16 GetPluralStringFUTF16(int message_id, int number) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+  // It's only used in chrome extension, simplify this by just return
+  // the string for first message_ids.
+  base::string16 pattern = GetStringUTF16(message_id);
+  return pattern;
+#else
   return base::i18n::MessageFormatter::FormatWithNumberedArgs(
       GetStringUTF16(message_id), number);
+#endif
 }
 
 std::string GetPluralStringFUTF8(int message_id, int number) {

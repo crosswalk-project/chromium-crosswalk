@@ -28,8 +28,10 @@ Still reading?
   <issue id="CommitPrefEdits">
     <ignore path="third_party/cacheinvalidation/src/java/com/google/ipc/invalidation/ticl/android2/channel/AndroidChannelPreferences.java"/>
   </issue>
-  <issue id="DefaultLocale">
+  <issue id="DefaultLocale" severity="ignore">
     <ignore path="third_party/cacheinvalidation/src/java/com/google/ipc/invalidation/external/client/contrib/AndroidListenerState.java"/>
+    <ignore path="/media/heke/Drive2/next/crosswalk-src/src/ui/android/java/src/org/chromium/ui/base/LocalizationUtils.java"/>
+    <igonre path="/media/heke/Drive2/next/crosswalk-src/src/base/icu_alternatives_on_android/java/src/org/chromium/base/icu/IcuUtils.java"/>
   </issue>
   <issue id="DrawAllocation">
     <ignore path="content/public/android/java/src/org/chromium/content/browser/ContentViewRenderView.java"/>
