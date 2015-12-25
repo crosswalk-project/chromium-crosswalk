@@ -48,6 +48,7 @@ void DocumentStyleSheetCollection::collectStyleSheetsFromCandidates(StyleEngine&
     for (Node* n : m_styleSheetCandidateNodes) {
         StyleSheetCandidate candidate(*n);
 
+#if !defined(DISABLE_XSLT)
         ASSERT(!candidate.isXSL());
         if (candidate.isImport()) {
             Document* document = candidate.importedDocument();
@@ -59,6 +60,7 @@ void DocumentStyleSheetCollection::collectStyleSheetsFromCandidates(StyleEngine&
             document->styleEngine().updateStyleSheetsInImport(collector);
             continue;
         }
+#endif
 
         if (candidate.isEnabledAndLoading()) {
             // it is loading but we should still decide which style sheet set to use

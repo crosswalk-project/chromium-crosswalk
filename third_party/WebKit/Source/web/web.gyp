@@ -148,7 +148,12 @@
                                 '<(DEPTH)/third_party/libxml/libxml.gyp:libxml',
                                 '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
                              ],
-                        }]
+                        }],
+                        ['disable_xslt==1', {
+                            'dependencies!': [
+                                '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
+                            ],
+                        }],
                     ],
                     'msvs_settings': {
                       'VCLinkerTool': {

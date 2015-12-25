@@ -53,7 +53,9 @@ class ImageResource;
 class MHTMLArchive;
 class RawResource;
 class ScriptResource;
+#if !defined(DISABLE_XSLT)
 class XSLStyleSheetResource;
+#endif
 class KURL;
 class ResourceTimingInfo;
 class ResourceLoaderSet;

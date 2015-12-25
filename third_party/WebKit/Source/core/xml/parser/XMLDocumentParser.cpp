@@ -75,7 +75,10 @@
 #include <libxml/catalog.h>
 #include <libxml/parser.h>
 #include <libxml/parserInternals.h>
+
+#if !defined(DISABLE_XSLT)
 #include <libxslt/xslt.h>
+#endif
 
 namespace blink {
 
@@ -1548,7 +1551,11 @@ xmlDocPtr xmlDocPtrForString(Document* document, const String& source, const Str
     // document results in good error messages.
     XMLDocumentParserScope scope(document, errorFunc, 0);
     XMLParserInput input(source);
+#if defined(DISABLE_XSLT)
+    return xmlReadMemory(input.data(), input.size(), url.latin1().data(), input.encoding(), 0);
+#else
     return xmlReadMemory(input.data(), input.size(), url.latin1().data(), input.encoding(), XSLT_PARSE_OPTIONS);
+#endif
 }
 
 OrdinalNumber XMLDocumentParser::lineNumber() const

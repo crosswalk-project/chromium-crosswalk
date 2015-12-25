@@ -225,6 +225,11 @@
             '<!@(pkg-config --cflags-only-I ipp)',
           ],
         }],
+        ['disable_xslt==1', {
+          'dependencies!': [
+            '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
+          ]
+        }],
       ],
     },
     {
@@ -295,6 +300,14 @@
         },
       },
       'conditions': [
+        ['disable_xslt==1', {
+          'depencencies!': [
+            '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
+          ],
+          'export_dependent_settings!': [
+            '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
+          ],
+        }],
         ['OS=="win" and component=="shared_library"', {
           'direct_dependent_settings': {
             'defines': [
