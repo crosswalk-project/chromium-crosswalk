@@ -3,6 +3,7 @@
         'core_generated.gypi',
     ],
     'variables': {
+    'variables': {
         # Files for which bindings (.cpp and .h files) will be generated
         'core_idl_files': [
             'animation/KeyframeEffect.idl',
@@ -3871,5 +3872,66 @@
                 ],
             }],
         ],
-    }
+    },
+        'core_idl_files': [
+            '<@(core_idl_files)',
+        ],
+        'core_idl_with_modules_dependency_files': [
+            '<@(core_idl_with_modules_dependency_files)',
+        ],
+        'core_dependency_idl_files': [
+            '<@(core_dependency_idl_files)',
+        ],
+        'core_event_idl_files': [
+            '<@(core_event_idl_files)',
+        ],
+        'core_typedefs_enums_only_idl_files': [
+            '<@(core_typedefs_enums_only_idl_files)',
+        ],
+        'webcore_rendering_files': [
+            '<@(webcore_rendering_files)',
+        ],
+        'webcore_non_rendering_files': [
+            '<@(webcore_non_rendering_files)',
+        ],
+        'webcore_dom_files': [
+            '<@(webcore_dom_files)',
+        ],
+        'webcore_html_files': [
+            '<@(webcore_html_files)',
+        ],
+        'webcore_svg_files': [
+            '<@(webcore_svg_files)',
+        ],
+        'core_dictionary_idl_files': [
+            '<@(core_dictionary_idl_files)',
+        ],
+        'generated_core_dictionary_files': [
+            '<@(generated_core_dictionary_files)',
+        ],
+        'core_testing_dictionary_idl_files': [
+            '<@(core_testing_dictionary_idl_files)',
+        ],
+        'webcore_testing_idl_files': [
+            '<@(webcore_testing_idl_files)',
+        ],
+        'webcore_testing_idl_with_modules_dependency_files': [
+            '<@(webcore_testing_idl_with_modules_dependency_files)',
+        ],
+        'webcore_testing_dependency_idl_files': [
+            '<@(webcore_testing_dependency_idl_files)',
+        ],
+        'generated_webcore_testing_idl_files': [
+            '<@(generated_webcore_testing_idl_files)',
+        ],
+        'generated_core_testing_dictionary_files': [
+            '<@(generated_core_testing_dictionary_files)',
+        ],
+        'webcore_testing_files': [
+            '<@(webcore_testing_files)',
+        ],
+        'core_unittest_files': [
+            '<@(core_unittest_files)',
+        ],
+    },
 }
