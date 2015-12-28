@@ -256,7 +256,7 @@ inline UChar32 mirroredChar(UChar32 c)
 inline CharCategory category(UChar32 c)
 {
 #if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
-    return static_cast<CharCategory>(base::icu_utils::category(c));
+    return static_cast<CharCategory>(U_MASK(base::icu_utils::category(c)));
 #else
     return static_cast<CharCategory>(U_GET_GC_MASK(c));
 #endif
