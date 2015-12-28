@@ -28,7 +28,9 @@
 #include "platform/image-decoders/ico/ICOImageDecoder.h"
 #include "platform/image-decoders/jpeg/JPEGImageDecoder.h"
 #include "platform/image-decoders/png/PNGImageDecoder.h"
+#if !defined(DISABLE_WEBP)
 #include "platform/image-decoders/webp/WEBPImageDecoder.h"
+#endif
 #include "wtf/PassOwnPtr.h"
 
 namespace blink {
@@ -63,10 +65,12 @@ inline bool matchesGIFSignature(char* contents)
     return !memcmp(contents, "GIF87a", 6) || !memcmp(contents, "GIF89a", 6);
 }
 
+#if !defined(DISABLE_WEBP)
 inline bool matchesWebPSignature(char* contents)
 {
     return !memcmp(contents, "RIFF", 4) && !memcmp(contents + 8, "WEBPVP", 6);
 }
+#endif
 
 inline bool matchesICOSignature(char* contents)
 {
@@ -103,8 +107,10 @@ PassOwnPtr<ImageDecoder> ImageDecoder::create(const SharedBuffer& data, AlphaOpt
     if (matchesGIFSignature(contents))
         return adoptPtr(new GIFImageDecoder(alphaOption, colorOptions, maxDecodedBytes));
 
+#if !defined(DISABLE_WEBP)
     if (matchesWebPSignature(contents))
         return adoptPtr(new WEBPImageDecoder(alphaOption, colorOptions, maxDecodedBytes));
+#endif
 
     if (matchesICOSignature(contents) || matchesCURSignature(contents))
         return adoptPtr(new ICOImageDecoder(alphaOption, colorOptions, maxDecodedBytes));

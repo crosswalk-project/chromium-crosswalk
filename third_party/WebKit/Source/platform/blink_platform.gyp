@@ -285,6 +285,14 @@
           '<(DEPTH)/third_party/icu/icu.gyp:icuuc',
         ],
       }],
+      ['disable_webp==1', {
+        'dependencies!': [
+          '<(DEPTH)/third_party/libwebp/libwebp.gyp:libwebp',
+        ],
+        'export_dependent_settings': [
+          '<(DEPTH)/third_party/libwebp/libwebp.gyp:libwebp',
+        ],
+      }],
       ['OS=="mac"', {
         'dependencies': [
           '<(DEPTH)/third_party/harfbuzz-ng/harfbuzz.gyp:harfbuzz-ng',

@@ -712,14 +712,10 @@
       'image-decoders/jpeg/JPEGImageDecoder.h',
       'image-decoders/png/PNGImageDecoder.cpp',
       'image-decoders/png/PNGImageDecoder.h',
-      'image-decoders/webp/WEBPImageDecoder.cpp',
-      'image-decoders/webp/WEBPImageDecoder.h',
       'image-encoders/skia/JPEGImageEncoder.cpp',
       'image-encoders/skia/JPEGImageEncoder.h',
       'image-encoders/skia/PNGImageEncoder.cpp',
       'image-encoders/skia/PNGImageEncoder.h',
-      'image-encoders/skia/WEBPImageEncoder.cpp',
-      'image-encoders/skia/WEBPImageEncoder.h',
       'mac/BlockExceptions.h',
       'mac/BlockExceptions.mm',
       'mac/ColorMac.h',
@@ -1027,7 +1023,6 @@
       'image-decoders/bmp/BMPImageDecoderTest.cpp',
       'image-decoders/gif/GIFImageDecoderTest.cpp',
       'image-decoders/jpeg/JPEGImageDecoderTest.cpp',
-      'image-decoders/webp/WEBPImageDecoderTest.cpp',
     ],
     # TODO(jbroman): Move these into platform_test_support_files.
     'platform_unittest_support_files': [
@@ -1062,6 +1057,17 @@
           ],
         }
       ],
+      ['disable_webp == 0', {
+        'platform_files': [
+          'image-decoders/webp/WEBPImageDecoder.cpp',
+          'image-decoders/webp/WEBPImageDecoder.h',
+          'image-encoders/skia/WEBPImageEncoder.cpp',
+          'image-encoders/skia/WEBPImageEncoder.h',
+        ],
+        'platform_web_unittest_files': [
+          'image-decoders/webp/WEBPImageDecoderTest.cpp',
+        ],
+      }], 
     ],
   },
 }
