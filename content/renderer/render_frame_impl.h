@@ -529,7 +529,9 @@ class CONTENT_EXPORT RenderFrameImpl
       blink::WebRTCPeerConnectionHandler* handler);
   virtual blink::WebUserMediaClient* userMediaClient();
   virtual blink::WebEncryptedMediaClient* encryptedMediaClient();
+#ifndef DISABLE_WEBMIDI
   virtual blink::WebMIDIClient* webMIDIClient();
+#endif
   virtual bool willCheckAndDispatchMessageEvent(
       blink::WebLocalFrame* source_frame,
       blink::WebFrame* target_frame,
@@ -969,8 +971,10 @@ class CONTENT_EXPORT RenderFrameImpl
   media::interfaces::ServiceFactoryPtr media_service_factory_;
 #endif
 
+#ifndef DISABLE_WEBMIDI
   // MidiClient attached to this frame; lazily initialized.
   MidiDispatcher* midi_dispatcher_;
+#endif
 
 #if defined(OS_ANDROID)
   // Manages all media players in this render frame for communicating with the

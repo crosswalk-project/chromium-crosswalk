@@ -189,6 +189,9 @@
 
       'common/speech_recognition_messages.h',
     ],
+    'private_common_sources_midi': [
+      'common/media/midi_messages.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -1178,6 +1181,14 @@
     ['enable_web_speech==0', {
       'sources!': [
         '<@(private_common_sources_speech)',
+      ],
+    }],
+    ['disable_webmidi==1', {
+      'sources!': [
+        '<@(private_common_sources_midi)',
+      ],
+      'dependencies!': [
+        '../media/midi/midi.gyp:midi',
       ],
     }],
   ],
