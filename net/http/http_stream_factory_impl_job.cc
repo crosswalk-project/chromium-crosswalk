@@ -141,10 +141,12 @@ HttpStreamFactoryImpl::Job::Job(HttpStreamFactoryImpl* stream_factory,
       ptr_factory_(this) {
   DCHECK(stream_factory);
   DCHECK(session);
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (IsQuicAlternative()) {
     DCHECK(session_->params().enable_quic);
     using_quic_ = true;
   }
+#endif
 }
 
 HttpStreamFactoryImpl::Job::~Job() {
@@ -994,6 +996,7 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
     return OK;
   }
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   if (proxy_info_.is_quic() && using_quic_) {
     if (result == ERR_QUIC_PROTOCOL_ERROR ||
         result == ERR_QUIC_HANDSHAKE_FAILED) {
@@ -1008,6 +1011,7 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
       return ReconsiderProxyAfterError(ERR_QUIC_PROTOCOL_ERROR);
     }
   }
+#endif
 
   // TODO(willchan): Make this a bit more exact. Maybe there are recoverable
   // errors, such as ignoring certificate errors for Alternate-Protocol.

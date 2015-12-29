@@ -176,13 +176,17 @@ class NET_EXPORT URLRequestContextBuilder {
                              bool quic_enabled);
 
   void set_enable_insecure_quic(bool enable_insecure_quic) {
+#if !defined(DISABLE_QUIC_SUPPORT)
     http_network_session_params_.enable_insecure_quic = enable_insecure_quic;
+#endif
   }
 
   void set_quic_connection_options(
       const QuicTagVector& quic_connection_options) {
+#if !defined(DISABLE_QUIC_SUPPORT)
     http_network_session_params_.quic_connection_options =
         quic_connection_options;
+#endif
   }
 
   void set_throttling_enabled(bool throttling_enabled) {

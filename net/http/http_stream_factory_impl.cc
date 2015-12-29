@@ -203,7 +203,7 @@ AlternativeServiceVector HttpStreamFactoryImpl::GetAlternativeServicesFor(
       enabled_alternative_service_vector.push_back(alternative_service);
       continue;
     }
-
+#if !defined(DISABLE_QUIC_SUPPORT)
     DCHECK_EQ(QUIC, alternative_service.protocol);
     if (!session_->params().enable_quic)
       continue;
@@ -215,7 +215,7 @@ AlternativeServiceVector HttpStreamFactoryImpl::GetAlternativeServicesFor(
         !original_url.SchemeIs("https")) {
       continue;
     }
-
+#endif
     enabled_alternative_service_vector.push_back(alternative_service);
   }
   return enabled_alternative_service_vector;
