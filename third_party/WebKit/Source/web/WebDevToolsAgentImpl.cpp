@@ -84,7 +84,9 @@
 #endif
 #include "modules/screen_orientation/ScreenOrientationInspectorAgent.h"
 #include "modules/storage/InspectorDOMStorageAgent.h"
+#ifndef DISABLE_WEBDATABASE
 #include "modules/webdatabase/InspectorDatabaseAgent.h"
+#endif
 #include "platform/JSONValues.h"
 #include "platform/RuntimeEnabledFeatures.h"
 #include "platform/TraceEvent.h"
@@ -295,7 +297,9 @@ PassOwnPtrWillBeRawPtr<WebDevToolsAgentImpl> WebDevToolsAgentImpl::create(WebLoc
     agent->registerAgent(InspectorRenderingAgent::create(view));
     agent->registerAgent(InspectorEmulationAgent::create(view));
     // TODO(dgozman): migrate each of the following agents to frame once module is ready.
+#ifndef DISABLE_WEBDATABASE
     agent->registerAgent(InspectorDatabaseAgent::create(view->page()));
+#endif
     agent->registerAgent(DeviceOrientationInspectorAgent::create(view->page()));
     agent->registerAgent(InspectorFileSystemAgent::create(view->page()));
 #ifndef DISABLE_INDEXEDDB

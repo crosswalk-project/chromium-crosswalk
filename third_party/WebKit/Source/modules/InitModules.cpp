@@ -19,7 +19,9 @@
 #include "modules/canvas2d/CanvasRenderingContext2D.h"
 #include "modules/compositorworker/CompositorWorkerManager.h"
 #include "modules/filesystem/DraggedIsolatedFileSystemImpl.h"
+#ifndef DISABLE_WEBDATABASE
 #include "modules/webdatabase/DatabaseManager.h"
+#endif
 #include "modules/webgl/WebGL2RenderingContext.h"
 #include "modules/webgl/WebGLRenderingContext.h"
 
@@ -57,7 +59,9 @@ void ModulesInitializer::terminateThreads()
 {
     if (RuntimeEnabledFeatures::compositorWorkerEnabled())
         CompositorWorkerManager::shutdown();
+#ifndef DISABLE_WEBDATABASE
     DatabaseManager::terminateDatabaseThread();
+#endif
 }
 
 } // namespace blink

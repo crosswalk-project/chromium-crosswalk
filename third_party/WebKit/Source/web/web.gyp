@@ -227,6 +227,11 @@
                     '<@(web_files_notifications)',
                   ],
                 }],
+                ['disable_webdatabase==1', {
+                  'sources!': [
+                    '<@(web_files_webdatabase)',
+                  ],
+                }],
                 ['enable_web_speech==0', {
                   'sources!': [
                     '<@(web_files_speech)',
