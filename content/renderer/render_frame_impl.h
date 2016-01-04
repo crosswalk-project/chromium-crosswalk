@@ -832,10 +832,12 @@ class CONTENT_EXPORT RenderFrameImpl
   NavigationState* CreateNavigationStateFromPending();
 
 #if defined(OS_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
   blink::WebMediaPlayer* CreateAndroidWebMediaPlayer(
       blink::WebMediaPlayerClient* client,
       blink::WebMediaPlayerEncryptedMediaClient* encrypted_client,
       const media::WebMediaPlayerParams& params);
+#endif
 
   RendererMediaPlayerManager* GetMediaPlayerManager();
 #endif

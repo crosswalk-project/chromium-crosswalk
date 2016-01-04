@@ -154,10 +154,15 @@ void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(
 
   // TODO(watk): Remove EnableOverlayFullscreenVideo once blink is updated to
   // use ForceOverlayFullscreenVideo instead. http://crbug.com/511376
+#ifndef DISABLE_WEB_VIEDEO
   if (command_line.HasSwitch(switches::kEnableOverlayFullscreenVideo) ||
       command_line.HasSwitch(switches::kForceOverlayFullscreenVideo)) {
     WebRuntimeFeatures::forceOverlayFullscreenVideo(true);
   }
+#else
+    WebRuntimeFeatures::forceOverlayFullscreenVideo(false);
+    WebRuntimeFeatures::enableMediaPlayer(false);
+#endif
 
   if (ui::IsOverlayScrollbarEnabled())
     WebRuntimeFeatures::enableOverlayScrollbars(true);
