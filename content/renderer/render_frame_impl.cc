@@ -2080,7 +2080,11 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
       GetMediaPermission(), initial_cdm);
 
 #if defined(OS_ANDROID) && !defined(ENABLE_MEDIA_PIPELINE_ON_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
   return CreateAndroidWebMediaPlayer(client, encrypted_client, params);
+#else
+  return nullptr;
+#endif  // ifndef DISABLE_WEB_VIDEO
 #else
 #if defined(ENABLE_MOJO_MEDIA)
   scoped_ptr<media::RendererFactory> media_renderer_factory(
@@ -5026,6 +5030,7 @@ NavigationState* RenderFrameImpl::CreateNavigationStateFromPending() {
 }
 
 #if defined(OS_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
 WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
     WebMediaPlayerClient* client,
     WebMediaPlayerEncryptedMediaClient* encrypted_client,
@@ -5064,6 +5069,7 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
       frame_, client, encrypted_client, weak_factory_.GetWeakPtr(),
       GetMediaPlayerManager(), GetCdmFactory(), stream_texture_factory, params);
 }
+#endif  // ifndef DISABLE_WEB_VIDEO
 
 RendererMediaPlayerManager* RenderFrameImpl::GetMediaPlayerManager() {
   if (!media_player_manager_)
