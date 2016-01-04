@@ -55,7 +55,7 @@ public class ContentView extends FrameLayout
      *                access the current theme, resources, etc.
      * @param cvc A pointer to the content view core managing this content view.
      */
-    ContentView(Context context, ContentViewCore cvc) {
+    public ContentView(Context context, ContentViewCore cvc) {
         super(context, null, android.R.attr.webViewStyle);
 
         if (getScrollBarStyle() == View.SCROLLBARS_INSIDE_OVERLAY) {
