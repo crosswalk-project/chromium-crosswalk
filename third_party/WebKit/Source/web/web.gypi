@@ -13,6 +13,10 @@
       'IndexedDBClientImpl.cpp',
       'IndexedDBClientImpl.h',
     ],
+    'web_files_midi': [
+      'MIDIClientProxy.cpp',
+      'MIDIClientProxy.h',
+    ],
     'web_files_notifications': [
       'NotificationPermissionClientImpl.cpp',
       'NotificationPermissionClientImpl.h',
@@ -30,7 +34,6 @@
       'DatabaseClientImpl.h',
       'WebDatabase.cpp',
     ],
-
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',

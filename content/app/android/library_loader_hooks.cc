@@ -28,7 +28,9 @@
 #include "device/bluetooth/android/bluetooth_jni_registrar.h"
 #endif
 #include "media/base/android/media_jni_registrar.h"
+#ifndef DISABLE_WEBMIDI
 #include "media/midi/midi_jni_registrar.h"
+#endif
 #include "net/android/net_jni_registrar.h"
 #include "ui/android/ui_android_jni_registrar.h"
 #include "ui/base/android/ui_base_jni_registrar.h"
@@ -77,8 +79,10 @@ bool EnsureJniRegistered(JNIEnv* env) {
     if (!media::RegisterJni(env))
       return false;
 
+#ifndef DISABLE_WEBMIDI
     if (!media::midi::RegisterJni(env))
       return false;
+#endif
 
     if (!ui::RegisterUIAndroidJni(env))
       return false;

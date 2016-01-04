@@ -103,7 +103,9 @@
 #include "content/renderer/media/audio_message_filter.h"
 #include "content/renderer/media/audio_renderer_mixer_manager.h"
 #include "content/renderer/media/media_stream_center.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/renderer/media/midi_message_filter.h"
+#endif
 #include "content/renderer/media/render_media_client.h"
 #include "content/renderer/media/renderer_gpu_video_accelerator_factories.h"
 #include "content/renderer/media/video_capture_impl_manager.h"
@@ -633,8 +635,10 @@ void RenderThreadImpl::Init() {
   audio_message_filter_ = new AudioMessageFilter(GetIOMessageLoopProxy());
   AddFilter(audio_message_filter_.get());
 
+#ifndef DISABLE_WEBMIDI
   midi_message_filter_ = new MidiMessageFilter(GetIOMessageLoopProxy());
   AddFilter(midi_message_filter_.get());
+#endif
 
 #ifndef DISABLE_BLUETOOTH
   bluetooth_message_filter_ = new BluetoothMessageFilter(thread_safe_sender());
