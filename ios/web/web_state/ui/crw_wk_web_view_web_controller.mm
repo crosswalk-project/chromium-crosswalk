@@ -768,6 +768,10 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
   [super loadCancelled];
 }
 
+- (BOOL)isViewAlive {
+  return !_webProcessIsDead && [super isViewAlive];
+}
+
 #pragma mark Private methods
 
 - (NSDictionary*)wkWebViewObservers {

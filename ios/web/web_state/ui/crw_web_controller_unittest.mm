@@ -1535,6 +1535,7 @@ TEST_F(CRWWKWebControllerWebProcessTest, Crash) {
   web::SimulateWKWebViewCrash(webView_);
 
   EXPECT_OCMOCK_VERIFY(delegate);
+  EXPECT_FALSE([this->webController_ isViewAlive]);
   [this->webController_ setDelegate:nil];
 };
 
