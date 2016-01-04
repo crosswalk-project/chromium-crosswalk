@@ -11,6 +11,8 @@
 #include "components/data_reduction_proxy/core/common/data_reduction_proxy_headers.h"
 #include "content/public/browser/android/content_view_core.h"
 #include "content/public/browser/android/download_controller_android.h"
+#include "content/public/browser/render_frame_host.h"
+#include "content/public/browser/render_process_host.h"
 #include "content/public/common/context_menu_params.h"
 #include "jni/ContextMenuHelper_jni.h"
 #include "jni/ContextMenuParams_jni.h"
@@ -45,6 +47,7 @@ ContextMenuHelper::~ContextMenuHelper() {
 }
 
 void ContextMenuHelper::ShowContextMenu(
+    content::RenderFrameHost* render_frame_host,
     const content::ContextMenuParams& params) {
   content::ContentViewCore* content_view_core =
       content::ContentViewCore::FromWebContents(web_contents_);
@@ -60,6 +63,10 @@ void ContextMenuHelper::ShowContextMenu(
 
   JNIEnv* env = base::android::AttachCurrentThread();
   context_menu_params_ = params;
+
+  render_frame_id_ = render_frame_host->GetRoutingID();
+  render_process_id_ = render_frame_host->GetProcess()->GetID();
+
   Java_ContextMenuHelper_showContextMenu(
       env,
       java_obj_.obj(),
@@ -115,13 +122,24 @@ void ContextMenuHelper::OnStartDownload(JNIEnv* env,
 }
 
 void ContextMenuHelper::SearchForImage(JNIEnv* env, jobject obj) {
+  content::RenderFrameHost* render_frame_host =
+      content::RenderFrameHost::FromID(render_process_id_, render_frame_id_);
+  if (!render_frame_host)
+    return;
+
   CoreTabHelper::FromWebContents(web_contents_)->SearchByImageInNewTab(
-      context_menu_params_.src_url);
+      render_frame_host, context_menu_params_.src_url);
 }
 
 void ContextMenuHelper::ShareImage(JNIEnv* env, jobject obj) {
+  content::RenderFrameHost* render_frame_host =
+      content::RenderFrameHost::FromID(render_process_id_, render_frame_id_);
+  if (!render_frame_host)
+    return;
+
   CoreTabHelper::FromWebContents(web_contents_)->
       RequestThumbnailForContextNode(
+          render_frame_host,
           0,
           gfx::Size(kShareImageMaxWidth, kShareImageMaxHeight),
           base::Bind(&ContextMenuHelper::OnShareImage,
