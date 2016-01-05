@@ -747,6 +747,7 @@ void ThreadState::performIdleGC(double deadlineSeconds)
 {
     ASSERT(checkThread());
     ASSERT(isMainThread());
+    ASSERT(Platform::current()->currentThread()->scheduler());
 
     if (gcState() != IdleGCScheduled)
         return;
@@ -821,6 +822,10 @@ void ThreadState::scheduleIdleGC()
         return;
     }
 
+    // Some threads (e.g. PPAPI thread) don't have a scheduler.
+    if (!Platform::current()->currentThread()->scheduler())
+        return;
+
     Platform::current()->currentThread()->scheduler()->postNonNestableIdleTask(BLINK_FROM_HERE, WTF::bind<double>(&ThreadState::performIdleGC, this));
     setGCState(IdleGCScheduled);
 }
@@ -829,6 +834,10 @@ void ThreadState::scheduleIdleLazySweep()
 {
     // TODO(haraken): Idle complete sweep should be supported in worker threads.
     if (!isMainThread())
+        return;
+
+    // Some threads (e.g. PPAPI thread) don't have a scheduler.
+    if (!Platform::current()->currentThread()->scheduler())
         return;
 
     Platform::current()->currentThread()->scheduler()->postIdleTask(BLINK_FROM_HERE, WTF::bind<double>(&ThreadState::performIdleLazySweep, this));
