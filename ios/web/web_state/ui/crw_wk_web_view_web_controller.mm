@@ -1654,6 +1654,12 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
     [self addActivityIndicatorTask];
   } else {
     [self clearActivityIndicatorTasks];
+    if ([self currentBackForwardListItemHolder]->navigation_type() ==
+        WKNavigationTypeBackForward) {
+      // A fast back/forward may not call |webView:didFinishNavigation:|, so
+      // finishing the navigation should be signalled explicitly.
+      [self didFinishNavigation];
+    }
   }
 }
 
