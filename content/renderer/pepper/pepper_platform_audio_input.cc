@@ -151,6 +151,7 @@ bool PepperPlatformAudioInput::Initialize(
     PepperAudioInputHost* client) {
   DCHECK(main_task_runner_->BelongsToCurrentThread());
 
+#ifndef DISABLE_WEB_AUDIO
   RenderFrameImpl* const render_frame =
       RenderFrameImpl::FromRoutingID(render_frame_id);
   if (!render_frame || !client)
@@ -183,6 +184,9 @@ bool PepperPlatformAudioInput::Initialize(
   pending_open_device_ = true;
 
   return true;
+#else
+  return false;
+#endif
 }
 
 void PepperPlatformAudioInput::InitializeOnIOThread(int session_id) {
