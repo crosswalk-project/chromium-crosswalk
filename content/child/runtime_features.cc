@@ -41,6 +41,7 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
   }
   // WebAudio is enabled by default but only when the MediaCodec API
   // is available.
+#ifndef DISABLE_WEB_AUDIO
   AndroidCpuFamily cpu_family = android_getCpuFamily();
   WebRuntimeFeatures::enableWebAudio(
       media::MediaCodecBridge::IsAvailable() &&
@@ -48,6 +49,9 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
        (cpu_family == ANDROID_CPU_FAMILY_ARM64) ||
        (cpu_family == ANDROID_CPU_FAMILY_X86) ||
        (cpu_family == ANDROID_CPU_FAMILY_MIPS)));
+#else
+  WebRuntimeFeatures::enableWebAudio(false);
+#endif
 
   // Android does not have support for PagePopup
   WebRuntimeFeatures::enablePagePopup(false);
