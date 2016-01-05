@@ -5,6 +5,7 @@
 #include "base/command_line.h"
 #include "base/message_loop/message_loop.h"
 #include "base/path_service.h"
+#include "base/prefs/pref_service.h"
 #include "base/run_loop.h"
 #include "base/strings/utf_string_conversions.h"
 #include "chrome/browser/chromeos/profiles/profile_helper.h"
@@ -18,6 +19,7 @@
 #include "chrome/browser/ui/browser_commands.h"
 #include "chrome/common/chrome_paths.h"
 #include "chrome/common/chrome_switches.h"
+#include "chrome/common/pref_names.h"
 #include "chrome/grit/chromium_strings.h"
 #include "chrome/grit/generated_resources.h"
 #include "chrome/test/base/in_process_browser_test.h"
@@ -284,11 +286,43 @@ class DownloadNotificationTestBase : public InProcessBrowserTest {
         base::Bind(&net::URLRequestSlowDownloadJob::AddUrlHandler));
 
     GetMessageCenter()->DisableTimersForTest();
+
+    // Set up the temporary download folder.
+    ASSERT_TRUE(CreateAndSetDownloadsDirectory(browser()));
+  }
+
+ protected:
+  // Must be called after browser creation.  Creates a temporary
+  // directory for downloads that is auto-deleted on destruction.
+  // Returning false indicates a failure of the function, and should be asserted
+  // in the caller.
+  bool CreateAndSetDownloadsDirectory(Browser* browser) {
+    if (!browser)
+      return false;
+
+    if (!downloads_directory_.path().empty())
+      return true;  // already created
+
+    if (!downloads_directory_.CreateUniqueTempDir())
+      return false;
+
+    browser->profile()->GetPrefs()->SetFilePath(
+        prefs::kDownloadDefaultDirectory,
+        downloads_directory_.path());
+    browser->profile()->GetPrefs()->SetFilePath(
+        prefs::kSaveFileDefaultDirectory,
+        downloads_directory_.path());
+
+    return true;
   }
 
   content::DownloadManager* GetDownloadManager(Browser* browser) {
     return content::BrowserContext::GetDownloadManager(browser->profile());
   }
+
+ private:
+  // Location of the downloads directory for these tests
+  base::ScopedTempDir downloads_directory_;
 };
 
 //////////////////////////////////////////////////
@@ -321,6 +355,8 @@ class DownloadNotificationTest : public DownloadNotificationTestBase {
   void PrepareIncognitoBrowser() {
     incognito_browser_ = CreateIncognitoBrowser();
     Profile* incognito_profile = incognito_browser_->profile();
+
+    ASSERT_TRUE(CreateAndSetDownloadsDirectory(incognito_browser_));
 
     scoped_ptr<TestChromeDownloadManagerDelegate> incognito_test_delegate;
     incognito_test_delegate.reset(
