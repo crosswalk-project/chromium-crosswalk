@@ -506,8 +506,10 @@ class CONTENT_EXPORT RenderThreadImpl
 #if defined(OS_ANDROID)
   scoped_refptr<RendererDemuxerAndroid> renderer_demuxer_;
 #endif
+#ifndef DISABLE_DEVTOOLS
   scoped_refptr<DevToolsAgentFilter> devtools_agent_message_filter_;
   scoped_ptr<V8SamplingProfiler> v8_sampling_profiler_;
+#endif
 
   scoped_ptr<BrowserPluginManager> browser_plugin_manager_;
 

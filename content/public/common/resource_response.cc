@@ -24,9 +24,11 @@ scoped_refptr<ResourceResponse> ResourceResponse::DeepCopy() const {
   new_response->head.appcache_id = head.appcache_id;
   new_response->head.appcache_manifest_url = head.appcache_manifest_url;
   new_response->head.load_timing = head.load_timing;
+#ifndef DISABLE_DEVTOOLS
   if (head.devtools_info.get()) {
     new_response->head.devtools_info = head.devtools_info->DeepCopy();
   }
+#endif
   new_response->head.download_file_path = head.download_file_path;
   new_response->head.was_fetched_via_spdy = head.was_fetched_via_spdy;
   new_response->head.was_npn_negotiated = head.was_npn_negotiated;

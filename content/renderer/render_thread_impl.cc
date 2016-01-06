@@ -87,8 +87,10 @@
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/cache_storage/cache_storage_dispatcher.h"
 #include "content/renderer/cache_storage/cache_storage_message_filter.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent_filter.h"
 #include "content/renderer/devtools/v8_sampling_profiler.h"
+#endif
 #include "content/renderer/dom_storage/dom_storage_dispatcher.h"
 #include "content/renderer/dom_storage/webstoragearea_impl.h"
 #include "content/renderer/dom_storage/webstoragenamespace_impl.h"
@@ -805,11 +807,13 @@ void RenderThreadImpl::Shutdown() {
   }
 #endif
 
+#ifndef DISABLE_DEVTOOLS
   // Shutdown in reverse of the initialization order.
   if (devtools_agent_message_filter_.get()) {
     RemoveFilter(devtools_agent_message_filter_.get());
     devtools_agent_message_filter_ = NULL;
   }
+#endif
 
   RemoveFilter(audio_input_message_filter_.get());
   audio_input_message_filter_ = NULL;
@@ -1005,18 +1009,22 @@ void RenderThreadImpl::RemoveRoute(int32 routing_id) {
 void RenderThreadImpl::AddEmbeddedWorkerRoute(int32 routing_id,
                                               IPC::Listener* listener) {
   AddRoute(routing_id, listener);
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_message_filter_.get()) {
     devtools_agent_message_filter_->AddEmbeddedWorkerRouteOnMainThread(
         routing_id);
   }
+#endif
 }
 
 void RenderThreadImpl::RemoveEmbeddedWorkerRoute(int32 routing_id) {
   RemoveRoute(routing_id);
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_message_filter_.get()) {
     devtools_agent_message_filter_->RemoveEmbeddedWorkerRouteOnMainThread(
         routing_id);
   }
+#endif
 }
 
 void RenderThreadImpl::RegisterPendingRenderFrameConnect(
@@ -1173,10 +1181,12 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
 
   FOR_EACH_OBSERVER(RenderProcessObserver, observers_, WebKitInitialized());
 
+#ifndef DISABLE_DEVTOOLS
   devtools_agent_message_filter_ = new DevToolsAgentFilter();
   AddFilter(devtools_agent_message_filter_.get());
 
   v8_sampling_profiler_.reset(new V8SamplingProfiler());
+#endif
 
   if (GetContentClient()->renderer()->RunIdleHandlerWhenWidgetsHidden())
     ScheduleIdleHandler(kLongIdleHandlerDelayMs);

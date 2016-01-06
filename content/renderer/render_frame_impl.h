@@ -92,7 +92,9 @@ namespace content {
 
 class ChildFrameCompositingHelper;
 class CompositorDependencies;
+#ifndef DISABLE_DEVTOOLS
 class DevToolsAgent;
+#endif
 class DocumentState;
 class ExternalPopupMenu;
 #ifndef DISABLE_GEO_FEATURES
@@ -210,7 +212,9 @@ class CONTENT_EXPORT RenderFrameImpl
   // Returns the RenderWidget associated with this frame.
   RenderWidget* GetRenderWidget();
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsAgent* devtools_agent() { return devtools_agent_; }
+#endif
 
   // This is called right after creation with the WebLocalFrame for this
   // RenderFrame. It must be called before Initialize.
@@ -1004,9 +1008,11 @@ class CONTENT_EXPORT RenderFrameImpl
   // True if this RenderFrame has ever played media.
   bool has_played_media_;
 
+#ifndef DISABLE_DEVTOOLS
   // The devtools agent for this frame; only created for main frame and
   // local roots.
   DevToolsAgent* devtools_agent_;
+#endif
 
 #ifndef DISABLE_GEO_FEATURES
   // The geolocation dispatcher attached to this frame, lazily initialized.

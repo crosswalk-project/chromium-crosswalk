@@ -13,7 +13,9 @@
 #include "third_party/WebKit/public/web/WebDevToolsFrontendClient.h"
 
 namespace blink {
+#ifndef DISABLE_DEVTOOLS
 class WebDevToolsFrontend;
+#endif
 class WebString;
 }
 
@@ -46,7 +48,9 @@ class CONTENT_EXPORT DevToolsClient
   void OnDispatchOnInspectorFrontend(const std::string& message,
                                      uint32 total_size);
 
+#ifndef DISABLE_DEVTOOLS
   scoped_ptr<blink::WebDevToolsFrontend> web_tools_frontend_;
+#endif
   std::string compatibility_script_;
 
   DISALLOW_COPY_AND_ASSIGN(DevToolsClient);

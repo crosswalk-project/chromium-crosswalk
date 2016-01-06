@@ -27,7 +27,9 @@
 #include "content/child/thread_safe_sender.h"
 #include "content/child/webmessageportchannel_impl.h"
 #include "content/child/worker_task_runner.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/common/devtools_messages.h"
+#endif
 #include "content/common/message_port_messages.h"
 #include "content/common/mojo/service_registry_impl.h"
 #include "content/common/service_worker/embedded_worker_messages.h"
@@ -36,7 +38,9 @@
 #include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/document_state.h"
 #include "content/renderer/background_sync/background_sync_client_impl.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent.h"
+#endif
 #include "content/renderer/render_thread_impl.h"
 #include "content/renderer/service_worker/embedded_worker_dispatcher.h"
 #include "content/renderer/service_worker/service_worker_type_util.h"
@@ -467,9 +471,11 @@ void ServiceWorkerContextClient::sendDevToolsMessage(
     int call_id,
     const blink::WebString& message,
     const blink::WebString& state_cookie) {
+#ifndef DISABLE_DEVTOOLS
   DevToolsAgent::SendChunkedProtocolMessage(
       sender_.get(), worker_devtools_agent_route_id_,
       call_id, message.utf8(), state_cookie.utf8());
+#endif
 }
 
 void ServiceWorkerContextClient::didHandleActivateEvent(
