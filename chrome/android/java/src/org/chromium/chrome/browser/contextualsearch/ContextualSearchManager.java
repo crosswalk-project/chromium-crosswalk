@@ -797,14 +797,18 @@ public class ContextualSearchManager extends ContextualSearchObservable
      * Gets the list of writable languages for the current user, based on their IME keyboards.
      * @return An ordered {@link List} of languages the user reads.
      */
-    private List<String> getWritableLanguages() {
-        List<String> result = new ArrayList<String>();
-        Context context = mActivity.getApplicationContext();
-        List<String> locales = context != null
-                ? new ArrayList<String>(UiUtils.getIMELocales(context))
-                : new ArrayList<String>();
-        for (int i = 0; i < locales.size(); i++) {
-            result.add(trimLocaleToLanguage(locales.get(i)));
+    private LinkedHashSet<String> getProficientLanguages() {
+        LinkedHashSet<String> uniqueLanguages = new LinkedHashSet<String>();
+        // The primary language, according to the translation-service, always comes first.
+        uniqueLanguages.add(trimLocaleToLanguage(getNativeTranslateServiceTargetLanguage()));
+        // Merge in the IME locales, if possible.
+        if (!ContextualSearchFieldTrial.isKeyboardLanguagesForTranslationDisabled()) {
+            Context context = mActivity.getApplicationContext();
+            if (context != null) {
+                for (String locale : UiUtils.getIMELocales(context)) {
+                    uniqueLanguages.add(trimLocaleToLanguage(locale));
+                }
+            }
         }
         return result;
     }
@@ -816,8 +820,11 @@ public class ContextualSearchManager extends ContextualSearchObservable
     private List<String> getAcceptLanguages() {
         String acceptLanguages = nativeGetAcceptLanguages(mNativeContextualSearchManagerPtr);
         List<String> result = new ArrayList<String>();
-        for (String language : acceptLanguages.split(",")) {
-            result.add(language);
+        if (!ContextualSearchFieldTrial.isAcceptLanguagesForTranslationDisabled()) {
+            String acceptLanguages = getNativeAcceptLanguages();
+            for (String language : acceptLanguages.split(",")) {
+                result.add(language);
+            }
         }
         return result;
     }
@@ -831,6 +838,86 @@ public class ContextualSearchManager extends ContextualSearchObservable
         // TODO(donnd): Shouldn't getLanguage() do this?
         String trimmedLocale = locale.substring(0, 2);
         return new Locale(trimmedLocale).getLanguage();
+    }
+
+    /**
+     * Force translation from the given language for the current search request,
+     * unless disabled by experiment.  Also log whenever conditions are right to translate.
+     * @param searchRequest The search request to force translation upon.
+     * @param sourceLanguage The language to translate from, or an empty string if not known.
+     */
+    private void forceTranslateIfNeeded(ContextualSearchRequest searchRequest,
+            String sourceLanguage) {
+        if (!mPolicy.isTranslationEnabled()) return;
+
+        if (!TextUtils.isEmpty(sourceLanguage)) {
+            if (mPolicy.needsTranslation(sourceLanguage, getReadableLanguages())) {
+                boolean doForceTranslate = !mPolicy.isForceTranslationOneboxDisabled();
+                if (doForceTranslate && searchRequest != null) {
+                    searchRequest.forceTranslation(sourceLanguage,
+                            mPolicy.bestTargetLanguage(getProficientLanguageList()));
+                }
+                // Log that conditions were right for translation, even though it may be disabled
+                // for an experiment so we can compare with the counter factual data.
+                ContextualSearchUma.logTranslateOnebox(doForceTranslate);
+            }
+        }
+    }
+
+    /**
+     * Force auto-detect translation for the current search request unless disabled by experiment.
+     * Also log that conditions are right to translate.
+     * @param searchRequest The search request to force translation upon.
+     */
+    private void forceAutoDetectTranslateUnlessDisabled(ContextualSearchRequest searchRequest) {
+        // Always trigger translation using auto-detect when we're not resolving,
+        // unless disabled by policy.
+        if (!mPolicy.isTranslationEnabled()) return;
+
+        boolean shouldAutoDetectTranslate = !mPolicy.isAutoDetectTranslationOneboxDisabled();
+        if (shouldAutoDetectTranslate && searchRequest != null) {
+            // The translation one-box won't actually show when the source text ends up being
+            // the same as the target text, so we err on over-triggering.
+            searchRequest.forceAutoDetectTranslation(
+                    mPolicy.bestTargetLanguage(getProficientLanguageList()));
+        }
+        // Log that conditions were right for translation, even though it may be disabled
+        // for an experiment so we can compare with the counter factual data.
+        ContextualSearchUma.logTranslateOnebox(shouldAutoDetectTranslate);
+    }
+
+    /**
+     * Caches all the native translate language info, so we can avoid repeated JNI calls.
+     */
+    private void cacheNativeTranslateData() {
+        if (!mPolicy.isTranslationEnabled()) return;
+
+        if (!mPolicy.isForceTranslationOneboxDisabled()) {
+            getNativeTranslateServiceTargetLanguage();
+            getNativeAcceptLanguages();
+        }
+    }
+
+    /**
+     * @return The accept-languages string from the cache or from native code (when not cached).
+     */
+    private String getNativeAcceptLanguages() {
+        if (mAcceptLanguages == null) {
+            mAcceptLanguages = nativeGetAcceptLanguages(mNativeContextualSearchManagerPtr);
+        }
+        return mAcceptLanguages;
+    }
+
+    /**
+     * @return The Translate Service's target language string from the cache or from
+     *         native code (when not cached).
+     */
+    private String getNativeTranslateServiceTargetLanguage() {
+        if (mTranslateServiceTargetLanguage == null) {
+            mTranslateServiceTargetLanguage = nativeGetTargetLanguage(
+                    mNativeContextualSearchManagerPtr);
+        }
+        return mTranslateServiceTargetLanguage;
     }
 
     // ============================================================================================

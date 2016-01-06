@@ -462,7 +462,8 @@ class ContextualSearchPolicy {
         // in one language and the one box translation in another, which might be confusing.
         // Also this logic should only apply on Android, where English setup is over used.
         if (targetLanguages.size() > 1
-                && TextUtils.equals(targetLanguages.get(0), Locale.ENGLISH.getLanguage())) {
+                && TextUtils.equals(targetLanguages.get(0), Locale.ENGLISH.getLanguage())
+                && !ContextualSearchFieldTrial.isEnglishTargetTranslationEnabled()) {
             return targetLanguages.get(1);
         } else if (targetLanguages.size() > 0) {
             return targetLanguages.get(0);
@@ -472,10 +473,29 @@ class ContextualSearchPolicy {
     }
 
     /**
+     * @return Whether any translation feature for Contextual Search is enabled.
+     */
+    boolean isTranslationEnabled() {
+        // For M-48 CS translation features are completely disabled except for testing.
+        // TODO(donnd): fallback onto non-testing flags when ready.
+        return ContextualSearchFieldTrial.isTranslationForTestingEnabled();
+    }
+
+    /**
      * @return Whether forcing a translation Onebox is disabled.
      */
-    boolean disableForceTranslationOnebox() {
-        return ContextualSearchFieldTrial.disableForceTranslationOnebox();
+    boolean isForceTranslationOneboxDisabled() {
+        return ContextualSearchFieldTrial.isForceTranslationOneboxDisabled();
+    }
+
+    /**
+     * @return Whether forcing a translation Onebox based on auto-detection of the source language
+     *         is disabled.
+     */
+    boolean isAutoDetectTranslationOneboxDisabled() {
+        if (isForceTranslationOneboxDisabled()) return true;
+
+        return ContextualSearchFieldTrial.isAutoDetectTranslationOneboxDisabled();
     }
 
     /**

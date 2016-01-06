@@ -2562,6 +2562,7 @@ public class ContextualSearchManagerTest extends ChromeActivityTestCaseBase<Chro
     @SmallTest
     @Feature({"ContextualSearch"})
     @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
+    @CommandLineFlags.Add(ContextualSearchFieldTrial.ENABLE_TRANSLATION_FOR_TESTING + "=true")
     public void testTapWithLanguage() throws InterruptedException, TimeoutException {
         // Tapping a German word should trigger translation.
         simulateTapSearch("german");
@@ -2578,9 +2579,59 @@ public class ContextualSearchManagerTest extends ChromeActivityTestCaseBase<Chro
     @SmallTest
     @Feature({"ContextualSearch"})
     @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
+    @CommandLineFlags.Add(ContextualSearchFieldTrial.ENABLE_TRANSLATION_FOR_TESTING + "=true")
     public void testTapWithoutLanguage() throws InterruptedException, TimeoutException {
         // Tapping an English word should NOT trigger translation.
         simulateTapSearch("search");
+
+        // Make sure we did not try to trigger translate.
+        assertFalse(mManager.getRequest().isTranslationForced());
+    }
+
+    /**
+     * Tests that a long-press does trigger translation.
+     */
+    @SmallTest
+    @Feature({"ContextualSearch"})
+    @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
+    @CommandLineFlags.Add(ContextualSearchFieldTrial.ENABLE_TRANSLATION_FOR_TESTING + "=true")
+    public void testLongpressTranslates() throws InterruptedException, TimeoutException {
+        // LongPress on any word should trigger translation.
+        simulateLongPressSearch("search");
+
+        // Make sure we did try to trigger translate.
+        assertTrue(mManager.getRequest().isTranslationForced());
+    }
+
+    /**
+     * Tests that a long-press does NOT trigger translation when auto-detect is disabled.
+     */
+    @SmallTest
+    @Feature({"ContextualSearch"})
+    @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
+    @CommandLineFlags.Add({ContextualSearchFieldTrial.ENABLE_TRANSLATION_FOR_TESTING + "=true",
+            ContextualSearchFieldTrial.DISABLE_AUTO_DETECT_TRANSLATION_ONEBOX + "=true"})
+    public void testLongpressAutoDetectDisabledDoesNotTranslate()
+            throws InterruptedException, TimeoutException {
+        // Unless disabled, LongPress on any word should trigger translation.
+        simulateLongPressSearch("search");
+
+        // Make sure we did not try to trigger translate.
+        assertFalse(mManager.getRequest().isTranslationForced());
+    }
+
+    /**
+     * Tests that a long-press does NOT trigger translation when general one-box is disabled.
+     */
+    @SmallTest
+    @Feature({"ContextualSearch"})
+    @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
+    @CommandLineFlags.Add({ContextualSearchFieldTrial.ENABLE_TRANSLATION_FOR_TESTING + "=true",
+            ContextualSearchFieldTrial.DISABLE_FORCE_TRANSLATION_ONEBOX + "=true"})
+    public void testLongpressTranslateDisabledDoesNotTranslate()
+            throws InterruptedException, TimeoutException {
+        // Unless disabled, LongPress on any word should trigger translation.
+        simulateLongPressSearch("search");
 
         // Make sure we did not try to trigger translate.
         assertFalse(mManager.getRequest().isTranslationForced());
