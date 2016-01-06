@@ -259,7 +259,9 @@ class CONTENT_EXPORT EmbeddedWorkerInstance {
 
   StatusCallback start_callback_;
   ListenerList listener_list_;
+#ifndef DISABLE_DEVTOOLS
   scoped_ptr<DevToolsProxy> devtools_proxy_;
+#endif
 
   base::TimeTicks start_timing_;
 

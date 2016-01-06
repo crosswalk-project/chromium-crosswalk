@@ -73,7 +73,9 @@
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/child_frame_compositing_helper.h"
 #include "content/renderer/context_menu_params_builder.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent.h"
+#endif
 #include "content/renderer/dom_automation_controller.h"
 #include "content/renderer/external_popup_menu.h"
 #ifndef DISABLE_GEO_FEATURES
@@ -696,7 +698,9 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
       contains_media_player_(false),
 #endif
       has_played_media_(false),
+#ifndef DISABLE_DEVTOOLS
       devtools_agent_(nullptr),
+#endif
 #ifndef DISABLE_GEO_FEATURES
       geolocation_dispatcher_(NULL),
 #endif
@@ -786,11 +790,13 @@ void RenderFrameImpl::Initialize() {
 #endif
   new SharedWorkerRepository(this);
 
+#ifndef DISABLE_DEVTOOLS
   if (is_local_root_ && !render_frame_proxy_) {
     // DevToolsAgent is a RenderFrameObserver, and will destruct itself
     // when |this| is deleted.
     devtools_agent_ = new DevToolsAgent(this);
   }
+#endif
 
   RegisterMojoServices();
 
@@ -1985,8 +1991,10 @@ void RenderFrameImpl::EnsureMojoBuiltinsAreAvailable(
 
 void RenderFrameImpl::AddMessageToConsole(ConsoleMessageLevel level,
                                           const std::string& message) {
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_)
     devtools_agent_->AddMessageToConsole(level, message);
+#endif
 }
 
 // blink::WebFrameClient implementation ----------------------------------------
@@ -2913,6 +2921,7 @@ void RenderFrameImpl::didFinishDocumentLoad(blink::WebLocalFrame* frame,
   if (!document_is_empty)
     return;
 
+#ifndef DISABLE_DEVTOOLS
   // Do not show error page when DevTools is attached.
   RenderFrameImpl* localRoot = this;
   while (localRoot->frame_ && localRoot->frame_->parent() &&
@@ -2922,6 +2931,7 @@ void RenderFrameImpl::didFinishDocumentLoad(blink::WebLocalFrame* frame,
   }
   if (localRoot->devtools_agent_ && localRoot->devtools_agent_->IsAttached())
     return;
+#endif
 
   // Display error page instead of a blank page, if appropriate.
   std::string error_domain = "http";

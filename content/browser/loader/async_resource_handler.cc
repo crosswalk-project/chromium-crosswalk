@@ -15,7 +15,9 @@
 #include "base/metrics/histogram_macros.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/time/time.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/browser/devtools/devtools_netlog_observer.h"
+#endif
 #include "content/browser/host_zoom_map_impl.h"
 #include "content/browser/loader/resource_buffer.h"
 #include "content/browser/loader/resource_dispatcher_host_impl.h"
@@ -147,7 +149,9 @@ bool AsyncResourceHandler::OnRequestRedirected(
         redirect_info.new_url, request(), info->GetContext(), response);
   }
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
   response->head.encoded_data_length = request()->GetTotalReceivedBytes();
   reported_transfer_size_ = 0;
   response->head.request_start = request()->creation_time();
@@ -177,7 +181,9 @@ bool AsyncResourceHandler::OnResponseStarted(ResourceResponse* response,
         request(), info->GetContext(), response, info->filter());
   }
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsNetLogObserver::PopulateResponseInfo(request(), response);
+#endif
 
   const HostZoomMapImpl* host_zoom_map =
       static_cast<const HostZoomMapImpl*>(info->filter()->GetHostZoomMap());

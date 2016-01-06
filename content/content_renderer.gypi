@@ -106,6 +106,20 @@
       'renderer/bluetooth/web_bluetooth_impl.cc',
       'renderer/bluetooth/web_bluetooth_impl.h',
     ],
+    'private_renderer_sources_devtools': [
+      'renderer/devtools/devtools_agent.cc',
+      'renderer/devtools/devtools_agent.h',
+      'renderer/devtools/devtools_agent_filter.cc',
+      'renderer/devtools/devtools_agent_filter.h',
+      'renderer/devtools/devtools_client.cc',
+      'renderer/devtools/devtools_client.h',
+      'renderer/devtools/lock_free_circular_queue.h',
+      'renderer/devtools/v8_sampling_profiler.cc',
+      'renderer/devtools/v8_sampling_profiler.h',
+
+      'renderer/service_worker/embedded_worker_devtools_agent.cc',
+      'renderer/service_worker/embedded_worker_devtools_agent.h',
+    ],
     'private_renderer_sources_geo': [
       'renderer/geolocation_dispatcher.cc',
       'renderer/geolocation_dispatcher.h',
@@ -947,6 +961,11 @@
     ['disable_bluetooth==1', {
       'sources!': [
         '<@(private_renderer_sources_bluetooth)',
+      ],
+    }],
+    ['disable_devtools==1', {
+      'sources!': [
+        '<@(private_renderer_sources_devtools)',
       ],
     }],
     ['disable_geo_features==1', {
