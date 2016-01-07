@@ -34,6 +34,14 @@ public class ContextualSearchFieldTrial {
     static final String ENABLE_TRANSLATION_FOR_TESTING = "enable_translation_for_testing";
     @VisibleForTesting
     static final String DISABLE_FORCE_TRANSLATION_ONEBOX = "disable_force_translation_onebox";
+    @VisibleForTesting
+    static final String DISABLE_AUTO_DETECT_TRANSLATION_ONEBOX =
+            "disable_auto_detect_translation_onebox";
+    static final String DISABLE_KEYBOARD_LANGUAGES_FOR_TRANSLATION =
+            "disable_keyboard_languages_for_translation";
+    static final String DISABLE_ACCEPT_LANGUAGES_FOR_TRANSLATION =
+            "disable_accept_languages_for_translation";
+    static final String ENABLE_ENGLISH_TARGET_TRANSLATION = "enable_english_target_translation";
 
     // Cached values to avoid repeated and redundant JNI operations.
     private static Boolean sEnabled;
