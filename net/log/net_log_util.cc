@@ -198,6 +198,7 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
     constants_dict->Set("netError", dict.Pass());
   }
 
+#ifndef DISABLE_QUIC_SUPPORT
   // Add information on the relationship between QUIC error codes and their
   // symbolic names.
   {
@@ -226,6 +227,7 @@ scoped_ptr<base::DictionaryValue> GetNetConstants() {
 
     constants_dict->Set("quicRstStreamError", dict.Pass());
   }
+#endif  // ifndef DISABLE_QUIC_SUPPORT
 
   // Add information on the relationship between SDCH problem codes and their
   // symbolic names.
@@ -444,10 +446,12 @@ NET_EXPORT scoped_ptr<base::DictionaryValue> GetNetInfo(
         http_server_properties.GetAlternativeServiceInfoAsValue());
   }
 
+#ifndef DISABLE_QUIC_SUPPORT
   if (info_sources & NET_INFO_QUIC) {
     net_info_dict->Set(NetInfoSourceToString(NET_INFO_QUIC),
                        http_network_session->QuicInfoToValue());
   }
+#endif
 
   if (info_sources & NET_INFO_HTTP_CACHE) {
     base::DictionaryValue* info_dict = new base::DictionaryValue();

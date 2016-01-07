@@ -34,7 +34,9 @@
 #include "content/public/browser/render_widget_host.h"
 #include "content/public/browser/render_widget_host_view.h"
 #include "content/public/browser/web_contents.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/public/common/geoposition.h"
+#endif
 #include "content/public/common/webplugininfo.h"
 #include "gpu/config/gpu_info.h"
 #include "third_party/WebKit/public/platform/WebRect.h"
@@ -233,7 +235,9 @@ class FingerprintDataLoader : public content::GpuDataManagerObserver {
   scoped_ptr<base::ListValue> fonts_;
   std::vector<content::WebPluginInfo> plugins_;
   bool waiting_on_plugins_;
+#ifndef DISABLE_GEO_FEATURES
   content::Geoposition geoposition_;
+#endif
 
   // Timer to enforce a maximum timeout before the |callback_| is called, even
   // if not all asynchronous data has been loaded.
@@ -308,12 +312,14 @@ FingerprintDataLoader::FingerprintDataLoader(
       base::Bind(&FingerprintDataLoader::OnGotFonts,
                  weak_ptr_factory_.GetWeakPtr()));
 
+#ifndef DISABLE_GEO_FEATURES
   // Load geolocation data.
   geolocation_subscription_ = content::GeolocationProvider::GetInstance()->
       AddLocationUpdateCallback(
           base::Bind(&FingerprintDataLoader::OnGotGeoposition,
                       weak_ptr_factory_.GetWeakPtr()),
           false);
+#endif
 }
 
 void FingerprintDataLoader::OnGpuInfoUpdate() {
@@ -340,12 +346,14 @@ void FingerprintDataLoader::OnGotPlugins(
 
 void FingerprintDataLoader::OnGotGeoposition(
     const content::Geoposition& geoposition) {
+#ifndef DISABLE_GEO_FEATURES
   DCHECK(!geoposition_.Validate());
 
   geoposition_ = geoposition;
   DCHECK(geoposition_.Validate() ||
          geoposition_.error_code != content::Geoposition::ERROR_CODE_NONE);
   geolocation_subscription_.reset();
+#endif
 
   MaybeFillFingerprint();
 }
@@ -353,6 +361,7 @@ void FingerprintDataLoader::OnGotGeoposition(
 void FingerprintDataLoader::MaybeFillFingerprint() {
   // If all of the data has been loaded, or if the |timeout_timer_| has expired,
   // fill the fingerprint and clean up.
+#ifndef DISABLE_GEO_FEATURES
   if (!timeout_timer_.IsRunning() ||
       ((!gpu_data_manager_->GpuAccessAllowed(NULL) ||
         gpu_data_manager_->IsEssentialGpuInfoAvailable()) &&
@@ -363,6 +372,7 @@ void FingerprintDataLoader::MaybeFillFingerprint() {
     FillFingerprint();
     delete this;
   }
+#endif
 }
 
 void FingerprintDataLoader::FillFingerprint() {
@@ -407,6 +417,7 @@ void FingerprintDataLoader::FillFingerprint() {
   // TODO(isherman): Record network performance data, which is theoretically
   // available to JS.
 
+#ifndef DISABLE_GEO_FEATURES
   // TODO(isherman): Record more user behavior data.
   if (geoposition_.Validate() &&
       geoposition_.error_code == content::Geoposition::ERROR_CODE_NONE) {
@@ -419,6 +430,7 @@ void FingerprintDataLoader::FillFingerprint() {
     location->set_time_in_ms(
         (geoposition_.timestamp - base::Time::UnixEpoch()).InMilliseconds());
   }
+#endif
 
   Fingerprint::Metadata* metadata = fingerprint->mutable_metadata();
   metadata->set_timestamp_ms(

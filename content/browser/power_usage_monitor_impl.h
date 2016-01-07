@@ -96,7 +96,9 @@ class CONTENT_EXPORT PowerUsageMonitor : public base::PowerObserver,
   scoped_ptr<device::BatteryStatusService::BatteryUpdateSubscription>
       subscription_;
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationRegistrar registrar_;
+#endif
 
   scoped_ptr<SystemInterface> system_interface_;
 

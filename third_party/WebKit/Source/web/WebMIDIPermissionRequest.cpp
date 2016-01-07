@@ -59,12 +59,20 @@ bool WebMIDIPermissionRequest::equals(const WebMIDIPermissionRequest& n) const
 
 WebSecurityOrigin WebMIDIPermissionRequest::securityOrigin() const
 {
+#ifndef DISABLE_WEBMIDI
     return WebSecurityOrigin(m_private->securityOrigin());
+#else
+    return WebSecurityOrigin();
+#endif
 }
 
 void WebMIDIPermissionRequest::setIsAllowed(bool allowed)
 {
+#ifndef DISABLE_WEBMIDI
     m_private->resolveSysexPermission(allowed);
+#else
+    (void) allowed;
+#endif
 }
 
 } // namespace blink

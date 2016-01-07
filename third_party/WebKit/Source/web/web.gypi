@@ -12,6 +12,8 @@
     'web_files_indexeddb': [
       'IndexedDBClientImpl.cpp',
       'IndexedDBClientImpl.h',
+      'WebIDBKey.cpp',
+      'WebIDBKeyRange.cpp',
     ],
     'web_files_midi': [
       'MIDIClientProxy.cpp',

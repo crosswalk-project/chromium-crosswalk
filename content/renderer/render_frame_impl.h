@@ -43,9 +43,11 @@
 #include "content/renderer/pepper/plugin_power_saver_helper.h"
 #endif
 
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
 #include "content/renderer/media/android/renderer_media_player_manager.h"
 #endif
+#endif  // ifndef DISABLE_WEB_VIDEO
 
 #if defined(ENABLE_MOJO_MEDIA)
 #include "media/mojo/interfaces/service_factory.mojom.h"
@@ -116,7 +118,9 @@ class PresentationDispatcher;
 class PushMessagingDispatcher;
 class RendererAccessibility;
 class RendererCdmManager;
+#ifndef DISABLE_WEB_VIDEO
 class RendererMediaPlayerManager;
+#endif  // ifndef DISABLE_WEB_VIDEO
 class RendererPpapiHost;
 class RenderFrameObserver;
 class RenderViewImpl;
@@ -841,9 +845,9 @@ class CONTENT_EXPORT RenderFrameImpl
       blink::WebMediaPlayerClient* client,
       blink::WebMediaPlayerEncryptedMediaClient* encrypted_client,
       const media::WebMediaPlayerParams& params);
-#endif
 
   RendererMediaPlayerManager* GetMediaPlayerManager();
+#endif  // ifndef DISABLE_WEB_VIDEO
 #endif
 
   bool AreSecureCodecsSupported();
@@ -977,17 +981,17 @@ class CONTENT_EXPORT RenderFrameImpl
   media::interfaces::ServiceFactoryPtr media_service_factory_;
 #endif
 
-#ifndef DISABLE_WEBMIDI
   // MidiClient attached to this frame; lazily initialized.
   MidiDispatcher* midi_dispatcher_;
-#endif
 
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
   // Manages all media players in this render frame for communicating with the
   // real media player in the browser process. It's okay to use a raw pointer
   // since it's a RenderFrameObserver.
   RendererMediaPlayerManager* media_player_manager_;
 #endif
+#endif  //ifndef DISABLE_WEB_VIDEO
 
 #if defined(ENABLE_BROWSER_CDMS)
   // Manage all CDMs in this render frame for communicating with the real CDM in

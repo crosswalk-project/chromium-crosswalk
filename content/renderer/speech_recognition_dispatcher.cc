@@ -6,7 +6,9 @@
 
 #include "base/basictypes.h"
 #include "base/strings/utf_string_conversions.h"
+#ifndef DISABLE_SPEECH
 #include "content/common/speech_recognition_messages.h"
+#endif
 #include "content/renderer/render_view_impl.h"
 #include "third_party/WebKit/public/platform/WebString.h"
 #include "third_party/WebKit/public/platform/WebVector.h"

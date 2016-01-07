@@ -46,7 +46,9 @@
 #include "content/common/frame_messages.h"
 #include "content/common/input_messages.h"
 #include "content/common/inter_process_time_ticks_converter.h"
+#ifndef DISABLE_SPEECH
 #include "content/common/speech_recognition_messages.h"
+#endif
 #include "content/common/swapped_out_messages.h"
 #include "content/common/view_messages.h"
 #include "content/public/browser/ax_event_notification_details.h"
