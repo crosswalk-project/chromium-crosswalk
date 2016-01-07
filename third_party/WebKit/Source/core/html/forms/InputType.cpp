@@ -559,6 +559,10 @@ bool InputType::shouldDispatchFormControlChangeEvent(String& oldValue, String& n
     return !equalIgnoringNullity(oldValue, newValue);
 }
 
+void InputType::dispatchSearchEvent()
+{
+}
+
 void InputType::setValue(const String& sanitizedValue, bool valueChanged, TextFieldEventBehavior eventBehavior)
 {
     element().setValueInternal(sanitizedValue, eventBehavior);

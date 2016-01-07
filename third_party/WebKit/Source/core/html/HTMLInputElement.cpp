@@ -1498,11 +1498,7 @@ bool HTMLInputElement::matchesReadWritePseudoClass() const
 
 void HTMLInputElement::onSearch()
 {
-    // FIXME: Remove type check, and static_cast.
-    ASSERT(type() == InputTypeNames::search);
-    if (m_inputType)
-        static_cast<SearchInputType*>(m_inputType.get())->stopSearchEventTimer();
-    dispatchEvent(Event::createBubble(EventTypeNames::search));
+    m_inputType->dispatchSearchEvent();
 }
 
 void HTMLInputElement::updateClearButtonVisibility()
