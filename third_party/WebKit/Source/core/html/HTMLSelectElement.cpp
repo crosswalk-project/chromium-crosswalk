@@ -1213,9 +1213,12 @@ void HTMLSelectElement::resetImpl()
             firstOption = toHTMLOptionElement(element);
     }
 
-    if (!selectedOption && firstOption && !m_multiple && m_size <= 1)
+    if (!selectedOption && firstOption && !m_multiple && m_size <= 1) {
         firstOption->setSelectedState(true);
+        selectedOption = firstOption;
+    }
 
+    m_lastOnChangeOption = selectedOption;
     setOptionsChangedOnLayoutObject();
     setNeedsValidityCheck();
 }
