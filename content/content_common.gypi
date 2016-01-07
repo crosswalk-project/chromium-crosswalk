@@ -184,8 +184,6 @@
     'private_common_sources_speech': [
       'public/common/speech_recognition_error.h',
       'public/common/speech_recognition_grammar.h',
-      'public/common/speech_recognition_result.cc',
-      'public/common/speech_recognition_result.h',
 
       'common/speech_recognition_messages.h',
     ],

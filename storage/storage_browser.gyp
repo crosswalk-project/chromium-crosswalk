@@ -200,7 +200,7 @@
           'dependencies!': [
             '<(DEPTH)/third_party/sqlite/sqlite.gyp:sqlite',
           ],
-          'source!': [
+          'sources!': [
             'browser/database/database_quota_client.cc',
             'browser/database/database_quota_client.h',
             'browser/database/database_tracker.cc',

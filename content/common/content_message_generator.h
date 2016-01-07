@@ -30,7 +30,9 @@
 #include "content/common/gamepad_messages.h"
 #include "content/common/geofencing_messages.h"
 #include "content/common/gpu/gpu_messages.h"
+#ifndef DISABLE_INDEXEDDB
 #include "content/common/indexed_db/indexed_db_messages.h"
+#endif
 #include "content/common/input_messages.h"
 #include "content/common/manifest_manager_messages.h"
 #include "content/common/media/aec_dump_messages.h"
@@ -39,7 +41,9 @@
 #include "content/common/media/cdm_messages.h"
 #include "content/common/media/media_stream_messages.h"
 #include "content/common/media/media_stream_track_metrics_host_messages.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/common/media/midi_messages.h"
+#endif
 #include "content/common/media/peer_connection_tracker_messages.h"
 #include "content/common/media/video_capture_messages.h"
 #include "content/common/media/webrtc_identity_messages.h"
@@ -48,7 +52,9 @@
 #include "content/common/mime_registry_messages.h"
 #include "content/common/mojo/mojo_messages.h"
 #include "content/common/pepper_messages.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/common/platform_notification_messages.h"
+#endif
 #include "content/common/plugin_process_messages.h"
 #include "content/common/power_monitor_messages.h"
 #include "content/common/push_messaging_messages.h"

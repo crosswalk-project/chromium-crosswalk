@@ -688,9 +688,13 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
 #ifndef DISABLE_WEBMIDI
       midi_dispatcher_(NULL),
 #endif
+
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
       media_player_manager_(NULL),
 #endif
+#endif  // ifndef DISABLE_WEB_VIEDOE
+
 #if defined(ENABLE_BROWSER_CDMS)
       cdm_manager_(NULL),
 #endif
@@ -5079,13 +5083,13 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
       frame_, client, encrypted_client, weak_factory_.GetWeakPtr(),
       GetMediaPlayerManager(), GetCdmFactory(), stream_texture_factory, params);
 }
-#endif  // ifndef DISABLE_WEB_VIDEO
 
 RendererMediaPlayerManager* RenderFrameImpl::GetMediaPlayerManager() {
   if (!media_player_manager_)
     media_player_manager_ = new RendererMediaPlayerManager(this);
   return media_player_manager_;
 }
+#endif  // ifndef DISABLE_WEB_VIDEO
 #endif  // defined(OS_ANDROID)
 
 media::MediaPermission* RenderFrameImpl::GetMediaPermission() {

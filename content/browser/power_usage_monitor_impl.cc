@@ -125,12 +125,14 @@ void PowerUsageMonitor::Start() {
   // Power monitoring may be delayed based on uptime, but renderer process
   // lifetime tracking needs to start immediately so processes created before
   // then are accounted for.
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this,
                  NOTIFICATION_RENDERER_PROCESS_CREATED,
                  NotificationService::AllBrowserContextsAndSources());
   registrar_.Add(this,
                  NOTIFICATION_RENDERER_PROCESS_CLOSED,
                  NotificationService::AllBrowserContextsAndSources());
+#endif
   subscription_ =
       device::BatteryStatusService::GetInstance()->AddCallback(callback_);
 
