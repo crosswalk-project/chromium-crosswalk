@@ -9,8 +9,10 @@
 #include "base/sequenced_task_runner_helpers.h"
 #include "content/browser/media/media_internals.h"
 #include "content/public/browser/browser_thread.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_observer.h"
 #include "content/public/browser/notification_registrar.h"
+#endif
 #include "net/log/net_log.h"
 
 namespace base {
@@ -29,15 +31,21 @@ class MediaInternalsProxy
     : public base::RefCountedThreadSafe<
           MediaInternalsProxy,
           BrowserThread::DeleteOnUIThread>,
+#ifndef DISABLE_NOTIFICATIONS
       public net::NetLog::ThreadSafeObserver,
       public NotificationObserver {
+#else
+      public net::NetLog::ThreadSafeObserver {
+#endif
  public:
   MediaInternalsProxy();
 
+#ifndef DISABLE_NOTIFICATIONS
   // NotificationObserver implementation.
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   // Register a Handler and start receiving callbacks from MediaInternals.
   void Attach(MediaInternalsMessageHandler* handler);
@@ -78,7 +86,9 @@ class MediaInternalsProxy
 
   MediaInternalsMessageHandler* handler_;
   scoped_ptr<base::ListValue> pending_net_updates_;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationRegistrar registrar_;
+#endif
   MediaInternals::UpdateCallback update_callback_;
 
   DISALLOW_COPY_AND_ASSIGN(MediaInternalsProxy);

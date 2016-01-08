@@ -31,10 +31,13 @@
 #include "core/fetch/FetchInitiatorTypeNames.h"
 #include "core/fetch/FetchRequest.h"
 #include "core/fetch/ResourceFetcher.h"
-#include "core/fetch/XSLStyleSheetResource.h"
 #include "core/xml/DocumentXSLT.h"
-#include "core/xml/XSLStyleSheet.h"
 #include "core/xml/parser/XMLDocumentParser.h" // for parseAttributes()
+
+#if !defined(DISABLE_XSLT)
+#include "core/fetch/XSLStyleSheetResource.h"
+#include "core/xml/XSLStyleSheet.h"
+#endif
 
 namespace blink {
 
@@ -133,7 +136,9 @@ bool ProcessingInstruction::checkStyleSheet(String& href, String& charset)
         type = i->value;
 
     m_isCSS = type.isEmpty() || type == "text/css";
+#if !defined(DISABLE_XSLT)
     m_isXSL = (type == "text/xml" || type == "text/xsl" || type == "application/xml" || type == "application/xhtml+xml" || type == "application/rss+xml" || type == "application/atom+xml");
+#endif
     if (!m_isCSS && !m_isXSL)
         return false;
 
@@ -150,6 +155,7 @@ bool ProcessingInstruction::checkStyleSheet(String& href, String& charset)
 void ProcessingInstruction::process(const String& href, const String& charset)
 {
     if (href.length() > 1 && href[0] == '#') {
+#if !defined(DISABLE_XSLT)
         m_localHref = href.substring(1);
         // We need to make a synthetic XSLStyleSheet that is embedded.
         // It needs to be able to kick off import/include loads that
@@ -159,6 +165,7 @@ void ProcessingInstruction::process(const String& href, const String& charset)
             m_sheet = XSLStyleSheet::createEmbedded(this, finalURL);
             m_loading = false;
         }
+#endif
         return;
     }
 
@@ -169,8 +176,10 @@ void ProcessingInstruction::process(const String& href, const String& charset)
     ResourcePtr<StyleSheetResource> resource;
     FetchRequest request(ResourceRequest(document().completeURL(href)), FetchInitiatorTypeNames::processinginstruction);
     if (m_isXSL) {
+#if !defined(DISABLE_XSLT)
         if (RuntimeEnabledFeatures::xsltEnabled())
             resource = XSLStyleSheetResource::fetch(request, document().fetcher());
+#endif
     } else {
         request.setCharset(charset.isEmpty() ? document().charset() : charset);
         resource = CSSStyleSheetResource::fetch(request, document().fetcher());
@@ -228,6 +237,7 @@ void ProcessingInstruction::setCSSStyleSheet(const String& href, const KURL& bas
     parseStyleSheet(sheet->sheetText());
 }
 
+#if !defined(DISABLE_XSLT)
 void ProcessingInstruction::setXSLStyleSheet(const String& href, const KURL& baseURL, const String& sheet)
 {
     if (!inDocument()) {
@@ -241,21 +251,27 @@ void ProcessingInstruction::setXSLStyleSheet(const String& href, const KURL& bas
     OwnPtr<IncrementLoadEventDelayCount> delay = IncrementLoadEventDelayCount::create(document());
     parseStyleSheet(sheet);
 }
+#endif
 
 void ProcessingInstruction::parseStyleSheet(const String& sheet)
 {
     if (m_isCSS)
         toCSSStyleSheet(m_sheet.get())->contents()->parseString(sheet);
+#if !defined(DISABLE_XSLT)
     else if (m_isXSL)
         toXSLStyleSheet(m_sheet.get())->parseString(sheet);
+#endif
 
     clearResource();
     m_loading = false;
 
     if (m_isCSS)
         toCSSStyleSheet(m_sheet.get())->contents()->checkLoaded();
+#if !defined(DISABLE_XSLT)
     else if (m_isXSL)
         toXSLStyleSheet(m_sheet.get())->checkLoaded();
+#endif
+
 }
 
 Node::InsertionNotificationRequest ProcessingInstruction::insertedInto(ContainerNode* insertionPoint)

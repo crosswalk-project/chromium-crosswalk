@@ -48,6 +48,10 @@
     '<(SHARED_INTERMEDIATE_DIR)',  # Needed by key_systems.cc.
   ],
   'variables': {
+    'public_renderer_sources_speech': [
+      'renderer/speech_recognition_dispatcher.cc',
+      'renderer/speech_recognition_dispatcher.h',
+    ],
     'public_renderer_sources': [
       'public/renderer/android_content_detection_prefixes.cc',
       'public/renderer/android_content_detection_prefixes.h',
@@ -85,6 +89,53 @@
     ],
     'public_renderer_plugin_sources': [
       'public/renderer/plugin_instance_throttler.h',
+    ],
+    'private_renderer_sources_accessibility': [
+      'renderer/accessibility/blink_ax_enum_conversion.cc',
+      'renderer/accessibility/blink_ax_enum_conversion.h',
+      'renderer/accessibility/blink_ax_tree_source.cc',
+      'renderer/accessibility/blink_ax_tree_source.h',
+      'renderer/accessibility/renderer_accessibility.cc',
+      'renderer/accessibility/renderer_accessibility.h',
+    ],
+    'private_renderer_sources_bluetooth': [
+      'renderer/bluetooth/bluetooth_dispatcher.cc',
+      'renderer/bluetooth/bluetooth_dispatcher.h',
+      'renderer/bluetooth/bluetooth_message_filter.cc',
+      'renderer/bluetooth/bluetooth_message_filter.h',
+      'renderer/bluetooth/web_bluetooth_impl.cc',
+      'renderer/bluetooth/web_bluetooth_impl.h',
+    ],
+    'private_renderer_sources_devtools': [
+      'renderer/devtools/devtools_agent.cc',
+      'renderer/devtools/devtools_agent.h',
+      'renderer/devtools/devtools_agent_filter.cc',
+      'renderer/devtools/devtools_agent_filter.h',
+      'renderer/devtools/devtools_client.cc',
+      'renderer/devtools/devtools_client.h',
+      'renderer/devtools/lock_free_circular_queue.h',
+      'renderer/devtools/v8_sampling_profiler.cc',
+      'renderer/devtools/v8_sampling_profiler.h',
+
+      'renderer/service_worker/embedded_worker_devtools_agent.cc',
+      'renderer/service_worker/embedded_worker_devtools_agent.h',
+    ],
+    'private_renderer_sources_geo': [
+      'renderer/geolocation_dispatcher.cc',
+      'renderer/geolocation_dispatcher.h',
+    ],
+    'private_renderer_sources_notifications': [
+      'renderer/notification_permission_dispatcher.cc',
+      'renderer/notification_permission_dispatcher.h',
+    ],
+    'private_renderer_sources_midi': [
+      'renderer/media/midi_dispatcher.cc',
+      'renderer/media/midi_dispatcher.h',
+      'renderer/media/midi_message_filter.cc',
+      'renderer/media/midi_message_filter.h',
+
+      'renderer/media/renderer_webmidiaccessor_impl.cc',
+      'renderer/media/renderer_webmidiaccessor_impl.h',
     ],
     'private_renderer_sources': [
       'renderer/accessibility/blink_ax_enum_conversion.cc',
@@ -443,6 +494,12 @@
       'renderer/websharedworker_proxy.cc',
       'renderer/websharedworker_proxy.h',
     ],
+    'private_renderer_sources_web_video': [
+      'renderer/media/android/renderer_media_player_manager.cc',
+      'renderer/media/android/renderer_media_player_manager.h',
+      'renderer/media/android/webmediaplayer_android.cc',
+      'renderer/media/android/webmediaplayer_android.h',
+    ],
     # Put WebRTC-related sources in the plugin+WebRTC section below.
     'private_renderer_plugin_sources': [
       'renderer/npapi/plugin_channel_host.cc',
@@ -729,6 +786,16 @@
     '<@(private_renderer_sources)',
   ],
   'conditions': [
+    ['disable_web_video', {
+      'sources!': [
+        '<@(private_renderer_sources_web_video)',
+      ],
+    }],
+    ['enable_web_speech==0', {
+      'sources!': [
+        '<@(public_renderer_sources_speech)',
+      ],
+    }],
     ['OS=="mac"', {
       'sources!': [
         'common/process_watcher_posix.cc',
@@ -785,6 +852,12 @@
         '../media/cast/cast.gyp:cast_sender',
       ]
     }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icui18n',
+        '../third_party/icu/icu.gyp:icuuc',
+      ],
+    }],
     # TODO(jrg): remove the OS=="android" section?
     # http://crbug.com/113172
     # Understand better how media_stream_ is tied into Chromium.
@@ -811,6 +884,11 @@
       'sources': [
         'renderer/media/webrtc_logging.h',
         'renderer/media/webrtc_logging_noop.cc',
+      ],
+    }],
+    ['disable_sync_compositor==1', {
+      'sources/': [
+        ['exclude', '^renderer/android/synchronous_compositor*'],
       ],
     }],
     ['enable_plugins==1', {
@@ -873,6 +951,36 @@
         'renderer/vr/vr_dispatcher.h',
         'renderer/vr/vr_type_converters.cc',
         'renderer/vr/vr_type_converters.h',
+      ]
+    }],
+    ['disable_accessibility==1', {
+      'sources!': [
+        '<@(private_renderer_sources_accessibility)',
+      ],
+    }],
+    ['disable_bluetooth==1', {
+      'sources!': [
+        '<@(private_renderer_sources_bluetooth)',
+      ],
+    }],
+    ['disable_devtools==1', {
+      'sources!': [
+        '<@(private_renderer_sources_devtools)',
+      ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_renderer_sources_geo)',
+      ]
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_renderer_sources_notifications)',
+      ]
+    }],
+    ['disable_webmidi==1', {
+      'sources!': [
+        '<@(private_renderer_sources_midi)',
       ]
     }],
   ],

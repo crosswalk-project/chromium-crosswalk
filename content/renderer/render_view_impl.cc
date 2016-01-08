@@ -95,7 +95,9 @@
 #include "content/renderer/renderer_webapplicationcachehost_impl.h"
 #include "content/renderer/resizing_mode_selector.h"
 #include "content/renderer/savable_resources.h"
+#ifndef DISABLE_SPEECH
 #include "content/renderer/speech_recognition_dispatcher.h"
+#endif
 #include "content/renderer/text_input_client_observer.h"
 #include "content/renderer/web_ui_extension_data.h"
 #include "content/renderer/web_ui_mojo.h"
@@ -589,7 +591,13 @@ void ApplyFontsFromMap(const ScriptFontFamilyMap& map,
                        WebSettings* settings) {
   for (ScriptFontFamilyMap::const_iterator it = map.begin(); it != map.end();
        ++it) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    // As Chromium only uses the common script("Zyyy"),
+    // it's ok to return 0 directly.
+    int32 script = 0;
+#else
     int32 script = u_getPropertyValueEnum(UCHAR_SCRIPT, (it->first).c_str());
+#endif
     if (script >= 0 && script < USCRIPT_CODE_LIMIT) {
       UScriptCode code = static_cast<UScriptCode>(script);
       (*setter)(settings, it->second, GetScriptForWebSettings(code));
@@ -680,7 +688,9 @@ RenderViewImpl::RenderViewImpl(CompositorDependencies* compositor_deps,
 #endif
       has_scrolled_focused_editable_node_into_rect_(false),
       main_render_frame_(nullptr),
+#ifndef DISABLE_SPEECH
       speech_recognition_dispatcher_(NULL),
+#endif
       mouse_lock_dispatcher_(NULL),
 #if defined(OS_ANDROID)
       expected_content_intent_id_(0),
@@ -2007,9 +2017,11 @@ void RenderViewImpl::focusedNodeChanged(const WebNode& fromNode,
   if (new_frame)
     new_frame->FocusedNodeChanged(toNode);
 
+#ifndef DISABLE_ACCESSIBILITY
   // TODO(dmazzoni): remove once there's a separate a11y tree per frame.
   if (main_render_frame_)
     main_render_frame_->FocusedNodeChangedForAccessibility(toNode);
+#endif
 }
 
 void RenderViewImpl::didUpdateLayout() {
@@ -3179,8 +3191,10 @@ void RenderViewImpl::OnWasHidden() {
 #if defined(OS_ANDROID) && defined(ENABLE_WEBRTC)
   RenderThreadImpl::current()->video_capture_impl_manager()->
       SuspendDevices(true);
+#ifndef DISABLE_SPEECH
   if (speech_recognition_dispatcher_)
     speech_recognition_dispatcher_->AbortAllRecognitions();
+#endif
 #endif
 
   if (webview())
@@ -3500,9 +3514,13 @@ bool RenderViewImpl::ScheduleFileChooser(
 }
 
 blink::WebSpeechRecognizer* RenderViewImpl::speechRecognizer() {
+#ifndef DISABLE_SPEECH
   if (!speech_recognition_dispatcher_)
     speech_recognition_dispatcher_ = new SpeechRecognitionDispatcher(this);
   return speech_recognition_dispatcher_;
+#else
+  return nullptr;
+#endif
 }
 
 void RenderViewImpl::zoomLimitsChanged(double minimum_level,
@@ -3660,6 +3678,7 @@ bool RenderViewImpl::didTapMultipleTargets(
     const WebVector<WebRect>& target_rects) {
   DCHECK(switches::IsLinkDisambiguationPopupEnabled());
 
+#ifndef DISABLE_ACCESSIBILITY
   // Never show a disambiguation popup when accessibility is enabled,
   // as this interferes with "touch exploration".
   AccessibilityMode accessibility_mode =
@@ -3669,6 +3688,7 @@ bool RenderViewImpl::didTapMultipleTargets(
           AccessibilityModeComplete;
   if (matches_accessibility_mode_complete)
     return false;
+#endif
 
   // The touch_rect, target_rects and zoom_rect are in the outer viewport
   // reference frame.

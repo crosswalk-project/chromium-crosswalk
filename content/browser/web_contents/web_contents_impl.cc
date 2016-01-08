@@ -23,8 +23,10 @@
 #include "base/trace_event/trace_event.h"
 #include "components/mime_util/mime_util.h"
 #include "components/url_formatter/url_formatter.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/accessibility_mode_helper.h"
 #include "content/browser/accessibility/browser_accessibility_state_impl.h"
+#endif
 #include "content/browser/bad_message.h"
 #include "content/browser/browser_plugin/browser_plugin_embedder.h"
 #include "content/browser/browser_plugin/browser_plugin_guest.h"
@@ -41,7 +43,9 @@
 #include "content/browser/frame_host/navigator_impl.h"
 #include "content/browser/frame_host/render_frame_host_impl.h"
 #include "content/browser/frame_host/render_widget_host_view_child_frame.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geolocation/geolocation_service_context.h"
+#endif
 #include "content/browser/host_zoom_map_impl.h"
 #include "content/browser/loader/resource_dispatcher_host_impl.h"
 #include "content/browser/manifest/manifest_manager_host.h"
@@ -72,7 +76,9 @@
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/browser_plugin_guest_manager.h"
 #include "content/public/browser/content_browser_client.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/public/browser/devtools_agent_host.h"
+#endif
 #include "content/public/browser/download_manager.h"
 #include "content/public/browser/download_url_parameters.h"
 #include "content/public/browser/invalidate_type.h"
@@ -192,6 +198,7 @@ bool ForEachFrameInternal(
   return true;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 bool ForEachPendingFrameInternal(
     const base::Callback<void(RenderFrameHost*)>& on_frame,
     FrameTreeNode* node) {
@@ -201,6 +208,7 @@ bool ForEachPendingFrameInternal(
     on_frame.Run(pending_frame_host);
   return true;
 }
+#endif
 
 void SendToAllFramesInternal(IPC::Message* message, RenderFrameHost* rfh) {
   IPC::Message* message_copy = new IPC::Message(*message);
@@ -217,6 +225,7 @@ void AddRenderWidgetHostViewToSet(std::set<RenderWidgetHostView*>* set,
   set->insert(rwhv);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void SetAccessibilityModeOnFrame(AccessibilityMode mode,
                                  RenderFrameHost* frame_host) {
   static_cast<RenderFrameHostImpl*>(frame_host)->SetAccessibilityMode(mode);
@@ -225,6 +234,7 @@ void SetAccessibilityModeOnFrame(AccessibilityMode mode,
 void ResetAccessibility(RenderFrameHost* rfh) {
   static_cast<RenderFrameHostImpl*>(rfh)->AccessibilityReset();
 }
+#endif
 
 }  // namespace
 
@@ -379,7 +389,9 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context)
       upload_position_(0),
       is_resume_pending_(false),
       displayed_insecure_content_(false),
+#ifndef DISABLE_ACCESSIBILITY
       has_accessed_initial_document_(false),
+#endif
       theme_color_(SK_ColorTRANSPARENT),
       last_sent_theme_color_(SK_ColorTRANSPARENT),
       did_first_visually_non_empty_paint_(false),
@@ -400,9 +412,13 @@ WebContentsImpl::WebContentsImpl(BrowserContext* browser_context)
       is_subframe_(false),
       force_disable_overscroll_content_(false),
       last_dialog_suppressed_(false),
+#ifndef DISABLE_GEO_FEATURES
       geolocation_service_context_(new GeolocationServiceContext()),
+#endif
+#ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(
           BrowserAccessibilityStateImpl::GetInstance()->accessibility_mode()),
+#endif
       virtual_keyboard_requested_(false),
       loading_weak_factory_(this) {
   frame_tree_.SetFrameRemoveListener(
@@ -444,11 +460,13 @@ WebContentsImpl::~WebContentsImpl() {
 
   NotifyDisconnected();
 
+#ifndef DISABLE_NOTIFICATIONS
   // Notify any observer that have a reference on this WebContents.
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_DESTROYED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 
   // Destroy all frame tree nodes except for the root; this notifies observers.
   frame_tree_.root()->ResetForNewProcess();
@@ -817,6 +835,7 @@ SkColor WebContentsImpl::GetThemeColor() const {
   return theme_color_;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void WebContentsImpl::SetAccessibilityMode(AccessibilityMode mode) {
   if (mode == accessibility_mode_)
     return;
@@ -844,6 +863,7 @@ void WebContentsImpl::RequestAXTreeSnapshot(AXTreeSnapshotCallback callback) {
   // same site instance.
   GetMainFrame()->RequestAXTreeSnapshot(callback);
 }
+#endif
 
 WebUI* WebContentsImpl::CreateWebUI(const GURL& url) {
   WebUIImpl* web_ui = new WebUIImpl(this);
@@ -893,6 +913,7 @@ const std::string& WebContentsImpl::GetUserAgentOverride() const {
   return renderer_preferences_.user_agent_override;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void WebContentsImpl::EnableTreeOnlyAccessibilityMode() {
   if (GetAccessibilityMode() == AccessibilityModeTreeOnly)
     ForEachFrame(base::Bind(&ResetAccessibility));
@@ -907,6 +928,7 @@ bool WebContentsImpl::IsTreeOnlyAccessibilityModeForTesting() const {
 bool WebContentsImpl::IsFullAccessibilityModeForTesting() const {
   return accessibility_mode_ == AccessibilityModeComplete;
 }
+#endif
 
 #if defined(OS_WIN)
 void WebContentsImpl::SetParentNativeViewAccessible(
@@ -1305,6 +1327,7 @@ WebContents* WebContentsImpl::Clone() {
   return tc;
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void WebContentsImpl::Observe(int type,
                               const NotificationSource& source,
                               const NotificationDetails& details) {
@@ -1334,6 +1357,7 @@ void WebContentsImpl::Observe(int type,
       NOTREACHED();
   }
 }
+#endif
 
 WebContents* WebContentsImpl::GetWebContents() {
   return this;
@@ -1384,9 +1408,11 @@ void WebContentsImpl::Init(const WebContents::CreateParams& params) {
       new PluginContentOriginWhitelist(this));
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this,
                  NOTIFICATION_RENDER_WIDGET_HOST_DESTROYED,
                  NotificationService::AllBrowserContextsAndSources());
+#endif
 
   screen_orientation_dispatcher_host_.reset(
       new ScreenOrientationDispatcherHostImpl(this));
@@ -2031,6 +2057,7 @@ bool WebContentsImpl::IsVirtualKeyboardRequested() {
   return virtual_keyboard_requested_;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 AccessibilityMode WebContentsImpl::GetAccessibilityMode() const {
   return accessibility_mode_;
 }
@@ -2040,6 +2067,7 @@ void WebContentsImpl::AccessibilityEventReceived(
   FOR_EACH_OBSERVER(
       WebContentsObserver, observers_, AccessibilityEventReceived(details));
 }
+#endif
 
 RenderFrameHost* WebContentsImpl::GetGuestByInstanceID(
     RenderFrameHost* render_frame_host,
@@ -2057,9 +2085,11 @@ RenderFrameHost* WebContentsImpl::GetGuestByInstanceID(
   return guest->GetMainFrame();
 }
 
+#ifndef DISABLE_GEO_FEATURES
 GeolocationServiceContext* WebContentsImpl::GetGeolocationServiceContext() {
   return geolocation_service_context_.get();
 }
+#endif
 
 void WebContentsImpl::OnShowValidationMessage(
     const gfx::Rect& anchor_in_root_view,
@@ -2086,6 +2116,7 @@ void WebContentsImpl::DidSendScreenRects(RenderWidgetHostImpl* rwh) {
     browser_plugin_embedder_->DidSendScreenRects();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 BrowserAccessibilityManager*
     WebContentsImpl::GetRootBrowserAccessibilityManager() {
   RenderFrameHostImpl* rfh = GetMainFrame();
@@ -2097,6 +2128,7 @@ BrowserAccessibilityManager*
   RenderFrameHostImpl* rfh = GetMainFrame();
   return rfh ? rfh->GetOrCreateBrowserAccessibilityManager() : nullptr;
 }
+#endif
 
 void WebContentsImpl::MoveRangeSelectionExtent(const gfx::Point& extent) {
   RenderFrameHost* focused_frame = GetFocusedFrame();
@@ -2551,11 +2583,13 @@ void WebContentsImpl::DidGetRedirectForResourceRequest(
       observers_,
       DidGetRedirectForResourceRequest(render_frame_host, details));
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   NotificationService::current()->Notify(
       NOTIFICATION_RESOURCE_RECEIVED_REDIRECT,
       Source<WebContents>(this),
       Details<const ResourceRedirectDetails>(&details));
+#endif
 
   if (IsResourceTypeFrame(details.resource_type)) {
     NavigationHandleImpl* navigation_handle =
@@ -2812,6 +2846,7 @@ void WebContentsImpl::DidStartProvisionalLoad(
       DidStartProvisionalLoadForFrame(
           render_frame_host, validated_url, is_error_page, is_iframe_srcdoc));
 
+#ifndef DISABLE_ACCESSIBILITY
   // Notify accessibility if this is a reload.
   NavigationEntry* entry = controller_.GetVisibleEntry();
   if (entry && ui::PageTransitionCoreTypeIs(
@@ -2822,6 +2857,7 @@ void WebContentsImpl::DidStartProvisionalLoad(
     if (manager)
       manager->UserIsReloading();
   }
+#endif
 }
 
 void WebContentsImpl::DidFailProvisionalLoadWithError(
@@ -2836,11 +2872,13 @@ void WebContentsImpl::DidFailProvisionalLoadWithError(
                                            params.error_description,
                                            params.was_ignored_by_handler));
 
+#ifndef DISABLE_ACCESSIBILITY
   FrameTreeNode* ftn = render_frame_host->frame_tree_node();
   BrowserAccessibilityManager* manager =
       ftn->current_frame_host()->browser_accessibility_manager();
   if (manager)
     manager->NavigationFailed();
+#endif
 }
 
 void WebContentsImpl::DidFailLoadWithError(
@@ -2918,10 +2956,12 @@ void WebContentsImpl::DidCommitProvisionalLoad(
                     DidCommitProvisionalLoadForFrame(
                         render_frame_host, url, transition_type));
 
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* manager =
       render_frame_host->browser_accessibility_manager();
   if (manager)
     manager->NavigationSucceeded();
+#endif
 }
 
 void WebContentsImpl::DidNavigateMainFramePreCommit(
@@ -2983,9 +3023,11 @@ void WebContentsImpl::DidNavigateAnyFramePostCommit(
     RenderFrameHostImpl* render_frame_host,
     const LoadCommittedDetails& details,
     const FrameHostMsg_DidCommitProvisionalLoad_Params& params) {
+#ifndef DISABLE_ACCESSIBILITY
   // Now that something has committed, we don't need to track whether the
   // initial page has been accessed.
   has_accessed_initial_document_ = false;
+#endif
 
   // If we navigate off the page, close all JavaScript dialogs.
   if (!details.is_in_page)
@@ -3195,11 +3237,16 @@ void WebContentsImpl::OnOpenDateTimeDialog(
 
 void WebContentsImpl::OnDomOperationResponse(const std::string& json_string,
                                              int automation_id) {
+#ifndef DISABLE_NOTIFICATIONS
   DomOperationNotificationDetails details(json_string, automation_id);
   NotificationService::current()->Notify(
       NOTIFICATION_DOM_OPERATION_RESPONSE,
       Source<WebContents>(this),
       Details<DomOperationNotificationDetails>(&details));
+#else
+  (void) json_string;
+  (void) automation_id;
+#endif
 }
 
 void WebContentsImpl::OnAppCacheAccessed(const GURL& manifest_url,
@@ -3455,9 +3502,11 @@ void WebContentsImpl::ActivateAndShowRepostFormWarningDialog() {
     delegate_->ShowRepostFormWarningDialog(this);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 bool WebContentsImpl::HasAccessedInitialDocument() {
   return has_accessed_initial_document_;
 }
+#endif
 
 // Notifies the RenderWidgetHost instance about the fact that the page is
 // loading, or done loading.
@@ -3496,6 +3545,7 @@ void WebContentsImpl::SetIsLoading(bool is_loading,
     FOR_EACH_OBSERVER(WebContentsObserver, observers_, DidStopLoading());
   }
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   int type = is_loading ? NOTIFICATION_LOAD_START : NOTIFICATION_LOAD_STOP;
   NotificationDetails det = NotificationService::NoDetails();
@@ -3503,6 +3553,7 @@ void WebContentsImpl::SetIsLoading(bool is_loading,
       det = Details<LoadNotificationDetails>(details);
   NotificationService::current()->Notify(
       type, Source<NavigationController>(&controller_), det);
+#endif
 }
 
 void WebContentsImpl::UpdateMaxPageIDIfNecessary(RenderViewHost* rvh) {
@@ -3599,10 +3650,12 @@ void WebContentsImpl::NotifyDisconnected() {
     return;
 
   notify_disconnection_ = false;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_DISCONNECTED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 }
 
 void WebContentsImpl::NotifyNavigationEntryCommitted(
@@ -3626,7 +3679,9 @@ void WebContentsImpl::RenderFrameCreated(RenderFrameHost* render_frame_host) {
   FOR_EACH_OBSERVER(WebContentsObserver,
                     observers_,
                     RenderFrameCreated(render_frame_host));
+#ifndef DISABLE_ACCESSIBILITY
   SetAccessibilityModeOnFrame(accessibility_mode_, render_frame_host);
+#endif
 }
 
 void WebContentsImpl::RenderFrameDeleted(RenderFrameHost* render_frame_host) {
@@ -3771,10 +3826,12 @@ void WebContentsImpl::RenderViewCreated(RenderViewHost* render_view_host) {
   if (delegate_)
     view_->SetOverscrollControllerEnabled(CanOverscrollContent());
 
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_RENDER_VIEW_HOST_CREATED,
       Source<WebContents>(this),
       Details<RenderViewHost>(render_view_host));
+#endif
 
   // When we're creating views, we're still doing initial setup, so we always
   // use the pending Web UI rather than any possibly existing committed one.
@@ -3810,10 +3867,12 @@ void WebContentsImpl::RenderViewReady(RenderViewHost* rvh) {
 
   notify_disconnection_ = true;
   // TODO(avi): Remove. http://crbug.com/170921
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_WEB_CONTENTS_CONNECTED,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 
   bool was_crashed = IsCrashed();
   SetIsCrashed(base::TERMINATION_STATUS_STILL_RUNNING, 0);
@@ -3951,6 +4010,7 @@ void WebContentsImpl::DidStartLoading(FrameTreeNode* frame_tree_node,
                                       bool to_different_document) {
   SetIsLoading(true, to_different_document, nullptr);
 
+#ifndef DISABLE_ACCESSIBILITY
   // Notify accessibility that the user is navigating away from the
   // current document.
   //
@@ -3959,6 +4019,7 @@ void WebContentsImpl::DidStartLoading(FrameTreeNode* frame_tree_node,
       frame_tree_node->current_frame_host()->browser_accessibility_manager();
   if (manager)
     manager->UserIsNavigatingAway();
+#endif
 }
 
 void WebContentsImpl::DidStopLoading() {
@@ -4027,6 +4088,7 @@ void WebContentsImpl::DidCancelLoading() {
   NotifyNavigationStateChanged(INVALIDATE_TYPE_URL);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void WebContentsImpl::DidAccessInitialDocument() {
   has_accessed_initial_document_ = true;
 
@@ -4039,6 +4101,7 @@ void WebContentsImpl::DidAccessInitialDocument() {
   // Update the URL display.
   NotifyNavigationStateChanged(INVALIDATE_TYPE_URL);
 }
+#endif
 
 void WebContentsImpl::DidChangeName(RenderFrameHost* render_frame_host,
                                     const std::string& name) {
@@ -4051,11 +4114,13 @@ void WebContentsImpl::DocumentOnLoadCompleted(
   FOR_EACH_OBSERVER(WebContentsObserver, observers_,
                     DocumentOnLoadCompletedInMainFrame());
 
+#ifndef DISABLE_NOTIFICATIONS
   // TODO(avi): Remove. http://crbug.com/170921
   NotificationService::current()->Notify(
       NOTIFICATION_LOAD_COMPLETED_MAIN_FRAME,
       Source<WebContents>(this),
       NotificationService::NoDetails());
+#endif
 }
 
 void WebContentsImpl::UpdateTitle(RenderFrameHost* render_frame_host,
@@ -4209,8 +4274,10 @@ void WebContentsImpl::RendererUnresponsive(RenderViewHost* render_view_host) {
   // Ignore renderer unresponsive event if debugger is attached to the tab
   // since the event may be a result of the renderer sitting on a breakpoint.
   // See http://crbug.com/65458
+#ifndef DISABLE_DEVTOOLS
   if (DevToolsAgentHost::IsDebuggerAttached(this))
     return;
+#endif
 
   if (rfhi->is_waiting_for_beforeunload_ack() ||
       rfhi->IsWaitingForUnloadACK()) {

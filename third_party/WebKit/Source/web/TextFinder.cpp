@@ -43,12 +43,16 @@
 #include "core/layout/LayoutObject.h"
 #include "core/layout/TextAutosizer.h"
 #include "core/page/Page.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObject.h"
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "platform/RuntimeEnabledFeatures.h"
 #include "platform/Timer.h"
 #include "public/platform/WebVector.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "public/web/WebAXObject.h"
+#endif
 #include "public/web/WebFindOptions.h"
 #include "public/web/WebFrameClient.h"
 #include "public/web/WebViewClient.h"
@@ -215,6 +219,7 @@ void TextFinder::stopFindingAndClearSelection()
     ownerFrame().frameView()->invalidatePaintForTickmarks();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void TextFinder::reportFindInPageResultToAccessibility(int identifier)
 {
     AXObjectCacheImpl* axObjectCache = toAXObjectCacheImpl(ownerFrame().frame()->document()->existingAXObjectCache());
@@ -234,6 +239,7 @@ void TextFinder::reportFindInPageResultToAccessibility(int identifier)
             WebAXObject(endObject), m_activeMatch->endOffset());
     }
 }
+#endif
 
 template <typename Strategy>
 void TextFinder::scopeStringMatchesAlgorithm(int identifier, const WebString& searchText, const WebFindOptions& options, bool reset)
@@ -459,9 +465,11 @@ void TextFinder::reportFindInPageSelection(const WebRect& selectionRect, int act
     if (ownerFrame().client())
         ownerFrame().client()->reportFindInPageSelection(identifier, ordinalOfFirstMatch() + activeMatchOrdinal, selectionRect);
 
+#ifndef DISABLE_ACCESSIBILITY
     // Update accessibility too, so if the user commits to this query
     // we can move accessibility focus to this result.
     reportFindInPageResultToAccessibility(identifier);
+#endif
 }
 
 void TextFinder::resetMatchCount()

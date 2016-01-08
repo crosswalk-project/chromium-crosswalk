@@ -52,7 +52,9 @@ namespace blink {
 
 class Document;
 class DocumentType;
+#ifndef DISABLE_ACCESSIBILITY
 class WebAXObject;
+#endif
 class WebDocumentType;
 class WebElement;
 class WebFormElement;
@@ -119,11 +121,13 @@ public:
     // top-level document, because one accessibility cache spans all of
     // the documents on the page.
 
+#ifndef DISABLE_ACCESSIBILITY
     // Gets the accessibility object for this document.
     BLINK_EXPORT WebAXObject accessibilityObject() const;
 
     // Gets the accessibility object for an object on this page by ID.
     BLINK_EXPORT WebAXObject accessibilityObjectFromID(int axID) const;
+#endif
     // Inserts the given CSS source code as a stylesheet in the document.
     BLINK_EXPORT void insertStyleSheet(const WebString& sourceCode);
 

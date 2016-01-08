@@ -35,7 +35,9 @@
 #include "content/child/webmessageportchannel_impl.h"
 #include "content/child/websocket_bridge.h"
 #include "content/child/weburlresponse_extradata_impl.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/common/accessibility_messages.h"
+#endif
 #include "content/common/clipboard_messages.h"
 #include "content/common/frame_messages.h"
 #include "content/common/frame_replication_state.h"
@@ -61,16 +63,24 @@
 #include "content/public/renderer/navigation_state.h"
 #include "content/public/renderer/render_frame_observer.h"
 #include "content/public/renderer/renderer_ppapi_host.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/renderer/accessibility/renderer_accessibility.h"
+#endif
+#ifndef DISABLE_BLUETOOTH
 #include "content/renderer/bluetooth/web_bluetooth_impl.h"
+#endif
 #include "content/renderer/browser_plugin/browser_plugin.h"
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/child_frame_compositing_helper.h"
 #include "content/renderer/context_menu_params_builder.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent.h"
+#endif
 #include "content/renderer/dom_automation_controller.h"
 #include "content/renderer/external_popup_menu.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/renderer/geolocation_dispatcher.h"
+#endif
 #include "content/renderer/gpu/gpu_benchmarking_extension.h"
 #include "content/renderer/history_controller.h"
 #include "content/renderer/history_serialization.h"
@@ -83,14 +93,18 @@
 #include "content/renderer/media/media_permission_dispatcher.h"
 #include "content/renderer/media/media_stream_dispatcher.h"
 #include "content/renderer/media/media_stream_renderer_factory_impl.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/renderer/media/midi_dispatcher.h"
+#endif
 #include "content/renderer/media/render_media_log.h"
 #include "content/renderer/media/user_media_client_impl.h"
 #include "content/renderer/media/webmediaplayer_ms.h"
 #include "content/renderer/memory_benchmarking_extension.h"
 #include "content/renderer/mojo/service_registry_js_wrapper.h"
 #include "content/renderer/navigation_state_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/renderer/notification_permission_dispatcher.h"
+#endif
 #include "content/renderer/npapi/plugin_channel_host.h"
 #include "content/renderer/pepper/plugin_instance_throttler_impl.h"
 #include "content/renderer/presentation/presentation_dispatcher.h"
@@ -666,13 +680,21 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
       selection_text_offset_(0),
       selection_range_(gfx::Range::InvalidRange()),
       handling_select_range_(false),
+#ifndef DISABLE_NOTIFICATIONS
       notification_permission_dispatcher_(NULL),
+#endif
       web_user_media_client_(NULL),
       media_permission_dispatcher_(NULL),
+#ifndef DISABLE_WEBMIDI
       midi_dispatcher_(NULL),
+#endif
+
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
       media_player_manager_(NULL),
 #endif
+#endif  // ifndef DISABLE_WEB_VIEDOE
+
 #if defined(ENABLE_BROWSER_CDMS)
       cdm_manager_(NULL),
 #endif
@@ -680,14 +702,20 @@ RenderFrameImpl::RenderFrameImpl(const CreateParams& params)
       contains_media_player_(false),
 #endif
       has_played_media_(false),
+#ifndef DISABLE_DEVTOOLS
       devtools_agent_(nullptr),
+#endif
+#ifndef DISABLE_GEO_FEATURES
       geolocation_dispatcher_(NULL),
+#endif
       push_messaging_dispatcher_(NULL),
       presentation_dispatcher_(NULL),
       screen_orientation_dispatcher_(NULL),
       manifest_manager_(NULL),
+#ifndef DISABLE_ACCESSIBILITY
       accessibility_mode_(AccessibilityModeOff),
       renderer_accessibility_(NULL),
+#endif
       weak_factory_(this) {
   std::pair<RoutingIDFrameMap::iterator, bool> result =
       g_routing_id_frame_map.Get().insert(std::make_pair(routing_id_, this));
@@ -766,11 +794,13 @@ void RenderFrameImpl::Initialize() {
 #endif
   new SharedWorkerRepository(this);
 
+#ifndef DISABLE_DEVTOOLS
   if (is_local_root_ && !render_frame_proxy_) {
     // DevToolsAgent is a RenderFrameObserver, and will destruct itself
     // when |this| is deleted.
     devtools_agent_ = new DevToolsAgent(this);
   }
+#endif
 
   RegisterMojoServices();
 
@@ -818,7 +848,9 @@ void RenderFrameImpl::PepperTextInputTypeChanged(
   GetRenderWidget()->UpdateTextInputState(
       RenderWidget::NO_SHOW_IME, RenderWidget::FROM_NON_IME);
 
+#ifndef DISABLE_ACCESSIBILITY
   FocusedNodeChangedForAccessibility(WebNode());
+#endif
 }
 
 void RenderFrameImpl::PepperCaretPositionChanged(
@@ -1063,10 +1095,12 @@ bool RenderFrameImpl::OnMessageReceived(const IPC::Message& msg) {
     IPC_MESSAGE_HANDLER(FrameMsg_Reload, OnReload)
     IPC_MESSAGE_HANDLER(FrameMsg_TextSurroundingSelectionRequest,
                         OnTextSurroundingSelectionRequest)
+#ifndef DISABLE_ACCESSIBILITY
     IPC_MESSAGE_HANDLER(FrameMsg_SetAccessibilityMode,
                         OnSetAccessibilityMode)
     IPC_MESSAGE_HANDLER(AccessibilityMsg_SnapshotTree,
                         OnSnapshotAccessibilityTree)
+#endif
     IPC_MESSAGE_HANDLER(FrameMsg_DisownOpener, OnDisownOpener)
     IPC_MESSAGE_HANDLER(FrameMsg_CommitNavigation, OnCommitNavigation)
     IPC_MESSAGE_HANDLER(FrameMsg_DidUpdateSandboxFlags, OnDidUpdateSandboxFlags)
@@ -1582,6 +1616,7 @@ void RenderFrameImpl::OnExtendSelectionAndDelete(int before, int after) {
   frame_->extendSelectionAndDelete(before, after);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::OnSetAccessibilityMode(AccessibilityMode new_mode) {
   if (accessibility_mode_ == new_mode)
     return;
@@ -1608,6 +1643,7 @@ void RenderFrameImpl::OnSnapshotAccessibilityTree(int callback_id) {
   Send(new AccessibilityHostMsg_SnapshotResponse(
       routing_id_, callback_id, response));
 }
+#endif
 
 void RenderFrameImpl::OnDisownOpener() {
   // TODO(creis): We should only see this for main frames for now.  To support
@@ -1959,8 +1995,10 @@ void RenderFrameImpl::EnsureMojoBuiltinsAreAvailable(
 
 void RenderFrameImpl::AddMessageToConsole(ConsoleMessageLevel level,
                                           const std::string& message) {
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_)
     devtools_agent_->AddMessageToConsole(level, message);
+#endif
 }
 
 // blink::WebFrameClient implementation ----------------------------------------
@@ -2054,7 +2092,11 @@ blink::WebMediaPlayer* RenderFrameImpl::createMediaPlayer(
       GetMediaPermission(), initial_cdm);
 
 #if defined(OS_ANDROID) && !defined(ENABLE_MEDIA_PIPELINE_ON_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
   return CreateAndroidWebMediaPlayer(client, encrypted_client, params);
+#else
+  return nullptr;
+#endif  // ifndef DISABLE_WEB_VIDEO
 #else
 #if defined(ENABLE_MOJO_MEDIA)
   scoped_ptr<media::RendererFactory> media_renderer_factory(
@@ -2883,6 +2925,7 @@ void RenderFrameImpl::didFinishDocumentLoad(blink::WebLocalFrame* frame,
   if (!document_is_empty)
     return;
 
+#ifndef DISABLE_DEVTOOLS
   // Do not show error page when DevTools is attached.
   RenderFrameImpl* localRoot = this;
   while (localRoot->frame_ && localRoot->frame_->parent() &&
@@ -2892,6 +2935,7 @@ void RenderFrameImpl::didFinishDocumentLoad(blink::WebLocalFrame* frame,
   }
   if (localRoot->devtools_agent_ && localRoot->devtools_agent_->IsAttached())
     return;
+#endif
 
   // Display error page instead of a blank page, if appropriate.
   std::string error_domain = "http";
@@ -3020,6 +3064,7 @@ void RenderFrameImpl::dispatchLoad() {
   Send(new FrameHostMsg_DispatchLoad(routing_id_));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void RenderFrameImpl::requestNotificationPermission(
     const blink::WebSecurityOrigin& origin,
     blink::WebNotificationPermissionCallback* callback) {
@@ -3030,6 +3075,7 @@ void RenderFrameImpl::requestNotificationPermission(
 
   notification_permission_dispatcher_->RequestPermission(origin, callback);
 }
+#endif
 
 void RenderFrameImpl::didChangeSelection(bool is_empty_selection) {
   if (!GetRenderWidget()->handling_input_event() && !handling_select_range_)
@@ -3560,11 +3606,13 @@ void RenderFrameImpl::willOpenWebSocket(blink::WebSocketHandle* handle) {
   impl->set_render_frame_id(routing_id_);
 }
 
+#ifndef DISABLE_GEO_FEATURES
 blink::WebGeolocationClient* RenderFrameImpl::geolocationClient() {
   if (!geolocation_dispatcher_)
     geolocation_dispatcher_ = new GeolocationDispatcher(this);
   return geolocation_dispatcher_;
 }
+#endif
 
 blink::WebPresentationClient* RenderFrameImpl::presentationClient() {
   if (!presentation_dispatcher_)
@@ -3606,11 +3654,13 @@ blink::WebEncryptedMediaClient* RenderFrameImpl::encryptedMediaClient() {
   return web_encrypted_media_client_.get();
 }
 
+#ifndef DISABLE_WEBMIDI
 blink::WebMIDIClient* RenderFrameImpl::webMIDIClient() {
   if (!midi_dispatcher_)
     midi_dispatcher_ = new MidiDispatcher(this);
   return midi_dispatcher_;
 }
+#endif
 
 bool RenderFrameImpl::willCheckAndDispatchMessageEvent(
     blink::WebLocalFrame* source_frame,
@@ -3743,6 +3793,7 @@ int64_t RenderFrameImpl::serviceWorkerID(WebDataSource& data_source) {
   return kInvalidServiceWorkerVersionId;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::postAccessibilityEvent(const blink::WebAXObject& obj,
                                              blink::WebAXEvent event) {
   HandleWebAccessibilityEvent(obj, event);
@@ -3761,6 +3812,7 @@ void RenderFrameImpl::handleAccessibilityFindInPageResult(
         end_object, end_offset);
   }
 }
+#endif
 
 void RenderFrameImpl::didChangeManifest(blink::WebLocalFrame* frame) {
   DCHECK(!frame_ || frame_ == frame);
@@ -3816,6 +3868,7 @@ void RenderFrameImpl::unregisterProtocolHandler(const WebString& scheme,
       user_gesture));
 }
 
+#ifndef DISABLE_BLUETOOTH
 blink::WebBluetooth* RenderFrameImpl::bluetooth() {
   if (!bluetooth_) {
     bluetooth_.reset(new WebBluetoothImpl(
@@ -3824,6 +3877,7 @@ blink::WebBluetooth* RenderFrameImpl::bluetooth() {
 
   return bluetooth_.get();
 }
+#endif
 
 blink::WebUSBClient* RenderFrameImpl::usbClient() {
 #if !defined(OS_ANDROID)
@@ -3847,14 +3901,18 @@ blink::WebVRClient* RenderFrameImpl::webVRClient() {
 
 void RenderFrameImpl::DidPlay(WebMediaPlayer* player) {
   has_played_media_ = true;
+#ifndef DISABLE_NOTIFICATIONS
   Send(new FrameHostMsg_MediaPlayingNotification(
       routing_id_, reinterpret_cast<int64>(player), player->hasVideo(),
       player->hasAudio(), player->isRemote()));
+#endif
 }
 
 void RenderFrameImpl::DidPause(WebMediaPlayer* player) {
+#ifndef DISABLE_NOTIFICATIONS
   Send(new FrameHostMsg_MediaPausedNotification(
       routing_id_, reinterpret_cast<int64>(player)));
+#endif
 }
 
 void RenderFrameImpl::PlayerGone(WebMediaPlayer* player) {
@@ -4128,20 +4186,24 @@ void RenderFrameImpl::didChangeLoadProgress(double load_progress) {
   Send(new FrameHostMsg_DidChangeLoadProgress(routing_id_, load_progress));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::HandleWebAccessibilityEvent(
     const blink::WebAXObject& obj, blink::WebAXEvent event) {
   if (renderer_accessibility_)
     renderer_accessibility_->HandleWebAccessibilityEvent(obj, event);
 }
+#endif
 
 void RenderFrameImpl::FocusedNodeChanged(const WebNode& node) {
   FOR_EACH_OBSERVER(RenderFrameObserver, observers_, FocusedNodeChanged(node));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 void RenderFrameImpl::FocusedNodeChangedForAccessibility(const WebNode& node) {
   if (renderer_accessibility())
     renderer_accessibility()->AccessibilityFocusedNodeChanged(node);
 }
+#endif
 
 // PlzNavigate
 void RenderFrameImpl::OnCommitNavigation(
@@ -4982,15 +5044,18 @@ NavigationState* RenderFrameImpl::CreateNavigationStateFromPending() {
 }
 
 #if defined(OS_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
 WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
     WebMediaPlayerClient* client,
     WebMediaPlayerEncryptedMediaClient* encrypted_client,
     const media::WebMediaPlayerParams& params) {
   scoped_refptr<StreamTextureFactory> stream_texture_factory;
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     stream_texture_factory = factory->CreateStreamTextureFactory(routing_id_);
   } else {
+#endif
     GpuChannelHost* gpu_channel_host =
         RenderThreadImpl::current()->EstablishGpuChannelSync(
             CAUSE_FOR_GPU_LAUNCH_VIDEODECODEACCELERATOR_INITIALIZE);
@@ -5010,7 +5075,9 @@ WebMediaPlayer* RenderFrameImpl::CreateAndroidWebMediaPlayer(
 
     stream_texture_factory = StreamTextureFactoryImpl::Create(
         context_provider, gpu_channel_host, routing_id_);
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   }
+#endif
 
   return new WebMediaPlayerAndroid(
       frame_, client, encrypted_client, weak_factory_.GetWeakPtr(),
@@ -5022,6 +5089,7 @@ RendererMediaPlayerManager* RenderFrameImpl::GetMediaPlayerManager() {
     media_player_manager_ = new RendererMediaPlayerManager(this);
   return media_player_manager_;
 }
+#endif  // ifndef DISABLE_WEB_VIDEO
 #endif  // defined(OS_ANDROID)
 
 media::MediaPermission* RenderFrameImpl::GetMediaPermission() {

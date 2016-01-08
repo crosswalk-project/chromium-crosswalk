@@ -81,12 +81,16 @@
 #include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/render_process_observer.h"
 #include "content/public/renderer/render_view_visitor.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/renderer/bluetooth/bluetooth_message_filter.h"
+#endif
 #include "content/renderer/browser_plugin/browser_plugin_manager.h"
 #include "content/renderer/cache_storage/cache_storage_dispatcher.h"
 #include "content/renderer/cache_storage/cache_storage_message_filter.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent_filter.h"
 #include "content/renderer/devtools/v8_sampling_profiler.h"
+#endif
 #include "content/renderer/dom_storage/dom_storage_dispatcher.h"
 #include "content/renderer/dom_storage/webstoragearea_impl.h"
 #include "content/renderer/dom_storage/webstoragenamespace_impl.h"
@@ -101,7 +105,9 @@
 #include "content/renderer/media/audio_message_filter.h"
 #include "content/renderer/media/audio_renderer_mixer_manager.h"
 #include "content/renderer/media/media_stream_center.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/renderer/media/midi_message_filter.h"
+#endif
 #include "content/renderer/media/render_media_client.h"
 #include "content/renderer/media/renderer_gpu_video_accelerator_factories.h"
 #include "content/renderer/media/video_capture_impl_manager.h"
@@ -156,7 +162,9 @@
 
 #if defined(OS_ANDROID)
 #include <cpu-features.h>
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 #include "content/renderer/android/synchronous_compositor_factory.h"
+#endif
 #include "content/renderer/media/android/renderer_demuxer_android.h"
 #endif
 
@@ -573,8 +581,10 @@ void RenderThreadImpl::Init() {
   appcache_dispatcher_.reset(
       new AppCacheDispatcher(Get(), new AppCacheFrontendImpl()));
   dom_storage_dispatcher_.reset(new DomStorageDispatcher());
+#ifndef DISABLE_INDEXEDDB
   main_thread_indexed_db_dispatcher_.reset(new IndexedDBDispatcher(
       thread_safe_sender()));
+#endif
   main_thread_cache_storage_dispatcher_.reset(
       new CacheStorageDispatcher(thread_safe_sender()));
   embedded_worker_dispatcher_.reset(new EmbeddedWorkerDispatcher());
@@ -589,8 +599,12 @@ void RenderThreadImpl::Init() {
 
   media_stream_center_ = NULL;
 
+#ifndef DISABLE_WEBDATABASE
   db_message_filter_ = new DBMessageFilter();
   AddFilter(db_message_filter_.get());
+#else
+  db_message_filter_ = NULL;
+#endif
 
   vc_manager_.reset(new VideoCaptureImplManager());
   AddFilter(vc_manager_->video_capture_message_filter());
@@ -623,13 +637,19 @@ void RenderThreadImpl::Init() {
   audio_message_filter_ = new AudioMessageFilter(GetIOMessageLoopProxy());
   AddFilter(audio_message_filter_.get());
 
+#ifndef DISABLE_WEBMIDI
   midi_message_filter_ = new MidiMessageFilter(GetIOMessageLoopProxy());
   AddFilter(midi_message_filter_.get());
+#endif
 
+#ifndef DISABLE_BLUETOOTH
   bluetooth_message_filter_ = new BluetoothMessageFilter(thread_safe_sender());
   AddFilter(bluetooth_message_filter_->GetFilter());
+#endif
 
+#ifndef DISABLE_INDEXEDDB
   AddFilter((new IndexedDBMessageFilter(thread_safe_sender()))->GetFilter());
+#endif
 
   AddFilter((new CacheStorageMessageFilter(thread_safe_sender()))->GetFilter());
 
@@ -774,6 +794,7 @@ void RenderThreadImpl::Shutdown() {
     memory_observer_.reset();
   }
 
+#ifndef DISABLE_WEBDATABASE
   // Wait for all databases to be closed.
   if (blink_platform_impl_) {
     // WaitForAllDatabasesToClose might run a nested message loop. To avoid
@@ -784,12 +805,15 @@ void RenderThreadImpl::Shutdown() {
         ->WaitForAllDatabasesToClose();
     WebView::didExitModalLoop();
   }
+#endif
 
+#ifndef DISABLE_DEVTOOLS
   // Shutdown in reverse of the initialization order.
   if (devtools_agent_message_filter_.get()) {
     RemoveFilter(devtools_agent_message_filter_.get());
     devtools_agent_message_filter_ = NULL;
   }
+#endif
 
   RemoveFilter(audio_input_message_filter_.get());
   audio_input_message_filter_ = NULL;
@@ -805,8 +829,10 @@ void RenderThreadImpl::Shutdown() {
   RemoveFilter(vc_manager_->video_capture_message_filter());
   vc_manager_.reset();
 
+#ifndef DISABLE_WEBDATABASE
   RemoveFilter(db_message_filter_.get());
   db_message_filter_ = NULL;
+#endif
 
   // Shutdown the file thread if it's running.
   if (file_thread_)
@@ -983,18 +1009,22 @@ void RenderThreadImpl::RemoveRoute(int32 routing_id) {
 void RenderThreadImpl::AddEmbeddedWorkerRoute(int32 routing_id,
                                               IPC::Listener* listener) {
   AddRoute(routing_id, listener);
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_message_filter_.get()) {
     devtools_agent_message_filter_->AddEmbeddedWorkerRouteOnMainThread(
         routing_id);
   }
+#endif
 }
 
 void RenderThreadImpl::RemoveEmbeddedWorkerRoute(int32 routing_id) {
   RemoveRoute(routing_id);
+#ifndef DISABLE_DEVTOOLS
   if (devtools_agent_message_filter_.get()) {
     devtools_agent_message_filter_->RemoveEmbeddedWorkerRouteOnMainThread(
         routing_id);
   }
+#endif
 }
 
 void RenderThreadImpl::RegisterPendingRenderFrameConnect(
@@ -1083,7 +1113,7 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
 
   bool enable = !command_line.HasSwitch(switches::kDisableThreadedCompositing);
   if (enable) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     if (SynchronousCompositorFactory* factory =
         SynchronousCompositorFactory::GetInstance())
       compositor_task_runner_ = factory->GetCompositorTaskRunner();
@@ -1103,7 +1133,7 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
     }
 
     InputHandlerManagerClient* input_handler_manager_client = NULL;
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     if (SynchronousCompositorFactory* factory =
         SynchronousCompositorFactory::GetInstance()) {
       input_handler_manager_client = factory->GetInputHandlerManagerClient();
@@ -1151,10 +1181,12 @@ void RenderThreadImpl::EnsureWebKitInitialized() {
 
   FOR_EACH_OBSERVER(RenderProcessObserver, observers_, WebKitInitialized());
 
+#ifndef DISABLE_DEVTOOLS
   devtools_agent_message_filter_ = new DevToolsAgentFilter();
   AddFilter(devtools_agent_message_filter_.get());
 
   v8_sampling_profiler_.reset(new V8SamplingProfiler());
+#endif
 
   if (GetContentClient()->renderer()->RunIdleHandlerWhenWidgetsHidden())
     ScheduleIdleHandler(kLongIdleHandlerDelayMs);
@@ -1320,7 +1352,7 @@ RenderThreadImpl::GetGpuFactories() {
 
   const base::CommandLine* cmd_line = base::CommandLine::ForCurrentProcess();
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory::GetInstance()) {
     if (!cmd_line->HasSwitch(switches::kDisableAcceleratedVideoDecode)) {
       DLOG(WARNING) << "Accelerated video decoding is not explicitly disabled, "
@@ -1403,7 +1435,7 @@ RenderThreadImpl::SharedMainThreadContextProvider() {
   if (!shared_main_thread_contexts_.get() ||
       shared_main_thread_contexts_->DestroyedOnMainThread()) {
     shared_main_thread_contexts_ = NULL;
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
     SynchronousCompositorFactory* factory =
         SynchronousCompositorFactory::GetInstance();
     if (factory && factory->OverrideWithFactory()) {
@@ -1525,7 +1557,7 @@ cc::ContextProvider* RenderThreadImpl::GetSharedMainThreadContextProvider() {
 
 scoped_ptr<cc::BeginFrameSource>
 RenderThreadImpl::CreateExternalBeginFrameSource(int routing_id) {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
           SynchronousCompositorFactory::GetInstance()) {
     return factory->CreateExternalBeginFrameSource(routing_id);

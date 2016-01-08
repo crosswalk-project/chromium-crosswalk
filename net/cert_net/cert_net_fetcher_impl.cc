@@ -10,6 +10,7 @@
 #include "base/numerics/safe_math.h"
 #include "base/stl_util.h"
 #include "base/timer/timer.h"
+#include "net/base/io_buffer.h"
 #include "net/base/load_flags.h"
 #include "net/url_request/redirect_info.h"
 #include "net/url_request/url_request_context.h"

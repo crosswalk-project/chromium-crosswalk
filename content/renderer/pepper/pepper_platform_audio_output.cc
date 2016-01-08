@@ -120,6 +120,7 @@ bool PepperPlatformAudioOutput::Initialize(int sample_rate,
                                            int frames_per_buffer,
                                            int source_render_frame_id,
                                            AudioHelper* client) {
+#ifndef DISABLE_WEB_AUDIO
   DCHECK(client);
   client_ = client;
 
@@ -138,6 +139,9 @@ bool PepperPlatformAudioOutput::Initialize(int sample_rate,
       FROM_HERE, base::Bind(&PepperPlatformAudioOutput::InitializeOnIOThread,
                             this, params));
   return true;
+#else
+  return false;
+#endif
 }
 
 void PepperPlatformAudioOutput::InitializeOnIOThread(

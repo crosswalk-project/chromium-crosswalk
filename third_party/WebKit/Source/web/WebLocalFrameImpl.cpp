@@ -154,9 +154,15 @@
 #include "core/timing/DOMWindowPerformance.h"
 #include "core/timing/Performance.h"
 #include "modules/app_banner/AppBannerController.h"
+#ifndef DISABLE_BLUETOOTH
 #include "modules/bluetooth/BluetoothSupplement.h"
+#endif
+#ifndef DISABLE_GEO_FEATURES
 #include "modules/geolocation/GeolocationController.h"
+#endif
+#ifndef DISABLE_NOTIFICATIONS
 #include "modules/notifications/NotificationPermissionClient.h"
+#endif
 #include "modules/permissions/PermissionController.h"
 #include "modules/presentation/PresentationController.h"
 #include "modules/push_messaging/PushController.h"
@@ -218,12 +224,18 @@
 #include "web/AssociatedURLLoader.h"
 #include "web/CompositionUnderlineVectorBuilder.h"
 #include "web/FindInPageCoordinates.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "web/GeolocationClientProxy.h"
+#endif
 #include "web/InspectorOverlayImpl.h"
 #include "web/LocalFileSystemClient.h"
+#ifndef DISABLE_WEBMIDI
 #include "web/MIDIClientProxy.h"
+#endif
 #include "web/NavigatorContentUtilsClientImpl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "web/NotificationPermissionClientImpl.h"
+#endif
 #include "web/PageOverlay.h"
 #include "web/RemoteBridgeFrameOwner.h"
 #include "web/SharedWorkerRepositoryClientImpl.h"
@@ -1667,7 +1679,9 @@ WebLocalFrameImpl::WebLocalFrameImpl(WebTreeScopeType scope, WebFrameClient* cli
     , m_contentSettingsClient(0)
     , m_inputEventsScaleFactorForEmulation(1)
     , m_userMediaClientImpl(this)
+#ifndef DISABLE_GEO_FEATURES
     , m_geolocationClientProxy(GeolocationClientProxy::create(client ? client->geolocationClient() : 0))
+#endif
     , m_webDevToolsFrontend(0)
 #if ENABLE(OILPAN)
     , m_selfKeepAlive(this)
@@ -1697,7 +1711,9 @@ DEFINE_TRACE(WebLocalFrameImpl)
     visitor->trace(m_inspectorOverlay);
     visitor->trace(m_textFinder);
     visitor->trace(m_printContext);
+#ifndef DISABLE_GEO_FEATURES
     visitor->trace(m_geolocationClientProxy);
+#endif
     visitor->template registerWeakMembers<WebFrame, &WebFrame::clearWeakFrames>(this);
     WebFrame::traceFrames(visitor, this);
 }
@@ -1712,16 +1728,24 @@ void WebLocalFrameImpl::setCoreFrame(PassRefPtrWillBeRawPtr<LocalFrame> frame)
         if (m_client)
             providePushControllerTo(*m_frame, m_client->pushClient());
 
+#ifndef DISABLE_NOTIFICATIONS
         provideNotificationPermissionClientTo(*m_frame, NotificationPermissionClientImpl::create());
+#endif
         provideUserMediaTo(*m_frame, &m_userMediaClientImpl);
+#ifndef DISABLE_GEO_FEATURES
         provideGeolocationTo(*m_frame, m_geolocationClientProxy.get());
         m_geolocationClientProxy->setController(GeolocationController::from(m_frame.get()));
+#endif
+#ifndef DISABLE_WEBMIDI
         provideMIDITo(*m_frame, MIDIClientProxy::create(m_client ? m_client->webMIDIClient() : nullptr));
+#endif
         provideLocalFileSystemTo(*m_frame, LocalFileSystemClient::create());
         provideNavigatorContentUtilsTo(*m_frame, NavigatorContentUtilsClientImpl::create(this));
 
+#ifndef DISABLE_BLUETOOTH
         if (RuntimeEnabledFeatures::webBluetoothEnabled())
             BluetoothSupplement::provideTo(*m_frame, m_client ? m_client->bluetooth() : nullptr);
+#endif
         if (RuntimeEnabledFeatures::screenOrientationEnabled())
             ScreenOrientationController::provideTo(*m_frame, m_client ? m_client->webScreenOrientationClient() : nullptr);
         if (RuntimeEnabledFeatures::presentationEnabled())

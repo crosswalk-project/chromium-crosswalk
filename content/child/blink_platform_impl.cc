@@ -41,7 +41,9 @@
 #include "content/child/background_sync/background_sync_provider_thread_proxy.h"
 #include "content/child/child_thread_impl.h"
 #include "content/child/content_child_helpers.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/child/geofencing/web_geofencing_provider_impl.h"
+#endif
 #include "content/child/navigator_connect/service_port_provider.h"
 #include "content/child/notifications/notification_dispatcher.h"
 #include "content/child/notifications/notification_manager.h"
@@ -451,11 +453,15 @@ BlinkPlatformImpl::BlinkPlatformImpl(
 void BlinkPlatformImpl::InternalInit() {
   // ChildThread may not exist in some tests.
   if (ChildThreadImpl::current()) {
+#ifndef DISABLE_GEO_FEATURES
     geofencing_provider_.reset(new WebGeofencingProviderImpl(
         ChildThreadImpl::current()->thread_safe_sender()));
+#endif
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();
+#ifndef DISABLE_NOTIFICATIONS
     notification_dispatcher_ =
         ChildThreadImpl::current()->notification_dispatcher();
+#endif
     push_dispatcher_ = ChildThreadImpl::current()->push_dispatcher();
     permission_client_.reset(new PermissionDispatcher(
         ChildThreadImpl::current()->service_registry()));
@@ -791,6 +797,7 @@ struct DataResource {
 const DataResource kDataResources[] = {
     {"missingImage", IDR_BROKENIMAGE, ui::SCALE_FACTOR_100P},
     {"missingImage@2x", IDR_BROKENIMAGE, ui::SCALE_FACTOR_200P},
+#if !defined(USE_MINIMUM_RESOURCES)
     {"mediaplayerPause", IDR_MEDIAPLAYER_PAUSE_BUTTON, ui::SCALE_FACTOR_100P},
     {"mediaplayerPauseNew",
      IDR_MEDIAPLAYER_PAUSE_BUTTON_NEW,
@@ -946,6 +953,7 @@ const DataResource kDataResources[] = {
     {"mediaplayerOverlayPlayNew",
      IDR_MEDIAPLAYER_OVERLAY_PLAY_BUTTON_NEW,
      ui::SCALE_FACTOR_100P},
+#endif
     {"searchCancel", IDR_SEARCH_CANCEL, ui::SCALE_FACTOR_100P},
     {"searchCancelPressed", IDR_SEARCH_CANCEL_PRESSED, ui::SCALE_FACTOR_100P},
     {"searchMagnifier", IDR_SEARCH_MAGNIFIER, ui::SCALE_FACTOR_100P},
@@ -1159,10 +1167,13 @@ blink::WebCrypto* BlinkPlatformImpl::crypto() {
   return &web_crypto_;
 }
 
+#ifndef DISABLE_GEO_FEATURES
 blink::WebGeofencingProvider* BlinkPlatformImpl::geofencingProvider() {
   return geofencing_provider_.get();
 }
+#endif
 
+#ifndef DISABLE_NOTIFICATIONS
 blink::WebNotificationManager*
 BlinkPlatformImpl::notificationManager() {
   if (!thread_safe_sender_.get() || !notification_dispatcher_.get())
@@ -1173,6 +1184,7 @@ BlinkPlatformImpl::notificationManager() {
       main_thread_task_runner_.get(),
       notification_dispatcher_.get());
 }
+#endif
 
 blink::WebPushProvider* BlinkPlatformImpl::pushProvider() {
   if (!thread_safe_sender_.get() || !push_dispatcher_.get())
@@ -1217,6 +1229,7 @@ WebFallbackThemeEngine* BlinkPlatformImpl::fallbackThemeEngine() {
   return &fallback_theme_engine_;
 }
 
+#ifndef DISABLE_WEBDATABASE
 blink::Platform::FileHandle BlinkPlatformImpl::databaseOpenFile(
     const blink::WebString& vfs_file_name, int desired_flags) {
 #if defined(OS_WIN)
@@ -1250,6 +1263,7 @@ bool BlinkPlatformImpl::databaseSetFileSize(
     const blink::WebString& vfs_file_name, long long size) {
   return false;
 }
+#endif //DISABLE_WEBDATABASE
 
 blink::WebString BlinkPlatformImpl::signedPublicKeyAndChallengeString(
     unsigned key_size_index,

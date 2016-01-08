@@ -42,14 +42,18 @@
 #include "modules/background_sync/SyncEvent.h"
 #include "modules/background_sync/SyncRegistration.h"
 #include "modules/fetch/Headers.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "modules/geofencing/CircularGeofencingRegion.h"
 #include "modules/geofencing/GeofencingEvent.h"
+#endif
 #include "modules/navigatorconnect/AcceptConnectionObserver.h"
 #include "modules/navigatorconnect/CrossOriginServiceWorkerClient.h"
 #include "modules/navigatorconnect/ServicePortCollection.h"
 #include "modules/navigatorconnect/WorkerNavigatorServices.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "modules/notifications/Notification.h"
 #include "modules/notifications/NotificationEvent.h"
+#endif
 #include "modules/push_messaging/PushEvent.h"
 #include "modules/push_messaging/PushMessageData.h"
 #include "modules/serviceworkers/ExtendableEvent.h"
@@ -60,7 +64,9 @@
 #include "public/platform/WebCrossOriginServiceWorkerClient.h"
 #include "public/platform/WebServiceWorkerEventResult.h"
 #include "public/platform/WebServiceWorkerRequest.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "public/platform/modules/notifications/WebNotificationData.h"
+#endif
 #include "public/web/WebSerializedScriptValue.h"
 #include "public/web/WebServiceWorkerContextClient.h"
 #include "web/WebEmbeddedWorkerImpl.h"
@@ -109,12 +115,14 @@ void ServiceWorkerGlobalScopeProxy::dispatchFetchEvent(int eventID, const WebSer
     observer->didDispatchEvent(defaultPrevented);
 }
 
+#ifndef DISABLE_GEO_FEATURES
 void ServiceWorkerGlobalScopeProxy::dispatchGeofencingEvent(int eventID, WebGeofencingEventType eventType, const WebString& regionID, const WebCircularGeofencingRegion& region)
 {
     ASSERT(m_workerGlobalScope);
     const AtomicString& type = eventType == WebGeofencingEventTypeEnter ? EventTypeNames::geofenceenter : EventTypeNames::geofenceleave;
     m_workerGlobalScope->dispatchEvent(GeofencingEvent::create(type, regionID, CircularGeofencingRegion::create(regionID, region)));
 }
+#endif
 
 void ServiceWorkerGlobalScopeProxy::dispatchInstallEvent(int eventID)
 {
@@ -133,6 +141,7 @@ void ServiceWorkerGlobalScopeProxy::dispatchMessageEvent(const WebString& messag
     m_workerGlobalScope->dispatchEvent(MessageEvent::create(ports, value));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void ServiceWorkerGlobalScopeProxy::dispatchNotificationClickEvent(int eventID, int64_t notificationID, const WebNotificationData& data, int actionIndex)
 {
     ASSERT(m_workerGlobalScope);
@@ -144,6 +153,7 @@ void ServiceWorkerGlobalScopeProxy::dispatchNotificationClickEvent(int eventID, 
     RefPtrWillBeRawPtr<Event> event(NotificationEvent::create(EventTypeNames::notificationclick, eventInit, observer));
     m_workerGlobalScope->dispatchExtendableEvent(event.release(), observer);
 }
+#endif
 
 void ServiceWorkerGlobalScopeProxy::dispatchPushEvent(int eventID, const WebString& data)
 {

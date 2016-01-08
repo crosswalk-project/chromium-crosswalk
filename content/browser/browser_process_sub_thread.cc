@@ -33,7 +33,9 @@ void BrowserProcessSubThread::Init() {
   com_initializer_.reset(new base::win::ScopedCOMInitializer());
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_service_.reset(new NotificationServiceImpl());
+#endif
 
   BrowserThreadImpl::Init();
 
@@ -52,7 +54,9 @@ void BrowserProcessSubThread::CleanUp() {
 
   BrowserThreadImpl::CleanUp();
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_service_.reset();
+#endif
 
 #if defined(OS_WIN)
   com_initializer_.reset();

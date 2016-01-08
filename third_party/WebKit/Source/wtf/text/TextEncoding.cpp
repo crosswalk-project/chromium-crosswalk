@@ -29,7 +29,11 @@
 #include "wtf/text/TextEncoding.h"
 
 #include "wtf/text/TextEncodingRegistry.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/unorm.h>
+#endif
 #include "wtf/OwnPtr.h"
 #include "wtf/StdLibExtras.h"
 #include "wtf/Threading.h"
@@ -105,6 +109,14 @@ CString TextEncoding::normalizeAndEncode(const String& string, UnencodableHandli
 
     Vector<UChar> normalizedCharacters;
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    normalizedCharacters.grow(length);
+    bool err = true;
+    int32_t normalizedLength = base::icu_utils::normalize(source, length, 4, normalizedCharacters.data(), length, &err);
+
+    source = normalizedCharacters.data();
+    length = normalizedLength;
+#else
     UErrorCode err = U_ZERO_ERROR;
     if (unorm_quickCheck(source, length, UNORM_NFC, &err) != UNORM_YES) {
         // First try using the length of the original string, since normalization to NFC rarely increases length.
@@ -120,6 +132,7 @@ CString TextEncoding::normalizeAndEncode(const String& string, UnencodableHandli
         source = normalizedCharacters.data();
         length = normalizedLength;
     }
+#endif
 
     return newTextCodec(*this)->encode(source, length, handling);
 }

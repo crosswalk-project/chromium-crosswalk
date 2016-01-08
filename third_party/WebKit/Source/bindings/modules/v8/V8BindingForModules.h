@@ -11,6 +11,8 @@
 
 namespace blink {
 
+#ifndef DISABLE_INDEXEDDB
+
 class IDBAny;
 class IDBKey;
 class IDBKeyPath;
@@ -46,6 +48,15 @@ template <>
 struct NativeValueTraits<IDBKeyRange*> {
     static IDBKeyRange* nativeValue(v8::Isolate*, v8::Local<v8::Value>, ExceptionState&);
 };
+
+#else // DISABLE_INDEXEDDB
+
+template <>
+struct NativeValueTraits<SQLValue> {
+    static SQLValue nativeValue(v8::Isolate*, v8::Local<v8::Value>, ExceptionState&);
+};
+
+#endif // DISABLE_INDEXEDDB
 
 } // namespace blink
 

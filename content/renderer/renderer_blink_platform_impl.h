@@ -81,6 +81,7 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
   virtual blink::WebString defaultLocale();
   virtual void suddenTerminationChanged(bool enabled);
   virtual blink::WebStorageNamespace* createLocalStorageNamespace();
+#ifndef DISABLE_WEBDATABASE
   virtual blink::Platform::FileHandle databaseOpenFile(
       const blink::WebString& vfs_file_name, int desired_flags);
   virtual int databaseDeleteFile(const blink::WebString& vfs_file_name,
@@ -93,6 +94,7 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
       const blink::WebString& origin_identifier);
   virtual bool databaseSetFileSize(
       const blink::WebString& vfs_file_name, long long size);
+#endif
   virtual blink::WebString signedPublicKeyAndChallengeString(
       unsigned key_size_index,
       const blink::WebString& challenge,
@@ -123,8 +125,10 @@ class CONTENT_EXPORT RendererBlinkPlatformImpl : public BlinkPlatformImpl {
       blink::WebAudioBus* destination_bus, const char* audio_file_data,
       size_t data_size);
 
+#ifndef DISABLE_WEBMIDI
   virtual blink::WebMIDIAccessor*
       createMIDIAccessor(blink::WebMIDIAccessorClient* client);
+#endif
 
   virtual blink::WebBlobRegistry* blobRegistry();
   virtual void sampleGamepads(blink::WebGamepads&);

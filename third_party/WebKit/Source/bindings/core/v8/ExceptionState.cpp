@@ -74,6 +74,7 @@ void ExceptionState::throwDOMException(const ExceptionCode& ec, const String& me
 
 void ExceptionState::throwWebCLException(const ExceptionCode& ec, const String& message)
 {
+#if ENABLE(WEBCL)
     ASSERT(ec);
     ASSERT(m_isolate);
     ASSERT(!m_creationContext.IsEmpty());
@@ -82,6 +83,7 @@ void ExceptionState::throwWebCLException(const ExceptionCode& ec, const String& 
     String processedMessage = addExceptionContext(message);
     m_message = processedMessage;
     setException(V8ThrowException::createWebCLException(m_isolate, ec, message, processedMessage, m_creationContext));
+#endif
 }
 
 void ExceptionState::throwSecurityError(const String& sanitizedMessage, const String& unsanitizedMessage)

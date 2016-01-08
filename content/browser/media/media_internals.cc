@@ -444,12 +444,15 @@ MediaInternals::MediaInternals()
     : can_update_(false),
       owner_ids_(),
       uma_handler_(new MediaInternalsUMAHandler()) {
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this, NOTIFICATION_RENDERER_PROCESS_TERMINATED,
                  NotificationService::AllBrowserContextsAndSources());
+#endif
 }
 
 MediaInternals::~MediaInternals() {}
 
+#ifndef DISABLE_NOTIFICATIONS
 void MediaInternals::Observe(int type,
                              const NotificationSource& source,
                              const NotificationDetails& details) {
@@ -460,6 +463,7 @@ void MediaInternals::Observe(int type,
   uma_handler_->OnProcessTerminated(process->GetID());
   pending_events_map_.erase(process->GetID());
 }
+#endif
 
 // Converts the |event| to a |update|. Returns whether the conversion succeeded.
 static bool ConvertEventToUpdate(int render_process_id,

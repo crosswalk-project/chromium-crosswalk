@@ -14,9 +14,13 @@
 #include "base/memory/weak_ptr.h"
 #include "base/strings/string16.h"
 #include "base/time/time.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/browser/accessibility/browser_accessibility_manager.h"
+#endif
 #include "content/browser/site_instance_impl.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/common/accessibility_mode_enums.h"
+#endif
 #include "content/common/ax_content_node_data.h"
 #include "content/common/content_export.h"
 #include "content/common/frame_message_enums.h"
@@ -29,7 +33,9 @@
 #include "net/http/http_response_headers.h"
 #include "third_party/WebKit/public/web/WebTextDirection.h"
 #include "third_party/WebKit/public/web/WebTreeScopeType.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "ui/accessibility/ax_node_data.h"
+#endif
 #include "ui/base/page_transition_types.h"
 
 #if defined(OS_ANDROID)
@@ -92,11 +98,17 @@ enum CreateRenderFrameFlags {
 };
 
 class CONTENT_EXPORT RenderFrameHostImpl
+#ifndef DISABLE_ACCESSIBILITY
     : public RenderFrameHost,
       public BrowserAccessibilityDelegate {
+#else
+    : public RenderFrameHost {
+#endif
  public:
+#ifndef DISABLE_ACCESSIBILITY
   using AXTreeSnapshotCallback =
       base::Callback<void(const ui::AXTreeUpdate<ui::AXNodeData>&)>;
+#endif
 
   // Keeps track of the state of the RenderFrameHostImpl, particularly with
   // respect to swap out.
@@ -118,20 +130,26 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // number of active frames of a SiteInstance or not.
   static bool IsRFHStateActive(RenderFrameHostImplState rfh_state);
 
+#ifndef DISABLE_ACCESSIBILITY
   // An accessibility reset is only allowed to prevent very rare corner cases
   // or race conditions where the browser and renderer get out of sync. If
   // this happens more than this many times, kill the renderer.
   static const int kMaxAccessibilityResets = 5;
+#endif
 
   static RenderFrameHostImpl* FromID(int process_id, int routing_id);
+#ifndef DISABLE_ACCESSIBILITY
   static RenderFrameHostImpl* FromAXTreeID(
       AXTreeIDRegistry::AXTreeID ax_tree_id);
+#endif
 
   ~RenderFrameHostImpl() override;
 
   // RenderFrameHost
   int GetRoutingID() override;
+#ifndef DISABLE_ACCESSIBILITY
   AXTreeIDRegistry::AXTreeID GetAXTreeID() override;
+#endif
   SiteInstanceImpl* GetSiteInstance() override;
   RenderProcessHost* GetProcess() override;
   RenderFrameHost* GetParent() override;
@@ -154,7 +172,9 @@ class CONTENT_EXPORT RenderFrameHostImpl
       const base::string16& javascript,
       const JavaScriptResultCallback& callback,
       int world_id) override;
+#ifndef DISABLE_ACCESSIBILITY
   void ActivateFindInPageResultForAccessibility(int request_id) override;
+#endif
   RenderViewHost* GetRenderViewHost() override;
   ServiceRegistry* GetServiceRegistry() override;
   blink::WebPageVisibilityState GetVisibilityState() override;
@@ -168,6 +188,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // IPC::Listener
   bool OnMessageReceived(const IPC::Message& msg) override;
 
+#ifndef DISABLE_ACCESSIBILITY
   // BrowserAccessibilityDelegate
   void AccessibilitySetFocus(int acc_obj_id) override;
   void AccessibilityDoDefaultAction(int acc_obj_id) override;
@@ -192,6 +213,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   void AccessibilityFatalError() override;
   gfx::AcceleratedWidget AccessibilityGetAcceleratedWidget() override;
   gfx::NativeViewAccessible AccessibilityGetNativeViewAccessible() override;
+#endif
 
   // Creates a RenderFrame in the renderer process.  Only called for
   // cross-process subframe navigations in --site-per-process.
@@ -388,7 +410,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
                               bool success,
                               const base::string16& user_input,
                               bool dialog_was_suppressed);
-
+#ifndef DISABLE_ACCESSIBILITY
   // Send a message to the renderer process to change the accessibility mode.
   void SetAccessibilityMode(AccessibilityMode AccessibilityMode);
 
@@ -405,10 +427,12 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // retrieved using GetAXTreeForTesting().
   void SetAccessibilityCallbackForTesting(
       const base::Callback<void(ui::AXEvent, int)>& callback);
+#endif
 
   // Send a message to the render process to change text track style settings.
   void SetTextTrackSettings(const FrameMsg_TextTrackSettings_Params& params);
 
+#ifndef DISABLE_ACCESSIBILITY
   // Returns a snapshot of the accessibility tree received from the
   // renderer as of the last time an accessibility notification was
   // received.
@@ -427,6 +451,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   void set_no_create_browser_accessibility_manager_for_testing(bool flag) {
     no_create_browser_accessibility_manager_for_testing_ = flag;
   }
+#endif
 
 #if defined(OS_WIN)
   void SetParentNativeViewAccessible(
@@ -536,7 +561,9 @@ class CONTENT_EXPORT RenderFrameHostImpl
   void OnTextSurroundingSelectionResponse(const base::string16& content,
                                           size_t start_offset,
                                           size_t end_offset);
+#ifndef DISABLE_ACCESSIBILITY
   void OnDidAccessInitialDocument();
+#endif
   void OnDidDisownOpener();
   void OnDidChangeName(const std::string& name);
   void OnDidAssignPageId(int32 page_id);
@@ -549,6 +576,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
                          const BeginNavigationParams& begin_params,
                          scoped_refptr<ResourceRequestBody> body);
   void OnDispatchLoad();
+#ifndef DISABLE_ACCESSIBILITY
   void OnAccessibilityEvents(
       const std::vector<AccessibilityHostMsg_EventParams>& params,
       int reset_token);
@@ -559,6 +587,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   void OnAccessibilitySnapshotResponse(
       int callback_id,
       const ui::AXTreeUpdate<AXContentNodeData>& snapshot);
+#endif
   void OnToggleFullscreen(bool enter_fullscreen);
   void OnDidStartLoading(bool to_different_document);
   void OnDidStopLoading();
@@ -596,6 +625,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // Returns true if the ExecuteJavaScript() API can be used on this host.
   bool CanExecuteJavaScript();
 
+#ifndef DISABLE_ACCESSIBILITY
   // Map a routing ID from a frame in the same frame tree to a globally
   // unique AXTreeID.
   AXTreeIDRegistry::AXTreeID RoutingIDToAXTreeID(int routing_id);
@@ -608,6 +638,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // AXNodeData structure.
   void AXContentNodeDataToAXNodeData(const AXContentNodeData& src,
                                      ui::AXNodeData* dst);
+#endif
 
   // For now, RenderFrameHosts indirectly keep RenderViewHosts alive via a
   // refcount that calls Shutdown when it reaches zero.  This allows each
@@ -733,6 +764,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   scoped_ptr<ServiceRegistryAndroid> service_registry_android_;
 #endif
 
+#ifndef DISABLE_ACCESSIBILITY
   // The object managing the accessibility tree for this frame.
   scoped_ptr<BrowserAccessibilityManager> browser_accessibility_manager_;
 
@@ -756,6 +788,7 @@ class CONTENT_EXPORT RenderFrameHostImpl
   // Flag to not create a BrowserAccessibilityManager, for testing. If one
   // already exists it will still be used.
   bool no_create_browser_accessibility_manager_for_testing_;
+#endif
 
   // PlzNavigate: Owns the stream used in navigations to store the body of the
   // response once it has started.

@@ -31,9 +31,12 @@
 #include "wtf/text/AtomicString.h"
 #include "wtf/text/CString.h"
 #include "wtf/text/WTFString.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/rbbi.h>
 #include <unicode/ubrk.h>
-
+#endif
 using namespace WTF;
 
 namespace blink {
@@ -49,9 +52,15 @@ public:
 
     static PassOwnPtr<LineBreakIteratorPool> create() { return adoptPtr(new LineBreakIteratorPool); }
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     icu::BreakIterator* take(const AtomicString& locale)
     {
         icu::BreakIterator* iterator = 0;
+#else
+    TextBreakIterator* take(const AtomicString& locale)
+    {
+        TextBreakIterator* iterator = 0;
+#endif
         for (size_t i = 0; i < m_pool.size(); ++i) {
             if (m_pool[i].first == locale) {
                 iterator = m_pool[i].second;
@@ -61,6 +70,13 @@ public:
         }
 
         if (!iterator) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+            iterator = base::BreakIteratorBridge::createLineInstance(locale.utf8().data());
+            if (!iterator) {
+                WTF_LOG_ERROR("base::BreakIteratorBridge construction failed with status");
+                return 0;
+            }
+#else
             UErrorCode openStatus = U_ZERO_ERROR;
             bool localeIsEmpty = locale.isEmpty();
             iterator = icu::BreakIterator::createLineInstance(localeIsEmpty ? icu::Locale(currentTextBreakLocaleID()) : icu::Locale(locale.utf8().data()), openStatus);
@@ -75,6 +91,7 @@ public:
                 WTF_LOG_ERROR("icu::BreakIterator construction failed with status %d", openStatus);
                 return 0;
             }
+#endif
         }
 
         ASSERT(!m_vendedIterators.contains(iterator));
@@ -82,7 +99,11 @@ public:
         return iterator;
     }
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    void put(TextBreakIterator* iterator)
+#else
     void put(icu::BreakIterator* iterator)
+#endif
     {
         ASSERT_ARG(iterator, m_vendedIterators.contains(iterator));
 
@@ -99,14 +120,23 @@ private:
 
     static const size_t capacity = 4;
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    typedef pair<AtomicString, TextBreakIterator*> Entry;
+#else
     typedef pair<AtomicString, icu::BreakIterator*> Entry;
+#endif
     typedef Vector<Entry, capacity> Pool;
     Pool m_pool;
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    HashMap<TextBreakIterator*, AtomicString> m_vendedIterators;
+#else
     HashMap<icu::BreakIterator*, AtomicString> m_vendedIterators;
+#endif
 
     friend WTF::ThreadSpecific<LineBreakIteratorPool>::operator LineBreakIteratorPool*();
 };
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 enum TextContext { NoContext, PriorContext, PrimaryContext };
 
 const int textBufferCapacity = 16;
@@ -469,18 +499,28 @@ static UText* textOpenUTF16(UText* text, const UChar* string, unsigned length, c
 }
 
 static UText emptyText = UTEXT_INITIALIZER;
+#endif
 
 static TextBreakIterator* wordBreakIterator(const LChar* string, int length)
 {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     UErrorCode errorCode = U_ZERO_ERROR;
+#endif
     static TextBreakIterator* breakIter = 0;
     if (!breakIter) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        breakIter = base::BreakIteratorBridge::createWordInstance("");
+#else
         breakIter = icu::BreakIterator::createWordInstance(icu::Locale(currentTextBreakLocaleID()), errorCode);
         ASSERT_WITH_MESSAGE(U_SUCCESS(errorCode), "ICU could not open a break iterator: %s (%d)", u_errorName(errorCode), errorCode);
+#endif
         if (!breakIter)
             return 0;
     }
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    breakIter->setText(string, length);
+#else
     UTextWithBuffer textLocal;
     textLocal.text = emptyText;
     textLocal.text.extraSize = sizeof(textLocal.buffer);
@@ -499,27 +539,38 @@ static TextBreakIterator* wordBreakIterator(const LChar* string, int length)
         WTF_LOG_ERROR("BreakIterator::seText failed with status %d", setTextStatus);
 
     utext_close(text);
+#endif
 
     return breakIter;
 }
 
 static void setText16(TextBreakIterator* iter, const UChar* string, int length)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    iter->setText(string, length);
+#else
     UErrorCode errorCode = U_ZERO_ERROR;
     UText uText = UTEXT_INITIALIZER;
     utext_openUChars(&uText, string, length, &errorCode);
     if (U_FAILURE(errorCode))
         return;
     iter->setText(&uText, errorCode);
+#endif
 }
 
 TextBreakIterator* wordBreakIterator(const UChar* string, int length)
 {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     UErrorCode errorCode = U_ZERO_ERROR;
+#endif
     static TextBreakIterator* breakIter = 0;
     if (!breakIter) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        breakIter = base::BreakIteratorBridge::createWordInstance("");
+#else
         breakIter = icu::BreakIterator::createWordInstance(icu::Locale(currentTextBreakLocaleID()), errorCode);
         ASSERT_WITH_MESSAGE(U_SUCCESS(errorCode), "ICU could not open a break iterator: %s (%d)", u_errorName(errorCode), errorCode);
+#endif
         if (!breakIter)
             return 0;
     }
@@ -542,6 +593,9 @@ TextBreakIterator* acquireLineBreakIterator(const LChar* string, int length, con
     if (!iterator)
         return 0;
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    iterator->setText(string, length);
+#else
     UTextWithBuffer textLocal;
     textLocal.text = emptyText;
     textLocal.text.extraSize = sizeof(textLocal.buffer);
@@ -562,7 +616,7 @@ TextBreakIterator* acquireLineBreakIterator(const LChar* string, int length, con
     }
 
     utext_close(text);
-
+#endif
     return iterator;
 }
 
@@ -572,6 +626,9 @@ TextBreakIterator* acquireLineBreakIterator(const UChar* string, int length, con
     if (!iterator)
         return 0;
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    iterator->setText(string, length);
+#else
     UText textLocal = UTEXT_INITIALIZER;
 
     UErrorCode openStatus = U_ZERO_ERROR;
@@ -589,7 +646,7 @@ TextBreakIterator* acquireLineBreakIterator(const UChar* string, int length, con
     }
 
     utext_close(text);
-
+#endif
     return iterator;
 }
 
@@ -649,9 +706,15 @@ void NonSharedCharacterBreakIterator::createIteratorForBuffer(const UChar* buffe
     m_iterator = nonSharedCharacterBreakIterator;
     bool createdIterator = m_iterator && compareAndSwapNonSharedCharacterBreakIterator(m_iterator, 0);
     if (!createdIterator) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        m_iterator = base::BreakIteratorBridge::createCharacterInstance("");
+        if (!m_iterator)
+            return;
+#else
         UErrorCode errorCode = U_ZERO_ERROR;
         m_iterator = icu::BreakIterator::createCharacterInstance(icu::Locale(currentTextBreakLocaleID()), errorCode);
         ASSERT_WITH_MESSAGE(U_SUCCESS(errorCode), "ICU could not open a break iterator: %s (%d)", u_errorName(errorCode), errorCode);
+#endif
     }
 
     setText16(m_iterator, buffer, length);
@@ -713,11 +776,17 @@ int NonSharedCharacterBreakIterator::following(int offset) const
 
 TextBreakIterator* sentenceBreakIterator(const UChar* string, int length)
 {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     UErrorCode openStatus = U_ZERO_ERROR;
+#endif
     static TextBreakIterator* iterator = 0;
     if (!iterator) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        iterator = base::BreakIteratorBridge::createSentenceInstance("");
+#else
         iterator =  icu::BreakIterator::createSentenceInstance(icu::Locale(currentTextBreakLocaleID()), openStatus);
         ASSERT_WITH_MESSAGE(U_SUCCESS(openStatus), "ICU could not open a break iterator: %s (%d)", u_errorName(openStatus), openStatus);
+#endif
         if (!iterator)
             return 0;
     }
@@ -728,9 +797,13 @@ TextBreakIterator* sentenceBreakIterator(const UChar* string, int length)
 
 bool isWordTextBreak(TextBreakIterator* iterator)
 {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return true;
+#else
     icu::RuleBasedBreakIterator* ruleBasedBreakIterator = static_cast<icu::RuleBasedBreakIterator*>(iterator);
     int ruleStatus = ruleBasedBreakIterator->getRuleStatus();
     return ruleStatus != UBRK_WORD_NONE;
+#endif
 }
 
 static TextBreakIterator* setUpIteratorWithRules(const char* breakRules, const UChar* string, int length)
@@ -740,6 +813,9 @@ static TextBreakIterator* setUpIteratorWithRules(const char* breakRules, const U
 
     static TextBreakIterator* iterator = 0;
     if (!iterator) {
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        iterator = base::BreakIteratorBridge::createWordInstance("");
+#else
         UParseError parseStatus;
         UErrorCode openStatus = U_ZERO_ERROR;
         Vector<UChar> rules;
@@ -747,6 +823,7 @@ static TextBreakIterator* setUpIteratorWithRules(const char* breakRules, const U
 
         iterator = new icu::RuleBasedBreakIterator(icu::UnicodeString(rules.data(), rules.size()), parseStatus, openStatus);
         ASSERT_WITH_MESSAGE(U_SUCCESS(openStatus), "ICU could not open a break iterator: %s (%d)", u_errorName(openStatus), openStatus);
+#endif
         if (!iterator)
             return 0;
     }

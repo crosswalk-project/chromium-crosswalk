@@ -37,8 +37,10 @@
 #include "wtf/text/CharacterNames.h"
 #include "wtf/text/StringBuffer.h"
 #include "wtf/text/StringHash.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include <unicode/translit.h>
 #include <unicode/unistr.h>
+#endif
 
 #ifdef STRING_STATS
 #include "wtf/DataLog.h"
@@ -679,7 +681,37 @@ static bool inline localeIdMatchesLang(const AtomicString& localeId, const char*
     }
     return false;
 }
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+static PassRefPtr<StringImpl> convertLower(const UChar* source16, size_t length, const char* locale, StringImpl* originalString)
+{
+    UChar* data16;
+    RefPtr<StringImpl> output = StringImpl::createUninitialized(length, data16);
+    bool error = true;
+    int32_t targetLength = base::icu_utils::toLower(data16, length, source16, length, &error);
 
+    if (!error) {
+        output->truncateAssumingIsolated(targetLength);
+        return output.release();
+    }
+
+    return originalString;
+}
+
+static PassRefPtr<StringImpl> convertUpper(const UChar* source16, size_t length, const char* locale, StringImpl* originalString)
+{
+    UChar* data16;
+    RefPtr<StringImpl> output = StringImpl::createUninitialized(length, data16);
+    bool error = true;
+    int32_t targetLength = base::icu_utils::toUpper(data16, length, source16, length, &error);
+
+    if (!error) {
+        output->truncateAssumingIsolated(targetLength);
+        return output.release();
+    }
+
+    return originalString;
+}
+#else
 typedef int32_t (*icuCaseConverter)(UChar*, int32_t, const UChar*, int32_t, const char*, UErrorCode*);
 
 static PassRefPtr<StringImpl> caseConvert(const UChar* source16, size_t length, icuCaseConverter converter, const char* locale, StringImpl* originalString)
@@ -701,7 +733,7 @@ static PassRefPtr<StringImpl> caseConvert(const UChar* source16, size_t length, 
         output = StringImpl::createUninitialized(targetLength, data16);
     } while (true);
 }
-
+#endif
 PassRefPtr<StringImpl> StringImpl::lower(const AtomicString& localeIdentifier)
 {
     // Use the more-optimized code path most of the time.
@@ -724,20 +756,28 @@ PassRefPtr<StringImpl> StringImpl::lower(const AtomicString& localeIdentifier)
 
     RefPtr<StringImpl> upconverted = upconvertedString();
     const UChar* source16 = upconverted->characters16();
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+    return convertLower(source16, length, localeForConversion, this);
+#else
     return caseConvert(source16, length, u_strToLower, localeForConversion, this);
+#endif
 }
 
 PassRefPtr<StringImpl> StringImpl::upper(const AtomicString& localeIdentifier)
 {
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     // Use the more-optimized code path most of the time.
     // Only Turkic (tr and az) languages and Greek require locale-specific
     // lowercasing rules.
     icu::UnicodeString transliteratorId;
+#endif
     const char* localeForConversion = 0;
     if (localeIdMatchesLang(localeIdentifier, "tr") || localeIdMatchesLang(localeIdentifier, "az"))
         localeForConversion = "tr";
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     else if (localeIdMatchesLang(localeIdentifier, "el"))
         transliteratorId = UNICODE_STRING_SIMPLE("el-Upper");
+#endif
     else if (localeIdMatchesLang(localeIdentifier, "lt"))
         localeForConversion = "lt";
     else
@@ -751,6 +791,11 @@ PassRefPtr<StringImpl> StringImpl::upper(const AtomicString& localeIdentifier)
     const UChar* source16 = upconverted->characters16();
 
     if (localeForConversion)
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+        return convertUpper(source16, length, localeForConversion, this);
+
+    return upper();
+#else
         return caseConvert(source16, length, u_strToUpper, localeForConversion, this);
 
     // TODO(jungshik): Cache transliterator if perf penaly warrants it for Greek.
@@ -765,6 +810,7 @@ PassRefPtr<StringImpl> StringImpl::upper(const AtomicString& localeIdentifier)
     translit->transliterate(target);
 
     return create(target.getBuffer(), target.length());
+#endif
 }
 
 PassRefPtr<StringImpl> StringImpl::fill(UChar character)

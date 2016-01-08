@@ -36,6 +36,34 @@
       'public/child/v8_value_converter.h',
       'public/child/worker_thread.h',
     ],
+    'private_child_sources_geo': [
+      'child/geofencing/geofencing_dispatcher.cc',
+      'child/geofencing/geofencing_dispatcher.h',
+      'child/geofencing/geofencing_message_filter.cc',
+      'child/geofencing/geofencing_message_filter.h',
+      'child/geofencing/web_geofencing_provider_impl.cc',
+      'child/geofencing/web_geofencing_provider_impl.h',
+    ],
+    'private_child_sources_webdatabase': [
+      'child/database_util.cc',
+      'child/database_util.h',
+      'child/db_message_filter.cc',
+      'child/db_message_filter.h',
+      'child/web_database_observer_impl.cc',
+      'child/web_database_observer_impl.h',
+    ],
+    'private_child_sources_notifications': [
+      'child/notifications/notification_data_conversions.cc',
+      'child/notifications/notification_data_conversions.h',
+      'child/notifications/notification_dispatcher.cc',
+      'child/notifications/notification_dispatcher.h',
+      'child/notifications/notification_image_loader.cc',
+      'child/notifications/notification_image_loader.h',
+      'child/notifications/notification_manager.cc',
+      'child/notifications/notification_manager.h',
+      'child/notifications/pending_notifications_tracker.cc',
+      'child/notifications/pending_notifications_tracker.h',
+    ],
     'private_child_sources': [
       'child/appcache/appcache_backend_proxy.cc',
       'child/appcache/appcache_backend_proxy.h',
@@ -293,11 +321,37 @@
     '<@(private_child_sources)',
   ],
   'conditions': [
+    ['disable_indexeddb==1',
+      {
+        'sources!': [
+          'child/indexed_db/indexed_db_dispatcher.cc',
+          'child/indexed_db/indexed_db_dispatcher.h',
+          'child/indexed_db/indexed_db_key_builders.cc',
+          'child/indexed_db/indexed_db_key_builders.h',
+          'child/indexed_db/indexed_db_message_filter.cc',
+          'child/indexed_db/indexed_db_message_filter.h',
+          'child/indexed_db/webidbcursor_impl.cc',
+          'child/indexed_db/webidbcursor_impl.h',
+          'child/indexed_db/webidbdatabase_impl.cc',
+          'child/indexed_db/webidbdatabase_impl.h',
+          'child/indexed_db/webidbfactory_impl.cc',
+          'child/indexed_db/webidbfactory_impl.h',
+        ],
+      }
+    ],
     ['use_default_render_theme==0',
       {
         'sources/': [
           ['exclude', 'child/webthemeengine_impl_default.cc'],
           ['exclude', 'child/webthemeengine_impl_default.h'],
+        ],
+      }
+    ],
+    ['disable_ftp_support==1',
+      {
+        'sources/': [
+          ['exclude', 'child/ftp_directory_listing_response_delegate.cc'],
+          ['exclude', 'child/ftp_directory_listing_response_delegate.h'],
         ],
       }
     ],
@@ -341,6 +395,21 @@
     ['OS=="win"', {
       'sources!': [
         'child/npapi/webplugin_delegate_impl_aura.cc',
+      ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_child_sources_geo)',
+      ],
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_child_sources_notifications)',
+      ],
+    }],
+    ['disable_webdatabase==1', {
+      'sources!': [
+        '<@(private_child_sources_webdatabase)',
       ],
     }],
   ],

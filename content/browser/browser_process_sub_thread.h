@@ -17,9 +17,11 @@ class ScopedCOMInitializer;
 }
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
 namespace content {
 class NotificationService;
 }
+#endif
 
 namespace content {
 
@@ -50,8 +52,10 @@ class CONTENT_EXPORT BrowserProcessSubThread : public BrowserThreadImpl {
   scoped_ptr<base::win::ScopedCOMInitializer> com_initializer_;
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   // Each specialized thread has its own notification service.
   scoped_ptr<NotificationService> notification_service_;
+#endif
 
   DISALLOW_COPY_AND_ASSIGN(BrowserProcessSubThread);
 };

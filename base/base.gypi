@@ -1003,6 +1003,7 @@
           'i18n/base_i18n_export.h',
           'i18n/bidi_line_iterator.cc',
           'i18n/bidi_line_iterator.h',
+          'i18n/break_iterator_icu_alternatives.cc',
           'i18n/break_iterator.cc',
           'i18n/break_iterator.h',
           'i18n/case_conversion.cc',
@@ -1031,12 +1032,29 @@
           'i18n/string_compare.h',
           'i18n/string_search.cc',
           'i18n/string_search.h',
+          'i18n/time_formatting_icu_alternatives.cc',
           'i18n/time_formatting.cc',
           'i18n/time_formatting.h',
           'i18n/timezone.cc',
           'i18n/timezone.h',
           'i18n/utf8_validator_tables.cc',
           'i18n/utf8_validator_tables.h',
+        ],
+        'conditions': [
+          ['OS == "android" and use_icu_alternatives_on_android == 1', {
+            'sources!': [
+              'i18n/break_iterator.cc',
+              'i18n/time_formatting.cc',
+              # bidi is never used any where
+              'i18n/bidi_line_iterator.cc',
+              'i18n/bidi_line_iterator.h',
+            ],
+          }, {
+            'sources!': [
+              'i18n/break_iterator_icu_alternatives.cc',
+              'i18n/time_formatting_icu_alternatives.cc',
+            ],
+          }],
         ],
       }]
     ],

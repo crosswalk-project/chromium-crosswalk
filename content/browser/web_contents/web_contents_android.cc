@@ -103,6 +103,7 @@ ScopedJavaLocalRef<jobject> WalkAXTreeDepthFirst(JNIEnv* env,
   return j_node;
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 // Walks over the AXTreeUpdate and creates a light weight snapshot.
 void AXTreeSnapshotCallback(const ScopedJavaGlobalRef<jobject>& callback,
                             float scale_factor,
@@ -125,6 +126,7 @@ void AXTreeSnapshotCallback(const ScopedJavaGlobalRef<jobject>& callback,
   Java_WebContentsImpl_onAccessibilitySnapshot(
       env, j_root.obj(), callback.obj());
 }
+#endif
 
 void ReleaseAllMediaPlayers(WebContents* web_contents,
                             RenderFrameHost* render_frame_host) {
@@ -502,8 +504,12 @@ void WebContentsAndroid::SendMessageToFrame(JNIEnv* env,
 jboolean WebContentsAndroid::HasAccessedInitialDocument(
     JNIEnv* env,
     jobject jobj) {
+#ifndef DISABLE_ACCESSIBILITY
   return static_cast<WebContentsImpl*>(web_contents_)->
       HasAccessedInitialDocument();
+#else
+  return false;
+#endif
 }
 
 jint WebContentsAndroid::GetThemeColor(JNIEnv* env, jobject obj) {
@@ -515,6 +521,7 @@ void WebContentsAndroid::RequestAccessibilitySnapshot(JNIEnv* env,
                                                       jobject callback,
                                                       jfloat y_offset,
                                                       jfloat x_scroll) {
+#ifndef DISABLE_ACCESSIBILITY
   // Secure the Java callback in a scoped object and give ownership of it to the
   // base::Callback.
   ScopedJavaGlobalRef<jobject> j_callback;
@@ -527,6 +534,11 @@ void WebContentsAndroid::RequestAccessibilitySnapshot(JNIEnv* env,
           contentViewCore->GetScaleFactor(), y_offset, x_scroll);
   static_cast<WebContentsImpl*>(web_contents_)->RequestAXTreeSnapshot(
       snapshot_callback);
+#else
+  ScopedJavaGlobalRef<jobject> j_callback;
+  j_callback.Reset(env, callback);
+  Java_WebContentsImpl_onAccessibilitySnapshot(env, nullptr, j_callback.obj());
+#endif
 }
 
 void WebContentsAndroid::ResumeMediaSession(JNIEnv* env, jobject obj) {

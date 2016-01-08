@@ -30,7 +30,9 @@
 #include "mojo/application/public/interfaces/service_provider.mojom.h"
 #include "mojo/application/public/interfaces/shell.mojom.h"
 #include "third_party/WebKit/public/platform/modules/app_banner/WebAppBannerClient.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "third_party/WebKit/public/web/WebAXObject.h"
+#endif
 #include "third_party/WebKit/public/web/WebDataSource.h"
 #include "third_party/WebKit/public/web/WebFrameClient.h"
 #include "third_party/WebKit/public/web/WebHistoryCommitType.h"
@@ -41,9 +43,11 @@
 #include "content/renderer/pepper/plugin_power_saver_helper.h"
 #endif
 
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
 #include "content/renderer/media/android/renderer_media_player_manager.h"
 #endif
+#endif  // ifndef DISABLE_WEB_VIDEO
 
 #if defined(ENABLE_MOJO_MEDIA)
 #include "media/mojo/interfaces/service_factory.mojom.h"
@@ -56,7 +60,9 @@ struct FrameMsg_PostMessage_Params;
 struct FrameMsg_TextTrackSettings_Params;
 
 namespace blink {
+#ifndef DISABLE_GEO_FEATURES
 class WebGeolocationClient;
+#endif
 class WebMouseEvent;
 class WebContentDecryptionModule;
 class WebMediaPlayer;
@@ -88,17 +94,23 @@ namespace content {
 
 class ChildFrameCompositingHelper;
 class CompositorDependencies;
+#ifndef DISABLE_DEVTOOLS
 class DevToolsAgent;
+#endif
 class DocumentState;
 class ExternalPopupMenu;
+#ifndef DISABLE_GEO_FEATURES
 class GeolocationDispatcher;
+#endif
 class ManifestManager;
 class MediaStreamDispatcher;
 class MediaStreamRendererFactory;
 class MediaPermissionDispatcher;
 class MidiDispatcher;
 class NavigationState;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationPermissionDispatcher;
+#endif
 class PageState;
 class PepperPluginInstanceImpl;
 class PermissionDispatcher;
@@ -106,7 +118,9 @@ class PresentationDispatcher;
 class PushMessagingDispatcher;
 class RendererAccessibility;
 class RendererCdmManager;
+#ifndef DISABLE_WEB_VIDEO
 class RendererMediaPlayerManager;
+#endif  // ifndef DISABLE_WEB_VIDEO
 class RendererPpapiHost;
 class RenderFrameObserver;
 class RenderViewImpl;
@@ -202,7 +216,9 @@ class CONTENT_EXPORT RenderFrameImpl
   // Returns the RenderWidget associated with this frame.
   RenderWidget* GetRenderWidget();
 
+#ifndef DISABLE_DEVTOOLS
   DevToolsAgent* devtools_agent() { return devtools_agent_; }
+#endif
 
   // This is called right after creation with the WebLocalFrame for this
   // RenderFrame. It must be called before Initialize.
@@ -228,6 +244,7 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual void didStopLoading();
   virtual void didChangeLoadProgress(double load_progress);
 
+#ifndef DISABLE_ACCESSIBILITY
   AccessibilityMode accessibility_mode() {
     return accessibility_mode_;
   }
@@ -238,15 +255,18 @@ class CONTENT_EXPORT RenderFrameImpl
 
   void HandleWebAccessibilityEvent(const blink::WebAXObject& obj,
                                    blink::WebAXEvent event);
+#endif
 
   // The focused node changed to |node|. If focus was lost from this frame,
   // |node| will be null.
   void FocusedNodeChanged(const blink::WebNode& node);
 
+#ifndef DISABLE_ACCESSIBILITY
   // TODO(dmazzoni): the only reason this is here is to plumb it through to
   // RendererAccessibility. It should use the RenderFrameObserver method, once
   // blink has a separate accessibility tree per frame.
   void FocusedNodeChangedForAccessibility(const blink::WebNode& node);
+#endif
 
 #if defined(ENABLE_PLUGINS)
   // Notification that a PPAPI plugin has been created.
@@ -451,9 +471,11 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual void didUpdateCurrentHistoryItem(blink::WebLocalFrame* frame);
   virtual void didChangeThemeColor();
   virtual void dispatchLoad();
+#ifndef DISABLE_NOTIFICATIONS
   virtual void requestNotificationPermission(
       const blink::WebSecurityOrigin& origin,
       blink::WebNotificationPermissionCallback* callback);
+#endif
   virtual void didChangeSelection(bool is_empty_selection);
   virtual blink::WebColorChooser* createColorChooser(
       blink::WebColorChooserClient* client,
@@ -505,7 +527,9 @@ class CONTENT_EXPORT RenderFrameImpl
                                    unsigned long long requested_size,
                                    blink::WebStorageQuotaCallbacks callbacks);
   virtual void willOpenWebSocket(blink::WebSocketHandle* handle);
+#ifndef DISABLE_GEO_FEATURES
   virtual blink::WebGeolocationClient* geolocationClient();
+#endif
   virtual blink::WebPushClient* pushClient();
   virtual blink::WebPresentationClient* presentationClient();
   virtual void willStartUsingPeerConnectionHandler(
@@ -513,7 +537,9 @@ class CONTENT_EXPORT RenderFrameImpl
       blink::WebRTCPeerConnectionHandler* handler);
   virtual blink::WebUserMediaClient* userMediaClient();
   virtual blink::WebEncryptedMediaClient* encryptedMediaClient();
+#ifndef DISABLE_WEBMIDI
   virtual blink::WebMIDIClient* webMIDIClient();
+#endif
   virtual bool willCheckAndDispatchMessageEvent(
       blink::WebLocalFrame* source_frame,
       blink::WebFrame* target_frame,
@@ -528,6 +554,7 @@ class CONTENT_EXPORT RenderFrameImpl
   virtual blink::WebScreenOrientationClient* webScreenOrientationClient();
   virtual bool isControlledByServiceWorker(blink::WebDataSource& data_source);
   virtual int64_t serviceWorkerID(blink::WebDataSource& data_source);
+#ifndef DISABLE_ACCESSIBILITY
   virtual void postAccessibilityEvent(const blink::WebAXObject& obj,
                                       blink::WebAXEvent event);
   virtual void handleAccessibilityFindInPageResult(
@@ -537,6 +564,7 @@ class CONTENT_EXPORT RenderFrameImpl
         int start_offset,
         const blink::WebAXObject& end_object,
         int end_offset);
+#endif
   virtual void didChangeManifest(blink::WebLocalFrame*);
   virtual bool enterFullscreen();
   virtual bool exitFullscreen();
@@ -547,7 +575,9 @@ class CONTENT_EXPORT RenderFrameImpl
                                        const blink::WebString& title);
   virtual void unregisterProtocolHandler(const blink::WebString& scheme,
                                          const blink::WebURL& url);
+#ifndef DISABLE_BLUETOOTH
   virtual blink::WebBluetooth* bluetooth();
+#endif
   virtual blink::WebUSBClient* usbClient();
 
 #if defined(ENABLE_WEBVR)
@@ -810,12 +840,14 @@ class CONTENT_EXPORT RenderFrameImpl
   NavigationState* CreateNavigationStateFromPending();
 
 #if defined(OS_ANDROID)
+#ifndef DISABLE_WEB_VIDEO
   blink::WebMediaPlayer* CreateAndroidWebMediaPlayer(
       blink::WebMediaPlayerClient* client,
       blink::WebMediaPlayerEncryptedMediaClient* encrypted_client,
       const media::WebMediaPlayerParams& params);
 
   RendererMediaPlayerManager* GetMediaPlayerManager();
+#endif  // ifndef DISABLE_WEB_VIDEO
 #endif
 
   bool AreSecureCodecsSupported();
@@ -930,8 +962,10 @@ class CONTENT_EXPORT RenderFrameImpl
   // along with the RenderFrame automatically.  This is why we just store weak
   // references.
 
+#ifndef DISABLE_NOTIFICATIONS
   // Dispatches permission requests for Web Notifications.
   NotificationPermissionDispatcher* notification_permission_dispatcher_;
+#endif
 
   // Destroyed via the RenderFrameObserver::OnDestruct() mechanism.
   UserMediaClientImpl* web_user_media_client_;
@@ -950,12 +984,14 @@ class CONTENT_EXPORT RenderFrameImpl
   // MidiClient attached to this frame; lazily initialized.
   MidiDispatcher* midi_dispatcher_;
 
+#ifndef DISABLE_WEB_VIDEO
 #if defined(OS_ANDROID)
   // Manages all media players in this render frame for communicating with the
   // real media player in the browser process. It's okay to use a raw pointer
   // since it's a RenderFrameObserver.
   RendererMediaPlayerManager* media_player_manager_;
 #endif
+#endif  //ifndef DISABLE_WEB_VIDEO
 
 #if defined(ENABLE_BROWSER_CDMS)
   // Manage all CDMs in this render frame for communicating with the real CDM in
@@ -976,12 +1012,16 @@ class CONTENT_EXPORT RenderFrameImpl
   // True if this RenderFrame has ever played media.
   bool has_played_media_;
 
+#ifndef DISABLE_DEVTOOLS
   // The devtools agent for this frame; only created for main frame and
   // local roots.
   DevToolsAgent* devtools_agent_;
+#endif
 
+#ifndef DISABLE_GEO_FEATURES
   // The geolocation dispatcher attached to this frame, lazily initialized.
   GeolocationDispatcher* geolocation_dispatcher_;
+#endif
 
   // The push messaging dispatcher attached to this frame, lazily initialized.
   PushMessagingDispatcher* push_messaging_dispatcher_;
@@ -1003,18 +1043,22 @@ class CONTENT_EXPORT RenderFrameImpl
   // process.
   ManifestManager* manifest_manager_;
 
+#ifndef DISABLE_ACCESSIBILITY
   // The current accessibility mode.
   AccessibilityMode accessibility_mode_;
 
   // Only valid if |accessibility_mode_| is anything other than
   // AccessibilityModeOff.
   RendererAccessibility* renderer_accessibility_;
+#endif
 
   scoped_ptr<PermissionDispatcher> permission_client_;
 
   scoped_ptr<blink::WebAppBannerClient> app_banner_client_;
 
+#ifndef DISABLE_BLUETOOTH
   scoped_ptr<blink::WebBluetooth> bluetooth_;
+#endif
 
   scoped_ptr<blink::WebUSBClient> usb_client_;
 

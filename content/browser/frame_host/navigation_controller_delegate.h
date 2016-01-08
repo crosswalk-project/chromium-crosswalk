@@ -57,7 +57,9 @@ class NavigationControllerDelegate {
   virtual void UpdateMaxPageIDForSiteInstance(SiteInstance* site_instance,
                                               int32 page_id) = 0;
   virtual void ActivateAndShowRepostFormWarningDialog() = 0;
+#ifndef DISABLE_ACCESSIBILITY
   virtual bool HasAccessedInitialDocument() = 0;
+#endif
 
   // This method is needed, since we are no longer guaranteed that the
   // embedder for NavigationController will be a WebContents object.

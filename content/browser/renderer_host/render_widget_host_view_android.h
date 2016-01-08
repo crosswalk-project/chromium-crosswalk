@@ -144,8 +144,10 @@ class CONTENT_EXPORT RenderWidgetHostViewAndroid
   void OnSetNeedsFlushInput() override;
   void GestureEventAck(const blink::WebGestureEvent& event,
                        InputEventAckState ack_result) override;
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* CreateBrowserAccessibilityManager(
       BrowserAccessibilityDelegate* delegate) override;
+#endif
   bool LockMouse() override;
   void UnlockMouse() override;
   void OnSwapCompositorFrame(uint32 output_surface_id,
@@ -291,11 +293,13 @@ class CONTENT_EXPORT RenderWidgetHostViewAndroid
       ReadbackRequestCallback& callback,
       scoped_ptr<cc::CopyOutputResult> result);
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   // DevTools ScreenCast support for Android WebView.
   void SynchronousCopyContents(const gfx::Rect& src_subrect_in_pixel,
                                const gfx::Size& dst_size_in_pixel,
                                ReadbackRequestCallback& callback,
                                const SkColorType color_type);
+#endif
 
   // If we have locks on a frame during a ContentViewCore swap or a context
   // lost, the frame is no longer valid and we can safely release all the locks.

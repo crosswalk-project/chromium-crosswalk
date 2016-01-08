@@ -996,7 +996,7 @@ scoped_ptr<cc::OutputSurface> RenderWidget::CreateOutputSurface(bool fallback) {
   // never get a request for a cc::OutputSurface.
   DCHECK(!never_visible_);
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   if (SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance()) {
     return factory->CreateOutputSurface(routing_id(), surface_id(),
@@ -2126,6 +2126,9 @@ void RenderWidget::DidChangeBodyBackgroundColor(SkColor bg_color) {
 }
 
 bool RenderWidget::DoesRecordFullLayer() const {
+#if defined(DISABLE_SYNC_COMPOSITOR)
+  return false;
+#else
   SynchronousCompositorFactory* synchronous_compositor_factory =
       SynchronousCompositorFactory::GetInstance();
 
@@ -2136,6 +2139,7 @@ bool RenderWidget::DoesRecordFullLayer() const {
     return false;
 
   return synchronous_compositor_factory->RecordFullLayer();
+#endif
 }
 #endif
 
@@ -2171,9 +2175,14 @@ void RenderWidget::showUnhandledTapUIIfNeeded(
     const WebNode& tapped_node,
     bool page_changed) {
   DCHECK(handling_input_event_);
+#ifndef DISABLE_ACCESSIBILITY
   bool should_trigger = !page_changed && tapped_node.isTextNode() &&
                         !tapped_node.isContentEditable() &&
                         !tapped_node.isInsideFocusableElementOrARIAWidget();
+#else
+  bool should_trigger = !page_changed && tapped_node.isTextNode() &&
+                        !tapped_node.isContentEditable();
+#endif
   if (should_trigger) {
     Send(new ViewHostMsg_ShowUnhandledTapUIIfNeeded(routing_id_,
         tapped_position.x, tapped_position.y));

@@ -16,7 +16,9 @@
 #include "net/http/http_stream_factory_impl.h"
 #include "net/log/net_log.h"
 #include "net/proxy/proxy_service.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/quic_stream_factory.h"
+#endif
 #include "net/socket/client_socket_handle.h"
 #include "net/socket/client_socket_pool_manager.h"
 #include "net/socket/ssl_client_socket.h"
@@ -30,7 +32,9 @@ class HttpAuthController;
 class HttpNetworkSession;
 class HttpStream;
 class SpdySessionPool;
+#if !defined(DISABLE_QUIC_SUPPORT)
 class QuicHttpStream;
+#endif
 
 // An HttpStreamRequestImpl exists for each stream which is in progress of being
 // created for the StreamFactory.
@@ -277,8 +281,10 @@ class HttpStreamFactoryImpl::Job {
   // Moves this stream request into SPDY mode.
   void SwitchToSpdyMode();
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // Should we force QUIC for this stream request.
   bool ShouldForceQuic() const;
+#endif
 
   void MaybeMarkAlternativeServiceBroken();
 
@@ -344,6 +350,7 @@ class HttpStreamFactoryImpl::Job {
   // True if this network transaction is using SPDY instead of HTTP.
   bool using_spdy_;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
   // True if this network transaction is using QUIC instead of HTTP.
   bool using_quic_;
   QuicStreamRequest quic_request_;
@@ -353,6 +360,7 @@ class HttpStreamFactoryImpl::Job {
 
   // Force quic for a specific port.
   int force_quic_port_;
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
 
   // The certificate error while using SPDY over SSL for insecure URLs.
   int spdy_certificate_error_;

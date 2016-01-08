@@ -143,8 +143,10 @@ class CONTENT_EXPORT RenderWidgetHostViewChildFrame
       gfx::NativeViewAccessible accessible_parent) override;
   gfx::NativeViewId GetParentForWindowlessPlugin() const override;
 #endif
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* CreateBrowserAccessibilityManager(
       BrowserAccessibilityDelegate* delegate) override;
+#endif
 
   // cc::SurfaceFactoryClient implementation.
   void ReturnResources(const cc::ReturnedResourceArray& resources) override;

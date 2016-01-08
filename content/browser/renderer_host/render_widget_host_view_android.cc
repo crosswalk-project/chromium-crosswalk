@@ -38,7 +38,9 @@
 #include "content/browser/android/content_view_core_impl.h"
 #include "content/browser/android/edge_effect.h"
 #include "content/browser/android/edge_effect_l.h"
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 #include "content/browser/android/in_process/synchronous_compositor_impl.h"
+#endif
 #include "content/browser/android/overscroll_controller_android.h"
 #include "content/browser/devtools/render_frame_devtools_agent_host.h"
 #include "content/browser/gpu/browser_gpu_channel_host_factory.h"
@@ -326,7 +328,11 @@ RenderWidgetHostViewAndroid::RenderWidgetHostViewAndroid(
                         this),
       stylus_text_selector_(this),
       accelerated_surface_route_id_(0),
+#if !defined(DISABLE_SYNC_COMPOSITOR)
       using_browser_compositor_(CompositorImpl::IsInitialized()),
+#else
+      using_browser_compositor_(true),
+#endif
       frame_evictor_(new DelegatedFrameEvictor(this)),
       locks_on_frame_count_(0),
       observing_root_window_(false),
@@ -885,6 +891,7 @@ void RenderWidgetHostViewAndroid::CopyFromCompositingSurface(
   gfx::Rect src_subrect_in_pixel =
       gfx::ConvertRectToPixel(device_scale_factor, src_subrect);
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   if (!using_browser_compositor_) {
     SynchronousCopyContents(src_subrect_in_pixel, dst_size_in_pixel, callback,
                             preferred_color_type);
@@ -892,6 +899,7 @@ void RenderWidgetHostViewAndroid::CopyFromCompositingSurface(
                         base::TimeTicks::Now() - start_time);
     return;
   }
+#endif
 
   scoped_ptr<cc::CopyOutputRequest> request;
   scoped_refptr<cc::Layer> readback_layer;
@@ -1195,6 +1203,7 @@ void RenderWidgetHostViewAndroid::SynchronousFrameMetadata(
   OnFrameMetadataUpdated(frame_metadata);
   ComputeContentsSize(frame_metadata);
 
+#ifndef DISABLE_DEVTOOLS
   // DevTools ScreenCast support for Android WebView.
   WebContents* web_contents = content_view_core_->GetWebContents();
   if (DevToolsAgentHost::HasFor(web_contents)) {
@@ -1208,6 +1217,7 @@ void RenderWidgetHostViewAndroid::SynchronousFrameMetadata(
             static_cast<RenderFrameDevToolsAgentHost*>(dtah.get()),
             frame_metadata));
   }
+#endif
 }
 
 void RenderWidgetHostViewAndroid::SetOverlayVideoMode(bool enabled) {
@@ -1272,6 +1282,7 @@ RenderWidgetHostViewAndroid::CreateDrawable() {
       content_view_core_->GetContext().obj()));
 }
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
 void RenderWidgetHostViewAndroid::SynchronousCopyContents(
     const gfx::Rect& src_subrect_in_pixel,
     const gfx::Size& dst_size_in_pixel,
@@ -1291,6 +1302,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
   int output_width = output_size_in_pixel.width();
   int output_height = output_size_in_pixel.height();
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositor* compositor =
       SynchronousCompositorImpl::FromID(host_->GetProcess()->GetID(),
                                         host_->GetRoutingID());
@@ -1298,6 +1310,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
     callback.Run(SkBitmap(), READBACK_FAILED);
     return;
   }
+#endif
 
   SkBitmap bitmap;
   bitmap.allocPixels(SkImageInfo::Make(output_width,
@@ -1311,6 +1324,7 @@ void RenderWidgetHostViewAndroid::SynchronousCopyContents(
   compositor->DemandDrawSw(&canvas);
   callback.Run(bitmap, READBACK_SUCCESS);
 }
+#endif
 
 void RenderWidgetHostViewAndroid::OnFrameMetadataUpdated(
     const cc::CompositorFrameMetadata& frame_metadata) {
@@ -1487,6 +1501,7 @@ void RenderWidgetHostViewAndroid::SendBeginFrame(base::TimeTicks frame_time,
         cc::BeginFrameArgs::Create(BEGINFRAME_FROM_HERE, frame_time, deadline,
                                    vsync_period, cc::BeginFrameArgs::NORMAL)));
   } else {
+#if !defined(DISABLE_SYNC_COMPOSITOR)
     SynchronousCompositorImpl* compositor = SynchronousCompositorImpl::FromID(
         host_->GetProcess()->GetID(), host_->GetRoutingID());
     if (compositor) {
@@ -1496,6 +1511,7 @@ void RenderWidgetHostViewAndroid::SendBeginFrame(base::TimeTicks frame_time,
           BEGINFRAME_FROM_HERE, frame_time, base::TimeTicks(), vsync_period,
           cc::BeginFrameArgs::NORMAL));
     }
+#endif
   }
 }
 
@@ -1617,11 +1633,13 @@ InputEventAckState RenderWidgetHostViewAndroid::FilterInputEvent(
           new AcceleratedSurfaceMsg_WakeUpGpu(accelerated_surface_route_id_));
   }
 
+#if !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorImpl* compositor =
       SynchronousCompositorImpl::FromID(host_->GetProcess()->GetID(),
                                           host_->GetRoutingID());
   if (compositor)
     return compositor->HandleInputEvent(input_event);
+#endif
   return INPUT_EVENT_ACK_STATE_NOT_CONSUMED;
 }
 
@@ -1630,6 +1648,7 @@ void RenderWidgetHostViewAndroid::OnSetNeedsFlushInput() {
   RequestVSyncUpdate(FLUSH_INPUT);
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 BrowserAccessibilityManager*
     RenderWidgetHostViewAndroid::CreateBrowserAccessibilityManager(
         BrowserAccessibilityDelegate* delegate) {
@@ -1651,6 +1670,7 @@ BrowserAccessibilityManager*
       BrowserAccessibilityManagerAndroid::GetEmptyDocument(),
       delegate);
 }
+#endif
 
 bool RenderWidgetHostViewAndroid::LockMouse() {
   NOTIMPLEMENTED();
@@ -1769,6 +1789,7 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
       content_view_core_ ? content_view_core_->GetWindowAndroid() : nullptr;
   DCHECK_EQ(!!content_view_core_, !!content_view_core_window_android_);
 
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* manager = NULL;
   if (host_)
     manager = host_->GetRootBrowserAccessibilityManager();
@@ -1778,6 +1799,7 @@ void RenderWidgetHostViewAndroid::SetContentViewCore(
       obj = content_view_core_->GetJavaObject();
     manager->ToBrowserAccessibilityManagerAndroid()->SetContentViewCore(obj);
   }
+#endif
 
   AttachLayers();
 

@@ -27,7 +27,11 @@ namespace page {
 
 class ColorPicker;
 
+#ifndef DISABLE_NOTIFICATIONS
 class PageHandler : public NotificationObserver {
+#else
+class PageHandler {
+#endif
  public:
   typedef DevToolsProtocolClient::Response Response;
 
@@ -38,7 +42,11 @@ class PageHandler : public NotificationObserver {
   };
 
   PageHandler();
+#ifndef DISABLE_NOTIFICATIONS
   ~PageHandler() override;
+#else
+  ~PageHandler();
+#endif
 
   void SetRenderFrameHost(RenderFrameHostImpl* host);
   void SetClient(scoped_ptr<Client> client);
@@ -101,10 +109,12 @@ class PageHandler : public NotificationObserver {
 
   void OnColorPicked(int r, int g, int b, int a);
 
+#ifndef DISABLE_NOTIFICATIONS
   // NotificationObserver overrides.
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   bool enabled_;
 
@@ -126,7 +136,9 @@ class PageHandler : public NotificationObserver {
   RenderFrameHostImpl* host_;
   scoped_ptr<Client> client_;
   ScreencastListener* screencast_listener_;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationRegistrar registrar_;
+#endif
   base::WeakPtrFactory<PageHandler> weak_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(PageHandler);

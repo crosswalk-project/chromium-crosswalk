@@ -615,6 +615,24 @@
       # Enable web audio hrtf by default.
       'disable_webaudio_hrtf%': 0,
 
+      # Enable QUIC support by default.
+      'disable_quic_support%': 0,
+
+      # Enable sync compositor by default.
+      'disable_sync_compositor%': 0,
+
+      # Enable XSLT support by deafult.
+      'disable_xslt%': 0,
+
+      # Enable Webp support by default.
+      'disable_webp%': 0,
+
+      # Enable angle by default.
+      'disable_angle%': 0,
+
+      # Include all resources by default.
+      'use_minimum_resources%': 0,
+
       # Use native android functions in place of ICU.  Not supported by most
       # components.
       'use_icu_alternatives_on_android%': 0,
@@ -829,6 +847,13 @@
           'enable_print_preview%': 0,
           'enable_task_manager%':0,
           'video_hole%': 1,
+          'conditions': [
+            ['use_icu_alternatives_on_android==1', {
+              'disable_ftp_support%': 1,
+            }, {
+              'disable_ftp_support%': 0,
+            }],
+          ],
         }],
 
         # Android and OSX have built-in spellcheckers that can be utilized.
@@ -861,10 +886,6 @@
         # Enable hotwording on Chrome-branded ChromeOS builds.
         ['branding=="Chrome" and chromeos==1', {
           'enable_hotwording%': 1,
-        }],
-
-        ['OS=="android"', {
-          'enable_webrtc%': 1,
         }],
 
         ['OS=="ios"', {
@@ -1224,6 +1245,12 @@
     'disable_file_support%': '<(disable_file_support)',
     'disable_ftp_support%': '<(disable_ftp_support)',
     'disable_webaudio_hrtf%': '<(disable_webaudio_hrtf)',
+    'disable_quic_support%': '<(disable_quic_support)',
+    'disable_sync_compositor%': '<(disable_sync_compositor)',
+    'disable_xslt%': '<(disable_xslt)',
+    'disable_webp%': '<(disable_webp)',
+    'disable_angle%': '<(disable_angle)',
+    'use_minimum_resources%': '<(use_minimum_resources)',
     'use_icu_alternatives_on_android%': '<(use_icu_alternatives_on_android)',
     'enable_task_manager%': '<(enable_task_manager)',
     'sas_dll_path%': '<(sas_dll_path)',
@@ -1565,6 +1592,9 @@
         # official deterministic build has high value too but MSVC toolset can't
         # generate anything deterministic with WPO enabled AFAIK.
         'dont_embed_build_metadata%': 0,
+      }],
+      ['OS=="android" and use_icu_alternatives_on_android', {
+        'v8_enable_i18n_support': 0,
       }],
       # Enable the Syzygy optimization step for the official builds.
       ['OS=="win" and buildtype=="Official" and syzyasan!=1 and clang!=1', {
@@ -2171,6 +2201,9 @@
       }],
       ['disable_webaudio_hrtf==1', {
         'grit_defines': ['-D', 'disable_webaudio_hrtf'],
+      }],
+      ['use_minimum_resources==1', {
+        'grit_defines': ['-D', 'use_minimum_resources'],
       }],
       ['enable_media_router==1', {
         'grit_defines': ['-D', 'enable_media_router'],
@@ -3049,8 +3082,29 @@
       ['disable_ftp_support==1', {
         'defines': ['DISABLE_FTP_SUPPORT=1'],
       }],
+      ['use_minimum_resources==1', {
+        'defines': ['USE_MINIMUM_RESOURCES=1'],
+      }],
       ['enable_supervised_users==1', {
         'defines': ['ENABLE_SUPERVISED_USERS=1'],
+      }],
+      ['disable_quic_support==1', {
+        'defines': ['DISABLE_QUIC_SUPPORT=1'],
+      }],
+      ['disable_sync_compositor==1', {
+        'defines': ['DISABLE_SYNC_COMPOSITOR=1'],
+      }],
+      ['disable_xslt==1', {
+        'defines': ['DISABLE_XSLT=1'],
+      }],
+      ['disable_webp==1', {
+        'defines': ['DISABLE_WEBP=1'],
+      }],
+      ['OS=="android" and disable_angle==1', {
+        'defines': ['DISABLE_ANGLE_ON_ANDROID=1'],
+      }],
+      ['use_icu_alternatives_on_android==1', {
+        'defines': ['USE_ICU_ALTERNATIVES_ON_ANDROID=1'],
       }],
       ['enable_mdns==1', {
         'defines': ['ENABLE_MDNS=1'],
@@ -3703,6 +3757,11 @@
         'cflags': [
           '-fstack-protector',
           '--param=ssp-buffer-size=4',
+        ],
+        'conditions':[
+          ['OS=="android" and use_optimize_for_size_compile_option==1', {
+            'cflags!': ['-fstack-protector'],
+          }],
         ],
       },
     }],
@@ -4966,6 +5025,14 @@
               }],
               ['target_arch=="ia32"', {
                 # The x86 toolchain currently has problems with stack-protector.
+                'cflags!': [
+                  '-fstack-protector',
+                ],
+                'cflags': [
+                  '-fno-stack-protector',
+                ],
+              }],
+              ['use_optimize_for_size_compile_option==1', {
                 'cflags!': [
                   '-fstack-protector',
                 ],

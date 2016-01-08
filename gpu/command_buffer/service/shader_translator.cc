@@ -27,18 +27,25 @@ class ShaderTranslatorInitializer {
  public:
   ShaderTranslatorInitializer() {
     TRACE_EVENT0("gpu", "ShInitialize");
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
     CHECK(ShInitialize());
+#endif
   }
 
   ~ShaderTranslatorInitializer() {
     TRACE_EVENT0("gpu", "ShFinalize");
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
     ShFinalize();
+#endif
   }
 };
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 base::LazyInstance<ShaderTranslatorInitializer> g_translator_initializer =
     LAZY_INSTANCE_INITIALIZER;
+#endif
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 void GetAttributes(ShHandle compiler, AttributeMap* var_map) {
   if (!var_map)
     return;
@@ -88,7 +95,7 @@ void GetNameHashingInfo(ShHandle compiler, NameMap* name_map) {
     (*name_map)[iter->second] = iter->first;
   }
 }
-
+#endif  // !defined(DISABLE_ANGLE_ON_ANDROID)
 }  // namespace
 
 ShShaderOutput ShaderTranslator::GetShaderOutputLanguageForContext(
@@ -142,10 +149,15 @@ ShaderTranslator::DestructionObserver::~DestructionObserver() {
 }
 
 ShaderTranslator::ShaderTranslator()
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
     : compiler_(NULL),
       driver_bug_workarounds_(static_cast<ShCompileOptions>(0)) {
 }
+#else
+{}
+#endif
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
 bool ShaderTranslator::Init(GLenum shader_type,
                             ShShaderSpec shader_spec,
                             const ShBuiltInResources* resources,
@@ -169,8 +181,12 @@ bool ShaderTranslator::Init(GLenum shader_type,
   driver_bug_workarounds_ = driver_bug_workarounds;
   return compiler_ != NULL;
 }
+#endif
 
 int ShaderTranslator::GetCompileOptions() const {
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  return 0;
+#else
   int compile_options =
       SH_OBJECT_CODE | SH_VARIABLES | SH_ENFORCE_PACKING_RESTRICTIONS |
       SH_LIMIT_EXPRESSION_COMPLEXITY | SH_LIMIT_CALL_STACK_DEPTH |
@@ -183,6 +199,7 @@ int ShaderTranslator::GetCompileOptions() const {
   compile_options |= driver_bug_workarounds_;
 
   return compile_options;
+#endif
 }
 
 bool ShaderTranslator::Translate(const std::string& shader_source,
@@ -193,6 +210,9 @@ bool ShaderTranslator::Translate(const std::string& shader_source,
                                  UniformMap* uniform_map,
                                  VaryingMap* varying_map,
                                  NameMap* name_map) const {
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  return true;
+#else
   // Make sure this instance is initialized.
   DCHECK(compiler_ != NULL);
 
@@ -227,14 +247,19 @@ bool ShaderTranslator::Translate(const std::string& shader_source,
   ShClearResults(compiler_);
 
   return success;
+#endif  // defined(DISABLE_ANGLE_ON_ANDROID)
 }
 
 std::string ShaderTranslator::GetStringForOptionsThatWouldAffectCompilation()
     const {
+#if defined(DISABLE_ANGLE_ON_ANDROID)
+  return std::string("");
+#else
   DCHECK(compiler_ != NULL);
   return std::string(":CompileOptions:" +
          base::IntToString(GetCompileOptions())) +
          ShGetBuiltInResourcesString(compiler_);
+#endif
 }
 
 void ShaderTranslator::AddDestructionObserver(
@@ -252,8 +277,10 @@ ShaderTranslator::~ShaderTranslator() {
                     destruction_observers_,
                     OnDestruct(this));
 
+#if !defined(DISABLE_ANGLE_ON_ANDROID)
   if (compiler_ != NULL)
     ShDestruct(compiler_);
+#endif
 }
 
 }  // namespace gles2

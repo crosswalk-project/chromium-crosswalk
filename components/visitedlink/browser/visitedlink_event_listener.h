@@ -10,8 +10,10 @@
 #include "base/memory/linked_ptr.h"
 #include "base/timer/timer.h"
 #include "components/visitedlink/browser/visitedlink_master.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_observer.h"
 #include "content/public/browser/notification_registrar.h"
+#endif
 
 namespace base {
 class SharedMemory;
@@ -28,8 +30,12 @@ class VisitedLinkUpdater;
 // VisitedLinkEventListener broadcasts link coloring database updates to all
 // processes. It also coalesces the updates to avoid excessive broadcasting of
 // messages to the renderers.
+#ifndef DISABLE_NOTIFICATIONS
 class VisitedLinkEventListener : public VisitedLinkMaster::Listener,
                                  public content::NotificationObserver {
+#else
+class VisitedLinkEventListener : public VisitedLinkMaster::Listener {
+#endif
  public:
   VisitedLinkEventListener(VisitedLinkMaster* master,
                            content::BrowserContext* browser_context);
@@ -42,15 +48,18 @@ class VisitedLinkEventListener : public VisitedLinkMaster::Listener,
  private:
   void CommitVisitedLinks();
 
+#ifndef DISABLE_NOTIFICATIONS
   // content::NotificationObserver implementation.
   void Observe(int type,
                const content::NotificationSource& source,
                const content::NotificationDetails& details) override;
-
+#endif
   base::OneShotTimer<VisitedLinkEventListener> coalesce_timer_;
   VisitedLinkCommon::Fingerprints pending_visited_links_;
 
+#ifndef DISABLE_NOTIFICATIONS
   content::NotificationRegistrar registrar_;
+#endif
 
   // Map between renderer child ids and their VisitedLinkUpdater.
   typedef std::map<int, linked_ptr<VisitedLinkUpdater> > Updaters;

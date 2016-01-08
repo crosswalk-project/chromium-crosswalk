@@ -13,7 +13,9 @@
 #include "base/threading/thread_local.h"
 #include "base/trace_event/trace_event.h"
 #include "content/child/navigator_connect/service_port_dispatcher_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/child/notifications/notification_data_conversions.h"
+#endif
 #include "content/child/request_extra_data.h"
 #include "content/child/service_worker/service_worker_dispatcher.h"
 #include "content/child/service_worker/service_worker_network_provider.h"
@@ -25,7 +27,9 @@
 #include "content/child/thread_safe_sender.h"
 #include "content/child/webmessageportchannel_impl.h"
 #include "content/child/worker_task_runner.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/common/devtools_messages.h"
+#endif
 #include "content/common/message_port_messages.h"
 #include "content/common/mojo/service_registry_impl.h"
 #include "content/common/service_worker/embedded_worker_messages.h"
@@ -34,7 +38,9 @@
 #include "content/public/renderer/content_renderer_client.h"
 #include "content/public/renderer/document_state.h"
 #include "content/renderer/background_sync/background_sync_client_impl.h"
+#ifndef DISABLE_DEVTOOLS
 #include "content/renderer/devtools/devtools_agent.h"
+#endif
 #include "content/renderer/render_thread_impl.h"
 #include "content/renderer/service_worker/embedded_worker_dispatcher.h"
 #include "content/renderer/service_worker/service_worker_type_util.h"
@@ -46,7 +52,9 @@
 #include "third_party/WebKit/public/platform/WebReferrerPolicy.h"
 #include "third_party/WebKit/public/platform/WebString.h"
 #include "third_party/WebKit/public/platform/modules/background_sync/WebSyncRegistration.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "third_party/WebKit/public/platform/modules/notifications/WebNotificationData.h"
+#endif
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerClientQueryOptions.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerRequest.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerResponse.h"
@@ -251,10 +259,14 @@ void ServiceWorkerContextClient::OnMessageReceived(
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_ActivateEvent, OnActivateEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_FetchEvent, OnFetchEvent)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_InstallEvent, OnInstallEvent)
+#ifndef DISABLE_NOTIFICATIONS
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_NotificationClickEvent,
                         OnNotificationClickEvent)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_PushEvent, OnPushEvent)
+#ifndef DISABLE_GEO_FEATURES
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_GeofencingEvent, OnGeofencingEvent)
+#endif
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_MessageToWorker, OnPostMessage)
     IPC_MESSAGE_HANDLER(ServiceWorkerMsg_CrossOriginMessageToWorker,
                         OnCrossOriginMessageToWorker)
@@ -459,9 +471,11 @@ void ServiceWorkerContextClient::sendDevToolsMessage(
     int call_id,
     const blink::WebString& message,
     const blink::WebString& state_cookie) {
+#ifndef DISABLE_DEVTOOLS
   DevToolsAgent::SendChunkedProtocolMessage(
       sender_.get(), worker_devtools_agent_route_id_,
       call_id, message.utf8(), state_cookie.utf8());
+#endif
 }
 
 void ServiceWorkerContextClient::didHandleActivateEvent(
@@ -501,12 +515,14 @@ void ServiceWorkerContextClient::didHandleFetchEvent(
       response));
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void ServiceWorkerContextClient::didHandleNotificationClickEvent(
     int request_id,
     blink::WebServiceWorkerEventResult result) {
   Send(new ServiceWorkerHostMsg_NotificationClickEventFinished(
       GetRoutingID(), request_id));
 }
+#endif
 
 void ServiceWorkerContextClient::didHandlePushEvent(
     int request_id,
@@ -732,6 +748,7 @@ void ServiceWorkerContextClient::OnFetchEvent(
   proxy_->dispatchFetchEvent(request_id, webRequest);
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void ServiceWorkerContextClient::OnNotificationClickEvent(
     int request_id,
     int64_t persistent_notification_id,
@@ -745,6 +762,7 @@ void ServiceWorkerContextClient::OnNotificationClickEvent(
       ToWebNotificationData(notification_data),
       action_index);
 }
+#endif
 
 void ServiceWorkerContextClient::OnPushEvent(int request_id,
                                              const std::string& data) {
@@ -753,6 +771,7 @@ void ServiceWorkerContextClient::OnPushEvent(int request_id,
   proxy_->dispatchPushEvent(request_id, blink::WebString::fromUTF8(data));
 }
 
+#ifndef DISABLE_GEO_FEATURES
 void ServiceWorkerContextClient::OnGeofencingEvent(
     int request_id,
     blink::WebGeofencingEventType event_type,
@@ -765,6 +784,7 @@ void ServiceWorkerContextClient::OnGeofencingEvent(
   Send(new ServiceWorkerHostMsg_GeofencingEventFinished(GetRoutingID(),
                                                         request_id));
 }
+#endif
 
 void ServiceWorkerContextClient::OnPostMessage(
     const base::string16& message,

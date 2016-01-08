@@ -23,7 +23,11 @@
 #define ChromeClient_h
 
 #include "core/CoreExport.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "core/dom/AXObjectCache.h"
+#else
+#include "core/dom/Document.h"
+#endif
 #include "core/frame/ConsoleTypes.h"
 #include "core/inspector/ConsoleAPITypes.h"
 #include "core/loader/FrameLoader.h"
@@ -42,7 +46,9 @@
 
 namespace blink {
 
+#ifndef DISABLE_ACCESSIBILITY
 class AXObject;
+#endif
 class ColorChooser;
 class ColorChooserClient;
 class DateTimeChooser;
@@ -205,7 +211,9 @@ public:
     virtual PassRefPtrWillBeRawPtr<PopupMenu> openPopupMenu(LocalFrame&, HTMLSelectElement&) = 0;
     virtual DOMWindow* pagePopupWindowForTesting() const = 0;
 
+#ifndef DISABLE_ACCESSIBILITY
     virtual void postAccessibilityNotification(AXObject*, AXObjectCache::AXNotification) { }
+#endif
     virtual String acceptLanguages() = 0;
 
     enum DialogType {

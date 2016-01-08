@@ -420,12 +420,14 @@ void RenderWidgetHostViewChildFrame::ReturnResources(
             std::back_inserter(surface_returned_resources_));
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 BrowserAccessibilityManager*
 RenderWidgetHostViewChildFrame::CreateBrowserAccessibilityManager(
     BrowserAccessibilityDelegate* delegate) {
   return BrowserAccessibilityManager::Create(
       BrowserAccessibilityManager::GetEmptyDocument(), delegate);
 }
+#endif
 
 void RenderWidgetHostViewChildFrame::ClearCompositorSurfaceIfNecessary() {
   if (surface_factory_ && !surface_id_.is_null())

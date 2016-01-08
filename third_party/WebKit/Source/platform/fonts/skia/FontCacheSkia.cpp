@@ -46,7 +46,11 @@
 #include "wtf/Assertions.h"
 #include "wtf/text/AtomicString.h"
 #include "wtf/text/CString.h"
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/locid.h>
+#endif
 
 #if !OS(WIN) && !OS(ANDROID)
 static SkStreamAsset* streamForFontconfigInterfaceId(int fontconfigInterfaceId)

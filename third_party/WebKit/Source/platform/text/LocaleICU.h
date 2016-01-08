@@ -67,8 +67,10 @@ public:
 
 private:
     explicit LocaleICU(const char*);
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     String decimalSymbol(UNumberFormatSymbol);
     String decimalTextAttribute(UNumberFormatTextAttribute);
+#endif
     void initializeLocaleData() override;
 
     bool detectSignAndGetDigitRange(const String& input, bool& isNegative, unsigned& startIndex, unsigned& endIndex);
@@ -80,7 +82,9 @@ private:
 
     void initializeCalendar();
 
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     PassOwnPtr<Vector<String>> createLabelVector(const UDateFormat*, UDateFormatSymbolType, int32_t startIndex, int32_t size);
+#endif
     void initializeDateTimeFormat();
 
     CString m_locale;

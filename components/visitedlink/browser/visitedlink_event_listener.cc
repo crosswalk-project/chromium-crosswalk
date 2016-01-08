@@ -7,8 +7,10 @@
 #include "base/memory/shared_memory.h"
 #include "components/visitedlink/browser/visitedlink_delegate.h"
 #include "components/visitedlink/common/visitedlink_messages.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_process_host.h"
 #include "content/public/browser/render_widget_host.h"
 
@@ -115,12 +117,14 @@ VisitedLinkEventListener::VisitedLinkEventListener(
     content::BrowserContext* browser_context)
     : master_(master),
       browser_context_(browser_context) {
+#ifndef DISABLE_NOTIFICATIONS
   registrar_.Add(this, content::NOTIFICATION_RENDERER_PROCESS_CREATED,
                  content::NotificationService::AllBrowserContextsAndSources());
   registrar_.Add(this, content::NOTIFICATION_RENDERER_PROCESS_TERMINATED,
                  content::NotificationService::AllBrowserContextsAndSources());
   registrar_.Add(this, content::NOTIFICATION_RENDER_WIDGET_VISIBILITY_CHANGED,
                  content::NotificationService::AllBrowserContextsAndSources());
+#endif
 }
 
 VisitedLinkEventListener::~VisitedLinkEventListener() {
@@ -174,6 +178,7 @@ void VisitedLinkEventListener::CommitVisitedLinks() {
   pending_visited_links_.clear();
 }
 
+#ifndef DISABLE_NOTIFICATIONS
 void VisitedLinkEventListener::Observe(
     int type,
     const content::NotificationSource& source,
@@ -216,5 +221,6 @@ void VisitedLinkEventListener::Observe(
       break;
   }
 }
+#endif
 
 }  // namespace visitedlink

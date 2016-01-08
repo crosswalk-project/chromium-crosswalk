@@ -13,7 +13,9 @@
 #include "content/common/service_worker/service_worker_types.h"
 #include "content/public/common/message_port_types.h"
 #include "content/public/common/navigator_connect_client.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/common/platform_notification_data.h"
+#endif
 #include "ipc/ipc_message_macros.h"
 #include "ipc/ipc_param_traits.h"
 #include "third_party/WebKit/public/platform/WebCircularGeofencingRegion.h"
@@ -436,11 +438,13 @@ IPC_MESSAGE_CONTROL1(ServiceWorkerMsg_ActivateEvent,
 IPC_MESSAGE_CONTROL2(ServiceWorkerMsg_FetchEvent,
                      int /* request_id */,
                      content::ServiceWorkerFetchRequest)
+#ifndef DISABLE_NOTIFICATIONS
 IPC_MESSAGE_CONTROL4(ServiceWorkerMsg_NotificationClickEvent,
                      int /* request_id */,
                      int64_t /* persistent_notification_id */,
                      content::PlatformNotificationData /* notification_data */,
                      int /* action_index */)
+#endif
 IPC_MESSAGE_CONTROL2(ServiceWorkerMsg_PushEvent,
                      int /* request_id */,
                      std::string /* data */)

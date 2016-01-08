@@ -59,6 +59,7 @@ blink::NavigatorVibration::VibrationPattern sanitizeVibrationPatternInternal(con
 
 namespace blink {
 
+#ifndef DISABLE_NOTIFICATIONS
 NavigatorVibration::VibrationPattern NavigatorVibration::sanitizeVibrationPattern(const UnsignedLongOrUnsignedLongSequence& pattern)
 {
     VibrationPattern sanitized;
@@ -70,6 +71,7 @@ NavigatorVibration::VibrationPattern NavigatorVibration::sanitizeVibrationPatter
 
     return sanitizeVibrationPatternInternal(sanitized);
 }
+#endif
 
 NavigatorVibration::NavigatorVibration(Page& page)
     : PageLifecycleObserver(&page)

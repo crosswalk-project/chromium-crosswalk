@@ -18,7 +18,9 @@
 #include "net/dns/host_resolver.h"
 #include "net/http/http_auth_cache.h"
 #include "net/http/http_stream_factory.h"
+#if !defined(DISABLE_QUIC_SUPPORT)
 #include "net/quic/quic_stream_factory.h"
+#endif
 #include "net/socket/next_proto.h"
 #include "net/spdy/spdy_session_pool.h"
 #include "net/ssl/ssl_client_auth_cache.h"
@@ -45,9 +47,11 @@ class NetLog;
 class NetworkDelegate;
 class ProxyDelegate;
 class ProxyService;
+#if !defined(DISABLE_QUIC_SUPPORT)
 class QuicClock;
 class QuicCryptoClientStreamFactory;
 class QuicServerInfoFactory;
+#endif
 class SOCKSClientSocketPool;
 class SSLClientSocketPool;
 class SSLConfigService;
@@ -102,6 +106,7 @@ class NET_EXPORT HttpNetworkSession
     bool use_alternative_services;
     double alternative_service_probability_threshold;
 
+#if !defined(DISABLE_QUIC_SUPPORT)
     bool enable_quic;
     bool enable_insecure_quic;
     bool enable_quic_for_proxies;
@@ -121,13 +126,14 @@ class NET_EXPORT HttpNetworkSession
     QuicRandom* quic_random;
     size_t quic_max_packet_length;
     std::string quic_user_agent_id;
-    bool enable_user_alternate_protocol_ports;
     QuicCryptoClientStreamFactory* quic_crypto_client_stream_factory;
     QuicVersionVector quic_supported_versions;
     int quic_max_recent_disabled_reasons;
     int quic_threshold_public_resets_post_handshake;
     int quic_threshold_timeouts_streams_open;
     QuicTagVector quic_connection_options;
+#endif  // !defined(DISABLE_QUIC_SUPPORT)
+    bool enable_user_alternate_protocol_ports;
     ProxyDelegate* proxy_delegate;
   };
 
@@ -164,7 +170,9 @@ class NET_EXPORT HttpNetworkSession
   ProxyService* proxy_service() { return proxy_service_; }
   SSLConfigService* ssl_config_service() { return ssl_config_service_.get(); }
   SpdySessionPool* spdy_session_pool() { return &spdy_session_pool_; }
+#if !defined(DISABLE_QUIC_SUPPORT)
   QuicStreamFactory* quic_stream_factory() { return &quic_stream_factory_; }
+#endif
   HttpAuthHandlerFactory* http_auth_handler_factory() {
     return http_auth_handler_factory_;
   }
@@ -231,7 +239,9 @@ class NET_EXPORT HttpNetworkSession
   SSLClientAuthCache ssl_client_auth_cache_;
   scoped_ptr<ClientSocketPoolManager> normal_socket_pool_manager_;
   scoped_ptr<ClientSocketPoolManager> websocket_socket_pool_manager_;
+#if !defined(DISABLE_QUIC_SUPPORT)
   QuicStreamFactory quic_stream_factory_;
+#endif
   SpdySessionPool spdy_session_pool_;
   scoped_ptr<HttpStreamFactory> http_stream_factory_;
   scoped_ptr<HttpStreamFactory> http_stream_factory_for_websocket_;

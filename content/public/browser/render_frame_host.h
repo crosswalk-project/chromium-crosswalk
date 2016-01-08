@@ -48,8 +48,10 @@ class CONTENT_EXPORT RenderFrameHost : public IPC::Listener,
   // Returns the route id for this frame.
   virtual int GetRoutingID() = 0;
 
+#ifndef DISABLE_ACCESSIBILITY
   // Returns the accessibility tree ID for this RenderFrameHost.
   virtual int GetAXTreeID() = 0;
+#endif
 
   // Returns the SiteInstance grouping all RenderFrameHosts that have script
   // access to this RenderFrameHost, and must therefore live in the same
@@ -106,6 +108,7 @@ class CONTENT_EXPORT RenderFrameHost : public IPC::Listener,
   virtual void ExecuteJavaScriptWithUserGestureForTests(
       const base::string16& javascript) = 0;
 
+#ifndef DISABLE_ACCESSIBILITY
   // Accessibility actions - these send a message to the RenderFrame
   // to trigger an action on an accessibility object.
   virtual void AccessibilitySetFocus(int acc_obj_id) = 0;
@@ -122,6 +125,7 @@ class CONTENT_EXPORT RenderFrameHost : public IPC::Listener,
   // the result object on the page, navigating assistive technology to that
   // result.
   virtual void ActivateFindInPageResultForAccessibility(int request_id) = 0;
+#endif
 
   // Roundtrips through the renderer and compositor pipeline to ensure that any
   // changes to the contents resulting from operations executed prior to this

@@ -60,7 +60,9 @@ class ContentViewCoreImpl : public ContentViewCore,
       const gfx::Rect& src_subrect,
       ReadbackRequestCallback& result_callback) override;
   float GetDpiScale() const override;
+#ifndef DISABLE_GEO_FEATURES
   void PauseOrResumeGeolocation(bool should_pause) override;
+#endif
   void RequestTextSurroundingSelection(
       int max_length,
       const base::Callback<void(const base::string16& content,
@@ -289,7 +291,9 @@ class ContentViewCoreImpl : public ContentViewCore,
   // Returns the viewport size after accounting for the viewport offset.
   gfx::Size GetViewSize() const;
 
+#ifndef DISABLE_ACCESSIBILITY
   void SetAccessibilityEnabledInternal(bool enabled);
+#endif
 
   bool IsFullscreenRequiredForOrientationLock() const;
 

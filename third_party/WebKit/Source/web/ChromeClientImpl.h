@@ -132,7 +132,9 @@ public:
     void updateCompositedSelection(const CompositedSelection&) override;
 
     // ChromeClient methods:
+#ifndef DISABLE_ACCESSIBILITY
     void postAccessibilityNotification(AXObject*, AXObjectCache::AXNotification) override;
+#endif
     String acceptLanguages() override;
 
     // ChromeClientImpl:

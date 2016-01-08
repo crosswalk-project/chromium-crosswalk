@@ -3,6 +3,7 @@
         'core_generated.gypi',
     ],
     'variables': {
+    'variables': {
         # Files for which bindings (.cpp and .h files) will be generated
         'core_idl_files': [
             'animation/KeyframeEffect.idl',
@@ -394,7 +395,6 @@
             'xml/XPathExpression.idl',
             'xml/XPathNSResolver.idl',
             'xml/XPathResult.idl',
-            'xml/XSLTProcessor.idl',
             'xmlhttprequest/XMLHttpRequest.idl',
             'xmlhttprequest/XMLHttpRequestEventTarget.idl',
             'xmlhttprequest/XMLHttpRequestProgressEvent.idl',
@@ -1480,8 +1480,6 @@
             'fetch/TextResource.h',
             'fetch/UniqueIdentifier.cpp',
             'fetch/UniqueIdentifier.h',
-            'fetch/XSLStyleSheetResource.cpp',
-            'fetch/XSLStyleSheetResource.h',
             'fileapi/Blob.cpp',
             'fileapi/Blob.h',
             'fileapi/File.cpp',
@@ -2147,17 +2145,6 @@
             'xml/XPathValue.h',
             'xml/XPathVariableReference.cpp',
             'xml/XPathVariableReference.h',
-            'xml/XSLImportRule.cpp',
-            'xml/XSLImportRule.h',
-            'xml/XSLStyleSheet.h',
-            'xml/XSLStyleSheetLibxslt.cpp',
-            'xml/XSLTExtensions.cpp',
-            'xml/XSLTExtensions.h',
-            'xml/XSLTProcessor.cpp',
-            'xml/XSLTProcessor.h',
-            'xml/XSLTProcessorLibxslt.cpp',
-            'xml/XSLTUnicodeSort.cpp',
-            'xml/XSLTUnicodeSort.h',
             'xml/parser/MarkupTokenizerInlines.h',
             'xml/parser/SharedBufferReader.cpp',
             'xml/parser/SharedBufferReader.h',
@@ -3863,5 +3850,88 @@
             'workers/WorkerThreadTest.cpp',
             'xml/parser/SharedBufferReaderTest.cpp',
         ],
-    }
+        'conditions': [
+            ['disable_xslt==0', {
+                'webcore_non_rendering_files': [
+                    'fetch/XSLStyleSheetResource.cpp',
+                    'fetch/XSLStyleSheetResource.h',
+                    'xml/XSLImportRule.cpp',
+                    'xml/XSLImportRule.h',
+                    'xml/XSLStyleSheet.h',
+                    'xml/XSLStyleSheetLibxslt.cpp',
+                    'xml/XSLTExtensions.cpp',
+                    'xml/XSLTExtensions.h',
+                    'xml/XSLTProcessor.cpp',
+                    'xml/XSLTProcessor.h',
+                    'xml/XSLTProcessorLibxslt.cpp',
+                    'xml/XSLTUnicodeSort.cpp',
+                    'xml/XSLTUnicodeSort.h',
+                ],
+                'core_idl_files': [
+                    'xml/XSLTProcessor.idl',
+                ],
+            }],
+        ],
+    },
+        'core_idl_files': [
+            '<@(core_idl_files)',
+        ],
+        'core_idl_with_modules_dependency_files': [
+            '<@(core_idl_with_modules_dependency_files)',
+        ],
+        'core_dependency_idl_files': [
+            '<@(core_dependency_idl_files)',
+        ],
+        'core_event_idl_files': [
+            '<@(core_event_idl_files)',
+        ],
+        'core_typedefs_enums_only_idl_files': [
+            '<@(core_typedefs_enums_only_idl_files)',
+        ],
+        'webcore_rendering_files': [
+            '<@(webcore_rendering_files)',
+        ],
+        'webcore_non_rendering_files': [
+            '<@(webcore_non_rendering_files)',
+        ],
+        'webcore_dom_files': [
+            '<@(webcore_dom_files)',
+        ],
+        'webcore_html_files': [
+            '<@(webcore_html_files)',
+        ],
+        'webcore_svg_files': [
+            '<@(webcore_svg_files)',
+        ],
+        'core_dictionary_idl_files': [
+            '<@(core_dictionary_idl_files)',
+        ],
+        'generated_core_dictionary_files': [
+            '<@(generated_core_dictionary_files)',
+        ],
+        'core_testing_dictionary_idl_files': [
+            '<@(core_testing_dictionary_idl_files)',
+        ],
+        'webcore_testing_idl_files': [
+            '<@(webcore_testing_idl_files)',
+        ],
+        'webcore_testing_idl_with_modules_dependency_files': [
+            '<@(webcore_testing_idl_with_modules_dependency_files)',
+        ],
+        'webcore_testing_dependency_idl_files': [
+            '<@(webcore_testing_dependency_idl_files)',
+        ],
+        'generated_webcore_testing_idl_files': [
+            '<@(generated_webcore_testing_idl_files)',
+        ],
+        'generated_core_testing_dictionary_files': [
+            '<@(generated_core_testing_dictionary_files)',
+        ],
+        'webcore_testing_files': [
+            '<@(webcore_testing_files)',
+        ],
+        'core_unittest_files': [
+            '<@(core_unittest_files)',
+        ],
+    },
 }

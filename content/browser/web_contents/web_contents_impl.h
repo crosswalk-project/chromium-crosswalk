@@ -26,7 +26,9 @@
 #include "content/browser/renderer_host/render_view_host_delegate.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
 #include "content/browser/renderer_host/render_widget_host_delegate.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "content/common/accessibility_mode_enums.h"
+#endif
 #include "content/common/content_export.h"
 #include "content/public/browser/color_chooser.h"
 #include "content/public/browser/notification_observer.h"
@@ -51,7 +53,9 @@ class BrowserPluginGuest;
 class BrowserPluginGuestManager;
 class DateTimeChooserAndroid;
 class DownloadItem;
+#ifndef DISABLE_GEO_FEATURES
 class GeolocationServiceContext;
+#endif
 class InterstitialPageImpl;
 class JavaScriptDialogManager;
 class ManifestManagerHost;
@@ -95,7 +99,9 @@ class CONTENT_EXPORT WebContentsImpl
       public RenderViewHostDelegate,
       public RenderWidgetHostDelegate,
       public RenderFrameHostManager::Delegate,
+#ifndef DISABLE_NOTIFICATIONS
       public NotificationObserver,
+#endif
       public NON_EXPORTED_BASE(NavigationControllerDelegate),
       public NON_EXPORTED_BASE(NavigatorDelegate) {
  public:
@@ -196,6 +202,7 @@ class CONTENT_EXPORT WebContentsImpl
   void WasOccluded();
   void WasUnOccluded();
 
+#ifndef DISABLE_ACCESSIBILITY
   // Broadcasts the mode change to all frames.
   void SetAccessibilityMode(AccessibilityMode mode);
 
@@ -214,6 +221,7 @@ class CONTENT_EXPORT WebContentsImpl
   using AXTreeSnapshotCallback =
       base::Callback<void(const ui::AXTreeUpdate<ui::AXNodeData>&)>;
   void RequestAXTreeSnapshot(AXTreeSnapshotCallback callback);
+#endif
 
   // WebContents ------------------------------------------------------
   ScreenOrientationDispatcherHost* GetScreenOrientationDispatcherHost() override;
@@ -242,9 +250,11 @@ class CONTENT_EXPORT WebContentsImpl
   WebUI* GetCommittedWebUI() const override;
   void SetUserAgentOverride(const std::string& override) override;
   const std::string& GetUserAgentOverride() const override;
+#ifndef DISABLE_ACCESSIBILITY
   void EnableTreeOnlyAccessibilityMode() override;
   bool IsTreeOnlyAccessibilityModeForTesting() const override;
   bool IsFullAccessibilityModeForTesting() const override;
+#endif
 #if defined(OS_WIN)
   void SetParentNativeViewAccessible(
       gfx::NativeViewAccessible accessible_parent) override;
@@ -401,7 +411,9 @@ class CONTENT_EXPORT WebContentsImpl
                               const base::string16& message,
                               bool is_reload,
                               IPC::Message* reply_msg) override;
+#ifndef DISABLE_ACCESSIBILITY
   void DidAccessInitialDocument() override;
+#endif
   void DidChangeName(RenderFrameHost* render_frame_host,
                      const std::string& name) override;
   void DocumentOnLoadCompleted(RenderFrameHost* render_frame_host) override;
@@ -413,13 +425,17 @@ class CONTENT_EXPORT WebContentsImpl
                       const std::string& encoding) override;
   WebContents* GetAsWebContents() override;
   bool IsNeverVisible() override;
+#ifndef DISABLE_ACCESSIBILITY
   AccessibilityMode GetAccessibilityMode() const override;
   void AccessibilityEventReceived(
       const std::vector<AXEventNotificationDetails>& details) override;
+#endif
   RenderFrameHost* GetGuestByInstanceID(
       RenderFrameHost* render_frame_host,
       int browser_plugin_instance_id) override;
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* GetGeolocationServiceContext() override;
+#endif
   void EnterFullscreenMode(const GURL& origin) override;
   void ExitFullscreenMode() override;
   bool ShouldRouteMessageEvent(
@@ -569,9 +585,11 @@ class CONTENT_EXPORT WebContentsImpl
   bool HandleWheelEvent(const blink::WebMouseWheelEvent& event) override;
   bool PreHandleGestureEvent(const blink::WebGestureEvent& event) override;
   void DidSendScreenRects(RenderWidgetHostImpl* rwh) override;
+#ifndef DISABLE_ACCESSIBILITY
   BrowserAccessibilityManager* GetRootBrowserAccessibilityManager() override;
   BrowserAccessibilityManager* GetOrCreateRootBrowserAccessibilityManager()
       override;
+#endif
   // The following 4 functions are already listed under WebContents overrides:
   // void Cut() override;
   // void Copy() override;
@@ -617,10 +635,11 @@ class CONTENT_EXPORT WebContentsImpl
   int GetOuterDelegateFrameTreeNodeID() override;
 
   // NotificationObserver ------------------------------------------------------
-
+#ifndef DISABLE_NOTIFICATIONS
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   // NavigationControllerDelegate ----------------------------------------------
 
@@ -634,10 +653,12 @@ class CONTENT_EXPORT WebContentsImpl
   // Activate this WebContents and show a form repost warning.
   void ActivateAndShowRepostFormWarningDialog() override;
 
+#ifndef DISABLE_ACCESSIBILITY
   // Whether the initial empty page of this view has been accessed by another
   // page, making it unsafe to show the pending URL. Always false after the
   // first commit.
   bool HasAccessedInitialDocument() override;
+#endif
 
   // Updates the max page ID for the current SiteInstance in this
   // WebContentsImpl to be at least |page_id|.
@@ -719,8 +740,10 @@ class CONTENT_EXPORT WebContentsImpl
   FRIEND_TEST_ALL_PREFIXES(NavigationControllerTest, HistoryNavigate);
   FRIEND_TEST_ALL_PREFIXES(RenderFrameHostManagerTest, PageDoesBackAndReload);
   FRIEND_TEST_ALL_PREFIXES(SitePerProcessBrowserTest, CrossSiteIframe);
+#ifndef DISABLE_ACCESSIBILITY
   FRIEND_TEST_ALL_PREFIXES(SitePerProcessAccessibilityBrowserTest,
                            CrossSiteIframeAccessibility);
+#endif
 
   // So InterstitialPageImpl can access SetIsLoading.
   friend class InterstitialPageImpl;
@@ -1126,10 +1149,12 @@ class CONTENT_EXPORT WebContentsImpl
   // True if this is a secure page which displayed insecure content.
   bool displayed_insecure_content_;
 
+#ifndef DISABLE_ACCESSIBILITY
   // Whether the initial empty page has been accessed by another page, making it
   // unsafe to show the pending URL. Usually false unless another window tries
   // to modify the blank page.  Always false after the first commit.
   bool has_accessed_initial_document_;
+#endif
 
   // The theme color for the underlying document as specified
   // by theme-color meta tag.
@@ -1234,9 +1259,11 @@ class CONTENT_EXPORT WebContentsImpl
   scoped_ptr<PluginContentOriginWhitelist> plugin_content_origin_whitelist_;
 #endif
 
+#ifndef DISABLE_NOTIFICATIONS
   // This must be at the end, or else we might get notifications and use other
   // member variables that are gone.
   NotificationRegistrar registrar_;
+#endif
 
   // Used during IPC message dispatching from the RenderView/RenderFrame so that
   // the handlers can get a pointer to the RVH through which the message was
@@ -1271,16 +1298,20 @@ class CONTENT_EXPORT WebContentsImpl
   // Whether the last JavaScript dialog shown was suppressed. Used for testing.
   bool last_dialog_suppressed_;
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_ptr<GeolocationServiceContext> geolocation_service_context_;
+#endif
 
   scoped_ptr<ScreenOrientationDispatcherHost>
       screen_orientation_dispatcher_host_;
 
   scoped_ptr<ManifestManagerHost> manifest_manager_host_;
 
+#ifndef DISABLE_ACCESSIBILITY
   // The accessibility mode for all frames. This is queried when each frame
   // is created, and broadcast to all frames when it changes.
   AccessibilityMode accessibility_mode_;
+#endif
 
   // Created on-demand to mute all audio output from this WebContents.
   scoped_ptr<WebContentsAudioMuter> audio_muter_;

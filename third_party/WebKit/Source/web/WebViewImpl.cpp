@@ -90,8 +90,10 @@
 #include "core/paint/DeprecatedPaintLayer.h"
 #include "core/timing/DOMWindowPerformance.h"
 #include "core/timing/Performance.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObject.h"
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "modules/credentialmanager/CredentialManagerClient.h"
 #include "modules/encryptedmedia/MediaKeysController.h"
 #include "modules/storage/StorageNamespaceController.h"
@@ -128,7 +130,9 @@
 #include "public/platform/WebLayerTreeView.h"
 #include "public/platform/WebURLRequest.h"
 #include "public/platform/WebVector.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "public/web/WebAXObject.h"
+#endif
 #include "public/web/WebActiveWheelFlingParameters.h"
 #include "public/web/WebAutofillClient.h"
 #include "public/web/WebBeginFrameArgs.h"
@@ -159,7 +163,9 @@
 #include "web/PrerendererClientImpl.h"
 #include "web/ResizeViewportAnchor.h"
 #include "web/RotationViewportAnchor.h"
+#ifndef DISABLE_SPEECH
 #include "web/SpeechRecognitionClientProxy.h"
+#endif
 #include "web/StorageQuotaClientImpl.h"
 #include "web/ValidationMessageClientImpl.h"
 #include "web/ViewportAnchor.h"
@@ -466,10 +472,13 @@ WebViewImpl::WebViewImpl(WebViewClient* client)
 
     m_page = adoptPtrWillBeNoop(new Page(pageClients));
     MediaKeysController::provideMediaKeysTo(*m_page, &m_mediaKeysClientImpl);
+#ifndef DISABLE_SPEECH
     provideSpeechRecognitionTo(*m_page, SpeechRecognitionClientProxy::create(client ? client->speechRecognizer() : 0));
+#endif
     provideContextFeaturesTo(*m_page, ContextFeaturesClientImpl::create());
+#ifndef DISABLE_WEBDATABASE
     provideDatabaseClientTo(*m_page, DatabaseClientImpl::create());
-
+#endif
     provideStorageQuotaClientTo(*m_page, StorageQuotaClientImpl::create());
     m_page->setValidationMessageClient(ValidationMessageClientImpl::create(*this));
     provideWorkerGlobalScopeProxyProviderTo(*m_page, WorkerGlobalScopeProxyProviderImpl::create());
@@ -3695,6 +3704,7 @@ void WebViewImpl::disableDeviceEmulation()
     m_devToolsEmulator->disableDeviceEmulation();
 }
 
+#ifndef DISABLE_ACCESSIBILITY
 WebAXObject WebViewImpl::accessibilityObject()
 {
     if (!mainFrameImpl())
@@ -3703,6 +3713,7 @@ WebAXObject WebViewImpl::accessibilityObject()
     Document* document = mainFrameImpl()->frame()->document();
     return WebAXObject(toAXObjectCacheImpl(document->axObjectCache())->root());
 }
+#endif
 
 void WebViewImpl::performCustomContextMenuAction(unsigned action)
 {

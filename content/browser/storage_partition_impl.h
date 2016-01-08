@@ -50,7 +50,9 @@ class StoragePartitionImpl : public StoragePartition {
   // TODO(jsbell): Expose this on the public API as well. crbug.com/466371
   CacheStorageContextImpl* GetCacheStorageContext();
   ServiceWorkerContextWrapper* GetServiceWorkerContext() override;
+#ifndef DISABLE_GEO_FEATURES
   GeofencingManager* GetGeofencingManager() override;
+#endif
   HostZoomMap* GetHostZoomMap() override;
   HostZoomLevelContext* GetHostZoomLevelContext() override;
   ZoomLevelDelegate* GetZoomLevelDelegate() override;
@@ -183,7 +185,9 @@ class StoragePartitionImpl : public StoragePartition {
   scoped_refptr<ServiceWorkerContextWrapper> service_worker_context_;
   scoped_refptr<WebRTCIdentityStore> webrtc_identity_store_;
   scoped_refptr<storage::SpecialStoragePolicy> special_storage_policy_;
+#ifndef DISABLE_GEO_FEATURES
   scoped_refptr<GeofencingManager> geofencing_manager_;
+#endif
   scoped_refptr<HostZoomLevelContext> host_zoom_level_context_;
   scoped_refptr<NavigatorConnectContextImpl> navigator_connect_context_;
   scoped_refptr<PlatformNotificationContextImpl> platform_notification_context_;

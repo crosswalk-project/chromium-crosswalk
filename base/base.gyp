@@ -90,6 +90,10 @@
           ],
         }],
         ['OS == "android" and _toolset == "target"', {
+          'include_dirs': [
+            '../third_party/icu/source/common',
+            '../third_party/icu/source/i18n',
+          ],
           'dependencies': [
             'base_java',
             'base_jni_headers',
@@ -1569,6 +1573,62 @@
             'isolate_file': 'base_unittests.isolate',
           },
           'includes': [ '../build/apk_test.gypi' ],
+        },
+      ],
+    }],
+    ['use_icu_alternatives_on_android==1 and OS=="android"', {
+      'targets': [
+        {
+          'target_name': 'base_icu_alternatives_jni_headers',
+          'type': 'none',
+          'sources': [
+            'icu_alternatives_on_android/java/src/org/chromium/base/icu/IcuUtils.java',
+            'icu_alternatives_on_android/java/src/org/chromium/base/icu/BreakIteratorBridge.java'
+          ],
+          'variables': {
+            'jni_gen_package': 'base',
+          },
+          'includes': [ '../build/jni_generator.gypi' ],
+        },
+        {
+          'target_name': 'base_icu_alternatives_java',
+          'type': 'none',
+          'variables': {
+            'java_in_dir': 'icu_alternatives_on_android/java',
+          },
+          'dependencies': [
+            'base',
+          ],
+          'includes': [ '../build/java.gypi' ],
+        },
+        {
+          'target_name': 'base_icu_alternatives',
+          'type': 'static_library',
+          'dependencies': [
+            'base_icu_alternatives_jni_headers',
+            'base_icu_alternatives_java',
+          ],
+          'include_dirs': [
+            '..',
+            '../third_party/icu/source/common',
+            '../third_party/icu/source/i18n',
+          ],
+          'sources': [
+            'icu_alternatives_on_android/break_iterator_bridge.cc',
+            'icu_alternatives_on_android/break_iterator_bridge.h',
+            'icu_alternatives_on_android/icu_utils.cc',
+            'icu_alternatives_on_android/icu_utils.h',
+          ],
+          'defines': [
+            'USE_ICU_ALTERNATIVES_ON_ANDROID',
+          ],
+          'direct_dependent_settings': {
+            'include_dirs': [
+              '..',
+              '../third_party/icu/source/common',
+              '../third_party/icu/source/i18n',
+            ],
+          },
         },
       ],
     }],

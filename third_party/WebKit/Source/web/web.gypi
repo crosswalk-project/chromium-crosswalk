@@ -1,5 +1,41 @@
 {
   'variables': {
+    'web_files_geo': [
+      'WebGeolocationController.cpp',
+      'WebGeolocationError.cpp',
+      'WebGeolocationPermissionRequest.cpp',
+      'WebGeolocationPermissionRequestManager.cpp',
+      'WebGeolocationPosition.cpp',
+      'GeolocationClientProxy.cpp',
+      'GeolocationClientProxy.h',
+    ],
+    'web_files_indexeddb': [
+      'IndexedDBClientImpl.cpp',
+      'IndexedDBClientImpl.h',
+      'WebIDBKey.cpp',
+      'WebIDBKeyRange.cpp',
+    ],
+    'web_files_midi': [
+      'MIDIClientProxy.cpp',
+      'MIDIClientProxy.h',
+    ],
+    'web_files_notifications': [
+      'NotificationPermissionClientImpl.cpp',
+      'NotificationPermissionClientImpl.h',
+    ],
+    'web_files_speech' : [
+      'SpeechRecognitionClientProxy.cpp',
+      'SpeechRecognitionClientProxy.h',
+
+      'WebSpeechGrammar.cpp',
+      'WebSpeechRecognitionHandle.cpp',
+      'WebSpeechRecognitionResult.cpp',
+    ],
+    'web_files_webdatabase': [
+      'DatabaseClientImpl.cpp',
+      'DatabaseClientImpl.h',
+      'WebDatabase.cpp',
+    ],
     'web_files': [
       'AssertMatchingEnums.cpp',
       'AssociatedURLLoader.cpp',
@@ -309,6 +345,9 @@
       'tests/WebUnitTests.cpp',
       'tests/WebUserGestureTokenTest.cpp',
       'tests/WebViewTest.cpp',
+    ],
+    'web_files_accessibility': [
+      'WebAXObject.cpp',
     ],
     'conditions': [
       ['OS=="win"',

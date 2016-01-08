@@ -158,6 +158,38 @@
       'public/common/window_container_type.h',
       'public/common/zygote_fork_delegate_linux.h',
     ],
+    'private_common_sources_bluetooth': [
+      'common/bluetooth/bluetooth_device.cc',
+      'common/bluetooth/bluetooth_device.h',
+      'common/bluetooth/bluetooth_messages.h',
+      'common/bluetooth/bluetooth_scan_filter.cc',
+      'common/bluetooth/bluetooth_scan_filter.h',
+    ],
+    'private_common_sources_geo': [
+      'public/common/geoposition.cc',
+      'public/common/geoposition.h',
+
+      'common/geofencing_messages.h',
+      'common/geofencing_types.cc',
+      'common/geofencing_types.h',
+    ],
+    'private_common_sources_notifications': [
+      'public/common/persistent_notification_status.h',
+      'public/common/platform_notification_data.cc',
+      'public/common/platform_notification_data.h',
+
+      'common/notification_constants.h',
+      'common/platform_notification_messages.h',
+    ],
+    'private_common_sources_speech': [
+      'public/common/speech_recognition_error.h',
+      'public/common/speech_recognition_grammar.h',
+
+      'common/speech_recognition_messages.h',
+    ],
+    'private_common_sources_midi': [
+      'common/media/midi_messages.h',
+    ],
     'private_common_sources': [
       'common/accessibility_messages.h',
       'common/all_messages.h',
@@ -578,6 +610,20 @@
     }],
   ],
   'conditions': [
+    ['disable_indexeddb==1', {
+      'sources!': [
+        'common/indexed_db/indexed_db_constants.h',
+        'common/indexed_db/indexed_db_key.cc',
+        'common/indexed_db/indexed_db_key.h',
+        'common/indexed_db/indexed_db_key_path.cc',
+        'common/indexed_db/indexed_db_key_path.h',
+        'common/indexed_db/indexed_db_key_range.cc',
+        'common/indexed_db/indexed_db_key_range.h',
+        'common/indexed_db/indexed_db_messages.h',
+        'common/indexed_db/indexed_db_param_traits.cc',
+        'common/indexed_db/indexed_db_param_traits.h',
+      ],
+    }],
     ['OS=="ios"', {
       # iOS has different user-agent construction utilities, since the
       # version strings is not derived from webkit_version, and follows
@@ -745,6 +791,11 @@
      'dependencies': [
         'content.gyp:content_jni_headers',
         'content.gyp:common_aidl',
+      ],
+    }],
+    ['OS=="android" and use_icu_alternatives_on_android==1', {
+      'dependencies!': [
+        '../third_party/icu/icu.gyp:icuuc',
       ],
     }],
     ['use_pango == 1', {
@@ -1105,6 +1156,37 @@
         'common/gpu/gpu_memory_buffer_factory_ozone.cc',
         'common/gpu/gpu_memory_buffer_factory_ozone_native_pixmap.cc',
         'common/gpu/gpu_memory_buffer_factory_ozone_native_pixmap.h',
+      ],
+    }],
+    ['disable_bluetooth==1', {
+      'sources!': [
+        '<@(private_common_sources_bluetooth)',
+      ],
+      'dependencies!': [
+        '../device/bluetooth/bluetooth.gyp:device_bluetooth',
+      ],
+    }],
+    ['disable_geo_features==1', {
+      'sources!': [
+        '<@(private_common_sources_geo)',
+      ],
+    }],
+    ['disable_notifications==1', {
+      'sources!': [
+        '<@(private_common_sources_notifications)',
+      ],
+    }],
+    ['enable_web_speech==0', {
+      'sources!': [
+        '<@(private_common_sources_speech)',
+      ],
+    }],
+    ['disable_webmidi==1', {
+      'sources!': [
+        '<@(private_common_sources_midi)',
+      ],
+      'dependencies!': [
+        '../media/midi/midi.gyp:midi',
       ],
     }],
   ],

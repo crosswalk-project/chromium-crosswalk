@@ -272,6 +272,27 @@
           ['exclude', 'fonts/linux/FontPlatformDataLinux\\.cpp$'],
         ]
       }],
+      ['OS=="android" and use_icu_alternatives_on_android==1', {
+        'sources!': [
+          'fonts/harfbuzz/HarfBuzzShaper.cpp',
+          'fonts/harfbuzz/HarfBuzzShaper.h',
+        ],
+        'dependencies': [
+          '<(DEPTH)/base/base.gyp:base_icu_alternatives',
+        ],
+        'dependencies!': [
+          '<(DEPTH)/third_party/icu/icu.gyp:icui18n',
+          '<(DEPTH)/third_party/icu/icu.gyp:icuuc',
+        ],
+      }],
+      ['disable_webp==1', {
+        'dependencies!': [
+          '<(DEPTH)/third_party/libwebp/libwebp.gyp:libwebp',
+        ],
+        'export_dependent_settings': [
+          '<(DEPTH)/third_party/libwebp/libwebp.gyp:libwebp',
+        ],
+      }],
       ['OS=="mac"', {
         'dependencies': [
           '<(DEPTH)/third_party/harfbuzz-ng/harfbuzz.gyp:harfbuzz-ng',
@@ -458,6 +479,12 @@
         'conditions': [
           ['OS=="android"', {
             'cflags!': ['-mthumb'],
+          }],
+          ['OS=="android" and use_icu_alternatives_on_android==1', {
+            'sources!': [
+              'fonts/harfbuzz/HarfBuzzShaper.cpp',
+              'fonts/harfbuzz/HarfBuzzShaper.h',
+            ],
           }],
         ],
       },{  # target_arch!="arm"

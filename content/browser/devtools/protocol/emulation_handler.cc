@@ -6,7 +6,9 @@
 
 #include "base/strings/string_number_conversions.h"
 #include "content/browser/frame_host/render_frame_host_impl.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geolocation/geolocation_service_context.h"
+#endif
 #include "content/browser/renderer_host/render_widget_host_impl.h"
 #include "content/browser/web_contents/web_contents_impl.h"
 #include "content/common/view_messages.h"
@@ -74,6 +76,7 @@ Response EmulationHandler::SetGeolocationOverride(
   if (!GetWebContents())
     return Response::InternalError("Could not connect to view");
 
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* geolocation_context =
       GetWebContents()->GetGeolocationServiceContext();
   scoped_ptr<Geoposition> geoposition(new Geoposition());
@@ -89,6 +92,7 @@ Response EmulationHandler::SetGeolocationOverride(
     geoposition->error_code = Geoposition::ERROR_CODE_POSITION_UNAVAILABLE;
   }
   geolocation_context->SetOverride(geoposition.Pass());
+#endif
   return Response::OK();
 }
 
@@ -96,9 +100,11 @@ Response EmulationHandler::ClearGeolocationOverride() {
   if (!GetWebContents())
     return Response::InternalError("Could not connect to view");
 
+#ifndef DISABLE_GEO_FEATURES
   GeolocationServiceContext* geolocation_context =
       GetWebContents()->GetGeolocationServiceContext();
   geolocation_context->ClearOverride();
+#endif
   return Response::OK();
 }
 

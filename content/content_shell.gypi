@@ -350,7 +350,13 @@
             'shell/browser/shell_plugin_service_filter.cc',
             'shell/browser/shell_plugin_service_filter.h',
           ],
-        }]
+        }],
+        ['disable_bluetooth==1', {
+          'dependencies!': [
+            '../device/bluetooth/bluetooth.gyp:device_bluetooth',
+            '../device/bluetooth/bluetooth.gyp:device_bluetooth_mocks',
+          ],
+        }],
       ],
     },
     {

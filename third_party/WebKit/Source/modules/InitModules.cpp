@@ -13,11 +13,15 @@
 #include "modules/EventModulesNames.h"
 #include "modules/EventTargetModulesNames.h"
 #include "modules/IndexedDBNames.h"
+#ifndef DISABLE_ACCESSIBILITY
 #include "modules/accessibility/AXObjectCacheImpl.h"
+#endif
 #include "modules/canvas2d/CanvasRenderingContext2D.h"
 #include "modules/compositorworker/CompositorWorkerManager.h"
 #include "modules/filesystem/DraggedIsolatedFileSystemImpl.h"
+#ifndef DISABLE_WEBDATABASE
 #include "modules/webdatabase/DatabaseManager.h"
+#endif
 #include "modules/webgl/WebGL2RenderingContext.h"
 #include "modules/webgl/WebGLRenderingContext.h"
 
@@ -33,7 +37,9 @@ void ModulesInitializer::init()
     Document::registerEventFactory(EventModulesFactory::create());
     ModuleBindingsInitializer::init();
     IndexedDBNames::init();
+#ifndef DISABLE_ACCESSIBILITY
     AXObjectCache::init(AXObjectCacheImpl::create);
+#endif
     DraggedIsolatedFileSystem::init(DraggedIsolatedFileSystemImpl::prepareForDataObject);
 
     CoreInitializer::init();
@@ -53,7 +59,9 @@ void ModulesInitializer::terminateThreads()
 {
     if (RuntimeEnabledFeatures::compositorWorkerEnabled())
         CompositorWorkerManager::shutdown();
+#ifndef DISABLE_WEBDATABASE
     DatabaseManager::terminateDatabaseThread();
+#endif
 }
 
 } // namespace blink

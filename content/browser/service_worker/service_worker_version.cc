@@ -846,6 +846,7 @@ void ServiceWorkerVersion::DispatchNotificationClickEvent(
     int64_t persistent_notification_id,
     const PlatformNotificationData& notification_data,
     int action_index) {
+#ifndef DISABLE_NOTIFICATIONS
   OnBeginEvent();
   DCHECK_EQ(ACTIVATED, status()) << status();
   if (running_status() != RUNNING) {
@@ -869,6 +870,13 @@ void ServiceWorkerVersion::DispatchNotificationClickEvent(
     notification_click_requests_.Remove(request_id);
     RunSoon(base::Bind(callback, status));
   }
+#else
+  (void) callback;
+  (void) persistent_notification_id;
+  (void) notification_data;
+  (void) action_index;
+  return;
+#endif
 }
 
 void ServiceWorkerVersion::DispatchPushEvent(const StatusCallback& callback,

@@ -26,11 +26,20 @@
 #include "wtf/text/AtomicString.h"
 #include "wtf/text/Unicode.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+#else
 #include <unicode/brkiter.h>
+#endif
 
 namespace blink {
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "base/icu_alternatives_on_android/icu_utils.h"
+typedef base::BreakIteratorBridge TextBreakIterator;
+#else
 typedef icu::BreakIterator TextBreakIterator;
+#endif
 
 // Note: The returned iterator is good only until you get another iterator, with the exception of acquireLineBreakIterator.
 

@@ -26,6 +26,7 @@
 #include "config.h"
 #include "bindings/modules/v8/V8BindingForModules.h"
 
+#ifndef DISABLE_INDEXEDDB
 #include "bindings/core/v8/SerializedScriptValue.h"
 #include "bindings/core/v8/SerializedScriptValueFactory.h"
 #include "bindings/core/v8/V8ArrayBuffer.h"
@@ -518,3 +519,22 @@ void assertPrimaryKeyValidOrInjectable(ScriptState* scriptState, const IDBValue*
 #endif
 
 } // namespace blink
+
+#else // DISABLE_INDEXEDDB
+
+namespace blink {
+
+SQLValue NativeValueTraits<SQLValue>::nativeValue(v8::Isolate* isolate, v8::Local<v8::Value> value, ExceptionState& exceptionState)
+{
+    if (value.IsEmpty() || value->IsNull())
+        return SQLValue();
+    if (value->IsNumber())
+        return SQLValue(value.As<v8::Number>()->Value());
+    V8StringResource<> stringValue(value);
+    if (!stringValue.prepare(exceptionState))
+        return SQLValue();
+    return SQLValue(stringValue);
+}
+
+} // namespace blink
+#endif // DISABLE_INDEXEDDB

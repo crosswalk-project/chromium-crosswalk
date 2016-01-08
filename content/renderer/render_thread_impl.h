@@ -272,9 +272,11 @@ class CONTENT_EXPORT RenderThreadImpl
     return audio_message_filter_.get();
   }
 
+#ifndef DISABLE_WEBMIDI
   MidiMessageFilter* midi_message_filter() {
     return midi_message_filter_.get();
   }
+#endif
 
 #if defined(OS_ANDROID)
   RendererDemuxerAndroid* renderer_demuxer() {
@@ -498,12 +500,16 @@ class CONTENT_EXPORT RenderThreadImpl
   scoped_refptr<DBMessageFilter> db_message_filter_;
   scoped_refptr<AudioInputMessageFilter> audio_input_message_filter_;
   scoped_refptr<AudioMessageFilter> audio_message_filter_;
+#ifndef DISABLE_WEBMIDI
   scoped_refptr<MidiMessageFilter> midi_message_filter_;
+#endif
 #if defined(OS_ANDROID)
   scoped_refptr<RendererDemuxerAndroid> renderer_demuxer_;
 #endif
+#ifndef DISABLE_DEVTOOLS
   scoped_refptr<DevToolsAgentFilter> devtools_agent_message_filter_;
   scoped_ptr<V8SamplingProfiler> v8_sampling_profiler_;
+#endif
 
   scoped_ptr<BrowserPluginManager> browser_plugin_manager_;
 
@@ -581,7 +587,9 @@ class CONTENT_EXPORT RenderThreadImpl
   scoped_ptr<InputHandlerManager> input_handler_manager_;
   scoped_refptr<CompositorForwardingMessageFilter> compositor_message_filter_;
 
+#ifndef DISABLE_BLUETOOTH
   scoped_refptr<BluetoothMessageFilter> bluetooth_message_filter_;
+#endif
 
   scoped_refptr<cc_blink::ContextProviderWebContext>
       shared_main_thread_contexts_;

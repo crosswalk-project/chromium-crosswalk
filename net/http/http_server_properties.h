@@ -16,7 +16,9 @@
 #include "net/base/host_port_pair.h"
 #include "net/base/net_export.h"
 #include "net/base/net_util.h"
+#ifndef DISABLE_QUIC_SUPPORT
 #include "net/quic/quic_bandwidth.h"
+#endif
 #include "net/socket/next_proto.h"
 #include "net/spdy/spdy_framer.h"  // TODO(willchan): Reconsider this.
 #include "net/spdy/spdy_protocol.h"
@@ -194,10 +196,18 @@ struct NET_EXPORT SupportsQuic {
 };
 
 struct NET_EXPORT ServerNetworkStats {
+#ifndef DISABLE_QUIC_SUPPORT
   ServerNetworkStats() : bandwidth_estimate(QuicBandwidth::Zero()) {}
+#else
+  ServerNetworkStats() {}
+#endif
 
   bool operator==(const ServerNetworkStats& other) const {
+#ifndef DISABLE_QUIC_SUPPORT
     return srtt == other.srtt && bandwidth_estimate == other.bandwidth_estimate;
+#else
+    return srtt == other.srtt;
+#endif
   }
 
   bool operator!=(const ServerNetworkStats& other) const {
@@ -205,7 +215,9 @@ struct NET_EXPORT ServerNetworkStats {
   }
 
   base::TimeDelta srtt;
+#ifndef DISABLE_QUIC_SUPPORT
   QuicBandwidth bandwidth_estimate;
+#endif
 };
 
 typedef std::vector<AlternativeService> AlternativeServiceVector;

@@ -55,7 +55,9 @@
 #include "content/renderer/gamepad_shared_memory_reader.h"
 #include "content/renderer/media/audio_decoder.h"
 #include "content/renderer/media/renderer_webaudiodevice_impl.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/renderer/media/renderer_webmidiaccessor_impl.h"
+#endif
 #include "content/renderer/render_thread_impl.h"
 #include "content/renderer/renderer_clipboard_delegate.h"
 #include "content/renderer/screen_orientation/screen_orientation_observer.h"
@@ -249,9 +251,13 @@ RendererBlinkPlatformImpl::RendererBlinkPlatformImpl(
     thread_safe_sender_ = ChildThreadImpl::current()->thread_safe_sender();
     quota_message_filter_ = ChildThreadImpl::current()->quota_message_filter();
     blob_registry_.reset(new WebBlobRegistryImpl(thread_safe_sender_.get()));
+#ifndef DISABLE_INDEXEDDB
     web_idb_factory_.reset(new WebIDBFactoryImpl(thread_safe_sender_.get()));
+#endif
+#ifndef DISABLE_WEBDATABASE
     web_database_observer_impl_.reset(
         new WebDatabaseObserverImpl(sync_message_filter_.get()));
+#endif
   }
 }
 
@@ -591,6 +597,7 @@ void RendererBlinkPlatformImpl::SandboxSupport::getRenderStyleForStrike(
 
 //------------------------------------------------------------------------------
 
+#ifndef DISABLE_WEBDATABASE
 Platform::FileHandle RendererBlinkPlatformImpl::databaseOpenFile(
     const WebString& vfs_file_name,
     int desired_flags) {
@@ -628,9 +635,10 @@ bool RendererBlinkPlatformImpl::databaseSetFileSize(
   return DatabaseUtil::DatabaseSetFileSize(
       vfs_file_name, size, sync_message_filter_.get());
 }
+#endif // DISABLE_WEBDATABASE
 
 bool RendererBlinkPlatformImpl::canAccelerate2dCanvas() {
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance();
   if (factory && factory->OverrideWithFactory()) {
@@ -767,6 +775,7 @@ bool RendererBlinkPlatformImpl::loadAudioResource(
 
 //------------------------------------------------------------------------------
 
+#ifndef DISABLE_WEBMIDI
 blink::WebMIDIAccessor* RendererBlinkPlatformImpl::createMIDIAccessor(
     blink::WebMIDIAccessorClient* client) {
   blink::WebMIDIAccessor* accessor =
@@ -776,6 +785,7 @@ blink::WebMIDIAccessor* RendererBlinkPlatformImpl::createMIDIAccessor(
 
   return new RendererWebMIDIAccessorImpl(client);
 }
+#endif
 
 void RendererBlinkPlatformImpl::getPluginList(
     bool refresh,
@@ -956,7 +966,7 @@ RendererBlinkPlatformImpl::createOffscreenGraphicsContext3D(
   if (!RenderThreadImpl::current())
     return NULL;
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) && !defined(DISABLE_SYNC_COMPOSITOR)
   SynchronousCompositorFactory* factory =
       SynchronousCompositorFactory::GetInstance();
   if (factory && factory->OverrideWithFactory()) {

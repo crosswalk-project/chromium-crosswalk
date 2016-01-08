@@ -42,7 +42,9 @@
 #include "content/browser/appcache/chrome_appcache_service.h"
 #include "content/browser/background_sync/background_sync_service_impl.h"
 #include "content/browser/bad_message.h"
+#ifndef DISABLE_BLUETOOTH
 #include "content/browser/bluetooth/bluetooth_dispatcher_host.h"
+#endif
 #include "content/browser/browser_child_process_host_impl.h"
 #include "content/browser/browser_main.h"
 #include "content/browser/browser_main_loop.h"
@@ -59,25 +61,33 @@
 #include "content/browser/fileapi/chrome_blob_storage_context.h"
 #include "content/browser/fileapi/fileapi_message_filter.h"
 #include "content/browser/frame_host/render_frame_message_filter.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geofencing/geofencing_dispatcher_host.h"
+#endif
 #include "content/browser/gpu/browser_gpu_memory_buffer_manager.h"
 #include "content/browser/gpu/compositor_util.h"
 #include "content/browser/gpu/gpu_data_manager_impl.h"
 #include "content/browser/gpu/gpu_process_host.h"
 #include "content/browser/gpu/shader_disk_cache.h"
 #include "content/browser/histogram_message_filter.h"
+#ifndef DISABLE_INDEXEDDB
 #include "content/browser/indexed_db/indexed_db_context_impl.h"
 #include "content/browser/indexed_db/indexed_db_dispatcher_host.h"
+#endif
 #include "content/browser/loader/resource_message_filter.h"
 #include "content/browser/loader/resource_scheduler_filter.h"
 #include "content/browser/media/capture/audio_mirroring_manager.h"
 #include "content/browser/media/media_internals.h"
+#ifndef DISABLE_WEBMIDI
 #include "content/browser/media/midi_host.h"
+#endif
 #include "content/browser/message_port_message_filter.h"
 #include "content/browser/mime_registry_message_filter.h"
 #include "content/browser/mojo/mojo_application_host.h"
 #include "content/browser/navigator_connect/service_port_service_impl.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/browser/notifications/notification_message_filter.h"
+#endif
 #include "content/browser/permissions/permission_service_context.h"
 #include "content/browser/permissions/permission_service_impl.h"
 #include "content/browser/profiler_message_filter.h"
@@ -108,7 +118,9 @@
 #include "content/browser/service_worker/service_worker_dispatcher_host.h"
 #include "content/browser/shared_worker/shared_worker_message_filter.h"
 #include "content/browser/shared_worker/worker_storage_partition.h"
+#ifndef DISABLE_SPEECH
 #include "content/browser/speech/speech_recognition_dispatcher_host.h"
+#endif
 #include "content/browser/storage_partition_impl.h"
 #include "content/browser/streams/stream_context.h"
 #include "content/browser/tracing/trace_message_filter.h"
@@ -127,8 +139,10 @@
 #include "content/public/browser/browser_context.h"
 #include "content/public/browser/content_browser_client.h"
 #include "content/public/browser/navigator_connect_context.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_service.h"
 #include "content/public/browser/notification_types.h"
+#endif
 #include "content/public/browser/render_process_host_factory.h"
 #include "content/public/browser/render_process_host_observer.h"
 #include "content/public/browser/render_widget_host.h"
@@ -807,8 +821,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       media_stream_manager,
       browser_context->GetResourceContext()->GetMediaDeviceIDSalt());
   AddFilter(audio_renderer_host_.get());
+#ifndef DISABLE_WEBMIDI
   AddFilter(
       new MidiHost(GetID(), BrowserMainLoop::GetInstance()->midi_manager()));
+#endif
   AddFilter(new VideoCaptureHost(media_stream_manager));
   AddFilter(new AppCacheDispatcherHost(
       storage_partition_impl_->GetAppCacheService(),
@@ -816,11 +832,13 @@ void RenderProcessHostImpl::CreateMessageFilters() {
   AddFilter(new ClipboardMessageFilter);
   AddFilter(new DOMStorageMessageFilter(
       storage_partition_impl_->GetDOMStorageContext()));
+#ifndef DISABLE_INDEXEDDB
   AddFilter(new IndexedDBDispatcherHost(
       GetID(),
       storage_partition_impl_->GetURLRequestContext(),
       storage_partition_impl_->GetIndexedDBContext(),
       ChromeBlobStorageContext::GetFor(browser_context)));
+#endif
 
   gpu_message_filter_ = new GpuMessageFilter(GetID(), widget_helper_.get());
   AddFilter(gpu_message_filter_);
@@ -840,8 +858,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
 #if defined(ENABLE_PLUGINS)
   AddFilter(new PepperRendererConnection(GetID()));
 #endif
+#ifndef DISABLE_SPEECH
   AddFilter(new SpeechRecognitionDispatcherHost(
       GetID(), storage_partition_impl_->GetURLRequestContext()));
+#endif
   AddFilter(new FileAPIMessageFilter(
       GetID(),
       storage_partition_impl_->GetURLRequestContext(),
@@ -850,8 +870,10 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       StreamContext::GetFor(browser_context)));
   AddFilter(new FileUtilitiesMessageFilter(GetID()));
   AddFilter(new MimeRegistryMessageFilter());
+#ifndef DISABLE_WEBDATABASE
   AddFilter(new DatabaseMessageFilter(
       storage_partition_impl_->GetDatabaseTracker()));
+#endif
 #if defined(OS_MACOSX)
   AddFilter(new TextInputClientMessageFilter(GetID()));
 #elif defined(OS_WIN)
@@ -922,12 +944,14 @@ void RenderProcessHostImpl::CreateMessageFilters() {
       storage_partition_impl_->GetQuotaManager(),
       GetContentClient()->browser()->CreateQuotaPermissionContext()));
 
+#ifndef DISABLE_NOTIFICATIONS
   notification_message_filter_ = new NotificationMessageFilter(
       GetID(),
       storage_partition_impl_->GetPlatformNotificationContext(),
       resource_context,
       browser_context);
   AddFilter(notification_message_filter_.get());
+#endif
 
   AddFilter(new GamepadBrowserMessageFilter());
   AddFilter(new DeviceLightMessageFilter());
@@ -944,12 +968,16 @@ void RenderProcessHostImpl::CreateMessageFilters() {
 #if defined(OS_ANDROID)
   AddFilter(new ScreenOrientationMessageFilterAndroid());
 #endif
+#ifndef DISABLE_GEO_FEATURES
   AddFilter(new GeofencingDispatcherHost(
       storage_partition_impl_->GetGeofencingManager()));
+#endif
+#ifndef DISABLE_BLUETOOTH
   if (browser_command_line.HasSwitch(switches::kEnableWebBluetooth)) {
     bluetooth_dispatcher_host_ = new BluetoothDispatcherHost(GetID());
     AddFilter(bluetooth_dispatcher_host_.get());
   }
+#endif
 }
 
 void RenderProcessHostImpl::RegisterMojoServices() {
@@ -1694,10 +1722,12 @@ void RenderProcessHostImpl::Cleanup() {
     FOR_EACH_OBSERVER(RenderProcessHostObserver,
                       observers_,
                       RenderProcessHostDestroyed(this));
+#ifndef DISABLE_NOTIFICATIONS
     NotificationService::current()->Notify(
         NOTIFICATION_RENDERER_PROCESS_TERMINATED,
         Source<RenderProcessHost>(this),
         NotificationService::NoDetails());
+#endif
 
 #ifndef NDEBUG
     is_self_deleted_ = true;
@@ -2143,10 +2173,12 @@ void RenderProcessHostImpl::ProcessDied(bool already_dead,
   }
 
   within_process_died_observer_ = true;
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDERER_PROCESS_CLOSED,
       Source<RenderProcessHost>(this),
       Details<RendererClosedDetails>(&details));
+#endif
   FOR_EACH_OBSERVER(RenderProcessHostObserver,
                     observers_,
                     RenderProcessExited(this, status, exit_code));
@@ -2346,10 +2378,12 @@ void RenderProcessHostImpl::OnProcessLaunched() {
   // The queued messages contain such things as "navigate". If this notification
   // was after, we can end up executing JavaScript before the initialization
   // happens.
+#ifndef DISABLE_NOTIFICATIONS
   NotificationService::current()->Notify(
       NOTIFICATION_RENDERER_PROCESS_CREATED,
       Source<RenderProcessHost>(this),
       NotificationService::NoDetails());
+#endif
 
   // TODO(erikchen): Remove ScopedTracker below once http://crbug.com/465841
   // is fixed.
@@ -2536,8 +2570,10 @@ void RenderProcessHostImpl::GetAudioOutputControllers(
   audio_renderer_host()->GetOutputControllers(callback);
 }
 
+#ifndef DISABLE_BLUETOOTH
 BluetoothDispatcherHost* RenderProcessHostImpl::GetBluetoothDispatcherHost() {
   return bluetooth_dispatcher_host_.get();
 }
+#endif
 
 }  // namespace content

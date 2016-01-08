@@ -13,7 +13,9 @@
 #include "base/strings/utf_string_conversions.h"
 #include "content/browser/browser_main_loop.h"
 #include "content/browser/fileapi/browser_file_system_helper.h"
+#ifndef DISABLE_GEO_FEATURES
 #include "content/browser/geofencing/geofencing_manager.h"
+#endif
 #include "content/browser/gpu/shader_disk_cache.h"
 #include "content/browser/host_zoom_map_impl.h"
 #include "content/browser/navigator_connect/navigator_connect_context_impl.h"
@@ -364,18 +366,24 @@ StoragePartitionImpl::StoragePartitionImpl(
       service_worker_context_(service_worker_context),
       webrtc_identity_store_(webrtc_identity_store),
       special_storage_policy_(special_storage_policy),
+#ifndef DISABLE_GEO_FEATURES
       geofencing_manager_(geofencing_manager),
+#endif
       host_zoom_level_context_(host_zoom_level_context),
       navigator_connect_context_(navigator_connect_context),
       platform_notification_context_(platform_notification_context),
       background_sync_context_(background_sync_context),
       browser_context_(browser_context) {
+#ifndef DISABLE_GEO_FEATURES
+      (void) geofencing_manager;
+#endif
 }
 
 StoragePartitionImpl::~StoragePartitionImpl() {
   browser_context_ = nullptr;
 
   // These message loop checks are just to avoid leaks in unittests.
+#ifndef DISABLE_WEBDATABASE
   if (GetDatabaseTracker() &&
       BrowserThread::IsMessageLoopValid(BrowserThread::FILE)) {
     BrowserThread::PostTask(
@@ -383,6 +391,7 @@ StoragePartitionImpl::~StoragePartitionImpl() {
         FROM_HERE,
         base::Bind(&storage::DatabaseTracker::Shutdown, GetDatabaseTracker()));
   }
+#endif
 
   if (GetFileSystemContext())
     GetFileSystemContext()->Shutdown();
@@ -396,11 +405,15 @@ StoragePartitionImpl::~StoragePartitionImpl() {
   if (GetCacheStorageContext())
     GetCacheStorageContext()->Shutdown();
 
+#ifndef DISABLE_GEO_FEATURES
   if (GetGeofencingManager())
     GetGeofencingManager()->Shutdown();
+#endif
 
+#ifndef DISABLE_NOTIFICATIONS
   if (GetPlatformNotificationContext())
     GetPlatformNotificationContext()->Shutdown();
+#endif
 
   if (GetBackgroundSyncContext())
     GetBackgroundSyncContext()->Shutdown();
@@ -433,6 +446,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
       CreateFileSystemContext(
           context, partition_path, in_memory, quota_manager->proxy());
 
+#ifndef DISABLE_WEBDATABASE
   scoped_refptr<storage::DatabaseTracker> database_tracker =
       new storage::DatabaseTracker(partition_path,
                                    in_memory,
@@ -440,6 +454,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
                                    quota_manager->proxy(),
                                    BrowserThread::GetMessageLoopProxyForThread(
                                        BrowserThread::FILE).get());
+#endif
 
   base::FilePath path = in_memory ? base::FilePath() : partition_path;
   scoped_refptr<DOMStorageContextWrapper> dom_storage_context =
@@ -447,6 +462,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 
   // BrowserMainLoop may not be initialized in unit tests. Tests will
   // need to inject their own task runner into the IndexedDBContext.
+#ifndef DISABLE_INDEXEDDB
   base::SequencedTaskRunner* idb_task_runner =
       BrowserThread::CurrentlyOn(BrowserThread::UI) &&
               BrowserMainLoop::GetInstance()
@@ -460,6 +476,7 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
                                context->GetSpecialStoragePolicy(),
                                quota_manager->proxy(),
                                idb_task_runner);
+#endif
 
   scoped_refptr<CacheStorageContextImpl> cache_storage_context =
       new CacheStorageContextImpl(context);
@@ -480,9 +497,11 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   scoped_refptr<storage::SpecialStoragePolicy> special_storage_policy(
       context->GetSpecialStoragePolicy());
 
+#ifndef DISABLE_GEO_FEATURES
   scoped_refptr<GeofencingManager> geofencing_manager =
       new GeofencingManager(service_worker_context);
   geofencing_manager->Init();
+#endif
 
   scoped_refptr<HostZoomLevelContext> host_zoom_level_context(
       new HostZoomLevelContext(
@@ -491,10 +510,12 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
   scoped_refptr<NavigatorConnectContextImpl> navigator_connect_context =
       new NavigatorConnectContextImpl(service_worker_context);
 
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<PlatformNotificationContextImpl> platform_notification_context =
       new PlatformNotificationContextImpl(path, context,
                                           service_worker_context);
   platform_notification_context->Initialize();
+#endif
 
   scoped_refptr<BackgroundSyncContextImpl> background_sync_context =
       new BackgroundSyncContextImpl();
@@ -502,12 +523,28 @@ StoragePartitionImpl* StoragePartitionImpl::Create(
 
   StoragePartitionImpl* storage_partition = new StoragePartitionImpl(
       context, partition_path, quota_manager.get(), appcache_service.get(),
+#ifndef DISABLE_WEBDATABASE
       filesystem_context.get(), database_tracker.get(),
+#else
+      filesystem_context.get(), nullptr,
+#endif
+#ifndef DISABLE_INDEXEDDB
       dom_storage_context.get(), indexed_db_context.get(),
+#else
+      dom_storage_context.get(), nullptr,
+#endif
       cache_storage_context.get(), service_worker_context.get(),
       webrtc_identity_store.get(), special_storage_policy.get(),
+#ifndef DISABLE_GEO_FEATURES
       geofencing_manager.get(), host_zoom_level_context.get(),
+#else
+      nullptr, host_zoom_level_context.get(),
+#endif
+#ifndef DISABLE_NOTIFICATIONS
       navigator_connect_context.get(), platform_notification_context.get(),
+#else
+      navigator_connect_context.get(), nullptr,
+#endif
       background_sync_context.get());
 
   service_worker_context->set_storage_partition(storage_partition);
@@ -560,9 +597,11 @@ ServiceWorkerContextWrapper* StoragePartitionImpl::GetServiceWorkerContext() {
   return service_worker_context_.get();
 }
 
+#ifndef DISABLE_GEO_FEATURES
 GeofencingManager* StoragePartitionImpl::GetGeofencingManager() {
   return geofencing_manager_.get();
 }
+#endif
 
 HostZoomMap* StoragePartitionImpl::GetHostZoomMap() {
   DCHECK(host_zoom_level_context_.get());
@@ -585,7 +624,11 @@ StoragePartitionImpl::GetNavigatorConnectContext() {
 
 PlatformNotificationContextImpl*
 StoragePartitionImpl::GetPlatformNotificationContext() {
+#ifndef DISABLE_NOTIFICATIONS
   return platform_notification_context_.get();
+#else
+  return nullptr;
+#endif
 }
 
 BackgroundSyncContextImpl* StoragePartitionImpl::GetBackgroundSyncContext() {

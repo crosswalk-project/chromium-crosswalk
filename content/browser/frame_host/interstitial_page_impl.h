@@ -15,8 +15,10 @@
 #include "content/browser/renderer_host/render_widget_host_delegate.h"
 #include "content/public/browser/dom_operation_notification_details.h"
 #include "content/public/browser/interstitial_page.h"
+#ifndef DISABLE_NOTIFICATIONS
 #include "content/public/browser/notification_observer.h"
 #include "content/public/browser/notification_registrar.h"
+#endif
 #include "content/public/browser/web_contents_observer.h"
 #include "content/public/common/renderer_preferences.h"
 #include "url/gurl.h"
@@ -36,7 +38,9 @@ enum ResourceRequestAction {
 
 class CONTENT_EXPORT InterstitialPageImpl
     : public NON_EXPORTED_BASE(InterstitialPage),
+#ifndef DISABLE_NOTIFICATIONS
       public NotificationObserver,
+#endif
       public NON_EXPORTED_BASE(RenderFrameHostDelegate),
       public RenderViewHostDelegate,
       public RenderWidgetHostDelegate,
@@ -91,10 +95,12 @@ class CONTENT_EXPORT InterstitialPageImpl
       const FrameHostMsg_DidCommitProvisionalLoad_Params& params);
 
  protected:
+#ifndef DISABLE_NOTIFICATIONS
   // NotificationObserver method:
   void Observe(int type,
                const NotificationSource& source,
                const NotificationDetails& details) override;
+#endif
 
   // RenderFrameHostDelegate implementation:
   bool OnMessageReceived(RenderFrameHost* render_frame_host,
@@ -160,8 +166,10 @@ class CONTENT_EXPORT InterstitialPageImpl
   // Overriden in unit tests.
   virtual WebContentsView* CreateWebContentsView();
 
+#ifndef DISABLE_NOTIFICATIONS
   // Notification magic.
   NotificationRegistrar notification_registrar_;
+#endif
 
  private:
   class InterstitialPageRVHDelegateView;
@@ -270,9 +278,11 @@ class CONTENT_EXPORT InterstitialPageImpl
   // shown.  We restore this state if the user proceeds from the interstitial.
   bool web_contents_was_loading_;
 
+#ifndef DISABLE_NOTIFICATIONS
   // Whether the ResourceDispatcherHost has been notified to cancel/resume the
   // resource requests blocked for the RenderViewHost.
   bool resource_dispatcher_host_notified_;
+#endif
 
   // The original title of the contents that should be reverted to when the
   // interstitial is hidden.

@@ -947,10 +947,12 @@ void WebPluginContainerImpl::calculateGeometry(IntRect& windowRect, IntRect& cli
     clipRect.move(-windowRect.x(), -windowRect.y());
     unobscuredRect.move(-windowRect.x(), -windowRect.y());
 
+#ifndef DISABLE_PLUGINS
     getPluginOcclusions(m_element, this->parent(), frameRect(), cutOutRects);
     // Convert to the plugin position.
     for (size_t i = 0; i < cutOutRects.size(); i++)
         cutOutRects[i].move(-frameRect().x(), -frameRect().y());
+#endif
 }
 
 bool WebPluginContainerImpl::pluginShouldPersist() const

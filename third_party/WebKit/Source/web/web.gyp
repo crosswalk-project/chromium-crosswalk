@@ -148,7 +148,12 @@
                                 '<(DEPTH)/third_party/libxml/libxml.gyp:libxml',
                                 '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
                              ],
-                        }]
+                        }],
+                        ['disable_xslt==1', {
+                            'dependencies!': [
+                                '<(DEPTH)/third_party/libxslt/libxslt.gyp:libxslt',
+                            ],
+                        }],
                     ],
                     'msvs_settings': {
                       'VCLinkerTool': {
@@ -200,6 +205,42 @@
                     'sources/': [
                         ['exclude', 'default/WebRenderTheme.cpp'],
                     ],
+                }],
+
+                ['disable_accessibility==1', {
+                  'sources!': [
+                    '<@(web_files_accessibility)',
+                  ],
+                }],
+                ['disable_geo_features==1', {
+                  'sources!': [
+                    '<@(web_files_geo)',
+                  ],
+                }],
+                ['disable_indexeddb==1', {
+                  'sources!': [
+                    '<@(web_files_indexeddb)',
+                  ],
+                }],
+                ['disable_notifications==1', {
+                  'sources!': [
+                    '<@(web_files_notifications)',
+                  ],
+                }],
+                ['disable_webdatabase==1', {
+                  'sources!': [
+                    '<@(web_files_webdatabase)',
+                  ],
+                }],
+                ['enable_web_speech==0', {
+                  'sources!': [
+                    '<@(web_files_speech)',
+                  ],
+                }],
+                ['disable_webmidi==1', {
+                  'sources!': [
+                    '<@(web_files_midi)',
+                  ],
                 }],
             ],
             'direct_dependent_settings': {

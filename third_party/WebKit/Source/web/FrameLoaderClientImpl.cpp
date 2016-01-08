@@ -790,10 +790,14 @@ PassOwnPtr<WebMediaPlayer> FrameLoaderClientImpl::createWebMediaPlayer(
     if (!webFrame || !webFrame->client())
         return nullptr;
 
+#ifndef DISABLE_WEB_VIDEO
     HTMLMediaElementEncryptedMedia& encryptedMedia = HTMLMediaElementEncryptedMedia::from(htmlMediaElement);
     return adoptPtr(webFrame->client()->createMediaPlayer(webFrame, url,
         client, &encryptedMedia,
         encryptedMedia.contentDecryptionModule()));
+#else
+    return nullptr;
+#endif
 }
 
 ObjectContentType FrameLoaderClientImpl::objectContentType(

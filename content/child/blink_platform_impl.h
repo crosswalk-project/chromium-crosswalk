@@ -35,7 +35,9 @@ class MessageLoop;
 namespace content {
 class BackgroundSyncProvider;
 class FlingCurveConfiguration;
+#ifndef DISABLE_NOTIFICATIONS
 class NotificationDispatcher;
+#endif
 class PermissionDispatcher;
 class PushDispatcher;
 class ThreadSafeSender;
@@ -54,6 +56,7 @@ class CONTENT_EXPORT BlinkPlatformImpl
   // Platform methods (partial implementation):
   virtual blink::WebThemeEngine* themeEngine();
   virtual blink::WebFallbackThemeEngine* fallbackThemeEngine();
+#ifndef DISABLE_WEBDATABASE
   virtual blink::Platform::FileHandle databaseOpenFile(
       const blink::WebString& vfs_file_name, int desired_flags);
   virtual int databaseDeleteFile(const blink::WebString& vfs_file_name,
@@ -65,6 +68,7 @@ class CONTENT_EXPORT BlinkPlatformImpl
       const blink::WebString& origin_identifier);
   virtual bool databaseSetFileSize(
       const blink::WebString& vfs_file_name, long long size);
+#endif
   virtual blink::WebString signedPublicKeyAndChallengeString(
       unsigned key_size_index, const blink::WebString& challenge,
       const blink::WebURL& url);
@@ -166,8 +170,12 @@ class CONTENT_EXPORT BlinkPlatformImpl
   virtual void didStartWorkerRunLoop();
   virtual void didStopWorkerRunLoop();
   virtual blink::WebCrypto* crypto();
+#ifndef DISABLE_GEO_FEATURES
   virtual blink::WebGeofencingProvider* geofencingProvider();
+#endif
+#ifndef DISABLE_NOTIFICATIONS
   virtual blink::WebNotificationManager* notificationManager();
+#endif
   virtual blink::WebPushProvider* pushProvider();
   virtual blink::WebServicePortProvider* createServicePortProvider(
       blink::WebServicePortProviderClient*);
@@ -190,13 +198,17 @@ class CONTENT_EXPORT BlinkPlatformImpl
   WebFallbackThemeEngineImpl fallback_theme_engine_;
   base::ThreadLocalStorage::Slot current_thread_slot_;
   webcrypto::WebCryptoImpl web_crypto_;
+#ifndef DISABLE_GEO_FEATURES
   scoped_ptr<WebGeofencingProviderImpl> geofencing_provider_;
+#endif
   base::ScopedPtrHashMap<blink::WebMemoryDumpProvider*,
                          scoped_ptr<WebMemoryDumpProviderAdapter>>
       memory_dump_providers_;
 
   scoped_refptr<ThreadSafeSender> thread_safe_sender_;
+#ifndef DISABLE_NOTIFICATIONS
   scoped_refptr<NotificationDispatcher> notification_dispatcher_;
+#endif
   scoped_refptr<PushDispatcher> push_dispatcher_;
   scoped_ptr<PermissionDispatcher> permission_client_;
   scoped_ptr<BackgroundSyncProvider> sync_provider_;

@@ -58,7 +58,9 @@ class CONTENT_EXPORT ContentViewCore {
       const gfx::Rect& src_rect,
       ReadbackRequestCallback& result_callback) = 0;
   virtual float GetDpiScale() const = 0;
+#ifndef DISABLE_GEO_FEATURES
   virtual void PauseOrResumeGeolocation(bool should_pause) = 0;
+#endif
 
   // Text surrounding selection.
   virtual void RequestTextSurroundingSelection(

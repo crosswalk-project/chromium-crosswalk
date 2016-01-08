@@ -53,7 +53,9 @@
 #include "platform/fonts/Font.h"
 #include "wtf/text/CString.h"
 #include "wtf/text/StringBuilder.h"
+#if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
 #include <unicode/utf16.h>
+#endif
 
 using namespace WTF::Unicode;
 

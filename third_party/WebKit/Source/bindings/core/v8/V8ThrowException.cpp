@@ -28,11 +28,15 @@
 #include "bindings/core/v8/BindingSecurity.h"
 #include "bindings/core/v8/V8Binding.h"
 #include "bindings/core/v8/V8DOMException.h"
+#if ENABLE(WEBCL)
 #include "bindings/core/v8/V8WebCLException.h"
+#endif
 #include "core/dom/DOMException.h"
 #include "core/dom/ExceptionCode.h"
+#if ENABLE(WEBCL)
 #include "core/webcl/WebCLException.h"
 #include "wtf/RefPtr.h"
+#endif
 
 namespace blink {
 
@@ -50,6 +54,7 @@ static void domExceptionStackSetter(v8::Local<v8::Name> name, v8::Local<v8::Valu
     ALLOW_UNUSED_LOCAL(unused);
 }
 
+#if ENABLE(WEBCL)
 static void webclExceptionStackGetter(v8::Local<v8::Name> name, const v8::PropertyCallbackInfo<v8::Value>& info)
 {
     v8::Isolate* isolate = info.GetIsolate();
@@ -62,6 +67,7 @@ static void webclExceptionStackSetter(v8::Local<v8::Name> name, v8::Local<v8::Va
 {
     info.Data().As<v8::Object>()->Set(v8AtomicString(info.GetIsolate(), "stack"), value);
 }
+#endif
 
 v8::Local<v8::Value> V8ThrowException::createDOMException(v8::Isolate* isolate, int ec, const String& sanitizedMessage, const String& unsanitizedMessage, const v8::Local<v8::Object>& creationContext)
 {
@@ -120,6 +126,7 @@ v8::Local<v8::Value> V8ThrowException::throwDOMException(int ec, const String& s
     return V8ThrowException::throwException(exception, isolate);
 }
 
+#if ENABLE(WEBCL)
 v8::Local<v8::Value> V8ThrowException::createWebCLException(v8::Isolate* isolate, int ec, const String& name, const String& message, const v8::Local<v8::Object>& creationContext)
 {
     if (ec <= 0 || v8::V8::IsExecutionTerminating())
@@ -146,6 +153,7 @@ v8::Local<v8::Value> V8ThrowException::createWebCLException(v8::Isolate* isolate
 
     return exception;
 }
+#endif
 
 v8::Local<v8::Value> V8ThrowException::createGeneralError(v8::Isolate* isolate, const String& message)
 {
