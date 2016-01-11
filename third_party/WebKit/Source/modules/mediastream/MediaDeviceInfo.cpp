@@ -26,6 +26,9 @@
 #include "config.h"
 #include "modules/mediastream/MediaDeviceInfo.h"
 
+#include "bindings/core/v8/ScriptState.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/V8ObjectBuilder.h"
 #include "wtf/text/WTFString.h"
 
 namespace blink {
@@ -69,6 +72,16 @@ String MediaDeviceInfo::label() const
 String MediaDeviceInfo::groupId() const
 {
     return m_webMediaDeviceInfo.groupId();
+}
+
+ScriptValue MediaDeviceInfo::toJSONForBinding(ScriptState* scriptState)
+{
+    V8ObjectBuilder result(scriptState);
+    result.addString("deviceId", deviceId());
+    result.addString("kind", kind());
+    result.addString("label", label());
+    result.addString("groupId", groupId());
+    return result.scriptValue();
 }
 
 } // namespace blink
