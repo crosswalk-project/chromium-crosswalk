@@ -19,8 +19,6 @@ namespace master_preferences {
 extern const char kAltShortcutText[];
 // Boolean. This is to be a Chrome install. (When using MultiInstall)
 extern const char kChrome[];
-// Integer. Icon index from chrome.exe to use for shortcuts.
-extern const char kChromeShortcutIconIndex[];
 // Boolean. This is a legacy preference and should no longer be used; it is
 // kept around so that old master_preferences which specify
 // "create_all_shortcuts":false still enforce the new

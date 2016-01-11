@@ -8,7 +8,6 @@ namespace installer {
 namespace master_preferences {
   const char kAltShortcutText[] = "alternate_shortcut_text";
   const char kChrome[] = "chrome";
-  const char kChromeShortcutIconIndex[] = "chrome_shortcut_icon_index";
   const char kCreateAllShortcuts[] = "create_all_shortcuts";
   const char kDisableLogging[] = "disable_logging";
   const char kDistroDict[] = "distribution";
