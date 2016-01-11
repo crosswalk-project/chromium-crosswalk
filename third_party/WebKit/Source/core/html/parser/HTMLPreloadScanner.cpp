@@ -35,7 +35,10 @@
 #include "core/css/MediaValuesCached.h"
 #include "core/css/parser/SizesAttributeParser.h"
 #include "core/dom/Document.h"
+#include "core/fetch/IntegrityMetadata.h"
 #include "core/frame/Settings.h"
+#include "core/frame/SubresourceIntegrity.h"
+#include "core/html/CrossOriginAttribute.h"
 #include "core/html/HTMLImageElement.h"
 #include "core/html/HTMLMetaElement.h"
 #include "core/html/LinkRelAttribute.h"
@@ -204,6 +207,7 @@ public:
             request->setCrossOriginEnabled(allowStoredCredentials());
         request->setCharset(charset());
         request->setDefer(m_defer);
+        request->setIntegrityMetadata(m_integrityMetadata);
         return request.release();
     }
 
@@ -220,6 +224,8 @@ private:
             setDefer(FetchRequest::LazyLoad);
         else if (match(attributeName, deferAttr))
             setDefer(FetchRequest::LazyLoad);
+        else if (match(attributeName, integrityAttr))
+            SubresourceIntegrity::parseIntegrityAttribute(attributeValue, m_integrityMetadata);
     }
 
     template<typename NameType>
@@ -394,6 +400,7 @@ private:
     void setDefer(FetchRequest::DeferOption defer)
     {
         m_defer = defer;
+
     }
 
     bool defer() const
@@ -420,6 +427,7 @@ private:
     RefPtrWillBeMember<MediaValues> m_mediaValues;
     bool m_referrerPolicySet;
     ReferrerPolicy m_referrerPolicy;
+    IntegrityMetadataSet m_integrityMetadata;
 };
 
 TokenPreloadScanner::TokenPreloadScanner(const KURL& documentURL, PassOwnPtr<CachedDocumentParameters> documentParameters)
