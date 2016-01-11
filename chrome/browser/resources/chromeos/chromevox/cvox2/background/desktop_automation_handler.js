@@ -237,15 +237,13 @@ DesktopAutomationHandler.prototype = {
         global.backgroundObj.mode === ChromeVoxMode.CLASSIC)
       return;
 
-    if (!evt.target.state.focused)
-      return;
-
     // Value change events fire on web text fields and text areas when pressing
     // enter; suppress them.
     if (!global.backgroundObj.currentRange ||
         evt.target.role != RoleType.textField) {
-      this.onEventDefault(evt);
-      global.backgroundObj.currentRange = cursors.Range.fromNode(evt.target);
+      var range = cursors.Range.fromNode(evt.target);
+      new Output().withSpeechAndBraille(range, range, evt.type)
+          .go();
     }
   },
 
