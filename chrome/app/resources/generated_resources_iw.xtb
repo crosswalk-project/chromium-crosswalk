@@ -438,7 +438,7 @@
 <translation id="1596174774107741586">‏השתמש בשרתי ארגז החול של Google Payments</translation>
 <translation id="1598233202702788831">מנהל המערכת השבית את העדכונים.</translation>
 <translation id="1598604884989842103">‏הפעל את ממשק המשתמש של הגדלת TouchView לבדיקה</translation>
-<translation id="1600857548979126453">להיכנס לניקוי הבאגים העורפי של הדף</translation>
+<translation id="1600857548979126453">להיכנס לניפוי הבאגים העורפי של הדף</translation>
 <translation id="1601560923496285236">החל</translation>
 <translation id="1603914832182249871">(גלישה בסתר)</translation>
 <translation id="1607220950420093847">ייתכן שהחשבון שלך נמחק או הושבת. צא מהחשבון.</translation>
@@ -465,7 +465,7 @@
 <translation id="1639239467298939599">טוען</translation>
 <translation id="1640283014264083726">‏PKCS #1 MD4 עם הצפנת RSA</translation>
 <translation id="1640694374286790050">הפעל את האפשרות 'נקה מונים של נתוני גלישה'.</translation>
-<translation id="1642494467033190216">‏דרושות הסרה של הגנת rootfs והפעלה מחדש לפני שתפעיל תכונות אחרות של איתור באגים.</translation>
+<translation id="1642494467033190216">‏דרושות הסרה של הגנת rootfs והפעלה מחדש לפני שתפעיל תכונות אחרות של ניפוי באגים.</translation>
 <translation id="1644574205037202324">היסטוריה</translation>
 <translation id="1645228020260124617"><ph name="PRECENTAGE" />%</translation>
 <translation id="1646136617204068573">מקלדת הונגרית</translation>
@@ -754,7 +754,7 @@
 <translation id="2090876986345970080">הגדרה של אבטחת מערכת</translation>
 <translation id="2097372108957554726">‏עליך להיכנס מחדש ל-Chrome כדי לרשום מכשירים חדשים</translation>
 <translation id="2098305189700762159">לא נמצא</translation>
-<translation id="2099172618127234427">‏אתה מאפשר תכונות איתור באגים במערכת ההפעלה של Chrome שיגדירו sshd daemon ויאפשרו אתחול מכונני USB.</translation>
+<translation id="2099172618127234427">‏אתה מאפשר תכונות ניפוי באגים במערכת ההפעלה של Chrome שיגדירו sshd daemon ויאפשרו אתחול מכונני USB.</translation>
 <translation id="2099686503067610784">למחוק את אישור השרת "<ph name="CERTIFICATE_NAME" />"?</translation>
 <translation id="2100273922101894616">כניסה אוטומטית</translation>
 <translation id="210116126541562594">נחסם כברירת מחדל</translation>
@@ -1259,7 +1259,7 @@
 <translation id="2803306138276472711">‏לאחרונה, 'גלישה בטוחה של Google‏' <ph name="BEGIN_LINK" />זיהתה תוכנה זדונית<ph name="END_LINK" /> באתר <ph name="SITE" />. אתרים שבדרך כלל נחשבים לבטוחים נדבקים לעתים בתוכנה זדונית.</translation>
 <translation id="2803887722080936828">‏<ph name="BEGIN_H3" />תכונות של ניפוי באגים<ph name="END_H3" />
 <ph name="BR" />
-אפשר להפעיל את תכונות ניקוי הבאגים במכשיר ה-Chrome כדי לבצע במכשיר התקנה ובדיקה של קוד בהתאמה אישית. כך תוכל:<ph name="BR" />
+אפשר להפעיל את תכונות ניפוי הבאגים במכשיר ה-Chrome כדי לבצע במכשיר התקנה ובדיקה של קוד בהתאמה אישית. כך תוכל:<ph name="BR" />
 <ph name="BEGIN_LIST" />
 <ph name="LIST_ITEM" />להסיר אימות rootfs כדי לשנות קבצים במערכת ההפעלה
 <ph name="LIST_ITEM" />להפעיל גישת SSH אל המכשיר באמצעות מקשי הבדיקה הרגילים, כדי שתוכל להשתמש בכלים כמו <ph name="BEGIN_CODE" />'cros flash'<ph name="END_CODE" /> על מנת לגשת למכשיר
@@ -1267,10 +1267,10 @@
 <ph name="LIST_ITEM" />להגדיר ערך מותאם אישית עבור סיסמת ההתחברות לשורש המערכת ולערוץ הפיתוח על מנת לגשת אל המכשיר באופן ידני באמצעות SSH
 <ph name="END_LIST" />
 <ph name="BR" />
-לאחר ההפעלה, רוב התכונות של ניקוי הבאגים יישארו פעילות, גם לאחר ביצוע Powerwash או מחיקה של הנתונים במכשיר ארגוני מנוהל. כדי להשבית באופן מלא את כל תכונות ניקוי הבאגים, בצע את תהליך השחזור של מערכת ההפעלה של Chrome‏ (https://support.google.com/chromebook/answer/1080595).
+לאחר ההפעלה, רוב התכונות של ניפוי הבאגים יישארו פעילות, גם לאחר ביצוע Powerwash או מחיקה של הנתונים במכשיר ארגוני מנוהל. כדי להשבית באופן מלא את כל תכונות ניפוי הבאגים, בצע את תהליך השחזור של מערכת ההפעלה של Chrome‏ (https://support.google.com/chromebook/answer/1080595).
 <ph name="BR" />
 <ph name="BR" />
-למידע נוסף על תכונות ניקוי הבאגים, בקר בכתובת:<ph name="BR" />
+למידע נוסף על תכונות ניפוי הבאגים, בקר בכתובת:<ph name="BR" />
 http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-features
 <ph name="BR" />
 <ph name="BR" />
@@ -1324,7 +1324,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="2859369953631715804">בחר רשת לנייד</translation>
 <translation id="2861301611394761800">עדכון המערכת הושלם. הפעל מחדש את המערכת.</translation>
 <translation id="2861941300086904918">‏מנהל האבטחה של Native Client</translation>
-<translation id="2862043554446264826">‏נקה באגים מכל הפריטים מלבד המעטפת המאובטחת ומתרגם PNaCl.</translation>
+<translation id="2862043554446264826">‏נפה באגים  מכל הפריטים מלבד המעטפת המאובטחת ומתרגם PNaCl.</translation>
 <translation id="2867768963760577682">פתח ככרטיסייה מוצמדת</translation>
 <translation id="2868746137289129307">תוסף זה הוא מיושן והושבת בהתאם למדיניות הארגון. ייתכן שהוא יופעל באופן אוטומטי כשתצא גרסה חדשה יותר.</translation>
 <translation id="2868979525648340289">אפשר לאפליקציות מתארחות להיפתח בחלונות במקום להיות מוגבלות אך ורק לכרטיסיות.</translation>
@@ -1647,7 +1647,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="3305389145870741612">תהליך הפרמוט עשוי להימשך מספר שניות. אנא המתן.</translation>
 <translation id="3305661444342691068">‏פתח PDF בתצוגה מקדימה</translation>
 <translation id="3306897190788753224">השבת באופן זמני התאמה אישית של המרה, הצעות המבוססות על היסטוריה ומילון משתמש</translation>
-<translation id="3307950238492803740">נקה שגיאות מהכל.</translation>
+<translation id="3307950238492803740">נפה באגים מהכל.</translation>
 <translation id="3308006649705061278">‏יחידה ארגונית (OU)</translation>
 <translation id="3308116878371095290">‏לא ניתן להגדיר קובצי Cookie לדף זה.</translation>
 <translation id="3308134619352333507">לחצן 'הסתר'</translation>
@@ -3094,7 +3094,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="5355097969896547230">מצא שוב</translation>
 <translation id="5355351445385646029">‏הקש על המקש Space כדי לבחור את המועמד</translation>
 <translation id="5355926466126177564">התוסף "<ph name="EXTENSION_NAME" />" שינה את הדף שמוצג כשאתה מבצע חיפוש מסרגל הכתובות.</translation>
-<translation id="5357579842739549440">מקשי קיצור לתיקון באגים</translation>
+<translation id="5357579842739549440">מקשי קיצור לניפוי באגים</translation>
 <translation id="5359419173856026110">מציג את קצב הפריימים בפועל של הדף, ביחידות של פריימים לשנייה, כאשר האצת החומרה פועלת.</translation>
 <translation id="5360150013186312835">הצג בסרגל הכלים</translation>
 <translation id="5362741141255528695">בחר קובץ מפתח פרטי.</translation>
@@ -3354,7 +3354,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="572328651809341494">כרטיסיות אחרונות</translation>
 <translation id="5723508132121499792">אין יישומים פועלים ברקע</translation>
 <translation id="5725124651280963564">היכנס אל <ph name="TOKEN_NAME" /> כדי ליצור מפתח עבור <ph name="HOST_NAME" />.</translation>
-<translation id="572525680133754531">מעבד גבול מסביב לשכבות עיבוד מאוחדות כדי לסייע בניקוי הבאגים ובחקירה של איחוד השכבות.</translation>
+<translation id="572525680133754531">מעבד גבול מסביב לשכבות עיבוד מאוחדות כדי לסייע בניפוי הבאגים ובחקירה של איחוד השכבות.</translation>
 <translation id="5727728807527375859">‏תוספים, Google Apps ועיצובים עלולים לפגוע במחשב שלך. האם אתה בטוח שברצונך להמשיך?</translation>
 <translation id="5729712731028706266">&amp;הצג</translation>
 <translation id="5729996640881880439">מצטערים, אבל אנו לא יכולים להציג את הקוד עבור השגיאה הזו.</translation>
@@ -3455,13 +3455,13 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="5854409662653665676">אם אתה נתקל בבעיות לעתים קרובות, תוכל לנסות את הפעולות הבאות לפתירת הבעיה במודול זה:</translation>
 <translation id="5854912040170951372">משולש</translation>
 <translation id="5855119960719984315">החלפת חלון</translation>
-<translation id="5856721540245522153">הפעל תכונות לאיתור באגים</translation>
+<translation id="5856721540245522153">הפעל תכונות לניפוי באגים</translation>
 <translation id="5857090052475505287">תיקייה חדשה</translation>
 <translation id="5859272821192576954">‏הכל מוכן ואתה יכול להמשיך ל-Hangouts</translation>
 <translation id="5860033963881614850">כבוי</translation>
 <translation id="5860209693144823476">כרטיסייה 3</translation>
 <translation id="58625595078799656">‏<ph name="PRODUCT_NAME" /> דורש ממך להצפין את הנתונים שלך באמצעות סיסמת Google או משפט-סיסמה משלך.</translation>
-<translation id="5863445608433396414">הפעל תכונות איתור באגים</translation>
+<translation id="5863445608433396414">הפעל תכונות ניפוי באגים</translation>
 <translation id="5865597920301323962">‏קובצי Cookie מ-<ph name="DOMAIN" /> יימחקו בעת היציאה.</translation>
 <translation id="586567932979200359">אתה מפעיל את <ph name="PRODUCT_NAME" /> מתמונת הדיסק שלו. התקנתו במחשב מאפשרת לך להפעיל אותו ללא תמונת הדיסק, ומבטיחה שיישאר מעודכן.</translation>
 <translation id="5866389191145427800">קביעת הגדרת איכות לתמונות שצולמו אם מבוצעת הגדלה של קנה מידה.</translation>
@@ -3747,7 +3747,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="6307722552931206656">‏שרתי השמות של Google‏ - <ph name="BEGIN_LINK" />למידע נוסף<ph name="END_LINK" /></translation>
 <translation id="6307990684951724544">המערכת עמוסה</translation>
 <translation id="6308937455967653460">שמור קישור&amp; בשם...</translation>
-<translation id="6314819609899340042">הפעלת בהצלחה תכונות איתור באגים במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה.</translation>
+<translation id="6314819609899340042">הפעלת בהצלחה תכונות ניפוי באגים במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה.</translation>
 <translation id="6315493146179903667">הבא הכול קדימה</translation>
 <translation id="6316103499056411227">‏קבצים מ-Drive יופיעו בזמן חיפוש במפעיל היישומים של Chrome.</translation>
 <translation id="6316671927443834085">נכשלה ההתנתקות מ-"<ph name="DEVICE_NAME" />".</translation>
@@ -4475,7 +4475,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="7408503041071447390">‏הפעל Bluetooth באינטרנט.</translation>
 <translation id="7409233648990234464">‏הפעל מחדש ובצע Powerwash</translation>
 <translation id="7410344089573941623">שאל אם <ph name="HOST" /> רוצה גישה למצלמה ולמיקרופון</translation>
-<translation id="7410744438574300812">‏אל תציג את סרגל המידע כשתוסף מצורף לדף דרך ממשק ה-API של chrome.debugger. הסימון הזה נדרש על מנת לנקות באגים בדפי רקע של תוסף.</translation>
+<translation id="7410744438574300812">‏אל תציג את סרגל המידע כשתוסף מצורף לדף דרך ממשק ה-API של chrome.debugger. הסימון הזה נדרש על מנת לנפות באגים בדפי רקע של תוסף.</translation>
 <translation id="7412226954991670867">‏זיכרון GPU</translation>
 <translation id="7416362041876611053">שגיאת רשת לא ידועה.</translation>
 <translation id="7417453074306512035">מקלדת אתיופית</translation>
@@ -4568,7 +4568,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="7532099961752278950">הוגדר על ידי היישום:</translation>
 <translation id="7540972813190816353">אירעה שגיאה בעת בדיקת עדכונים: <ph name="ERROR" /></translation>
 <translation id="7541121857749629630">חריגים של תמונה</translation>
-<translation id="7543104066686362383">הפעל תכונות איתור באגים במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה</translation>
+<translation id="7543104066686362383">הפעל תכונות ניפוי באגים במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה</translation>
 <translation id="7545288882499673859">אסטרטגיה של מחיקת זיכרון לטיפול מתקדם בלחץ</translation>
 <translation id="7547317915858803630">אזהרה: הגדרות <ph name="PRODUCT_NAME" /> שלך מאוחסנות בכונן רשת. דבר זה עשוי לגרום להאטות, לקריסות ואפילו לאובדן נתונים.</translation>
 <translation id="7547811415869834682">הולנדית</translation>
@@ -4609,7 +4609,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="7600965453749440009">אל תתרגם לעולם <ph name="LANGUAGE" /></translation>
 <translation id="760197030861754408">כדי להתחבר, עבור אל <ph name="LANDING_PAGE" />.</translation>
 <translation id="7602079150116086782">אין כרטיסיות ממכשירים אחרים</translation>
-<translation id="7603461642606849762">‏נקה באגים רק אם כתובת האתר של המניפסט מסתיימת ב-debug.nmf.</translation>
+<translation id="7603461642606849762">‏נפה באגים  רק אם כתובת האתר של המניפסט מסתיימת ב-debug.nmf.</translation>
 <translation id="760353356052806707">‏תכנית אחרת במחשב הוסיפה יישום שעשוי לשנות את אופן הפעולה של Chrome.
 
 <ph name="EXTENSION_NAME" /></translation>
@@ -5550,7 +5550,7 @@ http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-featur
 <translation id="8942416694471994740">הגישה למיקרופון שלך נשלטת על ידי מנהל המערכת שלך.</translation>
 <translation id="894360074127026135">‏הגברה בינלאומית של Netscape</translation>
 <translation id="8944779739948852228">אותרה מדפסת</translation>
-<translation id="8946359700442089734">תכונות לאיתור באגים לא הופעלו באופן מלא במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה.</translation>
+<translation id="8946359700442089734">תכונות לניפוי באגים לא הופעלו באופן מלא במכשיר <ph name="IDS_SHORT_PRODUCT_NAME" /> זה.</translation>
 <translation id="89515141420106838">‏מפעיל את הגלריה של חנות האינטרנט של Chrome למנהלי התקן למדפסות. היישום מחפש בחנות האינטרנט של Chrome תוספים שתומכים בהדפסה למדפסת USB עם מזהה USB ספציפי.</translation>
 <translation id="895347679606913382">מתחיל...</translation>
 <translation id="8954894007019320973">(המשך)</translation>

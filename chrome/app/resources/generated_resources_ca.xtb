@@ -1814,7 +1814,7 @@ Del domini <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="351152300840026870">Tipus de lletra amb amplada fixa</translation>
 <translation id="3511528412952710609">Curt</translation>
 <translation id="3512284449647229026">Les pàgines que no es puguin carregar quan el navegador estigui fora de línia només es tornaran a carregar automàticament si la seva pestanya és visible.</translation>
-<translation id="3512307528596687562">La pàgina web de <ph name="URL" /> ha donat lloc a massa redireccions. És possible que el problema se solucioni si esborreu les galetes d'aquest lloc, o bé si permeteu les galetes de tercers. Si això no funciona, és possible que es tracti d'un error de configuració del servidor i no del vostre dispositiu.</translation>
+<translation id="3512307528596687562">La pàgina web de <ph name="URL" /> ha donat lloc a massa redireccions. És possible que el problema se solucioni si esborreu les galetes d'aquest lloc, o bé si permeteu les galetes de tercers. Si això no funciona, és possible que es tracti d'un error de configuració del servidor i no d'un problema relacionat amb el vostre dispositiu.</translation>
 <translation id="3512410469020716447">{NUM_DOWNLOAD,plural, =1{Cancel·la la baixada}other{Cancel·la les baixades}}</translation>
 <translation id="3512810056947640266">URL (opcional):</translation>
 <translation id="351486934407749662">molt llarg</translation>
@@ -1959,7 +1959,7 @@ Del domini <ph name="DOWNLOAD_DOMAIN" /></translation>
         <ph name="LINE_BREAK" />
         Si creieu que aquest comportament no és correcte, per exemple, perquè esteu depurant el vostre propi lloc web,
         visiteu <ph name="URL_FOR_MORE_INFO" />,
-        on podreu trobar més informació, inclosa la manera de desactivar la funció.</translation>
+        on podreu trobar més informació, com ara els passos que heu de seguir per desactivar la funció.</translation>
 <translation id="3685122418104378273">La sincronització amb Google Drive està desactivada de manera predeterminada en utilitzar les dades mòbils.</translation>
 <translation id="3685387984467886507">Es recordaran les decisions relacionades amb els errors de SSL durant un període de temps especificat.</translation>
 <translation id="3687701603889589626">Activa l'execució d'extensions en URL chrome:// quan les extensions sol·licitin de manera explícita aquest permís.</translation>
@@ -3485,8 +3485,7 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="5895138241574237353">Reinicia</translation>
 <translation id="5895187275912066135">Emès el</translation>
 <translation id="589737135092634133">Comproveu la configuració del servidor intermediari o contacteu amb l'administrador de la xarxa per
-          assegurar-vos que el servidor intermediari estigui en funcionament. Si no creieu que sigui necessari
-          utilitzar un servidor intermediari:
+assegurar-vos que el servidor intermediari funcioni correctament. Si creieu que no és necessari utilitzar un servidor intermediari: 
           <ph name="PLATFORM_TEXT" /></translation>
 <translation id="5898154795085152510">El servidor ha retornat un certificat de client no vàlid. Error <ph name="ERROR_NUMBER" /> (<ph name="ERROR_NAME" />).</translation>
 <translation id="5900302528761731119">Foto del perfil de Google</translation>
@@ -3567,7 +3566,7 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="602251597322198729">Aquest lloc està intentant baixar diversos fitxers. Vols permetre-ho?</translation>
 <translation id="6022526133015258832">Obre en pantalla completa</translation>
 <translation id="602369534869631690">Desactiva aquestes notificacions</translation>
-<translation id="6025215716629925253">Trama d'apilament</translation>
+<translation id="6025215716629925253">Seguiment de la pila</translation>
 <translation id="6032912588568283682">Sistema de fitxers</translation>
 <translation id="60357267506638014">QWERTY txec</translation>
 <translation id="6039651071822577588">El diccionari de propietat de xarxa no està ben format</translation>
@@ -4143,7 +4142,7 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="6914291514448387591">Es requereix el vostre permís per executar <ph name="PLUGIN_NAME" /></translation>
 <translation id="6915804003454593391">Usuari:</translation>
 <translation id="6916590542764765824">Gestiona les extensions</translation>
-<translation id="6920653475274831310">La pàgina web de <ph name="URL" /> ha fet que hi hagi massa redireccions. És possible que el problema se solucioni si esborreu les galetes d'aquest lloc o bé si permeteu les galetes de tercers. Si això no funciona, és possible que es tracti d'un error de configuració del servidor i que el vostre equip no tingui cap problema.</translation>
+<translation id="6920653475274831310">La pàgina web de <ph name="URL" /> ha fet que hi hagi massa redireccions. És possible que el problema se solucioni si esborreu les galetes d'aquest lloc o bé si permeteu les galetes de tercers. Si això no funciona, és possible que es tracti d'un error de configuració del servidor i no d'un problema relacionat amb l'ordinador.</translation>
 <translation id="6920989436227028121">Obre-ho com a pestanya normal</translation>
 <translation id="6922128026973287222">Deseu les dades i agilitzeu la navegació amb Economitzador de dades de Google. Feu clic per obtenir més informació.</translation>
 <translation id="6928441285542626375">Activa TCP Fast Open</translation>
@@ -4436,8 +4435,8 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="7348093485538360975">Teclat en pantalla</translation>
 <translation id="7352651011704765696">S'ha produït un error</translation>
 <translation id="7353651168734309780"><ph name="EXTENSION_NAME" /> necessita permisos nous</translation>
-<translation id="7357661729054396567">L'opció de navegar per Internet estarà desactivada fins que no hagi finalitzat la prova de verificació de la inscripció empresarial.
-        Podeu continuar utilitzant l'eina de diagnòstic que us mostrem aquí per resoldre els problemes amb la connectivitat.</translation>
+<translation id="7357661729054396567">S'ha desactivat l'opció de navegar per Internet fins que no hagi finalitzat la verificació del registre d'empreses.
+Podeu continuar utilitzant l'eina de diagnòstic que us mostrem aquí per resoldre els problemes de connectivitat.</translation>
 <translation id="7361039089383199231">$1 bytes</translation>
 <translation id="736108944194701898">Velocitat del ratolí:</translation>
 <translation id="7361824946268431273">L'equip més ràpid, senzill i segur</translation>
