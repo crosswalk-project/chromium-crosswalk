@@ -3401,8 +3401,6 @@ const GLRenderer::VideoYUVAProgram* GLRenderer::GetVideoYUVAProgram(
 
 const GLRenderer::VideoStreamTextureProgram*
 GLRenderer::GetVideoStreamTextureProgram(TexCoordPrecision precision) {
-  if (!Capabilities().using_egl_image)
-    return NULL;
   DCHECK_GE(precision, 0);
   DCHECK_LE(precision, LAST_TEX_COORD_PRECISION);
   VideoStreamTextureProgram* program =
