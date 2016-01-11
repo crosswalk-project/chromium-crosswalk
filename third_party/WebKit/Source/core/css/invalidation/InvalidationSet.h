@@ -56,10 +56,8 @@ enum InvalidationType {
 class CORE_EXPORT InvalidationSet : public RefCounted<InvalidationSet> {
     WTF_MAKE_NONCOPYABLE(InvalidationSet);
 public:
-    virtual ~InvalidationSet() {}
-
-    virtual bool isDescendantInvalidationSet() const { return false; }
-    virtual bool isSiblingInvalidationSet() const { return false; }
+    bool isDescendantInvalidationSet() const { return m_type == InvalidateDescendants; }
+    bool isSiblingInvalidationSet() const { return m_type == InvalidateSiblings; }
 
     static void cacheTracingFlag();
 
@@ -98,12 +96,21 @@ public:
     const HashSet<AtomicString>& tagNameSetForTesting() const { ASSERT(m_tagNames); return *m_tagNames; }
     const HashSet<AtomicString>& attributeSetForTesting() const { ASSERT(m_attributes); return *m_attributes; }
 
+    void deref()
+    {
+        if (!derefBase())
+            return;
+        destroy();
+    }
+
 protected:
-    InvalidationSet();
+    InvalidationSet(InvalidationType);
 
     void combine(const InvalidationSet& other);
 
 private:
+    void destroy();
+
     HashSet<AtomicString>& ensureClassSet();
     HashSet<AtomicString>& ensureIdSet();
     HashSet<AtomicString>& ensureTagNameSet();
@@ -114,6 +121,8 @@ private:
     OwnPtr<HashSet<AtomicString>> m_ids;
     OwnPtr<HashSet<AtomicString>> m_tagNames;
     OwnPtr<HashSet<AtomicString>> m_attributes;
+
+    unsigned m_type : 1;
 
     // If true, all descendants might be invalidated, so a full subtree recalc is required.
     unsigned m_allDescendantsMightBeInvalid : 1;
@@ -138,15 +147,14 @@ public:
         return adoptRef(new DescendantInvalidationSet);
     }
 
-    bool isDescendantInvalidationSet() const final { return true; }
-
     void combine(const DescendantInvalidationSet& other)
     {
         InvalidationSet::combine(other);
     }
 
 private:
-    DescendantInvalidationSet() {}
+    DescendantInvalidationSet()
+        : InvalidationSet(InvalidateDescendants) {}
 };
 
 class CORE_EXPORT SiblingInvalidationSet final : public InvalidationSet {
@@ -155,8 +163,6 @@ public:
     {
         return adoptRef(new SiblingInvalidationSet);
     }
-
-    bool isSiblingInvalidationSet() const final { return true; }
 
     void combine(const SiblingInvalidationSet& other);
 
