@@ -2309,6 +2309,10 @@ void RenderWidgetHostViewMac::OnDisplayMetricsChanged(
     [NSCursor setHiddenUntilMouseMoves:YES];
 }
 
+- (void)forceTouchEvent:(NSEvent*)theEvent {
+  [self quickLookWithEvent:theEvent];
+}
+
 - (void)shortCircuitScrollWheelEvent:(NSEvent*)event {
   DCHECK(base::mac::IsOSLionOrLater());
 
