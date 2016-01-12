@@ -896,7 +896,6 @@ public class ImeTest extends ContentShellTestBase {
             @Override
             public boolean isSatisfied() {
                 String actualText = (String) mConnection.getTextBeforeCursor(1, 0);
-                updateFailureReason("actualText: " + actualText);
                 return expectedText.equals(actualText);
             }
         });
