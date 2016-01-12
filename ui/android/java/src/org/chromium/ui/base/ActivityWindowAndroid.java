@@ -7,6 +7,7 @@ package org.chromium.ui.base;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentSender.SendIntentException;
 import android.content.SharedPreferences;
@@ -41,7 +42,6 @@ public class ActivityWindowAndroid
 
     private static final String PERMISSION_QUERIED_KEY_PREFIX = "HasRequestedAndroidPermission::";
 
-    private final WeakReference<Activity> mActivityRef;
     private final Handler mHandler;
     private final SparseArray<PermissionCallback> mOutstandingPermissionRequests;
 
@@ -51,20 +51,23 @@ public class ActivityWindowAndroid
      * Creates an Activity-specific WindowAndroid with associated intent functionality.
      * TODO(jdduke): Remove this overload when all callsites have been updated to
      * indicate their activity state listening preference.
-     * @param activity The activity associated with the WindowAndroid.
+     * @param context Context wrapping an activity associated with the WindowAndroid.
      */
-    public ActivityWindowAndroid(Activity activity) {
-        this(activity, true);
+    public ActivityWindowAndroid(Context context) {
+        this(context, true);
     }
 
     /**
      * Creates an Activity-specific WindowAndroid with associated intent functionality.
-     * @param activity The activity associated with the WindowAndroid.
+     * @param context Context wrapping an activity associated with the WindowAndroid.
      * @param listenToActivityState Whether to listen to activity state changes.
      */
-    public ActivityWindowAndroid(Activity activity, boolean listenToActivityState) {
-        super(activity.getApplicationContext());
-        mActivityRef = new WeakReference<Activity>(activity);
+    public ActivityWindowAndroid(Context context, boolean listenToActivityState) {
+        super(context);
+        Activity activity = activityFromContext(context);
+        if (activity == null) {
+            throw new IllegalArgumentException("Context is not and does not wrap an Activity");
+        }
         mHandler = new Handler();
         mOutstandingPermissionRequests = new SparseArray<PermissionCallback>();
         if (listenToActivityState) {
@@ -76,16 +79,16 @@ public class ActivityWindowAndroid
 
     @Override
     protected void registerKeyboardVisibilityCallbacks() {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         if (activity == null) return;
         View content = activity.findViewById(android.R.id.content);
-        mIsKeyboardShowing = UiUtils.isKeyboardShowing(mActivityRef.get(), content);
+        mIsKeyboardShowing = UiUtils.isKeyboardShowing(getActivity().get(), content);
         content.addOnLayoutChangeListener(this);
     }
 
     @Override
     protected void unregisterKeyboardVisibilityCallbacks() {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         if (activity == null) return;
         activity.findViewById(android.R.id.content).removeOnLayoutChangeListener(this);
     }
@@ -93,7 +96,7 @@ public class ActivityWindowAndroid
     @Override
     public int showCancelableIntent(
             PendingIntent intent, IntentCallback callback, Integer errorId) {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         if (activity == null) return START_INTENT_FAILURE;
 
         int requestCode = generateNextRequestCode();
@@ -111,7 +114,7 @@ public class ActivityWindowAndroid
 
     @Override
     public int showCancelableIntent(Intent intent, IntentCallback callback, Integer errorId) {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         if (activity == null) return START_INTENT_FAILURE;
 
         int requestCode = generateNextRequestCode();
@@ -128,7 +131,7 @@ public class ActivityWindowAndroid
 
     @Override
     public void cancelIntent(int requestCode) {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         if (activity == null) return;
         activity.finishActivity(requestCode);
     }
@@ -190,7 +193,7 @@ public class ActivityWindowAndroid
      */
     public boolean onRequestPermissionsResult(int requestCode, String[] permissions,
             int[] grantResults) {
-        Activity activity = mActivityRef.get();
+        Activity activity = getActivity().get();
         assert activity != null;
 
         SharedPreferences.Editor editor =
@@ -209,8 +212,7 @@ public class ActivityWindowAndroid
 
     @Override
     public WeakReference<Activity> getActivity() {
-        // Return a new WeakReference to prevent clients from releasing our internal WeakReference.
-        return new WeakReference<Activity>(mActivityRef.get());
+        return new WeakReference<Activity>(activityFromContext(getContext().get()));
     }
 
     @Override
@@ -225,7 +227,7 @@ public class ActivityWindowAndroid
     @Override
     public void onLayoutChange(View v, int left, int top, int right, int bottom, int oldLeft,
             int oldTop, int oldRight, int oldBottom) {
-        keyboardVisibilityPossiblyChanged(UiUtils.isKeyboardShowing(mActivityRef.get(), v));
+        keyboardVisibilityPossiblyChanged(UiUtils.isKeyboardShowing(getActivity().get(), v));
     }
 
     private int generateNextRequestCode() {
@@ -251,7 +253,7 @@ public class ActivityWindowAndroid
         public boolean canRequestPermission(String permission) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
 
-            Activity activity = mActivityRef.get();
+            Activity activity = getActivity().get();
             if (activity == null) return false;
 
             if (isPermissionRevokedByPolicy(permission)) {
@@ -275,7 +277,7 @@ public class ActivityWindowAndroid
         public boolean isPermissionRevokedByPolicy(String permission) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
 
-            Activity activity = mActivityRef.get();
+            Activity activity = getActivity().get();
             if (activity == null) return false;
 
             return activity.getPackageManager().isPermissionRevokedByPolicy(
@@ -311,7 +313,7 @@ public class ActivityWindowAndroid
         private boolean requestPermissionsInternal(
                 String[] permissions, PermissionCallback callback) {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) return false;
-            Activity activity = mActivityRef.get();
+            Activity activity = getActivity().get();
             if (activity == null) return false;
 
             int requestCode = generateNextRequestCode();

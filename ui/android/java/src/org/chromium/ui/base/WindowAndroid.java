@@ -12,6 +12,7 @@ import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.ContentResolver;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -77,6 +78,8 @@ public class WindowAndroid {
 
     protected Context mApplicationContext;
     protected SparseArray<IntentCallback> mOutstandingIntents;
+    // We use a weak reference here to prevent this from leaking in WebView.
+    private WeakReference<Context> mContextRef;
 
     // Ideally, this would be a SparseArray<String>, but there's no easy way to store a
     // SparseArray<String> in a bundle during saveInstanceState(). So we use a HashMap and suppress
@@ -123,6 +126,24 @@ public class WindowAndroid {
     };
 
     /**
+     * Extract the activity if the given Context either is or wraps one.
+     * Only retrieve the base context if the supplied context is a {@link ContextWrapper} but not
+     * an Activity, given that Activity is already a subclass of ContextWrapper.
+     * @param context The context to check.
+     * @return The {@link Activity} that is extracted through the given Context.
+     */
+    public static Activity activityFromContext(Context context) {
+        if (context instanceof Activity) {
+            return ((Activity) context);
+        } else if (context instanceof ContextWrapper) {
+            context = ((ContextWrapper) context).getBaseContext();
+            return activityFromContext(context);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * @return true if onVSync handler is executing.
      *
      * @see org.chromium.ui.VSyncMonitor#isInsideVSync()
@@ -136,13 +157,20 @@ public class WindowAndroid {
      */
     @SuppressLint("UseSparseArrays")
     public WindowAndroid(Context context) {
-        assert context == context.getApplicationContext();
-        mApplicationContext = context;
+        mApplicationContext = context.getApplicationContext();
+        // context does not have the same lifetime guarantees as an application context so we can't
+        // hold a strong reference to it.
+        mContextRef = new WeakReference<Context>(context);
         mOutstandingIntents = new SparseArray<IntentCallback>();
         mIntentErrors = new HashMap<Integer, String>();
         mVSyncMonitor = new VSyncMonitor(context, mVSyncListener);
-        mAccessibilityManager = (AccessibilityManager)
-                context.getSystemService(Context.ACCESSIBILITY_SERVICE);
+        mAccessibilityManager = (AccessibilityManager) mApplicationContext.getSystemService(
+                Context.ACCESSIBILITY_SERVICE);
+    }
+
+    @CalledByNative
+    private static WindowAndroid createForTesting(Context context) {
+        return new WindowAndroid(context);
     }
 
     /**
@@ -581,6 +609,16 @@ public class WindowAndroid {
                 refreshWillNotDraw();
             }
         });
+    }
+
+    /**
+     * Getter for the current context (not necessarily the application context).
+     * Make no assumptions regarding what type of Context is returned here, it could be for example
+     * an Activity or a Context created specifically to target an external display.
+     */
+    public WeakReference<Context> getContext() {
+        // Return a new WeakReference to prevent clients from releasing our internal WeakReference.
+        return new WeakReference<Context>(mContextRef.get());
     }
 
     /**
