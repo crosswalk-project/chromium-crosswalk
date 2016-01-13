@@ -354,7 +354,7 @@ void MemoryCache::pruneDeadResources(PruneStrategy strategy)
             }
             // Decoded data may reference other resources. Stop iterating if 'previous' somehow got
             // kicked out of cache during destroyDecodedData().
-            if (!previous || !previous->m_resource || !contains(previous->m_resource.get()))
+            if (previous && !contains(previous->m_resource.get()))
                 break;
             current = previous;
         }
@@ -374,7 +374,7 @@ void MemoryCache::pruneDeadResources(PruneStrategy strategy)
                 if (targetSize && m_deadSize <= targetSize)
                     return;
             }
-            if (!previous || !previous->m_resource || !contains(previous->m_resource.get()))
+            if (previous && !contains(previous->m_resource.get()))
                 break;
             current = previous;
         }
@@ -791,15 +791,6 @@ void MemoryCache::onMemoryDump(WebMemoryDumpLevelOfDetail levelOfDetail, WebProc
             resource->onMemoryDump(levelOfDetail, memoryDump);
         }
     }
-}
-
-bool MemoryCache::isInSameLRUListForTest(const Resource* x, const Resource* y)
-{
-    MemoryCacheEntry* ex = getEntryForResource(x);
-    MemoryCacheEntry* ey = getEntryForResource(y);
-    ASSERT(ex);
-    ASSERT(ey);
-    return lruListFor(ex->m_accessCount, x->size()) == lruListFor(ey->m_accessCount, y->size());
 }
 
 void MemoryCache::registerLiveResource(Resource& resource)

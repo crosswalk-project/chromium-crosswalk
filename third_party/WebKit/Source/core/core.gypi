@@ -3775,7 +3775,6 @@
             'css/CSSCalculationValueTest.cpp',
             'css/CSSFontFaceTest.cpp',
             'css/CSSSelectorTest.cpp',
-            'css/CSSStyleSheetResourceTest.cpp',
             'css/CSSTestHelper.cpp',
             'css/CSSTestHelper.h',
             'css/CSSValueTestHelper.h',
