@@ -237,6 +237,7 @@ public:
     // Take memory usage snapshot for tracing.
     void onMemoryDump(WebMemoryDumpLevelOfDetail, WebProcessMemoryDump*);
 
+    bool isInSameLRUListForTest(const Resource*, const Resource*);
 private:
     enum PruneStrategy {
         // Automatically decide how much to prune.
