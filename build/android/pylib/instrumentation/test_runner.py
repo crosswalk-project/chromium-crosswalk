@@ -363,7 +363,7 @@ class TestRunner(base_test_runner.BaseTestRunner):
                self._GetIndividualTestTimeoutScale(test) *
                self.tool.GetTimeoutScale())
     if (self.device.build_version_sdk
-        < constants.ANDROID_SDK_VERSION_CODES.JELLY_BEAN):
+        < constants.version_codes.JELLY_BEAN):
       timeout *= 10
 
     cmdline_parameters = self._GetTestCmdlineParameters(test)
