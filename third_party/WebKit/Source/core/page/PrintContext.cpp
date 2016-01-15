@@ -244,7 +244,7 @@ void PrintContext::outputLinkedDestinations(GraphicsContext& context, const IntR
         if (!layoutObject || !layoutObject->frameView())
             continue;
         IntRect boundingBox = layoutObject->absoluteBoundingBoxRect();
-        IntPoint point = layoutObject->frameView()->convertToRootFrame(boundingBox.location());
+        IntPoint point = layoutObject->frameView()->convertToContainingWindow(boundingBox.location());
         if (!pageRect.contains(point))
             continue;
         point.clampNegativeToZero();
