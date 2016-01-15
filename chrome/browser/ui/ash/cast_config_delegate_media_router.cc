@@ -121,12 +121,6 @@ bool CastConfigDelegateMediaRouter::HasCastExtension() const {
   return true;
 }
 
-CastConfigDelegateMediaRouter::DeviceUpdateSubscription
-CastConfigDelegateMediaRouter::RegisterDeviceUpdateObserver(
-    const ReceiversAndActivitesCallback& callback) {
-  return callback_list_.Add(callback);
-}
-
 void CastConfigDelegateMediaRouter::RequestDeviceRefresh() {
   // The media router component isn't ready yet.
   if (!devices())
@@ -177,7 +171,8 @@ void CastConfigDelegateMediaRouter::RequestDeviceRefresh() {
     }
   }
 
-  callback_list_.Notify(items);
+  FOR_EACH_OBSERVER(ash::CastConfigDelegate::Observer, observer_list_,
+                    OnDevicesUpdated(items));
 }
 
 void CastConfigDelegateMediaRouter::CastToReceiver(
@@ -198,3 +193,13 @@ bool CastConfigDelegateMediaRouter::HasOptions() const {
 }
 
 void CastConfigDelegateMediaRouter::LaunchCastOptions() {}
+
+void CastConfigDelegateMediaRouter::AddObserver(
+    ash::CastConfigDelegate::Observer* observer) {
+  observer_list_.AddObserver(observer);
+}
+
+void CastConfigDelegateMediaRouter::RemoveObserver(
+    ash::CastConfigDelegate::Observer* observer) {
+  observer_list_.RemoveObserver(observer);
+}
