@@ -2,6 +2,8 @@
 # Use of this source code is governed by a BSD-style license that can be
 # found in the LICENSE file.
 
+from pylib import constants
+
 
 class ContentSettings(dict):
 
@@ -13,7 +15,7 @@ class ContentSettings(dict):
   def __init__(self, table, device):
     super(ContentSettings, self).__init__()
     assert (device.build_version_sdk
-            >= constants.ANDROID_SDK_VERSION_CODES.JELLY_BEAN), (
+            >= constants.version_codes.JELLY_BEAN), (
         'ContentSettings supported only on SDK 16 and later')
     self._table = table
     self._device = device
