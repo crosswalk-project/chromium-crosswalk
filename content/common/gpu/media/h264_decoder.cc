@@ -1359,7 +1359,8 @@ H264Decoder::DecodeResult H264Decoder::Decode() {
         if (!ProcessSPS(sps_id, &need_new_buffers))
           SET_ERROR_AND_RETURN();
 
-        state_ = kDecoding;
+        if (state_ == kNeedStreamMetadata)
+          state_ = kAfterReset;
 
         if (need_new_buffers) {
           if (!Flush())
@@ -1377,9 +1378,6 @@ H264Decoder::DecodeResult H264Decoder::Decode() {
       }
 
       case media::H264NALU::kPPS: {
-        if (state_ != kDecoding)
-          break;
-
         int pps_id;
 
         if (!FinishPrevFrameIfPresent())
