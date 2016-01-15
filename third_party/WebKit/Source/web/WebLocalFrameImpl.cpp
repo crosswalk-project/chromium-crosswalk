@@ -374,7 +374,6 @@ public:
 
         float scale = spoolPage(pictureBuilder.context(), pageNumber);
         pictureBuilder.endRecording()->playback(canvas);
-        outputLinkedDestinations(canvas, pageRect);
         return scale;
     }
 
@@ -402,7 +401,7 @@ public:
         GraphicsContext& context = pictureBuilder.context();
 
         // Fill the whole background by white.
-        if (!DrawingRecorder::useCachedDrawingIfPossible(context, *this, DisplayItem::PrintedContentBackground)) {
+        {
             DrawingRecorder backgroundRecorder(context, *this, DisplayItem::PrintedContentBackground, allPagesRect);
             context.fillRect(FloatRect(0, 0, pageWidth, totalHeight), Color::white);
         }
@@ -411,7 +410,7 @@ public:
         for (size_t pageIndex = 0; pageIndex < numPages; pageIndex++) {
             ScopeRecorder scopeRecorder(context);
             // Draw a line for a page boundary if this isn't the first page.
-            if (pageIndex > 0 && !DrawingRecorder::useCachedDrawingIfPossible(context, *this, DisplayItem::PrintedContentLineBoundary)) {
+            if (pageIndex > 0) {
                 DrawingRecorder lineBoundaryRecorder(context, *this, DisplayItem::PrintedContentLineBoundary, allPagesRect);
                 context.save();
                 context.setStrokeColor(Color(0, 0, 255));
@@ -434,7 +433,6 @@ public:
             currentHeight += pageSizeInPixels.height() + 1;
         }
         pictureBuilder.endRecording()->playback(canvas);
-        outputLinkedDestinations(canvas, allPagesRect);
     }
 
     DisplayItemClient displayItemClient() const { return toDisplayItemClient(this); }
@@ -462,6 +460,11 @@ protected:
         ClipRecorder clipRecorder(context, *this, DisplayItem::ClipPrintedPage, LayoutRect(pageRect));
 
         frame()->view()->paintContents(&context, GlobalPaintNormalPhase, pageRect);
+
+        {
+            DrawingRecorder lineBoundaryRecorder(context, *this, DisplayItem::PrintedContentDestinationLocations, pageRect);
+            outputLinkedDestinations(context, pageRect);
+        }
 
         return scale;
     }
