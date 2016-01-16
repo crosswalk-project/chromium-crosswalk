@@ -52,6 +52,7 @@ ToolbarActionsModel::ToolbarActionsModel(
       use_redesign_(extensions::FeatureSwitch::extension_action_redesign()
                         ->IsEnabled()),
       highlight_type_(HIGHLIGHT_NONE),
+      highlighting_for_toolbar_redesign_(false),
       extension_action_observer_(this),
       extension_registry_observer_(this),
       weak_ptr_factory_(this) {
@@ -258,6 +259,7 @@ void ToolbarActionsModel::OnReady() {
 
   if (ExtensionToolbarIconSurfacingBubbleDelegate::ShouldShowForProfile(
           profile_)) {
+    highlighting_for_toolbar_redesign_ = true;
     std::vector<std::string> ids;
     for (const ToolbarItem& action : toolbar_items_)
       ids.push_back(action.id);
@@ -742,6 +744,7 @@ bool ToolbarActionsModel::HighlightActions(const std::vector<std::string>& ids,
 
 void ToolbarActionsModel::StopHighlighting() {
   if (is_highlighting()) {
+    highlighting_for_toolbar_redesign_ = false;
     // It's important that is_highlighting_ is changed immediately before the
     // observers are notified since it changes the result of toolbar_items().
     highlight_type_ = HIGHLIGHT_NONE;
