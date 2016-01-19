@@ -490,6 +490,7 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
 
 - (void)stopLoading {
   _stoppedWKNavigation.reset(_latestWKNavigation);
+  [super stopLoading];
 }
 
 #pragma mark -
