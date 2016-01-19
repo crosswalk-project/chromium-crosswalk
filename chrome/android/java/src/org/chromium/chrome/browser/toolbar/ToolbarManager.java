@@ -378,6 +378,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
             public void onWebContentsSwapped(Tab tab, boolean didStartLoad, boolean didFinishLoad) {
                 if (!didStartLoad) return;
                 mLocationBar.setUrlToPageUrl();
+                mLocationBar.updateSecurityIcon(tab.getSecurityLevel());
                 if (didFinishLoad) {
                     mLoadProgressSimulator.start();
                 }
