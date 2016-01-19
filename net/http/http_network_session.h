@@ -7,6 +7,7 @@
 
 #include <set>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 #include "base/basictypes.h"
@@ -173,6 +174,9 @@ class NET_EXPORT HttpNetworkSession
     QuicTagVector quic_connection_options;
     // If true, all QUIC sessions are closed when any local IP address changes.
     bool quic_close_sessions_on_ip_change;
+    // List of hosts for which QUIC is explicitly whitelisted.
+    std::unordered_set<std::string> quic_host_whitelist;
+
     ProxyDelegate* proxy_delegate;
   };
 

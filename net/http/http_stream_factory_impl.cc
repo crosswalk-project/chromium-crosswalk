@@ -8,11 +8,13 @@
 
 #include "base/logging.h"
 #include "base/stl_util.h"
+#include "base/strings/string_util.h"
 #include "net/base/net_util.h"
 #include "net/http/http_network_session.h"
 #include "net/http/http_server_properties.h"
 #include "net/http/http_stream_factory_impl_job.h"
 #include "net/http/http_stream_factory_impl_request.h"
+#include "net/http/transport_security_state.h"
 #include "net/log/net_log.h"
 #include "net/spdy/spdy_http_stream.h"
 #include "url/gurl.h"
@@ -215,6 +217,9 @@ AlternativeServiceVector HttpStreamFactoryImpl::GetAlternativeServicesFor(
       continue;
     }
 
+    if (!IsQuicWhitelistedForHost(alternative_service.host_port_pair().host()))
+      continue;
+
     enabled_alternative_service_vector.push_back(alternative_service);
   }
   return enabled_alternative_service_vector;
@@ -280,6 +285,14 @@ void HttpStreamFactoryImpl::OnPreconnectsComplete(const Job* job) {
   preconnect_job_set_.erase(job);
   delete job;
   OnPreconnectsCompleteInternal();
+}
+
+bool HttpStreamFactoryImpl::IsQuicWhitelistedForHost(const std::string& host) {
+  if (session_->params().transport_security_state->IsGooglePinnedHost(host))
+    return true;
+
+  return ContainsKey(session_->params().quic_host_whitelist,
+                     base::ToLowerASCII(host));
 }
 
 }  // namespace net
