@@ -988,7 +988,8 @@ bool PrintWebViewHelper::GetPrintFrame(blink::WebLocalFrame** frame) {
 
 #if defined(ENABLE_BASIC_PRINTING)
 void PrintWebViewHelper::OnPrintPages() {
-  CHECK_LE(ipc_nesting_level_, 1);
+  if (ipc_nesting_level_> 1)
+    return;
   blink::WebLocalFrame* frame;
   if (!GetPrintFrame(&frame))
     return;
@@ -999,7 +1000,8 @@ void PrintWebViewHelper::OnPrintPages() {
 }
 
 void PrintWebViewHelper::OnPrintForSystemDialog() {
-  CHECK_LE(ipc_nesting_level_, 1);
+  if (ipc_nesting_level_> 1)
+    return;
   blink::WebLocalFrame* frame = print_preview_context_.source_frame();
   if (!frame) {
     NOTREACHED();
@@ -1041,7 +1043,8 @@ bool PrintWebViewHelper::IsPrintToPdfRequested(
 }
 
 void PrintWebViewHelper::OnPrintPreview(const base::DictionaryValue& settings) {
-  CHECK_LE(ipc_nesting_level_, 1);
+  if (ipc_nesting_level_ > 1)
+    return;
 
   print_preview_context_.OnPrintPreview();
 
@@ -1229,7 +1232,8 @@ bool PrintWebViewHelper::FinalizePrintReadyDocument() {
 }
 
 void PrintWebViewHelper::OnPrintingDone(bool success) {
-  CHECK_LE(ipc_nesting_level_, 1);
+  if (ipc_nesting_level_ > 1)
+    return;
   notify_browser_of_print_failure_ = false;
   if (!success)
     LOG(ERROR) << "Failure in OnPrintingDone";
@@ -1241,7 +1245,8 @@ void PrintWebViewHelper::SetScriptedPrintBlocked(bool blocked) {
 }
 
 void PrintWebViewHelper::OnInitiatePrintPreview(bool selection_only) {
-  CHECK_LE(ipc_nesting_level_, 1);
+  if (ipc_nesting_level_ > 1)
+    return;
   blink::WebLocalFrame* frame = NULL;
   GetPrintFrame(&frame);
   DCHECK(frame);
