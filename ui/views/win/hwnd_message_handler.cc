@@ -594,6 +594,17 @@ void HWNDMessageHandler::ShowWindowWithState(ui::WindowShowState show_state) {
   }
 
   ShowWindow(hwnd(), native_show_state);
+
+  // Overlap the taskbar and remove the minimize and maximize button in
+  // the title bar for the fullscreen mode.
+  if (native_show_state == SW_SHOWMAXIMIZED) {
+    LONG style = GetWindowLong(hwnd(), GWL_STYLE);
+    SetWindowLong(hwnd(), GWL_STYLE, style & ~(WS_MAXIMIZEBOX |
+        WS_MINIMIZEBOX));
+    SetWindowPos(hwnd(), HWND_TOPMOST, 0, 0, GetSystemMetrics(SM_CXSCREEN),
+        GetSystemMetrics(SM_CYSCREEN), SWP_DRAWFRAME | SWP_FRAMECHANGED);
+  }
+
   // When launched from certain programs like bash and Windows Live Messenger,
   // show_state is set to SW_HIDE, so we need to correct that condition. We
   // don't just change show_state to SW_SHOWNORMAL because MSDN says we must
