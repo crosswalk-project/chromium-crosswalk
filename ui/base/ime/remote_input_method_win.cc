@@ -14,6 +14,7 @@
 #include "base/win/scoped_handle.h"
 #include "ui/base/ime/input_method.h"
 #include "ui/base/ime/input_method_delegate.h"
+#include "ui/base/ime/input_method_log_collector.h"
 #include "ui/base/ime/input_method_observer.h"
 #include "ui/base/ime/remote_input_method_delegate_win.h"
 #include "ui/base/ime/text_input_client.h"
@@ -120,7 +121,8 @@ class RemoteInputMethodWin : public InputMethod,
         text_input_client_(NULL),
         is_candidate_popup_open_(false),
         is_ime_(false),
-        langid_(kFallbackLangID) {
+        langid_(kFallbackLangID),
+        log_collector_(new InputMethodLogCollector()) {
     RegisterInstance(this, this);
   }
 
@@ -329,6 +331,10 @@ class RemoteInputMethodWin : public InputMethod,
     text_input_client_->InsertText(text);
   }
 
+  InputMethodLogCollector* GetLogCollector() override {
+    return log_collector_.get();
+  }
+
   bool CanSendRemoteNotification(
       const TextInputClient* text_input_client) const {
     return text_input_client_ &&
@@ -347,6 +353,7 @@ class RemoteInputMethodWin : public InputMethod,
   bool is_candidate_popup_open_;
   bool is_ime_;
   LANGID langid_;
+  scoped_ptr<InputMethodLogCollector> log_collector_;
 
   DISALLOW_COPY_AND_ASSIGN(RemoteInputMethodWin);
 };
