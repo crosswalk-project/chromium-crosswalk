@@ -2466,7 +2466,7 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         } else {
             if (getWindowAndroid() == null) return;
             Context windowContext = getWindowAndroid().getContext().get();
-            if (WindowAndroid.activityFromContext(windowContext) == null) return;
+            if (windowContext == null) return;
             mSelectPopup = new SelectPopupDialog(
                     this, windowContext, popupItems, multiple, selectedIndices);
         }
