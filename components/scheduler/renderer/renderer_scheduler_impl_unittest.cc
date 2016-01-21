@@ -904,7 +904,7 @@ TEST_F(RendererSchedulerImplTest, Navigation_ResetsTaskCostEstimations) {
 }
 
 TEST_F(RendererSchedulerImplTest,
-       ExpensiveTimersDontRunWhenMainThreadScrolling) {
+       ExpensiveTimersDontRunWhenMainThreadScrolling_DISABLED) {
   std::vector<std::string> run_order;
 
   scheduler_->SetHasVisibleRenderWidgetWithTouchHandler(true);
@@ -937,8 +937,9 @@ TEST_F(RendererSchedulerImplTest,
   EXPECT_THAT(run_order, testing::ElementsAre(std::string("T1")));
 }
 
-TEST_F(RendererSchedulerImplTest,
-       ExpensiveTimersDontRunWhenMainThreadScrolling_AndOnCriticalPath) {
+TEST_F(
+    RendererSchedulerImplTest,
+    ExpensiveTimersDontRunWhenMainThreadScrolling_AndOnCriticalPath_DISABLED) {
   std::vector<std::string> run_order;
 
   scheduler_->SetHasVisibleRenderWidgetWithTouchHandler(true);
@@ -2116,7 +2117,7 @@ TEST_F(RendererSchedulerImplTest, TestRendererBackgroundedTimerSuspension) {
 }
 
 TEST_F(RendererSchedulerImplTest,
-       ExpensiveLoadingTasksNotBlockedTillFirstBeginMainFrame) {
+       ExpensiveLoadingTasksNotBlockedTillFirstBeginMainFrame_DISABLED) {
   std::vector<std::string> run_order;
 
   EnableTaskBlocking();
@@ -2170,7 +2171,7 @@ TEST_F(RendererSchedulerImplTest,
               testing::ElementsAre(std::string("L1"), std::string("D1")));
 }
 
-TEST_F(RendererSchedulerImplTest, ExpensiveTimerTaskBlocked) {
+TEST_F(RendererSchedulerImplTest, ExpensiveTimerTaskBlocked_DISABLED) {
   std::vector<std::string> run_order;
 
   EnableTaskBlocking();
@@ -2220,7 +2221,7 @@ TEST_F(RendererSchedulerImplTest,
 }
 
 TEST_F(RendererSchedulerImplTest,
-       ExpensiveTimerTaskNotBlocked_IfBeginMainFrameNotExpectedSoon) {
+       ExpensiveTimerTaskNotBlocked_IfBeginMainFrameNotExpectedSoon_DISABLED) {
   std::vector<std::string> run_order;
 
   EnableTaskBlocking();
@@ -2247,7 +2248,7 @@ TEST_F(RendererSchedulerImplTest,
 }
 
 TEST_F(RendererSchedulerImplTest,
-       ExpensiveLoadingTasksNotBlockedIfNavigationExpected) {
+       ExpensiveLoadingTasksNotBlockedIfNavigationExpected_DISABLED) {
   std::vector<std::string> run_order;
 
   EnableTaskBlocking();
@@ -2286,7 +2287,7 @@ TEST_F(RendererSchedulerImplTest,
 
 TEST_F(
     RendererSchedulerImplTest,
-    ExpensiveLoadingTasksNotBlockedIfNavigationExpected_MultipleNavigations) {
+    ExpensiveLoadingTasksNotBlockedIfNavigationExpected_MultipleNavigations_DISABLED) {
   std::vector<std::string> run_order;
 
   EnableTaskBlocking();
@@ -2402,7 +2403,7 @@ TEST_F(RendererSchedulerImplTest, ModeratelyExpensiveTimer_NotBlocked) {
   }
 }
 
-TEST_F(RendererSchedulerImplTest, ExpensiveTimer_Blocked) {
+TEST_F(RendererSchedulerImplTest, ExpensiveTimer_Blocked_DISABLED) {
   EnableTaskBlocking();
   scheduler_->SetHasVisibleRenderWidgetWithTouchHandler(true);
   SimulateMainThreadGestureStart(TouchEventPolicy::SEND_TOUCH_START,

@@ -715,6 +715,10 @@ void RendererSchedulerImpl::UpdatePolicyLocked(UpdateType update_type) {
     block_expensive_timer_tasks = false;
   }
 
+  // Expensive task blocking is currently disabled (crbug.com/574343).
+  block_expensive_loading_tasks = false;
+  block_expensive_timer_tasks = false;
+
   // Only block expensive tasks if we have seen a touch start, i.e. don't block
   // expensive timers on desktop because it's causing too many problems with
   // legitimate webcontent using mousehandlers for various things.
