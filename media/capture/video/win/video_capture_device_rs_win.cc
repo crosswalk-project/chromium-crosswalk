@@ -21,15 +21,15 @@ namespace media {
 // Map of color pixel formats of PXCImage::PixelFormat to Chromium ones.
 static const struct {
   PXCImage::PixelFormat pxc_format;
-  VideoCapturePixelFormat chromium_format;
+  VideoPixelFormat chromium_format;
 } pixel_formats[] = {
-    {PXCImage::PIXEL_FORMAT_RGB24, VIDEO_CAPTURE_PIXEL_FORMAT_RGB24},
-    {PXCImage::PIXEL_FORMAT_RGB32, VIDEO_CAPTURE_PIXEL_FORMAT_ARGB},
-    {PXCImage::PIXEL_FORMAT_NV12, VIDEO_CAPTURE_PIXEL_FORMAT_NV12},
-    {PXCImage::PIXEL_FORMAT_YUY2, VIDEO_CAPTURE_PIXEL_FORMAT_YUY2}
+    {PXCImage::PIXEL_FORMAT_RGB24, PIXEL_FORMAT_RGB24},
+    {PXCImage::PIXEL_FORMAT_RGB32, PIXEL_FORMAT_ARGB},
+    {PXCImage::PIXEL_FORMAT_NV12, PIXEL_FORMAT_NV12},
+    {PXCImage::PIXEL_FORMAT_YUY2, PIXEL_FORMAT_YUY2}
 };
 
-static VideoCapturePixelFormat PixelFormatPxcToChromium(
+static VideoPixelFormat PixelFormatPxcToChromium(
     const PXCImage::PixelFormat pxc_format) {
   for (size_t i = 0; i < arraysize(pixel_formats); ++i) {
     if (pxc_format == pixel_formats[i].pxc_format)
@@ -37,17 +37,17 @@ static VideoCapturePixelFormat PixelFormatPxcToChromium(
   }
   DLOG(ERROR) << "Device supports an unknown media type of Chromium "
      << PXCImage::PixelFormatToString(pxc_format);
-  return VIDEO_CAPTURE_PIXEL_FORMAT_UNKNOWN;
+  return PIXEL_FORMAT_UNKNOWN;
 }
 
 static PXCImage::PixelFormat PixelFormatChromiumToPxc(
-    const VideoCapturePixelFormat chromium_format) {
+    const VideoPixelFormat chromium_format) {
   for (size_t i = 0; i < arraysize(pixel_formats); ++i) {
     if (chromium_format == pixel_formats[i].chromium_format)
       return pixel_formats[i].pxc_format;
   }
   DLOG(ERROR) << "Chromium requests an unknown media type of device "
-     << VideoCaptureFormat::PixelFormatToString(chromium_format);
+     << VideoPixelFormatToString(chromium_format);
   return PXCImage::PIXEL_FORMAT_ANY;
 }
 
@@ -177,14 +177,21 @@ bool VideoCaptureDeviceRSWin::Init() {
   for (int profile_index = 0; profile_index < num_profiles; ++profile_index) {
     PXCCapture::Device::StreamProfileSet profile_set = {};
     if (PXC_FAILED(capture_device_->QueryStreamProfileSet(
-      PXCCapture::STREAM_TYPE_COLOR, profile_index, &profile_set)))
+        PXCCapture::STREAM_TYPE_COLOR, profile_index, &profile_set)))
       break;
+    PXCCapture::Device::StreamProfile profile = profile_set.color;
+    if ((profile.imageInfo.format != PXCImage::PIXEL_FORMAT_RGB32) ||
+        (profile.options &
+            PXCCapture::Device::StreamOption::STREAM_OPTION_UNRECTIFIED)) {
+      // Only support RGB32 and rectified streams.
+      continue;
+    }
     DVLOG(1) << "Profile[" << profile_index << "]: "
-      << PXCImage::PixelFormatToString(profile_set.color.imageInfo.format)
-      << " (" << profile_set.color.imageInfo.width << "x"
-      << profile_set.color.imageInfo.height << ")"
-      << " @" << profile_set.color.frameRate.max << "fps";
-    profiles_.push_back(profile_set.color);
+      << PXCImage::PixelFormatToString(profile.imageInfo.format)
+      << " (" << profile.imageInfo.width << "x"
+      << profile.imageInfo.height << ")"
+      << " @" << profile.frameRate.max << "fps";
+    profiles_.push_back(profile);
   }
   return true;
 }
@@ -334,7 +341,7 @@ bool VideoCaptureDeviceRSWin::OnNewSample(PXCCapture::Sample* sample) {
 
 void VideoCaptureDeviceRSWin::SetErrorState(const std::string& reason) {
   DVLOG(1) << reason;
-  client_->OnError(reason);
+  client_->OnError(FROM_HERE, reason);
 }
 
 bool VideoCaptureDeviceRSWin::CompareProfile(
