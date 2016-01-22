@@ -63513,6 +63513,7 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="1100" label="WEBRTCLOGGINGPRIVATE_STARTAUDIODEBUGRECORDINGS"/>
   <int value="1101" label="WEBRTCLOGGINGPRIVATE_STOPAUDIODEBUGRECORDINGS"/>
   <int value="1102" label="TERMINALPRIVATE_ACKOUTPUT"/>
+  <int value="1103" label="ACCESSIBILITY_PRIVATE_SETKEYBOARDLISTENER"/>
 </enum>
 
 <enum name="ExtensionInstallCause" type="int">
