@@ -1393,13 +1393,16 @@ int TabStrip::GetBackgroundResourceId(bool* custom_image) const {
   // If a custom theme does not provide a replacement tab background, but does
   // provide a replacement frame image, HasCustomImage() on the tab background
   // ID will return false, but the theme provider will make a custom image from
-  // the frame image.
+  // the frame image.  Furthermore, since the theme provider will create the
+  // incognito frame image from the normal frame image, in incognito mode we
+  // need to look for a custom incognito _or_ regular frame image.
   const bool incognito = controller()->IsIncognito();
   const int id = incognito ?
       IDR_THEME_TAB_BACKGROUND_INCOGNITO : IDR_THEME_TAB_BACKGROUND;
   *custom_image = theme_provider->HasCustomImage(id) ||
       theme_provider->HasCustomImage(
-          incognito ? IDR_THEME_FRAME_INCOGNITO : IDR_THEME_FRAME);
+          incognito ? IDR_THEME_FRAME_INCOGNITO : IDR_THEME_FRAME) ||
+      (incognito && theme_provider->HasCustomImage(IDR_THEME_FRAME));
   return id;
 }
 
