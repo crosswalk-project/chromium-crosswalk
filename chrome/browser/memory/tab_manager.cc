@@ -127,6 +127,7 @@ TabManager::~TabManager() {
 void TabManager::Start(bool discard_once) {
   discard_once_ = discard_once;
 
+#if defined(OS_WIN) || defined(OS_MACOSX)
   // Check the variation parameter to see if a tab is to be protected for an
   // amount of time after being backgrounded. The value is in seconds.
   std::string minimum_protection_time_string =
@@ -141,6 +142,7 @@ void TabManager::Start(bool discard_once) {
             base::TimeDelta::FromSeconds(minimum_protection_time_seconds);
     }
   }
+#endif
 
   if (!update_timer_.IsRunning()) {
     update_timer_.Start(FROM_HERE,
