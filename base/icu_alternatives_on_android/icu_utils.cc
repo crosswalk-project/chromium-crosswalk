@@ -243,7 +243,7 @@ int toLower(UChar* result, int resultLength, const UChar* src, int srcLength, bo
       Java_IcuUtils_toLowerString(env, sourceString.obj());
 
   string16 resultString = ConvertJavaStringToUTF16(java_result);
-  *error = true;
+  *error = false;
   return copy(result, resultLength, resultString.data(), resultString.size());
 }
 
@@ -268,7 +268,7 @@ int toUpper(UChar* result, int resultLength, const UChar* src, int srcLength, bo
       Java_IcuUtils_toUpperString(env, sourceString.obj());
 
   string16 resultString = ConvertJavaStringToUTF16(java_result);
-  *error = true;
+  *error = false;
   return copy(result, resultLength, resultString.data(), resultString.size());
 }
 
@@ -370,7 +370,7 @@ int32_t normalize(const UChar *source, int32_t sourceLength, int32_t options,
       Java_IcuUtils_normalize(env, sourceString.obj());
 
   string16 resultString = ConvertJavaStringToUTF16(java_result);
-  *error = true;
+  *error = false;
   return copy(result, resultLength, resultString.data(), resultString.size());
 }
 
