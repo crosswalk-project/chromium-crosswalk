@@ -25,6 +25,10 @@
 class BrowserList;
 class GURL;
 
+namespace base {
+class TickClock;
+}
+
 namespace content {
 class WebContents;
 }
@@ -95,11 +99,16 @@ class TabManager : public TabStripModelObserver {
   // Log memory statistics for the running processes, then call the callback.
   void LogMemory(const std::string& title, const base::Closure& callback);
 
+  // Used to set the test TickClock, which then gets used by NowTicks(). See
+  // |test_tick_clock_| for more details.
+  void set_test_tick_clock(base::TickClock* test_tick_clock);
+
  private:
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, Comparator);
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, DiscardedTabKeepsLastActiveTime);
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, DiscardWebContentsAt);
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, IsInternalPage);
+  FRIEND_TEST_ALL_PREFIXES(TabManagerTest, ProtectRecentlyUsedTabs);
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, ReloadDiscardedTabContextMenu);
   FRIEND_TEST_ALL_PREFIXES(TabManagerTest, TabManagerBasics);
 
@@ -169,6 +178,10 @@ class TabManager : public TabStripModelObserver {
   // |second|.
   static bool CompareTabStats(TabStats first, TabStats second);
 
+  // Returns either the system's clock or the test clock. See |test_tick_clock_|
+  // for more details.
+  base::TimeTicks NowTicks() const;
+
   // Timer to periodically update the stats of the renderers.
   base::RepeatingTimer update_timer_;
 
@@ -200,11 +213,19 @@ class TabManager : public TabStripModelObserver {
   // Whether a tab can only ever discarded once.
   bool discard_once_;
 
+  // This allows protecting tabs for a certain amount of time after being
+  // backgrounded.
+  base::TimeDelta minimum_protection_time_;
+
 #if defined(OS_CHROMEOS)
   scoped_ptr<TabManagerDelegate> delegate_;
 #endif
 
   BrowserTabStripTracker browser_tab_strip_tracker_;
+
+  // Pointer to a test clock. If this is set, NowTicks() returns the value of
+  // this test clock. Otherwise it returns the system clock's value.
+  base::TickClock* test_tick_clock_;
 
   DISALLOW_COPY_AND_ASSIGN(TabManager);
 };
