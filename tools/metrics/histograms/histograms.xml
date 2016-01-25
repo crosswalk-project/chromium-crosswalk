@@ -75054,7 +75054,7 @@ To add a new entry, add it with any value and run test to compute valid value.
 <enum name="StartupTemperature" type="int">
   <int value="0" label="Cold startup (mostly hard faults)"/>
   <int value="1" label="Warm startup (nearly no hard faults)"/>
-  <int value="2" label="Uncertain startup (in between cold and warm)"/>
+  <int value="2" label="Lukewarm startup (in between cold and warm)"/>
 </enum>
 
 <enum name="StartupURLsMigration" type="int">
@@ -82247,6 +82247,7 @@ To add a new entry, add it with any value and run test to compute valid value.
 <histogram_suffixes name="StartupTemperature" separator=".">
   <suffix name="ColdStartup" label="Startup was cold (mostly hard faults)."/>
   <suffix name="WarmStartup" label="Startup was warm (almost no hard faults)."/>
+  <suffix name="LukewarmStartup" label="Startup was neither warm nor cold."/>
   <affected-histogram name="Startup.BrowserMessageLoopStartTime"/>
   <affected-histogram name="Startup.BrowserMessageLoopStartTimeFromMainEntry"/>
   <affected-histogram
