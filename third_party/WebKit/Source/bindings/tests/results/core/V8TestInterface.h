@@ -7,6 +7,9 @@
 #ifndef V8TestInterface_h
 #define V8TestInterface_h
 
+#include "wtf/build_config.h"
+#if ENABLE(CONDITION)
+
 #include "bindings/core/v8/ScriptWrappable.h"
 #include "bindings/core/v8/ToV8.h"
 #include "bindings/core/v8/V8Binding.h"
@@ -71,5 +74,6 @@ struct V8TypeOf<TestInterfaceImplementation> {
 };
 
 } // namespace blink
+#endif // ENABLE(CONDITION)
 
 #endif // V8TestInterface_h

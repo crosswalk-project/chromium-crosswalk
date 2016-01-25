@@ -1,6 +1,7 @@
 {% include 'copyright_block.txt' %}
 #include "{{v8_class_or_partial}}.h"
 
+{% filter conditional(conditional_string) %}
 {% for filename in cpp_includes if filename != '%s.h' % cpp_class_or_partial %}
 #include "{{filename}}"
 {% endfor %}
@@ -224,7 +225,9 @@ const V8DOMConfiguration::AttributeConfiguration {{v8_class}}Attributes[] = {
                attribute.runtime_enabled_function) and
           attribute.is_data_type_property and
           attribute.should_be_exposed_to_script %}
+    {% filter conditional(attribute.conditional_string) %}
     {{attribute_configuration(attribute)}},
+    {% endfilter %}
     {% endfor %}
 };
 #if defined(COMPONENT_BUILD) && defined(WIN32) && COMPILER(CLANG)
@@ -243,7 +246,9 @@ const V8DOMConfiguration::AccessorConfiguration {{v8_class}}Accessors[] = {
                attribute.runtime_enabled_function) and
           not attribute.is_data_type_property and
           attribute.should_be_exposed_to_script %}
+    {% filter conditional(attribute.conditional_string) %}
     {{attribute_configuration(attribute)}},
+    {% endfilter %}
     {% endfor %}
 };
 
@@ -255,7 +260,9 @@ const V8DOMConfiguration::AccessorConfiguration {{v8_class}}Accessors[] = {
 {% if method_configuration_methods %}
 const V8DOMConfiguration::MethodConfiguration {{v8_class}}Methods[] = {
     {% for method in method_configuration_methods %}
+    {% filter conditional(method.conditional_string) %}
     {{method_configuration(method)}},
+    {% endfilter %}
     {% endfor %}
 };
 
@@ -359,6 +366,7 @@ static void install{{v8_class}}Template(v8::Local<v8::FunctionTemplate> function
         {% for attribute in runtime_enabled_features.get(runtime_enabled_feature) | sort
            if attribute.name not in distinct_attributes %}
         {% set unused = distinct_attributes.append(attribute.name) %}
+        {% filter conditional(attribute.conditional_string) %}
         {% if attribute.is_data_type_property %}
         const V8DOMConfiguration::AttributeConfiguration attribute{{attribute.name}}Configuration = \
         {{attribute_configuration(attribute)}};
@@ -368,6 +376,7 @@ static void install{{v8_class}}Template(v8::Local<v8::FunctionTemplate> function
         {{attribute_configuration(attribute)}};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessor{{attribute.name}}Configuration);
         {% endif %}
+        {% endfilter %}
         {% endfor %}
     }
     {% endfor %}
@@ -399,6 +408,7 @@ static void install{{v8_class}}Template(v8::Local<v8::FunctionTemplate> function
     {% endif %}
     {% for method in custom_registration_methods %}
     {# install_custom_signature #}
+    {% filter conditional(method.conditional_string) %}
     {% filter exposed(method.overloads.exposed_test_all
                       if method.overloads else
                       method.exposed_test) %}
@@ -413,6 +423,7 @@ static void install{{v8_class}}Template(v8::Local<v8::FunctionTemplate> function
     {% endif %}{# is_do_not_check_security #}
     {% endfilter %}{# runtime_enabled() #}
     {% endfilter %}{# exposed() #}
+    {% endfilter %}{# conditional() #}
     {% endfor %}
     {# Special interfaces #}
     {% if not is_partial %}
@@ -452,3 +463,4 @@ static void install{{v8_class}}Template(v8::Local<v8::FunctionTemplate> function
 {% endfor %}
 {% block partial_interface %}{% endblock %}
 } // namespace blink
+{% endfilter %}

@@ -1,6 +1,7 @@
 {% include 'copyright_block.txt' %}
 #include "{{v8_class}}.h"
 
+{% filter conditional(conditional_string) %}
 {% for filename in cpp_includes %}
 #include "{{filename}}"
 {% endfor %}
@@ -72,3 +73,4 @@ DEFINE_TRACE({{v8_class}})
 
 {% endfor %}
 } // namespace blink
+{% endfilter %}

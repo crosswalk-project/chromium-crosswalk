@@ -2,6 +2,7 @@
 
 {##############################################################################}
 {% macro constant_getter_callback(constant) %}
+{% filter conditional(constant.conditional_string) %}
 static void {{constant.name}}ConstantGetterCallback(v8::Local<v8::Name>, const v8::PropertyCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -23,6 +24,7 @@ static void {{constant.name}}ConstantGetterCallback(v8::Local<v8::Name>, const v
     {% endif %}
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+{% endfilter %}
 {% endmacro %}
 
 

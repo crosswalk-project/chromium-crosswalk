@@ -6,6 +6,7 @@
 
 #include "V8TestInterface.h"
 
+#if ENABLE(CONDITION)
 #include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/PrivateScriptRunner.h"
 #include "bindings/core/v8/ScriptPromise.h"
@@ -38,6 +39,7 @@
 #include "platform/TraceEvent.h"
 #include "wtf/GetPtr.h"
 #include "wtf/RefPtr.h"
+#include "wtf/build_config.h"
 
 namespace blink {
 
@@ -1394,6 +1396,7 @@ static void implements3StaticStringAttributeAttributeSetterCallback(const v8::Fu
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialLongAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
@@ -1407,7 +1410,9 @@ static void partialLongAttributeAttributeGetter(const v8::FunctionCallbackInfo<v
     TestInterfaceImplementation* impl = V8TestInterface::toImpl(holder);
     v8SetReturnValueInt(info, TestPartialInterface::partialLongAttribute(*impl));
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialLongAttributeAttributeGetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -1421,7 +1426,9 @@ static void partialLongAttributeAttributeGetterCallback(const v8::FunctionCallba
     TestInterfaceImplementationV8Internal::partialLongAttributeAttributeGetter(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialLongAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Object> holder = info.Holder();
@@ -1432,7 +1439,9 @@ static void partialLongAttributeAttributeSetter(v8::Local<v8::Value> v8Value, co
         return;
     TestPartialInterface::setPartialLongAttribute(*impl, cppValue);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialLongAttributeAttributeSetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Value> v8Value = info[0];
@@ -1440,7 +1449,9 @@ static void partialLongAttributeAttributeSetterCallback(const v8::FunctionCallba
     TestInterfaceImplementationV8Internal::partialLongAttributeAttributeSetter(v8Value, info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticLongAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
@@ -1452,7 +1463,9 @@ static void partialStaticLongAttributeAttributeGetter(const v8::FunctionCallback
     }
     v8SetReturnValueInt(info, TestPartialInterface::partialStaticLongAttribute());
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticLongAttributeAttributeGetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -1466,7 +1479,9 @@ static void partialStaticLongAttributeAttributeGetterCallback(const v8::Function
     TestInterfaceImplementationV8Internal::partialStaticLongAttributeAttributeGetter(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticLongAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Object> holder = info.Holder();
@@ -1476,7 +1491,9 @@ static void partialStaticLongAttributeAttributeSetter(v8::Local<v8::Value> v8Val
         return;
     TestPartialInterface::setPartialStaticLongAttribute(cppValue);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticLongAttributeAttributeSetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Value> v8Value = info[0];
@@ -1484,7 +1501,9 @@ static void partialStaticLongAttributeAttributeSetterCallback(const v8::Function
     TestInterfaceImplementationV8Internal::partialStaticLongAttributeAttributeSetter(v8Value, info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextLongAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
@@ -1499,7 +1518,9 @@ static void partialCallWithExecutionContextLongAttributeAttributeGetter(const v8
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
     v8SetReturnValueInt(info, TestPartialInterface::partialCallWithExecutionContextLongAttribute(executionContext, *impl));
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextLongAttributeAttributeGetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -1513,7 +1534,9 @@ static void partialCallWithExecutionContextLongAttributeAttributeGetterCallback(
     TestInterfaceImplementationV8Internal::partialCallWithExecutionContextLongAttributeAttributeGetter(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextLongAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Object> holder = info.Holder();
@@ -1525,7 +1548,9 @@ static void partialCallWithExecutionContextLongAttributeAttributeSetter(v8::Loca
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
     TestPartialInterface::setPartialCallWithExecutionContextLongAttribute(executionContext, *impl, cppValue);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextLongAttributeAttributeSetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Value> v8Value = info[0];
@@ -1533,7 +1558,9 @@ static void partialCallWithExecutionContextLongAttributeAttributeSetterCallback(
     TestInterfaceImplementationV8Internal::partialCallWithExecutionContextLongAttributeAttributeSetter(v8Value, info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialPartialEnumTypeAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
@@ -1547,7 +1574,9 @@ static void partialPartialEnumTypeAttributeAttributeGetter(const v8::FunctionCal
     TestInterfaceImplementation* impl = V8TestInterface::toImpl(holder);
     v8SetReturnValueString(info, TestPartialInterface::partialPartialEnumTypeAttribute(*impl), info.GetIsolate());
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialPartialEnumTypeAttributeAttributeGetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -1561,7 +1590,9 @@ static void partialPartialEnumTypeAttributeAttributeGetterCallback(const v8::Fun
     TestInterfaceImplementationV8Internal::partialPartialEnumTypeAttributeAttributeGetter(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialPartialEnumTypeAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Object> holder = info.Holder();
@@ -1580,7 +1611,9 @@ static void partialPartialEnumTypeAttributeAttributeSetter(v8::Local<v8::Value> 
     }
     TestPartialInterface::setPartialPartialEnumTypeAttribute(*impl, cppValue);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialPartialEnumTypeAttributeAttributeSetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Value> v8Value = info[0];
@@ -1588,7 +1621,9 @@ static void partialPartialEnumTypeAttributeAttributeSetterCallback(const v8::Fun
     TestInterfaceImplementationV8Internal::partialPartialEnumTypeAttributeAttributeSetter(v8Value, info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void stringAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExecutionContext* executionContext = currentExecutionContext(info.GetIsolate());
@@ -1605,7 +1640,9 @@ static void stringAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Va
         return;
     v8SetReturnValueString(info, result, info.GetIsolate());
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void stringAttributeAttributeGetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMGetter");
@@ -1619,7 +1656,9 @@ static void stringAttributeAttributeGetterCallback(const v8::FunctionCallbackInf
     TestInterfaceImplementationV8Internal::stringAttributeAttributeGetter(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void stringAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Object> holder = info.Holder();
@@ -1629,7 +1668,9 @@ static void stringAttributeAttributeSetter(v8::Local<v8::Value> v8Value, const v
         return;
     V8TestInterface::PrivateScript::stringAttributeAttributeSetter(toLocalFrame(toFrameIfNotDetached(info.GetIsolate()->GetCurrentContext())), impl, cppValue);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void stringAttributeAttributeSetterCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     v8::Local<v8::Value> v8Value = info[0];
@@ -1637,6 +1678,7 @@ static void stringAttributeAttributeSetterCallback(const v8::FunctionCallbackInf
     TestInterfaceImplementationV8Internal::stringAttributeAttributeSetter(v8Value, info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
 static void partial2LongAttributeAttributeGetter(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
@@ -2430,12 +2472,15 @@ static void implements3StaticVoidMethodMethodCallback(const v8::FunctionCallback
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TestInterfaceImplementation* impl = V8TestInterface::toImpl(info.Holder());
     TestPartialInterface::partialVoidMethod(*impl);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2449,12 +2494,16 @@ static void partialVoidMethodMethodCallback(const v8::FunctionCallbackInfo<v8::V
     TestInterfaceImplementationV8Internal::partialVoidMethodMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticVoidMethodMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TestPartialInterface::partialStaticVoidMethod();
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialStaticVoidMethodMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2468,7 +2517,9 @@ static void partialStaticVoidMethodMethodCallback(const v8::FunctionCallbackInfo
     TestInterfaceImplementationV8Internal::partialStaticVoidMethodMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodLongArgMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExceptionState exceptionState(ExceptionState::ExecutionContext, "partialVoidMethodLongArg", "TestInterface", info.Holder(), info.GetIsolate());
@@ -2486,7 +2537,9 @@ static void partialVoidMethodLongArgMethod(const v8::FunctionCallbackInfo<v8::Va
     }
     TestPartialInterface::partialVoidMethodLongArg(*impl, longArg);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodLongArgMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2500,7 +2553,9 @@ static void partialVoidMethodLongArgMethodCallback(const v8::FunctionCallbackInf
     TestInterfaceImplementationV8Internal::partialVoidMethodLongArgMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextRaisesExceptionVoidMethodMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExceptionState exceptionState(ExceptionState::ExecutionContext, "partialCallWithExecutionContextRaisesExceptionVoidMethod", "TestInterface", info.Holder(), info.GetIsolate());
@@ -2512,7 +2567,9 @@ static void partialCallWithExecutionContextRaisesExceptionVoidMethodMethod(const
         return;
     }
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialCallWithExecutionContextRaisesExceptionVoidMethodMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2526,7 +2583,9 @@ static void partialCallWithExecutionContextRaisesExceptionVoidMethodMethodCallba
     TestInterfaceImplementationV8Internal::partialCallWithExecutionContextRaisesExceptionVoidMethodMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodPartialCallbackTypeArgMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     if (UNLIKELY(info.Length() < 1)) {
@@ -2544,7 +2603,9 @@ static void partialVoidMethodPartialCallbackTypeArgMethod(const v8::FunctionCall
     }
     TestPartialInterface::partialVoidMethodPartialCallbackTypeArg(*impl, partialCallbackTypeArg);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void partialVoidMethodPartialCallbackTypeArgMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2558,7 +2619,9 @@ static void partialVoidMethodPartialCallbackTypeArgMethodCallback(const v8::Func
     TestInterfaceImplementationV8Internal::partialVoidMethodPartialCallbackTypeArgMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void shortMethodWithShortArgumentImplementedInPrivateScriptMethod(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     ExceptionState exceptionState(ExceptionState::ExecutionContext, "shortMethodWithShortArgumentImplementedInPrivateScript", "TestInterface", info.Holder(), info.GetIsolate());
@@ -2579,7 +2642,9 @@ static void shortMethodWithShortArgumentImplementedInPrivateScriptMethod(const v
         return;
     v8SetReturnValueInt(info, result);
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
+#if ENABLE(PARTIAL_CONDITION)
 static void shortMethodWithShortArgumentImplementedInPrivateScriptMethodCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
     TRACE_EVENT_SET_SAMPLING_STATE("blink", "DOMMethod");
@@ -2593,6 +2658,7 @@ static void shortMethodWithShortArgumentImplementedInPrivateScriptMethodCallback
     TestInterfaceImplementationV8Internal::shortMethodWithShortArgumentImplementedInPrivateScriptMethod(info);
     TRACE_EVENT_SET_SAMPLING_STATE("v8", "V8Execution");
 }
+#endif // ENABLE(PARTIAL_CONDITION)
 
 static void partial2VoidMethod1Method(const v8::FunctionCallbackInfo<v8::Value>& info)
 {
@@ -3108,21 +3174,31 @@ void V8TestInterface::installV8TestInterfaceTemplate(v8::Local<v8::FunctionTempl
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorimplementsRuntimeEnabledNodeAttributeConfiguration);
     }
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
+#if ENABLE(PARTIAL_CONDITION)
         const V8DOMConfiguration::AccessorConfiguration accessorpartialPartialEnumTypeAttributeConfiguration = \
         {"partialPartialEnumTypeAttribute", TestInterfaceImplementationV8Internal::partialPartialEnumTypeAttributeAttributeGetterCallback, TestInterfaceImplementationV8Internal::partialPartialEnumTypeAttributeAttributeSetterCallback, 0, 0, 0, v8::DEFAULT, static_cast<v8::PropertyAttribute>(v8::None), V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype, V8DOMConfiguration::CheckHolder};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorpartialPartialEnumTypeAttributeConfiguration);
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
         const V8DOMConfiguration::AccessorConfiguration accessorpartialCallWithExecutionContextLongAttributeConfiguration = \
         {"partialCallWithExecutionContextLongAttribute", TestInterfaceImplementationV8Internal::partialCallWithExecutionContextLongAttributeAttributeGetterCallback, TestInterfaceImplementationV8Internal::partialCallWithExecutionContextLongAttributeAttributeSetterCallback, 0, 0, 0, v8::DEFAULT, static_cast<v8::PropertyAttribute>(v8::None), V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype, V8DOMConfiguration::CheckHolder};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorpartialCallWithExecutionContextLongAttributeConfiguration);
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
         const V8DOMConfiguration::AccessorConfiguration accessorpartialLongAttributeConfiguration = \
         {"partialLongAttribute", TestInterfaceImplementationV8Internal::partialLongAttributeAttributeGetterCallback, TestInterfaceImplementationV8Internal::partialLongAttributeAttributeSetterCallback, 0, 0, 0, v8::DEFAULT, static_cast<v8::PropertyAttribute>(v8::None), V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype, V8DOMConfiguration::CheckHolder};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorpartialLongAttributeConfiguration);
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
         const V8DOMConfiguration::AccessorConfiguration accessorpartialStaticLongAttributeConfiguration = \
         {"partialStaticLongAttribute", TestInterfaceImplementationV8Internal::partialStaticLongAttributeAttributeGetterCallback, TestInterfaceImplementationV8Internal::partialStaticLongAttributeAttributeSetterCallback, 0, 0, 0, v8::DEFAULT, static_cast<v8::PropertyAttribute>(v8::None), V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnInterface, V8DOMConfiguration::CheckHolder};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorpartialStaticLongAttributeConfiguration);
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
         const V8DOMConfiguration::AccessorConfiguration accessorstringAttributeConfiguration = \
         {"stringAttribute", TestInterfaceImplementationV8Internal::stringAttributeAttributeGetterCallback, TestInterfaceImplementationV8Internal::stringAttributeAttributeSetterCallback, 0, 0, 0, v8::DEFAULT, static_cast<v8::PropertyAttribute>(v8::None), V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype, V8DOMConfiguration::CheckHolder};
         V8DOMConfiguration::installAccessor(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, accessorstringAttributeConfiguration);
+#endif // ENABLE(PARTIAL_CONDITION)
     }
     const V8DOMConfiguration::ConstantConfiguration V8TestInterfaceConstants[] = {
         {"UNSIGNED_LONG", 0, 0, V8DOMConfiguration::ConstantTypeUnsignedLong},
@@ -3149,30 +3225,42 @@ void V8TestInterface::installV8TestInterfaceTemplate(v8::Local<v8::FunctionTempl
         const V8DOMConfiguration::MethodConfiguration implements2VoidMethodMethodConfiguration = {"implements2VoidMethod", TestInterfaceImplementationV8Internal::implements2VoidMethodMethodCallback, 0, 0, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, implements2VoidMethodMethodConfiguration);
     }
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration partialVoidMethodMethodConfiguration = {"partialVoidMethod", TestInterfaceImplementationV8Internal::partialVoidMethodMethodCallback, 0, 0, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, partialVoidMethodMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration partialStaticVoidMethodMethodConfiguration = {"partialStaticVoidMethod", TestInterfaceImplementationV8Internal::partialStaticVoidMethodMethodCallback, 0, 0, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnInterface};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, partialStaticVoidMethodMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration partialVoidMethodLongArgMethodConfiguration = {"partialVoidMethodLongArg", TestInterfaceImplementationV8Internal::partialVoidMethodLongArgMethodCallback, 0, 1, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, partialVoidMethodLongArgMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration partialCallWithExecutionContextRaisesExceptionVoidMethodMethodConfiguration = {"partialCallWithExecutionContextRaisesExceptionVoidMethod", TestInterfaceImplementationV8Internal::partialCallWithExecutionContextRaisesExceptionVoidMethodMethodCallback, 0, 0, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, partialCallWithExecutionContextRaisesExceptionVoidMethodMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration partialVoidMethodPartialCallbackTypeArgMethodConfiguration = {"partialVoidMethodPartialCallbackTypeArg", TestInterfaceImplementationV8Internal::partialVoidMethodPartialCallbackTypeArgMethodCallback, 0, 1, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, partialVoidMethodPartialCallbackTypeArgMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
+#if ENABLE(PARTIAL_CONDITION)
     if (RuntimeEnabledFeatures::partialFeatureNameEnabled()) {
         const V8DOMConfiguration::MethodConfiguration shortMethodWithShortArgumentImplementedInPrivateScriptMethodConfiguration = {"shortMethodWithShortArgumentImplementedInPrivateScript", TestInterfaceImplementationV8Internal::shortMethodWithShortArgumentImplementedInPrivateScriptMethodCallback, 0, 1, v8::None, V8DOMConfiguration::ExposedToAllScripts, V8DOMConfiguration::OnPrototype};
         V8DOMConfiguration::installMethod(isolate, instanceTemplate, prototypeTemplate, functionTemplate, defaultSignature, shortMethodWithShortArgumentImplementedInPrivateScriptMethodConfiguration);
     }
+#endif // ENABLE(PARTIAL_CONDITION)
 }
 
 v8::Local<v8::FunctionTemplate> V8TestInterface::domTemplate(v8::Isolate* isolate)
@@ -3395,3 +3483,4 @@ void V8TestInterface::registerPartial2StaticVoidMethodMethodForPartialInterface(
 }
 
 } // namespace blink
+#endif // ENABLE(CONDITION)
