@@ -85,7 +85,7 @@ void SVGScriptElement::childrenChanged(const ChildrenChange& change)
 
 void SVGScriptElement::didMoveToNewDocument(Document& oldDocument)
 {
-    ScriptRunner::movePendingAsyncScript(oldDocument, document(), m_loader.get());
+    ScriptRunner::movePendingScript(oldDocument, document(), m_loader.get());
     SVGElement::didMoveToNewDocument(oldDocument);
 }
 
