@@ -2632,7 +2632,12 @@ InputHandler::ScrollStatus LayerTreeHostImpl::ScrollAnimated(
     const gfx::Point& viewport_point,
     const gfx::Vector2dF& scroll_delta) {
   if (LayerImpl* layer_impl = CurrentlyScrollingLayer()) {
-    return ScrollAnimationUpdateTarget(layer_impl, scroll_delta)
+    gfx::Vector2dF delta = scroll_delta;
+    if (!layer_impl->user_scrollable(ScrollbarOrientation::HORIZONTAL))
+      delta.set_x(0);
+    if (!layer_impl->user_scrollable(ScrollbarOrientation::VERTICAL))
+      delta.set_y(0);
+    return ScrollAnimationUpdateTarget(layer_impl, delta)
                ? SCROLL_STARTED
                : SCROLL_IGNORED;
   }
@@ -2658,6 +2663,15 @@ InputHandler::ScrollStatus LayerTreeHostImpl::ScrollAnimated(
       target_offset.SetToMax(gfx::ScrollOffset());
       target_offset.SetToMin(layer_impl->MaxScrollOffset());
       gfx::Vector2dF actual_delta = target_offset.DeltaFrom(current_offset);
+
+      if (!layer_impl->user_scrollable(ScrollbarOrientation::HORIZONTAL)) {
+        actual_delta.set_x(0);
+        target_offset.set_x(current_offset.x());
+      }
+      if (!layer_impl->user_scrollable(ScrollbarOrientation::VERTICAL)) {
+        actual_delta.set_y(0);
+        target_offset.set_y(current_offset.y());
+      }
 
       const float kEpsilon = 0.1f;
       bool can_layer_scroll = (std::abs(actual_delta.x()) > kEpsilon ||
