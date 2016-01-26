@@ -113,7 +113,10 @@ public class EnhancedBookmarkEditActivity extends EnhancedBookmarkActivityBase {
         mBookmarkId = BookmarkId.getBookmarkIdFromString(
                 getIntent().getStringExtra(INTENT_BOOKMARK_ID));
         mEnhancedBookmarksModel.addObserver(mBookmarkModelObserver);
-        assert mEnhancedBookmarksModel.getBookmarkById(mBookmarkId).isEditable();
+        if (!mEnhancedBookmarksModel.doesBookmarkExist(mBookmarkId)) {
+            finish();
+            return;
+        }
 
         setContentView(R.layout.eb_edit);
         mTitleEditText = (EmptyAlertEditText) findViewById(R.id.title_text);
