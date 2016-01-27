@@ -40,7 +40,6 @@
 #include "wtf/OwnPtr.h"
 #include "wtf/PassOwnPtr.h"
 #include "wtf/text/WTFString.h"
-#include "core/inspector/InspectorProfilerAgent.h"
 
 namespace v8 {
 class Isolate;
@@ -76,14 +75,8 @@ public:
     void addInspectedHeapObject(ErrorString*, const String& inspectedHeapObjectId) override;
     void getHeapObjectId(ErrorString*, const String& objectId, String* heapSnapshotObjectId) override;
 
-    void startTrackingHeapXDK(ErrorString*, const int* stack_depth, const int* sav, const bool* retentions) override;
-    void stopTrackingHeapXDK(ErrorString*, RefPtr<TypeBuilder::HeapProfiler::HeapEventXDK>&) override;
-
 private:
     class HeapStatsUpdateTask;
-
-    class HeapXDKStream;
-    class HeapXDKUpdateTask;
 
     InspectorHeapProfilerAgent(v8::Isolate*, InjectedScriptManager*);
 
@@ -92,17 +85,9 @@ private:
     void startTrackingHeapObjectsInternal(bool trackAllocations);
     void stopTrackingHeapObjectsInternal();
 
-    void requestHeapXDKUpdate();
-    void pushHeapXDKUpdate(const char* symbols, int symbolsSize,
-                           const char* frames, int framesSize,
-                           const char* types, int typesSize,
-                           const char* chunks, int chunksSize,
-                           const char* retentions, int retentionsSize);
-
     v8::Isolate* m_isolate;
     RawPtrWillBeMember<InjectedScriptManager> m_injectedScriptManager;
     OwnPtrWillBeMember<HeapStatsUpdateTask> m_heapStatsUpdateTask;
-    OwnPtrWillBeMember<HeapXDKUpdateTask> m_heapXDKUpdateTask;
 };
 
 } // namespace blink
