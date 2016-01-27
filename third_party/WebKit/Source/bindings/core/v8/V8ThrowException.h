@@ -48,8 +48,6 @@ public:
     }
     static v8::Local<v8::Value> throwDOMException(int, const String& sanitizedMessage, const String& unsanitizedMessage, const v8::Local<v8::Object>& creationContext, v8::Isolate*);
 
-    static v8::Local<v8::Value> createWebCLException(v8::Isolate*, int, const String& name, const String& message, const v8::Local<v8::Object>& creationContext);
-
     static v8::Local<v8::Value> throwException(v8::Local<v8::Value>, v8::Isolate*);
 
     static v8::Local<v8::Value> createGeneralError(v8::Isolate*, const String&);
