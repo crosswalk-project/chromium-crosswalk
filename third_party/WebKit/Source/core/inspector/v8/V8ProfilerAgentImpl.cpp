@@ -61,7 +61,6 @@ PassRefPtr<TypeBuilder::Profiler::CPUProfileNode> buildInspectorObjectFor(const 
         .setColumnNumber(node->GetColumnNumber())
         .setHitCount(node->GetHitCount())
         .setCallUID(node->GetCallUid())
-        .setStackEntryLine(node->GetSrcLine())
         .setChildren(children.release())
         .setPositionTicks(positionTicks.release())
         .setDeoptReason(node->GetBailoutReason())
