@@ -22,18 +22,12 @@ const SkColor kWarmWelcomeColor = SkColorSetRGB(0x64, 0x64, 0x64);
 
 @implementation PendingPasswordViewController
 
-- (id)initWithModel:(ManagePasswordsBubbleModel*)model
-           delegate:(id<ManagePasswordsBubbleContentViewDelegate>)delegate {
-  if (([super initWithDelegate:delegate])) {
-    model_ = model;
-  }
-  return self;
-}
-
 - (BOOL)textView:(NSTextView*)textView
     clickedOnLink:(id)link
           atIndex:(NSUInteger)charIndex {
-  model_->OnBrandLinkClicked();
+  ManagePasswordsBubbleModel* model = [self model];
+  if (model)
+    model->OnBrandLinkClicked();
   [delegate_ viewShouldDismiss];
   return YES;
 }
@@ -97,10 +91,11 @@ const SkColor kWarmWelcomeColor = SkColorSetRGB(0x64, 0x64, 0x64);
                      .GetFontList(ResourceBundle::SmallFont)
                      .GetPrimaryFont()
                      .GetNativeFont();
-  [titleView setMessage:base::SysUTF16ToNSString(model_->title())
+  ManagePasswordsBubbleModel* model = [self model];
+  [titleView setMessage:base::SysUTF16ToNSString(model->title())
                withFont:font
            messageColor:textColor];
-  NSRange titleBrandLinkRange = model_->title_brand_link_range().ToNSRange();
+  NSRange titleBrandLinkRange = model->title_brand_link_range().ToNSRange();
   if (titleBrandLinkRange.length) {
     NSColor* linkColor =
         skia::SkColorToCalibratedNSColor(chrome_style::GetLinkColor());
@@ -204,7 +199,7 @@ const SkColor kWarmWelcomeColor = SkColorSetRGB(0x64, 0x64, 0x64);
 }
 
 - (ManagePasswordsBubbleModel*)model {
-  return model_;
+  return [delegate_ model];
 }
 
 @end
