@@ -137,6 +137,8 @@ public class RemoteMediaPlayerBridge extends MediaPlayerBridge {
                 nativeOnCastStopping(mNativeRemoteMediaPlayerBridge);
             }
             mActive = false;
+            // Free the poster bitmap to save memory
+            mPosterBitmap = null;
         }
 
         @Override
