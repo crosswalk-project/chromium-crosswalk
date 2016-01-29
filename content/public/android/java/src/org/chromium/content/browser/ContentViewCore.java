@@ -2550,6 +2550,10 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
     }
 
     private boolean showPastePopup(int x, int y) {
+        if (mContainerView.getParent() == null || mContainerView.getVisibility() != View.VISIBLE) {
+            return false;
+        }
+
         if (!mHasInsertion || !canPaste()) return false;
         final float contentOffsetYPix = mRenderCoordinates.getContentOffsetYPix();
         getPastePopup().show(x, (int) (y + contentOffsetYPix));
