@@ -2715,7 +2715,8 @@ WebInspector.StylesSidebarPane.CSSPropertyPrompt.prototype = {
             }
             break;
         case "Enter":
-            if (this.autoCompleteElement && !this.autoCompleteElement.textContent.length) {
+            // Accept any available autocompletions and advance to the next field.
+            if (this.autoCompleteElement && this.autoCompleteElement.textContent.length) {
                 this.tabKeyPressed();
                 return;
             }
