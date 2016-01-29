@@ -18,6 +18,8 @@ import org.chromium.base.multidex.ChromiumMultiDexInstaller;
 public class BaseChromiumApplication extends Application {
 
     private static final String TAG = "cr.base";
+    private static final String TOOLBAR_CALLBACK_WRAPPER_CLASS =
+            "android.support.v7.internal.app.ToolbarActionBar$ToolbarCallbackWrapper";
     private final boolean mShouldInitializeApplicationStatusTracking;
 
     public BaseChromiumApplication() {
@@ -104,32 +106,44 @@ public class BaseChromiumApplication extends Application {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
 
             @Override
             public void onActivityPaused(Activity activity) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
 
             @Override
             public void onActivityResumed(Activity activity) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
 
             @Override
             public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
 
             @Override
             public void onActivityStarted(Activity activity) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
 
             @Override
             public void onActivityStopped(Activity activity) {
-                assert activity.getWindow().getCallback() instanceof WindowCallbackWrapper;
+                assert (activity.getWindow().getCallback() instanceof WindowCallbackWrapper
+                        || activity.getWindow().getCallback().getClass().getName().equals(
+                                TOOLBAR_CALLBACK_WRAPPER_CLASS));
             }
         });
     }
