@@ -261,7 +261,7 @@ TEST_F(ExtendedMouseWarpControllerTest, IndicatorBoundsTestThreeDisplays) {
   run_test();
 
   UpdateDisplay("360x360,700x700,1000x1000");
-  Shell::GetInstance()->window_tree_host_manager()->SwapPrimaryDisplayForTest();
+  Shell::GetInstance()->window_tree_host_manager()->SwapPrimaryDisplay();
   run_test();
 }
 
