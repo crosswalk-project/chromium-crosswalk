@@ -325,7 +325,7 @@ void DisplayManager::SetOverscanInsets(int64_t display_id,
   }
   if (update) {
     AddMirrorDisplayInfoIfAny(&display_info_list);
-    UpdateDisplays(display_info_list);
+    UpdateDisplaysWith(display_info_list);
   } else {
     display_info_[display_id].SetOverscanInsets(insets_in_dip);
   }
@@ -353,7 +353,7 @@ void DisplayManager::SetDisplayRotation(int64_t display_id,
   }
   if (is_active) {
     AddMirrorDisplayInfoIfAny(&display_info_list);
-    UpdateDisplays(display_info_list);
+    UpdateDisplaysWith(display_info_list);
   } else if (display_info_.find(display_id) != display_info_.end()) {
     // Inactive displays can reactivate, ensure they have been updated.
     display_info_[display_id].SetRotation(rotation, source);
@@ -398,7 +398,7 @@ bool DisplayManager::SetDisplayMode(int64_t display_id,
   }
   if (display_property_changed) {
     AddMirrorDisplayInfoIfAny(&display_info_list);
-    UpdateDisplays(display_info_list);
+    UpdateDisplaysWith(display_info_list);
   }
   if (resolution_changed && IsInUnifiedMode()) {
     ReconfigureDisplays();
@@ -633,7 +633,7 @@ void DisplayManager::OnNativeDisplaysChanged(
   }
 #endif
 
-  UpdateDisplays(new_display_info_list);
+  UpdateDisplaysWith(new_display_info_list);
 }
 
 void DisplayManager::UpdateDisplays() {
@@ -641,10 +641,10 @@ void DisplayManager::UpdateDisplays() {
   for (const auto& display : active_display_list_)
     display_info_list.push_back(GetDisplayInfo(display.id()));
   AddMirrorDisplayInfoIfAny(&display_info_list);
-  UpdateDisplays(display_info_list);
+  UpdateDisplaysWith(display_info_list);
 }
 
-void DisplayManager::UpdateDisplays(
+void DisplayManager::UpdateDisplaysWith(
     const std::vector<DisplayInfo>& updated_display_info_list) {
 #if defined(OS_WIN)
   DCHECK_EQ(1u, updated_display_info_list.size()) <<
@@ -976,7 +976,7 @@ void DisplayManager::AddRemoveDisplay() {
   num_connected_displays_ = new_display_info_list.size();
   mirroring_display_id_ = gfx::Display::kInvalidDisplayID;
   software_mirroring_display_list_.clear();
-  UpdateDisplays(new_display_info_list);
+  UpdateDisplaysWith(new_display_info_list);
 }
 
 void DisplayManager::ToggleDisplayScaleFactor() {
@@ -990,7 +990,7 @@ void DisplayManager::ToggleDisplayScaleFactor() {
     new_display_info_list.push_back(display_info);
   }
   AddMirrorDisplayInfoIfAny(&new_display_info_list);
-  UpdateDisplays(new_display_info_list);
+  UpdateDisplaysWith(new_display_info_list);
 }
 
 #if defined(OS_CHROMEOS)
@@ -1035,7 +1035,7 @@ void DisplayManager::ReconfigureDisplays() {
   }
   mirroring_display_id_ = gfx::Display::kInvalidDisplayID;
   software_mirroring_display_list_.clear();
-  UpdateDisplays(display_info_list);
+  UpdateDisplaysWith(display_info_list);
 }
 
 bool DisplayManager::UpdateDisplayBounds(int64_t display_id,
