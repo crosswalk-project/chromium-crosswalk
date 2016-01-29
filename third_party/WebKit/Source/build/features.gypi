@@ -52,6 +52,9 @@
       'detailed_memory_infra%': 0,
       'blink_logging_always_on%': 0,
       'link_core_modules_separately%': 1,
+
+      # WebCL support in Crosswalk.
+      'enable_webcl%': 0,
     },
     'conditions': [
       ['use_concatenated_impulse_responses==1', {
@@ -101,6 +104,12 @@
       ['link_core_modules_separately==1 and component=="shared_library"', {
         'feature_defines': [
           'LINK_CORE_MODULES_SEPARATELY',
+        ],
+      }],
+
+      ['enable_webcl==1', {
+        'feature_defines': [
+          'ENABLE_WEBCL=1',
         ],
       }],
     ],
