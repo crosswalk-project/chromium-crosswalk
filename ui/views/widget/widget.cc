@@ -693,6 +693,9 @@ void Widget::SetVisibleOnAllWorkspaces(bool always_visible) {
 
 void Widget::Maximize() {
   native_widget_->Maximize();
+#if defined(OS_WIN)
+  saved_show_state_ = ui::SHOW_STATE_MAXIMIZED;
+#endif
 }
 
 void Widget::Minimize() {
