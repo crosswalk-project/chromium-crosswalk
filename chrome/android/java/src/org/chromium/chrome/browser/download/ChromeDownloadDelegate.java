@@ -67,6 +67,7 @@ public class ChromeDownloadDelegate
     @Override
     public void onConfirmInfoBarButtonClicked(ConfirmInfoBar infoBar, boolean confirm) {
         assert mTab != null;
+        if (mPendingRequest == null) return;
         if (mPendingRequest.hasDownloadId()) {
             nativeDangerousDownloadValidated(mTab, mPendingRequest.getDownloadId(), confirm);
             if (confirm) {
