@@ -971,6 +971,8 @@ public:
         SVG1DOMImageElement = 1115,
         SVG1DOMForeignObjectElement = 1116,
         AudioContextCreateIIRFilter = 1117,
+        NonSecureSharedWorkerAccessedFromSecureContext = 1120,
+        SecureSharedWorkerAccessedFromNonSecureContext = 1121,
         NonCSSStyleSheetType = 1122,
 
         // Add new features immediately above this line. Don't change assigned
