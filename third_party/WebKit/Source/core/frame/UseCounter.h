@@ -974,6 +974,14 @@ public:
         NonSecureSharedWorkerAccessedFromSecureContext = 1120,
         SecureSharedWorkerAccessedFromNonSecureContext = 1121,
         NonCSSStyleSheetType = 1122,
+        GeolocationInsecureOriginIframe = 1141,
+        GeolocationSecureOriginIframe = 1142,
+        RequestMIDIAccessIframe = 1143,
+        GetUserMediaInsecureOriginIframe = 1144,
+        GetUserMediaSecureOriginIframe = 1145,
+        ElementRequestPointerLockIframe = 1146,
+        NotificationAPIInsecureOriginIframe = 1147,
+        NotificationAPISecureOriginIframe = 1148,
 
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
@@ -1015,6 +1023,10 @@ public:
     // countDeprecationIfNotPrivateScript() in a binding layer.
     static void countDeprecationIfNotPrivateScript(v8::Isolate*, ExecutionContext*, Feature);
     static String deprecationMessage(Feature);
+
+    // Count only features if they're being used in an iframe which does not
+    // have script access into the top level document.
+    static void countCrossOriginIframe(const Document&, Feature);
 
     // Return whether the Feature was previously counted for this document.
     // NOTE: only for use in testing.
