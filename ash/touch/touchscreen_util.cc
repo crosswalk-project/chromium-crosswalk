@@ -260,6 +260,18 @@ void AssociateTouchscreens(
     VLOG(1) << "Unassociated display " << display->name();
   for (const ui::TouchscreenDevice* device : devices)
     VLOG(1) << "Unassociated device " << device->name;
+
+  // Match any unassociated devices to a display. This maintains existing
+  // pairing behavior. See crbug.com/582516.
+  if (displays.size() > 0 && devices.size() > 0) {
+    DisplayInfo* display = displays[0];
+
+    for (const ui::TouchscreenDevice* device : devices) {
+      VLOG(1) << "Randomly matching device " << device->name << " to display "
+              << display->name();
+      Associate(display, device);
+    }
+  }
 }
 
 }  // namespace ash
