@@ -3,9 +3,8 @@
 // found in the LICENSE file.
 
 #include "config.h"
-#include "core/paint/CompositingRecorder.h"
+#include "platform/graphics/paint/CompositingRecorder.h"
 
-#include "core/layout/LayoutObject.h"
 #include "platform/graphics/GraphicsContext.h"
 #include "platform/graphics/GraphicsLayer.h"
 #include "platform/graphics/paint/CompositingDisplayItem.h"
