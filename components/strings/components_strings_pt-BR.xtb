@@ -41,7 +41,7 @@
 <translation id="1339601241726513588">Domínio de inscrição:</translation>
 <translation id="1344588688991793829">Configurações de preenchimento automático do Chromium...</translation>
 <translation id="1375198122581997741">Sobre a versão</translation>
-<translation id="139305205187523129"><ph name="HOST_NAME" /> não enviou nenhum dado.</translation>
+<translation id="139305205187523129">Nenhum dado foi enviado por <ph name="HOST_NAME" /></translation>
 <translation id="1407135791313364759">Abrir todas</translation>
 <translation id="1413809658975081374">Erro de privacidade</translation>
 <translation id="1426410128494586442">Sim</translation>
@@ -79,7 +79,7 @@
 <translation id="1871625979288021266">Porta não segura bloqueada</translation>
 <translation id="1883255238294161206">Recolher lista</translation>
 <translation id="1898423065542865115">Filtragem</translation>
-<translation id="1911837502049945214"><ph name="HOST_NAME" /> não aceitou seu certificado de login, ou talvez o certificado de login tenha expirado.</translation>
+<translation id="1911837502049945214">O cetificado de login não foi aceito por <ph name="HOST_NAME" /> ou talvez tenha expirado.</translation>
 <translation id="194030505837763158">Ir para <ph name="LINK" /></translation>
 <translation id="1958820272620550857">Itens bloqueados</translation>
 <translation id="1962204205936693436">Favoritos de <ph name="DOMAIN" /></translation>
@@ -104,7 +104,7 @@
       Iníciar &gt; Painel de Controle &gt; Rede e Internet &gt; Central de Rede e Compartilhamento &gt; Solucionar problemas (na parte inferior) &gt; Conexões com a Internet.
       <ph name="END_BOLD" /></translation>
 <translation id="2166049586286450108">Acesso completo de administrador</translation>
-<translation id="2166378884831602661">Este site não pode fornecer uma conexão segura</translation>
+<translation id="2166378884831602661">Não foi possível estabelecer uma conexão segura com este site</translation>
 <translation id="2171101176734966184">Você tentou acessar <ph name="DOMAIN" />, mas o servidor apresentou um certificado assinado usando um algoritmo de assinatura fraco. Isso significa que as credenciais de segurança apresentadas pelo servidor podem ter sido forjadas, e talvez o servidor não seja o esperado (talvez você esteja se comunicando com um invasor).</translation>
 <translation id="2181821976797666341">Políticas</translation>
 <translation id="2212735316055980242">Política não encontrada</translation>
@@ -148,7 +148,7 @@
 <translation id="2653659639078652383">Enviar</translation>
 <translation id="2674170444375937751">Tem certeza de que deseja excluir essas páginas do seu histórico?</translation>
 <translation id="2704283930420550640">O valor não corresponde ao formato.</translation>
-<translation id="2705137772291741111">A cópia salva (armazenada em cache) deste site estava ilegível.</translation>
+<translation id="2705137772291741111">Não foi possível ler a cópia armazenada em cache deste site.</translation>
 <translation id="2709516037105925701">Preenchimento automático</translation>
 <translation id="2721148159707890343">Solicitação bem-sucedida</translation>
 <translation id="2728127805433021124">O certificado do servidor é assinado com um algoritmo de assinatura fraco.</translation>
@@ -257,7 +257,7 @@
 <translation id="3950924596163729246">Não foi possível acessar a rede.</translation>
 <translation id="3963721102035795474">Modo leitor</translation>
 <translation id="3973234410852337861"><ph name="HOST_NAME" /> está bloqueado</translation>
-<translation id="4021036232240155012">O DNS é o serviço de rede que traduz o nome de um website para o próprio endereço de Internet.</translation>
+<translation id="4021036232240155012">O DNS é o serviço de rede que converte o nome de um website para o próprio endereço de Internet.</translation>
 <translation id="4030383055268325496">&amp;Desfazer adicionar</translation>
 <translation id="4032534284272647190">O acesso a <ph name="URL" /> foi negado.</translation>
 <translation id="404928562651467259">AVISO</translation>
@@ -301,7 +301,7 @@
 <translation id="4668929960204016307">,</translation>
 <translation id="467662567472608290">Este servidor não conseguiu provar que é <ph name="DOMAIN" />. O certificado de segurança contém erros. Isso pode ser causado por uma configuração incorreta ou pela interceptação da sua conexão por um invasor.</translation>
 <translation id="4697214168136963651"><ph name="URL" /> foi bloqueado</translation>
-<translation id="4708268264240856090">Sua conexão foi interrompida</translation>
+<translation id="4708268264240856090">A conexão foi interrompida</translation>
 <translation id="4726672564094551039">Atualizar políticas</translation>
 <translation id="4728558894243024398">Plataforma</translation>
 <translation id="4744603770635761495">Caminho do executável</translation>
@@ -350,7 +350,7 @@
 <translation id="540969355065856584">Este servidor não conseguiu provar que é <ph name="DOMAIN" />. O certificado de segurança dele não é válido no momento. Isso pode ser causado por uma configuração incorreta ou pela interceptação da sua conexão por um invasor.</translation>
 <translation id="5421136146218899937">Limpar dados de navegação...</translation>
 <translation id="5430298929874300616">Remover favorito</translation>
-<translation id="5431657950005405462">Seu arquivo não foi encontrado</translation>
+<translation id="5431657950005405462">O arquivo não foi encontrado</translation>
 <translation id="5439770059721715174">Erro de validação de esquema em "<ph name="ERROR_PATH" />": <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Mostrar todas as páginas salvas</translation>
 <translation id="5452270690849572955">Não foi possível encontrar a página deste <ph name="HOST_NAME" /></translation>
@@ -369,7 +369,7 @@
 <translation id="5556459405103347317">Recarregar</translation>
 <translation id="5565735124758917034">Ativo</translation>
 <translation id="560412284261940334">Gerenciamento não suportado</translation>
-<translation id="5617949217645503996"><ph name="HOST_NAME" /> redirecionou você muitas vezes.</translation>
+<translation id="5617949217645503996">Redirecionamento em excesso por <ph name="HOST_NAME" /></translation>
 <translation id="5629630648637658800">Falha ao carregar as configurações da política</translation>
 <translation id="5631439013527180824">Token de gerenciamento de dispositivo inválido</translation>
 <translation id="5650551054760837876">Nenhum resultado de pesquisa encontrado.</translation>
@@ -420,7 +420,7 @@
 <translation id="6387478394221739770">Interessado em novos recursos interessantes do Google Chrome? Veja nosso Canal Beta em chrome.com/beta.</translation>
 <translation id="6391832066170725637">Não foi possível encontrar o arquivo ou diretório.</translation>
 <translation id="641480858134062906">Falha ao carregar <ph name="URL" /></translation>
-<translation id="6433595998831338502"><ph name="HOST_NAME" /> recusou-se a se conectar.</translation>
+<translation id="6433595998831338502">A conexão com <ph name="HOST_NAME" /> foi recusada.</translation>
 <translation id="6445051938772793705">País</translation>
 <translation id="6451458296329894277">Confirmar reenvio do formulário</translation>
 <translation id="6458467102616083041">Ignorado porque a pesquisa padrão foi desativada por uma política.</translation>
@@ -433,7 +433,7 @@
 <translation id="6533019874004191247">URL não suportado.</translation>
 <translation id="6550675742724504774">Opções</translation>
 <translation id="6596325263575161958">Opções de criptografia</translation>
-<translation id="6610562986279010327">O Chrome não pode abrir este URL</translation>
+<translation id="6610562986279010327">Este URL não pode ser aberto pelo Chrome</translation>
 <translation id="6626108645084335023">Aguardando teste de DNS.</translation>
 <translation id="6628463337424475685">Pesquisa do <ph name="ENGINE" /></translation>
 <translation id="6634865548447745291">Não é possível acessar <ph name="SITE" /> no momento, porque <ph name="BEGIN_LINK" />este certificado foi revogado<ph name="END_LINK" />. Ataques e erros de rede geralmente são temporários. Portanto, essa página provavelmente funcionará mais tarde.</translation>
@@ -518,7 +518,7 @@ Dica: o modo de navegação anônimo <ph name="SHORTCUT_KEY" /> pode ser útil d
 <translation id="7569952961197462199">Remover cartão de crédito do Chrome?</translation>
 <translation id="7578104083680115302">Pague rapidamente em sites e aplicativos em vários dispositivos usando os cards que você salvou com o Google.</translation>
 <translation id="7592362899630581445">O certificado do servidor viola as restrições de nome.</translation>
-<translation id="759889825892636187"><ph name="HOST_NAME" /> não consegue lidar com essa solicitação no momento.</translation>
+<translation id="759889825892636187"><ph name="HOST_NAME" /> não consegue atender a esta solicitação no momento.</translation>
 <translation id="7600965453749440009">Nunca traduzir do <ph name="LANGUAGE" /></translation>
 <translation id="7602848207066046655">Não foi possível encontrar o servidor <ph name="BEGIN_ABBR" /> de <ph name="HOST_NAME" />.</translation>
 <translation id="7606563002701561706">Favoritos aprimorados</translation>

@@ -45,6 +45,7 @@ Debes activar Bluetooth y la Ubicación para poder utilizar la Web física.</tra
 <translation id="1553358976309200471">Actualizar Chrome</translation>
 <translation id="1557201757634521564">Autodetectar codificación</translation>
 <translation id="1568822834048182062">Se están sincronizando los marcadores, el historial, las contraseñas y otras opciones de configuración con tu cuenta de Google.</translation>
+<translation id="1592483623187843893">El marcador se guardó sin conexión</translation>
 <translation id="1620510694547887537">Cámara</translation>
 <translation id="1623104350909869708">Evitar que esta página cree cuadros de diálogo adicionales</translation>
 <translation id="1641113438599504367">Navegación segura</translation>
@@ -110,6 +111,7 @@ Debes activar Bluetooth y la Ubicación para poder utilizar la Web física.</tra
 <translation id="2498359688066513246">Ayuda y comentarios</translation>
 <translation id="2501278716633472235">Ir atrás</translation>
 <translation id="2512222046227390255">Autocompletar formularios</translation>
+<translation id="2521102375070725336">El marcador se guardó sin conexión en <ph name="FOLDER_NAME" /></translation>
 <translation id="2526148617758225454">La extensión Reducir datos está activada. Accede a Configuración para administrarla.</translation>
 <translation id="2532336938189706096">Vista web</translation>
 <translation id="2536728043171574184">Visualizando una copia sin conexión de la página</translation>
@@ -172,6 +174,7 @@ Vas a acceder con una cuenta administrada, lo que significa que proporcionarás 
 <translation id="3435896845095436175">Habilitar</translation>
 <translation id="3485544713029068372">Smart Lock para contraseñas</translation>
 <translation id="3492207499832628349">Nueva pestaña de incógnito</translation>
+<translation id="3501331331116143684">La página se guardó sin conexión en <ph name="FOLDER_NAME" /></translation>
 <translation id="3518985090088779359">Aceptar y continuar</translation>
 <translation id="3527085408025491307">Carpeta</translation>
 <translation id="360480449234699036">Obtén información acerca de temas en sitios web sin salir de la página. Tocar para buscar envía una palabra y el contexto en el que se encuentra a la Búsqueda de Google, y muestra definiciones, fotos, resultados de la búsqueda y otros detalles.
@@ -197,6 +200,7 @@ Para ajustar el término de búsqueda, mantén presionado el texto y seleccióna
 <translation id="3988213473815854515">Se admite la ubicación.</translation>
 <translation id="3992315671621218278">Guardar vínculo</translation>
 <translation id="4002066346123236978">Título</translation>
+<translation id="4035611068038188272">Actualmente, los marcadores ocupan <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
 <translation id="4042870126885713738">Mostrar sugerencias cuando no se resuelve una dirección web o cuando no se puede establecer una conexión</translation>
 <translation id="4056223980640387499">Sepia</translation>
 <translation id="4059119910594077751">Toca el botón "Atrás" para salir de la pantalla completa.</translation>
@@ -208,7 +212,9 @@ Para ajustar el término de búsqueda, mantén presionado el texto y seleccióna
 <translation id="4116939199945053760"><ph name="SITE" /> quiere <ph name="BEGIN_LINK" />sincronizarse con<ph name="END_LINK" />:</translation>
 <translation id="4165986682804962316">Configuración del sitio</translation>
 <translation id="4170011742729630528">El servicio no se encuentra disponible; vuelve a intentarlo más tarde.</translation>
+<translation id="4193864812412988973">Visualizando una copia sin conexión de este marcador</translation>
 <translation id="4195643157523330669">Abrir en una pestaña nueva</translation>
+<translation id="4198229475320555619">El marcador de <ph name="PAGE_SIZE_STRING" /> se guardó sin conexión</translation>
 <translation id="423410644998903704">Chrome necesita acceso a los permisos para compartirlos con este sitio.</translation>
 <translation id="424696723690217687">Descubre páginas web enviadas por objetos cercanos.
 
@@ -397,6 +403,7 @@ Por ejemplo, algunos sitios web pueden responder a la solicitud mediante anuncio
 <translation id="6406506848690869874">Sincronización</translation>
 <translation id="6409731863280057959">Ventanas emergentes</translation>
 <translation id="641643625718530986">Imprimir…</translation>
+<translation id="6447570251829705777">Marcador no disponible sin conexión</translation>
 <translation id="6447842834002726250">Cookies</translation>
 <translation id="6448273550210938826">Sugerencias de URL y de búsqueda</translation>
 <translation id="6458785801851713928">Tu dominio no admite la sincronización.</translation>
@@ -452,7 +459,7 @@ Por ejemplo, algunos sitios web pueden responder a la solicitud mediante anuncio
 <translation id="7026897394897382018">Habilitar la opción Reducir datos</translation>
 <translation id="7029809446516969842">Contraseñas</translation>
 <translation id="7053983685419859001">Bloquear</translation>
-<translation id="7056999826593229648">Se detectó una conexión lenta.</translation>
+<translation id="7056999826593229648">Se detectó una conexión lenta</translation>
 <translation id="7063006564040364415">No se pudo establecer conexión con el servidor de sincronización.</translation>
 <translation id="7094922512924405309">No se encontró ninguna página web física cercana</translation>
 <translation id="7095930899177687653">Pestañas abiertas: <ph name="OPEN_TABS" /></translation>
@@ -570,10 +577,11 @@ Sin embargo, no vas a pasar completamente desapercibido. El modo de navegación 
 
 Conéctate a Internet y reproduce el contenido descargado para obtener licencias nuevas.</translation>
 <translation id="8660471606262461360">De Google Payments</translation>
-<translation id="8675945939500569406">¿Desea activar la Web física?</translation>
+<translation id="8675945939500569406">¿Deseas activar la Web física?</translation>
 <translation id="8676374126336081632">Borrar entrada</translation>
 <translation id="869891660844655955">Fecha de vencimiento</translation>
 <translation id="8699799819461268362">Filtro de Google SafeSites</translation>
+<translation id="8701537995684343047">Visitar marcador para guardarlo sin conexión</translation>
 <translation id="8719023831149562936">Esta pestaña no se puede transmitir.</translation>
 <translation id="8725066075913043281">Intentar nuevamente</translation>
 <translation id="8727142376512517020">No volver a mostrar</translation>
@@ -606,6 +614,7 @@ Conéctate a Internet y reproduce el contenido descargado para obtener licencias
 <translation id="9100610230175265781">Se necesita una frase de contraseña.</translation>
 <translation id="9133515669113036225">Restablecer credenciales de dispositivo</translation>
 <translation id="9137013805542155359">Mostrar original</translation>
+<translation id="9151532766011674069">El marcador se guardó sin conexión. El almacenamiento está casi lleno.</translation>
 <translation id="9156605176886108508">No hay carpetas de marcadores</translation>
 <translation id="917685106653909562">Páginas web físicas cercanas</translation>
 <translation id="9187199695613236444">Vista optimizada para celulares</translation>
@@ -615,6 +624,7 @@ Conéctate a Internet y reproduce el contenido descargado para obtener licencias
 <translation id="938850635132480979">Error: <ph name="ERROR_CODE" /></translation>
 <translation id="939736085109172342">Nueva carpeta</translation>
 <translation id="945632385593298557">Acceso al micrófono</translation>
+<translation id="954352821720225055">El marcador no está disponible sin conexión. El almacenamiento está casi lleno.</translation>
 <translation id="969096075394517431">Cambiar idiomas</translation>
 <translation id="971774202801778802">URL del marcador</translation>
 <translation id="983192555821071799">Cerrar todas las pestañas</translation>

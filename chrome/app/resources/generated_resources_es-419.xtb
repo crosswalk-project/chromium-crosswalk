@@ -110,6 +110,7 @@
 <translation id="1155759005174418845">Català</translation>
 <translation id="1156185823432343624">Volumen: silenciado</translation>
 <translation id="1156689104822061371">Diseño del teclado:</translation>
+<translation id="1158054703003659942">Habilitada como marcadores</translation>
 <translation id="1158274711289833876">Conexión segura de TLS</translation>
 <translation id="1160536908808547677">Al acercar la imagen, los elementos de posición fija y las barras de desplazamiento adaptadas se acoplarán a esta ventana gráfica.</translation>
 <translation id="1161575384898972166">Accede a <ph name="TOKEN_NAME" /> para exportar el certificado de cliente.</translation>
@@ -1304,7 +1305,7 @@ No creo que este sitio deba estar bloqueado.</translation>
 <translation id="2870560284913253234">Sitio</translation>
 <translation id="2870836398458454343">Transliteración (marhaban ← مرحبا)</translation>
 <translation id="2871813825302180988">Esta cuenta ya está en uso en este dispositivo.</translation>
-<translation id="2872304893053368447">Historial grupal por dominio del sitio web (es decir, google.com) en chrome://history.</translation>
+<translation id="2872304893053368447">Agrupar historial según el dominio del sitio web (es decir, google.com) en chrome://history</translation>
 <translation id="2872353916818027657">Intercambiar monitor principal</translation>
 <translation id="287286579981869940">Agregar <ph name="PROVIDER_NAME" />...</translation>
 <translation id="2872961005593481000">Cerrar</translation>
@@ -1499,7 +1500,7 @@ Revisa tu correo electrónico <ph name="ACCOUNT_EMAIL" /> para consultar estas y
 <translation id="3135204511829026971">Girar pantalla</translation>
 <translation id="313535638642906552">API de búsqueda incrustada</translation>
 <translation id="3140353188828248647">Enfoque en la barra de direcciones</translation>
-<translation id="3141917231319778873">La solicitud dada no es compatible con: " <ph name="DEVICE_NAME" /> ".</translation>
+<translation id="3141917231319778873">La solicitud dada no es compatible con: "<ph name="DEVICE_NAME" />".</translation>
 <translation id="3144126448740580210">LISTO</translation>
 <translation id="3144135466825225871">No se pudo reemplazar el archivo crx. Comprueba si el archivo está en uso.</translation>
 <translation id="3144647712221361880">Abrir vínculo como</translation>
@@ -1615,7 +1616,7 @@ Revisa tu correo electrónico <ph name="ACCOUNT_EMAIL" /> para consultar estas y
 <translation id="3303818374450886607">Copias</translation>
 <translation id="3305389145870741612">El proceso de formato puede tardar algunos segundos. Espera.</translation>
 <translation id="3305661444342691068">Abrir PDF en vista previa</translation>
-<translation id="3306684685104080068">Habilitar la transmisión de servicios basados en la nube como Google Hangouts</translation>
+<translation id="3306684685104080068">Habilitar la transmisión de contenido a servicios basados en la nube como Google Hangouts</translation>
 <translation id="3306897190788753224">Desactivar temporalmente la personalización de conversión, las sugerencias basadas en el historial y el diccionario para usuarios</translation>
 <translation id="3307950238492803740">Depurar todo</translation>
 <translation id="3308006649705061278">Unidad organizativa (OU)</translation>
@@ -2185,7 +2186,7 @@ De <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="4092067639640979396">Permite habilitar la compatibilidad experimental con la escala que utiliza la función para acercar la imagen.</translation>
 <translation id="4092878864607680421">La versión más reciente de la aplicación "<ph name="APP_NAME" />" requiere más permisos, por lo que fue desactivada.</translation>
 <translation id="4093955363990068916">Archivo local:</translation>
-<translation id="4095176652090536196">Historial grupal por dominio</translation>
+<translation id="4095176652090536196">Agrupar el Historial según el dominio</translation>
 <translation id="409579654357498729">Agregar a Google Cloud Print</translation>
 <translation id="4096508467498758490">Inhabilitar extensiones en modo de programador</translation>
 <translation id="4098354747657067197">Sitio engañoso</translation>
@@ -3284,7 +3285,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="5771816112378578655">Configuración en progreso...</translation>
 <translation id="5771849619911534867">Se detuvo la búsqueda de dispositivos.</translation>
 <translation id="5772177959740802111">Compatibilidad experimental de Chromecast con el reproductor de video</translation>
-<translation id="577322787686508614">No se permite la operación de lectura en: " <ph name="DEVICE_NAME" /> ".</translation>
+<translation id="577322787686508614">No se permite la operación de lectura en: "<ph name="DEVICE_NAME" />".</translation>
 <translation id="5773733305264798510">Inhabilitar Delay Agnostic AEC en WebRTC</translation>
 <translation id="5774295353725270860">Abrir aplicación de archivos</translation>
 <translation id="5774515636230743468">Manifiesto:</translation>
@@ -3316,6 +3317,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="5819442873484330149">Hangul de triple alternancia (final)</translation>
 <translation id="5819484510464120153">Crear acce&amp;sos directos a aplicaciones...</translation>
 <translation id="5822838715583768518">Ejecutar aplicación</translation>
+<translation id="5824480603702411398">Habilitada como páginas guardadas</translation>
 <translation id="5826507051599432481">Nombre común (CN)</translation>
 <translation id="5827266244928330802">Safari</translation>
 <translation id="5828228029189342317">Has elegido abrir ciertos tipos de archivo automáticamente después de la descarga.</translation>
@@ -3510,7 +3512,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="6120816415558830169">Descargado por &lt;a&gt;<ph name="EXTENSION" />&lt;/a&gt;</translation>
 <translation id="6122081475643980456">Se está controlando tu conexión a Internet</translation>
 <translation id="6122093587541546701">Correo electrónico (opcional):</translation>
-<translation id="6122875415561139701">No se permite la operación de escritura en: " <ph name="DEVICE_NAME" /> ".</translation>
+<translation id="6122875415561139701">No se permite la operación de escritura en: "<ph name="DEVICE_NAME" />".</translation>
 <translation id="6124650939968185064">Las siguientes extensiones dependen de esta extensión:</translation>
 <translation id="6129938384427316298">Comentario sobre el certificado Netscape</translation>
 <translation id="6129953537138746214">Google Space</translation>
@@ -4007,7 +4009,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
         los cambios en esta ruta causen fallos en gran parte del contenido.</translation>
 <translation id="6935367737854035550">Establece los elementos de material design en la parte superior del navegador de Chrome.</translation>
 <translation id="6937152069980083337">Entrada en japonés de Google (para teclado estadounidense)</translation>
-<translation id="693807610556624488">La operación de escritura excede la longitud máxima del atributo de: " <ph name="DEVICE_NAME" /> ".</translation>
+<translation id="693807610556624488">La operación de escritura excede la longitud máxima del atributo de: "<ph name="DEVICE_NAME" />".</translation>
 <translation id="6939777852457331078">Teclado Workman (EE. UU.)</translation>
 <translation id="6941427089482296743">Eliminar todo lo que se muestra</translation>
 <translation id="6941937518557314510">Accede a <ph name="TOKEN_NAME" /> para autenticarte en <ph name="HOST_NAME" /> con tu certificado.</translation>
@@ -4615,7 +4617,7 @@ Presiona cualquier tecla para seguir con navegando.</translation>
 <translation id="7852934890287130200">Crear, modificar o eliminar perfiles</translation>
 <translation id="7853747251428735">&amp;Más herramientas</translation>
 <translation id="7853966320808728790">Francés BÉPO</translation>
-<translation id="785549533363645510">Sin embargo, no eres invisible. El modo incógnito no oculta tu navegación de tu empleador, de tu proveedor de servicios de Internet, ni de los sitios web que visitas.</translation>
+<translation id="785549533363645510">Sin embargo, no eres invisible. El modo de navegación de incógnito no oculta tu navegación de tu empleador, de tu proveedor de servicios de Internet, ni de los sitios web que visitas.</translation>
 <translation id="7857823885309308051">Esto puede demorar unos minutos...</translation>
 <translation id="7857949311770343000">¿Esta es la página Nueva pestaña que esperabas ver?</translation>
 <translation id="7858929532264920831">Generación de claves</translation>

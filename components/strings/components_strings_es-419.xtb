@@ -22,7 +22,7 @@
 <translation id="1146673768181266552">ID del fallo: <ph name="CRASH_ID" /> (<ph name="CRASH_LOCAL_ID" />)</translation>
 <translation id="1150979032973867961">Este servidor no pudo probar que su dominio es <ph name="DOMAIN" />; el sistema operativo de la computadora no confía en el certificado de seguridad. Es posible que esto se deba a una configuración incorrecta o a que un atacante interceptó la conexión.</translation>
 <translation id="1152921474424827756">Accede a una <ph name="BEGIN_LINK" />copia almacenada en caché<ph name="END_LINK" /> de <ph name="URL" />.</translation>
-<translation id="1158211211994409885"><ph name="HOST_NAME" /> cerró inesperadamente la conexión.</translation>
+<translation id="1158211211994409885"><ph name="HOST_NAME" /> cerró la conexión de forma inesperada.</translation>
 <translation id="1175364870820465910">Im&amp;primir...</translation>
 <translation id="1181037720776840403">Eliminar</translation>
 <translation id="1195447618553298278">Error desconocido.</translation>
@@ -156,7 +156,7 @@
 <translation id="2784949926578158345">Se ha restablecido la conexión.</translation>
 <translation id="2824775600643448204">Barra de direcciones y de búsqueda</translation>
 <translation id="2835170189407361413">Eliminar formulario</translation>
-<translation id="284702764277384724">El certificado del servidor <ph name="HOST_NAME" /> parece falso.</translation>
+<translation id="284702764277384724">El certificado del servidor en <ph name="HOST_NAME" /> parece falso.</translation>
 <translation id="2855922900409897335">Verificar tu <ph name="CREDIT_CARD" /></translation>
 <translation id="2897655920961181107">El puerto no es seguro y se bloqueó.</translation>
 <translation id="2909946352844186028">Se detectó un cambio de red.</translation>
@@ -211,7 +211,7 @@
 <translation id="3380365263193509176">Error desconocido</translation>
 <translation id="3380864720620200369">ID de cliente:</translation>
 <translation id="340013220407300675">Es posible que usuarios no autorizados estén intentando robar tu información de <ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> (por ejemplo, contraseñas, mensajes o tarjetas de crédito).</translation>
-<translation id="3422472998109090673">Actualmente, <ph name="HOST_NAME" /> es inaccesible.</translation>
+<translation id="3422472998109090673">No se puede acceder a <ph name="HOST_NAME" /> en este momento.</translation>
 <translation id="3427342743765426898">&amp;Rehacer Editar</translation>
 <translation id="3435896845095436175">Habilitar</translation>
 <translation id="3447661539832366887">El propietario del dispositivo desactivó el juego de dinosaurios.</translation>
@@ -409,7 +409,7 @@
 <translation id="6263376278284652872">Marcadores de <ph name="DOMAIN" /></translation>
 <translation id="6264485186158353794">Volver a seguridad</translation>
 <translation id="6282194474023008486">Código postal</translation>
-<translation id="6305205051461490394">La <ph name="URL" /> es inaccesible.</translation>
+<translation id="6305205051461490394">No se puede acceder a <ph name="URL" />.</translation>
 <translation id="6321917430147971392">Revisa la configuración de DNS.</translation>
 <translation id="6328639280570009161">Intenta inhabilitar la predicción de red.</translation>
 <translation id="6337534724793800597">Filtrar políticas por nombre</translation>
@@ -418,7 +418,7 @@
 <translation id="6387478394221739770">Si estás interesado en probar nuevas e interesantes funciones de Chrome, visita nuestro canal beta en chrome.com/beta.</translation>
 <translation id="6391832066170725637">No se ha podido encontrar el archivo o el directorio.</translation>
 <translation id="641480858134062906">Se produjo un error al cargar <ph name="URL" />.</translation>
-<translation id="6433595998831338502"><ph name="HOST_NAME" /> se negó a conectarse.</translation>
+<translation id="6433595998831338502"><ph name="HOST_NAME" /> rechazó la conexión.</translation>
 <translation id="6445051938772793705">País</translation>
 <translation id="6451458296329894277">Confirmar reenvío del formulario</translation>
 <translation id="6458467102616083041">Se ignora porque la política inhabilita la búsqueda predeterminada.</translation>
@@ -515,12 +515,12 @@
 <translation id="7569952961197462199">¿Confirmas que quieres quitar la tarjeta de crédito de Chrome?</translation>
 <translation id="7578104083680115302">Paga con rapidez en sitios y apps a través de varios dispositivos con tarjetas que guardaste en Google.</translation>
 <translation id="7592362899630581445">El certificado del servidor no cumple con las restricciones de nombre.</translation>
-<translation id="759889825892636187">Actualmente, <ph name="HOST_NAME" /> no puede procesar esta solicitud.</translation>
+<translation id="759889825892636187"><ph name="HOST_NAME" /> no puede procesar esta solicitud en este momento.</translation>
 <translation id="7600965453749440009">Nunca traducir <ph name="LANGUAGE" /></translation>
-<translation id="7602848207066046655">No se encontró <ph name="BEGIN_ABBR" /> el servidor de <ph name="HOST_NAME" />.</translation>
+<translation id="7602848207066046655">No se encontró el servidor de <ph name="HOST_NAME" /> (<ph name="BEGIN_ABBR" />).</translation>
 <translation id="7606563002701561706">Marcadores mejorados</translation>
 <translation id="7610193165460212391">El valor <ph name="VALUE" /> está fuera del rango.</translation>
-<translation id="7613889955535752492">Exp: <ph name="EXPIRATION_MONTH" />/<ph name="EXPIRATION_YEAR" /></translation>
+<translation id="7613889955535752492">Vencimiento: <ph name="EXPIRATION_MONTH" />/<ph name="EXPIRATION_YEAR" /></translation>
 <translation id="7615602087246926389">Ya has utilizado otra versión de la contraseña de tu cuenta de Google para encriptar contenido. Ingrésala a continuación.</translation>
 <translation id="7637571805876720304">¿Confirmas que quieres quitar la tarjeta de crédito de Chromium?</translation>
 <translation id="7643817847124207232">Se ha perdido la conexión a Internet.</translation>
@@ -532,7 +532,7 @@
 <translation id="7716424297397655342">No se puede cargar este sitio desde la caché</translation>
 <translation id="7733391738235763478">(<ph name="NUMBER_VISITS" />)</translation>
 <translation id="7752995774971033316">Sin administrar</translation>
-<translation id="7758069387465995638">Es posible que un software antivirus o un fireware hayan bloqueado la conexión.</translation>
+<translation id="7758069387465995638">Es posible que un software antivirus o un firewarll hayan bloqueado la conexión.</translation>
 <translation id="7760914272566804712">Puedes intentar diagnosticar el problema mediante estos pasos:
           <ph name="LINE_BREAK" />
           <ph name="PLATFORM_TEXT" /></translation>
@@ -609,11 +609,11 @@
 <translation id="8725066075913043281">Intentar nuevamente</translation>
 <translation id="8730621377337864115">Listo</translation>
 <translation id="8738058698779197622">Para establecer una conexión segura, el reloj debe estar configurado correctamente. Esto se debe a que los certificados que usan los sitios web para su identificación solo son válidos por períodos de tiempo específicos. Debido a que la configuración del reloj del dispositivo es incorrecta, Chromium no puede verificar estos certificados.</translation>
-<translation id="8740359287975076522">No se encontró <ph name="HOST_NAME" />’s &lt;abbr id="dnsDefinition"&gt;DNS address&lt;/abbr&gt;. Estamos diagnosticando el problema.</translation>
+<translation id="8740359287975076522">No se encontró <ph name="HOST_NAME" />’s &lt;abbr id="dnsDefinition"&gt;DNS address&lt;/abbr&gt;. Se está diagnosticando el problema.</translation>
 <translation id="8790007591277257123">&amp;Rehacer Eliminar</translation>
 <translation id="8798099450830957504">Predeterminado</translation>
 <translation id="8804164990146287819">Política de privacidad</translation>
-<translation id="88201174049725495">Temporalmente, se restringieron las visitas de una extensión a esta URL.</translation>
+<translation id="88201174049725495">Se restringieron las visitas de una extensión a esta URL de forma temporal.</translation>
 <translation id="8820817407110198400">Marcadores</translation>
 <translation id="8824019021993735287">Chrome no pudo verificar tu tarjeta en este momento. Vuelve a intentarlo más tarde.</translation>
 <translation id="8834246243508017242">Habilitar Autocompletar con Contactos…</translation>
