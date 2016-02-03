@@ -1048,7 +1048,11 @@ public class DefaultMediaRouteController extends AbstractMediaRouteController {
 
     private void playMedia() {
         String title = null;
-        if (getMediaStateListener() != null) title = getMediaStateListener().getTitle();
+        if (getMediaStateListener() != null) {
+            title = getMediaStateListener().getTitle();
+            RecordCastAction.castDomainAndRegistry(
+                    getMediaStateListener().getFrameUrl().toString());
+        }
         playUri(mLocalVideoUri, title, mStartPositionMillis);
     }
 
