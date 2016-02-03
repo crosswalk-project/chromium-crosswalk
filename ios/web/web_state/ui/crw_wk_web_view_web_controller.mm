@@ -1266,6 +1266,7 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
   NSURLProtectionSpace* space = challenge.protectionSpace;
   DCHECK(
       [space.authenticationMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+      [space.authenticationMethod isEqual:NSURLAuthenticationMethodNTLM] ||
       [space.authenticationMethod isEqual:NSURLAuthenticationMethodHTTPDigest]);
 
   SEL selector = @selector(webController:
@@ -2007,6 +2008,7 @@ WKWebViewErrorSource WKWebViewErrorSourceFromError(NSError* error) {
                                   NSURLCredential*))completionHandler {
   NSString* authMethod = challenge.protectionSpace.authenticationMethod;
   if ([authMethod isEqual:NSURLAuthenticationMethodHTTPBasic] ||
+      [authMethod isEqual:NSURLAuthenticationMethodNTLM] ||
       [authMethod isEqual:NSURLAuthenticationMethodHTTPDigest]) {
     [self handleHTTPAuthForChallenge:challenge
                    completionHandler:completionHandler];
