@@ -122,6 +122,8 @@ class COMPOSITOR_EXPORT LayerAnimator
   void AddThreadedAnimation(scoped_ptr<cc::Animation> animation);
   void RemoveThreadedAnimation(int animation_id);
 
+  cc::AnimationPlayer* GetAnimationPlayerForTesting() const;
+
   // Sets the animation preemption strategy. This determines the behaviour if
   // a property is set during an animation. The default is
   // IMMEDIATELY_SET_NEW_TARGET (see ImmediatelySetNewTarget below).

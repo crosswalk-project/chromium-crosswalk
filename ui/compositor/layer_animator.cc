@@ -211,6 +211,10 @@ void LayerAnimator::RemoveThreadedAnimation(int animation_id) {
   animation_player_->RemoveAnimation(animation_id);
 }
 
+cc::AnimationPlayer* LayerAnimator::GetAnimationPlayerForTesting() const {
+  return animation_player_.get();
+}
+
 void LayerAnimator::StartAnimation(LayerAnimationSequence* animation) {
   scoped_refptr<LayerAnimator> retain(this);
   OnScheduled(animation);
