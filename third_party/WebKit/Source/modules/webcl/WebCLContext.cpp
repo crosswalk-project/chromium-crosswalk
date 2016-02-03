@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "config.h"
+#include "wtf/build_config.h"
 
 #if ENABLE(WEBCL)
 #include "bindings/modules/v8/V8WebCLDevice.h"
@@ -625,7 +625,7 @@ void WebCLContext::trackReleaseableWebCLObject(WeakPtr<WebCLObject> object)
 
 void WebCLContext::untrackReleaseableWebCLObject(WeakPtr<WebCLObject> object)
 {
-    unsigned int i = m_webCLObjects.find(object);
+    size_t i = m_webCLObjects.find(object);
     if (i != kNotFound)
         m_webCLObjects.remove(i);
 }

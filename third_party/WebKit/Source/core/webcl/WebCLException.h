@@ -132,7 +132,8 @@ public:
     static const char failureMessage[];
 
     static void throwException(int& code, ExceptionState& es);
-
+ 
+    unsigned code() const { return m_code; }
     String name() const { return m_name.isolatedCopy(); }
     String message() const { return m_message.isolatedCopy(); }
 

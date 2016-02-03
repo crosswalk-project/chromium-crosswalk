@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "config.h"
+#include "wtf/build_config.h"
 
 #if ENABLE(WEBCL)
 #include "bindings/modules/v8/V8WebCLPlatform.h"
@@ -86,6 +86,10 @@ Vector<unsigned> WebCLDevice::getMaxWorkItem()
        }
     }
     return Vector<unsigned>();
+}
+
+PassRefPtr<WebCLPlatform> WebCLDevice::getPlatform() const {
+    return m_platform;
 }
 
 ScriptValue WebCLDevice::getInfo(ScriptState* scriptState, unsigned deviceType, ExceptionState& es)
