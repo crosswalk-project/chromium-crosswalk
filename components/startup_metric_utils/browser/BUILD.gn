@@ -10,5 +10,6 @@ source_set("browser") {
 
   deps = [
     "//base",
+    "//base:prefs",
   ]
 }

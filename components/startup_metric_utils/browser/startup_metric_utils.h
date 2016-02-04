@@ -9,6 +9,9 @@
 
 #include "base/time/time.h"
 
+class PrefRegistrySimple;
+class PrefService;
+
 // Utility functions to support metric collection for browser startup. Timings
 // should use TimeTicks whenever possible. OS-provided timings are still
 // received as Time out of cross-platform support necessity but are converted to
@@ -35,6 +38,9 @@ enum StartupTemperature {
   // Startup temperature wasn't yet determined.
   UNDETERMINED_STARTUP_TEMPERATURE
 };
+
+// Registers startup related prefs in |registry|.
+void RegisterPrefs(PrefRegistrySimple* registry);
 
 // Returns true if any UI other than the browser window has been displayed
 // so far.  Useful to test if UI has been displayed before the first browser
@@ -67,6 +73,13 @@ void RecordExeMainEntryPointTime(const base::Time& time);
 // |is_first_run| - is the current launch part of a first run.
 void RecordBrowserMainMessageLoopStart(const base::TimeTicks& ticks,
                                        bool is_first_run);
+
+// Logs the Startup.TimeSinceLastStartup histogram. Obtains the timestamp of the
+// last startup from |pref_service| and overwrites it with the timestamp of the
+// current startup. If the startup temperature has been set by
+// RecordBrowserMainMessageLoopStart, the time since last startup is also logged
+// to an histogram suffixed with the startup temperature.
+void RecordTimeSinceLastStartup(PrefService* pref_service);
 
 // Call this with the time when the first browser window became visible.
 void RecordBrowserWindowDisplay(const base::TimeTicks& ticks);
