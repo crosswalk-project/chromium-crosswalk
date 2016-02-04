@@ -4,7 +4,6 @@
 
 #include "wtf/build_config.h"
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLOpenCL.h"
 
 #if OS(POSIX) || OS(ANDROID)
@@ -385,5 +384,3 @@ bool init(const char** libs, int length)
 
     return true;
 }
-
-#endif // ENABLE(WEBCL)

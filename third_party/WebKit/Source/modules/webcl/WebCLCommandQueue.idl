@@ -5,9 +5,7 @@
 typedef unsigned long CLenum;
 typedef boolean CLboolean;
 typedef unsigned long CLuint;
-[
-    Conditional=WEBCL,
-] interface WebCLCommandQueue {
+interface WebCLCommandQueue {
     // TODO(junmin-zhu) Because WebIDL doesn't support "optional<>" as null.
     // So all the function here are implemented through custom binding. Will revisit here when it's supported.
     [Custom, RaisesException] void enqueueCopyBuffer(WebCLBuffer srcBuffer,

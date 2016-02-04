@@ -6,7 +6,6 @@
 #ifndef WebCLHTMLUtil_h
 #define WebCLHTMLUtil_h
 
-#if ENABLE(WEBCL)
 #include <wtf/RefCounted.h>
 
 namespace blink {
@@ -41,5 +40,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLHTMLUtil_h

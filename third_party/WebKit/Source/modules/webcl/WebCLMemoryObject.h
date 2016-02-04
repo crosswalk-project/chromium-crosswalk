@@ -6,7 +6,6 @@
 #ifndef WebCLMemoryObject_h
 #define WebCLMemoryObject_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
 
@@ -50,5 +49,4 @@ protected:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLMemoryObject_h

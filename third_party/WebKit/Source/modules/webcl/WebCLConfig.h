@@ -5,8 +5,6 @@
 #ifndef WEBCL_CONFIG_H__
 #define WEBCL_CONFIG_H__
 
-#if ENABLE(WEBCL)
-
 #include "bindings/core/v8/ScriptWrappable.h"
 #include "bindings/core/v8/ScriptState.h"
 #include "platform/Logging.h"
@@ -25,5 +23,4 @@ typedef cl_uint GLenum;
 #define MULTI_EXTENSIONS_LENGTH 1024
 #define SINGLE_EXTENSION_LENGTH 64
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLConfig_H

@@ -5,7 +5,6 @@
 typedef unsigned long CLenum;
 typedef unsigned long long CLulong;
 [
-    Conditional=WEBCL,
     Constructor,
 ] interface WebCLEvent {
     [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);

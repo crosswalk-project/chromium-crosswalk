@@ -3,9 +3,7 @@
 // found in the LICENSE file.
 
 typedef unsigned long CLenum;
-[
-    Conditional=WEBCL,
-] interface WebCLProgram {
+interface WebCLProgram {
     [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);
     [CallWith=ScriptState, RaisesException] any getBuildInfo(WebCLDevice device, CLenum name);
     // TODO(junmin-zhu) Because WebIDL doesn't support "optional<>" as null.

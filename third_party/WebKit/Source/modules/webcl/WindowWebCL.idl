@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 [
-    Conditional=WEBCL,
     ImplementedAs=DOMWindowWebCL
 ] partial interface Window {
     readonly attribute WebCL webcl;

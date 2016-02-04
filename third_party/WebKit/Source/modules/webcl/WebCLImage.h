@@ -6,7 +6,6 @@
 #ifndef WebCLImage_h
 #define WebCLImage_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLImageDescriptor.h"
 #include "modules/webcl/WebCLMemoryObject.h"
@@ -37,5 +36,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLImage_h

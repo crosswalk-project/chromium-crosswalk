@@ -6,7 +6,6 @@
 #ifndef WebCLPlatform_h
 #define WebCLPlatform_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLExtension.h"
@@ -47,5 +46,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLPlatform_h

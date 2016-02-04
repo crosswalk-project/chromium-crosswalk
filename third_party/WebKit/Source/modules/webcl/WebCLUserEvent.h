@@ -6,7 +6,6 @@
 #ifndef WebCLUserEvent_h
 #define WebCLUserEvent_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLEvent.h"
 #include "wtf/PassRefPtr.h"
@@ -36,5 +35,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLUserEvent_h
