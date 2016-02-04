@@ -211,6 +211,30 @@ bool GetHardFaultCountForCurrentProcess(uint32_t* hard_fault_count,
         g_startup_temperature);                                               \
   }
 
+// Returns the system uptime on process launch.
+base::TimeDelta GetSystemUptimeOnProcessLaunch() {
+  // Process launch time is not available on Android.
+  if (g_process_creation_ticks.Get().is_null())
+    return base::TimeDelta();
+
+  // base::SysInfo::Uptime returns the time elapsed between system boot and now.
+  // Substract the time elapsed between process launch and now to get the time
+  // elapsed between system boot and process launch.
+  return base::SysInfo::Uptime() -
+         (base::TimeTicks::Now() - g_process_creation_ticks.Get());
+}
+
+void RecordSystemUptimeHistogram() {
+  const base::TimeDelta system_uptime_on_process_launch =
+      GetSystemUptimeOnProcessLaunch();
+  if (system_uptime_on_process_launch.is_zero())
+    return;
+
+  UMA_HISTOGRAM_WITH_STARTUP_TEMPERATURE(UMA_HISTOGRAM_LONG_TIMES_100,
+                                         "Startup.SystemUptime",
+                                         GetSystemUptimeOnProcessLaunch());
+}
+
 // On Windows, records the number of hard-faults that have occurred in the
 // current chrome.exe process since it was started. This is a nop on other
 // platforms.
@@ -390,6 +414,7 @@ void RecordExeMainEntryPointTime(const base::Time& time) {
 void RecordBrowserMainMessageLoopStart(const base::TimeTicks& ticks,
                                        bool is_first_run) {
   RecordHardFaultHistogram(is_first_run);
+  RecordSystemUptimeHistogram();
   RecordMainEntryTimeHistogram();
 
   const base::TimeTicks& process_creation_ticks =
