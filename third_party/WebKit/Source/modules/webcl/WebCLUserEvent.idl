@@ -5,8 +5,6 @@
 
 typedef long CLint;
 
-[
-    Conditional=WEBCL,
-] interface WebCLUserEvent : WebCLEvent {
+interface WebCLUserEvent : WebCLEvent {
     [RaisesException] void setStatus(CLint executionStatus);
 };

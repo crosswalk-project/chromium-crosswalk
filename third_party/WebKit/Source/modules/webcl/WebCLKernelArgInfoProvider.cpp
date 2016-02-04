@@ -3,9 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLKernel.h"
 #include "modules/webcl/WebCLKernelArgInfoProvider.h"
@@ -33,7 +30,7 @@ inline bool isStarCharacter(UChar c)
 inline bool isPrecededByUnderscores(const String& string, size_t index)
 {
     size_t start = index - 2;
-    return (start >= 0 && string[start + 1] == '_' && string[start] == '_');
+    return (string.length() != 0 && start < string.length() - 1 && string[start + 1] == '_' && string[start] == '_');
 }
 
 WebCLKernelArgInfoProvider::WebCLKernelArgInfoProvider(WebCLKernel* kernel)
@@ -242,5 +239,3 @@ String WebCLKernelArgInfoProvider::extractType(Vector<String>& declarationStrVec
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

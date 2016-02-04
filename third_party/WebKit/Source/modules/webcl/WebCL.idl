@@ -10,7 +10,6 @@ typedef unsigned long long CLulong; // 64-bit unsigned integer
 typedef unsigned long CLenum; // Used for enumerated types, such as WebCL.DEVICE_TYPE_GPU
 
 [
-    Conditional=WEBCL,
     NoInterfaceObject,
     DoNotCheckConstants
 ] interface WebCL {

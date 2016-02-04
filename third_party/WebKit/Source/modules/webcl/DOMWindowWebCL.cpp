@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-#if ENABLE(WEBCL)
-
 #include "core/dom/Document.h"
 #include "core/frame/LocalDOMWindow.h"
 #include "core/page/Page.h"
@@ -73,5 +70,3 @@ const char* DOMWindowWebCL::supplementName()
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

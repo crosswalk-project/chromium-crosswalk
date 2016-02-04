@@ -4,9 +4,7 @@
 
 // TODO(junmin-zhu): Blink does not support WebIDL dictionary definitions currently.
 // Implement as a WebIDL dictionary type.
-[
-    Conditional=WEBCL,
-] interface WebCLKernelArgInfo {
+interface WebCLKernelArgInfo {
     readonly attribute DOMString name;
     readonly attribute DOMString typeName;
     readonly attribute DOMString addressQualifier;

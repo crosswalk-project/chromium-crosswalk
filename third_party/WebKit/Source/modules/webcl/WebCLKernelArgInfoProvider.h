@@ -6,8 +6,6 @@
 #ifndef WebCLKernelArgInfoProvider_h
 #define WebCLKernelArgInfoProvider_h
 
-#if ENABLE(WEBCL)
-
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLKernelArgInfo.h"
 
@@ -40,5 +38,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLKernelArgInfoProvider_h

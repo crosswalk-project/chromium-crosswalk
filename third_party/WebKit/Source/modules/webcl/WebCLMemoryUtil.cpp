@@ -3,10 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
-
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLBuffer.h"
 #include "modules/webcl/WebCLCommandQueue.h"
@@ -178,5 +174,3 @@ void WebCLMemoryUtil::initializeOrQueueMemoryObject(WebCLBuffer* buffer, Excepti
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

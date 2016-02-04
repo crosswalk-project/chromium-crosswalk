@@ -3,7 +3,6 @@
 // found in the LICENSE file.
 
 [
-    Conditional=WEBCL,
     PermissiveDictionaryConversion
 ] dictionary WebCLImageDescriptor {
     unsigned long channelOrder = 0x10B5; //WebCL.RGBA;
