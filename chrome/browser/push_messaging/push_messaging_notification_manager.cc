@@ -27,6 +27,7 @@
 #include "content/public/browser/render_frame_host.h"
 #include "content/public/browser/storage_partition.h"
 #include "content/public/browser/web_contents.h"
+#include "content/public/common/url_constants.h"
 #include "net/base/registry_controlled_domains/registry_controlled_domain.h"
 #include "third_party/skia/include/core/SkBitmap.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -229,7 +230,15 @@ bool PushMessagingNotificationManager::IsTabVisible(
 
   // Use the visible URL since that's the one the user is aware of (and it
   // doesn't matter whether the page loaded successfully).
-  return origin == active_web_contents->GetVisibleURL().GetOrigin();
+  GURL visible_url = active_web_contents->GetVisibleURL();
+
+  // view-source: pages are considered to be controlled Service Worker clients
+  // and thus should be considered when checking the visible URL. However, the
+  // prefix has to be removed before the origins can be compared.
+  if (visible_url.SchemeIs(content::kViewSourceScheme))
+    visible_url = GURL(visible_url.GetContent());
+
+  return visible_url.GetOrigin() == origin;
 }
 
 void PushMessagingNotificationManager::DidGetNotificationsShownAndNeeded(
