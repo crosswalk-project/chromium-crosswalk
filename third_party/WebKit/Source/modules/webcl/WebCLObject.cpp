@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLObject.h"
 
@@ -43,5 +40,3 @@ void WebCLObject::setContext(PassRefPtr<WebCLContext> context)
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

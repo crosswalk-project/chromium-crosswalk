@@ -3,9 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "bindings/modules/v8/V8WebCLDevice.h"
 #include "core/html/HTMLCanvasElement.h"
 #include "core/html/HTMLImageElement.h"
@@ -724,5 +721,3 @@ bool WebCLContext::isExtensionEnabled(const String& name) const
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

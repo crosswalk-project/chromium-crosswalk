@@ -4,9 +4,7 @@
 
 typedef boolean CLboolean;
 typedef unsigned long CLenum;
-[
-    Conditional=WEBCL,
-] interface WebCLPlatform {
+interface WebCLPlatform {
     [CallWith=ScriptState, RaisesException] any getInfo(CLenum platformInfo);
     [RaisesException] sequence<WebCLDevice> getDevices(optional CLenum deviceType);
     sequence<DOMString>? getSupportedExtensions();

@@ -6,7 +6,6 @@
 #ifndef WebCLCallback_h
 #define WebCLCallback_h
 
-#if ENABLE(WEBCL)
 #include "platform/heap/Handle.h"
 #include <wtf/RefCounted.h>
 
@@ -20,5 +19,4 @@ public:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLCallback_h

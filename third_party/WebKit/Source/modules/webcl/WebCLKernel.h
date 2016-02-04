@@ -6,7 +6,6 @@
 #ifndef WebCLKernel_h
 #define WebCLKernel_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLKernelArgInfoProvider.h"
 #include "modules/webcl/WebCLProgram.h"
 
@@ -60,5 +59,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLKernel_h

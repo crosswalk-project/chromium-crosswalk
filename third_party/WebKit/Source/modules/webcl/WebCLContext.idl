@@ -5,9 +5,7 @@
 typedef unsigned long CLenum;
 typedef unsigned long CLuint;
 typedef boolean CLboolean;
-[
-    Conditional=WEBCL,
-] interface WebCLContext {
+interface WebCLContext {
     [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, ImageData hostPtr);
     [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, HTMLCanvasElement hostPtr);
     [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, HTMLImageElement hostPtr);

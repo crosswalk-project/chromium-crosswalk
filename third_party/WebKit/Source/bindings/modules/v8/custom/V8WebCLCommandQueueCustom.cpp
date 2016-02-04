@@ -2,9 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "bindings/core/v8/V8ArrayBufferView.h"
 #include "bindings/core/v8/V8HTMLCanvasElement.h"
 #include "bindings/core/v8/V8HTMLImageElement.h"
@@ -1548,5 +1545,3 @@ void V8WebCLCommandQueue::enqueueNDRangeKernelMethodCustom(const v8::FunctionCal
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)
