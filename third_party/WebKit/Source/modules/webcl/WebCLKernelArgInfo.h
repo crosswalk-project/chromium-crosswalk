@@ -6,7 +6,6 @@
 #ifndef WebCLKernelArgInfo_h
 #define WebCLKernelArgInfo_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 
 #include <wtf/RefCounted.h>
@@ -121,5 +120,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLKernelArgInfo_h

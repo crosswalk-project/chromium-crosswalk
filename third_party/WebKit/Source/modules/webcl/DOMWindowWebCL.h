@@ -5,7 +5,6 @@
 #ifndef DOMWindowWebCL_h
 #define DOMWindowWebCL_h
 
-#if ENABLE(WEBCL)
 #include "core/frame/DOMWindowProperty.h"
 #include "platform/Supplementable.h"
 
@@ -38,5 +37,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // DOMWindowWebCL_h

@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-[
-    Conditional=WEBCL,
-] interface WebCLImage : WebCLMemoryObject {
+interface WebCLImage : WebCLMemoryObject {
     [RaisesException] WebCLImageDescriptor getInfo();
 };

@@ -3,10 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
-
 #include "core/html/HTMLCanvasElement.h"
 #include "core/html/HTMLImageElement.h"
 #include "core/html/HTMLVideoElement.h"
@@ -183,5 +179,3 @@ ImageBuffer* WebCLHTMLUtil::ImageBufferCache::imageBuffer(const IntSize& size)
 }
 
 } // blink
-
-#endif // ENABLE(WEBCL)

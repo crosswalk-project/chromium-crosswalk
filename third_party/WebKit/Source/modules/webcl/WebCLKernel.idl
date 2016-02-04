@@ -5,9 +5,7 @@
 typedef unsigned long CLenum;
 typedef unsigned long CLuint;
 
-[
-    Conditional=WEBCL,
-] interface WebCLKernel {
+interface WebCLKernel {
     [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);
     [CallWith=ScriptState, RaisesException] any getWorkGroupInfo(WebCLDevice? device, CLenum name);
     [RaisesException] WebCLKernelArgInfo getArgInfo(CLuint index);

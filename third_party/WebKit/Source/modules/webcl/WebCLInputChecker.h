@@ -5,7 +5,6 @@
 #ifndef WebCLInputChecker_h
 #define WebCLInputChecker_h
 
-#if ENABLE(WEBCL)
 #include "core/dom/DOMArrayBufferView.h"
 #include "modules/webcl/WebCLConfig.h"
 
@@ -41,5 +40,4 @@ bool compareImageFormat(const WebCLImageDescriptor&, const WebCLImageDescriptor&
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLInputChecker_h

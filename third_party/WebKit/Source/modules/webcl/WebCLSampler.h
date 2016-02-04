@@ -6,7 +6,6 @@
 #ifndef WebCLSampler_h
 #define WebCLSampler_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
 
@@ -41,5 +40,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLSampler_h
