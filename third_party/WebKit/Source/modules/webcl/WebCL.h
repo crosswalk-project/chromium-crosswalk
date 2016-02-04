@@ -6,7 +6,6 @@
 #ifndef WebCL_h
 #define WebCL_h
 
-#if ENABLE(WEBCL)
 #include "modules/webcl/WebCLCallback.h"
 #include "modules/webcl/WebCLCommandQueue.h"
 #include "modules/webcl/WebCLConfig.h"
@@ -80,5 +79,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCL_h

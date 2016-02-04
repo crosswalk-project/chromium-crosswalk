@@ -6,8 +6,6 @@
 #ifndef WebCLObject_h
 #define WebCLObject_h
 
-#if ENABLE(WEBCL)
-
 #include "core/webcl/WebCLException.h"
 
 #include <wtf/PassRefPtr.h>
@@ -43,5 +41,4 @@ protected:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLObject_h

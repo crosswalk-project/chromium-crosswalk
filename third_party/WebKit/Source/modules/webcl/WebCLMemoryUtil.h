@@ -6,8 +6,6 @@
 #ifndef WebCLMemoryUtil_h
 #define WebCLMemoryUtil_h
 
-#if ENABLE(WEBCL)
-
 #include "core/webcl/WebCLException.h"
 #include <wtf/RefCounted.h>
 #include <wtf/Vector.h>
@@ -50,5 +48,4 @@ private:
 
 } // namespace blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLMemoryUtil_h

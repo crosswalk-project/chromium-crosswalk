@@ -3,9 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "bindings/core/v8/V8ArrayBufferView.h"
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "bindings/modules/v8/V8WebCLMemoryObject.h"
@@ -445,5 +442,3 @@ WebCLKernel::WebCLKernel(cl_kernel kernel, PassRefPtr<WebCLContext> context, Web
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

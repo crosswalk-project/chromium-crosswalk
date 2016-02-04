@@ -3,9 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "bindings/modules/v8/V8WebCLMemoryObject.h"
 #include "core/webcl/WebCLException.h"
@@ -100,5 +97,3 @@ WebCLMemoryObject::WebCLMemoryObject(cl_mem mem, unsigned sizeInBytes, PassRefPt
 }
 
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

@@ -3,10 +3,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
-
 #include "modules/webcl/WebCLBuffer.h"
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLImage.h"
@@ -360,5 +356,3 @@ bool compareImageFormat(const WebCLImageDescriptor& srcDescriptor, const WebCLIm
 
 } // namespace WebCLInputChecker
 } // namespace blink
-
-#endif // ENABLE(WEBCL)

@@ -6,8 +6,6 @@
 #ifndef WebCLExtension_h
 #define WebCLExtension_h
 
-#if ENABLE(WEBCL)
-
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLConfig.h"
 
@@ -31,5 +29,4 @@ private:
 
 } // blink
 
-#endif // ENABLE(WEBCL)
 #endif // WebCLExtension_h

@@ -2,10 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
-#if ENABLE(WEBCL)
-
 #include "bindings/modules/v8/V8WebCLCallback.h"
 #include "bindings/modules/v8/V8WebCLDevice.h"
 #include "bindings/modules/v8/V8WebCLProgram.h"
@@ -50,5 +46,4 @@ void V8WebCLProgram::buildMethodCustom(const v8::FunctionCallbackInfo<v8::Value>
         es.throwIfNeeded();
 }
 
-}
-#endif // ENABLE(WEBCL)
+} // namespace blink
