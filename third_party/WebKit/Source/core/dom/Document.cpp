@@ -1994,9 +1994,8 @@ void Document::clearFocusedElementTimerFired(Timer<Document>*)
 // stylesheets are loaded. Doing a layout ignoring the pending stylesheets
 // lets us get reasonable answers. The long term solution to this problem is
 // to instead suspend JavaScript execution.
-void Document::updateLayoutIgnorePendingStylesheets(Document::RunPostLayoutTasks runPostLayoutTasks)
+void Document::updateLayoutTreeIgnorePendingStylesheets()
 {
-    DocumentLifecycle::PreventThrottlingScope preventThrottling(lifecycle());
     StyleEngine::IgnoringPendingStylesheet ignoring(styleEngine());
 
     if (styleEngine().hasPendingSheets()) {
@@ -2018,7 +2017,14 @@ void Document::updateLayoutIgnorePendingStylesheets(Document::RunPostLayoutTasks
             updateLayoutTree(Force);
         }
     }
+    updateLayoutTreeIfNeeded();
+}
 
+void Document::updateLayoutIgnorePendingStylesheets(Document::RunPostLayoutTasks runPostLayoutTasks)
+{
+    DocumentLifecycle::PreventThrottlingScope preventThrottling(lifecycle());
+
+    updateLayoutTreeIgnorePendingStylesheets();
     updateLayout();
 
     if (runPostLayoutTasks == RunPostLayoutTasksSynchronously && view())
@@ -3601,7 +3607,8 @@ bool Document::setFocusedElement(PassRefPtrWillBeRawPtr<Element> prpNewFocusedEl
                 newFocusedElement = nullptr;
             }
             // Event handlers might make newFocusedElement dirty.
-            updateLayoutIgnorePendingStylesheets();
+            if (newFocusedElement)
+                updateLayoutTreeIgnorePendingStylesheets();
         }
 
         if (view()) {
