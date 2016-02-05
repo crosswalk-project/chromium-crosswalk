@@ -90,6 +90,10 @@ class InstantService : public KeyedService,
   // changed.
   void OnOmniboxStartMarginChanged(int start_margin);
 
+  // Used to validate that the URL the NTP is trying to navigate to is actually
+  // a URL on the most visited items / suggested items list.
+  bool IsValidURLForNavigation(const GURL& url) const;
+
   InstantSearchPrerenderer* instant_search_prerenderer() {
     return instant_prerenderer_.get();
   }
