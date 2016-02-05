@@ -706,8 +706,9 @@ IN_PROC_BROWSER_TEST_F(DumpAccessibilityTreeTest, AccessibilityDt) {
   RunHtmlTest(FILE_PATH_LITERAL("dt.html"));
 }
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) || defined(OS_MACOSX)
 // Flaky failures: http://crbug.com/445929.
+// Mac failures: http://crbug.com/571712.
 #define MAYBE_AccessibilityContenteditableDescendants \
     DISABLED_AccessibilityContenteditableDescendants
 #else
@@ -724,8 +725,9 @@ IN_PROC_BROWSER_TEST_F(DumpAccessibilityTreeTest,
   RunHtmlTest(FILE_PATH_LITERAL("element-class-id-src-attr.html"));
 }
 
-#if defined(OS_ANDROID)
+#if defined(OS_ANDROID) || defined(OS_MACOSX)
 // Flaky failures: http://crbug.com/445929.
+// Mac failures: http://crbug.com/571712.
 #define MAYBE_AccessibilityContenteditableDescendantsWithSelection \
     DISABLED_AccessibilityContenteditableDescendantsWithSelection
 #else
