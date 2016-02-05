@@ -817,6 +817,9 @@ willPositionSheet:(NSWindow*)sheet
   fullscreenTransition_.reset();
 
   blockLayoutSubviews_ = NO;
+
+  // Ensure that the window is layout properly.
+  [self layoutSubviews];
 }
 
 - (void)windowDidFailToEnterFullScreen:(NSWindow*)window {
