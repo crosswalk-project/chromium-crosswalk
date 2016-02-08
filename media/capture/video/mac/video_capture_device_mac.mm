@@ -539,18 +539,8 @@ void VideoCaptureDeviceMac::ReceiveFrame(const uint8* video_frame,
     return;
   }
 
-  base::TimeTicks aligned_timestamp;
-  if (timestamp == media::kNoTimestamp()) {
-    aligned_timestamp = base::TimeTicks::Now();
-  } else {
-    if (first_timestamp_ == media::kNoTimestamp()) {
-      first_timestamp_ = timestamp;
-      first_aligned_timestamp_ = base::TimeTicks::Now();
-    }
-    aligned_timestamp = first_aligned_timestamp_ + timestamp - first_timestamp_;
-  }
   client_->OnIncomingCapturedData(video_frame, video_frame_length, frame_format,
-                                  0, aligned_timestamp);
+                                  0, base::TimeTicks::Now());
 }
 
 void VideoCaptureDeviceMac::ReceiveError(
