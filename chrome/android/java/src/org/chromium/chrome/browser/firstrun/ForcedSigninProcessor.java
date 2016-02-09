@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.firstrun;
 import android.accounts.Account;
 import android.content.Context;
 
+import org.chromium.base.Log;
 import org.chromium.chrome.browser.services.AndroidEduAndChildAccountHelper;
 import org.chromium.chrome.browser.signin.SigninManager;
 import org.chromium.chrome.browser.util.FeatureUtilities;
@@ -26,6 +27,8 @@ import org.chromium.sync.signin.ChromeSigninController;
  * ForcedSigninProcessor.start(appContext).
  */
 public final class ForcedSigninProcessor {
+    private static final String TAG = "ForcedSignin";
+
     /*
      * Only for static usage.
      */
@@ -61,8 +64,12 @@ public final class ForcedSigninProcessor {
     private static void processAutomaticSignIn(Context appContext, int signinType) {
         final Account[] googleAccounts = AccountManagerHelper.get(appContext).getGoogleAccounts();
         SigninManager signinManager = SigninManager.get(appContext);
+        // By definition we have finished all the checks for first run.
+        signinManager.onFirstRunCheckDone();
         if (!FeatureUtilities.canAllowSync(appContext) || !signinManager.isSignInAllowed()
                 || googleAccounts.length != 1) {
+            Log.d(TAG, "Sign in disallowed or incorrect number of accounts (%d)",
+	            googleAccounts.length);
             return;
         }
         signinManager.signInToSelectedAccount(null, googleAccounts[0], signinType, null);
