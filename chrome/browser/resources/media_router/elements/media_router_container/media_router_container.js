@@ -343,10 +343,11 @@ Polymer({
   ready: function() {
     this.elementReadyTimeMs_ = performance.now();
     this.showSinkList_();
-    this.updateMaxSinkListHeight(this.dialogHeight_);
   },
 
   attached: function() {
+    this.updateElementPositioning_();
+
     // Turn off the spinner after 3 seconds, then report the current number of
     // sinks.
     this.async(function() {
