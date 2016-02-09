@@ -180,6 +180,7 @@ class FullscreenObserver : public WebContentsObserver {
 
 @implementation TabContentsController
 @synthesize webContents = contents_;
+@synthesize blockFullscreenResize = blockFullscreenResize_;
 
 - (id)initWithContents:(WebContents*)contents {
   if ((self = [super initWithNibName:nil bundle:nil])) {
@@ -229,7 +230,9 @@ class FullscreenObserver : public WebContentsObserver {
     isEmbeddingFullscreenWidget_ = NO;
     contentsNativeView = contents_->GetNativeView();
   }
-  [contentsNativeView setFrame:[self frameForContentsView]];
+  if (!isEmbeddingFullscreenWidget_ || !blockFullscreenResize_)
+    [contentsNativeView setFrame:[self frameForContentsView]];
+
   if ([subviews count] == 0) {
     [contentsContainer addSubview:contentsNativeView];
   } else if ([subviews objectAtIndex:0] != contentsNativeView) {
@@ -240,6 +243,17 @@ class FullscreenObserver : public WebContentsObserver {
                                           NSViewHeightSizable];
 
   [contentsContainer setNeedsDisplay:YES];
+}
+
+- (void)updateFullscreenWidgetFrame {
+  // This should only apply if a fullscreen widget is embedded.
+  if (!isEmbeddingFullscreenWidget_ || blockFullscreenResize_)
+    return;
+
+  content::RenderWidgetHostView* const fullscreenView =
+      contents_->GetFullscreenRenderWidgetHostView();
+  if (fullscreenView)
+    [fullscreenView->GetNativeView() setFrame:[self frameForContentsView]];
 }
 
 - (void)changeWebContents:(WebContents*)newContents {
