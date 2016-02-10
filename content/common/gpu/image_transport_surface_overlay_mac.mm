@@ -21,6 +21,7 @@ typedef void* GLeglImageOES;
 #endif
 
 #include "base/mac/scoped_cftyperef.h"
+#include "base/trace_event/trace_event.h"
 #include "content/common/gpu/ca_layer_partial_damage_tree_mac.h"
 #include "content/common/gpu/ca_layer_tree_mac.h"
 #include "content/common/gpu/gpu_messages.h"
@@ -287,7 +288,10 @@ void ImageTransportSurfaceOverlayMac::DisplayFirstPendingSwapImmediately() {
       current_partial_damage_tree_.swap(swap->partial_damage_tree);
       current_ca_layer_tree_.reset();
     } else {
+      TRACE_EVENT0("gpu", "Blank frame: No overlays or CALayers");
       [ca_root_layer_ setSublayers:nil];
+      current_partial_damage_tree_.reset();
+      current_ca_layer_tree_.reset();
     }
     swap->ca_layer_tree.reset();
     swap->partial_damage_tree.reset();
