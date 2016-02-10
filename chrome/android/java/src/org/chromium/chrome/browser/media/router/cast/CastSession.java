@@ -547,7 +547,7 @@ public class CastSession implements MediaNotificationListener {
                 messageType = sMediaOverloadedMessageTypes.get(messageType);
                 jsonCastMessage.put("type", messageType);
             }
-            return sendCastMessage(jsonCastMessage, MEDIA_NAMESPACE, clientId, sequenceNumber);
+            return sendJsonCastMessage(jsonCastMessage, MEDIA_NAMESPACE, clientId, sequenceNumber);
         }
 
         return true;
@@ -648,9 +648,6 @@ public class CastSession implements MediaNotificationListener {
 
         JSONObject jsonAppMessageWrapper = jsonMessage.getJSONObject("message");
 
-        JSONObject actualMessage = jsonAppMessageWrapper.getJSONObject("message");
-        if (actualMessage == null) return false;
-
         if (!mSessionId.equals(jsonAppMessageWrapper.getString("sessionId"))) return false;
 
         String namespaceName = jsonAppMessageWrapper.getString("namespaceName");
@@ -659,10 +656,20 @@ public class CastSession implements MediaNotificationListener {
         if (!mNamespaces.contains(namespaceName)) addNamespace(namespaceName);
 
         int sequenceNumber = jsonMessage.optInt("sequenceNumber", INVALID_SEQUENCE_NUMBER);
-        return sendCastMessage(actualMessage, namespaceName, clientId, sequenceNumber);
+
+        Object actualMessageObject = jsonAppMessageWrapper.get("message");
+        if (actualMessageObject == null) return false;
+
+        if (actualMessageObject instanceof String) {
+            String actualMessage = jsonAppMessageWrapper.getString("message");
+            return sendStringCastMessage(actualMessage, namespaceName, clientId, sequenceNumber);
+        }
+
+        JSONObject actualMessage = jsonAppMessageWrapper.getJSONObject("message");
+        return sendJsonCastMessage(actualMessage, namespaceName, clientId, sequenceNumber);
     }
 
-    private boolean sendCastMessage(
+    private boolean sendJsonCastMessage(
             JSONObject message,
             final String namespace,
             final String clientId,
@@ -684,10 +691,18 @@ public class CastSession implements MediaNotificationListener {
             mRequests.append(requestId, new RequestRecord(clientId, sequenceNumber));
         }
 
+        return sendStringCastMessage(message.toString(), namespace, clientId, sequenceNumber);
+    }
+
+    private boolean sendStringCastMessage(
+            final String message,
+            final String namespace,
+            final String clientId,
+            final int sequenceNumber) {
         Log.d(TAG, "Sending message to Cast device in namespace %s: %s", namespace, message);
 
         try {
-            Cast.CastApi.sendMessage(mApiClient, namespace, message.toString())
+            Cast.CastApi.sendMessage(mApiClient, namespace, message)
                     .setResultCallback(
                             new ResultCallback<Status>() {
                                 @Override
