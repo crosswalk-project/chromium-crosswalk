@@ -163,6 +163,14 @@ void ZygoteHostImpl::Init(const std::string& sandbox_cmd) {
   use_suid_sandbox_for_adj_oom_score_ =
       !sandbox_binary_.empty() && using_suid_sandbox;
 
+#if defined(OS_CHROMEOS)
+  // Chrome OS has a kernel patch that restricts oom_score_adj. See
+  // crbug.com/576409 for details.
+  if (!sandbox_binary_.empty() && using_namespace_sandbox) {
+    use_suid_sandbox_for_adj_oom_score_ = true;
+  }
+#endif
+
   // Start up the sandbox host process and get the file descriptor for the
   // renderers to talk to it.
   const int sfd = RenderSandboxHostLinux::GetInstance()->GetRendererSocket();
