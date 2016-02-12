@@ -60688,6 +60688,7 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="1095" label="SETTINGSPRIVATE_SETDEFAULTZOOMPERCENTFUNCTION"/>
   <int value="1096" label="BLUETOOTHPRIVATE_CONNECT"/>
   <int value="1097" label="BLUETOOTHPRIVATE_FORGETDEVICE"/>
+  <int value="1098" label="ACCESSIBILITY_PRIVATE_SETKEYBOARDLISTENER"/>
 </enum>
 
 <enum name="ExtensionInstallCause" type="int">

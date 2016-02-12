@@ -126,6 +126,9 @@ Background = function() {
   // Classic keymap.
   cvox.ChromeVoxKbHandler.handlerKeyMap = cvox.KeyMap.fromDefaults();
 
+  if (!chrome.accessibilityPrivate.setKeyboardListener)
+    chrome.accessibilityPrivate.setKeyboardListener = function() {};
+
   chrome.automation.addTreeChangeObserver(this.onTreeChange);
 };
 
