@@ -24,7 +24,6 @@ import org.chromium.chrome.browser.preferences.datareduction.DataReductionPrefer
 import org.chromium.chrome.browser.signin.AccountAdder;
 import org.chromium.chrome.browser.signin.AddGoogleAccountDialogFragment;
 import org.chromium.chrome.browser.signin.AddGoogleAccountDialogFragment.AddGoogleAccountListener;
-import org.chromium.chrome.browser.signin.SigninAccessPoint;
 import org.chromium.chrome.browser.signin.SigninManager;
 import org.chromium.chrome.browser.signin.SigninManager.SignInStateObserver;
 import org.chromium.chrome.browser.sync.ui.ChooseAccountFragment;
@@ -203,7 +202,6 @@ public class MainPreferences extends PreferenceFragment implements SignInStateOb
                                 new ChooseAccountFragment(accountNames);
                         chooserFragment.show(getFragmentManager(), ACCOUNT_PICKER_DIALOG_TAG);
                         callback.onResult(chooserFragment);
-                        SigninManager.logSigninStartAccessPoint(SigninAccessPoint.SETTINGS);
                     }
                 } else {
                     AddGoogleAccountDialogFragment dialog = new AddGoogleAccountDialogFragment();

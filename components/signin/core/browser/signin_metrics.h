@@ -115,9 +115,6 @@ enum Source {
 // initiated. Not all of them exist on all platforms. They are used with
 // "Signin.SigninStartedAccessPoint" and "Signin.SigninCompletedAccessPoint"
 // histograms.
-// A Java counterpart will be generated for this enum.
-// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.chrome.browser.signin
-// GENERATED_JAVA_CLASS_NAME_OVERRIDE: SigninAccessPoint
 enum class AccessPoint : int {
   ACCESS_POINT_START_PAGE = 0,
   ACCESS_POINT_NTP_LINK,
@@ -141,9 +138,6 @@ enum class AccessPoint : int {
 };
 
 // Enum values which enumerates all reasons to start sign in process.
-// A Java counterpart will be generated for this enum.
-// GENERATED_JAVA_ENUM_PACKAGE: org.chromium.chrome.browser.signin
-// GENERATED_JAVA_CLASS_NAME_OVERRIDE: SigninReason
 enum class Reason : int {
   REASON_SIGNIN_PRIMARY_ACCOUNT = 0,
   REASON_ADD_SECONDARY_ACCOUNT,

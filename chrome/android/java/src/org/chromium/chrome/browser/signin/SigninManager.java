@@ -18,8 +18,6 @@ import org.chromium.base.Log;
 import org.chromium.base.ObserverList;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.annotations.CalledByNative;
-import org.chromium.base.metrics.RecordHistogram;
-import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.browser.externalauth.ExternalAuthUtils;
 import org.chromium.chrome.browser.externalauth.UserRecoverableErrorHandler;
 import org.chromium.sync.signin.ChromeSigninController;
@@ -53,7 +51,6 @@ public class SigninManager implements AccountTrackerService.OnSystemAccountsSeed
     private static final String TAG = "SigninManager";
 
     private static SigninManager sSigninManager;
-    private static int sSignInAccessPoint = SigninAccessPoint.UNKNOWN;
 
     private final Context mContext;
     private final long mNativeSigninManagerAndroid;
@@ -163,22 +160,6 @@ public class SigninManager implements AccountTrackerService.OnSystemAccountsSeed
         mSigninAllowedByPolicy = nativeIsSigninAllowedByPolicy(mNativeSigninManagerAndroid);
 
         AccountTrackerService.get(mContext).addSystemAccountsSeededListener(this);
-    }
-
-    /**
-    * Log the access point when the user see the view of choosing account to sign in.
-    * @param accessPoint the enum value of AccessPoint defined in signin_metrics.h.
-    */
-    public static void logSigninStartAccessPoint(int accessPoint) {
-        RecordHistogram.recordEnumeratedHistogram(
-                "Signin.SigninStartedAccessPoint", accessPoint, SigninAccessPoint.MAX);
-        sSignInAccessPoint = accessPoint;
-    }
-
-    private void logSigninCompleteAccessPoint() {
-        RecordHistogram.recordEnumeratedHistogram(
-                "Signin.SigninCompletedAccessPoint", sSignInAccessPoint, SigninAccessPoint.MAX);
-        sSignInAccessPoint = SigninAccessPoint.UNKNOWN;
     }
 
     /**
@@ -507,11 +488,6 @@ public class SigninManager implements AccountTrackerService.OnSystemAccountsSeed
                 }
 
                 SigninManager.get(mContext).logInSignedInUser();
-                logSigninCompleteAccessPoint();
-                // Log signin in reason as defined in signin_metrics.h. Right now only
-                // SIGNIN_PRIMARY_ACCOUNT available on Android.
-                RecordHistogram.recordEnumeratedHistogram("Signin.SigninReason",
-                        SigninReason.SIGNIN_PRIMARY_ACCOUNT, SigninReason.MAX);
             }
             @Override
             public void onSigninCancelled() {
