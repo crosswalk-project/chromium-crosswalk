@@ -776,8 +776,11 @@ Polymer({
   maybeShowIssueView_: function(issue) {
     if (!!issue && issue.isBlocking)
       this.currentView_ = media_router.MediaRouterView.ISSUE;
-    else
-      this.updateElementPositioning_();
+    } else {
+      this.async(function() {
+        this.updateElementPositioning_();
+      });
+    }
   },
 
   /**
@@ -1131,9 +1134,9 @@ Polymer({
   },
 
   /**
-   * Compute the new maximum height of the sink list and update the style.
+   * Update the position-related styling of some elements.
    *
-   * @param {number} dialogHeight The height of the Media Router dialog.
+   * @private
    */
   updateElementPositioning_: function() {
     // Ensures that conditionally templated elements have finished stamping.
