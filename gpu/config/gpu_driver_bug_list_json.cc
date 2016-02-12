@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.40",
+  "version": "8.43",
   "entries": [
     {
       "id": 1,
@@ -1710,6 +1710,23 @@ LONG_STRING_CONST(
       "disabled_extensions": [
         "GL_ARB_timer_query",
         "GL_EXT_timer_query"
+      ]
+    },
+    {
+      "id": 145,
+      "cr_bugs": [585250],
+      "description": "EGLImage ref counting across EGLContext/threads is broken",
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "Qualcomm.*",
+      "gl_renderer": "Adreno \\(TM\\) 4.*",
+      "driver_version": {
+        "op": "<",
+        "value": "141.0"
+      },
+      "features": [
+        "broken_egl_image_ref_counting"
       ]
     }
   ]
