@@ -209,7 +209,7 @@ void SpellChecker::advanceToNextMisspelling(bool startBeforeSelection)
     // and then forward by a word does the trick.
     if (startedWithSelection) {
         VisiblePosition oneBeforeStart = previousPositionOf(createVisiblePosition(spellingSearchStart));
-        if (oneBeforeStart.isNotNull() && rootEditableElementOf(oneBeforeStart) == rootEditableElementOf(spellingSearchStart))
+        if (oneBeforeStart.isNotNull() && rootEditableElementOf(oneBeforeStart) == editableRootForPosition(spellingSearchStart))
             spellingSearchStart = endOfWord(oneBeforeStart).toParentAnchoredPosition();
         // else we were already at the start of the editable node
     }
