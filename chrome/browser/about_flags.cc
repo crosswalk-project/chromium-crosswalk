@@ -2145,6 +2145,11 @@ const FeatureEntry kFeatureEntries[] = {
      IDS_FLAGS_ENABLE_GROUPED_HISTORY_DESCRIPTION,
      kOsDesktop,
      SINGLE_VALUE_TYPE(switches::kHistoryEnableGroupByDomain)},
+    {"disable-compositor-animation-timelines",
+     IDS_FLAGS_DISABLE_COMPOSITOR_ANIMATION_TIMELINES,
+     IDS_FLAGS_DISABLE_COMPOSITOR_ANIMATION_TIMELINES_DESCRIPTION,
+     kOsAll, SINGLE_DISABLE_VALUE_TYPE(
+         switches::kDisableCompositorAnimationTimelines)},
 #if !defined(OS_ANDROID)
     {"ui-disable-compositor-animation-timelines",
      IDS_FLAGS_DISABLE_UI_COMPOSITOR_ANIMATION_TIMELINES,
