@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.SystemClock;
 import android.text.TextUtils;
 import android.util.Log;
 import android.util.Pair;
@@ -20,6 +21,7 @@ import org.chromium.base.ApplicationStatus;
 import org.chromium.base.ObserverList;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.VisibleForTesting;
+import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.chrome.browser.TabState;
 import org.chromium.chrome.browser.document.DocumentActivity;
 import org.chromium.chrome.browser.document.DocumentMetricIds;
@@ -42,6 +44,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Maintains a list of Tabs displayed when Chrome is running in document-mode.
@@ -135,6 +138,9 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
     /** ID of the last tab that was shown to the user. */
     private int mLastShownTabId = Tab.INVALID_TAB_ID;
 
+    /** Initial load time for shared preferences */
+    private long mSharedPrefsLoadTime;
+
     /**
      * Pre-load shared prefs to avoid being blocked on the
      * disk access async task in the future.
@@ -169,10 +175,12 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
         mInitializationObservers = new ObserverList<InitializationObserver>();
         mObservers = new ObserverList<TabModelObserver>();
 
+        long time = SystemClock.elapsedRealtime();
         SharedPreferences prefs = mContext.getSharedPreferences(PREF_PACKAGE, Context.MODE_PRIVATE);
         mLastShownTabId = prefs.getInt(
                 isIncognito() ? PREF_LAST_SHOWN_TAB_ID_INCOGNITO : PREF_LAST_SHOWN_TAB_ID_REGULAR,
                 Tab.INVALID_TAB_ID);
+        mSharedPrefsLoadTime = SystemClock.elapsedRealtime() - time;
 
         // Restore the tab list.
         setCurrentState(STATE_READ_RECENT_TASKS_START);
@@ -185,6 +193,11 @@ public class DocumentTabModelImpl extends TabModelJniBridge implements DocumentT
     public void initializeNative() {
         if (!isNativeInitialized()) super.initializeNative();
         deserializeTabStatesAsync();
+
+        if (isNativeInitialized()) {
+            RecordHistogram.recordTimesHistogram("Android.StrictMode.DocumentModeSharedPrefs",
+                    mSharedPrefsLoadTime, TimeUnit.MILLISECONDS);
+        }
     }
 
     public StorageDelegate getStorageDelegate() {
