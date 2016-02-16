@@ -18,7 +18,7 @@
 <translation id="1206892813135768548">Copia testo link</translation>
 <translation id="1240668123557180468">Consente di trovare le pagine web inviate da oggetti vicini. Chrome raccoglie le pagine web associate agli oggetti nelle vicinanze, le invia in forma anonima a un servizio di Google per individuare le pagine più utili a te, quindi le visualizza.
 
-Per poter utilizzare il Physical Web, devi attivare il Bluetooth e la localizzazione.</translation>
+Per poter utilizzare il Physical Web, devi attivare il Bluetooth e la geolocalizzazione.</translation>
 <translation id="1258753120186372309">Doodle di Google: <ph name="DOODLE_DESCRIPTION" /></translation>
 <translation id="1272079795634619415">Interrompi</translation>
 <translation id="1285320974508926690">Non tradurre mai questo sito</translation>
@@ -182,7 +182,7 @@ Stai per eseguire l'accesso con un account gestito e consentire al relativo ammi
 Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfezionare la ricerca, fai scorrere completamente il riquadro verso l'alto e tocca la casella di ricerca.</translation>
 <translation id="363596933471559332">Accedi automaticamente ai siti web utilizzando credenziali memorizzate. Quando la funzione non è attiva, ti viene chiesta la verifica prima di ogni accesso ai siti web.</translation>
 <translation id="3653742808139624888">Accedi a Chrome per trovare i tuoi preferiti su tutti i dispositivi</translation>
-<translation id="3656115297268584622">Attiva la localizzazione nelle <ph name="BEGIN_LINK" />Impostazioni Android<ph name="END_LINK" />.</translation>
+<translation id="3656115297268584622">Attiva la geolocalizzazione nelle <ph name="BEGIN_LINK" />Impostazioni Android<ph name="END_LINK" />.</translation>
 <translation id="3661699943263275414">I siti web di terze parti possono salvare e leggere i dati dei cookie</translation>
 <translation id="3672452749423051839">Suggerimenti per gli errori di navigazione</translation>
 <translation id="3732088672634061408">Impossibile recuperare gli interessi.</translation>
@@ -193,11 +193,11 @@ Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfez
 <translation id="3871171699884605801">Impossibile cancellare la cronologia di navigazione con account di minori</translation>
 <translation id="3894427358181296146">Aggiungi cartella</translation>
 <translation id="3895926599014793903">Attivazione forzata dello zoom</translation>
-<translation id="3917783807003067648">Localizzazione bloccata</translation>
+<translation id="3917783807003067648">Geolocalizzazione bloccata</translation>
 <translation id="3927692899758076493">Sans Serif</translation>
 <translation id="393697183122708255">Nessuna ricerca vocale attiva disponib.</translation>
 <translation id="3950820424414687140">Accedi</translation>
-<translation id="3988213473815854515">La localizzazione è consentita</translation>
+<translation id="3988213473815854515">La geolocalizzazione è consentita</translation>
 <translation id="3992315671621218278">Salva link</translation>
 <translation id="4002066346123236978">Titolo</translation>
 <translation id="4035611068038188272">Attualmente i preferiti occupano <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
@@ -216,9 +216,6 @@ Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfez
 <translation id="4195643157523330669">Apri in un'altra scheda</translation>
 <translation id="4198229475320555619">Preferito salvato offline: <ph name="PAGE_SIZE_STRING" /></translation>
 <translation id="423410644998903704">Chrome deve avere accesso alle autorizzazioni per condividerle con questo sito.</translation>
-<translation id="424696723690217687">Consente di trovare le pagine web inviate da oggetti vicini.
-
-Chrome cerca pagine nelle vicinanze quando il dispositivo è sbloccato. Tali pagine passeranno da un servizio di Google per migliorare la qualità dei risultati di pagine.</translation>
 <translation id="4254813446494774748">Lingua della traduzione:</translation>
 <translation id="4256782883801055595">Licenze open source</translation>
 <translation id="4259722352634471385">Navigazione bloccata: <ph name="URL" /></translation>
@@ -583,7 +580,6 @@ Per ottenere nuove licenze, connettiti a Internet e riproduci i contenuti scaric
 <translation id="8701537995684343047">Visita il preferito per salvarlo offline</translation>
 <translation id="8719023831149562936">Impossibile trasmettere scheda corrente</translation>
 <translation id="8725066075913043281">Riprova</translation>
-<translation id="8727142376512517020">Non visualizzare più</translation>
 <translation id="8730621377337864115">Fine</translation>
 <translation id="8737542153238017984">Pagina salvata non disponibile offline. Spazio di archiviazione quasi pieno.</translation>
 <translation id="8793430725658173476">Copia URL</translation>
@@ -597,6 +593,7 @@ Per ottenere nuove licenze, connettiti a Internet e riproduci i contenuti scaric
 <translation id="8909135823018751308">Condividi…</translation>
 <translation id="8912362522468806198">Google Account</translation>
 <translation id="8920114477895755567">In attesa dei dettagli sui genitori.</translation>
+<translation id="8931159598799892500">Chrome + Physical Web</translation>
 <translation id="8934455786738644694">Trascina dall'alto e tocca il pulsante Indietro per uscire dalla modalità a schermo intero.</translation>
 <translation id="8941248009481596111">La tua connessione a questo sito è privata.</translation>
 <translation id="8941729603749328384">www.example.com</translation>
