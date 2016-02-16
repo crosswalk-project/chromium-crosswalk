@@ -774,7 +774,7 @@ Polymer({
    * @private
    */
   maybeShowIssueView_: function(issue) {
-    if (!!issue && issue.isBlocking)
+    if (!!issue && issue.isBlocking) {
       this.currentView_ = media_router.MediaRouterView.ISSUE;
     } else {
       this.async(function() {
