@@ -1601,7 +1601,6 @@
       'webaudio/WaveShaperNode.h',
       'webaudio/WaveShaperProcessor.cpp',
       'webaudio/WaveShaperProcessor.h',
-      'webdatabase/ChangeVersionData.h',
       'webdatabase/ChangeVersionWrapper.cpp',
       'webdatabase/ChangeVersionWrapper.h',
       'webdatabase/DOMWindowWebDatabase.cpp',
@@ -1918,5 +1917,99 @@
       'websockets/DOMWebSocketTest.cpp',
       'websockets/DocumentWebSocketChannelTest.cpp',
     ],
+    # This variable contains final correct idl file lists.
+    'modules_final_definition_idl_files': [
+        '<@(modules_dictionary_idl_files)',
+        '<@(modules_idl_files)',
+    ],
+    'variables' : {
+        # Whether Enable WebCL.
+        'enable_webcl%': 0,
+    },
+    'conditions': [
+        ['enable_webcl ==1', {
+            'modules_idl_files': [
+                'webcl/WebCL.idl',
+                'webcl/WebCLBuffer.idl',
+                'webcl/WebCLCallback.idl',
+                'webcl/WebCLCommandQueue.idl',
+                'webcl/WebCLContext.idl',
+                'webcl/WebCLDevice.idl',
+                'webcl/WebCLEvent.idl',
+                'webcl/WebCLImage.idl',
+                'webcl/WebCLKernel.idl',
+                'webcl/WebCLKernelArgInfo.idl',
+                'webcl/WebCLMemoryObject.idl',
+                'webcl/WebCLPlatform.idl',
+                'webcl/WebCLProgram.idl',
+                'webcl/WebCLSampler.idl',
+                'webcl/WebCLUserEvent.idl',
+            ],
+
+            'modules_dependency_idl_files': [
+                'webcl/WindowWebCL.idl',
+            ],
+
+            'modules_dictionary_idl_files': [
+                'webcl/WebCLImageDescriptor.idl',
+            ],
+
+            'generated_modules_dictionary_files': [
+                '<(blink_modules_output_dir)/webcl/WebCLImageDescriptor.cpp',
+                '<(blink_modules_output_dir)/webcl/WebCLImageDescriptor.h',
+            ],
+
+            'modules_files': [
+                'webcl/DOMWindowWebCL.cpp',
+                'webcl/DOMWindowWebCL.h',
+                'webcl/WebCL.cpp',
+                'webcl/WebCL.h',
+                'webcl/WebCLBuffer.cpp',
+                'webcl/WebCLBuffer.h',
+                'webcl/WebCLCallback.h',
+                'webcl/WebCLCommandQueue.cpp',
+                'webcl/WebCLCommandQueue.h',
+                'webcl/WebCLConfig.h',
+                'webcl/WebCLContext.cpp',
+                'webcl/WebCLContext.h',
+                'webcl/WebCLDevice.cpp',
+                'webcl/WebCLDevice.h',
+                'webcl/WebCLEvent.cpp',
+                'webcl/WebCLEvent.h',
+                'webcl/WebCLExtension.cpp',
+                'webcl/WebCLExtension.h',
+                'webcl/WebCLHTMLUtil.cpp',
+                'webcl/WebCLHTMLUtil.h',
+                'webcl/WebCLImage.cpp',
+                'webcl/WebCLImage.h',
+                'webcl/WebCLInputChecker.cpp',
+                'webcl/WebCLInputChecker.h',
+                'webcl/WebCLKernel.cpp',
+                'webcl/WebCLKernel.h',
+                'webcl/WebCLKernelArgInfo.h',
+                'webcl/WebCLKernelArgInfoProvider.cpp',
+                'webcl/WebCLKernelArgInfoProvider.h',
+                'webcl/WebCLMemoryObject.cpp',
+                'webcl/WebCLMemoryObject.h',
+                'webcl/WebCLMemoryUtil.cpp',
+                'webcl/WebCLMemoryUtil.h',
+                'webcl/WebCLObject.cpp',
+                'webcl/WebCLObject.h',
+                'webcl/WebCLOpenCL.cpp',
+                'webcl/WebCLOpenCL.h',
+                'webcl/WebCLPlatform.cpp',
+                'webcl/WebCLPlatform.h',
+                'webcl/WebCLProgram.cpp',
+                'webcl/WebCLProgram.h',
+                'webcl/WebCLSampler.cpp',
+                'webcl/WebCLSampler.h',
+                'webcl/WebCLUserEvent.cpp',
+                'webcl/WebCLUserEvent.h',
+            ],
+            # These file operations ensure *.tmp file contains final correct file lists.
+            'modules_idl_files_list': '<|(modules_idl_files_list.tmp <@(modules_final_definition_idl_files))',
+            'modules_dictionary_idl_files_list': '<|(modules_dictionary_idl_files_list.tmp <@(modules_dictionary_idl_files))',
+        }]
+    ]
   },
 }

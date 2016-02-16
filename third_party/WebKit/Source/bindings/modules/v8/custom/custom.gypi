@@ -10,5 +10,19 @@
             'V8DeviceMotionEventCustom.cpp',
             'V8ServiceWorkerMessageEventCustom.cpp',
         ],
+
+        'variables' : {
+            # Whether Enalbe WebCL.
+            'enable_webcl%': 0,
+        },
+
+        'conditions': [
+            ['enable_webcl ==1', {
+                'bindings_modules_v8_custom_files': [
+                    'V8WebCLCommandQueueCustom.cpp',
+                    'V8WebCLProgramCustom.cpp',
+                ]
+            }],
+        ],
     },
 }

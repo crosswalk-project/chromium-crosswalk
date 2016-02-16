@@ -1,0 +1,12 @@
+// Copyright (C) 2015 Intel Corporation All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+typedef boolean CLboolean;
+typedef unsigned long CLenum;
+interface WebCLPlatform {
+    [CallWith=ScriptState, RaisesException] any getInfo(CLenum platformInfo);
+    [RaisesException] sequence<WebCLDevice> getDevices(optional CLenum deviceType);
+    sequence<DOMString>? getSupportedExtensions();
+    CLboolean enableExtension(DOMString extensionName);
+};
