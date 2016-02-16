@@ -503,9 +503,21 @@ public class CastSession implements MediaNotificationListener {
 
         sendClientMessageTo(clientId, "leave_session", null, sequenceNumber);
 
-        // All clients could've only joined if they're in the same scope. Need to send them
-        // all a "disconnect_session" message.
-        broadcastClientMessage("disconnect_session", sessionId);
+        // Send a "disconnect_session" message to all the clients that match with the leaving
+        // client's auto join policy.
+        Map<String, ClientRecord> clientRecords = mRouteProvider.getClientRecords();
+        ClientRecord leavingClient = clientRecords.get(clientId);
+        for (ClientRecord client : clientRecords.values()) {
+            if ((MediaSource.AUTOJOIN_TAB_AND_ORIGIN_SCOPED.equals(leavingClient.autoJoinPolicy)
+                            && client.origin.equals(leavingClient.origin)
+                            && client.tabId == leavingClient.tabId)
+                    || (MediaSource.AUTOJOIN_ORIGIN_SCOPED.equals(leavingClient.autoJoinPolicy)
+                            && client.origin.equals(leavingClient.origin))) {
+                sendClientMessageTo(
+                        client.clientId, "disconnect_session", sessionId, INVALID_SEQUENCE_NUMBER);
+            }
+        }
+
 
         return true;
     }

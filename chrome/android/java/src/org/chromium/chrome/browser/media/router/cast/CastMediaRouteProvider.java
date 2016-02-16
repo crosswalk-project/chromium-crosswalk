@@ -161,6 +161,10 @@ public class CastMediaRouteProvider implements MediaRouteProvider, DiscoveryDele
         return mClientRecords.keySet();
     }
 
+    public Map<String, ClientRecord> getClientRecords() {
+        return mClientRecords;
+    }
+
     @Override
     public void onSinksReceived(String sourceId, List<MediaSink> sinks) {
         mHandler.post(new OnSinksReceivedRunnable(mManager, this, sourceId, sinks));
