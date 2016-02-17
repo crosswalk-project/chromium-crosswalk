@@ -59,7 +59,8 @@ static void webclExceptionStackGetter(v8::Local<v8::Name> name, const v8::Proper
 
 static void webclExceptionStackSetter(v8::Local<v8::Name> name, v8::Local<v8::Value> value, const v8::PropertyCallbackInfo<void>& info)
 {
-    info.Data().As<v8::Object>()->Set(v8AtomicString(info.GetIsolate(), "stack"), value);
+    v8::Maybe<bool> unused = info.Data().As<v8::Object>()->Set(info.GetIsolate()->GetCurrentContext(), v8AtomicString(info.GetIsolate(), "stack"), value);
+    ALLOW_UNUSED_LOCAL(unused);
 }
 
 v8::Local<v8::Value> V8ThrowException::createDOMException(v8::Isolate* isolate, int ec, const String& sanitizedMessage, const String& unsanitizedMessage, const v8::Local<v8::Object>& creationContext)
@@ -124,10 +125,19 @@ v8::Local<v8::Value> V8ThrowException::throwDOMException(int ec, const String& s
 
 v8::Local<v8::Value> V8ThrowException::createWebCLException(v8::Isolate* isolate, int ec, const String& name, const String& message, const v8::Local<v8::Object>& creationContext)
 {
-    if (ec <= 0 || v8::V8::IsExecutionTerminating())
+    if (ec <= 0 || isolate->IsExecutionTerminating())
         return v8Undefined();
 
-    v8::TryCatch tryCatch;
+    v8::Local<v8::Object> sanitizedCreationContext = creationContext;
+
+    ScriptState* scriptState = ScriptState::from(creationContext->CreationContext());
+    Frame* frame = toFrameIfNotDetached(scriptState->context());
+    if (!frame || !BindingSecurity::shouldAllowAccessToFrame(isolate, callingDOMWindow(isolate), frame, DoNotReportSecurityError)) {
+        scriptState = ScriptState::current(isolate);
+        sanitizedCreationContext = scriptState->context()->Global();
+    }
+
+    v8::TryCatch tryCatch(isolate);
 
     RefPtr<WebCLException> webclException = WebCLException::create(ec, name, message);
     v8::Local<v8::Value> exception = toV8(webclException, creationContext, isolate);
@@ -144,7 +154,7 @@ v8::Local<v8::Value> V8ThrowException::createWebCLException(v8::Isolate* isolate
     v8::Local<v8::Object> exceptionObject = exception.As<v8::Object>();
     v8::Maybe<bool> result = exceptionObject->SetAccessor(isolate->GetCurrentContext(), v8AtomicString(isolate, "stack"), webclExceptionStackGetter, webclExceptionStackSetter, v8::MaybeLocal<v8::Value>(error));
     ASSERT_UNUSED(result, result.FromJust());
-    V8HiddenValue::setHiddenValue(isolate, exceptionObject, V8HiddenValue::error(isolate), error);
+    V8HiddenValue::setHiddenValue(scriptState, exceptionObject, V8HiddenValue::error(isolate), error);
 
     return exception;
 }
