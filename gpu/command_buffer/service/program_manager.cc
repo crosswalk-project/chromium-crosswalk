@@ -1107,7 +1107,7 @@ bool Program::DetectShaderVersionMismatch() const {
         return true;
       }
       version = shader->shader_version();
-      DCHECK(version != Shader::kUndefinedShaderVersion);
+      //DCHECK(version != Shader::kUndefinedShaderVersion);
     }
   }
   return false;
