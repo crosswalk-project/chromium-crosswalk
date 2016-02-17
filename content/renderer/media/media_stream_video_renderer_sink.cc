@@ -32,8 +32,7 @@ MediaStreamVideoRendererSink::MediaStreamVideoRendererSink(
       video_track_(video_track),
       media_task_runner_(media_task_runner),
       weak_factory_(this) {
-  const bool kShouldUseGpuMemoryBuffersForVideoFrames = false;
-  if (kShouldUseGpuMemoryBuffersForVideoFrames && gpu_factories &&
+  if (gpu_factories &&
       gpu_factories->ShouldUseGpuMemoryBuffersForVideoFrames()) {
     gpu_memory_buffer_pool_.reset(new media::GpuMemoryBufferVideoFramePool(
         media_task_runner, worker_task_runner, gpu_factories));
@@ -116,8 +115,7 @@ void MediaStreamVideoRendererSink::OnVideoFrame(
           &media::GpuMemoryBufferVideoFramePool::MaybeCreateHardwareFrame,
           base::Unretained(gpu_memory_buffer_pool_.get()), frame,
           media::BindToCurrentLoop(
-              base::Bind(&MediaStreamVideoRendererSink::FrameReady,
-                         weak_factory_.GetWeakPtr()))));
+              base::Bind(&MediaStreamVideoRendererSink::FrameReady, this))));
 }
 
 void MediaStreamVideoRendererSink::FrameReady(
