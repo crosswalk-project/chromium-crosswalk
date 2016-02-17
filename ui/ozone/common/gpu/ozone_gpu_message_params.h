@@ -8,6 +8,7 @@
 #include <string>
 #include <vector>
 
+#include "base/files/file_path.h"
 #include "ui/display/types/display_constants.h"
 #include "ui/gfx/buffer_types.h"
 #include "ui/gfx/geometry/point.h"
@@ -38,6 +39,7 @@ struct OZONE_EXPORT DisplaySnapshot_Params {
   bool is_aspect_preserving_scaling = false;
   bool has_overscan = false;
   std::string display_name;
+  base::FilePath sys_path;
   std::vector<DisplayMode_Params> modes;
   bool has_current_mode = false;
   DisplayMode_Params current_mode;

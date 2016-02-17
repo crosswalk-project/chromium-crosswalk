@@ -5,8 +5,8 @@
 #ifndef UI_OZONE_PLATFORM_DRM_HOST_DRM_DISPLAY_HOST_MANAGER_H_
 #define UI_OZONE_PLATFORM_DRM_HOST_DRM_DISPLAY_HOST_MANAGER_H_
 
+#include <map>
 #include <queue>
-#include <set>
 
 #include "base/files/scoped_file.h"
 #include "base/memory/scoped_vector.h"
@@ -76,6 +76,7 @@ class DrmDisplayHostManager : public DeviceEventObserver,
   // Called as a result of finishing to process the display hotplug event. These
   // are responsible for dequing the event and scheduling the next event.
   void OnAddGraphicsDevice(const base::FilePath& path,
+                           const base::FilePath& sysfs_path,
                            scoped_ptr<DrmDeviceHandle> handle);
   void OnUpdateGraphicsDevice();
   void OnRemoveGraphicsDevice(const base::FilePath& path);
@@ -126,8 +127,9 @@ class DrmDisplayHostManager : public DeviceEventObserver,
   // True if a display event is currently being processed on a worker thread.
   bool task_pending_ = false;
 
-  // Keeps track of all the active DRM devices.
-  std::set<base::FilePath> drm_devices_;
+  // Keeps track of all the active DRM devices. The key is the device path, the
+  // value is the sysfs path which has been resolved from the device path.
+  std::map<base::FilePath, base::FilePath> drm_devices_;
 
   // This is used to cache the primary DRM device until the channel is
   // established.
