@@ -115,6 +115,9 @@
           'sources!': [
             'text/TextCodecICU.cpp',
           ],
+          'sources': [
+            'text/TextCodecICUAlternatives.cpp',
+          ],
           'dependencies': [
             '<(DEPTH)/base/base.gyp:base_icu_alternatives',
           ],

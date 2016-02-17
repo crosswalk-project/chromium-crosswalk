@@ -44,6 +44,9 @@
 #include "wtf/text/TextCodecUserDefined.h"
 #include "wtf/text/TextEncoding.h"
 
+#if defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
+#include "wtf/text/TextCodecICUAlternatives.h"
+#endif
 namespace WTF {
 
 const size_t maxEncodingNameLength = 63;
@@ -250,6 +253,9 @@ static void extendTextCodecMaps()
 #if !defined(USE_ICU_ALTERNATIVES_ON_ANDROID)
     TextCodecICU::registerEncodingNames(addToTextEncodingNameMap);
     TextCodecICU::registerCodecs(addToTextCodecMap);
+#else
+    TextCodecICUAlternatives::registerEncodingNames(addToTextEncodingNameMap);
+    TextCodecICUAlternatives::registerCodecs(addToTextCodecMap);
 #endif
 
     pruneBlacklistedCodecs();
