@@ -3891,7 +3891,6 @@
             'layout/PaginationTest.cpp',
             'layout/compositing/CompositedLayerMappingTest.cpp',
             'layout/shapes/BoxShapeTest.cpp',
-            'loader/DocumentLoadTimingTest.cpp',
             'loader/FrameFetchContextTest.cpp',
             'loader/LinkHeaderTest.cpp',
             'loader/LinkLoaderTest.cpp',
