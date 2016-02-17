@@ -32,7 +32,7 @@ public:
     ~WebCLMemoryObject() override;
     static PassRefPtr<WebCLMemoryObject> create(cl_mem, unsigned, PassRefPtr<WebCLContext>);
 
-    virtual ScriptValue getInfo(ScriptState*, int, ExceptionState&);
+    ScriptValue getInfo(ScriptState*, int, ExceptionState&);
     void release() override;
 
     size_t sizeInBytes() const { return m_sizeInBytes; }

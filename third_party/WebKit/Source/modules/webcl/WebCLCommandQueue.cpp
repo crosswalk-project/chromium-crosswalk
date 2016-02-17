@@ -3,7 +3,7 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "config.h"
+#include "wtf/build_config.h"
 
 #if ENABLE(WEBCL)
 #include "bindings/modules/v8/V8WebCLContext.h"
@@ -25,6 +25,7 @@
 #include "modules/webcl/WebCLKernel.h"
 #include "modules/webcl/WebCLOpenCL.h"
 #include "public/platform/Platform.h"
+#include "public/platform/WebTaskRunner.h"
 #include "platform/ThreadSafeFunctional.h"
 
 namespace blink {
