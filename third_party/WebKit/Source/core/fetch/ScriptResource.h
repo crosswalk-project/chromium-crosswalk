@@ -33,6 +33,12 @@
 
 namespace blink {
 
+enum class ScriptIntegrityDisposition {
+    NotChecked = 0,
+    Failed,
+    Passed
+};
+
 class FetchRequest;
 class ScriptResource;
 
@@ -70,8 +76,9 @@ public:
 
     void setIntegrityMetadata(const IntegrityMetadataSet& metadata) { m_integrityMetadata = metadata; }
     const IntegrityMetadataSet& integrityMetadata() const { return m_integrityMetadata; }
-    void setIntegrityAlreadyChecked(bool checked) { m_integrityChecked = checked; }
-    bool integrityAlreadyChecked() { return m_integrityChecked; }
+    // The argument must never be |NotChecked|.
+    void setIntegrityDisposition(ScriptIntegrityDisposition);
+    ScriptIntegrityDisposition integrityDisposition() { return m_integrityDisposition; }
     bool mustRefetchDueToIntegrityMetadata(const FetchRequest&) const override;
 
 private:
@@ -86,7 +93,7 @@ private:
         }
     };
 
-    bool m_integrityChecked;
+    ScriptIntegrityDisposition m_integrityDisposition;
     IntegrityMetadataSet m_integrityMetadata;
 
     AtomicString m_script;
