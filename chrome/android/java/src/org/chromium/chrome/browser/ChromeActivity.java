@@ -868,6 +868,9 @@ public abstract class ChromeActivity extends AsyncInitializationActivity
     protected void onAccessibilityModeChanged(boolean enabled) {
         InfoBarContainer.setIsAllowedToAutoHide(!enabled);
         if (mToolbarManager != null) mToolbarManager.onAccessibilityStatusChanged(enabled);
+        if (mContextualSearchManager != null) {
+            mContextualSearchManager.onAccessibilityModeChanged(enabled);
+        }
     }
 
     @Override
