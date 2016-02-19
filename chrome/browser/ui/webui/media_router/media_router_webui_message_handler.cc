@@ -26,6 +26,8 @@ namespace media_router {
 
 namespace {
 
+const char kCastLearnMorePageUrl[] =
+    "https://www.google.com/chrome/devices/chromecast/learn.html";
 const char kHelpPageUrlPrefix[] =
     "https://support.google.com/chromecast/answer/%d";
 
@@ -325,6 +327,8 @@ void MediaRouterWebUIMessageHandler::OnRequestInitialData(
   media_router_ui_->OnUIInitiallyLoaded();
   base::DictionaryValue initial_data;
 
+  // General Chromecast learn more page.
+  initial_data.SetString("firstRunFlowLearnMoreUrl", kCastLearnMorePageUrl);
   // "No Cast devices found?" Chromecast help center page.
   initial_data.SetString("deviceMissingUrl",
       base::StringPrintf(kHelpPageUrlPrefix, 3249268));

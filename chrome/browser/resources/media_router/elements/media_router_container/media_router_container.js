@@ -108,6 +108,27 @@ Polymer({
     },
 
     /**
+     * The text for the learn more link about cloud services in the first run
+     * flow.
+     * @private {string}
+     */
+    firstRunFlowLearnMore_: {
+      type: String,
+      readOnly: true,
+      value: loadTimeData.valueExists('firstRunFlowLearnMore') ?
+          loadTimeData.getString('firstRunFlowLearnMore') : '',
+    },
+
+    /**
+     * The URL to open when the first run flow learn more link is clicked.
+     * @type {string}
+     */
+    firstRunFlowLearnMoreUrl: {
+      type: String,
+      value: '',
+    },
+
+    /**
      * The text description for the first run flow.
      * @private {string}
      */

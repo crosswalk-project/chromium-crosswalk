@@ -72,6 +72,16 @@
   line-height: 1.5em;
 }
 
+#first-run-flow a {
+  color: white;
+  text-decoration: none;
+}
+
+.first-run-learn-more {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 #first-run-title {
   font-size: 1.25em;
 }
