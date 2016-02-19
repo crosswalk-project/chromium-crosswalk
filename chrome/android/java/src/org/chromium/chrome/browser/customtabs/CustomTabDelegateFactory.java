@@ -7,6 +7,7 @@ package org.chromium.chrome.browser.customtabs;
 import android.content.Intent;
 import android.content.pm.ResolveInfo;
 import android.os.TransactionTooLargeException;
+import android.text.TextUtils;
 
 import org.chromium.base.Log;
 import org.chromium.base.VisibleForTesting;
@@ -57,7 +58,8 @@ public class CustomTabDelegateFactory extends TabDelegateFactory {
             try {
                 // For a URL chrome can handle and there is no default set, handle it ourselves.
                 if (!hasDefaultHandler) {
-                    if (isPackageSpecializedHandler(getActivity(), mClientPackageName, intent)) {
+                    if (!TextUtils.isEmpty(mClientPackageName) && isPackageSpecializedHandler(
+                            getActivity(), mClientPackageName, intent)) {
                         intent.setPackage(mClientPackageName);
                     } else if (!isExternalProtocol) {
                         return false;
