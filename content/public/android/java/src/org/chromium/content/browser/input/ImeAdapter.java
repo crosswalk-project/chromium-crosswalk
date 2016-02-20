@@ -53,6 +53,7 @@ import org.chromium.ui.picker.InputDialogContainer;
 @JNINamespace("content")
 public class ImeAdapter {
     private static final String TAG = "cr_Ime";
+    private static final boolean DEBUG_LOGS = false;
 
     private static final int COMPOSITION_KEY_CODE = 229;
 
@@ -143,7 +144,7 @@ public class ImeAdapter {
         // ImeAdapter#dispatchKeyEvent().
         if (mTextInputType == TextInputType.NONE) {
             mInputConnection = null;
-            Log.d(TAG, "onCreateInputConnection returns null.");
+            if (DEBUG_LOGS) Log.w(TAG, "onCreateInputConnection returns null.");
             // InputMethodService evaluates fullscreen mode even when the new input connection is
             // null. This makes sure IME doesn't enter fullscreen mode or open custom UI.
             outAttrs.imeOptions =
@@ -161,7 +162,7 @@ public class ImeAdapter {
         int initialSelEnd = outAttrs.initialSelEnd = Selection.getSelectionEnd(mEditable);
         mInputConnection = mInputConnectionFactory.get(
                 mViewEmbedder.getAttachedView(), this, initialSelStart, initialSelEnd, outAttrs);
-        Log.d(TAG, "onCreateInputConnection");
+        if (DEBUG_LOGS) Log.w(TAG, "onCreateInputConnection");
         return mInputConnection;
     }
 
@@ -247,8 +248,10 @@ public class ImeAdapter {
      */
     public void updateKeyboardVisibility(int textInputType,
             int textInputFlags, boolean showIfNeeded) {
-        Log.d(TAG, "updateKeyboardVisibility: type [%d->%d], flags [%d], show [%b], ",
-                mTextInputType, textInputType, textInputFlags, showIfNeeded);
+        if (DEBUG_LOGS) {
+            Log.w(TAG, "updateKeyboardVisibility: type [%d->%d], flags [%d], show [%b], ",
+                    mTextInputType, textInputType, textInputFlags, showIfNeeded);
+        }
         mTextInputFlags = textInputFlags;
         if (mTextInputType != textInputType) {
             mTextInputType = textInputType;
@@ -307,7 +310,7 @@ public class ImeAdapter {
      * Show soft keyboard only if it is the current keyboard configuration.
      */
     private void showSoftKeyboard() {
-        Log.d(TAG, "showSoftKeyboard");
+        if (DEBUG_LOGS) Log.w(TAG, "showSoftKeyboard");
         mInputMethodManagerWrapper.showSoftInput(
                 mViewEmbedder.getAttachedView(), 0, mViewEmbedder.getNewShowKeyboardReceiver());
         if (mViewEmbedder.getAttachedView().getResources().getConfiguration().keyboard
@@ -320,7 +323,7 @@ public class ImeAdapter {
      * Hide soft keyboard.
      */
     private void hideKeyboard() {
-        Log.d(TAG, "hideKeyboard");
+        if (DEBUG_LOGS) Log.w(TAG, "hideKeyboard");
         View view = mViewEmbedder.getAttachedView();
         if (mInputMethodManagerWrapper.isActive(view)) {
             // NOTE: we should not set ResultReceiver here. Otherwise, IMM will own ContentViewCore
@@ -346,7 +349,9 @@ public class ImeAdapter {
 
         // Deep copy newConfig so that we can notice the difference.
         mCurrentConfig = new Configuration(newConfig);
-        Log.d(TAG, "onKeyboardConfigurationChanged: mTextInputType [%d]", mTextInputType);
+        if (DEBUG_LOGS) {
+            Log.w(TAG, "onKeyboardConfigurationChanged: mTextInputType [%d]", mTextInputType);
+        }
         if (mTextInputType != TextInputType.NONE) {
             restartInput();
             // By default, we show soft keyboard on keyboard changes. This is useful
@@ -361,7 +366,7 @@ public class ImeAdapter {
      * @param gainFocus True if we're gaining focus.
      */
     public void onViewFocusChanged(boolean gainFocus) {
-        Log.d(TAG, "onViewFocusChanged: gainFocus [%b]", gainFocus);
+        if (DEBUG_LOGS) Log.w(TAG, "onViewFocusChanged: gainFocus [%b]", gainFocus);
         if (!gainFocus) hideKeyboard();
     }
 
@@ -369,7 +374,7 @@ public class ImeAdapter {
      * Move cursor to the end of the current selection.
      */
     public void moveCursorToSelectionEnd() {
-        Log.d(TAG, "movecursorToEnd");
+        if (DEBUG_LOGS) Log.w(TAG, "movecursorToEnd");
         if (mInputConnection != null) {
             int selectionEnd = Selection.getSelectionEnd(mEditable);
             mInputConnection.setSelection(selectionEnd, selectionEnd);
@@ -390,7 +395,7 @@ public class ImeAdapter {
     }
 
     public boolean dispatchKeyEvent(KeyEvent event) {
-        Log.d(TAG, "dispatchKeyEvent: action [%d], keycode [%d]", event.getAction(),
+        if (DEBUG_LOGS) Log.w(TAG, "dispatchKeyEvent: action [%d], keycode [%d]", event.getAction(),
                 event.getKeyCode());
         if (mInputConnection != null) {
             return mInputConnection.sendKeyEvent(event);
@@ -424,7 +429,7 @@ public class ImeAdapter {
      * @see BaseInputConnection#performContextMenuAction(int)
      */
     boolean performContextMenuAction(int id) {
-        Log.d(TAG, "performContextMenuAction: id [%d]", id);
+        if (DEBUG_LOGS) Log.w(TAG, "performContextMenuAction: id [%d]", id);
         return mViewEmbedder.performContextMenuAction(id);
     }
 
@@ -556,7 +561,7 @@ public class ImeAdapter {
 
     @CalledByNative
     private void focusedNodeChanged(boolean isEditable) {
-        Log.d(TAG, "focusedNodeChanged: isEditable [%b]", isEditable);
+        if (DEBUG_LOGS) Log.w(TAG, "focusedNodeChanged: isEditable [%b]", isEditable);
         if (mTextInputType != TextInputType.NONE && mInputConnection != null && isEditable) {
             restartInput();
         }
@@ -564,7 +569,9 @@ public class ImeAdapter {
 
     @CalledByNative
     private void populateUnderlinesFromSpans(CharSequence text, long underlines) {
-        Log.d(TAG, "populateUnderlinesFromSpans: text [%s], underlines [%d]", text, underlines);
+        if (DEBUG_LOGS) {
+            Log.w(TAG, "populateUnderlinesFromSpans: text [%s], underlines [%d]", text, underlines);
+        }
         if (!(text instanceof SpannableString)) return;
 
         SpannableString spannableString = ((SpannableString) text);
@@ -584,13 +591,13 @@ public class ImeAdapter {
 
     @CalledByNative
     private void cancelComposition() {
-        Log.d(TAG, "cancelComposition");
+        if (DEBUG_LOGS) Log.w(TAG, "cancelComposition");
         if (mInputConnection != null) restartInput();
     }
 
     @CalledByNative
     private void detach() {
-        Log.d(TAG, "detach");
+        if (DEBUG_LOGS) Log.w(TAG, "detach");
         mNativeImeAdapterAndroid = 0;
     }
 
