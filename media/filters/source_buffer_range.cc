@@ -228,6 +228,7 @@ bool SourceBufferRange::TruncateAt(
 }
 
 size_t SourceBufferRange::DeleteGOPFromFront(BufferQueue* deleted_buffers) {
+  DCHECK(!buffers_.empty());
   DCHECK(!FirstGOPContainsNextBufferPosition());
   DCHECK(deleted_buffers);
 
@@ -275,6 +276,7 @@ size_t SourceBufferRange::DeleteGOPFromFront(BufferQueue* deleted_buffers) {
 }
 
 size_t SourceBufferRange::DeleteGOPFromBack(BufferQueue* deleted_buffers) {
+  DCHECK(!buffers_.empty());
   DCHECK(!LastGOPContainsNextBufferPosition());
   DCHECK(deleted_buffers);
 
@@ -347,7 +349,7 @@ size_t SourceBufferRange::GetRemovalGOP(
 bool SourceBufferRange::FirstGOPEarlierThanMediaTime(
     DecodeTimestamp media_time) const {
   if (keyframe_map_.size() == 1u)
-    return (GetEndTimestamp() < media_time);
+    return (GetBufferedEndTimestamp() <= media_time);
 
   KeyframeMap::const_iterator second_gop = keyframe_map_.begin();
   ++second_gop;
