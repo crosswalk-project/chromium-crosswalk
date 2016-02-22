@@ -62,7 +62,9 @@ class ManagePasswordsUIController
   // without user interaction.
   virtual void UpdateIconAndBubbleState(ManagePasswordsIconView* icon);
 
-  bool IsAutomaticallyOpeningBubble() const { return should_pop_up_bubble_; }
+  bool IsAutomaticallyOpeningBubble() const {
+    return bubble_status_ == SHOULD_POP_UP;
+  }
 
   // PasswordsModelDelegate:
   const GURL& GetOrigin() const override;
@@ -119,6 +121,14 @@ class ManagePasswordsUIController
  private:
   friend class content::WebContentsUserData<ManagePasswordsUIController>;
 
+  enum BubbleStatus {
+    NOT_SHOWN,
+    // The bubble is to be popped up in the next call to
+    // UpdateBubbleAndIconVisibility().
+    SHOULD_POP_UP,
+    SHOWN,
+  };
+
   // Shows the password bubble without user interaction.
   void ShowBubbleWithoutUserInteraction();
 
@@ -128,9 +138,7 @@ class ManagePasswordsUIController
   // The wrapper around current state and data.
   ManagePasswordsState passwords_data_;
 
-  // Contains true if the bubble is to be popped up in the next call to
-  // UpdateBubbleAndIconVisibility().
-  bool should_pop_up_bubble_;
+  BubbleStatus bubble_status_;
 
   DISALLOW_COPY_AND_ASSIGN(ManagePasswordsUIController);
 };
