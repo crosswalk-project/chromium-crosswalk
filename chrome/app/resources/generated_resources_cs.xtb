@@ -639,7 +639,7 @@ UPOZORNĚNÍ: Když toto pravidlo povolíte, Chrome bude zaznamenávat data o v
 <translation id="1921986354447415460">Turecká klávesnice (typ F)</translation>
 <translation id="1926741348654461781">Povolit offline stránky</translation>
 <translation id="192810479200670759">Explicitně vynucuje směr uživatelského rozhraní zleva doprava nebo zprava doleva a přepisuje výchozí směr jazyka uživatelského rozhraní.</translation>
-<translation id="1929546189971853037">Čtení historie prohlížení ve všech přihlášených zařízeních</translation>
+<translation id="1929546189971853037">Čtení historie procházení ve všech přihlášených zařízeních</translation>
 <translation id="1931134289871235022">slovenština</translation>
 <translation id="1931152874660185993">Nebyly nainstalovány žádné komponenty.</translation>
 <translation id="1932098463447129402">Nikoli před</translation>
@@ -846,7 +846,7 @@ UPOZORNĚNÍ: Když toto pravidlo povolíte, Chrome bude zaznamenávat data o v
  • kontrolovat weby, které dozorovaný uživatel navštívil, a
  • spravovat jiná nastavení..
 
-Vytvořením dozorovaného uživatele nebude vytvořen účet Google. Záložky, historie prohlížení a další nastavení uživatele nebudou přenesena do dalších zařízení využívajících synchronizaci Chrome.
+Vytvořením dozorovaného uživatele nebude vytvořen účet Google. Záložky, historie procházení a další nastavení uživatele nebudou přenesena do dalších zařízení využívajících synchronizaci Chrome.
 
 Po vytvoření nového dozorovaného uživatele můžete jeho nastavení spravovat na adrese <ph name="DISPLAY_LINK" />, a to kdykoli a z libovolného zařízení. <ph name="BEGIN_LINK" />Další informace o dozorovaných uživatelích<ph name="END_LINK" /></translation>
 <translation id="2249605167705922988">např. 1-5, 8, 11-13</translation>
@@ -1096,7 +1096,7 @@ Tento web by podle mě neměl být blokován.</translation>
 <translation id="2603463522847370204">Otevřít v &amp;anonymním okně</translation>
 <translation id="2604985321650510339">Experimentální protokol QUIC</translation>
 <translation id="2607101320794533334">Informace o veřejném klíči subjektu</translation>
-<translation id="2607459012323956820">Nastavení a historii prohlížení tohoto dozorovaného uživatele si správce může i nadále zobrazit na adrese <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />.</translation>
+<translation id="2607459012323956820">Nastavení a historii procházení tohoto dozorovaného uživatele si správce může i nadále zobrazit na adrese <ph name="BEGIN_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_LINK" />.</translation>
 <translation id="2607991137469694339">Metoda zadávání tamilštiny (foneticky)</translation>
 <translation id="2608770217409477136">Použít výchozí nastavení</translation>
 <translation id="2609371827041010694">Spustit vždy na tomto webu</translation>
@@ -1145,7 +1145,7 @@ Tento web by podle mě neměl být blokován.</translation>
 <translation id="2672142220933875349">Soubor CRX je chybný, rozbalení se nezdařilo.</translation>
 <translation id="2672394958563893062">Došlo k chybě. Kliknutím spustíte přehrávání od začátku.</translation>
 <translation id="267285457822962309">Změnit nastavení vašeho zařízení a periferních zařízení.</translation>
-<translation id="2673135533890720193">Čtení vaší historie prohlížení</translation>
+<translation id="2673135533890720193">Čtení vaší historie procházení</translation>
 <translation id="2673589024369449924">Vytvořit na ploše zástupce tohoto uživatele</translation>
 <translation id="2676946222714718093">Přehrávání v zařízení</translation>
 <translation id="2678063897982469759">Znovu aktivovat</translation>
@@ -3011,6 +3011,7 @@ Chcete-li pokračovat v práci, stiskněte libovolnou klávesu.</translation>
 <translation id="5390284375844109566">Indexovaná databáze</translation>
 <translation id="5392544185395226057">Aktivuje podporu modulu Native Client.</translation>
 <translation id="5393125431335030955">Tento plugin lze spustit pouze v tradičním rozhraní systému Windows.</translation>
+<translation id="5393559999218790205">Zakázat časové osy složených animací v uživatelském rozhraní</translation>
 <translation id="5396126354477659676">Plugin <ph name="PEPPER_PLUGIN_NAME" /> v doméně <ph name="PEPPER_PLUGIN_DOMAIN" /> chce získat přístup do vašeho počítače.</translation>
 <translation id="539755880180803351">Označí webové formuláře tak, že jako zástupný text vloží typ pole předpovídaný Automatickým vyplňováním.</translation>
 <translation id="5397578532367286026">Údaje o využití a historii tohoto uživatele si správce (<ph name="MANAGER_EMAIL" />) může prohlédnout na webu chrome.com.</translation>
@@ -3035,6 +3036,7 @@ Chcete-li pokračovat v práci, stiskněte libovolnou klávesu.</translation>
 <translation id="5423849171846380976">Aktivováno</translation>
 <translation id="5425470845862293575">Povoluje experimentální systém vykreslování písma pomocí rozhraní DirectWrite.</translation>
 <translation id="5425722269016440406">Chcete-li funkci Smart Lock vypnout, musíte být online, protože toto nastavení je synchronizováno do telefonu a ostatních zařízení. Nejdříve se prosím připojte k síti.</translation>
+<translation id="5426623592374109001">U složených animací v uživatelském rozhraní bude použit zastaralý animační subsystém.</translation>
 <translation id="5427459444770871191">Otočit &amp;ve směru hodinových ručiček</translation>
 <translation id="5428105026674456456">španělština</translation>
 <translation id="542872847390508405">Prohlížíte si web jako host</translation>
@@ -3504,6 +3506,7 @@ Některé funkce nemusí být dostupné. Zkontrolujte, zda profil existuje a zda
 <translation id="6111974609785983504">Povoleno ve výchozím nastavení</translation>
 <translation id="6113134669445407638">Umožňuje deaktivovat funkci Delay Agnostic AEC v rozhraní WebRTC. Funkce bude použita, pokud nahlášené prodlevy systému jsou vysoce důvěryhodné nebo ostatní uživatelé zaznamenali z vašeho počítače ozvěnu.</translation>
 <translation id="6116921718742659598">Změnit nastavení jazyka a vstupu</translation>
+<translation id="6117536376248197233">Zakázat časové osy složených animací v modulech vykreslení</translation>
 <translation id="6120205520491252677">Připnout tuto stránku na úvodní obrazovku...</translation>
 <translation id="6120816415558830169">Staženo rozšířením &lt;a&gt;<ph name="EXTENSION" />&lt;/a&gt;</translation>
 <translation id="6122081475643980456">Vaše připojení k internetu je ovládáno</translation>
@@ -4073,7 +4076,7 @@ Některé funkce nemusí být dostupné. Zkontrolujte, zda profil existuje a zda
 <translation id="7017354871202642555">Po nastavení okna již nelze nastavit režim.</translation>
 <translation id="7017480957358237747">povolit nebo zakázat některé weby,</translation>
 <translation id="7017587484910029005">Zadejte znaky, které vidíte na obrázku níže.</translation>
-<translation id="7018275672629230621">Číst a upravovat vaši historii prohlížení</translation>
+<translation id="7018275672629230621">Číst a upravovat vaši historii procházení</translation>
 <translation id="7019805045859631636">Rychle</translation>
 <translation id="7022303817801823406">Připojení k tomuto webu používá platný a důvěryhodný certifikát serveru.</translation>
 <translation id="7022562585984256452">Domovská stránka byla nastavena.</translation>
@@ -4588,7 +4591,7 @@ Některé funkce nemusí být dostupné. Zkontrolujte, zda profil existuje a zda
 <translation id="782590969421016895">Použít aktuální stránky</translation>
 <translation id="7828106701649804503">Určete výchozí šířku dlaždic.</translation>
 <translation id="782886543891417279">Síť Wi-Fi, kterou používáte (<ph name="WIFI_NAME" />), může vyžadovat, abyste navštívili její stránku přihlášení.</translation>
-<translation id="7831368056091621108">pokud chcete přenést toto rozšíření, historii prohlížení a další nastavení prohlížeče Chrome do všech svých zařízení.</translation>
+<translation id="7831368056091621108">pokud chcete přenést toto rozšíření, historii procházení a další nastavení prohlížeče Chrome do všech svých zařízení.</translation>
 <translation id="7831754656372780761"><ph name="TAB_TITLE" /> <ph name="EMOJI_MUTING" /></translation>
 <translation id="7839051173341654115">Zobrazit/zálohovat média</translation>
 <translation id="7839192898639727867">ID klíče subjektu certifikátu</translation>
@@ -4724,6 +4727,7 @@ Soubor klíče: <ph name="KEY_FILE" />
 Svůj soubor klíče uchovávejte na bezpečném místě. Budete jej potřebovat při vytváření nových verzí svého rozšíření.</translation>
 <translation id="799923393800005025">Může zobrazit</translation>
 <translation id="7999338963698132743">Nový Správce úloh</translation>
+<translation id="8000004253404706714">U složených animací v modulech vykreslení bude použit zastaralý animační subsystém.</translation>
 <translation id="8004582292198964060">Prohlížeč</translation>
 <translation id="8007030362289124303">Baterie je téměř vybitá</translation>
 <translation id="8008356846765065031">Internet byl odpojen. Zkontrolujte prosím své internetové připojení.</translation>
@@ -5223,7 +5227,7 @@ Výpočet času zbývajícího do úplného nabití</translation>
 <translation id="8730621377337864115">Hotovo</translation>
 <translation id="8731332457891046104">Zrušení registrace zařízení <ph name="DEVICE_TYPE" /></translation>
 <translation id="8732030010853991079">Toto rozšíření aktivujete kliknutím na tuto ikonu.</translation>
-<translation id="8732212173949624846">Číst a upravovat historii prohlížení ve všech přihlášených zařízeních</translation>
+<translation id="8732212173949624846">Číst a upravovat historii procházení ve všech přihlášených zařízeních</translation>
 <translation id="8734073480934656039">Aktivací tohoto nastavení umožníte aplikacím veřejného terminálu, aby se automaticky spouštěly při spuštění počítače.</translation>
 <translation id="8736288397686080465">Tento web byl na pozadí aktualizován.</translation>
 <translation id="8737260648576902897">Instalovat Adobe Reader</translation>

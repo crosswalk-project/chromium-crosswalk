@@ -276,7 +276,7 @@ Pokud tato zásada není nastavena, použije se výchozí hodnota 0 a uživatel
 <translation id="2204753382813641270">Řídit automatické skrývání poličky</translation>
 <translation id="2208976000652006649">Parametry adresy URL vyhledávání používající metodu POST</translation>
 <translation id="2223598546285729819">Výchozí nastavení oznámení</translation>
-<translation id="2231817271680715693">Importování historie prohlížení z výchozího prohlížeče při prvním spuštění</translation>
+<translation id="2231817271680715693">Importování historie procházení z výchozího prohlížeče při prvním spuštění</translation>
 <translation id="2236488539271255289">Nepovolovat nastavení místních dat žádným webům</translation>
 <translation id="2240879329269430151">Umožňuje nastavit, zda mohou webové stránky zobrazovat vyskakovací okna. Zobrazování vyskakovacích oken lze buď povolit pro všechny weby, nebo je pro všechny weby zakázat.
 
@@ -364,11 +364,11 @@ Pokud tuto zásadu nastavíte, uživatelé ji nebudou moci změnit ani přepsat.
 
 Pokud je tato zásada ponechána nenastavená, uživatel si může zvolit, jaký obrázek bude mít zobrazený na ploše a na pozadí přihlašovací obrazovky.</translation>
 <translation id="2411919772666155530">Blokovat upozornění na těchto stránkách</translation>
-<translation id="2418507228189425036">Deaktivuje ukládání historie prohlížení v prohlížeči <ph name="PRODUCT_NAME" /> a brání uživatelům, aby toto nastavení změnili.
+<translation id="2418507228189425036">Deaktivuje ukládání historie procházení v prohlížeči <ph name="PRODUCT_NAME" /> a brání uživatelům, aby toto nastavení změnili.
 
-Pokud je toto nastavení deaktivováno, historie prohlížení nebude ukládána. Toto nastavení také deaktivuje synchronizaci karet.
+Pokud je toto nastavení deaktivováno, historie procházení nebude ukládána. Toto nastavení také deaktivuje synchronizaci karet.
 
-Pokud je toto nastavení deaktivováno nebo není nakonfigurováno, historie prohlížení bude ukládána.</translation>
+Pokud je toto nastavení deaktivováno nebo není nakonfigurováno, historie procházení bude ukládána.</translation>
 <translation id="2424023834246613232">Přepíše v prohlížeči <ph name="PRODUCT_NAME" /> pravidla výběru výchozí tiskárny.
 
 Tato zásada určuje pravidla pro výběr výchozí tiskárny v prohlížeči <ph name="PRODUCT_NAME" />, který se provede při prvním použití funkce tisku v profilu.
@@ -1084,9 +1084,9 @@ Tato zásada ovlivňuje kromě integrované webové kamery i všechny ostatní v
 <translation id="4983201894483989687">Povolit spouštění zastaralých pluginů</translation>
 <translation id="4988291787868618635">Akce prováděná po určité době nečinnosti</translation>
 <translation id="5047604665028708335">Povolit přístup k webům mimo obsahové balíčky</translation>
-<translation id="5052081091120171147">Je-li tato zásada aktivovaná, vynucuje import historie prohlížení z aktuálního výchozího prohlížeče. Aktivace této zásady má také vliv na dialogové okno importu
+<translation id="5052081091120171147">Je-li tato zásada aktivovaná, vynucuje import historie procházení z aktuálního výchozího prohlížeče. Aktivace této zásady má také vliv na dialogové okno importu
      
-      Je-li deaktivovaná, k importu historie prohlížení nedojde. Pokud není nakonfigurovaná, bude použito výchozí chování
+      Je-li deaktivovaná, k importu historie procházení nedojde. Pokud není nakonfigurovaná, bude použito výchozí chování
 
       Není-li nastavena, může se uživatelům zobrazit výzva, zda chtějí historii importovat, nebo může import probíhat automaticky.</translation>
 <translation id="5056708224511062314">Deaktivace lupy</translation>
@@ -2174,13 +2174,13 @@ Tato zásada není k dispozici v relacích Windows, které nejsou připojené 
 
           Tato zásada bude dodržována pouze v případě, že je aktivní zásada DefaultSearchProviderEnabled.</translation>
 <translation id="8731693562790917685">Nastavení obsahu umožňují určit, jakým způsobem bude zpracováván obsah určitého typu (například soubory cookie, obrázky nebo JavaScript).</translation>
-<translation id="8749370016497832113">Aktivuje v prohlížeči <ph name="PRODUCT_NAME" /> mazání historie prohlížení a stahování a zabraňuje uživatelům, aby toto nastavení změnili.
+<translation id="8749370016497832113">Aktivuje v prohlížeči <ph name="PRODUCT_NAME" /> mazání historie procházení a stahování a zabraňuje uživatelům, aby toto nastavení změnili.
 
-     I když je tato zásada deaktivována, nelze zaručit, že bude historie prohlížení a stahování uchována: uživatelé mohou soubory upravovat nebo smazat přímo v databázi historie a také prohlížeč může některé nebo všechny položky historie kdykoliv smazat nebo archivovat.
+     I když je tato zásada deaktivována, nelze zaručit, že bude historie procházení a stahování uchována: uživatelé mohou soubory upravovat nebo smazat přímo v databázi historie a také prohlížeč může některé nebo všechny položky historie kdykoliv smazat nebo archivovat.
 
-      Pokud je toto nastavení aktivováno nebo není nastaveno, lze historii prohlížení a stahování smazat.
+      Pokud je toto nastavení aktivováno nebo není nastaveno, lze historii procházení a stahování smazat.
 
-      Je-li nastavení deaktivováno, historii prohlížení nebo stahování smazat nelze.</translation>
+      Je-li nastavení deaktivováno, historii procházení nebo stahování smazat nelze.</translation>
 <translation id="8764119899999036911">Určuje, zda bude vygenerovaný hlavní název služby protokolu Kerberos založen na kanonickém názvu DNS, nebo na původním zadaném názvu.
          
         Pokud toto nastavení aktivujete, vyhledávání záznamů CNAME bude přeskočeno a bude použit zadaný název serveru.
