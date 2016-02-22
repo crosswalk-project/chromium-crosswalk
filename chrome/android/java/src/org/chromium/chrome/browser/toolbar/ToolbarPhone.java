@@ -45,6 +45,7 @@ import org.chromium.base.VisibleForTesting;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.compositor.Invalidator;
+import org.chromium.chrome.browser.compositor.layouts.LayoutUpdateHost;
 import org.chromium.chrome.browser.ntp.NewTabPage;
 import org.chromium.chrome.browser.omnibox.LocationBar;
 import org.chromium.chrome.browser.omnibox.LocationBarPhone;
@@ -115,6 +116,9 @@ public class ToolbarPhone extends ToolbarLayout
     // a bitmap to use as a texture representation of this view.
     @ViewDebug.ExportedProperty(category = "chrome")
     private boolean mTextureCaptureMode;
+    private boolean mForceTextureCapture;
+    private boolean mUseLightDrawablesForTextureCapture;
+    private boolean mLightDrawablesUsedForLastTextureCapture;
 
     @ViewDebug.ExportedProperty(category = "chrome")
     private boolean mAnimateNormalToolbar;
@@ -183,6 +187,8 @@ public class ToolbarPhone extends ToolbarLayout
 
     private ValueAnimator mBrandColorTransitionAnimation;
     private boolean mBrandColorTransitionActive;
+
+    private LayoutUpdateHost mLayoutUpdateHost;
 
     /**
      * Used to specify the visual state of the toolbar.
@@ -975,7 +981,7 @@ public class ToolbarPhone extends ToolbarLayout
                     mMenuButton.getHeight() - mMenuButton.getPaddingBottom());
             translateCanvasToView(mToolbarButtonsContainer, mMenuButton, canvas);
             mTabSwitcherAnimationMenuDrawable.setAlpha(rgbAlpha);
-            int color = mUseLightToolbarDrawables
+            int color = mUseLightDrawablesForTextureCapture
                     ? mLightModeDefaultColor
                     : mDarkModeDefaultColor;
             mTabSwitcherAnimationMenuDrawable.setColorFilter(color, PorterDuff.Mode.SRC_IN);
@@ -983,7 +989,7 @@ public class ToolbarPhone extends ToolbarLayout
         }
 
         // Draw the menu badge if necessary.
-        Drawable badgeDrawable = mUseLightToolbarDrawables
+        Drawable badgeDrawable = mUseLightDrawablesForTextureCapture
                 ? mTabSwitcherAnimationMenuBadgeLightDrawable
                         : mTabSwitcherAnimationMenuBadgeDarkDrawable;
         if (mShowMenuBadge && badgeDrawable != null && mUrlExpansionPercent != 1f) {
@@ -995,6 +1001,8 @@ public class ToolbarPhone extends ToolbarLayout
             badgeDrawable.setAlpha(rgbAlpha);
             badgeDrawable.draw(canvas);
         }
+
+        mLightDrawablesUsedForLastTextureCapture = mUseLightDrawablesForTextureCapture;
 
         canvas.restore();
     }
@@ -1185,8 +1193,30 @@ public class ToolbarPhone extends ToolbarLayout
 
     @Override
     public boolean isReadyForTextureCapture() {
+        if (mForceTextureCapture) {
+            return true;
+        }
         return !(mIsInTabSwitcherMode || mTabSwitcherModeAnimation != null
                 || urlHasFocus() || mUrlFocusChangeInProgress);
+    }
+
+    @Override
+    public boolean setForceTextureCapture(boolean forceTextureCapture) {
+        if (forceTextureCapture) {
+            setUseLightDrawablesForTextureCapture();
+            // Only force a texture capture if the tint for the toolbar drawables is changing.
+            mForceTextureCapture = mLightDrawablesUsedForLastTextureCapture
+                    != mUseLightDrawablesForTextureCapture;
+            return mForceTextureCapture;
+        }
+
+        mForceTextureCapture = forceTextureCapture;
+        return false;
+    }
+
+    @Override
+    public void setLayoutUpdateHost(LayoutUpdateHost layoutUpdateHost) {
+        mLayoutUpdateHost = layoutUpdateHost;
     }
 
     @Override
@@ -1410,7 +1440,7 @@ public class ToolbarPhone extends ToolbarLayout
         }
     }
 
-    private void updateOverlayDrawables() {
+    private void updateOverlayDrawables(boolean isInTabSwitcherMode) {
         if (!isNativeLibraryReady()) return;
 
         VisualState overlayState = computeVisualState(false);
@@ -1428,6 +1458,15 @@ public class ToolbarPhone extends ToolbarLayout
                 mOverlayDrawablesVisualState));
 
         setTabSwitcherAnimationMenuDrawable();
+        setUseLightDrawablesForTextureCapture();
+
+        if (!isInTabSwitcherMode && !mTextureCaptureMode && mLayoutUpdateHost != null) {
+            // Request a layout update to trigger a texture capture if the tint color is changing
+            // and we're not already in texture capture mode. This is necessary if the tab switcher
+            // is entered immediately after a change to the tint color without any user interactions
+            // that would normally trigger a texture capture.
+            mLayoutUpdateHost.requestUpdate();
+        }
     }
 
     @Override
@@ -1883,7 +1922,7 @@ public class ToolbarPhone extends ToolbarLayout
 
         mVisualState = newVisualState;
 
-        updateOverlayDrawables();
+        updateOverlayDrawables(isInTabSwitcherMode);
         updateShadowVisibility(isInTabSwitcherMode);
         if (!visualStateChanged) {
             if (mVisualState == VisualState.NEW_TAB_NORMAL) {
@@ -2039,6 +2078,14 @@ public class ToolbarPhone extends ToolbarLayout
                 getResources(), R.drawable.badge_update_light);
         mTabSwitcherAnimationMenuBadgeLightDrawable.mutate();
         ((BitmapDrawable) mTabSwitcherAnimationMenuBadgeLightDrawable).setGravity(Gravity.CENTER);
+    }
+
+
+    private void setUseLightDrawablesForTextureCapture() {
+        int currentPrimaryColor = getToolbarDataProvider().getPrimaryColor();
+        mUseLightDrawablesForTextureCapture = isIncognito()
+                || (currentPrimaryColor != 0
+                && ColorUtils.shoudUseLightForegroundOnBackground(currentPrimaryColor));
     }
 }
 

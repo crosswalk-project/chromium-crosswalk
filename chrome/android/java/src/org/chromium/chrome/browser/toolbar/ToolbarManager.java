@@ -243,7 +243,6 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
             public void onTabModelSelected(TabModel newModel, TabModel oldModel) {
                 refreshSelectedTab();
                 updateTabCount();
-                mControlContainer.invalidateBitmap();
             }
 
             @Override
@@ -493,6 +492,10 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
             public void onTabSelectionHinted(int tabId) {
                 mPreselectedTabId = tabId;
                 refreshSelectedTab();
+
+                if (mToolbar.setForceTextureCapture(true)) {
+                    mControlContainer.invalidateBitmap();
+                }
             }
 
             @Override
@@ -556,6 +559,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
         mToolbar.setOnNewTabClickHandler(newTabClickHandler);
         mToolbar.setBookmarkClickHandler(bookmarkClickHandler);
         mToolbar.setCustomTabCloseClickHandler(customTabsBackClickHandler);
+        mToolbar.setLayoutUpdateHost(layoutDriver);
 
         mToolbarModel.initializeWithNative();
 
