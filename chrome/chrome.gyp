@@ -753,8 +753,6 @@
             'service/service_process.h',
             'service/service_process_prefs.cc',
             'service/service_process_prefs.h',
-            'service/service_utility_process_host.cc',
-            'service/service_utility_process_host.h',
           ],
           'include_dirs': [
             '..',
@@ -773,10 +771,15 @@
                 'service/cloud_print/print_system_dummy.cc',
               ],
             }],
-            ['OS!="win"', {
-              'sources!': [
+            ['OS=="win"', {
+              'sources': [
                 'service/service_utility_process_host.cc',
                 'service/service_utility_process_host.h',
+              ],
+              'deps': [
+                # TODO(fdoray): Remove this once the PreRead field trial has
+                # expired. crbug.com/577698
+                '../components/components.gyp:startup_metric_utils_common',
               ],
             }],
           ],
