@@ -12,7 +12,6 @@
 #include "base/strings/utf_string_conversions.h"
 #include "components/app_modal/app_modal_dialog.h"
 #include "components/app_modal/app_modal_dialog_queue.h"
-#include "components/app_modal/javascript_app_modal_dialog.h"
 #include "components/app_modal/javascript_dialog_extensions_client.h"
 #include "components/app_modal/javascript_native_dialog_factory.h"
 #include "components/app_modal/native_app_modal_dialog.h"
@@ -91,9 +90,7 @@ void JavaScriptDialogManager::RunJavaScriptDialog(
   *did_suppress_message = false;
 
   ChromeJavaScriptDialogExtraData* extra_data =
-      &javascript_dialog_extra_data_
-          [JavaScriptAppModalDialog::GetSerializedOriginForWebContents(
-              web_contents)];
+      &javascript_dialog_extra_data_[web_contents];
 
   if (extra_data->suppress_javascript_messages_) {
     *did_suppress_message = true;
@@ -126,9 +123,7 @@ void JavaScriptDialogManager::RunBeforeUnloadDialog(
     bool is_reload,
     const DialogClosedCallback& callback) {
   ChromeJavaScriptDialogExtraData* extra_data =
-      &javascript_dialog_extra_data_
-          [JavaScriptAppModalDialog::GetSerializedOriginForWebContents(
-              web_contents)];
+      &javascript_dialog_extra_data_[web_contents];
 
   if (extra_data->suppress_javascript_messages_) {
     // If a site harassed the user enough for them to put it on mute, then it
@@ -186,9 +181,7 @@ bool JavaScriptDialogManager::HandleJavaScriptDialog(
 void JavaScriptDialogManager::ResetDialogState(
     content::WebContents* web_contents) {
   CancelActiveAndPendingDialogs(web_contents);
-  javascript_dialog_extra_data_.erase(
-      JavaScriptAppModalDialog::GetSerializedOriginForWebContents(
-          web_contents));
+  javascript_dialog_extra_data_.erase(web_contents);
 }
 
 base::string16 JavaScriptDialogManager::GetTitle(
