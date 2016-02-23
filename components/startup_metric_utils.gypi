@@ -15,15 +15,12 @@
       'dependencies': [
         '../base/base.gyp:base',
         '../base/base.gyp:base_prefs',
-        'components.gyp:variations',
         'components.gyp:version_info',
       ],
       'include_dirs': [
         '..',
       ],
       'sources': [
-        'startup_metric_utils/browser/pre_read_field_trial_utils_win.cc',
-        'startup_metric_utils/browser/pre_read_field_trial_utils_win.h',
         'startup_metric_utils/browser/pref_names.cc',
         'startup_metric_utils/browser/pref_names.h',
         'startup_metric_utils/browser/startup_metric_utils.cc',
@@ -55,11 +52,14 @@
       'dependencies': [
         '../base/base.gyp:base',
         '../ipc/ipc.gyp:ipc',
+        'components.gyp:variations',
       ],
       'include_dirs': [
         '..',
       ],
       'sources': [
+        'startup_metric_utils/common/pre_read_field_trial_utils_win.cc',
+        'startup_metric_utils/common/pre_read_field_trial_utils_win.h',
         'startup_metric_utils/common/startup_metric_message_generator.cc',
         'startup_metric_utils/common/startup_metric_message_generator.h',
         'startup_metric_utils/common/startup_metric_messages.h',
