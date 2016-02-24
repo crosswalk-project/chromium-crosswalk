@@ -953,7 +953,7 @@ public class LocationBarLayout extends FrameLayout implements OnClickListener,
         updateDeleteButtonVisibility();
         Tab currentTab = getCurrentTab();
         if (hasFocus) {
-            RecordUserAction.record("FocusLocation");
+            if (mNativeInitialized) RecordUserAction.record("FocusLocation");
             mUrlBar.deEmphasizeUrl();
         } else {
             mUrlFocusedFromFakebox = false;
