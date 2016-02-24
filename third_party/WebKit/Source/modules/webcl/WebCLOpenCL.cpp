@@ -6,7 +6,7 @@
 
 #include "modules/webcl/WebCLOpenCL.h"
 
-#if OS(LINUX) || OS(ANDROID)
+#if OS(ANDROID)
 #include <dlfcn.h>
 #endif
 #include <string.h>
@@ -14,7 +14,7 @@
 #include <wtf/CPU.h>
 
 // Track different opencl libs.
-#if OS(LINUX) || OS(ANDROID)
+#if OS(ANDROID)
 #if defined(WTF_CPU_ARM)
 #define LIBS {"libOpenCL.so"}
 #define SO_LEN 1
@@ -35,7 +35,10 @@
 #define SO_LEN 0
 
 #endif // defined(WTF_CPU_ARM) || defined(WTF_CPU_X86)
-#endif // OS(LINUX) || OS(ANDROID)
+#else // OS(ANDROID)
+#define LIBS {}
+#define SO_LEN 0
+#endif // OS(ANDROID)
 
 /* Platform APIs */
 cl_int (CL_API_CALL *web_clGetPlatformIDs)(cl_uint num_entries, cl_platform_id* platforms, cl_uint* num_platforms);
@@ -197,9 +200,14 @@ cl_int (CL_API_CALL *web_clGetGLTextureInfo)(cl_mem, cl_gl_texture_info, size_t,
 #define clEnqueueBarrierWithWaitList web_clEnqueueBarrierWithWaitList
 #define clCreateFromGLTexture web_clCreateFromGLTexture
 
-#if OS(LINUX) || OS(ANDROID)
+#if OS(ANDROID)
 #define MAP_FUNC(fn)  { *(void**)(&fn) = dlsym(handle, #fn); }
 #define MAP_FUNC_OR_BAIL(fn)  { *(void**)(&fn) = dlsym(handle, #fn); if(!fn) return false; }
+#else
+#define MAP_FUNC(fn) ASSERT_NOT_REACHED();
+#define MAP_FUNC_OR_BAIL(fn) ASSERT_NOT_REACHED();
+#endif
+
 // In case `fn' is not defined or deprecated in the OpenCL spec tagged by
 // `major' and `minor', map `fn' to a wrapper implemented with APIs defined
 // by this spec.
@@ -207,6 +215,8 @@ cl_int (CL_API_CALL *web_clGetGLTextureInfo)(cl_mem, cl_gl_texture_info, size_t,
 
 static const char* DEFAULT_SO[] = LIBS;
 static const int DEFAULT_SO_LEN = SO_LEN;
+
+#if OS(ANDROID)
 static void* handle = nullptr;
 static bool getCLHandle(const char** libs, int length)
 {
@@ -219,7 +229,12 @@ static bool getCLHandle(const char** libs, int length)
     /* FAILURE: COULD NOT OPEN .SO */
     return false;
 }
-#endif // OS(LINUX) || OS(ANDROID)
+#else // OS(ANDROID)
+static bool getCLHandle(const char** libs, int length)
+{
+    return false;
+}
+#endif // OS(ANDROID)
 
 // In OpenCL 1.1 spec, no release opertion is needed for device.
 static cl_int CL_API_CALL clReleaseDeviceImpl11(cl_device_id device)
