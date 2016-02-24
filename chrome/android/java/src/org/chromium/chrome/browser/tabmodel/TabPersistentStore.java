@@ -530,7 +530,7 @@ public class TabPersistentStore extends TabPersister {
 
     public void addTabToSaveQueue(Tab tab) {
         // TODO(ianwen): remove this check once we figure out a better plan to disable tab saving.
-        if (tab.getDelegateFactoryForTest() instanceof CustomTabDelegateFactory) {
+        if (tab.getDelegateFactory() instanceof CustomTabDelegateFactory) {
             return;
         }
         if (!mTabsToSave.contains(tab) && tab.isTabStateDirty() && !isTabUrlContentScheme(tab)) {

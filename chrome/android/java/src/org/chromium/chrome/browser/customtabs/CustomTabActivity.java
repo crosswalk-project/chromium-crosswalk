@@ -41,7 +41,6 @@ import org.chromium.chrome.browser.datausage.DataUseTabUIManager;
 import org.chromium.chrome.browser.rappor.RapporServiceBridge;
 import org.chromium.chrome.browser.tab.Tab;
 import org.chromium.chrome.browser.tab.TabIdManager;
-import org.chromium.chrome.browser.tab.TopControlsVisibilityDelegate;
 import org.chromium.chrome.browser.tabmodel.EmptyTabModelObserver;
 import org.chromium.chrome.browser.tabmodel.TabModel.TabLaunchType;
 import org.chromium.chrome.browser.tabmodel.TabModel.TabSelectionType;
@@ -300,19 +299,8 @@ public class CustomTabActivity extends ChromeActivity {
             webContents = WebContentsFactory.createWebContents(false, false);
         }
         tab.initialize(webContents, getTabContentManager(),
-                new CustomTabDelegateFactory() {
-                    @Override
-                    public TopControlsVisibilityDelegate createTopControlsVisibilityDelegate(
-                            Tab tab) {
-                        return new TopControlsVisibilityDelegate(tab) {
-                            @Override
-                            public boolean isHidingTopControlsEnabled() {
-                                return mIntentDataProvider.shouldEnableUrlBarHiding()
-                                        && super.isHidingTopControlsEnabled();
-                            }
-                        };
-                    }
-            }, false, false);
+                new CustomTabDelegateFactory(mIntentDataProvider.shouldEnableUrlBarHiding()), false,
+                false);
         tab.getTabRedirectHandler().updateIntent(getIntent());
         tab.getView().requestFocus();
         return tab;

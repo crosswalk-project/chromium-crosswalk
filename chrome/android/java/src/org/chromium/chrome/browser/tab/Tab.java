@@ -1320,8 +1320,7 @@ public final class Tab implements ViewGroup.OnHierarchyChangeListener,
     /**
      * @return The delegate factory for testing purposes only.
      */
-    @VisibleForTesting
-    public TabDelegateFactory getDelegateFactoryForTest() {
+    public TabDelegateFactory getDelegateFactory() {
         return mDelegateFactory;
     }
 
