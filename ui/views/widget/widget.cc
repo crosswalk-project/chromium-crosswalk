@@ -1188,6 +1188,10 @@ int Widget::GetNonClientComponent(const gfx::Point& point) {
 
 void Widget::OnKeyEvent(ui::KeyEvent* event) {
   SendEventToProcessor(event);
+  if (!event->handled() && GetFocusManager() &&
+      !GetFocusManager()->OnKeyEvent(*event)) {
+    event->StopPropagation();
+  }
 }
 
 // TODO(tdanderson): We should not be calling the OnMouse*() functions on
