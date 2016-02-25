@@ -15,7 +15,7 @@
 
 // Track different opencl libs.
 #if OS(ANDROID)
-#if defined(WTF_CPU_ARM)
+#if CPU(ARM) || CPU(ARM64)
 #define LIBS {"libOpenCL.so"}
 #define SO_LEN 1
 
@@ -26,7 +26,7 @@
 // Note that there are some IA devices have "libOpenCL.so.1"
 // but not "libOpenCL.so", such as: Asus Memo. So add "libOpenCL.so.1"
 // to the OpenCL library list.
-#elif defined(WTF_CPU_X86)
+#elif CPU(X86) || CPU(X86_64)
 #define LIBS {"libOpenCL.so", "libOpenCL.so.1", "libPVROCL.so"}
 #define SO_LEN 3
 
@@ -34,7 +34,7 @@
 #define LIBS {}
 #define SO_LEN 0
 
-#endif // defined(WTF_CPU_ARM) || defined(WTF_CPU_X86)
+#endif // CPU(ARM) || CPU(ARM64) || CPU(X86) || CPU(X86_64)
 #else // OS(ANDROID)
 #define LIBS {}
 #define SO_LEN 0
