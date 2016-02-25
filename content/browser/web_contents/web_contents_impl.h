@@ -817,6 +817,12 @@ class CONTENT_EXPORT WebContentsImpl
   // all the unique RenderWidgetHostViews.
   std::set<RenderWidgetHostView*> GetRenderWidgetHostViewsInTree();
 
+  // Called with the result of a DownloadImage() request.
+  void OnDidDownloadImage(const ImageDownloadCallback& callback,
+                          int id,
+                          const GURL& image_url,
+                          image_downloader::DownloadResultPtr result);
+
   // Callback function when showing JavaScript dialogs.  Takes in a routing ID
   // pair to identify the RenderFrameHost that opened the dialog, because it's
   // possible for the RenderFrameHost to be deleted by the time this is called.
@@ -1304,6 +1310,7 @@ class CONTENT_EXPORT WebContentsImpl
   bool page_scale_factor_is_one_;
 
   base::WeakPtrFactory<WebContentsImpl> loading_weak_factory_;
+  base::WeakPtrFactory<WebContentsImpl> weak_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(WebContentsImpl);
 };
