@@ -745,6 +745,8 @@ class CONTENT_EXPORT WebContentsImpl
                            LoadResourceFromMemoryCacheWithBadSecurityInfo);
   FRIEND_TEST_ALL_PREFIXES(WebContentsImplTest,
                            LoadResourceFromMemoryCacheWithEmptySecurityInfo);
+  FRIEND_TEST_ALL_PREFIXES(WebContentsImplTest,
+                           ResetJavaScriptDialogOnUserNavigate);
   FRIEND_TEST_ALL_PREFIXES(FormStructureBrowserTest, HTMLFiles);
   FRIEND_TEST_ALL_PREFIXES(NavigationControllerTest, HistoryNavigate);
   FRIEND_TEST_ALL_PREFIXES(RenderFrameHostManagerTest, PageDoesBackAndReload);
@@ -1019,6 +1021,9 @@ class CONTENT_EXPORT WebContentsImpl
   // corresponds to the name of a frame that the WebUI should be created for (or
   // the main frame if empty).
   WebUI* CreateWebUI(const GURL& url, const std::string& frame_name);
+
+  void SetJavaScriptDialogManagerForTesting(
+      JavaScriptDialogManager* dialog_manager);
 
   // Data for core operation ---------------------------------------------------
 
