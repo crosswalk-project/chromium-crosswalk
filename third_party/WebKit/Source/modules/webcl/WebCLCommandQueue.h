@@ -100,7 +100,7 @@ private:
     Vector<cl_event> WebCLEventVectorToCLEventVector(bool, Vector<RefPtr<WebCLEvent>>, ExceptionState&);
     cl_event* WebCLEventPtrToCLEventPtr(WebCLEvent*, ExceptionState&);
     bool isExtensionEnabled(WebCLContext*, const String& name) const;
-    static void callbackProxy(cl_event, cl_int, void*);
+    static void CL_CALLBACK callbackProxy(cl_event, cl_int, void*);
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLCommandQueueHolder>);
     void resetEventAndCallback();
 

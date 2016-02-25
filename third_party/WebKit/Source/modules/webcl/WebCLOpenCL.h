@@ -30,9 +30,9 @@ extern cl_int (CL_API_CALL *web_clGetContextInfo)(cl_context context, cl_context
 
 extern cl_int (CL_API_CALL *web_clReleaseContext)(cl_context context);
 
-extern cl_context (CL_API_CALL *web_clCreateContext)(const cl_context_properties* properties, cl_uint num_devices, const cl_device_id* devices, void (CL_API_CALL* pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data), void* user_data, cl_int* errcode_ret);
+extern cl_context (CL_API_CALL *web_clCreateContext)(const cl_context_properties* properties, cl_uint num_devices, const cl_device_id* devices, void (CL_CALLBACK* pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data), void* user_data, cl_int* errcode_ret);
 
-extern cl_context (CL_API_CALL *web_clCreateContextFromType)(const cl_context_properties* properties, cl_device_type device_type, void (CL_API_CALL *pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data), void* user_data, cl_int* errcode_ret);
+extern cl_context (CL_API_CALL *web_clCreateContextFromType)(const cl_context_properties* properties, cl_device_type device_type, void (CL_CALLBACK *pfn_notify)(const char* errinfo, const void* private_info, size_t cb, void* user_data), void* user_data, cl_int* errcode_ret);
 
 /* CommandQueue APIs */
 extern cl_int (CL_API_CALL *web_clGetCommandQueueInfo)(cl_command_queue command_queue, cl_command_queue_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
@@ -68,7 +68,7 @@ extern cl_int (CL_API_CALL *web_clGetProgramInfo)(cl_program program, cl_program
 
 extern cl_int (CL_API_CALL *web_clGetProgramBuildInfo)(cl_program program, cl_device_id device, cl_program_build_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 
-extern cl_int (CL_API_CALL *web_clBuildProgram)(cl_program program, cl_uint num_devices, const cl_device_id* device_list, const char* options, void (CL_API_CALL *pfn_notify)(cl_program program, void* user_data), void* user_data);
+extern cl_int (CL_API_CALL *web_clBuildProgram)(cl_program program, cl_uint num_devices, const cl_device_id* device_list, const char* options, void (CL_CALLBACK *pfn_notify)(cl_program program, void* user_data), void* user_data);
 
 extern cl_int (CL_API_CALL *web_clReleaseProgram)(cl_program program);
 
@@ -98,7 +98,7 @@ extern cl_int (CL_API_CALL *web_clSetUserEventStatus)(cl_event event, cl_int exe
 
 extern cl_int (CL_API_CALL *web_clReleaseEvent)(cl_event event);
 
-extern cl_int (CL_API_CALL *web_clSetEventCallback)(cl_event event, cl_int command_exec_callback_type, void (CL_API_CALL* pfn_event_notify)(cl_event event, cl_int event_command_exec_status, void* user_data), void* user_data);
+extern cl_int (CL_API_CALL *web_clSetEventCallback)(cl_event event, cl_int command_exec_callback_type, void (CL_CALLBACK* pfn_event_notify)(cl_event event, cl_int event_command_exec_status, void* user_data), void* user_data);
 
 extern cl_int (CL_API_CALL *web_clGetEventProfilingInfo)(cl_event event, cl_profiling_info param_name, size_t param_value_size, void* param_value, size_t* param_value_size_ret);
 

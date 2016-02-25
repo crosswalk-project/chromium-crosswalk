@@ -290,7 +290,7 @@ Vector<RefPtr<WebCLCallback>> WebCL::updateCallbacksFromCLEvent(cl_event event)
     return callbacks;
 }
 
-void WebCL::callbackProxy(cl_event event, cl_int type, void* userData)
+void CL_CALLBACK WebCL::callbackProxy(cl_event event, cl_int type, void* userData)
 {
     OwnPtr<WebCLHolder> holder = adoptPtr(static_cast<WebCLHolder*>(userData));
     holder->event = event;

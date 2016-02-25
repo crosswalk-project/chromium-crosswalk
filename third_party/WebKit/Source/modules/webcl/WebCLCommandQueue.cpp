@@ -1256,7 +1256,7 @@ bool WebCLCommandQueue::isExtensionEnabled(WebCLContext* context, const String& 
     return context->isExtensionEnabled(name);
 }
 
-void WebCLCommandQueue::callbackProxy(cl_event event, cl_int type, void* userData)
+void CL_CALLBACK WebCLCommandQueue::callbackProxy(cl_event event, cl_int type, void* userData)
 {
     OwnPtr<WebCLCommandQueueHolder> holder = adoptPtr(static_cast<WebCLCommandQueueHolder*>(userData));
     holder->event = event;
