@@ -41,7 +41,7 @@ public:
 protected:
     WebCLEvent(cl_event);
 
-    static void callbackProxy(cl_event, cl_int, void*);
+    static void CL_CALLBACK callbackProxy(cl_event, cl_int, void*);
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLEventHolder>);
 
     Vector<RefPtr<WebCLCallback>> m_callbacks;

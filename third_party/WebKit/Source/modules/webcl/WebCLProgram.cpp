@@ -466,7 +466,7 @@ WebCLProgram::WebCLProgram(cl_program program, PassRefPtr<WebCLContext> context,
 {
 }
 
-void WebCLProgram::callbackProxy(cl_program program, void* userData)
+void CL_CALLBACK WebCLProgram::callbackProxy(cl_program program, void* userData)
 {
     OwnPtr<WebCLProgramHolder> holder = adoptPtr(static_cast<WebCLProgramHolder*>(userData));
     holder->program2 = program;

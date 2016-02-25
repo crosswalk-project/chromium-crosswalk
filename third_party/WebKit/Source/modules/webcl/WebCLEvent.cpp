@@ -191,7 +191,7 @@ WebCLEvent::WebCLEvent(cl_event clEvent)
 {
 }
 
-void WebCLEvent::callbackProxy(cl_event event, cl_int type, void* userData)
+void CL_CALLBACK WebCLEvent::callbackProxy(cl_event event, cl_int type, void* userData)
 {
     OwnPtr<WebCLEventHolder> holder = adoptPtr(static_cast<WebCLEventHolder*>(userData));
     holder->event2 = event;
