@@ -58,7 +58,7 @@ public:
 
 private:
     WebCL();
-    static void callbackProxy(cl_event, cl_int, void*);
+    static void CL_CALLBACK callbackProxy(cl_event, cl_int, void*);
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLHolder>);
     void waitForEventsImpl(const Vector<RefPtr<WebCLEvent>>&, WebCLCallback*);
     void cachePlatforms();
