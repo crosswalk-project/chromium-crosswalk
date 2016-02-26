@@ -205,7 +205,7 @@ bool IsInstalled(ServiceWorkerVersion::Status status) {
 }  // namespace
 
 const int ServiceWorkerVersion::kTimeoutTimerDelaySeconds = 30;
-const int ServiceWorkerVersion::kStartInstalledWorkerTimeoutSeconds = 10;
+const int ServiceWorkerVersion::kStartInstalledWorkerTimeoutSeconds = 60;
 const int ServiceWorkerVersion::kStartNewWorkerTimeoutMinutes = 5;
 const int ServiceWorkerVersion::kRequestTimeoutMinutes = 5;
 const int ServiceWorkerVersion::kStopWorkerTimeoutSeconds = 5;
@@ -889,11 +889,6 @@ void ServiceWorkerVersion::OnStarting() {
 void ServiceWorkerVersion::OnStarted() {
   DCHECK_EQ(RUNNING, running_status());
   RestartTick(&idle_time_);
-
-  // Reset the interval to normal. If may have been shortened so starting an
-  // existing worker can timeout quickly.
-  SetTimeoutTimerInterval(
-      base::TimeDelta::FromSeconds(kTimeoutTimerDelaySeconds));
 
   // Fire all start callbacks.
   scoped_refptr<ServiceWorkerVersion> protect(this);
@@ -1584,16 +1579,9 @@ void ServiceWorkerVersion::StartTimeoutTimer() {
   // Ping will be activated in OnScriptLoaded.
   ping_controller_->Deactivate();
 
-  // Make the timer delay shorter for starting an existing
-  // worker so stalled in starting workers can be timed out quickly.
-  // The timer will be reset to normal in OnStarted or the next start
-  // attempt.
-  const int delay_in_seconds = IsInstalled(status_)
-                                   ? kStartInstalledWorkerTimeoutSeconds
-                                   : kTimeoutTimerDelaySeconds;
   timeout_timer_.Start(FROM_HERE,
-                       base::TimeDelta::FromSeconds(delay_in_seconds), this,
-                       &ServiceWorkerVersion::OnTimeoutTimer);
+                       base::TimeDelta::FromSeconds(kTimeoutTimerDelaySeconds),
+                       this, &ServiceWorkerVersion::OnTimeoutTimer);
 }
 
 void ServiceWorkerVersion::StopTimeoutTimer() {
