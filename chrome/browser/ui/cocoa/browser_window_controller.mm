@@ -100,7 +100,6 @@
 #include "ui/base/l10n/l10n_util_mac.h"
 #import "ui/gfx/mac/coordinate_conversion.h"
 #include "ui/gfx/mac/scoped_cocoa_disable_screen_updates.h"
-#include "ui/gfx/screen.h"
 
 using bookmarks::BookmarkModel;
 using bookmarks::BookmarkNode;
@@ -2027,18 +2026,11 @@ willAnimateFromState:(BookmarkBar::State)oldState
 - (void)enterWebContentFullscreenForURL:(const GURL&)url
                              bubbleType:(ExclusiveAccessBubbleType)bubbleType {
   // HTML5 Fullscreen should only use AppKit fullscreen in 10.10+.
-  // However, if the user is using multiple monitors and turned off
-  // "Separate Space in Each Display", use Immersive Fullscreen so
-  // that the other monitors won't blank out.
-  gfx::Screen* screen = gfx::Screen::GetScreen();
-  BOOL hasMultipleMonitors = screen && screen->GetNumDisplays() > 1;
   if (chrome::mac::SupportsSystemFullscreen() &&
-      base::mac::IsOSYosemiteOrLater() &&
-      !(hasMultipleMonitors && ![NSScreen screensHaveSeparateSpaces])) {
+      base::mac::IsOSYosemiteOrLater())
     [self enterAppKitFullscreen];
-  } else {
+  else
     [self enterImmersiveFullscreen];
-  }
 
   if (!url.is_empty())
     [self updateFullscreenExitBubbleURL:url bubbleType:bubbleType];
