@@ -149,11 +149,8 @@ bool TaskQueueImpl::PostDelayedTaskImpl(
     return false;
   LazyNow lazy_now(any_thread().time_domain->CreateLazyNow());
   base::TimeTicks desired_run_time;
-  if (delay > base::TimeDelta()) {
-    base::TimeTicks time_domain_now = lazy_now.Now();
-    desired_run_time =
-        any_thread().time_domain->ComputeDelayedRunTime(time_domain_now, delay);
-  }
+  if (delay > base::TimeDelta())
+    desired_run_time = lazy_now.Now() + delay;
   return PostDelayedTaskLocked(&lazy_now, from_here, task, desired_run_time,
                                task_type);
 }
