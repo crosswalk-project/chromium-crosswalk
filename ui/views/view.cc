@@ -1891,6 +1891,12 @@ void View::PropagateNativeThemeChanged(const ui::NativeTheme* theme) {
   OnNativeThemeChanged(theme);
 }
 
+void View::PropagateSoftVisibilityChanged(bool visible) {
+  for (int i = 0, count = child_count(); i < count; ++i)
+    child_at(i)->PropagateSoftVisibilityChanged(visible);
+  OnSoftVisibilityChanged(visible);
+}
+
 // Size and disposition --------------------------------------------------------
 
 void View::PropagateVisibilityNotifications(View* start, bool is_visible) {

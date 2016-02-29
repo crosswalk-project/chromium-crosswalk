@@ -793,6 +793,7 @@ class VIEWS_EXPORT Widget : public internal::NativeWidgetDelegate,
   void OnNativeBlur() override;
   void OnNativeWidgetVisibilityChanging(bool visible) override;
   void OnNativeWidgetVisibilityChanged(bool visible) override;
+  void OnSoftVisibilityChanged(bool visible) override;
   void OnNativeWidgetCreated(bool desktop_widget) override;
   void OnNativeWidgetDestroying() override;
   void OnNativeWidgetDestroyed() override;

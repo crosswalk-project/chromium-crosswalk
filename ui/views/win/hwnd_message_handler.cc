@@ -2351,8 +2351,14 @@ LRESULT HWNDMessageHandler::OnWindowSizingFinished(UINT message,
 void HWNDMessageHandler::OnSessionChange(WPARAM status_code) {
   // Direct3D presents are ignored while the screen is locked, so force the
   // window to be redrawn on unlock.
-  if (status_code == WTS_SESSION_UNLOCK)
+  if (status_code == WTS_SESSION_UNLOCK) {
     ForceRedrawWindow(10);
+    if (IsVisible())
+      delegate_->HandleSoftVisibilityChanged(true);
+  } else if (status_code == WTS_SESSION_LOCK) {
+    if (IsVisible())
+      delegate_->HandleSoftVisibilityChanged(false);
+  }
 }
 
 void HWNDMessageHandler::HandleTouchEvents(const TouchEvents& touch_events) {

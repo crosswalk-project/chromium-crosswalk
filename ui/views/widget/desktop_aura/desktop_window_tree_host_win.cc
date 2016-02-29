@@ -812,6 +812,10 @@ void DesktopWindowTreeHostWin::HandleVisibilityChanged(bool visible) {
   native_widget_delegate_->OnNativeWidgetVisibilityChanged(visible);
 }
 
+void DesktopWindowTreeHostWin::HandleSoftVisibilityChanged(bool visible) {
+  native_widget_delegate_->OnSoftVisibilityChanged(visible);
+}
+
 void DesktopWindowTreeHostWin::HandleClientSizeChanged(
     const gfx::Size& new_size) {
   if (dispatcher())
