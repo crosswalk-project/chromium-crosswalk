@@ -1056,6 +1056,11 @@ void Widget::OnNativeWidgetVisibilityChanged(bool visible) {
     root->layer()->SetVisible(visible);
 }
 
+void Widget::OnSoftVisibilityChanged(bool visible) {
+  if (View* root = GetRootView())
+    root->PropagateSoftVisibilityChanged(visible);
+}
+
 void Widget::OnNativeWidgetCreated(bool desktop_widget) {
   if (is_top_level())
     focus_manager_.reset(FocusManagerFactory::Create(this, desktop_widget));
