@@ -84,6 +84,52 @@ TYPED_TEST_P(GLImageTest, CreateAndDestroy) {
 // GLImage in order to be conformant.
 REGISTER_TYPED_TEST_CASE_P(GLImageTest, CreateAndDestroy);
 
+class GLImageZeroInitializeTest : public GLImageTest<GLImageTestDelegate> {};
+
+// This test verifies that if an uninitialized image is bound to a texture, the
+// result is zero-initialized.
+TYPED_TEST_CASE_P(GLImageZeroInitializeTest);
+
+TYPED_TEST_P(GLImageZeroInitializeTest, ZeroInitialize) {
+  const gfx::Size image_size(256, 256);
+
+  GLuint framebuffer =
+      GLTestHelper::SetupFramebuffer(image_size.width(), image_size.height());
+  ASSERT_TRUE(framebuffer);
+  glBindFramebufferEXT(GL_FRAMEBUFFER, framebuffer);
+  glViewport(0, 0, image_size.width(), image_size.height());
+
+  // Create an uninitialized image of preferred format.
+  scoped_refptr<gl::GLImage> image = this->delegate_.CreateImage(image_size);
+
+  // Create a texture that |image| will be bound to.
+  GLenum target = this->delegate_.GetTextureTarget();
+  GLuint texture = GLTestHelper::CreateTexture(target);
+  glBindTexture(target, texture);
+
+  // Bind |image| to |texture|.
+  bool rv = image->BindTexImage(target);
+  EXPECT_TRUE(rv);
+
+  // Draw |texture| to viewport.
+  DrawTextureQuad(target, image_size);
+
+  // Release |image| from |texture|.
+  image->ReleaseTexImage(target);
+
+  // Read back pixels to check expectations.
+  const uint8_t zero_color[] = {0, 0, 0, 0};
+  GLTestHelper::CheckPixels(0, 0, image_size.width(), image_size.height(),
+                            zero_color);
+
+  // Clean up.
+  glDeleteTextures(1, &texture);
+  glDeleteFramebuffersEXT(1, &framebuffer);
+  image->Destroy(true /* have_context */);
+}
+
+REGISTER_TYPED_TEST_CASE_P(GLImageZeroInitializeTest, ZeroInitialize);
+
 template <typename GLImageTestDelegate>
 class GLImageCopyTest : public GLImageTest<GLImageTestDelegate> {};
 
