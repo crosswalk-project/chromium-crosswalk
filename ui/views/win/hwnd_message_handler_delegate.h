@@ -168,6 +168,12 @@ class VIEWS_EXPORT HWNDMessageHandlerDelegate {
   // Called when the window's visibility changed. |visible| holds the new state.
   virtual void HandleVisibilityChanged(bool visible) = 0;
 
+  // Called when the "calculated" window's visibility changed.
+  // OS doesn't mark windows hidden on screen lock or when other opaque windows
+  // cover them.
+  // |visible| holds the new state.
+  virtual void HandleSoftVisibilityChanged(bool visible) = 0;
+
   // Called when the window's client size changed. |new_size| holds the new
   // size.
   virtual void HandleClientSizeChanged(const gfx::Size& new_size) = 0;
