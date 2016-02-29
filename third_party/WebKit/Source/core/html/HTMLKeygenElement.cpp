@@ -49,7 +49,7 @@ using namespace HTMLNames;
 HTMLKeygenElement::HTMLKeygenElement(Document& document, HTMLFormElement* form)
     : HTMLFormControlElementWithState(keygenTag, document, form)
 {
-    UseCounter::count(document, UseCounter::HTMLKeygenElement);
+    UseCounter::countDeprecation(document, UseCounter::HTMLKeygenElement);
     if (document.frame())
         document.frame()->loader().client()->didUseKeygen();
 }

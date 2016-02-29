@@ -749,6 +749,8 @@ static const char* milestoneString(int milestone)
         return "M50, around April 2016";
     case 53:
         return "M53, around September 2016";
+    case 54:
+        return "M54, around October 2016";
     }
 
     ASSERT_NOT_REACHED();
@@ -985,6 +987,9 @@ String UseCounter::deprecationMessage(Feature feature)
 
     case NonCSSStyleSheetType:
         return String::format("Using stylesheet links with types other than 'text/css' is deprecated and will be removed in %s.", milestoneString(50));
+
+    case HTMLKeygenElement:
+        return willBeRemoved("The <keygen> element", 54, "5716060992962560");
 
     // Features that aren't deprecated don't have a deprecation message.
     default:
