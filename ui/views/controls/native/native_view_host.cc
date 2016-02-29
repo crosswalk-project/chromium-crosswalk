@@ -127,6 +127,22 @@ void NativeViewHost::VisibilityChanged(View* starting_from, bool is_visible) {
   Layout();
 }
 
+void NativeViewHost::OnSoftVisibilityChanged(bool visible) {
+  if (!native_view_ || !native_wrapper_.get())
+    return;
+
+  if (GetVisibleBounds().IsEmpty())
+    return;
+
+  // If the widget wasn't .e.g. minimized, hide and show would trigger
+  // PageVisibility API, enabling JS to save power while screen is locked.
+  if (visible) {
+    Layout();
+  } else {
+    native_wrapper_->HideWidget();
+  }
+}
+
 bool NativeViewHost::GetNeedsNotificationWhenVisibleBoundsChange() const {
   // The native widget is placed relative to the root. As such, we need to
   // know when the position of any ancestor changes, or our visibility relative
