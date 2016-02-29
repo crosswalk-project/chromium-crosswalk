@@ -131,14 +131,10 @@ void MemEntryImpl::Open() {
 }
 
 bool MemEntryImpl::InUse() {
-  if (type() == kParentEntry) {
-    return ref_count_ > 0;
-  } else {
-    // A child entry is always not in use. The consequence is that a child entry
-    // can always be evicted while the associated parent entry is currently in
-    // used (i.e. opened).
-    return false;
-  }
+  if (type() == kChildEntry)
+    return parent_->InUse();
+
+  return ref_count_ > 0;
 }
 
 // ------------------------------------------------------------------------
