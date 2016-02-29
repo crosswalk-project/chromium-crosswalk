@@ -1189,8 +1189,9 @@ void PrintPreviewHandler::HandleShowSystemDialog(
 
   printing::PrintViewManager* print_view_manager =
       printing::PrintViewManager::FromWebContents(initiator);
-  print_view_manager->set_observer(this);
-  print_view_manager->PrintForSystemDialogNow();
+  print_view_manager->PrintForSystemDialogNow(
+      base::Bind(&PrintPreviewHandler::ClosePreviewDialog,
+                 weak_factory_.GetWeakPtr()));
 
   // Cancel the pending preview request if exists.
   print_preview_ui()->OnCancelPendingPreviewRequest();
@@ -1383,10 +1384,6 @@ WebContents* PrintPreviewHandler::GetInitiator() const {
   return dialog_controller->GetInitiator(preview_web_contents());
 }
 
-void PrintPreviewHandler::OnPrintDialogShown() {
-  ClosePreviewDialog();
-}
-
 void PrintPreviewHandler::OnAddAccountToCookieCompleted(
     const std::string& account_id,
     const GoogleServiceAuthError& error) {
@@ -1450,16 +1447,6 @@ void PrintPreviewHandler::SelectFile(const base::FilePath& default_filename,
 
 void PrintPreviewHandler::OnGotUniqueFileName(const base::FilePath& path) {
   FileSelected(path, 0, nullptr);
-}
-
-void PrintPreviewHandler::OnPrintPreviewDialogDestroyed() {
-  WebContents* initiator = GetInitiator();
-  if (!initiator)
-    return;
-
-  printing::PrintViewManager* print_view_manager =
-      printing::PrintViewManager::FromWebContents(initiator);
-  print_view_manager->set_observer(NULL);
 }
 
 void PrintPreviewHandler::OnPrintPreviewFailed() {
