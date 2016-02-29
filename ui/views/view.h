@@ -1077,6 +1077,8 @@ class VIEWS_EXPORT View : public ui::LayerDelegate,
   // FocusManager manages this view.
   virtual void NativeViewHierarchyChanged();
 
+  virtual void OnSoftVisibilityChanged(bool visible) {}
+
   // Painting ------------------------------------------------------------------
 
   // Responsible for calling Paint() on child Views. Override to control the
@@ -1284,6 +1286,8 @@ class VIEWS_EXPORT View : public ui::LayerDelegate,
   // Registers/unregisters accelerators as necessary and calls
   // VisibilityChanged().
   void VisibilityChangedImpl(View* starting_from, bool is_visible);
+
+  void PropagateSoftVisibilityChanged(bool visible);
 
   // Responsible for propagating bounds change notifications to relevant
   // views.
