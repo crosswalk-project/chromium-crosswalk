@@ -197,6 +197,7 @@ class VIEWS_EXPORT DesktopWindowTreeHostWin
   void HandleWindowSizeChanging() override;
   void HandleWindowSizeChanged() override;
   void HandleWindowScaleFactorChanged(float window_scale_factor) override;
+  void HandleSoftVisibilityChanged(bool visible) override;
 
   Widget* GetWidget();
   const Widget* GetWidget() const;

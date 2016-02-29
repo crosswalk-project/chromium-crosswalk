@@ -71,6 +71,14 @@ class VIEWS_EXPORT NativeWidgetDelegate {
   // Called when the window is shown/hidden.
   virtual void OnNativeWidgetVisibilityChanged(bool visible) = 0;
 
+  // Some OSs (e.g. Windows and Linux) don't mark windows as hiden on screen
+  // lock or when other opaque windows fully cover them.
+  // Note that e.g. OSX and Android do this while Windows and Linux don't.
+  // OnSoftVisibilityChanged enables that OS window state is kept as is (on
+  // Linux and Windows) and that e.g. power saving PageVisibility API is still
+  // properly triggered.
+  virtual void OnSoftVisibilityChanged(bool visible) = 0;
+
   // Called when the native widget is created.
   // The |desktop_widget| bool is true for widgets created in the desktop and
   // false for widgets created in the shell.
