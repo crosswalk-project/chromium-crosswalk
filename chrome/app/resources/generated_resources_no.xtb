@@ -361,7 +361,7 @@
 <translation id="1515163294334130951">Start</translation>
 <translation id="1519008742749884982">Inndatavisninger</translation>
 <translation id="151922265591345427">1024</translation>
-<translation id="1519759545815312682">Stemme- og lydaktivitet er slått på for <ph name="USER_EMAIL" />.</translation>
+<translation id="1519759545815312682">Tale- og lydaktivitet er slått på for <ph name="USER_EMAIL" />.</translation>
 <translation id="1520505881707245707">Du kan bruke dette flagget til å slå på en funksjon som kan bekrefte om filinnholdet i utvidelsene fra nettmarkedet, samsvarer med det du kan forvente (det som er oppgitt). Med dette flagget kan du slå på funksjonen om denne ikke alt er slått på, men du kan ikke slå den av (siden det ville åpnet for at skadelig programvare kunne tuklet med denne innstillingen).</translation>
 <translation id="1520635877184409083">Juster</translation>
 <translation id="1521442365706402292">Administrer sertifikater</translation>
@@ -1066,7 +1066,7 @@ Jeg tror ikke det er nødvendig å blokkere dette nettstedet.</translation>
 <translation id="255632937203580977">Påminnelser for enhetsgjenkjennelse</translation>
 <translation id="2557899542277210112">For rask tilgang plasserer du bokmerkene her i bokmerkeraden.</translation>
 <translation id="255937426064304553">USA internasjonalt</translation>
-<translation id="2560633531288539217">Administrer stemme- og lydaktivitet</translation>
+<translation id="2560633531288539217">Administrer tale- og lydaktivitet</translation>
 <translation id="2562685439590298522">Google Dokumenter</translation>
 <translation id="2562743677925229011">Ikke logget på <ph name="SHORT_PRODUCT_NAME" /></translation>
 <translation id="2565670301826831948">Styreflatehastighet:</translation>
@@ -2888,7 +2888,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="5228076606934445476">Noe er galt med enheten. For å rette opp i denne feilen må du starte enheten på nytt og prøve igjen.</translation>
 <translation id="5228962187251412618">Sjekker bare på nettet</translation>
 <translation id="5230516054153933099">Vindu</translation>
-<translation id="5232178406098309195">Når du bruker lydaktiveringskommandoer som «Ok Google» eller trykker på et mikrofonikon, lagrer funksjonen for stemme- og lydaktivitet noe av stemmen og annen lyd på kontoen din. Et opptak av den etterfølgende talen/lyden, pluss et par sekunder før, blir lagret.</translation>
+<translation id="5232178406098309195">Når du bruker lydaktiveringskommandoer som «Ok Google» eller trykker på et mikrofonikon, lagrer funksjonen for tale- og lydaktivitet noe av talen og annen lyd på kontoen din. Et opptak av den etterfølgende talen/lyden, pluss et par sekunder før, blir lagret.</translation>
 <translation id="523299859570409035">Unntak for varsler</translation>
 <translation id="5233019165164992427">NaCl-feilsøkingsport</translation>
 <translation id="5233231016133573565">Prosess-ID</translation>
@@ -3604,6 +3604,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="6277105963844135994">Tidsavbrudd for nettverket</translation>
 <translation id="6277518330158259200">Ta en skjermdump</translation>
 <translation id="6279183038361895380">Trykk på |<ph name="ACCELERATOR" />| for å se markøren</translation>
+<translation id="6281743458679673853">Eksperiment der alle API-ene gjenspeiler layout-visningsområdet. Dette gjør at vinduets rulleegenskaper fungerer relativt til layout-visningsområdet.</translation>
 <translation id="6285120908535925801">{NUM_PRINTER,plural, =1{Ny skriver på nettverket}other{Nye skrivere på nettverket}}</translation>
 <translation id="6285395082104474418">Statusfeltet viser deg status for nettverket, batteriet og mer.</translation>
 <translation id="6286684120317096255">Databruken blir målt</translation>
@@ -3773,7 +3774,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="6549689063733911810">Siste</translation>
 <translation id="6550101752019590450">EmbeddedSearch API brukes til å sende inn søketermer på søkeresultatsiden.</translation>
 <translation id="6550675742724504774">Alternativer</translation>
-<translation id="6551034508248154663">Slår på stemme- og lydaktivitet ...</translation>
+<translation id="6551034508248154663">Slår på tale- og lydaktivitet ...</translation>
 <translation id="6551508934388063976">Kommandoen er utilgjengelig. Trykk på control-N for å åpne et nytt vindu.</translation>
 <translation id="655384502888039633"><ph name="USER_COUNT" /> brukere</translation>
 <translation id="6555432686520421228">Fjern alle brukerkontoer og tilbakestill <ph name="IDS_SHORT_PRODUCT_NAME" />-enheten din til fabrikkstandard.</translation>
@@ -4390,7 +4391,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="7517569744831774757">Tilbakestill innstillingene til originalinnstillingene.</translation>
 <translation id="7517786267097410259">Lag et passord –</translation>
 <translation id="7518150891539970662">WebRTC-logger (<ph name="WEBRTC_LOG_COUNT" />)</translation>
-<translation id="7518657099163789435">Stemme- og lydaktivitet er nødvendig for å bruke «Ok Google»</translation>
+<translation id="7518657099163789435">Tale- og lydaktivitet er nødvendig for å bruke «Ok Google»</translation>
 <translation id="7521387064766892559">JavaScript</translation>
 <translation id="7522255036471229694">Si «Ok Google»</translation>
 <translation id="752397454622786805">Avregistrert</translation>
@@ -5081,7 +5082,7 @@ Oppbevar nøkkelfilen på et trygt sted. Du får bruk for den når du skal oppre
 <translation id="855705891482654011">Last inn upakkede utvidelser</translation>
 <translation id="855773602626431402">Et programtillegg uten prosessisolering ble hindret i å kjøre på denne siden.</translation>
 <translation id="8559694214572302298">Image Decoder</translation>
-<translation id="8559748832541950395">Du kan endre denne innstillingen eller <ph name="BEGIN_LINK" />administrere de private dataene dine<ph name="END_LINK" /> når du vil. Husk at når stemme- og lydaktivitet er på, kan disse dataene bli lagret fra en av de påloggede enhetene dine.</translation>
+<translation id="8559748832541950395">Du kan endre denne innstillingen eller <ph name="BEGIN_LINK" />administrere de private dataene dine<ph name="END_LINK" /> når du vil. Husk at når tale- og lydaktivitet er på, kan disse dataene bli lagret fra en av de påloggede enhetene dine.</translation>
 <translation id="8561853412914299728"><ph name="TAB_TITLE" /> <ph name="EMOJI_PLAYING" /></translation>
 <translation id="8562413501751825163">Lukk Firefox før importering</translation>
 <translation id="8564827370391515078">128</translation>
@@ -5280,6 +5281,7 @@ Oppbevar nøkkelfilen på et trygt sted. Du får bruk for den når du skal oppre
 <translation id="8830796635868321089">Oppdateringssjekken mislyktes med de gjeldende mellomtjenerinnstillingene. Du må endre <ph name="PROXY_SETTINGS_LINK_START" />mellomtjenerinnstillingene<ph name="PROXY_SETTINGS_LINK_END" />.</translation>
 <translation id="8831623914872394308">Pekerinnstillinger</translation>
 <translation id="8837103518490433332">Vil du at <ph name="PASSWORD_MANAGER_BRAND" /> skal lagre passordet for <ph name="ORIGIN" />?</translation>
+<translation id="8841142799574815336">Ubevegelig visuelt visningsområde.</translation>
 <translation id="884264119367021077">Leveringsadresse</translation>
 <translation id="8844238624737526720">Bruk den nye og optimaliserte implementeringen av oppgavebehandlingen i Chrome.</translation>
 <translation id="8846141544112579928">Søker etter tastatur …</translation>
@@ -5551,7 +5553,7 @@ Oppbevar nøkkelfilen på et trygt sted. Du får bruk for den når du skal oppre
 <translation id="965490406356730238">Slå på maskinvareakselerert MJPEG-dekoding for skjermdumper der dette er tilgjengelig.</translation>
 <translation id="968174221497644223">Programbuffer</translation>
 <translation id="970047733946999531">{NUM_TABS,plural, =1{1 fane}other{# faner}}</translation>
-<translation id="970794034573172516">Slå på stemme- og lydaktivitet</translation>
+<translation id="970794034573172516">Slå på tale- og lydaktivitet</translation>
 <translation id="971058943242239041">Aktiverer bruk av HTML-elementene «window-controls» i pakkede apper.</translation>
 <translation id="971774202801778802">Bokmerkenettadresse</translation>
 <translation id="973473557718930265">Avslutt</translation>

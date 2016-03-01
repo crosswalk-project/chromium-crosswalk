@@ -868,7 +868,7 @@ Dopo avere creato un nuovo utente supervisionato, puoi gestirne le impostazioni 
     <ph name="MARKUP_4" />Tieni al sicuro i tuoi file.<ph name="MARKUP_5" />
     Indipendentemente da ciò che accade sul tuo dispositivo, i tuoi file rimangono memorizzati al sicuro in Google Drive.<ph name="MARKUP_6" />
     <ph name="MARKUP_7" />Condividi, crea e realizza in collaborazione<ph name="MARKUP_8" /> file con altre persone, il tutto in un'unica posizione.<ph name="MARKUP_9" /></translation>
-<translation id="2270450558902169558">Scambio di dati con qualsiasi dispositivo nel dominio <ph name="DOMAIN" /></translation>
+<translation id="2270450558902169558">Scambiare dati con qualsiasi dispositivo nel dominio <ph name="DOMAIN" /></translation>
 <translation id="2270484714375784793">Numero di telefono</translation>
 <translation id="2270627217422354837">Scambio di dati con qualsiasi dispositivo nei domini: <ph name="DOMAINS" /></translation>
 <translation id="2273562597641264981">Operatore:</translation>
@@ -1587,7 +1587,7 @@ I dati di accesso del tuo account sono obsoleti.</translation>
 <translation id="3269093882174072735">Carica immagine</translation>
 <translation id="3269101346657272573">Inserisci il PIN.</translation>
 <translation id="326999365752735949">Download delle differenze in corso...</translation>
-<translation id="3270965368676314374">Lettura, modifica ed eliminazione di foto, musica e altri contenuti multimediali del computer</translation>
+<translation id="3270965368676314374">Leggere, modificare ed eliminare foto, musica e altri contenuti multimediali del computer</translation>
 <translation id="3273410961255278341">Invia per:</translation>
 <translation id="3274763671541996799">Sei passato a schermo intero.</translation>
 <translation id="3275778913554317645">Apri come finestra</translation>
@@ -1980,7 +1980,7 @@ Se non modifichi le impostazioni predefinite, <ph name="USER_DISPLAY_NAME" /> pu
 <translation id="3776796446459804932">Questa estensione vìola le norme del Chrome Web Store.</translation>
 <translation id="3778152852029592020">Il download è stato annullato.</translation>
 <translation id="3778740492972734840">&amp;Strumenti per sviluppatori</translation>
-<translation id="378312418865624974">Lettura di un identificatore univoco di questo computer</translation>
+<translation id="378312418865624974">Leggere un identificatore univoco di questo computer</translation>
 <translation id="3783640748446814672">alt</translation>
 <translation id="3785308913036335955">Mostra scorciatoia app</translation>
 <translation id="3785852283863272759">Invia percorso pagina tramite email</translation>
@@ -3507,7 +3507,7 @@ Premi un tasto qualsiasi per continuare a esplorare.</translation>
 <translation id="6111974609785983504">Consentito per impostazione predefinita</translation>
 <translation id="6113134669445407638">Consente di disattivare Delay Agnostic AEC in WebRTC. Da utilizzare se i ritardi di sistema segnalati sono estremamente attendibili o se altri sentono echi provenienti dalla tua macchina.</translation>
 <translation id="6116921718742659598">Modifica impostazioni della lingua e di immissione</translation>
-<translation id="6117536376248197233">Disattiva sequenze temporali di animazione compositore in renderer.</translation>
+<translation id="6117536376248197233">Disattiva sequenze temporali di animazione compositore nei rendering.</translation>
 <translation id="6120205520491252677">Blocca questa pagina in schermata iniziale...</translation>
 <translation id="6120816415558830169">Scaricato da &lt;a&gt;<ph name="EXTENSION" />&lt;/a&gt;</translation>
 <translation id="6122081475643980456">La tua connessione Internet è controllata</translation>
@@ -3609,6 +3609,7 @@ Premi un tasto qualsiasi per continuare a esplorare.</translation>
 <translation id="6277105963844135994">Timeout di rete</translation>
 <translation id="6277518330158259200">&amp;Acquisisci screenshot</translation>
 <translation id="6279183038361895380">Premi |<ph name="ACCELERATOR" />| per mostrare il puntatore</translation>
+<translation id="6281743458679673853">Un esperimento per applicare l'area visibile del layout in tutte le API. Le proprietà window.scroll diventeranno relative rispetto all'area visibile del layout.</translation>
 <translation id="6285120908535925801">{NUM_PRINTER,plural, =1{Nuova stampante in rete}other{Nuove stampanti in rete}}</translation>
 <translation id="6285395082104474418">Nella barra di stato viene indicato lo stato corrente della rete, della batteria e di altri elementi.</translation>
 <translation id="6286684120317096255">È in corso la misurazione dell'utilizzo dei dati</translation>
@@ -4258,7 +4259,7 @@ Premi un tasto qualsiasi per continuare a esplorare.</translation>
 <translation id="7299441085833132046"><ph name="BEGIN_LINK" />Guida<ph name="END_LINK" /></translation>
 <translation id="7301360164412453905">Tasti di selezione tastiera Hsu</translation>
 <translation id="7303492016543161086">Mostra le opzioni di accessibilità nel menu di sistema</translation>
-<translation id="730515362922783851">Scambio di dati con qualsiasi dispositivo sulla rete locale o su Internet</translation>
+<translation id="730515362922783851">Scambiare dati con qualsiasi dispositivo sulla rete locale o su Internet</translation>
 <translation id="7309257895202129721">Visualizza &amp;comandi</translation>
 <translation id="7311079019872751559">Accesso con plug-in senza sandbox</translation>
 <translation id="7312441861087971374"><ph name="PLUGIN_NAME" /> è obsoleto.</translation>
@@ -4722,7 +4723,7 @@ File di chiave: <ph name="KEY_FILE" />
 Conserva il file di chiave in un luogo sicuro. Ti servirà per creare nuove versioni dell'estensione.</translation>
 <translation id="799923393800005025">Può visualizzare</translation>
 <translation id="7999338963698132743">Nuovo Task Manager</translation>
-<translation id="8000004253404706714">Utilizza sottosistema precedente di animazione interna per animazioni composte in renderer.</translation>
+<translation id="8000004253404706714">Utilizza sottosistema di animazione interna precedente per animazioni composte nei rendering.</translation>
 <translation id="8004582292198964060">Browser</translation>
 <translation id="8007030362289124303">Batteria in esaurimento</translation>
 <translation id="8008356846765065031">Disconnesso da Internet. Controlla la tua connessione Internet.</translation>
@@ -5285,6 +5286,7 @@ Conserva il file di chiave in un luogo sicuro. Ti servirà per creare nuove vers
 <translation id="8830796635868321089">Il controllo degli aggiornamenti utilizzando le impostazioni proxy correnti non è riuscito. Regola le tue <ph name="PROXY_SETTINGS_LINK_START" />impostazioni proxy<ph name="PROXY_SETTINGS_LINK_END" />.</translation>
 <translation id="8831623914872394308">Impostazioni puntatore</translation>
 <translation id="8837103518490433332">Vuoi che <ph name="PASSWORD_MANAGER_BRAND" /> salvi la password del sito <ph name="ORIGIN" />?</translation>
+<translation id="8841142799574815336">Area visibile generale inerte.</translation>
 <translation id="884264119367021077">Indirizzo di spedizione</translation>
 <translation id="8844238624737526720">Consente di utilizzare la nuova implementazione ottimizzata del Task Manager di Chrome.</translation>
 <translation id="8846141544112579928">Ricerca tastiera in corso...</translation>
