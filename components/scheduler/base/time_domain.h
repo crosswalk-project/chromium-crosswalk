@@ -46,6 +46,13 @@ class SCHEDULER_EXPORT TimeDomain {
   // TODO(alexclarke): Make this main thread only.
   virtual LazyNow CreateLazyNow() = 0;
 
+  // Computes a runtime which is >= |time_domain_now| + |delay|. This is used to
+  // allow the TimeDomain to decide if the real or virtual time should be used
+  // when computing the task run time.  This can be called from any thread.
+  virtual base::TimeTicks ComputeDelayedRunTime(
+      base::TimeTicks time_domain_now,
+      base::TimeDelta delay) const = 0;
+
   // Some TimeDomains support virtual time, this method tells us to advance time
   // if possible and return true if time was advanced.
   virtual bool MaybeAdvanceTime() = 0;

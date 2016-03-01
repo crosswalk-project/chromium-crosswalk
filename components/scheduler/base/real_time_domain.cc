@@ -26,6 +26,12 @@ LazyNow RealTimeDomain::CreateLazyNow() {
   return task_queue_manager_->CreateLazyNow();
 }
 
+base::TimeTicks RealTimeDomain::ComputeDelayedRunTime(
+    base::TimeTicks time_domain_now,
+    base::TimeDelta delay) const {
+  return time_domain_now + delay;
+}
+
 void RealTimeDomain::RequestWakeup(LazyNow* lazy_now, base::TimeDelta delay) {
   // NOTE this is only called if the scheduled runtime is sooner than any
   // previously scheduled runtime, or there is no (outstanding) previously
@@ -55,5 +61,4 @@ void RealTimeDomain::AsValueIntoInternal(
 const char* RealTimeDomain::GetName() const {
   return "RealTimeDomain";
 }
-
 }  // namespace scheduler

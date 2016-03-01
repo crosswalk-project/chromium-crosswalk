@@ -39,6 +39,11 @@ class MockTimeDomain : public TimeDomain {
   // TimeSource implementation:
   LazyNow CreateLazyNow() override { return LazyNow(now_); }
 
+  base::TimeTicks ComputeDelayedRunTime(base::TimeTicks time_domain_now,
+                                        base::TimeDelta delay) const override {
+    return time_domain_now + delay;
+  }
+
   void AsValueIntoInternal(
       base::trace_event::TracedValue* state) const override {}
 
