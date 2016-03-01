@@ -60,7 +60,6 @@ public:
 
     const OrderIterator& orderIterator() const { return m_orderIterator; }
 
-    void clearCachedMainSizeForChild(const LayoutBox& child);
 protected:
     void computeIntrinsicLogicalWidths(LayoutUnit& minLogicalWidth, LayoutUnit& maxLogicalWidth) const override;
 
