@@ -230,7 +230,7 @@ public class WebsiteSettingsPopup implements OnClickListener {
     private final WindowAndroid mWindowAndroid;
 
     // A pointer to the C++ object for this UI.
-    private final long mNativeWebsiteSettingsPopup;
+    private long mNativeWebsiteSettingsPopup;
 
     // The outer container, filled with the layout from website_settings.xml.
     private final LinearLayout mContainer;
@@ -398,6 +398,7 @@ public class WebsiteSettingsPopup implements OnClickListener {
                 assert mNativeWebsiteSettingsPopup != 0;
                 webContentsObserver.destroy();
                 nativeDestroy(mNativeWebsiteSettingsPopup);
+                mNativeWebsiteSettingsPopup = 0;
             }
         });
 
@@ -876,7 +877,9 @@ public class WebsiteSettingsPopup implements OnClickListener {
     }
 
     private void recordAction(int action) {
-        nativeRecordWebsiteSettingsAction(mNativeWebsiteSettingsPopup, action);
+        if (mNativeWebsiteSettingsPopup != 0) {
+            nativeRecordWebsiteSettingsAction(mNativeWebsiteSettingsPopup, action);
+        }
     }
 
     /**
