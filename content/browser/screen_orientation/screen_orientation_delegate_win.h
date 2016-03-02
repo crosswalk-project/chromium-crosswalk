@@ -9,18 +9,19 @@
 
 namespace content {
 
-class ScreenOrientationDelegateWin : public ScreenOrientationDelegate {
+class ScreenOrientationDelegateWin
+    : public content::ScreenOrientationDelegate {
  public:
   ScreenOrientationDelegateWin();
   ~ScreenOrientationDelegateWin() override;
 
  private:
   // content::ScreenOrientationDelegate:
-  bool FullScreenRequired(WebContents* web_contents) override;
-  void Lock(WebContents* web_contents,
+  bool FullScreenRequired(content::WebContents* web_contents) override;
+  void Lock(content::WebContents* web_contents,
             blink::WebScreenOrientationLockType lock_orientation) override;
   bool ScreenOrientationProviderSupported() override;
-  void Unlock(WebContents* web_contents) override;
+  void Unlock(content::WebContents* web_contents) override;
 
   DISALLOW_COPY_AND_ASSIGN(ScreenOrientationDelegateWin);
 };
