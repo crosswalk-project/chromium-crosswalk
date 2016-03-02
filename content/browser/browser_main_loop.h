@@ -72,6 +72,7 @@ struct MainFunctionParams;
 #if defined(OS_ANDROID)
 class ScreenOrientationDelegate;
 #elif defined(OS_WIN)
+class SystemMessageWindowWin;
 class ScreenOrientationDelegate;
 #endif
 
@@ -202,6 +203,7 @@ class CONTENT_EXPORT BrowserMainLoop {
       system_stats_monitor_;
 
 #if defined(OS_WIN)
+  scoped_ptr<ScreenOrientationDelegate> screen_orientation_delegate_;
   scoped_ptr<ScreenOrientationDelegate> screen_orientation_delegate_;
 #endif
 
