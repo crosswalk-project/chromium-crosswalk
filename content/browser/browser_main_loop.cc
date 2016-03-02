@@ -126,7 +126,9 @@
 #include <shellapi.h>
 
 #include "base/memory/memory_pressure_monitor_win.h"
+#include "base/win/windows_version.h"
 #include "content/browser/system_message_window_win.h"
+#include "content/browser/screen_orientation/screen_orientation_delegate_win.h"
 #include "content/common/sandbox_win.h"
 #include "net/base/winsock_init.h"
 #include "ui/base/l10n/l10n_util_win.h"
@@ -590,6 +592,8 @@ void BrowserMainLoop::PostMainMessageLoopStart() {
 
 #if defined(OS_WIN)
   system_message_window_.reset(new SystemMessageWindowWin);
+  if (base::win::GetVersion() >= base::win::VERSION_WIN8)
+    screen_orientation_delegate_.reset(new ScreenOrientationDelegateWin());
 #endif
 
   // TODO(boliu): kSingleProcess check is a temporary workaround for
