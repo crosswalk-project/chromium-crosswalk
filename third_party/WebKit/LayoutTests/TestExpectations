@@ -1218,27 +1218,9 @@ crbug.com/521730 [ Win10 ] svg/as-image/svg-canvas-xhtml-tainted.html [ Failure 
 crbug.com/521730 [ Win10 ] svg/css/text-shadow-multiple.xhtml [ Failure ]
 crbug.com/521730 [ Win10 ] svg/custom/textPath-change-id2-pattern.svg [ Failure ]
 
-crbug.com/390040 css3/filters/nested-filter.html [ NeedsRebaseline ]
-crbug.com/390040 fast/borders/border-radius-percent.html [ NeedsRebaseline ]
-crbug.com/390040 fast/css/resize-corner-tracking-transformed.html [ NeedsRebaseline ]
-crbug.com/390040 fast/forms/select-popup/popup-menu-appearance-transform.html [ NeedsRebaseline ]
-crbug.com/390040 fast/frames/frame-set-scaling-rotate.html [ NeedsRebaseline ]
-crbug.com/390040 fast/frames/frame-set-scaling-skew.html [ NeedsRebaseline ]
-crbug.com/390040 fast/overflow/overflow-update-transform.html [ NeedsRebaseline ]
-crbug.com/390040 fast/replaced/selection-rect-transform.html [ NeedsRebaseline ]
-crbug.com/390040 fast/transforms/transformed-focused-text-input.html [ NeedsRebaseline ]
-crbug.com/390040 inspector/layers/layer-canvas-log.html [ NeedsRebaseline ]
-crbug.com/390040 media/audio-repaint.html [ NeedsRebaseline ]
-crbug.com/390040 printing/iframe-print.html [ NeedsRebaseline ]
-crbug.com/390040 svg/dynamic-updates/SVG-dynamic-css-transform.html [ NeedsRebaseline ]
-crbug.com/390040 virtual/threaded/printing/iframe-print.html [ NeedsRebaseline ]
-crbug.com/390040 fast/forms/placeholder-position.html [ NeedsRebaseline ]
-crbug.com/390040 svg/transforms/animated-path-inside-transformed-html.xhtml [ NeedsRebaseline ]
-crbug.com/390040 svg/transforms/text-with-pattern-inside-transformed-html.xhtml [ NeedsRebaseline ]
-crbug.com/390040 virtual/threaded/printing/ellipsis-printing-style.html [ NeedsRebaseline ]
-crbug.com/390040 printing/ellipsis-printing-style.html [ NeedsRebaseline ]
-crbug.com/390040 fast/forms/select/listbox-appearance-basic.html [ NeedsRebaseline ]
-crbug.com/390040 fast/frames/iframe-scaling-with-scroll.html [ NeedsRebaseline ]
+# TODO(chrishtr): re-enable these after crbug.com/590971 is fixed.
+# crbug.com/390040 [ Win10 ] virtual/threaded/printing/ellipsis-printing-style.html [ Skip ]
+# crbug.com/390040 [ Win10 ] printing/ellipsis-printing-style.html [ Skip ]
 
 crbug.com/571233 compositing/background-color/background-color-outside-document.html [ Skip ]
 
@@ -1436,7 +1418,6 @@ crbug.com/569950 svg/batik/filters/feTile.svg [ NeedsRebaseline ]
 crbug.com/569950 svg/filters/feTile.svg [ NeedsRebaseline ]
 
 crbug.com/570611 fast/inline/inline-box-background-repeat-x.html [ NeedsRebaseline ]
-crbug.com/570611 [ Mac Linux Android XP Win7 ] fast/text/emphasis-combined-text.html [ NeedsRebaseline ]
 crbug.com/570611 ietestcenter/css3/bordersbackgrounds/background-repeat-space-padding-box.htm [ NeedsRebaseline ]
 
 crbug.com/568867 [ Win Debug ] transforms/3d/point-mapping/3d-point-mapping-deep.html [ Failure ]
