@@ -5,128 +5,124 @@
 #include "content/browser/screen_orientation/screen_orientation_delegate_win.h"
 
 #include <windows.h>
-
 #include "content/public/browser/screen_orientation_provider.h"
 
-namespace {
+namespace content {
+
+ScreenOrientationDelegateWin::ScreenOrientationDelegateWin() {
+  content::ScreenOrientationProvider::SetDelegate(this);
+}
+
+ScreenOrientationDelegateWin::~ScreenOrientationDelegateWin() {
+  content::ScreenOrientationProvider::SetDelegate(nullptr);
+}
+
+bool ScreenOrientationDelegateWin::FullScreenRequired(
+    content::WebContents* web_contents) {
+  return false;
+}
 
 // SetDisplayAutoRotationPreferences is available on Windows 8 and after.
-void SetDisplayAutoRotationPreferencesWrapper(
-    ORIENTATION_PREFERENCE orientation) {
-  using SetDisplayAutoRotationPreferencesPtr =
-      void(WINAPI*)(ORIENTATION_PREFERENCE);
+static void SetDisplayAutoRotationPreferencesWrapper(
+  ORIENTATION_PREFERENCE orientation) {
+  typedef void(WINAPI *SetDisplayAutoRotationPreferencesPtr)(
+    ORIENTATION_PREFERENCE);
   static SetDisplayAutoRotationPreferencesPtr
-      set_display_auto_rotation_preferences_func =
-          reinterpret_cast<SetDisplayAutoRotationPreferencesPtr>(
-              GetProcAddress(GetModuleHandleA("user32.dll"),
-                             "SetDisplayAutoRotationPreferences"));
+    set_display_auto_rotation_preferences_func =
+    reinterpret_cast<SetDisplayAutoRotationPreferencesPtr>(
+    GetProcAddress(GetModuleHandleA("user32.dll"),
+    "SetDisplayAutoRotationPreferences"));
   if (set_display_auto_rotation_preferences_func)
     set_display_auto_rotation_preferences_func(orientation);
 }
 
 // GetAutoRotationState is available on Windows 8 and after.
-BOOL GetAutoRotationStateWrapper(PAR_STATE state) {
-  using GetAutoRotationStatePtr = BOOL(WINAPI*)(PAR_STATE);
+static BOOL GetAutoRotationStateWrapper(PAR_STATE pState) {
+  typedef BOOL(WINAPI *GetAutoRotationStatePtr)(PAR_STATE);
   static GetAutoRotationStatePtr get_auto_rotation_state_func =
-      reinterpret_cast<GetAutoRotationStatePtr>(GetProcAddress(
-          GetModuleHandleA("user32.dll"), "GetAutoRotationState"));
+    reinterpret_cast<GetAutoRotationStatePtr>(
+    GetProcAddress(GetModuleHandleA("user32.dll"),
+    "GetAutoRotationState"));
   if (get_auto_rotation_state_func)
-    return get_auto_rotation_state_func(state);
+    return get_auto_rotation_state_func(pState);
   return FALSE;
 }
 
-bool GetDisplayOrientation(bool* landscape, bool* flipped) {
-  DEVMODE dm = {};
+static void GetCurrentDisplaySettings(bool *landscape, bool *flipped) {
+  DEVMODE dm;
+  ZeroMemory(&dm, sizeof(dm));
   dm.dmSize = sizeof(dm);
-  if (!EnumDisplaySettings(nullptr, ENUM_CURRENT_SETTINGS, &dm))
-    return false;
-  *flipped = (dm.dmDisplayOrientation == DMDO_270 ||
-              dm.dmDisplayOrientation == DMDO_180);
-  *landscape = (dm.dmPelsWidth > dm.dmPelsHeight);
-  return true;
-}
-
-}  // namespace
-
-namespace content {
-
-ScreenOrientationDelegateWin::ScreenOrientationDelegateWin() {
-  ScreenOrientationProvider::SetDelegate(this);
-}
-
-ScreenOrientationDelegateWin::~ScreenOrientationDelegateWin() {
-  ScreenOrientationProvider::SetDelegate(nullptr);
-}
-
-bool ScreenOrientationDelegateWin::FullScreenRequired(
-    WebContents* web_contents) {
-  return false;
+  if (!EnumDisplaySettings(NULL, ENUM_CURRENT_SETTINGS, &dm))
+    return;
+  if (flipped) {
+    *flipped = (dm.dmDisplayOrientation == DMDO_270
+                || dm.dmDisplayOrientation == DMDO_180);
+  }
+  if (landscape)
+    *landscape = (dm.dmPelsWidth > dm.dmPelsHeight);
 }
 
 void ScreenOrientationDelegateWin::Lock(
-    WebContents* web_contents,
-    blink::WebScreenOrientationLockType lock_orientation) {
+  content::WebContents* web_contents,
+  blink::WebScreenOrientationLockType lock_orientation) {
   ORIENTATION_PREFERENCE prefs = ORIENTATION_PREFERENCE_NONE;
   bool landscape = true;
   bool flipped = false;
   switch (lock_orientation) {
-    case blink::WebScreenOrientationLockPortraitPrimary:
-      prefs = ORIENTATION_PREFERENCE_PORTRAIT;
-      break;
-    case blink::WebScreenOrientationLockPortraitSecondary:
-      prefs = ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED;
-      break;
-    case blink::WebScreenOrientationLockLandscapePrimary:
-      prefs = ORIENTATION_PREFERENCE_LANDSCAPE;
-      break;
-    case blink::WebScreenOrientationLockLandscapeSecondary:
-      prefs = ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED;
-      break;
-    case blink::WebScreenOrientationLockPortrait:
-      if (!GetDisplayOrientation(&landscape, &flipped))
-        return;
-      prefs = (flipped && !landscape) ? ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED
-                                      : ORIENTATION_PREFERENCE_PORTRAIT;
-      break;
-    case blink::WebScreenOrientationLockLandscape:
-      if (!GetDisplayOrientation(&landscape, &flipped))
-        return;
-      prefs = (flipped && landscape) ? ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED
-                                     : ORIENTATION_PREFERENCE_LANDSCAPE;
-      break;
-    case blink::WebScreenOrientationLockNatural:
-      if (!GetDisplayOrientation(&landscape, &flipped))
-        return;
-      prefs = landscape ? ORIENTATION_PREFERENCE_LANDSCAPE
-                        : ORIENTATION_PREFERENCE_PORTRAIT;
-      break;
-    case blink::WebScreenOrientationLockAny:
-      if (!GetDisplayOrientation(&landscape, &flipped))
-        return;
-      if (landscape) {
-        prefs = flipped ? ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED
-                        : ORIENTATION_PREFERENCE_LANDSCAPE;
-      } else {
-        prefs = flipped ? ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED
-                        : ORIENTATION_PREFERENCE_PORTRAIT;
-      }
-      break;
-    case blink::WebScreenOrientationLockDefault:
-    default:
-      break;
+  case blink::WebScreenOrientationLockPortraitPrimary:
+    prefs = ORIENTATION_PREFERENCE_PORTRAIT;
+    break;
+  case blink::WebScreenOrientationLockPortraitSecondary:
+    prefs = ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED;
+    break;
+  case blink::WebScreenOrientationLockLandscapePrimary:
+    prefs = ORIENTATION_PREFERENCE_LANDSCAPE;
+    break;
+  case blink::WebScreenOrientationLockLandscapeSecondary:
+    prefs = ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED;
+    break;
+  case blink::WebScreenOrientationLockPortrait:
+    GetCurrentDisplaySettings(&landscape, &flipped);
+    prefs = (flipped && !landscape) ? ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED
+                                    : ORIENTATION_PREFERENCE_PORTRAIT;
+    break;
+  case blink::WebScreenOrientationLockLandscape:
+    GetCurrentDisplaySettings(&landscape, &flipped);
+    prefs = (flipped && landscape) ? ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED
+                                   : ORIENTATION_PREFERENCE_LANDSCAPE;
+    break;
+  case blink::WebScreenOrientationLockNatural:
+    GetCurrentDisplaySettings(&landscape, &flipped);
+    prefs = landscape ? ORIENTATION_PREFERENCE_LANDSCAPE
+                      : ORIENTATION_PREFERENCE_PORTRAIT;
+    break;
+  case blink::WebScreenOrientationLockAny:
+    GetCurrentDisplaySettings(&landscape, &flipped);
+    if (landscape) {
+      prefs = flipped ? ORIENTATION_PREFERENCE_LANDSCAPE_FLIPPED
+                      : ORIENTATION_PREFERENCE_LANDSCAPE;
+    } else {
+      prefs = flipped ? ORIENTATION_PREFERENCE_PORTRAIT_FLIPPED
+                      : ORIENTATION_PREFERENCE_PORTRAIT;
+    }
+    break;
+  case blink::WebScreenOrientationLockDefault:
+  default:
+    break;
   }
   SetDisplayAutoRotationPreferencesWrapper(prefs);
 }
 
 bool ScreenOrientationDelegateWin::ScreenOrientationProviderSupported() {
-  AR_STATE auto_rotation_state = {};
-  return (GetAutoRotationStateWrapper(&auto_rotation_state) &&
-          !(auto_rotation_state & AR_NOSENSOR) &&
-          !(auto_rotation_state & AR_NOT_SUPPORTED) &&
-          !(auto_rotation_state & AR_MULTIMON));
+  AR_STATE autoRotationState;
+  ZeroMemory(&autoRotationState, sizeof(AR_STATE));
+  return (GetAutoRotationStateWrapper(&autoRotationState)
+          && !(autoRotationState & AR_NOSENSOR)
+          && !(autoRotationState & AR_NOT_SUPPORTED));
 }
 
-void ScreenOrientationDelegateWin::Unlock(WebContents* web_contents) {
+void ScreenOrientationDelegateWin::Unlock(
+    content::WebContents* web_contents) {
   SetDisplayAutoRotationPreferencesWrapper(ORIENTATION_PREFERENCE_NONE);
 }
 
