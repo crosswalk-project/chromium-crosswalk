@@ -87,6 +87,7 @@ struct MainFunctionParams;
 #if defined(OS_ANDROID)
 class ScreenOrientationDelegate;
 #elif defined(OS_WIN)
+class SystemMessageWindowWin;
 class ScreenOrientationDelegate;
 #endif
 
