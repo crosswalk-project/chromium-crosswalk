@@ -14,7 +14,7 @@
 
 namespace blink {
 
-class WebCLException : public ThreadSafeRefCounted<WebCLException>, public ScriptWrappable {
+class CORE_EXPORT WebCLException : public ThreadSafeRefCounted<WebCLException>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     static PassRefPtr<WebCLException> create(unsigned code, const String& name, const String& message)
