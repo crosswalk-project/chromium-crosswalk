@@ -839,6 +839,19 @@ void PaintLayerScrollableArea::updateAfterStyleChange(const ComputedStyle* oldSt
     updateScrollCornerStyle();
     updateResizerAreaSet();
     updateResizerStyle();
+
+    // Whenever background changes on the scrollable element, the scroll bar
+    // overlay style might need to be changed to have contrast against the
+    // background.
+    Color oldBackground;
+    if (oldStyle) {
+        oldBackground = oldStyle->visitedDependentColor(CSSPropertyBackgroundColor);
+    }
+    Color newBackground = box().style()->visitedDependentColor(CSSPropertyBackgroundColor);
+
+    if (newBackground != oldBackground) {
+        recalculateScrollbarOverlayStyle(newBackground);
+    }
 }
 
 bool PaintLayerScrollableArea::updateAfterCompositingChange()
@@ -1481,9 +1494,15 @@ void PaintLayerScrollableArea::ScrollbarManager::setHasHorizontalScrollbar(bool 
         // This doesn't hit in any tests, but since the equivalent code in setHasVerticalScrollbar
         // does, presumably this code does as well.
         DisableCompositingQueryAsserts disabler;
-        if (!m_hBar)
+        if (!m_hBar) {
             m_hBar = createScrollbar(HorizontalScrollbar);
-        m_hBarIsAttached = 1;
+            m_hBarIsAttached = 1;
+            if (!m_hBar->isCustomScrollbar())
+                m_scrollableArea->didAddScrollbar(*m_hBar, HorizontalScrollbar);
+        } else {
+            m_hBarIsAttached = 1;
+        }
+
     } else {
         m_hBarIsAttached = 0;
         if (!m_canDetachScrollbars)
@@ -1495,9 +1514,15 @@ void PaintLayerScrollableArea::ScrollbarManager::setHasVerticalScrollbar(bool ha
 {
     if (hasScrollbar) {
         DisableCompositingQueryAsserts disabler;
-        if (!m_vBar)
+        if (!m_vBar) {
             m_vBar = createScrollbar(VerticalScrollbar);
-        m_vBarIsAttached = 1;
+            m_vBarIsAttached = 1;
+            if (!m_vBar->isCustomScrollbar())
+                m_scrollableArea->didAddScrollbar(*m_vBar, VerticalScrollbar);
+        } else {
+            m_vBarIsAttached = 1;
+        }
+
     } else {
         m_vBarIsAttached = 0;
         if (!m_canDetachScrollbars)
@@ -1518,10 +1543,6 @@ PassRefPtrWillBeRawPtr<Scrollbar> PaintLayerScrollableArea::ScrollbarManager::cr
         if (actualLayoutObject.styleRef().hasAppearance())
             scrollbarSize = LayoutTheme::theme().scrollbarControlSizeForPart(actualLayoutObject.styleRef().appearance());
         scrollbar = Scrollbar::create(m_scrollableArea.get(), orientation, scrollbarSize, &m_scrollableArea->box().frame()->page()->chromeClient());
-        if (orientation == HorizontalScrollbar)
-            m_scrollableArea->didAddScrollbar(*scrollbar, HorizontalScrollbar);
-        else
-            m_scrollableArea->didAddScrollbar(*scrollbar, VerticalScrollbar);
     }
     m_scrollableArea->box().document().view()->addChild(scrollbar.get());
     return scrollbar.release();
