@@ -3302,6 +3302,12 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         mSmartClipDataListener = listener;
     }
 
+    public void setBackgroundColor(int color) {
+        if (mNativeContentViewCore != 0) {
+            nativeSetBackgroundColor(mNativeContentViewCore, color);
+        }
+    }
+
     public void setBackgroundOpaque(boolean opaque) {
         if (mNativeContentViewCore != 0) {
             nativeSetBackgroundOpaque(mNativeContentViewCore, opaque);
@@ -3545,6 +3551,8 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
 
     private native void nativeExtractSmartClipData(long nativeContentViewCoreImpl,
             int x, int y, int w, int h);
+
+    private native void nativeSetBackgroundColor(long nativeContentViewCoreImpl, int color);
 
     private native void nativeSetBackgroundOpaque(long nativeContentViewCoreImpl, boolean opaque);
 }
