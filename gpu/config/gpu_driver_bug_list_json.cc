@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.45",
+  "version": "8.46",
   "entries": [
     {
       "id": 1,
@@ -1727,6 +1727,16 @@ LONG_STRING_CONST(
       },
       "features": [
         "broken_egl_image_ref_counting"
+      ]
+    },
+    {
+      "id": 147,
+      "description": "Limit max texure size to 4096 on all of Android",
+      "os": {
+        "type": "android"
+      },
+      "features": [
+        "max_texture_size_limit_4096"
       ]
     }
   ]
