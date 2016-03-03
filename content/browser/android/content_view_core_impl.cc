@@ -1426,6 +1426,11 @@ jint ContentViewCoreImpl::GetCurrentRenderProcessId(
       web_contents_->GetRenderViewHost());
 }
 
+void ContentViewCoreImpl::SetBackgroundColor(JNIEnv* env, jobject jobj,
+    jint color) {
+    root_layer_->SetBackgroundColor(color);
+}
+
 void ContentViewCoreImpl::SetBackgroundOpaque(JNIEnv* env,
                                               const JavaParamRef<jobject>& jobj,
                                               jboolean opaque) {
