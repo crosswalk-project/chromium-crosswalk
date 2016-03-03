@@ -66,6 +66,19 @@ void GetMandatoryList(const blink::WebMediaConstraints& constraints,
   }
 }
 
+bool GetOptional(const blink::WebMediaConstraints& constraints,
+                 const std::string& name,
+                 std::string* value) {
+  if (constraints.isNull())
+    return false;
+  blink::WebString temp;
+  bool found =
+      constraints.getOptionalConstraintValue(base::UTF8ToUTF16(name), temp);
+  if (found)
+    *value = temp.utf8();
+  return found;
+}
+
 void GetOptionalList(const blink::WebMediaConstraints constraints,
                      const std::string& name,
                      std::vector<std::string>* values) {
@@ -104,8 +117,8 @@ void CopyBlinkRequestToStreamControls(const blink::WebUserMediaRequest& request,
   GetMandatoryList(request.videoConstraints(), kMediaStreamSourceId,
                    &controls->video.device_ids);
   std::string hotword_string;
-  GetMandatory(request.audioConstraints(), kMediaStreamAudioHotword,
-               &hotword_string);
+  GetOptional(request.audioConstraints(), kMediaStreamAudioHotword,
+              &hotword_string);
   if (hotword_string == "true")
     controls->hotword_enabled = true;
   // DCHECK for some combinations that seem to be unusual/useless
