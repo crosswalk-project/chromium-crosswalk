@@ -250,9 +250,6 @@ public:
         scrollToOffset(toDoubleSize(position), ScrollOffsetClamped, scrollBehavior);
     }
 
-    void updateScrollDimensions(DoubleSize& scrollOffset, bool& autoHorizontalScrollBarChanged, bool& autoVerticalScrollBarChanged);
-    void finalizeScrollDimensions(const DoubleSize& originalScrollOffset, bool autoHorizontalScrollBarChanged, bool autoVerticalScrollBarChanged);
-
     void updateAfterLayout();
     void updateAfterStyleChange(const ComputedStyle*);
     void updateAfterOverflowRecalc();

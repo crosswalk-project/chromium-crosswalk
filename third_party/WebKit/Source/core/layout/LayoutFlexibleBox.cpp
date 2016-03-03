@@ -713,6 +713,11 @@ bool LayoutFlexibleBox::childFlexBaseSizeRequiresLayout(const LayoutBox& child) 
         hasOrthogonalFlow(child) || crossAxisOverflowForChild(child) == OAUTO);
 }
 
+void LayoutFlexibleBox::clearCachedMainSizeForChild(const LayoutBox& child)
+{
+    m_intrinsicSizeAlongMainAxis.remove(&child);
+}
+
 LayoutUnit LayoutFlexibleBox::computeInnerFlexBaseSizeForChild(LayoutBox& child, ChildLayoutType childLayoutType)
 {
     child.clearOverrideSize();
