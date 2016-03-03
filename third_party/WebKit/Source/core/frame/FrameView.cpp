@@ -2639,8 +2639,6 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
     if (needsLayout())
         layout();
 
-    RELEASE_ASSERT(!needsLayout());
-
     // FIXME: Calling layout() shouldn't trigger script execution or have any
     // observable effects on the frame tree but we're not quite there yet.
     WillBeHeapVector<RefPtrWillBeMember<FrameView>> frameViews;
@@ -2653,8 +2651,6 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
 
     for (const auto& frameView : frameViews)
         frameView->updateStyleAndLayoutIfNeededRecursive();
-
-    RELEASE_ASSERT(!needsLayout());
 
     // When SVG filters are invalidated using Document::scheduleSVGFilterLayerUpdateHack() they may trigger an
     // extra style recalc. See PaintLayer::filterNeedsPaintInvalidation().
