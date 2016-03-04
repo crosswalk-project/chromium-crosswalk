@@ -1768,7 +1768,8 @@ void RenderFrameImpl::OnSelectRange(const gfx::Point& base,
   Send(new InputHostMsg_SelectRange_ACK(GetRenderWidget()->routing_id()));
 
   base::AutoReset<bool> handling_select_range(&handling_select_range_, true);
-  frame_->selectRange(base, extent);
+  frame_->selectRange(render_view_->ConvertWindowPointToViewport(base),
+                      render_view_->ConvertWindowPointToViewport(extent));
 }
 
 void RenderFrameImpl::OnAdjustSelectionByCharacterOffset(int start_adjust,
@@ -1806,7 +1807,8 @@ void RenderFrameImpl::OnMoveRangeSelectionExtent(const gfx::Point& point) {
       GetRenderWidget()->routing_id()));
 
   base::AutoReset<bool> handling_select_range(&handling_select_range_, true);
-  frame_->moveRangeSelectionExtent(point);
+  frame_->moveRangeSelectionExtent(
+      render_view_->ConvertWindowPointToViewport(point));
 }
 
 void RenderFrameImpl::OnReplace(const base::string16& text) {
