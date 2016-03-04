@@ -74,6 +74,9 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
     WebRuntimeFeatures::enableNetworkInformation(false);
 #endif
 
+/*
+// TODO (astojilj) - this is removed in latest chromium. commented here
+// in order to enable screen orientation api.
 #if defined(OS_WIN)
   // Screen Orientation API is currently broken on Windows 8 Metro mode and
   // until we can find how to disable it only for Blink instances running in a
@@ -84,7 +87,7 @@ static void SetRuntimeFeatureDefaultsForPlatform() {
       version == base::win::VERSION_WIN8_1) {
     WebRuntimeFeatures::enableScreenOrientation(false);
   }
-#endif // OS_WIN
+#endif // OS_WIN*/
 }
 
 void SetRuntimeFeaturesDefaultsAndUpdateFromArgs(

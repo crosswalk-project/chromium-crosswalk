@@ -69,6 +69,7 @@ class DeviceMonitorLinux;
 class DeviceMonitorMac;
 #elif defined(OS_WIN)
 class SystemMessageWindowWin;
+class ScreenOrientationDelegate;
 #endif
 
 // Implements the main browser loop stages called from BrowserMainRunner.
@@ -198,6 +199,7 @@ class CONTENT_EXPORT BrowserMainLoop {
       system_stats_monitor_;
 
 #if defined(OS_WIN)
+  scoped_ptr<ScreenOrientationDelegate> screen_orientation_delegate_;
   scoped_ptr<SystemMessageWindowWin> system_message_window_;
 #endif
 
