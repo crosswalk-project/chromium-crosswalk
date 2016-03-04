@@ -799,6 +799,9 @@
       'url_matcher/url_matcher_factory_unittest.cc',
       'url_matcher/url_matcher_unittest.cc',
     ],
+    'user_manager_unittest_sources': [
+      'user_manager/user_unittest.cc',
+    ],
     'variations_unittest_sources': [
       'variations/active_field_trials_unittest.cc',
       'variations/caching_permuted_entropy_provider_unittest.cc',
@@ -1416,6 +1419,7 @@
             'wifi_sync/wifi_security_class_unittest.cc',
             '<@(metrics_leak_detector_unittest_sources)',
             '<@(ownership_unittest_sources)',
+            '<@(user_manager_unittest_sources)',
           ],
           'sources!': [
             'signin/core/browser/signin_status_metrics_provider_unittest.cc',
