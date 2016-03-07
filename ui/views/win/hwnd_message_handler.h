@@ -495,6 +495,10 @@ class VIEWS_EXPORT HWNDMessageHandler :
                           base::TimeDelta time_stamp,
                           TouchEvents* touch_events);
 
+  // Register for AppBar notification about other processes going fullscreen.
+  // |enable| true to register for notification, false to unregister.
+  void EnableFullscreenNotifications(bool enable);
+
   HWNDMessageHandlerDelegate* delegate_;
 
   scoped_ptr<FullscreenHandler> fullscreen_handler_;
@@ -530,6 +534,13 @@ class VIEWS_EXPORT HWNDMessageHandler :
 
   // The set of touch devices currently down.
   TouchIDs touch_ids_;
+
+  // An ID of custom message used to tTrack if fullscreen monitoring is enabled.
+  UINT fullscreen_notification_message_ = 0;
+
+  // Set to true when detected that it is this window that is going fullscreen.
+  // Used to avoid redundant showing the window when this window exits fullscreen.
+  bool this_window_went_fullscreen_ = false;
 
   // ScopedRedrawLock ----------------------------------------------------------
 

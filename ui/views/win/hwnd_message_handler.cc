@@ -379,6 +379,8 @@ void HWNDMessageHandler::Init(HWND parent, const gfx::Rect& bounds) {
       gfx::win::DirectManipulationHelper::CreateInstance();
   if (direct_manipulation_helper_)
     direct_manipulation_helper_->Initialize(hwnd());
+
+  EnableFullscreenNotifications(true);
 }
 
 void HWNDMessageHandler::InitModalType(ui::ModalType modal_type) {
@@ -397,6 +399,8 @@ void HWNDMessageHandler::InitModalType(ui::ModalType modal_type) {
 void HWNDMessageHandler::Close() {
   if (!IsWindow(hwnd()))
     return;  // No need to do anything.
+
+  EnableFullscreenNotifications(false);
 
   // Let's hide ourselves right away.
   Hide();
@@ -915,6 +919,15 @@ LRESULT HWNDMessageHandler::OnWndProc(UINT message,
 
   if (message == WM_ACTIVATE && IsTopLevelWindow(window))
     PostProcessActivateMessage(LOWORD(w_param), !!HIWORD(w_param));
+  if (message == fullscreen_notification_message_) {
+    // Don't hide/show content if this window goes/back from fullscreen.
+    if (w_param == ABN_FULLSCREENAPP) {
+      if (!(this_window_went_fullscreen_ || fullscreen_handler_->fullscreen()))
+        delegate_->HandleSoftVisibilityChanged(!l_param);
+      this_window_went_fullscreen_ = l_param &&
+                                     fullscreen_handler_->fullscreen();
+    }
+  }
   return result;
 }
 
@@ -2470,6 +2483,22 @@ void HWNDMessageHandler::GenerateTouchEvent(ui::EventType event_type,
       1);
 
   touch_events->push_back(event);
+}
+
+void HWNDMessageHandler::EnableFullscreenNotifications(bool enable) {
+  APPBARDATA app_bar_data = { sizeof(APPBARDATA), hwnd() };
+  if (enable) {
+    // Define a new window message that is guaranteed to be unique.
+    app_bar_data.uCallbackMessage = RegisterWindowMessage(
+      L"hwnd_message_handler_fullscreen_notification");
+    if (app_bar_data.uCallbackMessage &&
+        SHAppBarMessage(ABM_NEW, &app_bar_data)) {
+      fullscreen_notification_message_ = app_bar_data.uCallbackMessage;
+    }
+  } else {
+    SHAppBarMessage(ABM_REMOVE, &app_bar_data);
+    fullscreen_notification_message_ = 0;
+  }
 }
 
 }  // namespace views
