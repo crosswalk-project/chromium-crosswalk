@@ -4018,6 +4018,7 @@
             'page/ChromeClientTest.cpp',
             'page/ContextMenuControllerTest.cpp',
             'page/EventSourceParserTest.cpp',
+            'page/FocusControllerTest.cpp',
             'page/NetworkStateNotifierTest.cpp',
             'page/PagePopupClientTest.cpp',
             'page/PrintContextTest.cpp',
