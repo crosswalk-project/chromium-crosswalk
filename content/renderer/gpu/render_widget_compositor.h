@@ -193,6 +193,8 @@ class CONTENT_EXPORT RenderWidgetCompositor
   };
 
  protected:
+  friend class RenderViewImplScaleFactorTest;
+
   RenderWidgetCompositor(RenderWidgetCompositorDelegate* delegate,
                          CompositorDependencies* compositor_deps);
 

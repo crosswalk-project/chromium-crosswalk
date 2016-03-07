@@ -588,6 +588,7 @@ void RenderWidget::OnEnableDeviceEmulation(
     resize_params.display_mode = display_mode_;
     screen_metrics_emulator_.reset(new RenderWidgetScreenMetricsEmulator(
         this, params, resize_params, view_screen_rect_, window_screen_rect_));
+    screen_metrics_emulator_->Apply();
   } else {
     screen_metrics_emulator_->ChangeEmulationParams(params);
   }
@@ -1099,8 +1100,11 @@ void RenderWidget::Resize(const ResizeParams& params) {
                                    top_controls_shrink_blink_size_);
 
   if (resized) {
-    gfx::Size new_widget_size =
-        IsUseZoomForDSFEnabled() ? physical_backing_size_ : size_;
+    gfx::Size new_widget_size = size_;
+    if (IsUseZoomForDSFEnabled()) {
+      new_widget_size = gfx::ScaleToCeiledSize(new_widget_size,
+                                               GetOriginalDeviceScaleFactor());
+    }
     // When resizing, we want to wait to paint before ACK'ing the resize.  This
     // ensures that we only resize as fast as we can paint.  We only need to
     // send an ACK if we are resized to a non-empty rect.
@@ -1109,8 +1113,9 @@ void RenderWidget::Resize(const ResizeParams& params) {
   WebSize visual_viewport_size;
 
   if (IsUseZoomForDSFEnabled()) {
-    visual_viewport_size = gfx::ScaleToCeiledSize(params.visible_viewport_size,
-                                                  device_scale_factor_);
+    visual_viewport_size = gfx::ScaleToCeiledSize(
+        params.visible_viewport_size,
+        GetOriginalDeviceScaleFactor());
   } else {
     visual_viewport_size = visible_viewport_size_;
   }
@@ -1477,9 +1482,8 @@ void RenderWidget::OnImeConfirmComposition(const base::string16& text,
 void RenderWidget::OnDeviceScaleFactorChanged() {
   if (!compositor_)
     return;
-
   if (IsUseZoomForDSFEnabled())
-    compositor_->SetPaintedDeviceScaleFactor(device_scale_factor_);
+    compositor_->SetPaintedDeviceScaleFactor(GetOriginalDeviceScaleFactor());
   else
     compositor_->setDeviceScaleFactor(device_scale_factor_);
 }
@@ -1570,7 +1574,7 @@ void RenderWidget::UpdateCompositionInfo(bool should_update_range) {
 
 void RenderWidget::convertViewportToWindow(blink::WebRect* rect) {
   if (IsUseZoomForDSFEnabled()) {
-    float reverse = 1 / device_scale_factor_;
+    float reverse = 1 / GetOriginalDeviceScaleFactor();
     // TODO(oshima): We may need to allow pixel precision here as the the
     // anchor element can be placed at half pixel.
     gfx::Rect window_rect =
@@ -1584,10 +1588,10 @@ void RenderWidget::convertViewportToWindow(blink::WebRect* rect) {
 
 void RenderWidget::convertWindowToViewport(blink::WebFloatRect* rect) {
   if (IsUseZoomForDSFEnabled()) {
-    rect->x *= device_scale_factor_;
-    rect->y *= device_scale_factor_;
-    rect->width *= device_scale_factor_;
-    rect->height *= device_scale_factor_;
+    rect->x *= GetOriginalDeviceScaleFactor();
+    rect->y *= GetOriginalDeviceScaleFactor();
+    rect->width *= GetOriginalDeviceScaleFactor();
+    rect->height *= GetOriginalDeviceScaleFactor();
   }
 }
 
@@ -2116,6 +2120,13 @@ void RenderWidget::UnregisterVideoHoleFrame(RenderFrameImpl* frame) {
 void RenderWidget::OnWaitNextFrameForTests(int routing_id) {
   QueueMessage(new ViewHostMsg_WaitForNextFrameForTests_ACK(routing_id),
                MESSAGE_DELIVERY_POLICY_WITH_VISUAL_STATE);
+}
+
+float RenderWidget::GetOriginalDeviceScaleFactor() const {
+  return
+      screen_metrics_emulator_ ?
+      screen_metrics_emulator_->original_screen_info().deviceScaleFactor :
+      device_scale_factor_;
 }
 
 }  // namespace content
