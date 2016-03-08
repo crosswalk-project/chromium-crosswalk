@@ -88,6 +88,9 @@ Still reading?
     <ignore path="org/chromium/content/browser/input/JoystickScrollProvider.class"/>
     <ignore path="org/chromium/ui/resources/dynamics/ViewResourceInflater$ViewInflaterOnDrawListener.class"/>
     <ignore path="org/chromium/ui/resources/dynamics/ViewResourceInflater.class"/>
+
+    <ignore path="org/chromium/media/MediaCodecUtil.class"/>
+    <ignore path="org/chromium/media/MediaPlayerBridge.class"/>
   </issue>
   <issue id="OldTargetApi">
     <ignore path="AndroidManifest.xml"/>
