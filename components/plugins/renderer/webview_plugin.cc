@@ -283,7 +283,7 @@ void WebViewPlugin::didInvalidateRect(const WebRect& rect) {
 
 void WebViewPlugin::didUpdateLayoutSize(const WebSize&) {
   if (container_)
-    container_->setNeedsLayout();
+    container_->scheduleAnimation();
 }
 
 void WebViewPlugin::didChangeCursor(const WebCursorInfo& cursor) {
@@ -298,7 +298,7 @@ void WebViewPlugin::scheduleAnimation() {
   // but after layout is done, and it is illegal to dirty earlier
   // lifecycle stages during later ones.
   if (container_) {
-    container_->setNeedsLayout();
+    container_->scheduleAnimation();
   }
 }
 
