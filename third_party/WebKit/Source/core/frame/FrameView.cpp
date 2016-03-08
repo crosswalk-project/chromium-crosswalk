@@ -2633,7 +2633,7 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
     const ChildrenWidgetSet* viewChildren = children();
     for (const RefPtrWillBeMember<Widget>& child : *viewChildren) {
         if ((*child).isPluginContainer())
-            toPluginView(child.get())->layoutIfNeeded();
+            toPluginView(child.get())->updateAllLifecyclePhases();
     }
 
     RELEASE_ASSERT(!needsLayout());
