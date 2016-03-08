@@ -298,9 +298,7 @@ void WebViewPlugin::scheduleAnimation() {
   // but after layout is done, and it is illegal to dirty earlier
   // lifecycle stages during later ones.
   if (container_) {
-    // This should never happen; see also crbug.com/545039 for context.
-    CHECK(!is_painting_);
-    container_->scheduleAnimation();
+    container_->setNeedsLayout();
   }
 }
 
