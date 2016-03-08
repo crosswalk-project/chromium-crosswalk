@@ -297,8 +297,6 @@ void WebViewPlugin::scheduleAnimation() {
   // Web View which may be in the middle of updating its lifecycle,
   // but after layout is done, and it is illegal to dirty earlier
   // lifecycle stages during later ones.
-  if (is_resizing_)
-    return;
   if (container_) {
     // This should never happen; see also crbug.com/545039 for context.
     CHECK(!is_painting_);
