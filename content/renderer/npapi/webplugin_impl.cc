@@ -308,7 +308,7 @@ bool WebPluginImpl::getFormValue(blink::WebString& value) {
   return true;
 }
 
-void WebPluginImpl::layoutIfNeeded() {
+void WebPluginImpl::updateAllLifecyclePhases() {
   if (!container_)
     return;
 

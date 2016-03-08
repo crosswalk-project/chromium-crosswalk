@@ -54,7 +54,7 @@ public:
     virtual void didReceiveResponse(const ResourceResponse&) { }
     virtual void didReceiveData(const char*, int) { }
 
-    virtual void layoutIfNeeded() { }
+    virtual void updateAllLifecyclePhases() { }
     virtual void invalidatePaintIfNeeded() { }
 
 protected:

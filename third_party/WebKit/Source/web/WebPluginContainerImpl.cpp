@@ -106,10 +106,12 @@ void WebPluginContainerImpl::setFrameRect(const IntRect& frameRect)
     Widget::setFrameRect(frameRect);
 }
 
-void WebPluginContainerImpl::layoutIfNeeded()
+void WebPluginContainerImpl::updateAllLifecyclePhases()
 {
-    RELEASE_ASSERT(m_webPlugin);
-    m_webPlugin->layoutIfNeeded();
+    if (!m_webPlugin)
+        return;
+
+    m_webPlugin->updateAllLifecyclePhases();
 }
 
 void WebPluginContainerImpl::paint(GraphicsContext& context, const CullRect& cullRect) const
@@ -411,10 +413,10 @@ void WebPluginContainerImpl::scrollRect(const WebRect& rect)
     invalidateRect(rect);
 }
 
-void WebPluginContainerImpl::setNeedsLayout()
+void WebPluginContainerImpl::scheduleAnimation()
 {
-    if (m_element->layoutObject())
-        m_element->layoutObject()->setNeedsLayoutAndFullPaintInvalidation("Plugin needs layout");
+    if (auto* frameView = m_element->document().view())
+        frameView->scheduleAnimation();
 }
 
 void WebPluginContainerImpl::reportGeometry()

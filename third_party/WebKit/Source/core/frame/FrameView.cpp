@@ -2564,7 +2564,7 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
     const ChildrenWidgetSet* viewChildren = children();
     for (const RefPtrWillBeMember<Widget>& child : *viewChildren) {
         if ((*child).isPluginContainer())
-            toPluginView(child.get())->layoutIfNeeded();
+            toPluginView(child.get())->updateAllLifecyclePhases();
     }
 
     // FIXME: Calling layout() shouldn't trigger script execution or have any
