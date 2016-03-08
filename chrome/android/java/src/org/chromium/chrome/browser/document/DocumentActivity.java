@@ -41,6 +41,7 @@ import org.chromium.chrome.browser.firstrun.FirstRunSignInProcessor;
 import org.chromium.chrome.browser.firstrun.FirstRunStatus;
 import org.chromium.chrome.browser.metrics.StartupMetrics;
 import org.chromium.chrome.browser.metrics.UmaUtils;
+import org.chromium.chrome.browser.net.spdyproxy.DataReductionProxySettings;
 import org.chromium.chrome.browser.ntp.NewTabPage;
 import org.chromium.chrome.browser.preferences.ChromePreferenceManager;
 import org.chromium.chrome.browser.preferences.PrefServiceBridge;
@@ -577,6 +578,15 @@ public class DocumentActivity extends ChromeActivity {
         boolean isAffiliated = asyncParams != null ? asyncParams.isAffiliated() : false;
         boolean isCreatedWithWebContents = asyncParams != null
                 && asyncParams.getWebContents() != null;
+
+        // URL modification must happen before the Tab is created.
+        if (!isIncognito() && asyncParams != null) {
+            LoadUrlParams loadUrlParams = asyncParams.getLoadUrlParams();
+            if (loadUrlParams != null && loadUrlParams.getUrl() != null) {
+                loadUrlParams.setUrl(DataReductionProxySettings.getInstance()
+                        .maybeRewriteWebliteUrl(loadUrlParams.getUrl()));
+            }
+        }
 
         if (params != null && params.getTabToReparent() != null) {
             mTab = params.getTabToReparent();

@@ -215,7 +215,7 @@ public class CustomTabActivity extends ChromeActivity {
     @Override
     public void finishNativeInitialization() {
         mSession = mIntentDataProvider.getSession();
-        CustomTabsConnection connection = CustomTabsConnection.getInstance(getApplication());
+        final CustomTabsConnection connection = CustomTabsConnection.getInstance(getApplication());
         // If extra headers have been passed, cancel any current prerender, as
         // prerendering doesn't support extra headers.
         if (IntentHandler.getExtraHeadersFromIntent(getIntent()) != null) {
@@ -252,6 +252,9 @@ public class CustomTabActivity extends ChromeActivity {
         mCustomTabContentHandler = new CustomTabContentHandler() {
             @Override
             public void loadUrlAndTrackFromTimestamp(LoadUrlParams params, long timestamp) {
+                if (params.getUrl() != null) {
+                    params.setUrl(connection.overrideUrlIfNecessary(params.getUrl(), mSession));
+                }
                 loadUrlInCurrentTab(params, timestamp);
             }
 
@@ -282,30 +285,31 @@ public class CustomTabActivity extends ChromeActivity {
                 return true;
             }
         };
-        DataUseTabUIManager.onCustomTabInitialNavigation(mainTab,
-                connection.getClientPackageNameForSession(mSession),
-                IntentHandler.getUrlFromIntent(getIntent()));
+        String url = IntentHandler.getUrlFromIntent(getIntent());
+        if (url != null) url = connection.overrideUrlIfNecessary(url, mSession);
+        DataUseTabUIManager.onCustomTabInitialNavigation(
+                mainTab, connection.getClientPackageNameForSession(mSession), url);
         recordClientPackageName();
         connection.showSignInToastIfNecessary(mSession, getIntent());
-        loadUrlInCurrentTab(new LoadUrlParams(IntentHandler.getUrlFromIntent(getIntent())),
+        loadUrlInCurrentTab(new LoadUrlParams(url),
                 IntentHandler.getTimestampFromIntent(getIntent()));
         super.finishNativeInitialization();
     }
 
     private Tab createMainTab() {
+        CustomTabsConnection customTabsConnection =
+                CustomTabsConnection.getInstance(getApplication());
         String url = IntentHandler.getUrlFromIntent(getIntent());
+        if (url != null) url = customTabsConnection.overrideUrlIfNecessary(url, mSession);
         // Get any referrer that has been explicitly set by the app.
         String referrerUrl = IntentHandler.getReferrerUrlIncludingExtraHeaders(getIntent(), this);
         if (referrerUrl == null) {
-            Referrer referrer = CustomTabsConnection.getInstance(getApplication())
-                    .getReferrerForSession(mSession);
+            Referrer referrer = customTabsConnection.getReferrerForSession(mSession);
             if (referrer != null) referrerUrl = referrer.getUrl();
         }
         Tab tab = new Tab(TabIdManager.getInstance().generateValidId(Tab.INVALID_TAB_ID),
                 Tab.INVALID_TAB_ID, false, this, getWindowAndroid(),
                 TabLaunchType.FROM_EXTERNAL_APP, null, null);
-        CustomTabsConnection customTabsConnection =
-                CustomTabsConnection.getInstance(getApplication());
         tab.setAppAssociatedWith(customTabsConnection.getClientPackageNameForSession(mSession));
         WebContents webContents =
                 customTabsConnection.takePrerenderedUrl(mSession, url, referrerUrl);
