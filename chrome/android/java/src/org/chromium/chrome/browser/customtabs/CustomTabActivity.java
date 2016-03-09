@@ -720,6 +720,7 @@ public class CustomTabActivity extends ChromeActivity {
             getCurrentTabModel().removeTab(getActivityTab());
             mMainTab = null;
             tab.getContentViewCore().updateWindowAndroid(null);
+            tab.attachTabContentManager(null);
 
             Runnable finalizeCallback = new Runnable() {
                 @Override
