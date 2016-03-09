@@ -119,6 +119,10 @@ TEST(CSSSelectorParserTest, ShadowDomPseudoInCompound)
         { ".a::shadow", ".a::shadow" },
         { "::content", "::content" },
         { ".a::content", ".a::content" },
+        { "::content.a", "::content.a" },
+        { "::content.a.b", "::content.a.b" },
+        { ".a::content.b", ".a::content.b" },
+        { "::content:not(#id)", "::content:not(#id)" }
     };
 
     for (auto testCase : testCases) {
@@ -182,12 +186,8 @@ TEST(CSSSelectorParserTest, InvalidSimpleAfterPseudoElementInCompound)
         "::shadow.class",
         "::selection:window-inactive::before",
         "::-webkit-volume-slider.class",
-        "::content.a",
-        "::content.a.b",
-        ".a::content.b",
         "::before:not(.a)",
         "::shadow:not(::after)",
-        "::content:not(#id)",
         "::-webkit-scrollbar:vertical:not(:first-child)",
         "video::-webkit-media-text-track-region-container.scrolling",
         "div ::before.a"

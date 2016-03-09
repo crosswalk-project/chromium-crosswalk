@@ -225,6 +225,8 @@ bool isSimpleSelectorValidAfterPseudoElement(const CSSParserSelector& simpleSele
 {
     if (compoundPseudoElement == CSSSelector::PseudoUnknown)
         return true;
+    if (compoundPseudoElement == CSSSelector::PseudoContent)
+        return simpleSelector.match() != CSSSelector::PseudoElement;
     if (simpleSelector.match() != CSSSelector::PseudoClass)
         return false;
     CSSSelector::PseudoType pseudo = simpleSelector.pseudoType();
