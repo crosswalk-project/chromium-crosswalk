@@ -2891,6 +2891,7 @@ public final class Tab implements ViewGroup.OnHierarchyChangeListener,
         for (WeakReference<Activity> ref : list) {
             Activity activity = ref.get();
             if (activity instanceof CustomTabActivity
+                    && ((CustomTabActivity) activity).getActivityTab() != null
                     && tabId == ((CustomTabActivity) activity).getActivityTab().getId()) {
                 return null;
             }
