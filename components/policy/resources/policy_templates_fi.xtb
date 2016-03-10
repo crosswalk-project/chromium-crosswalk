@@ -188,6 +188,13 @@
 
           Käytäntö on voimassa vain, jos käytäntö DefaultSearchProviderEnabled on käytössä.</translation>
 <translation id="1859633270756049523">Rajoita käyttökerran pituutta</translation>
+<translation id="1859859319036806634">Varoitus: <ph name="PRODUCT_NAME" /> ei enää versiosta 52 alkaen tue TLS:n aiempien versioiden käyttöä varatoimenpiteenä. Version arvioitu julkaisupäivä on syyskuussa 2016, ja muutoksen jälkeen tämä käytäntö ei enää toimi.
+
+      TLS-kättelyn epäonnistuessa <ph name="PRODUCT_NAME" /> yritti aiemmin kiertää HTTPS-palvelimien virheet muodostamalla yhteyden uudelleen aiempaa TLS-versiota käyttämällä. Tämä asetus määrittää version, jota vanhempia versioita ei kokeilla. Jos palvelin suorittaa versioneuvottelun oikein (eli se ei katkaise yhteyttä), tätä asetusta ei käytetä. Muodostetun yhteyden täytyy joka tapauksessa noudattaa käytäntöä SSLVersionMin.
+
+      Jos tätä käytäntöä ei ole määritetty tai sen arvo on tls1.2, <ph name="PRODUCT_NAME" /> ei enää suorita tätä varatoimenpidettä. Huomaa, että tämä ei poista käytöstä vanhempien TLS-versioiden tukea, vaan se määrittää vain, voiko <ph name="PRODUCT_NAME" /> kiertää palvelimien virheitä silloin, kun versioneuvottelua ei suoriteta oikein.
+
+      Jos yhteensopivuus virheitä sisältävän palvelimen kanssa täytyy säilyttää, tämän käytännön arvoksi voidaan määrittää tls1.1. Tämä on kuitenkin tilapäinen toimenpide, ja palvelin tulee korjata mahdollisimman pian.</translation>
 <translation id="1861037019115362154">Määrittää laajennukset, jotka eivät ole käytössä tuotteessa <ph name="PRODUCT_NAME" />, ja estää käyttäjiä muuttamasta tätä asetusta.
 
       Jokerimerkkejä * ja ? voidaan käyttää vastaamaan satunnaisten merkkien jaksoja. * vastaa satunnaista merkkien lukumäärää ja ? määrittää yhden valinnaisen merkin, eli se vastaa nollaa tai yhtä merkkiä. Vaihtomerkki on \. Jos haluat käyttää merkkejä *, ? tai \ muussa kuin jokerimerkki- tai vaihtomerkityksessä, niiden eteen täytyy lisätä merkki \.
@@ -449,15 +456,6 @@ Jos tämä asetus ei ole käytössä, käyttäjät eivät voi tulostaa tuotteest
 <translation id="2646290749315461919">Voit määrittää, voivatko sivustot seurata käyttäjän fyysistä sijaintia. Voit sallia tai kieltää käyttäjien sijainnin seuraamisen oletuksena, tai kysyä käyttäjältä aina sivuston pyytäessä sijaintitietoja. Jos tätä käytäntöä ei ole määritetty, AskGeolocation-käytäntöä käytetään ja käyttäjä voi muuttaa asetusta.</translation>
 <translation id="2650049181907741121">Toiminto, kun käyttäjä sulkee kannen</translation>
 <translation id="2660846099862559570">Älä käytä välityspalvelinta</translation>
-<translation id="2665596266623707739">Varoitus: Versiosta 47 alkaen (noin tammikuussa 2016) <ph name="PRODUCT_NAME" /> ei enää tue TLS-version 1.0 käyttöä varalla. Tämän jälkeen arvo tls1 lakkaa toimimasta.
-
-      Jos TLS-kättely epäonnistuu, <ph name="PRODUCT_NAME" /> yrittää kiertää HTTPS-palvelinten virheitä muodostamalla yhteyden uudelleen TLS:n vanhemmalla versiolla. Tämä asetus määrittää version, johon varatoiminto pysähtyy. Jos palvelin suorittaa neuvottelun oikein (eli katkaisematta yhteyttä), tällä asetuksella ei ole vaikutusta. Tavasta riippumatta muodostetun yhteyden täytyy vastata käytäntöä SSLVersionMin.
-
-      Jos tätä käytäntöä ei määritetä, <ph name="PRODUCT_NAME" /> käyttää oletusarvoista vähimmäisversiota, joka on TLS 1.0 <ph name="PRODUCT_NAME" /> 44:ssä ja TLS 1.1 uudemmissa versioissa. Huom. Tämä ei poista TLS 1.0:n tukea, vaan se vain määrittää, voiko <ph name="PRODUCT_NAME" /> kiertää palvelinten virheitä, jos käytettävän version neuvottelua ei suoriteta oikein.
-
-      Käytännön arvoksi voidaan asettaa tls1, tls1.1 tai tls1.2. Jos yhteensopivuus virheitä sisältävän palvelimen kanssa täytyy varmistaa, arvoksi voidaan asettaa tls1. Tämä on kuitenkin tilapäinen toimenpide, ja palvelimen virheet tulee korjata ensi tilassa.
-
-      Arvo tls1.2 poistaa varatoiminnon käytöstä, mikä voi vaikuttaa merkittävästi palvelinten yhteensopivuuteen.</translation>
 <translation id="267596348720209223">Määrittää hakupalvelun tukemat merkkikoodaukset. Koodaukset ovat koodisivun nimiä, kuten UTF-8, GB2312 ja ISO-8859-1. Koodauksia yritetään käyttää määritetyssä järjestyksessä. Tämä käytäntö on valinnainen, ja jos sitä ei ole määritetty, käytetään oletusasetusta (UTF-8). Tämä käytäntö on voimassa vain, jos DefaultSearchProviderEnabled-käytäntö on käytössä.</translation>
 <translation id="2682225790874070339">Poistaa Google Driven käytöstä tuotteen <ph name="PRODUCT_OS_NAME" /> Tiedostot-sovelluksesta</translation>
 <translation id="268577405881275241">Ota käyttöön tietojen pakkauksen välitysominaisuus</translation>
@@ -538,6 +536,7 @@ Kaikki luettelon kohteet ovat tunnuksia, joiden perusteella erotetaan laitteesee
       Määrittää, tuleeko TLS domain-bound -varmennelaajennuksien olla käytössä.
 
       Tämän asetuksen avulla voidaan ottaa TLS domain-bound -varmennelaajennus testikäyttöön. Asetus on kokeellinen ja se poistetaan myöhemmin.</translation>
+<translation id="2957506574938329824">Älä salli sivustojen pyytää Bluetooth-laitteiden käyttöoikeutta Web Bluetooth ‑sovellusliittymän kautta</translation>
 <translation id="2957513448235202597"><ph name="HTTP_NEGOTIATE" /> -todennuksen tilityyppi</translation>
 <translation id="2959898425599642200">Välityspalvelimen ohitussäännöt</translation>
 <translation id="2960691910306063964">Ota käyttöön tai poista käytöstä etäkäytön isäntien PIN-kooditon todennus</translation>
@@ -551,6 +550,7 @@ Kaikki luettelon kohteet ovat tunnuksia, joiden perusteella erotetaan laitteesee
 
           Tämän käytännön arvo täytyy määrittää millisekunteina. Arvo rajoitetaan korkeintaan mahdollisen ruudun sammutuksen viiveen ja käyttämättömyysajan suuruiseksi.</translation>
 <translation id="2987155890997901449">Ota ARC käyttöön.</translation>
+<translation id="2987227569419001736">Hallinnoi Web Bluetooth ‑sovellusliittymän käyttöä</translation>
 <translation id="2998881342848488968">Tämä käytäntö määrittää, että <ph name="PRODUCT_OS_NAME" /> voi ohittaa välityspalvelimet captive portal -todennuksessa.
 
       Tämä käytäntö on voimassa vain, jos esimerkiksi käytäntö, käyttäjä tai laajennus on määrittänyt välityspalvelinasetukset.
@@ -834,6 +834,7 @@ Jos tätä asetusta ei ole määritetty, kaikentyyppisiä sovelluksia ja laajenn
 
           Käytäntö on voimassa vain, jos käytäntö DefaultSearchProviderEnabled on käytössä.</translation>
 <translation id="4320376026953250541">Microsoft Windows XP SP2 tai uudempi</translation>
+<translation id="4322842393287974810">Salli automaattisesti ilman viivettä käynnistettävän kioskisovelluksen hallinnoida käyttöjärjestelmän <ph name="PRODUCT_OS_NAME" /> versiota</translation>
 <translation id="4325690621216251241">Lisää uloskirjautumispainike järjestelmäpalkkiin</translation>
 <translation id="4347908978527632940">Jos arvo on tosi ja käyttäjä on valvottu käyttäjä, muut Android-sovellukset voivat kysyä käyttäjän verkkorajoitukset sisällöntarjoajalta.
 
@@ -1426,6 +1427,9 @@ Jos tämä asetus ei ole käytössä tai jos sen arvo on false, tulostuskomento 
 
            Jos tätä käytäntöä ei määritetä, ruutunäppäimistö ei tule näkyviin kirjautumisruudussa. Käyttäjät voivat ottaa ruutunäppäimistön käyttöön tai poistaa sen käytöstä milloin tahansa, ja käyttäjän tekemä ruutunäppäimistön tilan muutos säilyy kaikilla käyttäjillä, kunnes sitä muutetaan.</translation>
 <translation id="6598235178374410284">Käyttäjän avatar-kuva</translation>
+<translation id="6628646143828354685">Määritä, sallitaanko sivustojen käyttää lähistöllä olevia Bluetooth-laitteita. Käyttö on mahdollista estää kokonaan, tai käyttäjältä voidaan pyytää vahvistusta aina, kun verkkosivusto haluaa käyttää lähistöllä olevaa Bluetooth-laitetta.
+
+          Jos tätä käytäntöä ei ole määritetty, sen arvoksi asetetaan 3 ja käyttäjä voi halutessaan muokata sitä.</translation>
 <translation id="6636268606788232221">Määritä virransäästöasetukset, kun käyttäjä on toimettomana.
 
           Tämä käytäntö ohjaa useita virransäästöstrategian asetuksia, kun käyttäjä on toimettomana.
@@ -1501,6 +1505,7 @@ Jos tämä asetus ei ole käytössä tai jos sen arvo on false, tulostuskomento 
           Jos määrität tämän käytännön, käyttäjät eivät voi muuttaa tai ohittaa sitä.
 
           Jos tätä käytäntöä ei määritetä, esteettömyysasetuksia ei näytetä ilmaisinalueen valikossa mutta käyttäjä voi ottaa esteettömyysasetukset näkyviin Asetukset-sivulta.</translation>
+<translation id="6766216162565713893">Salli sivustojen pyytää käyttäjältä lupaa lähistöllä olevien Bluetooth-laitteiden käyttämiseen</translation>
 <translation id="6770454900105963262">Aktiivisten kioskikäyttökertojen tietojen raportointi</translation>
 <translation id="6774533686631353488">Salli laitteen oman viestijärjestelmän käyttäjätason isännät (asennettu ilman järjestelmänvalvojan oikeuksia).</translation>
 <translation id="6786747875388722282">Laajennukset</translation>
@@ -1674,6 +1679,13 @@ Jos tätä käytäntöä ei ole määritetty, käytetään oletusarvoa (32).</tr
 <translation id="7340034977315324840">Ilmoita laitteen käyttöajat</translation>
 <translation id="7381326101471547614">Poistaa käytöstä SPDY-protokollan tuotteessa <ph name="PRODUCT_NAME" />. Jos tämä käytäntö on käytössä, SPDY-protokolla ei ole käytettävissä tuotteessa <ph name="PRODUCT_NAME" />. Jos tätä käytäntöä ei oteta käyttöön, SDPY-protokollaa voi käyttää. Jos käytäntöä ei ole määritetty, SDPY on käytettävissä.</translation>
 <translation id="7384999953864505698">Sallii QUIC-protokollan käytön</translation>
+<translation id="7406651467768226499">Tämä määrittää, sallitaanko automaattisesti ilman viivettä käynnistettävän kioskisovelluksen hallinnoida käyttöjärjestelmän <ph name="PRODUCT_OS_NAME" /> versiota.
+
+      Tämä käytäntö määrittää, sallitaanko automaattisesti ilman viivettä käynnistettävän kioskisovelluksen hallinnoida käyttöjärjestelmän <ph name="PRODUCT_OS_NAME" /> versiota määrittämällä required_platform_version-luetteloavain, jota käytetään automaattisesti päivitettävän kohdeversion etuliitteenä.
+
+      Jos käytännön arvo on tosi, automaattisesti ilman viivettä käynnistettävän kioskisovelluksen required_platform_version-luetteloavaimen arvoa käytetään automaattisesti päivitettävän kohdeversion etuliitteenä.
+
+      Jos käytäntöä ei ole määritetty tai sen arvo on epätosi, required_platform_version-luetteloavainta ei oteta huomioon ja automaattinen päivitys suoritetaan tavallisesti.</translation>
 <translation id="7417972229667085380">Prosenttiosuus, jolla käyttämättömyyden viive skaalataan esitystilassa (ei enää käytössä)</translation>
 <translation id="7421483919690710988">Aseta levyn mediavälimuistin koko tavuina</translation>
 <translation id="7424751532654212117">Käytöstä poistettujen laajennuksien poikkeukset</translation>

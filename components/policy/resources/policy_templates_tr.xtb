@@ -151,9 +151,14 @@
 <translation id="1522425503138261032">Sitelerin, kullanıcıların fiziksel konumlarını izlemesine izin ver</translation>
 <translation id="152657506688053119">Varsayılan arama sağlayıcısına ilişkin alternatif URL'lerin listesi</translation>
 <translation id="1530812829012954197">Aşağıdaki URL kalıplarını her zaman ana makine tarayıcısında oluştur</translation>
-<translation id="1553684822621013552">Bu politika doğru değerine ayarlandığında, ARC kullanıcı için etkinleştirilir (ek politika ayarı kontrollerine tabidir; geçerli kullanıcı oturumunda geçici mod veya çoklu oturum açma etkinleştirilirse ARC yine de kullanılamaz).
+<translation id="1553684822621013552">Bu politika doğru değerine ayarlandığında, ARC kullanıcı için
+      etkinleştirilir (ek politika ayarı kontrollerine tabidir; geçerli
+      kullanıcı oturumunda geçici mod veya çoklu oturum açma
+      etkinleştirilirse ARC yine de kullanılamaz).
 
-Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıcılar ARC'yi kullanamaz.</translation>
+      Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıcılar
+
+      ARC'yi kullanamaz.</translation>
 <translation id="1561424797596341174">Politika, uzaktan erişim ana makinesinin Hata Ayıklama yapılarını geçersiz kılar</translation>
 <translation id="1583248206450240930">Varsayılan olarak <ph name="PRODUCT_FRAME_NAME" /> ürününü kullan</translation>
 <translation id="1608755754295374538">Soru sorulmadan ses yakalama cihazlarına erişim verilecek URL'ler</translation>
@@ -209,6 +214,13 @@ Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıc�
 
           Bu politika sadece is "DefaultSearchProviderEnabled" politikası etkinleştirilmişse dikkate alınır.</translation>
 <translation id="1859633270756049523">Oturum süresini sınırla</translation>
+<translation id="1859859319036806634">Uyarı: TLS sürüm yedeği, sürüm 52'den sonra <ph name="PRODUCT_NAME" /> ürününden kaldırılacak (Eylül 2016 civarı) ve bu politika artık çalışmayacaktır.
+
+      Bir TLS anlaşması başarısız olduğunda <ph name="PRODUCT_NAME" />, HTTPS sunucularındaki hatalardan kaçınmak amacıyla önceden TLS'nin daha düşük bir sürümüyle bağlanmayı tekrar deniyordu. Bu ayar, bu yedek sürümü kullanma işleminin ne kadar eskiye gideceğini yapılandırır. Bir sunucu sürüm pazarlığını doğru şekilde yaparsa (yani bağlantıyı kesmeden) bu ayar uygulanmaz. Yine de, sonuçta yapılan bağlantı SSLVersionMin ile uyumlu olmalıdır.
+
+      Bu politika yapılandırılmazsa veya "tls1.2" değerine ayarlanırsa <ph name="PRODUCT_NAME" />, bu yedek sürümü kullanma işlemini gerçekleştirmez. Bunun daha eski TLS sürümlerine yönelik desteği devre dışı bırakmadığını, yalnızca <ph name="PRODUCT_NAME" /> ürününün, sürümlerle ilgili pazarlığı doğru şekilde yapamayan hatalı sunuculardan kaçınmaya çalışıp çalışmayacağını belirlediğini unutmayın.
+
+      Yapılandırılması durumunda, hatalı bir sunucuyla uyumluluğun korunması gerekiyorsa bu politika, "tls1.1" değerine ayarlanabilir. Bu geçici bir tedbirdir ve sunucudaki sorun kısa sürede çözülmelidir.</translation>
 <translation id="1861037019115362154"><ph name="PRODUCT_NAME" /> ürününde devre dışı bırakılan eklentilerin bir listesini belirtir ve kullanıcıların bu ayarı değiştirmesini önler.
 
       '*' ve '?' joker karakterleri, rastgele karakter sıralarıyla eşleştirme için kullanılabilir. '*' karakteri, rastgele sayıda karakterle eşleşirken '?' karakteri isteğe bağlı tek bir karakterle (sıfır veya bir karakter) eşleşir. '\' kaçış karakteridir; dolayısıyla, gerçek '*', '?' veya '\' karakterleriyle eşleştirme yapmak için bu karakterlerin önüne bir '\' koyabilirsiniz.
@@ -503,15 +515,6 @@ Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıc�
           Bu politika ayarlanmadan bırakılırsa, 'AskGeolocation' kullanılır ve kullanıcı bu ayarı değiştirebilir.</translation>
 <translation id="2650049181907741121">Kullanıcı kapağı kapattığında yapılacak işlem</translation>
 <translation id="2660846099862559570">Hiçbir zaman proxy kullanma</translation>
-<translation id="2665596266623707739">Uyarı: TLS 1.0 sürümü yedeği sürüm 47'den sonra <ph name="PRODUCT_NAME" /> ürününden kaldırılacak (Ocak 2016 civarı) ve "tls1" seçeneği artık çalışmayacaktır.
-
-      Bir TLS anlaşması başarısız olduğunda <ph name="PRODUCT_NAME" />, HTTPS sunucularındaki hatalardan kaçınmak amacıyla TLS'nin daha düşük bir sürümüyle tekrar bağlanmayı dener. Bu ayar, bu yedek sürümü kullanma işleminin ne kadar eskiye gideceğini yapılandırır. Bir sunucu sürüm pazarlığını doğru şekilde yaparsa (yani bağlantıyı kesmeden), bu ayar uygulanmaz. Yine de, sonuçta yapılan bağlantı SSLVersionMin ile uyumlu olmalıdır.
-
-      Bu politika yapılandırılmazsa <ph name="PRODUCT_NAME" />, varsayılan bir minimum sürümü (<ph name="PRODUCT_NAME" /> 44 sürümünde TLS 1.0, daha sonraki sürümlerde TLS 1.1) kullanır. Bunun, TLS 1.0 desteğini devre dışı bırakmadığını, yalnızca <ph name="PRODUCT_NAME" /> ürününün, sürümlerle ilgili pazarlığı doğru şekilde yapamayan hatalı sunuculardan kaçınmaya çalışıp çalışmayacağını belirlediğini unutmayın.
-
-      Yapılandırılması durumunda, şu değerlerden birine ayarlanabilir: "tls1", "tls1.1" veya "tls1.2". Hatalı bir sunucuyla uyumluluğun korunması gerekiyorsa, bu "tls1" seçeneğine ayarlanabilir. Bu geçici bir tedbirdir ve sunucudaki sorun kısa sürede çözülmelidir.
-
-      "tls1.2" seçeneği devre dışı bırakılırsa tüm yedek sürüm kullanma özelliği devre dışı kalır, ancak bu durum, uyumluluğu önemli ölçüde etkileyebilir.</translation>
 <translation id="267596348720209223">Arama sağlayıcısı tarafından desteklenen karakter kodlamalarını belirtir. Kodlamalar, UTF-8, GB2312 ve ISO-8859-1 gibi kod sayfası adlarıdır. Bunlar, sağlandıkları sırada denenirler.
 
           Bu politika isteğe bağlıdır. Ayarlanmazsa, varsayılan değer olan UTF-8 kullanılır.
@@ -603,6 +606,7 @@ Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıc�
       TLS alan adına bağlı sertifikalar uzantısının etkinleştirilip etkinleştirilmeyeceğini belirtir.
 
       Bu ayar TLS alan adına bağlı sertifikalar uzantısını test etme amacıyla etkinleştirmek için kullanılır. Bu deneysel ayar, gelecekte kaldırılacaktır.</translation>
+<translation id="2957506574938329824">Hiçbir sitenin Web Bluetooth API'sı aracılığıyla Bluetooth hizmetlerine erişim istemesine izin verme</translation>
 <translation id="2957513448235202597"><ph name="HTTP_NEGOTIATE" /> kimlik doğrulaması için hesap türü</translation>
 <translation id="2959898425599642200">Proxy atlama kuralları</translation>
 <translation id="2960691910306063964">Uzaktan erişim ana makineleri için PIN'siz kimlik doğrulamayı etkinleştir veya devre dışı bırak</translation>
@@ -616,6 +620,7 @@ Bu ayar devre dışı bırakılır veya yapılandırılmazsa kurumsal kullanıc�
 
           Politika değeri milisaniye olarak belirtilmelidir. Değerler ekran kapanma gecikmesinden (ayarlanmışsa) ve boşta kalma gecikmesinden küçük veya ona eşit olacak şekilde bir aralığa sıkıştırılır.</translation>
 <translation id="2987155890997901449">ARC'yi etkinleştir</translation>
+<translation id="2987227569419001736">Web Bluetooth API'sının kullanımını kontrol et</translation>
 <translation id="2998881342848488968">Bu politika <ph name="PRODUCT_OS_NAME" /> ürününün, giriş portalı kimlik doğrulaması için proxy'leri atlamasına izin verir.
 
       Bu politika sadece bir proxy yapılandırıldığında geçerli olur (örneğin, politika aracılığıyla, kullanıcı tarafından chrome://settings bölümünden veya uzantılar tarafından).
@@ -934,6 +939,7 @@ politikayı geçersiz kılamaz.
 
           Bu politika sadece "DefaultSearchProviderEnabled" politikası etkinleştirilmişse dikkate alınır.</translation>
 <translation id="4320376026953250541">Microsoft Windows XP SP2 veya sonrası</translation>
+<translation id="4322842393287974810">Sıfır gecikmeyle otomatik başlatılan kiosk uygulamasının <ph name="PRODUCT_OS_NAME" /> sürümünü kontrol etmesine izin ver</translation>
 <translation id="4325690621216251241">Sistem tepsisine çıkış düğmesi ekle</translation>
 <translation id="4347908978527632940">Doğru seçeneğine ayarlanırsa ve kullanıcı denetlenen bir kullanıcıysa, diğer Android uygulamaları kullanıcının web kısıtlamalarını bir içerik sağlayıcısı aracılığıyla sorgulayabilir.
 
@@ -1219,9 +1225,11 @@ politikayı geçersiz kılamaz.
 <translation id="5307432759655324440">Gizli modun kullanılabilirliği</translation>
 <translation id="5318185076587284965">Uzaktan erişen ana makine tarafından geçiş sunucuları kullanılmasını etkinleştir</translation>
 <translation id="5330684698007383292"><ph name="PRODUCT_FRAME_NAME" /> için aşağıdaki içerik türlerini işlemeye izin ver</translation>
-<translation id="5345267406698765263">ARC uygulama politikasını, ARC çalışma zamanına olduğu gibi aktarılabilen JSON dizesi olarak belirtir. Şu anda, bu ayar yalnızca uygulamaların kurulumunun zorlanmasını belirtmek için kullanılmaktadır.
+<translation id="5345267406698765263">ARC uygulama politikasını, ARC çalışma zamanına olduğu gibi aktarılabilen
+      JSON dizesi olarak belirtir. Şu anda, bu ayar yalnızca uygulamaların
+      kurulumunun zorlanmasını belirtmek için kullanılmaktadır.
 
-Bu politika ayarlanmadan bırakılırsa hiçbir uygulama otomatik olarak yüklenmez.</translation>
+      Bu politika ayarlanmadan bırakılırsa hiçbir uygulama otomatik olarak yüklenmez.</translation>
 <translation id="5365946944967967336">Araç çubuğunda Ana Sayfa düğmesini göster</translation>
 <translation id="5366977351895725771">False (yanlış) olarak ayarlanırsa, bu kullanıcının denetlenen kullanıcı oluşturma yetkisi devre dışı bırakılır. Mevcut tüm denetlenen kullanıcılar kullanılabilir olmaya devam eder.
 
@@ -1296,11 +1304,11 @@ Bu politika ayarlanmadan bırakılırsa hiçbir uygulama otomatik olarak yüklen
 <translation id="5586942249556966598">Hiçbir şey yapma</translation>
 <translation id="5613179474872285001">Uzaktan erişim istemcilerine uygulanacak gerekli istemci alan adını yapılandırır ve kullanıcıların bunu değiştirmesini engeller.
 
-Bu ayar etkinleştirilirse yalnızca belirtilen alan adındaki istemciler ana makineye bağlanabilir.
+      Bu ayar etkinleştirilirse yalnızca belirtilen alan adındaki istemciler ana makineye bağlanabilir.
 
-Bu ayar devre dışı bırakılır veya ayarlanmazsa bağlantı türüne ilişkin varsayılan politika uygulanır. Bu durum, uzaktan yardım açısından, herhangi bir alan adındaki istemcilerin ana makineye bağlanmasına olanak tanır; herhangi bir zamanda gerçekleştirilen uzaktan erişim için yalnızca ana makine sahibi bağlantı kurabilir.
+      Bu ayar devre dışı bırakılır veya ayarlanmazsa bağlantı türüne ilişkin varsayılan politika uygulanır. Bu durum, uzaktan yardım açısından, herhangi bir alan adındaki istemcilerin ana makineye bağlanmasına olanak tanır; herhangi bir zamanda gerçekleştirilen uzaktan erişim için yalnızca ana makine sahibi bağlantı kurabilir.
 
-Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
+      Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
 <translation id="5630352020869108293">Son oturumu geri yükle</translation>
 <translation id="5645779841392247734">Bu sitelerde çerezlere izin ver</translation>
 <translation id="5677038592630896441">Yerel kullanıcı adı ile uzaktan erişim ana makinesi sahibinin eşleşmesini gerektirir.
@@ -1608,6 +1616,9 @@ Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
 
           Bu politika ayarlanmadan bırakılırsa giriş ekranı ilk gösterildiğinde ekran klavyesi devre dışı bırakılır. Kullanıcılar istedikleri zaman ekran klavyesini etkinleştirebilir veya devre dışı bırakabilirler ve klavyenin giriş ekranındaki durumu kullanıcılar arasında değişmez.</translation>
 <translation id="6598235178374410284">Kullanıcı avatarı resmi</translation>
+<translation id="6628646143828354685">Web sitelerinin yakınlardaki Bluetooth cihazlarına erişim sağlamalarına izin verilip verilmeyeceğini ayarlamanıza olanak tanır. Erişim tamamıyla engellenebilir veya bir web sitesinin yakınlardaki Bluetooth cihazlarına erişim sağlamak istediği her defasında, kullanıcıya onay verip vermediği sorulabilir.
+
+          Bu politika ayarlanmadan bırakılırsa "3" değeri kullanılır ve kullanıcı, bu değeri değiştirebilir.</translation>
 <translation id="6636268606788232221">Kullanıcı işlem yapmadığında geçerli olacak güç yönetimi ayarlarını yapılandır.
 
           Bu politika, kullanıcı işlem yapmadığında güç yönetimi stratejisi için birden fazla ayarı kontrol eder.
@@ -1688,7 +1699,7 @@ Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
 <translation id="6698424063018171973">Uzaktan erişen ana makine tarafından bu makinede kullanılan UDP bağlantı noktası aralığını kısıtlar.
 
           Bu politika ayarlanmadan bırakılır veya boş dize olarak ayarlanırsa uzaktan erişen ana makinenin, kullanılabilir erişim noktalarından herhangi birini kullanmasına izin verilir. Bu durum <ph name="REMOTEACCESSHOSTFIREWALLTRAVERSAL_POLICY_NAME" /> politikası devre dışı olmadığı sürece geçerlidir. Aksi halde, uzaktan erişen ana makine 12400-12409 aralığındaki UDP bağlantı noktalarını kullanır.</translation>
-<translation id="6699880231565102694">Uzaktan erişim ana makineleri için iki etmenli kimlik doğrulamayı etkinleştir</translation>
+<translation id="6699880231565102694">Uzaktan erişim ana makineleri için iki öğeli kimlik doğrulamayı etkinleştir</translation>
 <translation id="6757375960964186754">Sistem menüsünde <ph name="PRODUCT_OS_NAME" /> erişilebilirlik seçeneklerini gösterin.
 
           Bu politika doğru seçeneğine ayarlanırsa sistem tepsisi menüsünde Erişilebilirlik seçenekleri her zaman görünür.
@@ -1698,6 +1709,7 @@ Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
           Bu politikayı ayarlarsanız kullanıcılar onu değiştiremez veya geçersiz kılamazlar.
 
           Bu politika ayarlanmadan bırakılırsa sistem tepsisi menüsünde Erişilebilirlik seçenekleri görünmez, ancak kullanıcı Ayarlar sayfasından Erişilebilirlik seçeneklerinin görünmesini sağlayabilir.</translation>
+<translation id="6766216162565713893">Sitelerin, yakınlardaki bir Bluetooth cihazına erişmek için kullanıcıdan izin istemesine izin ver</translation>
 <translation id="6770454900105963262">Aktif kiosk oturumlarıyla ilgili bilgileri raporla</translation>
 <translation id="6774533686631353488">Kullanıcı düzeyinde Yerel Mesajlaşma ana makinelerine izin ver (yönetici şifreleri olmadan yüklenir).</translation>
 <translation id="6786747875388722282">Uzantılar</translation>
@@ -1743,9 +1755,9 @@ Ayrıca, RemoteAccessHostDomain konusuna bakın.</translation>
 <translation id="6956272732789158625">Hiçbir sitenin anahtar oluşturma işlevini kullanmasına izin verme</translation>
 <translation id="695891079107014261">Uzaktan erişim ana makinelerine uygulanacak gerekli ana makine alan adını yapılandırır ve kullanıcıların bunu değiştirmesini engeller.
 
-Bu ayar etkinleştirilirse ana makineler yalnızca belirtilen alan adında kayıtlı hesaplar kullanılarak paylaşılabilir.
+      Bu ayar etkinleştirilirse ana makineler yalnızca belirtilen alan adında kayıtlı hesaplar kullanılarak paylaşılabilir.
 
-Bu ayar devre dışı bırakılır veya ayarlanmazsa ana makineler, herhangi bir hesap kullanılarak paylaşılabilir.
+      Bu ayar devre dışı bırakılır veya ayarlanmazsa ana makineler, herhangi bir hesap kullanılarak paylaşılabilir.
 
 Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
 <translation id="6997592395211691850">Çevrimiçi OCSP/CRL kontrollerinin yerel güven bağlantıları için gerekli olup olmadığı</translation>
@@ -1887,6 +1899,13 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
 <translation id="7340034977315324840">Cihaz etkinlik zamanlarını rapor et</translation>
 <translation id="7381326101471547614"><ph name="PRODUCT_NAME" /> ürününde SPDY protokolünün kullanımını devre dışı bırakır. Bu politika etkinleştirilirse SPDY protokolü <ph name="PRODUCT_NAME" /> ürününde kullanılamaz. Bu politika devre dışı bırakılırsa, SPDY kullanılabilir. Bu politika ayarlanmamış şekilde bırakılırsa, SPDY kullanılabilir durumda olur.</translation>
 <translation id="7384999953864505698">QUIC protokolüne izin verir</translation>
+<translation id="7406651467768226499">Sıfır gecikmeyle otomatik başlatılan kiosk uygulamasının <ph name="PRODUCT_OS_NAME" /> sürümünü kontrol etmesine izin verilip verilmeyeceğini belirtir.
+
+      Bu politika, sıfır gecikmeyle otomatik başlatılan kiosk uygulamasının, manifest dosyasında bir required_platform_version belirterek <ph name="PRODUCT_OS_NAME" /> sürümünü kontrol etmesine ve bunu otomatik güncelleme hedef sürümü öneki olarak kullanmasına izin verilip verilmeyeceğini denetler.
+
+      Politika doğru değerine ayarlanırsa sıfır gecikmeyle otomatik başlatılan kiosk uygulamasının required_platform_version manifest anahtarı değeri, otomatik güncelleme hedef sürümü öneki olarak kullanılır.
+
+      Politika yapılandırılmazsa veya yanlış değerine ayarlanırsa required_platform_version manifest anahtarı yoksayılır ve otomatik güncelleme işlemi normal bir şekilde ilerler.</translation>
 <translation id="7417972229667085380">Sunum modundayken boşta gecikme süresini ölçekleme yüzdesi (kullanımdan kaldırıldı)</translation>
 <translation id="7421483919690710988">Medya disk önbelleği boyutunu bayt olarak ayarla</translation>
 <translation id="7424751532654212117">Devre dışı bırakılmış eklentiler listesinin istisnalar listesi</translation>
@@ -1950,11 +1969,11 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
 <translation id="7715711044277116530">Sunum modunda ekranın kararma gecikmesinin ölçekleneceği yüzde</translation>
 <translation id="7717938661004793600"><ph name="PRODUCT_OS_NAME" /> erişilebilirlik özelliklerini yapılandır.</translation>
 <translation id="7719251660743813569">Kullanım ölçümlerinin Google'a bildirilip bildirilmeyeceğini denetler. True olarak ayarlanırsa, <ph name="PRODUCT_OS_NAME" /> kullanım ölçümlerini rapor eder. Hiç ayarlanmazsa veya false değerine ayarlanırsa, ölçüm raporlama devre dışı olur.</translation>
-<translation id="7749402620209366169">Uzaktan erişim ana makineleri için, kullanıcı tarafından belirlenen PIN yerine iki etmenli kimlik doğrulamayı etkinleştirir.
+<translation id="7749402620209366169">Uzaktan erişim ana makineleri için, kullanıcı tarafından belirlenen PIN yerine iki öğeli kimlik doğrulamayı etkinleştirir.
 
-          Bu ayar etkinleştirilirse, kullanıcıların bir ana makineye erişirken geçerli bir iki etmenli kimlik doğrulama kodu sağlamaları gerekir.
+          Bu ayar etkinleştirilirse, kullanıcıların bir ana makineye erişirken geçerli bir iki öğeli kimlik doğrulama kodu sağlamaları gerekir.
 
-          Bu ayar devre dışı bırakılır veya ayarlanmazsa, iki etmenli kimlik doğrulama etkinleştirilmez ve varsayılan davranış olan kullanıcı tanımlı bir PIN kullanılır.</translation>
+          Bu ayar devre dışı bırakılır veya ayarlanmazsa, iki öğeli kimlik doğrulama etkinleştirilmez ve varsayılan davranış olan kullanıcı tanımlı bir PIN kullanılır.</translation>
 <translation id="7750991880413385988">Yeni Sekme Sayfasını aç</translation>
 <translation id="7761526206824804472">Herkese açık bir oturum için önerilen yerel ayarlardan bir veya daha fazlasını yapılandırarak, kullanıcıların bunlardan birini kolayca seçmelerine olanak verir.
 

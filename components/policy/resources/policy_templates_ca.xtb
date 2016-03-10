@@ -135,8 +135,8 @@
 <translation id="1530812829012954197">Renderitza sempre els patrons d'URL següents al navegador de l'amfitrió</translation>
 <translation id="1553684822621013552">Quan aquesta política s'estableix en "true", s'activa ARC per a l'usuari
       (depenent de les comprovacions addicionals de la configuració de la política;
-      però ARC no estarà disponible encara que el mode efímer
-      o l'inici de sessió múltiple estiguin activats a la sessió d'usuari actual).
+      però ARC no estarà disponible si el mode efímer
+      o l'inici de sessió múltiple estan activats a la sessió d'usuari actual).
 
       Si aquesta opció de configuració està desactivada o no està configurada,
       els usuaris d'empreses no poden utilitzar ARC.</translation>
@@ -191,6 +191,13 @@
 
           Aquesta política només es respecta si la política "DefaultSearchProviderEnabled" està activada.</translation>
 <translation id="1859633270756049523">Limita la durada de la sessió</translation>
+<translation id="1859859319036806634">Advertiment: a partir de la versió 52 (cap al setembre de 2016), aquesta política deixarà de funcionar i la versió alternativa de TLS ja no estarà disponible a <ph name="PRODUCT_NAME" />.
+
+      Abans, quan un protocol d'enllaç de TLS fallava, <ph name="PRODUCT_NAME" /> provava d'establir de nou la connexió amb una versió anterior de TLS per solucionar els errors dels servidors HTTPS. Aquesta opció configura la versió en què es detindrà el procés alternatiu. Si un servidor negocia correctament les versions (és a dir, sense interrompre la connexió), aquesta opció no s'aplica. En qualsevol cas, la connexió que en resulti ha de complir la política SSLVersionMin.
+
+      Si aquesta política no es configura o s'hi estableix el valor "tls1.2", <ph name="PRODUCT_NAME" /> ja no segueix el procés alternatiu. Tingueu en compte que aquesta configuració no desactiva la compatibilitat amb versions anteriors de TLS, sinó que només defineix si <ph name="PRODUCT_NAME" /> evita els servidors amb errors que no puguin negociar correctament les versions.
+
+      Si cal mantenir la compatibilitat amb un servidor amb errors, es pot establir el valor "tls1.1" a la política. És un recurs temporal que no treu la necessitat de reparar el servidor ràpidament.</translation>
 <translation id="1861037019115362154">Especifica una llista de connectors que estan desactivats a <ph name="PRODUCT_NAME" /> i impedeix que els usuaris puguin canviar aquesta configuració.
 
       Els caràcters comodí "*" i "?" es poden utilitzar per fer coincidir les seqüències de caràcters arbitraris. "*" coincideix amb un nombre arbitrari de caràcters, mentre que "?" especifica un sol caràcter opcional (per exemple, coincideix amb els caràcters zero o un). El caràcter d'escapada és "\", de manera que, per tal que coincideixi amb els caràcters "*", "?" o "\" reals, podeu col·locar el caràcter "\" al davant.
@@ -453,15 +460,6 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 <translation id="2646290749315461919">Us permet definir si els llocs web poden rastrejar la ubicació física dels usuaris. El seguiment de la ubicació física dels usuaris es pot autoritzar o denegar de manera predeterminada o bé es pot preguntar a l'usuari cada vegada que un lloc web demani la ubicació física. Si no es defineix aquesta política, s'utilitzarà el paràmetre "AskGeolocation" i l'usuari podrà canviar-lo.</translation>
 <translation id="2650049181907741121">Acció que cal dur a terme quan l'usuari tanca la tapa</translation>
 <translation id="2660846099862559570">No facis servir mai un servidor intermediari</translation>
-<translation id="2665596266623707739">Advertiment: la versió alternativa de TLS 1.0 ja no estarà disponible a <ph name="PRODUCT_NAME" /> a partir de la versió 47 (cap al gener del 2016), moment en què l'opció "tls1" deixarà de funcionar.
-
-      Quan un protocol d'enllaç de TLS falli, <ph name="PRODUCT_NAME" /> provarà de tornar a establir la connexió amb una versió anterior de TLS per solucionar qualsevol error dels servidors HTTPS. Aquesta opció configura la versió en què es detindrà el procés alternatiu. Si un servidor realitza correctament una negociació de versions (és a dir, sense interrompre la connexió), aquesta opció no s'aplica. En qualsevol cas, la connexió que en resulti ha de complir la política SSLVersionMin.
-
-      Si aquesta política no es configura, <ph name="PRODUCT_NAME" /> utilitza la versió mínima predeterminada (és a dir, TLS 1.0 a <ph name="PRODUCT_NAME" /> 44 i TLS 1.1 en versions posteriors). Tingueu en compte que només si <ph name="PRODUCT_NAME" /> evita l'ús de servidors amb errors que no puguin negociar versions correctament, no es desactivarà la comptabilitat amb TLS 1.0.
-
-      També es poden establir aquests valors: "tls1", "tls1.1" o "tls1.2". Si cal mantenir la compatibilitat amb un servidor amb errors, es pot establir en "tls1", un recurs temporal que permetrà esmenar el servidor ràpidament.
-
-      Si s'estableix en "tls1.2", es desactiven totes les alternatives i pot afectar la compatibilitat considerablement.</translation>
 <translation id="267596348720209223">Especifica les codificacions de caràcters que admet el proveïdor de cerca. Les codificacions són noms de pàgines de codi com ara UTF-8, GB2312 i ISO-8859-1. Es proven per ordre. Aquesta política és opcional. Si no es defineix, s'utilitzarà el valor predeterminat, que és UTF-8. Aquesta política només es respecta si la política "DefaultSearchProviderEnabled" està activada.</translation>
 <translation id="2682225790874070339">Desactiva Drive a l'aplicació Fitxers de <ph name="PRODUCT_OS_NAME" /></translation>
 <translation id="268577405881275241">Activa la funció del servidor intermediari de compressió de dades</translation>
@@ -542,6 +540,7 @@ Cada entrada de la llista especifica un identificador, que s'utilitza internamen
       Especifica si l'extensió de certificats lligats al domini TLS ha d'estar activada.
 
       Aquesta configuració s'utilitza per activar l'extensió de certificats lligats al domini TLS per a proves. Aquesta configuració experimental se suprimirà properament.</translation>
+<translation id="2957506574938329824">No permetis que cap lloc sol·liciti accés a dispositius Bluetooth mitjançant l'API Web Bluetooth</translation>
 <translation id="2957513448235202597">Tipus de compte per a l'autenticació <ph name="HTTP_NEGOTIATE" /></translation>
 <translation id="2959898425599642200">Regles d'evitació de servidors intermediaris</translation>
 <translation id="2960691910306063964">Activa o desactiva l'autenticació sense PIN per als amfitrions d'accés remot</translation>
@@ -555,6 +554,7 @@ Cada entrada de la llista especifica un identificador, que s'utilitza internamen
 
           El valor de la política s'ha d'indicar en mil·lisegons i es limita perquè sigui inferior o igual al retard de desactivació (si s'ha definit) i al retard d'inactivitat.</translation>
 <translation id="2987155890997901449">Activa ARC</translation>
+<translation id="2987227569419001736">Controla l'ús de l'API Web Bluetooth</translation>
 <translation id="2998881342848488968">Aquesta política permet que <ph name="PRODUCT_OS_NAME" /> eviti qualsevol servidor intermediari a l'autenticació de portals captius.
 
       Aquesta política només es fa efectiva si hi ha un servidor intermediari configurat (per exemple, mitjançant la política, configurat per l'usuari a chrome://settings o configurat per alguna extensió).
@@ -839,6 +839,7 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció sobre els tipu
 
           Aquesta política només es respecta si la política "DefaultSearchProviderEnabled" està activada.</translation>
 <translation id="4320376026953250541">Microsoft Windows XP SP2 o una versió posterior</translation>
+<translation id="4322842393287974810">Permet que l'aplicació de quiosc d'inici automàtic sense retards controli la versió de <ph name="PRODUCT_OS_NAME" /></translation>
 <translation id="4325690621216251241">Afegeix un botó de tancament de sessió a la safata del sistema</translation>
 <translation id="4347908978527632940">Si la política s'estableix en "true" i l'usuari és un usuari supervisat, altres aplicacions d'Android poden sol·licitar les restriccions web de l'usuari a un proveïdor de contingut.
 
@@ -1152,7 +1153,7 @@ Si es defineix aquesta política, els usuaris no podran canviar-la ni sobreescri
 Si la política no es defineix, els usuaris podran triar si el prestatge s'ha d'amagar automàticament.</translation>
 <translation id="557658534286111200">Activa o desactiva l'edició d'adreces d'interès.</translation>
 <translation id="5586942249556966598">No facis res</translation>
-<translation id="5613179474872285001">Configura el nom requerit per al domini client que s'imposarà als clients d'accés remot. A més, impedeix que els usuaris el canviïn.
+<translation id="5613179474872285001">Configura el nom requerit per al domini de client que s'imposarà als clients d'accés remot. A més, impedeix que els usuaris el canviïn.
 
           Si aquesta opció de configuració està activada, només els clients del domini especificat poden connectar-se a l'amfitrió.
 
@@ -1431,6 +1432,9 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 
           Si aquesta política es deixa sense configurar, el teclat en pantalla estarà desactivat la primera vegada que es mostri la pantalla d'inici de sessió. Els usuaris podran activar o desactivar el teclat en pantalla en qualsevol moment i l'estat que tingui a la pantalla d'inici de sessió es conservarà entre els usuaris.</translation>
 <translation id="6598235178374410284">Imatge d'avatar de l'usuari</translation>
+<translation id="6628646143828354685">Us permet definir si els llocs web poden obtenir accés a dispositius Bluetooth propers. Es pot bloquejar completament o es pot consultar a l'usuari cada cop que un lloc web vulgui obtenir accés a dispositius Bluetooth propers.
+
+          Si aquesta política es deixa sense establir, es farà servir el valor "3" i l'usuari podrà canviar-lo.</translation>
 <translation id="6636268606788232221">Configura l'administració de l'energia quan l'usuari està inactiu.
 
           Amb aquesta política es controlen diverses opcions de configuració de l'estratègia de la gestió de l'energia quan l'usuari està inactiu.
@@ -1505,6 +1509,7 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
           Si configureu aquesta política, els usuaris no la podran canviar ni substituir.
 
           Si aquesta política es deixa sense configurar, les opcions d'accessibilitat no apareixeran al menú de la safata del sistema, però l'usuari podrà fer que les opcions d'accessibilitat apareguin mitjançant la pàgina "Configuració".</translation>
+<translation id="6766216162565713893">Permet que els llocs demanin a l'usuari que els concedeixi accés a un dispositiu Bluetooth proper</translation>
 <translation id="6770454900105963262">Ofereix informació de les sessions de quiosc actives</translation>
 <translation id="6774533686631353488">Permetre amfitrions de missatgeria nadius per a l'usuari (instal·lació sense permisos d'administrador)</translation>
 <translation id="6786747875388722282">Extensions</translation>
@@ -1546,7 +1551,7 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 <translation id="6943577887654905793">Nom de la preferència de Mac/Linux:</translation>
 <translation id="69525503251220566">Paràmetre que proporciona la funció de cerca per imatge per al proveïdor de cerca predeterminat</translation>
 <translation id="6956272732789158625">No permetis que cap lloc utilitzi la generació de claus</translation>
-<translation id="695891079107014261">Configura el nom requerit per al domini amfitrió que s'imposarà als amfitrions d'accés remot. A més, impedeix que els usuaris el canviïn.
+<translation id="695891079107014261">Configura el nom requerit per al domini d'amfitrió que s'imposarà als amfitrions d'accés remot. A més, impedeix que els usuaris el canviïn.
 
           Si aquesta opció de configuració està activada, els amfitrions només es poden compartir fent servir comptes registrats al nom de domini especificat.
 
@@ -1683,6 +1688,13 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 
       Si no definiu aquesta política, SPDY estarà disponible.</translation>
 <translation id="7384999953864505698">Permet el protocol QUIC</translation>
+<translation id="7406651467768226499">Aquesta política defineix si es permet que l'aplicació de quiosc d'inici automàtic sense retards controli la versió de <ph name="PRODUCT_OS_NAME" />.
+
+      Per poder controlar la versió de <ph name="PRODUCT_OS_NAME" />, la política declara una required_platform_version (versió obligatòria de la plataforma) al fitxer de manifest i la utilitza com a prefix per a la versió desitjada a la qual cal actualitzar automàticament.
+
+      Si la política s'estableix en "true", el valor de la clau de manifest de required_platform_version atorgat a l'aplicació de quiosc d'inici automàtic sense retards s'utilitza com a prefix per a la versió desitjada a la qual cal actualitzar automàticament.
+
+      Si la política no es configura o s'estableix en "false", la clau de manifest de required_platform_version s'ignora i l'actualització automàtica continua com de costum.</translation>
 <translation id="7417972229667085380">Percentatge que permet ajustar el retard d'inactivitat en mode de presentació (desactivat)</translation>
 <translation id="7421483919690710988">Defineix la mida de la memòria cau del disc multimèdia en bytes</translation>
 <translation id="7424751532654212117">Llista d'excepcions de la llista de connectors desactivats</translation>
