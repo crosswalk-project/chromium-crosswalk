@@ -52,7 +52,7 @@ void ProgrammaticScrollAnimator::animateToOffset(FloatPoint offset)
     m_startTime = 0.0;
     m_targetOffset = offset;
     m_animationCurve = adoptPtr(Platform::current()->compositorSupport()->createScrollOffsetAnimationCurve(
-        m_targetOffset,
+        compositorOffsetFromBlinkOffset(m_targetOffset),
         WebCompositorAnimationCurve::TimingFunctionTypeEaseInOut,
         WebScrollOffsetAnimationCurve::ScrollDurationDeltaBased));
 
@@ -79,7 +79,7 @@ void ProgrammaticScrollAnimator::tickAnimation(double monotonicTime)
         m_startTime = monotonicTime;
     double elapsedTime = monotonicTime - m_startTime;
     bool isFinished = (elapsedTime > m_animationCurve->duration());
-    FloatPoint offset = m_animationCurve->getValue(elapsedTime);
+    FloatPoint offset = blinkOffsetFromCompositorOffset(m_animationCurve->getValue(elapsedTime));
     notifyPositionChanged(IntPoint(offset.x(), offset.y()));
 
     if (isFinished) {
@@ -128,7 +128,8 @@ void ProgrammaticScrollAnimator::updateCompositorAnimations()
 
         if (!sentToCompositor) {
             m_runState = RunState::RunningOnMainThread;
-            m_animationCurve->setInitialValue(FloatPoint(m_scrollableArea->scrollPosition()));
+            m_animationCurve->setInitialValue(compositorOffsetFromBlinkOffset(
+                FloatPoint(m_scrollableArea->scrollPosition())));
             if (!m_scrollableArea->scheduleAnimation()) {
                 notifyPositionChanged(IntPoint(m_targetOffset.x(), m_targetOffset.y()));
                 resetAnimationState();
@@ -147,7 +148,8 @@ void ProgrammaticScrollAnimator::layerForCompositedScrollingDidChange(WebComposi
         m_runState = RunState::RunningOnMainThread;
         m_compositorAnimationId = 0;
         m_compositorAnimationGroupId = 0;
-        m_animationCurve->setInitialValue(FloatPoint(m_scrollableArea->scrollPosition()));
+        m_animationCurve->setInitialValue(compositorOffsetFromBlinkOffset(
+            FloatPoint(m_scrollableArea->scrollPosition())));
         m_scrollableArea->registerForAnimation();
         if (!m_scrollableArea->scheduleAnimation()) {
             resetAnimationState();

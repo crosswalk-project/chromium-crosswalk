@@ -46,6 +46,9 @@ protected:
     void removeAnimation();
     void abortAnimation();
 
+    FloatPoint compositorOffsetFromBlinkOffset(FloatPoint);
+    FloatPoint blinkOffsetFromCompositorOffset(FloatPoint);
+
     void compositorAnimationFinished(int groupId);
     void reattachCompositorPlayerIfNeeded(WebCompositorAnimationTimeline*);
 
