@@ -1590,6 +1590,9 @@ void FrameView::scrollPositionChanged()
     document->enqueueScrollEventForNode(document);
 
     m_frame->eventHandler().dispatchFakeMouseMoveEventSoon();
+    Page* page = frame().page();
+    if (page)
+        page->chromeClient().clearToolTip();
 
     if (LayoutView* layoutView = document->layoutView()) {
         if (layoutView->usesCompositing())
