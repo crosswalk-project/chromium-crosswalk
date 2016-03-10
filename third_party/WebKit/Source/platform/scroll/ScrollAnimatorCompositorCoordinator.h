@@ -9,6 +9,7 @@
 #include "cc/animation/animation_curve.h"
 #include "platform/PlatformExport.h"
 #include "platform/animation/CompositorAnimationPlayerClient.h"
+#include "platform/geometry/FloatPoint.h"
 #include "platform/heap/Handle.h"
 #include "public/platform/WebCompositorAnimationDelegate.h"
 #include "wtf/Allocator.h"
@@ -56,6 +57,9 @@ protected:
     bool addAnimation(PassOwnPtr<CompositorAnimation>);
     void removeAnimation();
     virtual void abortAnimation();
+
+    FloatPoint compositorOffsetFromBlinkOffset(FloatPoint);
+    FloatPoint blinkOffsetFromCompositorOffset(FloatPoint);
 
     void compositorAnimationFinished(int groupId);
     // Returns true if the compositor player was attached to a new layer.
