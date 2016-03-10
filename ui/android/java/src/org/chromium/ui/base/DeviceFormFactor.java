@@ -53,10 +53,12 @@ public class DeviceFormFactor {
     /**
      * Calculates the minimum device width in dp. This method is not affected by Android N
      * multi-window.
-     * @param context Android's context.
+     * @param context {@link Context} used to get the Application Context.
      * @return The smaller of device width and height in dp.
      */
     public static int getSmallestDeviceWidthDp(Context context) {
+        assert context.getApplicationContext() != null;
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
             DisplayMetrics metrics = new DisplayMetrics();
             // The Application Context must be used instead of the regular Context, because
