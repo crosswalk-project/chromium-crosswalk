@@ -224,4 +224,10 @@ public class ContentViewClient {
     public int getDesiredHeightMeasureSpec() {
         return UNSPECIFIED_MEASURE_SPEC;
     }
+
+    /**
+     * Called when overscroll event has been fired
+     **/
+    public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+    }
 }
