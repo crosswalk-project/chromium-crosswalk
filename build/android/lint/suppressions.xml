@@ -41,7 +41,7 @@ Still reading?
   <issue id="HandlerLeak">
     <ignore path="remoting/android/java/src/org/chromium/chromoting/TapGestureDetector.java"/>
   </issue>
-  <issue id="IconMissingDensityFolder">
+  <issue id="IconMissingDensityFolder" severity="ignore">
     <!-- see crbug.com/542435 -->
     <ignore path="android_webview/apk/java/res" />
   </issue>
@@ -101,7 +101,7 @@ Still reading?
     <ignore path="content/public/android/java/src/org/chromium/content/browser/MediaResourceGetter.java"/>
   </issue>
   <issue id="SetJavaScriptEnabled" severity="ignore"/>
-  <issue id="UnusedResources">
+  <issue id="UnusedResources" severity="ignore">
     <!-- Used by chrome/android/java/AndroidManifest.xml -->
     <ignore path="chrome/android/java/res/drawable/window_background.xml" />
     <ignore path="chrome/android/java/res/xml/bookmark_thumbnail_widget_info.xml" />
