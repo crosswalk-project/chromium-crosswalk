@@ -221,6 +221,12 @@ public class ContentViewClient {
     }
 
     /**
+     * Called when overscroll event has been fired
+     */
+    public void onOverScrolled(int scrollX, int scrollY, boolean clampedX, boolean clampedY) {
+    }
+
+    /**
      * Returns the left system window inset in pixels. The system window inset represents the area
      * of a full-screen window that is partially or fully obscured by the status bar, navigation
      * bar, IME or other system windows.

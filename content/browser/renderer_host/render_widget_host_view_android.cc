@@ -1562,6 +1562,10 @@ void RenderWidgetHostViewAndroid::DidOverscroll(
 
   if (overscroll_controller_)
     overscroll_controller_->OnOverscrolled(params);
+
+  bool clampedX = params.latest_overscroll_delta.x() != 0 ? true : false;
+  bool clampedY = params.latest_overscroll_delta.y() != 0 ? true : false;
+  content_view_core_->DidOverscroll(clampedX, clampedY);
 }
 
 void RenderWidgetHostViewAndroid::DidStopFlinging() {

@@ -369,6 +369,8 @@ class ContentViewCoreImpl : public ContentViewCore,
 
   void DidStopFlinging();
 
+  void DidOverscroll(bool clampedX, bool clampedY);
+
   // Returns the context with which the ContentViewCore was created, typically
   // the Activity context.
   base::android::ScopedJavaLocalRef<jobject> GetContext() const;
