@@ -3363,6 +3363,14 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         mContextualSearchClient = contextualSearchClient;
     }
 
+    @CalledByNative
+    public void didOverscroll(boolean clampedX, boolean clampedY) {
+        mContentViewClient.onOverScrolled(mRenderCoordinates.getScrollXPixInt(),
+                                          mRenderCoordinates.getScrollYPixInt(),
+                                          clampedX, 
+                                          clampedY);
+    }
+
     private native long nativeInit(WebContents webContents, ViewAndroidDelegate viewAndroidDelegate,
             long windowAndroidPtr, HashSet<Object> retainedObjectSet);
     private static native ContentViewCore nativeFromWebContentsAndroid(WebContents webContents);
