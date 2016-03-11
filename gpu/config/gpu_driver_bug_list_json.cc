@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.46",
+  "version": "8.48",
   "entries": [
     {
       "id": 1,
@@ -1775,6 +1775,21 @@ LONG_STRING_CONST(
       "gl_renderer": ".*Mali-4.*",
       "features": [
         "surface_texture_cant_detach"
+      ]
+    },
+    {
+      "id": 149,
+      "description": "Direct composition flashes black initially on Win <10",
+      "cr_bugs": [588588],
+      "os": {
+        "type": "win",
+        "version": {
+          "op": "<",
+          "value": "10.0"
+        }
+      },
+      "features": [
+        "disable_direct_composition"
       ]
     }
   ]
