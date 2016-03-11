@@ -738,6 +738,14 @@ bool ContentViewCoreImpl::ShouldBlockMediaRequest(const GURL& url) {
                                                       j_url.obj());
 }
 
+void ContentViewCoreImpl::DidOverscroll(bool clampedX, bool clampedY) {
+  JNIEnv* env = base::android::AttachCurrentThread();
+  ScopedJavaLocalRef<jobject> j_obj = java_ref_.get(env);
+  if (!j_obj.is_null()) {
+    Java_ContentViewCore_didOverscroll(env, j_obj.obj(), clampedX, clampedY);
+  }
+}
+
 void ContentViewCoreImpl::DidStopFlinging() {
   JNIEnv* env = AttachCurrentThread();
 
