@@ -455,7 +455,11 @@ public:
     virtual ~MockImageBuffer() { }
 };
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, HibernationLifeCycle)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_HibernationLifeCycle)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -503,7 +507,11 @@ TEST_F(Canvas2DLayerBridgeTest, HibernationLifeCycle)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, HibernationLifeCycleWithDeferredRenderingDisabled)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_HibernationLifeCycleWithDeferredRenderingDisabled)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -580,7 +588,11 @@ private:
     WebWaitableEvent* m_doneEvent;
 };
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernating)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernating)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -637,7 +649,11 @@ TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernating)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernatingWithDeferredRenderingDisabled)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernatingWithDeferredRenderingDisabled)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -702,7 +718,11 @@ TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernatingWithDeferredR
     bridgeDestroyedEvent->wait();
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, DisableDeferredRenderingWhileHibernating)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_DisableDeferredRenderingWhileHibernating)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -764,7 +784,11 @@ TEST_F(Canvas2DLayerBridgeTest, DisableDeferredRenderingWhileHibernating)
     bridgeDestroyedEvent->wait();
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, TeardownWhileHibernating)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_TeardownWhileHibernating)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -819,7 +843,11 @@ private:
     WebWaitableEvent* m_doneEvent;
 };
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, TeardownWhileHibernationIsPending)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_TeardownWhileHibernationIsPending)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -876,7 +904,11 @@ private:
     Canvas2DLayerBridge* m_bridge;
 };
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToPendingTeardown)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_HibernationAbortedDueToPendingTeardown)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -912,7 +944,11 @@ TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToPendingTeardown)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToVisibilityChange)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_HibernationAbortedDueToVisibilityChange)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -951,7 +987,11 @@ TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToVisibilityChange)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToLostContext)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_HibernationAbortedDueToLostContext)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -988,7 +1028,11 @@ TEST_F(Canvas2DLayerBridgeTest, HibernationAbortedDueToLostContext)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, PrepareMailboxWhileHibernating)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_PrepareMailboxWhileHibernating)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
@@ -1027,7 +1071,11 @@ TEST_F(Canvas2DLayerBridgeTest, PrepareMailboxWhileHibernating)
     bridgeDestroyedEvent->wait();
 }
 
+#if CANVAS2D_HIBERNATION_ENABLED
 TEST_F(Canvas2DLayerBridgeTest, PrepareMailboxWhileBackgroundRendering)
+#else
+TEST_F(Canvas2DLayerBridgeTest, DISABLED_PrepareMailboxWhileBackgroundRendering)
+#endif
 {
     MockCanvasContext mainMock;
     OwnPtr<WebThread> testThread = adoptPtr(Platform::current()->createThread("TestThread"));
