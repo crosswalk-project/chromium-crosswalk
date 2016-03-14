@@ -1800,6 +1800,8 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
     public void scrollBy(float dxPix, float dyPix, boolean useLastFocalEventLocation) {
         if (mNativeContentViewCore == 0) return;
         if (dxPix == 0 && dyPix == 0) return;
+        mRenderCoordinates.setScrollX(mRenderCoordinates.getScrollXPix() + dxPix);
+        mRenderCoordinates.setScrollY(mRenderCoordinates.getScrollYPix() + dyPix);
         long time = SystemClock.uptimeMillis();
         // It's a very real (and valid) possibility that a fling may still
         // be active when programatically scrolling. Cancelling the fling in
