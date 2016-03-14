@@ -77,6 +77,11 @@ class MediaCodecUtil {
     @SuppressWarnings("deprecation")
     @CalledByNative
     private static CodecInfo[] getCodecsInfo() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) {
+            // It's better to return empty list instead of null pointer.
+            CodecInfo[] emptyInfo = {};
+            return emptyInfo;
+        }
         // Return the first (highest-priority) codec for each MIME type.
         Map<String, CodecInfo> encoderInfoMap = new HashMap<String, CodecInfo>();
         Map<String, CodecInfo> decoderInfoMap = new HashMap<String, CodecInfo>();
@@ -181,6 +186,7 @@ class MediaCodecUtil {
      */
     @SuppressWarnings("deprecation")
     static String getDecoderNameForMime(String mime) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return null;
         int count = MediaCodecList.getCodecCount();
         for (int i = 0; i < count; ++i) {
             MediaCodecInfo info = MediaCodecList.getCodecInfoAt(i);
@@ -206,6 +212,7 @@ class MediaCodecUtil {
       */
     @CalledByNative
     private static boolean canDecode(String mime, boolean isSecure) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return false;
         CodecCreationInfo info = createDecoder(mime, isSecure);
         if (info.mediaCodec == null) return false;
 
@@ -224,6 +231,7 @@ class MediaCodecUtil {
      * @return CodecCreationInfo object
      */
     static CodecCreationInfo createDecoder(String mime, boolean isSecure) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return null;
         // Always return a valid CodecCreationInfo, its |mediaCodec| field will be null
         // if we cannot create the codec.
         CodecCreationInfo result = new CodecCreationInfo();
