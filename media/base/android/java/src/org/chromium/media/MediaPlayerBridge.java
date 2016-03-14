@@ -121,6 +121,7 @@ public class MediaPlayerBridge {
     }
 
     private boolean hasTrack(int trackType) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return false;
         try {
             TrackInfo trackInfo[] = getLocalPlayer().getTrackInfo();
 
