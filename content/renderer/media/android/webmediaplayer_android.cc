@@ -958,6 +958,12 @@ void WebMediaPlayerAndroid::OnVideoSizeChanged(int width, int height) {
         cc::VideoLayer::Create(cc_blink::WebLayerImpl::LayerSettings(), this,
                                media::VIDEO_ROTATION_0)));
     client_->setWebLayer(video_weblayer_.get());
+
+    // If we're paused after we receive metadata for the first time, tell the
+    // delegate we can now be safely suspended due to inactivity if a subsequent
+    // play event does not occur.
+    if (paused() && delegate_)
+      delegate_->DidPause(delegate_id_, false);
   }
 }
 
