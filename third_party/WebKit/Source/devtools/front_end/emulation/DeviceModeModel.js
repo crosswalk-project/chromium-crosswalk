@@ -442,6 +442,8 @@ WebInspector.DeviceModeModel.prototype = {
             this._applyUserAgent(mobile ? WebInspector.DeviceModeModel._defaultMobileUserAgent : "");
         }
         this._reapplyTouch();
+        if (this._target)
+            this._target.renderingAgent().setShowViewportSizeOnResize(this._type === WebInspector.DeviceModeModel.Type.None);
         this._updateCallback.call(null);
     },
 

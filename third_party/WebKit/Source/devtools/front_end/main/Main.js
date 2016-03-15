@@ -1108,6 +1108,7 @@ WebInspector.BackendSettingsSync.prototype = {
     {
         target.pageAgent().setAutoAttachToCreatedPages(this._autoAttachSetting.get());
         target.emulationAgent().setScriptExecutionDisabled(this._disableJavascriptSetting.get());
+        target.renderingAgent().setShowViewportSizeOnResize(true);
     },
 
     /**
