@@ -76,6 +76,7 @@ public:
     Element* lastElement() const;
     Element* owner() const;
     static FocusNavigationScope focusNavigationScopeOf(const Element&);
+    static FocusNavigationScope focusNavigationScopeOfDocument(Document&);
     static FocusNavigationScope ownedByNonFocusableFocusScopeOwner(Element&);
     static FocusNavigationScope ownedByShadowHost(const Element&);
     static FocusNavigationScope ownedByShadowInsertionPoint(HTMLShadowElement&);
@@ -125,6 +126,11 @@ Element* FocusNavigationScope::owner() const
 FocusNavigationScope FocusNavigationScope::focusNavigationScopeOf(const Element& element)
 {
     return FocusNavigationScope(&element.treeScope());
+}
+
+FocusNavigationScope FocusNavigationScope::focusNavigationScopeOfDocument(Document& document)
+{
+    return FocusNavigationScope(&document);
 }
 
 FocusNavigationScope FocusNavigationScope::ownedByNonFocusableFocusScopeOwner(Element& element)
@@ -742,7 +748,6 @@ bool FocusController::advanceFocusInDocumentOrder(LocalFrame* frame, Element* st
 {
     ASSERT(frame);
     Document* document = frame->document();
-    ASSERT(document->documentElement());
 
     Element* current = start;
     if (!current && !initialFocus)
@@ -756,7 +761,7 @@ bool FocusController::advanceFocusInDocumentOrder(LocalFrame* frame, Element* st
 
     document->updateLayoutIgnorePendingStylesheets();
 
-    RefPtrWillBeRawPtr<Element> element = findFocusableElementAcrossFocusScopes(type, FocusNavigationScope::focusNavigationScopeOf(current ? *current : *document->documentElement()), current);
+    RefPtrWillBeRawPtr<Element> element = findFocusableElementAcrossFocusScopes(type, current ? FocusNavigationScope::focusNavigationScopeOf(*current) : FocusNavigationScope::focusNavigationScopeOfDocument(*document), current);
 
     if (!element) {
         // If there's a RemoteFrame on the ancestor chain, we need to continue
@@ -778,7 +783,7 @@ bool FocusController::advanceFocusInDocumentOrder(LocalFrame* frame, Element* st
         }
 
         // Chrome doesn't want focus, so we should wrap focus.
-        element = findFocusableElementRecursively(type, FocusNavigationScope::focusNavigationScopeOf(*toLocalFrame(m_page->mainFrame())->document()->documentElement()), nullptr);
+        element = findFocusableElementRecursively(type, FocusNavigationScope::focusNavigationScopeOfDocument(*toLocalFrame(m_page->mainFrame())->document()), nullptr);
         element = findFocusableElementDescendingDownIntoFrameDocument(type, element.get());
 
         if (!element)
