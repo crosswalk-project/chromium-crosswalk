@@ -1027,8 +1027,8 @@ void WebMediaPlayerImpl::OnPipelineMetadata(
 
   // Tell the delegate we can now be safely suspended due to inactivity if a
   // subsequent play event does not occur.
-  if (paused_)
-    NotifyPlaybackPaused();
+  if (paused_ && delegate_)
+    delegate_->DidPause(delegate_id_, true);
 }
 
 void WebMediaPlayerImpl::OnPipelineBufferingStateChanged(

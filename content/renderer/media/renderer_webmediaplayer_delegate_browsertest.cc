@@ -173,7 +173,7 @@ TEST_F(RendererWebMediaPlayerDelegateTest, IdleDelegatesAreSuspended) {
   // Never calling DidPlay() but calling DidPause() should count as idle.
   testing::StrictMock<MockWebMediaPlayerDelegateObserver> observer_2;
   const int delegate_id_2 = delegate_manager_->AddObserver(&observer_2);
-  delegate_manager_->DidPause(delegate_id_2, false);
+  delegate_manager_->DidPause(delegate_id_2, true);
   EXPECT_TRUE(delegate_manager_->IsIdleCleanupTimerRunningForTesting());
 
   // Adding the observer should instantly queue the timeout task, once run the

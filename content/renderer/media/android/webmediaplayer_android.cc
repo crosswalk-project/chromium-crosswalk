@@ -963,7 +963,7 @@ void WebMediaPlayerAndroid::OnVideoSizeChanged(int width, int height) {
     // delegate we can now be safely suspended due to inactivity if a subsequent
     // play event does not occur.
     if (paused() && delegate_)
-      delegate_->DidPause(delegate_id_, false);
+      delegate_->DidPause(delegate_id_, true);
   }
 }
 
