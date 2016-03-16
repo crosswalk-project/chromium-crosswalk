@@ -173,6 +173,24 @@ public class RenderCoordinates {
     }
 
     /**
+     * set scrollXCss from scrollTo method in ContentViewCore.
+     * @param scrollX value in css from scrollTo.
+     * TODO: This is work-around solution, if any better solution, deprecate it.
+     */
+    public void setScrollX(float scrollX) {
+        mScrollXCss = scrollX / mPageScaleFactor / mDeviceScaleFactor;
+    }
+
+    /**
+     * set scrollYCss from scrollTo method in ContentViewCore.
+     * @param scrollY value in css from scrollTo.
+     * TODO: This is work-around solution, if any better solution, deprecate it.
+     */
+    public void setScrollY(float scrollY) {
+        mScrollYCss = scrollY / mPageScaleFactor / mDeviceScaleFactor;
+    }
+
+    /**
      * @return Horizontal scroll offset in physical pixels.
      */
     public float getScrollXPix() {
