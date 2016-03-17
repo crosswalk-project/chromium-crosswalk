@@ -212,15 +212,22 @@ public class ContentViewRenderView extends FrameLayout {
         mSurfaceView.setVisibility(VISIBLE);
     }
 
+    private static boolean isOpaque(int color) {
+        return ((color >> 24) & 0xFF) == 0xFF;
+    }
+
     /**
-     * Sets the background color of the surface view.  This method is necessary because the
+     * Set the background color of SurfaceView or TextureView.  This method is necessary because the
      * background color of ContentViewRenderView itself is covered by the background of
-     * SurfaceView.
+     * SurfaceView or TextureView.
      * @param color The color of the background.
      */
     public void setSurfaceViewBackgroundColor(int color) {
         if (mSurfaceView != null) {
             mSurfaceView.setBackgroundColor(color);
+        } else if (mTextureView != null) {
+            mTextureView.setOpaque(isOpaque(color));
+            mTextureView.setBackgroundColor(color);
         }
     }
 
