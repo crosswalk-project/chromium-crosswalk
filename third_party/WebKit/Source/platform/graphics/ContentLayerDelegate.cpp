@@ -92,8 +92,10 @@ void ContentLayerDelegate::paintContents(
         || paintingControl == WebContentLayerClient::DisplayListConstructionDisabled)
         disabledMode = GraphicsContext::FullyDisabled;
 
-    m_graphicsLayer->paint(nullptr, disabledMode);
+    if (paintingControl != PaintDefaultBehavior)
+        m_graphicsLayer->paint(nullptr, disabledMode);
     paintArtifactToWebDisplayItemList(webDisplayItemList, paintController.paintArtifact(), paintableRegion());
+
     paintController.setDisplayItemConstructionIsDisabled(false);
     paintController.setSubsequenceCachingIsDisabled(false);
 }
