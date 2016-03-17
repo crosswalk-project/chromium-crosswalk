@@ -14,11 +14,14 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.BrowsingDataType;
+import org.chromium.chrome.browser.bookmarks.BookmarkModel;
+import org.chromium.chrome.browser.preferences.ManagedPreferencesUtils;
 import org.chromium.chrome.browser.preferences.PrefServiceBridge;
 import org.chromium.chrome.browser.preferences.PrefServiceBridge.OnClearBrowsingDataListener;
 import org.chromium.chrome.browser.provider.ChromeBrowserProviderClient;
@@ -147,10 +150,21 @@ public class ConfirmImportSyncDataDialog extends DialogFragment
         mConfirmImportOption.setRadioButtonGroup(radioGroup);
         mKeepSeparateOption.setRadioButtonGroup(radioGroup);
 
-        if (importSyncType == ImportSyncType.SWITCHING_SYNC_ACCOUNTS) {
+        // If the account is managed, disallow merging information.
+        if (SigninManager.get(getActivity()).getManagementDomain() != null) {
             mKeepSeparateOption.setChecked(true);
+            mConfirmImportOption.setOnClickListener(new OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    ManagedPreferencesUtils.showManagedByAdministratorToast(getActivity());
+                }
+            });
         } else {
-            mConfirmImportOption.setChecked(true);
+            if (importSyncType == ImportSyncType.SWITCHING_SYNC_ACCOUNTS) {
+                mKeepSeparateOption.setChecked(true);
+            } else {
+                mConfirmImportOption.setChecked(true);
+            }
         }
 
         return new AlertDialog.Builder(getActivity(), R.style.AlertDialogTheme)
