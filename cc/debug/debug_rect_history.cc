@@ -67,8 +67,8 @@ void DebugRectHistory::SaveDebugRectsForCurrentFrame(
 void DebugRectHistory::SavePaintRects(LayerImpl* layer) {
   // We would like to visualize where any layer's paint rect (update rect) has
   // changed, regardless of whether this layer is skipped for actual drawing or
-  // not. Therefore we traverse recursively over all layers, not just the render
-  // surface list.
+  // not. Therefore we traverse over all layers, not just the render surface
+  // list.
 
   Region invalidation_region = layer->GetInvalidationRegion();
   if (!invalidation_region.IsEmpty() && layer->DrawsContent()) {

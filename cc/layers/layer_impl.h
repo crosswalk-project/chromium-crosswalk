@@ -651,7 +651,7 @@ class CC_EXPORT LayerImpl : public LayerAnimationValueObserver,
 
   // Get the correct invalidation region instead of conservative Rect
   // for layers that provide it.
-  virtual Region GetInvalidationRegion();
+  virtual Region GetInvalidationRegionForDebugging();
 
   virtual gfx::Rect GetEnclosingRectInTargetSpace() const;
 

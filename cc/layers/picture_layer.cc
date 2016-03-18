@@ -65,9 +65,9 @@ void PictureLayer::PushPropertiesTo(LayerImpl* base_layer) {
       recording_source_->CreateRasterSource(can_use_lcd_text);
   layer_impl->set_gpu_raster_max_texture_size(
       layer_tree_host()->device_viewport_size());
-  layer_impl->UpdateRasterSource(raster_source, invalidation_.region(),
+  layer_impl->UpdateRasterSource(raster_source, &last_updated_invalidation_,
                                  nullptr);
-  DCHECK(invalidation_.IsEmpty());
+  DCHECK(last_updated_invalidation_.IsEmpty());
 }
 
 void PictureLayer::SetLayerTreeHost(LayerTreeHost* host) {
@@ -88,10 +88,8 @@ void PictureLayer::SetLayerTreeHost(LayerTreeHost* host) {
 
 void PictureLayer::SetNeedsDisplayRect(const gfx::Rect& layer_rect) {
   DCHECK(!layer_tree_host() || !layer_tree_host()->in_paint_layer_contents());
-  if (!layer_rect.IsEmpty()) {
-    // Clamp invalidation to the layer bounds.
-    invalidation_.Union(gfx::IntersectRects(layer_rect, gfx::Rect(bounds())));
-  }
+  if (recording_source_)
+    recording_source_->SetNeedsDisplayRect(layer_rect);
   Layer::SetNeedsDisplayRect(layer_rect);
 }
 
@@ -101,12 +99,6 @@ bool PictureLayer::Update() {
 
   gfx::Rect update_rect = visible_layer_rect();
   gfx::Size layer_size = paint_properties().bounds;
-
-  if (last_updated_visible_layer_rect_ == update_rect &&
-      recording_source_->GetSize() == layer_size && invalidation_.IsEmpty()) {
-    // Only early out if the visible content rect of this layer hasn't changed.
-    return updated;
-  }
 
   recording_source_->SetBackgroundColor(SafeOpaqueBackgroundColor());
   recording_source_->SetRequiresClear(!contents_opaque() &&
@@ -124,7 +116,7 @@ bool PictureLayer::Update() {
   // for them.
   DCHECK(client_);
   updated |= recording_source_->UpdateAndExpandInvalidation(
-      client_, invalidation_.region(), layer_size, update_rect,
+      client_, &last_updated_invalidation_, layer_size, update_rect,
       update_source_frame_number_, DisplayListRecordingSource::RECORD_NORMALLY);
   last_updated_visible_layer_rect_ = visible_layer_rect();
 
@@ -133,7 +125,7 @@ bool PictureLayer::Update() {
   } else {
     // If this invalidation did not affect the recording source, then it can be
     // cleared as an optimization.
-    invalidation_.Clear();
+    last_updated_invalidation_.Clear();
   }
 
   return updated;
@@ -196,7 +188,7 @@ void PictureLayer::LayerSpecificPropertiesToProto(
 
   proto::PictureLayerProperties* picture = proto->mutable_picture();
   recording_source_->ToProtobuf(picture->mutable_recording_source());
-  RegionToProto(*invalidation_.region(), picture->mutable_invalidation());
+  RegionToProto(last_updated_invalidation_, picture->mutable_invalidation());
   RectToProto(last_updated_visible_layer_rect_,
               picture->mutable_last_updated_visible_layer_rect());
   picture->set_is_mask(is_mask_);
@@ -204,7 +196,7 @@ void PictureLayer::LayerSpecificPropertiesToProto(
 
   picture->set_update_source_frame_number(update_source_frame_number_);
 
-  invalidation_.Clear();
+  last_updated_invalidation_.Clear();
 }
 
 void PictureLayer::FromLayerSpecificPropertiesProto(
@@ -214,7 +206,7 @@ void PictureLayer::FromLayerSpecificPropertiesProto(
   recording_source_->FromProtobuf(picture.recording_source());
 
   Region new_invalidation = RegionFromProto(picture.invalidation());
-  invalidation_.Swap(&new_invalidation);
+  last_updated_invalidation_.Swap(&new_invalidation);
   last_updated_visible_layer_rect_ =
       ProtoToRect(picture.last_updated_visible_layer_rect());
   is_mask_ = picture.is_mask();
