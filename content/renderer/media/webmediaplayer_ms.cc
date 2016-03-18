@@ -159,15 +159,6 @@ void WebMediaPlayerMS::play() {
   if (!paused_)
     return;
 
-#if defined(OS_ANDROID)
-  // Don't allow rendering to start while hidden; for either video or audio
-  // since this may steal focus from a foreground player.
-  if (delegate_ && delegate_->IsHidden()) {
-    paused_on_hidden_ = true;
-    return;
-  }
-#endif
-
   if (video_frame_provider_)
     video_frame_provider_->Play();
 
@@ -177,11 +168,14 @@ void WebMediaPlayerMS::play() {
     audio_renderer_->Play();
 
   if (delegate_) {
+    // TODO(perkj, magjed): We send a duration of 1 second here to avoid
+    // creating an interactive media session on Android. We'd like to use zero
+    // here, but that is treated as an unknown duration and assumed to be
+    // interactive. See http://crbug.com/595297 for more details.
     delegate_->DidPlay(delegate_id_, hasVideo(), hasAudio(), false,
-                       media::kInfiniteDuration());
+                       base::TimeDelta::FromSeconds(1));
   }
 
-  paused_on_hidden_ = false;
   paused_ = false;
 }
 
@@ -419,20 +413,13 @@ void WebMediaPlayerMS::OnShown() {
 }
 
 void WebMediaPlayerMS::OnPlay() {
-  play();
-  client_->playbackStateChanged();
+  // TODO(perkj, magjed): It's not clear how WebRTC should work with an
+  // MediaSession, until these issues are resolved, disable session controls.
+  // http://crbug.com/595297.
 }
 
 void WebMediaPlayerMS::OnPause() {
-  const bool was_playing = !paused_ || paused_on_hidden_;
-  pause();
-  client_->playbackStateChanged();
-
-  // MediaSession may suspend the background player if a foreground player
-  // starts playing audio, in this case we want to track this so that when
-  // OnShown() is called, we resume into the right state.
-  if (was_playing && delegate_ && delegate_->IsHidden())
-    paused_on_hidden_ = true;
+  // TODO(perkj, magjed): See TODO in Onplay().
 }
 
 void WebMediaPlayerMS::OnVolumeMultiplierUpdate(double multiplier) {
