@@ -560,8 +560,17 @@ void WebMediaPlayerImpl::setBufferingStrategy(
   DVLOG(1) << __FUNCTION__;
   DCHECK(main_task_runner_->BelongsToCurrentThread());
 
+#if defined(OS_ANDROID)
+  // We disallow aggressive buffering on Android since it matches the behavior
+  // of the platform media player and may have data usage penalties.
+  // TODO(dalecurtis, hubbe): We should probably stop using "pause-and-buffer"
+  // everywhere. See http://crbug.com/594669 for more details.
+  buffering_strategy_ = BufferedDataSource::BUFFERING_STRATEGY_NORMAL;
+#else
   buffering_strategy_ =
       static_cast<BufferedDataSource::BufferingStrategy>(buffering_strategy);
+#endif
+
   if (data_source_)
     data_source_->SetBufferingStrategy(buffering_strategy_);
 }
@@ -960,6 +969,14 @@ void WebMediaPlayerImpl::OnPipelineSuspended(PipelineStatus status) {
   memory_usage_reporting_timer_.Stop();
   ReportMemoryUsage();
 
+  // If we're not in an aggressive buffering state, tell the data source we have
+  // enough data so that it may release the connection.
+  if (buffering_strategy_ !=
+      BufferedDataSource::BUFFERING_STRATEGY_AGGRESSIVE) {
+    if (data_source_)
+      data_source_->OnBufferingHaveEnough(true);
+  }
+
   if (pending_resume_ || pending_suspend_resume_cycle_) {
     pending_resume_ = false;
     pending_suspend_resume_cycle_ = false;
@@ -1050,7 +1067,7 @@ void WebMediaPlayerImpl::OnPipelineBufferingStateChanged(
   // Let the DataSource know we have enough data. It may use this information to
   // release unused network connections.
   if (data_source_)
-    data_source_->OnBufferingHaveEnough();
+    data_source_->OnBufferingHaveEnough(false);
 
   // Blink expects a timeChanged() in response to a seek().
   if (should_notify_time_changed_)
@@ -1120,6 +1137,9 @@ void WebMediaPlayerImpl::ScheduleSuspend() {
   if (!pipeline_.IsRunning())
     return;
 
+  // Always reset the buffering strategy to normal when suspending for hidden to
+  // prevent an idle network connection from lingering.
+  setBufferingStrategy(WebMediaPlayer::BufferingStrategy::Normal);
   if (resuming_ || seeking_) {
     pending_suspend_ = true;
     return;
