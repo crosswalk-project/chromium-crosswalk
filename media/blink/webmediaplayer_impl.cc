@@ -957,13 +957,11 @@ void WebMediaPlayerImpl::OnPipelineSuspended(PipelineStatus status) {
   }
 #endif
 
-  if (delegate_)
-    delegate_->PlayerGone(delegate_id_);
   memory_usage_reporting_timer_.Stop();
   ReportMemoryUsage();
 
-  if (pending_suspend_resume_cycle_) {
-	pending_resume_ = false;
+  if (pending_resume_ || pending_suspend_resume_cycle_) {
+    pending_resume_ = false;
     pending_suspend_resume_cycle_ = false;
     Resume();
     return;
