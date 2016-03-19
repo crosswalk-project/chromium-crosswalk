@@ -71,7 +71,7 @@ void DebugRectHistory::SavePaintRects(LayerImpl* layer) {
   // not. Therefore we traverse recursively over all layers, not just the render
   // surface list.
 
-  Region invalidation_region = layer->GetInvalidationRegion();
+  Region invalidation_region = layer->GetInvalidationRegionForDebugging();
   if (!invalidation_region.IsEmpty() && layer->DrawsContent()) {
     for (Region::Iterator it(invalidation_region); it.has_rect(); it.next()) {
       debug_rects_.push_back(DebugRect(
