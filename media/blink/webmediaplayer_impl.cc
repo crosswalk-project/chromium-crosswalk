@@ -1007,6 +1007,11 @@ void WebMediaPlayerImpl::OnPipelineError(PipelineStatus error) {
   if (suppress_destruction_errors_)
     return;
 
+  // Release the delegate for player errors; this drops the media session and
+  // avoids idle suspension from ticking.
+  if (delegate_)
+    delegate_->PlayerGone(delegate_id_);
+
   media_log_->AddEvent(media_log_->CreatePipelineErrorEvent(error));
 
   if (ready_state_ == WebMediaPlayer::ReadyStateHaveNothing) {
