@@ -39,6 +39,17 @@ MediaRouterElementsBrowserTest.prototype = {
     'media_router_search_highlighter.js',
     'route_details_tests.js',
   ]),
+
+  /** @override */
+  setUp: function() {
+    PolymerTest.prototype.setUp.call(this);
+
+    // This element is used as a focus placeholder on dialog open, then
+    // deleted. The user will be unable to tab to it. Remove when there is a
+    // long term fix.
+    this.accessibilityAuditConfig.ignoreSelectors(
+       'focusableElementNotVisibleAndNotAriaHidden', '#focus-placeholder');
+  },
 };
 
 TEST_F('MediaRouterElementsBrowserTest', 'MediaRouterElementsTestIssueBanner',
