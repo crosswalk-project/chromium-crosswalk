@@ -107,7 +107,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
      * The minimum load progress that can be shown when a page is loading.  This is not 0 so that
      * it's obvious to the user that something is attempting to load.
      */
-    public static final float MINIMUM_LOAD_PROGRESS = 0.05f;
+    public static final int MINIMUM_LOAD_PROGRESS = 5;
 
     private final ToolbarLayout mToolbar;
     private final ToolbarControlContainer mControlContainer;
@@ -328,7 +328,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
                     finishLoadProgress(false);
                 } else {
                     mToolbar.startLoadProgress();
-                    setLoadProgress(tab.getProgress());
+                    updateLoadProgress(tab.getProgress());
                 }
             }
 
@@ -378,7 +378,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
                     finishLoadProgress(false);
                 } else {
                     mToolbar.startLoadProgress();
-                    setLoadProgress(0.0f);
+                    updateLoadProgress(0);
                 }
             }
 
@@ -389,8 +389,8 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
 
                 // If we made some progress, fast-forward to complete, otherwise just dismiss any
                 // MINIMUM_LOAD_PROGRESS that had been set.
-                if (tab.getProgress() > MINIMUM_LOAD_PROGRESS && tab.getProgress() < 1.0f) {
-                    setLoadProgress(1.0f);
+                if (tab.getProgress() > MINIMUM_LOAD_PROGRESS && tab.getProgress() < 100) {
+                    updateLoadProgress(100);
                 }
                 finishLoadProgress(true);
             }
@@ -400,7 +400,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
                 if (mIsLoadingNativePage) return;
 
                 // TODO(kkimlabs): Investigate using float progress all the way up to Blink.
-                setLoadProgress(progress / 100.0f);
+                updateLoadProgress(progress);
             }
 
             @Override
@@ -536,7 +536,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
             }
         };
 
-        mLoadProgressSimulator = new LoadProgressSimulator(mToolbar);
+        mLoadProgressSimulator = new LoadProgressSimulator(this);
     }
 
     /**
@@ -1113,7 +1113,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
                 finishLoadProgress(false);
             } else {
                 mToolbar.startLoadProgress();
-                setLoadProgress(tab.getProgress() / 100.0f);
+                updateLoadProgress(tab.getProgress());
             }
         } else {
             finishLoadProgress(false);
@@ -1125,7 +1125,7 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
         if (updateUrl) updateButtonStatus();
     }
 
-    private void setLoadProgress(float progress) {
+    private void updateLoadProgress(int progress) {
         // If it's a native page, progress bar is already hidden or being hidden, so don't update
         // the value.
         // TODO(kkimlabs): Investigate back/forward navigation with native page & web content and
@@ -1133,7 +1133,8 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
         Tab tab = mToolbarModel.getTab();
         if (NativePageFactory.isNativePageUrl(tab.getUrl(), tab.isIncognito())) return;
 
-        mToolbar.setLoadProgress(Math.max(progress, MINIMUM_LOAD_PROGRESS));
+        progress = Math.max(progress, MINIMUM_LOAD_PROGRESS);
+        mToolbar.setLoadProgress(progress / 100f);
     }
 
     private void finishLoadProgress(boolean delayed) {
@@ -1144,25 +1145,25 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
     private static class LoadProgressSimulator {
         private static final int MSG_ID_UPDATE_PROGRESS = 1;
 
-        private static final float PROGRESS_INCREMENT = 0.1f;
+        private static final int PROGRESS_INCREMENT = 10;
         private static final int PROGRESS_INCREMENT_DELAY_MS = 10;
 
-        private final ToolbarLayout mToolbar;
+        private final ToolbarManager mToolbarManager;
         private final Handler mHandler;
 
-        private float mProgress;
+        private int mProgress;
 
-        public LoadProgressSimulator(ToolbarLayout toolbar) {
-            mToolbar = toolbar;
+        public LoadProgressSimulator(ToolbarManager toolbar) {
+            mToolbarManager = toolbar;
             mHandler = new Handler(Looper.getMainLooper()) {
                 @Override
                 public void handleMessage(Message msg) {
                     assert msg.what == MSG_ID_UPDATE_PROGRESS;
-                    mProgress = Math.min(1.0f, mProgress += PROGRESS_INCREMENT);
-                    mToolbar.setLoadProgress(mProgress);
+                    mProgress = Math.min(100, mProgress += PROGRESS_INCREMENT);
+                    mToolbarManager.updateLoadProgress(mProgress);
 
-                    if (mProgress == 1.0f) {
-                        mToolbar.finishLoadProgress(true);
+                    if (mProgress == 100) {
+                        mToolbarManager.mToolbar.finishLoadProgress(true);
                         return;
                     }
                     sendEmptyMessageDelayed(MSG_ID_UPDATE_PROGRESS, PROGRESS_INCREMENT_DELAY_MS);
@@ -1174,9 +1175,9 @@ public class ToolbarManager implements ToolbarTabController, UrlFocusChangeListe
          * Start simulating load progress from a baseline of 0.
          */
         public void start() {
-            mProgress = 0.0f;
-            mToolbar.startLoadProgress();
-            mToolbar.setLoadProgress(mProgress);
+            mProgress = 0;
+            mToolbarManager.mToolbar.startLoadProgress();
+            mToolbarManager.updateLoadProgress(mProgress);
             mHandler.sendEmptyMessage(MSG_ID_UPDATE_PROGRESS);
         }
 
