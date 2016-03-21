@@ -393,9 +393,14 @@ static WebMediaConstraints createFromNamedConstraints(ExecutionContext* context,
         return constraints;
     // We ignore unknow names and syntax errors in optional constraints.
     MediaErrorState ignoredErrorState;
-    parseOldStyleNames(context, optional, false, advanced, ignoredErrorState);
-    WebVector<WebMediaTrackConstraintSet> advancedVector(&advanced, 1);
-    // Use the 4-argument initializer until Chrome has been converted.
+    Vector<WebMediaTrackConstraintSet> advancedVector;
+    for (const auto& optionalConstraint : optional) {
+        WebMediaTrackConstraintSet advancedElement;
+        WebVector<WebMediaConstraint> elementAsList(&optionalConstraint, 1);
+        parseOldStyleNames(context, elementAsList, false, advancedElement, ignoredErrorState);
+        if (!advancedElement.isEmpty())
+            advancedVector.append(advancedElement);
+    }
     constraints.initialize(optional, mandatory, basic, advancedVector);
     return constraints;
 }
