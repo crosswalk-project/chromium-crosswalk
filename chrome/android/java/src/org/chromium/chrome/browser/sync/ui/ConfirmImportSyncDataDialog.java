@@ -20,6 +20,7 @@ import android.widget.TextView;
 import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.BrowsingDataType;
+import org.chromium.chrome.browser.TimePeriod;
 import org.chromium.chrome.browser.bookmarks.BookmarkModel;
 import org.chromium.chrome.browser.preferences.ManagedPreferencesUtils;
 import org.chromium.chrome.browser.preferences.PrefServiceBridge;
@@ -210,7 +211,8 @@ public class ConfirmImportSyncDataDialog extends DialogFragment
 
                 @Override
                 protected void onPostExecute(Void result) {
-                    PrefServiceBridge.getInstance().clearBrowsingData(listener, SYNC_DATA_TYPES);
+                    PrefServiceBridge.getInstance().clearBrowsingData(
+                            listener, SYNC_DATA_TYPES, TimePeriod.EVERYTHING);
                 }
             }.execute();
         }

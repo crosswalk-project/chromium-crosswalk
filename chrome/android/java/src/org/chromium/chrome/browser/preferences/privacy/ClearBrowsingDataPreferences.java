@@ -206,7 +206,10 @@ public class ClearBrowsingDataPreferences extends PreferenceFragment
             ++i;
         }
 
-        PrefServiceBridge.getInstance().clearBrowsingData(this, dataTypes);
+        Object spinnerSelection =
+                ((SpinnerPreference) findPreference(PREF_TIME_RANGE)).getSelectedOption();
+        int timePeriod = ((TimePeriodSpinnerOption) spinnerSelection).getTimePeriod();
+        PrefServiceBridge.getInstance().clearBrowsingData(this, dataTypes, timePeriod);
     }
 
     protected void dismissProgressDialog() {
