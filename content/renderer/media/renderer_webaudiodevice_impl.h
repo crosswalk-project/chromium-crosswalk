@@ -11,6 +11,7 @@
 #include "base/macros.h"
 #include "base/memory/ref_counted.h"
 #include "base/threading/thread_checker.h"
+#include "media/audio/audio_io.h"
 #include "media/audio/audio_parameters.h"
 #include "media/base/audio_renderer_sink.h"
 #include "third_party/WebKit/public/platform/WebAudioDevice.h"
@@ -44,7 +45,8 @@ class RendererWebAudioDeviceImpl
   // AudioRendererSink::RenderCallback implementation.
   int Render(media::AudioBus* dest,
              uint32_t audio_delay_milliseconds,
-             uint32_t frames_skipped) override;
+             uint32_t frames_skipped,
+             const media::StreamPosition& position) override;
 
   void OnRenderError() override;
 
@@ -87,6 +89,8 @@ class RendererWebAudioDeviceImpl
   // A cancelable task that is posted to start the |null_audio_sink_| after a
   // period of silence. We do this on android to save battery consumption.
   base::CancelableClosure start_null_audio_sink_callback_;
+
+  media::StreamPosition device_position_;
 
   DISALLOW_COPY_AND_ASSIGN(RendererWebAudioDeviceImpl);
 };
