@@ -41,7 +41,7 @@ class AudioInputDevice::AudioThreadCallback
   void MapSharedMemory() override;
 
   // Called whenever we receive notifications about pending data.
-  void Process(uint32_t pending_data) override;
+  void Process(uint32_t pending_data, const StreamPosition& position) override;
 
  private:
   const double bytes_per_ms_;
@@ -307,7 +307,9 @@ void AudioInputDevice::AudioThreadCallback::MapSharedMemory() {
   }
 }
 
-void AudioInputDevice::AudioThreadCallback::Process(uint32_t pending_data) {
+void AudioInputDevice::AudioThreadCallback::Process(
+    uint32_t pending_data,
+    const StreamPosition& position) {
   // The shared memory represents parameters, size of the data buffer and the
   // actual data buffer containing audio data. Map the memory into this
   // structure and parse out parameters and the data area.

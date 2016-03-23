@@ -72,6 +72,11 @@ void AudioDeviceThread::ThreadMain() {
     if (bytes_read != sizeof(pending_data))
       break;
 
+    StreamPosition device_position = { 0, 0 };
+    bytes_read = socket_.Receive(&device_position, sizeof(device_position));
+    if (bytes_read != sizeof(device_position))
+      break;
+
     // std::numeric_limits<uint32_t>::max() is a special signal which is
     // returned after the browser stops the output device in response to a
     // renderer side request.
@@ -81,7 +86,7 @@ void AudioDeviceThread::ThreadMain() {
     //
     // See comments in AudioOutputController::DoPause() for details on why.
     if (pending_data != std::numeric_limits<uint32_t>::max())
-      callback_->Process(pending_data);
+      callback_->Process(pending_data, device_position);
 
     // The usage of synchronized buffers differs between input and output cases.
     //
