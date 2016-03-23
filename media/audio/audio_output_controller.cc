@@ -293,7 +293,8 @@ void AudioOutputController::DoReportError() {
 
 int AudioOutputController::OnMoreData(AudioBus* dest,
                                       uint32_t total_bytes_delay,
-                                      uint32_t frames_skipped) {
+                                      uint32_t frames_skipped,
+                                      const StreamPosition& device_position) {
   TRACE_EVENT0("audio", "AudioOutputController::OnMoreData");
 
   // Indicate that we haven't wedged (at least not indefinitely, WedgeCheck()
@@ -307,7 +308,8 @@ int AudioOutputController::OnMoreData(AudioBus* dest,
 
   const int frames = dest->frames();
   sync_reader_->UpdatePendingBytes(
-      total_bytes_delay + frames * params_.GetBytesPerFrame(), frames_skipped);
+      total_bytes_delay + frames * params_.GetBytesPerFrame(), frames_skipped,
+      device_position);
 
   if (will_monitor_audio_levels())
     power_monitor_.Scan(*dest, frames);
