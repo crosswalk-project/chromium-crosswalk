@@ -41,9 +41,6 @@ OverflowBubbleView::~OverflowBubbleView() {
 
 void OverflowBubbleView::InitOverflowBubble(views::View* anchor,
                                             ShelfView* shelf_view) {
-  shelf_view_ = shelf_view;
-  AddChildView(shelf_view_);
-
   SetAnchorView(anchor);
   set_arrow(GetBubbleArrow());
   set_background(NULL);
@@ -57,6 +54,9 @@ void OverflowBubbleView::InitOverflowBubble(views::View* anchor,
   SetPaintToLayer(true);
   SetFillsBoundsOpaquely(false);
   layer()->SetMasksToBounds(true);
+
+  shelf_view_ = shelf_view;
+  AddChildView(shelf_view_);
 
   set_parent_window(Shell::GetContainer(
       anchor->GetWidget()->GetNativeWindow()->GetRootWindow(),
