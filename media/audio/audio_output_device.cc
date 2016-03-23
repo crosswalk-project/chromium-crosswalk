@@ -34,7 +34,7 @@ class AudioOutputDevice::AudioThreadCallback
   void MapSharedMemory() override;
 
   // Called whenever we receive notifications about pending data.
-  void Process(uint32_t pending_data) override;
+  void Process(uint32_t pending_data, const StreamPosition& position) override;
 
  private:
   AudioRendererSink::RenderCallback* render_callback_;
@@ -412,7 +412,9 @@ void AudioOutputDevice::AudioThreadCallback::MapSharedMemory() {
 }
 
 // Called whenever we receive notifications about pending data.
-void AudioOutputDevice::AudioThreadCallback::Process(uint32_t pending_data) {
+void AudioOutputDevice::AudioThreadCallback::Process(
+    uint32_t pending_data,
+    const StreamPosition& position) {
   // Convert the number of pending bytes in the render buffer into milliseconds.
   uint32_t audio_delay_milliseconds = pending_data / bytes_per_ms_;
 
@@ -438,7 +440,7 @@ void AudioOutputDevice::AudioThreadCallback::Process(uint32_t pending_data) {
   // the shared memory the Render() call is writing directly into the shared
   // memory.
   render_callback_->Render(output_bus_.get(), audio_delay_milliseconds,
-                           frames_skipped);
+                           frames_skipped, position);
 }
 
 }  // namespace media
