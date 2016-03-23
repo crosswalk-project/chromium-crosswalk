@@ -102,7 +102,8 @@ double RendererWebAudioDeviceImpl::sampleRate() {
 
 int RendererWebAudioDeviceImpl::Render(media::AudioBus* dest,
                                        uint32_t frames_delayed,
-                                       uint32_t frames_skipped) {
+                                       uint32_t frames_skipped,
+                                       const media::StreamPosition& position) {
 #if defined(OS_ANDROID)
   if (is_first_buffer_after_silence_) {
     DCHECK(!is_using_null_audio_sink_);
@@ -120,9 +121,15 @@ int RendererWebAudioDeviceImpl::Render(media::AudioBus* dest,
   // TODO(xians): Remove the following |web_audio_source_data| after
   // changing the blink interface.
   WebVector<float*> web_audio_source_data(static_cast<size_t>(0));
+
+  double seconds = position.ticks
+      / static_cast<double>(base::Time::kMicrosecondsPerSecond);
+  StreamPosition device_position(static_cast<size_t>(position.frames),
+                                 seconds);
   client_callback_->render(web_audio_source_data,
                            web_audio_dest_data,
-                           dest->frames());
+                           dest->frames(),
+                           device_position);
 
 #if defined(OS_ANDROID)
   const bool is_zero = dest->AreFramesZero();
