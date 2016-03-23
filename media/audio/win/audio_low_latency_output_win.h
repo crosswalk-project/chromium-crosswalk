@@ -239,6 +239,8 @@ class MEDIA_EXPORT WASAPIAudioOutputStream :
   // This event will be signaled when rendering shall stop.
   base::win::ScopedHandle stop_render_event_;
 
+  double hns_units_to_perf_count_;
+
   // Container for retrieving data from AudioSourceCallback::OnMoreData().
   std::unique_ptr<AudioBus> audio_bus_;
 

@@ -50,6 +50,7 @@ class PLATFORM_EXPORT AudioDestination : public WebAudioDevice::RenderCallback, 
     USING_FAST_MALLOC(AudioDestination);
     WTF_MAKE_NONCOPYABLE(AudioDestination);
 public:
+    using StreamPosition = WebAudioDevice::StreamPosition;
     AudioDestination(AudioIOCallback&, const String& inputDeviceId, unsigned numberOfInputChannels, unsigned numberOfOutputChannels, float sampleRate, const PassRefPtr<SecurityOrigin>&);
     ~AudioDestination() override;
 
@@ -64,7 +65,7 @@ public:
     float sampleRate() const { return m_sampleRate; }
 
     // WebAudioDevice::RenderCallback
-    void render(const WebVector<float*>& sourceData, const WebVector<float*>& audioData, size_t numberOfFrames) override;
+    void render(const WebVector<float*>& sourceData, const WebVector<float*>& audioData, size_t numberOfFrames, const StreamPosition& position) override;
 
     // AudioSourceProvider
     void provideInput(AudioBus*, size_t framesToProcess) override;
@@ -91,6 +92,7 @@ private:
 
     OwnPtr<AudioFIFO> m_inputFifo;
     OwnPtr<AudioPullFIFO> m_fifo;
+    StreamPosition m_device_position;
 };
 
 } // namespace blink
