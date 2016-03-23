@@ -13,6 +13,7 @@
 #include "base/memory/scoped_ptr.h"
 #include "base/strings/stringize_macros.h"
 #include "base/strings/stringprintf.h"
+#include "build/build_config.h"
 #include "testing/gtest/include/gtest/gtest.h"
 #include "ui/gfx/buffer_format_util.h"
 #include "ui/gfx/buffer_types.h"
@@ -24,6 +25,10 @@
 #include "ui/gl/gl_surface.h"
 #include "ui/gl/test/gl_image_test_support.h"
 #include "ui/gl/test/gl_test_helper.h"
+
+#if defined(OS_MACOSX)
+#include "base/mac/mac_util.h"
+#endif
 
 namespace gl {
 
