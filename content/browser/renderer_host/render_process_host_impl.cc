@@ -701,8 +701,6 @@ bool RenderProcessHostImpl::Init() {
   if (channel_)
     return true;
 
-  RegisterChildWithExternalShell(id_, instance_id_++, this);
-
   base::CommandLine::StringType renderer_prefix;
   // A command prefix is something prepended to the command line of the spawned
   // process.
