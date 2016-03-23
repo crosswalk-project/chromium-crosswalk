@@ -49,6 +49,11 @@
 
 namespace media {
 
+struct MEDIA_EXPORT StreamPosition {
+  int64_t frames;
+  int64_t ticks;  // Obtained from base::TimeTicks::ToInternalValue().
+};
+
 class MEDIA_EXPORT AudioOutputStream {
  public:
   // Audio sources must implement AudioSourceCallback. This interface will be
@@ -65,7 +70,13 @@ class MEDIA_EXPORT AudioOutputStream {
     // |frames_skipped| contains the number of frames skipped by the consumer.
     virtual int OnMoreData(AudioBus* dest,
                            uint32_t total_bytes_delay,
-                           uint32_t frames_skipped) = 0;
+                           uint32_t frames_skipped);
+    // An alternate version which provides also device stream position,
+    // by default it just invokes the above method.
+    virtual int OnMoreData(AudioBus* dest,
+                           uint32_t total_bytes_delay,
+                           uint32_t frames_skipped,
+                           const StreamPosition& device_position);
 
     // There was an error while playing a buffer. Audio source cannot be
     // destroyed yet. No direct action needed by the AudioStream, but it is

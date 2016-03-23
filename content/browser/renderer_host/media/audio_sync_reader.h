@@ -39,7 +39,10 @@ class AudioSyncReader : public media::AudioOutputController::SyncReader {
   ~AudioSyncReader() override;
 
   // media::AudioOutputController::SyncReader implementations.
-  void UpdatePendingBytes(uint32_t bytes, uint32_t frames_skipped) override;
+  void UpdatePendingBytes(
+      uint32_t bytes,
+      uint32_t frames_skipped,
+      const media::StreamPosition& position) override;
   void Read(media::AudioBus* dest) override;
   void Close() override;
 
