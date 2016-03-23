@@ -23,9 +23,14 @@
  */
 
 #include "modules/webaudio/AudioDestinationNode.h"
+
+#include "core/frame/LocalDOMWindow.h"
+#include "core/timing/DOMWindowPerformance.h"
+#include "core/timing/Performance.h"
 #include "modules/webaudio/AbstractAudioContext.h"
 #include "modules/webaudio/AudioNodeInput.h"
 #include "modules/webaudio/AudioNodeOutput.h"
+#include "modules/webaudio/AudioTimestamp.h"
 #include "platform/audio/AudioUtilities.h"
 #include "platform/audio/DenormalDisabler.h"
 #include "wtf/Atomics.h"
@@ -44,8 +49,13 @@ AudioDestinationHandler::~AudioDestinationHandler()
     ASSERT(!isInitialized());
 }
 
-void AudioDestinationHandler::render(AudioBus* sourceBus, AudioBus* destinationBus, size_t numberOfFrames)
+void AudioDestinationHandler::render(AudioBus* sourceBus, AudioBus* destinationBus, size_t numberOfFrames, const StreamPosition& device_position)
 {
+    {
+        MutexLocker locker(m_mutex);
+        m_device_position = device_position;
+    }
+
     // We don't want denormals slowing down any of the audio processing
     // since they can very seriously hurt performance.
     // This will take care of all AudioNodes because they all process within this scope.
@@ -105,6 +115,11 @@ void AudioDestinationHandler::render(AudioBus* sourceBus, AudioBus* destinationB
     releaseStore(&m_currentSampleFrame, newSampleFrame);
 }
 
+WebAudioDevice::StreamPosition AudioDestinationHandler::devicePosition() const {
+   MutexLocker locker(m_mutex);
+   return m_device_position;
+}
+
 // ----------------------------------------------------------------
 
 AudioDestinationNode::AudioDestinationNode(AbstractAudioContext& context)
@@ -120,6 +135,22 @@ AudioDestinationHandler& AudioDestinationNode::audioDestinationHandler() const
 unsigned long AudioDestinationNode::maxChannelCount() const
 {
     return audioDestinationHandler().maxChannelCount();
+}
+
+static double toPerformanceTime(ExecutionContext* context, double seconds)
+{
+    LocalDOMWindow* window = context ? context->executingWindow() : nullptr;
+    Performance* performance = window ? DOMWindowPerformance::performance(*window) : nullptr;
+    return performance ? performance->monotonicTimeToDOMHighResTimeStamp(seconds) : 0.0;
+}
+
+void AudioDestinationNode::devicePosition(blink::AudioTimestamp& result) const {
+    WebAudioDevice::StreamPosition devicePosition = audioDestinationHandler().devicePosition();
+    double contextTime = devicePosition.frames / static_cast<double>(audioDestinationHandler().sampleRate());
+    result.setContextTime(contextTime);
+    double performanceTime = devicePosition.seconds ? toPerformanceTime(context()->getExecutionContext(), devicePosition.seconds)
+                                                    : 0.0;
+    result.setPerformanceTime(performanceTime);
 }
 
 } // namespace blink

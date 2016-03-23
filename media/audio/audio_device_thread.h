@@ -12,10 +12,12 @@
 #include "base/sync_socket.h"
 #include "base/threading/platform_thread.h"
 #include "base/threading/thread_checker.h"
+#include "media/audio/audio_io.h"
 #include "media/base/audio_parameters.h"
 #include "media/base/media_export.h"
 
 namespace media {
+struct StreamPosition;
 
 // Data transfer between browser and render process uses a combination
 // of sync sockets and shared memory. To read from the socket and render
@@ -42,7 +44,9 @@ class MEDIA_EXPORT AudioDeviceThread : public base::PlatformThread::Delegate {
     virtual void MapSharedMemory() = 0;
 
     // Called whenever we receive notifications about pending input data.
-    virtual void Process(uint32_t pending_data) = 0;
+    virtual void Process(
+        uint32_t pending_data,
+        const StreamPosition& position) = 0;
 
    protected:
     virtual ~Callback();
