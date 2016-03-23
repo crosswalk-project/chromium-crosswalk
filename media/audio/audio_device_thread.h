@@ -13,6 +13,7 @@
 #include "base/memory/shared_memory.h"
 #include "base/sync_socket.h"
 #include "base/synchronization/lock.h"
+#include "media/audio/audio_io.h"
 #include "media/audio/audio_parameters.h"
 #include "media/base/media_export.h"
 
@@ -22,6 +23,7 @@ class MessageLoop;
 
 namespace media {
 class AudioBus;
+struct StreamPosition;
 
 // Data transfer between browser and render process uses a combination
 // of sync sockets and shared memory. To read from the socket and render
@@ -53,7 +55,9 @@ class MEDIA_EXPORT AudioDeviceThread {
     virtual void MapSharedMemory() = 0;
 
     // Called whenever we receive notifications about pending input data.
-    virtual void Process(uint32_t pending_data) = 0;
+    virtual void Process(
+        uint32_t pending_data,
+        const StreamPosition& position) = 0;
 
    protected:
     // Protected so that derived classes can access directly.
