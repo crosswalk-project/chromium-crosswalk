@@ -30,11 +30,13 @@
 #include "platform/audio/AudioBus.h"
 #include "platform/audio/AudioIOCallback.h"
 #include "platform/audio/AudioSourceProvider.h"
+#include "wtf/ThreadingPrimitives.h"
 
 namespace blink {
 
 class AudioBus;
 class AbstractAudioContext;
+class AudioTimestamp;
 
 class AudioDestinationHandler : public AudioHandler, public AudioIOCallback {
 public:
@@ -46,7 +48,7 @@ public:
 
     // The audio hardware calls render() to get the next render quantum of audio into destinationBus.
     // It will optionally give us local/live audio input in sourceBus (if it's not 0).
-    void render(AudioBus* sourceBus, AudioBus* destinationBus, size_t numberOfFrames) final;
+    void render(AudioBus* sourceBus, AudioBus* destinationBus, size_t numberOfFrames, const StreamPosition& device_position) final;
 
     size_t currentSampleFrame() const { return acquireLoad(&m_currentSampleFrame); }
     double currentTime() const { return currentSampleFrame() / static_cast<double>(sampleRate()); }
@@ -55,6 +57,8 @@ public:
 
     virtual void startRendering() = 0;
     virtual void stopRendering() = 0;
+
+    StreamPosition devicePosition() const;
 
 protected:
     // LocalAudioInputProvider allows us to expose an AudioSourceProvider for local/live audio input.
@@ -88,6 +92,9 @@ protected:
     // Counts the number of sample-frames processed by the destination.
     size_t m_currentSampleFrame;
 
+    StreamPosition m_device_position;
+    mutable Mutex m_mutex;
+
     LocalAudioInputProvider m_localAudioInputProvider;
 };
 
@@ -97,6 +104,8 @@ public:
     AudioDestinationHandler& audioDestinationHandler() const;
 
     unsigned long maxChannelCount() const;
+
+    virtual void devicePosition(blink::AudioTimestamp& result) const;
 
 protected:
     AudioDestinationNode(AbstractAudioContext&);
