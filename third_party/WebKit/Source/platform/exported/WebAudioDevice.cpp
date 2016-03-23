@@ -26,8 +26,27 @@
 
 namespace blink {
 
+WebAudioDevice::StreamPosition::StreamPosition()
+    : frames(0)
+    , seconds(0)
+{
+}
+
+WebAudioDevice::StreamPosition::StreamPosition(size_t frames, double seconds)
+    : frames(frames)
+    , seconds(seconds)
+{
+}
+
 void WebAudioDevice::RenderCallback::render(const WebVector<float*>& sourceData, const WebVector<float*>& destinationData, size_t numberOfFrames)
 {
+}
+
+void WebAudioDevice::RenderCallback::render(const WebVector<float*>& sourceData,
+                                            const WebVector<float*>& destinationData,
+                                            size_t numberOfFrames,
+                                            const StreamPosition& device_position) {
+    render(sourceData, destinationData, numberOfFrames);
 }
 
 WebAudioDevice::RenderCallback::~RenderCallback()
