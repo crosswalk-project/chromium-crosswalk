@@ -38,9 +38,21 @@ namespace blink {
 
 class WebAudioDevice {
 public:
+    struct BLINK_PLATFORM_EXPORT StreamPosition {
+        StreamPosition();
+        StreamPosition(size_t frames, double seconds);
+        size_t frames;
+        double seconds;
+    };
+
     class BLINK_PLATFORM_EXPORT RenderCallback {
     public:
         virtual void render(const WebVector<float*>& sourceData, const WebVector<float*>& destinationData, size_t numberOfFrames);
+        // An alternate version which provides also device stream position, by default it just invokes the above method.
+        virtual void render(const WebVector<float*>& sourceData,
+                            const WebVector<float*>& destinationData,
+                            size_t numberOfFrames,
+                            const StreamPosition& device_position);
 
     protected:
         virtual ~RenderCallback();
