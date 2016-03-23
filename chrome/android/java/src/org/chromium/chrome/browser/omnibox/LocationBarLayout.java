@@ -1295,6 +1295,7 @@ public class LocationBarLayout extends FrameLayout implements OnClickListener,
                 bolt.setColorFilter(ApiCompatibilityUtils.getColor(getResources(), mUseDarkColors
                         ? R.color.locationbar_status_color
                         : R.color.locationbar_status_color_light), PorterDuff.Mode.SRC_IN);
+                bolt.mutate();
                 mNavigationButton.setImageDrawable(bolt);
                 break;
             default:
