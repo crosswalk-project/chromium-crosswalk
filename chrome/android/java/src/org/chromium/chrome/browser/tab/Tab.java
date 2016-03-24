@@ -1672,7 +1672,7 @@ public final class Tab implements ViewGroup.OnHierarchyChangeListener,
             mContentViewCore.setShouldSetAccessibilityFocusOnPageLoad(true);
 
             mDownloadDelegate = new ChromeDownloadDelegate(
-                    mThemedApplicationContext, getTabModelSelector(), this);
+                    mThemedApplicationContext, this);
             cvc.setDownloadDelegate(mDownloadDelegate);
 
             setInterceptNavigationDelegate(mDelegateFactory.createInterceptNavigationDelegate(
