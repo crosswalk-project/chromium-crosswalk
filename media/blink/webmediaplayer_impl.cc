@@ -1141,8 +1141,12 @@ void WebMediaPlayerImpl::OnHidden(bool must_suspend) {
     return;
 #endif
 
-  if (must_suspend || (paused_ && ended_) || hasVideo())
+  if (must_suspend || (paused_ && ended_) || hasVideo()) {
+    // If we're in the middle of a suspend/resume cycle we no longer want to
+    // resume when the suspend completes.
+    pending_suspend_resume_cycle_ = false;
     ScheduleSuspend();
+  }
 }
 
 void WebMediaPlayerImpl::ScheduleSuspend() {
