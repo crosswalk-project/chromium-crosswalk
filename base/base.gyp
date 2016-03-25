@@ -1489,7 +1489,9 @@
           ],
           'all_dependent_settings': {
             'variables': {
-              'generate_build_config': 1,
+              # Crosswalk needs to set this to 0, otherwise building the test
+              # APKs fails. See XWALK-6547 and XWALK-6625.
+              'generate_build_config': 0,
             },
           },
           'includes': [ '../build/java.gypi' ],
