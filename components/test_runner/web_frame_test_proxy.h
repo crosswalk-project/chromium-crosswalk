@@ -112,9 +112,9 @@ class WebFrameTestProxy : public Base {
     Base::didChangeIcon(frame, icon_type);
   }
 
-  virtual void didFinishDocumentLoad(blink::WebLocalFrame* frame, bool empty) {
+  virtual void didFinishDocumentLoad(blink::WebLocalFrame* frame) {
     base_proxy_->DidFinishDocumentLoad(frame);
-    Base::didFinishDocumentLoad(frame, empty);
+    Base::didFinishDocumentLoad(frame);
   }
 
   virtual void didHandleOnloadEvents(blink::WebLocalFrame* frame) {

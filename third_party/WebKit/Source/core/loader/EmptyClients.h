@@ -212,7 +212,7 @@ public:
     void dispatchDidCommitLoad(HistoryItem*, HistoryCommitType) override {}
     void dispatchDidFailProvisionalLoad(const ResourceError&, HistoryCommitType) override {}
     void dispatchDidFailLoad(const ResourceError&, HistoryCommitType) override {}
-    void dispatchDidFinishDocumentLoad(bool) override {}
+    void dispatchDidFinishDocumentLoad() override {}
     void dispatchDidFinishLoad() override {}
     void dispatchDidChangeThemeColor() override {}
 
@@ -256,7 +256,7 @@ public:
     void dispatchDidClearWindowObjectInMainWorld() override {}
     void documentElementAvailable() override {}
     void runScriptsAtDocumentElementAvailable() override {}
-    void runScriptsAtDocumentReady() override {}
+    void runScriptsAtDocumentReady(bool) override {}
 
     void didCreateScriptContext(v8::Local<v8::Context>, int extensionGroup, int worldId) override {}
     void willReleaseScriptContext(v8::Local<v8::Context>, int worldId) override {}
