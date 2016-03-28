@@ -262,6 +262,8 @@
 <translation id="3609138628363401169">서버에서 TLS 재협상 수정을 지원하지 않습니다.</translation>
 <translation id="362276910939193118">방문 기록 전체 보기</translation>
 <translation id="3623476034248543066">값 표시</translation>
+<translation id="3630155396527302611">이미 네트워크 액세스가 허용된 프로그램으로 되어 있는 경우
+    목록에서 삭제한 뒤 다시 추가합니다.</translation>
 <translation id="3648607100222897006">해당 실험용 기능은 언제든지 변경, 중지 및 취소될 수 있습니다. 해당 실험용 기능을 사용할 때 발생하는 일에 대해 Google은 보장하지 않습니다. 데이터가 삭제되거나 개인 정보가 예기치 않은 방법으로 유출될 수 있습니다. 본인이 사용 설정한 모든 실험 기능은 해당 브라우저의 다른 사용자도 사용하게 됩니다. 주의해서 진행하시기 바랍니다.</translation>
 <translation id="3650584904733503804">유효성 검사 성공</translation>
 <translation id="3651020361689274926">요청한 리소스가 더 이상 존재하지 않으며 전달 주소가 없습니다. 이것은 영구적인 상태가 될 수 있습니다.</translation>
@@ -283,8 +285,6 @@
 <translation id="382518646247711829">프록시 서버를 사용하는 경우</translation>
 <translation id="3828924085048779000">암호를 빈 칸으로 두어서는 안 됩니다.</translation>
 <translation id="385051799172605136">뒤로</translation>
-<translation id="3851596405215565524">이미 네트워크 액세스가 허용된 프로그램으로 되어 있는 경우
-    목록에서 삭제한 뒤 다시 추가합니다.</translation>
 <translation id="3858027520442213535">시간과 날짜 업데이트</translation>
 <translation id="3884278016824448484">기기 식별자 충돌</translation>
 <translation id="3885155851504623709">교구</translation>
@@ -636,9 +636,6 @@
 <translation id="8204086856545141093">서버에 대한 요청이 정책에 의해 차단되었습니다.</translation>
 <translation id="8218327578424803826">지정된 위치:</translation>
 <translation id="8225771182978767009">컴퓨터를 설정한 사용자가 이 사이트를 차단했습니다.</translation>
-<translation id="8240446052814166959">프록시 설정을 확인하거나 네트워크 관리자에게 문의하여
-      프록시 서버가 작동하는지 확인하세요.
-      <ph name="PLATFORM_TEXT" /></translation>
 <translation id="8241707690549784388">찾고 있는 페이지에서 사용자가 입력한 정보를 사용했습니다. 해당 페이지로 돌아가면 기존 작업을 반복할 수 있습니다. 계속하시겠습니까?</translation>
 <translation id="8249320324621329438">마지막으로 가져온 시간:</translation>
 <translation id="8266098793847448402"><ph name="BEGIN_BOLD" />시작<ph name="END_BOLD" />을
