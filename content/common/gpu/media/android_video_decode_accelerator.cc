@@ -224,7 +224,7 @@ class AVDATimerManager {
       // deferred until after all iterations are complete.
       base::AutoReset<bool> scoper(&timer_running_, true);
       for (auto* avda : avda_instances_)
-        avda->DoIOTask();
+        avda->DoIOTask(false);
     }
 
     // Take care of any deferred erasures.
@@ -410,7 +410,7 @@ void AndroidVideoDecodeAccelerator::SetCdm(int cdm_id) {
 #endif  // !defined(ENABLE_MOJO_MEDIA_IN_GPU_PROCESS)
 }
 
-void AndroidVideoDecodeAccelerator::DoIOTask() {
+void AndroidVideoDecodeAccelerator::DoIOTask(bool start_timer) {
   DCHECK(thread_checker_.CalledOnValidThread());
   TRACE_EVENT0("media", "AVDA::DoIOTask");
   if (state_ == ERROR) {
@@ -421,7 +421,7 @@ void AndroidVideoDecodeAccelerator::DoIOTask() {
   while (DequeueOutput())
     did_work = true;
 
-  ManageTimer(did_work);
+  ManageTimer(did_work || start_timer);
 }
 
 bool AndroidVideoDecodeAccelerator::QueueInput() {
@@ -772,7 +772,7 @@ void AndroidVideoDecodeAccelerator::DecodeBuffer(
   TRACE_COUNTER1("media", "AVDA::PendingBitstreamBufferCount",
                  pending_bitstream_buffers_.size());
 
-  DoIOTask();
+  DoIOTask(true);
 }
 
 void AndroidVideoDecodeAccelerator::RequestPictureBuffers() {
@@ -810,8 +810,7 @@ void AndroidVideoDecodeAccelerator::AssignPictureBuffers(
     strategy_->AssignOnePictureBuffer(buffers[i]);
   }
   TRACE_COUNTER1("media", "AVDA::FreePictureIds", free_picture_ids_.size());
-
-  DoIOTask();
+  DoIOTask(true);
 }
 
 void AndroidVideoDecodeAccelerator::ReusePictureBuffer(
@@ -837,13 +836,7 @@ void AndroidVideoDecodeAccelerator::ReusePictureBuffer(
   }
 
   strategy_->ReuseOnePictureBuffer(i->second);
-
-  // Turn the timer back on.  If it timed out, it might be because MediaCodec
-  // is waiting for us to return a buffer.  We can't assume that it will be
-  // ready to send us a buffer back immediately, though we do try DoIOTask
-  // to be optimistic.
-  ManageTimer(true);
-  DoIOTask();
+  DoIOTask(true);
 }
 
 void AndroidVideoDecodeAccelerator::Flush() {
@@ -1067,7 +1060,7 @@ void AndroidVideoDecodeAccelerator::OnKeyAdded() {
   if (state_ == WAITING_FOR_KEY)
     state_ = NO_ERROR;
 
-  DoIOTask();
+  DoIOTask(true);
 }
 
 void AndroidVideoDecodeAccelerator::NotifyCdmAttached(bool success) {
@@ -1107,10 +1100,12 @@ void AndroidVideoDecodeAccelerator::ManageTimer(bool did_work) {
   bool should_be_running = true;
 
   base::TimeTicks now = base::TimeTicks::Now();
-  if (!did_work) {
+  if (!did_work && !most_recent_work_.is_null()) {
     // Make sure that we have done work recently enough, else stop the timer.
-    if (now - most_recent_work_ > IdleTimerTimeOut())
+    if (now - most_recent_work_ > IdleTimerTimeOut()) {
+      most_recent_work_ = base::TimeTicks();
       should_be_running = false;
+    }
   } else {
     most_recent_work_ = now;
   }
