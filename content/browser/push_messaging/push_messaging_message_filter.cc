@@ -648,7 +648,6 @@ void PushMessagingMessageFilter::UnsubscribeHavingGottenSenderId(
     case SERVICE_WORKER_ERROR_DISK_CACHE:
     case SERVICE_WORKER_ERROR_REDUNDANT:
     case SERVICE_WORKER_ERROR_DISALLOWED:
-    case SERVICE_WORKER_ERROR_DISABLED_WORKER:
     case SERVICE_WORKER_ERROR_MAX_VALUE:
       NOTREACHED() << "Got unexpected error code: " << service_worker_status
                    << " " << ServiceWorkerStatusToString(service_worker_status);
@@ -845,7 +844,6 @@ void PushMessagingMessageFilter::DidGetSubscription(
     case SERVICE_WORKER_ERROR_DISK_CACHE:
     case SERVICE_WORKER_ERROR_REDUNDANT:
     case SERVICE_WORKER_ERROR_DISALLOWED:
-    case SERVICE_WORKER_ERROR_DISABLED_WORKER:
     case SERVICE_WORKER_ERROR_MAX_VALUE: {
       NOTREACHED() << "Got unexpected error code: " << service_worker_status
                    << " " << ServiceWorkerStatusToString(service_worker_status);
