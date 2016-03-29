@@ -76,7 +76,7 @@ class PipelineIntegrationTestBase {
   // benchmarking purposes (e.g., underflow is disabled to ensure consistent
   // hashes).  May be combined using the bitwise or operator (and as such must
   // have values that are powers of two).
-  enum TestTypeFlags { kHashed = 1, kClockless = 2 };
+  enum TestTypeFlags { kNormal = 0, kHashed = 1, kClockless = 2 };
   PipelineStatus Start(const std::string& filename, uint8_t test_type);
 
   void Play();
