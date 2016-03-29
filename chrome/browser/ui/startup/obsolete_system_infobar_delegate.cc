@@ -4,8 +4,11 @@
 
 #include "chrome/browser/ui/startup/obsolete_system_infobar_delegate.h"
 
+#include "base/prefs/pref_service.h"
+#include "chrome/browser/browser_process.h"
 #include "chrome/browser/infobars/infobar_service.h"
 #include "chrome/browser/obsolete_system/obsolete_system.h"
+#include "chrome/common/pref_names.h"
 #include "chrome/common/url_constants.h"
 #include "chrome/grit/chromium_strings.h"
 #include "components/infobars/core/infobar.h"
@@ -15,6 +18,11 @@
 
 // static
 void ObsoleteSystemInfoBarDelegate::Create(InfoBarService* infobar_service) {
+  PrefService* local_state = g_browser_process->local_state();
+  if (local_state &&
+      local_state->GetBoolean(prefs::kSuppressUnsupportedOSWarning)) {
+    return;
+  }
   if (!ObsoleteSystem::IsObsoleteNowOrSoon())
     return;
   infobar_service->AddInfoBar(infobar_service->CreateConfirmInfoBar(

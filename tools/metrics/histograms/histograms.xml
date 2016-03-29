@@ -61937,6 +61937,7 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="313" label="Default key generation setting"/>
   <int value="314" label="Allow key generation on these sites"/>
   <int value="315" label="Block key generation on these sites"/>
+  <int value="324" label="Suppress the unsupported OS warning"/>
 </enum>
 
 <enum name="EnterprisePolicyInvalidations" type="int">

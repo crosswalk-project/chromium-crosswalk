@@ -497,6 +497,7 @@ extern const char kShutdownNumProcessesSlow[];
 
 extern const char kRestartLastSessionOnShutdown[];
 #if !defined(OS_ANDROID) && !defined(OS_IOS)
+extern const char kSuppressUnsupportedOSWarning[];
 extern const char kWasRestarted[];
 #endif
 

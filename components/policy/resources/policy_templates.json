@@ -137,7 +137,7 @@
 #   persistent IDs for all fields (but not for groups!) are needed. These are
 #   specified by the 'id' keys of each policy. NEVER CHANGE EXISTING IDs,
 #   because doing so would break the deployed wire format!
-#   For your editing convenience: highest ID currently used: 315
+#   For your editing convenience: highest ID currently used: 324
 #
 # Placeholders:
 #   The following placeholder strings are automatically substituted:
@@ -8154,6 +8154,21 @@
       If the policy is not set, the default value is 0 degrees and the user is
       free to change it. In this case, the default value is not reapplied at
       restart.''',
+    },
+    {
+      'name': 'SuppressUnsupportedOSWarning',
+      'caption': '''Suppress the unsupported OS warning''',
+      'desc': '''Suppresses the warning that appears when <ph name="PRODUCT_NAME">$1<ex>Google Chrome</ex></ph> is running on a computer or operating system that is no longer supported.''',
+      'type': 'main',
+      'schema': { 'type': 'boolean' },
+      'supported_on': ['chrome.*:49-','chrome_os:49-'],
+      'features': {
+        'dynamic_refresh': False,
+        'per_profile': False,
+      },
+      'example_value': True,
+      'tags': ['system-security'],
+      'id': 324,
     },
   ],
   'messages': {
