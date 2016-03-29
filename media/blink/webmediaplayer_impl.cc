@@ -940,8 +940,17 @@ void WebMediaPlayerImpl::OnPipelineSeeked(bool time_changed,
   }
 
   // Update our paused time.
-  if (paused_)
+  if (paused_) {
+#if defined(OS_ANDROID)  // WMPI_CAST
+    if (isRemote()) {
+      paused_time_ = base::TimeDelta::FromSecondsD(cast_impl_.currentTime());
+    } else {
+      UpdatePausedTime();
+    }
+#else
     UpdatePausedTime();
+#endif
+  }
 
   should_notify_time_changed_ = time_changed;
 }
