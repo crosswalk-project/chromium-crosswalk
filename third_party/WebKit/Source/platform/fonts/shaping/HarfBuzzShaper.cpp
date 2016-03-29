@@ -668,7 +668,7 @@ void HarfBuzzShaper::insertRunIntoShapeResult(ShapeResult* result,
         // and instead pass the whole run to hb_buffer_t each time.
         run->m_glyphData[i].characterIndex = glyphInfos[startGlyph + i].cluster - startCluster;
 
-        if (isClusterEnd)
+        if (isClusterEnd && !m_textRun.spacingDisabled())
             spacing += adjustSpacing(run.get(), i, currentCharacterIndex, *directionOffset, totalAdvance);
 
         advance += spacing;
