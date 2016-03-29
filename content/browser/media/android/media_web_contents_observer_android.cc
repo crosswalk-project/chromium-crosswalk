@@ -100,6 +100,13 @@ bool MediaWebContentsObserverAndroid::RequestPlay(
              render_frame_host, delegate_id)) != media_session_map_.end();
 }
 
+void MediaWebContentsObserverAndroid::DisconnectMediaSession(
+    RenderFrameHost* render_frame_host,
+    int delegate_id) {
+  session_controllers_manager()->OnEnd(
+      MediaPlayerId(render_frame_host, delegate_id));
+}
+
 #if defined(VIDEO_HOLE)
 void MediaWebContentsObserverAndroid::OnFrameInfoUpdated() {
   for (auto it = media_player_managers_.begin();
