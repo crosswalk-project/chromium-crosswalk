@@ -6,6 +6,7 @@
 #include "chrome/browser/media/router/media_route.h"
 #include "chrome/browser/media/router/mock_media_router.h"
 #include "chrome/browser/media/router/route_request_result.h"
+#include "chrome/browser/sessions/session_tab_helper.h"
 #include "chrome/browser/ui/webui/media_router/media_router_ui.h"
 #include "chrome/browser/ui/webui/media_router/media_router_webui_message_handler.h"
 #include "chrome/test/base/testing_profile.h"
@@ -45,6 +46,7 @@ class MediaRouterUITest : public ::testing::Test {
   void CreateMediaRouterUI(Profile* profile) {
     initiator_.reset(content::WebContents::Create(
         content::WebContents::CreateParams(profile)));
+    SessionTabHelper::CreateForWebContents(initiator_.get());
     web_contents_.reset(content::WebContents::Create(
         content::WebContents::CreateParams(profile)));
     web_ui_.set_web_contents(web_contents_.get());
@@ -70,20 +72,6 @@ class MediaRouterUITest : public ::testing::Test {
   scoped_ptr<MediaRouterUI> media_router_ui_;
   scoped_ptr<MediaRouterWebUIMessageHandler> message_handler_;
 };
-
-TEST_F(MediaRouterUITest, RouteRequestTimedOut) {
-  CreateMediaRouterUI(&profile_);
-  std::vector<MediaRouteResponseCallback> callbacks;
-  EXPECT_CALL(mock_router_, CreateRoute(_, _, _, _, _, _, _))
-      .WillOnce(SaveArg<4>(&callbacks));
-  media_router_ui_->CreateRoute("sinkId", MediaCastMode::TAB_MIRROR);
-
-  EXPECT_CALL(mock_router_, AddIssue(_));
-  scoped_ptr<RouteRequestResult> result =
-      RouteRequestResult::FromError("Timed out", RouteRequestResult::TIMED_OUT);
-  for (const auto& callback : callbacks)
-    callback.Run(*result);
-}
 
 TEST_F(MediaRouterUITest, RouteCreationTimeoutForTab) {
   CreateMediaRouterUI(&profile_);
