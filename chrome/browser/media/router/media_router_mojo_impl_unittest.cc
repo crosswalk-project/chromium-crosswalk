@@ -1306,7 +1306,7 @@ TEST_F(MediaRouterMojoExtensionTest, EnableMdnsAfterEachRegister) {
       .WillOnce(InvokeWithoutArgs([&run_loop]() {
                   run_loop.Quit();
                 }));
-  EXPECT_CALL(*process_manager_, IsEventPageSuspended(extension_id()))
+  EXPECT_CALL(*process_manager_, IsEventPageSuspended(kExtensionId))
       .WillOnce(Return(false));
   // EnableMdnsDisocvery() is never called except on Windows.
   EXPECT_CALL(mock_media_route_provider_, EnableMdnsDiscovery())
@@ -1322,9 +1322,9 @@ TEST_F(MediaRouterMojoExtensionTest, EnableMdnsAfterEachRegister) {
   // Reset the extension by "suspending" and notifying MR.
   base::RunLoop run_loop3;
   ResetMediaRouteProvider();
-  EXPECT_CALL(*process_manager_, IsEventPageSuspended(extension_id()))
+  EXPECT_CALL(*process_manager_, IsEventPageSuspended(kExtensionId))
       .WillOnce(Return(true));
-  EXPECT_CALL(*process_manager_, WakeEventPage(extension_id(), _))
+  EXPECT_CALL(*process_manager_, WakeEventPage(kExtensionId, _))
       .WillOnce(testing::DoAll(
           media::RunCallback<1>(true),
           InvokeWithoutArgs([&run_loop3]() { run_loop3.Quit(); }),
@@ -1341,7 +1341,7 @@ TEST_F(MediaRouterMojoExtensionTest, EnableMdnsAfterEachRegister) {
       .WillOnce(InvokeWithoutArgs([&run_loop4]() {
                   run_loop4.Quit();
                 }));
-  EXPECT_CALL(*process_manager_, IsEventPageSuspended(extension_id()))
+  EXPECT_CALL(*process_manager_, IsEventPageSuspended(kExtensionId))
       .WillOnce(Return(false));
   // Expected because it was used to wake up the page.
   EXPECT_CALL(mock_media_route_provider_, DetachRoute(mojo::String(kRouteId)));
