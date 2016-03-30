@@ -152,9 +152,7 @@ class MockMediaRouteProvider : public interfaces::MediaRouteProvider {
 
 class MockMediaSinksObserver : public MediaSinksObserver {
  public:
-  MockMediaSinksObserver(MediaRouter* router,
-                         const MediaSource& source,
-                         const GURL& origin);
+  MockMediaSinksObserver(MediaRouter* router, const MediaSource& source);
   ~MockMediaSinksObserver() override;
 
   MOCK_METHOD1(OnSinksReceived, void(const std::vector<MediaSink>& sinks));

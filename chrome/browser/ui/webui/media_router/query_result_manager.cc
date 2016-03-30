@@ -18,10 +18,9 @@ class QueryResultManager::CastModeMediaSinksObserver
  public:
   CastModeMediaSinksObserver(MediaCastMode cast_mode,
                              const MediaSource& source,
-                             const GURL& origin,
                              MediaRouter* router,
                              QueryResultManager* result_manager)
-      : MediaSinksObserver(router, source, origin),
+      : MediaSinksObserver(router, source),
         cast_mode_(cast_mode),
         result_manager_(result_manager) {
     DCHECK(result_manager);
@@ -74,8 +73,7 @@ void QueryResultManager::RemoveObserver(Observer* observer) {
 }
 
 void QueryResultManager::StartSinksQuery(MediaCastMode cast_mode,
-                                         const MediaSource& source,
-                                         const GURL& origin) {
+                                         const MediaSource& source) {
   DCHECK(thread_checker_.CalledOnValidThread());
   if (source.Empty()) {
     LOG(WARNING) << "StartSinksQuery called with empty source for "
@@ -88,7 +86,7 @@ void QueryResultManager::StartSinksQuery(MediaCastMode cast_mode,
   UpdateWithSinksQueryResult(cast_mode, std::vector<MediaSink>());
 
   scoped_ptr<CastModeMediaSinksObserver> observer(
-      new CastModeMediaSinksObserver(cast_mode, source, origin, router_, this));
+      new CastModeMediaSinksObserver(cast_mode, source, router_, this));
   observer->Init();
   auto result =
       sinks_observers_.insert(std::make_pair(cast_mode, std::move(observer)));

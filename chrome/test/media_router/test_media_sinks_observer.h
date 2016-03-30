@@ -19,9 +19,7 @@ class MediaRouter;
 // from Media Router and is used for verification.
 class TestMediaSinksObserver : public MediaSinksObserver {
  public:
-  TestMediaSinksObserver(MediaRouter* router,
-                         const MediaSource& source,
-                         const GURL& origin);
+  TestMediaSinksObserver(MediaRouter* router, const MediaSource& source);
   ~TestMediaSinksObserver() override;
 
   // MediaSinksObserver implementation.

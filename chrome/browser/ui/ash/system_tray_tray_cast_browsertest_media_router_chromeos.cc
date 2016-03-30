@@ -2,8 +2,6 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include <vector>
-
 #include "ash/shell.h"
 #include "ash/system/tray/system_tray.h"
 #include "ash/system/tray/system_tray_delegate.h"
@@ -16,7 +14,6 @@
 #include "chrome/browser/ui/ash/cast_config_delegate_media_router.h"
 #include "chrome/test/base/in_process_browser_test.h"
 #include "content/public/test/test_utils.h"
-#include "url/gurl.h"
 
 using testing::_;
 
@@ -122,19 +119,19 @@ IN_PROC_BROWSER_TEST_F(SystemTrayTrayCastMediaRouterChromeOSTest,
 
   // The tray should be hidden when there are no sinks.
   EXPECT_FALSE(test_api.IsTrayVisible());
-  media_sinks_observer()->OnSinksUpdated(zero_sinks, std::vector<GURL>());
+  media_sinks_observer()->OnSinksReceived(zero_sinks);
   EXPECT_FALSE(test_api.IsTrayVisible());
   EXPECT_FALSE(test_api.IsTraySelectViewVisible());
 
   // The tray should be visible with any more than zero sinks.
-  media_sinks_observer()->OnSinksUpdated(one_sink, std::vector<GURL>());
+  media_sinks_observer()->OnSinksReceived(one_sink);
   EXPECT_TRUE(test_api.IsTrayVisible());
-  media_sinks_observer()->OnSinksUpdated(two_sinks, std::vector<GURL>());
+  media_sinks_observer()->OnSinksReceived(two_sinks);
   EXPECT_TRUE(test_api.IsTrayVisible());
   EXPECT_TRUE(test_api.IsTraySelectViewVisible());
 
   // And if all of the sinks go away, it should be hidden again.
-  media_sinks_observer()->OnSinksUpdated(zero_sinks, std::vector<GURL>());
+  media_sinks_observer()->OnSinksReceived(zero_sinks);
   EXPECT_FALSE(test_api.IsTrayVisible());
   EXPECT_FALSE(test_api.IsTraySelectViewVisible());
 
@@ -157,7 +154,7 @@ IN_PROC_BROWSER_TEST_F(SystemTrayTrayCastMediaRouterChromeOSTest,
   std::vector<media_router::MediaSink> sinks;
   sinks.push_back(MakeSink("remote_sink", "name"));
   sinks.push_back(MakeSink("local_sink", "name"));
-  media_sinks_observer()->OnSinksUpdated(sinks, std::vector<GURL>());
+  media_sinks_observer()->OnSinksReceived(sinks);
 
   // Create route combinations. More details below.
   media_router::MediaRoute non_local_route =

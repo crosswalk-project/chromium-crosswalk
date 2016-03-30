@@ -53,7 +53,8 @@ RenderFrameHostId GetRenderFrameHostId(RenderFrameHost* render_frame_host) {
 GURL GetLastCommittedURLForFrame(RenderFrameHostId render_frame_host_id) {
   RenderFrameHost* render_frame_host = RenderFrameHost::FromID(
       render_frame_host_id.first, render_frame_host_id.second);
-  return render_frame_host ? render_frame_host->GetLastCommittedURL() : GURL();
+  DCHECK(render_frame_host);
+  return render_frame_host->GetLastCommittedURL();
 }
 
 }  // namespace
@@ -66,9 +67,7 @@ GURL GetLastCommittedURLForFrame(RenderFrameHostId render_frame_host_id) {
 //  * PresentationFrameManager.RemoveDelegateObserver.
 class PresentationFrame {
  public:
-  PresentationFrame(const RenderFrameHostId& render_frame_host_id,
-                    content::WebContents* web_contents,
-                    MediaRouter* router);
+  PresentationFrame(content::WebContents* web_contents, MediaRouter* router);
   ~PresentationFrame();
 
   // Mirror corresponding APIs in PresentationServiceDelegateImpl.
@@ -114,8 +113,6 @@ class PresentationFrame {
       connection_state_subscriptions_;
   ScopedVector<PresentationSessionMessagesObserver> session_messages_observers_;
 
-  RenderFrameHostId render_frame_host_id_;
-
   // References to the owning WebContents, and the corresponding MediaRouter.
   const content::WebContents* web_contents_;
   MediaRouter* router_;
@@ -123,12 +120,9 @@ class PresentationFrame {
   DelegateObserver* delegate_observer_;
 };
 
-PresentationFrame::PresentationFrame(
-    const RenderFrameHostId& render_frame_host_id,
-    content::WebContents* web_contents,
-    MediaRouter* router)
-    : render_frame_host_id_(render_frame_host_id),
-      web_contents_(web_contents),
+PresentationFrame::PresentationFrame(content::WebContents* web_contents,
+                                     MediaRouter* router)
+    : web_contents_(web_contents),
       router_(router),
       delegate_observer_(nullptr) {
   DCHECK(web_contents_);
@@ -168,9 +162,8 @@ bool PresentationFrame::SetScreenAvailabilityListener(
     return false;
 
   MediaSource source(GetMediaSourceFromListener(listener));
-  sinks_observer_.reset(new PresentationMediaSinksObserver(
-      router_, listener, source,
-      GetLastCommittedURLForFrame(render_frame_host_id_).GetOrigin()));
+  sinks_observer_.reset(
+      new PresentationMediaSinksObserver(router_, listener, source));
 
   if (!sinks_observer_->Init()) {
     sinks_observer_.reset();
@@ -553,8 +546,8 @@ PresentationFrame* PresentationFrameManager::GetOrAddPresentationFrame(
   if (!presentation_frames_.contains(render_frame_host_id)) {
     presentation_frames_.add(
         render_frame_host_id,
-        scoped_ptr<PresentationFrame>(new PresentationFrame(
-            render_frame_host_id, web_contents_, router_)));
+        scoped_ptr<PresentationFrame>(
+            new PresentationFrame(web_contents_, router_)));
   }
   return presentation_frames_.get(render_frame_host_id);
 }

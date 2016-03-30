@@ -14,6 +14,7 @@
 #include "testing/gmock/include/gmock/gmock.h"
 #include "testing/gtest/include/gtest/gtest.h"
 
+using testing::ContainerEq;
 using testing::Eq;
 using testing::IsEmpty;
 using testing::Eq;
@@ -24,8 +25,6 @@ using testing::_;
 namespace media_router {
 
 namespace {
-
-const char kOrigin[] = "https://origin.com";
 
 class MockObserver : public QueryResultManager::Observer {
  public:
@@ -45,7 +44,7 @@ class QueryResultManagerTest : public ::testing::Test {
     EXPECT_CALL(mock_router_, RegisterMediaSinksObserver(_))
         .WillOnce(Return(true));
     EXPECT_CALL(mock_observer_, OnResultsUpdated(_)).Times(1);
-    query_result_manager_.StartSinksQuery(cast_mode, source, GURL(kOrigin));
+    query_result_manager_.StartSinksQuery(cast_mode, source);
   }
 
   MockMediaRouter mock_router_;
@@ -87,7 +86,6 @@ TEST_F(QueryResultManagerTest, Observers) {
 }
 
 TEST_F(QueryResultManagerTest, StartStopSinksQuery) {
-  GURL origin(kOrigin);
   CastModeSet cast_modes;
 
   query_result_manager_.GetSupportedCastModes(&cast_modes);
@@ -99,7 +97,7 @@ TEST_F(QueryResultManagerTest, StartStopSinksQuery) {
   MediaSource source(MediaSourceForPresentationUrl("http://fooUrl"));
   EXPECT_CALL(mock_router_, RegisterMediaSinksObserver(_))
       .WillOnce(Return(true));
-  query_result_manager_.StartSinksQuery(MediaCastMode::DEFAULT, source, origin);
+  query_result_manager_.StartSinksQuery(MediaCastMode::DEFAULT, source);
 
   query_result_manager_.GetSupportedCastModes(&cast_modes);
   EXPECT_EQ(1u, cast_modes.size());
@@ -113,8 +111,8 @@ TEST_F(QueryResultManagerTest, StartStopSinksQuery) {
   EXPECT_CALL(mock_router_, UnregisterMediaSinksObserver(_)).Times(1);
   EXPECT_CALL(mock_router_, RegisterMediaSinksObserver(_))
       .WillOnce(Return(true));
-  query_result_manager_.StartSinksQuery(MediaCastMode::DEFAULT, another_source,
-                                        origin);
+  query_result_manager_.StartSinksQuery(
+      MediaCastMode::DEFAULT, another_source);
 
   query_result_manager_.GetSupportedCastModes(&cast_modes);
   EXPECT_EQ(1u, cast_modes.size());
@@ -139,7 +137,6 @@ TEST_F(QueryResultManagerTest, MultipleQueries) {
   MediaSink sink3("sinkId3", "Sink 3", MediaSink::IconType::CAST);
   MediaSink sink4("sinkId4", "Sink 4", MediaSink::IconType::CAST);
   MediaSink sink5("sinkId5", "Sink 5", MediaSink::IconType::CAST);
-  GURL origin(kOrigin);
 
   query_result_manager_.AddObserver(&mock_observer_);
   DiscoverSinks(MediaCastMode::DEFAULT,
@@ -169,8 +166,7 @@ TEST_F(QueryResultManagerTest, MultipleQueries) {
   sinks_query_result.push_back(sink3);
   EXPECT_CALL(mock_observer_,
               OnResultsUpdated(VectorEquals(expected_sinks))).Times(1);
-  sinks_observer_it->second->OnSinksUpdated(sinks_query_result,
-                                            std::vector<GURL>());
+  sinks_observer_it->second->OnSinksReceived(sinks_query_result);
 
   // Action: TAB_MIRROR -> [2, 3, 4]
   // Expected result:
@@ -198,8 +194,7 @@ TEST_F(QueryResultManagerTest, MultipleQueries) {
   ASSERT_TRUE(sinks_observer_it->second.get());
   EXPECT_CALL(mock_observer_,
               OnResultsUpdated(VectorEquals(expected_sinks))).Times(1);
-  sinks_observer_it->second->OnSinksUpdated(
-      sinks_query_result, std::vector<GURL>(1, GURL(kOrigin)));
+  sinks_observer_it->second->OnSinksReceived(sinks_query_result);
 
   // Action: Update default presentation URL
   // Expected result:
@@ -219,21 +214,7 @@ TEST_F(QueryResultManagerTest, MultipleQueries) {
               OnResultsUpdated(VectorEquals(expected_sinks))).Times(1);
   query_result_manager_.StartSinksQuery(
       MediaCastMode::DEFAULT,
-      MediaSourceForPresentationUrl("http://bazurl.com"), origin);
-
-  // Action: DEFAULT -> [1], origins don't match
-  // Expected result: [2 -> {TAB_MIRROR}, 3 -> {TAB_MIRROR}, 4 -> {TAB_MIRROR}]
-  // (No change)
-  sinks_query_result.clear();
-  sinks_query_result.push_back(sink1);
-  sinks_observer_it = sinks_observers.find(MediaCastMode::DEFAULT);
-  ASSERT_TRUE(sinks_observer_it != sinks_observers.end());
-  ASSERT_TRUE(sinks_observer_it->second.get());
-  EXPECT_CALL(mock_observer_, OnResultsUpdated(VectorEquals(expected_sinks)))
-      .Times(1);
-  sinks_observer_it->second->OnSinksUpdated(
-      sinks_query_result,
-      std::vector<GURL>(1, GURL("https://differentOrigin.com")));
+      MediaSourceForPresentationUrl("http://bazurl.com"));
 
   // Action: Remove TAB_MIRROR observer
   // Expected result:
