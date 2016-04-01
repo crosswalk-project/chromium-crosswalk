@@ -972,7 +972,7 @@ public:
 
     AnimationClock& animationClock();
     AnimationTimeline& timeline() const { return *m_timeline; }
-    CompositorPendingAnimations& compositorPendingAnimations() { return m_compositorPendingAnimations; }
+    CompositorPendingAnimations& compositorPendingAnimations() { return *m_compositorPendingAnimations; }
 
     void addToTopLayer(Element*, const Element* before = nullptr);
     void removeFromTopLayer(Element*);
@@ -1370,7 +1370,7 @@ private:
     LocaleIdentifierToLocaleMap m_localeCache;
 
     PersistentWillBeMember<AnimationTimeline> m_timeline;
-    CompositorPendingAnimations m_compositorPendingAnimations;
+    PersistentWillBeMember<CompositorPendingAnimations> m_compositorPendingAnimations;
 
     RefPtrWillBeMember<Document> m_templateDocument;
     // With Oilpan the templateDocument and the templateDocumentHost
