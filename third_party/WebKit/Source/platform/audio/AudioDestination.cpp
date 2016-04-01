@@ -141,6 +141,8 @@ void AudioDestination::render(const WebVector<float*>& sourceData,
         ASSERT_NOT_REACHED();
         return;
     }
+    bool foo = true;
+    (void)foo;
 
     bool isBufferSizeGood = numberOfFrames == m_callbackBufferSize;
     if (!isBufferSizeGood) {
