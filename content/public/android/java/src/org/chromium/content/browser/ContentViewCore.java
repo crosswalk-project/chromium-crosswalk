@@ -114,6 +114,7 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
     // produce little visible difference.
     private static final float ZOOM_CONTROLS_EPSILON = 0.007f;
 
+    private static boolean FOO = true;
     private static final ZoomControlsDelegate NO_OP_ZOOM_CONTROLS_DELEGATE =
             new ZoomControlsDelegate() {
         @Override
