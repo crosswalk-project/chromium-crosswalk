@@ -68,7 +68,8 @@ void DisplayLayoutStore::RegisterLayoutForDisplayIdList(
       layout->placement_list[0]->parent_display_id = list[0];
     }
   }
-  DCHECK(DisplayLayout::Validate(list, *layout.get())) << layout->ToString();
+  if (!DisplayLayout::Validate(list, *layout.get()))
+    return;
   layouts_[list] = std::move(layout);
 }
 
@@ -79,8 +80,8 @@ const DisplayLayout& DisplayLayoutStore::GetRegisteredDisplayLayout(
   const DisplayLayout* layout = iter != layouts_.end()
                                     ? iter->second.get()
                                     : CreateDefaultDisplayLayout(list);
-  DCHECK(DisplayLayout::Validate(list, *layout)) << layout->ToString();
-  DCHECK_NE(layout->primary_id, gfx::Display::kInvalidDisplayID);
+  CHECK(DisplayLayout::Validate(list, *layout)) << layout->ToString();
+  CHECK_NE(layout->primary_id, gfx::Display::kInvalidDisplayID);
   return *layout;
 }
 

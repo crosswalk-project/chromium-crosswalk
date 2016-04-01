@@ -228,7 +228,8 @@ void DisplayLayout::RegisterJSONConverter(
 bool DisplayLayout::Validate(const DisplayIdList& list,
                              const DisplayLayout& layout) {
   // The primary display should be in the list.
-  DCHECK(IsIdInList(layout.primary_id, list));
+  if (!IsIdInList(layout.primary_id, list))
+    return false;
 
   // Unified mode, or mirror mode switched from unified mode,
   // may not have the placement yet.

@@ -330,6 +330,23 @@ TEST_F(DisplayManagerTest, UpdateThreeDisplaysWithDefaultLayout) {
             display_manager()->GetDisplayAt(2).bounds().ToString());
 }
 
+TEST_F(DisplayManagerTest, LayoutMorethanThreeDisplaysCrashTest) {
+  if (!SupportsMultipleDisplays())
+    return;
+
+  int64_t primary_id = gfx::Screen::GetScreen()->GetPrimaryDisplay().id();
+  DisplayIdList list =
+      ash::test::CreateDisplayIdList2(primary_id, primary_id + 1);
+
+  DisplayLayoutBuilder builder(primary_id);
+  builder.AddDisplayPlacement(list[1], primary_id, DisplayPlacement::LEFT, 10);
+  builder.AddDisplayPlacement(primary_id + 2, list[1], DisplayPlacement::TOP,
+                              10);
+  display_manager()->layout_store()->RegisterLayoutForDisplayIdList(
+      list, builder.Build());
+  UpdateDisplay("640x480, 500x500");
+}
+
 TEST_F(DisplayManagerTest, LayoutMorethanThreeDisplaysTest) {
   if (!SupportsMultipleDisplays())
     return;
