@@ -114,10 +114,13 @@ ScrollResultOneDimensional ScrollAnimator::userScroll(
         return ScrollAnimatorBase::userScroll(orientation, granularity, step, delta);
     }
 
+    bool needsPostAnimationCleanup = m_runState == RunState::PostAnimationCleanup;
+    if (m_runState == RunState::PostAnimationCleanup)
+        resetAnimationState();
+
     float usedPixelDelta = computeDeltaToConsume(orientation, step * delta);
     FloatPoint pixelDelta = (orientation == VerticalScrollbar
         ? FloatPoint(0, usedPixelDelta) : FloatPoint(usedPixelDelta, 0));
-
     FloatPoint targetPos = desiredTargetPosition();
     targetPos.moveBy(pixelDelta);
 
@@ -127,6 +130,13 @@ ScrollResultOneDimensional ScrollAnimator::userScroll(
         // comment below regarding scroll latching.
         return ScrollResultOneDimensional(/* didScroll */ true, /* unusedScrollDelta */ 0);
     }
+
+    // If the run state when this method was called was PostAnimationCleanup and
+    // we're not starting an animation, stay in PostAnimationCleanup state so
+    // that the main thread scrolling reason can be removed.
+    if (needsPostAnimationCleanup)
+        m_runState = RunState::PostAnimationCleanup;
+
     // Report unused delta only if there is no animation and we are not
     // starting one. This ensures we latch for the duration of the
     // animation rather than animating multiple scrollers at the same time.
