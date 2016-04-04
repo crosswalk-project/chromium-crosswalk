@@ -153,3 +153,6 @@ bool FLAGS_quic_use_new_tcp_sender = true;
 // Saves the initial subkey secret in QUIC crypto when deriving keys from the
 // initial premaster secret.
 bool FLAGS_quic_save_initial_subkey_secret = true;
+
+// Resend 0RTT requests in response to an REJ that re-establishes encryption.
+bool FLAGS_quic_reply_to_rej = true;

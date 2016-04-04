@@ -48,5 +48,6 @@ NET_EXPORT_PRIVATE extern bool FLAGS_check_peer_address_change_after_decryption;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_log_received_parameters;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_use_new_tcp_sender;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_save_initial_subkey_secret;
+NET_EXPORT_PRIVATE extern bool FLAGS_quic_reply_to_rej;
 
 #endif  // NET_QUIC_QUIC_FLAGS_H_
