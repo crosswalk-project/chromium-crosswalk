@@ -17,3 +17,4 @@
 -WebContentsImplBrowserTest.LoadProgressAfterInterruptedNav
 -WebContentsImplBrowserTest.ClearNonVisiblePendingOnFail
 -WebUIMojoTest.EndToEndPing
+-WebContentsImplBrowserTest.NoResetOnBeforeUnloadCanceledOnCommit
