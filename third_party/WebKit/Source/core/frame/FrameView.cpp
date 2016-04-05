@@ -85,6 +85,7 @@
 #include "core/style/ComputedStyle.h"
 #include "core/svg/SVGDocumentExtensions.h"
 #include "core/svg/SVGSVGElement.h"
+#include "platform/Histogram.h"
 #include "platform/HostWindow.h"
 #include "platform/RuntimeEnabledFeatures.h"
 #include "platform/ScriptForbiddenScope.h"
@@ -2522,6 +2523,7 @@ void FrameView::updatePaintProperties()
 void FrameView::synchronizedPaint()
 {
     TRACE_EVENT0("blink", "FrameView::synchronizedPaint");
+    SCOPED_BLINK_UMA_HISTOGRAM_TIMER("Blink.Paint.UpdateTime");
 
     ASSERT(frame() == page()->mainFrame() || (!frame().tree().parent()->isLocalFrame()));
 
@@ -2609,6 +2611,12 @@ void FrameView::updateFrameTimingRequestsIfNeeded()
 
 void FrameView::updateStyleAndLayoutIfNeededRecursive()
 {
+    SCOPED_BLINK_UMA_HISTOGRAM_TIMER("Blink.StyleAndLayout.UpdateTime");
+    updateStyleAndLayoutIfNeededRecursiveInternal();
+}
+
+void FrameView::updateStyleAndLayoutIfNeededRecursiveInternal()
+{
     if (shouldThrottleRendering())
         return;
 
@@ -2652,7 +2660,7 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
     }
 
     for (const auto& frameView : frameViews)
-        frameView->updateStyleAndLayoutIfNeededRecursive();
+        frameView->updateStyleAndLayoutIfNeededRecursiveInternal();
 
     RELEASE_ASSERT(!needsLayout());
 
@@ -2685,6 +2693,12 @@ void FrameView::updateStyleAndLayoutIfNeededRecursive()
 
 void FrameView::invalidateTreeIfNeededRecursive()
 {
+    SCOPED_BLINK_UMA_HISTOGRAM_TIMER("Blink.PaintInvalidation.UpdateTime");
+    invalidateTreeIfNeededRecursiveInternal();
+}
+
+void FrameView::invalidateTreeIfNeededRecursiveInternal()
+{
     RELEASE_ASSERT(layoutView());
 
     // We need to stop recursing here since a child frame view might not be throttled
@@ -2712,7 +2726,7 @@ void FrameView::invalidateTreeIfNeededRecursive()
             // invalidation onto them here.
             if (!childFrameView.layoutView())
                 continue;
-            childFrameView.invalidateTreeIfNeededRecursive();
+            childFrameView.invalidateTreeIfNeededRecursiveInternal();
         }
     }
 

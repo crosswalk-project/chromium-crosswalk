@@ -6,6 +6,7 @@
 #define Histogram_h
 
 #include "platform/PlatformExport.h"
+#include "wtf/CurrentTime.h"
 #include <stdint.h>
 
 namespace base {
@@ -22,7 +23,6 @@ public:
 protected:
     explicit CustomCountHistogram(base::HistogramBase*);
 
-private:
     base::HistogramBase* m_histogram;
 };
 
@@ -40,6 +40,37 @@ public:
 private:
     base::HistogramBase* m_histogram;
 };
+
+
+
+class PLATFORM_EXPORT ScopedUsHistogramTimer {
+public:
+    ScopedUsHistogramTimer(CustomCountHistogram& counter)
+        : m_startTime(WTF::monotonicallyIncreasingTime()),
+        m_counter(counter) {}
+
+    ~ScopedUsHistogramTimer()
+    {
+        m_counter.count((WTF::monotonicallyIncreasingTime()  - m_startTime) * base::Time::kMicrosecondsPerSecond);
+    }
+
+private:
+    // In seconds.
+    double m_startTime;
+    CustomCountHistogram& m_counter;
+};
+
+// Use code like this to record time, in microseconds, to execute a block of code:
+//
+// {
+//     SCOPED_BLINK_UMA_HISTOGRAM_TIMER(myUmaStatName)
+//     RunMyCode();
+// }
+// This macro records all times between 0us and 10 seconds.
+// Do not change this macro without renaming all metrics that use it!
+#define SCOPED_BLINK_UMA_HISTOGRAM_TIMER(name) \
+DEFINE_STATIC_LOCAL(CustomCountHistogram, scopedUsCounter, (name, 0, 10000000, 50)); \
+ScopedUsHistogramTimer timer(scopedUsCounter);
 
 } // namespace blink
 

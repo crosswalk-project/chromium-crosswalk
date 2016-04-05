@@ -1109,6 +1109,7 @@
       'DecimalTest.cpp',
       'DragImageTest.cpp',
       'JSONParserTest.cpp',
+      'HistogramTest.cpp',
       'LayoutUnitTest.cpp',
       'LifecycleContextTest.cpp',
       'PODArenaTest.cpp',

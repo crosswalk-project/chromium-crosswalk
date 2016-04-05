@@ -179,6 +179,8 @@ private:
     void assertNoUnresolvedDirtyBits();
 #endif
 
+    void updateIfNeededRecursiveInternal();
+
     // GraphicsLayerClient implementation
     IntRect computeInterestRect(const GraphicsLayer*, const IntRect&) const override;
     void paintContents(const GraphicsLayer*, GraphicsContext&, GraphicsLayerPaintingPhase, const IntRect& interestRect) const override;

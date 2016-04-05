@@ -194,6 +194,12 @@ void updateDescendantDependentFlagsForEntireSubtree(PaintLayer& layer)
 
 void PaintLayerCompositor::updateIfNeededRecursive()
 {
+    SCOPED_BLINK_UMA_HISTOGRAM_TIMER("Blink.Compositing.UpdateTime");
+    updateIfNeededRecursiveInternal();
+}
+
+void PaintLayerCompositor::updateIfNeededRecursiveInternal()
+{
     FrameView* view = m_layoutView.frameView();
     if (view->shouldThrottleRendering())
         return;
@@ -206,7 +212,7 @@ void PaintLayerCompositor::updateIfNeededRecursive()
         // the frame tree is in an inconsistent state, such as in the middle of frame detach.
         // TODO(bbudge) Remove this check when trusted Pepper plugins are gone.
         if (localFrame->document()->isActive() && localFrame->contentLayoutObject())
-            localFrame->contentLayoutObject()->compositor()->updateIfNeededRecursive();
+            localFrame->contentLayoutObject()->compositor()->updateIfNeededRecursiveInternal();
     }
 
     TRACE_EVENT0("blink", "PaintLayerCompositor::updateIfNeededRecursive");
