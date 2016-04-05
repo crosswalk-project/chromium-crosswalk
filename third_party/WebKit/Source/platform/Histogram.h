@@ -5,6 +5,7 @@
 #ifndef Histogram_h
 #define Histogram_h
 
+#include "base/time/time.h"
 #include "platform/PlatformExport.h"
 #include "wtf/CurrentTime.h"
 #include <stdint.h>
