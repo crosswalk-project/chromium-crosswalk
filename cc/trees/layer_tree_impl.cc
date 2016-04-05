@@ -1684,10 +1684,7 @@ struct HitTestVisibleScrollableOrTouchableFunctor {
   bool operator()(LayerImpl* layer) const {
     return layer->IsDrawnRenderSurfaceLayerListMember() ||
            ScrollsAnyDrawnRenderSurfaceLayerListMember(layer) ||
-           !layer->touch_event_handler_region().IsEmpty() ||
-           layer->layer_tree_impl()->event_listener_properties(
-               EventListenerClass::kMouseWheel) !=
-               EventListenerProperties::kNone;
+           !layer->touch_event_handler_region().IsEmpty();
   }
 };
 
