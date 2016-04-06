@@ -8,7 +8,7 @@ typedef unsigned long long CLulong;
     Constructor,
 ] interface WebCLEvent {
     [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);
-    [RaisesException] CLulong getProfilingInfo(CLenum name);
+    [CallWith=ScriptState, RaisesException] any getProfilingInfo(CLenum name);
     [RaisesException] void setCallback(CLenum commandExecCallbackType,
                                        WebCLCallback notify);
     void release();
