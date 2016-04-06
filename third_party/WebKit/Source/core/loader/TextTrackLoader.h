@@ -39,7 +39,7 @@ namespace blink {
 class Document;
 class TextTrackLoader;
 
-class TextTrackLoaderClient {
+class TextTrackLoaderClient : public GarbageCollectedMixin {
 public:
     virtual ~TextTrackLoaderClient() {}
 
@@ -87,7 +87,7 @@ private:
 
     Document& document() const { return *m_document; }
 
-    TextTrackLoaderClient& m_client;
+    Member<TextTrackLoaderClient> m_client;
     PersistentWillBeMember<VTTParser> m_cueParser;
     // FIXME: Remove this pointer and get the Document from m_client.
     RawPtrWillBeMember<Document> m_document;
