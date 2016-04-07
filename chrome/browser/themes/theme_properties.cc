@@ -43,12 +43,12 @@ const SkColor kDefaultColorFrameInactive = SkColorSetRGB(161, 182, 228);
 const SkColor kDefaultColorFrameIncognito[] = {SkColorSetRGB(0xA0, 0xA0, 0xA4),
                                                SkColorSetRGB(0x28, 0x2B, 0x2D)};
 const SkColor kDefaultColorFrameIncognitoInactive[] = {
-    SkColorSetRGB(0xAA, 0xAA, 0xAE), SkColorSetRGB(0x14, 0x17, 0x19)};
+    SkColorSetRGB(0xAA, 0xAA, 0xAE), SkColorSetRGB(0x38, 0x3B, 0x3D)};
 #else
 const SkColor kDefaultColorFrameIncognito[] = {SkColorSetRGB(83, 106, 139),
                                                SkColorSetRGB(0x28, 0x2B, 0x2D)};
 const SkColor kDefaultColorFrameIncognitoInactive[] = {
-    SkColorSetRGB(126, 139, 156), SkColorSetRGB(0x14, 0x17, 0x19)};
+    SkColorSetRGB(126, 139, 156), SkColorSetRGB(0x38, 0x3B, 0x3D)};
 #endif
 
 #if defined(OS_MACOSX)
