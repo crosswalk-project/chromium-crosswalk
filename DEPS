@@ -96,7 +96,7 @@ deps = {
   'src/third_party/libexif/sources':
     (Var("chromium_git")) + '/chromium/deps/libexif/sources.git@045b7fb9aa6d9b7f1954db248caf5eefe917476d',
   'src/third_party/libjingle/source/talk':
-    (Var("chromium_git")) + '/external/webrtc/trunk/talk.git@4ce7fef091e1d63a3bfc2ed225619893b0eb1782',
+    (Var("chromium_git")) + '/external/webrtc/trunk/talk.git@13b4861d910ad67ff9fb10a2f865c72effe86060',
   'src/third_party/libjpeg_turbo':
     (Var("chromium_git")) + '/chromium/deps/libjpeg_turbo.git@e4e75037f29745f1546b6ebf5cf532e841c04c2c',
   'src/third_party/libphonenumber/src/phonenumbers':
@@ -152,7 +152,7 @@ deps = {
   'src/third_party/webpagereplay':
     (Var("chromium_git")) + '/external/github.com/chromium/web-page-replay.git@7564939bdf6482d57b9bd5e9c931679f96d8cf75',
   'src/third_party/webrtc':
-    (Var("chromium_git")) + '/external/webrtc/trunk/webrtc.git@24a16656da7249c0d836247bc77dbc475f71f0af',
+    (Var("chromium_git")) + '/external/webrtc/trunk/webrtc.git@65451bababb27efd7e7aae67b1441f4522634006',
   'src/third_party/yasm/source/patched-yasm':
     (Var("chromium_git")) + '/chromium/deps/yasm/patched-yasm.git@4671120cd8558ce62ee8672ebf3eb6f5216f909b',
   'src/tools/gyp':
