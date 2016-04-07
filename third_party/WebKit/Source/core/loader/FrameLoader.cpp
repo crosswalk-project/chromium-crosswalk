@@ -888,6 +888,9 @@ void FrameLoader::load(const FrameLoadRequest& passedRequest, FrameLoadType fram
 
     RefPtrWillBeRawPtr<LocalFrame> protect(m_frame.get());
 
+    if (!m_frame->isNavigationAllowed())
+        return;
+
     if (m_inStopAllLoaders)
         return;
 
