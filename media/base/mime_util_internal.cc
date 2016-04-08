@@ -278,8 +278,9 @@ MimeUtil::MimeUtil() : allow_proprietary_codecs_(false) {
           : MediaCodecUtil::IsMediaCodecAvailable();
   platform_info_.has_platform_vp8_decoder =
       MediaCodecUtil::IsVp8DecoderAvailable();
+  platform_info_.has_platform_vp9_decoder =
+      MediaCodecUtil::IsVp9DecoderAvailable();
   platform_info_.supports_opus = PlatformHasOpusSupport();
-  platform_info_.supports_vp9 = PlatformHasVp9Support();
 #endif
 
   InitializeMimeTypeMaps();
@@ -543,7 +544,7 @@ bool MimeUtil::IsCodecSupportedOnPlatform(
         return true;
 
       // Otherwise, platform support is required.
-      return platform_info.supports_vp9;
+      return platform_info.has_platform_vp9_decoder;
     }
   }
 

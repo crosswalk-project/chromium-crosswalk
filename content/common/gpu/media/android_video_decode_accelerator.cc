@@ -1138,7 +1138,7 @@ AndroidVideoDecodeAccelerator::GetCapabilities() {
     profiles.push_back(profile);
   }
 
-  if (media::PlatformHasVp9Support()) {
+  if (media::MediaCodecUtil::IsVp9DecoderAvailable()) {
     profile.profile = media::VP9PROFILE_ANY;
     profile.min_resolution.SetSize(0, 0);
     profile.max_resolution.SetSize(1920, 1088);
