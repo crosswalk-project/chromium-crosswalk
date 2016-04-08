@@ -630,7 +630,7 @@ void postAndWaitRenderingTask(const WebTraceLocation& location, WebThread* testT
     doneEvent->wait();
 }
 
-#if CANVAS2D_HIBERNATION_ENABLED
+#if CANVAS2D_HIBERNATION_ENABLED && CANVAS2D_BACKGROUND_RENDER_SWITCH_TO_CPU
 TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernating)
 #else
 TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernating)
@@ -683,7 +683,7 @@ TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernating)
     ::testing::Mock::VerifyAndClearExpectations(&mainMock);
 }
 
-#if CANVAS2D_HIBERNATION_ENABLED
+#if CANVAS2D_HIBERNATION_ENABLED && CANVAS2D_BACKGROUND_RENDER_SWITCH_TO_CPU
 TEST_F(Canvas2DLayerBridgeTest, BackgroundRenderingWhileHibernatingWithDeferredRenderingDisabled)
 #else
 TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernatingWithDeferredRenderingDisabled)
@@ -744,7 +744,7 @@ TEST_F(Canvas2DLayerBridgeTest, DISABLED_BackgroundRenderingWhileHibernatingWith
     postAndWaitDestroyBridgeTask(BLINK_FROM_HERE, testThread.get(), &bridge);
 }
 
-#if CANVAS2D_HIBERNATION_ENABLED
+#if CANVAS2D_HIBERNATION_ENABLED && CANVAS2D_BACKGROUND_RENDER_SWITCH_TO_CPU
 TEST_F(Canvas2DLayerBridgeTest, DisableDeferredRenderingWhileHibernating)
 #else
 TEST_F(Canvas2DLayerBridgeTest, DISABLED_DisableDeferredRenderingWhileHibernating)
@@ -1052,7 +1052,7 @@ TEST_F(Canvas2DLayerBridgeTest, DISABLED_PrepareMailboxWhileHibernating)
     postAndWaitDestroyBridgeTask(BLINK_FROM_HERE, testThread.get(), &bridge);
 }
 
-#if CANVAS2D_HIBERNATION_ENABLED
+#if CANVAS2D_HIBERNATION_ENABLED && CANVAS2D_BACKGROUND_RENDER_SWITCH_TO_CPU
 TEST_F(Canvas2DLayerBridgeTest, PrepareMailboxWhileBackgroundRendering)
 #else
 TEST_F(Canvas2DLayerBridgeTest, DISABLED_PrepareMailboxWhileBackgroundRendering)
