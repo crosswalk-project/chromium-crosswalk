@@ -553,7 +553,7 @@ void AudioRendererImpl::DecodedAudioReady(
           << audio_parameters_.sample_rate()
           << ", Channels: " << buffer->channel_count() << " vs "
           << audio_parameters_.channels();
-      HandleAbortedReadOrDecodeError(PIPELINE_ERROR_DECODE);
+      HandleAbortedReadOrDecodeError(true);
       return;
     }
 
