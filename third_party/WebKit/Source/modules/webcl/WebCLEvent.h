@@ -27,7 +27,7 @@ public:
     static PassRefPtr<WebCLEvent> create();
 
     virtual ScriptValue getInfo(ScriptState*, unsigned, ExceptionState&);
-    unsigned getProfilingInfo(int, ExceptionState&);
+    virtual ScriptValue getProfilingInfo(ScriptState*, unsigned, ExceptionState&);
     void setCallback(unsigned, WebCLCallback*, ExceptionState&);
     void release() override;
 

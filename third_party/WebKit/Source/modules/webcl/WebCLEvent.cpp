@@ -84,18 +84,20 @@ int WebCLEvent::getStatus()
     return CL_INVALID_VALUE;
 }
 
-unsigned WebCLEvent::getProfilingInfo(int paramName, ExceptionState& es)
+ScriptValue WebCLEvent::getProfilingInfo(ScriptState* scriptState, unsigned paramName, ExceptionState& es)
 {
+    v8::Isolate* isolate = scriptState->isolate();
+
     if (isReleased()) {
         es.throwWebCLException(WebCLException::INVALID_EVENT, WebCLException::invalidEventMessage);
-        return 0;
+        return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     int status = getStatus();
     unsigned properties = m_commandQueue ? m_commandQueue->getProperties() : 0;
     if (isUserEvent() || status != CL_COMPLETE || !(properties & CL_QUEUE_PROFILING_ENABLE)) {
         es.throwWebCLException(WebCLException::PROFILING_INFO_NOT_AVAILABLE, WebCLException::profilingInfoNotAvailableMessage);
-        return 0;
+        return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     cl_int err = CL_SUCCESS;
@@ -104,30 +106,30 @@ unsigned WebCLEvent::getProfilingInfo(int paramName, ExceptionState& es)
     case CL_PROFILING_COMMAND_QUEUED:
         err = clGetEventProfilingInfo(m_clEvent, CL_PROFILING_COMMAND_QUEUED, sizeof(cl_ulong), &ulongUnits, nullptr);
         if (err == CL_SUCCESS)
-            return static_cast<unsigned long long>(ulongUnits);
+            return ScriptValue(scriptState, v8::Number::New(isolate, static_cast<double>(ulongUnits)));
         break;
     case CL_PROFILING_COMMAND_SUBMIT:
         err = clGetEventProfilingInfo(m_clEvent, CL_PROFILING_COMMAND_SUBMIT, sizeof(cl_ulong), &ulongUnits, nullptr);
         if (err == CL_SUCCESS)
-            return static_cast<unsigned long long>(ulongUnits);
+            return ScriptValue(scriptState, v8::Number::New(isolate, static_cast<double>(ulongUnits)));
         break;
     case CL_PROFILING_COMMAND_START:
         err = clGetEventProfilingInfo(m_clEvent, CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &ulongUnits, nullptr);
         if (err == CL_SUCCESS)
-            return static_cast<unsigned long long>(ulongUnits);
+            return ScriptValue(scriptState, v8::Number::New(isolate, static_cast<double>(ulongUnits)));
         break;
     case CL_PROFILING_COMMAND_END:
         err = clGetEventProfilingInfo(m_clEvent, CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &ulongUnits, nullptr);
         if (err == CL_SUCCESS)
-            return static_cast<unsigned long long>(ulongUnits);
+            return ScriptValue(scriptState, v8::Number::New(isolate, static_cast<double>(ulongUnits)));
         break;
     default:
         es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
-        return 0;
+        return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     WebCLException::throwException(err, es);
-    return 0;
+    return ScriptValue(scriptState, v8::Null(isolate));
 }
 
 void WebCLEvent::setCallback(unsigned commandExecCallbackType, WebCLCallback* callback, ExceptionState& es)
