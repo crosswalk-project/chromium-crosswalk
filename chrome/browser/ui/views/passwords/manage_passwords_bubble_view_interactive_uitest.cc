@@ -7,7 +7,6 @@
 #include <utility>
 
 #include "base/command_line.h"
-#include "base/feature_list.h"
 #include "base/macros.h"
 #include "base/metrics/histogram_samples.h"
 #include "base/strings/utf_string_conversions.h"
@@ -23,7 +22,7 @@
 #include "chrome/test/base/interactive_test_utils.h"
 #include "content/public/browser/notification_types.h"
 #include "content/public/browser/render_view_host.h"
-#include "content/public/common/content_features.h"
+#include "content/public/common/content_switches.h"
 #include "net/url_request/test_url_fetcher_factory.h"
 #include "testing/gmock/include/gmock/gmock.h"
 
@@ -292,13 +291,9 @@ IN_PROC_BROWSER_TEST_F(ManagePasswordsBubbleViewTest, TwoTabsWithBubble) {
 }
 
 IN_PROC_BROWSER_TEST_F(ManagePasswordsBubbleViewTest, AutoSignin) {
-  base::FeatureList::ClearInstanceForTesting();
-  scoped_ptr<base::FeatureList> feature_list(new base::FeatureList);
-  feature_list->InitializeFromCommandLine(
-      features::kCredentialManagementAPI.name, std::string());
-  base::FeatureList::SetInstance(std::move(feature_list));
-  ASSERT_TRUE(base::FeatureList::IsEnabled(features::kCredentialManagementAPI));
-
+  // The switch enables the new UI.
+  base::CommandLine::ForCurrentProcess()->AppendSwitch(
+      switches::kEnableCredentialManagerAPI);
   ScopedVector<autofill::PasswordForm> local_credentials;
   test_form()->origin = GURL("https://example.com");
   test_form()->display_name = base::ASCIIToUTF16("Peter");
