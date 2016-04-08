@@ -1074,15 +1074,10 @@ bool ResourceFetcher::canAccessRedirect(Resource* resource, ResourceRequest& new
 
 void ResourceFetcher::updateAllImageResourcePriorities()
 {
-    if (!m_loaders)
-        return;
-
     TRACE_EVENT0("blink", "ResourceLoadPriorityOptimizer::updateAllImageResourcePriorities");
-    for (const auto& loader : m_loaders->hashSet()) {
-        ASSERT(loader);
-        Resource* resource = loader->cachedResource();
-        ASSERT(resource);
-        if (!resource->isImage())
+    for (const auto& documentResource : m_documentResources) {
+        Resource* resource = documentResource.value.get();
+        if (!resource || !resource->isImage() || !resource->isLoading())
             continue;
 
         ResourcePriority resourcePriority = resource->priorityFromClients();
