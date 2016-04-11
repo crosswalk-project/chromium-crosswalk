@@ -492,6 +492,7 @@ public class AccountSigninView extends FirstRunView
         updateProfileName();
 
         configureSpinner(false);
+        setButtonsEnabled(true);
         setUpConfirmButton();
         setUpUndoButton();
 
@@ -522,6 +523,9 @@ public class AccountSigninView extends FirstRunView
     }
 
     private void showConfirmSigninPageAccountTrackerServiceCheck() {
+        // Disable the buttons to prevent them being clicked again while waiting for the callbacks.
+        setButtonsEnabled(false);
+
         // Ensure that the AccountTrackerService has a fully up to date GAIA id <-> email mapping,
         // as this is needed for the previous account check.
         if (AccountTrackerService.get(getContext()).checkAndSeedSystemAccounts()) {
@@ -564,6 +568,11 @@ public class AccountSigninView extends FirstRunView
                             } else {
                                 showConfirmSigninPage();
                             }
+                        }
+
+                        @Override
+                        public void onCancel() {
+                            setButtonsEnabled(true);
                         }
                     });
         } else {
