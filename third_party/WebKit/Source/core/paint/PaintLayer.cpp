@@ -1277,11 +1277,12 @@ PaintLayer* PaintLayer::removeChild(PaintLayer* oldChild)
     return oldChild;
 }
 
-void PaintLayer::removeOnlyThisLayer()
+void PaintLayer::removeOnlyThisLayerAfterStyleChange()
 {
     if (!m_parent)
         return;
 
+    bool didSetPaintInvalidation = false;
     if (!RuntimeEnabledFeatures::slimmingPaintV2Enabled()) {
         DisableCompositingQueryAsserts disabler; // We need the current compositing status.
         if (isPaintInvalidationContainer()) {
@@ -1291,7 +1292,13 @@ void PaintLayer::removeOnlyThisLayer()
             DisablePaintInvalidationStateAsserts disabler;
             layoutObject()->invalidatePaintIncludingNonCompositingDescendants();
             layoutObject()->setShouldDoFullPaintInvalidationIncludingNonCompositingDescendants();
+            didSetPaintInvalidation = true;
         }
+    }
+
+    if (!didSetPaintInvalidation && isSelfPaintingLayer()) {
+        if (PaintLayer* enclosingSelfPaintingLayer = m_parent->enclosingSelfPaintingLayer())
+            enclosingSelfPaintingLayer->mergeNeedsPaintPhaseFlagsFrom(*this);
     }
 
     clipper().clearClipRectsIncludingDescendants();
@@ -1320,7 +1327,7 @@ void PaintLayer::removeOnlyThisLayer()
     m_layoutObject->destroyLayer();
 }
 
-void PaintLayer::insertOnlyThisLayer()
+void PaintLayer::insertOnlyThisLayerAfterStyleChange()
 {
     if (!m_parent && layoutObject()->parent()) {
         // We need to connect ourselves when our layoutObject() has a parent.
@@ -1334,6 +1341,23 @@ void PaintLayer::insertOnlyThisLayer()
     // Remove all descendant layers from the hierarchy and add them to the new position.
     for (LayoutObject* curr = layoutObject()->slowFirstChild(); curr; curr = curr->nextSibling())
         curr->moveLayers(m_parent, this);
+
+    // If the previous paint invalidation container is not a stacking context and this object is
+    // stacked content, creating this layer may cause this object and its descendants to change
+    // paint invalidation container.
+    bool didSetPaintInvalidation = false;
+    if (!RuntimeEnabledFeatures::slimmingPaintV2Enabled() && !layoutObject()->isLayoutView() && layoutObject()->isRooted() && layoutObject()->styleRef().isTreatedAsOrStackingContext()) {
+        const LayoutBoxModelObject& previousPaintInvalidationContainer = layoutObject()->parent()->containerForPaintInvalidation();
+        if (!previousPaintInvalidationContainer.styleRef().isStackingContext()) {
+            layoutObject()->invalidatePaintIncludingNonSelfPaintingLayerDescendants(previousPaintInvalidationContainer);
+            didSetPaintInvalidation = true;
+        }
+    }
+
+    if (!didSetPaintInvalidation && isSelfPaintingLayer()) {
+        if (PaintLayer* enclosingSelfPaintingLayer = m_parent->enclosingSelfPaintingLayer())
+            mergeNeedsPaintPhaseFlagsFrom(*enclosingSelfPaintingLayer);
+    }
 
     // Clear out all the clip rects.
     clipper().clearClipRectsIncludingDescendants();
