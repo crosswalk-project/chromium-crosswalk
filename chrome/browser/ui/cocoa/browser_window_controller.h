@@ -164,6 +164,11 @@ class Command;
   // True if the toolbar needs to be hidden in fullscreen.
   BOOL shouldHideFullscreenToolbar_;
 
+  // True if AppKit has finished exiting fullscreen before the exit animation
+  // is completed. This flag is used to ensure that |windowDidExitFullscreen|
+  // is called after the exit fullscreen animation is complete.
+  BOOL appKitDidExitFullscreen_;
+
   // The size of the original (non-fullscreen) window.  This is saved just
   // before entering fullscreen mode and is only valid when |-isFullscreen|
   // returns YES.
@@ -424,6 +429,9 @@ class Command;
 // deprecated.
 - (BOOL)isTabbedWindow;
 
+// Returns the size of the original (non-fullscreen) window.
+- (NSRect)savedRegularWindowFrame;
+
 @end  // @interface BrowserWindowController(WindowType)
 
 // Fullscreen terminology:
@@ -565,6 +573,10 @@ class Command;
 
 // Whether if the toolbar should be hidden in fullscreen.
 - (BOOL)shouldHideFullscreenToolbar;
+
+// Called by BrowserWindowFullscreenTransition when the exit animation is
+// finished.
+- (void)exitFullscreenAnimationFinished;
 
 // Resizes the fullscreen window to fit the screen it's currently on.  Called by
 // the PresentationModeController when there is a change in monitor placement or
