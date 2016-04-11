@@ -609,10 +609,12 @@ public class CustomTabToolbar extends ToolbarLayout implements LocationBar,
     private static String parsePublisherNameFromUrl(String url) {
         // TODO(ianwen): Make it generic to parse url from URI path. http://crbug.com/599298
         // The url should look like: https://www.google.com/amp/s/www.nyt.com/ampthml/blogs.html
+        // or https://www.google.com/amp/www.nyt.com/ampthml/blogs.html.
         Uri uri = Uri.parse(url);
         List<String> segments = uri.getPathSegments();
         if (segments.size() >= 3) {
-            return uri.getPathSegments().get(2);
+            if (segments.get(1).length() > 1) return segments.get(1);
+            return segments.get(2);
         }
         return url;
     }
