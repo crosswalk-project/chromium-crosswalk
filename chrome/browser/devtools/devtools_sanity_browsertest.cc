@@ -793,7 +793,7 @@ IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestShowScriptsTab) {
 // @see http://crbug.com/26312
 IN_PROC_BROWSER_TEST_F(
     DevToolsSanityTest,
-    TestScriptsTabIsPopulatedOnInspectedPageRefresh) {
+    DISABLED_TestScriptsTabIsPopulatedOnInspectedPageRefresh) {
   RunTest("testScriptsTabIsPopulatedOnInspectedPageRefresh",
           kDebuggerTestPage);
 }
@@ -910,51 +910,36 @@ IN_PROC_BROWSER_TEST_F(DevToolsSanityTest,
   RunTest("testPauseWhenLoadingDevTools", kPauseWhenLoadingDevTools);
 }
 
-// Tests that pressing 'Pause' will pause script execution if the script
-// is already running.
-#if defined(OS_LINUX) && !defined(OS_CHROMEOS) && defined(ARCH_CPU_ARM_FAMILY)
-// Timing out on linux ARM bot: https://crbug/238453
-#define MAYBE_TestPauseWhenScriptIsRunning DISABLED_TestPauseWhenScriptIsRunning
-#else
-#define MAYBE_TestPauseWhenScriptIsRunning TestPauseWhenScriptIsRunning
-#endif
 IN_PROC_BROWSER_TEST_F(DevToolsSanityTest,
-                       MAYBE_TestPauseWhenScriptIsRunning) {
+                       DISABLED_TestPauseWhenScriptIsRunning) {
   RunTest("testPauseWhenScriptIsRunning", kPauseWhenScriptIsRunning);
 }
 
 // Tests network timing.
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestNetworkTiming) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestNetworkTiming) {
   RunTest("testNetworkTiming", kSlowTestPage);
 }
 
 // Tests network size.
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestNetworkSize) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestNetworkSize) {
   RunTest("testNetworkSize", kChunkedTestPage);
 }
 
 // Tests raw headers text.
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestNetworkSyncSize) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestNetworkSyncSize) {
   RunTest("testNetworkSyncSize", kChunkedTestPage);
 }
 
 // Tests raw headers text.
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestNetworkRawHeadersText) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestNetworkRawHeadersText) {
   RunTest("testNetworkRawHeadersText", kChunkedTestPage);
 }
 
-// Tests that console messages are not duplicated on navigation back.
-#if defined(OS_WIN)
-// Flaking on windows swarm try runs: crbug.com/409285.
-#define MAYBE_TestConsoleOnNavigateBack DISABLED_TestConsoleOnNavigateBack
-#else
-#define MAYBE_TestConsoleOnNavigateBack TestConsoleOnNavigateBack
-#endif
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, MAYBE_TestConsoleOnNavigateBack) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestConsoleOnNavigateBack) {
   RunTest("testConsoleOnNavigateBack", kNavigateBackTestPage);
 }
 
-IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, TestDeviceEmulation) {
+IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, DISABLED_TestDeviceEmulation) {
   RunTest("testDeviceMetricsOverrides", "about:blank");
 }
 
@@ -1097,7 +1082,7 @@ IN_PROC_BROWSER_TEST_F(DevToolsSanityTest, AutoAttachToWindowOpen) {
   CloseDevToolsWindow();
 }
 
-IN_PROC_BROWSER_TEST_F(WorkerDevToolsSanityTest, InspectSharedWorker) {
+IN_PROC_BROWSER_TEST_F(WorkerDevToolsSanityTest, DISABLED_InspectSharedWorker) {
 #if defined(OS_WIN) && defined(USE_ASH)
   // Disable this test in Metro+Ash for now (http://crbug.com/262796).
   if (base::CommandLine::ForCurrentProcess()->HasSwitch(
@@ -1198,29 +1183,13 @@ class DevToolsPixelOutputTests : public DevToolsSanityTest {
   }
 };
 
-// This test enables switches::kUseGpuInTests which causes false positives
-// with MemorySanitizer.
-#if defined(MEMORY_SANITIZER) || defined(ADDRESS_SANITIZER) || \
-    (defined(OS_CHROMEOS) && defined(OFFICIAL_BUILD))
-#define MAYBE_TestScreenshotRecording DISABLED_TestScreenshotRecording
-#else
-#define MAYBE_TestScreenshotRecording TestScreenshotRecording
-#endif
 IN_PROC_BROWSER_TEST_F(DevToolsPixelOutputTests,
-                       MAYBE_TestScreenshotRecording) {
+                       DISABLED_TestScreenshotRecording) {
   RunTest("testScreenshotRecording", std::string());
 }
 
-// This test enables switches::kUseGpuInTests which causes false positives
-// with MemorySanitizer.
-#if defined(MEMORY_SANITIZER) || defined(ADDRESS_SANITIZER)
-#define MAYBE_TestLatencyInfoInstrumentation \
-  DISABLED_TestLatencyInfoInstrumentation
-#else
-#define MAYBE_TestLatencyInfoInstrumentation TestLatencyInfoInstrumentation
-#endif
 IN_PROC_BROWSER_TEST_F(DevToolsPixelOutputTests,
-                       MAYBE_TestLatencyInfoInstrumentation) {
+                       DISABLED_TestLatencyInfoInstrumentation) {
   WebContents* web_contents = GetInspectedTab();
   OpenDevToolsWindow(kLatencyInfoTestPage, false);
   RunTestMethod("enableExperiment", "timelineLatencyInfo");
