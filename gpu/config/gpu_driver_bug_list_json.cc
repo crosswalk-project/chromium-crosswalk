@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.58",
+  "version": "8.59",
   "entries": [
     {
       "id": 1,
@@ -1808,6 +1808,21 @@ LONG_STRING_CONST(
       "gl_renderer": "PowerVR SGX 544MP",
       "features": [
         "avda_dont_copy_pictures"
+      ]
+    },
+    {
+      "id": 158,
+      "description": "IOSurface use becomes pathologically slow over time on 10.10.",
+      "cr_bugs": [580616],
+      "os": {
+        "type": "macosx",
+        "version": {
+          "op": "=",
+          "value": "10.10"
+        }
+      },
+      "features": [
+        "disable_overlay_ca_layers"
       ]
     }
   ]
