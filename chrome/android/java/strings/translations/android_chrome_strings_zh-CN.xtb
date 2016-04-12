@@ -25,17 +25,13 @@
 <translation id="1285320974508926690">一律不翻译此网站</translation>
 <translation id="1291207594882862231">清除历史记录、Cookie、网站数据、缓存内容…</translation>
 <translation id="129553762522093515">最近关闭的标签页</translation>
+<translation id="13410144310025252">您可以在 Chrome 中浏览这些网页</translation>
 <translation id="1346090444609141578">此处未保存任何网页</translation>
 <translation id="1369915414381695676">网站 <ph name="SITE_NAME" /> 已添加</translation>
 <translation id="1373696734384179344">内存不足，无法下载所选内容。</translation>
 <translation id="138361230106469022"><ph name="FULL_NAME" />，您好！</translation>
 <translation id="1383876407941801731">搜索</translation>
 <translation id="1389974829397082527">该文件夹中没有书签</translation>
-<translation id="1390350022570422499">Chrome 现在可以通过蓝牙寻找并向您显示附近的网页。
-
-当您的设备处于解锁状态时，Chrome 会检测附近的网页。接下来，相关 Google 服务会处理这些网页，以提高网页搜索结果的质量。
-
-您可以在 Chrome 隐私设置中管理实物网。</translation>
 <translation id="1404122904123200417">嵌入位置：<ph name="WEBSITE_URL" /></translation>
 <translation id="1406000523432664303">“不跟踪”</translation>
 <translation id="1409879593029778104">系统已阻止下载 <ph name="FILE_NAME" />，因为文件已存在。</translation>
@@ -197,6 +193,7 @@
 <translation id="3656115297268584622">在 <ph name="BEGIN_LINK" />Android 设置<ph name="END_LINK" />部分开启位置信息服务。</translation>
 <translation id="3661699943263275414">第三方网站可以保存和读取 Cookie 数据</translation>
 <translation id="3672452749423051839">导航错误建议</translation>
+<translation id="3716158070938632480">附近有设备在播报网页</translation>
 <translation id="3732088672634061408">无法检索兴趣相关数据。</translation>
 <translation id="3738139272394829648">触摸搜索</translation>
 <translation id="3774280986422214650">如果您启用了此功能，您将参与到通过 Google 服务器代理 HTTPS 网页的实验中。</translation>
@@ -214,7 +211,6 @@
 <translation id="3992315671621218278">保存链接</translation>
 <translation id="4002066346123236978">标题</translation>
 <translation id="4035611068038188272">书签目前占用了 <ph name="TOTAL_OFFLINE_STORAGE_SIZE" /> 的空间。</translation>
-<translation id="403659016947612156">附近有实物网网页</translation>
 <translation id="4042870126885713738">无法解析网址或无法建立连接时显示建议</translation>
 <translation id="4056223980640387499">棕色调</translation>
 <translation id="4059119910594077751">触摸“返回”按钮即可退出全屏模式。</translation>
@@ -288,7 +284,6 @@
 <translation id="497421865427891073">前进</translation>
 <translation id="4996978546172906250">分享方式</translation>
 <translation id="5000922062037820727">已阻止（推荐）</translation>
-<translation id="5014582685689328551">使用 Chrome 浏览这些网页</translation>
 <translation id="5016205925109358554">Serif</translation>
 <translation id="5039804452771397117">允许</translation>
 <translation id="5040262127954254034">隐私设置</translation>
@@ -554,6 +549,9 @@
 <translation id="8068648041423924542">无法选择证书。</translation>
 <translation id="8069239273282989646">压缩后</translation>
 <translation id="8084156870963450514">登录后即可通过任意设备查看您的所有在线内容</translation>
+<translation id="8098570222830891427">附近有设备在通过蓝牙播报网页。当您唤醒自己的设备时，Chrome 将会搜索并显示这些网页。这些网页将经由 Google 服务进行处理，以让网页搜索结果的展示更理想。
+
+您可以在 Chrome 设置部分控制实物网。</translation>
 <translation id="8106211421800660735">信用卡号</translation>
 <translation id="813082847718468539">查看网站信息</translation>
 <translation id="8137558756159375272">“触摸搜索”会将所选字词和当前页面（作为上下文）一起发送给 Google 搜索。您可以在<ph name="BEGIN_LINK" />设置<ph name="END_LINK" />中停用此功能。</translation>
