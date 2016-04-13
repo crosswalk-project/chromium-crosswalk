@@ -144,7 +144,6 @@
         'audio/audio_input_device.h',
         'audio/audio_input_ipc.cc',
         'audio/audio_input_ipc.h',
-        'audio/audio_io.cc',
         'audio/audio_io.h',
         'audio/audio_manager.cc',
         'audio/audio_manager.h',
