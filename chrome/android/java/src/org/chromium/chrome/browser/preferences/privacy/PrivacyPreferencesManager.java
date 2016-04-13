@@ -383,7 +383,7 @@ public class PrivacyPreferencesManager implements CrashReportingPermissionManage
      */
     @Override
     public boolean isUmaUploadPermitted() {
-        return isNetworkAvailable() && (allowUploadCrashDump() || isUploadEnabledForTests());
+        return isNetworkAvailable() && allowUploadCrashDump();
     }
 
     /**
