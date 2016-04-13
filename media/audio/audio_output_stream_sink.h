@@ -44,7 +44,8 @@ class MEDIA_EXPORT AudioOutputStreamSink
   // AudioSourceCallback implementation.
   int OnMoreData(AudioBus* dest,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped) override;
+                 uint32_t frames_skipped,
+                 const StreamPosition& position) override;
   void OnError(AudioOutputStream* stream) override;
 
  private:

@@ -37,7 +37,8 @@ class MEDIA_EXPORT SineWaveAudioSource
   // Implementation of AudioSourceCallback.
   int OnMoreData(AudioBus* audio_bus,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped) override;
+                 uint32_t frames_skipped,
+                 const StreamPosition& position) override;
   void OnError(AudioOutputStream* stream) override;
 
   // The number of OnMoreData() and OnError() calls respectively.
@@ -64,7 +65,8 @@ class MEDIA_EXPORT FileSource : public AudioOutputStream::AudioSourceCallback,
   // Implementation of AudioSourceCallback.
   int OnMoreData(AudioBus* audio_bus,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped) override;
+                 uint32_t frames_skipped,
+                 const StreamPosition& position) override;
   void OnError(AudioOutputStream* stream) override;
 
  private:
@@ -97,7 +99,8 @@ class BeepingSource : public AudioOutputStream::AudioSourceCallback {
   // Implementation of AudioSourceCallback.
   int OnMoreData(AudioBus* audio_bus,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped) override;
+                 uint32_t frames_skipped,
+                 const StreamPosition& position) override;
   void OnError(AudioOutputStream* stream) override;
 
   static void BeepOnce();
