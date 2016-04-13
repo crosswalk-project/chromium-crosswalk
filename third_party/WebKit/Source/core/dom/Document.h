@@ -933,7 +933,7 @@ public:
 
     void initDNSPrefetch();
 
-    bool isInDocumentWrite() { return m_writeRecursionDepth > 0; }
+    bool isInDocumentWrite() const { return m_writeRecursionDepth > 0; }
 
     TextAutosizer* textAutosizer();
 
