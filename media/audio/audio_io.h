@@ -68,15 +68,12 @@ class MEDIA_EXPORT AudioOutputStream {
     // the number of frames it filled.  |total_bytes_delay| contains current
     // number of bytes of delay buffered by the AudioOutputStream.
     // |frames_skipped| contains the number of frames skipped by the consumer.
-    virtual int OnMoreData(AudioBus* dest,
-                           uint32_t total_bytes_delay,
-                           uint32_t frames_skipped);
-    // An alternate version which provides also device stream position,
-    // by default it just invokes the above method.
+    // |device_position| if provided, contains position of currently audible
+    // signal.
     virtual int OnMoreData(AudioBus* dest,
                            uint32_t total_bytes_delay,
                            uint32_t frames_skipped,
-                           const StreamPosition& device_position);
+                           const StreamPosition& device_position = {0, 0}) = 0;
 
     // There was an error while playing a buffer. Audio source cannot be
     // destroyed yet. No direct action needed by the AudioStream, but it is

@@ -164,7 +164,7 @@ void AudioOutputController::DoPlay() {
     return;
 
   // Ask for first packet.
-  sync_reader_->UpdatePendingBytes(0, 0);
+  sync_reader_->UpdatePendingBytes(0, 0, {0, 0});
 
   state_ = kPlaying;
 
@@ -217,7 +217,8 @@ void AudioOutputController::DoPause() {
   // Let the renderer know we've stopped.  Necessary to let PPAPI clients know
   // audio has been shutdown.  TODO(dalecurtis): This stinks.  PPAPI should have
   // a better way to know when it should exit PPB_Audio_Shared::Run().
-  sync_reader_->UpdatePendingBytes(std::numeric_limits<uint32_t>::max(), 0);
+  sync_reader_->UpdatePendingBytes(std::numeric_limits<uint32_t>::max(), 0,
+                                   {0, 0});
 
   handler_->OnPaused();
 }
