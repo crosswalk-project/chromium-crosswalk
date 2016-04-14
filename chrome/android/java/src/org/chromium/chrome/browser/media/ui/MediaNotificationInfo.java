@@ -262,8 +262,10 @@ public class MediaNotificationInfo {
                 && TextUtils.equals(title, other.title)
                 && TextUtils.equals(origin, other.origin)
                 && (image == other.image || (image != null && image.sameAs(other.image)))
-                && contentIntent.equals(other.contentIntent)
-                && listener.equals(other.listener);
+                && (contentIntent == other.contentIntent
+                        || (contentIntent != null && contentIntent.equals(other.contentIntent)))
+                && (listener == other.listener
+                        || (listener != null && listener.equals(other.listener)));
     }
 
     @Override
