@@ -882,7 +882,8 @@ void MetricsService::SendNextLog() {
 
   // Proceed to stage the log for upload if log size satisfies cellular log
   // upload constrains.
-  if (client_->IsUMACellularUploadLogicEnabled() &&
+  bool is_cellular_logic = client_->IsUMACellularUploadLogicEnabled();
+  if (is_cellular_logic && data_use_tracker_ &&
       !data_use_tracker_->ShouldUploadLogOnCellular(
           log_manager_.staged_log_hash().size())) {
     scheduler_->UploadCancelled();
