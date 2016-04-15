@@ -33,8 +33,7 @@ class OnMoreDataConverter
   // AudioSourceCallback interface.
   int OnMoreData(AudioBus* dest,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped,
-                 const StreamPosition& position) override;
+                 uint32_t frames_skipped) override;
   void OnError(AudioOutputStream* stream) override;
 
   // Sets |source_callback_|.  If this is not a new object, then Stop() must be
@@ -73,9 +72,6 @@ class OnMoreDataConverter
   // True if OnError() was ever called.  Should only be read if the underlying
   // stream has been stopped.
   bool error_occurred_;
-
-  // Information about last recodred stream output position.
-  StreamPosition device_position_;
 
   DISALLOW_COPY_AND_ASSIGN(OnMoreDataConverter);
 };
@@ -353,8 +349,7 @@ OnMoreDataConverter::OnMoreDataConverter(const AudioParameters& input_params,
       source_callback_(nullptr),
       input_bytes_per_second_(input_params.GetBytesPerSecond()),
       audio_converter_(input_params, output_params, false),
-      error_occurred_(false),
-      device_position_() {}
+      error_occurred_(false) {}
 
 OnMoreDataConverter::~OnMoreDataConverter() {
   // Ensure Stop() has been called so we don't end up with an AudioOutputStream
@@ -381,9 +376,7 @@ void OnMoreDataConverter::Stop() {
 
 int OnMoreDataConverter::OnMoreData(AudioBus* dest,
                                     uint32_t total_bytes_delay,
-                                    uint32_t frames_skipped,
-                                    const StreamPosition& position) {
-  device_position_ = position;
+                                    uint32_t frames_skipped) {
   current_total_bytes_delay_ = total_bytes_delay;
   audio_converter_.Convert(dest);
 
@@ -402,10 +395,8 @@ double OnMoreDataConverter::ProvideInput(AudioBus* dest,
                    buffer_delay.InSecondsF() * input_bytes_per_second_));
 
   // Retrieve data from the original callback.
-  const int frames = source_callback_->OnMoreData(dest,
-                                                  new_total_bytes_delay,
-                                                  0,
-                                                  device_position_);
+  const int frames =
+      source_callback_->OnMoreData(dest, new_total_bytes_delay, 0);
 
   // Zero any unfilled frames if anything was filled, otherwise we'll just
   // return a volume of zero and let AudioConverter drop the output.
