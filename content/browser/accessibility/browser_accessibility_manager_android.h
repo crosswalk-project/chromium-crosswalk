@@ -77,7 +77,7 @@ class CONTENT_EXPORT BrowserAccessibilityManagerAndroid
   // Implementation of BrowserAccessibilityManager.
   void NotifyAccessibilityEvent(ui::AXEvent event_type,
                                 BrowserAccessibility* node) override;
-  void OnLocationChanges(
+  void SendLocationChangeEvents(
       const std::vector<AccessibilityHostMsg_LocationChangeParams>& params)
           override;
 
