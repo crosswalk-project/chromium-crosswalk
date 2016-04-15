@@ -85,6 +85,14 @@
             "settingName": "consoleTimestampsEnabled",
             "settingType": "boolean",
             "defaultValue": false
+        },
+        {
+            "type": "setting",
+            "category": "Console",
+            "title": "Autocomplete from history",
+            "settingName": "consoleHistoryAutocomplete",
+            "settingType": "boolean",
+            "defaultValue": true
         }
     ],
     "dependencies": [
