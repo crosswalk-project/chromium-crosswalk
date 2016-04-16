@@ -42,6 +42,7 @@
 #include "core/dom/MessagePort.h"
 #include "core/frame/LocalDOMWindow.h"
 #include "core/frame/UseCounter.h"
+#include "core/frame/csp/ContentSecurityPolicy.h"
 #include "modules/EventTargetModules.h"
 #include "modules/serviceworkers/ServiceWorker.h"
 #include "modules/serviceworkers/ServiceWorkerContainerClient.h"
@@ -252,6 +253,14 @@ ScriptPromise ServiceWorkerContainer::registerServiceWorker(ScriptState* scriptS
     if (!m_provider->validateScopeAndScriptURL(patternURL, scriptURL, &webErrorMessage)) {
         resolver->reject(V8ThrowException::createTypeError(scriptState->isolate(), WebString::fromUTF8("Failed to register a ServiceWorker: " + webErrorMessage.utf8())));
         return promise;
+    }
+
+    ContentSecurityPolicy* csp = executionContext->contentSecurityPolicy();
+    if (csp) {
+        if (!csp->allowWorkerContextFromSource(scriptURL, ContentSecurityPolicy::DidNotRedirect, ContentSecurityPolicy::SendReport)) {
+            resolver->reject(DOMException::create(SecurityError, "Failed to register a ServiceWorker: The provided scriptURL ('" + scriptURL.getString() + "') violates the Content Security Policy."));
+            return promise;
+        }
     }
 
     m_provider->registerServiceWorker(patternURL, scriptURL, new RegistrationCallback(resolver));
