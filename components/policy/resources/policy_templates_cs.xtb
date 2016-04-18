@@ -70,7 +70,6 @@ Není-li tato zásada nastavena, výchozí frekvence je 3 hodiny. Minimální po
 
       Pokud tato zásada není nastavena nebo je nastavena na hodnotu false, v protokolu TLS nebudou povoleny šifrovací sady RC4. Nastavením této zásady na hodnotu true je možné zajistit kompatibilitu se zastaralým serverem. Toto nastavení by však mělo být použito pouze jako dočasné nouzové opatření a server by měl být překonfigurován.</translation>
 <translation id="1297182715641689552">Použít skript proxy serveru ve formátu PAC</translation>
-<translation id="1300635491585192248">Předvídat síťové akce u všech nemobilních sítí</translation>
 <translation id="1304973015437969093">ID aplikací/rozšíření a adresy URL aktualizací, které se mají nainstalovat na pozadí</translation>
 <translation id="1310699457130669094">Zde můžete zadat adresu URL souboru PAC proxy serveru.
 
@@ -96,6 +95,7 @@ Hodnota prodloužení musí být 100 % nebo více.</translation>
 <translation id="1359553908012294236">Pokud je tato zásada nastavena na hodnotu True nebo nastavena není, prohlížeč <ph name="PRODUCT_NAME" /> povolí přihlášení hosta. Přihlášení hosta v prohlížeči <ph name="PRODUCT_NAME" /> jsou profily, ve kterých jsou všechna okna v anonymním režimu.
 
 Pokud je tato zásada nastavena na hodnotu False, <ph name="PRODUCT_NAME" /> vytváření profilů hosta nepovolí.</translation>
+<translation id="1363275621236827384">Povolit dotazy na server Quirks pro hardwarové profily</translation>
 <translation id="1397855852561539316">URL výchozího vyhledávače pro návrhy</translation>
 <translation id="1398889361882383850">Umožňuje nastavit, zda weby budou moci automaticky spouštět pluginy. Automatické spouštění pluginů lze pro všechny weby povolit, nebo zakázat.
 
@@ -563,14 +563,6 @@ Pokud zásadu nenastavíte, bude se považovat za aktivované (viz popis výše)
           Pokud je tato zásada nastavena na hodnotu true nebo není nastavena vůbec, není přehrávání zvuku považováno za nečinnost uživatele. V takovém případě nebude dosažena prodleva režimu nečinnosti a nebude provedena úsporná akce. Bez ohledu na aktivitu zvukových zařízení však po stanovené době dojde ke snížení jasu, vypnutí a uzamčení obrazovky.
 
           Pokud je tato zásada nastavena na hodnotu false, přehrávání zvuku je považováno za nečinnost uživatele.</translation>
-<translation id="2948381198510798695">U hostitelů v tomto seznamu vynechá aplikace <ph name="PRODUCT_NAME" /> všechny servery proxy.
-
-          Tato zásada bude použita pouze v případě, že jste v části „Zvolte způsob konfigurace nastavení proxy serveru“ zvolili ruční nastavení proxy serveru.
-
-          Pokud jste vybrali jiný režim nastavení zásad proxy serveru, neměli byste tuto zásadu nastavovat.
-
-          Podrobnější příklady naleznete na následující adrese:
-          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Podpora této zásady byla ve verzi 36 prohlížeče <ph name="PRODUCT_NAME" /> ukončena.
 
       Určuje, zda má být povoleno rozšíření certifikátů svázaných s doménami.
@@ -730,6 +722,13 @@ Pokud tuto zásadu nenastavíte, použije se pro všechny webové stránky glob�
 
       Hodnotu zásady je třeba zadat v milisekundách. Hodnoty se mohou pohybovat v rozmezí od 30 sekund do 24 hodin.</translation>
 <translation id="3528000905991875314">Aktivovat alternativní chybové stránky</translation>
+<translation id="3538538104630456270">Přidružené nastavení bylo používáno před zavedením opětovného ověření při zobrazení hesel. Od té doby nemá toto nastavení a tedy ani tato zásada na chování Chromu žádný vliv. Chrome se nyní chová stejně, jako kdyby v této zásadě bylo zobrazení hesel v čitelné podobě na stránce správce hesel zakázáno. To znamená, že stránka nastavení obsahuje pouze zástupný symbol a Chrome heslo zobrazí, jen když uživatel klikne na Zobrazit (a případně také provede opětovné ověření). Níže uvádíme původní popis zásady.
+          
+Určuje, zda mohou uživatelé ve správci hesel zobrazit hesla jako čitelný text.
+          
+Pokud toto nastavení deaktivujete, v okně správce hesel nebude možné zobrazit uložená hesla jako čitelný text.
+
+Pokud tuto zásadu aktivujete nebo ji nenastavíte, uživatelé budou ve správci hesel moci zobrazit uložená hesla jako čitelný text.</translation>
 <translation id="3547954654003013442">Nastavení proxy serveru</translation>
 <translation id="3570008976476035109">Blokovat pluginy na těchto stránkách</translation>
 <translation id="3591584750136265240">Konfigurace chování přihlašovacího ověření</translation>
@@ -819,18 +818,6 @@ Není-li tato zásada nastavena, výchozí frekvence jsou tři minuty. Minimáln
 
       Každý záznam v seznamu obsahuje adresář, který musí zahrnovat ID rozšíření v poli „extension-id“ a jeho webovou adresu pro aktualizace v poli „update-url“.</translation>
 <translation id="3891357445869647828">Povolit JavaScript</translation>
-<translation id="389421284571827139">Umožňuje zadat proxy server, který bude aplikací <ph name="PRODUCT_NAME" /> používán, a brání uživatelům měnit nastavení proxy serveru.
-
-      Pokud se rozhodnete proxy server nikdy nepoužívat a vždy se připojovat přímo, budou všechny ostatní možnosti ignorovány.
-
-      Pokud zvolíte možnost automatického zjišťování proxy serveru, budou všechny ostatní možnosti ignorovány.
-
-     Podrobné příklady naleznete na následující adrese:
-      <ph name="PROXY_HELP_URL" />
-
-      Pokud toto nastavení aktivujete, bude aplikace <ph name="PRODUCT_NAME" /> ignorovat veškeré možnosti týkající se proxy serveru zadané pomocí příkazového řádku.
-
-      Pokud tyto zásady nenastavíte, umožníte uživatelům nastavovat proxy server dle jejich uvážení.</translation>
 <translation id="3907986150060929099">Nastavit doporučené jazyky pro veřejnou relaci</translation>
 <translation id="391531815696899618">Pokud má hodnotu True, deaktivuje synchronizaci aplikace Soubory systému <ph name="PRODUCT_OS_NAME" /> s Diskem Google. Na Disk Google se v tomto případě nebudou nahrávat žádná data.
 
@@ -1076,13 +1063,6 @@ Pokud ji ponecháte nenastavenou, lupa bude ve výchozím nastavení deaktivová
           Hodnota musí být pole slovníků JSON převedených na řetězce. Každý slovník musí mít tvar { "pattern": "$URL_PATTERN", "filter" : $FILTER }, kde $URL_PATTERN je vzor nastavení obsahu. $FILTER omezuje klientské certifikáty, ze kterých bude prohlížeč automaticky vybírat. Nezávisle na filtru budou vybrány pouze ty certifikáty, které odpovídají žádosti serveru o certifikát. Pokud má $FILTER tvar { "ISSUER": { "CN": "$ISSUER_CN" } }, budou navíc vybrány pouze ty klientské certifikáty, které byly vydány certifikátem s běžným názvem $ISSUER_CN. Pokud je $FILTER prázdný slovník {}, výběr klientských certifikátů není nijak dále omezen.
 
           Je-li tato zásada ponechána nenastavená, nebude se automatický výběr provádět pro žádný web.</translation>
-<translation id="4980301635509504364">Povoluje nebo zakazuje záznam videa.
-
-Pokud je tato zásada aktivní nebo není nakonfigurována (výchozí nastavení), uživatel bude vyzván k udělení přístupu pro záznam videa (s výjimkou adres URL nakonfigurovaných v seznamu VideoCaptureAllowedUrls, kterým bude přístup udělen bez vyzvání).
-
-Pokud je tato zásada deaktivována, uživateli se výzva nikdy nezobrazí a záznam videa bude k dispozici pouze u adres URL uvedených na seznamu VideoCaptureAllowedUrls.
-
-Tato zásada ovlivňuje kromě integrované webové kamery i všechny ostatní vstupy videa.</translation>
 <translation id="4980635395568992380">Typ údajů:</translation>
 <translation id="4983201894483989687">Povolit spouštění zastaralých pluginů</translation>
 <translation id="4988291787868618635">Akce prováděná po určité době nečinnosti</translation>
@@ -1293,9 +1273,6 @@ Pokud se prohlížeči <ph name="PRODUCT_NAME" /> údaje o stavu odvolání zís
 
 Pokud tato zásada není nastavena nebo je nastavena na hodnotu false, prohlížeč <ph name="PRODUCT_NAME" /> použije existující online nastavení kontroly odvolání.</translation>
 <translation id="5732972008943405952">Importovat při prvním spuštění údaje automatického vyplňování formulářů z výchozího prohlížeče</translation>
-<translation id="5761030451068906335">Nakonfiguruje nastavení proxy serveru pro službu <ph name="PRODUCT_NAME" />.
-
-      Tato zásada zatím není připravena k použití. Nepoužívejte ji prosím.</translation>
 <translation id="5765780083710877561">Popis:</translation>
 <translation id="5770738360657678870">Verze pro vývojáře (mohou být nestabilní)</translation>
 <translation id="5774856474228476867">Adresa URL vyhledávání výchozího poskytovatele vyhledávání</translation>
@@ -1320,13 +1297,6 @@ Pokud tato zásada není nastavena nebo je nastavena na hodnotu false, prohlíž
       Seznam proměnných, které můžete použít, naleznete na stránce https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
 
           Pokud tuto zásadu ponecháte nenastavenou, použije se výchozí adresář.</translation>
-<translation id="5819660021114910752">Udává časové pásmo, která se má pro zařízení použít. Uživatelé mohou zadané časové pásmo pro aktuální relaci přepsat. Při odhlášení se však nastaví zpět na zadané časové pásmo. Pokud zadáte neplatnou hodnotu, bude zásada aktivována s použitím hodnoty „GMT“. Pokud zadáte prázdný řetězec, bude tato zásada ignorována.
-
-      Pokud tato zásada není použita, bude i nadále používáno časové pásmo, které je aktuálně aktivní, ale uživatelé časové pásmo budou moci změnit a změna bude trvalá. Změna provedená jedním uživatelem tak bude mít dopad na přihlašovací obrazovku i na všechny ostatní uživatele.
-
-      V nových zařízeních je časové pásmo nastaveno na americký tichomořský čas („US/Pacific“).
-
-      Formát hodnot odpovídá názvům časových pásem v databázi IANA Time Zone Database (viz https://en.wikipedia.org/wiki/Tz_database). Název většiny časových pásem má tvar kontinent/velké_město nebo oceán/velké_město.</translation>
 <translation id="5826047473100157858">Určuje, zda uživatel může v aplikaci <ph name="PRODUCT_NAME" /> otevřít stránky v anonymním režimu. 
 
      Je-li zvolena možnost Povoleno, stránky lze otevřít v anonymním režimu.
@@ -1530,22 +1500,6 @@ Pokud toto nastavení deaktivujete, uživatelé funkci Smart Lock nebudou moci p
 
 Pokud tato zásada není nastavena, pro uživatele spravované organizací bude nastavení zakázáno a pro ostatní uživatele povoleno.</translation>
 <translation id="6491139795995924304">Povolit na zařízení Bluetooth</translation>
-<translation id="6513756852541213407">Umožňuje určit proxy server, který bude aplikace <ph name="PRODUCT_NAME" /> používat, a brání uživatelům, aby nastavení proxy serveru změnili.
-
-          Pokud se rozhodnete proxy server nikdy nepoužívat a vždy se připojovat přímo, budou všechny ostatní možnosti ignorovány.
-
-         Pokud se rozhodnete používat systémová nastavení proxy serveru nebo proxy server zjišťovat automaticky, budou všechny ostatní možnosti ignorovány.
-
-         Pokud zvolíte režim pevně daného proxy serveru, můžete zvolit další možnosti v částech „Adresa (nebo adresa URL) proxy serveru“ a „Seznam pravidel vynechání proxy serveru oddělených čárkami“.
-
-          Pokud se rozhodnete použít skript PAC proxy serveru, je nutné zadat v části „Adresa URL souboru PAC proxy serveru“ adresu URL.
-
-          Podrobné příklady naleznete na následující adrese:
-          <ph name="PROXY_HELP_URL" />
-
-          Pokud toto nastavení aktivujete, bude aplikace <ph name="PRODUCT_NAME" /> ignorovat veškeré možnosti týkající se serverů proxy zadané pomocí příkazového řádku.
-
-          Pokud zásadu nenastavíte, mohou uživatelé zvolit nastavení serverů proxy podle svého uvážení.</translation>
 <translation id="6520802717075138474">Importování vyhledávačů z výchozího prohlížeče při prvním spuštění</translation>
 <translation id="653608967792832033">Udává dobu nečinnosti uživatele, po které bude obrazovka při napájení z baterie uzamčena.
 
@@ -1624,22 +1578,6 @@ Pokud zásadu nastavíte na hodnotu Vždy, Nikdy nebo Pouze Wi-Fi, uživatelé j
 
 Není-li tato zásada nastavena na konkrétní hodnotu, bude předvídání sítě aktivováno, ale uživatelé budou moci nastavení změnit.</translation>
 <translation id="6658245400435704251">Určí počet sekund, o který může zařízení náhodně zdržet stahování aktualizace od doby, kdy byla poprvé zveřejněna na serveru. Zařízení může čekat určitý čas a pokusit se o určitý počet kontrol aktualizací. Zpoždění je však v každém případě omezeno neměnným maximálním časovým limitem tak, aby zařízení nečekalo na stažení aktualizace donekonečna.</translation>
-<translation id="6672934768721876104">Tato zásada se již nepoužívá. Namísto ní prosím použijte zásadu ProxyMode.
-
-          Umožňuje zadat proxy server, který bude aplikací <ph name="PRODUCT_NAME" /> používán, a brání uživatelům měnit nastavení proxy serveru.
-
-          Pokud se rozhodnete proxy server nikdy nepoužívat a vždy se připojovat přímo, budou všechny ostatní možnosti ignorovány.
-
-          Pokud se rozhodnete používat systémová nastavení proxy serveru nebo proxy server zjišťovat automaticky, budou všechny ostatní možnosti ignorovány.
-
-         Pokud zvolíte možnost ručního nastavení proxy serveru, můžete zvolit další možnosti v částech „Adresa (nebo adresa URL) proxy serveru“, „Adresa URL souboru PAC proxy serveru“ a „Seznam pravidel vynechání proxy serveru oddělených čárkami“.
-
-          Podrobné příklady naleznete na následující adrese:
-          <ph name="PROXY_HELP_URL" />
-
-          Pokud toto nastavení aktivujete, bude aplikace <ph name="PRODUCT_NAME" /> ignorovat veškeré možnosti týkající se serverů proxy zadané pomocí příkazového řádku.
-
-          Pokud zásadu nenastavíte, mohou uživatelé zvolit nastavení proxy podle svého uvážení.</translation>
 <translation id="6689792153960219308">Nahlásit stav hardwaru</translation>
 <translation id="6693751878507293182">Pokud toto nastavení aktivujete, budou automatické vyhledávání a instalace chybějících pluginů v aplikaci <ph name="PRODUCT_NAME" /> zakázány.
 
@@ -1776,6 +1714,7 @@ Tato zásada není k dispozici v instancích Windows, které nejsou připojen�
 
       Pokud zásada nastavena není, uživatel seznam aplikací ve spouštěči změnit může.</translation>
 <translation id="7132877481099023201">Adresy URL, kterým bude udělen přístup pro záznam videa bez zobrazení výzvy</translation>
+<translation id="7167436895080860385">Umožnit uživatelům zobrazit hesla ve Správci hesel (podpora ukončena)</translation>
 <translation id="7173856672248996428">Dočasný profil</translation>
 <translation id="7187256234726597551">Pokud je tato zásada nastavena na hodnotu true, bude pro zařízení povolena vzdálená atestace a bude automaticky vygenerován certifikát, který se nahraje na server správy zařízení.
 
@@ -2095,6 +2034,7 @@ Tato zásada je určena k internímu použití prohlížečem <ph name="PRODUCT_
 <translation id="8197918588508433925">Tato zásada určuje povolená rozšíření, která mohou ke vzdálenému ověření identity použít rozhraní Enterprise Platform Keys API chrome.enterprise.platformKeysPrivate.challengeUserKey(). Rozšíření oprávněná používat rozhraní API musí být přidána do tohoto seznamu.
 
           Pokud rozšíření není na seznamu nebo seznam není nastaven, volání rozhraní API se nezdaří a zobrazí se kód chyby.</translation>
+<translation id="8214600119442850823">Konfiguruje správce hesel.</translation>
 <translation id="8244525275280476362">Maximální zpoždění načítání po zneplatnění zásady</translation>
 <translation id="8256688113167012935">Řídí, jaký název účtu systém <ph name="PRODUCT_OS_NAME" /> zobrazí na přihlašovací obrazovce pro odpovídající místní účet v zařízení.
 
@@ -2267,6 +2207,12 @@ Pokud tato zásada není nakonfigurována nebo je hodnota nižší než 1 MB, <p
 <translation id="8858642179038618439">Vynutit Bezpečný režim YouTube</translation>
 <translation id="8864975621965365890">Potlačuje oznámení o ukončení podpory, která se zobrazuje, když je web vykreslován pomocí pluginu <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Domovská stránka</translation>
+<translation id="8889588091638298603">Server Quirks poskytuje konfigurační soubory týkající se hardwaru, například profily ICC displeje pro úpravu kalibrace monitoru.
+
+Pokud tuto zásadu nastavíte na hodnotu False, zařízení se nepokusí kontaktovat server Quirks za účelem stažení konfiguračních souborů.
+
+Pokud tuto zásadu nenakonfigurujete nebo nastavíte na hodnotu True,
+systém <ph name="PRODUCT_OS_NAME" /> bude sever Quirks automaticky kontaktovat, stahovat z něj dostupné konfigurační soubory a ukládat je do zařízení.Tyto soubory mohou sloužit například k vylepšení kvality zobrazení na připojených monitorech.</translation>
 <translation id="8905426178924715309">Podpora této zásady byla ukončena, použijte namísto ní zásady ForceGoogleSafeSearch a ForceYouTubeSafetyMode. Pokud je nastavena zásada ForceGoogleSafeSearch nebo ForceYouTubeSafetyMode, tato zásada bude ignorována.
 
 Vynutí, aby se při použití Vyhledávání Google vždy aktivovalo Bezpečné vyhledávání, a zabrání uživatelům toto nastavení změnit. Toto nastavení také vynutí bezpečný režim na YouTube.

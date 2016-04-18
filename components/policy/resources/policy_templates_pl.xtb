@@ -63,7 +63,6 @@
 
       Jeśli ta zasada nie jest ustawiona lub jest wyłączona, to mechanizmy szyfrowania RC4 w TLS będą wyłączone. Można ją włączyć dla zachowania zgodności z przestarzałym serwerem. Jest to rozwiązanie tymczasowe i konieczna jest zmiana konfiguracji serwera.</translation>
 <translation id="1297182715641689552">Używaj skryptu PAC serwera proxy</translation>
-<translation id="1300635491585192248">Przewiduj działania w dowolnej sieci innej niż komórkowa</translation>
 <translation id="1304973015437969093">Identyfikatory rozszerzeń/aplikacji i adresy URL aktualizacji, które mają być instalowane dyskretnie</translation>
 <translation id="1310699457130669094">W tym miejscu możesz podać URL pliku PAC serwera proxy. Ta zasada obowiązuje tylko po wybraniu ręcznego konfigurowania ustawień proxy za pomocą opcji „Wybierz sposób określenia ustawień serwera proxy”. Szczegółowe przykłady można znaleźć na  <ph name="PROXY_HELP_URL" /></translation>
 <translation id="1313457536529613143">Określa wartość procentową skalowania opóźnienia przyciemnienia ekranu, gdy aktywność użytkownika zostanie wykryta po przyciemnieniu lub wkrótce po wyłączeniu ekranu.
@@ -82,6 +81,7 @@
 <translation id="1359553908012294236">Jeśli ta zasada jest włączona lub nieskonfigurowana, <ph name="PRODUCT_NAME" /> będzie umożliwiać logowanie się w trybie gościa. Dane logowania gościa to profile <ph name="PRODUCT_NAME" />, dla których wszystkie okna otwierają się w trybie incognito.
 
       Jeśli zasada jest wyłączona, <ph name="PRODUCT_NAME" /> nie zezwala na uruchamianie sesji gościa.</translation>
+<translation id="1363275621236827384">Włącz wysyłanie zapytań o profile sprzętowe do Quirks Server</translation>
 <translation id="1397855852561539316">Adres URL usługi propozycji od domyślnego dostawcy wyszukiwania</translation>
 <translation id="1398889361882383850">Pozwala określić, czy strony będą mogły automatycznie uruchamiać wtyczki. Automatyczne uruchamianie wtyczek może być dozwolone dla wszystkich witryn lub zabronione dla wszystkich witryn.
 
@@ -534,7 +534,6 @@
           Jeśli wartość tej zasady to Prawda lub nie jest ona ustawiona, podczas odtwarzania dźwięku nieaktywność użytkownika nie jest brana pod uwagę. Uniemożliwia to przekroczenie limitu bezczynności oraz wykonanie związanego z tym działania. Jednak niezależnie od aktywności związanej z dźwiękiem przyciemnienie, wyłączenie i zablokowanie ekranu zostanie wykonane po osiągnięciu skonfigurowanych opóźnień.
 
           Jeśli wartość tej zasady to Fałsz, aktywność związana z dźwiękiem nie wyklucza postrzegania użytkownika jako bezczynnego.</translation>
-<translation id="2948381198510798695">W przypadku hostów wymienionych na tej liście przeglądarka <ph name="PRODUCT_NAME" /> omija serwer proxy. Ta zasada obowiązuje tylko wówczas, gdy ręcznie wprowadzisz ustawienia serwera proxy za pomocą opcji „Wybierz sposób określenia ustawień serwera proxy”. Szczegółowe przykłady można znaleźć na <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Ta zasada została wycofana w wersji 36 <ph name="PRODUCT_NAME" />.
 
       Określa, czy ma być włączone rozszerzenie certyfikatów TLS powiązanych z domeną.
@@ -684,6 +683,13 @@
 
       Wartość opcji należy podać w milisekundach. Wartości są dopasowywane do przedziału od 30 sekund od 24 godzin.</translation>
 <translation id="3528000905991875314">Włącz alternatywne strony błędów</translation>
+<translation id="3538538104630456270">To ustawienie było używane przed wprowadzeniem ponownego uwierzytelniania przy wyświetleniu haseł. Po wprowadzeniu ponownego uwierzytelniania ustawienie i zasada nie mają żadnego wpływu na działanie Chrome. Obecnie Chrome działa tak, jakby zasada wyłączała wyświetlanie tekstu haseł na stronie ustawień menedżera haseł. Oznacza to, że na stronie ustawień znajduje się tylko element zastępczy, a dopiero po kliknięciu przez użytkownika „Pokaż” (i ponownym uwierzytelnieniu, jeśli jest wymagane) Chrome pokaże hasło. Poniżej wcześniejszy opis tej zasady.
+
+          Pozwala określić, czy użytkownik może wyświetlać tekst haseł w menedżerze haseł.
+
+          Jeśli wyłączysz to ustawienie, w oknie menedżera haseł nie będzie można wyświetlać tekstu przechowywanych haseł.
+
+          W przypadku włączenia lub nieskonfigurowania tej zasady użytkownicy będą mogli wyświetlać tekst haseł w menedżerze haseł.</translation>
 <translation id="3547954654003013442">Ustawienia serwera proxy</translation>
 <translation id="3570008976476035109">Blokuj wtyczki w tych witrynach</translation>
 <translation id="3591584750136265240">Skonfiguruj sposób uwierzytelniania logowania</translation>
@@ -767,7 +773,6 @@
 
        Każda pozycja listy zawiera słownik, w którym obowiązkowe pola „extension-id” i „update-url” muszą zawierać odpowiednio identyfikator rozszerzenia i adres URL aktualizacji.</translation>
 <translation id="3891357445869647828">Włącz obsługę języka JavaScript</translation>
-<translation id="389421284571827139">Pozwala określić serwer proxy używany w <ph name="PRODUCT_NAME" /> i uniemożliwia użytkownikom zmianę jego ustawień. Jeśli zdecydujesz się nie korzystać z serwera proxy i zawsze bezpośrednio nawiązywać połączenia, wszystkie pozostałe opcje będą ignorowane. Są one ignorowane również w przypadku automatycznego wykrywania serwera proxy. Szczegółowe przykłady można znaleźć na <ph name="PROXY_HELP_URL" />. Jeśli ustawienie jest włączone, <ph name="PRODUCT_NAME" /> ignoruje wszystkie opcje dotyczące serwera proxy określone w wierszu polecenia. W przypadku nieustawienia tych zasad użytkownicy będą mogli samodzielnie określić ustawienie serwera proxy.</translation>
 <translation id="3907986150060929099">Ustaw zalecane języki dla sesji publicznej</translation>
 <translation id="391531815696899618">Po ustawieniu wartości prawda wyłącza synchronizację Dysku Google w aplikacji Pliki w <ph name="PRODUCT_OS_NAME" />. Żadne dane nie są przesyłane na Dysk Google.
 
@@ -989,16 +994,6 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
           Wartość musi być tablicą słowników JSON odwzorowanych na ciąg. Każdy słownik musi mieć postać { "pattern": "$URL_PATTERN", "filter" : $FILTER }, gdzie $URL_PATTERN jest wzorcem ustawiającym zawartość. $FILTER ogranicza certyfikaty klienta, spośród których przeglądarka może dokonać automatycznego wyboru. Niezależnie od filtra wybierane mogą być tylko te certyfikaty, które są zgodne z żądaniem certyfikatu serwera. Jeśli $FILTER ma postać { "ISSUER": { "CN": "$ISSUER_CN" } }, to dodatkowo wybierane będą tylko te certyfikaty klienta, które zostały wydane przez certyfikat z CommonName $ISSUER_CN. Jeśli $FILTER jest pustym słownikiem {}, wybór certyfikatów klienta nie jest dodatkowo ograniczany.
 
           Jeśli ta zasada nie jest ustawiona, automatyczna selekcja nie będzie przeprowadzana w żadnej witrynie.</translation>
-<translation id="4980301635509504364">Zezwala na przechwytywanie wideo lub tego zabrania.
-
-      Jeśli ta zasada jest włączona lub nie jest skonfigurowana (ustawienie domyślne),
-      użytkownik jest pytany o pozwolenie na przechwytywanie wideo, chyba że dany URL 
-      jest na liście VideoCaptureAllowedUrls – wtedy pozwolenie jest udzielane bez pytania.
-
-      Gdy zasada jest wyłączona, użytkownik nigdy nie jest pytany, a przechwytywanie wideo
-      jest dostępne tylko dla stron, których adresy URL są na liście VideoCaptureAllowedUrls.
-
-      Zasada dotyczy wszystkich typów wejść wideo, a nie tylko wbudowanej kamery.</translation>
 <translation id="4980635395568992380">Typ danych:</translation>
 <translation id="4983201894483989687">Zezwalaj na uruchamianie nieaktualnych wtyczek</translation>
 <translation id="4988291787868618635">Działanie, jakie ma zostać wykonane po osiągnięciu opóźnienia bezczynności</translation>
@@ -1182,7 +1177,6 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
       Jeśli nie ustawisz tej zasady lub wybierzesz wartość fałsz, <ph name="PRODUCT_NAME" /> będzie korzystać z istniejących ustawień sprawdzania online, czy certyfikaty nie zostały unieważnione.</translation>
 <translation id="5732972008943405952">Importuj dane autouzupełniania formularzy z przeglądarki domyślnej przy pierwszym uruchomieniu</translation>
-<translation id="5761030451068906335">Konfiguruje ustawienia serwera proxy w <ph name="PRODUCT_NAME" />. Zasada nie jest jeszcze gotowa, więc nie należy jej używać.</translation>
 <translation id="5765780083710877561">Opis:</translation>
 <translation id="5770738360657678870">Wersja deweloperska (może być niestabilna)</translation>
 <translation id="5774856474228476867">Adres URL wyszukiwarki od domyślnego dostawcy wyszukiwania</translation>
@@ -1207,13 +1201,6 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
       Na https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables znajdziesz listę zmiennych, których możesz użyć.
 
       Gdy ta opcja nie jest ustawiona, obowiązuje domyślny katalog profilu.</translation>
-<translation id="5819660021114910752">Określa strefę czasową używaną na urządzeniu. Użytkownicy mogą zastąpić obowiązującą strefę czasową na czas bieżącej sesji. Jednak po wylogowaniu ponownie ustawiana jest pierwotna strefa czasowa. Jeśli podasz nieprawidłową wartość, zasada jest aktywowana z ustawieniem „GMT”. Gdy wartość to pusty ciąg znaków, zasada jest ignorowana.
-
-      Jeśli nie zastosujesz tej zasady, aktualnie aktywna strefa czasowa nadal obowiązuje, ale użytkownicy mogą zmienić ją na stałe. Zmiana wprowadzona przez jednego użytkownika wpływa na ekran logowania i konta wszystkich innych użytkowników.
-
-      Nowe urządzenia mają strefę czasową „Stany Zjednoczone/Czas pacyficzny”.
-
-      Format wartości musi być zgodny z nazwami stref czasowych w bazie danych stref czasowych IANA (zobacz https://en.wikipedia.org/wiki/Tz_database – strona w języku angielskim). To oznacza, że większość stref czasowych można podawać w formacie „kontynent/duże_miasto” lub „ocean/duże_miasto”.</translation>
 <translation id="5826047473100157858">Określa, czy użytkownik może otwierać strony w trybie incognito w <ph name="PRODUCT_NAME" />. W przypadku opcji „Włączone” lub nieskonfigurowania zasady strony mogą być otwierane w tym trybie. Opcja „Wyłączone” uniemożliwia otwieranie stron w tym trybie. Po wybraniu opcji „Wymuszone” strony można otwierać TYLKO w trybie incognito.</translation>
 <translation id="5836064773277134605">Ogranicz zakres portów UDP używanych przez host zdalnego dostępu</translation>
 <translation id="5845159892130426052">Włącz interfejs ShowModalDialog API do 30.04.2015</translation>
@@ -1401,7 +1388,6 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
       Jeśli zasada pozostanie nieustawiona, funkcja Smart Lock będzie domyślnie niedostępna dla użytkowników zarządzanych przez firmę i dostępna dla użytkowników niezarządzanych.</translation>
 <translation id="6491139795995924304">Włącz Bluetooth na urządzeniu</translation>
-<translation id="6513756852541213407">Pozwala określić serwer proxy używany w <ph name="PRODUCT_NAME" /> i uniemożliwia użytkownikom zmianę jego ustawień. Jeśli zdecydujesz się nie korzystać z serwera proxy i zawsze bezpośrednio nawiązywać połączenia, wszystkie pozostałe opcje będą ignorowane. Są one ignorowane również w przypadku użycia systemowych ustawień serwera proxy lub automatycznego wykrywania serwera proxy. Jeśli wybierzesz tryb stałego serwera proxy, możesz określić dodatkowe opcje w polach „Adres URL serwera proxy” i „Lista rozdzielonych przecinkami reguł omijania serwera proxy”. W przypadku użycia skryptu PAC serwera proxy musisz w polu „Adres URL pliku PAC serwera proxy” określić adres URL skryptu. Szczegółowe przykłady można znaleźć na stronie <ph name="PROXY_HELP_URL" />. Jeśli ustawienie jest włączone, <ph name="PRODUCT_NAME" /> ignoruje wszystkie opcje dotyczące serwera proxy określone w wierszu polecenia. W przypadku nieskonfigurowania tej zasady użytkownicy będą mogli samodzielnie wybrać ustawienia proxy.</translation>
 <translation id="6520802717075138474">Importuj wyszukiwarki z przeglądarki domyślnej przy pierwszym uruchomieniu</translation>
 <translation id="653608967792832033">Określa, po jakim czasie nieaktywności użytkownika blokowany jest ekran przy zasilaniu z baterii.
 
@@ -1481,7 +1467,6 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
       Jeśli ta zasada pozostanie nieustawiona, przewidywanie działań sieciowych zostanie włączone, ale użytkownicy będą mogli je zmienić.</translation>
 <translation id="6658245400435704251">Określa, o ile sekund urządzenie może losowo opóźnić pobranie aktualizacji w stosunku do czasu jej opublikowania na serwerze. Urządzenie może odczekać część tego okresu, licząc w sekundach zegara, a pozostałą część, licząc w testach dostępności aktualizacji. Tak czy inaczej okres opóźnienia jest ograniczony z góry, by urządzenie nigdy nie utknęło w stanie oczekiwania na pobranie aktualizacji.</translation>
-<translation id="6672934768721876104">Ta zasada jest przestarzała, zamiast niej użyj zasady ProxyMode. Pozwala ona określić serwer proxy używany w <ph name="PRODUCT_NAME" /> i uniemożliwia użytkownikom zmianę jego ustawień. Jeśli zdecydujesz się nie korzystać z serwera proxy i zawsze bezpośrednio nawiązywać połączenia, wszystkie pozostałe opcje będą ignorowane. Są one ignorowane również w przypadku użycia systemowych ustawień serwera proxy lub automatycznego wykrywania serwera proxy. Jeśli chcesz ręcznie wprowadzić ustawienia serwera proxy, możesz określić dodatkowe opcje w polach „Adres URL serwera proxy”, „Adres URL pliku PAC serwera proxy” i „Lista rozdzielonych przecinkami reguł omijania serwera proxy”. Szczegółowe przykłady można znaleźć na <ph name="PROXY_HELP_URL" />. Jeśli ustawienie jest włączone, przeglądarka <ph name="PRODUCT_NAME" /> ignoruje wszystkie opcje dotyczące serwera proxy określone w wierszu polecenia. W przypadku nieskonfigurowania tej zasady użytkownicy mogą samodzielnie wybrać ustawienia proxy.</translation>
 <translation id="6689792153960219308">Raportuj stan sprzętu</translation>
 <translation id="6693751878507293182">Jeśli włączysz to ustawienie, automatyczne wyszukiwanie i instalowanie brakujących wtyczek zostanie wyłączone w <ph name="PRODUCT_NAME" />. W przypadku wyłączenia lub nieskonfigurowania tej opcji mechanizm wyszukujący wtyczki będzie aktywny.</translation>
 <translation id="6697474194550078937">Ogranicza czas, przez który użytkownik uwierzytelniony przez SAML może logować się offline.
@@ -1599,6 +1584,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
       Jeśli zasada nie jest ustawiona, użytkownik może zmieniać listę aplikacji przypiętych w programie uruchamiającym.</translation>
 <translation id="7132877481099023201">Adresy URL, które bez pytania otrzymają dostęp do urządzeń do nagrywania filmów</translation>
+<translation id="7167436895080860385">Zezwalaj użytkownikom na pokazywanie haseł w menedżerze haseł (wycofane)</translation>
 <translation id="7173856672248996428">Profil tymczasowy</translation>
 <translation id="7187256234726597551">Jeśli zasada ma wartość „prawda”, zdalne poświadczanie na potrzeby urządzenia jest dozwolone, a certyfikat jest automatycznie generowany i przesyłany na serwer zarządzania urządzeniami.
 
@@ -1645,7 +1631,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
           Jeśli to ustawienie jest wyłączone, ta funkcja nie będzie dostępna.</translation>
 <translation id="7275334191706090484">Zakładki zarządzane</translation>
-<translation id="7295019613773647480">Włącz obsługę użytkowników nadzorowanych</translation>
+<translation id="7295019613773647480">Włącz obsługę nadzorowanych użytkowników</translation>
 <translation id="7301543427086558500">Określa listę alternatywnych URL-i, które umożliwiają uzyskanie wyników haseł z wyszukiwarki. Adresy URL powinny zawierać łańcuch <ph name="SEARCH_TERM_MARKER" /> używany do wskazania haseł do wyszukania.
 
           Ta zasada jest opcjonalna. Jeśli nie zostanie ustawiona, do wydobywania haseł do wyszukania nie będą używane alternatywne URL-e.
@@ -1895,6 +1881,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="8197918588508433925">Ta zasada określa dozwolone rozszerzenia do użycia z funkcją  chrome.enterprise.platformKeysPrivate.challengeUserKey() interfejsu API Enterprise Platform Keys do zdalnego poświadczania. Rozszerzenia muszą zostać dodane do tej listy, by były używane z interfejsem API.
 
           Jeśli rozszerzenie nie znajduje się na liście, lub lista nie jest ustawiona, wywołanie interfejsu API zakończy się błędem.</translation>
+<translation id="8214600119442850823">Pozwala skonfigurować menedżera haseł.</translation>
 <translation id="8244525275280476362">Maksymalne opóźnienie pobrania po unieważnieniu zasady</translation>
 <translation id="8256688113167012935">Określa nazwę konta, którą <ph name="PRODUCT_OS_NAME" /> pokazuje na ekranie logowania dla danego lokalnego konta na urządzeniu.
 
@@ -2062,6 +2049,17 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="8858642179038618439">Wymuś tryb bezpieczny w YouTube</translation>
 <translation id="8864975621965365890">Pomija monit o odinstalowanie wyświetlany wtedy, gdy witryna jest renderowana przez <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Strona startowa</translation>
+<translation id="8889588091638298603">Quirks Server dostarcza pliki konfiguracyjne dla określonych urządzeń, takie jak
+      profile ICC do kalibracji monitorów.
+
+      W przypadku wyłączenia tej zasady urządzenie nie będzie próbować
+      pobrać plików konfiguracyjnych z Quirks Server.
+
+      Gdy zasada jest włączona lub nie została skonfigurowana,
+      <ph name="PRODUCT_OS_NAME" /> będzie
+      automatycznie pobierać pliki konfiguracyjne z Quirks Server
+      (jeśli będą dostępne) i zapisywać je na urządzeniu. Takie pliki mogą
+      na przykład poprawiać jakość obrazu na podłączonych monitorach.</translation>
 <translation id="8905426178924715309">Ta zasada została wycofana. Zamiast niej użyj ForceGoogleSafeSearch lub ForceYouTubeSafetyMode. Zasada zostanie zignorowana, jeśli ustawiona zostanie zasada ForceGoogleSafeSearch lub ForceYouTubeSafetyMode.
 
       Wymusza realizację zapytań w wyszukiwarce Google przy użyciu filtra SafeSearch i uniemożliwia użytkownikom zmianę tego ustawienia. To ustawienie wymusza też włączenie Trybu bezpiecznego w YouTube.

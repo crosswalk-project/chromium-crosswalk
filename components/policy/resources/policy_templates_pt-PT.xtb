@@ -64,8 +64,6 @@
 
       Se a política não for definida ou for definida como falsa, os conjuntos de cifras RC4 no TLS não estão ativados. Caso contrário, pode ser definida como verdadeira para manter a compatibilidade com um servidor desatualizado. Esta é uma medida temporária e é necessário voltar a configurar o servidor.</translation>
 <translation id="1297182715641689552">Utilizar um script de proxy .pac</translation>
-<translation id="1300635491585192248">Prever ações na rede em qualquer rede que não seja
-          móvel</translation>
 <translation id="1304973015437969093">Instalar IDs de extensões/aplicações e URLs de atualização silenciosamente</translation>
 <translation id="1310699457130669094">Pode especificar um URL para um ficheiro .pac de proxy aqui.
 
@@ -91,6 +89,7 @@
 <translation id="1359553908012294236">Se esta política for definida como verdadeira ou não for configurada, o <ph name="PRODUCT_NAME" /> permite inícios de sessão de convidados. Os inícios de sessão de convidados são perfis do <ph name="PRODUCT_NAME" /> em que todas as janelas estão no modo de navegação anónima.
 
       Se esta política for definida como falsa, o <ph name="PRODUCT_NAME" /> não permite que os perfis de convidado sejam iniciados.</translation>
+<translation id="1363275621236827384">Ativar consultas ao Quirks Server para perfis de hardware</translation>
 <translation id="1397855852561539316">URL de sugestão do fornecedor de pesquisas padrão</translation>
 <translation id="1398889361882383850">Permite-lhe definir se os Websites têm automaticamente permissão para executar plug-ins. Os plug-ins automaticamente em execução podem ser permitidos para todos os Websites ou negados para todos os Websites.
 
@@ -545,7 +544,6 @@
           Se esta política estiver definida para Verdadeiro ou não estiver definida, não se considera que o utilizador esteja inativo quando o áudio está a ser reproduzido. Deste modo, o limite de tempo de inatividade não é alcançado e a ação de inatividade não é realizada. No entanto, o escurecimento do ecrã, a ação de desligar o ecrã e o bloqueio do ecrã serão realizados após os limites de tempo configurados, independentemente da atividade do áudio.
 
           Se esta política estiver definida para Falso, a atividade do áudio não impede que o utilizador seja considerado inativo.</translation>
-<translation id="2948381198510798695">O <ph name="PRODUCT_NAME" /> ignorará qualquer proxy para a lista de anfitriões aqui indicados. Esta política só é aplicada se tiver selecionado as definições de proxy manuais em "Escolher como indicar as definições do servidor proxy". Deixe esta política por definir se tiver selecionado qualquer outro modo para definir políticas de proxy. Para obter exemplos mais detalhados, visite: <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Esta política foi retirada a partir da versão 36 do <ph name="PRODUCT_NAME" />.
 
       Especifica se a extensão de certificados de vinculação ao domínio TLS deveria ser ativada.
@@ -695,6 +693,13 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       O valor da política deverá ser especificado em milissegundos. Os valores estão limitados a um intervalo entre 30 segundos e 24 horas.</translation>
 <translation id="3528000905991875314">Ativar páginas de erro alternativas</translation>
+<translation id="3538538104630456270">A definição associada era utilizada antes de ser introduzida a reautenticação durante a visualização de palavras-passe. Depois disso, a definição e, consequentemente, esta política deixaram de afetar o comportamento do Chrome. Atualmente, o Chrome comporta-se como se a política estivesse definida para desativar a apresentação das palavras-passe em texto não codificado na página de definições do gestor de palavras-passe. Isto significa que a página de definições inclui apenas um marcador de posição e o Chrome só mostra a palavra-passe depois de o utilizador clicar em "Mostrar" (e efetuar a reautenticação, se aplicável). Segue-se a descrição original da política.
+
+          Controla se os utilizadores podem mostrar palavras-passe em texto não codificado no gestor de palavras-passe.
+
+          Se desativar esta definição, o gestor de palavras-passe não permite mostrar as palavras-passe armazenadas em texto não codificado na janela do gestor.
+
+          Se ativar ou não definir esta política, os utilizadores podem ver as palavras-passe em texto não codificado no gestor de palavras-passe.</translation>
 <translation id="3547954654003013442">Definições de proxy</translation>
 <translation id="3570008976476035109">Bloquear plug-ins nestes sites</translation>
 <translation id="3591584750136265240">Configurar o comportamento de autenticação de início de sessão</translation>
@@ -778,7 +783,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Cada entrada da lista contém um dicionário que tem de incluir o ID da extensão no campo "extension-id" e o respetivo URL de atualização no campo "update-url".</translation>
 <translation id="3891357445869647828">Ativar JavaScript</translation>
-<translation id="389421284571827139">Permite especificar o servidor proxy utilizado pelo <ph name="PRODUCT_NAME" /> e impede que os utilizadores alterem as definições de proxy. Se optar por nunca utilizar um servidor proxy e estabelecer sempre ligação diretamente, todas as outras opções serão ignoradas. Se optar por detetar automaticamente o servidor proxy, todas as outras opções serão ignoradas. Para obter exemplos detalhados, visite <ph name="PROXY_HELP_URL" /> Se ativar esta definição, o <ph name="PRODUCT_NAME" /> ignora todas as opções relativas ao proxy especificadas a partir da linha de comandos. Se deixar estas políticas por definir, permitirá que os utilizadores selecionem as definições do proxy conforme pretendam.</translation>
 <translation id="3907986150060929099">Definir os locais recomendados para uma sessão pública</translation>
 <translation id="391531815696899618">Desativa a sincronização do Google Drive na aplicação Ficheiros do <ph name="PRODUCT_OS_NAME" /> quando definida como verdadeira. Nesse caso, os dados não são carregados para o Google Drive.
 
@@ -998,16 +1002,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
           O valor tem de ser uma matriz de dicionários JSON em forma de string. Cada dicionário tem de ter o formato { "padrão": "$URL_PATTERN", "filtro" : $FILTER }, no qual $URL_PATTERN é um padrão de definição de conteúdo. $FILTER restringe a partir de que certificados de cliente o navegador seleciona automaticamente. Independentemente do filtro, apenas são selecionados os certificados que correspondam ao pedido de certificado do servidor. Se $FILTER tiver o formato { "EMISSOR": { "CN": "$ISSUER_CN" } }, apenas são selecionados os certificados de cliente que são emitidos por um certificado com o CommonName $ISSUER_CN. Se $FILTER for o dicionário vazio {}, a seleção de certificados de cliente não é adicionalmente restrita.
 
           Se esta política não for definida, não é efetuada qualquer seleção automática para qualquer site.</translation>
-<translation id="4980301635509504364">Permitir ou negar captura de vídeo.
-
-      Caso esteja ativada ou não configurada (predefinido), será pedido ao utilizador
-      acesso de captura de vídeo, exceto para URLs configurados na
-      lista VideoCaptureAllowedUrls, à qual será concedido acesso sem pedido.
-
-      Quando esta política está desativada, o utilizador nunca será alertado e a captura de
-      vídeo estará apenas disponível para URLs configurados em VideoCaptureAllowedUrls.
-
-      Esta política afeta todos os tipos de entradas de vídeo e não apenas a câmara integrada.</translation>
 <translation id="4980635395568992380">Tipo de dados:</translation>
 <translation id="4983201894483989687">Permitir a execução de plug-ins desatualizados</translation>
 <translation id="4988291787868618635">Ação a realizar quando o atraso de inatividade for alcançado</translation>
@@ -1191,7 +1185,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Se esta política não estiver definida ou estiver definida como falsa, o <ph name="PRODUCT_NAME" /> utilizará as definições de verificação da revogação online existentes.</translation>
 <translation id="5732972008943405952">Importar dados do formulário de preenchimento automático a partir do navegador predefinido na primeira execução</translation>
-<translation id="5761030451068906335">Configura as definições de proxy para <ph name="PRODUCT_NAME" />. Esta política ainda não está pronta para ser utilizada, por isso, não a utilize.</translation>
 <translation id="5765780083710877561">Descrição:</translation>
 <translation id="5770738360657678870">Canal para programadores (pode ser instável)</translation>
 <translation id="5774856474228476867">URL de pesquisa do fornecedor de pesquisas predefinido</translation>
@@ -1216,13 +1209,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
       Consulte http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables para obter uma lista de variáveis que podem ser utilizadas.
 
       Se deixar esta definição por definir, é utilizado o diretório de perfil predefinido.</translation>
-<translation id="5819660021114910752">Especifica o fuso horário a utilizar para o dispositivo. Os utilizadores podem substituir o fuso horário especificado da sessão atual. Contudo, quando terminam a sessão, este regressa ao fuso horário especificado. Se for fornecido um valor inválido, a política ainda é ativada com "GMT" como alternativa. Se for fornecida uma string vazia, a política é ignorada.
-
-      Se esta política não for utilizada, o fuso horário atualmente ativo permanece em utilização, apesar de os utilizadores poderem alterar o fuso horário e de a alteração ser permanente. Desta forma, uma alteração de um utilizador afeta o ecrã de início de sessão e todos os outros utilizadores.
-
-      Os novos dispositivos começam com o fuso horário definido para "EUA/Pacífico".
-
-      O formato do valor segue os nomes dos fusos horários na "Base de dados de fuso horário IANA" (consulte "https://en.wikipedia.org/wiki/Tz_database"). Em particular, a maioria dos fusos horários pode ser referida como "continente/grande_cidade" ou "oceano/grande_cidade".</translation>
 <translation id="5826047473100157858">Especifica se o utilizador pode abrir páginas em modo de Navegação Anónima no <ph name="PRODUCT_NAME" />. Se selecionar "Ativada" ou deixar a política por definir, as páginas podem ser abertas no modo de Navegação Anónima. Se selecionar "Desativada", as páginas não podem ser abertas no modo de Navegação Anónima. Se selecionar "Forçada", as páginas APENAS podem ser abertas no modo de Navegação Anónima.</translation>
 <translation id="5836064773277134605">Restringir o intervalo da porta UDP utilizado pelo anfitrião de acesso remoto</translation>
 <translation id="5845159892130426052">Ativar a API ShowModalDialog até 30/04/2015</translation>
@@ -1410,7 +1396,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Se esta política for deixada por definir, a predefinição não é autorizada para utilizadores geridos por empresas e autorizada para utilizadores não geridos.</translation>
 <translation id="6491139795995924304">Permitir o Bluetooth no dispositivo</translation>
-<translation id="6513756852541213407">Permite especificar o servidor proxy utilizado pelo <ph name="PRODUCT_NAME" /> e impede os utilizadores de alterarem as definições do proxy. Se optar por nunca utilizar um servidor proxy e estabelecer sempre ligação diretamente, todas as outras opções serão ignoradas. Se optar por utilizar definições proxy do sistema ou deteção automática do servidor proxy, todas as outras opções serão ignoradas. Se escolher o modo de servidor proxy fixo, pode especificar outras opções em "Endereço ou URL do servidor proxy" e "Lista separada por vírgulas de regras para ignorar o proxy". Se optar por utilizar um script de proxy .pac, tem de indicar o URL para o script em "URL para um ficheiro .pac de proxy". Para obter exemplos detalhados, visite <ph name="PROXY_HELP_URL" />. Se ativar esta definição, o <ph name="PRODUCT_NAME" /> ignorará todas as opções relacionadas com proxy especificadas a partir da linha de comandos. Se deixar esta política por definir, os utilizadores poderão escolher as definições do proxy conforme pretendam.</translation>
 <translation id="6520802717075138474">Importar motores de pesquisa a partir do navegador predefinido na primeira execução</translation>
 <translation id="653608967792832033">Especifica o período de tempo sem atividade por parte do utilizador após o qual se bloqueia o ecrã quando se está a utilizar a energia da bateria.
 
@@ -1490,7 +1475,6 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Se esta política permanecer por definir, a previsão de rede é ativada, mas o utilizador pode alterá-la.</translation>
 <translation id="6658245400435704251">Especifica o número de segundos até que um dispositivo possa aleatoriamente atrasar a sua transferência de uma atualização a partir do momento em que a atualização foi retirada pela primeira vez do servidor. O dispositivo pode esperar uma parte deste tempo em termos de tempo total de processamento e a restante parte em termos do número de verificações de atualização. Em qualquer caso, a dispersão está associada de forma superior a uma quantidade constante de tempo para que um dispositivo nunca fique preso indefinidamente à espera de transferir uma atualização.</translation>
-<translation id="6672934768721876104">Esta política está obsoleta; em alternativa, utilize ProxyMode. O ProxyMode permite especificar o servidor proxy utilizado pelo <ph name="PRODUCT_NAME" /> e impede que os utilizadores alterem as definições de proxy. Se optar por nunca utilizar um servidor proxy e estabelecer sempre ligação diretamente, todas as outras opções são ignoradas. Se optar por utilizar definições proxy do sistema ou deteção automática do servidor proxy, todas as outras opções serão ignoradas. Se escolher as definições de proxy manuais, pode especificar mais opções em "Endereço ou URL do servidor proxy", "URL para um ficheiro .pac de proxy" e "Lista separada por vírgulas de regras para ignorar o proxy". Para obter exemplos detalhados, visite <ph name="PROXY_HELP_URL" />. Se ativar esta definição, o <ph name="PRODUCT_NAME" /> ignorará todas as opções relacionadas com o proxy especificadas a partir da linha de comandos. A não definição desta política permitirá que os utilizadores selecionem as definições do proxy conforme pretendam.</translation>
 <translation id="6689792153960219308">Comunicar o estado do hardware</translation>
 <translation id="6693751878507293182">Se configurar esta definição como ativada, a pesquisa automática e a instalação de plug-ins em falta serão desativadas no <ph name="PRODUCT_NAME" />. Se definir desta opção como desativada ou não a definir, o localizador de plug-ins estará ativo.</translation>
 <translation id="6697474194550078937">Limite o tempo durante o qual um utilizador autenticado via SAML pode iniciar sessão offline.
@@ -1618,6 +1602,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 
       Se esta política não for configurada, o utilizador pode alterar a lista de aplicações fixadas no iniciador.</translation>
 <translation id="7132877481099023201">URLs aos quais será concedido acesso a dispositivos de captura de vídeo imediatamente</translation>
+<translation id="7167436895080860385">Permitir que os utilizadores mostrem palavras-passe no Gestor de palavras-passe (descontinuado)</translation>
 <translation id="7173856672248996428">Perfil efémero</translation>
 <translation id="7187256234726597551">Se verdadeira, a comprovação remota é permitida para o dispositivo e será automaticamente gerado um certificado e carregado para o Servidor de Gestão de Dispositivos.
 
@@ -1914,6 +1899,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="8197918588508433925">Esta política especifica as extensões com a permissão para utilizar a API Enterprise Platform Keys chrome.enterprise.platformKeysPrivate.challengeUserKey() para a comprovação remota. As extensões têm de ser adicionadas a esta lista para poderem utilizar a API.
 
           Se uma extensão não estiver na lista ou a lista não estiver definida, a chamada para a API falhará e resultará num código de erro.</translation>
+<translation id="8214600119442850823">Configura o gestor de palavras-passe.</translation>
 <translation id="8244525275280476362">Atraso máximo na obtenção após a invalidação de uma política</translation>
 <translation id="8256688113167012935">Controla o nome da conta mostrado pelo <ph name="PRODUCT_OS_NAME" /> no ecrã de início de sessão para a conta local do dispositivo correspondente.
 
@@ -2083,6 +2069,17 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="8858642179038618439">Forçar o Modo de segurança do YouTube</translation>
 <translation id="8864975621965365890">Suprime o pedido de recusa que aparece quando um site é convertido por <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Página inicial</translation>
+<translation id="8889588091638298603">O Quirks Server fornece ficheiros de configuração específicos do hardware, como
+      perfis de visualização ICC para ajustar a calibração do monitor.
+
+      Quando esta política está definida como falsa, o dispositivo não tenta
+      contactar o Quirks Server para transferir ficheiros de configuração.
+
+      Se esta política estiver definida como verdadeira ou não estiver configurada,
+      o <ph name="PRODUCT_OS_NAME" />
+      contacta automaticamente o Quirks Server, transfere os ficheiros de configuração,
+      se estiverem disponíveis, e armazena-os no dispositivo. Estes ficheiros podem
+      ser utilizados, por exemplo, para melhorar a qualidade de visualização dos monitores ligados.</translation>
 <translation id="8905426178924715309">Esta política foi descontinuada. Utilize ForceGoogleSafeSearch e ForceYouTubeSafetyMode em alternativa. Esta política é ignorada se as políticas ForceGoogleSafeSearch ou ForceYouTubeSafetyMode forem definidas.
 
       Força a execução de consultas na Pesquisa Web do Google através da Pesquisa segura definida como ativa e impede os utilizadores de alterar esta definição. Esta definição também força o Modo de segurança no YouTube.

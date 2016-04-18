@@ -62,7 +62,6 @@
 
       如果此政策未设置或设为 false，系统将不会在 TLS 中启用 RC4 加密套件。您也可以将此政策设为 true，以便与过时的服务器保持兼容。但这只是一种权宜之计，对服务器进行重新配置才是正确之道。</translation>
 <translation id="1297182715641689552">使用 .pac 代理脚本</translation>
-<translation id="1300635491585192248">连上网络时一律预测网络操作（移动网络除外）</translation>
 <translation id="1304973015437969093">要静默安装的扩展程序/应用的 ID 和更新网址</translation>
 <translation id="1310699457130669094">您可以在此指定代理 .pac 文件的网址。只有当您在“选择如何指定代理服务器设置”中选择了手动代理设置后，此政策才会生效。如果您选择了其他任何模式来设置代理政策，就不应设置此政策。要查看详细示例，请访问：<ph name="PROXY_HELP_URL" /></translation>
 <translation id="1313457536529613143">指定系统在屏幕变暗或屏幕关闭不久后察觉到用户活动时，对屏幕变暗延迟时间的调整幅度（百分比）。
@@ -81,6 +80,7 @@
 <translation id="1359553908012294236">如果此政策设为 true 或未配置，<ph name="PRODUCT_NAME" /> 将允许使用访客身份登录。访客身份是指 <ph name="PRODUCT_NAME" /> 个人资料，使用此类个人资料登录后，所有窗口均处于隐身模式。
 
       如果此政策设为 false，<ph name="PRODUCT_NAME" /> 将禁止使用访客个人资料登录。</translation>
+<translation id="1363275621236827384">允许在 Quirks Server 中查询硬件配置文件</translation>
 <translation id="1397855852561539316">默认搜索服务提供商建议网址</translation>
 <translation id="1398889361882383850">可让您设置是否允许网站自动运行插件。您可以允许所有网站或拒绝所有网站自动运行插件。
 
@@ -515,7 +515,6 @@
           如果此政策的值设置为 True 或未设置此政策，则播放音频时机器不会被视为闲置。这样就不会导致闲置超时，系统也不会执行闲置操作。不过，在达到指定的超时值后，屏幕会变暗、关闭和锁定（而不考虑音频活动）。
 
           如果此政策的值设置为 False，则音频活动不会影响系统将机器视为闲置状态。</translation>
-<translation id="2948381198510798695"><ph name="PRODUCT_NAME" />将对于此处给定的主机列表绕过任何代理。只有当您在“选择如何指定代理服务器设置”中选择了手动代理设置后，此政策才会生效。如果您选择了其他任何模式来设置代理政策，就不应设置此政策。要查看详细示例，请访问：<ph name="PROXY_HELP_URL" />。</translation>
 <translation id="2956777931324644324">此政策自36版<ph name="PRODUCT_NAME" />起已停止使用。
 
       用于指定是否启用TLS网域绑定证书扩展程序。
@@ -665,6 +664,13 @@
 
       该策略值应该以毫秒为单位。值的范围限定在 30 秒到 24 小时之间。</translation>
 <translation id="3528000905991875314">启用备用的错误页面</translation>
+<translation id="3538538104630456270">在我们推出“查看密码时需重新验证”这一规定之前，我们是使用相关的设置来控制用户能否查看密码。自这一规定推出后，相关设置以及此政策便不再对 Chrome 的行为有任何影响。Chrome 的当前行为等同于此政策设为在密码管理器设置页面中禁止以明文形式显示密码。这意味着，设置页面中包含的只是一个占位符，仅当用户点击“显示”（并进行重新验证，如果适用的话）后，Chrome 才会显示相应密码。此政策的原始描述如下所示：
+
+          控制用户是否可以在密码管理器中以明文形式显示密码。
+
+          如果您停用了此设置，密码管理器将不允许在密码管理器窗口中以明文形式显示存储的密码。
+
+          如果您启用了此政策或未设置此政策，用户将可以在密码管理器中查看以明文形式显示的密码。</translation>
 <translation id="3547954654003013442">代理设置</translation>
 <translation id="3570008976476035109">在这些网站上阻止插件</translation>
 <translation id="3591584750136265240">配置登录身份验证行为</translation>
@@ -746,7 +752,6 @@
 
       每个列表条目都包含一个字典，其“extension-id”字段必须包含扩展程序 ID，而其“update-url”字段必须包含更新网址。</translation>
 <translation id="3891357445869647828">启用 JavaScript</translation>
-<translation id="389421284571827139">可让您指定 <ph name="PRODUCT_NAME" />使用的代理服务器，并禁止用户更改代理设置。如果您选择从不使用代理服务器，而总是直接连接，就会忽略其他所有选项。如果您选择自动检测代理服务器，就会忽略其他所有选项。要查看详细示例，请访问：<ph name="PROXY_HELP_URL" />。如果您启用了此设置， <ph name="PRODUCT_NAME" />就会忽略通过命令行指定的所有代理相关选项。如果未设置此政策，用户就可以自行选择代理设置。</translation>
 <translation id="3907986150060929099">为公开会话设置建议的语言区域</translation>
 <translation id="391531815696899618">当此政策设为 True 时，在 <ph name="PRODUCT_OS_NAME" />的“文件”应用中停用 Google 云端硬盘同步功能。在这种情况下，系统不会将任何数据上传到 Google 云端硬盘。
 
@@ -966,13 +971,6 @@
           此值必须是一个字符串化的 JSON 字典数组。每个字典都必须采用 { "pattern": "$URL_PATTERN", "filter" : $FILTER } 样式，其中 $URL_PATTERN 是内容设置格式，而 $FILTER 会限制相应浏览器可自动从哪些客户端证书中进行选择。无论是否设置了过滤器，系统都只会选择与该服务器的证书请求相匹配的证书。如果 $FILTER 采用 { "ISSUER": { "CN": "$ISSUER_CN" } } 样式，系统则只会选择由 CommonName 为 $ISSUER_CN 的证书颁发机构颁发的客户端证书。如果 $FILTER 是空字典 {}，那么系统在选择客户端证书时便不会受到额外限制。
 
           如果未设置此政策，系统将不会为任何网站自动选择证书。</translation>
-<translation id="4980301635509504364">允许或拒绝视频捕获。
-
-      如果启用或未配置此政策（默认），则系统会在收到视频捕获设备使用请求时提示用户；但对于 VideoCaptureAllowedUrls 列表中配置的网址，系统不会提示用户，而是直接授予访问权限。
-
-      如果停用此政策，则系统一律不提示用户，只有 VideoCaptureAllowedUrls 中配置的网址可以使用视频捕获设备。
-
-      此政策会影响所有类型的视频输入（而不仅仅是内置摄像头）。</translation>
 <translation id="4980635395568992380">数据类型：</translation>
 <translation id="4983201894483989687">允许运行过期的插件</translation>
 <translation id="4988291787868618635">闲置延迟时间已过时执行的操作</translation>
@@ -1154,9 +1152,6 @@
 
       如果此政策未设置或设为 false，<ph name="PRODUCT_NAME" /> 将使用现有的在线撤消检查设置。</translation>
 <translation id="5732972008943405952">首次运行时，从默认浏览器导入自动填充表单数据</translation>
-<translation id="5761030451068906335">配置 <ph name="PRODUCT_NAME" />的代理设置。
-
-      此政策尚未做好投入使用的准备，请勿使用。</translation>
 <translation id="5765780083710877561">说明：</translation>
 <translation id="5770738360657678870">开发者版（可能不稳定）</translation>
 <translation id="5774856474228476867">默认搜索服务提供商的搜索网址</translation>
@@ -1181,13 +1176,6 @@
       有关可用变量的列表，请访问 http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables。
 
       如果此政策未设置，系统将使用默认的个人资料目录。</translation>
-<translation id="5819660021114910752">指定该设备使用的时区。对于当前的会话，用户可以覆盖指定的时区。不过，当用户退出当前会话后，系统会将时区重新设为指定的时区。如果提供的值无效，系统仍会启用此政策，但会采用“GMT”时区。如果提供的是空字符串，此政策将被忽略。
-
-      如果不使用此政策，系统将继续使用当前在使用的时区，不过，用户可以更改时区，并且所做更改持续有效。因此，任何用户所做的更改都会对登录屏幕和所有其他用户造成影响。
-
-      新设备在出厂时的时区设置是“美国/太平洋”。
-
-      值的格式遵循“IANA 时区数据库”中的时区名称所采用的格式（请访问 https://zh.wikipedia.org/wiki/%E6%97%B6%E5%8C%BA%E4%BF%A1%E6%81%AF%E6%95%B0%E6%8D%AE%E5%BA%93）。基本上，大多数时区都可以采用“洲/大城市”或“洋/大城市”的格式表示。</translation>
 <translation id="5826047473100157858">指定用户是否可以在 <ph name="PRODUCT_NAME" />中以隐身模式打开网页。如果选择“已启用”或未设置此政策，则允许以隐身模式打开网页。如果选择“已停用”，则不能以隐身模式打开网页。如果选择“强制”，则只能以隐身模式打开网页。</translation>
 <translation id="5836064773277134605">限制远程访问主机使用的UDP端口范围</translation>
 <translation id="5845159892130426052">启用 ShowModalDialog API，有效期至 2015 年 4 月 30 日</translation>
@@ -1369,7 +1357,6 @@
 
       如果此政策未设置，默认情况下，受企业管理的用户不能使用 Smart Lock，不受管理的用户则能够使用 Smart Lock。</translation>
 <translation id="6491139795995924304">允许在设备上使用蓝牙功能</translation>
-<translation id="6513756852541213407">可让您指定 <ph name="PRODUCT_NAME" />使用的代理服务器，并禁止用户更改代理设置。如果您选择永不使用代理服务器，而总是直接连接，就会忽略其他所有选项。如果您选择使用系统代理设置或自动检测代理服务器，就会忽略其他所有选项。如果您选择固定服务器代理模式，可在“代理服务器的地址或网址”以及“代理绕过规则的逗号分隔列表”中进一步指定选项。如果您选择使用 .pac 代理脚本，必须在“代理 .pac 文件的网址”中指定该脚本的网址。要查看详细示例，请访问：<ph name="PROXY_HELP_URL" />。如果您启用了此设置，<ph name="PRODUCT_NAME" />就会忽略通过命令行指定的所有代理相关选项。如果未设置此政策，用户就可以自行选择代理设置。</translation>
 <translation id="6520802717075138474">首次运行时，从默认浏览器导入搜索引擎</translation>
 <translation id="653608967792832033">指定在使用电池供电时用户停止输入后隔多久锁定屏幕。
 
@@ -1450,7 +1437,6 @@
 
       如果此政策未设置，系统将启用网络联想查询功能，但用户可以自行更改。</translation>
 <translation id="6658245400435704251">指定一个时间（以秒为单位），即从更新首次推送到服务器起设备随机延迟更新下载的最大时间。设备的这一等待时间一部分会按照实际时间计算，而剩下的部分则取决于更新检查的次数。在任何情况下，分配的时间上限都是固定的，因此设备绝不会一直等待下载某个更新。</translation>
-<translation id="6672934768721876104">此政策已弃用，请改用 ProxyMode。可让您指定 <ph name="PRODUCT_NAME" />使用的代理服务器，并禁止用户更改代理设置。如果您选择从不使用代理服务器，而总是直接连接，就会忽略其他所有选项。如果您选择使用系统代理设置或自动检测代理服务器，就会忽略其他所有选项。如果您选择手动代理设置，可在“代理服务器的地址或网址”、“代理 .pac 文件的网址”以及“代理绕过规则的逗号分隔列表”中进一步指定选项。要查看详细示例，请访问：<ph name="PROXY_HELP_URL" />。如果您启用了此设置， <ph name="PRODUCT_NAME" />就会忽略通过命令行指定的所有代理相关选项。如果未设置此政策，用户就可以自行选择代理设置。</translation>
 <translation id="6689792153960219308">报告硬件状态</translation>
 <translation id="6693751878507293182">如果您启用了此设置，<ph name="PRODUCT_NAME" />就不会自动搜索和安装缺少的插件。如果停用或未设置此选项，就会启用插件查找程序。</translation>
 <translation id="6697474194550078937">限制通过 SAML 验证身份的用户可离线登录的时长。
@@ -1573,6 +1559,7 @@
 
       如果未设置此政策，用户就可以在启动程序中更改固定应用的列表。</translation>
 <translation id="7132877481099023201">无需提示用户即可使用视频捕获设备的网址</translation>
+<translation id="7167436895080860385">允许用户在密码管理器中显示密码（已弃用）</translation>
 <translation id="7173856672248996428">临时个人资料</translation>
 <translation id="7187256234726597551">如果此政策的值为 True，则系统将允许此设备进行远程认证，然后自动生成证书并将其上传到设备管理服务器。
 
@@ -1870,6 +1857,7 @@
 <translation id="8197918588508433925">此政策指定了允许使用 Enterprise Platform Keys API chrome.enterprise.platformKeysPrivate.challengeUserKey() 进行远程认证的扩展程序。只有添加到此列表中的扩展程序才能使用该 API。
 
           如果扩展程序不在此列表中，或者未设置此列表，则会导致无法调用 API，并返回错误代码。</translation>
+<translation id="8214600119442850823">配置密码管理器。</translation>
 <translation id="8244525275280476362">政策失效后的最大提取延迟</translation>
 <translation id="8256688113167012935">控制 <ph name="PRODUCT_OS_NAME" />在登录屏幕上为相应的设备本地帐户显示的帐户名。
 
@@ -2022,6 +2010,11 @@
 <translation id="8858642179038618439">强制启用 YouTube 安全模式</translation>
 <translation id="8864975621965365890">浏览使用 <ph name="PRODUCT_FRAME_NAME" />呈现的网站时，阻止显示“停止支持”的提示。</translation>
 <translation id="8870318296973696995">主页</translation>
+<translation id="8889588091638298603">Quirks Server 可提供硬件方面的配置文件（例如 ICC 显示配置文件），以调整显示器校准。
+
+      如果此政策设为 false，设备将不会尝试联系 Quirks Server 来下载配置文件。
+
+     如果此政策设为 true 或未设置，<ph name="PRODUCT_OS_NAME" />将自动联系 Quirks Server 并下载配置文件（如果有），然后将这些文件存储在设备上。此类文件可能会用于多种目的，例如改善所连接的显示器的显示质量。</translation>
 <translation id="8905426178924715309">此政策已弃用，请改用 ForceGoogleSafeSearch 和 ForceYouTubeSafetyMode。如果设置了 ForceGoogleSafeSearch 或 ForceYouTubeSafetyMode 政策，此政策将被忽略。
 
       强制启用安全搜索功能来处理 Google 网页搜索中的查询，并禁止用户更改此设置。此设置还会强制在 YouTube 中启用安全模式。

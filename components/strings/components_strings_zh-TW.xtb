@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">這個網站的憑證將於 2016 年到期，且憑證鏈結包含使用 SHA-1 進行簽署的憑證。</translation>
 <translation id="382518646247711829">如果您使用 Proxy 伺服器...</translation>
 <translation id="3828924085048779000">通關密語欄位不得留空。</translation>
+<translation id="3845539888601087042">目前顯示的歷史紀錄來源包括您已登入帳戶的所有裝置。<ph name="BEGIN_LINK" />瞭解詳情<ph name="END_LINK" /></translation>
 <translation id="385051799172605136">返回</translation>
 <translation id="3858027520442213535">更新日期和時間</translation>
 <translation id="3884278016824448484">裝置識別碼發生衝突</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">清除瀏覽資料...</translation>
 <translation id="5430298929874300616">移除書籤</translation>
 <translation id="5431657950005405462">找不到您的檔案</translation>
+<translation id="5435775191620395718">目前顯示這個裝置的歷史紀錄。<ph name="BEGIN_LINK" />瞭解詳情<ph name="END_LINK" /></translation>
 <translation id="5439770059721715174">「<ph name="ERROR_PATH" />」發生架構驗證錯誤：<ph name="ERROR" /></translation>
 <translation id="5447330194051379405">顯示所有儲存的網頁</translation>
 <translation id="5452270690849572955">找不到 <ph name="HOST_NAME" /> 網頁</translation>
@@ -557,7 +559,6 @@
 <translation id="7186367841673660872">此網頁內容已由<ph name="ORIGINAL_LANGUAGE" />翻譯成<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">已封鎖網頁</translation>
-<translation id="7208899522964477531">在 <ph name="SITE_NAME" /> 上搜尋 <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> 不符合安全性標準。</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />進一步瞭解<ph name="END_LINK" />這個問題。</translation>
 <translation id="7219179957768738017">這個連線使用 <ph name="SSL_VERSION" />。</translation>
@@ -639,7 +640,6 @@
 <translation id="7951415247503192394">(32 位元)</translation>
 <translation id="7956713633345437162">行動版書籤</translation>
 <translation id="7961015016161918242">永不</translation>
-<translation id="7977590112176369853">&lt;輸入查詢&gt;</translation>
 <translation id="7983301409776629893">一律將網頁內容由<ph name="ORIGINAL_LANGUAGE" />翻譯成<ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">未指定</translation>
 <translation id="8012647001091218357">我們暫時無法與您的家長聯絡，請再試一次。</translation>
@@ -700,6 +700,7 @@
 <translation id="8730621377337864115">完成</translation>
 <translation id="8738058698779197622">您必須正確設定時鐘，才能建立安全連線。這是因為網站驗證身分時所使用的憑證僅於特定一段時間內有效。由於您裝置的時鐘不正確，因此 Chromium 無法驗證這些憑證。</translation>
 <translation id="8740359287975076522">找不到 <ph name="HOST_NAME" /> 的 &lt;abbr id="dnsDefinition"&gt;DNS 位址&lt;/abbr&gt;，正在診斷問題。</translation>
+<translation id="8741995161408053644">您仍可前往 <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" /> 存取 Google 帳戶中保存的各種瀏覽紀錄。</translation>
 <translation id="8790007591277257123">重做刪除(&amp;R)</translation>
 <translation id="8798099450830957504">預設</translation>
 <translation id="8804164990146287819">隱私權政策</translation>
@@ -720,7 +721,6 @@
 <translation id="8903921497873541725">放大</translation>
 <translation id="8931333241327730545">您要將這張卡片的資訊儲存到您的 Google 帳戶嗎？</translation>
 <translation id="8932102934695377596">您的時鐘時間過慢</translation>
-<translation id="8940229512486821554">執行 <ph name="EXTENSION_NAME" /> 指令：<ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(續)</translation>
 <translation id="8971063699422889582">伺服器憑證已過期。</translation>
 <translation id="8987927404178983737">月</translation>

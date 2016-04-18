@@ -72,8 +72,6 @@
 
       Nếu chính sách này không được đặt hoặc được đặt thành false thì bộ mã hóa RC4 trong TLS sẽ không được bật. Ngoài ra, chính sách có thể được đặt thành true để duy trì khả năng tương thích với máy chủ lỗi thời. Đây là một biện pháp tạm thời và cần phải định cấu hình lại máy chủ.</translation>
 <translation id="1297182715641689552">Sử dụng tập lệnh proxy .pac</translation>
-<translation id="1300635491585192248">Dự đoán các tác vụ mạng trên bất kỳ mạng nào không phải là
-          mạng di động</translation>
 <translation id="1304973015437969093">Cần ID tiện ích/ứng dụng và URL cập nhật để tự động cài đặt</translation>
 <translation id="1310699457130669094">Bạn có thể chỉ định URL tới tệp .pac proxy tại đây.
 
@@ -99,6 +97,7 @@
 <translation id="1359553908012294236">Nếu chính sách này được đặt thành true hoặc không được định cấu hình, <ph name="PRODUCT_NAME" /> sẽ bật chế độ đăng nhập khách. Chế độ đăng nhập khách là hồ sơ <ph name="PRODUCT_NAME" /> trong đó tất cả cửa sổ đều ở chế độ ẩn danh.
 
       Nếu chính sách này được đặt thành false, <ph name="PRODUCT_NAME" /> sẽ không cho phép bắt đầu hồ sơ khách.</translation>
+<translation id="1363275621236827384">Bật truy vấn cấu hình Máy chủ Quirks cho phần cứng</translation>
 <translation id="1397855852561539316">URL đề xuất của nhà cung cấp dịch vụ tìm kiếm mặc định</translation>
 <translation id="1398889361882383850">Cho phép bạn đặt có cho phép các trang web tự động chạy plugin không. Bạn có thể cho phép hoặc không cho phép tất cả các trang web tự động chạy plugin.
 
@@ -590,14 +589,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
           Nếu chính sách này được đặt là Đúng hoặc không được đặt, người dùng không được coi là không sử dụng trong khi đang phát âm thanh. Điều này ngăn đạt tới thời gian chờ không hoạt động và thực hiện hành động không sử dụng. Tuy nhiên, việc làm mờ màn hình, tắt màn hình và khóa màn hình sẽ được thực hiện sau thời gian chờ được định cấu hình, bất kể hoạt động âm thanh.
 
           Nếu chính sách này được đặt là Sai, hoạt động âm thanh sẽ không ngăn người dùng bị coi là không sử dụng.</translation>
-<translation id="2948381198510798695"><ph name="PRODUCT_NAME" /> sẽ bỏ qua mọi proxy cho danh sách các máy chủ lưu trữ được cung cấp ở đây.
-
-          Chính sách này chỉ có hiệu lực nếu bạn đã chọn cài đặt proxy thủ công tại 'Chọn cách chỉ định cài đặt máy chủ proxy'.
-
-          Bạn không nên thiết lập chính sách này nếu bạn đã chọn bất kỳ chế độ nào khác để thiết lập chính sách proxy.
-
-          Để biết thêm ví dụ cụ thể, truy cập:
-          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Chính sách này ngừng hoạt động kể từ phiên bản 36 của <ph name="PRODUCT_NAME" />.
 
       Chỉ định xem có cần bật tiện ích chứng chỉ giới hạn miền TLS hay không.
@@ -756,6 +747,13 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Giá trị chính sách phải được chỉ định bằng mili giây. Giá trị trong khoảng 30 giây đến 24 giờ.</translation>
 <translation id="3528000905991875314">Bật các trang lỗi thay thế</translation>
+<translation id="3538538104630456270">Sử dụng cài đặt được liên kết trước khi đưa vào xác thực lại việc xem mật khẩu. Kể từ đó, cài đặt và do đó chính sách này không ảnh hưởng đến hoạt động của Chrome. Hoạt động hiện tại của Chrome bây giờ giống như thể chính sách đã được đặt thành tắt hiển thị mật khẩu ở dạng văn bản rõ ràng trong trang cài đặt của trình quản lý mật khẩu. Điều đó có nghĩa là trang cài đặt chỉ chứa một trình giữ chỗ và chỉ khi người dùng nhấp vào "Hiển thị" (và xác thực lại, nếu có) thì Chrome mới hiển thị mật khẩu. Mô tả gốc của chính sách như sau.
+
+          Kiểm soát việc người dùng có thể hiển thị mật khẩu ở dạng văn bản rõ ràng trong trình quản lý mật khẩu hay không.
+
+          Nếu bạn tắt cài đặt này, trình quản lý mật khẩu sẽ không cho phép hiển thị mật khẩu được lưu trữ ở dạng văn bản rõ ràng trong cửa sổ trình quản lý mật khẩu.
+
+          Nếu bạn bật hoặc không đặt chính sách này, người dùng có thể xem mật khẩu của họ ở dạng văn bản rõ ràng trong trình quản lý mật khẩu.</translation>
 <translation id="3547954654003013442">Cài đặt proxy</translation>
 <translation id="3570008976476035109">Chặn plugin trên các trang web này</translation>
 <translation id="3591584750136265240">Định cấu hình hành vi xác thực thông tin đăng nhập</translation>
@@ -841,18 +839,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Mỗi mục nhập trong danh sách chứa một từ điển. Từ điển này phải bao gồm ID tiện ích trong trường 'extension-id' và URL cập nhật trong trường 'update-url'.</translation>
 <translation id="3891357445869647828">Bật JavaScript</translation>
-<translation id="389421284571827139">Cho phép bạn chỉ định máy chủ proxy mà <ph name="PRODUCT_NAME" /> sử dụng và ngăn người dùng thay đổi cài đặt proxy.
-
-      Nếu bạn chọn không bao giờ sử dụng máy chủ proxy và luôn kết nối trực tiếp, tất cả tùy chọn khác đều được bỏ qua.
-
-      Nếu bạn chọn tự động phát hiện máy chủ proxy, tất cả tùy chọn khác đều được bỏ qua.
-
-      Để xem ví dụ chi tiết, truy cập:
-      <ph name="PROXY_HELP_URL" />
-
-      Nếu bạn bật cài đặt này, <ph name="PRODUCT_NAME" /> sẽ bỏ qua tất cả các tùy chọn liên quan đến proxy được chỉ định từ dòng lệnh.
-
-      Không thiết lập chính sách này sẽ cho phép người dùng chọn tự cài đặt proxy.</translation>
 <translation id="3907986150060929099">Đặt ngôn ngữ được đề xuất cho phiên công khai</translation>
 <translation id="391531815696899618">Tắt đồng bộ hóa Google Drive trong ứng dụng Tệp <ph name="PRODUCT_OS_NAME" /> khi được đặt thành True. Trong trường hợp đó, không có dữ liệu nào được tải lên Google Drive.
 
@@ -1097,16 +1083,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
           Giá trị phải là một dãy từ điển JSON dạng chuỗi. Mỗi từ điển đều phải có dạng { "pattern": "$URL_PATTERN", "filter" : $FILTER }, trong đó $URL_PATTERN là mẫu cài đặt nội dung. $FILTER giới hạn các chứng chỉ ứng dụng mà trình duyệt sẽ tự động chọn. Bất kể bộ lọc, chỉ các chứng chỉ khớp với yêu cầu chứng chỉ của máy chủ mới được chọn. Nếu $FILTER có dạng { "ISSUER": { "CN": "$ISSUER_CN" } } thì thêm nữa, chỉ những chứng chỉ ứng dụng do chứng chỉ có CommonName $ISSUER_CN cấp mới được chọn. Nếu $FILTER là từ điển trống {}, lựa chọn chứng chỉ ứng dụng sẽ không bị hạn chế thêm.
 
           Nếu bạn không đặt chính sách này, sẽ không có thao tác tự động chọn nào được thực hiện cho bất kỳ trang web nào.</translation>
-<translation id="4980301635509504364">Cho phép hoặc từ chối quay video.
-
-      Nếu được bật hoặc không được định cấu hình (mặc định), người dùng sẽ
-      được nhắc cho phép truy cập quay video ngoại trừ các URL được định cấu hình trong
-      danh sách VideoCaptureAllowedUrls sẽ được cấp quyền truy cập mà không hiển thị lời nhắc.
-
-      Khi tắt chính sách này, người dùng sẽ không bao giờ được nhắc và
-      quay video chỉ khả dụng với các URL được định cấu hình trong VideoCaptureAllowedUrls.
-
-      Chính sách này ảnh hưởng đến tất cả các loại thiết bị quay video chứ không chỉ máy ảnh được tích hợp sẵn.</translation>
 <translation id="4980635395568992380">Loại dữ liệu:</translation>
 <translation id="4983201894483989687">Cho phép chạy các plugin đã lỗi thời</translation>
 <translation id="4988291787868618635">Hành động cần thực hiện khi đạt tới độ trễ khi không sử dụng</translation>
@@ -1321,9 +1297,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Nếu chính sách này không được đặt hoặc được đặt thành false thì <ph name="PRODUCT_NAME" /> sẽ sử dụng cài đặt kiểm tra thu hồi trực tuyến hiện có.</translation>
 <translation id="5732972008943405952">Nhập dữ liệu biểu mẫu tự động điền từ trình duyệt mặc định trong lần chạy đầu tiên</translation>
-<translation id="5761030451068906335">Định cấu hình cài đặt proxy cho <ph name="PRODUCT_NAME" />.
-
-      Chính sách chưa sẵn sàng để sử dụng, vui lòng không sử dụng chính sách này.</translation>
 <translation id="5765780083710877561">Mô tả:</translation>
 <translation id="5770738360657678870">Kênh nhà phát triển (có thể không ổn định)</translation>
 <translation id="5774856474228476867">URL tìm kiếm nhà cung cấp dịch vụ tìm kiếm mặc định</translation>
@@ -1348,13 +1321,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
       Truy cập http://www.chromium.org/administrators/policy-list-3/user-data-directory-variables để xem danh sách các biến có thể sử dụng.
 
       Nếu bạn không đặt cài đặt này, thư mục hồ sơ mặc định sẽ được sử dụng.</translation>
-<translation id="5819660021114910752">Chỉ định múi giờ được sử dụng cho thiết bị. Người dùng có thể ghi đè múi giờ đã chỉ định cho phiên hiện tại. Tuy nhiên, khi đăng xuất, phiên được đặt trở về múi giờ đã chỉ định. Nếu giá trị không hợp lệ được cung cấp, chính sách sẽ vẫn được kích hoạt bằng ''GMT". Nếu chuỗi trống được cung cấp, chính sách bị bỏ qua.
-
-      Nếu chính sách này không được sử dụng, múi giờ đang hoạt động sẽ vẫn được sử dụng. Tuy nhiên, người dùng có thể thay đổi múi giờ và thay đổi sẽ vẫn duy trì. Do đó, sự thay đổi do một người dùng thực hiện sẽ ảnh hưởng đến màn hình đăng nhập và tất cả người dùng khác.
-
-      Thiết bị mới khởi động với múi giờ được đặt thành "Hoa Kỳ/Thái Bình Dương".
-
-      Định dạng của giá trị tuân theo tên của múi giờ trong "Cơ sở dữ liệu múi giờ của IANA" (hãy xem "https://en.wikipedia.org/wiki/Tz_database"). Đặc biệt, bạn có thể tham chiếu hầu hết các múi giờ theo "continent/large_city" hoặc "ocean/large_city".</translation>
 <translation id="5826047473100157858">Chỉ định liệu người dùng có thể mở trang ở chế độ Ẩn danh trong <ph name="PRODUCT_NAME" /> hay không.
 
       Nếu chọn 'Bật' hoặc không thiết lập chính sách này, bạn có thể mở trang ở chế độ Ẩn danh.
@@ -1558,22 +1524,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Nếu chính sách này không được đặt, chế độ mặc định sẽ không được phép với người dùng do doanh nghiệp quản lý và được phép với người dùng không được quản lý.</translation>
 <translation id="6491139795995924304">Cho phép bluetooth trên thiết bị</translation>
-<translation id="6513756852541213407">Cho phép bạn chỉ định máy chủ proxy mà <ph name="PRODUCT_NAME" /> sử dụng và ngăn người dùng thay đổi cài đặt proxy.
-
-          Nếu bạn chọn không bao giờ sử dụng máy chủ proxy và luôn kết nối trực tiếp, tất cả các tùy chọn khác đều bị bỏ qua.
-
-          Nếu bạn chọn sử dụng cài đặt proxy hệ thống hoặc tự động phát hiện máy chủ proxy, tất cả các tùy chọn khác đều bị bỏ qua.
-
-          Nếu bạn chọn chế độ proxy máy chủ cố định, bạn có thể chỉ định thêm tùy chọn trong 'Địa chỉ hoặc URL của máy chủ proxy' và 'Danh sách quy tắc bỏ qua proxy được phân cách bằng dấu phẩy'.
-
-          Nếu bạn chọn sử dụng tập lệnh proxy .pac, bạn phải chỉ định URL tới tập lệnh trong 'URL tới tệp .pac proxy'.
-
-          Để xem ví dụ chi tiết, hãy truy cập:
-          <ph name="PROXY_HELP_URL" />
-
-          Nếu bạn bật cài đặt này, <ph name="PRODUCT_NAME" /> sẽ bỏ qua tất cả các tùy chọn liên quan đến proxy được chỉ định từ dòng lệnh.
-
-          Việc không thiết lập chính sách này sẽ cho phép người dùng chọn cài đặt proxy của riêng họ.</translation>
 <translation id="6520802717075138474">Nhập công cụ tìm kiếm từ trình duyệt mặc định trong lần chạy đầu tiên</translation>
 <translation id="653608967792832033">Chỉ định khoảng thời gian không có thao tác nhập của người dùng mà sau khoảng thời gian đó màn hình bị khóa khi chạy trên nguồn pin.
 
@@ -1652,22 +1602,6 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Nếu chính sách này không được đặt, dự đoán mạng sẽ được bật nhưng người dùng sẽ có thể thay đổi cài đặt đó.</translation>
 <translation id="6658245400435704251">Chỉ định số giây tối đa mà thiết bị có thể ngẫu nhiên trì hoãn việc tải xuống bản cập nhật từ thời điểm bản cập nhật được đưa lên máy chủ lần đầu tiên. Thiết bị có thể đợi một phần số thời gian này là thời gian thực và phần thời gian còn lại là thời gian kiểm tra bản cập nhật. Trong bất kỳ trường hợp nào, việc phân tán bị chặn trên ở lượng thời gian cố định để thiết bị không bao giờ phải chờ mãi để tải xuống bản cập nhật.</translation>
-<translation id="6672934768721876104">Chính sách này không được chấp thuận, thay vào đó hãy sử dụng ProxyMode.
-
-          Cho phép bạn chỉ định máy chủ proxy mà <ph name="PRODUCT_NAME" /> sử dụng và ngăn người dùng thay đổi cài đặt proxy.
-
-          Nếu bạn chọn không bao giờ sử dụng máy chủ proxy và luôn kết nối trực tiếp, tất cả các tùy chọn khác đều được bỏ qua.
-
-          Nếu bạn chọn sử dụng cài đặt proxy hệ thống hoặc tự động phát hiện máy chủ proxy, tất cả các tùy chọn khác đều được bỏ qua.
-
-          Nếu bạn chọn cài đặt proxy thủ công, bạn có thể chỉ định thêm tùy chọn trong 'Địa chỉ hoặc URL của máy chủ proxy', 'URL tới tệp .pac proxy' và 'Danh sách các quy tắc bỏ qua proxy được phân cách bằng dấu phẩy'.
-
-          Để xem ví dụ chi tiết, truy cập:
-          <ph name="PROXY_HELP_URL" />
-
-          Nếu bạn bật cài đặt này, <ph name="PRODUCT_NAME" /> sẽ bỏ qua tất cả các tùy chọn liên quan đến proxy được chỉ định từ dòng lệnh.
-
-          Không thiết lập chính sách này sẽ cho phép người dùng tự chọn cài đặt proxy.</translation>
 <translation id="6689792153960219308">Báo cáo trạng thái phần cứng</translation>
 <translation id="6693751878507293182">Nếu bạn đặt cài đặt này thành bật, tìm kiếm tự động và cài đặt plugin bị thiếu sẽ bị tắt trong <ph name="PRODUCT_NAME" />.
 
@@ -1811,6 +1745,7 @@ Khi chính sách này được đặt thành false hoặc không được địn
 
       Nếu chính sách này không được đặt, người dùng có thể thay đổi danh sách các ứng dụng được ghim trong trình chạy.</translation>
 <translation id="7132877481099023201">Các URL sẽ được cấp quyền truy cập thiết bị quay video mà không cần phải hiển thị lời nhắc</translation>
+<translation id="7167436895080860385">Cho phép người dùng hiển thị mật khẩu trong Trình quản lý mật khẩu (không dùng nữa)</translation>
 <translation id="7173856672248996428">Cấu hình tạm thời</translation>
 <translation id="7187256234726597551">Nếu được đặt thành true, cho phép xác nhận từ xa cho thiết bị và chứng chỉ sẽ tự động được tạo và tải lên Máy chủ quản lý thiết bị.
 
@@ -2128,6 +2063,7 @@ Khi chính sách này được đặt thành false hoặc không được địn
 <translation id="8197918588508433925">Chính sách này nêu rõ các tiện ích cụ thể để sử dụng API khóa nền tảng doanh nghiệp chrome.enterprise.platformKeysPrivate.challengeUserKey() để chứng thực từ xa. Các tiện ích phải được thêm vào danh sách này để sử dụng API.
 
           Nếu tiện ích không có trong danh sách hoặc danh sách không được đặt thì cuộc gọi đến API sẽ không thực hiện được với mã lỗi.</translation>
+<translation id="8214600119442850823">Định cấu hình trình quản lý mật khẩu.</translation>
 <translation id="8244525275280476362">Độ trễ tìm nạp tối đa sau khi hủy hiệu lực chính sách</translation>
 <translation id="8256688113167012935">Kiểm soát tên tài khoản <ph name="PRODUCT_OS_NAME" /> hiển thị trên màn hình đăng nhập cho tài khoản trong thiết bị tương ứng.
 
@@ -2312,6 +2248,17 @@ Khi chính sách này được đặt thành false hoặc không được địn
 <translation id="8858642179038618439">Bật Chế độ an toàn trên YouTube</translation>
 <translation id="8864975621965365890">Loại bỏ lời nhắc từ chối xuất hiện khi một trang web được hiển thị bởi <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Trang chủ</translation>
+<translation id="8889588091638298603">Máy chủ Quirks cung cấp các tệp cấu hình dành riêng cho phần cứng, chẳng hạn như
+      Cấu hình hiển thị ICC để hiệu chỉnh màn hình.
+
+      Khi chính sách này được đặt thành false, thiết bị sẽ không tìm cách liên hệ
+      với Máy chủ Quirks để tải xuống các tệp cấu hình.
+
+      Nếu chính sách này là true hoặc không được định cấu hình thì
+      <ph name="PRODUCT_OS_NAME" /> sẽ
+      tự động liên hệ với Máy chủ Quirks và tải xuống các tệp cấu hình,
+      nếu có, rồi lưu trữ các tệp này trên thiết bị. Các tệp này có thể
+      được sử dụng để cải thiện chất lượng hiển thị của màn hình gắn vào chẳng hạn.</translation>
 <translation id="8905426178924715309">Chính sách này không được dùng nữa, vui lòng sử dụng ForceGoogleSafeSearch và ForceYouTubeSafetyMode. Chính sách này sẽ bị bỏ qua nếu bạn đặt chính sách ForceGoogleSafeSearch hoặc ForceYouTubeSafetyMode.
 
       Buộc hoàn tất các truy vấn trong Google Web Search bằng cách đặt Tìm kiếm an toàn thành hiện hoạt và ngăn người dùng thay đổi cài đặt này. Cài đặt này cũng bắt buộc bật Chế độ an toàn trên YouTube.

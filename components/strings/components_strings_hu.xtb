@@ -288,6 +288,7 @@
 <translation id="3788090790273268753">A webhely tanúsítványa 2016-ban jár le, a tanúsítványlánc pedig tartalmaz egy SHA-1 titkosítással aláírt tanúsítványt.</translation>
 <translation id="382518646247711829">Ha proxyszervert használ...</translation>
 <translation id="3828924085048779000">Az üres összetett jelszó nem engedélyezett.</translation>
+<translation id="3845539888601087042">Előzmények megjelenítése bejelentkezett eszközeiről. <ph name="BEGIN_LINK" />További információ<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Vissza</translation>
 <translation id="3858027520442213535">Dátum és idő frissítése</translation>
 <translation id="3884278016824448484">Eszközazonosító-ütközés</translation>
@@ -408,6 +409,7 @@
 <translation id="5421136146218899937">Böngészési adatok törlése...</translation>
 <translation id="5430298929874300616">Könyvjelző törlése</translation>
 <translation id="5431657950005405462">A fájl nem található</translation>
+<translation id="5435775191620395718">Előzmények megjelenítése erről az eszközről. <ph name="BEGIN_LINK" />További információ<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Sémaérvényesítési hiba a következőnél: „<ph name="ERROR_PATH" />”: <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Az összes mentett oldal megjelenítése</translation>
 <translation id="5452270690849572955">Ez a(z) <ph name="HOST_NAME" /> oldal nem található</translation>
@@ -554,7 +556,6 @@
 <translation id="7186367841673660872">Ezt az oldalt<ph name="ORIGINAL_LANGUAGE" />nyelvről fordítottuk<ph name="LANGUAGE_LANGUAGE" />nyelvre.</translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Az oldal letiltva</translation>
-<translation id="7208899522964477531">Keresés <ph name="SITE_NAME" /> keresővel a következő kifejezésre: "<ph name="SEARCH_TERMS" />"</translation>
 <translation id="7210863904660874423">A(z) <ph name="HOST_NAME" /> nem felel meg a biztonsági szabványoknak.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />További információ<ph name="END_LINK" /> erről a hibáról.</translation>
 <translation id="7219179957768738017">A kapcsolat a következőt használja: <ph name="SSL_VERSION" />.</translation>
@@ -636,7 +637,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY" />) hasznos lehet a következő
 <translation id="7951415247503192394">(32 bites)</translation>
 <translation id="7956713633345437162">Mobil könyvjelzők</translation>
 <translation id="7961015016161918242">Soha</translation>
-<translation id="7977590112176369853">&lt;lekérdezés megadása&gt;</translation>
 <translation id="7983301409776629893">A(z) <ph name="ORIGINAL_LANGUAGE" /> nyelvű szövegeket mindig fordítsa <ph name="TARGET_LANGUAGE" /> nyelvre</translation>
 <translation id="7995512525968007366">Nincs megadva</translation>
 <translation id="8012647001091218357">Jelenleg nem tudjuk elérni szüleidet. Próbálkozz újra.</translation>
@@ -697,6 +697,7 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY" />) hasznos lehet a következő
 <translation id="8730621377337864115">Kész</translation>
 <translation id="8738058698779197622">Biztonságos kapcsolat létrehozásához az órát pontosan be kell állítani. Ez azért szükséges, mert a webhelyek által az azonosításukra használt tanúsítványok csak adott ideig érvényesek. Mivel az eszköz órája nem pontos, a Chromium nem tudja ellenőrizni ezeket a tanúsítványokat.</translation>
 <translation id="8740359287975076522">A(z) <ph name="HOST_NAME" /> &lt;abbr id="dnsDefinition"&gt;DNS-címe&lt;/abbr&gt; nem található. A probléma diagnosztizálása folyamatban van.</translation>
+<translation id="8741995161408053644">Előfordulhat, hogy a böngészési előzmények más formái még megtalálhatók Google-fiókjában a <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" /> címen.</translation>
 <translation id="8790007591277257123">&amp;Törlés újra</translation>
 <translation id="8798099450830957504">Alapértelmezett</translation>
 <translation id="8804164990146287819">Adatvédelmi irányelvek</translation>
@@ -717,7 +718,6 @@ Pszt! Az inkognitómód (<ph name="SHORTCUT_KEY" />) hasznos lehet a következő
 <translation id="8903921497873541725">Nagyítás</translation>
 <translation id="8931333241327730545">Menti ezt a kártyát a Google-fiókjába?</translation>
 <translation id="8932102934695377596">Késik az órája</translation>
-<translation id="8940229512486821554"><ph name="EXTENSION_NAME" /> futtatása a következő paranccsal: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Folyt.)</translation>
 <translation id="8971063699422889582">A szerver tanúsítványa lejárt.</translation>
 <translation id="8987927404178983737">hónap</translation>

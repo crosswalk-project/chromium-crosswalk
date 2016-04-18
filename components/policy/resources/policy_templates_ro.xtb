@@ -65,7 +65,6 @@
 
       Dacă această politică nu este configurată sau dacă este dezactivată, suitele de codificare RC4 din TLS nu vor fi activate. În caz contrar, politica poate fi activată pentru a se menține compatibilitatea cu un server învechit. Aceasta este o măsură temporară, iar serverul trebuie să fie reconfigurat.</translation>
 <translation id="1297182715641689552">Utilizează un script .pac pentru proxy</translation>
-<translation id="1300635491585192248">Anticipează acțiunile în rețea în orice rețea care nu este mobilă</translation>
 <translation id="1304973015437969093">ID-uri pentru extensii/aplicații și adrese URL pentru actualizări de instalat în fundal</translation>
 <translation id="1310699457130669094">Aici puteți specifica adresa URL a unui fișier .pac pentru proxy. Această politică are efect numai dacă ați selectat manual setările proxy la „Alegeți modul de specificare a setărilor serverului proxy”. Trebuie să lăsați această politică nesetată dacă ați selectat alt mod pentru setarea politicilor de proxy. Pentru mai multe opțiuni și exemple detaliate, accesați: <ph name="PROXY_HELP_URL" /></translation>
 <translation id="1313457536529613143">Specifică procentul de ajustare a intervalului până la reducerea luminozității ecranului atunci când se înregistrează activități ale utilizatorului în timp ce luminozitatea ecranului este redusă sau la scurt timp după ce ecranul a fost oprit.
@@ -84,6 +83,7 @@
 <translation id="1359553908012294236">Dacă această politică este activată sau nu este configurată, <ph name="PRODUCT_NAME" /> va permite conectările ca invitat. Conectările ca invitat sunt profiluri <ph name="PRODUCT_NAME" /> în care toate ferestrele sunt în modul incognito.
 
       Dacă această politică este dezactivată, <ph name="PRODUCT_NAME" /> nu va permite crearea profilurilor pentru invitați.</translation>
+<translation id="1363275621236827384">Activează interogările către Quirks Server pentru profilurile hardware</translation>
 <translation id="1397855852561539316">Adresă URL de sugerare a furnizorului de căutare prestabilit</translation>
 <translation id="1398889361882383850">Puteți să setați permisiunea ca site-urile web să ruleze pluginuri în mod automat. Rularea automată a pluginurilor poate fi permisă sau refuzată pentru toate site-urile web în bloc.
 
@@ -545,7 +545,6 @@
           Dacă această politică este activată sau neconfigurată, utilizatorul nu va fi considerat inactiv în timpul redării conținutului audio. Astfel, nu se atinge intervalul maxim de inactivitate și nu se ia măsura corespunzătoare. Cu toate acestea, reducerea luminozității ecranului, oprirea ecranului și blocarea ecranului vor avea loc după expirarea intervalelor configurate, indiferent de activitatea audio.
 
           Dacă politica este dezactivată, utilizatorul este considerat inactiv în timpul redării conținutului audio.</translation>
-<translation id="2948381198510798695"><ph name="PRODUCT_NAME" /> va ocoli toate proxy-urile pentru lista de gazde furnizată aici. Această politică are efect doar dacă ați selectat manual setările de proxy la „Alegeți modul de specificare a setărilor serverului proxy”. Trebuie să lăsați această politică nesetată dacă ați selectat un alt mod de setare a politicilor de proxy. Pentru mai multe exemple detaliate, accesați: <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Această politică a fost retrasă începând cu <ph name="PRODUCT_NAME" /> versiunea 36.
 
       Specifică dacă extensia pentru certificatele TLS legate la domeniu trebuie să fie activată.
@@ -695,6 +694,13 @@
 
       Valoarea politicii trebuie specificată în milisecunde. Valorile variază între 30 de secunde și 24 de ore.</translation>
 <translation id="3528000905991875314">Activează pagini de eroare alternative</translation>
+<translation id="3538538104630456270">Setarea asociată a fost folosită înainte să fie introdusă reautentificarea la afișarea parolelor. De atunci, setarea și, prin urmare, această politică nu au avut niciun efect asupra comportamentului browserului Chrome. Browserul Chrome se comportă în prezent ca și când politica a fost setată astfel încât să se dezactiveze afișarea parolelor în text clar pe pagina de setări a managerului de parole. Acest lucru înseamnă că pagina de setări include numai un substituent, iar Chrome afișează parola numai dacă utilizatorul dă clic pe „Afișează” (și se reautentifică, dacă este cazul). Mai jos, urmează descrierea originală a politicii.
+
+          Stabilește dacă utilizatorul poate afișa parolele în text clar în managerul de parole.
+
+          Dacă dezactivezi această setare, managerul de parole nu permite afișarea în text clar în fereastra managerului de parole a parolelor stocate.
+
+          Dacă activezi sau nu configurezi această politică, utilizatorii pot vedea parolele în text clar în managerul de parole.</translation>
 <translation id="3547954654003013442">Setări proxy</translation>
 <translation id="3570008976476035109">Blochează pluginurile pe aceste site-uri</translation>
 <translation id="3591584750136265240">Configurează comportamentul de autentificare la conectare</translation>
@@ -784,7 +790,6 @@
 
       Fiecare intrare din listă conține un dicționar care trebuie să includă codul extensiei în câmpul „extension-id”, precum și adresa URL pentru actualizare în câmpul „update-url”.</translation>
 <translation id="3891357445869647828">Activează JavaScript</translation>
-<translation id="389421284571827139">Vă permite să indicați serverul proxy utilizat de <ph name="PRODUCT_NAME" /> și împiedică modificarea setărilor proxy de către utilizatori. Dacă alegeți să nu utilizați niciodată un server proxy și să vă conectați întotdeauna în mod direct, toate celelalte opțiuni sunt ignorate. Dacă alegeți detectarea automată a serverului proxy, toate celelalte opțiuni sunt ignorate. Pentru exemple detaliate, accesați: <ph name="PROXY_HELP_URL" /> Dacă activați această setare, <ph name="PRODUCT_NAME" /> ignoră toate opțiunile legate de proxy specificate din linia de comandă. Dacă nu setați aceste politici, utilizatorul va putea să aleagă singur setările pentru proxy.</translation>
 <translation id="3907986150060929099">Setează limbile recomandate pentru o sesiune publică</translation>
 <translation id="391531815696899618">Dacă este activată, dezactivează sincronizarea cu Google Drive în aplicația Fișiere din <ph name="PRODUCT_OS_NAME" />. În acest caz, datele nu sunt încărcate în Google Drive.
 
@@ -1004,16 +1009,6 @@
           Valoarea trebuie să fie o serie de dicționare JSON sub formă de șiruri de caractere. Fiecare dicționar trebuie să aibă forma { „pattern”: „$URL_PATTERN”, „filter” : $FILTER }, unde $URL_PATTERN este un șablon pentru setarea de conținut. Valoarea pentru $FILTER limitează din care certificate de client va selecta automat browserul. Indiferent de filtru, se vor selecta numai certificatele care se potrivesc cu solicitarea de certificat a serverului. Dacă $FILTER are forma { „ISSUER”: { „CN”: „$ISSUER_CN” } }, se vor selecta numai certificatele de client emise de o autoritate de certificare cu numele comun $ISSUER_CN. Dacă $FILTER este dicționarul gol {}, nu mai există alte restricții privind selectarea certificatelor de client.
 
           Dacă această politică nu este configurată, nu se va efectua nicio selectare automată, pentru niciun site.</translation>
-<translation id="4980301635509504364">Permiteți sau refuzați capturarea conținutului video.
-
-      Dacă această politică este activată sau nu este configurată (setarea prestabilită), utilizatorului i se va solicita
-      acces la capturarea conținutului video, cu excepția adreselor URL configurate în
-      lista VideoCaptureAllowedUrls, pentru care accesul va fi acordat în mod automat.
-
-      Dacă această politică este dezactivată, utilizatorului nu i se va solicita niciodată permisiunea, iar capturarea
-      video va fi disponibilă numai pentru adresele URL configurate în VideoCaptureAllowedUrls.
-
-      Această politică afectează toate tipurile de intrări video, și nu doar camera integrată.</translation>
 <translation id="4980635395568992380">Tip de date:</translation>
 <translation id="4983201894483989687">Permite rularea pluginurilor învechite</translation>
 <translation id="4988291787868618635">Măsura care se va lua la atingerea intervalului maxim de inactivitate</translation>
@@ -1201,7 +1196,6 @@
 
       Dacă politica nu este configurată sau nu este activată, <ph name="PRODUCT_NAME" /> va folosi setările existente pentru verificarea revocărilor online.</translation>
 <translation id="5732972008943405952">Importă datele salvate pentru completarea automată a formularelor din browserul prestabilit la prima lansare</translation>
-<translation id="5761030451068906335">Configurează setările de proxy pentru <ph name="PRODUCT_NAME" />. Această politică nu este gata pentru utilizare încă, deci vă rugăm să nu o utilizați.</translation>
 <translation id="5765780083710877561">Descriere:</translation>
 <translation id="5770738360657678870">Canalul pentru dezvoltatori (poate fi instabil)</translation>
 <translation id="5774856474228476867">Adresa URL de căutare a furnizorului prestabilit de căutare</translation>
@@ -1226,13 +1220,6 @@
       Pentru a vedea o listă cu variabilele care pot fi folosite, accesează https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
 
       Dacă această setare nu este configurată, va fi folosit directorul prestabilit al profilului.</translation>
-<translation id="5819660021114910752">Specifică fusul orar de utilizat pentru dispozitiv. Utilizatorii pot schimba fusul orar specificat pentru sesiunea actuală. Cu toate acestea, la deconectare, setarea revine la fusul orar specificat. Dacă se indică o valoare incorectă, politica este activată utilizând fusul orar „GMT”. Dacă este specificat un șir gol, politica este ignorată.
-
-      Dacă nu se utilizează această politică, se va utiliza în continuare fusul orar activ la momentul respectiv. Cu toate acestea, utilizatorii pot modifica fusul orar și această schimbare se va păstra. Prin urmare, schimbarea făcută de un utilizator afectează ecranul de conectare și pe toți ceilalți utilizatori.
-
-      Dispozitivele noi pornesc cu fusul orar setat la „S.U.A./Pacific”.
-
-      Formatul valorii respectă denumirile fusurilor orare din „Baza de date de fusuri orare IANA” (accesează „https://en.wikipedia.org/wiki/Tz_database”). Mai exact, majoritatea fusurilor orare sunt denumite după formatul „continent/oraș_mare” sau „ocean/oraș_mare”.</translation>
 <translation id="5826047473100157858">Specifică dacă utilizatorul poate deschide pagini în modul incognito în <ph name="PRODUCT_NAME" />. Dacă politica este activată sau nu este setată, paginile pot fi deschise în modul incognito. Dacă este dezactivată, paginile nu pot fi deschise în modul incognito. Dacă este selectat „Forțat”, paginile pot fi deschise NUMAI în modul incognito.</translation>
 <translation id="5836064773277134605">Limitați intervalul pentru portul UDP folosit de gazda de acces la distanță</translation>
 <translation id="5845159892130426052">Activează API-ul ShowModalDialog până la 30.04.2015</translation>
@@ -1420,7 +1407,6 @@
 
       Dacă politica nu este configurată, în mod prestabilit, permisiunea nu este acordată utilizatorilor gestionați de companie și este acordată utilizatorilor care nu sunt gestionați.</translation>
 <translation id="6491139795995924304">Permite Bluetooth pe dispozitiv</translation>
-<translation id="6513756852541213407">Vă permite să specificați serverul proxy utilizat de <ph name="PRODUCT_NAME" /> și împiedică modificarea setărilor de proxy de către utilizatori. Dacă alegeți să nu utilizați niciodată un server proxy și să vă conectați întotdeauna în mod direct, toate celelalte opțiuni sunt ignorate. Dacă alegeți să utilizați setările proxy-ului pentru sistem sau detectarea automată a serverului proxy, toate celelalte opțiuni sunt ignorate. Dacă alegeți modul server proxy fix, puteți specifica opțiuni suplimentare în „Adresa IP sau adresa URL a serverului proxy” și „Lista cu valori separate prin virgulă a regulilor de ocolire a proxy-ului”. Dacă alegeți să utilizați un script .pac pentru proxy, trebuie să specificați adresa URL a scriptului în „Adresa URL a unui fișier .pac pentru proxy”. Pentru exemple detaliate, accesați: <ph name="PROXY_HELP_URL" /> Dacă activați această setare, <ph name="PRODUCT_NAME" /> ignoră toate opțiunile legate de serverul proxy specificate din linia de comandă. Dacă această politică rămâne nesetată, utilizatorii vor putea să aleagă ei înșiși setările de proxy.</translation>
 <translation id="6520802717075138474">Importați motoarele de căutare din browserul prestabilit, la prima rulare</translation>
 <translation id="653608967792832033">Indică intervalul de timp fără intervenția utilizatorului după care ecranul este blocat atunci când dispozitivul funcționează pe baterie.
 
@@ -1500,7 +1486,6 @@
 
       Dacă această politică nu este configurată, anticiparea în rețea va fi activată, dar utilizatorul o va putea modifica.</translation>
 <translation id="6658245400435704251">Specifică numărul de secunde până la care un dispozitiv poate întârzia în mod aleatoriu descărcarea unei actualizări, din momentul în care respectiva actualizare a fost publicată pe server. O parte din perioada în care dispozitivul așteaptă efectuarea actualizării poate fi exprimată în termeni temporali, iar partea rămasă printr-un număr de verificări ale existenței unei actualizări. În orice caz, difuzarea are ca limită superioară o valoare constantă de timp, astfel încât un dispozitiv nu poate rămâne niciodată blocat definitiv în așteptarea descărcării unei actualizări.</translation>
-<translation id="6672934768721876104">Această politică este învechită și trebuie să utilizați ProxyMode. Vă permite să specificați serverul proxy utilizat de <ph name="PRODUCT_NAME" /> și împiedică modificarea setărilor proxy de către utilizatori. Dacă alegeți să nu utilizați niciodată un server proxy și să vă conectați întotdeauna în mod direct, toate celelalte opțiuni sunt ignorate. Dacă alegeți să utilizați setările proxy pentru sistem sau detectarea automată a serverului proxy, toate celelalte opțiuni sunt ignorate. Dacă alegeți setări manuale pentru proxy, puteți specifica opțiuni suplimentare în „Adresa IP sau adresa URL a serverului proxy”, „Adresa URL a unui fișier .pac pentru proxy” și „Lista cu valori separate prin virgulă a regulilor de ocolire a proxy-ului”. Pentru exemple detaliate, accesați: <ph name="PROXY_HELP_URL" /> Dacă activați această setare, <ph name="PRODUCT_NAME" /> ignoră toate opțiunile legate de proxy specificate din linia de comandă.</translation>
 <translation id="6689792153960219308">Raportează starea hardware-ului</translation>
 <translation id="6693751878507293182">Dacă activați această setare, căutarea automată și instalarea pluginurilor care lipsesc vor fi dezactivate în <ph name="PRODUCT_NAME" />. Dacă dezactivați această opțiune sau nu o setați, instrumentul de găsire de pluginuri va fi activ.</translation>
 <translation id="6697474194550078937">Limitează intervalul de timp pentru care un utilizator autentificat prin SAML se poate conecta offline.
@@ -1629,6 +1614,7 @@ nu poate fi stabilit de utilizator din setările browserului.
 
       Dacă această politică este lăsată nesetată, utilizatorul poate modifica lista cu aplicații fixate din lansator.</translation>
 <translation id="7132877481099023201">Adresele URL cărora li se va acorda acces automat la dispozitivele de capturare a conținutului video</translation>
+<translation id="7167436895080860385">Permite utilizatorilor să afișeze parolele în managerul de parole (s-a renunțat la dezvoltare)</translation>
 <translation id="7173856672248996428">Profil efemer</translation>
 <translation id="7187256234726597551">Dacă această politică este activată, atestarea la distanță este permisă pentru dispozitiv. De asemenea, un certificat va fi generat și încărcat în mod automat pe Serverul de gestionare a dispozitivelor.
 
@@ -1927,6 +1913,7 @@ nu poate fi stabilit de utilizator din setările browserului.
 <translation id="8197918588508433925">Această politică specifică extensiile cărora li se permite să utilizeze API-ul Enterprise Platform Keys chrome.enterprise.platformKeysPrivate.challengeUserKey() pentru atestarea la distanță. Extensiile trebuie să fie adăugate în această listă pentru a utiliza API-ul.
 
           Dacă o extensie nu este în listă sau dacă lista nu este configurată, apelul către API nu va reuși și va genera un cod de eroare.</translation>
+<translation id="8214600119442850823">Configurează managerul de parole.</translation>
 <translation id="8244525275280476362">Întârzierea maximă la preluare după invalidarea unei politici</translation>
 <translation id="8256688113167012935">Controlează numele de cont afișat de <ph name="PRODUCT_OS_NAME" /> pe ecranul de pornire pentru contul local corespondent de pe gadget.
 
@@ -2102,6 +2089,17 @@ nu poate fi stabilit de utilizator din setările browserului.
 <translation id="8858642179038618439">Forțează Modul sigur pe YouTube</translation>
 <translation id="8864975621965365890">Elimină solicitarea de refuzare care apare atunci când un site web este redat de <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Pagina de pornire</translation>
+<translation id="8889588091638298603">Quirks Server oferă fișiere de configurare specifice hardware-ului, cum ar fi
+      profiluri de afișare ICC pentru ajustarea calibrării monitorului.
+
+      Când această politică este dezactivată, dispozitivul nu va încerca
+      să contacteze Quirks Server pentru a descărca fișierele de configurare.
+
+      Dacă această politică este activată sau nu este configurată,
+      <ph name="PRODUCT_OS_NAME" /> va
+      contacta automat Quirks Server și va descărca fișierele de configurare,
+      dacă sunt disponibile, apoi le va stoca pe dispozitiv. Astfel de fișiere pot, de
+      exemplu, să fie folosite pentru a îmbunătăți calitatea afișării de pe monitoarele atașate.</translation>
 <translation id="8905426178924715309">Această politică este învechită. Folosește ForceGoogleSafeSearch și ForceYouTubeSafetyMode. Această politică va fi ignorată dacă sunt configurate politicile ForceGoogleSafeSearch sau ForceYouTubeSafetyMode.
 
       Forțează activarea Căutării sigure pentru interogările de pe Căutarea Google pe web și nu permite utilizatorilor să modifice această setare. De asemenea, această setare impune Modul sigur pe YouTube.

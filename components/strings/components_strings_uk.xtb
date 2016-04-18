@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">Термін дії сертифіката для цього сайту закінчується 2016 року. Ланцюжок сертифіката містить сертифікат, підписаний за допомогою SHA-1.</translation>
 <translation id="382518646247711829">Якщо ви використовуєте проксі-сервер…</translation>
 <translation id="3828924085048779000">Порожня парольна фраза заборонена.</translation>
+<translation id="3845539888601087042">Показано історію з пристроїв, на яких ви ввійшли в обліковий запис. <ph name="BEGIN_LINK" />Докладніше<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Назад</translation>
 <translation id="3858027520442213535">Оновити дату й час</translation>
 <translation id="3884278016824448484">Конфліктуючий ідентифікатор пристрою</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">Очистити дані веб-перегляду...</translation>
 <translation id="5430298929874300616">Видалити закладку</translation>
 <translation id="5431657950005405462">Файл не знайдено</translation>
+<translation id="5435775191620395718">Показано історію з цього пристрою. <ph name="BEGIN_LINK" />Докладніше<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Помилка перевірки схеми за адресою "<ph name="ERROR_PATH" />": <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Показати всі збережені сторінки</translation>
 <translation id="5452270690849572955">Сторінку хосту <ph name="HOST_NAME" /> не знайдено</translation>
@@ -557,7 +559,6 @@
 <translation id="7186367841673660872">Цю сторінку перекладено. Мова оригіналу:<ph name="ORIGINAL_LANGUAGE" />мова перекладу:<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Сторінку заблоковано</translation>
-<translation id="7208899522964477531">Пошук у <ph name="SITE_NAME" /> за словами <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423">Хост <ph name="HOST_NAME" /> не відповідає стандартам безпеки.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Докладніше<ph name="END_LINK" /> про цю проблему.</translation>
 <translation id="7219179957768738017">З'єднання використовує версію <ph name="SSL_VERSION" />.</translation>
@@ -639,7 +640,6 @@
 <translation id="7951415247503192394">(32-розрядна версія)</translation>
 <translation id="7956713633345437162">Закладки для мобільних пристроїв</translation>
 <translation id="7961015016161918242">Ніколи</translation>
-<translation id="7977590112176369853">&lt;уведіть запит&gt;</translation>
 <translation id="7983301409776629893">Завжди перекладати цю мовну пару: <ph name="ORIGINAL_LANGUAGE" /> – <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Не вказано</translation>
 <translation id="8012647001091218357">Не вдалося зв’язатися з вашими батьками. Повторіть спробу.</translation>
@@ -699,6 +699,7 @@
 <translation id="8730621377337864115">Готово</translation>
 <translation id="8738058698779197622">Щоб установити безпечне з’єднання, потрібно правильно вказати час, оскільки сертифікати, які веб-сайти використовують для самоідентифікації дійсні лише протягом певного періоду часу. Час на вашому пристрої неправильний, тому Chromium не може перевірити сертифікати.</translation>
 <translation id="8740359287975076522">&lt;abbr id="dnsDefinition"&gt;Адресу DNS&lt;/abbr&gt; хосту <ph name="HOST_NAME" /> не знайдено. Діагностика проблеми.</translation>
+<translation id="8741995161408053644">У вашому обліковому записі Google на сторінці <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" /> можуть бути інші форми історії веб-перегляду.</translation>
 <translation id="8790007591277257123">&amp;Повторити видалення</translation>
 <translation id="8798099450830957504">За умовчанням</translation>
 <translation id="8804164990146287819">Політика конфіденційності</translation>
@@ -719,7 +720,6 @@
 <translation id="8903921497873541725">Збільшити масштаб</translation>
 <translation id="8931333241327730545">Зберегти цю картку у вашому обліковому записі Google?</translation>
 <translation id="8932102934695377596">Ваш годинник запізнюється</translation>
-<translation id="8940229512486821554">Запустити команду розширення <ph name="EXTENSION_NAME" />: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Продовж.)</translation>
 <translation id="8971063699422889582">Термін дії сертифіката сервера завершився.</translation>
 <translation id="8987927404178983737">Місяць</translation>

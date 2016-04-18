@@ -63,8 +63,6 @@
 
       Ha a házirend nincs beállítva, illetve értéke hamis, akkor a TLS protokoll RC4 rejtjelezési csomagjai nem lesznek engedélyezve. Igaz értékre állítva megmarad a kompatibilitás az elavult szerverekkel. Ez átmeneti intézkedés, a szervert újra kell konfigurálni.</translation>
 <translation id="1297182715641689552">Használjon .pac proxyszkriptet</translation>
-<translation id="1300635491585192248">A hálózati műveletek előrejelzése bármely nem mobilos
-          hálózaton</translation>
 <translation id="1304973015437969093">Bővítmény- és alkalmazásazonosítók és frissítési URL-ek csendes telepítése</translation>
 <translation id="1310699457130669094">Itt megadhatja egy proxy .pac fájl URL-jét. Ez a házirend csak akkor lép érvénybe, ha a manuális proxybeállításokat választotta a "Válassza ki, hogyan adja meg a proxyszerver beállításait" résznél. Ha valamilyen más módját választotta a proxyházirendek beállításának, akkor hagyja ezt a házirendet konfigurálatlanul. További részletes példákért látogassa meg a következő oldalt: <ph name="PROXY_HELP_URL" /></translation>
 <translation id="1313457536529613143">Azt a százalékot adja meg, amelynek alapján a képernyő-elsötétítési késleltetés skálázódik, ha az elsötétedés során, vagy röviddel a képernyő kikapcsolódása után felhasználói tevékenység történik.
@@ -83,6 +81,7 @@
 <translation id="1359553908012294236">Ha a házirend értéke igaz, vagy ha nincs beállítva, akkor a <ph name="PRODUCT_NAME" /> engedélyezi a vendégüzemmódban történő bejelentkezést. A vendégüzemmód olyan profil a <ph name="PRODUCT_NAME" /> böngészőben, amelyben az összes ablak inkognitómódban van.
 
       Ha a házirend értéke hamis, a <ph name="PRODUCT_NAME" /> nem teszi lehetővé vendégprofilok indítását.</translation>
+<translation id="1363275621236827384">Lekérdezések engedélyezése a Quirks Server felé a hardverprofiloknál</translation>
 <translation id="1397855852561539316">Alapértelmezett keresési szolgáltató javasolt URL-je</translation>
 <translation id="1398889361882383850">Lehetővé teszi annak beállítását, hogy a webhelyek számára engedélyezett-e a bővítmények automatikus futtatása. A bővítmények automatikus futtatását az összes webhely számára engedélyezheti, illetve megtagadhatja.
 
@@ -536,7 +535,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
           Ha a házirend Igaz értékre van állítva, vagy nincs beállítva, a rendszer nem tekinti tétlennek a felhasználót hanglejátszás közben. Ez meggátolja a tétlenségi késleltetés elérését és a vonatkozó művelet végrehajtását, ám a képernyő-elsötétítést, képernyő-kikapcsolást és képernyő-lezárást a rendszer az audiotevékenységre tekintet nélkül ugyanúgy elvégzi a beállított időtartamok elteltével.
 
           Ha a házirend Hamis értékre van állítva, az audiotevékenység nem gátolja meg, hogy a rendszer tétlennek tekintse a felhasználót.</translation>
-<translation id="2948381198510798695">A(z) <ph name="PRODUCT_NAME" /> figyelmen kívül hagy bármilyen proxyt a listán megadott gazdagépek esetében. Ez a házirend csak akkor lép érvénybe, ha a manuális proxybeállításokat választotta a "Válassza ki, hogyan adja meg a proxyszerver beállításait" résznél. Ha valamilyen más módját választotta a proxyházirendek beállításának, akkor hagyja ezt a házirendet konfigurálatlanul. További részletes példákért látogassa meg a következő oldalt: <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Ezt a házirendet a <ph name="PRODUCT_NAME" /> 36-os verziójától kezdve visszavontuk.
 
       Azt adja meg, hogy a TLS-domainhez kötött tanúsítványbővítmények engedélyezve legyenek-e.
@@ -686,6 +684,13 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       Az irányelv értékét ezredmásodpercben kell megadni. Az értékek 30 másodperc és 24 óra közé eshetnek.</translation>
 <translation id="3528000905991875314">Alternatív hibaoldalak engedélyezése</translation>
+<translation id="3538538104630456270">A kapcsolódó beállítás még azelőtt volt használatban, hogy a jelszavak megtekintésénél való újrahitelesítést bevezettük. A módosítás óta a beállítás nem volt hatással a Chrome viselkedésére (ennek következtében a házirend sem). A Chrome jelenlegi viselkedése ugyanaz, mintha a házirendnél az lenne beállítva, hogy nem jelenhetnek meg a jelszavak látható szövegként a jelszókezelő beállításainak oldalán. Ez azt jelenti, hogy a beállítások oldala csak egy helyőrzőt tartalmaz, és a Chrome csak akkor jeleníti meg a jelszót, ha a felhasználó rákattint a „Megjelenítés” lehetőségre (és szükség esetén újrahitelesít). A házirend eredeti leírása alább látható.
+
+          Azt szabályozza, hogy a felhasználók megjeleníthetik-e jelszavaikat egyszerű szövegként a jelszókezelőben.
+
+          Ha kikapcsolja ezt a beállítást, a jelszókezelő nem engedi a tárolt jelszavak egyszerű szövegként való megjelenítését a jelszókezelő ablakában..
+
+          Ha bekapcsolja, vagy nem állítja be ezt a beállítást, a felhasználók megtekinthetik egyszerű szövegként a tárolt jelszavakat a jelszókezelőben.</translation>
 <translation id="3547954654003013442">Proxybeállítások</translation>
 <translation id="3570008976476035109">Bővítmények tiltása ezeken a webhelyeken</translation>
 <translation id="3591584750136265240">Bejelentkezési hitelesítési viselkedés konfigurálása</translation>
@@ -769,7 +774,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       A listabejegyzések szótárának tartalmaznia kell a bővítményazonosítót az „extension-id” mezőben, valamint annak frissített URL-jét az „update-url” mezőben.</translation>
 <translation id="3891357445869647828">JavaScript engedélyezése</translation>
-<translation id="389421284571827139">Lehetővé teszi a(z) <ph name="PRODUCT_NAME" /> által használt proxyszerver meghatározását, és megakadályozza, hogy a felhasználók megváltoztassák a proxybeállításokat. Ha úgy dönt, hogy soha nem használ proxyszervert, és mindig közvetlenül kapcsolódik, a rendszer az összes többi opciót figyelmen kívül hagyja. Ha a proxyszerver automatikus érzékelését választja, a rendszer az összes többi opciót figyelmen kívül hagyja. A részletes példákért látogasson el a következő címre: <ph name="PROXY_HELP_URL" />. Ha engedélyezi ezt a beállítást, a(z) <ph name="PRODUCT_NAME" /> figyelmen kívül hagy minden proxyval kapcsolatos opciót a parancssorból. Ha beállítatlanul hagyja ezeket a házirendeket, akkor a felhasználók maguk választhatják ki proxybeállításaikat.</translation>
 <translation id="3907986150060929099">Beállítja a nyilvános munkamenet ajánlott nyelv- és országkódjait</translation>
 <translation id="391531815696899618">Igaz érték esetén letiltja a Google Drive szinkronizálását a <ph name="PRODUCT_OS_NAME" /> Fájlok alkalmazásában. Ebben az esetben nem lesznek feltöltve adatok a Google Drive-ra.
 
@@ -989,16 +993,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
           Az értéknek szöveges karakterláncként megadott JSON-könyvtárak tömbjének kell lennie. A könyvtárakat a { "pattern": "$URL_PATTERN", "filter" : $FILTER } formátumban kell megadni, ahol az $URL_PATTERN egy tartalombeállítási mintát jelöl. A $FILTER korlátozza azt, hogy a böngésző melyik ügyféltanúsítványok közül választhat automatikusan. A szűrőtől függetlenül csak olyan tanúsítványokat választhat, amelyek megfelelnek a szerver tanúsítványkérelmének. Ezenkívül ha a $FILTER formátuma { "ISSUER": { "CN": "$ISSUER_CN" } }, akkor a böngésző csak olyan ügyféltanúsítványokat választ, amelyeket az $ISSUER_CN nevű tanúsítványkibocsátó adott ki. Ha a $FILTER egy üres könyvtár („{}”), akkor az ügyféltanúsítványok kiválaszthatósága nem lesz tovább korlátozva.
 
           Ha nem állítja be ezt a házirendet, akkor semmilyen webhely esetében nem történik automatikus kiválasztás.</translation>
-<translation id="4980301635509504364">Videorögzítés engedélyezése vagy tiltása.
-
-      Ha engedélyezett, vagy ha nincs beállítva (alapértelmezett), a böngésző
-      – a VideoCaptureAllowedUrls listában beállított URL-ek kivételével, amelyek
-      kérdés nélkül megkapják – videorögzítési hozzáférést kér a felhasználótól.
-
-      Ha le van tiltva, akkor a felhasználó sosem kap kérdést, és a videorögzítés
-      csak a VideoCaptureAllowedUrls listában beállított URL-ek számára érhető el.
-
-      Ez a házirend minden videobemenetre érvényes, nem csak a beépített kamerára.</translation>
 <translation id="4980635395568992380">Adattípus:</translation>
 <translation id="4983201894483989687">Elavult bővítmények futtatásának engedélyezése</translation>
 <translation id="4988291787868618635">A tétlenségi késleltetés elteltével végzendő művelet</translation>
@@ -1182,7 +1176,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       Ha a házirend nincs beállítva, vagy ha az értéke hamis, akkor a <ph name="PRODUCT_NAME" /> a meglévő online visszavonás-ellenőrzési beállításokat használja.</translation>
 <translation id="5732972008943405952">Automatikus kitöltés űrlapadatainak importálása az alapértelmezett böngészőből az első indításkor</translation>
-<translation id="5761030451068906335">Konfigurálja a(z) <ph name="PRODUCT_NAME" /> proxybeállításait. Ez a házirend még nem áll készen a használatra, úgyhogy kérjük, ne használja.</translation>
 <translation id="5765780083710877561">Leírás:</translation>
 <translation id="5770738360657678870">Fejlesztői csatorna (instabil lehet)</translation>
 <translation id="5774856474228476867">Az alapértelmezett keresési szolgáltató kereső URL-je</translation>
@@ -1207,13 +1200,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
       A használható változók listájáért lásd: https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
 
       Ha nincs megadva ez a beállítás, akkor az alkalmazás a profil alapértelmezett mappáját használja.</translation>
-<translation id="5819660021114910752">Meghatározza az eszköz által használandó időzónát. A felhasználók az aktuális munkamenet idejére felülbírálhatják a megadott időzónát. Kijelentkezéskor azonban visszaáll a megadott időzóna. Érvénytelen érték megadása esetén a házirend a „GMT” értékkel működik. Üres karakterlánc megadásakor a házirendet a rendszer figyelmen kívül hagyja.
-
-      Ha a házirend nincs használatban, akkor a jelenleg aktív időzóna marad érvényben, azonban a felhasználók megváltoztathatják az időzónát, és ez a módosítás így is marad. Így az egyik felhasználó által végrehajtott módosítás befolyással van a bejelentkezési képernyőre és az összes többi felhasználóra is.
-
-      Az új eszközöknél a kezdeti időzóna-beállítás „USA/Csendes-óceáni”.
-
-      Az érték formátuma megfelel az időzónák „IANA Time Zone Database” adatbázisban (lásd: „https://en.wikipedia.org/wiki/Tz_database”) található neveinek. A legtöbb időzónára lehetséges „földrész/nagyváros” vagy „óceán/nagyváros” formátumban hivatkozni.</translation>
 <translation id="5826047473100157858">Meghatározza, hogy a felhasználó megnyithat-e oldalakat inkognitó módban a(z) <ph name="PRODUCT_NAME" /> böngészőben. Ha az "Engedélyezve" lehetőség van kiválasztva, vagy ha a házirend beállítatlanul marad, az oldalakat meg lehet nyitni inkognitómódban. Ha a "Letiltva" lehetőség van kiválasztva, az oldalakat nem lehet megnyitni inkognitómódban. Ha a "Kényszerített" lehetőség van kiválasztva, az oldalakat CSAK inkognitómódban lehet megnyitni.</translation>
 <translation id="5836064773277134605">A távoli gazdagép által használt UDP porttartomány korlátozása</translation>
 <translation id="5845159892130426052">A ShowModalDialog API engedélyezése 2015.04.30-ig</translation>
@@ -1401,7 +1387,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       Ha nem állítja be a házirendet, akkor az alapértelmezett beállítás lép érvénybe, amely a vállalati felügyelt felhasználók esetében „letiltott”, a nem felügyelt felhasználók esetében pedig „engedélyezett”.</translation>
 <translation id="6491139795995924304">Bluetooth engedélyezése az eszközön</translation>
-<translation id="6513756852541213407">Lehetővé teszi a(z) <ph name="PRODUCT_NAME" /> által használt proxyszerver meghatározását, és megakadályozza, hogy a felhasználók megváltoztassák a proxybeállításokat. Ha úgy dönt, hogy soha nem használ proxyszervert, és mindig közvetlenül kapcsolódik, a rendszer az összes többi beállítást figyelmen kívül hagyja. Ha úgy dönt, hogy a rendszer proxybeállításait használja, vagy automatikusan érzékeli a proxyszervert, a rendszer az összes többi beállítást figyelmen kívül hagyja. Ha a fix szerverproxy módot választja, további beállításokat adhat meg "A proxyszerver címe vagy URL-je" és a "Proxy figyelmen kívül hagyásával kapcsolatos szabályok vesszővel elválasztott listája" lehetőségeknél. Ha .pac proxyszkriptet használ, meg kell adnia a szkript URL-jét "A proxy .pac fájl URL-je" lehetőségnél. Részletes példákért látogassa meg a következő címet: <ph name="PROXY_HELP_URL" /> Ha engedélyezi ezt a beállítást, a(z) <ph name="PRODUCT_NAME" /> figyelmen kívül hagy minden proxyval kapcsolatos beállítást a parancssorból. Ha beállítatlanul hagyja ezt a házirendet, akkor a felhasználók saját maguk választhatják ki a proxybeállításaikat.</translation>
 <translation id="6520802717075138474">Keresőmotorok importálása az alapértelmezett böngészőből az első indításkor</translation>
 <translation id="653608967792832033">Az a felhasználói bevitel nélkül eltöltött idő, amely után a rendszer lezárja a képernyőt, ha akkumulátorról működik.
 
@@ -1481,7 +1466,6 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       Ha nem állítja be a házirendet, a hálózati előrejelzés aktív lesz, de a felhasználó módosíthatja a beállítást.</translation>
 <translation id="6658245400435704251">Meghatározza a másodpercek számát, amely alatt egy eszköz véletlenszerűen késleltetheti egy frissítés letöltését annak első megjelenésétől a szerveren. Az eszköz ennek az időnek egy részét kivárhatja normál idő szerint, a hátralévő részét pedig a frissítések keresésének száma szerint. A szórás felső határa konstans időmennyiség, így az eszköz soha nem ragad le örökre arra várva, hogy letöltsön egy frissítést.</translation>
-<translation id="6672934768721876104">Ez a házirend elavult, használja helyette a ProxyMode-ot. Lehetővé teszi a(z) <ph name="PRODUCT_NAME" /> által használt proxyszerver meghatározását, és megakadályozza, hogy a felhasználók megváltoztassák a proxybeállításokat. Ha úgy dönt, hogy soha nem használ proxyszervert és mindig közvetlenül kapcsolódik, a rendszer az összes többi beállítást figyelmen kívül hagyja. Ha úgy dönt, hogy a rendszer proxybeállításait használja, vagy automatikusan érzékeli a proxyszervert, a rendszer az összes többi beállítást figyelmen kívül hagyja. Ha a manuális proxybeállításokat választja, további beállításokat adhat meg a "Proxyszerver címe vagy URL-je", az "URL egy proxy .pac fájlhoz" és a "Proxy figyelmen kívül hagyásával kapcsolatos szabályok vesszővel elválasztott listája" lehetőségeknél. A részletes példákért látogassa meg a következő címet: <ph name="PROXY_HELP_URL" /> Ha engedélyezi ezt a beállítást, a(z) <ph name="PRODUCT_NAME" /> figyelmen kívül hagy minden proxyval kapcsolatos beállítást a parancssorból. Ha beállítatlanul hagyja ezt a házirendet, akkor a felhasználók saját maguk választhatják ki a proxybeállításaikat.</translation>
 <translation id="6689792153960219308">Hardverállapot jelentése</translation>
 <translation id="6693751878507293182">Ha engedélyezi ezt a beállítást, akkor azzal letiltja a hiányzó bővítmények automatikus keresését és telepítését a következőben: <ph name="PRODUCT_NAME" />. Ha nem engedélyezi, illetve konfigurálatlanul hagyja ezt a beállítást, akkor a bővítménykereső aktiválódik.</translation>
 <translation id="6697474194550078937">Azon időtartam korlátozása, amennyit egy SAML révén hitelesített felhasználó offline bejelentkezve eltölthet.
@@ -1609,6 +1593,7 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 
       Ha nincs beállítva, akkor a felhasználó módosíthatja az indítóban rögzített alkalmazások listáját.</translation>
 <translation id="7132877481099023201">Azon URL-ek, amelyek rákérdezés nélkül hozzáférést kapnak a videorögzítő eszközökhöz</translation>
+<translation id="7167436895080860385">Lehetővé teszi, hogy a felhasználók megjelenítsék a jelszavakat a Jelszókezelőben (megszüntetve)</translation>
 <translation id="7173856672248996428">Ideiglenes profil</translation>
 <translation id="7187256234726597551">Ha igaz, akkor az eszköz használhatja a távoli tanúsítást, és a rendszer automatikusan létrehoz és feltölt egy tanúsítványt az eszközkezelő szerverre.
 
@@ -1905,6 +1890,7 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 <translation id="8197918588508433925">Ez a házirend adja meg, hogy mely bővítmények számára engedélyezett az Enterprise Platform Keys API chrome.enterprise.platformKeysPrivate.challengeUserKey() paraméterének használata a távoli tanúsításhoz. Az API használatához fel kell venni a bővítményeket erre a listára.
 
           Ha egy bővítmény nincs a listán, vagy a lista nincs beállítva, akkor az API hívása hibakóddal leáll.</translation>
+<translation id="8214600119442850823">A jelszókezelőt konfigurálja</translation>
 <translation id="8244525275280476362">Maximális lehívási késleltetés házirend-érvénytelenítés után</translation>
 <translation id="8256688113167012935">A(z) <ph name="PRODUCT_OS_NAME" /> által az eszköz megfelelő helyi fiókjának a bejelentkezési képernyőn megjelenített fióknevét szabályozza.
 
@@ -2076,6 +2062,17 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 <translation id="8858642179038618439">A YouTube Biztonságos módjának kényszerítése</translation>
 <translation id="8864975621965365890">Elrejti a kikapcsolási figyelmeztetést, amely akkor jelenik meg, ha egy webhelyet a(z) <ph name="PRODUCT_FRAME_NAME" /> jeleníti meg.</translation>
 <translation id="8870318296973696995">Kezdőoldal</translation>
+<translation id="8889588091638298603">A Quirks Server hardverspecifikus konfigurációs fájlokat, például
+      ICC megjelenítési profilokat biztosít a monitor kalibrálásához.
+
+      Ha a házirend értéke hamis, akkor az eszköz nem próbál kapcsolatba
+      lépni a Quirks Serverrel a konfigurációs fájlok letöltése érdekében.
+
+      Ha a házirend értéke igaz, vagy nincs konfigurálva, akkor a
+      <ph name="PRODUCT_OS_NAME" /> automatikusan felveszi
+      a kapcsolatot a Quirks Serverrel, és letölti a konfigurációs fájlokat
+      (ha rendelkezésre állnak), majd az eszközön tárolja őket. Az ilyen fájlok
+      használhatók például arra, hogy javítsák a csatlakozó monitorok képminőségét.</translation>
 <translation id="8905426178924715309">Ez a házirend elavult, kérjük, használja helyette a ForceGoogleSafeSearch és a ForceYouTubeSafetyMode házirendet. Ha a ForceGoogleSafeSearch vagy a ForceYouTubeSafetyMode be van állítva, akkor ezt a házirendet figyelmen kívül hagyja a böngésző.
 
       Hatására a Google Internetes Kereső bekapcsolt Biztonságos Keresés mellett végez lekérdezéseket, és megakadályozza, hogy a felhasználók módosítsák ezt a beállítást. Ezenkívül a YouTube-on is aktiválja a Biztonságos módot.

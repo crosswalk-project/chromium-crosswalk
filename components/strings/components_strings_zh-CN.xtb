@@ -279,6 +279,7 @@
 <translation id="3788090790273268753">此网站的证书将于 2016 年过期，并且此网站的证书链包含使用 SHA-1 签署的证书。</translation>
 <translation id="382518646247711829">如果您使用代理服务器…</translation>
 <translation id="3828924085048779000">请勿使用空密码。</translation>
+<translation id="3845539888601087042">目前显示的是您登录过的设备中的历史记录。<ph name="BEGIN_LINK" />了解详情<ph name="END_LINK" />。</translation>
 <translation id="385051799172605136">后退</translation>
 <translation id="3858027520442213535">更新日期和时间</translation>
 <translation id="3884278016824448484">设备标识符存在冲突</translation>
@@ -399,6 +400,7 @@
 <translation id="5421136146218899937">清除浏览数据...</translation>
 <translation id="5430298929874300616">移除书签</translation>
 <translation id="5431657950005405462">找不到您的文件</translation>
+<translation id="5435775191620395718">目前显示的是此设备中的历史记录。<ph name="BEGIN_LINK" />了解详情<ph name="END_LINK" />。</translation>
 <translation id="5439770059721715174">“<ph name="ERROR_PATH" />”中存在模式验证错误：<ph name="ERROR" /></translation>
 <translation id="5447330194051379405">显示所有已保存的网页</translation>
 <translation id="5452270690849572955">找不到 <ph name="HOST_NAME" /> 的网页</translation>
@@ -539,7 +541,6 @@
 <translation id="7186367841673660872">已将此网页从<ph name="ORIGINAL_LANGUAGE" />翻译成<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">已拦截网页</translation>
-<translation id="7208899522964477531">用 <ph name="SITE_NAME" /> 搜索“<ph name="SEARCH_TERMS" />”</translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> 不符合相关安全标准。</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />详细了解<ph name="END_LINK" />此问题。</translation>
 <translation id="7219179957768738017">该连接使用 <ph name="SSL_VERSION" />。</translation>
@@ -621,7 +622,6 @@
 <translation id="7951415247503192394">（32 位）</translation>
 <translation id="7956713633345437162">移动设备书签</translation>
 <translation id="7961015016161918242">一律不</translation>
-<translation id="7977590112176369853">&lt;输入查询&gt;</translation>
 <translation id="7983301409776629893">一律将<ph name="ORIGINAL_LANGUAGE" />翻译成<ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">未指定</translation>
 <translation id="8012647001091218357">我们暂时无法与您父母取得联系，请重试。</translation>
@@ -675,6 +675,7 @@
 <translation id="8730621377337864115">完成</translation>
 <translation id="8738058698779197622">要建立安全连接，您的时钟设置必须正确。这是因为，网站用于证明身份的证书仅在特定时间段有效。由于您设备的时钟不正确，因此 Chromium 无法验证这些证书。</translation>
 <translation id="8740359287975076522">无法找到 <ph name="HOST_NAME" /> 的 &lt;abbr id="dnsDefinition"&gt;DNS 地址&lt;/abbr&gt;。正在诊断该问题。</translation>
+<translation id="8741995161408053644">您的 Google 帐户在 <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" /> 上可能有其他形式的浏览记录。</translation>
 <translation id="8790007591277257123">恢复删除(&amp;R)</translation>
 <translation id="8798099450830957504">默认</translation>
 <translation id="8804164990146287819">隐私权政策</translation>
@@ -695,7 +696,6 @@
 <translation id="8903921497873541725">放大</translation>
 <translation id="8931333241327730545">要将此卡的信息保存到您的 Google 帐户吗？</translation>
 <translation id="8932102934695377596">您的时钟慢了</translation>
-<translation id="8940229512486821554">运行 <ph name="EXTENSION_NAME" /> 命令：<ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">（续）</translation>
 <translation id="8971063699422889582">服务器的证书已过期。</translation>
 <translation id="8987927404178983737">月</translation>

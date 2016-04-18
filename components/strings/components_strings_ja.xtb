@@ -289,6 +289,7 @@
 <translation id="3788090790273268753">このサイトの証明書は 2016 年まで有効で、証明書チェーンには SHA-1 を使って署名された証明書が含まれています。</translation>
 <translation id="382518646247711829">プロキシ サーバーを使用している場合...</translation>
 <translation id="3828924085048779000">パスフレーズは必ず指定してください。</translation>
+<translation id="3845539888601087042">ログインしている端末の履歴を表示しています。<ph name="BEGIN_LINK" />詳細<ph name="END_LINK" /></translation>
 <translation id="385051799172605136">戻る</translation>
 <translation id="3858027520442213535">日時を更新</translation>
 <translation id="3884278016824448484">競合するデバイス識別子です</translation>
@@ -409,6 +410,7 @@
 <translation id="5421136146218899937">閲覧履歴データの消去...</translation>
 <translation id="5430298929874300616">ブックマークを削除</translation>
 <translation id="5431657950005405462">ファイルが見つかりませんでした</translation>
+<translation id="5435775191620395718">この端末の履歴を表示しています。<ph name="BEGIN_LINK" />詳細<ph name="END_LINK" /></translation>
 <translation id="5439770059721715174">「<ph name="ERROR_PATH" />」でスキーマ確認エラー: <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">すべての保存ページを表示</translation>
 <translation id="5452270690849572955">この <ph name="HOST_NAME" /> ページが見つかりません</translation>
@@ -555,7 +557,6 @@
 <translation id="7186367841673660872">このページは<ph name="ORIGINAL_LANGUAGE" />から<ph name="LANGUAGE_LANGUAGE" />に翻訳されました</translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">ページはブロックされています</translation>
-<translation id="7208899522964477531"><ph name="SITE_NAME" /> で <ph name="SEARCH_TERMS" /> を検索</translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> ではセキュリティ規格が遵守されていません。</translation>
 <translation id="721197778055552897">この問題の詳細については、<ph name="BEGIN_LINK" />こちら<ph name="END_LINK" />をご覧ください。</translation>
 <translation id="7219179957768738017">この接続には <ph name="SSL_VERSION" /> を使用しています。</translation>
@@ -637,7 +638,6 @@
 <translation id="7951415247503192394">（32 ビット）</translation>
 <translation id="7956713633345437162">モバイルのブックマーク</translation>
 <translation id="7961015016161918242">使用しない</translation>
-<translation id="7977590112176369853">&lt;検索キーワードを入力&gt;</translation>
 <translation id="7983301409776629893">常に<ph name="ORIGINAL_LANGUAGE" />から<ph name="TARGET_LANGUAGE" />に翻訳する</translation>
 <translation id="7995512525968007366">指定なし</translation>
 <translation id="8012647001091218357">現在、保護者にたずねることができません。もう一度お試しください。</translation>
@@ -694,6 +694,7 @@
 <translation id="8730621377337864115">完了</translation>
 <translation id="8738058698779197622">安全な接続を確立するには時計が正しく設定されている必要があります。この理由は、本物のウェブサイトであることを示すためにウェブサイトで使用される証明書には、有効期間（発効日時と失効日時）が設定されているためです。デバイスの時計が正しくないため、Chromium ではこれらの証明書を確認できません。</translation>
 <translation id="8740359287975076522"><ph name="HOST_NAME" /> の &lt;abbr id="dnsDefinition"&gt;DNS アドレス&lt;/abbr&gt;が見つかりませんでした。問題を診断しています。</translation>
+<translation id="8741995161408053644">Google アカウントでの他の形式の閲覧履歴が <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" /> に残ることがあります。</translation>
 <translation id="8790007591277257123">削除のやり直し（&amp;R）</translation>
 <translation id="8798099450830957504">既定</translation>
 <translation id="8804164990146287819">プライバシー ポリシー</translation>
@@ -714,7 +715,6 @@
 <translation id="8903921497873541725">拡大する</translation>
 <translation id="8931333241327730545">このカードを Google アカウントに保存しますか？</translation>
 <translation id="8932102934695377596">時計が遅れています</translation>
-<translation id="8940229512486821554"><ph name="EXTENSION_NAME" /> コマンドを実行: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">（続き）</translation>
 <translation id="8971063699422889582">サーバーの証明書の有効期限が切れています。</translation>
 <translation id="8987927404178983737">月</translation>

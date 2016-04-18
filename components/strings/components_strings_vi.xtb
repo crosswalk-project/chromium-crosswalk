@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">Chứng chỉ cho trang web này sẽ hết hạn vào năm 2016, đồng thời, chuỗi chứng chỉ này chứa một chứng chỉ đã ký bằng SHA-1.</translation>
 <translation id="382518646247711829">Nếu bạn sử dụng máy chủ proxy...</translation>
 <translation id="3828924085048779000">Không cho phép cụm mật khẩu trống.</translation>
+<translation id="3845539888601087042">Hiển thị lịch sử từ các thiết bị bạn đã đăng nhập. <ph name="BEGIN_LINK" />Tìm hiểu thêm<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Quay lại</translation>
 <translation id="3858027520442213535">Cập nhật ngày và giờ</translation>
 <translation id="3884278016824448484">Số nhận dạng thiết bị xung đột</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">Xóa dữ liệu duyệt web...</translation>
 <translation id="5430298929874300616">Xóa dấu trang</translation>
 <translation id="5431657950005405462">Không tìm thấy tệp của bạn</translation>
+<translation id="5435775191620395718">Hiển thị lịch sử từ thiết bị này. <ph name="BEGIN_LINK" />Tìm hiểu thêm<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Lỗi xác thực lược đồ tại "<ph name="ERROR_PATH" />": <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Hiển thị tất cả các trang đã lưu</translation>
 <translation id="5452270690849572955">Không thể tìm thấy trang <ph name="HOST_NAME" /> này</translation>
@@ -557,7 +559,6 @@
 <translation id="7186367841673660872">Trang này đã được dịch từ<ph name="ORIGINAL_LANGUAGE" />sang<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Trang bị chặn</translation>
-<translation id="7208899522964477531">Tìm kiếm <ph name="SITE_NAME" /> cho <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> không tuân thủ các tiêu chuẩn bảo mật.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Tìm hiểu thêm<ph name="END_LINK" /> về sự cố này.</translation>
 <translation id="7219179957768738017">Kết nối sử dụng <ph name="SSL_VERSION" />.</translation>
@@ -639,7 +640,6 @@ Lưu ý! Chế độ ẩn danh <ph name="SHORTCUT_KEY" /> có thể hữu ích v
 <translation id="7951415247503192394">(32 bit)</translation>
 <translation id="7956713633345437162">Dấu trang di động</translation>
 <translation id="7961015016161918242">Chưa bao giờ</translation>
-<translation id="7977590112176369853">&lt;nhập truy vấn&gt;</translation>
 <translation id="7983301409776629893">Luôn dịch <ph name="ORIGINAL_LANGUAGE" /> sang <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Không chỉ định</translation>
 <translation id="8012647001091218357">Chúng tôi không thể liên lạc với cha mẹ của bạn vào thời điểm này. Vui lòng thử lại.</translation>
@@ -700,6 +700,7 @@ Lưu ý! Chế độ ẩn danh <ph name="SHORTCUT_KEY" /> có thể hữu ích v
 <translation id="8730621377337864115">Hoàn tất</translation>
 <translation id="8738058698779197622">Để thiết lập kết nối an toàn, bạn cần đặt thời gian đúng cho đồng hồ. Nguyên nhân là do chứng chỉ mà các trang web dùng để tự nhận dạng chỉ có hiệu lực trong khoảng thời gian cụ thể. Vì đồng hồ trên thiết bị của bạn không đúng nên Chromium không thể xác minh các chứng chỉ này.</translation>
 <translation id="8740359287975076522">Không thể tìm thấy &lt;abbr id="dnsDefinition"&gt;địa chỉ DNS&lt;/abbr&gt; của <ph name="HOST_NAME" />. Đang chẩn đoán sự cố.</translation>
+<translation id="8741995161408053644">Tài khoản Google có thể có các biểu mẫu lịch sử duyệt web khác tại <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="8790007591277257123">&amp;Làm lại xóa</translation>
 <translation id="8798099450830957504">Mặc định</translation>
 <translation id="8804164990146287819">Chính sách bảo mật</translation>
@@ -720,7 +721,6 @@ Lưu ý! Chế độ ẩn danh <ph name="SHORTCUT_KEY" /> có thể hữu ích v
 <translation id="8903921497873541725">Phóng to</translation>
 <translation id="8931333241327730545">Bạn có muốn lưu thẻ này vào Tài khoản Google của mình không?</translation>
 <translation id="8932102934695377596">Đồng hồ của bạn chạy chậm</translation>
-<translation id="8940229512486821554">Chạy <ph name="EXTENSION_NAME" /> lệnh: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Tiếp tục)</translation>
 <translation id="8971063699422889582">Chứng chỉ của máy chủ đã hết hạn.</translation>
 <translation id="8987927404178983737">Tháng</translation>

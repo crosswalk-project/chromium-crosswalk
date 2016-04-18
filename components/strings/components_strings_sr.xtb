@@ -289,6 +289,7 @@
 <translation id="3788090790273268753">Сертификат за овај сајт истиче 2016, а ланац сертификата садржи сертификат потписан помоћу алгоритма SHA-1.</translation>
 <translation id="382518646247711829">Ако користите прокси сервер...</translation>
 <translation id="3828924085048779000">Није дозвољено да поље за приступну фразу буде празно.</translation>
+<translation id="3845539888601087042">Приказујемо историју са уређаја на које сте пријављени. <ph name="BEGIN_LINK" />Сазнајте више<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Назад</translation>
 <translation id="3858027520442213535">Ажурирајте датум и време</translation>
 <translation id="3884278016824448484">Неусаглашени идентификатор уређаја</translation>
@@ -409,6 +410,7 @@
 <translation id="5421136146218899937">Обриши податке прегледања...</translation>
 <translation id="5430298929874300616">Уклоните обележивач</translation>
 <translation id="5431657950005405462">Датотека није пронађена</translation>
+<translation id="5435775191620395718">Приказујемо историју са овог уређаја. <ph name="BEGIN_LINK" />Сазнајте више<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Грешка у валидацији шеме на „<ph name="ERROR_PATH" />“: <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Прикажи све сачуване странице</translation>
 <translation id="5452270690849572955">Није могуће пронаћи ову страницу хоста <ph name="HOST_NAME" /></translation>
@@ -553,7 +555,6 @@
 <translation id="7186367841673660872">Ова страница је преведена са језика:<ph name="ORIGINAL_LANGUAGE" />на<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Страница је блокирана</translation>
-<translation id="7208899522964477531">Претражи <ph name="SEARCH_TERMS" /> на <ph name="SITE_NAME" /></translation>
 <translation id="7210863904660874423">Хост <ph name="HOST_NAME" /> не поштује безбедносне стандарде.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Сазнајте више<ph name="END_LINK" /> о овом проблему.</translation>
 <translation id="7219179957768738017">Веза користи <ph name="SSL_VERSION" />.</translation>
@@ -635,7 +636,6 @@
 <translation id="7951415247503192394">(32-битни)</translation>
 <translation id="7956713633345437162">Обележивачи на мобилном уређају</translation>
 <translation id="7961015016161918242">Никад</translation>
-<translation id="7977590112176369853">&lt;унесите упит&gt;</translation>
 <translation id="7983301409776629893">Увек преводи са језика: <ph name="ORIGINAL_LANGUAGE" /> на <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Није наведено</translation>
 <translation id="8012647001091218357">Тренутно не можемо да контактирамо родитеље. Покушај поново.</translation>
@@ -689,6 +689,7 @@
 <translation id="8730621377337864115">Готово</translation>
 <translation id="8738058698779197622">Да бисте успоставили безбедну везу, сат на уређају мора да буде тачан. То је зато што сертификати које веб-сајтови користе за идентификацију важе само одређени временски период. Пошто сат на вашем уређају није тачан, Chromium не може да верификује ове сертификате.</translation>
 <translation id="8740359287975076522">Нисмо успели да пронађемо &lt;abbr id="dnsDefinition"&gt;DNS адресу&lt;/abbr&gt; хоста <ph name="HOST_NAME" />. Покушавамо да утврдимо у чему је проблем.</translation>
+<translation id="8741995161408053644">Google налог има друге облике историје прегледања на <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="8790007591277257123">&amp;Понови брисање</translation>
 <translation id="8798099450830957504">Подразумевано</translation>
 <translation id="8804164990146287819">Политика приватности</translation>
@@ -709,7 +710,6 @@
 <translation id="8903921497873541725">Увећавање</translation>
 <translation id="8931333241327730545">Да ли желите да сачувате ову картицу на Google налог?</translation>
 <translation id="8932102934695377596">Сат вам касни</translation>
-<translation id="8940229512486821554">Покрените <ph name="EXTENSION_NAME" /> команду: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(наставак)</translation>
 <translation id="8971063699422889582">Сертификат сервера је истекао.</translation>
 <translation id="8987927404178983737">Месец</translation>

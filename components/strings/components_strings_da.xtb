@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">Certifikatet for dette website udløber i 2016, og certifikatkæden indeholder et certifikat, der er signeret med SHA-1.</translation>
 <translation id="382518646247711829">Hvis du bruger en proxyserver...</translation>
 <translation id="3828924085048779000">Tomme adgangssætninger er ikke tilladt.</translation>
+<translation id="3845539888601087042">Viser historik fra de enheder, hvor du er logget ind. <ph name="BEGIN_LINK" />Få flere oplysninger<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Tilbage</translation>
 <translation id="3858027520442213535">Opdater dato og tid</translation>
 <translation id="3884278016824448484">Modstridende enheds-id</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">Ryd browserdata...</translation>
 <translation id="5430298929874300616">Fjern bogmærke</translation>
 <translation id="5431657950005405462">Din fil blev ikke fundet</translation>
+<translation id="5435775191620395718">Viser historik fra denne enhed. <ph name="BEGIN_LINK" />Få flere oplysninger<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Skemavalideringsfejl på "<ph name="ERROR_PATH" />": <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Vis alle gemte sider</translation>
 <translation id="5452270690849572955">Denne side fra <ph name="HOST_NAME" /> kan ikke findes</translation>
@@ -557,7 +559,6 @@
 <translation id="7186367841673660872">Denne side er oversat fra<ph name="ORIGINAL_LANGUAGE" />til<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Side blokeret</translation>
-<translation id="7208899522964477531">Søg på <ph name="SITE_NAME" /> efter <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> overholder ikke sikkerhedsstandarderne.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Få flere oplysninger<ph name="END_LINK" /> om dette problem.</translation>
 <translation id="7219179957768738017">Forbindelsen bruger <ph name="SSL_VERSION" />.</translation>
@@ -639,7 +640,6 @@ Psst! Prøv at bruge Inkognitotilstand <ph name="SHORTCUT_KEY" /> næste gang.</
 <translation id="7951415247503192394">(32-bit)</translation>
 <translation id="7956713633345437162">Bogmærker på mobil</translation>
 <translation id="7961015016161918242">Aldrig</translation>
-<translation id="7977590112176369853">&lt;indtast forespørgsel&gt;</translation>
 <translation id="7983301409776629893">Oversæt altid <ph name="ORIGINAL_LANGUAGE" /> til <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Ikke angivet</translation>
 <translation id="8012647001091218357">Vi kan ikke få kontakt til dine forældre på nuværende tidspunkt. Prøv igen.</translation>
@@ -700,6 +700,7 @@ Psst! Prøv at bruge Inkognitotilstand <ph name="SHORTCUT_KEY" /> næste gang.</
 <translation id="8730621377337864115">Fuldført</translation>
 <translation id="8738058698779197622">For at kunne oprette en sikker forbindelse skal dit ur være indstillet korrekt. Det er vigtigt, da de certifikater, som websites bruger til at identificere sig selv, kun er gyldige i bestemte tidsperioder. Da uret på din enhed går forkert, kan Chromium ikke bekræfte disse certifikater.</translation>
 <translation id="8740359287975076522">&lt;abbr id="dnsDefinition"&gt;DNS-adressen&lt;/abbr&gt; for <ph name="HOST_NAME" /> kunne ikke findes. Diagnosticerer problemet.</translation>
+<translation id="8741995161408053644">Din Google-konto kan have andre former for browserhistorik på <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="8790007591277257123">&amp;Annuller fortryd sletning</translation>
 <translation id="8798099450830957504">Standard</translation>
 <translation id="8804164990146287819">Privatlivspolitik</translation>
@@ -720,7 +721,6 @@ Psst! Prøv at bruge Inkognitotilstand <ph name="SHORTCUT_KEY" /> næste gang.</
 <translation id="8903921497873541725">Zoom ind</translation>
 <translation id="8931333241327730545">Vil du gemme dette kort på din Google-konto?</translation>
 <translation id="8932102934695377596">Dit ur er bagud</translation>
-<translation id="8940229512486821554">Kør <ph name="EXTENSION_NAME" />-kommandoen: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Forts.)</translation>
 <translation id="8971063699422889582">Serverens certifikat er udløbet.</translation>
 <translation id="8987927404178983737">Måned</translation>

@@ -291,6 +291,7 @@
 <translation id="3788090790273268753">Potrdilo za to spletno mesto poteče leta 2016 in veriga potrdil vsebuje potrdilo, podpisano z algoritmom SHA-1.</translation>
 <translation id="382518646247711829">Če uporabite namestniški strežnik ...</translation>
 <translation id="3828924085048779000">Prazno geslo ni dovoljeno.</translation>
+<translation id="3845539888601087042">Prikazana je zgodovina iz naprav, v katere ste prijavljeni. <ph name="BEGIN_LINK" />Več o tem<ph name="END_LINK" /></translation>
 <translation id="385051799172605136">Nazaj</translation>
 <translation id="3858027520442213535">Posodobi datum in uro</translation>
 <translation id="3884278016824448484">Identifikator naprave je v sporu</translation>
@@ -411,6 +412,7 @@
 <translation id="5421136146218899937">Izbriši podatke brskanja ...</translation>
 <translation id="5430298929874300616">Odstrani zaznamek</translation>
 <translation id="5431657950005405462">Datoteke ni bilo mogoče najti</translation>
+<translation id="5435775191620395718">Prikazana je zgodovina iz te naprave. <ph name="BEGIN_LINK" />Več o tem<ph name="END_LINK" /></translation>
 <translation id="5439770059721715174">Napaka preverjanja sheme pri »<ph name="ERROR_PATH" />«: <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Pokaži vse shranjene strani</translation>
 <translation id="5452270690849572955">Te strani spletnega mesta <ph name="HOST_NAME" /> ni mogoče najti</translation>
@@ -558,7 +560,6 @@
 <translation id="7186367841673660872">Ta stran je bila prevedena iz jezika<ph name="ORIGINAL_LANGUAGE" />v jezik<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Stran je blokirana</translation>
-<translation id="7208899522964477531">V iskalniku <ph name="SITE_NAME" /> poišči <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423">Spletno mesto <ph name="HOST_NAME" /> ne upošteva varnostnih standardov.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Več o<ph name="END_LINK" /> tej težavi.</translation>
 <translation id="7219179957768738017">Povezava uporablja <ph name="SSL_VERSION" />.</translation>
@@ -640,7 +641,6 @@ Pst! Naslednjič vam lahko pride prav bližnjica <ph name="SHORTCUT_KEY" /> za n
 <translation id="7951415247503192394">(32-bitno)</translation>
 <translation id="7956713633345437162">Zaznamki mobilne naprave</translation>
 <translation id="7961015016161918242">Nikoli</translation>
-<translation id="7977590112176369853">&lt;vnesite poizvedbo&gt;</translation>
 <translation id="7983301409776629893">Vedno prevedi iz jezika <ph name="ORIGINAL_LANGUAGE" /> v jezik <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Ni navedeno</translation>
 <translation id="8012647001091218357">Trenutno ni mogoče vzpostaviti stika s starši. Poskusi znova pozneje.</translation>
@@ -701,6 +701,7 @@ Pst! Naslednjič vam lahko pride prav bližnjica <ph name="SHORTCUT_KEY" /> za n
 <translation id="8730621377337864115">Končano</translation>
 <translation id="8738058698779197622">Če želite vzpostaviti varno povezavo, mora biti ura pravilno nastavljena. Potrdila, ki jih uporabljajo spletna mesta za prepoznavanje, namreč veljajo samo določen čas. Ker je ura sistema nepravilna, Chromium teh potrdil ne more preveriti.</translation>
 <translation id="8740359287975076522">&lt;abbr id="dnsDefinition"&gt;Naslova DNS&lt;/abbr&gt; spletnega mesta <ph name="HOST_NAME" /> ni bilo mogoče najti. Poteka diagnosticiranje težave.</translation>
+<translation id="8741995161408053644">V Google Računu so morda druge vrste zgodovine brskanja na <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="8790007591277257123">&amp;Uveljavi izbris</translation>
 <translation id="8798099450830957504">Privzeto</translation>
 <translation id="8804164990146287819">Pravilnik o zasebnosti</translation>
@@ -721,7 +722,6 @@ Pst! Naslednjič vam lahko pride prav bližnjica <ph name="SHORTCUT_KEY" /> za n
 <translation id="8903921497873541725">Povečaj</translation>
 <translation id="8931333241327730545">Ali želite to kartico shraniti v Google Račun?</translation>
 <translation id="8932102934695377596">Ura zaostaja</translation>
-<translation id="8940229512486821554">Zaženi <ph name="EXTENSION_NAME" /> ukaz: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Nadalj.)</translation>
 <translation id="8971063699422889582">Potrdilo strežnika je poteklo.</translation>
 <translation id="8987927404178983737">Mesec</translation>

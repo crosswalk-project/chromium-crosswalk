@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">Το πιστοποιητικό για αυτόν τον ιστότοπο λήγει το 2016 και η αλυσίδα πιστοποιητικών περιέχει ένα πιστοποιητικό το οποίο έχει υπογραφεί με SHA-1.</translation>
 <translation id="382518646247711829">Εάν χρησιμοποιείτε διακομιστή μεσολάβησης…</translation>
 <translation id="3828924085048779000">Δεν επιτρέπεται να είναι κενή η φράση πρόσβασης.</translation>
+<translation id="3845539888601087042">Εμφάνιση ιστορικού από τις συνδεδεμένες συσκευές σας. <ph name="BEGIN_LINK" />Μάθετε περισσότερα<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">Πίσω</translation>
 <translation id="3858027520442213535">Ενημέρωση ημερομηνίας και ώρας</translation>
 <translation id="3884278016824448484">Αναγνωριστικό συσκευής που προκαλεί διένεξη</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">Διαγραφή δεδομένων περιήγησης...</translation>
 <translation id="5430298929874300616">Κατάργηση σελιδοδείκτη</translation>
 <translation id="5431657950005405462">Το αρχείο σας δεν βρέθηκε</translation>
+<translation id="5435775191620395718">Εμφάνιση ιστορικού από αυτήν τη συσκευή. <ph name="BEGIN_LINK" />Μάθετε περισσότερα<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">Σφάλμα επαλήθευσης σχήματος σε "<ph name="ERROR_PATH" />": <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">Εμφάνιση όλων των αποθηκευμένων σελίδων</translation>
 <translation id="5452270690849572955">Δεν είναι δυνατός ο εντοπισμός αυτής της σελίδας του κεντρικού υπολογιστή <ph name="HOST_NAME" /></translation>
@@ -557,7 +559,6 @@
 <translation id="7186367841673660872">Αυτή η σελίδα έχει μεταφραστεί από τα<ph name="ORIGINAL_LANGUAGE" />στα<ph name="LANGUAGE_LANGUAGE" /></translation>
 <translation id="719464814642662924">Visa</translation>
 <translation id="720210938761809882">Αποκλεισμένη σελίδα</translation>
-<translation id="7208899522964477531">Αναζήτηση <ph name="SITE_NAME" /> για <ph name="SEARCH_TERMS" /></translation>
 <translation id="7210863904660874423">Ο κεντρικός υπολογιστής <ph name="HOST_NAME" /> δεν συμμορφώνεται με τα πρότυπα ασφάλειας.</translation>
 <translation id="721197778055552897"><ph name="BEGIN_LINK" />Μάθετε περισσότερα<ph name="END_LINK" /> σχετικά με αυτό το πρόβλημα.</translation>
 <translation id="7219179957768738017">Στη σύνδεση χρησιμοποιείται <ph name="SSL_VERSION" />.</translation>
@@ -639,7 +640,6 @@
 <translation id="7951415247503192394">(32-bit)</translation>
 <translation id="7956713633345437162">Σελιδοδείκτες κινητής συσκευής</translation>
 <translation id="7961015016161918242">Ποτέ</translation>
-<translation id="7977590112176369853">&lt;πληκτρολογήστε ερώτημα&gt;</translation>
 <translation id="7983301409776629893">Να γίνεται πάντα μετάφραση των <ph name="ORIGINAL_LANGUAGE" /> στα <ph name="TARGET_LANGUAGE" /></translation>
 <translation id="7995512525968007366">Δεν καθορίστηκε</translation>
 <translation id="8012647001091218357">Δεν ήταν δυνατή η επικοινωνία με τους γονείς σας αυτήν τη στιγμή. Δοκιμάστε ξανά.</translation>
@@ -700,6 +700,7 @@
 <translation id="8730621377337864115">Ολοκληρώθηκε</translation>
 <translation id="8738058698779197622">Για την επίτευξη μιας ασφαλούς σύνδεσης, θα πρέπει να γίνει σωστή ρύθμιση του ρολογιού σας. Αυτό οφείλεται στο γεγονός ότι τα πιστοποιητικά που χρησιμοποιούν οι ιστότοποι για την ταυτοποίησή τους είναι έγκυρα μόνο για συγκεκριμένες χρονικές περιόδους. Εφόσον το ρολόι της συσκευής σας δεν είναι σωστά ρυθμισμένο, το Chromium δεν μπορεί να επαληθεύσει αυτά τα πιστοποιητικά.</translation>
 <translation id="8740359287975076522">Δεν ήταν δυνατός ο εντοπισμός της &lt;abbr id="dnsDefinition"&gt;διεύθυνσης DNS&lt;/abbr&gt; του κεντρικού υπολογιστή <ph name="HOST_NAME" />. Γίνεται διάγνωση του προβλήματος.</translation>
+<translation id="8741995161408053644">Ο Λογαριασμός σας Google ενδέχεται να διαθέτει άλλες μορφές ιστορικού περιήγησης στη διεύθυνση <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="8790007591277257123">&amp;Επανάληψη διαγραφής</translation>
 <translation id="8798099450830957504">Προεπιλογή</translation>
 <translation id="8804164990146287819">Πολιτική Απορρήτου</translation>
@@ -720,7 +721,6 @@
 <translation id="8903921497873541725">Μεγέθυνση</translation>
 <translation id="8931333241327730545">Θέλετε να αποθηκεύσετε αυτήν την κάρτα στο Λογαριασμό σας Google;</translation>
 <translation id="8932102934695377596">Το ρολόι σας πάει πίσω</translation>
-<translation id="8940229512486821554">Εκτέλεση εντολής <ph name="EXTENSION_NAME" />: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(Περιεχ.)</translation>
 <translation id="8971063699422889582">Το πιστοποιητικό του διακομιστή έχει λήξει.</translation>
 <translation id="8987927404178983737">Μήνας</translation>

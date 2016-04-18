@@ -290,6 +290,7 @@
 <translation id="3788090790273268753">ఈ సైట్ ప్రమాణపత్రానికి 2016లో గడువు ముగుస్తుంది, ప్రమాణపత్రం గొలుసులో SHA-1ని ఉపయోగించి సంతకం చేసిన ప్రమాణపత్రం ఉంది.</translation>
 <translation id="382518646247711829">మీరు ప్రాక్సీ సర్వర్‌ను ఉపయోగిస్తే...</translation>
 <translation id="3828924085048779000">ఖాళీ పాస్‌ఫ్రేజ్ అనుమతించబడదు.</translation>
+<translation id="3845539888601087042">మీరు సైన్-ఇన్ చేసిన పరికరాల నుండి చరిత్రను చూపుతోంది. <ph name="BEGIN_LINK" />మరింత తెలుసుకోండి<ph name="END_LINK" />.</translation>
 <translation id="385051799172605136">వెనుకకు</translation>
 <translation id="3858027520442213535">తేదీ మరియు సమయాన్ని నవీకరించు</translation>
 <translation id="3884278016824448484">వైరుధ్యమైన పరికరం ఐడెంటిఫైయర్</translation>
@@ -410,6 +411,7 @@
 <translation id="5421136146218899937">బ్రౌజింగ్ డేటాను క్లియర్ చెయ్యి...</translation>
 <translation id="5430298929874300616">బుక్‌మార్క్‌ని తీసివేయి</translation>
 <translation id="5431657950005405462">మీ ఫైల్ కనుగొనబడలేదు</translation>
+<translation id="5435775191620395718">ఈ పరికరం నుండి చరిత్రను చూపుతోంది. <ph name="BEGIN_LINK" />మరింత తెలుసుకోండి<ph name="END_LINK" />.</translation>
 <translation id="5439770059721715174">"<ph name="ERROR_PATH" />"లో స్కీమా ప్రామాణీకరణ లోపం: <ph name="ERROR" /></translation>
 <translation id="5447330194051379405">సేవ్ చేసిన అన్ని పేజీలను చూపు</translation>
 <translation id="5452270690849572955">ఈ <ph name="HOST_NAME" /> పేజీ కనుగొనబడలేదు</translation>
@@ -555,7 +557,6 @@
 <translation id="7186367841673660872">ఈ పేజీ<ph name="ORIGINAL_LANGUAGE" />నుండి<ph name="LANGUAGE_LANGUAGE" />కు అనువదించబడింది</translation>
 <translation id="719464814642662924">వీసా</translation>
 <translation id="720210938761809882">పేజీ బ్లాక్ చేయబడింది</translation>
-<translation id="7208899522964477531"><ph name="SITE_NAME" /> కోసం <ph name="SEARCH_TERMS" /> శోధించండి</translation>
 <translation id="7210863904660874423"><ph name="HOST_NAME" /> భద్రతా ప్రమాణాలకు కట్టుబడి లేదు.</translation>
 <translation id="721197778055552897">ఈ సమస్య గురించి <ph name="BEGIN_LINK" />మరింత తెలుసుకోండి <ph name="END_LINK" />.</translation>
 <translation id="7219179957768738017">కనెక్షన్ <ph name="SSL_VERSION" />ని ఉపయోగిస్తుంది.</translation>
@@ -637,7 +638,6 @@
 <translation id="7951415247503192394">(32-బిట్)</translation>
 <translation id="7956713633345437162">మొబైల్ బుక్‌మార్క్‌లు</translation>
 <translation id="7961015016161918242">ఎప్పుడూ లేదు</translation>
-<translation id="7977590112176369853">&lt;ప్రశ్నను ఎంటర్ చెయ్యండి&gt;</translation>
 <translation id="7983301409776629893">ఎల్లప్పుడూ <ph name="ORIGINAL_LANGUAGE" />ను <ph name="TARGET_LANGUAGE" />కు అనువదించు</translation>
 <translation id="7995512525968007366">పేర్కొనబడలేదు</translation>
 <translation id="8012647001091218357">మేము ప్రస్తుతం మీ తల్లిదండ్రులను సంప్రదించలేకపోయాము. దయచేసి మళ్లీ ప్రయత్నించండి.</translation>
@@ -698,6 +698,7 @@
 <translation id="8730621377337864115">పూర్తయింది</translation>
 <translation id="8738058698779197622">సురక్షిత కనెక్షన్‌ను ఏర్పాటు చేయడానికి, మీ గడియారాన్ని సరైన సమయానికి సెట్ చేయాలి. ఎందుకంటే వెబ్‌సైట్‌లు వాటిని గుర్తించడానికి ఉపయోగించే ప్రమాణపత్రాలు నిర్దిష్ట కాలవ్యవధుల్లో మాత్రమే చెల్లుబాటు అవుతాయి. మీ పరికరం యొక్క గడియారం సమయం తప్పుగా ఉన్నందున, Chromium ఈ ప్రమాణపత్రాలను ధృవీకరించడానికి వీలుపడలేదు.</translation>
 <translation id="8740359287975076522"><ph name="HOST_NAME" /> &lt;abbr id="dnsDefinition"&gt;DNS చిరునామా&lt;/abbr&gt; కనుగొనబడలేదు. సమస్యను నిర్ధారిస్తోంది.</translation>
+<translation id="8741995161408053644">మీ Google ఖాతా <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />లో ఇతర బ్రౌజింగ్ చరిత్ర రూపాలను కలిగి ఉండవచ్చు.</translation>
 <translation id="8790007591277257123">&amp;తొలగించడాన్ని పునరావృతం చేయి</translation>
 <translation id="8798099450830957504">డిఫాల్ట్</translation>
 <translation id="8804164990146287819">గోప్యతా విధానం</translation>
@@ -718,7 +719,6 @@
 <translation id="8903921497873541725">దగ్గరికి జూమ్ చెయ్యి</translation>
 <translation id="8931333241327730545">మీరు ఈ కార్డ్‌ను మీ Google ఖాతాకి సేవ్ చేయాలనుకుంటున్నారా?</translation>
 <translation id="8932102934695377596">మీ గడియారం సమయం గతంలో ఉంది</translation>
-<translation id="8940229512486821554"><ph name="EXTENSION_NAME" /> ఆదేశాన్ని అమలు చెయ్యి: <ph name="SEARCH_TERMS" /></translation>
 <translation id="8954894007019320973">(కొనసాగు .)</translation>
 <translation id="8971063699422889582">సర్వర్ యొక్క ప్రమాణపత్రం గడువు ముగిసింది.</translation>
 <translation id="8987927404178983737">నెల</translation>

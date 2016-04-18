@@ -72,8 +72,6 @@
 
       Ja politika nav iestatīta vai ir iestatīta vērtība Nepatiesa, RC4 šifra komplekti standartā TLS netiks iespējoti. Politikai var iestatīt vērtību Patiesa, lai saglabātu saderību ar novecojušu serveri. Tas ir pagaidu risinājums, un serveris ir jākonfigurē atkārtoti.</translation>
 <translation id="1297182715641689552">Izmantot .pac starpniekservera skriptu</translation>
-<translation id="1300635491585192248">Prognozēt tīkla darbības jebkurā tīklā, kas nav
-          mobilais tīkls</translation>
 <translation id="1304973015437969093">Paplašinājumu/lietotņu ID un atjauninājumu vietrāži URL instalēšanai klusajā režīmā</translation>
 <translation id="1310699457130669094">Šeit varat norādīt starpniekservera .pac faila vietrādi URL.
 
@@ -99,6 +97,7 @@
 <translation id="1359553908012294236">Ja šai politikai ir iestatīta vērtība Patiesa vai ja politika nav konfigurēta, pārlūkā <ph name="PRODUCT_NAME" /> tiek iespējota pieteikšanās viesa režīmā. Piesakoties viesa režīmā, tiek izveidoti <ph name="PRODUCT_NAME" /> profili, kuros visi logi ir inkognito režīmā.
 
       Ja šai politikai ir iestatīta vērtība Nepatiesa, pārlūkā <ph name="PRODUCT_NAME" /> nevar izveidot viesu profilus.</translation>
+<translation id="1363275621236827384">Iespējot Quirks servera vaicājumus aparatūras profiliem</translation>
 <translation id="1397855852561539316">Noklusējuma meklētājprogrammas ieteikumu URL</translation>
 <translation id="1398889361882383850">Ļauj iestatīt, vai vietnes varēs automātiski izpildīt spraudņus. Automātiski izpildāmus spraudņus var atļaut vai aizliegt visām vietnēm.
 
@@ -595,14 +594,6 @@
           Ja šai politikai ir iestatīta vērtība “True” vai ja vērtība netiek iestatīta, tiek uzskatīts, ka lietotājs audio atskaņošanas laikā veic kādu darbību. Tādējādi tiek novērsta laika līdz dīkstāvei sasniegšana un dīkstāves rašanās. Tomēr pēc noildzes laika, kas ir iestatīts līdz ekrāna aptumšošanai, ekrāna izslēgšanai un ekrāna bloķēšanai, attiecīgās darbības tiek veiktas arī audio atskaņošanas laikā.
 
           Ja šai politikai ir iestatīta vērtība “False”, audio atskaņošana nenovērš dīkstāves rašanos.</translation>
-<translation id="2948381198510798695"><ph name="PRODUCT_NAME" /> apies visus šajā sarakstā iekļauto saimniekdatoru starpniekserverus.
-
-          Šī politika ir spēkā tikai tad, ja iestatījumā Izvēlieties, kādā veidā jānorāda starpniekserveru iestatījumi ir atlasīti manuālie starpniekserveru iestatījumi.
-
-          Šī politika nav jāiestata, ja ir atlasīts jebkurš cits starpniekserveru politiku iestatīšanas režīms.
-
-          Detalizētus piemērus skatiet vietnē:
-          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="2956777931324644324">Kopš <ph name="PRODUCT_NAME" /> versijas 36 izlaišanas šī politika vairs netiek izmantota.
 
       Norāda, vai jāiespējo TLS domēnam piesaistītais sertifikātu paplašinājums.
@@ -762,6 +753,13 @@
 
       Politikas vērtība ir jānorāda milisekundēs. Vērtība ir jānorāda diapazonā no 30 sekundēm līdz 24 stundām.</translation>
 <translation id="3528000905991875314">Iespējo alternatīvas kļūdu lapas</translation>
+<translation id="3538538104630456270">Šis saistītais iestatījums tika izmantots, pirms tika ieviesta atkārtotā autentifikācija paroļu skatīšanai. Tāpēc šis iestatījums un šī politika neietekmē Chrome darbību. Pašlaik Chrome darbojas tā, it kā politika būtu iestatīta nerādīt paroles nešifrētā tekstā paroļu pārvaldnieka iestatījumu lapā. Tas nozīmē, ka iestatījumu lapā ir redzams tikai vietturis, un Chrome parāda paroli tikai tad, ja lietotājs noklikšķina uz “Rādīt” (un atkārtoti autentificējas, ja piemērojams). Tālāk redzams sākotnējais politikas apraksts.
+
+          Nosaka, vai paroles paroļu pārvaldniekā ir redzamas nešifrētā tekstā.
+
+          Ja šis iestatījums ir atspējots, paroļu pārvaldnieks neļauj paroļu pārvaldnieka logā rādīt saglabātās paroles nešifrētā tekstā.
+
+          Ja šī politika ir iespējota vai nav iestatīta, paroles paroļu pārvaldniekā ir redzamas nešifrētā tekstā.</translation>
 <translation id="3547954654003013442">Starpniekservera iestatījumi</translation>
 <translation id="3570008976476035109">Bloķē spraudņus šajās vietnēs</translation>
 <translation id="3591584750136265240">Pieteikšanās autentifikācijas darbības konfigurēšana</translation>
@@ -851,18 +849,6 @@
 
       Katrā saraksta ierakstā ir ietverta vārdnīca, kurai laukā “extension-id” ir jāiekļauj paplašinājuma ID, bet laukā “update-url”  — tā atjaunināšanas URL.</translation>
 <translation id="3891357445869647828">Iespējo JavaScript</translation>
-<translation id="389421284571827139">Ļauj norādīt <ph name="PRODUCT_NAME" /> izmantoto starpniekserveri un neļauj lietotājiem mainīt starpniekserveru iestatījumus.
-
-      Ja tiek izvēlēts nekad nelietot starpniekserveri un vienmēr lietot tiešo savienojumu, visas pārējās opcijas tiek ignorētas.
-
-      Ja tiek izvēlēts automātiski noteikt starpniekserveri, visas pārējās opcijas tiek ignorētas.
-
-      Detalizēti piemēri ir pieejami vietnē:
-      <ph name="PROXY_HELP_URL" />
-
-      Ja šis iestatījums ir iespējots, <ph name="PRODUCT_NAME" /> ignorē visas ar starpniekserveri saistītās komandrindā norādītās opcijas.
-
-      Ja šīs politikas nav iestatītas, lietotāji varēs izvēlēties savus starpniekserveru iestatījumus.</translation>
 <translation id="3907986150060929099">Ieteikto lokalizāciju iestatīšana publiskai sesijai</translation>
 <translation id="391531815696899618">Tiek atspējota Google diska sinhronizēšana operētājsistēmas <ph name="PRODUCT_OS_NAME" /> lietotnē Faili, ja ir iestatīta vērtība Patiesa. Šajā gadījumā Google diskā netiek augšupielādēti dati.
 
@@ -1110,16 +1096,6 @@
           Vērtībai ir jābūt virknētai JSON vārdnīcu masīvam. Katrai vārdnīcai ir jābūt šādā formā: { "pattern": "$URL_PATTERN", "filter" : $FILTER } (kur $URL_PATTERN ir satura iestatījuma raksts). $FILTER ierobežo, no kura klienta pārlūkprogrammā tiks automātiski atlasīti sertifikāti. Neatkarīgi no filtra tiks atlasīti tikai sertifikāti, kas atbilst servera sertifikāta pieprasījumam. Ja $FILTER ir formā { "ISSUER": { "CN": "$ISSUER_CN" } }, papildus tiek atlasīti tikai klienta sertifikāti, kas izsniegti, izmantojot sertifikātu ar nosaukumu CommonName $ISSUER_CN. Ja $FILTER ir tukšā vārdnīca {}, klienta sertifikātu atlasīšana nav papildus ierobežota.
 
           Ja šī politika nav iestatīta, nevienai vietnei netiks veikta automātiskā atlase.</translation>
-<translation id="4980301635509504364">Atļaujiet vai noraidiet video ierakstīšanu.
-
-      Ja šī politika ir iespējota vai nav konfigurēta (noklusējuma iestatījums), lietotājam tiks pieprasīta piekļuve
-      video ierakstīšanai, izņemot vietrāžus URL, kas konfigurēti sarakstā
-      VideoCaptureAllowedUrls, — piekļuve tiem tiks nodrošināta bez uzvednes parādīšanas.
-
-      Ja šī politika ir atspējota, lietotājam nekad netiks parādīta uzvedne un video
-      ierakstīšana būs pieejama tikai vietrāžiem URL, kas konfigurēti sarakstā VideoCaptureAllowedUrls.
-
-      Šī politika attiecas uz visiem video ievades veidiem, nevis tikai uz iebūvēto kameru.</translation>
 <translation id="4980635395568992380">Datu tips:</translation>
 <translation id="4983201894483989687">Atļauj palaist novecojušus spraudņus</translation>
 <translation id="4988291787868618635">Darbība, kas ir jāveic, kad ir aizritējis laiks līdz dīkstāvei</translation>
@@ -1334,7 +1310,6 @@
 
       Ja šī politika nav iestatīta vai tai ir iestatīta vērtība Nepatiesa, <ph name="PRODUCT_NAME" /> izmantos esošos tiešsaistes atcelšanas pārbaudes iestatījumus.</translation>
 <translation id="5732972008943405952">Veidlapu automātiskās aizpildes datu importēšana no noklusējuma pārlūka pirmajā palaišanas reizē</translation>
-<translation id="5761030451068906335">Konfigurē pakalpojuma <ph name="PRODUCT_NAME" /> starpniekservera iestatījumus. Šī politika nav vēl gatava lietošanai; nelietojiet to.</translation>
 <translation id="5765780083710877561">Apraksts:</translation>
 <translation id="5770738360657678870">Izstrādātāju versija (var būt nestabila)</translation>
 <translation id="5774856474228476867">Noklusējuma meklētājprogrammas meklēšanas  URL</translation>
@@ -1359,13 +1334,6 @@
       Izmantojamo mainīgo sarakstu skatiet šeit: https://www.chromium.org/administrators/policy-list-3/user-data-directory-variables.
 
       Ja šis iestatījums nav iestatīts, tiek lietots noklusējuma profila direktorijs.</translation>
-<translation id="5819660021114910752">Tiek norādīts, kāda laika josla tiks izmantota ierīcē. Sesijas laikā lietotāji var ignorēt norādīto laika joslu, tomēr atsakoties tā tiek atiestatīta uz norādīto laika joslu. Šī politika tiek aktivizēta arī tad, ja ir norādīta nederīga vērtība, taču šajā gadījumā tiek izmantots Griničas laiks (GMT). Ja tiek norādīta tukša virkne, politika tiek ignorēta.
-
-      Ja šī politika netiek lietota, joprojām tiek izmantota pašreizējā aktīvā laika josla, taču lietotāji var to mainīt un šīs izmaiņas paliek spēkā. Tas nozīmē, ka izmaiņas, ko veic kāds lietotājs, ietekmē gan pieteikšanās ekrānu, gan visus pārējos lietotājus.
-
-      Jaunās ierīcēs sākotnēji ir iestatīta laika josla “ASV/Klusā okeāna piekrastes laiks”.
-
-      Vērtības formāts tiek rādīts atbilstoši IANA laika joslu datu bāzē (skatiet vietni https://en.wikipedia.org/wiki/Tz_database) norādītajiem laika joslu nosaukumiem. Lielākā daļa laika joslu tiek attēlotas formātā “kontinents/liela_pilsēta” vai “okeāns/liela_pilsēta”.</translation>
 <translation id="5826047473100157858">Norāda, vai lietotājs ar <ph name="PRODUCT_NAME" /> var atvērt lapas inkognito režīmā.
 
       Ja tiek atlasīta vērtība Iespējots vai politika netiek iestatīta, lapas var atvērt inkognito režīmā.
@@ -1571,22 +1539,6 @@
 
       Ja šī politika nav iestatīta, funkcijas lietošana pēc noklusējuma nav atļauta uzņēmuma pārvaldītiem lietotājiem, bet ir atļauta nepārvaldītiem lietotājiem.</translation>
 <translation id="6491139795995924304">Bluetooth atļaušana ierīcē</translation>
-<translation id="6513756852541213407">Ļauj norādīt <ph name="PRODUCT_NAME" /> izmantoto starpniekserveri un neļauj lietotājiem mainīt starpniekserveru iestatījumus.
-
-          Ja izvēlaties nekad nelietot starpniekserveri un vienmēr lietot tiešo savienojumu, visas pārējās opcijas tiek ignorētas.
-
-          Ja izvēlaties lietot datora starpniekserveru iestatījumus vai automātiski noteikt starpniekserveri, visas pārējās opcijas tiek ignorētas.
-
-          Ja izvēlaties fiksēta starpniekservera režīmu, iestatījumos Starpniekservera adrese vai URL un Ar komatu atdalīts starpniekserveru apiešanas kārtulu saraksts varat norādīt tālākas opcijas.
-
-          Ja izvēlaties lietot .pac starpniekservera skriptu, iestatījumā URL uz starpniekservera .pac failu ir jānorāda URL uz attiecīgo skriptu.
-
-          Detalizēti piemēri ir pieejami vietnē:
-          <ph name="PROXY_HELP_URL" />
-
-          Ja šis iestatījums ir iespējots, <ph name="PRODUCT_NAME" /> ignorē visas ar starpniekserveri saistītās komandrindā norādītās opcijas.
-
-          Ja šī politika nav iestatīta, lietotāji varēs izvēlēties savus starpniekserveru iestatījumus.</translation>
 <translation id="6520802717075138474">Meklētājprogrammu importēšana no noklusējuma pārlūka pirmajā palaišanas reizē</translation>
 <translation id="653608967792832033">Tiek norādīts laika periods, kurā lietotājam ir jāveic kāda darbība, pretējā gadījumā ekrāns tiek bloķēts (ja ierīce darbojas ar akumulatora jaudu).
 
@@ -1666,22 +1618,6 @@
 
       Ja šī politika netiks iestatīta, tīkla prognozes tiks iespējotas, taču lietotājs varēs mainīt šo iestatījumu.</translation>
 <translation id="6658245400435704251">Norāda sekunžu skaitu, kuru laikā ierīce var nejaušā secībā atlikt atjauninājuma lejupielādi, sākot ar laiku, kad serveris pirmo reizi nosūtīja atjauninājumu. Daļa no šī ierīces gaidīšanas laika var būt pulksteņa laiks, un daļa — atjauninājuma pārbaužu skaits. Jebkurā gadījumā izkliede ir saistīta ar noteiktu laika periodu, lai ierīces nebūtu bezgalīgi jāgaida atjauninājuma lejupielāde.</translation>
-<translation id="6672934768721876104">Šī politika ir izbeigta. Tās vietā lietojiet ProxyMode.
-
-          Ļauj norādīt <ph name="PRODUCT_NAME" /> izmantoto starpniekserveri un neļauj lietotājiem mainīt starpniekservera iestatījumus.
-
-          Ja tiek izvēlēts nekad nelietot starpniekserveri un vienmēr lietot tiešu savienojumu, visas pārējās opcijas tiek ignorētas.
-
-          Ja tiek izvēlēts lietot datora starpniekservera iestatījumus vai automātiski atklāt starpniekserveri, visas pārējās opcijas tiek ignorētas.
-
-          Ja tiek izvēlēti manuāli starpniekservera iestatījumi, laukos Starpniekservera adrese vai URL, URL uz starpniekservera .pac failu un Ar komatu atdalītu starpniekserveru apiešanas kārtulu saraksts var norādīt papildu opcijas.
-
-          Detalizētus piemērus skatiet vietnē:
-          <ph name="PROXY_HELP_URL" />
-
-          Ja šis iestatījums ir iespējots, <ph name="PRODUCT_NAME" /> ignorē visas ar starpniekserveri saistītās komandrindā norādītās opcijas.
-
-          Ja šī politika nav iestatīta, lietotāji varēs izvēlēties savus starpniekserveru iestatījumus.</translation>
 <translation id="6689792153960219308">Ziņošana par aparatūras statusu</translation>
 <translation id="6693751878507293182">Ja šis iestatījums ir iespējots, produktā <ph name="PRODUCT_NAME" /> tiks atspējota trūkstošo spraudņu automātiska meklēšana un instalēšana.
 
@@ -1825,6 +1761,7 @@
 
       Ja šī politika netiek iestatīta, lietotājs var mainīt piesprausto lietotņu sarakstu palaišanas lapā.</translation>
 <translation id="7132877481099023201">Vietrāži URL, kuriem tiks nodrošināta piekļuve video tveršanas ierīcēm bez uzvednes parādīšanas.</translation>
+<translation id="7167436895080860385">Atļauj rādīt paroles paroļu pārvaldniekā (atspējota)</translation>
 <translation id="7173856672248996428">Īslaicīgs profils</translation>
 <translation id="7187256234726597551">Ja politika ir iestatīta uz “true”, ierīcei ir atļauta attālā apstiprināšana un tiks automātiski izveidots sertifikāts, kas tiks augšupielādēts ierīču pārvaldības serverī.
 
@@ -2154,6 +2091,7 @@
 <translation id="8197918588508433925">Šajā politikā ir norādīti paplašinājumi, kuros atļauts attālinātajai apstiprināšanai izmantot uzņēmumu platformu atslēgu (Enterprise Platform Keys) API chrome.enterprise.platformKeysPrivate.challengeUserKey(). Lai izmantotu šo API, paplašinājumiem ir jābūt pievienotiem šajā sarakstā.
 
           Ja paplašinājums nav iekļauts sarakstā vai ja saraksts nav iestatīts, API izsaukumi neizdosies un tiks rādīts kļūdas kods.</translation>
+<translation id="8214600119442850823">Konfigurē paroļu pārvaldnieku.</translation>
 <translation id="8244525275280476362">Maksimāla ieneses aizkave pēc politikas atzīšanas par nederīgu</translation>
 <translation id="8256688113167012935">Kontrolējiet konta nosaukumu, kas tiek rādīts <ph name="PRODUCT_OS_NAME" /> pieteikšanās ekrānā attiecīgajam ierīces lokālajam kontam.
 
@@ -2349,6 +2287,17 @@
 <translation id="8858642179038618439">YouTube piespiedu drošības režīms</translation>
 <translation id="8864975621965365890">Aizliedz noraidīšanas uzvedni, kas tiek parādīta, ja vietni renderē spraudnis <ph name="PRODUCT_FRAME_NAME" />.</translation>
 <translation id="8870318296973696995">Sākumlapa</translation>
+<translation id="8889588091638298603">Quirks serveris nodrošina aparatūras konfigurācijas failus, piemēram,
+      lai pielāgotu ICC attēlojuma profilus monitora kalibrācijai.
+
+      Ja šīs politikas iestatījums ir “False”, ierīce nemēģinās sazināties ar
+      Quirks serveri, lai lejupielādētu konfigurācijas failus.
+
+      Ja šīs politikas iestatījums ir “True” vai tā nav konfigurēta,
+      <ph name="PRODUCT_OS_NAME" />
+      automātiski sazināsies ar Quirks serveri, lejupielādēs konfigurācijas failus
+      (ja pieejami) un saglabās tos ierīcē. Šādi faili, piemēram, var tikt izmantoti
+      pievienoto monitoru attēlojuma kvalitātes uzlabošanai.</translation>
 <translation id="8905426178924715309">Šī politika ir novecojusi. Lūdzu, tās vietā izmantojiet politikas ForceGoogleSafeSearch un ForceYouTubeSafetyMode. Ja ir iestatīta politika ForceGoogleSafeSearch vai ForceYouTubeSafetyMode, šī politika tiek ignorēta.
 
       Ja ir iestatīta šī politika, pakalpojumā “Google meklēšana tīmeklī” ievadītajiem vaicājumiem vienmēr tiek aktivizēts filtrs Droša meklēšana un lietotāji nevar mainīt šo iestatījumu, savukārt pakalpojumā YouTube tiek veikta drošā režīma piespiedu iespējošana.
