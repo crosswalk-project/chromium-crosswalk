@@ -694,6 +694,8 @@ void DrawingBuffer::resizeDepthStencil(const IntSize& size)
         m_context->renderbufferStorageMultisampleCHROMIUM(GL_RENDERBUFFER, m_sampleCount, GL_DEPTH24_STENCIL8_OES, size.width(), size.height());
     else
         m_context->renderbufferStorage(GL_RENDERBUFFER, GL_DEPTH24_STENCIL8_OES, size.width(), size.height());
+    // For ES 2.0 contexts DEPTH_STENCIL is not available natively, so we emulate it
+    // at the command buffer level for WebGL contexts.
     m_context->framebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_STENCIL_ATTACHMENT, GL_RENDERBUFFER, m_depthStencilBuffer);
     m_context->bindRenderbuffer(GL_RENDERBUFFER, 0);
 }
