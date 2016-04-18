@@ -608,9 +608,6 @@ class CONTENT_EXPORT WebContentsImpl
                               const std::vector<uint8_t>& proto) override;
   void OnRenderFrameProxyVisibilityChanged(bool visible) override;
   void SendScreenRects() override;
-  const TextInputState* GetTextInputState() override;
-  void UpdateTextInputState(RenderWidgetHostViewBase* rwhv,
-                            bool text_input_state_changed) override;
 
   // RenderFrameHostManager::Delegate ------------------------------------------
 
@@ -1329,13 +1326,6 @@ class CONTENT_EXPORT WebContentsImpl
   PageImportanceSignals page_importance_signals_;
 
   bool page_scale_factor_is_one_;
-
-  // The RWHV which is currently focused.
-  base::WeakPtr<RenderWidgetHostViewBase> view_with_active_text_input_;
-
-  // A copy of the text input state from |view_with_active_text_input_| when
-  // there exists one, or empty (type == ui::TEXT_INPUT_TYPE_NONE) if otherwise.
-  scoped_ptr<TextInputState> text_input_state_;
 
   base::WeakPtrFactory<WebContentsImpl> loading_weak_factory_;
   base::WeakPtrFactory<WebContentsImpl> weak_factory_;
