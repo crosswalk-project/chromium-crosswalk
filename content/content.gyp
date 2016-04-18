@@ -513,6 +513,11 @@
             'has_java_resources': 1,
             'R_package': 'org.chromium.content',
             'R_package_relpath': 'org/chromium/content',
+            'conditions': [
+               ['enable_webvr==1', {
+                 'additional_src_dirs': ['../content/public/android/java-optional'],
+               }],
+             ],
           },
           'includes': [ '../build/java.gypi' ],
         },
@@ -659,7 +664,7 @@
           'conditions': [
             ['enable_webvr==1', {
               'sources': [
-                'public/android/java/src/org/chromium/content/browser/input/CardboardVRDevice.java',
+                'public/android/java-optional/src/org/chromium/content/browser/input/CardboardVRDevice.java',
               ],
               'dependencies': [
                 '../third_party/cardboard-java/cardboard.gyp:cardboard_jar',
