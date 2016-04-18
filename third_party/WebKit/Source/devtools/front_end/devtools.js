@@ -534,6 +534,9 @@ InspectorFrontendHostImpl.prototype = {
      */
     recordEnumeratedHistogram: function(actionName, actionCode, bucketSize)
     {
+        // Support for M49 frontend.
+        if (actionName === "DevTools.DrawerShown")
+            return;
         DevToolsAPI.sendMessageToEmbedder("recordEnumeratedHistogram", [actionName, actionCode, bucketSize], null);
     },
 
