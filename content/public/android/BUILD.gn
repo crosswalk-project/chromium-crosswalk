@@ -206,6 +206,11 @@ android_library("content_java") {
     "java/src/org/chromium/content_public/common/ResourceRequestBody.java",
     "java/src/org/chromium/content_public/common/ScreenOrientationConstants.java",
   ]
+
+  if (enable_webvr) {
+    deps += [ "//third_party/cardboard-java:cardboard-java" ]
+    java_files += [ "java-optional/src/org/chromium/content/browser/input/CardboardVRDevice.java" ]
+  }
 }
 
 java_strings_grd("content_strings_grd") {
@@ -286,6 +291,13 @@ generate_jar_jni("jar_jni") {
 generate_jni("content_jni_headers") {
   sources = rebase_path(content_jni_gypi_values.sources, "", "../..")
   jni_package = "content"
+
+  if (enable_webvr) {
+    sources += [ "//content/public/android/java-optional/src/org/chromium/content/browser/input/CardboardVRDevice.java" ]
+    public_deps = [
+      "//third_party/cardboard-java:cardboard-java",
+    ]
+  }
 }
 
 group("jni") {
