@@ -1024,7 +1024,12 @@ void NavigatorImpl::DidStartMainFrameNavigation(
   NavigationEntryImpl* pending_entry = controller_->GetPendingEntry();
   bool has_browser_initiated_pending_entry =
       pending_entry && !pending_entry->is_renderer_initiated();
-  if (!has_browser_initiated_pending_entry) {
+
+  // If there is a transient entry, creating a new pending entry will result
+  // in deleting it, which leads to inconsistent state.
+  bool has_transient_entry = !!controller_->GetTransientEntry();
+
+  if (!has_browser_initiated_pending_entry && !has_transient_entry) {
     scoped_ptr<NavigationEntryImpl> entry =
         NavigationEntryImpl::FromNavigationEntry(
             controller_->CreateNavigationEntry(
