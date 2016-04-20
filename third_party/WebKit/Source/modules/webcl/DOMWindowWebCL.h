@@ -13,7 +13,7 @@ namespace blink {
 class LocalDOMWindow;
 class WebCL;
 
-class DOMWindowWebCL : public NoBaseWillBeGarbageCollected<DOMWindowWebCL>, public WillBeHeapSupplement<LocalDOMWindow>, public DOMWindowProperty {
+class DOMWindowWebCL final : public NoBaseWillBeGarbageCollectedFinalized<DOMWindowWebCL>, public WillBeHeapSupplement<LocalDOMWindow>, public DOMWindowProperty {
     WILL_BE_USING_GARBAGE_COLLECTED_MIXIN(DOMWindowWebCL);
     DECLARE_EMPTY_VIRTUAL_DESTRUCTOR_WILL_BE_REMOVED(DOMWindowWebCL);
 public:
@@ -23,7 +23,7 @@ public:
     void willDestroyGlobalObjectInFrame() override;
     void willDetachGlobalObjectFromFrame() override;
 
-    void trace(Visitor*);
+    DECLARE_TRACE();
 
 private:
     explicit DOMWindowWebCL(LocalDOMWindow&);

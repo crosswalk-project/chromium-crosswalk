@@ -36,7 +36,7 @@ class ExceptionState;
 class ExecutionContext;
 class WebCLHolder;
 
-class WebCL : public RefCounted<WebCL>, public ScriptWrappable {
+class WebCL final : public RefCounted<WebCL>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCL();
@@ -65,13 +65,13 @@ private:
     void cacheSupportedExtensions();
     // Update the m_callbackRegisterQueue according to OpenCL event, and
     // get the WebCLCallback list if OpenCL event becomes CL_COMPLETE.
-    Vector<RefPtr<WebCLCallback>> updateCallbacksFromCLEvent(cl_event);
+    HeapVector<Member<WebCLCallback>> updateCallbacksFromCLEvent(cl_event);
 
     Vector<RefPtr<WebCLPlatform>> m_platforms;
     WebCLExtension m_extension;
     Vector<WeakPtr<WebCLContext>> m_webCLContexts;
 
-    typedef Vector<std::pair<Vector<WeakPtr<WebCLObject>>, RefPtr<WebCLCallback>>> WebCLCallbackRegisterQueue;
+    typedef Vector<std::pair<Vector<WeakPtr<WebCLObject>>, Persistent<WebCLCallback>>> WebCLCallbackRegisterQueue;
     // It contains every un-triggered WebCLCallback and corresponding WebCLEvent list.
     WebCLCallbackRegisterQueue m_callbackRegisterQueue;
     WeakPtrFactory<WebCL> m_weakFactory;

@@ -18,9 +18,8 @@ DOMWindowWebCL::DOMWindowWebCL(LocalDOMWindow& window)
 
 DEFINE_EMPTY_DESTRUCTOR_WILL_BE_REMOVED(DOMWindowWebCL);
 
-void DOMWindowWebCL::trace(Visitor* visitor)
+DEFINE_TRACE(DOMWindowWebCL)
 {
-    visitor->trace(m_webcl);
     WillBeHeapSupplement<LocalDOMWindow>::trace(visitor);
     DOMWindowProperty::trace(visitor);
 }
