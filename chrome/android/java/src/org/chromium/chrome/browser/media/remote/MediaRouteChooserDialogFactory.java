@@ -4,9 +4,11 @@
 
 package org.chromium.chrome.browser.media.remote;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.MediaRouteChooserDialog;
 import android.support.v7.app.MediaRouteChooserDialogFragment;
@@ -38,7 +40,9 @@ public class MediaRouteChooserDialogFactory extends MediaRouteDialogFactory {
         private int mSystemVisibility;
         private boolean mRestoreSystemVisibility;
 
+        @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
         void saveSystemVisibility(Activity activity) {
+            if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return;
             // If we are in fullscreen we may have also have hidden the system UI. This
             // is overridden when we display the dialog. Save the system UI visibility
             // state so we can restore it.
