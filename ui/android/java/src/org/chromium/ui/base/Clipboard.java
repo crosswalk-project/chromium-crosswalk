@@ -4,9 +4,11 @@
 
 package org.chromium.ui.base;
 
+import android.annotation.TargetApi;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.os.Build;
 
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
@@ -20,6 +22,10 @@ import org.chromium.ui.widget.Toast;
  */
 @JNINamespace("ui")
 public class Clipboard {
+
+    private static final boolean IS_HTML_CLIPBOARD_SUPPORTED =
+            Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN;
+
     // Necessary for coercing clipboard contents to text if they require
     // access to network resources, etceteras (e.g., URI in clipboard)
     private final Context mContext;
@@ -83,8 +89,10 @@ public class Clipboard {
      * @return a Java string with the html text if any, or null if there is no html
      *         text or no entries on the primary clip.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @CalledByNative
     private String getHTMLText() {
+        if (!isHTMLClipboardSupported()) return null;
         final ClipData clip = mClipboardManager.getPrimaryClip();
         if (clip != null && clip.getItemCount() > 0) {
             return clip.getItemAt(0).getHtmlText();
@@ -112,9 +120,11 @@ public class Clipboard {
      * @param html  The HTML content to be pasted to the clipboard.
      * @param text  Plain-text representation of the HTML content.
      */
+    @TargetApi(Build.VERSION_CODES.JELLY_BEAN)
     @SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
     @CalledByNative
     private void setHTMLText(final String html, final String text) {
+        if (!isHTMLClipboardSupported()) return;
         setPrimaryClipNoException(ClipData.newHtmlText("html", text, html));
     }
 
@@ -126,6 +136,11 @@ public class Clipboard {
     @CalledByNative
     private void clear() {
         setPrimaryClipNoException(ClipData.newPlainText(null, null));
+    }
+
+    @CalledByNative
+    private static boolean isHTMLClipboardSupported() {
+        return IS_HTML_CLIPBOARD_SUPPORTED;
     }
 
     private void setPrimaryClipNoException(ClipData clip) {
