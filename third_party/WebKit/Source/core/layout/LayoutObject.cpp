@@ -2037,9 +2037,9 @@ void LayoutObject::styleWillChange(StyleDifference diff, const ComputedStyle& ne
     if (node() && !node()->isTextNode() && (oldTouchAction == TouchActionAuto) != (newStyle.getTouchAction() == TouchActionAuto)) {
         EventHandlerRegistry& registry = document().frameHost()->eventHandlerRegistry();
         if (newStyle.getTouchAction() != TouchActionAuto)
-            registry.didAddEventHandler(*node(), EventHandlerRegistry::TouchEventBlocking);
+            registry.didAddEventHandler(*node(), EventHandlerRegistry::TouchStartOrMoveEventBlocking);
         else
-            registry.didRemoveEventHandler(*node(), EventHandlerRegistry::TouchEventBlocking);
+            registry.didRemoveEventHandler(*node(), EventHandlerRegistry::TouchStartOrMoveEventBlocking);
     }
 }
 
@@ -2651,8 +2651,8 @@ void LayoutObject::willBeDestroyed()
     // previously may have already been removed by the Document independently.
     if (node() && !node()->isTextNode() && m_style && m_style->getTouchAction() != TouchActionAuto) {
         EventHandlerRegistry& registry = document().frameHost()->eventHandlerRegistry();
-        if (registry.eventHandlerTargets(EventHandlerRegistry::TouchEventBlocking)->contains(node()))
-            registry.didRemoveEventHandler(*node(), EventHandlerRegistry::TouchEventBlocking);
+        if (registry.eventHandlerTargets(EventHandlerRegistry::TouchStartOrMoveEventBlocking)->contains(node()))
+            registry.didRemoveEventHandler(*node(), EventHandlerRegistry::TouchStartOrMoveEventBlocking);
     }
 
     setAncestorLineBoxDirty(false);
