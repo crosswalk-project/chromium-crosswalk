@@ -17,7 +17,7 @@ import org.chromium.content.browser.ContentViewCore;
  */
 @JNINamespace("content")
 @TargetApi(Build.VERSION_CODES.KITKAT)
-public class KitKatBrowserAccessibilityManager extends BrowserAccessibilityManager {
+public class KitKatBrowserAccessibilityManager extends JellyBeanBrowserAccessibilityManager {
     private String mSupportedHtmlElementTypes;
 
     KitKatBrowserAccessibilityManager(long nativeBrowserAccessibilityManagerAndroid,
