@@ -18,6 +18,7 @@
         'memtrack_helper/memtrack_helper.gyp:memtrack_helper',
         'purge_ashmem/purge_ashmem.gyp:purge_ashmem',
         '../../third_party/catapult/telemetry/telemetry.gyp:*#host',
+        'run_pie/run_pie.gyp:run_pie',
       ],
     },
     {
