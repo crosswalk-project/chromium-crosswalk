@@ -126,6 +126,7 @@ class MediaCodecUtil {
       */
     @CalledByNative
     private static boolean canDecode(String mime, boolean isSecure) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return false;
         CodecCreationInfo info = createDecoder(mime, isSecure);
         if (info.mediaCodec == null) return false;
 
@@ -144,6 +145,7 @@ class MediaCodecUtil {
      * @return CodecCreationInfo object
      */
     static CodecCreationInfo createDecoder(String mime, boolean isSecure) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.JELLY_BEAN) return null;
         // Always return a valid CodecCreationInfo, its |mediaCodec| field will be null
         // if we cannot create the codec.
         CodecCreationInfo result = new CodecCreationInfo();
