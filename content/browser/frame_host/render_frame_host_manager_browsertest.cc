@@ -2514,6 +2514,7 @@ IN_PROC_BROWSER_TEST_F(RenderFrameHostManagerTest,
   GURL frame_url(
       embedded_test_server()->GetURL("a.com", "/click-noreferrer-links.html"));
   NavigateFrameToURL(root->child_at(0), frame_url);
+  EXPECT_TRUE(WaitForLoadStop(shell()->web_contents()));
   std::string script = "setOriginForLinks('http://b.com:" +
                        embedded_test_server()->base_url().port() + "/');";
   EXPECT_TRUE(ExecuteScript(root->child_at(0)->current_frame_host(), script));
