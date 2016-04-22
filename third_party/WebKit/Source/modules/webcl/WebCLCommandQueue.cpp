@@ -97,7 +97,7 @@ void WebCLCommandQueue::finish(WebCLCallback* whenFinished, ExceptionState& es)
     }
 
     if (whenFinished) {
-        m_whenFinishCallback = adoptRef(whenFinished);
+        m_whenFinishCallback = whenFinished;
         finishCommandQueues(ASYNC);
     } else {
         finishCommandQueues(SYNC);

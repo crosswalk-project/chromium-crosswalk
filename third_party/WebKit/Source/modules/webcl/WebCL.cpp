@@ -267,9 +267,9 @@ WebCL::WebCL()
     cacheSupportedExtensions();
 }
 
-Vector<RefPtr<WebCLCallback>> WebCL::updateCallbacksFromCLEvent(cl_event event)
+HeapVector<Member<WebCLCallback>> WebCL::updateCallbacksFromCLEvent(cl_event event)
 {
-    Vector<RefPtr<WebCLCallback>> callbacks;
+    HeapVector<Member<WebCLCallback>> callbacks;
     if (m_callbackRegisterQueue.size()) {
         for (int i = m_callbackRegisterQueue.size() - 1; i >= 0; i--) {
             if (m_callbackRegisterQueue[i].first.size()) {
@@ -315,7 +315,7 @@ void WebCL::callbackProxyOnMainThread(PassOwnPtr<WebCLHolder> holder)
     if (!webcl)
         return;
 
-    Vector<RefPtr<WebCLCallback>> callbacks = webcl->updateCallbacksFromCLEvent(event);
+    HeapVector<Member<WebCLCallback>> callbacks = webcl->updateCallbacksFromCLEvent(event);
     // Ignore the callback if the OpenCL event is abnormally terminated.
     if (type != CL_COMPLETE) {
         return;
@@ -342,7 +342,7 @@ void WebCL::waitForEventsImpl(const Vector<RefPtr<WebCLEvent>>& events, WebCLCal
     if (!callback) {
         clWaitForEvents(clEvents.size(), clEvents.data());
     } else {
-        m_callbackRegisterQueue.append(std::make_pair(webEvents, adoptRef(callback)));
+        m_callbackRegisterQueue.append(std::make_pair(webEvents, callback));
         for (auto clEvent : clEvents)
             clSetEventCallback(clEvent, CL_COMPLETE, &callbackProxy, holder);
     }

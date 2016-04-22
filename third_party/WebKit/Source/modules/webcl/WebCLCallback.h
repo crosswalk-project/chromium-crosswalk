@@ -7,10 +7,9 @@
 #define WebCLCallback_h
 
 #include "platform/heap/Handle.h"
-#include <wtf/RefCounted.h>
 
 namespace blink {
-class WebCLCallback : public RefCounted<WebCLCallback> {
+class WebCLCallback : public GarbageCollectedFinalized<WebCLCallback> {
 public:
     virtual ~WebCLCallback() { }
     DEFINE_INLINE_VIRTUAL_TRACE() { }

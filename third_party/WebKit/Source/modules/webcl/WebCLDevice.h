@@ -20,7 +20,7 @@ class WebCL;
 class WebCLGetInfo;
 class WebCLPlatform;
 
-class WebCLDevice : public RefCounted<WebCLDevice>, public ScriptWrappable {
+class WebCLDevice final : public RefCounted<WebCLDevice>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLDevice();

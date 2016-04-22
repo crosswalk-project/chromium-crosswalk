@@ -104,7 +104,7 @@ private:
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLCommandQueueHolder>);
     void resetEventAndCallback();
 
-    RefPtr<WebCLCallback> m_whenFinishCallback;
+    Persistent<WebCLCallback> m_whenFinishCallback;
     cl_event m_eventForCallback;
     WebCLDevice* m_device;
     cl_command_queue m_clCommandQueue;
