@@ -374,12 +374,6 @@ void InputRouterImpl::OfferToHandlers(const WebInputEvent& input_event,
                       ? InputEventDispatchType::DISPATCH_TYPE_BLOCKING
                       : InputEventDispatchType::DISPATCH_TYPE_NON_BLOCKING);
 
-  if (WebInputEvent::isTouchEventType(input_event.type) &&
-      input_event.type != WebInputEvent::TouchMove) {
-    const WebTouchEvent& touch = static_cast<const WebTouchEvent&>(input_event);
-    DCHECK_EQ(should_block, touch.cancelable);
-  }
-
   // Generate a synthetic ack if the event was sent so it doesn't block.
   if (!should_block) {
     ProcessInputEventAck(
