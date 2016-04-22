@@ -36,7 +36,7 @@ class WebCLProgram;
 class WebCLSampler;
 class WebCLUserEvent;
 
-class WebCLContext : public RefCounted<WebCLContext>, public ScriptWrappable {
+class WebCLContext final : public RefCounted<WebCLContext>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLContext();

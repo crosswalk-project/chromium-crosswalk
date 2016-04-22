@@ -49,7 +49,7 @@ private:
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLProgramHolder>);
     cl_program getProgram() { return m_clProgram; }
 
-    RefPtr<WebCLCallback> m_buildCallback;
+    Persistent<WebCLCallback> m_buildCallback;
     String m_programSource;
     String m_programSourceWithCommentsStripped;
     bool m_isProgramBuilt;

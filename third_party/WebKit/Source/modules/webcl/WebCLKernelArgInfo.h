@@ -12,7 +12,7 @@
 
 namespace blink {
 
-class WebCLKernelArgInfo : public RefCounted<WebCLKernelArgInfo>, public ScriptWrappable {
+class WebCLKernelArgInfo final : public RefCounted<WebCLKernelArgInfo>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     enum {

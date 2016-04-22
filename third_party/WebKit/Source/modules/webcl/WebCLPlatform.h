@@ -19,7 +19,7 @@ class ExceptionState;
 class WebCLCommandQueue;
 class WebCLImage;
 
-class WebCLPlatform : public RefCounted<WebCLPlatform>, public ScriptWrappable {
+class WebCLPlatform final : public RefCounted<WebCLPlatform>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     ~WebCLPlatform();

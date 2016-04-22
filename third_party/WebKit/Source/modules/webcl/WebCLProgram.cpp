@@ -381,7 +381,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
         }
 
         // Store the callback, eventList to HashTable and call callbackProxy.
-        m_buildCallback = adoptRef(callback);
+        m_buildCallback = callback;
         callbackProxyPtr = &callbackProxy;
         holder = new WebCLProgramHolder;
         holder->program = createWeakPtr();

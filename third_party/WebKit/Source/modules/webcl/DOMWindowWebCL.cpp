@@ -16,21 +16,18 @@ DOMWindowWebCL::DOMWindowWebCL(LocalDOMWindow& window)
 {
 }
 
-DEFINE_EMPTY_DESTRUCTOR_WILL_BE_REMOVED(DOMWindowWebCL);
-
-void DOMWindowWebCL::trace(Visitor* visitor)
+DEFINE_TRACE(DOMWindowWebCL)
 {
-    visitor->trace(m_webcl);
-    WillBeHeapSupplement<LocalDOMWindow>::trace(visitor);
+    HeapSupplement<LocalDOMWindow>::trace(visitor);
     DOMWindowProperty::trace(visitor);
 }
 
 DOMWindowWebCL& DOMWindowWebCL::from(LocalDOMWindow& window)
 {
-    DOMWindowWebCL* supplement = static_cast<DOMWindowWebCL*>(WillBeHeapSupplement<LocalDOMWindow>::from(window, supplementName()));
+    DOMWindowWebCL* supplement = static_cast<DOMWindowWebCL*>(HeapSupplement<LocalDOMWindow>::from(window, supplementName()));
     if (!supplement) {
         supplement = new DOMWindowWebCL(window);
-        provideTo(window, supplementName(), adoptPtrWillBeNoop(supplement));
+        provideTo(window, supplementName(), supplement);
     }
 
     return *supplement;

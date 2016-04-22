@@ -146,12 +146,12 @@ void WebCLEvent::setCallback(unsigned commandExecCallbackType, WebCLCallback* ca
 
     ASSERT(callback);
     if (m_callbacks.size()) {
-        m_callbacks.append(adoptRef(callback));
+        m_callbacks.append(callback);
         return;
     }
 
     m_callbacks.clear();
-    m_callbacks.append(adoptRef(callback));
+    m_callbacks.append(callback);
     WebCLEventHolder* holder = new WebCLEventHolder;
     holder->event = createWeakPtr();
     holder->type = commandExecCallbackType;
@@ -227,7 +227,7 @@ void WebCLEvent::callbackProxyOnMainThread(PassOwnPtr<WebCLEventHolder> holder)
     }
 
     ASSERT(event == webEvent->getEvent());
-    Vector<RefPtr<WebCLCallback>> callbacks = webEvent->m_callbacks;
+    HeapVector<Member<WebCLCallback>> callbacks = webEvent->m_callbacks;
     ASSERT(callbacks.size());
     for (auto callback : callbacks)
         callback->handleEvent();
