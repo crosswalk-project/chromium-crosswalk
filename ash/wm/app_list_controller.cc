@@ -68,6 +68,7 @@ gfx::Rect OffsetTowardsShelf(const gfx::Rect& rect, views::Widget* widget) {
   gfx::Rect offseted(rect);
   switch (shelf_alignment) {
     case SHELF_ALIGNMENT_BOTTOM:
+    case SHELF_ALIGNMENT_BOTTOM_LOCKED:
       offseted.Offset(0, kAnimationOffset);
       break;
     case SHELF_ALIGNMENT_LEFT:
@@ -91,6 +92,7 @@ gfx::Vector2d GetAnchorPositionOffsetToShelf(
   gfx::Point anchor(button_bounds.CenterPoint());
   switch (shelf_alignment) {
     case SHELF_ALIGNMENT_BOTTOM:
+    case SHELF_ALIGNMENT_BOTTOM_LOCKED:
       if (base::i18n::IsRTL()) {
         int screen_width = widget->GetWorkAreaBoundsInScreen().width();
         return gfx::Vector2d(

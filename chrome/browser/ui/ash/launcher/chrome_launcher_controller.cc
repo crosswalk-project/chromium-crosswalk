@@ -1154,7 +1154,7 @@ void ChromeLauncherController::OnShelfDestroyed(ash::Shelf* shelf) {}
 
 void ChromeLauncherController::OnShelfAlignmentChanged(ash::Shelf* shelf) {
   const char* value = nullptr;
-  switch (shelf->GetAlignment()) {
+  switch (shelf->alignment()) {
     case ash::SHELF_ALIGNMENT_BOTTOM:
       value = ash::kShelfAlignmentBottom;
       break;

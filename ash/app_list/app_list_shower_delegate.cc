@@ -56,6 +56,7 @@ gfx::Vector2d GetAnchorPositionOffsetToShelf(
   gfx::Point anchor(button_bounds.CenterPoint());
   switch (shelf_alignment) {
     case SHELF_ALIGNMENT_BOTTOM:
+    case SHELF_ALIGNMENT_BOTTOM_LOCKED:
       if (base::i18n::IsRTL()) {
         int screen_width = widget->GetWorkAreaBoundsInScreen().width();
         return gfx::Vector2d(
@@ -261,6 +262,7 @@ gfx::Vector2d AppListShowerDelegate::GetVisibilityAnimationOffset(
       Shell::GetInstance()->GetShelfAlignment(root_window);
   switch (shelf_alignment) {
     case SHELF_ALIGNMENT_BOTTOM:
+    case SHELF_ALIGNMENT_BOTTOM_LOCKED:
       return gfx::Vector2d(0, kAnimationOffset);
     case SHELF_ALIGNMENT_LEFT:
       return gfx::Vector2d(-kAnimationOffset, 0);
