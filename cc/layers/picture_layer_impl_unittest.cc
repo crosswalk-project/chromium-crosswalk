@@ -1250,6 +1250,7 @@ TEST_F(PictureLayerImplTest, DontAddLowResForSmallLayers) {
   EXPECT_BOTH_EQ(HighResTiling()->contents_scale(), contents_scale);
   EXPECT_BOTH_EQ(num_tilings(), 1u);
 
+  // TODO(danakj): Remove these when raster scale doesn't get fixed?
   ResetTilingsAndRasterScales();
 
   // Any content bounds that would create more than one tile will
@@ -1278,6 +1279,11 @@ TEST_F(PictureLayerImplTest, DontAddLowResForSmallLayers) {
 
   FakePictureLayerImpl* mask_raw =
       static_cast<FakePictureLayerImpl*>(pending_layer_->mask_layer());
+  // We did an UpdateDrawProperties above, which will set a contents scale on
+  // the mask layer, so allow us to reset the contents scale.
+  mask_raw->ReleaseResources();
+  mask_raw->RecreateResources();
+
   SetupDrawPropertiesAndUpdateTiles(
       mask_raw, contents_scale, device_scale, page_scale,
       maximum_animation_scale, starting_animation_scale, animating_transform);
