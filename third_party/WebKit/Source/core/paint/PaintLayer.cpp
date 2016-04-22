@@ -2460,8 +2460,16 @@ void PaintLayer::updateSelfPaintingLayer()
 
     m_isSelfPaintingLayer = isSelfPaintingLayer;
 
-    if (parent())
-        parent()->dirtyAncestorChainHasSelfPaintingLayerDescendantStatus();
+    if (PaintLayer* parent = this->parent()) {
+        parent->dirtyAncestorChainHasSelfPaintingLayerDescendantStatus();
+
+        if (PaintLayer* enclosingSelfPaintingLayer = parent->enclosingSelfPaintingLayer()) {
+            if (isSelfPaintingLayer)
+                mergeNeedsPaintPhaseFlagsFrom(*enclosingSelfPaintingLayer);
+            else
+                enclosingSelfPaintingLayer->mergeNeedsPaintPhaseFlagsFrom(*this);
+        }
+    }
 }
 
 PaintLayer* PaintLayer::enclosingSelfPaintingLayer()
