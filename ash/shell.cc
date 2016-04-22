@@ -517,7 +517,7 @@ void Shell::SetShelfAutoHideBehavior(ShelfAutoHideBehavior behavior,
 
 ShelfAutoHideBehavior Shell::GetShelfAutoHideBehavior(
     aura::Window* root_window) const {
-  return Shelf::ForWindow(root_window)->GetAutoHideBehavior();
+  return Shelf::ForWindow(root_window)->auto_hide_behavior();
 }
 
 void Shell::SetShelfAlignment(ShelfAlignment alignment,
@@ -526,7 +526,7 @@ void Shell::SetShelfAlignment(ShelfAlignment alignment,
 }
 
 ShelfAlignment Shell::GetShelfAlignment(const aura::Window* root_window) const {
-  return Shelf::ForWindow(root_window)->GetAlignment();
+  return Shelf::ForWindow(root_window)->alignment();
 }
 
 void Shell::OnShelfAlignmentChanged(aura::Window* root_window) {

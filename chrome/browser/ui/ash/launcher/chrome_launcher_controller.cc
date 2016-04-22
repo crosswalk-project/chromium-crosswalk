@@ -1164,6 +1164,10 @@ void ChromeLauncherController::OnShelfAlignmentChanged(ash::Shelf* shelf) {
     case ash::SHELF_ALIGNMENT_RIGHT:
       value = ash::kShelfAlignmentRight;
       break;
+    case ash::SHELF_ALIGNMENT_BOTTOM_LOCKED:
+      // This should not be a valid preference option for now. We only want to
+      // lock the shelf during login or when adding a user.
+      return;
   }
 
   aura::Window* root_window =
