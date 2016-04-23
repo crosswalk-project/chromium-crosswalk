@@ -13,6 +13,7 @@
 #include "base/macros.h"
 #include "chrome/common/chrome_features.h"
 #include "components/offline_pages/offline_page_feature.h"
+#include "content/public/common/content_features.h"
 #include "jni/ChromeFeatureList_jni.h"
 
 using base::android::ConvertJavaStringToUTF8;
@@ -26,12 +27,11 @@ namespace {
 // this array may either refer to features defined in this file (above) or in
 // other locations in the code base (e.g. chrome/, components/, etc).
 const base::Feature* kFeaturesExposedToJava[] = {
+    &features::kCredentialManagementAPI,
     &kNTPOfflinePagesFeature,
     &kNTPSnippetsFeature,
     &kNTPToolbarFeature,
-    &kNTPFakeOmniboxTextFeature,
     &kPhysicalWebFeature,
-    &features::kSimplifiedFullscreenUI,
     &offline_pages::kOfflinePagesBackgroundLoadingFeature,
 };
 
