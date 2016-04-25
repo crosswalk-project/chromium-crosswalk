@@ -53,6 +53,18 @@ private:
     Timer<HeapStatsUpdateTask> m_timer;
 };
 
+class InspectorHeapProfilerAgent::HeapXDKUpdateTask final {
+public:
+    explicit HeapXDKUpdateTask(V8HeapProfilerAgent*);
+    void startTimer(float sav);
+    void resetTimer() { m_timer.stop(); }
+    void onTimer(Timer<HeapXDKUpdateTask>*);
+
+private:
+    V8HeapProfilerAgent* m_heapProfilerAgent;
+    Timer<HeapXDKUpdateTask> m_timer;
+};
+
 InspectorHeapProfilerAgent::HeapStatsUpdateTask::HeapStatsUpdateTask(V8HeapProfilerAgent* heapProfilerAgent)
     : m_heapProfilerAgent(heapProfilerAgent)
     , m_timer(this, &HeapStatsUpdateTask::onTimer)
@@ -229,6 +241,48 @@ void InspectorHeapProfilerAgent::startSampling(ErrorString* errorString)
 void InspectorHeapProfilerAgent::stopSampling(ErrorString* errorString, OwnPtr<protocol::HeapProfiler::SamplingHeapProfile>* profile)
 {
     m_v8HeapProfilerAgent->stopSampling(errorString, profile);
+}
+
+InspectorHeapProfilerAgent::HeapXDKUpdateTask::HeapXDKUpdateTask(V8HeapProfilerAgent* heapProfilerAgent)
+    : m_heapProfilerAgent(heapProfilerAgent)
+    , m_timer(this, &HeapXDKUpdateTask::onTimer)
+{
+}
+
+void InspectorHeapProfilerAgent::HeapXDKUpdateTask::onTimer(Timer<HeapXDKUpdateTask>*)
+{
+    // The timer is stopped on m_heapProfilerAgent destruction,
+    // so this method will never be called after m_heapProfilerAgent has been destroyed.
+    m_heapProfilerAgent->requestHeapXDKUpdate();
+}
+
+void InspectorHeapProfilerAgent::HeapXDKUpdateTask::startTimer(float sav)
+{
+    ASSERT(!m_timer.isActive());
+    m_timer.startRepeating(sav, BLINK_FROM_HERE);
+}
+
+void InspectorHeapProfilerAgent::startTrackingHeapXDK(ErrorString* error, const protocol::Maybe<int>& depth, const protocol::Maybe<int>& sav, const protocol::Maybe<bool>& retentions)
+{
+    if (m_heapXDKUpdateTask)
+        return;
+
+    m_v8HeapProfilerAgent->startTrackingHeapXDK(error, depth, sav, retentions);
+    float savTimer = (float) sav.fromMaybe(1000) / 1000.;
+    m_heapXDKUpdateTask = adoptPtr(new HeapXDKUpdateTask(m_v8HeapProfilerAgent.get()));
+    m_heapXDKUpdateTask->startTimer(savTimer);
+}
+
+void InspectorHeapProfilerAgent::stopTrackingHeapXDK(ErrorString* error, OwnPtr<protocol::HeapProfiler::HeapEventXDK>* profile)
+{
+    if (!m_heapXDKUpdateTask) {
+        *error = "Heap object tracking is not started.";
+        return;
+    }
+
+    m_v8HeapProfilerAgent->stopTrackingHeapXDK(error, profile);
+    m_heapXDKUpdateTask->resetTimer();
+    m_heapXDKUpdateTask.clear();
 }
 
 } // namespace blink

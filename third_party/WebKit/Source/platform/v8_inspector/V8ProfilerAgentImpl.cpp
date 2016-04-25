@@ -60,6 +60,7 @@ PassOwnPtr<protocol::Profiler::CPUProfileNode> buildInspectorObjectFor(v8::Isola
         .setColumnNumber(node->GetColumnNumber())
         .setHitCount(node->GetHitCount())
         .setCallUID(node->GetCallUid())
+        .setStackEntryLine(node->GetSrcLine())
         .setChildren(children.release())
         .setPositionTicks(positionTicks.release())
         .setDeoptReason(node->GetBailoutReason())

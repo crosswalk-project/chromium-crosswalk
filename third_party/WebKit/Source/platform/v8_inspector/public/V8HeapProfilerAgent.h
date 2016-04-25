@@ -19,6 +19,7 @@ public:
     virtual ~V8HeapProfilerAgent() { }
 
     virtual void requestHeapStatsUpdate() = 0;
+    virtual void requestHeapXDKUpdate() = 0;
 };
 
 } // namespace blink

@@ -341,4 +341,113 @@ void V8HeapProfilerAgentImpl::stopSampling(ErrorString* errorString, OwnPtr<prot
         .setHead(buildSampingHeapProfileNode(root)).build();
 }
 
+class HeapXDKStream : public v8::OutputStream {
+public:
+    HeapXDKStream(protocol::Frontend::HeapProfiler* frontend)
+        : m_frontend(frontend)
+    {
+    }
+    void EndOfStream() override { }
+
+    WriteResult WriteAsciiChunk(char* data, int size) override
+    {
+        ASSERT(false);
+        return kAbort;
+    }
+
+    WriteResult WriteHeapXDKChunk(const char* symbols, size_t symbolsSize, const char* frames, size_t framesSize, const char* types, size_t typesSize,
+        const char* chunks, size_t chunksSize, const char* retentions, size_t retentionSize) override
+    {
+        m_frontend->heapXDKUpdate(String(symbols, symbolsSize), String(frames, framesSize), String(types, typesSize), String(chunks, chunksSize), String(retentions, retentionSize));
+        return kContinue;
+    }
+
+private:
+    protocol::Frontend::HeapProfiler* m_frontend;
+};
+
+static PassOwnPtr<protocol::HeapProfiler::HeapEventXDK> createHeapProfileXDK(const HeapProfileXDK& heapProfileXDK)
+{
+    OwnPtr<protocol::HeapProfiler::HeapEventXDK> profile = protocol::HeapProfiler::HeapEventXDK::create()
+        .setDuration(heapProfileXDK.getDuration())
+        .setSymbols(heapProfileXDK.getSymbols())
+        .setFrames(heapProfileXDK.getFrames())
+        .setTypes(heapProfileXDK.getTypes())
+        .setChunks(heapProfileXDK.getChunks())
+        .setRetentions(heapProfileXDK.getRetentions()).build();
+    return profile.release();
+}
+
+void V8HeapProfilerAgentImpl::startTrackingHeapXDK(ErrorString* error, const protocol::Maybe<int>& depth, const protocol::Maybe<int>& sav, const protocol::Maybe<bool>& retentions)
+{
+    v8::HeapProfiler* profiler = m_isolate->GetHeapProfiler();
+    if (!profiler) {
+        *error = "Cannot access v8 heap profiler";
+        return;
+    }
+
+    m_state->setBoolean(HeapProfilerAgentState::heapObjectsTrackingEnabled, true);
+    int stackDepth = depth.fromMaybe(8);
+    bool needRetentions = retentions.fromMaybe(false);
+    profiler->StartTrackingHeapObjectsXDK(stackDepth, needRetentions);
+}
+
+void V8HeapProfilerAgentImpl::stopTrackingHeapXDK(ErrorString* error, OwnPtr<protocol::HeapProfiler::HeapEventXDK>* profile)
+{
+    v8::HeapProfiler* profiler = m_isolate->GetHeapProfiler();
+    if (!profiler) {
+        *error = "Cannot access v8 heap profiler";
+        return;
+    }
+
+    OwnPtr<HeapProfileXDK> heapProfileXDK = HeapProfileXDK::create(
+        profiler->StopTrackingHeapObjectsXDK(), m_isolate);
+    *profile = createHeapProfileXDK(*heapProfileXDK);
+    m_state->setBoolean(HeapProfilerAgentState::heapObjectsTrackingEnabled, false);
+}
+
+void V8HeapProfilerAgentImpl::requestHeapXDKUpdate()
+{
+    if (!m_frontend)
+        return;
+    HeapXDKStream heapXDKStream(m_frontend);
+    m_isolate->GetHeapProfiler()->GetHeapXDKStats(
+        &heapXDKStream);
+}
+
+String HeapProfileXDK::getSymbols() const
+{
+    v8::HandleScope handleScope(m_isolate);
+    return String(m_event->getSymbols());
+}
+
+String HeapProfileXDK::getFrames() const
+{
+    v8::HandleScope handleScope(m_isolate);
+    return String(m_event->getFrames());
+}
+
+String HeapProfileXDK::getTypes() const
+{
+    v8::HandleScope handleScope(m_isolate);
+    return String(m_event->getTypes());
+}
+
+String HeapProfileXDK::getChunks() const
+{
+    v8::HandleScope handleScope(m_isolate);
+    return String(m_event->getChunks());
+}
+
+int HeapProfileXDK::getDuration() const
+{
+    return (int)m_event->getDuration();
+}
+
+String HeapProfileXDK::getRetentions() const
+{
+    v8::HandleScope handleScope(m_isolate);
+    return String(m_event->getRetentions());
+}
+
 } // namespace blink
