@@ -429,8 +429,6 @@ abstract class ToolbarLayout extends FrameLayout implements Toolbar {
         NewTabPage ntp = getToolbarDataProvider().getNewTabPageForCurrentTab();
         if (ntp != null) {
             getLocationBar().onTabLoadingNTP(ntp);
-        } else {
-            if (mUrlContainer != null) mUrlContainer.setTrailingTextVisible(true);
         }
 
         getLocationBar().updateMicButtonState();
@@ -577,7 +575,6 @@ abstract class ToolbarLayout extends FrameLayout implements Toolbar {
      * Notified when a navigation to a different page has occurred.
      */
     protected void onNavigatedToDifferentPage() {
-        if (mUrlContainer != null) mUrlContainer.setTrailingTextVisible(true);
     }
 
     /**
@@ -608,7 +605,6 @@ abstract class ToolbarLayout extends FrameLayout implements Toolbar {
         if (mProgressBar != null) {
             mProgressBar.finish(delayed);
         }
-        if (mUrlContainer != null) mUrlContainer.setTrailingTextVisible(false);
     }
 
     /**
