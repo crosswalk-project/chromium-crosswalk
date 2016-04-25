@@ -36,6 +36,7 @@
 #include "core/layout/LayoutGeometryMap.h"
 #include "core/layout/LayoutPart.h"
 #include "core/layout/LayoutView.h"
+#include "core/layout/api/LayoutViewItem.h"
 #include "core/layout/compositing/CompositedLayerMapping.h"
 #include "core/layout/compositing/PaintLayerCompositor.h"
 #include "core/page/ChromeClient.h"
@@ -790,10 +791,15 @@ static void accumulateDocumentTouchEventTargetRects(LayerHitTestRects& rects, co
         for (const auto& eventTarget : *targets) {
             EventTarget* target = eventTarget.key;
             Node* node = target->toNode();
-            if (target->toDOMWindow() || node == document || node == document->documentElement() || node == document->body()) {
-                if (LayoutView* layoutView = document->layoutView()) {
+            LocalDOMWindow* window = target->toDOMWindow();
+            // If the target is inside a throttled frame, skip it.
+            if (window && window->frame()->view() && window->frame()->view()->shouldThrottleRendering())
+                continue;
+            if (node && node->document().view() && node->document().view()->shouldThrottleRendering())
+                continue;
+            if (window || node == document || node == document->documentElement() || node == document->body()) {
+                if (LayoutView* layoutView = document->layoutView())
                     layoutView->computeLayerHitTestRects(rects);
-                }
                 return;
             }
         }
@@ -808,6 +814,10 @@ static void accumulateDocumentTouchEventTargetRects(LayerHitTestRects& rects, co
         // If the document belongs to an invisible subframe it does not have a composited layer
         // and should be skipped.
         if (node->document().isInInvisibleSubframe())
+            continue;
+
+        // If the node belongs to a throttled frame, skip it.
+        if (node->document().view() && node->document().view()->shouldThrottleRendering())
             continue;
 
         if (node->isDocumentNode() && node != document) {
