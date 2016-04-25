@@ -8,6 +8,7 @@
 #include "platform/v8_inspector/public/V8HeapProfilerAgent.h"
 #include "wtf/Forward.h"
 #include "wtf/Noncopyable.h"
+#include <v8-profiler.h>
 
 namespace blink {
 
@@ -16,6 +17,31 @@ class V8RuntimeAgent;
 typedef String ErrorString;
 
 using protocol::Maybe;
+
+class HeapProfileXDK final {
+public:
+    static PassOwnPtr<HeapProfileXDK> create(v8::HeapEventXDK* event, v8::Isolate* isolate)
+    {
+        return adoptPtr(new HeapProfileXDK(event, isolate));
+    }
+
+    String getSymbols() const;
+    String getFrames() const;
+    String getTypes() const;
+    String getChunks() const;
+    String getRetentions() const;
+    int getDuration() const;
+
+private:
+    HeapProfileXDK(v8::HeapEventXDK* event, v8::Isolate* isolate)
+        : m_event(event),
+        m_isolate(isolate)
+    {
+    }
+
+    v8::HeapEventXDK* m_event;
+    v8::Isolate* m_isolate;
+};
 
 class V8HeapProfilerAgentImpl : public V8HeapProfilerAgent {
     WTF_MAKE_NONCOPYABLE(V8HeapProfilerAgentImpl);
@@ -42,10 +68,14 @@ public:
     void addInspectedHeapObject(ErrorString*, const String& inspectedHeapObjectId) override;
     void getHeapObjectId(ErrorString*, const String& objectId, String* heapSnapshotObjectId) override;
 
+    void startTrackingHeapXDK(ErrorString*, const Maybe<int>& depth, const Maybe<int>& sav, const Maybe<bool>& retentions) override;
+    void stopTrackingHeapXDK(ErrorString*, OwnPtr<protocol::HeapProfiler::HeapEventXDK>*) override;
+
     void startSampling(ErrorString*) override;
     void stopSampling(ErrorString*, OwnPtr<protocol::HeapProfiler::SamplingHeapProfile>*) override;
 
     void requestHeapStatsUpdate() override;
+    void requestHeapXDKUpdate() override;
 
 private:
     void startTrackingHeapObjectsInternal(bool trackAllocations);
