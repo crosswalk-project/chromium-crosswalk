@@ -113,9 +113,19 @@ int IconLabelBubbleView::GetImageAndPaddingWidth() const {
   return image_->GetPreferredSize().width() + GetInternalSpacing();
 }
 
+bool IconLabelBubbleView::OnActivate() {
+  return false;
+}
+
 gfx::Size IconLabelBubbleView::GetPreferredSize() const {
   // Height will be ignored by the LocationBarView.
   return GetSizeForLabelWidth(label_->GetPreferredSize().width());
+}
+
+bool IconLabelBubbleView::OnKeyReleased(const ui::KeyEvent& event) {
+  if (event.key_code() != ui::VKEY_RETURN && event.key_code() != ui::VKEY_SPACE)
+    return false;
+  return OnActivate();
 }
 
 void IconLabelBubbleView::Layout() {

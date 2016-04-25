@@ -78,9 +78,14 @@ class IconLabelBubbleView : public views::InkDropHostView {
   // padding before the label.
   virtual int GetImageAndPaddingWidth() const;
 
+  // The view has been activated by a user gesture such as spacebar. Returns
+  // true if some handling was performed.
+  virtual bool OnActivate();
+
   // views::View:
   gfx::Size GetPreferredSize() const override;
   void Layout() override;
+  bool OnKeyReleased(const ui::KeyEvent& event) override;
   void OnNativeThemeChanged(const ui::NativeTheme* native_theme) override;
   void AddInkDropLayer(ui::Layer* ink_drop_layer) override;
   void RemoveInkDropLayer(ui::Layer* ink_drop_layer) override;
