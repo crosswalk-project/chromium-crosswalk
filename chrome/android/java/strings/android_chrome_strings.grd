@@ -2441,6 +2441,14 @@ You can control the Physical Web in Chrome Settings.
       <message name="IDS_USB_CHOOSER_DIALOG_FOOTNOTE_TEXT" desc="This text is shown at the bottom of the USB chooser dialog with a link to part of its text.">
         Not seeing your device? <ph name="BEGIN_LINK">&lt;link&gt;</ph>Get help<ph name="END_LINK">&lt;/link&gt;</ph>
       </message>
+
+      <!-- Migration strings -->
+      <message name="IDS_TAB_SWITCHER_CALLOUT_HEADER" desc="Header for the Tab Switcher callout.">
+        Quickly switch tabs
+      </message>
+      <message name="IDS_TAB_SWITCHER_CALLOUT_BODY" desc="Indicates that clicking the tab switcher button gives you quick access to your tabs.">
+        Tap this button for quick access to your tabs.
+      </message>
     </messages>
   </release>
 </grit>
