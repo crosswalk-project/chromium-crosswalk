@@ -7,6 +7,7 @@
 #include "core/editing/EphemeralRange.h"
 #include "core/editing/iterators/TextIterator.h"
 #include "core/editing/serializers/Serialization.h"
+#include "core/frame/FrameView.h"
 #include "core/frame/LocalFrame.h"
 #include "core/layout/LayoutPart.h"
 #include "core/layout/LayoutTreeAsText.h"
@@ -25,7 +26,7 @@ static void frameContentAsPlainText(size_t maxChars, LocalFrame* frame, StringBu
     if (!document)
         return;
 
-    if (!frame->view())
+    if (!frame->view() || frame->view()->shouldThrottleRendering())
         return;
 
     // Select the document body.
