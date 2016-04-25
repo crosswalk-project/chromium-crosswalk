@@ -1111,6 +1111,7 @@ public:
         FormValidationShowedMessage = 1294,
         WebAnimationsEasingAsFunctionLinear = 1295,
         WebAnimationsEasingAsFunctionOther = 1296,
+        CompositedReplication = 1322,
 
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
