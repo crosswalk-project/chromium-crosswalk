@@ -121,6 +121,9 @@ class CronetBidirectionalStreamAdapter
   scoped_refptr<IOBufferWithByteBuffer> write_buffer_;
   scoped_ptr<net::BidirectionalStream> bidi_stream_;
 
+  // Whether BidirectionalStream::Delegate::OnFailed callback is invoked.
+  bool stream_failed_;
+
   DISALLOW_COPY_AND_ASSIGN(CronetBidirectionalStreamAdapter);
 };
 
