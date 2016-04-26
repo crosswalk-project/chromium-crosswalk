@@ -38,6 +38,7 @@ import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ChromeActivity;
 import org.chromium.chrome.browser.ChromeApplication;
+import org.chromium.chrome.browser.ChromeVersionInfo;
 import org.chromium.chrome.browser.FrozenNativePage;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.IntentHandler.TabOpenType;
@@ -501,6 +502,11 @@ public final class Tab implements ViewGroup.OnHierarchyChangeListener,
                     super.exitFullscreenVideo();
                 }
             };
+        }
+
+        @Override
+        public String getProductVersion() {
+            return ChromeVersionInfo.getProductVersion();
         }
     }
 
