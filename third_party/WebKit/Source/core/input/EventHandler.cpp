@@ -191,7 +191,7 @@ TouchTargetAndDispatchResultType toTouchTargetHistogramValue(EventTarget* eventT
     int result = 0;
     Document* document = nullptr;
 
-    if (const LocalDOMWindow* domWindow = eventTarget->toLocalDOMWindow()) {
+    if (const LocalDOMWindow* domWindow = eventTarget->toDOMWindow()) {
         // Treat the window as a root scroller as well.
         document = domWindow->document();
         result += kTouchTargetHistogramRootScrollerOffset;
