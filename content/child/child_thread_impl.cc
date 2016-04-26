@@ -458,12 +458,12 @@ void ChildThreadImpl::Init(const Options& options) {
     channel_->AddFilter(startup_filter);
   }
 
-  ConnectChannel(
-      options.use_mojo_channel,
-      mojo::MakeScopedHandle(options.in_process_message_pipe_handle));
   IPC::AttachmentBroker* broker = IPC::AttachmentBroker::GetGlobal();
   if (broker && !broker->IsPrivilegedBroker())
     broker->RegisterBrokerCommunicationChannel(channel_.get());
+  ConnectChannel(
+      options.use_mojo_channel,
+      mojo::MakeScopedHandle(options.in_process_message_pipe_handle));
 
   int connection_timeout = kConnectionTimeoutS;
   std::string connection_override =
