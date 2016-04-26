@@ -66,8 +66,10 @@ PrerenderHandle::PrerenderHandle(Document& document, PassRefPtr<Prerender> prere
 
 PrerenderHandle::~PrerenderHandle()
 {
-    if (m_prerender)
+    if (m_prerender) {
+        m_prerender->abandon();
         detach();
+    }
 }
 
 void PrerenderHandle::cancel()
