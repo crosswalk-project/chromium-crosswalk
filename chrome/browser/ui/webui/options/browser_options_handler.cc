@@ -1033,6 +1033,9 @@ void BrowserOptionsHandler::InitializePage() {
   }
 
   Profile* profile = Profile::FromWebUI(web_ui());
+  user_manager::User const* const user =
+      chromeos::ProfileHelper::Get()->GetUserByProfile(profile);
+
   OnAccountPictureManagedChanged(
       policy::ProfilePolicyConnectorFactory::GetForBrowserContext(profile)
           ->policy_service()
@@ -1052,10 +1055,12 @@ void BrowserOptionsHandler::InitializePage() {
     consumer_management->AddObserver(this);
   }
 
-  if (!arc::ArcBridgeService::GetEnabled(
-          base::CommandLine::ForCurrentProcess()) ||
-      arc::ArcAuthService::IsOptInVerificationDisabled()) {
-    web_ui()->CallJavascriptFunction("BrowserOptions.hideAndroidAppsSection");
+  if (arc::ArcBridgeService::GetEnabled(
+          base::CommandLine::ForCurrentProcess()) &&
+      !arc::ArcAuthService::IsOptInVerificationDisabled() &&
+      !profile->IsLegacySupervised() &&
+      user->HasGaiaAccount()) {
+    web_ui()->CallJavascriptFunction("BrowserOptions.showAndroidAppsSection");
   }
 #endif
 }
