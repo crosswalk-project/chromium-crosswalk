@@ -3,18 +3,17 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLContext.h"
+
+#include "bindings/core/v8/V8Binding.h"
 #include "bindings/modules/v8/V8WebCLDevice.h"
 #include "core/html/HTMLCanvasElement.h"
 #include "core/html/HTMLImageElement.h"
 #include "core/html/HTMLVideoElement.h"
 #include "core/html/ImageData.h"
 #include "core/webcl/WebCLException.h"
-#include "platform/graphics/Image.h"
-#include "platform/graphics/ImageBuffer.h"
-#include "bindings/core/v8/V8Binding.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLBuffer.h"
-#include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLCommandQueue.h"
 #include "modules/webcl/WebCLDevice.h"
 #include "modules/webcl/WebCLHTMLUtil.h"
@@ -28,6 +27,8 @@
 #include "modules/webcl/WebCLOpenCL.h"
 #include "modules/webcl/WebCLSampler.h"
 #include "modules/webcl/WebCLUserEvent.h"
+#include "platform/graphics/Image.h"
+#include "platform/graphics/ImageBuffer.h"
 
 namespace blink {
 
@@ -48,16 +49,16 @@ ScriptValue WebCLContext::getInfo(ScriptState* scriptState, int paramName, Excep
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     cl_int err = CL_SUCCESS;
     cl_uint uintUnits = 0;
     Vector<RefPtr<WebCLDevice>> result;
-    switch(paramName) {
+    switch (paramName) {
     case CL_CONTEXT_NUM_DEVICES:
-        err = clGetContextInfo(m_clContext,CL_CONTEXT_NUM_DEVICES, sizeof(cl_uint), &uintUnits, nullptr);
+        err = clGetContextInfo(m_clContext, CL_CONTEXT_NUM_DEVICES, sizeof(cl_uint), &uintUnits, nullptr);
         if (err == CL_SUCCESS)
             return ScriptValue(scriptState, v8::Integer::NewFromUnsigned(isolate, static_cast<unsigned>(uintUnits)));
         WebCLException::throwException(err, es);
@@ -65,7 +66,7 @@ ScriptValue WebCLContext::getInfo(ScriptState* scriptState, int paramName, Excep
     case CL_CONTEXT_DEVICES:
         return ScriptValue(scriptState, toV8(m_devices, creationContext, isolate));
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 }
@@ -73,7 +74,7 @@ ScriptValue WebCLContext::getInfo(ScriptState* scriptState, int paramName, Excep
 PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(WebCLDevice* device, unsigned commandQueueProp, ExceptionState& es)
 {
     if (!WebCLInputChecker::isValidCommandQueueProperty(commandQueueProp)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -86,10 +87,9 @@ PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(WebCLDevice* devi
                 device = deviceItem.get();
                 clDevice = deviceItem->getDeviceId();
                 break;
-            } else {
-                es.throwWebCLException(WebCLException::INVALID_QUEUE_PROPERTIES, WebCLException::invalidQueuePropertiesMessage);
-                return nullptr;
             }
+            es.throwWebCLException(WebCLException::InvalidQueueProperties, WebCLException::invalidQueuePropertiesMessage);
+            return nullptr;
         }
     } else {
         clDevice = device->getDeviceId();
@@ -99,7 +99,7 @@ PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(WebCLDevice* devi
                 break;
         }
         if (i == m_devices.size()) {
-            es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+            es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
             return nullptr;
         }
     }
@@ -125,7 +125,7 @@ PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(WebCLDevice* devi
 
     RefPtr<WebCLCommandQueue> commandQueue = WebCLCommandQueue::create(clCommandQueueId, this, device);
     if (!commandQueue) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return nullptr;
     }
 
@@ -135,7 +135,7 @@ PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(WebCLDevice* devi
     return commandQueue.release();
 }
 
-PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(int properties,ExceptionState& es)
+PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(int properties, ExceptionState& es)
 {
     return createCommandQueue(nullptr, properties, es);
 }
@@ -153,12 +153,12 @@ PassRefPtr<WebCLCommandQueue> WebCLContext::createCommandQueue(ExceptionState& e
 PassRefPtr<WebCLProgram> WebCLContext::createProgram(const String& kernelSource, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return nullptr;
     }
 
     if (!kernelSource.length()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -172,7 +172,7 @@ PassRefPtr<WebCLProgram> WebCLContext::createProgram(const String& kernelSource,
 
     RefPtr<WebCLProgram> program = WebCLProgram::create(clProgramId, this, kernelSource);
     if (!program) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return nullptr;
     }
 
@@ -182,17 +182,17 @@ PassRefPtr<WebCLProgram> WebCLContext::createProgram(const String& kernelSource,
 PassRefPtr<WebCLSampler> WebCLContext::createSampler(bool normCords, unsigned addrMode, unsigned fltrMode, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return nullptr;
     }
 
     if (!WebCLInputChecker::isValidAddressingMode(addrMode) || !WebCLInputChecker::isValidFilterMode(fltrMode)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
     if (!normCords && (addrMode == CL_ADDRESS_REPEAT || addrMode == CL_ADDRESS_MIRRORED_REPEAT)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -201,7 +201,7 @@ PassRefPtr<WebCLSampler> WebCLContext::createSampler(bool normCords, unsigned ad
         normalizedCoords = CL_TRUE;
 
     cl_addressing_mode addressingMode;
-    switch(addrMode) {
+    switch (addrMode) {
     case CL_ADDRESS_CLAMP_TO_EDGE:
         addressingMode = CL_ADDRESS_CLAMP_TO_EDGE;
         break;
@@ -215,20 +215,20 @@ PassRefPtr<WebCLSampler> WebCLContext::createSampler(bool normCords, unsigned ad
         addressingMode = CL_ADDRESS_MIRRORED_REPEAT;
         break;
     default:
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return nullptr;
     }
 
     cl_filter_mode filterMode = CL_FILTER_NEAREST;
-    switch(fltrMode) {
+    switch (fltrMode) {
     case CL_FILTER_LINEAR:
         filterMode = CL_FILTER_LINEAR;
         break;
     case CL_FILTER_NEAREST :
-        filterMode = CL_FILTER_NEAREST ;
+        filterMode = CL_FILTER_NEAREST;
         break;
     default:
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return nullptr;
     }
 
@@ -241,7 +241,7 @@ PassRefPtr<WebCLSampler> WebCLContext::createSampler(bool normCords, unsigned ad
 
     RefPtr<WebCLSampler> sampler = WebCLSampler::create(clSamplerId, normCords, addrMode, fltrMode, this);
     if (!sampler) {
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return nullptr;
     }
 
@@ -251,7 +251,7 @@ PassRefPtr<WebCLSampler> WebCLContext::createSampler(bool normCords, unsigned ad
 PassRefPtr<WebCLUserEvent> WebCLContext::createUserEvent(ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return nullptr;
     }
 
@@ -262,16 +262,16 @@ PassRefPtr<WebCLUserEvent> WebCLContext::createUserEvent(ExceptionState& es)
 PassRefPtr<WebCLBuffer> WebCLContext::createBufferBase(unsigned memFlags, unsigned sizeInBytes, void* hostPtr, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return nullptr;
     }
 
     if (!WebCLInputChecker::isValidMemoryObjectFlag(memFlags)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
-    unsigned num = 0 ;
+    unsigned num = 0;
     for (size_t i = 0; i < m_devices.size(); ++i) {
         unsigned maxMemAllocSize = m_devices[i]->getMaxMemAllocSize();
         if (maxMemAllocSize && maxMemAllocSize < sizeInBytes) {
@@ -280,12 +280,12 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBufferBase(unsigned memFlags, unsign
     }
 
     if (num != 0 && num == m_devices.size()) {
-        es.throwWebCLException(WebCLException::INVALID_BUFFER_SIZE, WebCLException::invalidBufferSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidBufferSize, WebCLException::invalidBufferSizeMessage);
         return nullptr;
     }
 
     if (sizeInBytes == 0) {
-        es.throwWebCLException(WebCLException::INVALID_BUFFER_SIZE, WebCLException::invalidBufferSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidBufferSize, WebCLException::invalidBufferSizeMessage);
         return nullptr;
     }
     RefPtr<WebCLBuffer> buffer = WebCLBuffer::create(this, memFlags, sizeInBytes, hostPtr, es);
@@ -300,12 +300,12 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memFlags, unsigned s
     RefPtr<DOMArrayBuffer> buffer;
     if (hostPtr) {
         if (hostPtr->byteLength() < sizeInBytes) {
-            es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+            es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
             return nullptr;
         }
 
         if (!hostPtr->buffer()) {
-            es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+            es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
             return nullptr;
         }
         buffer = hostPtr->buffer();
@@ -322,7 +322,7 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memFlags, unsigned s
 PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, ImageData* srcPixels, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
@@ -337,7 +337,7 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, ImageDa
 PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, HTMLCanvasElement* srcCanvas, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
@@ -353,7 +353,7 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, HTMLCan
 PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, HTMLImageElement* srcImage, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
@@ -369,12 +369,12 @@ PassRefPtr<WebCLBuffer> WebCLContext::createBuffer(unsigned memoryFlags, HTMLIma
 PassRefPtr<WebCLImage> WebCLContext::createImage2DBase(unsigned flags, unsigned width, unsigned height, unsigned rowPitch, unsigned channelOrder, unsigned channelType, void* data, ExceptionState& es)
 {
     if (!width || !height) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_FORMAT_DESCRIPTOR, WebCLException::invalidImageFormatDescriptorMessage);
+        es.throwWebCLException(WebCLException::InvalidImageFormatDescriptor, WebCLException::invalidImageFormatDescriptorMessage);
         return nullptr;
     }
 
     if (!WebCLInputChecker::isValidMemoryObjectFlag(flags)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -386,10 +386,10 @@ PassRefPtr<WebCLImage> WebCLContext::createImage2DBase(unsigned flags, unsigned 
     imageDescriptor.setRowPitch(rowPitch);
     imageDescriptor.setChannelOrder(channelOrder);
     imageDescriptor.setChannelType(channelType);
-    cl_image_format image_format = {channelOrder, channelType};
+    cl_image_format imageFormat = {channelOrder, channelType};
 
     cl_int err = CL_SUCCESS;
-    cl_mem clMemId = clCreateImage2D(m_clContext, flags, &image_format, width, height, rowPitch, data, &err);
+    cl_mem clMemId = clCreateImage2D(m_clContext, flags, &imageFormat, width, height, rowPitch, data, &err);
     if (err != CL_SUCCESS) {
         WebCLException::throwException(err, es);
         return nullptr;
@@ -402,7 +402,7 @@ PassRefPtr<WebCLImage> WebCLContext::createImage2DBase(unsigned flags, unsigned 
 PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, const WebCLImageDescriptor& descriptor, DOMArrayBufferView* hostPtr, ExceptionState& es)
 {
     if (!WebCLInputChecker::isValidMemoryObjectFlag(flags)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -415,24 +415,24 @@ PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, const WebCLImag
     unsigned bytesPerChannel = WebCLContext::bytesPerChannelType(channelType);
 
     if (!WebCLInputChecker::isValidChannelOrder(channelOrder) || !WebCLInputChecker::isValidChannelType(channelType)) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_FORMAT_DESCRIPTOR, WebCLException::invalidImageFormatDescriptorMessage);
+        es.throwWebCLException(WebCLException::InvalidImageFormatDescriptor, WebCLException::invalidImageFormatDescriptorMessage);
         return nullptr;
     }
 
     if ((!hostPtr && rowPitch) || (hostPtr && rowPitch > 0 && rowPitch < (width * numberOfChannels * bytesPerChannel))) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return nullptr;
     }
 
     if (!supportsWidthHeight(width, height, es)) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return nullptr;
     }
     RefPtr<DOMArrayBuffer> buffer;
     if (hostPtr) {
         unsigned byteLength = hostPtr->byteLength();
         if ((rowPitch && byteLength < (rowPitch * height)) || byteLength < (width * height * numberOfChannels * bytesPerChannel)) {
-            es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+            es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
             return nullptr;
         }
         buffer = hostPtr->buffer();
@@ -451,14 +451,14 @@ PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned memFlags, const WebCLI
 PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLCanvasElement* srcCanvas, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
     unsigned width = srcCanvas->width();
     unsigned height = srcCanvas->height();
     if (!supportsWidthHeight(width, height, es)) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return nullptr;
     }
 
@@ -473,14 +473,14 @@ PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLCanvasEleme
 PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLImageElement* srcImage, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
     unsigned width = srcImage->width();
     unsigned height = srcImage->height();
     if (!supportsWidthHeight(width, height, es)) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return nullptr;
     }
 
@@ -496,19 +496,19 @@ PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLImageElemen
 PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLVideoElement* video, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_video")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
     if (CL_MEM_READ_ONLY != flags) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
     unsigned width =  video->clientWidth();
     unsigned height = video->clientHeight();
     if (!supportsWidthHeight(width, height, es)) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return nullptr;
     }
 
@@ -524,13 +524,13 @@ PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, HTMLVideoElemen
 PassRefPtr<WebCLImage> WebCLContext::createImage(unsigned flags, ImageData* srcPixels, ExceptionState& es)
 {
     if (!isExtensionEnabled("WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return nullptr;
     }
 
     void* hostPtr = 0;
     size_t pixelSize = 0;
-    if(!WebCLHTMLUtil::extractDataFromImageData(srcPixels, hostPtr, pixelSize, es))
+    if (!WebCLHTMLUtil::extractDataFromImageData(srcPixels, hostPtr, pixelSize, es))
         return nullptr;
 
     unsigned width = srcPixels->width();
@@ -547,12 +547,12 @@ Nullable<HeapVector<WebCLImageDescriptor>> WebCLContext::getSupportedImageFormat
 {
     HeapVector<WebCLImageDescriptor> supportedImageDescriptor;
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return supportedImageDescriptor;
     }
 
     if (!WebCLInputChecker::isValidMemoryObjectFlag(memFlags)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return supportedImageDescriptor;
     }
 
@@ -560,7 +560,7 @@ Nullable<HeapVector<WebCLImageDescriptor>> WebCLContext::getSupportedImageFormat
     cl_int err = clGetSupportedImageFormats(m_clContext, memFlags, CL_MEM_OBJECT_IMAGE2D, 0, 0, &numberOfSupportedImageFormats);
 
     if (err != CL_SUCCESS) {
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         return supportedImageDescriptor;
     }
 
@@ -629,7 +629,7 @@ void WebCLContext::untrackReleaseableWebCLObject(WeakPtr<WebCLObject> object)
 
 unsigned WebCLContext::bytesPerChannelType(unsigned channelType)
 {
-    switch(channelType) {
+    switch (channelType) {
     case CL_SNORM_INT8:
     case CL_UNORM_INT8:
     case CL_SIGNED_INT8:
@@ -708,8 +708,8 @@ bool WebCLContext::supportsWidthHeight(unsigned width, unsigned height, Exceptio
     }
 
     for (auto it : m_deviceMaxValues) {
-       if (width <= it.value.first && height <= it.value.second)
-           return true;
+        if (width <= it.value.first && height <= it.value.second)
+            return true;
     }
 
     return false;

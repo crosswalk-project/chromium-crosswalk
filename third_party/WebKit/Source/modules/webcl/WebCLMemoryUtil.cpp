@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLMemoryUtil.h"
+
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLBuffer.h"
 #include "modules/webcl/WebCLCommandQueue.h"
@@ -10,7 +12,6 @@
 #include "modules/webcl/WebCLDevice.h"
 #include "modules/webcl/WebCLKernel.h"
 #include "modules/webcl/WebCLMemoryObject.h"
-#include "modules/webcl/WebCLMemoryUtil.h"
 #include "modules/webcl/WebCLObject.h"
 #include "modules/webcl/WebCLOpenCL.h"
 #include "modules/webcl/WebCLProgram.h"
@@ -116,7 +117,7 @@ void WebCLMemoryUtil::ensureMemory(WebCLMemoryObject* memoryObject, WebCLCommand
         commandQueue->enqueueNDRangeKernel(m_kernelChar.get(), globalWorkSize.size(), globalWorkOffset, globalWorkSize, localWorkSize, Vector<RefPtr<WebCLEvent>>(), nullptr, es);
     }
 
-    commandQueue->finishCommandQueues(WebCLCommandQueue::SyncMethod::SYNC);
+    commandQueue->finishCommandQueues(WebCLCommandQueue::SyncMethod::Sync);
 }
 
 void WebCLMemoryUtil::commandQueueCreated(WebCLCommandQueue* queue, ExceptionState& es)

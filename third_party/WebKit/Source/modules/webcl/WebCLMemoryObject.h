@@ -8,9 +8,8 @@
 
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
 
 namespace blink {
 
@@ -22,10 +21,10 @@ class WebCLMemoryObject : public WebCLObject, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
     enum {
-        MEMORY,
-        BUFFER,
-        IMAGE,
-        UNKNOWN
+        Memory,
+        Buffer,
+        Image,
+        Unknown
     };
 
     ~WebCLMemoryObject() override;
@@ -35,7 +34,7 @@ public:
     void release() override;
 
     size_t sizeInBytes() const { return m_sizeInBytes; }
-    virtual int type() { return MEMORY; }
+    virtual int type() { return Memory; }
     cl_mem getMem() const { return m_clMem; }
     bool isReleased() const { return !m_clMem; }
 

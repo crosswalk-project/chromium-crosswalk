@@ -3,11 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLPlatform.h"
+
 #include "bindings/core/v8/V8Binding.h"
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLOpenCL.h"
-#include "modules/webcl/WebCLPlatform.h"
 
 namespace blink {
 
@@ -28,12 +29,12 @@ Vector<RefPtr<WebCLDevice>> WebCLPlatform::getDevices(ExceptionState& es)
 Vector<RefPtr<WebCLDevice>> WebCLPlatform::getDevices(unsigned deviceType, ExceptionState& es)
 {
     if (!m_clPlatformId) {
-        es.throwWebCLException(WebCLException::INVALID_PLATFORM, WebCLException::invalidPlatformMessage);
+        es.throwWebCLException(WebCLException::InvalidPlatform, WebCLException::invalidPlatformMessage);
         return Vector<RefPtr<WebCLDevice>>();
     }
 
     if (deviceType && !WebCLInputChecker::isValidDeviceType(deviceType)) {
-        es.throwWebCLException(WebCLException::INVALID_DEVICE_TYPE, WebCLException::invalidDeviceTypeMessage);
+        es.throwWebCLException(WebCLException::InvalidDeviceType, WebCLException::invalidDeviceTypeMessage);
         return Vector<RefPtr<WebCLDevice>>();
     }
 
@@ -45,7 +46,7 @@ Vector<RefPtr<WebCLDevice>> WebCLPlatform::getDevices(unsigned deviceType, Excep
 
     cl_int err = CL_SUCCESS;
     cl_uint numDevices = 0;
-    switch(deviceType) {
+    switch (deviceType) {
     case CL_DEVICE_TYPE_GPU:
         err = clGetDeviceIDs(m_clPlatformId, CL_DEVICE_TYPE_GPU, 0, nullptr, &numDevices);
         break;
@@ -84,7 +85,7 @@ Vector<RefPtr<WebCLDevice>> WebCLPlatform::getDevices(unsigned deviceType, Excep
         err = clGetDeviceIDs(m_clPlatformId, CL_DEVICE_TYPE_ACCELERATOR, numDevices, clDevices.data(), nullptr);
         break;
     case CL_DEVICE_TYPE_DEFAULT:
-        err = clGetDeviceIDs(m_clPlatformId, CL_DEVICE_TYPE_DEFAULT, numDevices, clDevices.data(), nullptr );
+        err = clGetDeviceIDs(m_clPlatformId, CL_DEVICE_TYPE_DEFAULT, numDevices, clDevices.data(), nullptr);
         break;
     case CL_DEVICE_TYPE_ALL:
         err = clGetDeviceIDs(m_clPlatformId, CL_DEVICE_TYPE_ALL, numDevices, clDevices.data(), nullptr);
@@ -115,7 +116,7 @@ ScriptValue WebCLPlatform::getInfo(ScriptState* scriptState, int platformInfo, E
     v8::Isolate* isolate = scriptState->isolate();
 
     if (!m_clPlatformId) {
-        es.throwWebCLException(WebCLException::INVALID_PLATFORM, WebCLException::invalidPlatformMessage);
+        es.throwWebCLException(WebCLException::InvalidPlatform, WebCLException::invalidPlatformMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -129,7 +130,7 @@ ScriptValue WebCLPlatform::getInfo(ScriptState* scriptState, int platformInfo, E
     case CL_PLATFORM_EXTENSIONS:
         return ScriptValue(scriptState, v8String(isolate, emptyString()));
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 }

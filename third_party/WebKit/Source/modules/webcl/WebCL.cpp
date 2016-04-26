@@ -3,16 +3,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
-#include "modules/webcl/WebCLOpenCL.h"
+
+#include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLCallback.h"
 #include "modules/webcl/WebCLCommandQueue.h"
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLDevice.h"
-#include "modules/webcl/WebCLExtension.h"
 #include "modules/webcl/WebCLEvent.h"
+#include "modules/webcl/WebCLExtension.h"
 #include "modules/webcl/WebCLImage.h"
 #include "modules/webcl/WebCLInputChecker.h"
 #include "modules/webcl/WebCLKernel.h"
@@ -25,7 +25,7 @@
 #include "public/platform/Platform.h"
 #include "public/platform/WebTaskRunner.h"
 #include "public/platform/WebTraceLocation.h"
-#include <wtf/MainThread.h>
+#include "wtf/MainThread.h"
 
 namespace blink {
 
@@ -66,7 +66,7 @@ WebCL::~WebCL()
 Vector<RefPtr<WebCLPlatform>> WebCL::getPlatforms(ExceptionState& es)
 {
     if (!m_platforms.size()) {
-        es.throwWebCLException(WebCLException::INVALID_PLATFORM, WebCLException::invalidPlatformMessage);
+        es.throwWebCLException(WebCLException::InvalidPlatform, WebCLException::invalidPlatformMessage);
         return Vector<RefPtr<WebCLPlatform>>();
     }
 
@@ -76,18 +76,18 @@ Vector<RefPtr<WebCLPlatform>> WebCL::getPlatforms(ExceptionState& es)
 static void validateWebCLEventList(const Vector<RefPtr<WebCLEvent>>& events, ExceptionState& es, bool isSyncCall)
 {
     if (!events.size()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (events[0]->isReleased() || (events[0]->isUserEvent() && isSyncCall)) {
-        es.throwWebCLException(WebCLException::INVALID_EVENT_WAIT_LIST, WebCLException::invalidEventWaitListMessage);
+        es.throwWebCLException(WebCLException::InvalidEventWaitList, WebCLException::invalidEventWaitListMessage);
         return;
     }
 
-    if ((!events[0]->isUserEvent() && events[0]->getStatus() == CL_INVALID_VALUE) ||
-        (events[0]->isUserEvent() && events[0]->getStatus() < CL_SUCCESS)) {
-        es.throwWebCLException(WebCLException::EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST, WebCLException::execStatusErrorForEventsInWaitListMessage);
+    if ((!events[0]->isUserEvent() && events[0]->getStatus() == CL_INVALID_VALUE)
+        || (events[0]->isUserEvent() && events[0]->getStatus() < CL_SUCCESS)) {
+        es.throwWebCLException(WebCLException::ExecStatusErrorForEventsInWaitList, WebCLException::execStatusErrorForEventsInWaitListMessage);
         return;
     }
 
@@ -95,19 +95,19 @@ static void validateWebCLEventList(const Vector<RefPtr<WebCLEvent>>& events, Exc
 
     for (auto event : events) {
         if (event->isReleased() || (event->isUserEvent() && isSyncCall)) {
-            es.throwWebCLException(WebCLException::INVALID_EVENT_WAIT_LIST, WebCLException::invalidEventWaitListMessage);
+            es.throwWebCLException(WebCLException::InvalidEventWaitList, WebCLException::invalidEventWaitListMessage);
             return;
         }
 
         ASSERT(event->context());
         if (!WebCLInputChecker::compareContext(event->context().get(), referenceContext)) {
-            es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+            es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
             return;
         }
 
-        if ((!event->isUserEvent() && event->getStatus() == CL_INVALID_VALUE) ||
-            (event->isUserEvent() && event->getStatus() < CL_SUCCESS)) {
-            es.throwWebCLException(WebCLException::EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST, WebCLException::execStatusErrorForEventsInWaitListMessage);
+        if ((!event->isUserEvent() && event->getStatus() == CL_INVALID_VALUE)
+            || (event->isUserEvent() && event->getStatus() < CL_SUCCESS)) {
+            es.throwWebCLException(WebCLException::ExecStatusErrorForEventsInWaitList, WebCLException::execStatusErrorForEventsInWaitListMessage);
             return;
         }
     }
@@ -134,12 +134,12 @@ PassRefPtr<WebCLContext> WebCL::createContext(WebCLPlatform* platform, Exception
 PassRefPtr<WebCLContext> WebCL::createContext(WebCLPlatform* platform, unsigned deviceType, ExceptionState& es)
 {
     if (!platform) {
-        es.throwWebCLException(WebCLException::INVALID_PLATFORM, WebCLException::invalidPlatformMessage);
+        es.throwWebCLException(WebCLException::InvalidPlatform, WebCLException::invalidPlatformMessage);
         return nullptr;
     }
 
     if (!WebCLInputChecker::isValidDeviceType(deviceType)) {
-        es.throwWebCLException(WebCLException::INVALID_DEVICE_TYPE, WebCLException::invalidDeviceTypeMessage);
+        es.throwWebCLException(WebCLException::InvalidDeviceType, WebCLException::invalidDeviceTypeMessage);
         return nullptr;
     }
 
@@ -149,7 +149,7 @@ PassRefPtr<WebCLContext> WebCL::createContext(WebCLPlatform* platform, unsigned 
         clDevices.append(device->getDeviceId());
 
     if (!clDevices.size()) {
-        es.throwWebCLException(WebCLException::DEVICE_NOT_FOUND, WebCLException::deviceNotFoundMessage);
+        es.throwWebCLException(WebCLException::DeviceNotFound, WebCLException::deviceNotFoundMessage);
         return nullptr;
     }
 
@@ -165,7 +165,7 @@ PassRefPtr<WebCLContext> WebCL::createContext(WebCLPlatform* platform, unsigned 
     getAllEnabledExtensions(this, platform, devices, enabledExtensions);
     RefPtr<WebCLContext> context = WebCLContext::create(clContextId, this, devices, enabledExtensions);
     if (!context) {
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return nullptr;
     }
     return context;
@@ -184,7 +184,7 @@ PassRefPtr<WebCLContext> WebCL::createContext(const Vector<RefPtr<WebCLDevice>>&
     cl_context clContextId = 0;
 
     if (!devices.size()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return nullptr;
     }
 
@@ -193,7 +193,7 @@ PassRefPtr<WebCLContext> WebCL::createContext(const Vector<RefPtr<WebCLDevice>>&
         clDeviceList.append(device->getDeviceId());
 
     if (!clDeviceList.size()) {
-        es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+        es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
         return nullptr;
     }
 
@@ -208,7 +208,7 @@ PassRefPtr<WebCLContext> WebCL::createContext(const Vector<RefPtr<WebCLDevice>>&
     getAllEnabledExtensions(this, devices[0]->getPlatform(), devices, enabledExtensions);
     RefPtr<WebCLContext> context = WebCLContext::create(clContextId, this, devices, enabledExtensions);
     if (!context) {
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return nullptr;
     }
 

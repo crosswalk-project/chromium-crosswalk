@@ -3,12 +3,13 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLProgram.h"
+
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLKernel.h"
 #include "modules/webcl/WebCLOpenCL.h"
-#include "modules/webcl/WebCLProgram.h"
 #include "platform/ThreadSafeFunctional.h"
 #include "public/platform/Platform.h"
 #include "public/platform/WebTaskRunner.h"
@@ -39,34 +40,34 @@ PassRefPtr<WebCLProgram> WebCLProgram::create(cl_program program, PassRefPtr<Web
     return adoptRef(new WebCLProgram(program, context, kernelSource));
 }
 
-bool WebCLProgram::isExtensionEnabled(RefPtr<blink::WebCLContext> context, const String& name)
+bool WebCLProgram::isExtensionEnabled(PassRefPtr<blink::WebCLContext> context, const String& name)
 {
     return context->isExtensionEnabled(name);
 }
 
 static void removeComments(const String& inSource, String& outSource)
 {
-    enum Mode { DEFAULT, BLOCK_COMMENT, LINE_COMMENT };
-    Mode currentMode = DEFAULT;
+    enum Mode { Default, BlockComment, LineComment };
+    Mode currentMode = Default;
 
     ASSERT(!inSource.isNull());
     ASSERT(!inSource.isEmpty());
 
     outSource = inSource;
     for (unsigned i = 0; i < outSource.length(); ++i) {
-        if (currentMode == BLOCK_COMMENT) {
+        if (currentMode == BlockComment) {
             if (outSource[i] == '*' && outSource[i + 1] == '/') {
                 outSource.replace(i++, 2, "  ");
-                currentMode = DEFAULT;
+                currentMode = Default;
                 continue;
             }
             outSource.replace(i, 1, " ");
             continue;
         }
 
-        if (currentMode == LINE_COMMENT) {
+        if (currentMode == LineComment) {
             if (outSource[i] == '\n' || outSource[i] == '\r') {
-                currentMode = DEFAULT;
+                currentMode = Default;
                 continue;
             }
             outSource.replace(i, 1, " ");
@@ -76,13 +77,13 @@ static void removeComments(const String& inSource, String& outSource)
         if (outSource[i] == '/') {
             if (outSource[i + 1] == '*') {
                 outSource.replace(i++, 2, "  ");
-                currentMode = BLOCK_COMMENT;
+                currentMode = BlockComment;
                 continue;
             }
 
             if (outSource[i + 1] == '/') {
                 outSource.replace(i++, 2, "  ");
-                currentMode = LINE_COMMENT;
+                currentMode = LineComment;
                 continue;
             }
         }
@@ -95,7 +96,7 @@ ScriptValue WebCLProgram::getInfo(ScriptState* scriptState, int paramName, Excep
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -103,7 +104,7 @@ ScriptValue WebCLProgram::getInfo(ScriptState* scriptState, int paramName, Excep
     cl_uint uintUnits = 0;
     Vector<RefPtr<WebCLDevice>> result = context()->getDevices();
 
-    switch(paramName) {
+    switch (paramName) {
     case CL_PROGRAM_NUM_DEVICES:
         err = clGetProgramInfo(m_clProgram, CL_PROGRAM_NUM_DEVICES, sizeof(cl_uint), &uintUnits, nullptr);
         if (err == CL_SUCCESS)
@@ -117,7 +118,7 @@ ScriptValue WebCLProgram::getInfo(ScriptState* scriptState, int paramName, Excep
     case CL_PROGRAM_DEVICES:
         return ScriptValue(scriptState, toV8(result, creationContext, isolate));
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 }
@@ -127,7 +128,7 @@ ScriptValue WebCLProgram::getBuildInfo(ScriptState* scriptState, WebCLDevice* de
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -135,7 +136,7 @@ ScriptValue WebCLProgram::getBuildInfo(ScriptState* scriptState, WebCLDevice* de
     if (device) {
         clDevice = device->getDeviceId();
         if (!clDevice) {
-            es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+            es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
             return ScriptValue(scriptState, v8::Null(isolate));
         }
         size_t i = 0;
@@ -145,13 +146,13 @@ ScriptValue WebCLProgram::getBuildInfo(ScriptState* scriptState, WebCLDevice* de
                 break;
         }
         if (i == deviceList.size()) {
-            es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+            es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
             return ScriptValue(scriptState, v8::Null(isolate));
         }
     }
 
     cl_int err = CL_SUCCESS;
-    char *buffer;
+    char* buffer;
     size_t len = 0;
     switch (paramName) {
     case CL_PROGRAM_BUILD_LOG: {
@@ -185,7 +186,7 @@ ScriptValue WebCLProgram::getBuildInfo(ScriptState* scriptState, WebCLDevice* de
             return ScriptValue(scriptState, v8::Integer::NewFromUnsigned(isolate, static_cast<unsigned>(buildStatus)));
         break;
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -196,17 +197,17 @@ ScriptValue WebCLProgram::getBuildInfo(ScriptState* scriptState, WebCLDevice* de
 PassRefPtr<WebCLKernel> WebCLProgram::createKernel(const String& kernelName, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return nullptr;
     }
 
     if (!m_isProgramBuilt) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM_EXECUTABLE, WebCLException::invalidProgramExecutableMessage);
+        es.throwWebCLException(WebCLException::InvalidProgramExecutable, WebCLException::invalidProgramExecutableMessage);
         return nullptr;
     }
 
     if (!m_programSource.contains(kernelName)) {
-        es.throwWebCLException(WebCLException::INVALID_KERNEL_NAME, WebCLException::invalidKernelNameMessage);
+        es.throwWebCLException(WebCLException::InvalidKernelName, WebCLException::invalidKernelNameMessage);
         return nullptr;
     }
 
@@ -225,12 +226,12 @@ PassRefPtr<WebCLKernel> WebCLProgram::createKernel(const String& kernelName, Exc
 Vector<RefPtr<WebCLKernel>> WebCLProgram::createKernelsInProgram(ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return Vector<RefPtr<WebCLKernel>>();
     }
 
     if (!m_isProgramBuilt) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM_EXECUTABLE, WebCLException::invalidProgramExecutableMessage);
+        es.throwWebCLException(WebCLException::InvalidProgramExecutable, WebCLException::invalidProgramExecutableMessage);
         return Vector<RefPtr<WebCLKernel>>();
     }
 
@@ -242,11 +243,11 @@ Vector<RefPtr<WebCLKernel>> WebCLProgram::createKernelsInProgram(ExceptionState&
     }
 
     if (num == 0) {
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return Vector<RefPtr<WebCLKernel>>();
     }
 
-    cl_kernel* kernelBuf = (cl_kernel*)malloc (sizeof(cl_kernel) * num);
+    cl_kernel* kernelBuf = (cl_kernel*)malloc(sizeof(cl_kernel) * num);
     if (!kernelBuf) {
         return Vector<RefPtr<WebCLKernel>>();
     }
@@ -290,19 +291,19 @@ Vector<RefPtr<WebCLKernel>> WebCLProgram::createKernelsInProgram(ExceptionState&
 void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const String& buildOptions, WebCLCallback* callback, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         return;
     }
 
-    size_t kernel_label = m_programSource.find("__kernel ", 0);
-    while (kernel_label != WTF::kNotFound) {
-        size_t openBrace = m_programSource.find("{", kernel_label);
+    size_t kernelQualifier = m_programSource.find("__kernel ", 0);
+    while (kernelQualifier != WTF::kNotFound) {
+        size_t openBrace = m_programSource.find("{", kernelQualifier);
         size_t openBraket = m_programSource.reverseFind("(", openBrace);
         size_t space = m_programSource.reverseFind(" ", openBraket);
         String kernelName = m_programSource.substring(space + 1, openBraket - space - 1);
         if (kernelName.length() > 254) {
             // Kernel Name length isn't allowed larger than 255.
-            es.throwWebCLException(WebCLException::BUILD_PROGRAM_FAILURE, WebCLException::buildProgramFailureMessage);
+            es.throwWebCLException(WebCLException::BuildProgramFailure, WebCLException::buildProgramFailureMessage);
             return;
         }
 
@@ -311,7 +312,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
         if (arguments.contains("struct ") || arguments.contains("image1d_array_t ") || arguments.contains("image1d_buffer_t ") || arguments.contains("image1d_t ") || arguments.contains("image2d_array_t ")) {
             // 1. Kernel structure parameters aren't allowed;
             // 2. Kernel argument "image1d_t", "image1d_array_t", "image2d_array_t" and "image1d_buffer_t" aren't allowed;
-            es.throwWebCLException(WebCLException::BUILD_PROGRAM_FAILURE, WebCLException::buildProgramFailureMessage);
+            es.throwWebCLException(WebCLException::BuildProgramFailure, WebCLException::buildProgramFailureMessage);
             return;
         }
 
@@ -319,11 +320,11 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
         String codeString =  m_programSource.substring(openBrace + 1, closeBrace - openBrace - 1).removeCharacters(isASCIILineBreakOrWhiteSpaceCharacter);
         if (codeString.isEmpty()) {
             // Kernel code isn't empty;
-            es.throwWebCLException(WebCLException::BUILD_PROGRAM_FAILURE, WebCLException::buildProgramFailureMessage);
+            es.throwWebCLException(WebCLException::BuildProgramFailure, WebCLException::buildProgramFailureMessage);
             return;
         }
 
-        kernel_label = m_programSource.find("__kernel ", closeBrace);
+        kernelQualifier = m_programSource.find("__kernel ", closeBrace);
     }
 
     if (buildOptions.length() > 0) {
@@ -348,7 +349,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
         for (size_t i = 0; i < webCLBuildOptionsVector.size(); i++) {
             // Every build option must start with a hyphen.
             if (!webCLBuildOptionsVector[i].startsWith("-")) {
-                es.throwWebCLException(WebCLException::INVALID_BUILD_OPTIONS, WebCLException::invalidBuildOptionsMessage);
+                es.throwWebCLException(WebCLException::InvalidBuildOptions, WebCLException::invalidBuildOptionsMessage);
                 return;
             }
 
@@ -359,7 +360,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
                 size_t j;
                 for (j = i + 1; j < webCLBuildOptionsVector.size() && !webCLBuildOptionsVector[j].startsWith("-"); ++j) {}
                 if (webCLBuildOptionsVector[i].stripWhiteSpace() == buildOptionDashD && j == i + 1) {
-                    es.throwWebCLException(WebCLException::INVALID_BUILD_OPTIONS, WebCLException::invalidBuildOptionsMessage);
+                    es.throwWebCLException(WebCLException::InvalidBuildOptions, WebCLException::invalidBuildOptionsMessage);
                     return;
                 }
 
@@ -367,7 +368,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
                 continue;
             }
 
-            es.throwWebCLException(WebCLException::INVALID_BUILD_OPTIONS, WebCLException::invalidBuildOptionsMessage);
+            es.throwWebCLException(WebCLException::InvalidBuildOptions, WebCLException::invalidBuildOptionsMessage);
             return;
         }
     }
@@ -376,7 +377,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
     WebCLProgramHolder* holder = nullptr;
     if (callback) {
         if (m_buildCallback) {
-            es.throwWebCLException(WebCLException::INVALID_OPERATION, WebCLException::invalidOperationMessage);
+            es.throwWebCLException(WebCLException::InvalidOperation, WebCLException::invalidOperationMessage);
             return;
         }
 
@@ -405,7 +406,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
             }
 
             if (z == contextDevicesLength) {
-                es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+                es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
                 return;
             }
 
@@ -417,7 +418,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
     }
 
     if (!clDevices.size()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -425,7 +426,7 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
     err = clBuildProgram(m_clProgram, clDevices.size(), clDevices.data(), buildOptions.utf8().data(), callbackProxyPtr, holder);
 
     if (err != CL_SUCCESS)
-        es.throwWebCLException(WebCLException::BUILD_PROGRAM_FAILURE, WebCLException::buildProgramFailureMessage);
+        es.throwWebCLException(WebCLException::BuildProgramFailure, WebCLException::buildProgramFailureMessage);
 }
 
 void WebCLProgram::build(const String& options, WebCLCallback* callback, ExceptionState& es)

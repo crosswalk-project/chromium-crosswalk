@@ -9,10 +9,9 @@
 #include "modules/webcl/WebCLCallback.h"
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/Threading.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
+#include "wtf/Threading.h"
 
 namespace blink {
 
@@ -68,7 +67,7 @@ public:
     void enqueueWriteImage(WebCLImage*, bool, const Vector<unsigned>&, const Vector<unsigned>&, HTMLImageElement*, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueWriteImage(WebCLImage*, bool blockingWrite, HTMLVideoElement*, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
 
-    void enqueueCopyBuffer(WebCLBuffer*, WebCLBuffer*, unsigned, unsigned, unsigned, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState&);
+    void enqueueCopyBuffer(WebCLBuffer*, WebCLBuffer*, unsigned, unsigned, unsigned, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueCopyBufferRect(WebCLBuffer*, WebCLBuffer*, const Vector<unsigned>&, const Vector<unsigned>&, const Vector<unsigned>&, unsigned, unsigned, unsigned, unsigned, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueCopyImage(WebCLImage*, WebCLImage*, const Vector<unsigned>&, const Vector<unsigned>&, const Vector<unsigned>&, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
     void enqueueCopyImageToBuffer(WebCLImage*, WebCLBuffer*, const Vector<unsigned>&, const Vector<unsigned>&, unsigned, const Vector<RefPtr<WebCLEvent>>&, WebCLEvent*, ExceptionState&);
@@ -82,8 +81,8 @@ public:
     void enqueueWaitForEvents(const Vector<RefPtr<WebCLEvent>>&, ExceptionState&);
 
     enum SyncMethod {
-        ASYNC,
-        SYNC
+        Async,
+        Sync
     };
     void finishCommandQueues(SyncMethod);
     unsigned getProperties();

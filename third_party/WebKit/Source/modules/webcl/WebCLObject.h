@@ -7,13 +7,13 @@
 #define WebCLObject_h
 
 #include "core/webcl/WebCLException.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/RefPtr.h>
-#include <wtf/WeakPtr.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/WeakPtr.h"
 
 namespace blink {
+
 class ExceptionState;
 class WebCLContext;
 
@@ -26,11 +26,11 @@ public:
     WeakPtr<WebCLObject> createWeakPtr() { return m_weakFactory.createWeakPtr(); }
     PassRefPtr<WebCLContext> context();
 
-    void setContext(PassRefPtr<WebCLContext> context);
+    void setContext(PassRefPtr<WebCLContext>);
     virtual void release() { ASSERT_NOT_REACHED(); }
 
 protected:
-    explicit WebCLObject(PassRefPtr<WebCLContext> context);
+    explicit WebCLObject(PassRefPtr<WebCLContext>);
     // Some object isn't associated with WebContext in constructor by developer.
     // but at runtime by OpenCL. Such as: WebCLEvent
     WebCLObject();

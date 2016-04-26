@@ -8,8 +8,7 @@
 
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLKernelArgInfo.h"
-
-#include <wtf/RefCounted.h>
+#include "wtf/RefCounted.h"
 
 namespace blink {
 

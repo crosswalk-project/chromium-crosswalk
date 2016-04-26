@@ -7,8 +7,7 @@
 #define WebCLKernelArgInfo_h
 
 #include "modules/webcl/WebCLConfig.h"
-
-#include <wtf/RefCounted.h>
+#include "wtf/RefCounted.h"
 
 namespace blink {
 
@@ -16,23 +15,24 @@ class WebCLKernelArgInfo final : public RefCounted<WebCLKernelArgInfo>, public S
     DEFINE_WRAPPERTYPEINFO();
 public:
     enum {
-        CHAR,
-        UCHAR,
-        SHORT,
-        USHORT,
-        INT,
-        UINT,
-        LONG,
-        ULONG,
-        FLOAT,
-        DOUBLE,
-        BUFFER,
-        SAMPLER,
-        IMAGE,
-        UNKNOWN
+        Char,
+        Uchar,
+        Short,
+        Ushort,
+        Int,
+        Uint,
+        Long,
+        Ulong,
+        Float,
+        Double,
+        Buffer,
+        Sampler,
+        Image,
+        Unknown
     };
 
-    static PassRefPtr<WebCLKernelArgInfo> create(const String& addressQualifier, const String& accessQualifier, const String& type, const String& name, const bool isPointerType = false) {
+    static PassRefPtr<WebCLKernelArgInfo> create(const String& addressQualifier, const String& accessQualifier, const String& type, const String& name, const bool isPointerType = false)
+    {
         return adoptRef(new WebCLKernelArgInfo(addressQualifier, accessQualifier, type, name, isPointerType));
     }
 
@@ -68,53 +68,53 @@ private:
     static inline int extractTypeEnum(const String& typeName, bool isPointerType)
     {
         if (isPointerType)
-            return BUFFER;
+            return Buffer;
 
-        static String image2d_t("image2d_t");
-        if (typeName == image2d_t)
-            return IMAGE;
+        static String image2dLiteral("image2d_t");
+        if (typeName == image2dLiteral)
+            return Image;
 
-        static String sampler_t("sampler_t");
-        if (typeName == sampler_t)
-            return SAMPLER;
+        static String samplerLiteral("sampler_t");
+        if (typeName == samplerLiteral)
+            return Sampler;
 
         static String ucharLiteral("uchar");
         if (typeName.contains(ucharLiteral))
-            return UCHAR;
+            return Uchar;
         static String charLiteral("char");
         if (typeName.contains(charLiteral))
-            return CHAR;
+            return Char;
 
         static String ushortLiteral("ushort");
         if (typeName.contains(ushortLiteral))
-            return USHORT;
+            return Ushort;
         static String shortLiteral("short");
         if (typeName.contains(shortLiteral))
-            return SHORT;
+            return Short;
 
         static String uintLiteral("uint");
         if (typeName.contains(uintLiteral))
-            return UINT;
+            return Uint;
         static String intLiteral("int");
         if (typeName.contains(intLiteral))
-            return INT;
+            return Int;
 
         static String ulongLiteral("ulong");
         if (typeName.contains(ulongLiteral))
-            return ULONG;
+            return Ulong;
         static String longLiteral("long");
         if (typeName.contains(longLiteral))
-            return LONG;
+            return Long;
 
         static String floatLiteral("float");
         if (typeName.contains(floatLiteral))
-            return FLOAT;
+            return Float;
 
         static String doubleLiteral("double");
         if (typeName.contains(doubleLiteral))
-            return DOUBLE;
+            return Double;
 
-        return UNKNOWN;
+        return Unknown;
     }
 };
 

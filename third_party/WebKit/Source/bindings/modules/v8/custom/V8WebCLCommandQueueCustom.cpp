@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "bindings/modules/v8/V8WebCLCommandQueue.h"
+
 #include "bindings/core/v8/V8ArrayBufferView.h"
 #include "bindings/core/v8/V8HTMLCanvasElement.h"
 #include "bindings/core/v8/V8HTMLImageElement.h"
@@ -9,7 +11,6 @@
 #include "bindings/core/v8/V8ImageData.h"
 #include "bindings/modules/v8/V8WebCLBuffer.h"
 #include "bindings/modules/v8/V8WebCLCallback.h"
-#include "bindings/modules/v8/V8WebCLCommandQueue.h"
 #include "bindings/modules/v8/V8WebCLEvent.h"
 #include "bindings/modules/v8/V8WebCLImage.h"
 #include "bindings/modules/v8/V8WebCLKernel.h"
@@ -51,20 +52,20 @@ void V8WebCLCommandQueue::enqueueCopyBufferMethodCustom(const v8::FunctionCallba
         dstBuffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[1]);
 
         srcOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstOffset = toUInt32(info.GetIsolate(), info[3], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         numBytes = toUInt32(info.GetIsolate(), info[4], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
         if (info.Length() > 6) {
@@ -120,36 +121,36 @@ void V8WebCLCommandQueue::enqueueCopyBufferRectMethodCustom(const v8::FunctionCa
         dstBuffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[1]);
 
         srcOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         srcRowPitch = toUInt32(info.GetIsolate(), info[5], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         srcSlicePitch = toUInt32(info.GetIsolate(), info[6], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstRowPitch = toUInt32(info.GetIsolate(), info[7], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstSlicePitch = toUInt32(info.GetIsolate(), info[8], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 9 && !isUndefinedOrNull(info[9])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[9], 10, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -201,20 +202,20 @@ void V8WebCLCommandQueue::enqueueCopyImageMethodCustom(const v8::FunctionCallbac
 
         dstImage = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[1]);
         srcOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -268,20 +269,20 @@ void V8WebCLCommandQueue::enqueueCopyImageToBufferMethodCustom(const v8::Functio
         dstBuffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[1]);
 
         srcOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         srcRegion = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstOffset = toUInt32(info.GetIsolate(), info[4], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
         if (info.Length() > 6) {
@@ -334,20 +335,20 @@ void V8WebCLCommandQueue::enqueueCopyBufferToImageMethodCustom(const v8::Functio
         dstImage = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[1]);
 
         srcOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         dstRegion = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -395,11 +396,11 @@ static void enqueueReadBuffer1Method(const v8::FunctionCallbackInfo<v8::Value>& 
         blockingRead = info[1]->BooleanValue();
 
         bufferOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         numBytes = toUInt32(info.GetIsolate(), info[3], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 4 && !V8HTMLCanvasElement::hasInstance(info[4], info.GetIsolate())) {
@@ -411,7 +412,7 @@ static void enqueueReadBuffer1Method(const v8::FunctionCallbackInfo<v8::Value>& 
         canvas = V8HTMLCanvasElement::toImplWithTypeCheck(info.GetIsolate(), info[4]);
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -458,11 +459,11 @@ static void enqueueReadBuffer2Method(const v8::FunctionCallbackInfo<v8::Value>& 
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingRead = info[1]->BooleanValue();
         bufferOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         numBytes = toUInt32(info.GetIsolate(), info[3], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 4 && !V8ArrayBufferView::hasInstance(info[4], info.GetIsolate())) {
@@ -474,7 +475,7 @@ static void enqueueReadBuffer2Method(const v8::FunctionCallbackInfo<v8::Value>& 
         hostPtr = info[4]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[4])) : 0;
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -512,7 +513,7 @@ void V8WebCLCommandQueue::enqueueReadBufferMethodCustom(const v8::FunctionCallba
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -546,23 +547,23 @@ static void enqueueReadBufferRect1Method(const v8::FunctionCallbackInfo<v8::Valu
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingRead = info[1]->BooleanValue();
         bufferOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[5], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostSlicePitch = toUInt32(info.GetIsolate(), info[6], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 7 && !V8HTMLCanvasElement::hasInstance(info[7], info.GetIsolate())) {
@@ -574,7 +575,7 @@ static void enqueueReadBufferRect1Method(const v8::FunctionCallbackInfo<v8::Valu
         canvas = V8HTMLCanvasElement::toImplWithTypeCheck(info.GetIsolate(), info[7]);
         if (info.Length() > 8 && !isUndefinedOrNull(info[8])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[8], 9, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -626,31 +627,31 @@ static void enqueueReadBufferRect2Method(const v8::FunctionCallbackInfo<v8::Valu
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingRead = info[1]->BooleanValue();
         bufferOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         bufferRowPitch = toUInt32(info.GetIsolate(), info[5], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         bufferSlicePitch = toUInt32(info.GetIsolate(), info[6], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[7], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostSlicePitch = toUInt32(info.GetIsolate(), info[8], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 9 && !V8ArrayBufferView::hasInstance(info[9], info.GetIsolate())) {
@@ -662,7 +663,7 @@ static void enqueueReadBufferRect2Method(const v8::FunctionCallbackInfo<v8::Valu
         hostPtr = info[9]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[9])) : 0;
         if (info.Length() > 10 && !isUndefinedOrNull(info[10])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[10], 11, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -700,7 +701,7 @@ void V8WebCLCommandQueue::enqueueReadBufferRectMethodCustom(const v8::FunctionCa
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -731,11 +732,11 @@ static void enqueueReadImage1Method(const v8::FunctionCallbackInfo<v8::Value>& i
         image = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingRead = info[1]->BooleanValue();
         origin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 4 && !V8HTMLCanvasElement::hasInstance(info[4], info.GetIsolate())) {
@@ -747,7 +748,7 @@ static void enqueueReadImage1Method(const v8::FunctionCallbackInfo<v8::Value>& i
         canvas = V8HTMLCanvasElement::toImplWithTypeCheck(info.GetIsolate(), info[4]);
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -796,15 +797,15 @@ static void enqueueReadImage2Method(const v8::FunctionCallbackInfo<v8::Value>& i
         image = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingRead = info[1]->BooleanValue();
         origin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[4], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !V8ArrayBufferView::hasInstance(info[5], info.GetIsolate())) {
@@ -816,7 +817,7 @@ static void enqueueReadImage2Method(const v8::FunctionCallbackInfo<v8::Value>& i
         hostPtr = info[5]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[5])) : 0;
         if (info.Length() > 6 && !isUndefinedOrNull(info[6])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[6], 7, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -852,7 +853,7 @@ void V8WebCLCommandQueue::enqueueReadImageMethodCustom(const v8::FunctionCallbac
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -884,7 +885,7 @@ static void enqueueWriteBuffer1Method(const v8::FunctionCallbackInfo<v8::Value>&
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         bufferOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (V8ImageData::hasInstance(info[3], info.GetIsolate())) {
@@ -915,7 +916,7 @@ static void enqueueWriteBuffer1Method(const v8::FunctionCallbackInfo<v8::Value>&
 
         if (info.Length() > 4 && !isUndefinedOrNull(info[4])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[4], 5, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -968,11 +969,11 @@ static void enqueueWriteBuffer2Method(const v8::FunctionCallbackInfo<v8::Value>&
         bufferId = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         bufferOffset = toUInt32(info.GetIsolate(), info[2], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         numBytes = toUInt32(info.GetIsolate(), info[3], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 4 && !V8ArrayBufferView::hasInstance(info[4], info.GetIsolate())) {
@@ -984,7 +985,7 @@ static void enqueueWriteBuffer2Method(const v8::FunctionCallbackInfo<v8::Value>&
         hostPtr = info[4]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[4])) : 0;
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1022,7 +1023,7 @@ void V8WebCLCommandQueue::enqueueWriteBufferMethodCustom(const v8::FunctionCallb
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -1058,23 +1059,23 @@ static void enqueueWriteBufferRect1Method(const v8::FunctionCallbackInfo<v8::Val
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         bufferOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[5], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostSlicePitch = toUInt32(info.GetIsolate(), info[6], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (V8ImageData::hasInstance(info[7], info.GetIsolate())) {
@@ -1104,7 +1105,7 @@ static void enqueueWriteBufferRect1Method(const v8::FunctionCallbackInfo<v8::Val
         }
         if (info.Length() > 8 && !isUndefinedOrNull(info[8])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[8], 9, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1163,31 +1164,31 @@ static void enqueueWriteBufferRect2Method(const v8::FunctionCallbackInfo<v8::Val
         buffer = V8WebCLBuffer::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         bufferOrigin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostOrigin = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[4], 5, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         bufferRowPitch = toUInt32(info.GetIsolate(), info[5], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         bufferSlicePitch = toUInt32(info.GetIsolate(), info[6], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[7], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostSlicePitch = toUInt32(info.GetIsolate(), info[8], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 9 && !V8ArrayBufferView::hasInstance(info[9], info.GetIsolate())) {
@@ -1199,7 +1200,7 @@ static void enqueueWriteBufferRect2Method(const v8::FunctionCallbackInfo<v8::Val
         hostPtr = info[9]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[9])) : 0;
         if (info.Length() > 10 && !isUndefinedOrNull(info[10])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[10], 11, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1237,7 +1238,7 @@ void V8WebCLCommandQueue::enqueueWriteBufferRectMethodCustom(const v8::FunctionC
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -1267,16 +1268,16 @@ static void enqueueWriteImage3Method(const v8::FunctionCallbackInfo<v8::Value>& 
         image = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         origin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1360,7 +1361,7 @@ static void enqueueWriteImage1Method(const v8::FunctionCallbackInfo<v8::Value>& 
         video = V8HTMLVideoElement::toImplWithTypeCheck(info.GetIsolate(), info[2]);
         if (info.Length() > 3 && !isUndefinedOrNull(info[3])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[3], 4, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1409,15 +1410,15 @@ static void enqueueWriteImage2Method(const v8::FunctionCallbackInfo<v8::Value>& 
         image = V8WebCLImage::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         blockingWrite = info[1]->BooleanValue();
         origin = toImplArray<Vector<unsigned>>(info[2], 3, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         region = toImplArray<Vector<unsigned>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         hostRowPitch = toUInt32(info.GetIsolate(), info[4], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 5 && !V8ArrayBufferView::hasInstance(info[5], info.GetIsolate())) {
@@ -1429,7 +1430,7 @@ static void enqueueWriteImage2Method(const v8::FunctionCallbackInfo<v8::Value>& 
         hostPtr = info[5]->IsArrayBufferView() ? V8ArrayBufferView::toImpl(v8::Handle<v8::ArrayBufferView>::Cast(info[5])) : 0;
         if (info.Length() > 6 && !isUndefinedOrNull(info[6])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[6], 7, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
@@ -1474,7 +1475,7 @@ void V8WebCLCommandQueue::enqueueWriteImageMethodCustom(const v8::FunctionCallba
         return;
     }
 
-    exceptionState.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+    exceptionState.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
     exceptionState.throwIfNeeded();
 }
 
@@ -1504,28 +1505,28 @@ void V8WebCLCommandQueue::enqueueNDRangeKernelMethodCustom(const v8::FunctionCal
 
         kernel = V8WebCLKernel::toImplWithTypeCheck(info.GetIsolate(), info[0]);
         workDim = toUInt32(info.GetIsolate(), info[1], EnforceRange, exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
-        if (info.Length() > 2 && !isUndefinedOrNull(info[2])){
+        if (info.Length() > 2 && !isUndefinedOrNull(info[2])) {
             offsets = toImplArray<Vector<double>>(info[2], 3, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
         globalWorkSize = toImplArray<Vector<double>>(info[3], 4, info.GetIsolate(), exceptionState);
-        if(exceptionState.throwIfNeeded())
+        if (exceptionState.throwIfNeeded())
             return;
 
         if (info.Length() > 4 && !isUndefinedOrNull(info[4])) {
             localWorkSize = toImplArray<Vector<double>>(info[4], 5, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 
         if (info.Length() > 5 && !isUndefinedOrNull(info[5])) {
             eventWaitList = toRefPtrNativeArray<WebCLEvent, V8WebCLEvent>(info[5], 6, info.GetIsolate(), exceptionState);
-            if(exceptionState.throwIfNeeded())
+            if (exceptionState.throwIfNeeded())
                 return;
         }
 

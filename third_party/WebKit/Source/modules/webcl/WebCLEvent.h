@@ -9,9 +9,8 @@
 #include "modules/webcl/WebCLCallback.h"
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
 
 namespace blink {
 
@@ -33,7 +32,7 @@ public:
 
     virtual bool isUserEvent() const { return false; }
     virtual int getStatus();
-    bool setAssociatedCommandQueue(WebCLCommandQueue* commandQueue);
+    bool setAssociatedCommandQueue(WebCLCommandQueue*);
     cl_event* getEventPtr() { return &m_clEvent; }
     cl_event getEvent() { return m_clEvent; }
     bool isReleased() const { return !m_clEvent; }

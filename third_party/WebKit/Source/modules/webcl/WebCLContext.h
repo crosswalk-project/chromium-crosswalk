@@ -9,10 +9,10 @@
 #include "bindings/core/v8/Nullable.h"
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLDevice.h"
-#include <wtf/RefCounted.h>
-#include <wtf/RefPtr.h>
-#include <wtf/PassRefPtr.h>
-#include <wtf/WeakPtr.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/WeakPtr.h"
 
 namespace blink {
 
@@ -46,7 +46,7 @@ public:
     PassRefPtr<WebCLCommandQueue> createCommandQueue(WebCLDevice*, unsigned, ExceptionState&);
     PassRefPtr<WebCLCommandQueue> createCommandQueue(int, ExceptionState&);
     PassRefPtr<WebCLCommandQueue> createCommandQueue(WebCLDevice*, ExceptionState&);
-    PassRefPtr<WebCLCommandQueue> createCommandQueue(ExceptionState& es);
+    PassRefPtr<WebCLCommandQueue> createCommandQueue(ExceptionState&);
     PassRefPtr<WebCLProgram> createProgram(const String&, ExceptionState&);
     PassRefPtr<WebCLSampler> createSampler(bool, unsigned, unsigned, ExceptionState&);
     PassRefPtr<WebCLUserEvent> createUserEvent(ExceptionState&);

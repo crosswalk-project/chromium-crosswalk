@@ -7,9 +7,9 @@
 #define WebCLMemoryUtil_h
 
 #include "core/webcl/WebCLException.h"
-#include <wtf/RefCounted.h>
-#include <wtf/Vector.h>
-#include <wtf/WeakPtr.h>
+#include "wtf/RefCounted.h"
+#include "wtf/Vector.h"
+#include "wtf/WeakPtr.h"
 
 namespace blink {
 

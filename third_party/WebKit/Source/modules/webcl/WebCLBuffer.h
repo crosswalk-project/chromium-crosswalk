@@ -21,7 +21,7 @@ public:
     static PassRefPtr<WebCLBuffer> create(PassRefPtr<WebCLContext>, unsigned, unsigned, void*, ExceptionState&);
     PassRefPtr<WebCLBuffer> createSubBuffer(unsigned, unsigned, unsigned, ExceptionState&);
 
-    int type() override { return BUFFER; }
+    int type() override { return Buffer; }
 
 private:
     WebCLBuffer(cl_mem, PassRefPtr<WebCLContext>, unsigned, unsigned, WebCLBuffer* parentBuffer = nullptr);

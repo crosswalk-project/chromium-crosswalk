@@ -9,6 +9,7 @@
 #include "platform/heap/Handle.h"
 
 namespace blink {
+
 class WebCLCallback : public GarbageCollectedFinalized<WebCLCallback> {
 public:
     virtual ~WebCLCallback() { }

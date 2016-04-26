@@ -3,11 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLSampler.h"
+
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLOpenCL.h"
-#include "modules/webcl/WebCLSampler.h"
 
 namespace blink {
 
@@ -28,7 +29,7 @@ ScriptValue WebCLSampler::getInfo(ScriptState* scriptState, cl_sampler_info para
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_SAMPLER, WebCLException::invalidSamplerMessage);
+        es.throwWebCLException(WebCLException::InvalidSampler, WebCLException::invalidSamplerMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -46,7 +47,7 @@ ScriptValue WebCLSampler::getInfo(ScriptState* scriptState, cl_sampler_info para
         return ScriptValue(scriptState, v8::Integer::NewFromUnsigned(isolate, static_cast<unsigned>(m_filterMode)));
         break;
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 

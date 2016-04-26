@@ -3,10 +3,11 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLImage.h"
+
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLContext.h"
-#include "modules/webcl/WebCLImage.h"
 #include "modules/webcl/WebCLOpenCL.h"
 
 namespace blink {
@@ -23,7 +24,7 @@ PassRefPtr<WebCLImage> WebCLImage::create(cl_mem image, const WebCLImageDescript
 void WebCLImage::getInfo(ExceptionState& es, WebCLImageDescriptor& descriptor)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return;
     }
 

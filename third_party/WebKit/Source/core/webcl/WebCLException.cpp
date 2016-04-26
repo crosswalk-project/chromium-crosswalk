@@ -4,6 +4,7 @@
 // found in the LICENSE file.
 
 #include "core/webcl/WebCLException.h"
+
 #include <CL/cl.h>
 
 namespace blink {
@@ -63,156 +64,156 @@ const char WebCLException::failureMessage[] = "FAILURE";
 
 void WebCLException::throwException(int& code, ExceptionState& es)
 {
-    switch(code) {
+    switch (code) {
     case CL_DEVICE_NOT_FOUND:
-        es.throwWebCLException(WebCLException::DEVICE_NOT_FOUND, WebCLException::deviceNotFoundMessage);
+        es.throwWebCLException(WebCLException::DeviceNotFound, WebCLException::deviceNotFoundMessage);
         break;
     case CL_DEVICE_NOT_AVAILABLE:
-        es.throwWebCLException(WebCLException::DEVICE_NOT_AVAILABLE, WebCLException::deviceNotAvailableMessage);
+        es.throwWebCLException(WebCLException::DeviceNotAvailable, WebCLException::deviceNotAvailableMessage);
         break;
     case CL_COMPILER_NOT_AVAILABLE:
-        es.throwWebCLException(WebCLException::COMPILER_NOT_AVAILABLE, WebCLException::compilerNotAvailableMessage);
+        es.throwWebCLException(WebCLException::CompilerNotAvailable, WebCLException::compilerNotAvailableMessage);
         break;
     case CL_MEM_OBJECT_ALLOCATION_FAILURE:
-        es.throwWebCLException(WebCLException::MEM_OBJECT_ALLOCATION_FAILURE, WebCLException::memObjectAllocationFailureMessage);
+        es.throwWebCLException(WebCLException::MemObjectAllocationFailure, WebCLException::memObjectAllocationFailureMessage);
         break;
     case CL_OUT_OF_RESOURCES:
-        es.throwWebCLException(WebCLException::OUT_OF_RESOURCES, WebCLException::outOfResourcesMessage);
+        es.throwWebCLException(WebCLException::OutOfResources, WebCLException::outOfResourcesMessage);
         break;
     case CL_OUT_OF_HOST_MEMORY:
-        es.throwWebCLException(WebCLException::OUT_OF_HOST_MEMORY, WebCLException::outOfHostMemoryMessage);
+        es.throwWebCLException(WebCLException::OutOfHostMemory, WebCLException::outOfHostMemoryMessage);
         break;
     case CL_PROFILING_INFO_NOT_AVAILABLE:
-        es.throwWebCLException(WebCLException::PROFILING_INFO_NOT_AVAILABLE, WebCLException::profilingInfoNotAvailableMessage);
+        es.throwWebCLException(WebCLException::ProfilingInfoNotAvailable, WebCLException::profilingInfoNotAvailableMessage);
         break;
     case CL_MEM_COPY_OVERLAP:
-        es.throwWebCLException(WebCLException::MEM_OBJECT_ALLOCATION_FAILURE, WebCLException::memObjectAllocationFailureMessage);
+        es.throwWebCLException(WebCLException::MemCopyOverlap, WebCLException::memObjectAllocationFailureMessage);
         break;
     case CL_IMAGE_FORMAT_MISMATCH:
-        es.throwWebCLException(WebCLException::IMAGE_FORMAT_MISMATCH, WebCLException::imageFormatMismatchMessage);
+        es.throwWebCLException(WebCLException::ImageFormatMismatch, WebCLException::imageFormatMismatchMessage);
         break;
     case CL_IMAGE_FORMAT_NOT_SUPPORTED:
-        es.throwWebCLException(WebCLException::IMAGE_FORMAT_NOT_SUPPORTED, WebCLException::imageFormatNotSupportedMessage);
+        es.throwWebCLException(WebCLException::ImageFormatNotSupported, WebCLException::imageFormatNotSupportedMessage);
         break;
     case CL_BUILD_PROGRAM_FAILURE:
-        es.throwWebCLException(WebCLException::BUILD_PROGRAM_FAILURE, WebCLException::buildProgramFailureMessage);
+        es.throwWebCLException(WebCLException::BuildProgramFailure, WebCLException::buildProgramFailureMessage);
         break;
     case CL_MAP_FAILURE:
-        es.throwWebCLException(WebCLException::MAP_FAILURE, WebCLException::mapFailureMessage);
+        es.throwWebCLException(WebCLException::MapFailure, WebCLException::mapFailureMessage);
         break;
     case CL_MISALIGNED_SUB_BUFFER_OFFSET:
-        es.throwWebCLException(WebCLException::MISALIGNED_SUB_BUFFER_OFFSET, WebCLException::misalignedSubBufferOffsetMessage);
+        es.throwWebCLException(WebCLException::MisalignedSubBufferOffset, WebCLException::misalignedSubBufferOffsetMessage);
         break;
     case CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST:
-        es.throwWebCLException(WebCLException::EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST, WebCLException::execStatusErrorForEventsInWaitListMessage);
+        es.throwWebCLException(WebCLException::ExecStatusErrorForEventsInWaitList, WebCLException::execStatusErrorForEventsInWaitListMessage);
         break;
     case CL_INVALID_VALUE:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         break;
     case CL_INVALID_DEVICE_TYPE:
-        es.throwWebCLException(WebCLException::INVALID_DEVICE_TYPE, WebCLException::invalidDeviceTypeMessage);
+        es.throwWebCLException(WebCLException::InvalidDeviceType, WebCLException::invalidDeviceTypeMessage);
         break;
     case CL_INVALID_PLATFORM:
-        es.throwWebCLException(WebCLException::INVALID_PLATFORM, WebCLException::invalidPlatformMessage);
+        es.throwWebCLException(WebCLException::InvalidPlatform, WebCLException::invalidPlatformMessage);
         break;
     case CL_INVALID_DEVICE:
-        es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+        es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
         break;
     case CL_INVALID_CONTEXT:
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         break;
     case CL_INVALID_QUEUE_PROPERTIES:
-        es.throwWebCLException(WebCLException::INVALID_QUEUE_PROPERTIES, WebCLException::invalidQueuePropertiesMessage);
+        es.throwWebCLException(WebCLException::InvalidQueueProperties, WebCLException::invalidQueuePropertiesMessage);
         break;
     case CL_INVALID_COMMAND_QUEUE:
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         break;
     case CL_INVALID_HOST_PTR:
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         break;
     case CL_INVALID_MEM_OBJECT:
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidHostPTRMessage);
         break;
     case CL_INVALID_IMAGE_FORMAT_DESCRIPTOR:
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_FORMAT_DESCRIPTOR, WebCLException::invalidImageFormatDescriptorMessage);
+        es.throwWebCLException(WebCLException::InvalidImageFormatDescriptor, WebCLException::invalidImageFormatDescriptorMessage);
         break;
     case CL_INVALID_IMAGE_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
         break;
     case CL_INVALID_SAMPLER:
-        es.throwWebCLException(WebCLException::INVALID_SAMPLER, WebCLException::invalidSamplerMessage);
+        es.throwWebCLException(WebCLException::InvalidSampler, WebCLException::invalidSamplerMessage);
         break;
     case CL_INVALID_BINARY:
-        es.throwWebCLException(WebCLException::INVALID_BINARY, WebCLException::invalidBinaryMessage);
+        es.throwWebCLException(WebCLException::InvalidBinary, WebCLException::invalidBinaryMessage);
         break;
     case CL_INVALID_BUILD_OPTIONS:
-        es.throwWebCLException(WebCLException::INVALID_BUILD_OPTIONS, WebCLException::invalidBuildOptionsMessage);
+        es.throwWebCLException(WebCLException::InvalidBuildOptions, WebCLException::invalidBuildOptionsMessage);
         break;
     case CL_INVALID_PROGRAM:
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM, WebCLException::invalidProgramMessage);
+        es.throwWebCLException(WebCLException::InvalidProgram, WebCLException::invalidProgramMessage);
         break;
     case CL_INVALID_PROGRAM_EXECUTABLE:
-        es.throwWebCLException(WebCLException::INVALID_PROGRAM_EXECUTABLE, WebCLException::invalidProgramExecutableMessage);
+        es.throwWebCLException(WebCLException::InvalidProgramExecutable, WebCLException::invalidProgramExecutableMessage);
         break;
     case CL_INVALID_KERNEL_NAME:
-        es.throwWebCLException(WebCLException::INVALID_KERNEL_NAME, WebCLException::invalidKernelNameMessage);
+        es.throwWebCLException(WebCLException::InvalidKernelName, WebCLException::invalidKernelNameMessage);
         break;
     case CL_INVALID_KERNEL_DEFINITION:
-        es.throwWebCLException(WebCLException::INVALID_KERNEL_DEFINITION, WebCLException::invalidKernelDefinitionMessage);
+        es.throwWebCLException(WebCLException::InvalidKernelDefinition, WebCLException::invalidKernelDefinitionMessage);
         break;
     case CL_INVALID_KERNEL:
-        es.throwWebCLException(WebCLException::INVALID_KERNEL, WebCLException::invalidKernelMessage);
+        es.throwWebCLException(WebCLException::InvalidKernel, WebCLException::invalidKernelMessage);
         break;
     case CL_INVALID_ARG_INDEX:
-        es.throwWebCLException(WebCLException::INVALID_ARG_INDEX, WebCLException::invalidKernelArgsMessage);
+        es.throwWebCLException(WebCLException::InvalidArgIndex, WebCLException::invalidKernelArgsMessage);
         break;
     case CL_INVALID_ARG_VALUE:
-        es.throwWebCLException(WebCLException::INVALID_ARG_VALUE, WebCLException::invalidArgValueMessage);
+        es.throwWebCLException(WebCLException::InvalidArgValue, WebCLException::invalidArgValueMessage);
         break;
     case CL_INVALID_ARG_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_ARG_SIZE, WebCLException::invalidArgSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidArgSize, WebCLException::invalidArgSizeMessage);
         break;
     case CL_INVALID_KERNEL_ARGS:
-        es.throwWebCLException(WebCLException::INVALID_KERNEL_ARGS, WebCLException::invalidKernelArgsMessage);
+        es.throwWebCLException(WebCLException::InvalidKernelArgs, WebCLException::invalidKernelArgsMessage);
         break;
     case CL_INVALID_WORK_DIMENSION:
-        es.throwWebCLException(WebCLException::INVALID_WORK_DIMENSION, WebCLException::invalidWorkDimensionMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkDimension, WebCLException::invalidWorkDimensionMessage);
         break;
     case CL_INVALID_WORK_GROUP_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
         break;
     case CL_INVALID_WORK_ITEM_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_WORK_ITEM_SIZE, WebCLException::invalidWorkItemSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkItemSize, WebCLException::invalidWorkItemSizeMessage);
         break;
     case CL_INVALID_GLOBAL_OFFSET:
-        es.throwWebCLException(WebCLException::INVALID_GLOBAL_OFFSET, WebCLException::invalidGlobalWorkSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidGlobalOffset, WebCLException::invalidGlobalWorkSizeMessage);
         break;
     case CL_INVALID_EVENT_WAIT_LIST:
-        es.throwWebCLException(WebCLException::INVALID_EVENT_WAIT_LIST, WebCLException::invalidEventWaitListMessage);
+        es.throwWebCLException(WebCLException::InvalidEventWaitList, WebCLException::invalidEventWaitListMessage);
         break;
     case CL_INVALID_EVENT:
-        es.throwWebCLException(WebCLException::INVALID_EVENT, WebCLException::invalidEventMessage);
+        es.throwWebCLException(WebCLException::InvalidEvent, WebCLException::invalidEventMessage);
         break;
     case CL_INVALID_OPERATION:
-        es.throwWebCLException(WebCLException::INVALID_OPERATION, WebCLException::invalidOperationMessage);
+        es.throwWebCLException(WebCLException::InvalidOperation, WebCLException::invalidOperationMessage);
         break;
     case CL_INVALID_GL_OBJECT:
-        es.throwWebCLException(WebCLException::INVALID_GL_OBJECT, WebCLException::invalidGLObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidGLObject, WebCLException::invalidGLObjectMessage);
         break;
     case CL_INVALID_BUFFER_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_BUFFER_SIZE, WebCLException::invalidBufferSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidBufferSize, WebCLException::invalidBufferSizeMessage);
         break;
     case CL_INVALID_MIP_LEVEL:
-        es.throwWebCLException(WebCLException::INVALID_MIP_LEVEL, WebCLException::invalidMIPLevelMessage);
+        es.throwWebCLException(WebCLException::InvalidMipLevel, WebCLException::invalidMIPLevelMessage);
         break;
     case CL_INVALID_GLOBAL_WORK_SIZE:
-        es.throwWebCLException(WebCLException::INVALID_GLOBAL_WORK_SIZE, WebCLException::invalidGlobalWorkSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidGlobalWorkSize, WebCLException::invalidGlobalWorkSizeMessage);
         break;
     case CL_INVALID_PROPERTY:
-        es.throwWebCLException(WebCLException::INVALID_PROPERTY, WebCLException::invalidPropertyMessage);
+        es.throwWebCLException(WebCLException::InvalidProperty, WebCLException::invalidPropertyMessage);
         break;
     default:
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         break;
     }
 

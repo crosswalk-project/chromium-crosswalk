@@ -2,9 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "bindings/modules/v8/V8WebCLProgram.h"
+
 #include "bindings/modules/v8/V8WebCLCallback.h"
 #include "bindings/modules/v8/V8WebCLDevice.h"
-#include "bindings/modules/v8/V8WebCLProgram.h"
 
 namespace blink {
 
@@ -18,12 +19,12 @@ void V8WebCLProgram::buildMethodCustom(const v8::FunctionCallbackInfo<v8::Value>
     {
         if (info.Length() > 0 && !isUndefinedOrNull(info[0])) {
             devices = toRefPtrNativeArray<WebCLDevice, V8WebCLDevice>(info[0], 1, info.GetIsolate(), es);
-            if(es.throwIfNeeded())
+            if (es.throwIfNeeded())
                 return;
         }
 
         options = info[1];
-        if(!options.prepare())
+        if (!options.prepare())
             return;
 
         if (!isUndefinedOrNull(info[2])) {

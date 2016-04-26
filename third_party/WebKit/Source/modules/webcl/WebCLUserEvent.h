@@ -21,14 +21,14 @@ public:
     static PassRefPtr<WebCLUserEvent> create(PassRefPtr<WebCLContext>, ExceptionState&);
 
     void setStatus(cl_int, ExceptionState&);
-    ScriptValue getInfo(ScriptState* scriptState, unsigned, ExceptionState&) override;
+    ScriptValue getInfo(ScriptState*, unsigned, ExceptionState&) override;
 
     enum EventStatusSituation { StatusUnset, StatusSet };
     bool isUserEvent() const override { return true; }
     int getStatus() override { return m_executionStatus; }
 
 private:
-    WebCLUserEvent(cl_event event, PassRefPtr<WebCLContext>);
+    WebCLUserEvent(cl_event, PassRefPtr<WebCLContext>);
     enum EventStatusSituation m_eventStatusSituation;
     int m_executionStatus;
 };

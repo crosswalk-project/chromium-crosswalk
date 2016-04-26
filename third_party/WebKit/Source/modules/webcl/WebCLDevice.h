@@ -9,9 +9,8 @@
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLExtension.h"
 #include "modules/webcl/WebCLPlatform.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
 
 namespace blink {
 
@@ -25,7 +24,7 @@ class WebCLDevice final : public RefCounted<WebCLDevice>, public ScriptWrappable
 public:
     ~WebCLDevice();
     static PassRefPtr<WebCLDevice> create(cl_device_id);
-    static PassRefPtr<WebCLDevice> create(cl_device_id, WebCLPlatform* platform);
+    static PassRefPtr<WebCLDevice> create(cl_device_id, WebCLPlatform*);
 
     ScriptValue getInfo(ScriptState*, unsigned, ExceptionState&);
 
@@ -43,7 +42,7 @@ public:
     cl_device_id getDeviceId() { return m_clDeviceId; }
 
 private:
-    WebCLDevice(cl_device_id, WebCLPlatform* platform);
+    WebCLDevice(cl_device_id, WebCLPlatform*);
 
     WebCLPlatform* m_platform;
     WebCLExtension m_extension;

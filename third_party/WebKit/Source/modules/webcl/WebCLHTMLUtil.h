@@ -6,7 +6,10 @@
 #ifndef WebCLHTMLUtil_h
 #define WebCLHTMLUtil_h
 
-#include <wtf/RefCounted.h>
+#include "platform/graphics/Image.h"
+#include "platform/graphics/ImageBuffer.h"
+#include "wtf/RefCounted.h"
+#include "wtf/Vector.h"
 
 namespace blink {
 

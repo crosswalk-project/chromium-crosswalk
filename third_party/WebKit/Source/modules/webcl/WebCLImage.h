@@ -9,9 +9,8 @@
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLImageDescriptor.h"
 #include "modules/webcl/WebCLMemoryObject.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
 
 namespace blink {
 
@@ -26,7 +25,7 @@ public:
 
     void getInfo(ExceptionState&, WebCLImageDescriptor&);
     const WebCLImageDescriptor& imageDescriptor() { return m_imageDescriptor; }
-    int type() override { return IMAGE; }
+    int type() override { return Image; }
 
 private:
     WebCLImage(cl_mem, const WebCLImageDescriptor&, PassRefPtr<WebCLContext>);

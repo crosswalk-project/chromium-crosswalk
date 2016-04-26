@@ -3,11 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLMemoryObject.h"
+
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "bindings/modules/v8/V8WebCLMemoryObject.h"
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
-#include "modules/webcl/WebCLMemoryObject.h"
 #include "modules/webcl/WebCLOpenCL.h"
 
 namespace blink {
@@ -29,7 +30,7 @@ ScriptValue WebCLMemoryObject::getInfo(ScriptState* scriptState, int paramName, 
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -40,7 +41,7 @@ ScriptValue WebCLMemoryObject::getInfo(ScriptState* scriptState, int paramName, 
     cl_mem_flags memFlags = 0;
     unsigned memCopyHostPtrMask = 0x07;
 
-    switch(paramName) {
+    switch (paramName) {
     case CL_MEM_SIZE:
         err = clGetMemObjectInfo(m_clMem, CL_MEM_SIZE, sizeof(size_t), &sizetUnits, nullptr);
         if (err == CL_SUCCESS)
@@ -68,7 +69,7 @@ ScriptValue WebCLMemoryObject::getInfo(ScriptState* scriptState, int paramName, 
             return ScriptValue(scriptState, toV8(m_parentMemObject, creationContext, isolate));
         return ScriptValue(scriptState, v8::Null(isolate));
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 

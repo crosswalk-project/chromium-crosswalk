@@ -8,7 +8,7 @@
 
 #include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/ScriptWrappable.h"
-#include <wtf/ThreadSafeRefCounted.h>
+#include "wtf/ThreadSafeRefCounted.h"
 
 #define WEBCLEXCEPTIONOFFSET 0
 
@@ -23,59 +23,59 @@ public:
     }
 
     enum WebCLExceptionCode {
-        SUCCESS                                   = WEBCLEXCEPTIONOFFSET,
-        DEVICE_NOT_FOUND                          = WEBCLEXCEPTIONOFFSET + 1,
-        DEVICE_NOT_AVAILABLE                      = WEBCLEXCEPTIONOFFSET + 2,
-        COMPILER_NOT_AVAILABLE                    = WEBCLEXCEPTIONOFFSET + 3,
-        MEM_OBJECT_ALLOCATION_FAILURE             = WEBCLEXCEPTIONOFFSET + 4,
-        OUT_OF_RESOURCES                          = WEBCLEXCEPTIONOFFSET + 5,
-        OUT_OF_HOST_MEMORY                        = WEBCLEXCEPTIONOFFSET + 6,
-        PROFILING_INFO_NOT_AVAILABLE              = WEBCLEXCEPTIONOFFSET + 7,
-        MEM_COPY_OVERLAP                          = WEBCLEXCEPTIONOFFSET + 8,
-        IMAGE_FORMAT_MISMATCH                     = WEBCLEXCEPTIONOFFSET + 9,
-        IMAGE_FORMAT_NOT_SUPPORTED                = WEBCLEXCEPTIONOFFSET + 10,
-        BUILD_PROGRAM_FAILURE                     = WEBCLEXCEPTIONOFFSET + 11,
-        MAP_FAILURE                               = WEBCLEXCEPTIONOFFSET + 12,
-        MISALIGNED_SUB_BUFFER_OFFSET              = WEBCLEXCEPTIONOFFSET + 13,
-        EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST = WEBCLEXCEPTIONOFFSET + 14,
-        EXTENSION_NOT_ENABLED                     = WEBCLEXCEPTIONOFFSET + 15,
+        Success                            = WEBCLEXCEPTIONOFFSET,
+        DeviceNotFound                     = WEBCLEXCEPTIONOFFSET + 1,
+        DeviceNotAvailable                 = WEBCLEXCEPTIONOFFSET + 2,
+        CompilerNotAvailable               = WEBCLEXCEPTIONOFFSET + 3,
+        MemObjectAllocationFailure         = WEBCLEXCEPTIONOFFSET + 4,
+        OutOfResources                     = WEBCLEXCEPTIONOFFSET + 5,
+        OutOfHostMemory                    = WEBCLEXCEPTIONOFFSET + 6,
+        ProfilingInfoNotAvailable          = WEBCLEXCEPTIONOFFSET + 7,
+        MemCopyOverlap                     = WEBCLEXCEPTIONOFFSET + 8,
+        ImageFormatMismatch                = WEBCLEXCEPTIONOFFSET + 9,
+        ImageFormatNotSupported            = WEBCLEXCEPTIONOFFSET + 10,
+        BuildProgramFailure                = WEBCLEXCEPTIONOFFSET + 11,
+        MapFailure                         = WEBCLEXCEPTIONOFFSET + 12,
+        MisalignedSubBufferOffset          = WEBCLEXCEPTIONOFFSET + 13,
+        ExecStatusErrorForEventsInWaitList = WEBCLEXCEPTIONOFFSET + 14,
+        ExtensionNotEnabled                = WEBCLEXCEPTIONOFFSET + 15,
 
-        INVALID_VALUE                             = WEBCLEXCEPTIONOFFSET + 30,
-        INVALID_DEVICE_TYPE                       = WEBCLEXCEPTIONOFFSET + 31,
-        INVALID_PLATFORM                          = WEBCLEXCEPTIONOFFSET + 32,
-        INVALID_DEVICE                            = WEBCLEXCEPTIONOFFSET + 33,
-        INVALID_CONTEXT                           = WEBCLEXCEPTIONOFFSET + 34,
-        INVALID_QUEUE_PROPERTIES                  = WEBCLEXCEPTIONOFFSET + 35,
-        INVALID_COMMAND_QUEUE                     = WEBCLEXCEPTIONOFFSET + 36,
-        INVALID_HOST_PTR                          = WEBCLEXCEPTIONOFFSET + 37,
-        INVALID_MEM_OBJECT                        = WEBCLEXCEPTIONOFFSET + 38,
-        INVALID_IMAGE_FORMAT_DESCRIPTOR           = WEBCLEXCEPTIONOFFSET + 39,
-        INVALID_IMAGE_SIZE                        = WEBCLEXCEPTIONOFFSET + 40,
-        INVALID_SAMPLER                           = WEBCLEXCEPTIONOFFSET + 41,
-        INVALID_BINARY                            = WEBCLEXCEPTIONOFFSET + 42,
-        INVALID_BUILD_OPTIONS                     = WEBCLEXCEPTIONOFFSET + 43,
-        INVALID_PROGRAM                           = WEBCLEXCEPTIONOFFSET + 44,
-        INVALID_PROGRAM_EXECUTABLE                = WEBCLEXCEPTIONOFFSET + 45,
-        INVALID_KERNEL_NAME                       = WEBCLEXCEPTIONOFFSET + 46,
-        INVALID_KERNEL_DEFINITION                 = WEBCLEXCEPTIONOFFSET + 47,
-        INVALID_KERNEL                            = WEBCLEXCEPTIONOFFSET + 48,
-        INVALID_ARG_INDEX                         = WEBCLEXCEPTIONOFFSET + 49,
-        INVALID_ARG_VALUE                         = WEBCLEXCEPTIONOFFSET + 50,
-        INVALID_ARG_SIZE                          = WEBCLEXCEPTIONOFFSET + 51,
-        INVALID_KERNEL_ARGS                       = WEBCLEXCEPTIONOFFSET + 52,
-        INVALID_WORK_DIMENSION                    = WEBCLEXCEPTIONOFFSET + 53,
-        INVALID_WORK_GROUP_SIZE                   = WEBCLEXCEPTIONOFFSET + 54,
-        INVALID_WORK_ITEM_SIZE                    = WEBCLEXCEPTIONOFFSET + 55,
-        INVALID_GLOBAL_OFFSET                     = WEBCLEXCEPTIONOFFSET + 56,
-        INVALID_EVENT_WAIT_LIST                   = WEBCLEXCEPTIONOFFSET + 57,
-        INVALID_EVENT                             = WEBCLEXCEPTIONOFFSET + 58,
-        INVALID_OPERATION                         = WEBCLEXCEPTIONOFFSET + 59,
-        INVALID_GL_OBJECT                         = WEBCLEXCEPTIONOFFSET + 60,
-        INVALID_BUFFER_SIZE                       = WEBCLEXCEPTIONOFFSET + 61,
-        INVALID_MIP_LEVEL                         = WEBCLEXCEPTIONOFFSET + 62,
-        INVALID_GLOBAL_WORK_SIZE                  = WEBCLEXCEPTIONOFFSET + 63,
-        INVALID_PROPERTY                          = WEBCLEXCEPTIONOFFSET + 64,
-        FAILURE                                   = WEBCLEXCEPTIONOFFSET + 65,
+        InvalidValue                       = WEBCLEXCEPTIONOFFSET + 30,
+        InvalidDeviceType                  = WEBCLEXCEPTIONOFFSET + 31,
+        InvalidPlatform                    = WEBCLEXCEPTIONOFFSET + 32,
+        InvalidDevice                      = WEBCLEXCEPTIONOFFSET + 33,
+        InvalidContext                     = WEBCLEXCEPTIONOFFSET + 34,
+        InvalidQueueProperties             = WEBCLEXCEPTIONOFFSET + 35,
+        InvalidCommandQueue                = WEBCLEXCEPTIONOFFSET + 36,
+        InvalidHostPtr                     = WEBCLEXCEPTIONOFFSET + 37,
+        InvalidMemObject                   = WEBCLEXCEPTIONOFFSET + 38,
+        InvalidImageFormatDescriptor       = WEBCLEXCEPTIONOFFSET + 39,
+        InvalidImageSize                   = WEBCLEXCEPTIONOFFSET + 40,
+        InvalidSampler                     = WEBCLEXCEPTIONOFFSET + 41,
+        InvalidBinary                      = WEBCLEXCEPTIONOFFSET + 42,
+        InvalidBuildOptions                = WEBCLEXCEPTIONOFFSET + 43,
+        InvalidProgram                     = WEBCLEXCEPTIONOFFSET + 44,
+        InvalidProgramExecutable           = WEBCLEXCEPTIONOFFSET + 45,
+        InvalidKernelName                  = WEBCLEXCEPTIONOFFSET + 46,
+        InvalidKernelDefinition            = WEBCLEXCEPTIONOFFSET + 47,
+        InvalidKernel                      = WEBCLEXCEPTIONOFFSET + 48,
+        InvalidArgIndex                    = WEBCLEXCEPTIONOFFSET + 49,
+        InvalidArgValue                    = WEBCLEXCEPTIONOFFSET + 50,
+        InvalidArgSize                     = WEBCLEXCEPTIONOFFSET + 51,
+        InvalidKernelArgs                  = WEBCLEXCEPTIONOFFSET + 52,
+        InvalidWorkDimension               = WEBCLEXCEPTIONOFFSET + 53,
+        InvalidWorkGroupSize               = WEBCLEXCEPTIONOFFSET + 54,
+        InvalidWorkItemSize                = WEBCLEXCEPTIONOFFSET + 55,
+        InvalidGlobalOffset                = WEBCLEXCEPTIONOFFSET + 56,
+        InvalidEventWaitList               = WEBCLEXCEPTIONOFFSET + 57,
+        InvalidEvent                       = WEBCLEXCEPTIONOFFSET + 58,
+        InvalidOperation                   = WEBCLEXCEPTIONOFFSET + 59,
+        InvalidGLObject                    = WEBCLEXCEPTIONOFFSET + 60,
+        InvalidBufferSize                  = WEBCLEXCEPTIONOFFSET + 61,
+        InvalidMipLevel                    = WEBCLEXCEPTIONOFFSET + 62,
+        InvalidGlobalWorkSize              = WEBCLEXCEPTIONOFFSET + 63,
+        InvalidProperty                    = WEBCLEXCEPTIONOFFSET + 64,
+        Failure                            = WEBCLEXCEPTIONOFFSET + 65,
     };
 
     static const char successMessage[];
@@ -131,7 +131,7 @@ public:
     static const char invalidPropertyMessage[];
     static const char failureMessage[];
 
-    static void throwException(int& code, ExceptionState& es);
+    static void throwException(int& code, ExceptionState&);
     unsigned code() const { return m_code; }
     String name() const { return m_name.isolatedCopy(); }
     String message() const { return m_message.isolatedCopy(); }

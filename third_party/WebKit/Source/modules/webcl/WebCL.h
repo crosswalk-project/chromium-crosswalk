@@ -11,8 +11,8 @@
 #include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLDevice.h"
-#include "modules/webcl/WebCLExtension.h"
 #include "modules/webcl/WebCLEvent.h"
+#include "modules/webcl/WebCLExtension.h"
 #include "modules/webcl/WebCLImage.h"
 #include "modules/webcl/WebCLInputChecker.h"
 #include "modules/webcl/WebCLKernel.h"
@@ -21,13 +21,13 @@
 #include "modules/webcl/WebCLPlatform.h"
 #include "modules/webcl/WebCLProgram.h"
 #include "modules/webcl/WebCLSampler.h"
+#include "wtf/OwnPtr.h"
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Threading.h"
 
 #include <stdlib.h>
-#include <wtf/OwnPtr.h>
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/RefPtr.h>
-#include <wtf/Threading.h>
 
 namespace blink {
 

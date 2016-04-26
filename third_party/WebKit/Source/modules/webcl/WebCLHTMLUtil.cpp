@@ -3,19 +3,20 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLHTMLUtil.h"
+
 #include "core/html/HTMLCanvasElement.h"
 #include "core/html/HTMLImageElement.h"
 #include "core/html/HTMLVideoElement.h"
 #include "core/html/ImageData.h"
 #include "core/webcl/WebCLException.h"
-#include "platform/graphics/gpu/WebGLImageConversion.h"
-#include "platform/graphics/ImageBuffer.h"
 #include "modules/webcl/WebCL.h"
-#include "modules/webcl/WebCLHTMLUtil.h"
+#include "platform/graphics/gpu/WebGLImageConversion.h"
 
 namespace blink {
 
-bool packImageData(Image* image, WebGLImageConversion::ImageHtmlDomSource domSource, unsigned width, unsigned height, Vector<uint8_t>& data) {
+bool packImageData(Image* image, WebGLImageConversion::ImageHtmlDomSource domSource, unsigned width, unsigned height, Vector<uint8_t>& data)
+{
     WebGLImageConversion::ImageExtractor imageExtractor(image, domSource, false, false);
     if (!imageExtractor.imagePixelData())
         return false;
@@ -34,18 +35,18 @@ bool WebCLHTMLUtil::extractDataFromCanvas(HTMLCanvasElement* canvas, Vector<uint
     // when OpenCL kernel funtion is assigned to run on GPU device.
     // TODO(junmin-zhu): should directly copy or share gpu memory in that case.
     if (!canvas) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     if (!packImageData(canvas->copiedImage(BackBuffer, PreferAcceleration).get(), WebGLImageConversion::HtmlDomCanvas, canvas->width(), canvas->height(), data)) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     canvasSize = data.size();
     if (!data.data() || !canvasSize) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
@@ -55,18 +56,18 @@ bool WebCLHTMLUtil::extractDataFromCanvas(HTMLCanvasElement* canvas, Vector<uint
 bool WebCLHTMLUtil::extractDataFromImage(HTMLImageElement* image, Vector<uint8_t>& data, size_t& imageSize, ExceptionState& es)
 {
     if (!image || !image->cachedImage()) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     if (!packImageData(image->cachedImage()->image(), WebGLImageConversion::HtmlDomImage, image->width(), image->height(), data)) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     imageSize = data.size();
     if (!data.data() || !imageSize) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
@@ -76,14 +77,14 @@ bool WebCLHTMLUtil::extractDataFromImage(HTMLImageElement* image, Vector<uint8_t
 bool WebCLHTMLUtil::extractDataFromImageData(ImageData* srcPixels, void*& hostPtr, size_t& pixelSize, ExceptionState& es)
 {
     if (!srcPixels && !srcPixels->data() && !srcPixels->data()->data()) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     pixelSize = srcPixels->data()->length();
     hostPtr = static_cast<void*>(srcPixels->data()->data());
     if (!hostPtr || !pixelSize) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
@@ -96,24 +97,24 @@ bool WebCLHTMLUtil::extractDataFromVideo(HTMLVideoElement* video, Vector<uint8_t
     // when OpenCL kernel funtion is assigned to run on GPU device.
     // TODO(junmin-zhu): should directly copy or share gpu memory in that case.
     if (!video) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     RefPtr<Image> image = videoFrameToImage(video);
     if (!image) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
 
     if (!packImageData(image.get(), WebGLImageConversion::HtmlDomVideo, video->clientWidth(), video->clientHeight(), data)) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
     videoSize = data.size();
 
     if (!data.data() || !videoSize) {
-        es.throwWebCLException(WebCLException::INVALID_HOST_PTR, WebCLException::invalidHostPTRMessage);
+        es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
     return true;

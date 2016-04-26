@@ -3,6 +3,8 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLCommandQueue.h"
+
 #include "bindings/modules/v8/V8WebCLContext.h"
 #include "bindings/modules/v8/V8WebCLDevice.h"
 #include "core/dom/DOMArrayBuffer.h"
@@ -13,7 +15,6 @@
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLBuffer.h"
-#include "modules/webcl/WebCLCommandQueue.h"
 #include "modules/webcl/WebCLEvent.h"
 #include "modules/webcl/WebCLHTMLUtil.h"
 #include "modules/webcl/WebCLImage.h"
@@ -21,9 +22,9 @@
 #include "modules/webcl/WebCLInputChecker.h"
 #include "modules/webcl/WebCLKernel.h"
 #include "modules/webcl/WebCLOpenCL.h"
+#include "platform/ThreadSafeFunctional.h"
 #include "public/platform/Platform.h"
 #include "public/platform/WebTaskRunner.h"
-#include "platform/ThreadSafeFunctional.h"
 
 namespace blink {
 
@@ -52,13 +53,13 @@ ScriptValue WebCLCommandQueue::getInfo(ScriptState* scriptState, int paramName, 
     v8::Isolate* isolate = scriptState->isolate();
 
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     cl_int err = CL_SUCCESS;
     cl_command_queue_properties queueProperties = 0;
-    switch(paramName) {
+    switch (paramName) {
     case CL_QUEUE_CONTEXT:
         return ScriptValue(scriptState, toV8(context(), creationContext, isolate));
         break;
@@ -71,7 +72,7 @@ ScriptValue WebCLCommandQueue::getInfo(ScriptState* scriptState, int paramName, 
             return ScriptValue(scriptState, v8::Integer::NewFromUnsigned(isolate, static_cast<unsigned>(queueProperties)));
         break;
     default:
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -92,28 +93,28 @@ unsigned WebCLCommandQueue::getProperties()
 void WebCLCommandQueue::finish(WebCLCallback* whenFinished, ExceptionState& es)
 {
     if (isReleased() || m_whenFinishCallback) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (whenFinished) {
         m_whenFinishCallback = whenFinished;
-        finishCommandQueues(ASYNC);
+        finishCommandQueues(Async);
     } else {
-        finishCommandQueues(SYNC);
+        finishCommandQueues(Sync);
     }
 }
 
 void WebCLCommandQueue::finishCommandQueues(SyncMethod method)
 {
-    if (method == ASYNC) {
+    if (method == Async) {
         cl_int err = clEnqueueMarker(m_clCommandQueue, &m_eventForCallback);
         if (err != CL_SUCCESS || !m_eventForCallback)
             return;
         WebCLCommandQueueHolder* holder = new WebCLCommandQueueHolder;
         holder->commandQueue = createWeakPtr();
         clSetEventCallback(m_eventForCallback, CL_COMPLETE, &callbackProxy, holder);
-    } else if (method == SYNC) {
+    } else if (method == Sync) {
         clFinish(m_clCommandQueue);
     }
 }
@@ -121,7 +122,7 @@ void WebCLCommandQueue::finishCommandQueues(SyncMethod method)
 void WebCLCommandQueue::flush(ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -136,7 +137,7 @@ void WebCLCommandQueue::release()
         return;
 
     // Wait for all the command queue to finish first.
-    finishCommandQueues(SYNC);
+    finishCommandQueues(Sync);
 
     cl_int err = clReleaseCommandQueue(m_clCommandQueue);
     if (err != CL_SUCCESS)
@@ -151,7 +152,7 @@ void WebCLCommandQueue::release()
 void WebCLCommandQueue::enqueueBarrier(ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -163,12 +164,12 @@ void WebCLCommandQueue::enqueueBarrier(ExceptionState& es)
 void WebCLCommandQueue::enqueueMarker(WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (event->isUserEvent()) {
-        es.throwWebCLException(WebCLException::INVALID_EVENT, WebCLException::invalidEventMessage);
+        es.throwWebCLException(WebCLException::InvalidEvent, WebCLException::invalidEventMessage);
         return;
     }
 
@@ -184,12 +185,12 @@ void WebCLCommandQueue::enqueueMarker(WebCLEvent* event, ExceptionState& es)
 void WebCLCommandQueue::enqueueWaitForEvents(const Vector<RefPtr<WebCLEvent>>& events, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (!events.size()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -205,7 +206,7 @@ void WebCLCommandQueue::enqueueWaitForEvents(const Vector<RefPtr<WebCLEvent>>& e
 void WebCLCommandQueue::enqueueWriteBufferBase(WebCLBuffer* mem, bool blockingWrite, unsigned offset, unsigned bufferSize, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -213,23 +214,23 @@ void WebCLCommandQueue::enqueueWriteBufferBase(WebCLBuffer* mem, bool blockingWr
     if (mem) {
         clMemId = mem->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!ptr) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), mem->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (ptrLength < bufferSize || mem->sizeInBytes() < (offset + bufferSize)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -250,7 +251,7 @@ void WebCLCommandQueue::enqueueWriteBufferBase(WebCLBuffer* mem, bool blockingWr
 void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* mem, bool blockingWrite, unsigned offset, unsigned bufferSize, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(bufferSize, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
     enqueueWriteBufferBase(mem, blockingWrite, offset, bufferSize, ptr->baseAddress(), ptr->byteLength(), events, event, es);
@@ -259,7 +260,7 @@ void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* mem, bool blockingWrite,
 void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWrite, unsigned offset, ImageData* srcPixels, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -274,7 +275,7 @@ void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWri
 void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWrite, unsigned offset, HTMLCanvasElement* srcCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -290,7 +291,7 @@ void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWri
 void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWrite, unsigned offset, HTMLImageElement* srcImage, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -306,7 +307,7 @@ void WebCLCommandQueue::enqueueWriteBuffer(WebCLBuffer* buffer, bool blockingWri
 void WebCLCommandQueue::enqueueWriteBufferRectBase(WebCLBuffer* mem, bool blockingWrite, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, unsigned hostRowPitch, unsigned hostSlicePitch, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -314,23 +315,23 @@ void WebCLCommandQueue::enqueueWriteBufferRectBase(WebCLBuffer* mem, bool blocki
     if (mem) {
         clMemId = mem->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!ptr) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), mem->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (bufferOrigin.size() != 3 || hostOrigin.size() != 3 || region.size() != 3) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -340,7 +341,7 @@ void WebCLCommandQueue::enqueueWriteBufferRectBase(WebCLBuffer* mem, bool blocki
     regionCopy.appendVector(region);
 
     if (!WebCLInputChecker::isValidRegionForMemoryObject(bufferOriginCopy, regionCopy, bufferRowPitch, bufferSlicePitch, mem->sizeInBytes()) || !WebCLInputChecker::isValidRegionForMemoryObject(hostOriginCopy, regionCopy, hostRowPitch, hostSlicePitch, ptrLength)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -361,7 +362,7 @@ void WebCLCommandQueue::enqueueWriteBufferRectBase(WebCLBuffer* mem, bool blocki
 void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* mem, bool blockingWrite, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, unsigned hostRowPitch, unsigned hostSlicePitch, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostRowPitch, ptr) || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostSlicePitch, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -371,7 +372,7 @@ void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* mem, bool blockingWr
 void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockingWrite, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, ImageData* srcPixels, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -386,7 +387,7 @@ void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockin
 void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockingWrite, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, HTMLCanvasElement* srcCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -402,7 +403,7 @@ void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockin
 void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockingWrite, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, HTMLImageElement* srcImage, const Vector<RefPtr<WebCLEvent>>& eventWaitlist, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -418,12 +419,12 @@ void WebCLCommandQueue::enqueueWriteBufferRect(WebCLBuffer* buffer, bool blockin
 void WebCLCommandQueue::enqueueReadBufferBase(WebCLBuffer* mem, bool blockingRead, unsigned offset, unsigned bufferSize, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), mem->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
@@ -431,13 +432,13 @@ void WebCLCommandQueue::enqueueReadBufferBase(WebCLBuffer* mem, bool blockingRea
     if (mem) {
         clMemId = mem->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (ptrLength < bufferSize || mem->sizeInBytes() < (offset + bufferSize)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -458,7 +459,7 @@ void WebCLCommandQueue::enqueueReadBufferBase(WebCLBuffer* mem, bool blockingRea
 void WebCLCommandQueue::enqueueReadBuffer(WebCLBuffer* mem, bool blockingRead, unsigned offset, unsigned bufferSize, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(bufferSize, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -468,7 +469,7 @@ void WebCLCommandQueue::enqueueReadBuffer(WebCLBuffer* mem, bool blockingRead, u
 void WebCLCommandQueue::enqueueReadBuffer(WebCLBuffer* buffer, bool blockingRead, unsigned offset, unsigned numBytes, HTMLCanvasElement* dstCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -484,12 +485,12 @@ void WebCLCommandQueue::enqueueReadBuffer(WebCLBuffer* buffer, bool blockingRead
 void WebCLCommandQueue::enqueueReadBufferRectBase(WebCLBuffer* mem, bool blockingRead, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, unsigned hostRowPitch, unsigned hostSlicePitch, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), mem->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
@@ -497,18 +498,18 @@ void WebCLCommandQueue::enqueueReadBufferRectBase(WebCLBuffer* mem, bool blockin
     if (mem) {
         clMemId = mem->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!ptr) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return;
     }
 
     if (bufferOrigin.size() != 3 || hostOrigin.size() != 3 || region.size() != 3) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -518,7 +519,7 @@ void WebCLCommandQueue::enqueueReadBufferRectBase(WebCLBuffer* mem, bool blockin
     regionCopy.appendVector(region);
 
     if (!WebCLInputChecker::isValidRegionForMemoryObject(hostOriginCopy, regionCopy, hostRowPitch, hostSlicePitch, ptrLength) || !WebCLInputChecker::isValidRegionForMemoryObject(bufferOriginCopy, regionCopy, bufferRowPitch, bufferSlicePitch, mem->sizeInBytes())) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -539,7 +540,7 @@ void WebCLCommandQueue::enqueueReadBufferRectBase(WebCLBuffer* mem, bool blockin
 void WebCLCommandQueue::enqueueReadBufferRect(WebCLBuffer* mem, bool blockingRead, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, unsigned hostRowPitch, unsigned hostSlicePitch, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostRowPitch, ptr) || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostSlicePitch, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -549,7 +550,7 @@ void WebCLCommandQueue::enqueueReadBufferRect(WebCLBuffer* mem, bool blockingRea
 void WebCLCommandQueue::enqueueReadBufferRect(WebCLBuffer* buffer, bool blockingRead, const Vector<unsigned>& bufferOrigin, const Vector<unsigned>& hostOrigin, const Vector<unsigned>& region, unsigned bufferRowPitch, unsigned bufferSlicePitch, HTMLCanvasElement* dstCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -565,12 +566,12 @@ void WebCLCommandQueue::enqueueReadBufferRect(WebCLBuffer* buffer, bool blocking
 void WebCLCommandQueue::enqueueReadImageBase(WebCLImage* image, bool blockingRead, const Vector<unsigned>& origin, const Vector<unsigned>& region, unsigned hostRowPitch, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), image->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
@@ -578,18 +579,18 @@ void WebCLCommandQueue::enqueueReadImageBase(WebCLImage* image, bool blockingRea
     if (image) {
         clMemId = image->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (origin.size() != 2 || region.size() != 2) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (!WebCLInputChecker::isValidRegionForImage(image->imageDescriptor(), origin, region) || !WebCLInputChecker::isValidRegionForHostPtr(region, hostRowPitch, image->imageDescriptor(), ptrLength)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -617,7 +618,7 @@ void WebCLCommandQueue::enqueueReadImageBase(WebCLImage* image, bool blockingRea
 void WebCLCommandQueue::enqueueReadImage(WebCLImage* image, bool blockingRead, const Vector<unsigned>& origin, const Vector<unsigned>& region, unsigned hostRowPitch, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostRowPitch, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -627,7 +628,7 @@ void WebCLCommandQueue::enqueueReadImage(WebCLImage* image, bool blockingRead, c
 void WebCLCommandQueue::enqueueReadImage(WebCLImage* image, bool blockingRead, const Vector<unsigned>& origin, const Vector<unsigned>& region, HTMLCanvasElement* dstCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -643,7 +644,7 @@ void WebCLCommandQueue::enqueueReadImage(WebCLImage* image, bool blockingRead, c
 void WebCLCommandQueue::enqueueNDRangeKernel(WebCLKernel* kernel, unsigned dim, const Vector<double>& offsets, const Vector<double>& globalWorkSize, const Vector<double>& localWorkSize, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -651,45 +652,45 @@ void WebCLCommandQueue::enqueueNDRangeKernel(WebCLKernel* kernel, unsigned dim, 
     if (kernel) {
         clKernelId = kernel->getKernel();
         if (!clKernelId) {
-            es.throwWebCLException(WebCLException::INVALID_KERNEL, WebCLException::invalidKernelMessage);
+            es.throwWebCLException(WebCLException::InvalidKernel, WebCLException::invalidKernelMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), kernel->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (dim > 3) {
-        es.throwWebCLException(WebCLException::INVALID_WORK_DIMENSION, WebCLException::invalidWorkDimensionMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkDimension, WebCLException::invalidWorkDimensionMessage);
         return;
     }
 
     if (dim != globalWorkSize.size()) {
-        es.throwWebCLException(WebCLException::INVALID_GLOBAL_WORK_SIZE, WebCLException::invalidGlobalWorkSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidGlobalWorkSize, WebCLException::invalidGlobalWorkSizeMessage);
         return;
     }
 
     if (offsets.size() && dim != offsets.size()) {
-        es.throwWebCLException(WebCLException::INVALID_GLOBAL_OFFSET, WebCLException::invalidGlobalOffsetMessage);
+        es.throwWebCLException(WebCLException::InvalidGlobalOffset, WebCLException::invalidGlobalOffsetMessage);
         return;
     }
     if (localWorkSize.size() && dim != localWorkSize.size()) {
-        es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
         return;
     }
 
     const Vector<unsigned>& required = kernel->requiredArguments();
     if (!localWorkSize.size() && required.size()) {
-        es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
         return;
     }
 
     if (localWorkSize.size() && required.size()) {
         for (unsigned i = 0; i < localWorkSize.size(); i ++) {
             if (localWorkSize[i] != required[i]) {
-                es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+                es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
                 return;
             }
         }
@@ -698,15 +699,15 @@ void WebCLCommandQueue::enqueueNDRangeKernel(WebCLKernel* kernel, unsigned dim, 
     const unsigned long long maxWorkSizeValue = (1ULL << 32) - 1;
     for (unsigned i = 0; i < globalWorkSize.size(); i ++) {
         if (globalWorkSize[i] > maxWorkSizeValue) {
-            es.throwWebCLException(WebCLException::INVALID_GLOBAL_WORK_SIZE, WebCLException::invalidGlobalWorkSizeMessage);
+            es.throwWebCLException(WebCLException::InvalidGlobalWorkSize, WebCLException::invalidGlobalWorkSizeMessage);
             return;
         }
         if (offsets.size() && globalWorkSize[i] + offsets[i] > maxWorkSizeValue) {
-            es.throwWebCLException(WebCLException::INVALID_GLOBAL_OFFSET, WebCLException::invalidGlobalOffsetMessage);
+            es.throwWebCLException(WebCLException::InvalidGlobalOffset, WebCLException::invalidGlobalOffsetMessage);
             return;
         }
         if (localWorkSize.size() && ((unsigned)localWorkSize[i] && (unsigned)globalWorkSize[i] % (unsigned)localWorkSize[i] != 0)) {
-            es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+            es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
             return;
         }
     }
@@ -716,19 +717,19 @@ void WebCLCommandQueue::enqueueNDRangeKernel(WebCLKernel* kernel, unsigned dim, 
     unsigned total = 1;
     for (unsigned i = 0; maxWorkItemSizes.size() == localWorkSize.size() && i < localWorkSize.size(); i ++) {
         if (localWorkSize[i] > maxWorkItemSizes[i]) {
-            es.throwWebCLException(WebCLException::INVALID_WORK_ITEM_SIZE, WebCLException::invalidWorkItemSizeMessage);
+            es.throwWebCLException(WebCLException::InvalidWorkItemSize, WebCLException::invalidWorkItemSizeMessage);
             return;
         }
         total = total * localWorkSize[i];
     }
 
     if (maxWorkGroupSize && total > maxWorkGroupSize) {
-        es.throwWebCLException(WebCLException::INVALID_WORK_GROUP_SIZE, WebCLException::invalidWorkGroupSizeMessage);
+        es.throwWebCLException(WebCLException::InvalidWorkGroupSize, WebCLException::invalidWorkGroupSizeMessage);
         return;
     }
 
     if (kernel->numberOfArguments() != kernel->associatedArguments()) {
-        es.throwWebCLException(WebCLException::INVALID_KERNEL_ARGS, WebCLException::invalidKernelArgsMessage);
+        es.throwWebCLException(WebCLException::InvalidKernelArgs, WebCLException::invalidKernelArgsMessage);
         return;
     }
 
@@ -754,7 +755,7 @@ void WebCLCommandQueue::enqueueNDRangeKernel(WebCLKernel* kernel, unsigned dim, 
 void WebCLCommandQueue::enqueueWriteImageBase(WebCLImage* image, bool blockingWrite, const Vector<unsigned>& origin, const Vector<unsigned>& region, unsigned hostRowPitch, void* ptr, size_t ptrLength, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -762,28 +763,28 @@ void WebCLCommandQueue::enqueueWriteImageBase(WebCLImage* image, bool blockingWr
     if (image) {
         clMemId = image->getMem();
         if (!clMemId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), image->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (!ptr) {
-        es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+        es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
         return;
     }
 
     if (origin.size() != 2 || region.size() != 2) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (!WebCLInputChecker::isValidRegionForImage(image->imageDescriptor(), origin, region) || !WebCLInputChecker::isValidRegionForHostPtr(region, hostRowPitch, image->imageDescriptor(), ptrLength)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -811,7 +812,7 @@ void WebCLCommandQueue::enqueueWriteImageBase(WebCLImage* image, bool blockingWr
 void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite, const Vector<unsigned>& origin, const Vector<unsigned>& region, unsigned hostRowPitch, DOMArrayBufferView* ptr, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!ptr || !WebCLInputChecker::isValidDataSizeForDOMArrayBufferView(hostRowPitch, ptr)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -821,7 +822,7 @@ void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite,
 void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite, const Vector<unsigned>& origin, const Vector<unsigned>& region, ImageData* srcPixels, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -836,7 +837,7 @@ void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite,
 void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite, const Vector<unsigned>& origin, const Vector<unsigned>& region, HTMLCanvasElement* srcCanvas, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -852,7 +853,7 @@ void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite,
 void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite, const Vector<unsigned>& origin, const Vector<unsigned>& region, HTMLImageElement* srcImage, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_image")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -868,7 +869,7 @@ void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite,
 void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite, HTMLVideoElement* srcVideo, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (!isExtensionEnabled(context().get(), "WEBCL_html_video")) {
-        es.throwWebCLException(WebCLException::EXTENSION_NOT_ENABLED, WebCLException::extensionNotEnabledMessage);
+        es.throwWebCLException(WebCLException::ExtensionNotEnabled, WebCLException::extensionNotEnabledMessage);
         return;
     }
 
@@ -894,7 +895,7 @@ void WebCLCommandQueue::enqueueWriteImage(WebCLImage* image, bool blockingWrite,
 void WebCLCommandQueue::enqueueCopyBuffer(WebCLBuffer* srcBuffer, WebCLBuffer* dstBuffer, unsigned srcOffset, unsigned dstOffset, unsigned cb, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -902,7 +903,7 @@ void WebCLCommandQueue::enqueueCopyBuffer(WebCLBuffer* srcBuffer, WebCLBuffer* d
     if (srcBuffer) {
         clSrcBufferId = srcBuffer->getMem();
         if (!clSrcBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
@@ -911,24 +912,24 @@ void WebCLCommandQueue::enqueueCopyBuffer(WebCLBuffer* srcBuffer, WebCLBuffer* d
     if (dstBuffer) {
         clDstBufferId = dstBuffer->getMem();
         if (!clDstBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), srcBuffer->context().get()) || !WebCLInputChecker::compareContext(context().get(), dstBuffer->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (WebCLInputChecker::isRegionOverlapping(srcBuffer, dstBuffer, srcOffset, dstOffset, cb)) {
-        es.throwWebCLException(WebCLException::MEM_COPY_OVERLAP, WebCLException::memCopyOverlapMessage);
+        es.throwWebCLException(WebCLException::MemCopyOverlap, WebCLException::memCopyOverlapMessage);
         return;
     }
 
     if ((srcOffset + cb) > srcBuffer->sizeInBytes()
         || (dstOffset + cb) > dstBuffer->sizeInBytes()) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -949,7 +950,7 @@ void WebCLCommandQueue::enqueueCopyBuffer(WebCLBuffer* srcBuffer, WebCLBuffer* d
 void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffer* dstBuffer, const Vector<unsigned>& srcOrigin, const Vector<unsigned>& dstOrigin, const Vector<unsigned>& region, unsigned srcRowPitch, unsigned srcSlicePitch, unsigned dstRowPitch, unsigned dstSlicePitch, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -957,7 +958,7 @@ void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffe
     if (srcBuffer) {
         clSrcBufferId = srcBuffer->getMem();
         if (!clSrcBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
@@ -966,18 +967,18 @@ void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffe
     if (dstBuffer) {
         clDstBufferId = dstBuffer->getMem();
         if (!clDstBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), srcBuffer->context().get()) || !WebCLInputChecker::compareContext(context().get(), dstBuffer->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (srcOrigin.size() != 3 || dstOrigin.size() != 3 || region.size() != 3) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -985,7 +986,7 @@ void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffe
     size_t dstOffset = dstOrigin[2] * dstSlicePitch + dstOrigin[1] * dstRowPitch + dstOrigin[0];
     size_t numBytes = region[2] * region[1] * region[0];
     if (WebCLInputChecker::isRegionOverlapping(srcBuffer, dstBuffer, srcOffset, dstOffset, numBytes)) {
-        es.throwWebCLException(WebCLException::MEM_COPY_OVERLAP, WebCLException::memCopyOverlapMessage);
+        es.throwWebCLException(WebCLException::MemCopyOverlap, WebCLException::memCopyOverlapMessage);
         return;
     }
 
@@ -995,7 +996,7 @@ void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffe
     regionCopy.appendVector(region);
 
     if (!WebCLInputChecker::isValidRegionForMemoryObject(srcOriginCopy, regionCopy, srcRowPitch, srcSlicePitch, srcBuffer->sizeInBytes()) || !WebCLInputChecker::isValidRegionForMemoryObject(dstOriginCopy, regionCopy, dstRowPitch, dstSlicePitch, dstBuffer->sizeInBytes())) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -1016,7 +1017,7 @@ void WebCLCommandQueue::enqueueCopyBufferRect(WebCLBuffer* srcBuffer, WebCLBuffe
 void WebCLCommandQueue::enqueueCopyImage(WebCLImage* srcImage, WebCLImage* dstImage, const Vector<unsigned>& srcOrigin, const Vector<unsigned>& dstOrigin, const Vector<unsigned>& region, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -1024,7 +1025,7 @@ void WebCLCommandQueue::enqueueCopyImage(WebCLImage* srcImage, WebCLImage* dstIm
     if (srcImage) {
         clSrcImageId = srcImage->getMem();
         if (!clSrcImageId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
@@ -1033,28 +1034,28 @@ void WebCLCommandQueue::enqueueCopyImage(WebCLImage* srcImage, WebCLImage* dstIm
     if (dstImage) {
         clDstImageId = dstImage->getMem();
         if (!clDstImageId) {
-            es.throwWebCLException(WebCLException::INVALID_IMAGE_SIZE, WebCLException::invalidImageSizeMessage);
+            es.throwWebCLException(WebCLException::InvalidImageSize, WebCLException::invalidImageSizeMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), srcImage->context().get()) || !WebCLInputChecker::compareContext(context().get(), dstImage->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (!WebCLInputChecker::compareImageFormat(srcImage->imageDescriptor(), dstImage->imageDescriptor())) {
-        es.throwWebCLException(WebCLException::IMAGE_FORMAT_MISMATCH, WebCLException::imageFormatMismatchMessage);
+        es.throwWebCLException(WebCLException::ImageFormatMismatch, WebCLException::imageFormatMismatchMessage);
         return;
     }
 
     if (srcOrigin.size() != 2 || dstOrigin.size() != 2 || region.size() != 2) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (!WebCLInputChecker::isValidRegionForImage(srcImage->imageDescriptor(), srcOrigin, region) || !WebCLInputChecker::isValidRegionForImage(dstImage->imageDescriptor(), dstOrigin, region)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -1085,7 +1086,7 @@ void WebCLCommandQueue::enqueueCopyImage(WebCLImage* srcImage, WebCLImage* dstIm
 void WebCLCommandQueue::enqueueCopyImageToBuffer(WebCLImage* srcImage, WebCLBuffer* dstBuffer, const Vector<unsigned>& srcOrigin, const Vector<unsigned>& region, unsigned offset, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -1093,7 +1094,7 @@ void WebCLCommandQueue::enqueueCopyImageToBuffer(WebCLImage* srcImage, WebCLBuff
     if (srcImage) {
         clSrcImageId = srcImage->getMem();
         if (!clSrcImageId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
@@ -1102,23 +1103,23 @@ void WebCLCommandQueue::enqueueCopyImageToBuffer(WebCLImage* srcImage, WebCLBuff
     if (dstBuffer) {
         clDstBufferId = dstBuffer->getMem();
         if (!clDstBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), srcImage->context().get()) || !WebCLInputChecker::compareContext(context().get(), dstBuffer->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (srcOrigin.size() != 2 || region.size() != 2) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (!WebCLInputChecker::isValidRegionForBuffer(dstBuffer->sizeInBytes(), region, offset, srcImage->imageDescriptor()) || !WebCLInputChecker::isValidRegionForImage(srcImage->imageDescriptor(), srcOrigin, region)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -1145,7 +1146,7 @@ void WebCLCommandQueue::enqueueCopyImageToBuffer(WebCLImage* srcImage, WebCLBuff
 void WebCLCommandQueue::enqueueCopyBufferToImage(WebCLBuffer* srcBuffer, WebCLImage* dstImage, unsigned offset, const Vector<unsigned>& dstOrigin, const Vector<unsigned>& region, const Vector<RefPtr<WebCLEvent>>& events, WebCLEvent* event, ExceptionState& es)
 {
     if (isReleased()) {
-        es.throwWebCLException(WebCLException::INVALID_COMMAND_QUEUE, WebCLException::invalidCommandQueueMessage);
+        es.throwWebCLException(WebCLException::InvalidCommandQueue, WebCLException::invalidCommandQueueMessage);
         return;
     }
 
@@ -1153,7 +1154,7 @@ void WebCLCommandQueue::enqueueCopyBufferToImage(WebCLBuffer* srcBuffer, WebCLIm
     if (srcBuffer) {
         clSrcBufferId = srcBuffer->getMem();
         if (!clSrcBufferId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
@@ -1162,23 +1163,23 @@ void WebCLCommandQueue::enqueueCopyBufferToImage(WebCLBuffer* srcBuffer, WebCLIm
     if (dstImage) {
         clDstImageId = dstImage->getMem();
         if (!clDstImageId) {
-            es.throwWebCLException(WebCLException::INVALID_MEM_OBJECT, WebCLException::invalidMemObjectMessage);
+            es.throwWebCLException(WebCLException::InvalidMemObject, WebCLException::invalidMemObjectMessage);
             return;
         }
     }
 
     if (!WebCLInputChecker::compareContext(context().get(), srcBuffer->context().get()) || !WebCLInputChecker::compareContext(context().get(), dstImage->context().get())) {
-        es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+        es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
         return;
     }
 
     if (dstOrigin.size() != 2 || region.size() != 2) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
     if (!WebCLInputChecker::isValidRegionForBuffer(srcBuffer->sizeInBytes(), region, offset, dstImage->imageDescriptor()) || !WebCLInputChecker::isValidRegionForImage(dstImage->imageDescriptor(), dstOrigin, region)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return;
     }
 
@@ -1217,19 +1218,19 @@ Vector<cl_event> WebCLCommandQueue::WebCLEventVectorToCLEventVector(bool blockin
     Vector<cl_event> clEvents;
     for (auto event : events) {
         if (event->isReleased()) {
-            es.throwWebCLException(WebCLException::INVALID_EVENT_WAIT_LIST, WebCLException::invalidEventWaitListMessage);
+            es.throwWebCLException(WebCLException::InvalidEventWaitList, WebCLException::invalidEventWaitListMessage);
             break;
         }
         if (!WebCLInputChecker::compareContext(context().get(), event->context().get())) {
-            es.throwWebCLException(WebCLException::INVALID_CONTEXT, WebCLException::invalidContextMessage);
+            es.throwWebCLException(WebCLException::InvalidContext, WebCLException::invalidContextMessage);
             break;
         }
         if (blocking && events[0]->getStatus() == CL_INVALID_VALUE) {
-            es.throwWebCLException(WebCLException::EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST, WebCLException::execStatusErrorForEventsInWaitListMessage);
+            es.throwWebCLException(WebCLException::ExecStatusErrorForEventsInWaitList, WebCLException::execStatusErrorForEventsInWaitListMessage);
             break;
         }
         if (blocking && (event->isUserEvent() || !event->setAssociatedCommandQueue(this))) {
-            es.throwWebCLException(WebCLException::INVALID_EVENT_WAIT_LIST, WebCLException::invalidEventWaitListMessage);
+            es.throwWebCLException(WebCLException::InvalidEventWaitList, WebCLException::invalidEventWaitListMessage);
             break;
         }
 
@@ -1244,7 +1245,7 @@ cl_event* WebCLCommandQueue::WebCLEventPtrToCLEventPtr(WebCLEvent* event, Except
     if (event) {
         clEventId = event->getEventPtr();
         if (!clEventId || !event->setAssociatedCommandQueue(this)) {
-            es.throwWebCLException(WebCLException::INVALID_EVENT, WebCLException::invalidEventMessage);
+            es.throwWebCLException(WebCLException::InvalidEvent, WebCLException::invalidEventMessage);
             return nullptr;
         }
     }

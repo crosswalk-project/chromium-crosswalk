@@ -3,9 +3,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLKernelArgInfoProvider.h"
+
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLKernel.h"
-#include "modules/webcl/WebCLKernelArgInfoProvider.h"
 #include "modules/webcl/WebCLProgram.h"
 
 namespace blink {
@@ -147,8 +148,8 @@ void WebCLKernelArgInfoProvider::parseAndAppendDeclaration(const String& argumen
     const String& addressQualifier = extractAddressQualifier(declarationStrVector);
     String type = extractType(declarationStrVector);
 
-    static AtomicString& image2d_t = *new AtomicString("image2d_t", AtomicString::ConstructFromLiteral);
-    const String& accessQualifier = (type == image2d_t) ? extractAccessQualifier(declarationStrVector) : "none";
+    static AtomicString& image2d = *new AtomicString("image2d_t", AtomicString::ConstructFromLiteral);
+    const String& accessQualifier = (type == image2d) ? extractAccessQualifier(declarationStrVector) : "none";
     prependUnsignedIfNeeded(declarationStrVector, type);
 
     m_argumentInfoVector.append(WebCLKernelArgInfo::create(addressQualifier, accessQualifier, type, name, isPointerType));
@@ -156,32 +157,38 @@ void WebCLKernelArgInfoProvider::parseAndAppendDeclaration(const String& argumen
 
 String WebCLKernelArgInfoProvider::extractAddressQualifier(Vector<String>& declarationStrVector)
 {
-    static AtomicString* __Private = new AtomicString("__private", AtomicString::ConstructFromLiteral);
-    static AtomicString* Private = new AtomicString("private", AtomicString::ConstructFromLiteral);
+    static AtomicString* privateUnderlined = new AtomicString("__private", AtomicString::ConstructFromLiteral);
+    static AtomicString* private = new AtomicString("private", AtomicString::ConstructFromLiteral);
 
-    static AtomicString* __Global = new AtomicString("__global", AtomicString::ConstructFromLiteral);
-    static AtomicString* Global = new AtomicString("global", AtomicString::ConstructFromLiteral);
+    static AtomicString* globalUnderlined = new AtomicString("__global", AtomicString::ConstructFromLiteral);
+    static AtomicString* global = new AtomicString("global", AtomicString::ConstructFromLiteral);
 
-    static AtomicString* __Constant = new AtomicString("__constant", AtomicString::ConstructFromLiteral);
-    static AtomicString* Constant = new AtomicString("constant", AtomicString::ConstructFromLiteral);
+    static AtomicString* constantUnderlined = new AtomicString("__constant", AtomicString::ConstructFromLiteral);
+    static AtomicString* constant = new AtomicString("constant", AtomicString::ConstructFromLiteral);
 
-    static AtomicString* __Local = new AtomicString("__local", AtomicString::ConstructFromLiteral);
-    static AtomicString* Local = new AtomicString("local", AtomicString::ConstructFromLiteral);
+    static AtomicString* localUnderlined = new AtomicString("__local", AtomicString::ConstructFromLiteral);
+    static AtomicString* local = new AtomicString("local", AtomicString::ConstructFromLiteral);
 
     String address = *Private;
     size_t i = 0;
     for (; i < declarationStrVector.size(); i++) {
         const String& candidate = declarationStrVector[i];
-        if (candidate == *__Private || candidate == *Private) {
+        if (candidate == *privateUnderlined || candidate == *private) {
             break;
-        } else if (candidate == *__Global || candidate == *Global) {
-            address = *Global;
+        }
+
+        if (candidate == *globalUnderlined || candidate == *global) {
+            address = *global;
             break;
-        } else if (candidate == *__Constant || candidate == *Constant) {
-            address = *Constant;
+        }
+
+        if (candidate == *constantUnderlined || candidate == *constant) {
+            address = *constant;
             break;
-        } else if (candidate == *__Local || candidate == *Local) {
-            address = *Local;
+        }
+
+        if (candidate == *localUnderlined || candidate == *local) {
+            address = *local;
             break;
         }
     }
@@ -194,26 +201,30 @@ String WebCLKernelArgInfoProvider::extractAddressQualifier(Vector<String>& decla
 
 String WebCLKernelArgInfoProvider::extractAccessQualifier(Vector<String>& declarationStrVector)
 {
-    static AtomicString* __read_only = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
-    static AtomicString* read_only = new AtomicString("read_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* readOnlyUnderlined = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* readOnly = new AtomicString("read_only", AtomicString::ConstructFromLiteral);
 
-    static AtomicString* __write_only = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
-    static AtomicString* write_only = new AtomicString("write_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* writeOnlyUnderlined = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* writeOnly = new AtomicString("write_only", AtomicString::ConstructFromLiteral);
 
-    static AtomicString* __read_write = new AtomicString("__read_write", AtomicString::ConstructFromLiteral);
-    static AtomicString* read_write = new AtomicString("read_write", AtomicString::ConstructFromLiteral);
+    static AtomicString* readWriteUnderlined = new AtomicString("__read_write", AtomicString::ConstructFromLiteral);
+    static AtomicString* readWrite = new AtomicString("read_write", AtomicString::ConstructFromLiteral);
 
-    String access = *read_only;
+    String access = *readOnly;
     size_t i = 0;
     for (; i < declarationStrVector.size(); i++) {
         const String& candidate = declarationStrVector[i];
-        if (candidate == *__read_only  || candidate == *read_only) {
+        if (candidate == *readOnlyUnderlined || candidate == *readOnly) {
             break;
-        } else if (candidate == *__write_only || candidate == *write_only) {
-            access = *write_only;
+        }
+
+        if (candidate == *writeOnlyUnderlined || candidate == *writeOnly) {
+            access = *writeOnly;
             break;
-        } else if (candidate == *__read_write || candidate == *read_write) {
-            access = *read_write;
+        }
+
+        if (candidate == *readWriteUnderlined || candidate == *readWrite) {
+            access = *readWrite;
             break;
         }
     }

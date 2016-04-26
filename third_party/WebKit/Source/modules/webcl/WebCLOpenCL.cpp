@@ -2,16 +2,16 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "wtf/build_config.h"
-
 #include "modules/webcl/WebCLOpenCL.h"
+
+#include "wtf/CPU.h"
+#include "wtf/build_config.h"
+#include <stdio.h>
+#include <string.h>
 
 #if OS(ANDROID)
 #include <dlfcn.h>
 #endif
-#include <string.h>
-#include <stdio.h>
-#include <wtf/CPU.h>
 
 // Track different opencl libs.
 #if OS(ANDROID)
@@ -204,7 +204,7 @@ cl_int (CL_API_CALL *web_clGetGLTextureInfo)(cl_mem, cl_gl_texture_info, size_t,
 
 #if OS(ANDROID)
 #define MAP_FUNC(fn)  { *(void**)(&fn) = dlsym(handle, #fn); }
-#define MAP_FUNC_OR_BAIL(fn)  { *(void**)(&fn) = dlsym(handle, #fn); if(!fn) return false; }
+#define MAP_FUNC_OR_BAIL(fn)  { *(void**)(&fn) = dlsym(handle, #fn); if (!fn) return false; }
 #else
 #define MAP_FUNC(fn) ASSERT_NOT_REACHED();
 #define MAP_FUNC_OR_BAIL(fn) ASSERT_NOT_REACHED();
@@ -215,8 +215,8 @@ cl_int (CL_API_CALL *web_clGetGLTextureInfo)(cl_mem, cl_gl_texture_info, size_t,
 // by this spec.
 #define MAP_FUNC_TO_WRAPPER(fn, major, minor) { *(void**)(&fn) = (void*)fn##Impl##major##minor; }
 
-static const char* DEFAULT_SO[] = LIBS;
-static const int DEFAULT_SO_LEN = SO_LEN;
+static const char* defaultLibs[] = LIBS;
+static const int defaultLibsAmount = SO_LEN;
 
 #if OS(ANDROID)
 static void* handle = nullptr;
@@ -283,8 +283,8 @@ static cl_mem CL_API_CALL clCreateFromGLTexture2DImpl12(cl_context context, cl_m
 
 bool init(const char** libs, int length)
 {
-    const char** mLibs = (libs == 0 ? DEFAULT_SO : libs);
-    int mLength = (libs == 0 ? DEFAULT_SO_LEN: length);
+    const char** mLibs = (libs == 0 ? defaultLibs : libs);
+    int mLength = (libs == 0 ? defaultLibsAmount : length);
 
     if (!getCLHandle(mLibs, mLength))
         return false;
@@ -361,43 +361,50 @@ bool init(const char** libs, int length)
     // The following APIs are not available in all versions of the OpenCL
     // spec, so wrappers may be needed if they are not exported by the OpenCL
     // runtime library.
-    MAP_FUNC(clReleaseDevice)
-    if (!clReleaseDevice)
-        MAP_FUNC_TO_WRAPPER(clReleaseDevice, 1, 1)
+    MAP_FUNC(clReleaseDevice);
+    if (!clReleaseDevice) {
+        MAP_FUNC_TO_WRAPPER(clReleaseDevice, 1, 1);
+    }
 
-    MAP_FUNC(clCreateImage)
-    if (clCreateImage)
-        MAP_FUNC_TO_WRAPPER(clCreateImage2D, 1, 2)
-    else
-        MAP_FUNC_OR_BAIL(clCreateImage2D)
+    MAP_FUNC(clCreateImage);
+    if (clCreateImage) {
+        MAP_FUNC_TO_WRAPPER(clCreateImage2D, 1, 2);
+    } else {
+        MAP_FUNC_OR_BAIL(clCreateImage2D);
+    }
 
-    MAP_FUNC(clUnloadPlatformCompiler)
-    if (clUnloadPlatformCompiler)
-        MAP_FUNC_TO_WRAPPER(clUnloadCompiler, 1, 2)
-    else
-        MAP_FUNC_OR_BAIL(clUnloadCompiler)
+    MAP_FUNC(clUnloadPlatformCompiler);
+    if (clUnloadPlatformCompiler) {
+        MAP_FUNC_TO_WRAPPER(clUnloadCompiler, 1, 2);
+    } else {
+        MAP_FUNC_OR_BAIL(clUnloadCompiler);
+    }
 
-    MAP_FUNC(clEnqueueMarkerWithWaitList)
-    if (clEnqueueMarkerWithWaitList)
-        MAP_FUNC_TO_WRAPPER(clEnqueueMarker, 1, 2)
-    else
-        MAP_FUNC_OR_BAIL(clEnqueueMarker)
+    MAP_FUNC(clEnqueueMarkerWithWaitList);
+    if (clEnqueueMarkerWithWaitList) {
+        MAP_FUNC_TO_WRAPPER(clEnqueueMarker, 1, 2);
+    } else {
+        MAP_FUNC_OR_BAIL(clEnqueueMarker);
+    }
 
-    MAP_FUNC(clEnqueueBarrierWithWaitList)
-    if (clEnqueueBarrierWithWaitList)
-        MAP_FUNC_TO_WRAPPER(clEnqueueBarrier, 1, 2)
-    else
-        MAP_FUNC_OR_BAIL(clEnqueueBarrier)
+    MAP_FUNC(clEnqueueBarrierWithWaitList);
+    if (clEnqueueBarrierWithWaitList) {
+        MAP_FUNC_TO_WRAPPER(clEnqueueBarrier, 1, 2);
+    } else {
+        MAP_FUNC_OR_BAIL(clEnqueueBarrier);
+    }
 
-    MAP_FUNC(clEnqueueWaitForEvents)
-    if (!clEnqueueWaitForEvents)
-        MAP_FUNC_TO_WRAPPER(clEnqueueWaitForEvents, 1, 2)
+    MAP_FUNC(clEnqueueWaitForEvents);
+    if (!clEnqueueWaitForEvents) {
+        MAP_FUNC_TO_WRAPPER(clEnqueueWaitForEvents, 1, 2);
+    }
 
-    MAP_FUNC(clCreateFromGLTexture)
-    if (clCreateFromGLTexture)
-        MAP_FUNC_TO_WRAPPER(clCreateFromGLTexture2D, 1, 2)
-    else
-        MAP_FUNC(clCreateFromGLTexture2D)
+    MAP_FUNC(clCreateFromGLTexture);
+    if (clCreateFromGLTexture) {
+        MAP_FUNC_TO_WRAPPER(clCreateFromGLTexture2D, 1, 2);
+    } else {
+        MAP_FUNC(clCreateFromGLTexture2D);
+    }
 
     return true;
 }

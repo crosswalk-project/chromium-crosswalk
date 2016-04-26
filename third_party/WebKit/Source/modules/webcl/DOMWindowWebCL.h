@@ -6,6 +6,7 @@
 #define DOMWindowWebCL_h
 
 #include "core/frame/DOMWindowProperty.h"
+#include "core/frame/LocalDOMWindow.h"
 #include "platform/Supplementable.h"
 
 namespace blink {

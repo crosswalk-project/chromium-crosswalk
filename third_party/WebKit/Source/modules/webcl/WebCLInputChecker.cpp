@@ -3,11 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLInputChecker.h"
+
 #include "modules/webcl/WebCLBuffer.h"
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLImage.h"
 #include "modules/webcl/WebCLImageDescriptor.h"
-#include "modules/webcl/WebCLInputChecker.h"
 #include "modules/webcl/WebCLKernel.h"
 
 namespace blink {
@@ -109,7 +110,7 @@ bool isValidMemoryObjectFlag(unsigned memoryObjectFlag)
 
 bool isValidAddressingMode(unsigned value)
 {
-    switch(value) {
+    switch (value) {
     case CL_ADDRESS_CLAMP_TO_EDGE:
     case CL_ADDRESS_CLAMP:
     case CL_ADDRESS_REPEAT:
@@ -122,7 +123,7 @@ bool isValidAddressingMode(unsigned value)
 
 bool isValidFilterMode(unsigned value)
 {
-    switch(value) {
+    switch (value) {
     case CL_FILTER_NEAREST:
     case CL_FILTER_LINEAR:
         return true;

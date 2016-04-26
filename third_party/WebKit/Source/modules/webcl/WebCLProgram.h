@@ -6,13 +6,12 @@
 #ifndef WebCLProgram_h
 #define WebCLProgram_h
 
-#include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLCallback.h"
+#include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLObject.h"
-
-#include <wtf/PassRefPtr.h>
-#include <wtf/RefCounted.h>
-#include <wtf/Threading.h>
+#include "wtf/PassRefPtr.h"
+#include "wtf/RefCounted.h"
+#include "wtf/Threading.h"
 
 namespace blink {
 
@@ -30,7 +29,7 @@ public:
     static PassRefPtr<WebCLProgram> create(cl_program, PassRefPtr<WebCLContext>, const String&);
 
     ScriptValue getInfo(ScriptState*, int, ExceptionState&);
-    ScriptValue getBuildInfo(ScriptState* scriptState, WebCLDevice*, int, ExceptionState&);
+    ScriptValue getBuildInfo(ScriptState*, WebCLDevice*, int, ExceptionState&);
     PassRefPtr<WebCLKernel> createKernel(const String&, ExceptionState&);
     Vector<RefPtr<WebCLKernel>> createKernelsInProgram(ExceptionState&);
     void build(const Vector<RefPtr<WebCLDevice>>&, const String&, WebCLCallback*, ExceptionState&);
@@ -43,7 +42,7 @@ public:
 private:
     WebCLProgram(cl_program, PassRefPtr<WebCLContext>, const String&);
     bool isReleased() const { return !m_clProgram; }
-    bool isExtensionEnabled(RefPtr<blink::WebCLContext>, const String&);
+    bool isExtensionEnabled(PassRefPtr<blink::WebCLContext>, const String&);
     typedef void (CL_CALLBACK *pfnNotify)(cl_program, void*);
     static void CL_CALLBACK callbackProxy(cl_program, void*);
     static void callbackProxyOnMainThread(PassOwnPtr<WebCLProgramHolder>);

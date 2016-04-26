@@ -3,11 +3,12 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
+#include "modules/webcl/WebCLDevice.h"
+
 #include "bindings/modules/v8/V8WebCLPlatform.h"
 #include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLContext.h"
-#include "modules/webcl/WebCLDevice.h"
 #include "modules/webcl/WebCLOpenCL.h"
 
 namespace blink {
@@ -74,13 +75,13 @@ Vector<unsigned> WebCLDevice::getMaxWorkItem()
     size_t sizetArray[3] = {0};
     cl_int err = clGetDeviceInfo(m_clDeviceId, CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS, sizeof(size_t), &sizetUnits, nullptr);
     if (err == CL_SUCCESS) {
-       err = clGetDeviceInfo(m_clDeviceId, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(sizetArray), &sizetArray, nullptr);
-       if (err == CL_SUCCESS) {
-           Vector<unsigned> values;
-           for (unsigned i = 0; i < static_cast<unsigned>(sizetUnits); ++i)
-               values.append(static_cast<unsigned>(sizetArray[i]));
-           return values;
-       }
+        err = clGetDeviceInfo(m_clDeviceId, CL_DEVICE_MAX_WORK_ITEM_SIZES, sizeof(sizetArray), &sizetArray, nullptr);
+        if (err == CL_SUCCESS) {
+            Vector<unsigned> values;
+            for (unsigned i = 0; i < static_cast<unsigned>(sizetUnits); ++i)
+                values.append(static_cast<unsigned>(sizetArray[i]));
+            return values;
+        }
     }
     return Vector<unsigned>();
 }
@@ -91,12 +92,12 @@ ScriptValue WebCLDevice::getInfo(ScriptState* scriptState, unsigned deviceType, 
     v8::Isolate* isolate = scriptState->isolate();
 
     if (!m_clDeviceId) {
-        es.throwWebCLException(WebCLException::INVALID_DEVICE, WebCLException::invalidDeviceMessage);
+        es.throwWebCLException(WebCLException::InvalidDevice, WebCLException::invalidDeviceMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
     if (!WebCLInputChecker::isValidDeviceInfoType(deviceType)) {
-        es.throwWebCLException(WebCLException::INVALID_VALUE, WebCLException::invalidValueMessage);
+        es.throwWebCLException(WebCLException::InvalidValue, WebCLException::invalidValueMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
@@ -113,7 +114,7 @@ ScriptValue WebCLDevice::getInfo(ScriptState* scriptState, unsigned deviceType, 
     cl_device_exec_capabilities exec = 0;
     cl_device_local_mem_type localType = 0;
 
-    switch(deviceType) {
+    switch (deviceType) {
     case CL_DEVICE_PROFILE:
         return ScriptValue(scriptState, v8String(isolate, String("WEBCL_PROFILE")));
     case CL_DEVICE_VERSION:
@@ -412,7 +413,7 @@ ScriptValue WebCLDevice::getInfo(ScriptState* scriptState, unsigned deviceType, 
             return ScriptValue(scriptState, v8::Integer::NewFromUnsigned(isolate, static_cast<unsigned>(infoValue)));
         break;
     default:
-        es.throwWebCLException(WebCLException::FAILURE, WebCLException::failureMessage);
+        es.throwWebCLException(WebCLException::Failure, WebCLException::failureMessage);
         return ScriptValue(scriptState, v8::Null(isolate));
     }
 
