@@ -508,8 +508,9 @@ void EmbeddedWorkerInstance::OnScriptReadFinished() {
 }
 
 void EmbeddedWorkerInstance::OnScriptLoaded() {
-  FOR_EACH_OBSERVER(Listener, listener_list_, OnScriptLoaded());
   starting_phase_ = SCRIPT_LOADED;
+  FOR_EACH_OBSERVER(Listener, listener_list_, OnScriptLoaded());
+  // |this| may be destroyed by the callback.
 }
 
 void EmbeddedWorkerInstance::OnThreadStarted(int thread_id) {
