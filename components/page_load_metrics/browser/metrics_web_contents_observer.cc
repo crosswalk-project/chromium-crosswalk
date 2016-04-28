@@ -207,7 +207,7 @@ void LogAbortChainSameURLHistogram(int aborted_chain_size_same_url) {
 PageLoadTracker::PageLoadTracker(
     bool in_foreground,
     PageLoadMetricsEmbedderInterface* embedder_interface,
-    PageLoadTracker* const currently_committed_load_or_null,
+    const GURL& currently_committed_url,
     content::NavigationHandle* navigation_handle,
     int aborted_chain_size,
     int aborted_chain_size_same_url)
@@ -221,10 +221,6 @@ PageLoadTracker::PageLoadTracker(
       embedder_interface_(embedder_interface) {
   DCHECK(!navigation_handle->HasCommitted());
   embedder_interface_->RegisterObservers(this);
-  const GURL& currently_committed_url =
-      currently_committed_load_or_null
-          ? currently_committed_load_or_null->committed_url()
-          : GURL::EmptyGURL();
   for (const auto& observer : observers_) {
     observer->OnStart(navigation_handle, currently_committed_url);
   }
@@ -461,7 +457,8 @@ MetricsWebContentsObserver::MetricsWebContentsObserver(
     scoped_ptr<PageLoadMetricsEmbedderInterface> embedder_interface)
     : content::WebContentsObserver(web_contents),
       in_foreground_(false),
-      embedder_interface_(std::move(embedder_interface)) {}
+      embedder_interface_(std::move(embedder_interface)),
+      has_navigated_(false) {}
 
 MetricsWebContentsObserver* MetricsWebContentsObserver::CreateForWebContents(
     content::WebContents* web_contents,
@@ -500,6 +497,8 @@ void MetricsWebContentsObserver::DidStartNavigation(
     return;
   if (embedder_interface_->IsPrerendering(web_contents()))
     return;
+  if (navigation_handle->GetURL().spec().compare(url::kAboutBlankURL) == 0)
+    return;
 
   scoped_ptr<PageLoadTracker> last_aborted =
       NotifyAbortedProvisionalLoadsNewNavigation(navigation_handle);
@@ -516,6 +515,20 @@ void MetricsWebContentsObserver::DidStartNavigation(
     chain_size = last_aborted->aborted_chain_size() + 1;
   }
 
+  // Pass in the last committed url to the PageLoadTracker. If the MWCO has
+  // never observed a committed load, use the last committed url from this
+  // WebContent's opener. This is more accurate than using referrers due to
+  // referrer sanitizing and origin referrers. Note that this could potentially
+  // be inaccurate if the opener has since navigated.
+  content::WebContents* opener = web_contents()->GetOpener();
+  const GURL& opener_url =
+      !has_navigated_ && opener
+          ? web_contents()->GetOpener()->GetLastCommittedURL()
+          : GURL::EmptyGURL();
+  const GURL& currently_committed_url =
+      committed_load_ ? committed_load_->committed_url() : opener_url;
+  has_navigated_ = true;
+
   // We can have two provisional loads in some cases. E.g. a same-site
   // navigation can have a concurrent cross-process navigation started
   // from the omnibox.
@@ -527,7 +540,7 @@ void MetricsWebContentsObserver::DidStartNavigation(
   provisional_loads_.insert(std::make_pair(
       navigation_handle,
       make_scoped_ptr(new PageLoadTracker(
-          in_foreground_, embedder_interface_.get(), committed_load_.get(),
+          in_foreground_, embedder_interface_.get(), currently_committed_url,
           navigation_handle, chain_size, chain_size_same_url))));
 }
 
