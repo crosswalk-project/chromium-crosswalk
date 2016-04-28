@@ -1,0 +1,17 @@
+// Copyright (C) 2015 Intel Corporation All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+typedef unsigned long CLenum;
+interface WebCLProgram {
+    [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);
+    [CallWith=ScriptState, RaisesException] any getBuildInfo(WebCLDevice device, CLenum name);
+    // TODO(junmin-zhu) Because WebIDL doesn't support "optional<>" as null.
+    // So all the function here are implemented through custom binding. Will revisit here when it's supported.
+    [Custom, RaisesException] void build(optional sequence<WebCLDevice>? devices,
+                                         optional DOMString? options,
+                                         optional WebCLCallback whenFinished);
+    [RaisesException] WebCLKernel createKernel(DOMString kernelName);
+    [RaisesException] sequence<WebCLKernel> createKernelsInProgram();
+    void release();
+};
