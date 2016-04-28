@@ -1,0 +1,27 @@
+// Copyright (C) 2015 Intel Corporation All rights reserved.
+// Use of this source code is governed by a BSD-style license that can be
+// found in the LICENSE file.
+
+typedef unsigned long CLenum;
+typedef unsigned long CLuint;
+typedef boolean CLboolean;
+interface WebCLContext {
+    [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, ImageData hostPtr);
+    [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, HTMLCanvasElement hostPtr);
+    [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, HTMLImageElement hostPtr);
+    [RaisesException] WebCLBuffer createBuffer(CLenum memFlags, CLuint sizeInBytes, optional ArrayBufferView hostPtr);
+    [RaisesException] WebCLCommandQueue createCommandQueue(optional WebCLDevice? device, optional CLenum properties);
+    [RaisesException] WebCLImage createImage(CLenum memFlags, ImageData hostPtr);
+    [RaisesException] WebCLImage createImage(CLenum memFlags, HTMLCanvasElement hostPtr);
+    [RaisesException] WebCLImage createImage(CLenum memFlags, HTMLImageElement hostPtr);
+    [RaisesException] WebCLImage createImage(CLenum memFlags, HTMLVideoElement hostPtr);
+    [RaisesException] WebCLImage createImage(CLenum memFlags, [PermissiveDictionaryConversion] WebCLImageDescriptor descriptor, optional ArrayBufferView hostPtr);
+    [RaisesException] WebCLProgram createProgram(DOMString source);
+    [RaisesException] WebCLSampler createSampler(CLboolean normalizedCoords, CLenum addressingMode, CLenum filterMode);
+    [RaisesException] WebCLUserEvent createUserEvent();
+    [CallWith=ScriptState, RaisesException] any getInfo(CLenum name);
+    [RaisesException] sequence<WebCLImageDescriptor>? getSupportedImageFormats(CLenum memFlags);
+    [RaisesException] sequence<WebCLImageDescriptor>? getSupportedImageFormats();
+    void release();
+    void releaseAll();
+};
