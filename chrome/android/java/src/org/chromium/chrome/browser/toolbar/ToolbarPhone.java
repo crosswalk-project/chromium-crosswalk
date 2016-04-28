@@ -1539,6 +1539,11 @@ public class ToolbarPhone extends ToolbarLayout
     }
 
     @Override
+    public void destroy() {
+        dismissTabSwitcherCallout();
+    }
+
+    @Override
     public void setOnTabSwitcherClickHandler(OnClickListener listener) {
         mTabSwitcherListener = listener;
     }
