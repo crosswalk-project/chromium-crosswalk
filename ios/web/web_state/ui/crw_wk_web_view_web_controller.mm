@@ -1433,9 +1433,15 @@ NSError* WKWebViewErrorWithSource(NSError* error, WKWebViewErrorSource source) {
     // TODO(crbug.com/546347): Extract necessary tasks for app specific URL
     // navigation rather than restarting the load.
     if (web::GetWebClient()->IsAppSpecificURL(webViewURL)) {
-      [self abortWebLoad];
-      NavigationManager::WebLoadParams params(webViewURL);
-      [self loadWithParams:params];
+      // Renderer-initiated loads of WebUI can be done only from other WebUI
+      // pages. WebUI pages may have increased power and using the same web
+      // process (which may potentially be controller by an attacker) is
+      // dangerous.
+      if (web::GetWebClient()->IsAppSpecificURL(_documentURL)) {
+        [self abortWebLoad];
+        NavigationManager::WebLoadParams params(webViewURL);
+        [self loadWithParams:params];
+      }
       return;
     } else {
       [self registerLoadRequest:webViewURL];
