@@ -484,17 +484,7 @@ Binding.prototype = {
           return;
         }
 
-        // |value| is eventually added to |m|, the exposed API. Make copies
-        // of everything from the schema. (The schema is also frozen, so as long
-        // as we don't make any modifications, shallow copies are fine.)
-        var value;
-        if ($Array.isArray(propertyDef.value))
-          value = $Array.slice(propertyDef.value);
-        else if (typeof propertyDef.value === 'object')
-          value = $Object.assign({}, propertyDef.value);
-        else
-          value = propertyDef.value;
-
+        var value = propertyDef.value;
         if (value) {
           // Values may just have raw types as defined in the JSON, such
           // as "WINDOW_ID_NONE": { "value": -1 }. We handle this here.

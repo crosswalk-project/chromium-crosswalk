@@ -139,7 +139,7 @@
       }
     }
 
-    var options = $Object.assign({}, opt_eventOptions || {});
+    var options = opt_eventOptions || {};
     merge(options, {
       // Event supports adding listeners with filters ("filtered events"), for
       // example as used in the webNavigation API.
@@ -415,7 +415,7 @@
       return {
         'type': 'array',
         'items': {
-          'choices': $Array.map(typesList, function(el) {return {'$ref': el};})
+          'choices': typesList.map(function(el) {return {'$ref': el};})
         }
       };
     };
