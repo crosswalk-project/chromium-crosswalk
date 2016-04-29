@@ -1439,7 +1439,7 @@ public final class Tab implements ViewGroup.OnHierarchyChangeListener,
         if (intent == null) intent = new Intent();
         intent.setPackage(activity.getPackageName());
         intent.setAction(Intent.ACTION_VIEW);
-        intent.setData(Uri.parse(getUrl()));
+        if (TextUtils.isEmpty(intent.getDataString())) intent.setData(Uri.parse(getUrl()));
         intent.putExtra(IntentHandler.EXTRA_TAB_ID, mId);
         if (isIncognito()) {
             intent.putExtra(IntentHandler.EXTRA_OPEN_NEW_INCOGNITO_TAB, true);
