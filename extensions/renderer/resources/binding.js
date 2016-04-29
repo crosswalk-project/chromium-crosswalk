@@ -4,8 +4,6 @@
 
 var Event = require('event_bindings').Event;
 var forEach = require('utils').forEach;
-// Note: Beware sneaky getters/setters when using GetAvailbility(). Use safe/raw
-// variables as arguments.
 var GetAvailability = requireNative('v8_context').GetAvailability;
 var exceptionHandler = require('uncaught_exception_handler');
 var lastError = require('lastError');
@@ -251,7 +249,7 @@ Binding.prototype = {
     // Binding.generate.
     // Additionally, since the schema is an object returned from a native
     // handler, its properties don't have the custom getters/setters that a page
-    // may have put on Object.prototype, and the object is frozen by v8.
+    // may have put on Object.prototype.
     var schema = schemaRegistry.GetSchema(this.apiName_);
 
     function shouldCheckUnprivileged() {
@@ -381,10 +379,9 @@ Binding.prototype = {
 
         var apiFunction = {};
         apiFunction.definition = functionDef;
-        var apiFunctionName = schema.namespace + '.' + functionDef.name;
-        apiFunction.name = apiFunctionName;
+        apiFunction.name = schema.namespace + '.' + functionDef.name;
 
-        if (!GetAvailability(apiFunctionName).is_available ||
+        if (!GetAvailability(apiFunction.name).is_available ||
             (checkUnprivileged && !isSchemaAccessAllowed(functionDef))) {
           this.apiFunctions_.registerUnavailable(functionDef.name);
           return;
