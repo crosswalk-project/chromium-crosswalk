@@ -367,6 +367,9 @@ String Deprecation::deprecationMessage(UseCounter::Feature feature)
     case UseCounter::TouchDragUserGestureUsedCrossOrigin:
         return willBeRemoved("Performing sensitive operations in iframes on touch events which don't represent a tap gesture", 52, "https://www.chromestatus.com/features/5649871251963904");
 
+    case UseCounter::EncryptedMediaAllSelectedContentTypesMissingCodecs:
+        return "contentType strings without codecs will not be supported by requestMediaKeySystemAccess() in the future. Please specify the desired codec(s) as part of the contentType.";
+
     // Features that aren't deprecated don't have a deprecation message.
     default:
         return String();
