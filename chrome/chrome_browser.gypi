@@ -712,8 +712,6 @@
       'browser/android/chrome_feature_list.h',
       'browser/android/chrome_jni_registrar.cc',
       'browser/android/chrome_jni_registrar.h',
-      'browser/android/chrome_media_client_android.cc',
-      'browser/android/chrome_media_client_android.h',
       'browser/android/chrome_startup_flags.cc',
       'browser/android/chrome_startup_flags.h',
       'browser/android/compositor/compositor_view.cc',

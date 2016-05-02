@@ -89,6 +89,10 @@ class ChromeContentClient : public content::ContentClient {
   bool IsSupplementarySiteIsolationModeEnabled() override;
   base::StringPiece GetOriginTrialPublicKey() override;
 
+#if defined(OS_ANDROID)
+  media::MediaClientAndroid* GetMediaClientAndroid() override;
+#endif  // OS_ANDROID
+
  private:
   OriginTrialKeyManager origin_trial_key_manager_;
 };

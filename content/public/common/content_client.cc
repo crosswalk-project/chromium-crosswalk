@@ -123,4 +123,10 @@ base::StringPiece ContentClient::GetOriginTrialPublicKey() {
   return base::StringPiece();
 }
 
+#if defined(OS_ANDROID)
+media::MediaClientAndroid* ContentClient::GetMediaClientAndroid() {
+  return nullptr;
+}
+#endif  // OS_ANDROID
+
 }  // namespace content

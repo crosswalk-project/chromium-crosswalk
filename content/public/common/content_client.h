@@ -34,6 +34,10 @@ namespace gpu {
 struct GPUInfo;
 }
 
+namespace media {
+class MediaClientAndroid;
+}
+
 namespace sandbox {
 class TargetPolicy;
 }
@@ -157,6 +161,11 @@ class CONTENT_EXPORT ContentClient {
   // Returns the public key to be used for origin trials, or an empty string if
   // origin trials are not enabled in this context.
   virtual base::StringPiece GetOriginTrialPublicKey();
+
+#if defined(OS_ANDROID)
+  // Returns the MediaClientAndroid to be used by media code on Android.
+  virtual media::MediaClientAndroid* GetMediaClientAndroid();
+#endif  // OS_ANDROID
 
  private:
   friend class ContentClientInitializer;  // To set these pointers.
