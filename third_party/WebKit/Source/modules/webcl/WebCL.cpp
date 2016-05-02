@@ -50,8 +50,9 @@ PassRefPtr<WebCL> WebCL::create()
 {
     static bool libraryLoaded = false;
     /*  load libs in lib list. */
+    Vector<String> libs;
     if (!libraryLoaded) {
-        if (init(nullptr, 0))
+        if (init(libs))
             libraryLoaded = true;
     }
 

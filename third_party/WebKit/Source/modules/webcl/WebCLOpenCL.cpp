@@ -13,35 +13,6 @@
 #include <dlfcn.h>
 #endif
 
-// Track different opencl libs.
-#if OS(ANDROID)
-#if CPU(ARM) || CPU(ARM64)
-#define LIBS {"libOpenCL.so"}
-#define SO_LEN 1
-
-// After the byt, IA devices are shipped with "libOpenCL.so"
-// by default. Before that, IA devices are shipped with
-// "libPVROCL.so" to leverage PowerVR GPU for OpenCL.
-//
-// Note that there are some IA devices have "libOpenCL.so.1"
-// but not "libOpenCL.so", such as: Asus Memo. So add "libOpenCL.so.1"
-// to the OpenCL library list.
-#elif CPU(X86) || CPU(X86_64)
-#define LIBS {"libOpenCL.so", "libOpenCL.so.1", "libPVROCL.so"}
-#define SO_LEN 3
-
-#else
-#define LIBS {}
-#define SO_LEN 0
-
-#endif // CPU(ARM) || CPU(ARM64) || CPU(X86) || CPU(X86_64)
-#else // OS(ANDROID)
-// LIBS cannot be empty due to MSVS2013:
-// error C2466: cannot allocate an array of constant size 0
-#define LIBS {nullptr}
-#define SO_LEN 0
-#endif // OS(ANDROID)
-
 /* Platform APIs */
 cl_int (CL_API_CALL *web_clGetPlatformIDs)(cl_uint num_entries, cl_platform_id* platforms, cl_uint* num_platforms);
 
@@ -203,27 +174,51 @@ cl_int (CL_API_CALL *web_clGetGLTextureInfo)(cl_mem, cl_gl_texture_info, size_t,
 #define clCreateFromGLTexture web_clCreateFromGLTexture
 
 #if OS(ANDROID)
-#define MAP_FUNC(fn)  { *(void**)(&fn) = dlsym(handle, #fn); }
-#define MAP_FUNC_OR_BAIL(fn)  { *(void**)(&fn) = dlsym(handle, #fn); if (!fn) return false; }
+#define MAP_FUNC(fn) do { *(void**)(&fn) = dlsym(handle, #fn); } while (0)
+#define MAP_FUNC_OR_BAIL(fn) do { *(void**)(&fn) = dlsym(handle, #fn); if (!fn) return false; } while (0)
 #else
-#define MAP_FUNC(fn) ASSERT_NOT_REACHED();
-#define MAP_FUNC_OR_BAIL(fn) ASSERT_NOT_REACHED();
+#define MAP_FUNC(fn) ASSERT_NOT_REACHED()
+#define MAP_FUNC_OR_BAIL(fn) ASSERT_NOT_REACHED()
 #endif
 
 // In case `fn' is not defined or deprecated in the OpenCL spec tagged by
 // `major' and `minor', map `fn' to a wrapper implemented with APIs defined
 // by this spec.
-#define MAP_FUNC_TO_WRAPPER(fn, major, minor) { *(void**)(&fn) = (void*)fn##Impl##major##minor; }
+#define MAP_FUNC_TO_WRAPPER(fn, major, minor) do { *(void**)(&fn) = (void*)fn##Impl##major##minor; } while (0)
 
-static const char* defaultLibs[] = LIBS;
-static const int defaultLibsAmount = SO_LEN;
+static Vector<String>& getDefaultLibs()
+{
+    DEFINE_STATIC_LOCAL(Vector<String>, defaultLibs, ());
+    // Track different opencl libs.
+#if OS(ANDROID)
+#if CPU(ARM) || CPU(ARM64)
+    defaultLibs.append("libOpenCL.so");
+
+    // After the byt, IA devices are shipped with "libOpenCL.so"
+    // by default. Before that, IA devices are shipped with
+    // "libPVROCL.so" to leverage PowerVR GPU for OpenCL.
+    //
+    // Note that there are some IA devices have "libOpenCL.so.1"
+    // but not "libOpenCL.so", such as: Asus Memo. So add "libOpenCL.so.1"
+    // to the OpenCL library list.
+#elif CPU(X86) || CPU(X86_64)
+    defaultLibs.append("libOpenCL.so");
+    defaultLibs.append("libOpenCL.so.1");
+    defaultLibs.append("libPVROCL.so");
+
+#endif // CPU(ARM) || CPU(ARM64) || CPU(X86) || CPU(X86_64)
+#endif // OS(ANDROID)
+
+    return defaultLibs;
+}
 
 #if OS(ANDROID)
 static void* handle = nullptr;
-static bool getCLHandle(const char** libs, int length)
+static bool getCLHandle(const Vector<String>& libs)
 {
-    for (int i = 0; i < length; ++i) {
-        handle = dlopen(libs[i], RTLD_LAZY);
+    Vector<String>::const_iterator it;
+    for (it = libs.begin(); it != libs.end(); ++it) {
+        handle = dlopen(it->ascii().data(), RTLD_LAZY);
         if (handle)
             return true;
     }
@@ -232,7 +227,7 @@ static bool getCLHandle(const char** libs, int length)
     return false;
 }
 #else // OS(ANDROID)
-static bool getCLHandle(const char** libs, int length)
+static bool getCLHandle(const Vector<String>& libs)
 {
     return false;
 }
@@ -281,12 +276,11 @@ static cl_mem CL_API_CALL clCreateFromGLTexture2DImpl12(cl_context context, cl_m
     return clCreateFromGLTexture(context, flags, textureTarget, miplevel, texture, err);
 }
 
-bool init(const char** libs, int length)
+bool init(const Vector<String>& libs)
 {
-    const char** mLibs = (libs == 0 ? defaultLibs : libs);
-    int mLength = (libs == 0 ? defaultLibsAmount : length);
+    const Vector<String>& mLibs = (libs.isEmpty() ? getDefaultLibs() : libs);
 
-    if (!getCLHandle(mLibs, mLength))
+    if (!getCLHandle(mLibs))
         return false;
 
     MAP_FUNC_OR_BAIL(clBuildProgram);
@@ -362,49 +356,42 @@ bool init(const char** libs, int length)
     // spec, so wrappers may be needed if they are not exported by the OpenCL
     // runtime library.
     MAP_FUNC(clReleaseDevice);
-    if (!clReleaseDevice) {
+    if (!clReleaseDevice)
         MAP_FUNC_TO_WRAPPER(clReleaseDevice, 1, 1);
-    }
 
     MAP_FUNC(clCreateImage);
-    if (clCreateImage) {
+    if (clCreateImage)
         MAP_FUNC_TO_WRAPPER(clCreateImage2D, 1, 2);
-    } else {
+    else
         MAP_FUNC_OR_BAIL(clCreateImage2D);
-    }
 
     MAP_FUNC(clUnloadPlatformCompiler);
-    if (clUnloadPlatformCompiler) {
+    if (clUnloadPlatformCompiler)
         MAP_FUNC_TO_WRAPPER(clUnloadCompiler, 1, 2);
-    } else {
+    else
         MAP_FUNC_OR_BAIL(clUnloadCompiler);
-    }
 
     MAP_FUNC(clEnqueueMarkerWithWaitList);
-    if (clEnqueueMarkerWithWaitList) {
+    if (clEnqueueMarkerWithWaitList)
         MAP_FUNC_TO_WRAPPER(clEnqueueMarker, 1, 2);
-    } else {
+    else
         MAP_FUNC_OR_BAIL(clEnqueueMarker);
-    }
 
     MAP_FUNC(clEnqueueBarrierWithWaitList);
-    if (clEnqueueBarrierWithWaitList) {
+    if (clEnqueueBarrierWithWaitList)
         MAP_FUNC_TO_WRAPPER(clEnqueueBarrier, 1, 2);
-    } else {
+    else
         MAP_FUNC_OR_BAIL(clEnqueueBarrier);
-    }
 
     MAP_FUNC(clEnqueueWaitForEvents);
-    if (!clEnqueueWaitForEvents) {
+    if (!clEnqueueWaitForEvents)
         MAP_FUNC_TO_WRAPPER(clEnqueueWaitForEvents, 1, 2);
-    }
 
     MAP_FUNC(clCreateFromGLTexture);
-    if (clCreateFromGLTexture) {
+    if (clCreateFromGLTexture)
         MAP_FUNC_TO_WRAPPER(clCreateFromGLTexture2D, 1, 2);
-    } else {
+    else
         MAP_FUNC(clCreateFromGLTexture2D);
-    }
 
     return true;
 }

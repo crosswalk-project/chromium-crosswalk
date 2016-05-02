@@ -11,7 +11,7 @@
 extern "C" {
 #endif
 
-bool init(const char** libs, int len); /* load libs in lib list. */
+bool init(const Vector<String>& libs); /* load libs in lib list. */
 
 /* Platform APIs */
 extern cl_int (CL_API_CALL *web_clGetPlatformIDs)(cl_uint num_entries, cl_platform_id* platforms, cl_uint* num_platforms);

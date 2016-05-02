@@ -5,6 +5,7 @@
 #include "DOMWindowWebCL.h"
 
 #include "core/dom/Document.h"
+#include "core/frame/LocalDOMWindow.h"
 #include "core/page/Page.h"
 #include "modules/webcl/WebCL.h"
 
