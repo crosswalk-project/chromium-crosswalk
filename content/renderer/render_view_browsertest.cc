@@ -9,6 +9,7 @@
 #include "base/callback.h"
 #include "base/command_line.h"
 #include "base/json/json_reader.h"
+#include "base/json/json_writer.h"
 #include "base/location.h"
 #include "base/macros.h"
 #include "base/single_thread_task_runner.h"
@@ -405,8 +406,10 @@ class DevToolsAgentTest : public RenderViewImplTest {
 
   void OnDevToolsMessage(
       int, int, const std::string& message, const std::string&) {
-    scoped_ptr<base::DictionaryValue> root(static_cast<base::DictionaryValue*>(
-        base::JSONReader::Read(message).release()));
+    last_received_message_ = message;
+    std::unique_ptr<base::DictionaryValue> root(
+        static_cast<base::DictionaryValue*>(
+            base::JSONReader::Read(message).release()));
     int id;
     if (!root->GetInteger("id", &id)) {
       std::string notification;
@@ -424,12 +427,15 @@ class DevToolsAgentTest : public RenderViewImplTest {
     return result;
   }
 
+  std::string LastReceivedMessage() const { return last_received_message_; }
+
  private:
   DevToolsAgent* agent() {
     return frame()->devtools_agent();
   }
 
   std::vector<std::string> notifications_;
+  std::string last_received_message_;
 };
 
 class RenderViewImplBlinkSettingsTest : public RenderViewImplTest {
@@ -2396,6 +2402,53 @@ TEST_F(DevToolsAgentTest, RuntimeEnableForcesContextsAfterNavigation) {
   EXPECT_EQ(0, CountNotifications("Runtime.executionContextCreated"));
   LoadHTML("<body>page<iframe></iframe></body>");
   EXPECT_EQ(2, CountNotifications("Runtime.executionContextCreated"));
+}
+
+TEST_F(DevToolsAgentTest, RuntimeEvaluateRunMicrotasks) {
+  LoadHTML("<body>page</body>");
+  Attach();
+  DispatchDevToolsMessage("{\"id\":1,\"method\":\"Console.enable\"}");
+  DispatchDevToolsMessage("{\"id\":2,"
+                          "\"method\":\"Runtime.evaluate\","
+                          "\"params\":{"
+                          "\"expression\":\"Promise.resolve().then("
+                          "() => console.log(42));\""
+                          "}"
+                          "}");
+  EXPECT_EQ(1, CountNotifications("Console.messageAdded"));
+}
+
+TEST_F(DevToolsAgentTest, RuntimeCallFunctionOnRunMicrotasks) {
+  LoadHTML("<body>page</body>");
+  Attach();
+  DispatchDevToolsMessage("{\"id\":1,\"method\":\"Console.enable\"}");
+  DispatchDevToolsMessage("{\"id\":2,"
+                          "\"method\":\"Runtime.evaluate\","
+                          "\"params\":{"
+                          "\"expression\":\"window\""
+                          "}"
+                          "}");
+
+  std::unique_ptr<base::DictionaryValue> root(
+      static_cast<base::DictionaryValue*>(
+          base::JSONReader::Read(LastReceivedMessage()).release()));
+  const base::Value* object_id;
+  ASSERT_TRUE(root->Get("result.result.objectId", &object_id));
+  std::string object_id_str;
+  EXPECT_TRUE(base::JSONWriter::Write(*object_id, &object_id_str));
+
+  DispatchDevToolsMessage("{\"id\":3,"
+                          "\"method\":\"Runtime.callFunctionOn\","
+                          "\"params\":{"
+                          "\"objectId\":" +
+                              object_id_str +
+                              ","
+                              "\"functionDeclaration\":\"function foo(){ "
+                              "Promise.resolve().then(() => "
+                              "console.log(239))}\""
+                              "}"
+                              "}");
+  EXPECT_EQ(1, CountNotifications("Console.messageAdded"));
 }
 
 }  // namespace content

@@ -121,7 +121,12 @@ void V8RuntimeAgentImpl::evaluate(
     // Temporarily enable allow evals for inspector.
     if (evalIsDisabled)
         context->AllowCodeGenerationFromStrings(true);
-    v8::MaybeLocal<v8::Value> maybeResultValue = m_debugger->compileAndRunInternalScript(injectedScript->context()->context(), toV8String(injectedScript->isolate(), expression));
+
+    v8::MaybeLocal<v8::Value> maybeResultValue;
+    v8::Local<v8::Script> script = m_debugger->compileInternalScript(context, toV8String(m_debugger->isolate(), expression), String16());
+    if (!script.IsEmpty())
+        maybeResultValue = m_debugger->runCompiledScript(context, script);
+
     if (evalIsDisabled)
         context->AllowCodeGenerationFromStrings(false);
     // InjectedScript may be gone after any evaluate call - find it again.
