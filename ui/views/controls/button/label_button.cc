@@ -10,6 +10,7 @@
 
 #include "base/lazy_instance.h"
 #include "base/logging.h"
+#include "base/memory/scoped_ptr.h"
 #include "build/build_config.h"
 #include "ui/gfx/animation/throb_animation.h"
 #include "ui/gfx/canvas.h"
@@ -418,7 +419,8 @@ scoped_ptr<views::InkDropAnimation> LabelButton::CreateInkDropAnimation()
   return GetText().empty()
              ? CustomButton::CreateInkDropAnimation()
              : make_scoped_ptr(new views::FloodFillInkDropAnimation(
-                   size(), GetInkDropCenter(), GetInkDropBaseColor()));
+                   GetLocalBounds(), GetInkDropCenter(),
+                   GetInkDropBaseColor()));
 }
 
 scoped_ptr<views::InkDropHover> LabelButton::CreateInkDropHover() const {

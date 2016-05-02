@@ -17,6 +17,7 @@
 #include "base/location.h"
 #include "base/macros.h"
 #include "base/memory/ptr_util.h"
+#include "base/memory/scoped_ptr.h"
 #include "base/metrics/histogram.h"
 #include "base/strings/string_util.h"
 #include "base/strings/stringprintf.h"
@@ -473,20 +474,19 @@ void DownloadItemViewMd::AddInkDropLayer(ui::Layer* ink_drop_layer) {
   layer()->SetMasksToBounds(true);
 }
 
-std::unique_ptr<views::InkDropAnimation>
-DownloadItemViewMd::CreateInkDropAnimation() const {
-  return base::WrapUnique(new views::FloodFillInkDropAnimation(
-      size(), ink_drop_delegate_.last_ink_drop_location(),
+scoped_ptr<views::InkDropAnimation> DownloadItemViewMd::CreateInkDropAnimation()
+    const {
+  return make_scoped_ptr(new views::FloodFillInkDropAnimation(
+      GetLocalBounds(), ink_drop_delegate_.last_ink_drop_location(),
       color_utils::DeriveDefaultIconColor(GetTextColor())));
 }
 
-std::unique_ptr<views::InkDropHover> DownloadItemViewMd::CreateInkDropHover()
-    const {
+scoped_ptr<views::InkDropHover> DownloadItemViewMd::CreateInkDropHover() const {
   if (IsShowingWarningDialog())
     return nullptr;
 
   gfx::Size size = GetPreferredSize();
-  return base::WrapUnique(new views::InkDropHover(
+  return make_scoped_ptr(new views::InkDropHover(
       size, kInkDropSmallCornerRadius, gfx::Rect(size).CenterPoint(),
       color_utils::DeriveDefaultIconColor(GetTextColor())));
 }
@@ -834,6 +834,10 @@ void DownloadItemViewMd::HandlePressEvent(const ui::LocatedEvent& event,
   // Stop any completion animation.
   if (complete_animation_.get() && complete_animation_->is_animating())
     complete_animation_->End();
+
+  // Don't show the ripple for right clicks.
+  if (!active_event)
+    return;
 
   ink_drop_delegate_.set_last_ink_drop_location(event.location());
   ink_drop_delegate_.OnAction(views::InkDropState::ACTION_PENDING);

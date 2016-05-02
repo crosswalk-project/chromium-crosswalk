@@ -16,6 +16,7 @@
 #include "base/location.h"
 #include "base/macros.h"
 #include "base/memory/ptr_util.h"
+#include "base/memory/scoped_ptr.h"
 #include "base/metrics/histogram.h"
 #include "base/single_thread_task_runner.h"
 #include "base/strings/string_util.h"
@@ -88,6 +89,7 @@
 #include "ui/gfx/canvas.h"
 #include "ui/gfx/color_utils.h"
 #include "ui/gfx/favicon_size.h"
+#include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/paint_vector_icon.h"
 #include "ui/gfx/scoped_canvas.h"
 #include "ui/gfx/text_constants.h"
@@ -189,10 +191,10 @@ int GetHorizontalMargin() {
   return kHorizontalMargin[ui::MaterialDesignController::GetMode()];
 }
 
-gfx::Size CalculateInkDropSize(const gfx::Size& button_size) {
-  gfx::Size ink_drop_size(button_size);
-  ink_drop_size.Enlarge(0, -2);
-  return ink_drop_size;
+gfx::Rect CalculateInkDropBounds(const gfx::Size& size) {
+  gfx::Rect ink_drop_bounds(size);
+  ink_drop_bounds.Inset(0, 1);
+  return ink_drop_bounds;
 }
 
 // BookmarkButtonBase -----------------------------------------------
@@ -237,19 +239,19 @@ class BookmarkButtonBase : public views::LabelButton {
            event_utils::IsPossibleDispositionEvent(e);
   }
 
-  std::unique_ptr<views::InkDropAnimation> CreateInkDropAnimation()
-      const override {
-    return base::WrapUnique(new views::FloodFillInkDropAnimation(
-        CalculateInkDropSize(size()), GetInkDropCenter(),
+  scoped_ptr<views::InkDropAnimation> CreateInkDropAnimation() const override {
+    return make_scoped_ptr(new views::FloodFillInkDropAnimation(
+        CalculateInkDropBounds(size()), GetInkDropCenter(),
         GetInkDropBaseColor()));
   }
 
-  std::unique_ptr<views::InkDropHover> CreateInkDropHover() const override {
+  scoped_ptr<views::InkDropHover> CreateInkDropHover() const override {
     if (!ShouldShowInkDropHover())
       return nullptr;
-    return base::WrapUnique(
-        new views::InkDropHover(CalculateInkDropSize(size()), 0,
-                                GetInkDropCenter(), GetInkDropBaseColor()));
+
+    const gfx::Rect bounds = CalculateInkDropBounds(size());
+    return make_scoped_ptr(new views::InkDropHover(
+        bounds.size(), 0, bounds.CenterPoint(), GetInkDropBaseColor()));
   }
 
   SkColor GetInkDropBaseColor() const override {
@@ -258,7 +260,7 @@ class BookmarkButtonBase : public views::LabelButton {
   }
 
  private:
-  std::unique_ptr<gfx::SlideAnimation> show_animation_;
+  scoped_ptr<gfx::SlideAnimation> show_animation_;
 
   // Controls the visual feedback for the button state.
   views::ButtonInkDropDelegate ink_drop_delegate_;
@@ -338,19 +340,19 @@ class BookmarkMenuButtonBase : public views::MenuButton {
     set_ink_drop_delegate(&ink_drop_delegate_);
   }
 
-  std::unique_ptr<views::InkDropAnimation> CreateInkDropAnimation()
-      const override {
-    return base::WrapUnique(new views::FloodFillInkDropAnimation(
-        CalculateInkDropSize(size()), GetInkDropCenter(),
+  scoped_ptr<views::InkDropAnimation> CreateInkDropAnimation() const override {
+    return make_scoped_ptr(new views::FloodFillInkDropAnimation(
+        CalculateInkDropBounds(size()), GetInkDropCenter(),
         GetInkDropBaseColor()));
   }
 
-  std::unique_ptr<views::InkDropHover> CreateInkDropHover() const override {
+  scoped_ptr<views::InkDropHover> CreateInkDropHover() const override {
     if (!ShouldShowInkDropHover())
       return nullptr;
-    return base::WrapUnique(
-        new views::InkDropHover(CalculateInkDropSize(size()), 0,
-                                GetInkDropCenter(), GetInkDropBaseColor()));
+
+    const gfx::Rect bounds = CalculateInkDropBounds(size());
+    return make_scoped_ptr(new views::InkDropHover(
+        bounds.size(), 0, bounds.CenterPoint(), GetInkDropBaseColor()));
   }
 
   SkColor GetInkDropBaseColor() const override {
