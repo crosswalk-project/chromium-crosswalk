@@ -327,12 +327,13 @@ void CopyConstraintsIntoRtcConfiguration(
   configuration->suspend_below_min_bitrate = ConstraintToOptional(
       constraints, &blink::WebMediaTrackConstraintSet::
                        googEnableVideoSuspendBelowMinBitrate);
-  // TODO: Special treatment for screencast min bitrate, since it's an integer.
-  // if (FindConstraint(constraints,
-  //                   MediaConstraintsInterface::kScreencastMinBitrate,
-  //                   &configuration->screencast_min_bitrate, NULL)) {
-  //  configuration->override_screencast_min_bitrate = true;
-  // }
+  int rate;
+  if (GetConstraintValueAsInteger(
+          constraints,
+          &blink::WebMediaTrackConstraintSet::googScreencastMinBitrate,
+          &rate)) {
+    configuration->screencast_min_bitrate = rtc::Optional<int>(rate);
+  }
   configuration->combined_audio_video_bwe = ConstraintToOptional(
       constraints,
       &blink::WebMediaTrackConstraintSet::googCombinedAudioVideoBwe);
