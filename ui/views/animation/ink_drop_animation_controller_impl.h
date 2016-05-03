@@ -18,6 +18,10 @@ class Timer;
 }  // namespace base
 
 namespace views {
+namespace test {
+class InkDropAnimationControllerImplTestApi;
+}  // namespace test
+
 class InkDropAnimation;
 class InkDropHost;
 class InkDropHover;
@@ -41,8 +45,7 @@ class VIEWS_EXPORT InkDropAnimationControllerImpl
   void SetHovered(bool is_hovered) override;
 
  private:
-  friend class InkDropAnimationControllerFactoryTest;
-  friend class InkDropAnimationControllerImplTest;
+  friend class test::InkDropAnimationControllerImplTestApi;
 
   // Destroys |ink_drop_animation_| if it's targeted to the HIDDEN state.
   void DestroyHiddenTargetedAnimations();
