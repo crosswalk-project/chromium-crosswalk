@@ -177,6 +177,7 @@ public:
     RawPtr<Range> firstRange() const;
 
     void nodeWillBeRemoved(Node&);
+    void dataWillChange(const CharacterData& node);
     void didUpdateCharacterData(CharacterData*, unsigned offset, unsigned oldLength, unsigned newLength);
     void didMergeTextNodes(const Text& oldNode, unsigned offset);
     void didSplitTextNode(const Text& oldNode);

@@ -3929,6 +3929,12 @@ void Document::nodeWillBeRemoved(Node& n)
     }
 }
 
+void Document::dataWillChange(const CharacterData& characterData)
+{
+    if (LocalFrame* frame = this->frame())
+        frame->selection().dataWillChange(characterData);
+}
+
 void Document::didInsertText(Node* text, unsigned offset, unsigned length)
 {
     for (Range* range : m_ranges)
