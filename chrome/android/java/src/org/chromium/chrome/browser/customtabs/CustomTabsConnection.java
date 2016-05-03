@@ -412,8 +412,7 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
                 }
             }
         }
-        if (CustomTabIntentDataProvider.sRemoteViewsEnabled
-                && bundle.containsKey(CustomTabsIntent.EXTRA_REMOTEVIEWS)) {
+        if (bundle.containsKey(CustomTabsIntent.EXTRA_REMOTEVIEWS)) {
             final RemoteViews remoteViews = IntentUtils.safeGetParcelable(bundle,
                     CustomTabsIntent.EXTRA_REMOTEVIEWS);
             final int[] clickableIDs = IntentUtils.safeGetIntArray(bundle,

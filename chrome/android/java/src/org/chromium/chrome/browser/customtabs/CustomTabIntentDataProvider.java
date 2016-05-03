@@ -70,11 +70,6 @@ public class CustomTabIntentDataProvider {
             ANIMATION_BUNDLE_PREFIX + "animEnterRes";
     private static final String BUNDLE_EXIT_ANIMATION_RESOURCE =
             ANIMATION_BUNDLE_PREFIX + "animExitRes";
-    /**
-     * Flag indicating whether RemoteViews based bottom bar is enabled.
-     */
-    static boolean sRemoteViewsEnabled = false;
-
     private final IBinder mSession;
     private final Intent mKeepAliveServiceIntent;
     private final int mTitleVisibilityState;
@@ -148,14 +143,12 @@ public class CustomTabIntentDataProvider {
                 CustomTabsIntent.EXTRA_TITLE_VISIBILITY_STATE, CustomTabsIntent.NO_TITLE);
         mShowShareItem = IntentUtils.safeGetBooleanExtra(intent,
                 CustomTabsIntent.EXTRA_DEFAULT_SHARE_MENU_ITEM, false);
-        if (sRemoteViewsEnabled) {
-            mRemoteViews = IntentUtils.safeGetParcelableExtra(intent,
+        mRemoteViews = IntentUtils.safeGetParcelableExtra(intent,
                 CustomTabsIntent.EXTRA_REMOTEVIEWS);
-            mClickableViewIds = IntentUtils.safeGetIntArrayExtra(intent,
+        mClickableViewIds = IntentUtils.safeGetIntArrayExtra(intent,
                 CustomTabsIntent.EXTRA_REMOTEVIEWS_VIEW_IDS);
-            mRemoteViewsPendingIntent = IntentUtils.safeGetParcelableExtra(intent,
-                    CustomTabsIntent.EXTRA_REMOTEVIEWS_PENDINGINTENT);
-        }
+        mRemoteViewsPendingIntent = IntentUtils.safeGetParcelableExtra(intent,
+                CustomTabsIntent.EXTRA_REMOTEVIEWS_PENDINGINTENT);
     }
 
     /**
