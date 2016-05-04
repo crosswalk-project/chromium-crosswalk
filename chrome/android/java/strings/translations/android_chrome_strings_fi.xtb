@@ -19,6 +19,7 @@
 <translation id="1240668123557180468">Katsele lähistöllä olevien esineiden lähettämiä verkkosivuja. Chrome kerää ympärilläsi oleviin esineisiin liittyviä verkkosivuja, lähettää ne nimettöminä Googlen palveluun osuvimpien sivujen valintaa varten ja näyttää nämä sitten sinulle.
 
 Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voidaan käyttää.</translation>
+<translation id="1250508505624960884">Chromen betaversion kirjanmerkit</translation>
 <translation id="1254090737195733114">Tuodaanko tiedot?</translation>
 <translation id="1258753120186372309">Google-piirros: <ph name="DOODLE_DESCRIPTION" /></translation>
 <translation id="1272079795634619415">Pysäytä</translation>
@@ -40,9 +41,11 @@ Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voi
 <translation id="1445680696957526815">Chromen osat eivät ole yhteensopivia toistensa kanssa. Chromen päivitys voi olla kesken; yritä uudelleen muutaman minuutin kuluttua. Jos ongelma ei ratkea, poista Chrome ja asenna se uudelleen.</translation>
 <translation id="1446450296470737166">Salli MIDI-laitteiden täysi käyttöoik.</translation>
 <translation id="145097072038377568">Poistettu käytöstä Android-asetuksissa</translation>
+<translation id="147006957810816598">Sinua ei kirjata ulos Google-tililtäsi.</translation>
 <translation id="1477626028522505441">Tiedoston <ph name="FILE_NAME" /> lataus epäonnistui palvelinongelman vuoksi.</translation>
 <translation id="1506061864768559482">Hakukone</translation>
 <translation id="1513352483775369820">Kirjanmerkit ja verkkohistoria</translation>
+<translation id="1549000191223877751">Siirrä toiseen ikkunaan</translation>
 <translation id="1553358976309200471">Päivitä Chrome</translation>
 <translation id="1557201757634521564">Havaitse merkistökoodaus automaattisesti</translation>
 <translation id="1592483623187843893">Kirjanmerkki tallennettu offline-tilassa</translation>
@@ -61,6 +64,7 @@ Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voi
 <translation id="1742134235943978220">Käännetty kielelle <ph name="TARGET_LANGUAGE" />.</translation>
 <translation id="1749561566933687563">Synkronoi kirjanmerkit</translation>
 <translation id="17513872634828108">Avoimet välilehdet</translation>
+<translation id="1756600373018374892">Käytä välilehtiäsi kätevästi napauttamalla tätä painiketta.</translation>
 <translation id="1807246157184219062">Vaalea</translation>
 <translation id="1825719650605518411">First Run Experience</translation>
 <translation id="1829244130665387512">Haku sivulta</translation>
@@ -70,8 +74,10 @@ Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voi
 <translation id="194341124344773587">Ota käyttöoikeus käyttöön Chromelle <ph name="BEGIN_LINK" />Android-asetuksissa<ph name="END_LINK" />.</translation>
 <translation id="1943432128510653496">Salasanojen tallentaminen</translation>
 <translation id="1944384637046898011">Salaa kaikki tiedot Google-salasanalla, joka on asetettu <ph name="TIME" />.</translation>
+<translation id="1959930595721737608">Sallii JavaScriptin tällä sivustolla.</translation>
 <translation id="1966710179511230534">Päivitä kirjautumistietosi.</translation>
 <translation id="1974060860693918893">Lisäasetukset</translation>
+<translation id="1984321224716884559">Chromen kehittäjäversion kirjanmerkit</translation>
 <translation id="1984937141057606926">Sallittu, paitsi kolmannen osapuolen evästeet</translation>
 <translation id="1994173015038366702">Sivuston URL-osoite</translation>
 <translation id="2001120796168634316">Tallenna linkitetty sivu</translation>
@@ -81,6 +87,7 @@ Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voi
 <translation id="2079545284768500474">Kumoa</translation>
 <translation id="2082238445998314030">Tulos <ph name="RESULT_NUMBER" />/<ph name="TOTAL_RESULTS" /></translation>
 <translation id="2095887075102408547">Kun tämä toiminto on käytössä, Chrome pakkaa lukemasi sivut Googlen palvelimilla ennen niiden lataamista. Suojattuja yhteyksiä (HTTPS) käyttäviä tai incognito-välilehdillä avattuja sivuja ei optimoida eikä Google näe niitä.</translation>
+<translation id="2096396629993765042">Sinua ei kirjata ulos Google-tililtäsi. Google-tililläsi voi olla muita selaushistoriatietoja osoitteessa <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="2100273922101894616">Automaattinen kirjautuminen</translation>
 <translation id="2126426811489709554">Palvelun tarjoaa Chrome</translation>
 <translation id="213279576345780926"><ph name="TAB_TITLE" /> suljettiin</translation>
@@ -137,6 +144,7 @@ Bluetooothin ja sijaintipalvelun on oltava päällä, jotta Fyysistä webiä voi
 <translation id="2842985007712546952">Ylätason kansio</translation>
 <translation id="2870560284913253234">Sivusto</translation>
 <translation id="2888126860611144412">Tietoja Chromesta</translation>
+<translation id="2889768325388591707">Vaihda välilehtiä nopeasti</translation>
 <translation id="2891154217021530873">Pysäytä sivun lataus</translation>
 <translation id="2902702728133930130">Chromen käynnistys epäonnistui odottamattoman virheen takia.</translation>
 <translation id="2903493209154104877">Osoitteet</translation>
@@ -189,6 +197,7 @@ Olet kirjautumassa hallinnoituun tiliin, jonka hallinnoijalla on oikeus muokata 
 <translation id="360480449234699036">Lue lisätietoja verkkosivujen aiheista poistumatta sivulta. Koskettamalla hakeminen lähettää sanan ja sen asiayhteyden Google-hakuun ja palauttaa määritelmiä, kuvia, hakutuloksia ja muita tietoja.
 
 Muokkaa hakutermiä valitsemalla se pitkällä painalluksella. Tarkenna hakua liu'uttamalla paneeli yläasentoon ja koskettamalla hakukenttää.</translation>
+<translation id="3623048332793834136">Chrome Canaryn kirjanmerkit</translation>
 <translation id="363596933471559332">Kirjaudu automaattisesti verkkosivustoille käyttämällä tallennettuja kirjautumistietoja. Jos tämä toiminto ei ole käytössä, sinua pyydetään vahvistamaan kirjautuminen aina, kun kirjaudut sivustolle.</translation>
 <translation id="3653742808139624888">Kirjaudu sisään Chromeen, niin voit käyttää kirjanmerkkejäsi kaikilla laitteilla.</translation>
 <translation id="3656115297268584622">Ota sijainti käyttöön <ph name="BEGIN_LINK" />Android-asetuksissa<ph name="END_LINK" />.</translation>
@@ -256,6 +265,7 @@ Muokkaa hakutermiä valitsemalla se pitkällä painalluksella. Tarkenna hakua li
 <translation id="4645575059429386691">Vanhempasi hallinnoima</translation>
 <translation id="4663756553811254707"><ph name="NUMBER_OF_BOOKMARKS" /> kirjanmerkkiä poistettiin</translation>
 <translation id="4665282149850138822"><ph name="NAME" /> lisättiin aloitusnäytölle.</translation>
+<translation id="4668044310199835006">Work Chromen kirjanmerkit</translation>
 <translation id="4684427112815847243">Synkronoi kaikki</translation>
 <translation id="4686372254213217147">Alkuperäinen koko</translation>
 <translation id="4690286298542128877">Välilehdet muuttavat Chromen sisäiseen välilehtien vaihtajaan.</translation>
@@ -351,9 +361,6 @@ Avaa Chrome tietokoneella, siirry valikkoon ja valitse Kirjaudu Chromeen…</tra
 <translation id="5677928146339483299">Estetty</translation>
 <translation id="5684874026226664614">Hups, tätä sivua ei voi kääntää.</translation>
 <translation id="5708031556037168012">Säilytä nykyiset tiedot laitteella ja vie tiedot pysyvästi tilille <ph name="TO_ACCOUNT" />.</translation>
-<translation id="5712189971979076230">Voit auttaa Googlea suunnittelemaan ominaisuuksien ja parannuksien tärkeysjärjestystä, jos lähetät meille jokaisen kaatumisen jälkeen tietoja käynnissä olleista tiedostoista, sovelluksista palveluista.
-
-Käyttötilastot sisältävät tietoja esimerkiksi asetuksista, painetuista painikkeista ja muistin käytöstä. Ne eivät sisällä verkkosivujen URL-osoitteita tai henkilötietoja. Kaatumisraportit sisältävät tietoja järjestelmästä kaatumisen aikana, ja niihin voi sisältyä verkkosivujen URL-osoitteita tai henkilökohtaisia tietoja riippuen siitä, mitä kaatumisen aikana tapahtui.</translation>
 <translation id="5715468759630044318">Valitse tili.</translation>
 <translation id="5719837394786370183">Incognito-välilehdillä avaamasi sivut eivät jää selaimen historiaan, evästeisiin tai hakuhistoriaan, kun olet sulkenut kaikki incognito-välilehdet. Kaikki lataamasi tiedostot ja luomasi kirjanmerkit säilytetään.
 
@@ -417,6 +424,7 @@ Jotkin verkkosivustot voivat vastata tähän pyyntöön esimerkiksi näyttämäl
 <translation id="6464825623202322042">Tässä laitteessa</translation>
 <translation id="6476911854266661814"><ph name="VIDEO_TITLE" /> keskeytettiin.</translation>
 <translation id="6482749332252372425">Tiedoston <ph name="FILE_NAME" /> lataus epäonnistui, koska tallennustila ei riitä.</translation>
+<translation id="6541922744811587456">Chromen kirjanmerkit</translation>
 <translation id="654446541061731451">Valitse siirrettävä välilehti</translation>
 <translation id="6550675742724504774">Asetukset</translation>
 <translation id="656628257199996201">Käännä aina <ph name="SOURCE_LANGUAGE" /></translation>
@@ -430,6 +438,7 @@ Jotkin verkkosivustot voivat vastata tähän pyyntöön esimerkiksi näyttämäl
 <translation id="6656545060687952787">Chrome tarvitsee sijaintitietojen käyttöoikeuden hakeakseen laitteita. <ph name="BEGIN_LINK" />Päivitä käyttöoikeudet<ph name="END_LINK" />.</translation>
 <translation id="666268767214822976">Käytä ennakointipalvelua, joka näyttää sinulle aiheeseen liittyviä kyselyitä sekä suosittuja verkkosivustoja kirjoittaessasi osoitepalkkiin.</translation>
 <translation id="666981079809192359">Chromen tietosuojailmoitus</translation>
+<translation id="6683720003467092441">Sallii taustasynkronoinnin tällä sivustolla.</translation>
 <translation id="6697251040310467641">Offline-sivu tallennettiin.</translation>
 <translation id="6698801883190606802">Hallinnoi synkronoituja tietoja</translation>
 <translation id="6699351163704950317">Kaikki tallennetut sivut</translation>
@@ -496,6 +505,9 @@ Jotkin verkkosivustot voivat vastata tähän pyyntöön esimerkiksi näyttämäl
 <translation id="7473891865547856676">Ei kiitos</translation>
 <translation id="7475192538862203634">Jos näet tämän ilmoituksen usein, kokeile näitä <ph name="BEGIN_LINK" />ehdotuksia<ph name="END_LINK" />.</translation>
 <translation id="748127970106343339">Vahvista laitteen kirjautumistietojen poisto</translation>
+<translation id="7487352416683556407">Valitut tiedot on poistettu Chromesta ja synkronoiduilta laitteilta.
+
+Google-tililläsi voi olla muita selaushistoriatietoja, kuten hakuja ja toimintaa muista Google-palveluista, osoitteessa <ph name="BEGIN_LINK" />history.google.com<ph name="END_LINK" />.</translation>
 <translation id="7493994139787901920"><ph name="VERSION" /> (päivitettiin <ph name="TIME_SINCE_UPDATE" />)</translation>
 <translation id="7498271377022651285">Odota…</translation>
 <translation id="7499262814309712782">Synkronoinnin tili</translation>
@@ -616,6 +628,7 @@ Hanki uudet käyttöoik. muodostam. verkkoyhteys ja toistamalla ladattu sisält�
 <translation id="8942627711005830162">Avaa uudessa ikkunassa</translation>
 <translation id="8959122750345127698">Kohde ei ole saatavilla: <ph name="URL" /></translation>
 <translation id="8979340629087822094">viimeisen päivän ajalta</translation>
+<translation id="8986494364107987395">Lähetä Googlelle käyttötilastoja ja virheraportteja automaattisesti</translation>
 <translation id="8987061207681586800">Muokkaa Chromea</translation>
 <translation id="9019902583201351841">Vanhempiesi hallinnoima</translation>
 <translation id="9020607083536754075">Sulje nykyinen välilehti ja palaa edelliseen sovellukseen</translation>

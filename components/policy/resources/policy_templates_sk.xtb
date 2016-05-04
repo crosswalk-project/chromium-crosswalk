@@ -739,7 +739,7 @@ Ak je toto nastavenie zakázané alebo nie je nakonfigurované, nebudú môcť p
       Aplikácie ARC nebudú môcť k fotoaparátu pristupovať.
 
       Toto pravidlo má vplyv na všetky typy vstupov videa,
-      nie len na vstavanú kameru.</translation>
+      nielen na vstavanú kameru.</translation>
 <translation id="3417418267404583991">Ak je toto pravidlo nastavené na hodnotu true alebo je nenakonfigurované, systém <ph name="PRODUCT_OS_NAME" /> povolí prihlásenie hostí. Prihlásenia hostí predstavujú relácie anonymných používateľov a nevyžadujú heslo.
 
       Ak je toto pravidlo nastavené na hodnotu false, systém <ph name="PRODUCT_OS_NAME" /> nepovolí spustenie relácií hosťa.</translation>
@@ -758,6 +758,24 @@ Ak je toto nastavenie zakázané alebo nie je nakonfigurované, nebudú môcť p
 <translation id="348495353354674884">Povoliť virtuálnu klávesnicu</translation>
 <translation id="3496296378755072552">Správca hesiel</translation>
 <translation id="349667858031092827">Časové pásmo automaticky nezisťovať.</translation>
+<translation id="3502472987829488885">Umožní zadať aplikácie ARC a proxy server, ktorý bude <ph name="PRODUCT_NAME" /> používať. Zabraňuje používateľom zmeniť nastavenia proxy servera.
+
+          Ak sa rozhodnete proxy server nikdy nepoužívať a vždy sa pripájať ručne, budú všetky ostatné možnosti ignorované. Aplikácie ARC budú používať predvolený proxy server aktuálnej siete (ak je k dispozícii).
+
+          Ak sa rozhodnete používať systémové nastavenia proxy servera, budú všetky ostatné možnosti ignorované. Aplikácie ARC budú používať predvolený proxy server aktuálnej siete (ak je k dispozícii).
+
+          Ak zvolíte možnosť automatického zisťovania proxy servera, budú všetky ostatné možnosti ignorované.
+
+          Ak zvolíte režim pevne daného servera proxy, môžete zvoliť ďalšie možnosti v častiach „Adresa alebo webová adresa servera proxy“ a „Zoznam pravidiel vynechania servera proxy oddelených čiarkami“. Aplikácie ARC budú používať iba proxy server HTTP s najvyššou prioritou.
+
+          Ak sa rozhodnete použiť skript .pac proxy servera, je potrebné zadať v časti „Webová adresa súboru .pac proxy servera“ webovú adresu.
+
+          Podrobné príklady nájdete na adrese:
+          <ph name="PROXY_HELP_URL" />
+
+          Ak toto nastavenie povolíte, <ph name="PRODUCT_NAME" /> a aplikácie ARC budú ignorovať všetky možnosti týkajúce sa proxy serverov zadané pomocou príkazového riadka.
+
+          Ak toto pravidlo nenastavíte, umožníte tým používateľom zvoliť si svoje vlastné nastavenia proxy servera.</translation>
 <translation id="3504791027627803580">Určuje webovú adresu vyhľadávača použitého na poskytovanie vyhľadávania obrázkov. Žiadosti o vyhľadávanie sa budú odosielať pomocou metódy GET. Ak je nastavené pravidlo DefaultSearchProviderImageURLPostParams, budú žiadosti o vyhľadávanie obrázkov používať namiesto toho metódu POST.
 
           Toto pravidlo je voliteľné. Ak nie je nastavené, nepoužije sa žiadne vyhľadávanie obrázkov.
@@ -908,7 +926,7 @@ Ak toto nastavenie zakážete, v okne správcu hesiel nebude možné zobraziť 
 
           Ak sa rozhodnete používať systémové nastavenia proxy servera alebo proxy server zisťovať automaticky, budú všetky ostatné možnosti ignorované.
 
-          Ak zvolíte možnosť ručného nastavenia proxy servera, môžete zvoliť ďalšie možnosti v častiach „Adresa (alebo webová adresa) proxy servera“, „Webová adresa súboru .pac proxy servera“ a „Zoznam pravidiel vynechania proxy servera oddelených čiarkami“.
+          Ak zvolíte možnosť ručného nastavenia proxy servera, môžete zvoliť ďalšie možnosti v častiach „Adresa alebo webová adresa proxy servera“, „Webová adresa súboru .pac proxy servera“ a „Zoznam pravidiel vynechania proxy servera oddelených čiarkami“.
 
           Podrobné príklady nájdete na adrese:
           <ph name="PROXY_HELP_URL" />
@@ -2024,12 +2042,24 @@ Pozrite si tiež pravidlo RemoteAccessHostClientDomain.</translation>
 
       Ak je toto pravidlo nenastavené, bude sa považovať hodnota TimezoneAutomaticDetectionUsersDecide za nastavenú.
 
-      Ak je nastavené pravidlo SystemTimezone, toto pravidlo prepíše. V tomto prípade bude automatické zisťovanie časového pásma úplne zakázané.</translation>
+      Ak je nastavené pravidlo SystemTimezone, toto pravidlo sa prepíše. V tomto prípade bude automatické zisťovanie časového pásma úplne zakázané.</translation>
 <translation id="7882585827992171421">Toto pravidlo je aktívne iba v režime určenom pre predaj.
 
       Určuje identifikátor rozšírenia, ktoré sa má použiť ako šetrič obrazovky na prihlasovacej obrazovke. Rozšírenie musí byť súčasťou balíka AppPack, ktorý bol pre túto doménu nakonfigurovaný v rámci pravidla DeviceAppPack.</translation>
 <translation id="7882890448959833986">Zrušenie zobrazovania upozornenia na nepodporovaný operačný systém</translation>
 <translation id="7912255076272890813">Nakonfigurovať povolené typy aplikácií/rozšírení</translation>
+<translation id="7928112526630078979">Umožní zadať aplikácie ARC a proxy server, ktorý bude <ph name="PRODUCT_NAME" /> používať. Zabraňuje používateľom zmeniť nastavenia proxy servera.
+
+      Ak sa rozhodnete proxy server nikdy nepoužívať a vždy sa pripájať ručne, budú všetky ostatné možnosti ignorované. Aplikácie ARC budú používať predvolený proxy server aktuálnej siete (ak je k dispozícii).
+
+      Ak zvolíte možnosť automatického zisťovania proxy servera, budú všetky ostatné možnosti ignorované.
+
+      Podrobné príklady nájdete na adrese:
+      <ph name="PROXY_HELP_URL" />
+
+      Ak toto nastavenie povolíte, <ph name="PRODUCT_NAME" /> a aplikácie ARC budú ignorovať všetky možnosti týkajúce sa proxy serverov zadané pomocou príkazového riadka.
+
+      Ak toto pravidlo ponecháte nenastavené, umožní to používateľom zvoliť si proxy server samostatne.</translation>
 <translation id="793134539373873765">Určuje, či sa pri aktualizovaní OS má použiť protokol p2p. Ak je táto možnosť nastavená na hodnotu True, zariadenia budú zdieľať aktualizácie a pokúsia sa ich sťahovať v sieti LAN, čím potenciálne znížia využitie a preťaženie rýchlosti pripojenia. Ak sa aktualizácie nedajú vykonať v sieti LAN, zariadenie ich prevezme z aktualizačného servera. Ak je táto možnosť nastavená na hodnotu False alebo nie je nakonfigurovaná, protokol p2p sa nepoužije.</translation>
 <translation id="7933141401888114454">Povoliť vytváranie kontrolovaných používateľov</translation>
 <translation id="7936098023732125869">Aktivuje použitie predvoleného poskytovateľa vyhľadávania.

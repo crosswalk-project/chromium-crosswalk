@@ -213,6 +213,15 @@
 <translation id="1865417998205858223">Izin Kunci</translation>
 <translation id="186719019195685253">Kebijakan yang diambil saat penundaan nganggur tercapai ketika dijalankan pada daya AC</translation>
 <translation id="187819629719252111">Memungkinkan akses ke file lokal pada mesin dengan mengizinkan <ph name="PRODUCT_NAME" /> menampilkan dialog pemilihan file. Jika Anda mengaktifkan setelan ini, pengguna dapat membuka dialog pemilihan file seperti biasa. Jika Anda menonaktifkan setelan ini, setiap kali pengguna melakukan tindakan yang akan memicu dialog pemilihan file (seperti mengimpor bookmark, mengunggah file, menyimpan tautan, dll.), yang akan ditampilkan adalah pesan, dan pengguna dianggap telah mengeklik Batal pada dialog pemilihan file. Jika setelan ini tidak disetel, pengguna dapat membuka dialog pemilihan file seperti biasa.</translation>
+<translation id="1879485426724769439">Menentukan zona waktu untuk digunakan pada perangkat. Pengguna dapat mengganti zona waktu yang telah ditentukan untuk sesi aktif. Akan tetapi, saat pengguna keluar, zona waktu akan kembali ke setelan yang telah ditentukan. Jika nilai tidak valid diberikan, kebijakan ini tetap diaktifkan dengan "GMT" sebagai gantinya. Jika string kosong, kebijakan akan diabaikan.
+
+      Jika kebijakan ini tidak digunakan, zona waktu yang saat ini sedang aktif akan tetap digunakan, namun pengguna dapat mengubah zona waktu dan perubahan tersebut akan terus digunakan. Oleh karena itu, perubahan yang dilakukan oleh satu pengguna akan memengaruhi layar info masuk dan semua pengguna lain.
+
+      Perangkat baru dimulai dengan zona waktu yang disetel ke "US/Pacific" (AS/Pasifik).
+
+      Format nilai mengikuti nama zona waktu dalam "IANA Time Zone Database" (Basis Data Zona Waktu IANA) (lihat "https://en.wikipedia.org/wiki/Tz_database"). Secara khusus, sebagian besar zona waktu dapat dirujuk menurut "continent/large_city" (benua/kota besar) atau "ocean/large_city" (samudra/kota besar).
+
+      Menyetel kebijakan ini sepenuhnya menonaktifkan penentuan zona waktu otomatis menurut lokasi perangkat. Kebijakan ini juga menggantikan kebijakan SystemTimezoneAutomaticDetection.</translation>
 <translation id="1897365952389968758">Izinkan semua situs menjalankan JavaScript</translation>
 <translation id="193259052151668190">Daftar putih perangkat USB yang dapat dilepas</translation>
 <translation id="1933378685401357864">Gambar wallpaper</translation>
@@ -654,6 +663,20 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 
           Jika kebijakan ini tidak disetel, nilai default global akan digunakan untuk semua situs dari kebijakan 'DefaultKeygenSetting' jika disetel, atau dari konfigurasi pribadi pengguna.</translation>
 <translation id="3381968327636295719">Gunakan browser host jika tidak diubah</translation>
+<translation id="3398137877608138703">Mengizinkan atau menolak perekaman video.
+
+      Jika diaktifkan atau tidak dikonfigurasi (default), pengguna akan dimintai
+      akses perekaman video kecuali untuk URL yang dikonfigurasikan dalam
+      daftar VideoCaptureAllowedUrls yang akan diberi akses tanpa ditanya.
+      Aplikasi ARC dapat mengakses kamera jika sudah diberi
+      izin.
+
+      Jika kebijakan ini dinonaktifkan, pengguna tidak akan ditanya dan
+      perekaman video hanya tersedia untuk URL yang dikonfigurasi di VideoCaptureAllowedUrls.
+      Aplikasi ARC tidak dapat mengakses kamera.
+
+      Di luar aplikasi ARC, kebijakan ini memengaruhi semua jenis masukan video,
+      tidak hanya kamera yang sudah terpasang.</translation>
 <translation id="3417418267404583991">Jika kebijakan ini disetel ke true atau tidak dikonfigurasi, <ph name="PRODUCT_OS_NAME" /> akan mengaktifkan masuk sebagai tamu. Masuk sebagai tamu adalah sesi pengguna anonim dan tidak memerlukan sandi.
 
       Jika kebijakan ini disetel ke false, <ph name="PRODUCT_OS_NAME" /> tidak akan mengizinkan dimulainya sesi tamu.</translation>
@@ -671,6 +694,25 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="3478024346823118645">Hapus data pengguna saat keluar</translation>
 <translation id="348495353354674884">Aktifkan keyboard virtual</translation>
 <translation id="3496296378755072552">Pengelola sandi</translation>
+<translation id="349667858031092827">Jangan pernah mendeteksi zona waktu secara otomatis.</translation>
+<translation id="3502472987829488885">Memungkinkan Anda menetapkan server proxy yang digunakan oleh <ph name="PRODUCT_NAME" /> dan aplikasi ARC, serta mencegah pengguna mengubah setelan proxy.
+
+          Jika Anda memilih untuk tidak pernah menggunakan server proxy dan selalu tersambung secara langsung, semua opsi lainnya akan diabaikan. Aplikasi ARC akan menggunakan server proxy default jaringan saat ini jika ada.
+
+          Jika Anda memilih untuk menggunakan setelan proxy sistem, semua opsi lainnya akan diabaikan. Aplikasi ARC akan menggunakan server proxy default jaringan saat ini jika ada.
+
+          Jika Anda memilih untuk otomatis mendeteksi server proxy, semua opsi lainnya akan diabaikan.
+
+          Jika Anda memilih mode proxy server tetap, Anda dapat menetapkan opsi lanjutan di 'Alamat atau URL server proxy' dan 'Daftar aturan pengabaian proxy yang dipisahkan tanda koma'. Aplikasi ARC hanya akan menggunakan server proxy HTTP dengan prioritas tertinggi
+
+          Jika memilih untuk menggunakan skrip proxy .pac, Anda harus menetapkan URL ke skrip di 'URL ke file .pac proxy'.
+
+          Untuk contoh detailnya, buka:
+          <ph name="PROXY_HELP_URL" />
+
+          Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> dan aplikasi ARC akan mengabaikan semua opsi terkait proxy yang ditetapkan dari baris perintah.
+
+          Membiarkan kebijakan ini tidak disetel memungkinkan pengguna memilih setelan proxy sendiri.</translation>
 <translation id="3504791027627803580">Menentukan URL mesin telusur yang digunakan untuk menyediakan penelusuran gambar. Permintaan penelusuran akan dikirim menggunakan metode GET. Jika kebijakan DefaultSearchProviderImageURLPostParams disetel kemudian permintaan penelusuran gambar akan menggunakan metode POST.
 
           Kebijakan ini bersifat opsional. Jika tidak disetel, penelusuran gambar akan digunakan.
@@ -804,6 +846,22 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
           Jika kebijakan ini disetel ke 'Simpan cookie untuk durasi sesi', cookie akan dihapus saat sesi ditutup. Perhatikan bahwa jika <ph name="PRODUCT_NAME" /> dijalankan dalam 'mode latar belakang', sesi mungkin tidak ditutup saat jendela terakhir ditutup. Lihat kebijakan 'BackgroundModeEnabled' untuk informasi selengkapnya tentang cara mengonfigurasi perilaku ini.
 
           Jika kebijakan ini tidak disetel, 'AllowCookies' akan digunakan dan pengguna dapat mengubahnya.</translation>
+<translation id="4098957623809244159">Kebijakan ini sudah tidak digunakan, gunakan ProxyMode sebagai gantinya.
+
+          Memungkinkan Anda menentukan server proxy yang digunakan oleh <ph name="PRODUCT_NAME" /> dan aplikasi ARC, serta mencegah pengguna mengubah setelan proxy.
+
+          Jika Anda memilih untuk tidak pernah menggunakan server proxy dan selalu tersambung secara langsung, semua opsi lain akan diabaikan.
+
+          Jika Anda memilih untuk menggunakan setelan proxy sistem atau otomatis mendeteksi server proxy, semua opsi lain akan diabaikan.
+
+          Jika Anda memilih setelan proxy manual, Anda dapat menentukan opsi selanjutnya di 'Address or URL of proxy server' (Alamat atau URL server proxy), 'URL to a proxy .pac file' (URL ke file .pac proxy), dan 'Comma-separated list of proxy bypass rules' (Daftar yang dipisahkan koma untuk aturan pengabaian proxy).
+
+          Untuk contoh detailnya, buka:
+          <ph name="PROXY_HELP_URL" />
+
+          Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> mengabaikan semua opsi terkait proxy yang ditentukan dalam baris perintah.
+
+          Dengan tidak menyetel kebijakan ini, Anda akan memungkinkan pengguna memilih setelan proxy sesuai keinginannya sendiri.</translation>
 <translation id="4103289232974211388">Alihkan ke SAML IdP setelah konfirmasi pengguna</translation>
 <translation id="410478022164847452">Menentukan panjang waktu tanpa masukan pengguna sebelum tindakan menganggur diambil saat menggunakan daya AC.
 
@@ -1236,6 +1294,14 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="5893553533827140852">Jika setelan ini diaktifkan, permintaan autentikasi gnubby akan dilakukan melalui proxy lewat sambungan hosting jarak jauh.
 
           Jika setelan ini dinonaktifkan atau tidak dikonfigurasi, permintaan autentikasi gnubby tidak akan dilakukan melalui proxy.</translation>
+<translation id="5900959132054596599"><ph name="PRODUCT_NAME" /> dan aplikasi ARC akan mengabaikan proxy apa pun untuk daftar host yang diberikan di sini.
+
+          Kebijakan ini hanya berlaku jika Anda telah memilih setelan proxy manual di 'Choose how to specify proxy server settings' (Pilih cara menentukan setelan server proxy).
+
+          Anda harus membiarkan kebijakan ini tidak disetel jika telah memilih mode lain apa pun untuk kebijakan proxy setelan.
+
+          Untuk contoh yang lebih mendetail, buka:
+          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="5921713479449475707">Izinkan pengunduhan pembaruan otomatis melalui HTTP</translation>
 <translation id="5921888683953999946">Menyetel status default fitur aksesibilitas kursor besar di layar masuk.
 
@@ -1377,6 +1443,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="637934607141010488">Melaporkan daftar pengguna perangkat yang saat ini masuk.
 
       Jika kebijakan disetel ke false, pengguna tidak akan dilaporkan.</translation>
+<translation id="639009029157091157">Izinkan pengguna yang memutuskan.</translation>
 <translation id="6392973646875039351">Mengaktifkan fitur IsiOtomatis <ph name="PRODUCT_NAME" /> dan memungkinkan pengguna melengkapi formulir web secara otomatis menggunakan informasi yang tersimpan sebelumnya seperti alamat atau informasi kartu kredit. Jika Anda menonaktifkan setelan ini, IsiOtomatis tidak akan dapat diakses pengguna. Jika Anda mengaktifkan setelan ini atau tidak menyetel nilai, IsiOtomatis akan tetap berada di bawah kontrol pengguna. Cara ini akan memungkinkan pengguna mengonfigurasi profil IsiOtomatis dan mengaktifkan atau menonaktifkan IsiOtomatis sesuai keinginan mereka.</translation>
 <translation id="6394350458541421998">Kebijakan ini tidak lagi digunakan sejak <ph name="PRODUCT_OS_NAME" /> versi 29. Gunakan kebijakan PresentationScreenDimDelayScale sebagai gantinya.</translation>
 <translation id="6401669939808766804">Keluarkan pengguna</translation>
@@ -1723,6 +1790,9 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="7632724434767231364">Nama pustaka GSSAPI</translation>
 <translation id="7635471475589566552">Mengonfigurasi lokal aplikasi di <ph name="PRODUCT_NAME" /> dan mencegah pengguna mengubah lokal tersebut. Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> akan menggunakan lokal yang ditentukan. Jika lokal terkonfigurasi tidak didukung, 'en-US' akan digunakan. Jika setelan ini dinonaktifkan atau tidak disetel, <ph name="PRODUCT_NAME" /> akan menggunakan lokal terpilih yang ditentukan pengguna (jika dikonfigurasi), lokal sistem, atau lokal pengganti 'en-US'.</translation>
 <translation id="7651739109954974365">Menentukan apakah roaming data harus diaktifkan untuk perangkat. Jika disetel ke true, roaming data akan diizinkan. Jika dibiarkan tanpa konfigurasi atau disetel ke false, roaming data tidak akan tersedia.</translation>
+<translation id="7667184304362487902">Mengonfigurasi setelan proxy untuk <ph name="PRODUCT_NAME" /> dan aplikasi ARC.
+
+      Kebijakan ini belum siap digunakan, jangan menggunakannya.</translation>
 <translation id="76810863974142048">URL tempat klien akses jarak jauh seharusnya mendapatkan token autentikasinya.
 
           Jika kebijakan ini disetel, host akses jarak jauh akan mewajibkan klien yang mengautentikasi memperoleh token autentikasi dari URL ini untuk menyambung. Harus digunakan bersama dengan RemoteAccessHostTokenValidationUrl.
@@ -1791,11 +1861,36 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="7842869978353666042">Konfigurasi opsi Google Drive</translation>
 <translation id="7843525027689416831">Tentukan tanda yang harus diterapkan ke <ph name="PRODUCT_NAME" /> saat dimulai. Tanda yang ditentukan hanya diterapkan di layar masuk. Tanda yang disetel melalui kebijakan ini tidak diterapkan ke dalam sesi pengguna.</translation>
 <translation id="7848840259379156480">Memungkinkan Anda mengonfigurasi pengurai HTML default ketika <ph name="PRODUCT_FRAME_NAME" /> terpasang. Setelan defaultnya adalah mengizinkan browser host melakukan penguraian, tetapi Anda dapat mengganti ini secara opsional dan memerintahkan <ph name="PRODUCT_FRAME_NAME" /> agar mengurai laman HTML jika tidak diubah.</translation>
+<translation id="7853178359124471330">Jika kebijakan ini disetel, alur pendeteksian zona waktu otomatis akan menggunakan salah satu cara berikut tergantung nilai setelan:
+
+      Jika disetel ke TimezoneAutomaticDetectionUsersDecide, pengguna dapat mengontrol pendeteksian zona waktu otomatis menggunakan kontrol manual di chrome://settings.
+
+      Jika disetel ke TimezoneAutomaticDetectionDisabled, kontrol zona waktu otomatis di chrome://settings akan dinonaktifkan. Deteksi zona waktu otomatis akan selalu nonaktif.
+
+      Jika disetel ke TimezoneAutomaticDetectionIPOnly, kontrol zona waktu di chrome://settings akan dinonaktifkan. Deteksi zona waktu otomatis akan selalu aktif. Deteksi zona waktu akan menggunakan metode khusus IP untuk menentukan lokasi.
+
+      Jika disetel ke TimezoneAutomaticDetectionSendWiFiAccessPoints, kontrol zona waktu di chrome://settings akan dinonaktifkan. Deteksi zona waktu otomatis akan selalu aktif. Daftar poin akses Wi-Fi yang terlihat akan selalu dikirim ke server API Geolocation untuk deteksi zona waktu yang lebih merinci.
+
+      Jika kebijakan ini tidak disetel, perilakunya sama dengan saat TimezoneAutomaticDetectionUsersDecide disetel.
+
+      Jika kebijakan SystemTimezone disetel, kebijakan tersebut akan menggantikan kebijakan ini. Dalam kasus ini deteksi zona waktu otomatis akan dinonaktifkan sepenuhnya.</translation>
 <translation id="7882585827992171421">Kebijakan ini hanya aktif dalam mode ritel.
 
       Menentukan id ekstensi untuk digunakan sebagai tirai layar pada layar masuk. Ekstensi haruslah bagian dari AppPack yang dikonfigurasi untuk domain ini melalui kebijakan DeviceAppPack.</translation>
 <translation id="7882890448959833986">Sembunyikan peringatan OS tidak didukung</translation>
 <translation id="7912255076272890813">Konfigurasikan jenis aplikasi/ekstensi yang diizinkan</translation>
+<translation id="7928112526630078979">Memungkinkan Anda menetapkan server proxy yang digunakan oleh <ph name="PRODUCT_NAME" /> dan aplikasi ARC, serta mencegah pengguna mengubah setelan proxy.
+
+      Jika Anda memilih untuk tidak pernah menggunakan server proxy dan selalu tersambung secara langsung, semua opsi lainnya akan diabaikan. Aplikasi ARC akan menggunakan server proxy default jaringan saat ini jika ada.
+
+      Jika Anda memilih untuk otomatis mendeteksi server proxy, semua opsi lainnya akan diabaikan.
+
+      Untuk contoh detailnya, buka:
+      <ph name="PROXY_HELP_URL" />
+
+      Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> dan aplikasi ARC akan mengabaikan semua opsi terkait proxy yang ditetapkan dari baris perintah.
+
+      Membiarkan kebijakan ini tidak disetel memungkinkan pengguna memilih setelan proxy sendiri.</translation>
 <translation id="793134539373873765">Tentukan apakah p2p akan digunakan untuk payload pembaruan OS. Jika disetel ke True, perangkat akan membagi dan berusaha menggunakan payload pembaruan pada LAN, serta berpotensi mengurangi penggunaan dan kepadatan bandwidth internet. Jika payload pembaruan tidak tersedia di LAN, perangkat tersebut akan kembali mengunduh dari server yang diperbarui. Jika disetel ke False atau tidak dikonfigurasi, p2p tidak akan digunakan.</translation>
 <translation id="7933141401888114454">Mengaktifkan pembuatan pengguna yang dilindungi</translation>
 <translation id="7936098023732125869">Mengaktifkan penggunaan penyedia penelusuran default.
@@ -1828,6 +1923,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 
           Jika kebijakan dibiarkan tidak disetel, setelan tersebut akan diaktifkan.</translation>
 <translation id="8073243368829195">Memungkinkan Smart Lock digunakan</translation>
+<translation id="8074052133552427532">Selalu gunakan deteksi perkiraan kasar zona waktu.</translation>
 <translation id="8099880303030573137">Menunda waktu menganggur saat menggunakan daya baterai</translation>
 <translation id="8102913158860568230">Setelan streaming media default</translation>
 <translation id="8104962233214241919">Memilih sertifikat klien untuk situs ini secara otomatis</translation>
@@ -2053,9 +2149,12 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       Jika kebijakan ini disetel ke false, pengguna dan aplikasi maupun ekstensi tidak dapat memasuki mode layar penuh.
 
       Mode kios di semua platform kecuali <ph name="PRODUCT_OS_NAME" /> tidak akan tersedia saat mode layar penuh dinonaktifkan.</translation>
+<translation id="8795495354632096254">Selalu kirim poin akses Wi-Fi ke server sembari menentukan zona waktu.</translation>
 <translation id="8818173863808665831">Melaporkan lokasi geografis perangkat.
 
       Jika kebijakan tidak disetel, atau disetel ke false, lokasi tidak akan dilaporkan.</translation>
+<translation id="8818768076343557335">Memprediksi tindakan jaringan pada jaringan apa pun yang bukan seluler.
+          (Penggunaan dihentikan di nilai 50, dihapus di nilai 52. Setelah 52, jika nilai 1 disetel, nilai akan diperlakukan sebagai 0 - memprediksi tindakan jaringan di sambungan jaringan apa pun.)</translation>
 <translation id="8828766846428537606">Mengonfigurasi beranda default pada <ph name="PRODUCT_NAME" /> dan mencegah pengguna mengubahnya. Setelan beranda pengguna hanya dikunci sepenuhnya, jika Anda memilih beranda sebagai laman tab baru, atau menyetelnya menjadi URL dan menentukan URL beranda. Jika Anda tidak menentukan URL beranda, pengguna masih dapat menyetel beranda ke laman tab baru dengan menentukan 'chrome://newtab'.</translation>
 <translation id="8833109046074170275">Autentikasi melalui alur GAIA default</translation>
 <translation id="8838303810937202360"><ph name="PRODUCT_OS_NAME" /> menyimpan Aplikasi dan Ekstensi dalam cache untuk pemasangan oleh banyak pengguna pada perangkat tunggal guna menghindari unduhan ulang oleh setiap pengguna.
@@ -2115,6 +2214,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="9042911395677044526">Memungkinkan konfigurasi jaringan dorongan untuk diterapkan per pengguna ke perangkat <ph name="PRODUCT_OS_NAME" />. Konfigurasi jaringan adalah string berformat JSON seperti yang didefinisikan oleh format Konfigurasi Jaringan Terbuka yang diuraikan di <ph name="ONC_SPEC_URL" /></translation>
 <translation id="9084985621503260744">Tentukan apakah aktivitas video memengaruhi pengelolaan daya</translation>
 <translation id="9088433379343318874">Izinkan penyedia konten pengguna yang dilindungi</translation>
+<translation id="9088444059179765143">Mengonfigurasi metode deteksi zona waktu otomatis</translation>
 <translation id="9096086085182305205">Daftar putih server autentikasi</translation>
 <translation id="9098553063150791878">Kebijakan untuk autentikasi HTTP</translation>
 <translation id="9104138886225968319">Mengirim pemantauan detak jantung ke server pengelolaan, untuk memungkinkan

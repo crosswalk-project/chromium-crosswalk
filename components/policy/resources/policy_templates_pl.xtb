@@ -89,7 +89,7 @@
 
           W przypadku nieustawienia tej zasady zostanie użyta opcja „AllowPlugins”, a użytkownik będzie mógł ją zmienić.</translation>
 <translation id="1426410128494586442">Tak</translation>
-<translation id="1427655258943162134">Adres URL serwera proxy</translation>
+<translation id="1427655258943162134">Adres IP lub URL serwera proxy</translation>
 <translation id="1435659902881071157">Konfiguracja sieci na poziomie urządzenia</translation>
 <translation id="1438739959477268107">Domyślne ustawienie generowania kluczy</translation>
 <translation id="1454846751303307294">Umożliwia skonfigurowanie listy wzorcowych URL-i określających witryny, w których nie może być wykonywany kod JavaScript. W przypadku nieskonfigurowania tej zasady dla wszystkich witryn będzie używana globalna wartość domyślna pobierana z zasady „DefaultJavaScriptSetting” (jeśli została skonfigurowana) lub z osobistej konfiguracji użytkownika.</translation>
@@ -206,6 +206,15 @@
 <translation id="1865417998205858223">Uprawnienia klucza</translation>
 <translation id="186719019195685253">Działanie, jakie ma zostać podjęte po osiągnięciu opóźnienia bezczynności przy zasilaniu prądem zmiennym</translation>
 <translation id="187819629719252111">Umożliwia dostęp do plików lokalnych na komputerze, zezwalając <ph name="PRODUCT_NAME" /> na wyświetlanie okien dialogowych wyboru pliku. Po włączeniu tego ustawienia użytkownicy mogą w normalny sposób otwierać okna dialogowe wyboru pliku. Jeśli wyłączysz ustawienie, w momencie wykonania przez użytkownika czynności powodującej wywołanie okna dialogowego wyboru pliku (np. zaimportowanie zakładek, przesłanie plików, zapisanie linków itp.) zostanie wyświetlony komunikat, a działanie przeglądarki będzie kontynuowane, tak jakby użytkownik kliknął przycisk Anuluj w oknie dialogowym wyboru pliku. Jeśli ustawienie jest nieskonfigurowane, użytkownicy mogą w normalny sposób otwierać okna dialogowe wyboru pliku.</translation>
+<translation id="1879485426724769439">Określa strefę czasową używaną na urządzeniu. Użytkownicy mogą zastąpić obowiązującą strefę czasową na czas bieżącej sesji. Jednak po wylogowaniu ponownie ustawiana jest pierwotna strefa czasowa. Jeśli podasz nieprawidłową wartość, zasada jest aktywowana z ustawieniem „GMT”. Gdy wartość to pusty ciąg znaków, zasada jest ignorowana.
+
+      Jeśli nie zastosujesz tej zasady, aktualnie aktywna strefa czasowa nadal obowiązuje, ale użytkownicy mogą zmienić ją na stałe. Zmiana wprowadzona przez jednego użytkownika wpływa na ekran logowania i konta wszystkich innych użytkowników.
+
+      Nowe urządzenia mają strefę czasową „Stany Zjednoczone/Czas pacyficzny”.
+
+      Format wartości musi być zgodny z nazwami stref czasowych w bazie danych stref czasowych IANA (patrz: „http://en.wikipedia.org/wiki/List_of_tz_database_time_zones” – strona w języku angielskim). To oznacza, że większość stref czasowych można podawać w formacie „kontynent/duże_miasto” lub „ocean/duże_miasto”.
+
+      Ustawienie tej zasady całkowicie wyłącza zmienianie strefy czasowej na podstawie lokalizacji urządzenia. Zastępuje ona również zasadę SystemTimezoneAutomaticDetection.</translation>
 <translation id="1897365952389968758">Zezwalaj na wykonywanie kodu JavaScript we wszystkich witrynach</translation>
 <translation id="193259052151668190">Biała lista odłączanych urządzeń USB</translation>
 <translation id="1933378685401357864">Tapeta</translation>
@@ -650,6 +659,21 @@
 
           Jeśli ta zasada nie zostanie skonfigurowana, dla wszystkich witryn będzie używana globalna wartość domyślna pochodząca z zasady „DefaultKeygenSetting” (jeśli została skonfigurowana) lub z osobistej konfiguracji użytkownika.</translation>
 <translation id="3381968327636295719">Używaj domyślnie przeglądarki hosta</translation>
+<translation id="3398137877608138703">Zezwól lub nie na przechwytywanie wideo.
+
+      Jeśli ta zasada jest włączona lub nie jest skonfigurowana
+      (ustawienie domyślne), użytkownik jest pytany o pozwolenie
+      na przechwytywanie wideo, chyba że dany URL jest na liście
+      VideoCaptureAllowedUrls – wtedy pozwolenie jest udzielane bez pytania.
+      Aplikacje ARC mogą uzyskiwać dostęp do kamery, jeśli otrzymały
+      pozwolenie.
+      Gdy zasada jest wyłączona, użytkownik nigdy nie jest pytany,
+      a przechwytywanie wideo jest dostępne tylko dla stron,
+      których adresy URL są na liście VideoCaptureAllowedUrls.
+      Aplikacje ARC nie mogą uzyskiwać dostępu do kamery.
+
+      Poza aplikacjami ARC ta zasada dotyczy wszystkich typów wejść wideo,
+      nie tylko wbudowanej kamery.</translation>
 <translation id="3417418267404583991">Jeśli ta zasada zostanie włączona lub nie będzie skonfigurowana, <ph name="PRODUCT_OS_NAME" /> będzie umożliwiał logowanie się w trybie gościa. Logowania w trybie gościa to anonimowe sesje użytkownika, które nie wymagają hasła.
 
       W przypadku wyłączenia tej zasady <ph name="PRODUCT_OS_NAME" /> nie będzie zezwalać na uruchamianie sesji gościa.</translation>
@@ -667,6 +691,25 @@
 <translation id="3478024346823118645">Wyczyść dane użytkownika przy wylogowaniu</translation>
 <translation id="348495353354674884">Włącz wirtualną klawiaturę</translation>
 <translation id="3496296378755072552">Menedżer haseł</translation>
+<translation id="349667858031092827">Nigdy nie wykrywaj automatycznie strefy czasowej.</translation>
+<translation id="3502472987829488885">Pozwala określić serwer proxy, którego używają <ph name="PRODUCT_NAME" /> oraz aplikacje ARC, i uniemożliwia użytkownikom zmianę ustawień proxy.
+
+          Jeśli zdecydujesz się nie używać serwera proxy i zawsze łączyć się bezpośrednio, wszystkie pozostałe opcje będą ignorowane. Aplikacje ARC będą korzystać z domyślnego serwera proxy aktualnej sieci, jeśli taki istnieje.
+
+          Jeśli zdecydujesz się korzystać z systemowych ustawień serwera proxy, wszystkie pozostałe opcje będą ignorowane. Aplikacje ARC będą korzystać z domyślnego serwera proxy aktualnej sieci, jeśli taki istnieje.
+
+          Jeśli wybierzesz automatyczne wykrywanie serwera proxy, wszystkie pozostałe opcje będą ignorowane.
+
+          Jeśli wybierzesz tryb stałego serwera proxy, możesz określić dodatkowe opcje w ustawieniach „Adres IP lub URL serwera proxy” i „Lista rozdzielonych przecinkami reguł omijania serwera proxy”. Aplikacje ARC będą używać tylko serwera proxy HTTP o najwyższym priorytecie.
+
+          Jeśli zdecydujesz się użyć skryptu PAC serwera proxy, musisz podać adres URL do skryptu w opcji „URL do pliku PAC serwera proxy”.
+
+          Szczegółowe przykłady znajdziesz na:
+          <ph name="PROXY_HELP_URL" />
+
+          Po włączeniu tego ustawienia <ph name="PRODUCT_NAME" /> i aplikacje ARC będą ignorować wszystkie opcje dotyczące serwera proxy określone w wierszu poleceń.
+
+          Jeśli pozostawisz tę zasadę nieskonfigurowaną, użytkownicy będą mogli samodzielnie wybrać ustawienia serwera</translation>
 <translation id="3504791027627803580">Określa adres URL wyszukiwarki używanej do wyszukiwania obrazem. Żądania wyszukiwania będą wysyłane przy użyciu metody GET. Jeśli zasada DefaultSearchProviderImageURLPostParams jest ustawiona, wtedy takie żądania będą używać metody POST.
 
           Ta zasada jest opcjonalna. Jeśli nie jest ustawiona, nie będzie używane wyszukiwanie obrazem.
@@ -802,6 +845,22 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
           Jeśli ta zasada zostanie ustawiona na „Zachowaj pliki cookie na czas trwania sesji”, pliki cookie będą usuwane przy zamknięciu sesji. Pamiętaj, że jeśli <ph name="PRODUCT_NAME" /> działa w tle, nawet po zamknięciu ostatniego okna sesja może pozostać aktywna. Przeczytaj o zasadzie BackgroundModeEnabled, by dowiedzieć się więcej o konfigurowaniu tego działania.
 
           Jeśli ta zasada pozostanie nieskonfigurowana, będzie używane ustawienie AllowCookies, a użytkownik będzie mógł je zmienić.</translation>
+<translation id="4098957623809244159">Ta zasada jest przestarzała. Zamiast niej użyj zasady ProxyMode.
+
+          Pozwala określić serwer proxy używany w <ph name="PRODUCT_NAME" /> oraz aplikacjach ARC i uniemożliwia użytkownikom zmianę jego ustawień.
+
+          Jeśli zdecydujesz się nie korzystać z serwera proxy i zawsze bezpośrednio nawiązywać połączenia, wszystkie pozostałe opcje będą ignorowane.
+
+          Są one też ignorowane w przypadku użycia systemowych ustawień serwera proxy lub automatycznego wykrywania serwera proxy.
+
+          Jeśli chcesz ręcznie wprowadzić ustawienia serwera proxy, możesz określić dodatkowe opcje w polach „Adres IP lub URL serwera proxy”, „Adres URL pliku PAC serwera proxy” i „Lista rozdzielonych przecinkami reguł omijania serwera proxy”.
+
+          Szczegółowe przykłady znajdziesz na stronie:
+          <ph name="PROXY_HELP_URL" />
+
+          Jeśli ustawienie jest włączone, <ph name="PRODUCT_NAME" /> ignoruje wszystkie opcje dotyczące serwera proxy określone w wierszu polecenia.
+
+          Jeśli ta zasada nie zostanie ustawiona, użytkownicy mogą samodzielnie określić ustawienia serwera proxy.</translation>
 <translation id="4103289232974211388">Przekieruj do dostawcy tożsamości SAML po potwierdzeniu przez użytkownika</translation>
 <translation id="410478022164847452">Określa, po jakim czasie nieaktywności użytkownika podejmowane jest działanie po bezczynności przy zasilaniu z sieci.
 
@@ -1234,6 +1293,14 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="5893553533827140852">Jeśli włączysz to ustawienie, żądania uwierzytelniania Gnubby będą przesyłane przez serwer proxy podczas zdalnego połączenia z hostem.
 
           Jeśli wyłączysz to ustawienie lub go nie skonfigurujesz, żądania uwierzytelniania Gnubby nie będą przesyłane przez serwer proxy.</translation>
+<translation id="5900959132054596599">W przypadku hostów wymienionych na tej liście <ph name="PRODUCT_NAME" /> i aplikacje ARC omijają serwer proxy.
+
+          Ta zasada obowiązuje tylko wtedy, gdy ręcznie wprowadzisz ustawienia serwera proxy za pomocą opcji „Wybierz sposób określenia ustawień serwera proxy”.
+
+          Nie ustawiaj tej zasady w przypadku wybrania innego trybu ustawiania zasad serwera proxy.
+
+          Szczegółowe przykłady znajdziesz na stronie:
+          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="5921713479449475707">Zezwalaj na pobieranie aktualizacji automatycznych przez HTTP</translation>
 <translation id="5921888683953999946">Ustawia domyślny stan funkcji ułatwień dostępu w postaci dużego kursora na ekranie logowania.
 
@@ -1375,6 +1442,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="637934607141010488">Zgłasza listę użytkowników urządzenia, którzy niedawno się zalogowali.
 
       Jeśli ta zasada ma wartość Fałsz, użytkownicy nie są zgłaszani.</translation>
+<translation id="639009029157091157">Pozwól zdecydować użytkownikom.</translation>
 <translation id="6392973646875039351">Włącza funkcję autouzupełniania w <ph name="PRODUCT_NAME" /> i umożliwia użytkownikom automatyczne wypełnianie formularzy internetowych za pomocą zapisanych wcześniej informacji, takich jak np. adres czy dane karty kredytowej. Jeśli wyłączysz to ustawienie, autouzupełnianie będzie niedostępne dla użytkowników. Jeśli ustawienie jest włączone lub nieskonfigurowane, użytkownik zachowuje kontrolę nad autouzupełnianiem. Może wówczas konfigurować profile autouzupełniania oraz włączać i wyłączać tę funkcję według własnego uznania.</translation>
 <translation id="6394350458541421998">Ta zasada została wycofana w <ph name="PRODUCT_OS_NAME" /> w wersji 29. Zamiast niej użyj zasady PresentationScreenDimDelayScale.</translation>
 <translation id="6401669939808766804">Wyloguj użytkownika</translation>
@@ -1711,6 +1779,9 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="7632724434767231364">Nazwa biblioteki GSSAPI</translation>
 <translation id="7635471475589566552">Pozwala skonfigurować język w przeglądarce <ph name="PRODUCT_NAME" /> i uniemożliwia użytkownikom jego zmianę. Jeśli włączysz to ustawienie, w <ph name="PRODUCT_NAME" /> będzie używany określony język. W przypadku, gdy skonfigurowany język nie jest obsługiwany, wybierana jest opcja „en-US”. Jeśli ustawienie jest wyłączone lub nieskonfigurowane, w <ph name="PRODUCT_NAME" /> używany jest preferowany język określony przez użytkownika (jeśli został skonfigurowany), język ustawiony w systemie lub zastępcza opcja „en-US”.</translation>
 <translation id="7651739109954974365">Określa, czy na urządzeniu powinno być włączone przesyłanie danych w roamingu. W przypadku włączenia tej zasady przesyłanie danych w roamingu będzie dozwolone. Jeśli zasada będzie wyłączona lub nieskonfigurowana, przesyłanie danych w roamingu będzie niedostępne.</translation>
+<translation id="7667184304362487902">Konfiguruje ustawienia serwera proxy dla <ph name="PRODUCT_NAME" /> i aplikacji ARC.
+
+      Zasada nie jest jeszcze gotowa, więc nie należy jej używać.</translation>
 <translation id="76810863974142048">Adres URL, pod którym klienty zdalnego dostępu otrzymują token uwierzytelniania.
 
           Jeśli ustawisz tę zasadę, host zdalnego dostępu będzie wymagał od łączących się klientów uzyskania tokena uwierzytelniania z tego adresu URL. Musisz jej używać w połączeniu z zasadą RemoteAccessHostTokenValidationUrl.
@@ -1779,11 +1850,36 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="7842869978353666042">Skonfiguruj opcje Dysku Google</translation>
 <translation id="7843525027689416831">Określa flagi stosowane przy uruchamianiu <ph name="PRODUCT_NAME" />. Wybrane flagi są używane tylko na ekranie logowania. Flagi ustawiane przez tę zasadę nie przechodzą na sesje użytkownika.</translation>
 <translation id="7848840259379156480">Umożliwia skonfigurowanie domyślnego mechanizmu renderowania HTML po zainstalowaniu wtyczki <ph name="PRODUCT_FRAME_NAME" />. Ustawieniem domyślnym jest zezwolenie przeglądarce hosta na wykonywanie renderowania, jednak możesz opcjonalnie zastąpić to ustawienie, tak aby strony HTML były domyślnie renderowane przez wtyczkę <ph name="PRODUCT_FRAME_NAME" />.</translation>
+<translation id="7853178359124471330">Gdy zasada jest ustawiona, proces automatycznego wykrywania strefy czasowej przebiega na jeden z tych sposobów, zależnie od ustawionej wartości:
+
+      Jeśli wartość to TimezoneAutomaticDetectionUsersDecide, użytkownicy mogą określać automatyczne wykrywanie strefy czasowej przy użyciu zwykłych opcji na stronie chrome://settings.
+
+      Jeśli wartość to TimezoneAutomaticDetectionDisabled, opcje sterowania automatyczną zmianą strefy czasowej na stronie chrome://settings są wyłączone. Automatyczne wykrywanie strefy czasowej jest zawsze wyłączone.
+
+      Jeśli wartość to TimezoneAutomaticDetectionIPOnly, opcje sterowania automatyczną zmianą strefy czasowej na stronie chrome://settings są wyłączone. Automatyczne wykrywanie strefy czasowej jest zawsze włączone. Wykrywanie strefy czasowej do określania lokalizacji używa tylko adresu IP.
+
+      Jeśli wartość to TimezoneAutomaticDetectionSendWiFiAccessPoints, opcje sterowania automatyczną zmianą strefy czasowej na stronie chrome://settings są wyłączone. Automatyczne wykrywanie strefy czasowej jest zawsze włączone. Lista widocznych punktów dostępu Wi-Fi jest zawsze przesyłana do serwera interfejsu API geolokalizacji, by z dużą dokładnością wykrywać strefę czasową.
+
+      Jeśli ta zasada nie jest ustawiona, stosowana jest wartość TimezoneAutomaticDetectionUsersDecide.
+
+      Tę zasadę zastępuje włączona zasada SystemTimezone. Jeśli obowiązuje zasada SystemTimezone, automatyczne wykrywanie strefy czasowej jest całkowicie wyłączone.</translation>
 <translation id="7882585827992171421">Ta zasada jest aktywna tylko w trybie sklepu.
 
       Określa identyfikator rozszerzenia używanego jako wygaszacz ekranu na ekranie logowania. Rozszerzenie musi być częścią pakietu aplikacji skonfigurowanego dla tej domeny przez zasadę DeviceAppPack.</translation>
 <translation id="7882890448959833986">Ukryj ostrzeżenie o nieobsługiwanym systemie operacyjnym</translation>
 <translation id="7912255076272890813">Skonfiguruj dozwolone typy aplikacji/rozszerzeń</translation>
+<translation id="7928112526630078979">Pozwala określić serwer proxy, którego używają <ph name="PRODUCT_NAME" /> oraz aplikacje ARC, i uniemożliwia użytkownikom zmianę ustawień proxy.
+
+      Jeśli zdecydujesz się nie używać serwera proxy i zawsze łączyć się bezpośrednio, wszystkie pozostałe opcje będą ignorowane. Aplikacje ARC będą korzystać z domyślnego serwera proxy aktualnej sieci, jeśli taki istnieje.
+
+      Jeśli wybierzesz automatyczne wykrywanie serwera proxy, wszystkie pozostałe opcje będą ignorowane.
+
+      Szczegółowe przykłady znajdziesz na:
+      <ph name="PROXY_HELP_URL" />
+
+      Po włączeniu tego ustawienia <ph name="PRODUCT_NAME" /> i aplikacje ARC będą ignorować wszystkie opcje dotyczące serwera proxy określone w wierszu poleceń.
+
+      Jeśli pozostawisz te zasady nieskonfigurowane, użytkownicy będą mogli samodzielnie wybrać ustawienia serwera proxy.</translation>
 <translation id="793134539373873765">Określa, czy do pobierania aktualizacji systemu operacyjnego ma być używana sieć P2P. Jeśli w tej opcji ustawisz wartość Prawda, urządzenia będą dzieliły aktualizacje w sieci LAN i próbowały pobierać je z tej sieci, co może zmniejszyć wykorzystanie i obciążenie łącza internetowego. Jeśli aktualizacje nie będą dostępne w sieci LAN, urządzenie przełączy się na pobieranie aktualizacji z serwera. Jeśli ustawisz w tej opcji wartość Fałsz, sieć P2P nie będzie używana.</translation>
 <translation id="7933141401888114454">Włącz tworzenie użytkowników nadzorowanych</translation>
 <translation id="7936098023732125869">Włącza korzystanie z usług domyślnego dostawcy usługi wyszukiwania.
@@ -1816,6 +1912,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 
           Jeśli nie skonfigurujesz tej zasady, ustawienie jest włączone.</translation>
 <translation id="8073243368829195">Pozwala włączyć funkcję Smart Lock</translation>
+<translation id="8074052133552427532">Zawsze używaj przybliżonego wykrywania strefy czasowej.</translation>
 <translation id="8099880303030573137">Opóźnienie bezczynności przy zasilaniu z baterii</translation>
 <translation id="8102913158860568230">Domyślne ustawienia strumienia multimediów</translation>
 <translation id="8104962233214241919">Automatycznie wybierz certyfikaty klienta dla tych witryn</translation>
@@ -2039,9 +2136,12 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
       Jeśli ustawisz tu wartość fałsz, ani użytkownik, ani żadne aplikacje czy rozszerzenia nie będą mogli przechodzić w tryb pełnoekranowy.
 
       Na żadnej platformie oprócz <ph name="PRODUCT_OS_NAME" /> tryb kiosku nie jest dostępny w trybie pełnoekranowym.</translation>
+<translation id="8795495354632096254">Zawsze przesyłaj punkty dostępu Wi-Fi do serwera podczas określania strefy czasowej.</translation>
 <translation id="8818173863808665831">Zgłoś lokalizację geograficzną urządzenia.
 
       Jeśli ta zasada nie jest ustawiona lub jest ustawiona na wartość nieprawdziwą, lokalizacja nie będzie zgłaszana.</translation>
+<translation id="8818768076343557335">Przewiduj działania w dowolnej sieci innej niż komórkowa.
+          Opcja wycofana w wersji 50, usunięta z wersji 52. Po wersji 52 wartość ustawiona na 1 będzie traktowana jako wartość 0 – włączone jest przewidywanie działań przy dowolnym połączeniu sieciowym.</translation>
 <translation id="8828766846428537606">Pozwala skonfigurować domyślną stronę startową w przeglądarce <ph name="PRODUCT_NAME" /> i uniemożliwia użytkownikom jej zmianę. Jeśli jako stronę startową ustawisz stronę Nowa karta albo adres URL (wpisany ręcznie), ustawienia strony startowej użytkownika zostaną całkowicie zablokowane. Jeśli adres URL strony startowej nie zostanie określony, użytkownik jako stronę startową będzie mógł ustawić stronę Nowa karta, podając adres „chrome://newtab”.</translation>
 <translation id="8833109046074170275">Uwierzytelnianie przez domyślny proces GAIA</translation>
 <translation id="8838303810937202360"><ph name="PRODUCT_OS_NAME" /> zapisuje w pamięci podręcznej aplikacje i rozszerzenia instalowane przez różnych użytkowników na jednym urządzeniu, by uniknąć pobierania ich ponownie dla każdego użytkownika.
@@ -2101,6 +2201,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="9042911395677044526">Pozwala na przesyłanie konfiguracji sieciowej w trybie push do urządzeń z <ph name="PRODUCT_OS_NAME" /> dla poszczególnych użytkowników. Konfiguracja sieci to łańcuch w formacie JSON zgodny z formatem Open Network Configuration opisanym na <ph name="ONC_SPEC_URL" /></translation>
 <translation id="9084985621503260744">Określ, czy aktywność związana z filmami wpływa na zarządzanie energią</translation>
 <translation id="9088433379343318874">Włącz dostawcę treści dla nadzorowanego użytkownika</translation>
+<translation id="9088444059179765143">Konfigurowanie metody automatycznego wykrywania strefy czasowej</translation>
 <translation id="9096086085182305205">Biała lista serwera uwierzytelniania</translation>
 <translation id="9098553063150791878">Zasady uwierzytelniania HTTP</translation>
 <translation id="9104138886225968319">Wysyłaj pakiety podtrzymujące do serwera zarządzania,

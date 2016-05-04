@@ -237,6 +237,15 @@ Si vous activez ce paramètre, les utilisateurs peuvent ouvrir normalement les b
 Si vous désactivez ce paramètre, chaque fois que l'utilisateur effectue une action entraînant l'ouverture d'une boîte de dialogue de sélection de fichiers (par exemple, une importation de favoris, un téléchargement de fichiers, l'enregistrement de liens, etc.), un message s'affiche à la place et l'utilisateur est supposé avoir cliqué sur "Annuler" dans la boîte de dialogue de sélection de fichiers. 
 
 Si ce paramètre n'est pas défini, les utilisateurs peuvent ouvrir normalement les boîtes de dialogue de sélection de fichiers.</translation>
+<translation id="1879485426724769439">Indique le fuseau horaire à utiliser sur l'appareil. Les utilisateurs peuvent changer le fuseau horaire spécifié pour la session en cours. Cependant, en cas de déconnexion, le paramètre est de nouveau défini sur le fuseau horaire spécifié. Si une valeur non valide est utilisée, la règle est toutefois activée avec le fuseau horaire "GMT". Si une chaîne vide est utilisée, cette règle est ignorée.
+
+      Si cette règle n'est pas appliquée, le fuseau horaire actif continue d'être utilisé. Les utilisateurs peuvent néanmoins changer le fuseau horaire ; la modification est alors permanente. En conséquence, toute modification apportée par un utilisateur a une incidence sur l'écran de connexion de tous les autres utilisateurs.
+
+      Le fuseau horaire est défini sur "États-Unis/Pacifique" pour tous les nouveaux appareils.
+
+      Le format de la valeur correspond aux noms des fuseaux horaires de la "IANA Time Zone Database" (voir la page https://en.wikipedia.org/wiki/Tz_database). La plupart des fuseaux horaires se présentent sous la forme "continent/grande_ville" ou "océan/grande_ville".
+
+      Si cette règle est définie, la mise à jour automatique du fuseau horaire selon la position de l'appareil est désactivée et la règle SystemTimezoneAutomaticDetection est également ignorée.</translation>
 <translation id="1897365952389968758">Autoriser tous les sites à exécuter JavaScript</translation>
 <translation id="193259052151668190">Liste blanche d'appareils USB amovibles</translation>
 <translation id="1933378685401357864">Image de fond d'écran</translation>
@@ -722,6 +731,20 @@ Si elle n'est pas configurée, l'utilisateur peut être invité à effectuer l'i
 
           Si cette règle n'est pas définie, la valeur globale par défaut est utilisée pour tous les sites, et déterminée à partir de la règle "DefaultKeygenSetting" si celle-ci est définie, ou à partir de la configuration personnelle de l'utilisateur.</translation>
 <translation id="3381968327636295719">Utiliser le navigateur hôte par défaut</translation>
+<translation id="3398137877608138703">Permet d'autoriser ou d'interdire la capture vidéo.
+
+      Si cette règle est activée ou n'est pas configurée (par défaut), l'utilisateur
+      est invité à accepter l'accès à la capture vidéo, excepté pour les URL
+      configurées dans la liste VideoCaptureAllowedUrls qui bénéficient d'un accès
+      instantané. Les applications ARC ont accès à l'appareil photo si elles y ont
+      été autorisées.
+
+      Si cette règle est désactivée, aucune invite ne s'affiche et la capture vidéo
+      n'est disponible qu'avec les URL de la liste VideoCaptureAllowedUrls.
+      Les applications ARC n'ont pas accès à l'appareil photo.
+
+      En dehors des applications ARC, cette règle concerne tous les types
+      d'entrées vidéo et pas seulement l'appareil photo intégré.</translation>
 <translation id="3417418267404583991">Si cette règle est définie sur "true" ou si elle n'est pas configurée, <ph name="PRODUCT_OS_NAME" /> autorise les connexions en mode invité. Les connexions en mode invité correspondent à des sessions utilisateur anonymes et ne nécessitent pas de mot de passe.
 
        Si cette règle est définie sur "false", <ph name="PRODUCT_OS_NAME" /> n'autorise pas les sessions en mode invité.</translation>
@@ -739,6 +762,25 @@ Si elle n'est pas configurée, l'utilisateur peut être invité à effectuer l'i
 <translation id="3478024346823118645">Effacer les données utilisateur à la déconnexion</translation>
 <translation id="348495353354674884">Activer le clavier virtuel</translation>
 <translation id="3496296378755072552">Gestionnaire de mots de passe</translation>
+<translation id="349667858031092827">Ne jamais détecter automatiquement le fuseau horaire</translation>
+<translation id="3502472987829488885">Permet de définir le serveur proxy utilisé par <ph name="PRODUCT_NAME" /> et les applications ARC, et d'empêcher les utilisateurs de modifier les paramètres de proxy.
+
+          Si vous choisissez de ne jamais utiliser de serveur proxy et de toujours vous connecter directement, toutes les autres options sont ignorées. Les applications ARC utilisent le serveur proxy par défaut du réseau actuel, le cas échéant.
+
+          Si vous décidez d'utiliser les paramètres de proxy du système, toutes les autres options sont ignorées. Les applications ARC utilisent le serveur proxy par défaut du réseau actuel, le cas échéant.
+
+          Si vous optez pour la détection automatique du serveur proxy, toutes les autres options sont ignorées.
+
+          Si vous choisissez le mode serveur proxy déterminé, vous pouvez définir des options supplémentaires dans "Adresse ou URL du serveur proxy" et "Liste de règles de contournement de proxy séparées par des virgules". Les applications ARC n'utilisent que le serveur proxy HTTP ayant la priorité la plus élevée.
+
+          Si vous décidez d'utiliser un script de proxy .pac, vous devez indiquer l'URL du script dans "URL d'un fichier .pac de proxy".
+
+          Pour consulter des exemples détaillés, rendez-vous sur
+          <ph name="PROXY_HELP_URL" />.
+
+          Si vous activez ce paramètre, <ph name="PRODUCT_NAME" /> et les applications ARC ignorent toutes les options liées au proxy spécifiées à partir de la ligne de commande.
+
+          Si cette règle n'est pas configurée, les utilisateurs peuvent choisir eux-mêmes leurs paramètres de proxy.</translation>
 <translation id="3504791027627803580">Spécifie l'URL du moteur de recherche utilisé pour la recherche d'image. Les requêtes de recherche seront envoyées à l'aide la méthode GET. Si la règle "DefaultSearchProviderImageURLPostParams" est activée, elles seront envoyées à l'aide la méthode POST à la place de GET.
 
           Cette règle est facultative. Si elle n'est pas définie, aucune recherche d'image ne sera utilisée.
@@ -888,6 +930,22 @@ Cette option est habituellement désactivée dans le cadre de la protection cont
           Si la règle est définie sur "Conserver les cookies pendant toute la durée de la session", les cookies seront supprimés à la fermeture de la session. Notez que si <ph name="PRODUCT_NAME" /> s'exécute en arrière-plan, il se peut que la session ne se termine pas à la fermeture de la dernière fenêtre. Veuillez consulter la règle BackgroundModeEnabled pour en savoir plus sur cette configuration.
 
           Si cette règle n'est pas définie, la règle AllowCookies sera activée, et l'utilisateur sera autorisé à la modifier.</translation>
+<translation id="4098957623809244159">Cette règle a été abandonnée. Utilisez plutôt le mode proxy.
+
+          Permet de spécifier le serveur proxy utilisé par <ph name="PRODUCT_NAME" /> et les applications ARC, et d'empêcher les utilisateurs de modifier les paramètres de proxy.
+
+          Si vous choisissez de ne jamais utiliser de serveur proxy et de toujours vous connecter directement, toutes les autres options sont ignorées.
+
+          Si vous optez pour les paramètres proxy du système ou la détection automatique du serveur proxy, toutes les autres options sont ignorées.
+
+          Si vous sélectionnez les paramètres de proxy manuels, vous pouvez spécifier des options supplémentaires dans "Adresse ou URL du serveur proxy", "URL d'un fichier .pac de proxy" et "Liste de règles de contournement de proxy séparées par des virgules".
+
+          Pour consulter des exemples détaillés, rendez-vous sur :
+          <ph name="PROXY_HELP_URL" />
+
+          Si vous activez ce paramètre, <ph name="PRODUCT_NAME" /> ignore toutes les options liées au proxy spécifiées à partir de la ligne de commande.
+
+          Si cette règle n'est pas configurée, les utilisateurs peuvent choisir eux-mêmes leurs paramètres de proxy.</translation>
 <translation id="4103289232974211388">Rediriger vers le fournisseur d'identité SAML après confirmation de l'utilisateur</translation>
 <translation id="410478022164847452">Indiquer le délai d'inactivité au terme duquel l'action d'inactivité est appliquée en cas d'utilisation de l'alimentation secteur
 
@@ -1381,6 +1439,14 @@ Si l'option "Forcé" est sélectionnée, les pages peuvent être ouvertes UNIQUE
 <translation id="5893553533827140852">Si ce paramètre est activé, les demandes d'authentification gnubby seront envoyées par un proxy via une connexion hôte à distance.
 
           S'il est désactivé ou n'est pas configuré, ces demandes ne seront pas envoyées par un proxy.</translation>
+<translation id="5900959132054596599">Permet de définir une liste d'hôtes pour lesquels <ph name="PRODUCT_NAME" /> et les applications ARC contourneront le serveur proxy.
+
+          Cette règle n'est applicable que si vous avez sélectionné les paramètres de proxy manuels pour l'option "Sélectionner le mode de spécification des paramètres de serveur proxy".
+
+          Ne configurez pas cette règle si vous avez sélectionné un autre mode de spécification des règles de proxy.
+
+          Pour consulter des exemples détaillés, rendez-vous sur :
+          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="5921713479449475707">Autoriser les téléchargements de mise à jour automatique via HTTP</translation>
 <translation id="5921888683953999946">Définit l'état par défaut de la fonctionnalité d'accessibilité de grand curseur sur l'écran de connexion.
 
@@ -1528,6 +1594,7 @@ Si vous désactivez ce paramètre ou si vous ne le configurez pas, le SPN Kerber
 <translation id="637934607141010488">Générer une liste des utilisateurs qui se sont récemment connectés à l'appareil.
 
       Si cette règle est définie sur "False", aucune liste d'utilisateurs n'est générée.</translation>
+<translation id="639009029157091157">Choix laissé aux utilisateurs</translation>
 <translation id="6392973646875039351">Active la fonction de saisie automatique de <ph name="PRODUCT_NAME" /> et permet aux utilisateurs de remplir automatiquement des formulaires Web à l'aide de données stockées précédemment, telles qu'une adresse ou des informations de carte de crédit. 
 
 Si vous désactivez ce paramètre, la fonction de saisie automatique n'est pas accessible aux utilisateurs. 
@@ -1905,6 +1972,9 @@ Si vous activez ce paramètre, <ph name="PRODUCT_NAME" /> utilise les paramètre
 
 Si ce paramètre est désactivé ou s'il n'est pas configuré, <ph name="PRODUCT_NAME" /> utilise les paramètres régionaux favoris de l'utilisateur (s'ils ont été configurés), les paramètres régionaux du système ou les paramètres régionaux de remplacement ("en-US").</translation>
 <translation id="7651739109954974365">Détermine si l'itinérance des données doit être activée pour l'appareil. Si cette règle est définie sur "true", l'itinérance des données est autorisée. Si cette règle n'est pas configurée ou si elle est définie sur "false", l'itinérance des données n'est pas possible.</translation>
+<translation id="7667184304362487902">Permet de configurer les paramètres de proxy pour <ph name="PRODUCT_NAME" /> et les applications ARC.
+
+      Cette règle n'est pas encore prête. Nous vous invitons donc à ne pas l'utiliser pour le moment.</translation>
 <translation id="76810863974142048">URL à laquelle les clients d'accès à distance doivent obtenir leur jeton d'authentification.
 
           Si cette règle est définie, l'hôte d'accès à distance exigera des clients qui s'authentifient qu'ils obtiennent un jeton d'authentification à partir de cette URL pour se connecter. Elle doit être utilisée avec la règle RemoteAccessHostTokenValidationUrl.
@@ -1980,11 +2050,36 @@ Si cette règle n'est pas configurée, la valeur par défaut globale est utilis�
 <translation id="7848840259379156480">Permet de configurer le moteur de rendu HTML par défaut lorsque <ph name="PRODUCT_FRAME_NAME" /> est installé.
       Le paramétrage par défaut de cette stratégie autorise le navigateur hôte à effectuer le rendu. Toutefois, vous pouvez
       remplacer ce paramétrage pour que <ph name="PRODUCT_FRAME_NAME" /> assure le rendu des pages HTML pages par défaut.</translation>
+<translation id="7853178359124471330">Lorsque cette règle est configurée, le mode de détection automatique du fuseau horaire dépend de la valeur définie :
+
+      TimezoneAutomaticDetectionUsersDecide : les utilisateurs peuvent contrôler la détection automatique du fuseau horaire à l'aide des commandes classiques disponibles dans chrome://settings.
+
+      TimezoneAutomaticDetectionDisabled : les commandes automatiques de fuseau horaire disponibles dans chrome://settings sont désactivées. La détection automatique du fuseau horaire est dans ce cas toujours désactivée.
+
+      TimezoneAutomaticDetectionIPOnly : les commandes de fuseau horaire disponibles dans chrome://settings sont désactivées. La détection automatique du fuseau horaire est dans ce cas toujours activée. Elle utilise une méthode reposant exclusivement sur l'adresse IP pour mettre à jour la position.
+
+      TimezoneAutomaticDetectionSendWiFiAccessPoints : les commandes de fuseau horaire disponibles dans chrome://settings sont désactivées. La détection automatique du fuseau horaire est dans ce cas toujours activée. La liste des points d'accès Wi-Fi visibles est toujours transmise au serveur de l'API Geolocation pour une détection de fuseau horaire plus précise.
+
+      Si cette règle n'est pas configurée, elle est appliquée comme si TimezoneAutomaticDetectionUsersDecide était défini.
+
+      Si la règle SystemTimezone est configurée, elle remplace celle-ci. La détection automatique du fuseau horaire est alors totalement désactivée.</translation>
 <translation id="7882585827992171421">Cette règle n'est active qu'en mode "point de vente".
 
        Détermine l'identifiant de l'extension à utiliser comme économiseur d'écran sur l'écran de connexion. L'extension doit faire partie de l'AppPack configuré pour ce domaine via la règle DeviceAppPack.</translation>
 <translation id="7882890448959833986">Supprimer l'avertissement relatif au système d'exploitation non compatible</translation>
 <translation id="7912255076272890813">Configurer les types d'applications ou d'extensions autorisés</translation>
+<translation id="7928112526630078979">Permet de définir le serveur proxy utilisé par <ph name="PRODUCT_NAME" /> et les applications ARC, et d'empêcher les utilisateurs de modifier les paramètres de proxy.
+
+      Si vous choisissez de ne jamais utiliser de serveur proxy et de toujours vous connecter directement, toutes les autres options sont ignorées.
+
+      Si vous optez pour la détection automatique du serveur proxy, toutes les autres options sont ignorées.
+
+      Pour consulter des exemples détaillés, rendez-vous sur
+      <ph name="PROXY_HELP_URL" />.
+
+      Si vous activez ce paramètre, <ph name="PRODUCT_NAME" /> et les applications ARC ignorent toutes les options liées au proxy spécifiées à partir de la ligne de commande.
+
+      Si ces règles ne sont pas configurées, les utilisateurs peuvent choisir eux-mêmes leurs paramètres de proxy.</translation>
 <translation id="793134539373873765">Indiquer si une connexion P2P doit être utilisée pour les charges utiles de mise à jour de l'OS. Si le paramètre est défini sur "True", les charges utiles de mise à jour sur le réseau local sont partagées et utilisées par les appareils, ce qui peut avoir pour effet de réduire la quantité de bande passante utilisée et l'encombrement sur Internet. Si la charge utile de mise à jour n'est pas disponible sur le réseau local, le téléchargement est effectué sur l'appareil à partir d'un serveur de mise à jour. Si le paramètre est défini sur "False", ou s'il n'est pas configuré, la connexion P2P n'est pas utilisée.</translation>
 <translation id="7933141401888114454">Autoriser la création de comptes utilisateurs supervisés</translation>
 <translation id="7936098023732125869">Active l'utilisation d'un fournisseur de moteur de recherche par défaut.
@@ -2022,6 +2117,7 @@ Si ce paramètre est désactivé et que les connexions UDP sortantes sont filtr�
 
      Si cette règle n'est pas configurée, le paramètre est activé.</translation>
 <translation id="8073243368829195">Permettre d'utiliser Smart Lock</translation>
+<translation id="8074052133552427532">Toujours utiliser une détection de fuseau horaire non affinée</translation>
 <translation id="8099880303030573137">Délai d'inactivité (batterie)</translation>
 <translation id="8102913158860568230">Paramètre MediaStream par défaut</translation>
 <translation id="8104962233214241919">Sélectionner automatiquement des certificats client pour ces sites</translation>
@@ -2277,9 +2373,12 @@ Si vous désactivez ce paramètre ou s'il n'est pas défini, le nom canonique du
       Si cette règle est définie sur "False", ni l'utilisateur, ni les applications, ni les extensions ne peuvent utiliser le mode plein écran.
 
       Sur toutes les plates-formes, à l'exception du système d'exploitation "<ph name="PRODUCT_OS_NAME" />", le mode Kiosque n'est pas disponible lorsque le mode plein écran est désactivé.</translation>
+<translation id="8795495354632096254">Toujours transmettre les points d'accès Wi-Fi au serveur tout en mettant à jour le fuseau horaire</translation>
 <translation id="8818173863808665831">Permet d'indiquer l'emplacement géographique de l'appareil.
 
       Si cette règle n'est pas définie, ou si la valeur "false" lui est attribuée, l'emplacement n'est pas indiqué.</translation>
+<translation id="8818768076343557335">Prédire les actions réseau sur tous les réseaux, sauf les réseaux mobiles
+          (Option abandonnée dans la version 50 et supprimée dans la version 52. Au-delà de la version 52, si la valeur 1 est définie, elle est traitée comme la valeur 0 : Prédire les actions réseau lors d'une connexion au réseau.)</translation>
 <translation id="8828766846428537606">Configure la page d'accueil par défaut de <ph name="PRODUCT_NAME" /> et empêche les utilisateurs de modifier cette dernière.
 
       Les paramètres de page d'accueil de l'utilisateur ne sont complètement verrouillés que si vous définissez la page "Nouvel onglet" ou une URL spécifique comme page d'accueil. Si vous ne précisez pas l'URL de la page d'accueil, l'utilisateur est toujours en mesure de définir la page d'accueil sur la page "Nouvel onglet" au moyen de la valeur "chrome://newtab".</translation>
@@ -2341,6 +2440,7 @@ Si vous désactivez ce paramètre ou s'il n'est pas défini, le nom canonique du
 <translation id="9042911395677044526">Permet de transférer l'application de la configuration réseau par utilisateur vers un appareil utilisant <ph name="PRODUCT_OS_NAME" />. La configuration réseau correspond à une chaîne formatée par JSON conformément au format de configuration de réseau ouvert, décrit sous <ph name="ONC_SPEC_URL" />.</translation>
 <translation id="9084985621503260744">Indiquer si l'activité vidéo a une incidence sur la gestion de l'alimentation</translation>
 <translation id="9088433379343318874">Activer le fournisseur de contenu de l'utilisateur supervisé</translation>
+<translation id="9088444059179765143">Configurer la méthode de détection automatique du fuseau horaire</translation>
 <translation id="9096086085182305205">Liste blanche des serveurs d'authentification</translation>
 <translation id="9098553063150791878">Règles pour l'authentification HTTP</translation>
 <translation id="9104138886225968319">Transmettre des pulsations de contrôle au serveur de gestion, afin de

@@ -380,7 +380,7 @@
 <translation id="1526925867532626635">Potvrdiť nastavenia synchronizácie</translation>
 <translation id="1528372117901087631">Pripojenie k internetu</translation>
 <translation id="1529968269513889022">posledný týždeň</translation>
-<translation id="1531865825384516080">Odosielanie webových adries Bezpečného vyhľadávania</translation>
+<translation id="1531865825384516080">Nahlasovanie webových adries Bezpečného vyhľadávania</translation>
 <translation id="1532697124104874386">Povolenie/zakázanie inteligentného nasadenia virtuálnej klávesnice.</translation>
 <translation id="1533897085022183721">Menej ako <ph name="MINUTES" />.</translation>
 <translation id="1533920822694388968">Zarovnanie televízie</translation>
@@ -1071,6 +1071,7 @@ Tieto webové stránky by podľa mňa nemali byť blokované.</translation>
 <translation id="2542049655219295786">Tabuľka Google</translation>
 <translation id="2546283357679194313">Súbory cookie a dáta webov</translation>
 <translation id="2549646943416322527">Seccomp Detector</translation>
+<translation id="2550212893339833758">Swapovaná pamäť</translation>
 <translation id="2553100941515833716">Obnoviť stav inštalácie Spúšťača aplikácii pri každom reštartovaní.</translation>
 <translation id="2553340429761841190">Systém <ph name="PRODUCT_NAME" /> sa nemohol pripojiť k sieti <ph name="NETWORK_ID" />. Vyberte inú sieť alebo to skúste znova.</translation>
 <translation id="2553440850688409052">Skryť tento doplnok</translation>
@@ -2665,6 +2666,7 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="4824518112777153488">Podpora dotykových obrazoviek s možnosťou umiestnenia kurzora</translation>
 <translation id="4830573902900904548">Vaše zariadenie <ph name="DEVICE_TYPE" /> sa nedokáže pripojiť k internetu pomocou siete <ph name="NETWORK_NAME" />. Vyberte inú sieť. <ph name="LEARN_MORE_LINK_START" />Ďalšie informácie<ph name="LEARN_MORE_LINK_END" /></translation>
 <translation id="4830663122372455572">Identitu organizácie <ph name="ORGANIZATION" /> so sídlom na mieste <ph name="LOCALITY" /> overil vydavateľ <ph name="ISSUER" />. Server poskytol platné informácie o transparentnosti certifikátu.</translation>
+<translation id="4832537345877333532">Zakázanie načítavania súborov obrazovky icc zo servera Quirks na farebnú kalibráciu obrazoviek.</translation>
 <translation id="4834912470034578916">Povoliť vlastné rozloženia pre webové upozornenia</translation>
 <translation id="4835836146030131423">Chyba prihlásenia.</translation>
 <translation id="4837926214103741331">Nemáte oprávnenie používať toto zariadenie. Ak chcete získať povolenie na prihlásenie, kontaktujte majiteľa zariadenia.</translation>
@@ -2809,7 +2811,6 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="5039804452771397117">Povoliť</translation>
 <translation id="5045550434625856497">Nesprávne heslo</translation>
 <translation id="5048179823246820836">Severské</translation>
-<translation id="5048294425697652159">Povolenie klienta Quirks na zobrazenie kalibrácie</translation>
 <translation id="5053604404986157245">Náhodne generované heslo modulu TPM nie je k dispozícii. Po použití funkcie Powerwash je to normálne.</translation>
 <translation id="5053803681436838483">Nová dodacia adresa...</translation>
 <translation id="5055309315264875868">Zobraziť na stránke s nastaveniami nástroja na správu hesiel odkaz na správu synchronizovaných hesiel online.</translation>
@@ -2852,6 +2853,7 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="5120421890733714118">Dôverovať tomuto certifikátu na identifikáciu webových stránok.</translation>
 <translation id="5121130586824819730">Pevný disk je plný. Uložte inde alebo uvoľnite viac miesta na pevnom disku. </translation>
 <translation id="5125751979347152379">Neplatná webová adresa.</translation>
+<translation id="5126663277159826272">Zakázanie klienta Quirks na kalibráciu obrazoviek</translation>
 <translation id="5127881134400491887">Spravovať sieťové pripojenia</translation>
 <translation id="5128590998814119508">Zoznam zobrazenia prvkov canvas 2D</translation>
 <translation id="512903556749061217">pripojené</translation>
@@ -2994,6 +2996,7 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="5301751748813680278">Vstupujete ako hosť.</translation>
 <translation id="5301954838959518834">Áno, rozumiem</translation>
 <translation id="5302048478445481009">Jazyk</translation>
+<translation id="5305636933378212351">Rozbaľovacia ponuka</translation>
 <translation id="5305688511332277257">Žiadne nainštalované</translation>
 <translation id="5308380583665731573">Pripojenie</translation>
 <translation id="5311260548612583999">Súkromný kľúč (nepovinné):</translation>
@@ -3073,7 +3076,7 @@ Ak chcete pokračovať v práci, stlačte ľubovoľný kláves.</translation>
 <translation id="5417998409611691946">Vaše zariadenie <ph name="DEVICE_TYPE" /> môže:</translation>
 <translation id="5418923334382419584">Klávesnica pre mjanmarčinu</translation>
 <translation id="5419294236999569767">Čas systému</translation>
-<translation id="5421136146218899937">Odstrániť údaje prehliadania...</translation>
+<translation id="5421136146218899937">Odstrániť dáta prehliadania…</translation>
 <translation id="5422781158178868512">Je nám ľúto, ale externé pamäťové zariadenie sa nepodarilo rozpoznať.</translation>
 <translation id="542318722822983047">Automaticky posunúť kurzor na ďalší znak</translation>
 <translation id="5423849171846380976">Aktivované</translation>
@@ -3628,7 +3631,6 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="6251889282623539337"><ph name="DOMAIN" /> – Zmluvné podmienky</translation>
 <translation id="6251924700383757765">Pravidlá ochrany súkromia</translation>
 <translation id="6253586523465486793">Vynúti opätovné načítanie bez overenia spustené obnovením po potiahnutí (keď je tento príznak deaktivovaný, zvyčajne to znamená bežné opätovné načítanie s overením vyrovnávacej pamäte).</translation>
-<translation id="6254182355913122230">Swapovaná pamäť</translation>
 <translation id="6254503684448816922">Ohrozenie zabezpečenia kľúča</translation>
 <translation id="6259104249628300056">Objavovať zariadenia vo vašej miestnej sieti</translation>
 <translation id="6263082573641595914">Certifikačná autorita spoločnosti Microsoft – verzia</translation>
@@ -3967,7 +3969,7 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="6798954102094737107">Doplnok: <ph name="PLUGIN_NAME" /></translation>
 <translation id="6802031077390104172"><ph name="USAGE" /> (<ph name="OID" />)</translation>
 <translation id="6804671422566312077">Otvoriť všetky záložky v &amp;novom okne</translation>
-<translation id="6805542829187142700">Povolenie pravidla zariadenia pre automatické zisťovanie časového pásma systému.</translation>
+<translation id="6805542829187142700">Povolenie pravidla zariadenia na automatické zisťovanie časového pásma systému.</translation>
 <translation id="6805647936811177813">Ak chcete importovať certifikát klienta z adresy <ph name="HOST_NAME" />, prihláste sa do <ph name="TOKEN_NAME" />.</translation>
 <translation id="680572642341004180">Povoliť v aplikácii <ph name="SHORT_PRODUCT_OS_NAME" /> sledovanie RLZ.</translation>
 <translation id="6807889908376551050">Zobraziť všetky...</translation>
@@ -5361,7 +5363,6 @@ Prebieha výpočet času do úplného nabitia</translation>
 <translation id="8847988622838149491">USB</translation>
 <translation id="8848709220963126773">Prepnutie módu klávesom Shift</translation>
 <translation id="8852742364582744935">Boli pridané nasledujúce aplikácie a rozšírenia:</translation>
-<translation id="8853611566624224021">Povoľte načítanie súborov obrazovky icc zo servera Quirks na farebnú kalibráciu obrazoviek.</translation>
 <translation id="885381502874625531">Bieloruská klávesnica</translation>
 <translation id="8856844195561710094">Nepodarilo sa zastaviť vyhľadávanie zariadení Bluetooth.</translation>
 <translation id="885701979325669005">Úložisko</translation>

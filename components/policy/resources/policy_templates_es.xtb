@@ -236,6 +236,15 @@ Si esta política está establecida en "false" o no está establecida, se inhabi
       Si inhabilitas esta opción, cuando los usuarios hagan determinadas acciones (por ejemplo, importar marcadores, subir archivos, guardar enlaces, etc.), en lugar de abrirse un cuadro de diálogo de selección de archivos, aparecerá un mensaje y se obtendrá el mismo resultado que si se hubiera hecho clic en el botón Cancelar del cuadro de diálogo.
 
       Si no se establece esta opción, los usuarios podrán abrir cuadros de diálogo de selección de archivos de la forma habitual.</translation>
+<translation id="1879485426724769439">Especifica la zona horaria que se utilizará en el dispositivo. Los usuarios pueden anular la zona horaria especificada para la sesión en curso, pero esta se volverá a establecer al cerrar sesión. Si se proporciona un valor que no sea válido, esta política seguirá activa utilizando "GMT". Si se proporciona una cadena vacía, la política se ignorará.
+
+      Si no se utiliza esta política, se seguirá utilizando la zona horaria activa en ese momento. No obstante, los usuarios pueden cambiar la zona horaria y el cambio es permanente. Por tanto, si un usuario realiza un cambio, este afectará a la pantalla de inicio de sesión y al resto de usuarios.
+
+      Cuando se inician nuevos dispositivos, se establece la zona horaria "US/Pacific".
+
+      El formato del valor sigue los nombres de zonas horarias de la base de datos de zonas horarias (Time Zone Database o TZ Database) de IANA (https://es.wikipedia.org/wiki/TZ_Database). En concreto, la mayoría de las zonas horarias pueden corresponder a "continent/large_city" o "ocean/large_city".
+
+      Si se establece esta política, se inhabilita completamente la detección automática de la zona horaria según la ubicación del dispositivo. Además, se anula la política SystemTimezoneAutomaticDetection.</translation>
 <translation id="1897365952389968758">Permitir que todos los sitios ejecuten JavaScript</translation>
 <translation id="193259052151668190">Lista blanca de dispositivos USB que se pueden separar</translation>
 <translation id="1933378685401357864">Imagen de fondo de pantalla</translation>
@@ -719,6 +728,20 @@ Si se inhabilita o no se configura esta opción, los usuarios podrán decidir si
 
        Si no se establece esta política, se utilizará el valor general predeterminado de la política DefaultKeygenSetting (si está configurada) para todos los sitios web. De lo contrario, se utilizará la configuración personalizada que haya definido el usuario.</translation>
 <translation id="3381968327636295719">Utilizar el navegador del host de forma predeterminada</translation>
+<translation id="3398137877608138703">Permite o rechaza la captura de vídeo.
+
+      Si se habilita o no se configura (opción predeterminada), se solicitará al usuario acceso a la
+      captura de vídeo, salvo para las URL configuradas en la lista
+      VideoCaptureAllowedUrls, a las que se concederá acceso sin solicitarlo.
+      Las aplicaciones ARC podrán acceder a la cámara si se les ha concedido
+      permiso.
+
+      Si se inhabilita esta política, nunca se pedirá permiso al usuario, y la captura
+      de vídeo solo estará disponible para las URL configuradas en VideoCaptureAllowedUrls.
+      Las aplicaciones ARC no podrán acceder a la cámara.
+
+      Al margen de las aplicaciones ARC, esta política afecta a todos los tipos de entradas de vídeo
+      y no solo a la cámara integrada.</translation>
 <translation id="3417418267404583991">Si esta política no se configura o el valor correspondiente se establece en "true", <ph name="PRODUCT_OS_NAME" /> permitirá iniciar sesión como invitado. Los inicios de sesión como invitado son sesiones de usuario anónimas y no necesitan contraseña.
 
       Si el valor correspondiente a esta política se establece en "false", <ph name="PRODUCT_OS_NAME" /> no permitirá el inicio de sesiones de invitados.</translation>
@@ -736,6 +759,25 @@ Si se inhabilita o no se configura esta opción, los usuarios podrán decidir si
 <translation id="3478024346823118645">Eliminar los datos del usuario al cerrar sesión</translation>
 <translation id="348495353354674884">Habilitar teclado virtual</translation>
 <translation id="3496296378755072552">Administrador de contraseñas</translation>
+<translation id="349667858031092827">No detectar nunca automáticamente la zona horaria.</translation>
+<translation id="3502472987829488885">Permite especificar el servidor proxy que utilizan <ph name="PRODUCT_NAME" /> y las aplicaciones ARC, e impide que los usuarios cambien la configuración del proxy.
+
+          Si eliges la opción de establecer siempre conexión directamente en lugar de utilizar un servidor proxy, se ignorarán las demás opciones. Las aplicaciones ARC utilizarán el servidor proxy predeterminado de la red actual (si procede).
+
+          Si eliges la opción de usar la configuración de proxy del sistema, se ignorarán las demás opciones. Las aplicaciones ARC utilizarán el servidor proxy predeterminado de la red actual (si procede).
+
+          Si eliges la opción de detectar automáticamente el servidor proxy, se ignorarán las demás opciones.
+
+          Si decides configurar el servidor proxy manualmente, puedes especificar más opciones en Dirección o URL de servidor proxy y en Lista de reglas de omisión de proxy separadas por comas. Las aplicaciones ARC solo usarán el servidor proxy HTTP con la mayor prioridad.
+
+          Si decides usar una secuencia de comandos .pac de proxy, deberás especificar la URL de la secuencia en URL de un archivo .pac de proxy.
+
+          Puedes consultar ejemplos detallados en la siguiente página:
+          <ph name="PROXY_HELP_URL" />
+
+          Si habilitas esta opción, <ph name="PRODUCT_NAME" /> y las aplicaciones ARC ignorarán todas las opciones relacionadas con el proxy especificadas en la línea de comandos.
+
+          Si no se establece esta política, los usuarios podrán elegir su propia configuración del proxy.</translation>
 <translation id="3504791027627803580">Especifica la URL del motor de búsqueda utilizado para proporcionar la búsqueda de imágenes. Las solicitudes de búsqueda se enviarán mediante el método GET. Si se establece la política DefaultSearchProviderImageURLPostParams, las solicitudes de búsqueda de imágenes utilizarán el método POST en su lugar.
 
           Esta política es opcional. Si no se establece, no se utilizará la búsqueda de imágenes.
@@ -883,6 +925,22 @@ Si esta política se establece en False, el usuario no podrá canjear ofertas.</
           Si se ha establecido la opción Guardar las cookies durante la duración de la sesión para esta política, las cookies se borrarán cuando la sesión se cierre. Ten en cuenta que si <ph name="PRODUCT_NAME" /> se está ejecutando en segundo plano, es posible que la sesión no se cierre al cerrar la última ventana. Consulta la política BackgroundModeEnabled para obtener más información sobre la configuración de este comportamiento.
 
           Si no se establece ningún valor para esta política, se utilizará AllowCookies, aunque el usuario podrá cambiarla.</translation>
+<translation id="4098957623809244159">Esta política está obsoleta. Te recomendamos que utilices ProxyMode en su lugar.
+
+          Permite especificar el servidor proxy que utilizan <ph name="PRODUCT_NAME" /> y las aplicaciones ARC, e impide que los usuarios cambien la configuración del proxy.
+
+          Si eliges la opción de establecer siempre conexión directamente en lugar de utilizar un servidor proxy, se ignorarán las demás opciones.
+
+          Si eliges la opción de utilizar la configuración de proxy del sistema o detectar automáticamente el servidor proxy, se ignorarán las demás opciones.
+
+         Si decides configurar el servidor proxy manualmente, puedes especificar más opciones en Dirección o URL del servidor proxy, URL de un archivo .pac de proxy y Lista de reglas de omisión de proxy separadas por comas.
+
+          Puedes consultar ejemplos detallados en la siguiente página:
+          <ph name="PROXY_HELP_URL" />
+
+          Si habilitas esta opción, <ph name="PRODUCT_NAME" /> ignorará todas las opciones relacionadas con el proxy especificadas en la línea de comandos.
+
+          Si no se establece esta política, los usuarios podrán elegir la configuración de proxy que quieran.</translation>
 <translation id="4103289232974211388">Redirigir al proveedor de identidad SAML después de la confirmación del usuario</translation>
 <translation id="410478022164847452">Permite especificar el tiempo transcurrido hasta que se entra en modo de inactividad (sin que el usuario realice ninguna acción) cuando el dispositivo está conectado a la red.
 
@@ -1371,6 +1429,14 @@ Si esta política está configurada, el usuario no puede cambiarla y el acceso d
 <translation id="5893553533827140852">Si esta opción está habilitada, las solicitudes de autenticación gnubby se representarán a través de una conexión de host remota.
 
           Si esta opción está inhabilitada o no está configurada, no se representarán solicitudes de autenticación gnubby.</translation>
+<translation id="5900959132054596599"><ph name="PRODUCT_NAME" /> y las aplicaciones ARC omitirán cualquier proxy que se incluya en la lista de hosts especificada.
+
+          Esta política solo tendrá validez si has seleccionado una configuración manual del proxy en la opción Seleccionar la forma de especificar la configuración del servidor proxy.
+
+          No se debe establecer esta política si se ha seleccionado cualquier otro modo de configuración de políticas de proxy.
+
+          Puedes consultar ejemplos detallados en la siguiente página:
+          <ph name="PROXY_HELP_URL" /></translation>
 <translation id="5921713479449475707">Permitir descargas de actualizaciones automáticas a través de HTTP</translation>
 <translation id="5921888683953999946">Establece el estado predeterminado de la función de accesibilidad del cursor grande en la pantalla de inicio de sesión.
 
@@ -1515,6 +1581,7 @@ Si esta opción no está establecida o está establecida en True, los dispositiv
 <translation id="637934607141010488">Permite informar sobre la lista de usuarios de dispositivos que han iniciado sesión recientemente.
 
 Si la política está establecida en False, no se informará sobre los usuarios.</translation>
+<translation id="639009029157091157">Permite que los usuarios decidan.</translation>
 <translation id="6392973646875039351">Permite habilitar la función Autocompletar de <ph name="PRODUCT_NAME" /> y permite que los usuarios rellenen automáticamente los formularios web con información almacenada anteriormente, como la dirección o la información de la tarjeta de crédito.
 
       Si inhabilitas esta opción, los usuarios no podrán acceder a la función Autocompletar.
@@ -1893,6 +1960,9 @@ Si esta opción no está establecida o está establecida en True, los dispositiv
 
       Si esta opción se inhabilita o no se configura, <ph name="PRODUCT_NAME" /> usa la configuración regional preferida y especificada por el usuario (si está configurada), la configuración regional del sistema o la configuración regional de reserva "en-US".</translation>
 <translation id="7651739109954974365">Permite determinar la habilitación de la itinerancia de datos en el dispositivo. Si el valor se establece en "true", se permite la itinerancia de datos. Si no se configura o si el valor se establece en "false", la itinerancia de datos no estará disponible.</translation>
+<translation id="7667184304362487902">Permite establecer los valores de configuración de proxy de <ph name="PRODUCT_NAME" /> y de las aplicaciones ARC.
+
+      Esta política aún no está lista para su uso, así que no debes utilizarla.</translation>
 <translation id="76810863974142048">URL donde los clientes de acceso remoto deben obtener su token de autenticación.
 
           Si se configura esta política, el host de acceso remoto necesitará la autenticación de los clientes para obtener un token de autenticación de esta URL y poder conectarse. Se debe aplicar junto con la política RemoteAccessHostTokenValidationUrl.
@@ -1964,11 +2034,36 @@ Si se asigna el valor false a la política, no se proporcionará información so
 <translation id="7848840259379156480">Permite configurar el procesador de HTML predeterminado si se ha instalado <ph name="PRODUCT_FRAME_NAME" />.
       De forma predeterminada, se permite que el navegador del host muestre las páginas HTML,
       pero puedes anular esta opción para que <ph name="PRODUCT_FRAME_NAME" /> muestre las páginas HTML de forma predeterminada.</translation>
+<translation id="7853178359124471330">El flujo de detección automática de la zona horaria puede ser de una de las siguientes formas, en función del valor que se asigne a esta política:
+
+      Si se le asigna el valor TimezoneAutomaticDetectionUsersDecide, los usuarios pueden controlar la detección automática de la zona horaria mediante los controles normales en la página chrome://settings.
+
+      Si se le asigna el valor TimezoneAutomaticDetectionDisabled, se inhabilitarán los controles de zona horaria automática en la página chrome://settings. La detección automática de la zona horaria estará siempre desactivada.
+
+      Si se le asigna el valor TimezoneAutomaticDetectionIPOnly, se inhabilitarán los controles de zona horaria en la página chrome://settings. La detección automática de la zona horaria estará siempre activada. La detección de la zona horaria utilizará solo la IP para conocer la ubicación.
+
+      Si se le asigna el valor TimezoneAutomaticDetectionSendWiFiAccessPoints, se inhabilitarán los controles de zona horaria en la página chrome://settings. La detección automática de la zona horaria estará siempre activada. La lista de puntos de acceso Wi-Fi visibles se enviará siempre al servidor API de geolocalización para detectar la zona horaria de forma más precisa.
+
+      Si no se establece esta política, el comportamiento será el mismo que si se hubiera establecido el valor TimezoneAutomaticDetectionUsersDecide.
+
+      Si se establece la política SystemTimezone, se anula esta política. En este caso, la detección automática de la zona horaria se inhabilita por completo.</translation>
 <translation id="7882585827992171421">Esta política solo se encuentra activa en el modo comercial.
 
       Permite determinar el ID de la extensión que se debe utilizar como salvapantallas en la pantalla de inicio de sesión. La extensión debe formar parte del paquete AppPack configurado para ese dominio a través de la política DeviceAppPack.</translation>
 <translation id="7882890448959833986">Suprimir la advertencia de SO no admitido</translation>
 <translation id="7912255076272890813">Configurar tipos de extensiones o aplicaciones permitidos</translation>
+<translation id="7928112526630078979">Permite especificar el servidor proxy que utilizan <ph name="PRODUCT_NAME" /> y las aplicaciones ARC, e impide que los usuarios cambien la configuración del proxy.
+
+      Si eliges la opción de establecer siempre conexión directamente en lugar de utilizar un servidor proxy, se ignorarán las demás opciones. Las aplicaciones ARC utilizarán el servidor proxy predeterminado de la red actual (si procede).
+
+      Si eliges la opción de detectar automáticamente el servidor proxy, se ignorarán las demás opciones.
+
+      Puedes consultar ejemplos detallados en la siguiente página:
+      <ph name="PROXY_HELP_URL" />
+
+      Si habilitas esta opción, <ph name="PRODUCT_NAME" /> y las aplicaciones ARC ignorarán todas las opciones relacionadas con el proxy especificadas en la línea de comandos.
+
+      Si no se establecen estas políticas, los usuarios podrán elegir la configuración de proxy que quieran.</translation>
 <translation id="793134539373873765">Especifica si la conexión P2P se debe utilizar para cargas útiles de actualizaciones del sistema operativo. Si esta política se establece en True, los dispositivos compartirán e intentarán consumir cargas útiles de actualizaciones en la red LAN, reduciendo de forma potencial la congestión y el uso del ancho de banda. Si la carga útil de actualizaciones no está disponible en la red LAN, el dispositivo deberá realizar la descarga desde un servidor de actualizaciones. Si se establece en False o no se configura, no se utilizará la conexión P2P.</translation>
 <translation id="7933141401888114454">Habilitar la creación de usuarios supervisados</translation>
 <translation id="7936098023732125869">Permite habilitar el uso de un proveedor de búsqueda predeterminado.
@@ -2005,6 +2100,7 @@ Si se asigna el valor false a la política, no se proporcionará información so
 
       Si no se establece esta política, se habilitará la opción.</translation>
 <translation id="8073243368829195">Permitir el uso de Smart Lock</translation>
+<translation id="8074052133552427532">Utilizar siempre la detección de zona horaria común.</translation>
 <translation id="8099880303030573137">Retraso de inactividad cuando el dispositivo funciona con la batería</translation>
 <translation id="8102913158860568230">Opción predeterminada de MediaStream</translation>
 <translation id="8104962233214241919">Seleccionar automáticamente certificados de cliente de estos sitios</translation>
@@ -2259,9 +2355,12 @@ Si esta política se establece en True o no se configura, el usuario, las aplica
 Si esta política se establece en False, ni el usuario ni las aplicaciones o extensiones podrán utilizar el modo de pantalla completa.
 
 En todas las plataformas, salvo en <ph name="PRODUCT_OS_NAME" />, el modo kiosco no está disponible cuando está inhabilitado el modo de pantalla completa.</translation>
+<translation id="8795495354632096254">Enviar siempre los puntos de acceso Wi-Fi al servidor mientras se detecta la zona horaria.</translation>
 <translation id="8818173863808665831">Informa de la ubicación geográfica del dispositivo.
 
      Si no se establece esta política o se establece el valor "false", no se informará de la ubicación.</translation>
+<translation id="8818768076343557335">Predecir las acciones de la red en cualquier red que no sea móvil.
+          (Obsoleto en 50, eliminado en 52. Si se le asigna el valor 1 después de 52, se tratará como si fuese 0 - predecir las acciones de red en cualquier conexión de red).</translation>
 <translation id="8828766846428537606">Permite configurar la página de inicio predeterminada en <ph name="PRODUCT_NAME" /> e impide que los usuarios la cambien.
 
       Para bloquear completamente la configuración de la página de inicio de los usuarios, es necesario establecerla como página Nueva pestaña o definirla como URL y establecerla como URL de página de inicio. Si no especificas la URL de página de inicio, los usuarios podrán establecer la página Nueva pestaña como página de inicio especificando "chrome://newtab".</translation>
@@ -2321,6 +2420,7 @@ En todas las plataformas, salvo en <ph name="PRODUCT_OS_NAME" />, el modo kiosco
 <translation id="9042911395677044526">Permite aplicar la configuración de red al dispositivo <ph name="PRODUCT_OS_NAME" /> de cada usuario. La configuración de red es una cadena escrita en formato JSON, tal como se define en la siguiente página sobre el formato Open Network Configuration: <ph name="ONC_SPEC_URL" /></translation>
 <translation id="9084985621503260744">Especificar si la actividad de vídeo afecta a la administración de energía</translation>
 <translation id="9088433379343318874">Habilitar el proveedor de contenido de usuarios supervisados</translation>
+<translation id="9088444059179765143">Configura el método de detección automática de la zona horaria</translation>
 <translation id="9096086085182305205">Lista de admisión de servidores de autenticación</translation>
 <translation id="9098553063150791878">Políticas para la autenticación HTTP</translation>
 <translation id="9104138886225968319">Envía latidos de supervisión al servidor de administración para permitir al servidor detectar si el dispositivo está sin conexión.

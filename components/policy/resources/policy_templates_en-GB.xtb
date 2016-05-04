@@ -758,6 +758,24 @@ The contents of the list 'URLs to open at start-up' are ignored unless you selec
 <translation id="348495353354674884">Enable virtual keyboard</translation>
 <translation id="3496296378755072552">Password manager</translation>
 <translation id="349667858031092827">Never auto-detect timezone.</translation>
+<translation id="3502472987829488885">Allows you to specify the proxy server used by <ph name="PRODUCT_NAME" /> and ARC-apps and prevents users from changing proxy settings.
+
+          If you choose to never use a proxy server and always connect directly, all other options are ignored. ARC-apps will use the current network's default proxy server, if any.
+
+          If you choose to use system proxy settings, all other options are ignored. ARC-apps will use the current network's default proxy server, if any.
+
+          If you choose to auto detect the proxy server, all other options are ignored.
+
+          If you choose fixed server proxy mode, you can specify further options in 'Address or URL of proxy server' and 'Comma-separated list of proxy bypass rules'. ARC-apps will only use the HTTP proxy server with the highest priority.
+
+          If you choose to use a .pac proxy script, you must specify the URL to the script in 'URL to a proxy .pac file'.
+
+          For detailed examples, visit:
+          <ph name="PROXY_HELP_URL" />
+
+          If you enable this setting, <ph name="PRODUCT_NAME" /> and ARC-apps ignore all proxy-related options specified from the command line.
+
+          Not setting this policy will allow users to choose the proxy settings on their own.</translation>
 <translation id="3504791027627803580">Specifies the URL of the search engine used to provide image search. Search requests will be sent using the GET method. If the DefaultSearchProviderImageURLPostParams policy is set then image search requests will use the POST method instead.
 
           This policy is optional. If not set, no image search will be used.
@@ -2047,6 +2065,18 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
       Determines the id of the extension to be used as a screen saver on the sign-in screen. The extension must be part of the AppPack that is configured for this domain through the DeviceAppPack policy.</translation>
 <translation id="7882890448959833986">Suppress the unsupported OS warning</translation>
 <translation id="7912255076272890813">Configure allowed app/extension types</translation>
+<translation id="7928112526630078979">Allows you to specify the proxy server used by <ph name="PRODUCT_NAME" /> and ARC-apps and prevents users from changing proxy settings.
+
+      If you choose to never use a proxy server and always connect directly, all other options are ignored. ARC-apps will use the current network's default proxy server, if any.
+
+      If you choose to auto detect the proxy server, all other options are ignored.
+
+      For detailed examples, visit:
+      <ph name="PROXY_HELP_URL" />
+
+      If you enable this setting, <ph name="PRODUCT_NAME" /> and ARC-apps ignore all proxy-related options specified from the command line.
+
+      Not setting these policies will allow users to choose the proxy settings on their own.</translation>
 <translation id="793134539373873765">Specifies whether p2p is to be used for OS update payloads. If set to True, devices will share and attempt to consume update payloads on the LAN, potentially reducing Internet bandwidth usage and congestion. If the update payload is not available on the LAN, the device will fall back to downloading from an update server. If set to False or not configured, p2p will not be used.</translation>
 <translation id="7933141401888114454">Enable creation of supervised users</translation>
 <translation id="7936098023732125869">Enables the use of a default search provider.
