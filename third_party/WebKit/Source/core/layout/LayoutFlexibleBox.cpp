@@ -290,6 +290,7 @@ void LayoutFlexibleBox::layoutBlock(bool relayoutChildren)
 
         ScrollPositionMap scrollMap;
         if (LayoutBlock::finishDelayUpdateScrollInfo(&layoutScope, &scrollMap)) {
+            prepareOrderIteratorAndMargins();
             layoutFlexItems(false, layoutScope);
             for (auto& entry : scrollMap) {
                 entry.key->scrollToPosition(entry.value, ScrollOffsetClamped);
