@@ -64,13 +64,14 @@ void CredentialManagerDispatcher::OnStore(
   if (!client_->IsSavingAndFillingEnabledForCurrentPage())
     return;
 
+  GURL origin = web_contents()->GetLastCommittedURL().GetOrigin();
   std::unique_ptr<autofill::PasswordForm> form(
-      CreatePasswordFormFromCredentialInfo(
-          credential, web_contents()->GetLastCommittedURL().GetOrigin()));
+      CreatePasswordFormFromCredentialInfo(credential, origin));
   form->skip_zero_click = !IsZeroClickAllowed();
 
   form_manager_.reset(new CredentialManagerPasswordFormManager(
-      client_, GetDriver(), *form, this));
+      client_, GetDriver(), *CreateObservedPasswordFormFromOrigin(origin),
+      std::move(form), this));
 }
 
 void CredentialManagerDispatcher::OnProvisionalSaveComplete() {

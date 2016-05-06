@@ -1202,4 +1202,106 @@ TEST_F(CredentialManagerDispatcherTest, GetSynthesizedFormForOrigin) {
   EXPECT_TRUE(synthesized.ssl_valid);
 }
 
+TEST_F(CredentialManagerDispatcherTest, BlacklistPasswordCredential) {
+  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
+                            _, CredentialSourceType::CREDENTIAL_SOURCE_API));
+
+  CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_PASSWORD);
+  dispatcher()->OnStore(kRequestId, info);
+  process()->sink().ClearMessages();
+  // Allow the PasswordFormManager to talk to the password store
+  RunAllPendingTasks();
+
+  ASSERT_TRUE(client_->pending_manager());
+  client_->pending_manager()->PermanentlyBlacklist();
+  // Allow the PasswordFormManager to talk to the password store.
+  RunAllPendingTasks();
+
+  // Verify that the site is blacklisted.
+  autofill::PasswordForm blacklisted;
+  TestPasswordStore::PasswordMap passwords = store_->stored_passwords();
+  blacklisted.blacklisted_by_user = true;
+  blacklisted.origin = form_.origin;
+  blacklisted.signon_realm = form_.signon_realm;
+  blacklisted.type = autofill::PasswordForm::TYPE_API;
+  blacklisted.ssl_valid = true;
+  blacklisted.date_created = passwords[form_.signon_realm][0].date_created;
+  EXPECT_THAT(passwords[form_.signon_realm], testing::ElementsAre(blacklisted));
+}
+
+TEST_F(CredentialManagerDispatcherTest, BlacklistFederatedCredential) {
+  form_.federation_origin = url::Origin(GURL("https://example.com/"));
+  form_.signon_realm = "federation://example.com/example.com";
+
+  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
+                            _, CredentialSourceType::CREDENTIAL_SOURCE_API));
+  CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_FEDERATED);
+  dispatcher()->OnStore(kRequestId, info);
+  process()->sink().ClearMessages();
+  // Allow the PasswordFormManager to talk to the password store
+  RunAllPendingTasks();
+
+  ASSERT_TRUE(client_->pending_manager());
+  client_->pending_manager()->PermanentlyBlacklist();
+  // Allow the PasswordFormManager to talk to the password store.
+  RunAllPendingTasks();
+
+  // Verify that the site is blacklisted.
+  TestPasswordStore::PasswordMap passwords = store_->stored_passwords();
+  ASSERT_TRUE(passwords.count(form_.origin.spec()));
+  autofill::PasswordForm blacklisted;
+  blacklisted.blacklisted_by_user = true;
+  blacklisted.origin = form_.origin;
+  blacklisted.signon_realm = blacklisted.origin.spec();
+  blacklisted.type = autofill::PasswordForm::TYPE_API;
+  blacklisted.ssl_valid = true;
+  blacklisted.date_created =
+      passwords[blacklisted.signon_realm][0].date_created;
+  EXPECT_THAT(passwords[blacklisted.signon_realm],
+              testing::ElementsAre(blacklisted));
+}
+
+TEST_F(CredentialManagerDispatcherTest, RespectBlacklistingPasswordCredential) {
+  autofill::PasswordForm blacklisted;
+  blacklisted.blacklisted_by_user = true;
+  blacklisted.origin = form_.origin;
+  blacklisted.signon_realm = blacklisted.origin.spec();
+  blacklisted.ssl_valid = true;
+  store_->AddLogin(blacklisted);
+
+  CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_PASSWORD);
+  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
+                            _, CredentialSourceType::CREDENTIAL_SOURCE_API));
+  dispatcher()->OnStore(kRequestId, info);
+  process()->sink().ClearMessages();
+  // Allow the PasswordFormManager to talk to the password store
+  RunAllPendingTasks();
+
+  ASSERT_TRUE(client_->pending_manager());
+  EXPECT_TRUE(client_->pending_manager()->IsBlacklisted());
+}
+
+TEST_F(CredentialManagerDispatcherTest,
+       RespectBlacklistingFederatedCredential) {
+  autofill::PasswordForm blacklisted;
+  blacklisted.blacklisted_by_user = true;
+  blacklisted.origin = form_.origin;
+  blacklisted.signon_realm = blacklisted.origin.spec();
+  blacklisted.ssl_valid = true;
+  store_->AddLogin(blacklisted);
+
+  form_.federation_origin = url::Origin(GURL("https://example.com/"));
+  form_.signon_realm = "federation://example.com/example.com";
+  CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_FEDERATED);
+  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
+                            _, CredentialSourceType::CREDENTIAL_SOURCE_API));
+  dispatcher()->OnStore(kRequestId, info);
+  process()->sink().ClearMessages();
+  // Allow the PasswordFormManager to talk to the password store
+  RunAllPendingTasks();
+
+  ASSERT_TRUE(client_->pending_manager());
+  EXPECT_TRUE(client_->pending_manager()->IsBlacklisted());
+}
+
 }  // namespace password_manager
