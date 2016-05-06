@@ -106,7 +106,8 @@ class MostVisitedSites : public history::TopSitesObserver,
   using SuggestionsVector = std::vector<std::unique_ptr<Suggestion>>;
 
   ~MostVisitedSites() override;
-  void QueryMostVisitedURLs();
+
+  void BuildCurrentSuggestions();
 
   // Initialize the query to Top Sites. Called if the SuggestionsService is not
   // enabled, or if it returns no data.

@@ -188,7 +188,8 @@ std::string MostVisitedSites::Suggestion::GetSourceHistogramName() const {
 MostVisitedSites::MostVisitedSites(Profile* profile)
     : profile_(profile), num_sites_(0), received_most_visited_sites_(false),
       received_popular_sites_(false), recorded_uma_(false),
-      scoped_observer_(this), weak_ptr_factory_(this) {
+      scoped_observer_(this), mv_source_(SUGGESTIONS_SERVICE),
+      weak_ptr_factory_(this) {
   // Register the debugging page for the Suggestions Service and the thumbnails
   // debugging page.
   content::URLDataSource::Add(profile_,
@@ -248,10 +249,9 @@ void MostVisitedSites::SetMostVisitedURLsObserver(
       base::Bind(&MostVisitedSites::OnSuggestionsProfileAvailable,
                  base::Unretained(this)));
 
-  // Immediately get the current suggestions from the cache. If the cache is
-  // empty, this will fall back to TopSites.
-  OnSuggestionsProfileAvailable(
-      suggestions_service->GetSuggestionsDataFromCache());
+  // Immediately build the current suggestions, getting personal suggestions
+  // from the SuggestionsService's cache or, if that is empty, from TopSites.
+  BuildCurrentSuggestions();
   // Also start a request for fresh suggestions.
   suggestions_service->FetchSuggestionsData();
 }
@@ -401,7 +401,7 @@ void MostVisitedSites::RecordOpenedMostVisitedItem(
 }
 
 void MostVisitedSites::OnURLFilterChanged() {
-  QueryMostVisitedURLs();
+  BuildCurrentSuggestions();
 }
 
 // static
@@ -416,17 +416,11 @@ void MostVisitedSites::RegisterProfilePrefs(
   registry->RegisterListPref(prefs::kNTPSuggestionsIsPersonal);
 }
 
-void MostVisitedSites::QueryMostVisitedURLs() {
+void MostVisitedSites::BuildCurrentSuggestions() {
+  // Get the current suggestions from cache. If the cache is empty, this will
+  // fall back to TopSites.
   SuggestionsService* suggestions_service =
       SuggestionsServiceFactory::GetForProfile(profile_);
-  if (suggestions_service->FetchSuggestionsData()) {
-    // A suggestions network request is on its way. We'll be called back via
-    // OnSuggestionsProfileAvailable.
-    return;
-  }
-  // If no network request could be sent, try to get suggestions from the
-  // cache. If that also returns nothing, OnSuggestionsProfileAvailable will
-  // call InitiateTopSitesQuery.
   OnSuggestionsProfileAvailable(
       suggestions_service->GetSuggestionsDataFromCache());
 }
@@ -491,7 +485,7 @@ void MostVisitedSites::OnMostVisitedURLsAvailable(
 void MostVisitedSites::OnSuggestionsProfileAvailable(
     const SuggestionsProfile& suggestions_profile) {
   int num_tiles = suggestions_profile.suggestions_size();
-  // With no server suggestions, fall back to local Most Visited.
+  // With no server suggestions, fall back to local TopSites.
   if (num_tiles == 0) {
     InitiateTopSitesQuery();
     return;
@@ -790,7 +784,7 @@ size_t MostVisitedSites::InsertAllSuggestions(
     size_t src = insert_positions[src_pos++];
     std::swap((*dst_suggestions)[i], (*src_suggestions)[src]);
   }
-  // Return destination postions filled so far which becomes the start_position
+  // Return destination positions filled so far which becomes the start_position
   // for future runs.
   return i;
 }
@@ -836,6 +830,8 @@ void MostVisitedSites::OnPopularSitesAvailable(bool success) {
   if (observer_.is_null())
     return;
 
+  // Pass the popular sites to the observer. This will cause it to fetch any
+  // missing icons, but will *not* cause it to display the popular sites.
   std::vector<std::string> urls;
   std::vector<std::string> favicon_urls;
   std::vector<std::string> large_icon_urls;
@@ -849,7 +845,9 @@ void MostVisitedSites::OnPopularSitesAvailable(bool success) {
       env, observer_.obj(), ToJavaArrayOfStrings(env, urls).obj(),
       ToJavaArrayOfStrings(env, favicon_urls).obj(),
       ToJavaArrayOfStrings(env, large_icon_urls).obj());
-  QueryMostVisitedURLs();
+
+  // Re-build the suggestions list. Once done, this will notify the observer.
+  BuildCurrentSuggestions();
 }
 
 void MostVisitedSites::RecordImpressionUMAMetrics() {
