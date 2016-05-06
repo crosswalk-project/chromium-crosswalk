@@ -51,18 +51,6 @@ Polymer({
     },
 
     /**
-     * Title text for the drop down button.
-     * @private {string}
-     */
-    dropDownButtonTitle_: {
-      type: String,
-      readOnly: true,
-      value: function() {
-        return loadTimeData.getString('dropDownButtonTitle');
-      },
-    },
-
-    /**
      * The header text to show.
      * @type {string}
      */
@@ -158,6 +146,17 @@ Polymer({
   computeArrowDropIconHidden_: function(view) {
     return view != media_router.MediaRouterView.SINK_LIST &&
         view != media_router.MediaRouterView.CAST_MODE_LIST;
+  },
+
+  /**
+   * @param {?media_router.MediaRouterView} view The current view.
+   * @return {string} The title text for the arrow drop button.
+   * @private
+   */
+  computeArrowDropTitle_: function(view) {
+    return view == media_router.MediaRouterView.CAST_MODE_LIST ?
+        loadTimeData.getString('viewDeviceListButtonTitle') :
+            loadTimeData.getString('viewCastModeListButtonTitle');
   },
 
   /**
