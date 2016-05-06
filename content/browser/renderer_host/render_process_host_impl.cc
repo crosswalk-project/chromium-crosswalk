@@ -729,10 +729,6 @@ bool RenderProcessHostImpl::Init() {
   const std::string channel_id =
       IPC::Channel::GenerateVerifiedChannelID(std::string());
   channel_ = CreateChannelProxy(channel_id);
-#if USE_ATTACHMENT_BROKER
-  IPC::AttachmentBroker::GetGlobal()->RegisterCommunicationChannel(
-      channel_.get());
-#endif
 
   // Setup the Mojo channel.
   mojo_application_host_->Init();
@@ -831,9 +827,16 @@ scoped_ptr<IPC::ChannelProxy> RenderProcessHostImpl::CreateChannelProxy(
     }
 #endif  // OS_ANDROID
 
-    return IPC::ChannelProxy::Create(
-        IPC::ChannelMojo::CreateServerFactory(mojo_task_runner, channel_id),
-        this, runner.get());
+  scoped_ptr<IPC::ChannelProxy> channel(
+      new IPC::ChannelProxy(this, runner.get()));
+#if USE_ATTACHMENT_BROKER
+  IPC::AttachmentBroker::GetGlobal()->RegisterCommunicationChannel(
+      channel.get());
+#endif
+  channel->Init(
+      IPC::ChannelMojo::CreateServerFactory(mojo_task_runner, channel_id),
+      true);
+  return channel;
   }
 
     // Do NOT expand ifdef or run time condition checks here! See comment above.
@@ -845,8 +848,14 @@ scoped_ptr<IPC::ChannelProxy> RenderProcessHostImpl::CreateChannelProxy(
   }
 #endif  // OS_ANDROID
 
-  return IPC::ChannelProxy::Create(channel_id, IPC::Channel::MODE_SERVER, this,
-                                   runner.get());
+  scoped_ptr<IPC::ChannelProxy> channel(
+      new IPC::ChannelProxy(this, runner.get()));
+#if USE_ATTACHMENT_BROKER
+  IPC::AttachmentBroker::GetGlobal()->RegisterCommunicationChannel(
+      channel.get());
+#endif
+  channel->Init(channel_id, IPC::Channel::MODE_SERVER, true);
+  return channel;
 }
 
 void RenderProcessHostImpl::CreateMessageFilters() {

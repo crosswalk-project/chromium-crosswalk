@@ -132,12 +132,17 @@ void ChildProcessHostImpl::ForceShutdown() {
 std::string ChildProcessHostImpl::CreateChannel() {
   channel_id_ = IPC::Channel::GenerateVerifiedChannelID(std::string());
   channel_ = IPC::Channel::CreateServer(channel_id_, this);
-  if (!channel_->Connect())
-    return std::string();
 #if USE_ATTACHMENT_BROKER
   IPC::AttachmentBroker::GetGlobal()->RegisterCommunicationChannel(
       channel_.get());
 #endif
+  if (!channel_->Connect()) {
+#if USE_ATTACHMENT_BROKER
+    IPC::AttachmentBroker::GetGlobal()->DeregisterCommunicationChannel(
+        channel_.get());
+#endif
+    return std::string();
+  }
 
   for (size_t i = 0; i < filters_.size(); ++i)
     filters_[i]->OnFilterAdded(channel_.get());
