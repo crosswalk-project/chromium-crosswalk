@@ -15,6 +15,12 @@ namespace blink {
 enum WebLoadingBehaviorFlag {
     WebLoadingBehaviorNone = 0,
     WebLoadingBehaviorDocumentWriteEvaluator = 1 << 0,
+    // Indicates that the page has a synchronous, cross-origin document.written
+    // script.
+    WebLoadingBehaviorDocumentWriteBlock = 1 << 1,
+    // Indicates that the page is a reload and has a synchronous, cross-origin document.written
+    // script.
+    WebLoadingBehaviorDocumentWriteBlockReload = 1 << 2,
 };
 
 } // namespace blink
