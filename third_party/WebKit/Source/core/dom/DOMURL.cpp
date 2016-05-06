@@ -33,6 +33,8 @@
 #include "core/dom/URLSearchParams.h"
 #include "core/fetch/MemoryCache.h"
 #include "core/fileapi/Blob.h"
+#include "core/frame/Deprecation.h"
+#include "core/frame/UseCounter.h"
 #include "core/html/PublicURLManager.h"
 #include "platform/blob/BlobURL.h"
 #include "platform/weborigin/SecurityOrigin.h"
@@ -88,6 +90,10 @@ String DOMURL::createObjectURL(ExecutionContext* executionContext, Blob* blob, E
     DCHECK(blob);
     if (!executionContext)
         return String();
+
+    if (executionContext->isServiceWorkerGlobalScope())
+        Deprecation::countDeprecation(executionContext, UseCounter::URLMethodCreateObjectURLServiceWorker);
+
     if (blob->hasBeenClosed()) {
         exceptionState.throwDOMException(InvalidStateError, String(blob->isFile() ? "File" : "Blob") + " has been closed.");
         return String();
@@ -110,6 +116,9 @@ void DOMURL::revokeObjectURL(ExecutionContext* executionContext, const String& u
 {
     if (!executionContext)
         return;
+
+    if (executionContext->isServiceWorkerGlobalScope())
+        Deprecation::countDeprecation(executionContext, UseCounter::URLMethodRevokeObjectURLServiceWorker);
 
     KURL url(KURL(), urlString);
     executionContext->removeURLFromMemoryCache(url);

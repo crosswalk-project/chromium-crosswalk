@@ -370,6 +370,12 @@ String Deprecation::deprecationMessage(UseCounter::Feature feature)
     case UseCounter::EncryptedMediaAllSelectedContentTypesMissingCodecs:
         return "contentType strings without codecs will not be supported by requestMediaKeySystemAccess() in the future. Please specify the desired codec(s) as part of the contentType.";
 
+    case UseCounter::URLMethodCreateObjectURLServiceWorker:
+        return willBeRemoved("The 'URL.createObjectURL' method in Service Workers", 52, "5685092332601344");
+
+    case UseCounter::URLMethodRevokeObjectURLServiceWorker:
+        return willBeRemoved("The 'URL.revokeObjectURL' method in Service Workers", 52, "5685092332601344");
+
     // Features that aren't deprecated don't have a deprecation message.
     default:
         return String();
