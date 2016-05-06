@@ -415,8 +415,10 @@ void TreeScope::adoptIfNeeded(Node& node)
     ASSERT_WITH_SECURITY_IMPLICATION(!node.m_deletionHasBegun);
 #endif
     TreeScopeAdopter adopter(node, *this);
-    if (adopter.needsScopeChange())
+    if (adopter.needsScopeChange()) {
+        ScriptForbiddenScope forbidScript;
         adopter.execute();
+    }
 }
 
 Element* TreeScope::adjustedFocusedElement() const
