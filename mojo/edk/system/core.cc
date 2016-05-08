@@ -87,7 +87,8 @@ void Core::AddChild(base::ProcessHandle process_handle,
 }
 
 void Core::InitChild(ScopedPlatformHandle platform_handle) {
-  GetNodeController()->ConnectToParent(std::move(platform_handle));
+  if (platform_handle.is_valid())
+    GetNodeController()->ConnectToParent(std::move(platform_handle));
 }
 
 MojoHandle Core::AddDispatcher(scoped_refptr<Dispatcher> dispatcher) {
