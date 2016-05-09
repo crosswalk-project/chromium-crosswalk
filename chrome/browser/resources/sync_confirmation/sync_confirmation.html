@@ -48,7 +48,7 @@
   </head>
   <body>
     <div class="container">
-      <div class="top-title-bar" i18n-content="syncConfirmationTitle"></div>
+      <div class="top-title-bar">$i18n{syncConfirmationTitle}</div>
       <div class="details">
         <div id="picture-container">
           <div id="illustration">
@@ -77,14 +77,38 @@
             </div>
           </div>
         </div>
-        <div class="sync-message"
-            i18n-values=".innerHTML:syncConfirmationChromeSyncBody"></div>
-        <div class="action-container">
-          <paper-button id="confirmButton"
-              i18n-content="syncConfirmationConfirmLabel"></paper-button>
-          <paper-button id="undoButton"
-              i18n-content="syncConfirmationUndoLabel"></paper-button>
+        <div class="message-container">
+          <div id="chrome-logo" class="logo"></div>
+          <div>
+            <div class="title">$i18n{syncConfirmationChromeSyncTitle}</div>
+            <div class="body text"
+                i18n-values=".innerHTML:syncConfirmationChromeSyncBody"></div>
+          </div>
         </div>
+        <div class="message-container">
+          <div id="googleg-logo" class="logo"></div>
+          <div>
+            <div class="title">
+              $i18n{syncConfirmationPersonalizeServicesTitle}
+            </div>
+            <div class="body text">
+              $i18n{syncConfirmationPersonalizeServicesBody}
+            </div>
+          </div>
+        </div>
+        <div class="message-container">
+          <div class="body"
+              i18n-values=".innerHTML:syncConfirmationSyncSettingsLinkBody">
+          </div>
+        </div>
+      </div>
+      <div class="action-container">
+        <paper-button id="confirmButton">
+          $i18n{syncConfirmationConfirmLabel}
+        </paper-button>
+        <paper-button id="undoButton">
+          $i18n{syncConfirmationUndoLabel}
+        </paper-button>
       </div>
     </div>
   </body>
