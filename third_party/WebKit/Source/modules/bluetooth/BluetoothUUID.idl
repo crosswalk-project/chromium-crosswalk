@@ -9,7 +9,7 @@
 
 [
     GarbageCollected,
-    OriginTrialEnabled=WebBluetooth,
+    RuntimeEnabled=WebBluetooth,
 ] interface BluetoothUUID {
     [RaisesException] static UUID getService((DOMString or unsigned long) name);
     [RaisesException] static UUID getCharacteristic((DOMString or unsigned long) name);

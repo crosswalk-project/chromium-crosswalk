@@ -8,7 +8,7 @@
 
 [
     GarbageCollected,
-    OriginTrialEnabled=WebBluetooth,
+    RuntimeEnabled=WebBluetooth,
 ] interface BluetoothCharacteristicProperties {
     readonly attribute boolean broadcast;
     readonly attribute boolean read;

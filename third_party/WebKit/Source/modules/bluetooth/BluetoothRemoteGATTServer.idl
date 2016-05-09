@@ -8,7 +8,7 @@
 
 [
     GarbageCollected,
-    OriginTrialEnabled=WebBluetooth,
+    RuntimeEnabled=WebBluetooth,
 ] interface BluetoothRemoteGATTServer
 {
     readonly attribute BluetoothDevice                   device;
