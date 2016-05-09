@@ -6,7 +6,7 @@
 
 [
     GarbageCollected,
-    OriginTrialEnabled=WebUSB,
+    RuntimeEnabled=WebUSB,
 ] interface USBInTransferResult {
     readonly attribute DataView data;
     readonly attribute USBTransferStatus status;

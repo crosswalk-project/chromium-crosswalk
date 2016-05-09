@@ -14,7 +14,7 @@ enum USBTransferStatus {
 
 [
     GarbageCollected,
-    OriginTrialEnabled=WebUSB,
+    RuntimeEnabled=WebUSB,
 ] interface USBDevice {
     readonly attribute DOMString guid;
     readonly attribute octet usbVersionMajor;
