@@ -1224,6 +1224,10 @@ void PasswordAutofillAgent::WillSubmitForm(const blink::WebFormElement& form) {
   }
 }
 
+void PasswordAutofillAgent::OnDestruct() {
+  base::ThreadTaskRunnerHandle::Get()->DeleteSoon(FROM_HERE, this);
+}
+
 void PasswordAutofillAgent::DidStartProvisionalLoad() {
   std::unique_ptr<RendererSavePasswordProgressLogger> logger;
   if (logging_state_active_) {
