@@ -61,7 +61,7 @@ paper-toolbar::shadow .toolbar-tools {
 }
 
 paper-toolbar.cast-mode-list {
-  background-color: var(--paper-teal-500);
+  background-color: var(--paper-teal-700);
 }
 
 paper-toolbar.filter {
@@ -69,7 +69,7 @@ paper-toolbar.filter {
 }
 
 paper-toolbar.issue {
-  background-color: var(--google-red-500);
+  background-color: var(--google-red-700);
 }
 
 paper-toolbar.route-details,
