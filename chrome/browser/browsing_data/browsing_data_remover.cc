@@ -836,6 +836,14 @@ void BrowsingDataRemover::RemoveImpl(const TimeRange& time_range,
 
     storage_partition_remove_mask |=
         content::StoragePartition::REMOVE_DATA_MASK_WEBRTC_IDENTITY;
+
+    // When clearing cache, wipe accumulated network related data
+    // (TransportSecurityState and HttpServerPropertiesManager data).
+    waiting_for_clear_networking_history_ = true;
+    profile_->ClearNetworkingHistorySince(
+        delete_begin_,
+        base::Bind(&BrowsingDataRemover::OnClearedNetworkingHistory,
+                   weak_ptr_factory_.GetWeakPtr()));
   }
 
   if (remove_mask & REMOVE_WEBRTC_IDENTITY) {
@@ -909,14 +917,6 @@ void BrowsingDataRemover::RemoveImpl(const TimeRange& time_range,
   if ((remove_mask & (REMOVE_CACHE | REMOVE_COOKIES)))
     prefs->SetString(omnibox::kZeroSuggestCachedResults, std::string());
 
-  // Always wipe accumulated network related data (TransportSecurityState and
-  // HttpServerPropertiesManager data).
-  waiting_for_clear_networking_history_ = true;
-  profile_->ClearNetworkingHistorySince(
-      delete_begin_,
-      base::Bind(&BrowsingDataRemover::OnClearedNetworkingHistory,
-                 weak_ptr_factory_.GetWeakPtr()));
-
   if (remove_mask & (REMOVE_COOKIES | REMOVE_HISTORY)) {
     domain_reliability::DomainReliabilityService* service =
       domain_reliability::DomainReliabilityServiceFactory::
@@ -964,6 +964,9 @@ void BrowsingDataRemover::RemoveImpl(const TimeRange& time_range,
   } else if (remove_mask & REMOVE_CACHE) {
     choice = ONLY_CACHE;
   }
+
+  // Notify in case all actions taken were synchronous.
+  NotifyIfDone();
 
   UMA_HISTOGRAM_ENUMERATION(
       "History.ClearBrowsingData.UserDeletedCookieOrCache",
