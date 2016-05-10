@@ -64,6 +64,8 @@ void CredentialManagerDispatcher::OnStore(
   if (!client_->IsSavingAndFillingEnabledForCurrentPage())
     return;
 
+  client_->NotifyStorePasswordCalled();
+
   GURL origin = web_contents()->GetLastCommittedURL().GetOrigin();
   std::unique_ptr<autofill::PasswordForm> form(
       CreatePasswordFormFromCredentialInfo(credential, origin));

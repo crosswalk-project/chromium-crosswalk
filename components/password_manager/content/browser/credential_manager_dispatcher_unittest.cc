@@ -60,6 +60,7 @@ class MockPasswordManagerClient : public StubPasswordManagerClient {
                bool(const std::vector<autofill::PasswordForm*>& local_forms));
   MOCK_METHOD1(NotifyUserCouldBeAutoSignedInPtr,
                bool(autofill::PasswordForm* form));
+  MOCK_METHOD0(NotifyStorePasswordCalled, void());
   MOCK_METHOD2(PromptUserToSavePasswordPtr,
                void(PasswordFormManager*, CredentialSourceType type));
   MOCK_METHOD4(PromptUserToChooseCredentialsPtr,
@@ -339,6 +340,7 @@ TEST_F(CredentialManagerDispatcherTest, CredentialManagerOnStore) {
   EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
                             _, CredentialSourceType::CREDENTIAL_SOURCE_API))
       .Times(testing::Exactly(1));
+  EXPECT_CALL(*client_, NotifyStorePasswordCalled());
 
   dispatcher()->OnStore(kRequestId, info);
 
@@ -373,11 +375,9 @@ TEST_F(CredentialManagerDispatcherTest, CredentialManagerStoreOverwrite) {
   // the password without prompting the user.
   CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_PASSWORD);
   info.password = base::ASCIIToUTF16("Totally new password.");
+  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(_, _)).Times(0);
+  EXPECT_CALL(*client_, NotifyStorePasswordCalled());
   dispatcher()->OnStore(kRequestId, info);
-
-  EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
-                            _, CredentialSourceType::CREDENTIAL_SOURCE_API))
-      .Times(testing::Exactly(0));
 
   const uint32_t kMsgID = CredentialManagerMsg_AcknowledgeStore::ID;
   const IPC::Message* message =
@@ -409,6 +409,7 @@ TEST_F(CredentialManagerDispatcherTest,
   // Calling 'OnStore' with a credential that matches |form_| should update
   // the credential without prompting the user.
   CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_PASSWORD);
+  EXPECT_CALL(*client_, NotifyStorePasswordCalled());
   dispatcher()->OnStore(kRequestId, info);
   process()->sink().ClearMessages();
 
@@ -436,6 +437,7 @@ TEST_F(CredentialManagerDispatcherTest,
   // Calling 'OnStore' with a credential that matches |form_| should update
   // the credential without prompting the user.
   CredentialInfo info(form_, CredentialType::CREDENTIAL_TYPE_FEDERATED);
+  EXPECT_CALL(*client_, NotifyStorePasswordCalled());
   dispatcher()->OnStore(kRequestId, info);
   process()->sink().ClearMessages();
 
@@ -489,6 +491,7 @@ TEST_F(CredentialManagerDispatcherTest,
   EXPECT_CALL(*client_, PromptUserToSavePasswordPtr(
                             _, CredentialSourceType::CREDENTIAL_SOURCE_API))
       .Times(testing::Exactly(0));
+  EXPECT_CALL(*client_, NotifyStorePasswordCalled()).Times(0);
 
   dispatcher()->OnStore(kRequestId, info);
 
