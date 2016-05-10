@@ -2319,7 +2319,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_LongFile) {
   // expectations prior to issuing the first resumption request.
   ASSERT_EQ(1u, completed_requests.size());
   EXPECT_EQ(parameters.size - kIntermediateSize,
-            completed_requests[0].transferred_byte_count);
+            completed_requests[0]->transferred_byte_count);
 }
 
 // Check that the cookie policy is correctly updated when downloading a file
