@@ -1051,19 +1051,19 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, StrongValidators) {
   ASSERT_EQ(2u, requests.size());
 
   // The first request only transferrs bytes up until the interruption point.
-  EXPECT_EQ(interruption.offset, requests[0].transferred_byte_count);
+  EXPECT_EQ(interruption.offset, requests[0]->transferred_byte_count);
 
   // The next request should only have transferred the remainder of the
   // resource.
   EXPECT_EQ(parameters.size - interruption.offset,
-            requests[1].transferred_byte_count);
+            requests[1]->transferred_byte_count);
 
   std::string value;
-  ASSERT_TRUE(requests[1].request_headers.GetHeader(
+  ASSERT_TRUE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kIfRange, &value));
   EXPECT_EQ(parameters.etag, value);
 
-  ASSERT_TRUE(requests[1].request_headers.GetHeader(
+  ASSERT_TRUE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kRange, &value));
   EXPECT_EQ(base::StringPrintf("bytes=%" PRId64 "-", interruption.offset),
             value);
@@ -1178,9 +1178,9 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, RedirectWhileResume) {
 
   // None of the request should have transferred the entire resource. The
   // redirect response shows up as a response with 0 bytes transferred.
-  EXPECT_GT(parameters.size, requests[0].transferred_byte_count);
-  EXPECT_EQ(0, requests[1].transferred_byte_count);
-  EXPECT_GT(parameters.size, requests[2].transferred_byte_count);
+  EXPECT_GT(parameters.size, requests[0]->transferred_byte_count);
+  EXPECT_EQ(0, requests[1]->transferred_byte_count);
+  EXPECT_GT(parameters.size, requests[2]->transferred_byte_count);
 }
 
 // If the server response for the resumption request specifies a bad range (i.e.
@@ -1250,11 +1250,11 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, BadRangeHeader) {
   ASSERT_EQ(5u, requests.size());
 
   // None of the request should have transferred the entire resource.
-  EXPECT_GT(parameters.size, requests[0].transferred_byte_count);
-  EXPECT_EQ(0, requests[1].transferred_byte_count);
-  EXPECT_EQ(0, requests[2].transferred_byte_count);
-  EXPECT_EQ(0, requests[3].transferred_byte_count);
-  EXPECT_GT(parameters.size, requests[4].transferred_byte_count);
+  EXPECT_GT(parameters.size, requests[0]->transferred_byte_count);
+  EXPECT_EQ(0, requests[1]->transferred_byte_count);
+  EXPECT_EQ(0, requests[2]->transferred_byte_count);
+  EXPECT_EQ(0, requests[3]->transferred_byte_count);
+  EXPECT_GT(parameters.size, requests[4]->transferred_byte_count);
 }
 
 // A partial resumption results in an HTTP 200 response. I.e. the server ignored
@@ -1307,17 +1307,17 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, RestartIfNotPartialResponse) {
   ASSERT_EQ(2u, requests.size());
 
   // The first request only transfers data up to the interruption point.
-  EXPECT_EQ(interruption.offset, requests[0].transferred_byte_count);
+  EXPECT_EQ(interruption.offset, requests[0]->transferred_byte_count);
 
   // The second request transfers the entire response.
-  EXPECT_EQ(parameters.size, requests[1].transferred_byte_count);
+  EXPECT_EQ(parameters.size, requests[1]->transferred_byte_count);
 
   std::string value;
-  ASSERT_TRUE(requests[1].request_headers.GetHeader(
+  ASSERT_TRUE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kIfRange, &value));
   EXPECT_EQ(parameters.etag, value);
 
-  ASSERT_TRUE(requests[1].request_headers.GetHeader(
+  ASSERT_TRUE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kRange, &value));
   EXPECT_EQ(base::StringPrintf("bytes=%" PRId64 "-", interruption.offset),
             value);
@@ -1359,9 +1359,9 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, RestartIfNoETag) {
   // Neither If-Range nor Range headers should be present in the second request.
   ASSERT_EQ(2u, requests.size());
   std::string value;
-  EXPECT_FALSE(requests[1].request_headers.GetHeader(
+  EXPECT_FALSE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kIfRange, &value));
-  EXPECT_FALSE(requests[1].request_headers.GetHeader(
+  EXPECT_FALSE(requests[1]->request_headers.GetHeader(
       net::HttpRequestHeaders::kRange, &value));
 }
 
@@ -1865,7 +1865,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_NoFile) {
   // TODO(asanka): Ideally we'll check that the intermediate file matches
   // expectations prior to issuing the first resumption request.
   ASSERT_EQ(2u, completed_requests.size());
-  EXPECT_EQ(parameters.size, completed_requests[1].transferred_byte_count);
+  EXPECT_EQ(parameters.size, completed_requests[1]->transferred_byte_count);
 }
 
 IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_NoHash) {
@@ -1925,7 +1925,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_NoHash) {
   // the file.
   ASSERT_EQ(1u, completed_requests.size());
   EXPECT_EQ(parameters.size - kIntermediateSize,
-            completed_requests[0].transferred_byte_count);
+            completed_requests[0]->transferred_byte_count);
 }
 
 IN_PROC_BROWSER_TEST_F(DownloadContentTest,
@@ -1986,7 +1986,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest,
   // server to respond with the entire entity in one go. The existing contents
   // of the file should be discarded, and overwritten by the new contents.
   ASSERT_EQ(1u, completed_requests.size());
-  EXPECT_EQ(parameters.size, completed_requests[0].transferred_byte_count);
+  EXPECT_EQ(parameters.size, completed_requests[0]->transferred_byte_count);
 }
 
 IN_PROC_BROWSER_TEST_F(DownloadContentTest,
@@ -2052,7 +2052,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest,
   // the file.
   ASSERT_EQ(1u, completed_requests.size());
   EXPECT_EQ(parameters.size - kIntermediateSize,
-            completed_requests[0].transferred_byte_count);
+            completed_requests[0]->transferred_byte_count);
 
   // SHA-256 hash of the entire 102400 bytes in the target file.
   static const uint8_t kFullHash[] = {
@@ -2137,7 +2137,7 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_WrongHash) {
   // TODO(asanka): Ideally we'll check that the intermediate file matches
   // expectations prior to issuing the first resumption request.
   ASSERT_EQ(2u, completed_requests.size());
-  EXPECT_EQ(parameters.size, completed_requests[1].transferred_byte_count);
+  EXPECT_EQ(parameters.size, completed_requests[1]->transferred_byte_count);
 
   // SHA-256 hash of the entire 102400 bytes in the target file.
   static const uint8_t kFullHash[] = {
@@ -2219,7 +2219,107 @@ IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_ShortFile) {
   // TODO(asanka): Ideally we'll check that the intermediate file matches
   // expectations prior to issuing the first resumption request.
   ASSERT_EQ(2u, completed_requests.size());
-  EXPECT_EQ(parameters.size, completed_requests[1].transferred_byte_count);
+  EXPECT_EQ(parameters.size, completed_requests[1]->transferred_byte_count);
+}
+
+IN_PROC_BROWSER_TEST_F(DownloadContentTest, ResumeRestoredDownload_LongFile) {
+  // These numbers are sufficiently large that the intermediate file won't be
+  // read in a single Read().
+  const int kFileSize = 1024 * 1024;
+  const int kIntermediateSize = kFileSize / 2 + 111;
+
+  TestDownloadRequestHandler request_handler;
+  TestDownloadRequestHandler::Parameters parameters;
+  parameters.size = kFileSize;
+  request_handler.StartServing(parameters);
+
+  base::FilePath intermediate_file_path =
+      GetDownloadDirectory().AppendASCII("intermediate");
+  std::vector<GURL> url_chain;
+
+  // Size of file is slightly longer than the size known to DownloadItem.
+  std::vector<char> buffer(kIntermediateSize + 100);
+  request_handler.GetPatternBytes(
+      parameters.pattern_generator_seed, 0, buffer.size(), buffer.data());
+  ASSERT_EQ(
+      kIntermediateSize + 100,
+      base::WriteFile(intermediate_file_path, buffer.data(), buffer.size()));
+  url_chain.push_back(request_handler.url());
+
+  DownloadItem* download = DownloadManagerForShell(shell())->CreateDownloadItem(
+      "F7FB1F59-7DE1-4845-AFDB-8A688F70F583",
+      1,
+      intermediate_file_path,
+      base::FilePath(),
+      url_chain,
+      GURL(),
+      GURL(),
+      GURL(),
+      "application/octet-stream",
+      "application/octet-stream",
+      base::Time::Now(),
+      base::Time(),
+      parameters.etag,
+      std::string(),
+      kIntermediateSize,
+      parameters.size,
+      std::string(),
+      DownloadItem::INTERRUPTED,
+      DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
+      DOWNLOAD_INTERRUPT_REASON_NETWORK_FAILED,
+      false);
+
+  download->Resume();
+  WaitForCompletion(download);
+
+  EXPECT_FALSE(base::PathExists(intermediate_file_path));
+  ReadAndVerifyFileContents(parameters.pattern_generator_seed,
+                            parameters.size,
+                            download->GetTargetFilePath());
+
+  TestDownloadRequestHandler::CompletedRequests completed_requests;
+  request_handler.GetCompletedRequestInfo(&completed_requests);
+
+  // There should be only one request. The intermediate file should be truncated
+  // to the expected size, and the request should be issued for the remainder.
+  //
+  // TODO(asanka): Ideally we'll check that the intermediate file matches
+  // expectations prior to issuing the first resumption request.
+  ASSERT_EQ(1u, completed_requests.size());
+  EXPECT_EQ(parameters.size - kIntermediateSize,
+            completed_requests[0]->transferred_byte_count);
+}
+
+// Test that the referrer header is set correctly for a download that's resumed
+// partially.
+IN_PROC_BROWSER_TEST_F(DownloadContentTest, ReferrerForPartialResumption) {
+  TestDownloadRequestHandler request_handler;
+  TestDownloadRequestHandler::Parameters parameters =
+      TestDownloadRequestHandler::Parameters::WithSingleInterruption();
+  request_handler.StartServing(parameters);
+
+  ASSERT_TRUE(embedded_test_server()->Start());
+  GURL document_url = embedded_test_server()->GetURL(
+      std::string("/download/download-link.html?dl=")
+          .append(request_handler.url().spec()));
+
+  DownloadItem* download = StartDownloadAndReturnItem(shell(), document_url);
+  WaitForInterrupt(download);
+
+  download->Resume();
+  WaitForCompletion(download);
+
+  ASSERT_EQ(parameters.size, download->GetReceivedBytes());
+  ASSERT_EQ(parameters.size, download->GetTotalBytes());
+  ASSERT_NO_FATAL_FAILURE(ReadAndVerifyFileContents(
+      parameters.pattern_generator_seed, parameters.size,
+      download->GetTargetFilePath()));
+
+  TestDownloadRequestHandler::CompletedRequests requests;
+  request_handler.GetCompletedRequestInfo(&requests);
+
+  ASSERT_GE(2u, requests.size());
+  EXPECT_EQ(document_url.spec(), requests.back()->referrer);
 }
 
 // Check that the cookie policy is correctly updated when downloading a file
