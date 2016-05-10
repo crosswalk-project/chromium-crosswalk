@@ -10,6 +10,7 @@
 #include "base/auto_reset.h"
 #include "base/bind.h"
 #include "base/bind_helpers.h"
+#include "base/callback_helpers.h"
 #include "base/command_line.h"
 #include "base/lazy_instance.h"
 #include "base/logging.h"
@@ -309,6 +310,7 @@ AndroidVideoDecodeAccelerator::AndroidVideoDecodeAccelerator(
       is_encrypted_(false),
       state_(NO_ERROR),
       picturebuffers_requested_(false),
+      drain_type_(DRAIN_TYPE_NONE),
       media_drm_bridge_cdm_context_(nullptr),
       cdm_registration_id_(0),
       pending_input_buf_index_(-1),
@@ -495,13 +497,17 @@ void AndroidVideoDecodeAccelerator::SetCdm(int cdm_id) {
 void AndroidVideoDecodeAccelerator::DoIOTask(bool start_timer) {
   DCHECK(thread_checker_.CalledOnValidThread());
   TRACE_EVENT0("media", "AVDA::DoIOTask");
-  if (state_ == ERROR || state_ == WAITING_FOR_CODEC) {
+  if (state_ == ERROR || state_ == WAITING_FOR_CODEC)
     return;
-  }
 
-  bool did_work = QueueInput();
-  while (DequeueOutput())
-    did_work = true;
+  strategy_->MaybeRenderEarly();
+  bool did_work = false, did_input = false, did_output = false;
+  do {
+    did_input = QueueInput();
+    did_output = DequeueOutput();
+    if (did_input || did_output)
+      did_work = true;
+  } while (did_input || did_output);
 
   ManageTimer(did_work || start_timer);
 }
@@ -548,8 +554,6 @@ bool AndroidVideoDecodeAccelerator::QueueInput() {
     TRACE_COUNTER1("media", "AVDA::PendingBitstreamBufferCount",
                    pending_bitstream_buffers_.size());
 
-    DCHECK_NE(state_, ERROR);
-    state_ = WAITING_FOR_EOS;
     media_codec_->QueueEOS(input_buf_index);
     return true;
   }
@@ -668,17 +672,32 @@ bool AndroidVideoDecodeAccelerator::DequeueOutput() {
 
     switch (status) {
       case media::MEDIA_CODEC_ERROR:
-        POST_ERROR(PLATFORM_FAILURE, "DequeueOutputBuffer failed.");
+        // Do not post an error if we are draining for reset and destroy.
+        // Instead, run the drain completion task.
+        if (IsDrainingForResetOrDestroy()) {
+          DVLOG(1) << __FUNCTION__ << ": error while codec draining";
+          state_ = ERROR;
+          OnDrainCompleted();
+        } else {
+          POST_ERROR(PLATFORM_FAILURE, "DequeueOutputBuffer failed.");
+        }
         return false;
 
       case media::MEDIA_CODEC_DEQUEUE_OUTPUT_AGAIN_LATER:
         return false;
 
       case media::MEDIA_CODEC_OUTPUT_FORMAT_CHANGED: {
+        // An OUTPUT_FORMAT_CHANGED is not reported after flush() if the frame
+        // size does not change. Therefore we have to keep track on the format
+        // even if draining, unless we are draining for destroy.
+        if (drain_type_ == DRAIN_FOR_DESTROY)
+          return true;  // ignore
+
         if (media_codec_->GetOutputSize(&size_) != media::MEDIA_CODEC_OK) {
           POST_ERROR(PLATFORM_FAILURE, "GetOutputSize failed.");
           return false;
         }
+
         DVLOG(3) << __FUNCTION__
                  << " OUTPUT_FORMAT_CHANGED, new size: " << size_.ToString();
 
@@ -718,26 +737,13 @@ bool AndroidVideoDecodeAccelerator::DequeueOutput() {
   } while (buf_index < 0);
 
   if (eos) {
-    DVLOG(3) << __FUNCTION__ << ": Resetting codec state after EOS";
-
-    // If we were waiting for an EOS, clear the state and reset the MediaCodec
-    // as normal. Otherwise, enter the ERROR state which will force destruction
-    // of MediaCodec during ResetCodecState().
-    //
-    // Some Android platforms seem to send an EOS buffer even when we're not
-    // expecting it. In this case, destroy and reset the codec but don't notify
-    // flush done since it violates the state machine. http://crbug.com/585959.
-    const bool was_waiting_for_eos = state_ == WAITING_FOR_EOS;
-    state_ = was_waiting_for_eos ? NO_ERROR : ERROR;
-
-    ResetCodecState();
-    // |media_codec_| might still be null.
-    if (was_waiting_for_eos) {
-      base::MessageLoop::current()->PostTask(
-          FROM_HERE, base::Bind(&AndroidVideoDecodeAccelerator::NotifyFlushDone,
-                                weak_this_factory_.GetWeakPtr()));
-    }
+    OnDrainCompleted();
     return false;
+  }
+
+  if (IsDrainingForResetOrDestroy()) {
+    media_codec_->ReleaseOutputBuffer(buf_index, false);
+    return true;
   }
 
   if (!picturebuffers_requested_) {
@@ -820,19 +826,20 @@ void AndroidVideoDecodeAccelerator::SendDecodedFrameToClient(
     size_changed = true;
   }
 
-  // Connect the PictureBuffer to the decoded frame, via whatever
-  // mechanism the strategy likes.
-  strategy_->UseCodecBufferForPictureBuffer(codec_buffer_index, i->second);
-
   const bool allow_overlay = strategy_->ArePicturesOverlayable();
-
   media::Picture picture(picture_buffer_id, bitstream_id, gfx::Rect(size_),
                          allow_overlay);
   picture.set_size_changed(size_changed);
 
-  base::MessageLoop::current()->PostTask(
-      FROM_HERE, base::Bind(&AndroidVideoDecodeAccelerator::NotifyPictureReady,
-                            weak_this_factory_.GetWeakPtr(), picture));
+  // Notify picture ready before calling UseCodecBufferForPictureBuffer() since
+  // that process may be slow and shouldn't delay delivery of the frame to the
+  // renderer. The picture is only used on the same thread as this method is
+  // called, so it is safe to do this.
+  NotifyPictureReady(picture);
+
+  // Connect the PictureBuffer to the decoded frame, via whatever mechanism the
+  // strategy likes.
+  strategy_->UseCodecBufferForPictureBuffer(codec_buffer_index, i->second);
 }
 
 void AndroidVideoDecodeAccelerator::Decode(
@@ -868,9 +875,11 @@ void AndroidVideoDecodeAccelerator::DecodeBuffer(
 }
 
 void AndroidVideoDecodeAccelerator::RequestPictureBuffers() {
-  client_->ProvidePictureBuffers(kNumPictureBuffers, 1,
-                                 strategy_->GetPictureBufferSize(),
-                                 strategy_->GetTextureTarget());
+  if (client_) {
+    client_->ProvidePictureBuffers(kNumPictureBuffers, 1,
+                                   strategy_->GetPictureBufferSize(),
+                                   strategy_->GetTextureTarget());
+  }
 }
 
 void AndroidVideoDecodeAccelerator::AssignPictureBuffers(
@@ -926,9 +935,10 @@ void AndroidVideoDecodeAccelerator::ReusePictureBuffer(
 }
 
 void AndroidVideoDecodeAccelerator::Flush() {
+  DVLOG(1) << __FUNCTION__;
   DCHECK(thread_checker_.CalledOnValidThread());
 
-  DecodeBuffer(media::BitstreamBuffer(-1, base::SharedMemoryHandle(), 0));
+  StartCodecDrain(DRAIN_FOR_FLUSH);
 }
 
 void AndroidVideoDecodeAccelerator::ConfigureMediaCodecAsynchronously() {
@@ -949,7 +959,7 @@ void AndroidVideoDecodeAccelerator::ConfigureMediaCodecAsynchronously() {
   // strategy to forget the codec avoids this.
   if (media_codec_) {
     media_codec_.reset();
-    strategy_->CodecChanged(nullptr, output_picture_buffers_);
+    strategy_->CodecChanged(nullptr);
   }
 
   scoped_refptr<base::SingleThreadTaskRunner> task_runner =
@@ -1001,7 +1011,7 @@ void AndroidVideoDecodeAccelerator::OnCodecConfigured(
   // Record one instance of the codec being initialized.
   RecordFormatChangedMetric(FormatChangedValue::CodecInitialized);
 
-  strategy_->CodecChanged(media_codec_.get(), output_picture_buffers_);
+  strategy_->CodecChanged(media_codec_.get());
 
   // If we are supposed to notify that initialization is complete, then do so
   // now.  Otherwise, this is a reconfiguration.
@@ -1020,13 +1030,76 @@ void AndroidVideoDecodeAccelerator::OnCodecConfigured(
   ManageTimer(true);
 }
 
-void AndroidVideoDecodeAccelerator::ResetCodecState() {
+void AndroidVideoDecodeAccelerator::StartCodecDrain(DrainType drain_type) {
+  DVLOG(2) << __FUNCTION__ << " drain_type:" << drain_type;
+  DCHECK(thread_checker_.CalledOnValidThread());
+
+  // We assume that DRAIN_FOR_FLUSH and DRAIN_FOR_RESET cannot come while
+  // another drain request is present, but DRAIN_FOR_DESTROY can.
+  DCHECK_NE(drain_type, DRAIN_TYPE_NONE);
+  DCHECK(drain_type_ == DRAIN_TYPE_NONE || drain_type == DRAIN_FOR_DESTROY)
+      << "Unexpected StartCodecDrain() with drain type " << drain_type
+      << " while already draining with drain type " << drain_type_;
+
+  const bool enqueue_eos = drain_type_ == DRAIN_TYPE_NONE;
+  drain_type_ = drain_type;
+
+  if (enqueue_eos)
+    DecodeBuffer(media::BitstreamBuffer(-1, base::SharedMemoryHandle(), 0));
+}
+
+bool AndroidVideoDecodeAccelerator::IsDrainingForResetOrDestroy() const {
+  return drain_type_ == DRAIN_FOR_RESET || drain_type_ == DRAIN_FOR_DESTROY;
+}
+
+void AndroidVideoDecodeAccelerator::OnDrainCompleted() {
+  DVLOG(2) << __FUNCTION__;
+  DCHECK(thread_checker_.CalledOnValidThread());
+
+  // If we were waiting for an EOS, clear the state and reset the MediaCodec
+  // as normal. Otherwise, enter the ERROR state which will force destruction
+  // of MediaCodec during ResetCodecState().
+  //
+  // Some Android platforms seem to send an EOS buffer even when we're not
+  // expecting it. In this case, destroy and reset the codec but don't notify
+  // flush done since it violates the state machine. http://crbug.com/585959.
+
+  switch (drain_type_) {
+    case DRAIN_TYPE_NONE:
+      // Unexpected EOS.
+      state_ = ERROR;
+      ResetCodecState(base::Closure());
+      break;
+    case DRAIN_FOR_FLUSH:
+      ResetCodecState(media::BindToCurrentLoop(
+          base::Bind(&AndroidVideoDecodeAccelerator::NotifyFlushDone,
+                     weak_this_factory_.GetWeakPtr())));
+      break;
+    case DRAIN_FOR_RESET:
+      ResetCodecState(media::BindToCurrentLoop(
+          base::Bind(&AndroidVideoDecodeAccelerator::NotifyResetDone,
+                     weak_this_factory_.GetWeakPtr())));
+      break;
+    case DRAIN_FOR_DESTROY:
+      base::MessageLoop::current()->PostTask(
+          FROM_HERE, base::Bind(&AndroidVideoDecodeAccelerator::ActualDestroy,
+                                weak_this_factory_.GetWeakPtr()));
+      break;
+  }
+  drain_type_ = DRAIN_TYPE_NONE;
+}
+
+void AndroidVideoDecodeAccelerator::ResetCodecState(
+    const base::Closure& done_cb) {
   DCHECK(thread_checker_.CalledOnValidThread());
 
   // If there is already a reset in flight, then that counts.  This can really
   // only happen if somebody calls Reset.
-  if (state_ == WAITING_FOR_CODEC)
+  if (state_ == WAITING_FOR_CODEC) {
+    if (!done_cb.is_null())
+      done_cb.Run();
     return;
+  }
 
   bitstream_buffers_in_decoder_.clear();
 
@@ -1039,8 +1112,8 @@ void AndroidVideoDecodeAccelerator::ResetCodecState() {
     pending_input_buf_index_ = -1;
   }
 
-  if (state_ == WAITING_FOR_KEY)
-    state_ = NO_ERROR;
+  const bool did_codec_error_happen = state_ == ERROR;
+  state_ = NO_ERROR;
 
   // We might increment error_sequence_token here to cancel any delayed errors,
   // but right now it's unclear that it's safe to do so.  If we are in an error
@@ -1055,25 +1128,28 @@ void AndroidVideoDecodeAccelerator::ResetCodecState() {
   // (b/8125974, b/8347958) so we must delete the MediaCodec and create a new
   // one. The full reconfigure is much slower and may cause visible freezing if
   // done mid-stream.
-  if (state_ == NO_ERROR &&
+  if (!did_codec_error_happen &&
       base::android::BuildInfo::GetInstance()->sdk_int() >= 18) {
     DVLOG(3) << __FUNCTION__ << " Doing fast MediaCodec reset (flush).";
     media_codec_->Reset();
     // Since we just flushed all the output buffers, make sure that nothing is
     // using them.
-    strategy_->CodecChanged(media_codec_.get(), output_picture_buffers_);
+    strategy_->CodecChanged(media_codec_.get());
   } else {
     DVLOG(3) << __FUNCTION__
              << " Deleting the MediaCodec and creating a new one.";
     g_avda_timer.Pointer()->StopTimer(this);
     // Changing the codec will also notify the strategy to forget about any
     // output buffers it has currently.
-    state_ = NO_ERROR;
     ConfigureMediaCodecAsynchronously();
   }
+
+  if (!done_cb.is_null())
+    done_cb.Run();
 }
 
 void AndroidVideoDecodeAccelerator::Reset() {
+  DVLOG(1) << __FUNCTION__;
   DCHECK(thread_checker_.CalledOnValidThread());
   TRACE_EVENT0("media", "AVDA::Reset");
 
@@ -1094,16 +1170,23 @@ void AndroidVideoDecodeAccelerator::Reset() {
   // Any error that is waiting to post can be ignored.
   error_sequence_token_++;
 
-  ResetCodecState();
+  DCHECK(strategy_);
+  strategy_->ReleaseCodecBuffers(output_picture_buffers_);
 
-  // Note that |media_codec_| might not yet be ready, but we can still post
-  // this anyway.
-  base::MessageLoop::current()->PostTask(
-      FROM_HERE, base::Bind(&AndroidVideoDecodeAccelerator::NotifyResetDone,
-                            weak_this_factory_.GetWeakPtr()));
+  // Some VP8 files require complete MediaCodec drain before we can call
+  // MediaCodec.flush() or MediaCodec.reset(). http://crbug.com/598963.
+  if (media_codec_ && codec_config_->codec_ == media::kCodecVP8) {
+    // Postpone ResetCodecState() after the drain.
+    StartCodecDrain(DRAIN_FOR_RESET);
+  } else {
+    ResetCodecState(media::BindToCurrentLoop(
+        base::Bind(&AndroidVideoDecodeAccelerator::NotifyResetDone,
+                   weak_this_factory_.GetWeakPtr())));
+  }
 }
 
 void AndroidVideoDecodeAccelerator::Destroy() {
+  DVLOG(1) << __FUNCTION__;
   DCHECK(thread_checker_.CalledOnValidThread());
 
   bool have_context = make_context_current_cb_.Run();
@@ -1118,6 +1201,26 @@ void AndroidVideoDecodeAccelerator::Destroy() {
     on_frame_available_handler_->ClearOwner();
     on_frame_available_handler_ = nullptr;
   }
+
+  client_ = nullptr;
+
+  // Some VP8 files require complete MediaCodec drain before we can call
+  // MediaCodec.flush() or MediaCodec.reset(). http://crbug.com/598963.
+  if (media_codec_ && codec_config_->codec_ == media::kCodecVP8) {
+    // Clear pending_bitstream_buffers_.
+    while (!pending_bitstream_buffers_.empty())
+      pending_bitstream_buffers_.pop();
+
+    // Postpone ActualDestroy after the drain.
+    StartCodecDrain(DRAIN_FOR_DESTROY);
+  } else {
+    ActualDestroy();
+  }
+}
+
+void AndroidVideoDecodeAccelerator::ActualDestroy() {
+  DVLOG(1) << __FUNCTION__;
+  DCHECK(thread_checker_.CalledOnValidThread());
 
   // Note that async codec construction might still be in progress.  In that
   // case, the codec will be deleted when it completes once we invalidate all
@@ -1225,25 +1328,30 @@ void AndroidVideoDecodeAccelerator::OnKeyAdded() {
 }
 
 void AndroidVideoDecodeAccelerator::NotifyInitializationComplete(bool success) {
-  client_->NotifyInitializationComplete(success);
+  if (client_)
+    client_->NotifyInitializationComplete(success);
 }
 
 void AndroidVideoDecodeAccelerator::NotifyPictureReady(
     const media::Picture& picture) {
-  client_->PictureReady(picture);
+  if (client_)
+    client_->PictureReady(picture);
 }
 
 void AndroidVideoDecodeAccelerator::NotifyEndOfBitstreamBuffer(
     int input_buffer_id) {
-  client_->NotifyEndOfBitstreamBuffer(input_buffer_id);
+  if (client_)
+    client_->NotifyEndOfBitstreamBuffer(input_buffer_id);
 }
 
 void AndroidVideoDecodeAccelerator::NotifyFlushDone() {
-  client_->NotifyFlushDone();
+  if (client_)
+    client_->NotifyFlushDone();
 }
 
 void AndroidVideoDecodeAccelerator::NotifyResetDone() {
-  client_->NotifyResetDone();
+  if (client_)
+    client_->NotifyResetDone();
 }
 
 void AndroidVideoDecodeAccelerator::NotifyError(
@@ -1254,7 +1362,8 @@ void AndroidVideoDecodeAccelerator::NotifyError(
   if (token != error_sequence_token_)
     return;
 
-  client_->NotifyError(error);
+  if (client_)
+    client_->NotifyError(error);
 }
 
 void AndroidVideoDecodeAccelerator::ManageTimer(bool did_work) {

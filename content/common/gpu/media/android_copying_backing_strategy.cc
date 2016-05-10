@@ -56,7 +56,7 @@ gfx::ScopedJavaSurface AndroidCopyingBackingStrategy::Initialize(
 
 void AndroidCopyingBackingStrategy::Cleanup(
     bool have_context,
-    const AndroidVideoDecodeAccelerator::OutputBufferMap&) {
+    const AndroidVideoDecodeAccelerator::OutputBufferMap& buffers) {
   DCHECK(state_provider_->ThreadChecker().CalledOnValidThread());
 
   if (copier_)
@@ -144,8 +144,7 @@ void AndroidCopyingBackingStrategy::UseCodecBufferForPictureBuffer(
 }
 
 void AndroidCopyingBackingStrategy::CodecChanged(
-    media::VideoCodecBridge* codec,
-    const AndroidVideoDecodeAccelerator::OutputBufferMap&) {
+    media::VideoCodecBridge* codec) {
   media_codec_ = codec;
 }
 

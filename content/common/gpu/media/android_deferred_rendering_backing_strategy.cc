@@ -79,8 +79,10 @@ void AndroidDeferredRenderingBackingStrategy::Cleanup(
 
   // Make sure that no PictureBuffer textures refer to the SurfaceTexture or to
   // the service_id that we created for it.
-  for (const std::pair<int, media::PictureBuffer>& entry : buffers)
+  for (const std::pair<int, media::PictureBuffer>& entry : buffers) {
+    ReleaseCodecBufferForPicture(entry.second);
     SetImageForPicture(entry.second, nullptr);
+  }
 
   // If we're rendering to a SurfaceTexture we can make a copy of the current
   // front buffer so that the PictureBuffer textures are still valid.
@@ -119,16 +121,6 @@ gfx::Size AndroidDeferredRenderingBackingStrategy::GetPictureBufferSize()
   return surface_texture_ ? state_provider_->GetSize() : gfx::Size(1, 1);
 }
 
-AVDACodecImage* AndroidDeferredRenderingBackingStrategy::GetImageForPicture(
-    const media::PictureBuffer& picture_buffer) {
-  gpu::gles2::TextureRef* texture_ref =
-      state_provider_->GetTextureForPicture(picture_buffer);
-  RETURN_NULL_IF_NULL(texture_ref);
-  gl::GLImage* image =
-      texture_ref->texture()->GetLevelImage(GetTextureTarget(), 0);
-  return static_cast<AVDACodecImage*>(image);
-}
-
 void AndroidDeferredRenderingBackingStrategy::SetImageForPicture(
     const media::PictureBuffer& picture_buffer,
     const scoped_refptr<gpu::gles2::GLStreamTextureImage>& image) {
@@ -155,7 +147,7 @@ void AndroidDeferredRenderingBackingStrategy::SetImageForPicture(
         shared_state_->surface_texture_service_id());
 
     static_cast<AVDACodecImage*>(image.get())
-        ->SetTexture(texture_ref->texture());
+        ->set_texture(texture_ref->texture());
   } else {
     // Clear the unowned service_id, so that this texture is no longer going
     // to depend on the surface texture at all.
@@ -184,13 +176,17 @@ void AndroidDeferredRenderingBackingStrategy::UseCodecBufferForPictureBuffer(
 
   // Notify the AVDACodecImage for picture_buffer that it should use the
   // decoded buffer codec_buf_index to render this frame.
-  AVDACodecImage* avda_image = GetImageForPicture(picture_buffer);
+  AVDACodecImage* avda_image =
+      shared_state_->GetImageForPicture(picture_buffer.id());
   RETURN_IF_NULL(avda_image);
-  DCHECK_EQ(avda_image->GetMediaCodecBufferIndex(), -1);
+
   // Note that this is not a race, since we do not re-use a PictureBuffer
   // until after the CC is done drawing it.
-  avda_image->SetMediaCodecBufferIndex(codec_buf_index);
-  avda_image->SetSize(state_provider_->GetSize());
+  pictures_out_for_display_.push_back(picture_buffer.id());
+  avda_image->set_media_codec_buffer_index(codec_buf_index);
+  avda_image->set_size(state_provider_->GetSize());
+
+  MaybeRenderEarly();
 }
 
 void AndroidDeferredRenderingBackingStrategy::AssignOnePictureBuffer(
@@ -199,7 +195,7 @@ void AndroidDeferredRenderingBackingStrategy::AssignOnePictureBuffer(
   // Attach a GLImage to each texture that will use the surface texture.
   // We use a refptr here in case SetImageForPicture fails.
   scoped_refptr<gpu::gles2::GLStreamTextureImage> gl_image =
-      new AVDACodecImage(shared_state_, media_codec_,
+      new AVDACodecImage(picture_buffer.id(), shared_state_, media_codec_,
                          state_provider_->GetGlDecoder(), surface_texture_);
   SetImageForPicture(picture_buffer, gl_image);
 
@@ -222,38 +218,92 @@ void AndroidDeferredRenderingBackingStrategy::AssignOnePictureBuffer(
 
 void AndroidDeferredRenderingBackingStrategy::ReleaseCodecBufferForPicture(
     const media::PictureBuffer& picture_buffer) {
-  AVDACodecImage* avda_image = GetImageForPicture(picture_buffer);
-
-  // See if there is a media codec buffer still attached to this image.
-  const int32_t codec_buffer = avda_image->GetMediaCodecBufferIndex();
-
-  if (codec_buffer >= 0) {
-    // PictureBuffer wasn't displayed, so release the buffer.
-    media_codec_->ReleaseOutputBuffer(codec_buffer, false);
-    avda_image->SetMediaCodecBufferIndex(-1);
-  }
+  AVDACodecImage* avda_image =
+      shared_state_->GetImageForPicture(picture_buffer.id());
+  RETURN_IF_NULL(avda_image);
+  avda_image->UpdateSurface(AVDACodecImage::UpdateMode::DISCARD_CODEC_BUFFER);
 }
 
 void AndroidDeferredRenderingBackingStrategy::ReuseOnePictureBuffer(
     const media::PictureBuffer& picture_buffer) {
+  pictures_out_for_display_.erase(
+      std::remove(pictures_out_for_display_.begin(),
+                  pictures_out_for_display_.end(), picture_buffer.id()),
+      pictures_out_for_display_.end());
+
   // At this point, the CC must be done with the picture.  We can't really
   // check for that here directly.  it's guaranteed in gpu_video_decoder.cc,
   // when it waits on the sync point before releasing the mailbox.  That sync
   // point is inserted by destroying the resource in VideoLayerImpl::DidDraw.
   ReleaseCodecBufferForPicture(picture_buffer);
+  MaybeRenderEarly();
+}
+
+void AndroidDeferredRenderingBackingStrategy::ReleaseCodecBuffers(
+    const AndroidVideoDecodeAccelerator::OutputBufferMap& buffers) {
+  for (const std::pair<int, media::PictureBuffer>& entry : buffers)
+    ReleaseCodecBufferForPicture(entry.second);
+}
+
+void AndroidDeferredRenderingBackingStrategy::MaybeRenderEarly() {
+  if (pictures_out_for_display_.empty())
+    return;
+
+  // See if we can consume the front buffer / render to the SurfaceView. Iterate
+  // in reverse to find the most recent front buffer. If none is found, the
+  // |front_index| will point to the beginning of the array.
+  size_t front_index = pictures_out_for_display_.size() - 1;
+  AVDACodecImage* first_renderable_image = nullptr;
+  for (int i = front_index; i >= 0; --i) {
+    const int id = pictures_out_for_display_[i];
+    AVDACodecImage* avda_image = shared_state_->GetImageForPicture(id);
+    if (!avda_image)
+      continue;
+
+    // Update the front buffer index as we move along to shorten the number of
+    // candidate images we look at for back buffer rendering.
+    front_index = i;
+    first_renderable_image = avda_image;
+
+    // If we find a front buffer, stop and indicate that front buffer rendering
+    // is not possible since another image is already in the front buffer.
+    if (avda_image->was_rendered_to_front_buffer()) {
+      first_renderable_image = nullptr;
+      break;
+    }
+  }
+
+  if (first_renderable_image) {
+    first_renderable_image->UpdateSurface(
+        AVDACodecImage::UpdateMode::RENDER_TO_FRONT_BUFFER);
+  }
+
+  // Back buffer rendering is only available for surface textures. We'll always
+  // have at least one front buffer, so the next buffer must be the backbuffer.
+  size_t backbuffer_index = front_index + 1;
+  if (!surface_texture_ || backbuffer_index >= pictures_out_for_display_.size())
+    return;
+
+  // See if the back buffer is free. If so, then render the frame adjacent to
+  // the front buffer.  The listing is in render order, so we can just use the
+  // first unrendered frame if there is back buffer space.
+  first_renderable_image = shared_state_->GetImageForPicture(
+      pictures_out_for_display_[backbuffer_index]);
+  if (!first_renderable_image ||
+      first_renderable_image->was_rendered_to_back_buffer()) {
+    return;
+  }
+
+  // Due to the loop in the beginning this should never be true.
+  DCHECK(!first_renderable_image->was_rendered_to_front_buffer());
+  first_renderable_image->UpdateSurface(
+      AVDACodecImage::UpdateMode::RENDER_TO_BACK_BUFFER);
 }
 
 void AndroidDeferredRenderingBackingStrategy::CodecChanged(
-    media::VideoCodecBridge* codec,
-    const AndroidVideoDecodeAccelerator::OutputBufferMap& buffers) {
-  // Clear any outstanding codec buffer indices, since the new codec (if any)
-  // doesn't know about them.
+    media::VideoCodecBridge* codec) {
   media_codec_ = codec;
-  for (const std::pair<int, media::PictureBuffer>& entry : buffers) {
-    AVDACodecImage* avda_image = GetImageForPicture(entry.second);
-    avda_image->SetMediaCodec(codec);
-    avda_image->SetMediaCodecBufferIndex(-1);
-  }
+  shared_state_->CodecChanged(codec);
 }
 
 void AndroidDeferredRenderingBackingStrategy::OnFrameAvailable() {
@@ -303,8 +353,6 @@ void AndroidDeferredRenderingBackingStrategy::CopySurfaceTextureToPictures(
                  GL_RGBA, GL_UNSIGNED_BYTE, nullptr);
   }
 
-
-
   float transform_matrix[16];
   surface_texture_->GetTransformMatrix(transform_matrix);
 
@@ -348,8 +396,7 @@ void AndroidDeferredRenderingBackingStrategy::CopySurfaceTextureToPictures(
   EGLBoolean result =
       eglDestroyImageKHR(gfx::GLSurfaceEGL::GetHardwareDisplay(), egl_image);
   if (result == EGL_FALSE) {
-    DLOG(ERROR) << "Error destroying EGLImage: "
-                << ui::GetLastEGLErrorString();
+    DLOG(ERROR) << "Error destroying EGLImage: " << ui::GetLastEGLErrorString();
   }
 }
 
@@ -387,14 +434,14 @@ bool AndroidDeferredRenderingBackingStrategy::ShouldCopyPictures() const {
   // Mali + <= KitKat crashes when we try to do this.  We don't know if it's
   // due to detaching a surface texture, but it's the same set of devices.
   if (!DoesSurfaceTextureDetachWork())
-      return false;
+    return false;
 
   // Other devices are unreliable for other reasons (e.g., EGLImage).
   if (gpu::gles2::GLES2Decoder* gl_decoder =
           state_provider_->GetGlDecoder().get()) {
     if (gpu::gles2::ContextGroup* group = gl_decoder->GetContextGroup()) {
       if (gpu::gles2::FeatureInfo* feature_info = group->feature_info()) {
-          return !feature_info->workarounds().avda_dont_copy_pictures;
+        return !feature_info->workarounds().avda_dont_copy_pictures;
       }
     }
   }
