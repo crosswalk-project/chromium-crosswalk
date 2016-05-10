@@ -121,6 +121,8 @@
         'audio/android/opensles_input.h',
         'audio/android/opensles_output.cc',
         'audio/android/opensles_output.h',
+        'audio/android/opensles_util.cc',
+        'audio/android/opensles_util.h',
         'audio/android/opensles_wrapper.cc',
         'audio/audio_device_name.cc',
         'audio/audio_device_name.h',
