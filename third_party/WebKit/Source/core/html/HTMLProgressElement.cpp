@@ -59,8 +59,11 @@ RawPtr<HTMLProgressElement> HTMLProgressElement::create(Document& document)
 
 LayoutObject* HTMLProgressElement::createLayoutObject(const ComputedStyle& style)
 {
-    if (!style.hasAppearance() || openShadowRoot())
+    if (!style.hasAppearance()) {
+        UseCounter::count(document(), UseCounter::ProgressElementWithNoneAppearance);
         return LayoutObject::createObject(this, style);
+    }
+    UseCounter::count(document(), UseCounter::ProgressElementWithProgressBarAppearance);
     return new LayoutProgress(this);
 }
 

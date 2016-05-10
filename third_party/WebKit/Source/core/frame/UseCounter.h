@@ -1116,6 +1116,8 @@ public:
         EncryptedMediaAllSelectedContentTypesMissingCodecs = 1324,
         URLMethodCreateObjectURLServiceWorker = 1339,
         URLMethodRevokeObjectURLServiceWorker = 1340,
+        ProgressElementWithNoneAppearance = 1345,
+        ProgressElementWithProgressBarAppearance = 1346,
 
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
