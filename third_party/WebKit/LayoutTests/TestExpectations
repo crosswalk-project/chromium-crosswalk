@@ -1418,3 +1418,157 @@ crbug.com/588061 [ Debug ] inspector/sources/debugger-breakpoints/debugger-reloa
 crbug.com/248063 [ Win ] plugins/plugin-clip-subframe.html [ Pass Failure ]
 
 crbug.com/588103 fast/xmlhttprequest/xmlhttprequest-responsetype-arraybuffer.html [ Pass Failure ]
+
+crbug.com/594672 fast/events/iframe-object-onload.html [ Failure Pass ]
+crbug.com/594672 fast/events/scale-and-scroll-iframe-body.html [ Failure Pass ]
+crbug.com/594672 fast/events/updateLayoutForHitTest.html [ Failure Pass ]
+crbug.com/594672 virtual/pointerevent/fast/events/iframe-object-onload.html [ Failure Pass ]
+crbug.com/594672 virtual/pointerevent/fast/events/scale-and-scroll-iframe-body.html [ Failure Pass ]
+crbug.com/594672 virtual/pointerevent/fast/events/scale-and-scroll-iframe-window.html [ Failure Pass ]
+crbug.com/594672 virtual/pointerevent/fast/events/updateLayoutForHitTest.html [ Failure Pass ]
+crbug.com/594672 virtual/trustedeventsdefaultaction/fast/events/iframe-object-onload.html [ Failure Pass ]
+crbug.com/594672 virtual/trustedeventsdefaultaction/fast/events/scale-and-scroll-iframe-body.html [ Failure Pass ]
+crbug.com/594672 virtual/trustedeventsdefaultaction/fast/events/updateLayoutForHitTest.html [ Failure Pass ]
+
+crbug.com/540528 [ Linux ] intersection-observer/remove-element.html [ Leak ]
+crbug.com/603728 [ Linux ] virtual/gpu-rasterization/fast/images/color-profile-filter.html [ Failure Timeout Pass ]
+
+crbug.com/593568 [ Win Debug ] virtual/threaded/fast/scroll-behavior/smooth-scroll/horizontal-smooth-scroll-in-rtl.html [ Failure ]
+
+#crbug.com/591825 [ Mac10.11 Debug ] fast/text/selection-multiple-runs.html [ Failure ]
+
+crbug.com/591832 [ Mac10.11 Retina ] compositing/overflow/do-not-paint-outline-into-composited-scrolling-contents.html [ Failure ]
+crbug.com/591832 [ Mac10.11 Retina ] compositing/overflow/update-widget-positions-on-nested-frames-and-scrollers.html [ Failure ]
+
+crbug.com/591902 [ Linux Mac10.10 Mac10.11 Retina ] http/tests/security/contentTypeOptions/nosniff-script-without-content-type-blocked.html [ Failure ]
+
+crbug.com/592185 fast/repaint/fixed-right-in-page-scale.html [ Failure Pass ]
+
+crbug.com/592409 inspector-protocol/debugger/stepping-with-blackboxed-ranges.html [ NeedsManualRebaseline ]
+
+crbug.com/594595 [ Linux ] http/tests/security/mixedContent/websocket/insecure-websocket-in-secure-page-worker-allowed.html [ Timeout Pass ]
+
+crbug.com/453002 [ Win ] fast/text/international/text-combine-image-test.html [ Failure Pass ]
+crbug.com/453002 [ Win ] fast/text/international/vertical-text-glyph-test.html [ Failure Pass ]
+crbug.com/453002 [ Win ] fast/text/justify-ideograph-vertical.html [ Failure Pass ]
+crbug.com/453002 [ Win ] fast/text/orientation-sideways.html [ Failure Pass ]
+
+crbug.com/587737 [ Mac10.11 Retina ] virtual/gpu-rasterization/fast/images/color-profile-filter.html [ Timeout Failure ]
+
+crbug.com/602933 fast/canvas/canvas-incremental-repaint.html [ NeedsManualRebaseline ]
+
+crbug.com/606196 fast/writing-mode/text-combine-various-fonts.html [ NeedsRebaseline ]
+crbug.com/606196 [ Win ] fast/text/emphasis.html [ NeedsRebaseline ]
+crbug.com/606196 fast/writing-mode/japanese-rl-selection.html [ NeedsRebaseline ]
+crbug.com/606196 fast/text/emphasis-vertical.html [ NeedsRebaseline ]
+crbug.com/606196 fast/writing-mode/japanese-lr-selection.html [ NeedsRebaseline ]
+crbug.com/606196 [ Win ] fast/text/unicode-fallback-font.html [ NeedsRebaseline ]
+
+crbug.com/599975 [ Android ] media/video-autoplay.html [ Crash Timeout ]
+
+# DocumentWriteEvaluator is still experimental
+crbug.com/599115 http/tests/preload/document-write [ Failure ]
+crbug.com/599115 http/tests/preload/document-write/document_write_no_preload.html [ Pass ]
+
+crbug.com/601669 [ Win ] svg/as-image/svg-nested.html [ Crash ]
+
+crbug.com/603507 [ Mac Win ] fast/table/split-table-section-before-anonymous-block-2.html [ NeedsManualRebaseline ]
+crbug.com/603507 [ Mac Win ] fast/table/split-table-section-before-anonymous-block-4.html [ NeedsManualRebaseline ]
+
+crbug.com/600261 imported/web-platform-tests/mediacapture-streams/GUM-deny.html [ Failure ]
+crbug.com/600261 imported/web-platform-tests/mediacapture-streams/MediaStream-MediaElement-srcObject.html [ Failure ]
+
+crbug.com/593679 virtual/scalefactor150/fast/hidpi/static/calendar-picker-appearance.html [ NeedsManualRebaseline ]
+crbug.com/593679 virtual/scalefactor200/fast/hidpi/static/calendar-picker-appearance.html [ NeedsManualRebaseline ]
+crbug.com/593679 virtual/scalefactor200withzoom/fast/hidpi/static/calendar-picker-appearance.html [ NeedsManualRebaseline ]
+
+crbug.com/605525 [ Win ] http/tests/xmlhttprequest/redirect-cross-origin-post.html [ Failure Pass ]
+
+crbug.com/603703 [ Linux Mac ] imported/web-platform-tests/web-animations/animation-timeline/document-timeline.html [ Failure Pass ]
+
+crbug.com/600248 imported/web-platform-tests/web-animations/animation-effect-timing/endDelay.html [ Failure ]
+crbug.com/600248 imported/web-platform-tests/web-animations/animation/constructor.html [ Failure Timeout ]
+crbug.com/600248 imported/web-platform-tests/web-animations/animation/finished.html [ Pass Failure ]
+crbug.com/600248 imported/web-platform-tests/web-animations/animation/oncancel.html [ Pass Failure ]
+crbug.com/600248 imported/web-platform-tests/web-animations/animation/onfinish.html [ Pass Failure ]
+
+crbug.com/604642 [ Mac ]  fast/text/midword-break-after-breakable-char.html [ Failure ]
+
+crbug.com/605047 [ Mac10.11 Retina ] fast/text/emphasis.html [ Failure ]
+
+crbug.com/605059 [ Retina ] fast/text/international/rtl-negative-letter-spacing.html [ Failure ]
+
+crbug.com/606302 [ Win7 ] transforms/3d/point-mapping/3d-point-mapping-preserve-3d.html [ Failure Pass ]
+
+crbug.com/606649 fast/dom/gc-dom-tree-lifetime.html [ Pass Timeout ]
+
+# TODO(jlebel): Remove when methods are implemented.
+crbug.com/609065 [ Mac ] bluetooth/characteristicProperties.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/blacklisted-characteristic.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/characteristic-found.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/characteristic-not-found.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/device-goes-out-of-range.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/get-same-characteristic.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/invalid-characteristic-name.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristic/service-is-removed.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/blacklisted-characteristics-with-uuid.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/blacklisted-characteristics.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/characteristics-found-with-uuid.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/characteristics-found.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/characteristics-not-found-with-uuid.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/characteristics-not-found.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/correct-characteristics.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/device-goes-out-of-range-with-uuid.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/device-goes-out-of-range.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/get-same-characteristics.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/invalid-characteristic-name.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/service-is-removed-with-uuid.html [ Skip ]
+crbug.com/609064 [ Mac ] bluetooth/getCharacteristics/service-is-removed.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/delayed-discovery-no-permission-absent-service.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/delayed-discovery-no-permission-present-service.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/delayed-discovery-service-found.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/delayed-discovery-service-not-found.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/device-goes-out-of-range.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/get-same-service.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/invalid-service-name.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/no-permission-absent-service.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/no-permission-present-service.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/service-found.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/getPrimaryService/service-not-found.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/add-listener-after-promise.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/add-multiple-event-listeners.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/characteristic-does-not-support-notifications.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/characteristic-is-removed.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/concurrent-starts.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/concurrent-stops.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/device-goes-out-of-range.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/event-after-starting.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/gc-with-pending-start.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/gc-with-pending-stop.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/parallel-start-stop.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/service-is-removed.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/start-before-stop-resolves.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/start-fails.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/start-stop-start-stop.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/start-succeeds.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/start-twice-in-a-row.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/stop-twice.html [ Skip ]
+crbug.com/609068 [ Mac ] bluetooth/notifications/stop-without-starting.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/add-multiple-event-listeners.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/blacklisted-characteristic.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/characteristic-is-removed.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/device-goes-out-of-range.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/event-is-fired.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/read-fails.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/read-succeeds.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/read-updates-value.html [ Skip ]
+crbug.com/609066 [ Mac ] bluetooth/readValue/service-is-removed.html [ Skip ]
+crbug.com/603183 [ Mac ] bluetooth/requestDevice-blacklist.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/blacklisted-characteristic.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/characteristic-is-removed.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/device-goes-out-of-range.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/service-is-removed.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/value-too-long.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/write-fails.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/write-succeeds.html [ Skip ]
+crbug.com/609067 [ Mac ] bluetooth/writeValue/write-updates-value.html [ Skip ]
