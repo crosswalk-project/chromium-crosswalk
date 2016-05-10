@@ -6,7 +6,6 @@
 <translation id="10614374240317010">Mai salvate</translation>
 <translation id="1061441684050139317">Chrome deve avere accesso al microfono per condividerla con questo sito.</translation>
 <translation id="1080790410959514870">Stai per uscire da un account gestito da <ph name="DOMAIN_NAME" />. Verranno eliminati i dati di Chrome memorizzati su questo dispositivo, ma i dati rimarranno nel tuo account Google.</translation>
-<translation id="1095407227123756519">Aggiungi un account per visualizzare i tuoi Preferiti, la cronologia, le password e altre impostazioni su tutti i tuoi dispositivi.</translation>
 <translation id="1098052486217676340">Terminata</translation>
 <translation id="1121094540300013208">Rapporti sull'utilizzo e sugli arresti anomali</translation>
 <translation id="1137305377394488060">ultima ora</translation>
@@ -74,6 +73,7 @@ Per poter utilizzare il Physical Web, devi attivare il Bluetooth e la geolocaliz
 <translation id="194341124344773587">Abilita l'autorizzazione per Chrome in <ph name="BEGIN_LINK" />Impostazioni Android<ph name="END_LINK" />.</translation>
 <translation id="1943432128510653496">Salva password</translation>
 <translation id="1944384637046898011">Cripta tutto con la password Google a partire dal <ph name="TIME" /></translation>
+<translation id="1946005195648379376">Controlla il modo in cui Google utilizza la cronologia di navigazione per personalizzare la Ricerca e altri servizi Google.</translation>
 <translation id="1959930595721737608">Consenti JavaScript nel seguente sito.</translation>
 <translation id="1966710179511230534">Aggiorna i dati di accesso.</translation>
 <translation id="1974060860693918893">Avanzate</translation>
@@ -99,7 +99,6 @@ Per poter utilizzare il Physical Web, devi attivare il Bluetooth e la geolocaliz
 <translation id="2206488550163399966"><ph name="APP_NAME" />, app web. <ph name="APP_URL" /></translation>
 <translation id="2268044343513325586">Perfeziona</translation>
 <translation id="2315043854645842844">La selezione del certificato lato client non è supportata dal sistema operativo.</translation>
-<translation id="2316129865977710310">No, grazie</translation>
 <translation id="2321958826496381788">Trascina il cursore finché leggi il testo senza problemi. Il testo dovrebbe avere queste dimensioni minime quando tocchi due volte un paragrafo.</translation>
 <translation id="2329597144923131178">Accedi per visualizzare i tuoi Preferiti, la cronologia, le password e altre impostazioni su tutti i tuoi dispositivi.</translation>
 <translation id="2343328333327081434">Installazione…</translation>
@@ -199,7 +198,6 @@ Stai per eseguire l'accesso con un account gestito e consentire al relativo ammi
 Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfezionare la ricerca, fai scorrere completamente il riquadro verso l'alto e tocca la casella di ricerca.</translation>
 <translation id="3623048332793834136">Preferiti di Chrome Canary</translation>
 <translation id="363596933471559332">Accedi automaticamente ai siti web utilizzando credenziali memorizzate. Quando la funzione non è attiva, ti viene chiesta la verifica prima di ogni accesso ai siti web.</translation>
-<translation id="3653742808139624888">Accedi a Chrome per trovare i tuoi preferiti su tutti i dispositivi</translation>
 <translation id="3656115297268584622">Attiva la geolocalizzazione nelle <ph name="BEGIN_LINK" />Impostazioni Android<ph name="END_LINK" />.</translation>
 <translation id="3661699943263275414">I siti web di terze parti possono salvare e leggere i dati dei cookie</translation>
 <translation id="3672452749423051839">Suggerimenti per gli errori di navigazione</translation>
@@ -234,6 +232,7 @@ Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfez
 <translation id="4195643157523330669">Apri in un'altra scheda</translation>
 <translation id="4198229475320555619">Preferito salvato offline: <ph name="PAGE_SIZE_STRING" /></translation>
 <translation id="423410644998903704">Chrome deve avere accesso alle autorizzazioni per condividerle con questo sito.</translation>
+<translation id="4242533952199664413">Apri le impostazioni</translation>
 <translation id="424864128008805179">Uscire da Chrome?</translation>
 <translation id="4254813446494774748">Lingua della traduzione:</translation>
 <translation id="4256782883801055595">Licenze open source</translation>
@@ -287,9 +286,6 @@ Per modificare il termine di ricerca, premi a lungo per selezionarlo. Per perfez
 <translation id="4885273946141277891">Numero di istanze di Chrome non supportato.</translation>
 <translation id="4927198283430892231">Le pagine salvate attualmente occupano <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
 <translation id="4943872375798546930">Nessun risultato</translation>
-<translation id="4970484396410298643">Accedi alle schede che hai aperto sul computer direttamente qui.
-
-Apri Chrome sul computer, apri il menu e seleziona "Accedi a Chrome…"</translation>
 <translation id="497421865427891073">Avanti</translation>
 <translation id="4996978546172906250">Condividi tramite</translation>
 <translation id="5000922062037820727">Bloccata (opzione consigliata)</translation>
@@ -313,9 +309,7 @@ Apri Chrome sul computer, apri il menu e seleziona "Accedi a Chrome…"</transla
 <translation id="5184329579814168207">Apri in Chrome</translation>
 <translation id="5199929503336119739">Profilo di lavoro</translation>
 <translation id="5210365745912300556">Chiudi scheda</translation>
-<translation id="5210714456814679336">Le schede aperte in Chrome sugli altri dispositivi verranno visualizzate qui.</translation>
 <translation id="5222676887888702881">Esci</translation>
-<translation id="5228579091201413441">Abilita sincronizzazione</translation>
 <translation id="5233638681132016545">Nuova scheda</translation>
 <translation id="5271967389191913893">Non è possibile aprire i contenuti da scaricare sul dispositivo.</translation>
 <translation id="5275558766013849309">Le schede saranno insieme alle app recenti.</translation>
@@ -361,7 +355,6 @@ Apri Chrome sul computer, apri il menu e seleziona "Accedi a Chrome…"</transla
 <translation id="5677928146339483299">Bloccati</translation>
 <translation id="5684874026226664614">Spiacenti. Impossibile tradurre questa pagina.</translation>
 <translation id="5708031556037168012">Mantieni i dati esistenti sul tuo dispositivo e importa definitivamente i dati nell'account <ph name="TO_ACCOUNT" />.</translation>
-<translation id="5715468759630044318">Scegli account</translation>
 <translation id="5719837394786370183">Le pagine visualizzate nelle schede in incognito non vengono memorizzate nella cronologia del browser, nell'archivio di cookie o nella cronologia delle ricerche dopo aver chiuso tutte le schede. I file da te scaricati o i Preferiti da te creati vengono mantenuti.
 
 Tuttavia, le tue attività non sono invisibili. L'attivazione della modalità di navigazione in incognito non consente di nascondere la navigazione al tuo datore di lavoro, al tuo provider di servizi Internet o ai siti web da te visitati.</translation>
@@ -444,7 +437,6 @@ Ad esempio, alcuni siti web potrebbero rispondere alla richiesta mostrando annun
 <translation id="6699351163704950317">Tutte le pagine salvate</translation>
 <translation id="6710213216561001401">Indietro</translation>
 <translation id="6720988912937197322">Pagina salvata non disponibile offline</translation>
-<translation id="6722992508235227685">I tuoi preferiti, la cronologia, le password e altre impostazioni verranno sincronizzati con il tuo account Google per consentirti di utilizzarli su tutti i tuoi dispositivi. Puoi scegliere quali dati sincronizzare nelle <ph name="BEGIN_LINK1" />Impostazioni<ph name="END_LINK1" />.</translation>
 <translation id="6738867403308150051">Download in corso…</translation>
 <translation id="6762156594045689028">Per modificare questa impostazione, <ph name="BEGIN_LINK" />reimposta la sincronizzazione<ph name="END_LINK" /></translation>
 <translation id="6770414673596662518">Il sistema Navigazione sicura di Chrome verrà utilizzato anche per rilevare pagine dannose e proteggerti da phishing, malware e download pericolosi.</translation>
@@ -558,7 +550,6 @@ Tuttavia, le tue attività non sono invisibili. L'attivazione della modalità di
 <translation id="8069239273282989646">Dopo la compressione</translation>
 <translation id="8073388330009372546">Immagine in nuova scheda</translation>
 <translation id="8076014560081431679">Le impostazioni del sito salvate non verranno eliminate e potrebbero rispecchiare le tue abitudini di navigazione. <ph name="BEGIN_LINK" />Ulteriori informazioni<ph name="END_LINK" /></translation>
-<translation id="8084156870963450514">Esegui l'accesso per accedere a tutti i tuoi contenuti web da qualsiasi dispositivo</translation>
 <translation id="8087000398470557479">Questi contenuti derivano da <ph name="DOMAIN_NAME" /> e sono offerti da Google.</translation>
 <translation id="8098570222830891427">Alcuni dispositivi nelle tue vicinanze stanno trasmettendo pagine web tramite Bluetooth. Chrome cerca pagine nelle vicinanze quando attivi il tuo dispositivo. Tali pagine passeranno attraverso un servizio di Google per migliorare la qualità dei risultati.
 
@@ -614,6 +605,7 @@ Per ottenere nuove licenze, connettiti a Internet e riproduci i contenuti scaric
 <translation id="8737542153238017984">Pagina salvata non disponibile offline. Spazio di archiviazione quasi pieno.</translation>
 <translation id="8793430725658173476">Copia URL</translation>
 <translation id="8798099450830957504">Predefinito</translation>
+<translation id="8812942424849541387">Controlla come funziona nelle <ph name="BEGIN_LINK1" />Impostazioni<ph name="END_LINK1" /></translation>
 <translation id="8820817407110198400">Segnalibri</translation>
 <translation id="8829678271838353305">È stato eseguito l'accesso a <ph name="ACCOUNT_EMAIL_LAST" />. Se accedi con <ph name="ACCOUNT_EMAIL_NEW" />, i dati sincronizzati dei due account, come i Preferiti, verranno uniti. Per tenere le informazioni separate, cancella i dati di navigazione nelle <ph name="BEGIN_LINK" />impostazioni<ph name="END_LINK" />.</translation>
 <translation id="8853345339104747198"><ph name="TAB_TITLE" />, scheda</translation>
@@ -628,6 +620,7 @@ Per ottenere nuove licenze, connettiti a Internet e riproduci i contenuti scaric
 <translation id="8942627711005830162">Apri nell'altra finestra</translation>
 <translation id="8959122750345127698">Navigazione inaccessibile: <ph name="URL" /></translation>
 <translation id="8979340629087822094">ultimo giorno</translation>
+<translation id="8981454092730389528">Gestione attività di Google</translation>
 <translation id="8986494364107987395">Invia automaticamente a Google statistiche sull'utilizzo e segnalazioni sugli arresti anomali</translation>
 <translation id="8987061207681586800">Personalizza Chrome</translation>
 <translation id="9019902583201351841">Gestito dai genitori</translation>

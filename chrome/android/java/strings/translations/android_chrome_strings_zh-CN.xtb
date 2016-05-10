@@ -6,7 +6,6 @@
 <translation id="10614374240317010">一律不保存</translation>
 <translation id="1061441684050139317">Chrome 需要具有麦克风使用权限，才能批准此网站的分享请求。</translation>
 <translation id="1080790410959514870">您要退出某个由 <ph name="DOMAIN_NAME" /> 管理的帐户。这会导致系统删除此设备上存储的 Chrome 数据，但这些数据仍会保留在您的 Google 帐户中。</translation>
-<translation id="1095407227123756519">请添加帐户，以便获取您所有设备上保存的书签、历史记录、密码和其他设置。</translation>
 <translation id="1098052486217676340">已完成</translation>
 <translation id="1121094540300013208">使用情况统计信息和崩溃报告</translation>
 <translation id="1137305377394488060">过去 1 小时</translation>
@@ -74,6 +73,7 @@
 <translation id="194341124344773587">在 <ph name="BEGIN_LINK" />Android 设置<ph name="END_LINK" />中为 Chrome 启用这项权限。</translation>
 <translation id="1943432128510653496">保存密码</translation>
 <translation id="1944384637046898011">自 <ph name="TIME" />起，使用 Google 密码加密所有数据</translation>
+<translation id="1946005195648379376">控制 Google 如何使用您的浏览记录对 Google 搜索和其他 Google 服务进行个性化设置。</translation>
 <translation id="1959930595721737608">在以下网站上允许 JavaScript。</translation>
 <translation id="1966710179511230534">请更新您的登录详细信息。</translation>
 <translation id="1974060860693918893">高级</translation>
@@ -99,7 +99,6 @@
 <translation id="2206488550163399966"><ph name="APP_NAME" />，网络应用。<ph name="APP_URL" /></translation>
 <translation id="2268044343513325586">优化</translation>
 <translation id="2315043854645842844">操作系统不支持选择客户端证书。</translation>
-<translation id="2316129865977710310">不用了，谢谢</translation>
 <translation id="2321958826496381788">拖动该滑块，将文字调整到适合您阅读的大小。点按两次某段落后，显示的文字至少应是这么大。</translation>
 <translation id="2329597144923131178">登录后可获取您所有设备上保存的书签、历史记录、密码和其他设置。</translation>
 <translation id="2343328333327081434">正在安装…</translation>
@@ -199,7 +198,6 @@
 要调整搜索字词，请长按将其选中。要缩小搜索范围，请将面板向上滑动到顶部，然后触摸搜索框。</translation>
 <translation id="3623048332793834136">Chrome Canary 版书签</translation>
 <translation id="363596933471559332">使用存储的凭据自动登录网站。当该功能处于停用状态时，系统会在您每次登录网站之前要求您进行验证。</translation>
-<translation id="3653742808139624888">要将您的书签同步到自己的所有设备上，请登录 Chrome</translation>
 <translation id="3656115297268584622">在 <ph name="BEGIN_LINK" />Android 设置<ph name="END_LINK" />部分开启位置信息服务。</translation>
 <translation id="3661699943263275414">第三方网站可以保存和读取 Cookie 数据</translation>
 <translation id="3672452749423051839">导航错误建议</translation>
@@ -234,6 +232,7 @@
 <translation id="4195643157523330669">在新标签页中打开</translation>
 <translation id="4198229475320555619">书签已离线保存（大小：<ph name="PAGE_SIZE_STRING" />）</translation>
 <translation id="423410644998903704">Chrome 需要具有这些功能的使用权限，才能批准此网站的分享请求。</translation>
+<translation id="4242533952199664413">打开“设置”</translation>
 <translation id="424864128008805179">退出 Chrome？</translation>
 <translation id="4254813446494774748">翻译语言：</translation>
 <translation id="4256782883801055595">开放源代码许可</translation>
@@ -287,9 +286,6 @@
 <translation id="4885273946141277891">Chrome 实例数量已超出上限。</translation>
 <translation id="4927198283430892231">保存的网页目前占用了 <ph name="TOTAL_OFFLINE_STORAGE_SIZE" /> 的空间。</translation>
 <translation id="4943872375798546930">找不到结果</translation>
-<translation id="4970484396410298643">您可以在此处直接访问计算机上打开的标签页。
-
-只需在计算机上打开 Chrome，点击菜单，然后选择“登录到 Chrome…”即可。</translation>
 <translation id="497421865427891073">前进</translation>
 <translation id="4996978546172906250">分享方式</translation>
 <translation id="5000922062037820727">已阻止（推荐）</translation>
@@ -313,9 +309,7 @@
 <translation id="5184329579814168207">在 Chrome 中打开</translation>
 <translation id="5199929503336119739">工作资料</translation>
 <translation id="5210365745912300556">关闭标签页</translation>
-<translation id="5210714456814679336">您在其他设备上的 Chrome 中打开的标签页将列在此次。</translation>
 <translation id="5222676887888702881">退出</translation>
-<translation id="5228579091201413441">启用同步功能</translation>
 <translation id="5233638681132016545">打开新的标签页</translation>
 <translation id="5271967389191913893">设备无法打开要下载的内容。</translation>
 <translation id="5275558766013849309">标签页将与最近用过的应用一起显示。</translation>
@@ -361,7 +355,6 @@
 <translation id="5677928146339483299">已屏蔽</translation>
 <translation id="5684874026226664614">糟糕，此网页内容无法翻译。</translation>
 <translation id="5708031556037168012">将现有数据保留在您的设备上，并将这些数据永久导入到 <ph name="TO_ACCOUNT" />。</translation>
-<translation id="5715468759630044318">选择帐户</translation>
 <translation id="5719837394786370183">在您关闭所有隐身标签页后，您在这些标签页中查看的网页不会在浏览器历史记录、Cookie 存储区或搜索记录中留下任何痕迹。不过，您下载的所有文件或创建的书签均会保留下来。
 
 但是，这并不意味着您能完全隐身。即使您进入隐身模式，您的雇主、互联网服务提供商和您访问的网站仍然能看到您的浏览活动。</translation>
@@ -444,7 +437,6 @@
 <translation id="6699351163704950317">所有保存的网页</translation>
 <translation id="6710213216561001401">上一个</translation>
 <translation id="6720988912937197322">无法为保存的页面创建离线副本</translation>
-<translation id="6722992508235227685">您的书签、历史记录、密码和其他设置将同步到您的 Google 帐户，这样您便可以在自己的任意设备上使用这些内容。您可以在<ph name="BEGIN_LINK1" />设置<ph name="END_LINK1" />部分选择要同步的内容。</translation>
 <translation id="6738867403308150051">即将开始下载…</translation>
 <translation id="6762156594045689028">要更改此设置，请<ph name="BEGIN_LINK" />重置同步设置<ph name="END_LINK" /></translation>
 <translation id="6770414673596662518">Chrome 的安全浏览系统也将用于检测恶意网页，保护您免受网上诱骗、恶意软件和有害下载内容的侵害。</translation>
@@ -558,7 +550,6 @@
 <translation id="8069239273282989646">压缩后</translation>
 <translation id="8073388330009372546">在新标签页中打开图片</translation>
 <translation id="8076014560081431679">已保存的网站设置将不会遭到删除，并且可能会反映您的浏览习惯。<ph name="BEGIN_LINK" />了解详情<ph name="END_LINK" /></translation>
-<translation id="8084156870963450514">登录后即可通过任意设备查看您的所有在线内容</translation>
 <translation id="8087000398470557479">此内容来自 <ph name="DOMAIN_NAME" />（由 Google 提供）。</translation>
 <translation id="8098570222830891427">附近有设备在通过蓝牙播报网页。当您唤醒自己的设备时，Chrome 将会搜索并显示这些网页。这些网页将经由 Google 服务进行处理，以让网页搜索结果的展示更理想。
 
@@ -614,6 +605,7 @@
 <translation id="8737542153238017984">存储空间即将用尽，因此无法为保存的页面创建离线副本。</translation>
 <translation id="8793430725658173476">复制网址</translation>
 <translation id="8798099450830957504">默认</translation>
+<translation id="8812942424849541387">您可以转到<ph name="BEGIN_LINK1" />设置<ph name="END_LINK1" />控制该功能的运行方式</translation>
 <translation id="8820817407110198400">书签</translation>
 <translation id="8829678271838353305">您上次是使用 <ph name="ACCOUNT_EMAIL_LAST" /> 登录的。如果现在使用 <ph name="ACCOUNT_EMAIL_NEW" /> 登录，那么已同步到这两个帐户的数据（如书签）将会合并到一起。要分开保存信息，请在<ph name="BEGIN_LINK" />设置<ph name="END_LINK" />中清除浏览数据。</translation>
 <translation id="8853345339104747198"><ph name="TAB_TITLE" />，标签页</translation>
@@ -628,6 +620,7 @@
 <translation id="8942627711005830162">在其他窗口中打开</translation>
 <translation id="8959122750345127698">无法访问 <ph name="URL" /></translation>
 <translation id="8979340629087822094">过去 1 天</translation>
+<translation id="8981454092730389528">Google 活动控件</translation>
 <translation id="8986494364107987395">将使用情况统计信息和崩溃报告自动发送给 Google</translation>
 <translation id="8987061207681586800">定制自己专属的 Chrome</translation>
 <translation id="9019902583201351841">由您父母管理</translation>

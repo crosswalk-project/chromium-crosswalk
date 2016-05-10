@@ -6,7 +6,6 @@
 <translation id="10614374240317010">פריטים שאף פעם לא נשמרו</translation>
 <translation id="1061441684050139317">‏Chrome זקוק לגישה למיקרופון כדי לשתף אותו עם האתר הזה.</translation>
 <translation id="1080790410959514870">‏אתה מתנתק מחשבון המנוהל על ידי <ph name="DOMAIN_NAME" />. הפעולה הזו תמחק את נתוני Chrome המאוחסנים במכשיר הזה, אבל הנתונים יישמרו בחשבון Google שלך.</translation>
-<translation id="1095407227123756519">הוסף חשבון כדי לקבל גישה אל הסימניות, ההיסטוריה, הסיסמאות והגדרות נוספות בכל המכשירים שברשותך.</translation>
 <translation id="1098052486217676340">הסתיים</translation>
 <translation id="1121094540300013208">דוחות קריסה ושימוש</translation>
 <translation id="1137305377394488060">מהשעה האחרונה</translation>
@@ -74,6 +73,7 @@
 <translation id="194341124344773587">‏הפעל הרשאה בשביל Chrome ב<ph name="BEGIN_LINK" />הגדרות Android<ph name="END_LINK" />.</translation>
 <translation id="1943432128510653496">שמור סיסמאות</translation>
 <translation id="1944384637046898011">‏הצפן הכל באמצעות סיסמת Google החל מ-<ph name="TIME" /></translation>
+<translation id="1946005195648379376">‏קבע כיצד Google משתמשת בהיסטוריית הגלישה שלך כדי להתאים אישית את החיפוש ושירותים אחרים של Google.</translation>
 <translation id="1959930595721737608">‏התר JavaScript באתר הבא.</translation>
 <translation id="1966710179511230534">עדכן את פרטי הכניסה שלך.</translation>
 <translation id="1974060860693918893">מתקדם</translation>
@@ -99,7 +99,6 @@
 <translation id="2206488550163399966"><ph name="APP_NAME" />, אפליקציית אינטרנט. <ph name="APP_URL" /></translation>
 <translation id="2268044343513325586">צמצם</translation>
 <translation id="2315043854645842844">מערכת ההפעלה אינה תומכת בבחירת אישור בצד הלקוח.</translation>
-<translation id="2316129865977710310">לא, תודה</translation>
 <translation id="2321958826496381788">גרור את המחוון עד שתוכל לקרוא את הקטע הזה בצורה נוחה. לאחר שתקיש פעמיים על פיסקה, הטקסט אמור להיות מוצג בגודל הזה לפחות.</translation>
 <translation id="2329597144923131178">היכנס כדי לקבל גישה אל הסימניות, ההיסטוריה, הסיסמאות והגדרות נוספות בכל המכשירים שברשותך.</translation>
 <translation id="2343328333327081434">מתקין...</translation>
@@ -199,7 +198,6 @@
 כדי לשנות את מונח החיפוש, גע נגיעה ארוכה במונח כדי לבחור בו. כדי לצמצם את החיפוש, הסט את החלונית עד למעלה וגע בתיבת החיפוש.</translation>
 <translation id="3623048332793834136">‏סימניות של Chrome בגירסה הניסיונית</translation>
 <translation id="363596933471559332">היכנס באופן אוטומטי לאתרים באמצעות פרטי כניסה מאוחסנים. כשתכונה זו כבויה, תתבקש לבצע אימות לפני כל כניסה לאתר.</translation>
-<translation id="3653742808139624888">‏כדי שהסימניות שלך יופיעו בכל המכשירים, היכנס ל-Chrome</translation>
 <translation id="3656115297268584622">‏הפעל מיקום ב<ph name="BEGIN_LINK" />הגדרות Android<ph name="END_LINK" />.</translation>
 <translation id="3661699943263275414">‏אתרים של צד שלישי יוכלו לשמור ולקרוא נתונים של קובצי Cookie</translation>
 <translation id="3672452749423051839">הצעות לשגיאת ניווט</translation>
@@ -234,6 +232,7 @@
 <translation id="4195643157523330669">פתח בכרטיסייה חדשה</translation>
 <translation id="4198229475320555619">סימניה בגודל <ph name="PAGE_SIZE_STRING" /> נשמרה במצב לא מקוון</translation>
 <translation id="423410644998903704">‏Chrome זקוק לגישה אל ההרשאות כדי לשתף אותן עם האתר הזה.</translation>
+<translation id="4242533952199664413">פתח את 'הגדרות'</translation>
 <translation id="424864128008805179">‏האם לצאת מ-Chrome?</translation>
 <translation id="4254813446494774748">שפת התרגום:</translation>
 <translation id="4256782883801055595">רישיונות קוד פתוח</translation>
@@ -287,9 +286,6 @@
 <translation id="4885273946141277891">‏מספר בלתי נתמך של מופעי Chrome.</translation>
 <translation id="4927198283430892231">דפים שמורים מנצלים כעת <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
 <translation id="4943872375798546930">אין תוצאות</translation>
-<translation id="4970484396410298643">‏גש מכאן ישירות אל הכרטיסיות שפתחת במחשב.
-
-פתח את Chrome במחשב, עבור אל התפריט ובחר באפשרות 'היכנס אל Chrome…'</translation>
 <translation id="497421865427891073">המשך קדימה</translation>
 <translation id="4996978546172906250">שתף באמצעות</translation>
 <translation id="5000922062037820727">חסומה (מומלץ)</translation>
@@ -313,9 +309,7 @@
 <translation id="5184329579814168207">‏פתח ב-Chrome</translation>
 <translation id="5199929503336119739">פרופיל עבודה</translation>
 <translation id="5210365745912300556">סגור כרטיסייה</translation>
-<translation id="5210714456814679336">‏כרטיסיות שפתחת ב-Chrome במכשירים האחרים שלך יופיעו כאן.</translation>
 <translation id="5222676887888702881">יציאה</translation>
-<translation id="5228579091201413441">הפעל סנכרון</translation>
 <translation id="5233638681132016545">כרטיסייה חדשה</translation>
 <translation id="5271967389191913893">המכשיר לא מצליח לפתוח את התוכן להורדה.</translation>
 <translation id="5275558766013849309">כרטיסיות יאוחסנו ביחד עם יישומים אחרונים.</translation>
@@ -361,7 +355,6 @@
 <translation id="5677928146339483299">במצב חסום</translation>
 <translation id="5684874026226664614">אופס. לא ניתן היה לתרגם את הדף הזה.</translation>
 <translation id="5708031556037168012">שמור את הנתונים הקיימים במכשיר וייבא לצמיתות את הנתונים אל <ph name="TO_ACCOUNT" />.</translation>
-<translation id="5715468759630044318">בחר חשבון</translation>
 <translation id="5719837394786370183">‏דפים שאתה מציג בכרטיסיות גלישה בסתר לא יישמרו בהיסטוריית הדפדפן, אחסון קובצי ה-cookie או היסטוריית החיפושים לאחר שתסגור את כל הכרטיסיות של גלישה בסתר. קבצים שתוריד או סימניות שתיצור יישמרו.
 
 עם זאת, אינך בלתי נראה. מעבר למצב גלישה בסתר אינו מסתיר את הגלישה שלך מהמעסיק, ספק שירות האינטרנט או האתרים שבהם אתה מבקר.</translation>
@@ -444,7 +437,6 @@
 <translation id="6699351163704950317">כל הדפים שנשמרו</translation>
 <translation id="6710213216561001401">הקודם</translation>
 <translation id="6720988912937197322">הדף שנשמר אינו זמין במצב לא מקוון</translation>
-<translation id="6722992508235227685">‏הסימניות, ההיסטוריה, הסיסמאות והגדרות אחרות יסונכרנו עם חשבון Google כך שתוכל להשתמש בהם בכל המכשירים שלך. בעזרת ה<ph name="BEGIN_LINK1" />הגדרות<ph name="END_LINK1" /> ניתן לבחור איזה פריטים לסנכרן.</translation>
 <translation id="6738867403308150051">מוריד...</translation>
 <translation id="6762156594045689028"><ph name="BEGIN_LINK" />אפס את הסינכרון<ph name="END_LINK" /> כדי לשנות את ההגדרה הזו</translation>
 <translation id="6770414673596662518">‏מערכת הגלישה הבטוחה של Chrome תשמש גם לזיהוי דפים זדוניים ולהגנה עליך מפני דיוג, תוכנות זדוניות והורדות של קבצים מזיקים.</translation>
@@ -558,7 +550,6 @@
 <translation id="8069239273282989646">לאחר דחיסה</translation>
 <translation id="8073388330009372546">פתח את התמונה בכרטיסייה חדשה</translation>
 <translation id="8076014560081431679">הגדרות אתרים שנשמרו לא יימחקו ועשויות לשקף את הרגלי הגלישה שלך. <ph name="BEGIN_LINK" />למידע נוסף<ph name="END_LINK" /></translation>
-<translation id="8084156870963450514">היכנס כדי לגשת לכל הדברים שלך באינטרנט מכל מכשיר</translation>
 <translation id="8087000398470557479">‏התוכן הזה הוא מ-<ph name="DOMAIN_NAME" />, ומוגש על-ידי Google.</translation>
 <translation id="8098570222830891427">‏בסביבה הקרובה יש מכשירים שמשדרים דפי אינטרנט בתקשורת Bluetooth. ‏Chrome יאתר את הדפים האלו בסריקה ויציג אותם כשתוציא את המכשיר ממצב שינה. הדפים יעברו דרך שירות של Google כדי לשפר את איכות התוצאות.
 
@@ -612,6 +603,7 @@
 <translation id="8737542153238017984">הדף שנשמר אינו זמין במצב לא מקוון. מיצית כמעט את כל נפח האחסון.</translation>
 <translation id="8793430725658173476">העתק כתובת אתר</translation>
 <translation id="8798099450830957504">ברירת מחדל</translation>
+<translation id="8812942424849541387">קבע ב<ph name="BEGIN_LINK1" />הגדרות<ph name="END_LINK1" /> כיצד זה פועל</translation>
 <translation id="8820817407110198400">סימניות</translation>
 <translation id="8829678271838353305">בוצעה כניסה לחשבון עם <ph name="ACCOUNT_EMAIL_LAST" />. כניסה עם <ph name="ACCOUNT_EMAIL_NEW" /> תמזג נתונים מסונכרנים בין החשבונות, כמו סימניות. כדי לשמור על הפרדת המידע, נקה את נתוני הגלישה ב<ph name="BEGIN_LINK" />הגדרות<ph name="END_LINK" />.</translation>
 <translation id="8853345339104747198"><ph name="TAB_TITLE" />, כרטיסייה</translation>
@@ -626,6 +618,7 @@
 <translation id="8942627711005830162">פתח בחלון האחר</translation>
 <translation id="8959122750345127698">הניווט לא אפשרי: <ph name="URL" /></translation>
 <translation id="8979340629087822094">מהיום האחרון</translation>
+<translation id="8981454092730389528">‏בחירת הפעילויות ב-Google</translation>
 <translation id="8986494364107987395">‏שלח ל-Google דוחות קריסה וסטטיסטיקת שימוש באופן אוטומטי</translation>
 <translation id="8987061207681586800">‏התאם אישית את Chrome</translation>
 <translation id="9019902583201351841">מנוהל על-ידי ההורים שלך</translation>

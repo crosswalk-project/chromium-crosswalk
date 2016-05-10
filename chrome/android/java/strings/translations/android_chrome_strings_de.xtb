@@ -6,7 +6,6 @@
 <translation id="10614374240317010">Nie speichern für...</translation>
 <translation id="1061441684050139317">Chrome benötigt Zugriff auf das Mikrofon, um es für diese Website freizugeben.</translation>
 <translation id="1080790410959514870">Sie melden sich von einem Konto ab, das von <ph name="DOMAIN_NAME" /> verwaltet wird. Dadurch werden die auf diesem Gerät gespeicherten Chrome-Daten gelöscht. Die Daten verbleiben jedoch weiterhin in Ihrem Google-Konto.</translation>
-<translation id="1095407227123756519">Fügen Sie ein Konto hinzu, um Ihre Lesezeichen, Ihren Verlauf, Ihre Passwörter und andere Einstellungen auf allen Ihren Geräten abzurufen.</translation>
 <translation id="1098052486217676340">Fertig</translation>
 <translation id="1121094540300013208">Nutzungs- und Absturzberichte</translation>
 <translation id="1137305377394488060">für die letzte Stunde</translation>
@@ -74,6 +73,7 @@ Zur Verwendung von Physical Web müssen Bluetooth und der Standortdienst aktivie
 <translation id="194341124344773587">Berechtigung für Chrome in den <ph name="BEGIN_LINK" />Android-Einstellungen<ph name="END_LINK" /> aktivieren</translation>
 <translation id="1943432128510653496">Passwörter speichern</translation>
 <translation id="1944384637046898011">Ab <ph name="TIME" /> alle Daten mit Google-Passwort verschlüsseln</translation>
+<translation id="1946005195648379376">Legen Sie fest, wie Google anhand des Browserverlaufs die Suche und andere Google-Dienste für Sie personalisieren soll.</translation>
 <translation id="1959930595721737608">JavaScript auf der folgenden Website zulassen.</translation>
 <translation id="1966710179511230534">Bitte aktualisieren Sie Ihre Anmeldeinformationen.</translation>
 <translation id="1974060860693918893">Erweitert</translation>
@@ -99,7 +99,6 @@ Zur Verwendung von Physical Web müssen Bluetooth und der Standortdienst aktivie
 <translation id="2206488550163399966"><ph name="APP_NAME" />, Web-App. <ph name="APP_URL" /></translation>
 <translation id="2268044343513325586">Verfeinern</translation>
 <translation id="2315043854645842844">Die clientseitige Zertifikatauswahl wird vom Betriebssystem nicht unterstützt.</translation>
-<translation id="2316129865977710310">Kein Interesse</translation>
 <translation id="2321958826496381788">Ziehen Sie den Schieberegler, bis Sie diesen Text problemlos lesen können. Nach dem Doppeltippen auf einen Abschnitt sollte der Text mindestens so groß sein.</translation>
 <translation id="2329597144923131178">Melden Sie sich an, um Ihre Lesezeichen, Ihren Verlauf, Ihre Passwörter und andere Einstellungen auf allen Ihren Geräten aufzurufen.</translation>
 <translation id="2343328333327081434">Wird installiert…</translation>
@@ -199,7 +198,6 @@ Sie melden sich gerade mit einem verwalteten Konto an und geben dem Administrato
 Zur Anpassung des Suchbegriffs drücken Sie einige Sekunden lang auf den entsprechenden Begriff. Sie können Ihre Suche auch verfeinern, indem Sie das Feld ganz nach oben schieben und auf das Suchfeld tippen.</translation>
 <translation id="3623048332793834136">Chrome Canary-Lesezeichen</translation>
 <translation id="363596933471559332">Sie werden mit gespeicherten Anmeldedaten automatisch auf Websites angemeldet. Wenn das Kästchen nicht angeklickt ist, werden Sie jedes Mal aufgefordert, sich manuell auf einer Website anzumelden.</translation>
-<translation id="3653742808139624888">Melden Sie sich in Chrome an, um Ihre Lesezeichen auf allen Ihren Geräten abzurufen.</translation>
 <translation id="3656115297268584622">Aktivieren Sie den Standortdienst in den <ph name="BEGIN_LINK" />Android-Einstellungen<ph name="END_LINK" />.</translation>
 <translation id="3661699943263275414">Websites Dritter können Cookiedaten speichern und lesen.</translation>
 <translation id="3672452749423051839">Vorschläge bei Navigationsfehlern</translation>
@@ -234,6 +232,7 @@ Zur Anpassung des Suchbegriffs drücken Sie einige Sekunden lang auf den entspre
 <translation id="4195643157523330669">In neuem Tab öffnen</translation>
 <translation id="4198229475320555619">Lesezeichen mit einer Größe von <ph name="PAGE_SIZE_STRING" /> offline gespeichert</translation>
 <translation id="423410644998903704">Chrome benötigt Zugriff auf die Berechtigungen, um sie für diese Website freizugeben.</translation>
+<translation id="4242533952199664413">Einstellungen öffnen</translation>
 <translation id="424864128008805179">Von Chrome abmelden?</translation>
 <translation id="4254813446494774748">Zielsprache:</translation>
 <translation id="4256782883801055595">Open Source-Lizenzen</translation>
@@ -287,9 +286,6 @@ Zur Anpassung des Suchbegriffs drücken Sie einige Sekunden lang auf den entspre
 <translation id="4885273946141277891">Nicht unterstützte Anzahl von Chrome-Instanzen</translation>
 <translation id="4927198283430892231">Die gespeicherten Seiten belegen momentan <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
 <translation id="4943872375798546930">Keine Ergebnisse</translation>
-<translation id="4970484396410298643">Greifen Sie hier auf die Tabs zu, die Sie auf Ihrem Computer geöffnet haben.
-
-Öffnen Sie dazu Chrome auf Ihrem Computer und wählen Sie im Menü "In Chrome anmelden..." aus.</translation>
 <translation id="497421865427891073">Weiter</translation>
 <translation id="4996978546172906250">Teilen über</translation>
 <translation id="5000922062037820727">Blockiert (empfohlen)</translation>
@@ -313,9 +309,7 @@ Zur Anpassung des Suchbegriffs drücken Sie einige Sekunden lang auf den entspre
 <translation id="5184329579814168207">In Chrome öffnen</translation>
 <translation id="5199929503336119739">Arbeitsprofil</translation>
 <translation id="5210365745912300556">Tab schließen</translation>
-<translation id="5210714456814679336">Hier werden Tabs angezeigt, die Sie auf Ihren anderen Geräten in Chrome geöffnet haben.</translation>
 <translation id="5222676887888702881">Abmelden</translation>
-<translation id="5228579091201413441">Synchronisierung aktivieren</translation>
 <translation id="5233638681132016545">Neuer Tab</translation>
 <translation id="5271967389191913893">Das Gerät kann den Inhalt, der heruntergeladen werden soll, nicht öffnen.</translation>
 <translation id="5275558766013849309">Tabs und letzte Apps werden zusammengefasst.</translation>
@@ -361,7 +355,6 @@ Zur Anpassung des Suchbegriffs drücken Sie einige Sekunden lang auf den entspre
 <translation id="5677928146339483299">Blockiert</translation>
 <translation id="5684874026226664614">Hoppla! Diese Seite konnte nicht übersetzt werden.</translation>
 <translation id="5708031556037168012">Vorhandene Daten bleiben auf dem Gerät erhalten und Daten werden dauerhaft in <ph name="TO_ACCOUNT" /> importiert.</translation>
-<translation id="5715468759630044318">Konto auswählen</translation>
 <translation id="5719837394786370183">Seiten, die Sie sich auf Inkognito-Tabs ansehen, werden nach dem Schließen aller Inkognito-Tabs nicht in Ihrem Browserverlauf, Cookie-Speicher oder Suchverlauf gespeichert. Ihre Lesezeichen und Ihre heruntergeladenen Dateien bleiben erhalten.
 
 Sie sind jedoch nicht unsichtbar. Der Inkognitomodus verhindert nicht, dass Informationen zu Ihren Webaktivitäten von Ihrem Arbeitgeber oder Ihrem Internetanbieter erfasst werden. Zudem verzeichnen auch die Websites, die Sie im Inkognitomodus aufrufen, weiterhin Ihren Besuch.</translation>
@@ -444,7 +437,6 @@ Einige Websites schalten möglicherweise Werbeanzeigen, deren Auswahl nicht dara
 <translation id="6699351163704950317">Alle gespeicherten Seiten</translation>
 <translation id="6710213216561001401">Zurück</translation>
 <translation id="6720988912937197322">Gespeicherte Seite nicht offline verfügbar</translation>
-<translation id="6722992508235227685">Lesezeichen, Verlauf, Passwörter und andere Einstellungen werden mit Ihrem Google-Konto synchronisiert, damit Sie diese auf allen Ihren Geräten nutzen können. Unter <ph name="BEGIN_LINK1" />Einstellungen<ph name="END_LINK1" /> können Sie festlegen, welche Daten synchronisiert werden sollen.</translation>
 <translation id="6738867403308150051">Wird heruntergeladen...</translation>
 <translation id="6762156594045689028">Wenn Sie diese Einstellung ändern möchten, <ph name="BEGIN_LINK" />setzen Sie die Synchronisierung zurück<ph name="END_LINK" /></translation>
 <translation id="6770414673596662518">Das Safe Browsing-System von Chrome erkennt außerdem schädliche Seiten und schützt Sie vor Phishing, Malware und schädlichen Downloads.</translation>
@@ -558,7 +550,6 @@ Sie sind jedoch nicht unsichtbar. Der Inkognitomodus verhindert nicht, dass Info
 <translation id="8069239273282989646">Nach Komprimierung</translation>
 <translation id="8073388330009372546">Bild in neuem Tab öffnen</translation>
 <translation id="8076014560081431679">Gespeicherte Website-Einstellungen werden nicht gelöscht und können möglicherweise Ihre Surfgewohnheiten wiedergeben. <ph name="BEGIN_LINK" />Weitere Informationen<ph name="END_LINK" /></translation>
-<translation id="8084156870963450514">Melden Sie sich an, um von jedem beliebigen Gerät aus auf Ihre Webinhalte zuzugreifen.</translation>
 <translation id="8087000398470557479">Dieser Inhalt ist von <ph name="DOMAIN_NAME" /> und wurde von Google bereitgestellt.</translation>
 <translation id="8098570222830891427">Geräte in Ihrer Nähe übertragen Webseiten über Bluetooth. Chrome sucht nach Seiten und zeigt Sie Ihnen an, wenn Ihr Gerät entsperrt ist. Diese Seiten werden durch einen Google-Dienst überprüft, um die Qualität der Suchergebnisse zu verbessern.
 
@@ -614,6 +605,7 @@ Um neue Lizenzen zu erwerben, stellen Sie eine Internetverbindung her und spiele
 <translation id="8737542153238017984">Gespeicherte Seite nicht offline verfügbar. Speicher fast voll</translation>
 <translation id="8793430725658173476">URL kopieren</translation>
 <translation id="8798099450830957504">Standardeinstellung</translation>
+<translation id="8812942424849541387">Funktionsweise unter <ph name="BEGIN_LINK1" />Einstellungen<ph name="END_LINK1" /> verwalten</translation>
 <translation id="8820817407110198400">Lesezeichen</translation>
 <translation id="8829678271838353305"><ph name="ACCOUNT_EMAIL_LAST" /> war zuletzt angemeldet. Wenn Sie sich mit <ph name="ACCOUNT_EMAIL_NEW" /> anmelden, werden synchronisierte Daten wie Lesezeichen in den Konten zusammengeführt. Wenn die Daten nicht zusammengeführt werden sollen, löschen Sie in den <ph name="BEGIN_LINK" />Einstellungen<ph name="END_LINK" /> die Browserdaten.</translation>
 <translation id="8853345339104747198"><ph name="TAB_TITLE" /></translation>
@@ -628,6 +620,7 @@ Um neue Lizenzen zu erwerben, stellen Sie eine Internetverbindung her und spiele
 <translation id="8942627711005830162">In anderem Fenster öffnen</translation>
 <translation id="8959122750345127698">Navigation nicht möglich: <ph name="URL" /> ist nicht erreichbar.</translation>
 <translation id="8979340629087822094">für den letzten Tag</translation>
+<translation id="8981454092730389528">Google-Aktivitätseinstellungen</translation>
 <translation id="8986494364107987395">Nutzungsstatistiken und Absturzberichte automatisch an Google senden</translation>
 <translation id="8987061207681586800">Chrome personalisieren</translation>
 <translation id="9019902583201351841">Von deinen Eltern verwaltet</translation>

@@ -6,7 +6,6 @@
 <translation id="10614374240317010">Nunca guardado</translation>
 <translation id="1061441684050139317">Chrome necesita acceso al micrófono para compartirlo con este sitio.</translation>
 <translation id="1080790410959514870">Saldrás de una cuenta administrada por <ph name="DOMAIN_NAME" />. Esta acción eliminará los datos de Chrome almacenados en este dispositivo, aunque estos se mantendrán en la cuenta de Google.</translation>
-<translation id="1095407227123756519">Permite agregar una cuenta para ver los marcadores, el historial, las contraseñas y otras opciones de configuración en todos los dispositivos.</translation>
 <translation id="1098052486217676340">Finalizado</translation>
 <translation id="1121094540300013208">Informes de uso y de fallos</translation>
 <translation id="1137305377394488060">hace una hora</translation>
@@ -74,6 +73,7 @@ Debes activar Bluetooth y la Ubicación para poder utilizar la Web física.</tra
 <translation id="194341124344773587">Activa el permiso para Chrome en <ph name="BEGIN_LINK" />Configuración de Android<ph name="END_LINK" />.</translation>
 <translation id="1943432128510653496">Guardar contraseñas</translation>
 <translation id="1944384637046898011">Encriptar todo con la contraseña de Google a partir del <ph name="TIME" /></translation>
+<translation id="1946005195648379376">Controla la forma en que Google usa tu historial de navegación para personalizar Búsqueda y otros servicios de Google.</translation>
 <translation id="1959930595721737608">Permitir JavaScript en el siguiente sitio</translation>
 <translation id="1966710179511230534">Actualiza los datos de acceso.</translation>
 <translation id="1974060860693918893">Avanzada</translation>
@@ -99,7 +99,6 @@ Debes activar Bluetooth y la Ubicación para poder utilizar la Web física.</tra
 <translation id="2206488550163399966"><ph name="APP_NAME" /> (aplicación web), <ph name="APP_URL" /></translation>
 <translation id="2268044343513325586">Definir mejor</translation>
 <translation id="2315043854645842844">El sistema operativo no admite la selección de certificados del lado del cliente.</translation>
-<translation id="2316129865977710310">No, gracias</translation>
 <translation id="2321958826496381788">Arrastra el control deslizante hasta que puedas leer esto cómodamente. El texto debería verse, al menos, de este tamaño al tocar dos veces un párrafo.</translation>
 <translation id="2329597144923131178">Accede a tu cuenta para ver los marcadores, el historial, las contraseñas y otras opciones de configuración en todos los dispositivos.</translation>
 <translation id="2343328333327081434">Instalando…</translation>
@@ -199,7 +198,6 @@ Vas a acceder con una cuenta administrada, lo que significa que proporcionarás 
 Para ajustar el término de búsqueda, mantén presionado el texto y selecciónalo. Para perfeccionar la búsqueda, desliza el panel hacia arriba y toca el cuadro de búsqueda.</translation>
 <translation id="3623048332793834136">Marcadores de Chrome Canary</translation>
 <translation id="363596933471559332">Permite acceder automáticamente a los sitios web con las credenciales almacenadas Si la función está desactivada, siempre se solicitará verificación antes de acceder a un sitio web.</translation>
-<translation id="3653742808139624888">Para usar tus marcadores en todos los dispositivos, accede a Chrome</translation>
 <translation id="3656115297268584622">Activar ubicación en <ph name="BEGIN_LINK" />Configuración de Android<ph name="END_LINK" /></translation>
 <translation id="3661699943263275414">Los sitios web de terceros pueden guardar y leer datos de cookies.</translation>
 <translation id="3672452749423051839">Sugerencias relacionadas con errores de navegación</translation>
@@ -234,6 +232,7 @@ Para ajustar el término de búsqueda, mantén presionado el texto y seleccióna
 <translation id="4195643157523330669">Abrir en una pestaña nueva</translation>
 <translation id="4198229475320555619">El marcador de <ph name="PAGE_SIZE_STRING" /> se guardó sin conexión</translation>
 <translation id="423410644998903704">Chrome necesita acceso a los permisos para compartirlos con este sitio.</translation>
+<translation id="4242533952199664413">Abrir el menú de configuración</translation>
 <translation id="424864128008805179">¿Quieres salir de Chrome?</translation>
 <translation id="4254813446494774748">Idioma de la traducción:</translation>
 <translation id="4256782883801055595">Licencias de código abierto</translation>
@@ -287,9 +286,6 @@ Para ajustar el término de búsqueda, mantén presionado el texto y seleccióna
 <translation id="4885273946141277891">Cantidad de instancias de Chrome no admitidas</translation>
 <translation id="4927198283430892231">Las páginas que se guardaron ocupan actualmente <ph name="TOTAL_OFFLINE_STORAGE_SIZE" />.</translation>
 <translation id="4943872375798546930">Sin resultados</translation>
-<translation id="4970484396410298643">Accede aquí a las pestañas que abriste en la computadora.
-
-Abre Chrome en la computadora, accede al menú y selecciona "Acceder a Chrome…".</translation>
 <translation id="497421865427891073">Avanzar</translation>
 <translation id="4996978546172906250">Compartir mediante</translation>
 <translation id="5000922062037820727">Bloqueado (recomendado)</translation>
@@ -313,9 +309,7 @@ Abre Chrome en la computadora, accede al menú y selecciona "Acceder a Chrome…
 <translation id="5184329579814168207">Abrir en Chrome</translation>
 <translation id="5199929503336119739">Perfil de trabajo</translation>
 <translation id="5210365745912300556">Cerrar pestaña</translation>
-<translation id="5210714456814679336">Aparecerán aquí las pestañas que abriste en Chrome desde otros dispositivos.</translation>
 <translation id="5222676887888702881">Salir</translation>
-<translation id="5228579091201413441">Habilitar sincronización</translation>
 <translation id="5233638681132016545">Nueva pestaña</translation>
 <translation id="5271967389191913893">El dispositivo no puede abrir el contenido que se descargará.</translation>
 <translation id="5275558766013849309">Las pestañas se encontrarán junto a las aplicaciones recientes.</translation>
@@ -362,7 +356,6 @@ Abre Chrome en la computadora, accede al menú y selecciona "Acceder a Chrome…
 <translation id="5677928146339483299">Bloqueado</translation>
 <translation id="5684874026226664614">No se puede traducir esta página.</translation>
 <translation id="5708031556037168012">Mantiene los datos existentes en tu dispositivo y los importa de forma permanente a <ph name="TO_ACCOUNT" />.</translation>
-<translation id="5715468759630044318">Seleccionar una cuenta</translation>
 <translation id="5719837394786370183">Una vez que cierres todas las pestañas de incógnito, los datos de las páginas que hayas visitado en ese modo no se guardarán en el historial del navegador, en la lista de cookies ni en el historial de búsquedas. Sí se guardarán los archivos que descargues y los marcadores que crees.
 
 Sin embargo, no vas a pasar completamente desapercibido. El modo de navegación de incógnito no oculta tu información de navegación de un empleador, del proveedor de servicios de Internet ni de los sitios web que visitas.</translation>
@@ -445,7 +438,6 @@ Por ejemplo, algunos sitios web pueden responder a la solicitud mediante anuncio
 <translation id="6699351163704950317">Todas las páginas guardadas</translation>
 <translation id="6710213216561001401">Anterior</translation>
 <translation id="6720988912937197322">La página guardada no está disponible sin conexión.</translation>
-<translation id="6722992508235227685">Tus marcadores, el historial, las contraseñas y otras opciones de configuración se sincronizarán con tu cuenta de Google para que puedas utilizarlos en todos tus dispositivos. Puedes elegir qué sincronizar en <ph name="BEGIN_LINK1" />Configuración<ph name="END_LINK1" />.</translation>
 <translation id="6738867403308150051">Descargando…</translation>
 <translation id="6762156594045689028">Para cambiar esta configuración, <ph name="BEGIN_LINK" />restablece la sincronización<ph name="END_LINK" /></translation>
 <translation id="6770414673596662518">El sistema de navegación segura de Chrome también se puede utilizar para detectar páginas maliciosas y protegerte de la suplantación de identidad (phishing), el software malicioso y las descargas peligrosas.</translation>
@@ -559,7 +551,6 @@ Sin embargo, no vas a pasar completamente desapercibido. El modo de navegación 
 <translation id="8069239273282989646">Poscompresión</translation>
 <translation id="8073388330009372546">Abrir imagen en pestaña nueva</translation>
 <translation id="8076014560081431679">Las opciones de configuración de sitios guardadas no se borrarán y es posible que reflejen tus hábitos de navegación. <ph name="BEGIN_LINK" />Más información<ph name="END_LINK" /></translation>
-<translation id="8084156870963450514">Accede a tu cuenta para ver tu contenido web en cualquier dispositivo.</translation>
 <translation id="8087000398470557479">Este contenido es de <ph name="DOMAIN_NAME" />, publicado por Google.</translation>
 <translation id="8098570222830891427">Los dispositivos cercanos están transmitiendo páginas web a través de Bluetooth. Chrome buscará páginas y las mostrará cuando actives tu dispositivo. Estas páginas pasarán por un servicio de Google que mejorará la calidad de los resultados.
 
@@ -615,6 +606,7 @@ Conéctate a Internet y reproduce el contenido descargado para obtener licencias
 <translation id="8737542153238017984">La página guardada no está disponible sin conexión. El almacenamiento está casi lleno.</translation>
 <translation id="8793430725658173476">Copiar URL</translation>
 <translation id="8798099450830957504">Predeterminado</translation>
+<translation id="8812942424849541387">Controlar el funcionamiento en <ph name="BEGIN_LINK1" />Configuración<ph name="END_LINK1" /></translation>
 <translation id="8820817407110198400">Marcadores</translation>
 <translation id="8829678271838353305">Accediste con <ph name="ACCOUNT_EMAIL_LAST" />. Al acceder con <ph name="ACCOUNT_EMAIL_NEW" />, se combinan los datos sincronizados, como los marcadores, entre las distintas cuentas. Para mantener la información separada, borra los datos de navegación en <ph name="BEGIN_LINK" />Configuración<ph name="END_LINK" />.</translation>
 <translation id="8853345339104747198">Pestaña <ph name="TAB_TITLE" /></translation>
@@ -629,6 +621,7 @@ Conéctate a Internet y reproduce el contenido descargado para obtener licencias
 <translation id="8942627711005830162">Abrir en otra ventana</translation>
 <translation id="8959122750345127698">Navegación inaccesible: <ph name="URL" /></translation>
 <translation id="8979340629087822094">ayer</translation>
+<translation id="8981454092730389528">Controles de actividad de Google</translation>
 <translation id="8986494364107987395">Enviar automáticamente estadísticas de uso e informes sobre fallos a Google</translation>
 <translation id="8987061207681586800">Personaliza Chrome</translation>
 <translation id="9019902583201351841">Administrado por tus padres</translation>
