@@ -27,6 +27,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLayoutChangeListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.MarginLayoutParams;
 import android.view.ViewStub;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
@@ -362,14 +363,8 @@ public class NewTabPageView extends FrameLayout
             }
         } else {
             ((ViewGroup) toolbar.getParent()).removeView(toolbar);
-            if (!mUseCardsUi) {
-                // Only remove if we're using the old NTP view, the new one does not use a
-                // ScrollView
-                FrameLayout.LayoutParams params =
-                        (FrameLayout.LayoutParams) mScrollView.getLayoutParams();
-                params.bottomMargin = 0;
-                mScrollView.setLayoutParams(params);
-            }
+            MarginLayoutParams params = (MarginLayoutParams) getWrapperView().getLayoutParams();
+            params.bottomMargin = 0;
         }
 
         addOnLayoutChangeListener(this);
@@ -413,8 +408,7 @@ public class NewTabPageView extends FrameLayout
         float percentage = 0;
         // During startup the view may not be fully initialized, so we only calculate the current
         // percentage if some basic view properties are sane.
-        View wrapperView = mUseCardsUi ? mRecyclerView : mScrollView;
-        if (wrapperView.getHeight() != 0 && mSearchBoxView.getTop() != 0) {
+        if (getWrapperView().getHeight() != 0 && mSearchBoxView.getTop() != 0) {
             int scrollY = getVerticalScroll();
             percentage = Math.max(0f, Math.min(1f, scrollY / (float) mSearchBoxView.getTop()));
         }
@@ -424,6 +418,10 @@ public class NewTabPageView extends FrameLayout
         if (mSearchBoxScrollListener != null) {
             mSearchBoxScrollListener.onNtpScrollChanged(percentage);
         }
+    }
+
+    private ViewGroup getWrapperView() {
+        return mUseCardsUi ? mRecyclerView : mScrollView;
     }
 
     private void initializeSearchBoxRecyclerViewScrollHandling() {
