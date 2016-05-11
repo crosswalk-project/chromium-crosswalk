@@ -45,7 +45,6 @@ class BluetoothHostPairingController
  private:
   void ChangeStage(Stage new_stage);
   void SendHostStatus();
-  void Reset();
 
   void OnGetAdapter(scoped_refptr<device::BluetoothAdapter> adapter);
   void SetName();
@@ -78,6 +77,7 @@ class BluetoothHostPairingController
   void OnUpdateStatusChanged(UpdateStatus update_status) override;
   void OnEnrollmentStatusChanged(EnrollmentStatus enrollment_status) override;
   void SetPermanentId(const std::string& permanent_id) override;
+  void Reset() override;
 
   // ProtoDecoder::Observer:
   void OnHostStatusMessage(const pairing_api::HostStatus& message) override;
