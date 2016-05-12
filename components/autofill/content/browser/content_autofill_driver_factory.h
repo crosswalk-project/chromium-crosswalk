@@ -32,6 +32,8 @@ class ContentAutofillDriver;
 class ContentAutofillDriverFactory : public content::WebContentsObserver,
                                      public base::SupportsUserData::Data {
  public:
+  ~ContentAutofillDriverFactory() override;
+
   static void CreateForWebContentsAndDelegate(
       content::WebContents* contents,
       AutofillClient* client,
@@ -66,7 +68,6 @@ class ContentAutofillDriverFactory : public content::WebContentsObserver,
       AutofillClient* client,
       const std::string& app_locale,
       AutofillManager::AutofillDownloadManagerState enable_download_manager);
-  ~ContentAutofillDriverFactory() override;
 
  private:
   AutofillClient* client_;
