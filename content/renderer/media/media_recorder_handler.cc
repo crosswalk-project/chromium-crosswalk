@@ -135,15 +135,15 @@ bool MediaRecorderHandler::start(int timeslice) {
     return false;
   }
 
-  const bool use_video_tracks = !video_tracks.isEmpty() &&
-                                video_tracks[0].isEnabled() &&
-                                video_tracks[0].source().getReadyState() ==
-                                    blink::WebMediaStreamSource::ReadyStateLive;
-  const bool use_audio_tracks = !audio_tracks.isEmpty() &&
-                                MediaStreamAudioTrack::From(audio_tracks[0]) &&
-                                audio_tracks[0].isEnabled() &&
-                                audio_tracks[0].source().getReadyState() ==
-                                    blink::WebMediaStreamSource::ReadyStateLive;
+  const bool use_video_tracks =
+      !video_tracks.isEmpty() && video_tracks[0].isEnabled() &&
+      video_tracks[0].source().getReadyState() !=
+          blink::WebMediaStreamSource::ReadyStateEnded;
+  const bool use_audio_tracks =
+      !audio_tracks.isEmpty() && MediaStreamAudioTrack::From(audio_tracks[0]) &&
+      audio_tracks[0].isEnabled() &&
+      audio_tracks[0].source().getReadyState() !=
+          blink::WebMediaStreamSource::ReadyStateEnded;
 
   webm_muxer_.reset(new media::WebmMuxer(
       use_vp9_ ? media::kCodecVP9 : media::kCodecVP8, use_video_tracks,
