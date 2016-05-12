@@ -36,6 +36,9 @@
 #include "core/dom/Attribute.h"
 #include "core/dom/ElementTraversal.h"
 #include "core/dom/ExecutionContextTask.h"
+#include "core/dom/MutationCallback.h"
+#include "core/dom/MutationObserver.h"
+#include "core/dom/MutationObserverInit.h"
 #include "core/dom/NodeComputedStyle.h"
 #include "core/dom/NodeListsNodeData.h"
 #include "core/dom/NodeTraversal.h"
@@ -925,7 +928,7 @@ void HTMLSelectElement::setSuggestedIndex(int suggestedIndex)
         scrollToOption(item(listToOptionIndex(suggestedIndex)));
     }
     if (popupIsVisible())
-        m_popup->updateFromElement();
+        m_popup->updateFromElement(PopupMenu::BySelectionChange);
 }
 
 void HTMLSelectElement::scrollToOption(HTMLOptionElement* option)
@@ -1047,7 +1050,7 @@ void HTMLSelectElement::selectOption(HTMLOptionElement* element, int optionIndex
         layoutObject->updateFromElement();
     // PopupMenu::updateFromElement() posts an O(N) task.
     if (popupIsVisible())
-        m_popup->updateFromElement();
+        m_popup->updateFromElement(PopupMenu::BySelectionChange);
 
     scrollToSelection();
     setNeedsValidityCheck();
@@ -1827,6 +1830,7 @@ DEFINE_TRACE(HTMLSelectElement)
     visitor->trace(m_activeSelectionEnd);
     visitor->trace(m_optionToScrollTo);
     visitor->trace(m_popup);
+    visitor->trace(m_popupUpdater);
     HTMLFormControlElementWithState::trace(visitor);
 }
 
@@ -1900,6 +1904,7 @@ LayoutUnit HTMLSelectElement::clientPaddingRight() const
 void HTMLSelectElement::popupDidHide()
 {
     m_popupIsVisible = false;
+    unobserveTreeMutation();
     if (AXObjectCache* cache = document().existingAXObjectCache()) {
         if (layoutObject() && layoutObject()->isMenuList())
             cache->didHideMenuListPopup(toLayoutMenuList(layoutObject()));
@@ -1957,6 +1962,7 @@ void HTMLSelectElement::showPopup()
     if (!m_popup)
         m_popup = document().frameHost()->chromeClient().openPopupMenu(*document().frame(), *this);
     m_popupIsVisible = true;
+    observeTreeMutation();
 
     LayoutMenuList* menuList = toLayoutMenuList(layoutObject());
     m_popup->show();
@@ -1974,7 +1980,7 @@ void HTMLSelectElement::didRecalcStyle(StyleRecalcChange change)
 {
     HTMLFormControlElementWithState::didRecalcStyle(change);
     if (popupIsVisible())
-        m_popup->updateFromElement();
+        m_popup->updateFromElement(PopupMenu::ByStyleChange);
 }
 
 void HTMLSelectElement::detach(const AttachContext& context)
@@ -1984,11 +1990,79 @@ void HTMLSelectElement::detach(const AttachContext& context)
         m_popup->disconnectClient();
     m_popupIsVisible = false;
     m_popup = nullptr;
+    unobserveTreeMutation();
 }
 
 void HTMLSelectElement::resetTypeAheadSessionForTesting()
 {
     m_typeAhead.resetSession();
+}
+
+// PopupUpdater notifies updates of the specified SELECT element subtree to
+// a PopupMenu object.
+class HTMLSelectElement::PopupUpdater : public MutationCallback {
+public:
+    explicit PopupUpdater(HTMLSelectElement&);
+    DECLARE_VIRTUAL_TRACE();
+
+    void dispose()
+    {
+        m_observer->disconnect();
+    }
+
+private:
+    void call(const HeapVector<Member<MutationRecord>>&, MutationObserver*) override
+    {
+        m_select->didMutateSubtree();
+    }
+
+    ExecutionContext* getExecutionContext() const override
+    {
+        return &m_select->document();
+    }
+
+    Member<HTMLSelectElement> m_select;
+    Member<MutationObserver> m_observer;
+};
+
+HTMLSelectElement::PopupUpdater::PopupUpdater(HTMLSelectElement& select)
+    : m_select(select)
+{
+    m_observer = MutationObserver::create(this);
+    MutationObserverInit init;
+    init.setAttributes(true);
+    init.setCharacterData(true);
+    init.setChildList(true);
+    init.setSubtree(true);
+    m_observer->observe(&select, init, ASSERT_NO_EXCEPTION);
+}
+
+DEFINE_TRACE(HTMLSelectElement::PopupUpdater)
+{
+    visitor->trace(m_select);
+    visitor->trace(m_observer);
+    MutationCallback::trace(visitor);
+}
+
+void HTMLSelectElement::observeTreeMutation()
+{
+    DCHECK(!m_popupUpdater);
+    m_popupUpdater = new PopupUpdater(*this);
+}
+
+void HTMLSelectElement::unobserveTreeMutation()
+{
+    if (!m_popupUpdater)
+        return;
+    m_popupUpdater->dispose();
+    m_popupUpdater = nullptr;
+}
+
+void HTMLSelectElement::didMutateSubtree()
+{
+    DCHECK(popupIsVisible());
+    DCHECK(m_popup);
+    m_popup->updateFromElement(PopupMenu::ByDOMChange);
 }
 
 } // namespace blink

@@ -65,7 +65,7 @@ class EmptyPopupMenu : public PopupMenu {
 public:
     void show() override { }
     void hide() override { }
-    void updateFromElement() override { }
+    void updateFromElement(UpdateReason) override { }
     void disconnectClient() override { }
 };
 
