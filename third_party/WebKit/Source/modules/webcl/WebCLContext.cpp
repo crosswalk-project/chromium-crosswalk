@@ -679,6 +679,21 @@ unsigned WebCLContext::numberOfChannelsForChannelOrder(unsigned order)
     return 0;
 }
 
+const Vector<RefPtr<WebCLDevice>>& WebCLContext::getDevices()
+{
+    return m_devices;
+}
+
+void WebCLContext::setDevices(const Vector<RefPtr<WebCLDevice>>& deviceList)
+{
+    m_devices = deviceList;
+}
+
+WebCLHTMLUtil* WebCLContext::getHTMLUtil() const
+{
+    return m_HTMLUtil.get();
+}
+
 WebCLContext::WebCLContext(cl_context context, WebCL* webCL, const Vector<RefPtr<WebCLDevice>>& devices, HashSet<String>& enabledExtensions)
     : m_devices(devices)
     , m_enabledExtensions(enabledExtensions)

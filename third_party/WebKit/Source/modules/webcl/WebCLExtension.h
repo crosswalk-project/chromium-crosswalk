@@ -13,8 +13,8 @@ namespace blink {
 
 class WebCLExtension {
 public:
-    ~WebCLExtension() {}
-    WebCLExtension() {}
+    ~WebCLExtension();
+    WebCLExtension();
 
     bool enableExtension(const String& name);
     Vector<String> getSupportedExtensions();

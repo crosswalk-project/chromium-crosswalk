@@ -62,6 +62,18 @@ const char WebCLException::invalidGlobalWorkSizeMessage[] = "INVALID_GLOBAL_WORK
 const char WebCLException::invalidPropertyMessage[] = "INVALID_PROPERTY";
 const char WebCLException::failureMessage[] = "FAILURE";
 
+PassRefPtr<WebCLException> WebCLException::create(unsigned code, const String& name, const String& message)
+{
+    return adoptRef(new WebCLException(code, name, message));
+}
+
+WebCLException::WebCLException(unsigned code, const String& name, const String& message)
+    : m_code(code)
+    , m_name(name.isolatedCopy())
+    , m_message(message.isolatedCopy())
+{
+}
+
 void WebCLException::throwException(int& code, ExceptionState& es)
 {
     switch (code) {
@@ -219,6 +231,16 @@ void WebCLException::throwException(int& code, ExceptionState& es)
 
     if (es.hadException())
         es.throwIfNeeded();
+}
+
+String WebCLException::name() const
+{
+    return m_name.isolatedCopy();
+}
+
+String WebCLException::message() const
+{
+    return m_message.isolatedCopy();
 }
 
 } // namespace blink

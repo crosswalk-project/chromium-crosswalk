@@ -434,6 +434,11 @@ unsigned WebCLKernel::associatedArguments()
     return count;
 }
 
+const Vector<unsigned>& WebCLKernel::requiredArguments()
+{
+    return m_argumentInfoProvider.requiredArguments();
+}
+
 WebCLKernel::WebCLKernel(cl_kernel kernel, PassRefPtr<WebCLContext> context, WebCLProgram* program, const String& kernelName)
     : WebCLObject(context)
     , m_program(program)

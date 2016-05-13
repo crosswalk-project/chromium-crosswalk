@@ -86,6 +86,11 @@ Vector<unsigned> WebCLDevice::getMaxWorkItem()
     return Vector<unsigned>();
 }
 
+PassRefPtr<WebCLPlatform> WebCLDevice::getPlatform() const
+{
+    return m_platform;
+}
+
 ScriptValue WebCLDevice::getInfo(ScriptState* scriptState, unsigned deviceType, ExceptionState& es)
 {
     v8::Handle<v8::Object> creationContext = scriptState->context()->Global();

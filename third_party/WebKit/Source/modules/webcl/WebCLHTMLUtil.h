@@ -22,6 +22,7 @@ class ImageData;
 class WebCLHTMLUtil {
 public:
     explicit WebCLHTMLUtil(unsigned capacity = 4);
+    ~WebCLHTMLUtil();
     static bool extractDataFromCanvas(HTMLCanvasElement*, Vector<uint8_t>& data, size_t& canvasSize, ExceptionState&);
     static bool extractDataFromImage(HTMLImageElement*, Vector<uint8_t>& data, size_t& canvasSize, ExceptionState&);
     static bool extractDataFromImageData(ImageData*, void*& hostPtr, size_t& pixelSize, ExceptionState&);

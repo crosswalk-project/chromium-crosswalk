@@ -140,6 +140,10 @@ WebCLHTMLUtil::WebCLHTMLUtil(unsigned capacity)
 {
 }
 
+WebCLHTMLUtil::~WebCLHTMLUtil()
+{
+}
+
 WebCLHTMLUtil::ImageBufferCache::ImageBufferCache(unsigned capacity)
     : m_capacity(capacity)
 {

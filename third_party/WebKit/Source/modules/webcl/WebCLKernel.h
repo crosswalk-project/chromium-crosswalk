@@ -43,7 +43,7 @@ public:
     unsigned associatedArguments();
     WebCLProgram* program() const { return m_program; }
     const String& kernelName() const { return m_kernelName; }
-    const Vector<unsigned>& requiredArguments() { return m_argumentInfoProvider.requiredArguments(); }
+    const Vector<unsigned>& requiredArguments();
     cl_kernel getKernel() const { return m_clKernel; }
 
 private:

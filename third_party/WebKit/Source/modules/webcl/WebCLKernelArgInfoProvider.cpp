@@ -41,6 +41,15 @@ WebCLKernelArgInfoProvider::WebCLKernelArgInfoProvider(WebCLKernel* kernel)
     ensureInfo();
 }
 
+WebCLKernelArgInfoProvider::~WebCLKernelArgInfoProvider()
+{
+}
+
+unsigned WebCLKernelArgInfoProvider::numberOfArguments()
+{
+    return m_argumentInfoVector.size();
+}
+
 void WebCLKernelArgInfoProvider::ensureInfo()
 {
     if (m_argumentInfoVector.size())

@@ -20,6 +20,8 @@ public:
     static DOMWindowWebCL& from(LocalDOMWindow&);
     static WebCL* webcl(DOMWindow&);
 
+    ~DOMWindowWebCL();
+
     void willDestroyGlobalObjectInFrame() override;
     void willDetachGlobalObjectFromFrame() override;
 

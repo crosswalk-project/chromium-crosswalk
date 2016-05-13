@@ -7,6 +7,14 @@
 
 namespace blink {
 
+WebCLExtension::WebCLExtension()
+{
+}
+
+WebCLExtension::~WebCLExtension()
+{
+}
+
 bool WebCLExtension::enableExtension(const String& name)
 {
     if (equalIgnoringCase(name, "WEBCL_html_image")) {

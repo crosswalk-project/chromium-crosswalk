@@ -71,9 +71,9 @@ public:
     static unsigned bytesPerChannelType(unsigned);
     static unsigned numberOfChannelsForChannelOrder(unsigned);
     bool isExtensionEnabled(const String& name) const;
-    const Vector<RefPtr<WebCLDevice>>& getDevices() { return m_devices; }
-    void setDevices(const Vector<RefPtr<WebCLDevice>>& deviceList) { m_devices = deviceList; }
-    WebCLHTMLUtil* getHTMLUtil() const { return m_HTMLUtil.get(); }
+    const Vector<RefPtr<WebCLDevice>>& getDevices();
+    void setDevices(const Vector<RefPtr<WebCLDevice>>&);
+    WebCLHTMLUtil* getHTMLUtil() const;
     cl_context getContext() const { return m_clContext; }
 
 private:

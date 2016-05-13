@@ -23,7 +23,7 @@ class WebCLContext;
 class WebCLObject : public RefCounted<WebCLObject> {
 public:
     virtual ~WebCLObject();
-    WeakPtr<WebCLObject> createWeakPtr() { return m_weakFactory.createWeakPtr(); }
+    WeakPtr<WebCLObject> createWeakPtr();
     PassRefPtr<WebCLContext> context();
 
     void setContext(PassRefPtr<WebCLContext>);

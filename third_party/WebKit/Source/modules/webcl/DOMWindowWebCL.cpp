@@ -17,6 +17,10 @@ DOMWindowWebCL::DOMWindowWebCL(LocalDOMWindow& window)
 {
 }
 
+DOMWindowWebCL::~DOMWindowWebCL()
+{
+}
+
 DEFINE_TRACE(DOMWindowWebCL)
 {
     visitor->trace(m_window);

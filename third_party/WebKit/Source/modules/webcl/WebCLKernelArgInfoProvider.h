@@ -17,9 +17,10 @@ class WebCLKernel;
 class WebCLKernelArgInfoProvider {
 public:
     explicit WebCLKernelArgInfoProvider(WebCLKernel*);
+    ~WebCLKernelArgInfoProvider();
     const Vector<RefPtr<WebCLKernelArgInfo>>& argumentsInfo() { return m_argumentInfoVector; };
 
-    unsigned numberOfArguments() { return m_argumentInfoVector.size(); }
+    unsigned numberOfArguments();
     const Vector<unsigned>& requiredArguments() { return m_requiredArgumentVector; }
 
 private:
