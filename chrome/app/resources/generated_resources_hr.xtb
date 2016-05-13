@@ -461,7 +461,7 @@
 <translation id="1639239467298939599">Učitavanje</translation>
 <translation id="1640283014264083726">PKCS br. 1 MD4 s RSA enkripcijom</translation>
 <translation id="1640694374286790050">Omogući brojače Brisanja podataka o pregledavanju.</translation>
-<translation id="1642494467033190216">Da biste omogućili ostale značajke za uklanjanje pogrešaka, morate ukloniti rootfs zaštitu i ponovo pokrenuti uređaj.</translation>
+<translation id="1642494467033190216">Da biste omogućili ostale značajke za otklanjanje pogrešaka, morate ukloniti rootfs zaštitu i ponovo pokrenuti uređaj.</translation>
 <translation id="1644574205037202324">Povijest</translation>
 <translation id="1645228020260124617"><ph name="PRECENTAGE" /> %</translation>
 <translation id="1645870377513700713">Omogući izvorne obavijesti.</translation>
@@ -741,7 +741,7 @@
 <translation id="2090876986345970080">Postavka sigurnosti sustava</translation>
 <translation id="2097372108957554726">Morate se prijaviti na Chrome da biste registrirali nove uređaje</translation>
 <translation id="2098305189700762159">Nije pronađeno</translation>
-<translation id="2099172618127234427">Omogućujete značajke za uklanjanje pogrešaka OS-a Chrome koje će postaviti sshd daemon i omogućiti pokretanje s USB pogona.</translation>
+<translation id="2099172618127234427">Omogućujete značajke za otklanjanje pogrešaka OS-a Chrome koje će postaviti sshd daemon i omogućiti pokretanje s USB pogona.</translation>
 <translation id="2099686503067610784">Izbrisati certifikat poslužitelja "<ph name="CERTIFICATE_NAME" />"?</translation>
 <translation id="2100273922101894616">Automatska prijava</translation>
 <translation id="210116126541562594">Blokirano prema zadanim postavkama</translation>
@@ -1251,9 +1251,9 @@ Mislim da ta web-lokacija ne bi trebala biti blokirana!</translation>
 <translation id="2800537048826676660">Upotrijebi ovaj jezik za provjeru pravopisa</translation>
 <translation id="2801702994096586034">3. poslužitelj</translation>
 <translation id="2803306138276472711">Google sigurno pregledavanje nedavno je <ph name="BEGIN_LINK" />otkrilo zlonamjerni softver<ph name="END_LINK" /> na <ph name="SITE" />. Web-lokacije koje su inače sigurne ponekad mogu biti zaražene zlonamjernim softverom.</translation>
-<translation id="2803887722080936828"><ph name="BEGIN_H3" />Značajke za uklanjanje pogrešaka<ph name="END_H3" />
+<translation id="2803887722080936828"><ph name="BEGIN_H3" />Značajke za otklanjanje pogrešaka<ph name="END_H3" />
     <ph name="BR" />
-    Možete omogućiti značajke za uklanjanje pogrešaka na svojem uređaju s OS-om Chrome kako biste instalirali i testirali prilagođeni kôd na uređaju. To će vam omogućiti sljedeće:<ph name="BR" />
+    Možete omogućiti značajke za otklanjanje pogrešaka na svojem uređaju s OS-om Chrome kako biste instalirali i testirali prilagođeni kôd na uređaju. To će vam omogućiti sljedeće:<ph name="BR" />
     <ph name="BEGIN_LIST" />
       <ph name="LIST_ITEM" />uklanjanje potvrde rootfs radi izmjene datoteka OS-a
       <ph name="LIST_ITEM" />omogućivanje SSH pristupa uređaju pomoću standardnih testnih ključeva kako biste mogli upotrebljavati alate kao što su <ph name="BEGIN_CODE" />"cros flash"<ph name="END_CODE" /> za pristup uređaju
@@ -1261,10 +1261,10 @@ Mislim da ta web-lokacija ne bi trebala biti blokirana!</translation>
       <ph name="LIST_ITEM" />postavljanje dev i sistemske korijenske zaporke za prijavu na prilagođenu vrijednost kako biste ručno unosili SSH na uređaj.
     <ph name="END_LIST" />
     <ph name="BR" />
-    Kada ih omogućite, većina značajki za uklanjanje pogrešaka ostat će omogućene čak i nakon izvršavanja Powerwasha ili brisanja podataka na uređaju kojim upravlja tvrtka. Da biste potpuno onemogućili značajke za uklanjanje pogrešaka, izvršite postupak oporavka OS-a Chrome (https://support.google.com/chromebook/answer/1080595).
+    Kada ih omogućite, većina značajki za otklanjanje pogrešaka ostat će omogućene čak i nakon izvršavanja Powerwasha ili brisanja podataka na uređaju kojim upravlja tvrtka. Da biste potpuno onemogućili značajke za otklanjanje pogrešaka, izvršite postupak oporavka OS-a Chrome (https://support.google.com/chromebook/answer/1080595).
     <ph name="BR" />
     <ph name="BR" />
-    Više informacija o značajkama za uklanjanje pogrešaka potražite na stranici:<ph name="BR" />
+    Više informacija o značajkama za otklanjanje pogrešaka potražite na stranici:<ph name="BR" />
     http://www.chromium.org/chromium-os/how-tos-and-troubleshooting/debugging-features
     <ph name="BR" />
     <ph name="BR" />
@@ -3033,7 +3033,7 @@ Pritisnite bilo koju tipku da biste nastavili istraživati.</translation>
 <translation id="5355097969896547230">Pronađi ponovno</translation>
 <translation id="5355351445385646029">Pritisnite razmaknicu za odabir kandidata</translation>
 <translation id="5355926466126177564">Proširenje "<ph name="EXTENSION_NAME" />" promijenilo stranicu koja se prikazuje prilikom pretraživanja putem višenamjenskog okvira.</translation>
-<translation id="5357579842739549440">Tipkovnički prečaci za uklanjanje pogrešaka</translation>
+<translation id="5357579842739549440">Tipkovnički prečaci za otklanjanje pogrešaka</translation>
 <translation id="5360150013186312835">Prikaži na alatnoj traci</translation>
 <translation id="5362741141255528695">Odaberite datoteku s osobnim ključem.</translation>
 <translation id="5363109466694494651">Powerwash i vraćanje u prethodno stanje</translation>
@@ -3395,7 +3395,7 @@ Pritisnite bilo koju tipku da biste nastavili istraživati.</translation>
 <translation id="5860033963881614850">Isključeno</translation>
 <translation id="5860209693144823476">Kartica 3</translation>
 <translation id="58625595078799656"><ph name="PRODUCT_NAME" /> zahtijeva od vas da kriptirate svoje podatke pomoću Googleove zaporke ili vlastite zaporke.</translation>
-<translation id="5863445608433396414">Omogući značajke za uklanjanje pogrešaka</translation>
+<translation id="5863445608433396414">Omogući značajke za otklanjanje pogrešaka</translation>
 <translation id="5865597920301323962">Kolačići domene <ph name="DOMAIN" /> bit će izbrisani pri izlazu.</translation>
 <translation id="586567932979200359">Pokrećete program <ph name="PRODUCT_NAME" /> iz diskovne slike. Instaliranjem na računalu moći ćete ga pokrenuti u bilo kojem trenutku i uvijek će biti ažuran.</translation>
 <translation id="5866389191145427800">Određuje postavke kvalitete za snimljene slike ako se prikaz razmjerno povećava.</translation>
@@ -3667,7 +3667,7 @@ Pritisnite bilo koju tipku da biste nastavili istraživati.</translation>
 <translation id="6307990684951724544">Sustav je zauzet</translation>
 <translation id="6308937455967653460">Spremi ve&amp;zu kao...</translation>
 <translation id="6314335155547195432">Generiranje zaporke</translation>
-<translation id="6314819609899340042">Uspješno ste omogućili značajke za uklanjanje pogrešaka na ovom uređaju <ph name="IDS_SHORT_PRODUCT_NAME" />.</translation>
+<translation id="6314819609899340042">Uspješno ste omogućili značajke za otklanjanje pogrešaka na ovom uređaju <ph name="IDS_SHORT_PRODUCT_NAME" />.</translation>
 <translation id="6315493146179903667">Postavi sve u prednji plan</translation>
 <translation id="6316103499056411227">Datoteke s Diska prikazat će se prilikom pretraživanja Pokretača aplikacija za Chrome.</translation>
 <translation id="6316671927443834085">Prekidanje veze s uređajem "<ph name="DEVICE_NAME" />" nije uspjelo.</translation>
@@ -4460,7 +4460,7 @@ Pritisnite bilo koju tipku da biste nastavili istraživati.</translation>
 <translation id="7536709149194614609">Ponovo pokrenite uređaj i pokušajte kasnije.</translation>
 <translation id="7540972813190816353">Došlo je do pogreške prilikom traženja ažuriranja: <ph name="ERROR" /></translation>
 <translation id="7541121857749629630">Iznimke za slike</translation>
-<translation id="7543104066686362383">Omogući značajke za uklanjanje pogrešaka na ovom uređaju <ph name="IDS_SHORT_PRODUCT_NAME" /></translation>
+<translation id="7543104066686362383">Omogući značajke za otklanjanje pogrešaka na ovom uređaju <ph name="IDS_SHORT_PRODUCT_NAME" /></translation>
 <translation id="7544853251252956727">Reproduciraj nasumično</translation>
 <translation id="7545288882499673859">Strategija odbacivanja memorije za napredno rukovanje pod pritiskom</translation>
 <translation id="7547317915858803630">Upozorenje: vaše postavke za uslugu <ph name="PRODUCT_NAME" /> pohranjene su na mrežnom disku. To može uzrokovati sporiji rad, padove pa čak i gubitak podataka.</translation>
