@@ -53,6 +53,7 @@ namespace {
 
 scoped_ptr<UrlDownloader, BrowserThread::DeleteOnIOThread> BeginDownload(
     scoped_ptr<DownloadUrlParameters> params,
+    content::ResourceContext* resource_context,
     uint32_t download_id,
     base::WeakPtr<DownloadManagerImpl> download_manager) {
   DCHECK_CURRENTLY_ON(BrowserThread::IO);
@@ -70,11 +71,11 @@ scoped_ptr<UrlDownloader, BrowserThread::DeleteOnIOThread> BeginDownload(
   // request should be driven by the ResourceLoader. Pass it over to the
   // ResourceDispatcherHostImpl which will in turn pass it along to the
   // ResourceLoader.
-  if (params->render_process_host_id() != -1) {
+  if (params->render_process_host_id() >= 0) {
     DownloadInterruptReason reason =
         ResourceDispatcherHostImpl::Get()->BeginDownload(
             std::move(url_request), params->referrer(),
-            params->content_initiated(), params->resource_context(),
+            params->content_initiated(), resource_context,
             params->render_process_host_id(),
             params->render_view_host_routing_id(),
             params->render_frame_host_routing_id(),
@@ -119,6 +120,7 @@ class DownloadItemFactoryImpl : public DownloadItemFactory {
       const base::FilePath& target_path,
       const std::vector<GURL>& url_chain,
       const GURL& referrer_url,
+      const GURL& site_url,
       const GURL& tab_url,
       const GURL& tab_refererr_url,
       const std::string& mime_type,
@@ -137,9 +139,10 @@ class DownloadItemFactoryImpl : public DownloadItemFactory {
       const net::BoundNetLog& bound_net_log) override {
     return new DownloadItemImpl(
         delegate, guid, download_id, current_path, target_path, url_chain,
-        referrer_url, tab_url, tab_refererr_url, mime_type, original_mime_type,
-        start_time, end_time, etag, last_modified, received_bytes, total_bytes,
-        hash, state, danger_type, interrupt_reason, opened, bound_net_log);
+        referrer_url, site_url, tab_url, tab_refererr_url, mime_type,
+        original_mime_type, start_time, end_time, etag, last_modified,
+        received_bytes, total_bytes, hash, state, danger_type, interrupt_reason,
+        opened, bound_net_log);
   }
 
   DownloadItemImpl* CreateActiveItem(
@@ -470,7 +473,8 @@ void DownloadManagerImpl::ResumeInterruptedDownload(
   RecordDownloadSource(INITIATED_BY_RESUMPTION);
   BrowserThread::PostTaskAndReplyWithResult(
       BrowserThread::IO, FROM_HERE,
-      base::Bind(&BeginDownload, base::Passed(&params), id,
+      base::Bind(&BeginDownload, base::Passed(&params),
+                 browser_context_->GetResourceContext(), id,
                  weak_factory_.GetWeakPtr()),
       base::Bind(&DownloadManagerImpl::AddUrlDownloader,
                  weak_factory_.GetWeakPtr()));
@@ -583,6 +587,7 @@ void DownloadManagerImpl::DownloadUrl(
   BrowserThread::PostTaskAndReplyWithResult(
       BrowserThread::IO, FROM_HERE,
       base::Bind(&BeginDownload, base::Passed(&params),
+                 browser_context_->GetResourceContext(),
                  content::DownloadItem::kInvalidId, weak_factory_.GetWeakPtr()),
       base::Bind(&DownloadManagerImpl::AddUrlDownloader,
                  weak_factory_.GetWeakPtr()));
@@ -603,6 +608,7 @@ DownloadItem* DownloadManagerImpl::CreateDownloadItem(
     const base::FilePath& target_path,
     const std::vector<GURL>& url_chain,
     const GURL& referrer_url,
+    const GURL& site_url,
     const GURL& tab_url,
     const GURL& tab_refererr_url,
     const std::string& mime_type,
@@ -625,9 +631,9 @@ DownloadItem* DownloadManagerImpl::CreateDownloadItem(
   DCHECK(!ContainsKey(downloads_by_guid_, guid));
   DownloadItemImpl* item = item_factory_->CreatePersistedItem(
       this, guid, id, current_path, target_path, url_chain, referrer_url,
-      tab_url, tab_refererr_url, mime_type, original_mime_type, start_time,
-      end_time, etag, last_modified, received_bytes, total_bytes, hash, state,
-      danger_type, interrupt_reason, opened,
+      site_url, tab_url, tab_refererr_url, mime_type, original_mime_type,
+      start_time, end_time, etag, last_modified, received_bytes, total_bytes,
+      hash, state, danger_type, interrupt_reason, opened,
       net::BoundNetLog::Make(net_log_, net::NetLog::SOURCE_DOWNLOAD));
   downloads_[id] = item;
   downloads_by_guid_[guid] = item;
