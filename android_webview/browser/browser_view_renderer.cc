@@ -231,10 +231,7 @@ bool BrowserViewRenderer::OnDrawHardware() {
   if (!frame.frame.get()) {
     TRACE_EVENT_INSTANT0("android_webview", "NoNewFrame",
                          TRACE_EVENT_SCOPE_THREAD);
-    hardware_enabled_ = render_thread_manager_->HasFrameOnUI();
-    if (!hardware_enabled_)
-      UpdateMemoryPolicy();
-    return hardware_enabled_;
+    return render_thread_manager_->HasFrameOnUI();
   }
 
   std::unique_ptr<ChildFrame> child_frame = base::WrapUnique(new ChildFrame(
