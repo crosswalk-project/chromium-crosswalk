@@ -7,6 +7,8 @@
 
 #include "core/frame/DOMWindowProperty.h"
 #include "platform/Supplementable.h"
+#include "platform/heap/Handle.h"
+#include "wtf/RefPtr.h"
 
 namespace blink {
 

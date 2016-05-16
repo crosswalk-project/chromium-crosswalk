@@ -6,18 +6,21 @@
 #ifndef WebCLEvent_h
 #define WebCLEvent_h
 
-#include "modules/webcl/WebCLCallback.h"
-#include "modules/webcl/WebCLConfig.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLObject.h"
+#include "modules/webcl/WebCLOpenCL.h"
+#include "platform/heap/Handle.h"
+#include "wtf/PassOwnPtr.h"
 #include "wtf/PassRefPtr.h"
-#include "wtf/RefCounted.h"
 
 namespace blink {
 
-class WebCL;
+class ExceptionState;
+class ScriptState;
+class WebCLCallback;
 class WebCLCommandQueue;
 class WebCLEventHolder;
-class ExceptionState;
 
 class WebCLEvent : public WebCLObject, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();

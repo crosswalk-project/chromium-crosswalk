@@ -5,6 +5,7 @@
 
 #include "core/webcl/WebCLException.h"
 
+#include "bindings/core/v8/ExceptionState.h"
 #include <CL/cl.h>
 
 namespace blink {

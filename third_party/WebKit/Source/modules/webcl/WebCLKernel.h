@@ -6,21 +6,25 @@
 #ifndef WebCLKernel_h
 #define WebCLKernel_h
 
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLKernelArgInfoProvider.h"
-#include "modules/webcl/WebCLProgram.h"
+#include "modules/webcl/WebCLObject.h"
+#include "modules/webcl/WebCLOpenCL.h"
 #include "wtf/PassRefPtr.h"
-#include "wtf/RefCounted.h"
+#include "wtf/Vector.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class DOMArrayBufferView;
 class ExceptionState;
-class WebCL;
-class WebCLCommandQueue;
+class ScriptState;
+class WebCLContext;
 class WebCLDevice;
 class WebCLKernelArgInfo;
 class WebCLMemoryObject;
-class WebCLPlatform;
+class WebCLProgram;
 class WebCLSampler;
 
 class WebCLKernel : public WebCLObject, public ScriptWrappable {

@@ -5,11 +5,11 @@
 
 #include "modules/webcl/WebCLMemoryObject.h"
 
-#include "bindings/modules/v8/V8WebCLContext.h"
-#include "bindings/modules/v8/V8WebCLMemoryObject.h"
+#include "bindings/core/v8/ExceptionState.h"
+#include "bindings/core/v8/ScriptState.h"
+#include "bindings/core/v8/ToV8.h"
 #include "core/webcl/WebCLException.h"
-#include "modules/webcl/WebCL.h"
-#include "modules/webcl/WebCLOpenCL.h"
+#include "modules/webcl/WebCLContext.h"
 
 namespace blink {
 

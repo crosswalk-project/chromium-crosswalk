@@ -6,13 +6,16 @@
 #ifndef WebCLException_h
 #define WebCLException_h
 
-#include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/ScriptWrappable.h"
+#include "wtf/PassRefPtr.h"
 #include "wtf/ThreadSafeRefCounted.h"
+#include "wtf/text/WTFString.h"
 
 #define WEBCLEXCEPTIONOFFSET 0
 
 namespace blink {
+
+class ExceptionState;
 
 class CORE_EXPORT WebCLException final : public ThreadSafeRefCounted<WebCLException>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();

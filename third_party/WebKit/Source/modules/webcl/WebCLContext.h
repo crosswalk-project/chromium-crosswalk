@@ -7,26 +7,35 @@
 #define WebCLContext_h
 
 #include "bindings/core/v8/Nullable.h"
-#include "modules/webcl/WebCLConfig.h"
-#include "modules/webcl/WebCLDevice.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
+#include "modules/webcl/WebCLOpenCL.h"
+#include "platform/heap/Handle.h"
+#include "wtf/HashMap.h"
+#include "wtf/HashSet.h"
+#include "wtf/OwnPtr.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
 #include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
 #include "wtf/WeakPtr.h"
+#include "wtf/text/StringHash.h"
+#include "wtf/text/WTFString.h"
+#include <utility>
 
 namespace blink {
 
-class ExceptionState;
 class DOMArrayBufferView;
+class ExceptionState;
 class HTMLCanvasElement;
 class HTMLImageElement;
 class HTMLVideoElement;
-class ImageBuffer;
 class ImageData;
-class IntSize;
+class ScriptState;
 class WebCL;
 class WebCLBuffer;
 class WebCLCommandQueue;
+class WebCLDevice;
 class WebCLHTMLUtil;
 class WebCLImage;
 class WebCLImageDescriptor;

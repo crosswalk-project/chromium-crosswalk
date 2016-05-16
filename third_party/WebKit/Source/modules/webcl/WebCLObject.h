@@ -6,7 +6,6 @@
 #ifndef WebCLObject_h
 #define WebCLObject_h
 
-#include "core/webcl/WebCLException.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
 #include "wtf/RefPtr.h"
@@ -14,7 +13,6 @@
 
 namespace blink {
 
-class ExceptionState;
 class WebCLContext;
 
 // WebCLObject is the base class of WebCommandQueue, WebCLProgram, WebCLKernel,

@@ -5,9 +5,10 @@
 
 #include "modules/webcl/WebCLKernelArgInfoProvider.h"
 
-#include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLKernel.h"
+#include "modules/webcl/WebCLKernelArgInfo.h"
 #include "modules/webcl/WebCLProgram.h"
+#include "wtf/text/AtomicString.h"
 
 namespace blink {
 

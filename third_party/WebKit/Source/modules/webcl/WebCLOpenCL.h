@@ -6,6 +6,8 @@
 #define WebCLOpenCL_h
 
 #include "modules/webcl/WebCLConfig.h"
+#include "wtf/Vector.h"
+#include "wtf/text/WTFString.h"
 
 #ifdef __cplusplus
 extern "C" {

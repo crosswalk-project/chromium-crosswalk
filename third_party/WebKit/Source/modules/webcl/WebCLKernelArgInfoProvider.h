@@ -6,13 +6,14 @@
 #ifndef WebCLKernelArgInfoProvider_h
 #define WebCLKernelArgInfoProvider_h
 
-#include "modules/webcl/WebCLConfig.h"
-#include "modules/webcl/WebCLKernelArgInfo.h"
-#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class WebCLKernel;
+class WebCLKernelArgInfo;
 
 class WebCLKernelArgInfoProvider {
 public:

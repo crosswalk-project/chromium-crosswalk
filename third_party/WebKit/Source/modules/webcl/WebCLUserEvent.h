@@ -6,12 +6,15 @@
 #ifndef WebCLUserEvent_h
 #define WebCLUserEvent_h
 
-#include "modules/webcl/WebCLConfig.h"
+#include "bindings/core/v8/ScriptValue.h"
 #include "modules/webcl/WebCLEvent.h"
+#include "modules/webcl/WebCLOpenCL.h"
 #include "wtf/PassRefPtr.h"
 
 namespace blink {
 
+class ExceptionState;
+class ScriptState;
 class WebCLContext;
 
 class WebCLUserEvent : public WebCLEvent {

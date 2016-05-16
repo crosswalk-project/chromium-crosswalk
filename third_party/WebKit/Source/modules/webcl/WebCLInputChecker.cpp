@@ -5,11 +5,13 @@
 
 #include "modules/webcl/WebCLInputChecker.h"
 
+#include "core/dom/DOMArrayBufferView.h"
 #include "modules/webcl/WebCLBuffer.h"
 #include "modules/webcl/WebCLContext.h"
 #include "modules/webcl/WebCLImage.h"
 #include "modules/webcl/WebCLImageDescriptor.h"
 #include "modules/webcl/WebCLKernel.h"
+#include "modules/webcl/WebCLOpenCL.h"
 
 namespace blink {
 namespace WebCLInputChecker {

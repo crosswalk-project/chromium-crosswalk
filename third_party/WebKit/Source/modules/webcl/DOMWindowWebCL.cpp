@@ -2,11 +2,10 @@
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
 
-#include "DOMWindowWebCL.h"
+#include "modules/webcl/DOMWindowWebCL.h"
 
 #include "core/dom/Document.h"
 #include "core/frame/LocalDOMWindow.h"
-#include "core/page/Page.h"
 #include "modules/webcl/WebCL.h"
 
 namespace blink {

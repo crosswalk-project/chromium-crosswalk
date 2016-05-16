@@ -6,12 +6,13 @@
 #ifndef WebCLBuffer_h
 #define WebCLBuffer_h
 
-#include "modules/webcl/WebCLConfig.h"
 #include "modules/webcl/WebCLMemoryObject.h"
+#include "modules/webcl/WebCLOpenCL.h"
+#include "wtf/PassRefPtr.h"
 
 namespace blink {
 
-class WebCL;
+class ExceptionState;
 class WebCLContext;
 
 class WebCLBuffer : public WebCLMemoryObject {

@@ -4,8 +4,12 @@
 
 #include "bindings/modules/v8/V8WebCLProgram.h"
 
+#include "bindings/core/v8/ExceptionState.h"
+#include "bindings/core/v8/ScriptState.h"
 #include "bindings/modules/v8/V8WebCLCallback.h"
 #include "bindings/modules/v8/V8WebCLDevice.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
 
 namespace blink {
 
