@@ -169,6 +169,7 @@ class MEDIA_BLINK_EXPORT WebMediaPlayerImpl
       blink::WebContentDecryptionModule* cdm,
       blink::WebContentDecryptionModuleResult result) override;
 
+  bool supportsOverlayFullscreenVideo() override;
   void enteredFullscreen() override;
   void exitedFullscreen() override;
 
@@ -416,6 +417,11 @@ class MEDIA_BLINK_EXPORT WebMediaPlayerImpl
 
   // Whether the current decoder requires a restart on fullscreen transitions.
   bool decoder_requires_restart_for_fullscreen_;
+
+  // What to return from supportsOverlayFullscreenVideo(). This is usually
+  // equal to |decoder_requires_restart_for_fullscreen_| except that it doesn't
+  // change while we're in fullscreen. See supportsOverlayFullscreenVideo().
+  bool supports_overlay_fullscreen_video_;
 
   blink::WebMediaPlayerClient* client_;
   blink::WebMediaPlayerEncryptedMediaClient* encrypted_client_;

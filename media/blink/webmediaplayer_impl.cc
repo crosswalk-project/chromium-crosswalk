@@ -176,6 +176,7 @@ WebMediaPlayerImpl::WebMediaPlayerImpl(
       should_notify_time_changed_(false),
       fullscreen_(false),
       decoder_requires_restart_for_fullscreen_(false),
+      supports_overlay_fullscreen_video_(false),
       client_(client),
       encrypted_client_(encrypted_client),
       delegate_(delegate),
@@ -279,6 +280,29 @@ void WebMediaPlayerImpl::load(LoadType load_type, const blink::WebURL& url,
     return;
   }
   DoLoad(load_type, url, cors_mode);
+}
+
+bool WebMediaPlayerImpl::supportsOverlayFullscreenVideo() {
+#if defined(OS_ANDROID)
+  // OverlayFullscreenVideo is only used when we're H/W decoding to an
+  // SurfaceView underlay on Android. It's possible that we haven't initialized
+  // any decoders before entering fullscreen, so we won't know whether to use
+  // OverlayFullscreenVideo. In that case we'll default to
+  // non-OverlayFullscreenVideo, which still works correctly, but has janky
+  // orientation changes.
+
+  // We return a consistent value while in fullscreen to avoid us getting into a
+  // state where some of the OverlayFullscreenVideo adjustments are applied and
+  // some aren't.
+  // TODO(watk): Implement dynamic OverlayFullscreenVideo switching in blink.
+  if (!fullscreen_) {
+    supports_overlay_fullscreen_video_ =
+        decoder_requires_restart_for_fullscreen_;
+  }
+  return supports_overlay_fullscreen_video_;
+#else
+  return false;
+#endif
 }
 
 void WebMediaPlayerImpl::enteredFullscreen() {
