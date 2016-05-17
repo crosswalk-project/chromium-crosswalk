@@ -39,7 +39,7 @@ public class AccountSigninActivity extends AppCompatActivity
     private ProfileDataCache mProfileDataCache;
 
     @IntDef({SigninAccessPoint.SETTINGS, SigninAccessPoint.BOOKMARK_MANAGER,
-        SigninAccessPoint.RECENT_TABS})
+            SigninAccessPoint.RECENT_TABS, SigninAccessPoint.SIGNIN_PROMO})
     @Retention(RetentionPolicy.SOURCE)
     public @interface AccessPoint {}
     @AccessPoint private int mAccessPoint;
@@ -75,7 +75,9 @@ public class AccountSigninActivity extends AppCompatActivity
         mAccessPoint = getIntent().getIntExtra(INTENT_SIGNIN_ACCESS_POINT, -1);
         assert mAccessPoint == SigninAccessPoint.BOOKMARK_MANAGER
                 || mAccessPoint == SigninAccessPoint.RECENT_TABS
-                || mAccessPoint == SigninAccessPoint.SETTINGS : "invalid access point";
+                || mAccessPoint == SigninAccessPoint.SETTINGS 
+                || mAccessPoint == SigninAccessPoint.SIGNIN_PROMO 
+                : "invalid access point";
 
         if (savedInstanceState == null && getAccessPoint() == SigninAccessPoint.BOOKMARK_MANAGER) {
             RecordUserAction.record("Stars_SignInPromoActivity_Launched");
