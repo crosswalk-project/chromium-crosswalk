@@ -9,8 +9,6 @@
 
 #include <algorithm>
 #include <deque>
-#include <limits>
-#include <memory>
 
 #include "base/bind.h"
 #include "base/location.h"
@@ -121,20 +119,18 @@ class ChannelWin : public Channel,
     }
   }
 
-  bool GetReadPlatformHandles(
+  ScopedPlatformHandleVectorPtr GetReadPlatformHandles(
       size_t num_handles,
       const void* extra_header,
-      size_t extra_header_size,
-      ScopedPlatformHandleVectorPtr* handles) override {
-    if (num_handles > std::numeric_limits<uint16_t>::max())
-      return false;
+      size_t extra_header_size) override {
     size_t handles_size = sizeof(PlatformHandle) * num_handles;
     if (handles_size > extra_header_size)
-      return false;
-    DCHECK(extra_header);
-    handles->reset(new PlatformHandleVector(num_handles));
-    memcpy((*handles)->data(), extra_header, handles_size);
-    return true;
+      return nullptr;
+
+    ScopedPlatformHandleVectorPtr handles(
+        new PlatformHandleVector(num_handles));
+    memcpy(handles->data(), extra_header, handles_size);
+    return handles;
   }
 
  private:
