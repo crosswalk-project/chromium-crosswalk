@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.61",
+  "version": "8.66",
   "entries": [
     {
       "id": 1,
@@ -1911,6 +1911,18 @@ LONG_STRING_CONST(
       },
       "features": [
         "disable_overlay_ca_layers"
+      ]
+    },
+    {
+      "id": 166,
+      "cr_bugs": [612474],
+      "description": "Crash reports for glDiscardFramebuffer on Adreno 530",
+      "gl_renderer": "Adreno \\(TM\\) 5.*",
+      "os": {
+        "type": "android"
+      },
+      "features": [
+        "disable_discard_framebuffer"
       ]
     }
   ]
