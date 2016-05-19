@@ -27,6 +27,7 @@
 #include "net/url_request/url_request.h"
 #include "net/url_request/url_request_job.h"
 #include "net/url_request/url_request_status.h"
+#include "storage/common/blob_storage/blob_storage_constants.h"
 #include "third_party/WebKit/public/platform/modules/serviceworker/WebServiceWorkerResponseType.h"
 #include "url/gurl.h"
 
@@ -163,6 +164,8 @@ class CONTENT_EXPORT ServiceWorkerURLRequestJob
   base::WeakPtr<ServiceWorkerURLRequestJob> GetWeakPtr();
 
  private:
+  class BlobConstructionWaiter;
+
   enum ResponseType {
     NOT_DETERMINED,
     FALLBACK_TO_NETWORK,
@@ -186,7 +189,8 @@ class CONTENT_EXPORT ServiceWorkerURLRequestJob
   // Creates BlobDataHandle of the request body from |body_|. This handle
   // |request_body_blob_data_handle_| will be deleted when
   // ServiceWorkerURLRequestJob is deleted.
-  bool CreateRequestBodyBlob(std::string* blob_uuid, uint64_t* blob_size);
+  // This must not be called until all blobs in |body_| finished construction.
+  void CreateRequestBodyBlob(std::string* blob_uuid, uint64_t* blob_size);
 
   // For FORWARD_TO_SERVICE_WORKER case.
   void DidPrepareFetchEvent();
@@ -230,6 +234,10 @@ class CONTENT_EXPORT ServiceWorkerURLRequestJob
   void OnStartCompleted() const;
 
   bool IsMainResourceLoad() const;
+
+  // For waiting for request body blobs to finish construction.
+  bool HasRequestBody();
+  void RequestBodyBlobsCompleted(bool success);
 
   // Not owned.
   Delegate* delegate_;
@@ -281,6 +289,8 @@ class CONTENT_EXPORT ServiceWorkerURLRequestJob
 
   bool response_is_in_cache_storage_ = false;
   std::string response_cache_storage_cache_name_;
+
+  std::unique_ptr<BlobConstructionWaiter> blob_construction_waiter_;
 
   base::WeakPtrFactory<ServiceWorkerURLRequestJob> weak_factory_;
 
