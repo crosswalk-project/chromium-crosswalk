@@ -42,7 +42,7 @@ class DrawGLFunctor {
     }
 
     private static final boolean sSupportFunctorReleasedCallback =
-            (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) || "N".equals(Build.VERSION.CODENAME);
+            (Build.VERSION.SDK_INT > Build.VERSION_CODES.M) || Build.VERSION.CODENAME.equals("N");
     public boolean requestDrawGL(Canvas canvas, View containerView, boolean waitForCompletion,
             Runnable releasedCallback) {
         if (mDestroyRunnable.mNativeDrawGLFunctor == 0) {
