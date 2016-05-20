@@ -682,6 +682,11 @@ public:
     }
     void clearClipRectsCache() const { m_clipRectsCache.clear(); }
 
+    void dirty3DTransformedDescendantStatus();
+    // Both updates the status, and returns true if descendants of this have 3d.
+    bool update3DTransformedDescendantStatus();
+    bool has3DTransformedDescendant() const { DCHECK(!m_3DTransformedDescendantStatusDirty); return m_has3DTransformedDescendant; }
+
 private:
     // Bounding box in the coordinates of this layer.
     LayoutRect logicalBoundingBox() const;
@@ -744,10 +749,6 @@ private:
 
     bool attemptDirectCompositingUpdate(StyleDifference, const ComputedStyle* oldStyle);
     void updateTransform(const ComputedStyle* oldStyle, const ComputedStyle& newStyle);
-
-    void dirty3DTransformedDescendantStatus();
-    // Both updates the status, and returns true if descendants of this have 3d.
-    bool update3DTransformedDescendantStatus();
 
     void updateOrRemoveFilterClients();
 
