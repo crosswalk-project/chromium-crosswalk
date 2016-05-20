@@ -39,7 +39,7 @@ void MojoApplication::OnActivate(
 #if defined(OS_POSIX)
   base::PlatformFile handle = file.fd;
 #elif defined(OS_WIN)
-  base::PlatformFile handle = file.GetHandle();
+  base::PlatformFile handle = file;
 #endif
 
   mojo::ScopedMessagePipeHandle pipe =

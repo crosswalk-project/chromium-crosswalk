@@ -195,7 +195,8 @@ IPC::PlatformFileForTransit PpapiThread::ShareHandleWithRemote(
 #if defined(OS_WIN)
   if (peer_handle_.IsValid()) {
     DCHECK(is_broker_);
-    return IPC::GetPlatformFileForTransit(handle, should_close_source);
+    return IPC::GetFileHandleForProcess(handle, peer_handle_.Get(),
+                                        should_close_source);
   }
 #endif
 

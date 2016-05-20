@@ -17,7 +17,6 @@
 #include "base/run_loop.h"
 #include "base/single_thread_task_runner.h"
 #include "build/build_config.h"
-#include "ipc/attachment_broker_privileged.h"
 #include "ipc/ipc_channel.h"
 #include "ipc/ipc_channel_proxy.h"
 #include "ipc/ipc_listener.h"
@@ -173,7 +172,6 @@ DesktopProcessTest::~DesktopProcessTest() {
 }
 
 void DesktopProcessTest::SetUp() {
-  IPC::AttachmentBrokerPrivileged::CreateBrokerForSingleProcessTests();
 }
 
 void DesktopProcessTest::TearDown() {
@@ -185,7 +183,7 @@ void DesktopProcessTest::ConnectNetworkChannel(
 #if defined(OS_POSIX)
   IPC::ChannelHandle channel_handle(std::string(), desktop_process);
 #elif defined(OS_WIN)
-  IPC::ChannelHandle channel_handle(desktop_process.GetHandle());
+  IPC::ChannelHandle channel_handle(desktop_process);
 #endif  // defined(OS_WIN)
 
   network_channel_ =

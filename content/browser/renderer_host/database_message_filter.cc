@@ -167,7 +167,8 @@ void DatabaseMessageFilter::OnDatabaseOpenFile(
   } else if (tracked_file) {
     DCHECK(tracked_file->IsValid());
     *handle =
-        IPC::GetPlatformFileForTransit(tracked_file->GetPlatformFile(), false);
+        IPC::GetFileHandleForProcess(tracked_file->GetPlatformFile(),
+                                     PeerHandle(), false);
   }
 }
 

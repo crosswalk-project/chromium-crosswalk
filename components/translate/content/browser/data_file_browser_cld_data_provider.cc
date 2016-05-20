@@ -160,8 +160,10 @@ void DataFileBrowserCldDataProvider::SendCldDataResponseInternal(
   }
 
   // Data available, respond to the request.
+  base::ProcessHandle render_process_handle = render_process_host->GetHandle();
   IPC::PlatformFileForTransit ipc_platform_file =
-      IPC::GetPlatformFileForTransit(handle->GetPlatformFile(), false);
+      IPC::GetFileHandleForProcess(handle->GetPlatformFile(),
+                                   render_process_handle, false);
 
   // In general, sending a response from within the code path that is processing
   // a request is discouraged because there is potential for deadlock (if the

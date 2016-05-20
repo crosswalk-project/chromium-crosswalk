@@ -335,9 +335,10 @@ void PdfToEmfUtilityProcessHostClient::OnTempPdfReady(ScopedTempFile pdf) {
   DCHECK_CURRENTLY_ON(BrowserThread::IO);
   if (!utility_process_host_ || !pdf)
     return OnFailed();
+  base::ProcessHandle process = utility_process_host_->GetData().handle;
   // Should reply with OnPageCount().
   Send(new ChromeUtilityMsg_RenderPDFPagesToMetafiles(
-      IPC::GetPlatformFileForTransit(pdf->GetPlatformFile(), false),
+      IPC::GetFileHandleForProcess(pdf->GetPlatformFile(), process, false),
       settings_));
 }
 
@@ -388,8 +389,9 @@ void PdfToEmfUtilityProcessHostClient::OnTempEmfReady(
   DCHECK_CURRENTLY_ON(BrowserThread::IO);
   if (!utility_process_host_ || !emf)
     return OnFailed();
+  base::ProcessHandle process = utility_process_host_->GetData().handle;
   IPC::PlatformFileForTransit transit =
-      IPC::GetPlatformFileForTransit(emf->GetPlatformFile(), false);
+      IPC::GetFileHandleForProcess(emf->GetPlatformFile(), process, false);
   callback_data->set_emf(std::move(emf));
   // Should reply with OnPageDone().
   Send(new ChromeUtilityMsg_RenderPDFPagesToMetafiles_GetPage(

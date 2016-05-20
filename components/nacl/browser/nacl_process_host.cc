@@ -883,11 +883,12 @@ bool NaClProcessHost::StartNaClExecution() {
     params.version = NaClBrowser::GetDelegate()->GetVersionString();
     params.enable_debug_stub = enable_nacl_debug;
 
+    const ChildProcessData& data = process_->GetData();
     const base::File& irt_file = nacl_browser->IrtFile();
     CHECK(irt_file.IsValid());
     // Send over the IRT file handle.  We don't close our own copy!
-    params.irt_handle = IPC::GetPlatformFileForTransit(
-        irt_file.GetPlatformFile(), false);
+    params.irt_handle = IPC::GetFileHandleForProcess(
+        irt_file.GetPlatformFile(), data.handle, false);
     if (params.irt_handle == IPC::InvalidPlatformFileForTransit()) {
       return false;
     }
@@ -896,8 +897,8 @@ bool NaClProcessHost::StartNaClExecution() {
     if (params.enable_debug_stub) {
       net::SocketDescriptor server_bound_socket = GetDebugStubSocketHandle();
       if (server_bound_socket != net::kInvalidSocket) {
-        params.debug_stub_server_bound_socket = IPC::GetPlatformFileForTransit(
-            server_bound_socket, true);
+        params.debug_stub_server_bound_socket = IPC::GetFileHandleForProcess(
+            server_bound_socket, data.handle, true);
       }
     }
 #endif

@@ -148,8 +148,9 @@ void SandboxedZipAnalyzer::OnUtilityProcessStarted() {
   utility_process_host_->Send(
       new ChromeUtilityMsg_AnalyzeZipFileForDownloadProtection(
           IPC::TakeFileHandleForProcess(std::move(zip_file_), utility_process),
-          IPC::GetPlatformFileForTransit(temp_file_.GetPlatformFile(),
-                                         false /* !close_source_handle */)));
+          IPC::GetFileHandleForProcess(temp_file_.GetPlatformFile(),
+                                       utility_process,
+                                       false /* !close_source_handle */)));
 }
 
 void SandboxedZipAnalyzer::OnAnalyzeZipFileFinished(

@@ -253,8 +253,9 @@ PluginProxyTestHarness::PluginDelegateMock::ShareHandleWithRemote(
     base::PlatformFile handle,
     base::ProcessId /* remote_pid */,
     bool should_close_source) {
-  return IPC::GetPlatformFileForTransit(handle,
-                                        should_close_source);
+  return IPC::GetFileHandleForProcess(handle,
+                                      base::GetCurrentProcessHandle(),
+                                      should_close_source);
 }
 
 base::SharedMemoryHandle
@@ -490,8 +491,9 @@ HostProxyTestHarness::DelegateMock::ShareHandleWithRemote(
     base::PlatformFile handle,
     base::ProcessId /* remote_pid */,
     bool should_close_source) {
-  return IPC::GetPlatformFileForTransit(handle,
-                                        should_close_source);
+  return IPC::GetFileHandleForProcess(handle,
+                                      base::GetCurrentProcessHandle(),
+                                      should_close_source);
 }
 
 base::SharedMemoryHandle

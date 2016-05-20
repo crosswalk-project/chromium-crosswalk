@@ -14,24 +14,17 @@
 #include "base/file_descriptor_posix.h"
 #endif
 
-#if defined(OS_WIN)
-#include "base/memory/shared_memory_handle.h"
-#endif
-
 namespace IPC {
 
 #if defined(OS_WIN)
-// The semantics for IPC transfer of a SharedMemoryHandle are exactly the same
-// as for a PlatformFileForTransit. The object wraps a HANDLE, and has some
-// metadata that indicates the process to which the HANDLE belongs.
-using PlatformFileForTransit = base::SharedMemoryHandle;
+typedef base::PlatformFile PlatformFileForTransit;
 #elif defined(OS_POSIX)
 typedef base::FileDescriptor PlatformFileForTransit;
 #endif
 
 inline PlatformFileForTransit InvalidPlatformFileForTransit() {
 #if defined(OS_WIN)
-  return PlatformFileForTransit();
+  return INVALID_HANDLE_VALUE;
 #elif defined(OS_POSIX)
   return base::FileDescriptor();
 #endif
@@ -40,7 +33,7 @@ inline PlatformFileForTransit InvalidPlatformFileForTransit() {
 inline base::PlatformFile PlatformFileForTransitToPlatformFile(
     const PlatformFileForTransit& transit) {
 #if defined(OS_WIN)
-  return transit.GetHandle();
+  return transit;
 #elif defined(OS_POSIX)
   return transit.fd;
 #endif
@@ -49,16 +42,16 @@ inline base::PlatformFile PlatformFileForTransitToPlatformFile(
 inline base::File PlatformFileForTransitToFile(
     const PlatformFileForTransit& transit) {
 #if defined(OS_WIN)
-  return base::File(transit.GetHandle());
+  return base::File(transit);
 #elif defined(OS_POSIX)
   return base::File(transit.fd);
 #endif
 }
 
-// Creates a new handle that can be passed through IPC. The result must be
-// passed to the IPC layer as part of a message, or else it will leak.
-IPC_EXPORT PlatformFileForTransit GetPlatformFileForTransit(
+// Returns a file handle equivalent to |file| that can be used in |process|.
+IPC_EXPORT PlatformFileForTransit GetFileHandleForProcess(
     base::PlatformFile file,
+    base::ProcessHandle process,
     bool close_source_handle);
 
 // Returns a file handle equivalent to |file| that can be used in |process|.

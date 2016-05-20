@@ -11,23 +11,24 @@
 
 namespace IPC {
 
-PlatformFileForTransit GetPlatformFileForTransit(base::PlatformFile handle,
-                                                 bool close_source_handle) {
+PlatformFileForTransit GetFileHandleForProcess(base::PlatformFile handle,
+                                               base::ProcessHandle process,
+                                               bool close_source_handle) {
+  IPC::PlatformFileForTransit out_handle;
 #if defined(OS_WIN)
-  HANDLE raw_handle = INVALID_HANDLE_VALUE;
   DWORD options = DUPLICATE_SAME_ACCESS;
   if (close_source_handle)
     options |= DUPLICATE_CLOSE_SOURCE;
   if (handle == INVALID_HANDLE_VALUE ||
-      !::DuplicateHandle(::GetCurrentProcess(), handle, ::GetCurrentProcess(),
-                         &raw_handle, 0, FALSE, options)) {
-    return IPC::InvalidPlatformFileForTransit();
+      !::DuplicateHandle(::GetCurrentProcess(),
+                         handle,
+                         process,
+                         &out_handle,
+                         0,
+                         FALSE,
+                         options)) {
+    out_handle = IPC::InvalidPlatformFileForTransit();
   }
-
-  IPC::PlatformFileForTransit out_handle = IPC::PlatformFileForTransit(
-      raw_handle, base::GetCurrentProcId());
-  out_handle.SetOwnershipPassesToIPC(true);
-  return out_handle;
 #elif defined(OS_POSIX)
   // If asked to close the source, we can simply re-use the source fd instead of
   // dup()ing and close()ing.
@@ -38,15 +39,16 @@ PlatformFileForTransit GetPlatformFileForTransit(base::PlatformFile handle,
   // close the source handle before the message is sent, creating a race
   // condition.
   int fd = close_source_handle ? handle : ::dup(handle);
-  return base::FileDescriptor(fd, true);
+  out_handle = base::FileDescriptor(fd, true);
 #else
   #error Not implemented.
 #endif
+  return out_handle;
 }
 
 PlatformFileForTransit TakeFileHandleForProcess(base::File file,
                                                 base::ProcessHandle process) {
-  return GetPlatformFileForTransit(file.TakePlatformFile(), true);
+  return GetFileHandleForProcess(file.TakePlatformFile(), process, true);
 }
 
 }  // namespace IPC
