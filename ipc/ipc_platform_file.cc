@@ -44,7 +44,8 @@ PlatformFileForTransit GetPlatformFileForTransit(base::PlatformFile handle,
 #endif
 }
 
-PlatformFileForTransit TakePlatformFileForTransit(base::File file) {
+PlatformFileForTransit TakeFileHandleForProcess(base::File file,
+                                                base::ProcessHandle process) {
   return GetPlatformFileForTransit(file.TakePlatformFile(), true);
 }
 

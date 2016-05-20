@@ -57,17 +57,17 @@ class FileHandlers {
     return temp_dir_.path().AppendASCII("input.pdf");
   }
 
-  IPC::PlatformFileForTransit GetPdfForProcess() {
+  IPC::PlatformFileForTransit GetPdfForProcess(base::ProcessHandle process) {
     DCHECK(pdf_file_.IsValid());
     IPC::PlatformFileForTransit transit =
-        IPC::TakePlatformFileForTransit(std::move(pdf_file_));
+        IPC::TakeFileHandleForProcess(std::move(pdf_file_), process);
     return transit;
   }
 
-  IPC::PlatformFileForTransit GetPwgForProcess() {
+  IPC::PlatformFileForTransit GetPwgForProcess(base::ProcessHandle process) {
     DCHECK(pwg_file_.IsValid());
     IPC::PlatformFileForTransit transit =
-        IPC::TakePlatformFileForTransit(std::move(pwg_file_));
+        IPC::TakeFileHandleForProcess(std::move(pwg_file_), process);
     return transit;
   }
 
@@ -196,9 +196,12 @@ void PwgUtilityProcessHostClient::OnProcessStarted() {
     return;
   }
 
+  base::ProcessHandle process = utility_process_host_->GetData().handle;
   utility_process_host_->Send(new ChromeUtilityMsg_RenderPDFPagesToPWGRaster(
-      files_->GetPdfForProcess(), settings_, bitmap_settings_,
-      files_->GetPwgForProcess()));
+      files_->GetPdfForProcess(process),
+      settings_,
+      bitmap_settings_,
+      files_->GetPwgForProcess(process)));
   utility_process_host_.reset();
 }
 

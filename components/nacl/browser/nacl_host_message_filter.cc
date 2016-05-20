@@ -225,8 +225,8 @@ void NaClHostMessageFilter::BatchOpenResourceFiles(
       continue;
 
     prefetched_resource_files.push_back(NaClResourcePrefetchResult(
-        IPC::TakePlatformFileForTransit(std::move(file)), file_path_metadata,
-        request_list[i].file_key));
+        IPC::TakeFileHandleForProcess(std::move(file), PeerHandle()),
+        file_path_metadata, request_list[i].file_key));
 
     if (prefetched_resource_files.size() >= kMaxPreOpenResourceFiles)
       break;
@@ -301,7 +301,8 @@ void NaClHostMessageFilter::SyncReturnTemporaryFile(
     base::File file) {
   if (file.IsValid()) {
     NaClHostMsg_NaClCreateTemporaryFile::WriteReplyParams(
-        reply_msg, IPC::TakePlatformFileForTransit(std::move(file)));
+        reply_msg,
+        IPC::TakeFileHandleForProcess(std::move(file), PeerHandle()));
   } else {
     reply_msg->set_reply_error();
   }

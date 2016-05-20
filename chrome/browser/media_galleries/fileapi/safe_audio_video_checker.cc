@@ -58,8 +58,10 @@ void SafeAudioVideoChecker::OnProcessStarted() {
     return;
   state_ = STARTED_STATE;
 
-  IPC::PlatformFileForTransit file_for_transit =
-      IPC::TakePlatformFileForTransit(std::move(file_));
+  if (utility_process_host_->GetData().handle == base::kNullProcessHandle)
+    DLOG(ERROR) << "Child process handle is null";
+  IPC::PlatformFileForTransit file_for_transit = IPC::TakeFileHandleForProcess(
+      std::move(file_), utility_process_host_->GetData().handle);
   if (file_for_transit == IPC::InvalidPlatformFileForTransit()) {
     OnCheckingFinished(false /* valid? */);
     return;

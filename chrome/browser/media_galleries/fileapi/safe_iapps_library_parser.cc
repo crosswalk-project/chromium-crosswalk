@@ -84,7 +84,9 @@ void SafeIAppsLibraryParser::OnUtilityProcessStarted() {
 
   if (!itunes_callback_.is_null()) {
     utility_process_host_->Send(new ChromeUtilityMsg_ParseITunesLibraryXmlFile(
-        IPC::TakePlatformFileForTransit(std::move(library_file_))));
+        IPC::TakeFileHandleForProcess(
+            std::move(library_file_),
+            utility_process_host_->GetData().handle)));
   }
 
   parser_state_ = STARTED_PARSING_STATE;
