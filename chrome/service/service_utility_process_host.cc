@@ -92,7 +92,7 @@ class ServiceUtilityProcessHost::PdfToEmfState {
     if (!temp_dir_.CreateUniqueTempDir())
       return false;
     return host_->Send(new ChromeUtilityMsg_RenderPDFPagesToMetafiles(
-        IPC::TakeFileHandleForProcess(std::move(pdf_file), host_->handle()),
+        IPC::TakePlatformFileForTransit(std::move(pdf_file)),
         conversion_settings));
   }
 
@@ -104,8 +104,8 @@ class ServiceUtilityProcessHost::PdfToEmfState {
       emf_files_.push(CreateTempFile());
       host_->Send(new ChromeUtilityMsg_RenderPDFPagesToMetafiles_GetPage(
           current_page_++,
-          IPC::GetFileHandleForProcess(
-              emf_files_.back().GetPlatformFile(), host_->handle(), false)));
+          IPC::GetPlatformFileForTransit(
+              emf_files_.back().GetPlatformFile(), false)));
     }
   }
 

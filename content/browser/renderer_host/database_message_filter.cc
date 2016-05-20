@@ -163,12 +163,11 @@ void DatabaseMessageFilter::OnDatabaseOpenFile(
   // database tracker.
   *handle = IPC::InvalidPlatformFileForTransit();
   if (file.IsValid()) {
-    *handle = IPC::TakeFileHandleForProcess(std::move(file), PeerHandle());
+    *handle = IPC::TakePlatformFileForTransit(std::move(file));
   } else if (tracked_file) {
     DCHECK(tracked_file->IsValid());
     *handle =
-        IPC::GetFileHandleForProcess(tracked_file->GetPlatformFile(),
-                                     PeerHandle(), false);
+        IPC::GetPlatformFileForTransit(tracked_file->GetPlatformFile(), false);
   }
 }
 

@@ -883,12 +883,11 @@ bool NaClProcessHost::StartNaClExecution() {
     params.version = NaClBrowser::GetDelegate()->GetVersionString();
     params.enable_debug_stub = enable_nacl_debug;
 
-    const ChildProcessData& data = process_->GetData();
     const base::File& irt_file = nacl_browser->IrtFile();
     CHECK(irt_file.IsValid());
     // Send over the IRT file handle.  We don't close our own copy!
-    params.irt_handle = IPC::GetFileHandleForProcess(
-        irt_file.GetPlatformFile(), data.handle, false);
+    params.irt_handle = IPC::GetPlatformFileForTransit(
+        irt_file.GetPlatformFile(), false);
     if (params.irt_handle == IPC::InvalidPlatformFileForTransit()) {
       return false;
     }
@@ -897,8 +896,8 @@ bool NaClProcessHost::StartNaClExecution() {
     if (params.enable_debug_stub) {
       net::SocketDescriptor server_bound_socket = GetDebugStubSocketHandle();
       if (server_bound_socket != net::kInvalidSocket) {
-        params.debug_stub_server_bound_socket = IPC::GetFileHandleForProcess(
-            server_bound_socket, data.handle, true);
+        params.debug_stub_server_bound_socket = IPC::GetPlatformFileForTransit(
+            server_bound_socket, true);
       }
     }
 #endif
@@ -966,11 +965,10 @@ void NaClProcessHost::StartNaClFileResolved(
     content::BrowserThread::GetBlockingPool()->PostTask(
         FROM_HERE, base::Bind(&CloseFile, base::Passed(std::move(nexe_file_))));
     params.nexe_file_path_metadata = file_path;
-    params.nexe_file = IPC::TakeFileHandleForProcess(
-        std::move(checked_nexe_file), process_->GetData().handle);
+    params.nexe_file =
+        IPC::TakePlatformFileForTransit(std::move(checked_nexe_file));
   } else {
-    params.nexe_file = IPC::TakeFileHandleForProcess(
-        std::move(nexe_file_), process_->GetData().handle);
+    params.nexe_file = IPC::TakePlatformFileForTransit(std::move(nexe_file_));
   }
 
 #if defined(OS_LINUX)
@@ -1233,8 +1231,7 @@ void NaClProcessHost::FileResolved(
   IPC::PlatformFileForTransit out_handle;
   if (file.IsValid()) {
     out_file_path = file_path;
-    out_handle = IPC::TakeFileHandleForProcess(std::move(file),
-                                               process_->GetData().handle);
+    out_handle = IPC::TakePlatformFileForTransit(std::move(file));
   } else {
     out_handle = IPC::InvalidPlatformFileForTransit();
   }
