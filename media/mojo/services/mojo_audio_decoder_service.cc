@@ -154,27 +154,27 @@ scoped_refptr<DecoderBuffer> MojoAudioDecoderService::ReadDecoderBuffer(
 
   // Wait for the data to become available in the DataPipe.
   MojoHandleSignalsState state;
-  MojoResult result =
-      MojoWait(consumer_handle_.get().value(), MOJO_HANDLE_SIGNAL_READABLE,
-               MOJO_DEADLINE_INDEFINITE, &state);
+  CHECK_EQ(MOJO_RESULT_OK,
+           MojoWait(consumer_handle_.get().value(), MOJO_HANDLE_SIGNAL_READABLE,
+                    MOJO_DEADLINE_INDEFINITE, &state));
 
-  if (result != MOJO_RESULT_OK) {
+  if (state.satisfied_signals & MOJO_HANDLE_SIGNAL_PEER_CLOSED) {
     DVLOG(1) << __FUNCTION__ << ": Peer closed the data pipe";
-    return nullptr;
+    return scoped_refptr<DecoderBuffer>();
   }
+
+  CHECK_EQ(MOJO_HANDLE_SIGNAL_READABLE,
+           state.satisfied_signals & MOJO_HANDLE_SIGNAL_READABLE);
 
   // Read the inner data for the DecoderBuffer from our DataPipe.
-  uint32_t data_size = static_cast<uint32_t>(media_buffer->data_size());
-  DCHECK_EQ(data_size, buffer->data_size);
-  DCHECK_GT(data_size, 0u);
-
-  uint32_t bytes_read = data_size;
-  result = ReadDataRaw(consumer_handle_.get(), media_buffer->writable_data(),
-                       &bytes_read, MOJO_READ_DATA_FLAG_ALL_OR_NONE);
-  if (result != MOJO_RESULT_OK || bytes_read != data_size) {
-    DVLOG(1) << __FUNCTION__ << ": reading from pipe failed";
-    return nullptr;
-  }
+  uint32_t bytes_to_read =
+      base::checked_cast<uint32_t>(media_buffer->data_size());
+  DCHECK_GT(bytes_to_read, 0u);
+  uint32_t bytes_read = bytes_to_read;
+  CHECK_EQ(ReadDataRaw(consumer_handle_.get(), media_buffer->writable_data(),
+                       &bytes_read, MOJO_READ_DATA_FLAG_ALL_OR_NONE),
+           MOJO_RESULT_OK);
+  CHECK_EQ(bytes_to_read, bytes_read);
 
   return media_buffer;
 }
