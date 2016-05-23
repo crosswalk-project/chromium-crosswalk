@@ -142,7 +142,7 @@
 <translation id="1655229863189977773">设置磁盘缓存大小（字节）</translation>
 <translation id="166427968280387991">代理服务器</translation>
 <translation id="1675002386741412210">支持的环境：</translation>
-<translation id="1679420586049708690">用于自动登录的公开会话</translation>
+<translation id="1679420586049708690">用于自动登录的公用自助终端</translation>
 <translation id="1689963000958717134">允许将推送网络配置应用于安装了 <ph name="PRODUCT_OS_NAME" />的设备的所有用户。网络配置为 JSON 格式的字符串，具体定义如 <ph name="ONC_SPEC_URL" /> 中的开放网络配置格式所述。</translation>
 <translation id="1708496595873025510">对变体种子的提取设置限制条件</translation>
 <translation id="172374442286684480">允许所有网站设置本地数据</translation>
@@ -303,11 +303,11 @@
       设置此政策会替换默认值（3 小时）。此政策的有效值范围为 1800000（30 分钟）至 86400000（1 天）。任何超出此范围的值都会强制调整到相应范围内。
 
       如果未设置此政策，<ph name="PRODUCT_NAME" />就会使用默认值（3 小时）。</translation>
-<translation id="2372547058085956601">公开会话自动登录延迟。
+<translation id="2372547058085956601">公用自助终端自动登录延迟。
 
       如果未设置 |DeviceLocalAccountAutoLoginId| 政策，则此政策不会生效。否则：
 
-      如果设置了此政策，则只要用户停止活动的时间达到此政策指定的时长，系统就会自动登录由 |DeviceLocalAccountAutoLoginId| 政策指定的公开会话。
+      如果设置了此政策，则只要用户停止活动的时间达到此政策指定的时长，系统就会自动登录由 |DeviceLocalAccountAutoLoginId| 政策指定的公用自助终端。
 
       如果未设置此政策，则超时时间为 0 毫秒。
 
@@ -787,7 +787,7 @@
 
       每个列表条目都包含一个字典，其“extension-id”字段必须包含扩展程序 ID，而其“update-url”字段必须包含更新网址。</translation>
 <translation id="3891357445869647828">启用 JavaScript</translation>
-<translation id="3907986150060929099">为公开会话设置建议的语言区域</translation>
+<translation id="3907986150060929099">为公用自助终端设置建议的语言区域</translation>
 <translation id="391531815696899618">当此政策设为 True 时，在 <ph name="PRODUCT_OS_NAME" />的“文件”应用中停用 Google 云端硬盘同步功能。在这种情况下，系统不会将任何数据上传到 Google 云端硬盘。
 
           如果此政策未设置或设为 False，用户可以将文件传输到 Google 云端硬盘。</translation>
@@ -1153,9 +1153,9 @@
       该策略值应该以毫秒为单位。</translation>
 <translation id="5511702823008968136">启用书签栏</translation>
 <translation id="5512418063782665071">主页网址</translation>
-<translation id="5523812257194833591">延迟后的自动登录公开会话。
+<translation id="5523812257194833591">延迟后的自动登录公用自助终端。
 
-      如果设置了此政策，则用户未与登录屏幕互动的时间达到指定的时长后，将会自动登录指定的会话。此公开会话必须已配置（参阅 |DeviceLocalAccounts|）。
+      如果设置了此政策，则用户未与登录屏幕互动的时间达到指定的时长后，将会自动登录指定的会话。此公用自助终端必须已配置（参阅 |DeviceLocalAccounts|）。
 
       如果未设置此政策，则不会自动登录。</translation>
 <translation id="5535973522252703021">Kerberos 授权服务器白名单</translation>
@@ -1784,17 +1784,17 @@
 
           如果停用或不设置该设置，那么系统将不启用双重身份验证，并采用由用户定义 PIN 这一默认行为。</translation>
 <translation id="7750991880413385988">打开新标签页</translation>
-<translation id="7761526206824804472">为公开会话设置一个或多个建议的语言区域，以便用户从这些语言区域中轻松选择。
+<translation id="7761526206824804472">为公用自助终端设置一个或多个建议的语言区域，以便用户从这些语言区域中轻松选择。
 
-      用户可以先选择语言区域和键盘布局，然后再启动公开会话。默认情况下，系统会按字母顺序列出 <ph name="PRODUCT_OS_NAME" />支持的所有语言区域。您可以使用此政策将一些建议的语言区域移至列表顶部。
+      用户可以先选择语言区域和键盘布局，然后再启动公用自助终端。默认情况下，系统会按字母顺序列出 <ph name="PRODUCT_OS_NAME" />支持的所有语言区域。您可以使用此政策将一些建议的语言区域移至列表顶部。
 
       如果此政策未设置，系统将预先选择当前的界面语言区域。
 
       如果此政策已设置，建议的语言区域将移至列表顶部，并且会与所有其他语言区域醒目地区分开来。系统将按照在此政策中的显示顺序列出建议的语言区域，并且将预先选择第一个建议的语言区域。
 
-      如果有多个建议的语言区域，系统将假定用户希望从这些语言区域中选择（启动公开会话时，所选的语言区域和键盘布局将以醒目的方式显示）。否则，系统将假定大多数用户希望使用预先选择的语言区域（启动公开会话时，所选的语言区域和键盘布局将以不太醒目的方式显示）。
+      如果有多个建议的语言区域，系统将假定用户希望从这些语言区域中选择（启动公用自助终端时，所选的语言区域和键盘布局将以醒目的方式显示）。否则，系统将假定大多数用户希望使用预先选择的语言区域（启动公用自助终端时，所选的语言区域和键盘布局将以不太醒目的方式显示）。
 
-      如果您设置了此政策并启用了自动登录功能（请参见 |DeviceLocalAccountAutoLoginId| 和 |DeviceLocalAccountAutoLoginDelay| 政策），自动启动的公开会话将使用第一个建议的语言区域，并使用与该语言区域匹配的最常用键盘布局。
+      如果您设置了此政策并启用了自动登录功能（请参见 |DeviceLocalAccountAutoLoginId| 和 |DeviceLocalAccountAutoLoginDelay| 政策），自动启动的公用自助终端将使用第一个建议的语言区域，并使用与该语言区域匹配的最常用键盘布局。
 
       预先选择的键盘布局始终是与预先选择的语言区域匹配的最常用布局。
 
@@ -2139,7 +2139,7 @@
 <translation id="8965758116018152083">如果此政策设为空字符串或未配置，<ph name="PRODUCT_OS_NAME" />将不会在用户登录期间显示自动填充选项。
       如果此政策设为表示域名的字符串，<ph name="PRODUCT_OS_NAME" />将在用户登录期间显示自动填充选项，以便用户只输入自己的用户名，而无需输入网域扩展名。用户可以覆盖此网域扩展名。</translation>
 <translation id="8970205333161758602">阻止显示 <ph name="PRODUCT_FRAME_NAME" />停止支持的提示</translation>
-<translation id="8971221018777092728">公开会话自动登录计时器</translation>
+<translation id="8971221018777092728">公用自助终端自动登录计时器</translation>
 <translation id="8976248126101463034">允许针对远程访问主机进行 gnubby 身份验证</translation>
 <translation id="8992176907758534924">不允许任何网站显示图片</translation>
 <translation id="9035964157729712237">要从黑名单中排除的扩展程序 ID</translation>

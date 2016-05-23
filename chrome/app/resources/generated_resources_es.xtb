@@ -927,7 +927,7 @@ Una vez que hayas creado un nuevo usuario supervisado, podrás administrar su co
 <translation id="2344028582131185878">Descargas automáticas</translation>
 <translation id="2344262275956902282">Utilizar las teclas "-" y "=" para mostrar la lista de caracteres</translation>
 <translation id="2347476388323331511">No se ha podido realizar la sincronización.</translation>
-<translation id="2347991999864119449">Permitirme decidir cuándo ejecutar contenido de plugins</translation>
+<translation id="2347991999864119449">Permitirme decidir cuándo ejecutar contenido de complementos</translation>
 <translation id="2348165084656290171">Seleccionar una pestaña o toda la pantalla para compartir audio</translation>
 <translation id="2350182423316644347">Iniciando aplicación...</translation>
 <translation id="2350796302381711542">¿Quieres permitir que <ph name="HANDLER_HOSTNAME" /> en lugar de <ph name="REPLACED_HANDLER_TITLE" /> abra todos los enlaces de <ph name="PROTOCOL" />?</translation>
@@ -1717,7 +1717,6 @@ Si no cambias la configuración predeterminada, <ph name="USER_DISPLAY_NAME" /> 
 <translation id="3392020134425442298">Recuperar archivo malicioso</translation>
 <translation id="3394150261239285340"><ph name="HOST" /> quiere utilizar tu cámara y tu micrófono.</translation>
 <translation id="3394279550557729862">Habilita la posibilidad de utilizar las notificaciones nativas y el centro de notificaciones en las plataformas donde estén disponibles.</translation>
-<translation id="3394862755749546286">Inhabilita el flujo unificado de contenidos multimedia (Android y ordenador) en Android.</translation>
 <translation id="3396331542604645348">La impresora seleccionada no se encuentra disponible o no está instalada correctamente. Comprueba tu impresora o prueba a seleccionar otra.</translation>
 <translation id="3399597614303179694">Teclado macedonio</translation>
 <translation id="3401130144947259741">Si se habilita, los eventos de rastreo se exportarán al Seguimiento de eventos para Windows (ETW) y se podrán capturar con herramientas como UIForETW o Xperf.</translation>
@@ -2084,7 +2083,7 @@ Si no cambias la configuración predeterminada, <ph name="USER_DISPLAY_NAME" /> 
 <translation id="3888118750782905860">Administración de consumidores</translation>
 <translation id="3893536212201235195">Leer y cambiar tu configuración de accesibilidad</translation>
 <translation id="3893630138897523026">ChromeVox (mensajes de voz)</translation>
-<translation id="3893977120523121937">Ejecutar todo el contenido del complemento</translation>
+<translation id="3893977120523121937">Ejecutar el contenido de todos los complementos</translation>
 <translation id="389589731200570180">Compartir con invitados</translation>
 <translation id="3897092660631435901">Menú</translation>
 <translation id="3898521660513055167">Estado del token</translation>
@@ -3971,7 +3970,7 @@ Es posible que algunas funciones no estén disponibles. Comprueba si el perfil e
 <translation id="6810613314571580006">Permite iniciar sesión automáticamente en sitios web con credenciales almacenadas. Si esta función está inhabilitada, se solicitará la confirmación cada vez que se intente iniciar sesión en un sitio web.</translation>
 <translation id="6812349420832218321">No se puede ejecutar <ph name="PRODUCT_NAME" /> como raíz.</translation>
 <translation id="6812841287760418429">Mantener cambios</translation>
-<translation id="6814124696888326520">Para cambiar los métodos de introducción de forma más fácil y acceder a otras funciones: entrada de voz, escritura táctil y emoji.</translation>
+<translation id="6814124696888326520">Para cambiar los métodos de introducción de forma más fácil y acceder a otras funciones: entrada de voz, escritura a mano y emoji.</translation>
 <translation id="6815206662964743929">Cambiar de usuario</translation>
 <translation id="6815353853907306610"><ph name="IDS_SHORT_PRODUCT_NAME" /> ha detectado que posiblemente la configuración del navegador haya cambiado sin tu conocimiento. ¿Quieres volver a establecer la configuración predeterminada original?</translation>
 <translation id="6815551780062710681">editar</translation>
@@ -4008,6 +4007,7 @@ Es posible que algunas funciones no estén disponibles. Comprueba si el perfil e
 <translation id="6860427144121307915">Abrir en una pestaña</translation>
 <translation id="6862635236584086457">Se realiza una copia de seguridad online de forma automática de todos los archivos guardados en esta carpeta .</translation>
 <translation id="6865313869410766144">Datos de Autocompletar formulario</translation>
+<translation id="6865319096921627602">Habilitar el flujo unificado de contenidos multimedia en Android.</translation>
 <translation id="6867678160199975333">Cambiar a <ph name="NEW_PROFILE_NAME" /></translation>
 <translation id="6869402422344886127">Casilla de verificación seleccionada</translation>
 <translation id="6870130893560916279">Teclado ucraniano</translation>
@@ -4705,7 +4705,7 @@ Es posible que algunas funciones no estén disponibles. Comprueba si el perfil e
 <translation id="7903984238293908205">Katakana</translation>
 <translation id="7904094684485781019">El administrador de esta cuenta ha inhabilitado el inicio de sesión múltiple.</translation>
 <translation id="7904402721046740204">Autenticando</translation>
-<translation id="7908378463497120834">Lo sentimos, pero al menos una partición del dispositivo de almacenamiento externo no ha podido activar.</translation>
+<translation id="7908378463497120834">Lo sentimos, pero al menos una partición del dispositivo de almacenamiento externo no se ha podido montar.</translation>
 <translation id="7909969815743704077">Se ha descargado en modo incógnito</translation>
 <translation id="7910768399700579500">&amp;Nueva carpeta</translation>
 <translation id="7912145082919339430">Una vez se haya instalado <ph name="PLUGIN_NAME" />, vuelve a cargar la página para activarlo.</translation>
@@ -5266,6 +5266,7 @@ Calculando el tiempo de carga completa</translation>
 <translation id="8713979477561846077">Habilita la autocorrección de teclado físico para el teclado de Estados Unidos, lo que permite mostrar sugerencias al escribir en el teclado físico.</translation>
 <translation id="871476437400413057">Contraseñas guardadas de Google</translation>
 <translation id="8714838604780058252">Gráficos de fondo</translation>
+<translation id="8716065142695381595">Habilita el flujo unificado de contenidos multimedia (Android y ordenador) en Android.</translation>
 <translation id="8722421161699219904">Teclado internacional de EE. UU.</translation>
 <translation id="872451400847464257">Editar motor de búsqueda</translation>
 <translation id="8724859055372736596">&amp;Mostrar en carpeta</translation>
@@ -5513,7 +5514,6 @@ Calculando el tiempo de carga completa</translation>
 <translation id="9074739597929991885">Bluetooth</translation>
 <translation id="9074836595010225693">Ratón USB conectado</translation>
 <translation id="9076523132036239772">Tu dirección de correo electrónico y tu contraseña no se han podido verificar. Intenta conectarte primero a una red.</translation>
-<translation id="9077132661879924646">Inhabilitar el flujo unificado de contenidos multimedia en Android.</translation>
 <translation id="907841381057066561">Se ha producido un error al crear un archivo .zip temporal durante la compresión.</translation>
 <translation id="9083147368019416919">Error al anular el registro</translation>
 <translation id="9084064520949870008">Abrir como ventana</translation>
