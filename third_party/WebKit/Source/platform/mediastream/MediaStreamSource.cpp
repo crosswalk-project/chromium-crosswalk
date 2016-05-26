@@ -51,7 +51,7 @@ MediaStreamSource::MediaStreamSource(const String& id, StreamType type, const St
 
 void MediaStreamSource::dispose()
 {
-    m_extraData.reset();
+    m_extraData.clear();
 }
 
 void MediaStreamSource::setReadyState(ReadyState readyState)
