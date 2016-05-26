@@ -148,7 +148,7 @@ void AudioDestinationNode::devicePosition(blink::AudioTimestamp& result) const {
     WebAudioDevice::StreamPosition devicePosition = audioDestinationHandler().devicePosition();
     double contextTime = devicePosition.frames / static_cast<double>(audioDestinationHandler().sampleRate());
     result.setContextTime(contextTime);
-    double performanceTime = devicePosition.seconds ? toPerformanceTime(context()->executionContext(), devicePosition.seconds)
+    double performanceTime = devicePosition.seconds ? toPerformanceTime(context()->getExecutionContext(), devicePosition.seconds)
                                                     : 0.0;
     result.setPerformanceTime(performanceTime);
 }
