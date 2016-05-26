@@ -269,7 +269,7 @@ void InspectorHeapProfilerAgent::startTrackingHeapXDK(ErrorString* error, const 
 
     m_v8HeapProfilerAgent->startTrackingHeapXDK(error, depth, sav, retentions);
     float savTimer = (float) sav.fromMaybe(1000) / 1000.;
-    m_heapXDKUpdateTask = adoptPtr(new HeapXDKUpdateTask(m_v8HeapProfilerAgent.get()));
+    m_heapXDKUpdateTask = adoptPtr(new HeapXDKUpdateTask(m_v8HeapProfilerAgent));
     m_heapXDKUpdateTask->startTimer(savTimer);
 }
 
