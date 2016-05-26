@@ -60,7 +60,7 @@ bool WebCLHTMLUtil::extractDataFromImage(HTMLImageElement* image, Vector<uint8_t
         return false;
     }
 
-    if (!packImageData(image->cachedImage()->image(), WebGLImageConversion::HtmlDomImage, image->width(), image->height(), data)) {
+    if (!packImageData(image->cachedImage()->getImage(), WebGLImageConversion::HtmlDomImage, image->width(), image->height(), data)) {
         es.throwWebCLException(WebCLException::InvalidHostPtr, WebCLException::invalidHostPTRMessage);
         return false;
     }
