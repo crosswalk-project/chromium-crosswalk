@@ -1451,8 +1451,8 @@ int IOThread::NetworkSessionConfigurator::GetQuicSocketReceiveBufferSize(
 // static
 bool IOThread::NetworkSessionConfigurator::ShouldQuicDelayTcpRace(
     const VariationParameters& quic_trial_params) {
-  return base::LowerCaseEqualsASCII(
-      GetVariationParam(quic_trial_params, "delay_tcp_race"), "true");
+  return !base::LowerCaseEqualsASCII(
+      GetVariationParam(quic_trial_params, "disable_delay_tcp_race"), "true");
 }
 
 // static
