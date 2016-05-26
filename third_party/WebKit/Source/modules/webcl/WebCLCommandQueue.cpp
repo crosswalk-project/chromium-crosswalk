@@ -1264,7 +1264,7 @@ void CL_CALLBACK WebCLCommandQueue::callbackProxy(cl_event event, cl_int type, v
     holder->type = type;
 
     if (!isMainThread()) {
-        Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCLCommandQueue::callbackProxyOnMainThread, holder.release()));
+        Platform::current()->mainThread()->getWebTaskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCLCommandQueue::callbackProxyOnMainThread, holder.release()));
         return;
     }
 

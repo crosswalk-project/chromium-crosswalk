@@ -201,7 +201,7 @@ void CL_CALLBACK WebCLEvent::callbackProxy(cl_event event, cl_int type, void* us
     holder->type2 = type;
 
     if (!isMainThread()) {
-        Platform::current()->mainThread()->taskRunner()->postTask(
+        Platform::current()->mainThread()->getWebTaskRunner()->postTask(
             BLINK_FROM_HERE, threadSafeBind(&WebCLEvent::callbackProxyOnMainThread, holder.release()));
         return;
     }

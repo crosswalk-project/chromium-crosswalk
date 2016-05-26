@@ -25,7 +25,6 @@
 #include "public/platform/Platform.h"
 #include "public/platform/WebTaskRunner.h"
 #include "public/platform/WebTraceLocation.h"
-#include "wtf/MainThread.h"
 
 namespace blink {
 
@@ -298,7 +297,7 @@ void CL_CALLBACK WebCL::callbackProxy(cl_event event, cl_int type, void* userDat
     holder->type = type;
 
     if (!isMainThread()) {
-        Platform::current()->mainThread()->taskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCL::callbackProxyOnMainThread, holder.release()));
+        Platform::current()->mainThread()->getWebTaskRunner()->postTask(BLINK_FROM_HERE, threadSafeBind(&WebCL::callbackProxyOnMainThread, holder.release()));
         return;
     }
 
