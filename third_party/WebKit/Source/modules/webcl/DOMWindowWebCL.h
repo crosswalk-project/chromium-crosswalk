@@ -14,7 +14,7 @@ class DOMWindow;
 class LocalDOMWindow;
 class WebCL;
 
-class DOMWindowWebCL final : public GarbageCollectedFinalized<DOMWindowWebCL>, public HeapSupplement<LocalDOMWindow>, public DOMWindowProperty {
+class DOMWindowWebCL final : public GarbageCollectedFinalized<DOMWindowWebCL>, public Supplement<LocalDOMWindow>, public DOMWindowProperty {
     USING_GARBAGE_COLLECTED_MIXIN(DOMWindowWebCL);
 public:
     static DOMWindowWebCL& from(LocalDOMWindow&);

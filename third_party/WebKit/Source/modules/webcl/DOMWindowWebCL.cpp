@@ -20,13 +20,13 @@ DOMWindowWebCL::DOMWindowWebCL(LocalDOMWindow& window)
 DEFINE_TRACE(DOMWindowWebCL)
 {
     visitor->trace(m_window);
-    HeapSupplement<LocalDOMWindow>::trace(visitor);
+    Supplement<LocalDOMWindow>::trace(visitor);
     DOMWindowProperty::trace(visitor);
 }
 
 DOMWindowWebCL& DOMWindowWebCL::from(LocalDOMWindow& window)
 {
-    DOMWindowWebCL* supplement = static_cast<DOMWindowWebCL*>(HeapSupplement<LocalDOMWindow>::from(window, supplementName()));
+    DOMWindowWebCL* supplement = static_cast<DOMWindowWebCL*>(Supplement<LocalDOMWindow>::from(window, supplementName()));
     if (!supplement) {
         supplement = new DOMWindowWebCL(window);
         provideTo(window, supplementName(), supplement);
