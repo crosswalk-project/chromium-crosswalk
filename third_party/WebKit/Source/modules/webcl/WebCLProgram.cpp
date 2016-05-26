@@ -328,19 +328,19 @@ void WebCLProgram::build(const Vector<RefPtr<WebCLDevice>>& devices, const Strin
     }
 
     if (buildOptions.length() > 0) {
-        static AtomicString& buildOptionDashD = *new AtomicString("-D", AtomicString::ConstructFromLiteral);
+        static AtomicString& buildOptionDashD = *new AtomicString("-D");
         static HashSet<AtomicString>& webCLSupportedBuildOptions = *new HashSet<AtomicString>();
         if (webCLSupportedBuildOptions.isEmpty()) {
-            webCLSupportedBuildOptions.add(AtomicString("-cl-opt-disable", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-single-precision-constant", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-denorms-are-zero", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-mad-enable", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-no-signed-zeros", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-unsafe-math-optimizations", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-finite-math-only", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-cl-fast-relaxed-math", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-w", AtomicString::ConstructFromLiteral));
-            webCLSupportedBuildOptions.add(AtomicString("-Werror", AtomicString::ConstructFromLiteral));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-opt-disable"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-single-precision-constant"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-denorms-are-zero"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-mad-enable"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-no-signed-zeros"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-unsafe-math-optimizations"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-finite-math-only"));
+            webCLSupportedBuildOptions.add(AtomicString("-cl-fast-relaxed-math"));
+            webCLSupportedBuildOptions.add(AtomicString("-w"));
+            webCLSupportedBuildOptions.add(AtomicString("-Werror"));
         }
 
         Vector<String> webCLBuildOptionsVector;

@@ -124,7 +124,7 @@ void WebCLKernelArgInfoProvider::ensureInfo()
 static void prependUnsignedIfNeeded(Vector<String>& declarationStrVector, String& type)
 {
     for (size_t i = 0; i < declarationStrVector.size(); i++) {
-        static AtomicString& Unsigned = *new AtomicString("unsigned", AtomicString::ConstructFromLiteral);
+        static AtomicString& Unsigned = *new AtomicString("unsigned");
         if (declarationStrVector[i] == Unsigned) {
             type = "u" + type;
             declarationStrVector.remove(i);
@@ -148,7 +148,7 @@ void WebCLKernelArgInfoProvider::parseAndAppendDeclaration(const String& argumen
     const String& addressQualifier = extractAddressQualifier(declarationStrVector);
     String type = extractType(declarationStrVector);
 
-    static AtomicString& image2dLiteral = *new AtomicString("image2d_t", AtomicString::ConstructFromLiteral);
+    static AtomicString& image2dLiteral = *new AtomicString("image2d_t");
     const String& accessQualifier = (type == image2dLiteral) ? extractAccessQualifier(declarationStrVector) : "none";
     prependUnsignedIfNeeded(declarationStrVector, type);
 
@@ -157,17 +157,17 @@ void WebCLKernelArgInfoProvider::parseAndAppendDeclaration(const String& argumen
 
 String WebCLKernelArgInfoProvider::extractAddressQualifier(Vector<String>& declarationStrVector)
 {
-    static AtomicString* privateQualifierUnderlined = new AtomicString("__private", AtomicString::ConstructFromLiteral);
-    static AtomicString* privateQualifier = new AtomicString("private", AtomicString::ConstructFromLiteral);
+    static AtomicString* privateQualifierUnderlined = new AtomicString("__private");
+    static AtomicString* privateQualifier = new AtomicString("private");
 
-    static AtomicString* globalQualifierUnderlined = new AtomicString("__global", AtomicString::ConstructFromLiteral);
-    static AtomicString* globalQualifier = new AtomicString("global", AtomicString::ConstructFromLiteral);
+    static AtomicString* globalQualifierUnderlined = new AtomicString("__global");
+    static AtomicString* globalQualifier = new AtomicString("global");
 
-    static AtomicString* constantQualifierUnderlined = new AtomicString("__constant", AtomicString::ConstructFromLiteral);
-    static AtomicString* constantQualifier = new AtomicString("constant", AtomicString::ConstructFromLiteral);
+    static AtomicString* constantQualifierUnderlined = new AtomicString("__constant");
+    static AtomicString* constantQualifier = new AtomicString("constant");
 
-    static AtomicString* localQualifierUnderlined = new AtomicString("__local", AtomicString::ConstructFromLiteral);
-    static AtomicString* localQualifier = new AtomicString("local", AtomicString::ConstructFromLiteral);
+    static AtomicString* localQualifierUnderlined = new AtomicString("__local");
+    static AtomicString* localQualifier = new AtomicString("local");
 
     String address = *privateQualifier;
     size_t i = 0;
@@ -201,14 +201,14 @@ String WebCLKernelArgInfoProvider::extractAddressQualifier(Vector<String>& decla
 
 String WebCLKernelArgInfoProvider::extractAccessQualifier(Vector<String>& declarationStrVector)
 {
-    static AtomicString* readOnlyQualifierUnderlined = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
-    static AtomicString* readOnlyQualifier = new AtomicString("read_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* readOnlyQualifierUnderlined = new AtomicString("__read_only");
+    static AtomicString* readOnlyQualifier = new AtomicString("read_only");
 
-    static AtomicString* writeOnlyQualifierUnderlined = new AtomicString("__read_only", AtomicString::ConstructFromLiteral);
-    static AtomicString* writeOnlyQualifier = new AtomicString("write_only", AtomicString::ConstructFromLiteral);
+    static AtomicString* writeOnlyQualifierUnderlined = new AtomicString("__read_only");
+    static AtomicString* writeOnlyQualifier = new AtomicString("write_only");
 
-    static AtomicString* readWriteQualifierUnderlined = new AtomicString("__read_write", AtomicString::ConstructFromLiteral);
-    static AtomicString* readWriteQualifier = new AtomicString("read_write", AtomicString::ConstructFromLiteral);
+    static AtomicString* readWriteQualifierUnderlined = new AtomicString("__read_write");
+    static AtomicString* readWriteQualifier = new AtomicString("read_write");
 
     String access = *readOnlyQualifier;
     size_t i = 0;
