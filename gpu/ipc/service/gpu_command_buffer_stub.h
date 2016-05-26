@@ -148,8 +148,7 @@ class GPU_EXPORT GpuCommandBufferStub
 
   // Message handlers:
   void OnSetGetBuffer(int32_t shm_id, IPC::Message* reply_message);
-  void OnTakeFrontBuffer(const Mailbox& mailbox);
-  void OnReturnFrontBuffer(const Mailbox& mailbox, bool is_lost);
+  void OnProduceFrontBuffer(const Mailbox& mailbox);
   void OnGetState(IPC::Message* reply_message);
   void OnWaitForTokenInRange(int32_t start,
                              int32_t end,
@@ -168,7 +167,6 @@ class GPU_EXPORT GpuCommandBufferStub
 
   void OnEnsureBackbuffer();
 
-  void OnWaitSyncToken(const SyncToken& sync_token);
   void OnSignalSyncToken(const SyncToken& sync_token, uint32_t id);
   void OnSignalAck(uint32_t id);
   void OnSignalQuery(uint32_t query, uint32_t id);
