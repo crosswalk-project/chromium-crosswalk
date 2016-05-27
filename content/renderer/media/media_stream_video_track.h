@@ -84,10 +84,8 @@ class CONTENT_EXPORT MediaStreamVideoTrack : public MediaStreamTrack {
 
   const blink::WebMediaConstraints constraints_;
 
-  // Weak ref to the source this tracks is connected to.  |source_| is owned
-  // by the blink::WebMediaStreamSource and is guaranteed to outlive the
-  // track.
-  MediaStreamVideoSource* source_;
+  // Weak ref to the source this tracks is connected to.
+  base::WeakPtr<MediaStreamVideoSource> source_;
 
   DISALLOW_COPY_AND_ASSIGN(MediaStreamVideoTrack);
 };
