@@ -56,11 +56,39 @@ public class SyncTest extends SyncTestBase {
 
         // Signing out should disable sync.
         signOut();
-        SyncTestUtil.verifySyncIsSignedOut(mContext);
+        SyncTestUtil.verifySyncIsSignedOut();
 
         // Signing back in should re-enable sync.
         signIn(account);
         SyncTestUtil.verifySyncIsActiveForAccount(mContext, account);
+    }
+
+    @LargeTest
+    @Feature({"Sync"})
+    public void testStopAndClear() throws InterruptedException {
+        setUpTestAccountAndSignInToSync();
+        CriteriaHelper.pollUiThread(
+                new Criteria("Timed out checking that isSignedInOnNative() == true") {
+                    @Override
+                    public boolean isSatisfied() {
+                        return SigninManager.get(mContext).isSignedInOnNative();
+                    }
+                },
+                SyncTestUtil.TIMEOUT_MS, SyncTestUtil.INTERVAL_MS);
+
+        clearServerData();
+
+        // Clearing server data should turn off sync and sign out of chrome.
+        SyncTestUtil.verifySyncIsSignedOut();
+        assertFalse(ChromeSigninController.get(mContext).isSignedIn());
+        CriteriaHelper.pollUiThread(
+                new Criteria("Timed out checking that isSignedInOnNative() == false") {
+                    @Override
+                    public boolean isSatisfied() {
+                        return !SigninManager.get(mContext).isSignedInOnNative();
+                    }
+                },
+                SyncTestUtil.TIMEOUT_MS, SyncTestUtil.INTERVAL_MS);
     }
 
     /*
