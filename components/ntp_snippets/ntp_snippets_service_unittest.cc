@@ -939,7 +939,7 @@ TEST_F(NTPSnippetsServiceWithSyncTest, HistorySyncStateChanges) {
   // The service should notify observers it's been disabled and clear the
   // snippets instead of pulling new ones.
   EXPECT_CALL(mock_observer, NTPSnippetsServiceDisabled());
-  SetUpFetchResponse(GetTestJson({GetSnippet()}));
+  SetUpFetchResponse(GetTestJson());
   service()->OnStateChanged();
   base::RunLoop().RunUntilIdle();
   EXPECT_THAT(service()->snippets(), IsEmpty()); // No fetch should be made.
@@ -947,7 +947,7 @@ TEST_F(NTPSnippetsServiceWithSyncTest, HistorySyncStateChanges) {
   // Simulate user sign in.
   ResetSyncServiceMock();
   // The service should be ready again and load snippets.
-  SetUpFetchResponse(GetTestJson({GetSnippet()}));
+  SetUpFetchResponse(GetTestJson());
   service()->OnStateChanged();
   base::RunLoop().RunUntilIdle();
   EXPECT_FALSE(service()->snippets().empty());
