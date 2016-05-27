@@ -148,8 +148,8 @@ void WebBlobRegistryImpl::addDataToStream(const WebURL& url,
     size_t shared_memory_size =
         std::min(length, storage::kBlobStorageMaxSharedMemoryBytes);
     std::unique_ptr<base::SharedMemory> shared_memory(
-        ChildThreadImpl::AllocateSharedMemory(shared_memory_size,
-                                              sender_.get()));
+        ChildThreadImpl::AllocateSharedMemory(shared_memory_size, sender_.get(),
+                                              nullptr));
     CHECK(shared_memory.get());
     if (!shared_memory->Map(shared_memory_size))
       CHECK(false);
