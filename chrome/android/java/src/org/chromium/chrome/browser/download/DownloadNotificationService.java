@@ -17,6 +17,7 @@ import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
+import android.text.TextUtils;
 
 import org.chromium.base.Log;
 import org.chromium.base.VisibleForTesting;
@@ -242,6 +243,14 @@ public class DownloadNotificationService extends Service {
      * @param fileName GUID of the download.
      */
     public void notifyDownloadFailed(int notificationId, String downloadGuid, String fileName) {
+        // If the download is not in history db, fileName could be empty. Get it from
+        // SharedPreferences.
+        if (TextUtils.isEmpty(fileName)) {
+            DownloadSharedPreferenceEntry entry = getDownloadSharedPreferenceEntry(downloadGuid);
+            if (entry == null) return;
+            fileName = entry.fileName;
+        }
+
         NotificationCompat.Builder builder = buildNotification(
                 android.R.drawable.stat_sys_download_done, fileName,
                 mContext.getResources().getString(R.string.download_notification_failed));
