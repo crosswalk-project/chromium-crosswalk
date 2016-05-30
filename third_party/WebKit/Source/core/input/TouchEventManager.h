@@ -22,7 +22,7 @@ class PointerEventWithTarget;
 
 // This class takes care of dispatching all touch events and
 // maintaining related states.
-class CORE_EXPORT TouchEventManager {
+class CORE_EXPORT TouchEventManager: public UserGestureUtilizedCallback {
     DISALLOW_NEW();
 public:
     class TouchInfo {
@@ -67,8 +67,13 @@ public:
     // Returns whether there is any touch on the screen.
     bool isAnyTouchActive() const;
 
-private:
+    // Indicate that a touch scroll has started.
+    void setTouchScrollStarted() { m_touchScrollStarted = true; }
 
+    // Invoked when a UserGestureIndicator corresponding to a touch event is utilized.
+    void userGestureUtilized() override;
+
+private:
     void updateTargetAndRegionMapsForTouchStarts(HeapVector<TouchInfo>&);
     void setAllPropertiesOfTouchInfos(HeapVector<TouchInfo>&);
 
@@ -96,7 +101,10 @@ private:
     bool m_touchPressed;
     // True if waiting on first touch move after a touch start.
     bool m_waitingForFirstTouchMove;
-
+    // True if a touch is active but scrolling/zooming has started.
+    bool m_touchScrollStarted;
+    // The touch event currently being handled or NoType if none.
+    PlatformEvent::EventType m_currentEvent;
 };
 
 } // namespace blink

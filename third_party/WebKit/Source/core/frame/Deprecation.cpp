@@ -395,6 +395,15 @@ String Deprecation::deprecationMessage(UseCounter::Feature feature)
     case UseCounter::UntrustedEventDefaultHandled:
         return String::format("A DOM event generated from JavaScript has triggered a default action inside the browser. This behavior is non-standard and will be removed in %s. See https://www.chromestatus.com/features/5718803933560832 for more details.", milestoneString(53));
 
+    case UseCounter::TouchStartUserGestureUtilized:
+        return willBeRemoved("Performing operations that require explicit user interaction on touchstart events", 54, "5649871251963904");
+
+    case UseCounter::TouchMoveUserGestureUtilized:
+        return willBeRemoved("Performing operations that require explicit user interaction on touchmove events", 54, "5649871251963904");
+
+    case UseCounter::TouchEndDuringScrollUserGestureUtilized:
+        return willBeRemoved("Performing operations that require explicit user interaction on touchend events that occur as part of a scroll", 54, "5649871251963904");
+
     // Features that aren't deprecated don't have a deprecation message.
     default:
         return String();
