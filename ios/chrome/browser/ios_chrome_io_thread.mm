@@ -752,12 +752,8 @@ void IOSChromeIOThread::ConfigureQuicGlobals(
   bool enable_quic = ShouldEnableQuic(quic_trial_group);
   globals->enable_quic.set(enable_quic);
 
-  if (ShouldQuicEnableAlternativeServicesForDifferentHost(quic_trial_params)) {
-    globals->enable_alternative_service_with_different_host.set(true);
-    globals->parse_alternative_services.set(true);
-  } else {
-    globals->enable_alternative_service_with_different_host.set(false);
-  }
+  globals->enable_alternative_service_with_different_host.set(
+      ShouldQuicEnableAlternativeServicesForDifferentHost(quic_trial_params));
 
   if (enable_quic) {
     globals->quic_always_require_handshake_confirmation.set(
@@ -887,15 +883,10 @@ bool IOSChromeIOThread::ShouldQuicPreferAes(
 
 bool IOSChromeIOThread::ShouldQuicEnableAlternativeServicesForDifferentHost(
     const VariationParameters& quic_trial_params) {
-  // TODO(bnc): Remove inaccurately named "use_alternative_services" parameter.
-  return base::LowerCaseEqualsASCII(
-             GetVariationParam(quic_trial_params, "use_alternative_services"),
-             "true") ||
-         base::LowerCaseEqualsASCII(
-             GetVariationParam(
-                 quic_trial_params,
-                 "enable_alternative_service_with_different_host"),
-             "true");
+  return !base::LowerCaseEqualsASCII(
+      GetVariationParam(quic_trial_params,
+                        "enable_alternative_service_with_different_host"),
+      "false");
 }
 
 int IOSChromeIOThread::GetQuicMaxNumberOfLossyConnections(

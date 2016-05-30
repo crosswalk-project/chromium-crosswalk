@@ -514,9 +514,6 @@ const char kEnableQuicPortSelection[]       = "enable-quic-port-selection";
 const char kEnableWebRtcEventLoggingFromExtension[] =
     "enable-webrtc-event-logging-from-extension";
 
-// Enables support for HTTP alternative services.
-const char kEnableAlternativeServices[] = "enable-alternative-services";
-
 // Enables using bubbles for session restore request instead of infobars.
 const char kEnableSessionCrashedBubble[] = "enable-session-crashed-bubble";
 
