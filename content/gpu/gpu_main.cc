@@ -85,6 +85,10 @@
 
 #if defined(CYGPROFILE_INSTRUMENTATION)
 const int kGpuTimeout = 30000;
+#elif defined(OS_WIN)
+// Use a slightly longer timeout on Windows due to prevalence of slow and
+// infected machines.
+const int kGpuTimeout = 15000;
 #else
 const int kGpuTimeout = 10000;
 #endif
