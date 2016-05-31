@@ -1354,6 +1354,9 @@ CellSpan LayoutTableSection::dirtiedRows(const LayoutRect& damageRect) const
     if (m_forceSlowPaintPathWithOverflowingCell)
         return fullTableRowSpan();
 
+    if (!m_grid.size())
+        return CellSpan(0, 0);
+
     CellSpan coveredRows = spannedRows(damageRect);
 
     // To issue paint invalidations for the border we might need to paint invalidate the first
@@ -1377,6 +1380,7 @@ CellSpan LayoutTableSection::dirtiedEffectiveColumns(const LayoutRect& damageRec
     if (m_forceSlowPaintPathWithOverflowingCell)
         return fullTableEffectiveColumnSpan();
 
+    RELEASE_ASSERT(table()->numEffectiveColumns());
     CellSpan coveredColumns = spannedEffectiveColumns(damageRect);
 
     const Vector<int>& columnPos = table()->effectiveColumnPositions();
