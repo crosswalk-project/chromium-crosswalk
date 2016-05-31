@@ -53,6 +53,7 @@
 <translation id="2673087257647337101">即将更新到最新版本！重新启动 Chromium 以完成更新。</translation>
 <translation id="2685838254101182273">Chromium 已停止更新，并且不再支持您的操作系统版本。</translation>
 <translation id="2705212601509139398">此网站使用的 Chromium 内嵌框架插件即将不受支持。请卸载该插件，然后下载一款兼容的浏览器。</translation>
+<translation id="2711502716910134313">Chromium 标签页</translation>
 <translation id="2770231113462710648">将默认浏览器更改为：</translation>
 <translation id="2801146392936645542"><ph name="FILE_NAME" /> 是恶意文件，Chromium 已将其拦截。</translation>
 <translation id="2847479871509788944">从Chromium中移除…</translation>
@@ -179,6 +180,12 @@ Chromium 无法恢复您的设置。</translation>
 <translation id="7337881442233988129">Chromium</translation>
 <translation id="7339898014177206373">打开新的窗口</translation>
 <translation id="734373864078049451">您的上网记录、书签和其他Chromium内容都保存在此处。</translation>
+<translation id="7344413941077984497">要设置“<ph name="NEW_PROFILE_NAME" />”可以浏览哪些网站，请前往 <ph name="BEGIN_LINK_1" /><ph name="DISPLAY_LINK" /><ph name="END_LINK_1" /> 指定相应限制和设置。如果您未更改默认设置，“<ph name="NEW_PROFILE_NAME" />”将可以浏览网络上的所有网站。
+
+要禁止“<ph name="NEW_PROFILE_NAME" />”访问您的帐户，请务必在不使用 Chromium 时锁定您的个人资料。为此，请点击您的个人资料名称（位于浏览器的右上角），然后选择“退出并启用 childlock 功能”。
+<ph name="BEGIN_LINK_2" />了解详情<ph name="END_LINK_2" />
+
+有关详细说明，请查看 <ph name="ACCOUNT_EMAIL" /> 中的电子邮件。</translation>
 <translation id="7419987137528340081">如果您更倾向于单独保存您现有的 Chromium 数据，可以为 <ph name="USER_NAME" /> 创建一个新的 Chromium 用户。</translation>
 <translation id="7421823331379285070">您需要在 Windows XP 或更高版本的操作系统中运行 Chromium，否则可能无法正常使用某些功能。</translation>
 <translation id="7463979740390522693">Chromium - 通知（<ph name="QUANTITY" />条未读）</translation>
