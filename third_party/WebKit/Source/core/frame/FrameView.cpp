@@ -164,6 +164,7 @@ FrameView::FrameView(LocalFrame* frame)
     , m_isUpdatingAllLifecyclePhases(false)
     , m_scrollAnchor(this)
     , m_needsScrollbarsUpdate(false)
+    , m_suppressAdjustViewSize(false)
 {
     ASSERT(m_frame);
     init();
@@ -534,6 +535,9 @@ void FrameView::setContentsSize(const IntSize& size)
 
 void FrameView::adjustViewSize()
 {
+    if (m_suppressAdjustViewSize)
+        return;
+
     LayoutViewItem layoutViewItem = LayoutViewItem(this->layoutView());
     if (layoutViewItem.isNull())
         return;
@@ -554,6 +558,15 @@ void FrameView::adjustViewSize()
     }
 
     setContentsSize(size);
+}
+
+void FrameView::adjustViewSizeAndLayout()
+{
+    adjustViewSize();
+    if (needsLayout()) {
+        TemporaryChange<bool> suppressAdjustViewSize(m_suppressAdjustViewSize, true);
+        layout();
+    }
 }
 
 void FrameView::calculateScrollbarModesFromOverflowStyle(const ComputedStyle* style, ScrollbarMode& hMode, ScrollbarMode& vMode)
@@ -1042,7 +1055,7 @@ void FrameView::layout()
     } // Reset m_layoutSchedulingEnabled to its previous value.
 
     if (!inSubtreeLayout && !document->printing())
-        adjustViewSize();
+        adjustViewSizeAndLayout();
 
     m_frameTimingRequestsDirty = true;
 
@@ -2769,7 +2782,7 @@ void FrameView::forceLayoutForPagination(const FloatSize& pageSize, const FloatS
         }
     }
 
-    adjustViewSize();
+    adjustViewSizeAndLayout();
 }
 
 IntRect FrameView::convertFromLayoutObject(const LayoutObject& layoutObject, const IntRect& layoutObjectRect) const
