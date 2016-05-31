@@ -134,9 +134,8 @@ PaintLayerRareData::~PaintLayerRareData()
 {
 }
 
-PaintLayer::PaintLayer(LayoutBoxModelObject* layoutObject, PaintLayerType type)
-    : m_layerType(type)
-    , m_hasSelfPaintingLayerDescendant(false)
+PaintLayer::PaintLayer(LayoutBoxModelObject* layoutObject)
+    : m_hasSelfPaintingLayerDescendant(false)
     , m_hasSelfPaintingLayerDescendantDirty(false)
     , m_isRootLayer(layoutObject->isLayoutView())
     , m_visibleContentStatusDirty(true)
@@ -2452,7 +2451,7 @@ bool PaintLayer::shouldBeSelfPaintingLayer() const
 {
     if (layoutObject()->isLayoutPart() && toLayoutPart(layoutObject())->requiresAcceleratedCompositing())
         return true;
-    return m_layerType == NormalPaintLayer
+    return layoutObject()->layerTypeRequired() == NormalPaintLayer
         || (m_scrollableArea && m_scrollableArea->hasOverlayScrollbars())
         || needsCompositedScrolling();
 }
