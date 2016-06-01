@@ -242,7 +242,6 @@ class CHROMEOS_EXPORT CrasAudioHandler : public CrasAudioClient::Observer,
   void NodesChanged() override;
   void ActiveOutputNodeChanged(uint64_t node_id) override;
   void ActiveInputNodeChanged(uint64_t node_id) override;
-  void OutputNodeVolumeChanged(uint64_t node_id, int volume) override;
 
   // AudioPrefObserver overrides.
   void OnAudioPolicyPrefChanged() override;
