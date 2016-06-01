@@ -13,6 +13,7 @@
 #include "chrome/browser/ui/exclusive_access/exclusive_access_manager.h"
 #include "chrome/browser/ui/status_bubble.h"
 #include "chrome/browser/ui/views/exclusive_access_bubble_views.h"
+#include "chrome/browser/ui/views/new_back_shortcut_bubble.h"
 #include "chrome/common/pref_names.h"
 #include "components/prefs/pref_service.h"
 #include "ui/base/cocoa/cocoa_base_utils.h"
@@ -48,6 +49,13 @@ void ExclusiveAccessController::Show() {
                            url:url_
                     bubbleType:bubble_type_]);
   [cocoa_bubble_ showWindow];
+}
+
+void ExclusiveAccessController::ShowNewBackShortcutBubble(bool forward) {
+  if (new_back_shortcut_bubble_)
+    new_back_shortcut_bubble_->UpdateContent(forward);
+  else
+    new_back_shortcut_bubble_.reset(new NewBackShortcutBubble(this, forward));
 }
 
 void ExclusiveAccessController::Destroy() {

@@ -25,9 +25,10 @@ class BrowserWindow;
 class ExclusiveAccessBubbleViews;
 @class ExclusiveAccessBubbleWindowController;
 class GURL;
+class NewBackShortcutBubble;
 
 // Component placed into a browser window controller to manage communication
-// with the exclusive access bubble, which appears for events such as entering
+// with subtle notification bubbles, which appear for events such as entering
 // fullscreen.
 class ExclusiveAccessController : public ExclusiveAccessContext,
                                   public ui::AcceleratorProvider,
@@ -45,6 +46,9 @@ class ExclusiveAccessController : public ExclusiveAccessContext,
 
   // Shows the bubble once the NSWindow has received -windowDidEnterFullScreen:.
   void Show();
+
+  // Shows the new Back shortcut bubble.
+  void ShowNewBackShortcutBubble(bool forward);
 
   // Closes any open bubble.
   void Destroy();
@@ -99,6 +103,10 @@ class ExclusiveAccessController : public ExclusiveAccessContext,
 
   std::unique_ptr<ExclusiveAccessBubbleViews> views_bubble_;
   base::scoped_nsobject<ExclusiveAccessBubbleWindowController> cocoa_bubble_;
+
+  // This class also manages the new Back shortcut bubble (which functions the
+  // same way as ExclusiveAccessBubbleViews).
+  std::unique_ptr<NewBackShortcutBubble> new_back_shortcut_bubble_;
 
   // Used to keep track of the kShowFullscreenToolbar preference.
   PrefChangeRegistrar pref_registrar_;
