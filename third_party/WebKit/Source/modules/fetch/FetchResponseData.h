@@ -67,6 +67,7 @@ public:
     // If the type is Basic or CORS, replaces |m_buffer| and
     // |m_internalResponse->m_buffer|.
     // If the type is Error or Opaque, does nothing.
+    // Call Response::refreshBody after calling this function.
     void replaceBodyStreamBuffer(BodyStreamBuffer*);
 
     // Does not call response.setBlobDataHandle().
