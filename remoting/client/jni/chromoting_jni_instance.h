@@ -54,6 +54,9 @@ class ChromotingJniInstance
                         const std::string& capabilities,
                         const std::string& flags);
 
+  // Starts the connection. Can be called on any thread.
+  void Connect();
+
   // Terminates the current connection (if it hasn't already failed) and cleans
   // up. Must be called before destruction.
   void Disconnect();
