@@ -327,7 +327,7 @@ class HttpNetworkTransactionTest
 
   std::string GetAlternativeServiceHttpHeader() {
     return std::string("Alt-Svc: ") + GetAlternateProtocolFromParam() +
-           "=\"www.example.com:443\"\r\n";
+           "=\"www.example.org:443\"\r\n";
   }
 
   std::string GetAlternateProtocolHttpHeader() {
@@ -9713,8 +9713,53 @@ TEST_P(HttpNetworkTransactionTest, HonorAlternativeServiceHeader) {
   ASSERT_EQ(1u, alternative_service_vector.size());
   EXPECT_EQ(AlternateProtocolFromNextProto(GetProtocol()),
             alternative_service_vector[0].protocol);
-  EXPECT_EQ("www.example.com", alternative_service_vector[0].host);
+  EXPECT_EQ("www.example.org", alternative_service_vector[0].host);
   EXPECT_EQ(443, alternative_service_vector[0].port);
+}
+
+// HTTP/2 Alternative Services should be disabled if alternative service
+// hostname is different from that of origin.
+// TODO(bnc): Remove when https://crbug.com/615413 is fixed.
+TEST_P(HttpNetworkTransactionTest,
+       DisableHTTP2AlternativeServicesWithDifferentHost) {
+  session_deps_.enable_alternative_service_with_different_host = true;
+
+  HttpRequestInfo request;
+  request.method = "GET";
+  request.url = GURL("http://www.example.org/");
+  request.load_flags = 0;
+
+  MockConnect mock_connect(ASYNC, ERR_CONNECTION_REFUSED);
+  StaticSocketDataProvider first_data;
+  first_data.set_connect_data(mock_connect);
+  session_deps_.socket_factory->AddSocketDataProvider(&first_data);
+
+  MockRead data_reads[] = {
+      MockRead("HTTP/1.1 200 OK\r\n\r\n"), MockRead("hello world"),
+      MockRead(ASYNC, OK),
+  };
+  StaticSocketDataProvider second_data(data_reads, arraysize(data_reads), NULL,
+                                       0);
+  session_deps_.socket_factory->AddSocketDataProvider(&second_data);
+
+  std::unique_ptr<HttpNetworkSession> session(CreateSession(&session_deps_));
+
+  base::WeakPtr<HttpServerProperties> http_server_properties =
+      session->http_server_properties();
+  AlternativeService alternative_service(
+      AlternateProtocolFromNextProto(GetProtocol()), "different.example.org",
+      444);
+  base::Time expiration = base::Time::Now() + base::TimeDelta::FromDays(1);
+  http_server_properties->SetAlternativeService(
+      url::SchemeHostPort(request.url), alternative_service, expiration);
+
+  std::unique_ptr<HttpTransaction> trans(
+      new HttpNetworkTransaction(DEFAULT_PRIORITY, session.get()));
+  TestCompletionCallback callback;
+
+  int rv = trans->Start(&request, callback.callback(), BoundNetLog());
+  // Alternative service is not used, request fails.
+  EXPECT_EQ(ERR_CONNECTION_REFUSED, callback.GetResult(rv));
 }
 
 TEST_P(HttpNetworkTransactionTest, ClearAlternativeServices) {
@@ -13440,17 +13485,18 @@ TEST_P(AltSvcCertificateVerificationTest, NewConnectionValid) {
   Run(false, true);
 }
 
-TEST_P(AltSvcCertificateVerificationTest, NewConnectionInvalid) {
+// TODO(bnc): Re-enable when https://crbug.com/615413 is fixed.
+TEST_P(AltSvcCertificateVerificationTest, DISABLED_NewConnectionInvalid) {
   Run(false, false);
 }
 
 // Alternative service requires HTTP/2 (or SPDY), but HTTP/1.1 is negotiated
 // with the alternative server.  That connection should not be used.
 TEST_P(HttpNetworkTransactionTest, AlternativeServiceNotOnHttp11) {
-  url::SchemeHostPort server("https", "origin.example.org", 443);
-  HostPortPair alternative("alternative.example.org", 443);
+  url::SchemeHostPort server("https", "www.example.org", 443);
+  HostPortPair alternative("www.example.org", 444);
 
-  // Negotiate HTTP/1.1 with alternative.example.org.
+  // Negotiate HTTP/1.1 with alternative.
   SSLSocketDataProvider ssl(ASYNC, OK);
   ssl.SetNextProto(kProtoHTTP11);
   session_deps_.socket_factory->AddSSLSocketDataProvider(&ssl);
@@ -13483,7 +13529,7 @@ TEST_P(HttpNetworkTransactionTest, AlternativeServiceNotOnHttp11) {
       new HttpNetworkTransaction(DEFAULT_PRIORITY, session.get()));
   HttpRequestInfo request;
   request.method = "GET";
-  request.url = GURL("https://origin.example.org:443");
+  request.url = GURL("https://www.example.org:443");
   request.load_flags = 0;
   TestCompletionCallback callback;
 
@@ -13498,8 +13544,8 @@ TEST_P(HttpNetworkTransactionTest, AlternativeServiceNotOnHttp11) {
 // succeeds, the request should succeed,  even if the latter fails because
 // HTTP/1.1 is negotiated which is insufficient for alternative service.
 TEST_P(HttpNetworkTransactionTest, FailedAlternativeServiceIsNotUserVisible) {
-  url::SchemeHostPort server("https", "origin.example.org", 443);
-  HostPortPair alternative("alternative.example.org", 443);
+  url::SchemeHostPort server("https", "www.example.org", 443);
+  HostPortPair alternative("www.example.org", 444);
 
   // Negotiate HTTP/1.1 with alternative.
   SSLSocketDataProvider alternative_ssl(ASYNC, OK);
@@ -13517,14 +13563,12 @@ TEST_P(HttpNetworkTransactionTest, FailedAlternativeServiceIsNotUserVisible) {
   session_deps_.socket_factory->AddSSLSocketDataProvider(&origin_ssl);
 
   MockWrite http_writes[] = {
-      MockWrite(
-          "GET / HTTP/1.1\r\n"
-          "Host: origin.example.org\r\n"
-          "Connection: keep-alive\r\n\r\n"),
-      MockWrite(
-          "GET /second HTTP/1.1\r\n"
-          "Host: origin.example.org\r\n"
-          "Connection: keep-alive\r\n\r\n"),
+      MockWrite("GET / HTTP/1.1\r\n"
+                "Host: www.example.org\r\n"
+                "Connection: keep-alive\r\n\r\n"),
+      MockWrite("GET /second HTTP/1.1\r\n"
+                "Host: www.example.org\r\n"
+                "Connection: keep-alive\r\n\r\n"),
   };
 
   MockRead http_reads[] = {
@@ -13556,7 +13600,7 @@ TEST_P(HttpNetworkTransactionTest, FailedAlternativeServiceIsNotUserVisible) {
   HttpNetworkTransaction trans1(DEFAULT_PRIORITY, session.get());
   HttpRequestInfo request1;
   request1.method = "GET";
-  request1.url = GURL("https://origin.example.org:443");
+  request1.url = GURL("https://www.example.org:443");
   request1.load_flags = 0;
   TestCompletionCallback callback1;
 
@@ -13584,7 +13628,7 @@ TEST_P(HttpNetworkTransactionTest, FailedAlternativeServiceIsNotUserVisible) {
   HttpNetworkTransaction trans2(DEFAULT_PRIORITY, session.get());
   HttpRequestInfo request2;
   request2.method = "GET";
-  request2.url = GURL("https://origin.example.org:443/second");
+  request2.url = GURL("https://www.example.org:443/second");
   request2.load_flags = 0;
   TestCompletionCallback callback2;
 
