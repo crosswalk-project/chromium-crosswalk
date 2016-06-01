@@ -10129,7 +10129,7 @@ TEST_P(HttpNetworkTransactionTest, AltSvcOverwritesAlternateProtocol) {
   ASSERT_EQ(1u, alternative_service_vector.size());
   EXPECT_EQ(AlternateProtocolFromNextProto(GetProtocol()),
             alternative_service_vector[0].protocol);
-  EXPECT_EQ("www.example.com", alternative_service_vector[0].host);
+  EXPECT_EQ("www.example.org", alternative_service_vector[0].host);
   EXPECT_EQ(443, alternative_service_vector[0].port);
 }
 
