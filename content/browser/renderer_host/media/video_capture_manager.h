@@ -156,6 +156,15 @@ class CONTENT_EXPORT VideoCaptureManager : public MediaStreamProvider {
   scoped_refptr<base::SingleThreadTaskRunner>& device_task_runner() {
     return device_task_runner_;
   }
+
+#if defined(OS_ANDROID)
+  // Some devices had troubles when stopped and restarted quickly, so the device
+  // is only stopped when Chrome is sent to background and not when, e.g., a tab
+  // is hidden, see http://crbug.com/582295.
+  void OnApplicationStateChange(base::android::ApplicationState state);
+#endif
+
+
  private:
   ~VideoCaptureManager() override;
   class DeviceEntry;
@@ -270,12 +279,6 @@ class CONTENT_EXPORT VideoCaptureManager : public MediaStreamProvider {
 #endif
 
 #if defined(OS_ANDROID)
-  // On Android, we used to stop the video device when the host tab is hidden.
-  // This caused problems on some devices when the device was stopped and
-  // restarted quickly. See http://crbug/582295.  Now instead, the device is
-  // only stopped when Chrome goes to background. When a tab is hidden, it will
-  // not receive video frames but the device is not stopped.
-  void OnApplicationStateChange(base::android::ApplicationState state);
   void ReleaseDevices();
   void ResumeDevices();
 
