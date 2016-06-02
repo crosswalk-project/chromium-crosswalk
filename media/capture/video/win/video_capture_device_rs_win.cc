@@ -203,7 +203,7 @@ void VideoCaptureDeviceRSWin::AllocateAndStart(
 
   base::AutoLock lock(lock_);
 
-  client_ = client.Pass();
+  client_ = std::move(client);
   DCHECK_EQ(capturing_, false);
 
   sense_manager_ = PXCSenseManager::CreateInstance();

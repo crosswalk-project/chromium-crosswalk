@@ -204,7 +204,6 @@ class CONTENT_EXPORT BrowserMainLoop {
 
 #if defined(OS_WIN)
   scoped_ptr<ScreenOrientationDelegate> screen_orientation_delegate_;
-  scoped_ptr<ScreenOrientationDelegate> screen_orientation_delegate_;
 #endif
 
 #if defined(OS_ANDROID)
