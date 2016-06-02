@@ -72,6 +72,13 @@ public:
     // token validator object that is normally used (e.g. for testing).
     bool isFeatureEnabled(const String& featureName, String* errorMessage, WebTrialTokenValidator* = nullptr);
 
+    // Installs JavaScript bindings for any features which should be enabled by
+    // the current set of trial tokens. This method is idempotent; only features
+    // which have been enabled since the last time it was run will be installed.
+    // If the V8 context for the host execution context has not been
+    // initialized, then this method will return without doing anything.
+    void initializePendingFeatures();
+
     void setFeatureBindingsInstalled(const String& featureName);
     bool featureBindingsInstalled(const String& featureName);
 
