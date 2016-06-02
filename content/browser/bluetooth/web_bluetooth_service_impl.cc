@@ -204,7 +204,7 @@ void WebBluetoothServiceImpl::AdapterPresentChanged(
 void WebBluetoothServiceImpl::DeviceChanged(device::BluetoothAdapter* adapter,
                                             device::BluetoothDevice* device) {
   DCHECK_CURRENTLY_ON(BrowserThread::UI);
-  if (!device->IsGattConnected() || !device->IsConnected()) {
+  if (!device->IsGattConnected()) {
     std::string device_id =
         connected_devices_->CloseConnectionToDeviceWithAddress(
             device->GetAddress());
