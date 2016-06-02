@@ -156,6 +156,7 @@ def attribute_context(interface, attribute):
         'reflect_missing': extended_attributes.get('ReflectMissing'),
         'reflect_only': extended_attribute_value_as_list(attribute, 'ReflectOnly'),
         'runtime_enabled_function': v8_utilities.runtime_enabled_function_name(attribute),  # [RuntimeEnabled]
+        'runtime_feature_name': v8_utilities.runtime_feature_name(attribute),  # [RuntimeEnabled]
         'should_be_exposed_to_script': not (is_implemented_in_private_script and is_only_exposed_to_private_script),
         'world_suffixes': (
             ['', 'ForMainWorld']
