@@ -10,6 +10,7 @@
 #include "base/files/file_path.h"
 #include "base/test/simple_test_clock.h"
 #include "base/time/time.h"
+#include "components/offline_pages/client_namespace_constants.h"
 #include "components/offline_pages/client_policy_controller.h"
 #include "components/offline_pages/offline_page_item.h"
 #include "components/offline_pages/offline_page_storage_manager.h"
@@ -19,8 +20,6 @@
 namespace offline_pages {
 
 namespace {
-const char kBookmarkNamespace[] = "bookmark";
-const char kLastNNamespace[] = "last_n";
 const GURL kTestUrl("http://example.com");
 const base::FilePath::CharType kFilePath[] = FILE_PATH_LITERAL("TEST_FILEPATH");
 const int64_t kTestFileSize = 876543LL;
