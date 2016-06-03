@@ -47,7 +47,9 @@ public abstract class BidirectionalStream {
         // Priority of the stream. Default is medium.
         @StreamPriority private int mPriority = STREAM_PRIORITY_MEDIUM;
 
+        // TODO(xunjieli): Remove mDisableAutoFlush and make flush() required as part of th API.
         private boolean mDisableAutoFlush;
+        private boolean mDelayRequestHeadersUntilFirstFlush;
 
         /**
          * Creates a builder for {@link BidirectionalStream} objects. All callbacks for
@@ -174,6 +176,22 @@ public abstract class BidirectionalStream {
         }
 
         /**
+         * Delays sending request headers until {@link BidirectionalStream#flush()}
+         * is called. This flag is currently only respected when QUIC is negotiated.
+         * When true, QUIC will send request header frame along with data frame(s)
+         * as a single packet when possible.
+         *
+         * @param delayRequestHeadersUntilFirstFlush if true, sending request headers will
+         *         be delayed until flush() is called.
+         * @return the builder to facilitate chaining.
+         */
+        public Builder delayRequestHeadersUntilFirstFlush(
+                boolean delayRequestHeadersUntilFirstFlush) {
+            mDelayRequestHeadersUntilFirstFlush = delayRequestHeadersUntilFirstFlush;
+            return this;
+        }
+
+        /**
          * Creates a {@link BidirectionalStream} using configuration from this
          * {@link Builder}. The returned {@code BidirectionalStream} can then be started
          * by calling {@link BidirectionalStream#start}.
@@ -183,7 +201,8 @@ public abstract class BidirectionalStream {
          */
         public BidirectionalStream build() {
             return mCronetEngine.createBidirectionalStream(mUrl, mCallback, mExecutor, mHttpMethod,
-                    mRequestHeaders, mPriority, mDisableAutoFlush);
+                    mRequestHeaders, mPriority, mDisableAutoFlush,
+                    mDelayRequestHeadersUntilFirstFlush);
         }
     }
 
@@ -379,8 +398,10 @@ public abstract class BidirectionalStream {
     public abstract void write(ByteBuffer buffer, boolean endOfStream);
 
     /**
-     * Flushes pending writes. This method should only be invoked when auto
-     * flush is disabled through {@link Builder#disableAutoFlush}.
+     * Flushes pending writes. This method should not be invoked before {@link
+     * Callback#onStreamReady onStreamReady()}. For previously delayed {@link
+     * #write write()}s, a corresponding {@link Callback#onWriteCompleted onWriteCompleted()}
+     * will be invoked when the buffer is sent.
      */
     public abstract void flush();
 
