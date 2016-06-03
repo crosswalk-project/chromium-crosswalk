@@ -112,16 +112,10 @@ NSColor* DimTextColor(BOOL is_dark_theme) {
   return skia::SkColorToSRGBNSColor(SkColorSetRGB(0x64, 0x64, 0x64));
 }
 NSColor* PositiveTextColor() {
-  if (!ui::MaterialDesignController::IsModeMaterial()) {
-    return skia::SkColorToCalibratedNSColor(SkColorSetRGB(0x3d, 0x94, 0x00));
-  }
-  return skia::SkColorToSRGBNSColor(SkColorSetRGB(0x3d, 0x94, 0x00));
+  return skia::SkColorToCalibratedNSColor(SkColorSetRGB(0x3d, 0x94, 0x00));
 }
 NSColor* NegativeTextColor() {
-  if (!ui::MaterialDesignController::IsModeMaterial()) {
-    return skia::SkColorToCalibratedNSColor(SkColorSetRGB(0xdd, 0x4b, 0x39));
-  }
-  return skia::SkColorToSRGBNSColor(SkColorSetRGB(0xdd, 0x4b, 0x39));
+  return skia::SkColorToCalibratedNSColor(SkColorSetRGB(0xdd, 0x4b, 0x39));
 }
 NSColor* URLTextColor(BOOL is_dark_theme) {
   if (!ui::MaterialDesignController::IsModeMaterial()) {

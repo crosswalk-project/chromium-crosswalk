@@ -35,10 +35,7 @@ SelectedKeywordDecoration::SelectedKeywordDecoration() {
 SelectedKeywordDecoration::~SelectedKeywordDecoration() {}
 
 NSColor* SelectedKeywordDecoration::GetBackgroundBorderColor() {
-  if (!ui::MaterialDesignController::IsModeMaterial()) {
-    return skia::SkColorToCalibratedNSColor(gfx::kGoogleBlue700);
-  }
-  return skia::SkColorToSRGBNSColor(gfx::kGoogleBlue700);
+  return skia::SkColorToCalibratedNSColor(gfx::kGoogleBlue700);
 }
 
 CGFloat SelectedKeywordDecoration::GetWidthForSpace(CGFloat width) {

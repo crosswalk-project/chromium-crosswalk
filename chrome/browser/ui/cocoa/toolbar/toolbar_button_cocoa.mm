@@ -235,11 +235,7 @@ const NSSize kMDButtonIconSize = NSMakeSize(16, 16);
   [[BrowserToolsImageRep alloc]
       initWithDrawSelector:@selector(drawBrowserToolsIcon:)
                   delegate:[BrowserToolsImageRep class]];
-  if (!ui::MaterialDesignController::IsModeMaterial()) {
-    [imageRep setFillColor:skia::SkColorToCalibratedNSColor(fillColor)];
-  } else {
-    [imageRep setFillColor:skia::SkColorToSRGBNSColor(fillColor)];
-  }
+  [imageRep setFillColor:skia::SkColorToCalibratedNSColor(fillColor)];
 
   // Create the image from the image rep.
   NSImage* browserToolsIcon =

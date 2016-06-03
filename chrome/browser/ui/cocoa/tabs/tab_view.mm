@@ -867,7 +867,7 @@ CGFloat LineWidthFromContext(CGContextRef context) {
 
 + (void)setTabEdgeStrokeColor {
   static NSColor* strokeColor =
-      [skia::SkColorToSRGBNSColor(SkColorSetARGB(76, 0, 0, 0)) retain];
+      [skia::SkColorToCalibratedNSColor(SkColorSetARGB(76, 0, 0, 0)) retain];
   [strokeColor set];
 }
 
