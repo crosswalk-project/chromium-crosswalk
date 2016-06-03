@@ -453,10 +453,10 @@ public class NewTabPageView extends FrameLayout
     }
 
     private View getFirstViewMatchingViewType(int newTabPageListItemViewType) {
-        int adapterSize = mNewTabPageAdapter.getItemCount();
-        for (int i = 0; i < adapterSize; i++) {
-            if (mNewTabPageAdapter.getItemViewType(i) == newTabPageListItemViewType) {
-                return mRecyclerView.getLayoutManager().findViewByPosition(i);
+        for (int i = 0; i < mRecyclerView.getLayoutManager().getChildCount(); i++) {
+            RecyclerView.ViewHolder viewHolder = mRecyclerView.findViewHolderForLayoutPosition(i);
+            if (viewHolder != null && viewHolder.getItemViewType() == newTabPageListItemViewType) {
+                return viewHolder.itemView;
             }
         }
         return null;
