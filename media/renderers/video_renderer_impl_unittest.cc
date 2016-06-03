@@ -216,8 +216,8 @@ class VideoRendererImplTest : public testing::Test {
     event.RunAndWait();
   }
 
-  void WaitForPendingRead() {
-    SCOPED_TRACE("WaitForPendingRead()");
+  void WaitForPendingDecode() {
+    SCOPED_TRACE("WaitForPendingDecode()");
     if (!decode_cb_.is_null())
       return;
 
@@ -231,7 +231,7 @@ class VideoRendererImplTest : public testing::Test {
     DCHECK(wait_for_pending_decode_cb_.is_null());
   }
 
-  void SatisfyPendingRead() {
+  void SatisfyPendingDecode() {
     CHECK(!decode_cb_.is_null());
     CHECK(!decode_results_.empty());
 
@@ -245,7 +245,7 @@ class VideoRendererImplTest : public testing::Test {
     decode_results_.pop_front();
   }
 
-  void SatisfyPendingReadWithEndOfStream() {
+  void SatisfyPendingDecodeWithEndOfStream() {
     DCHECK(!decode_cb_.is_null());
 
     // Return EOS buffer to trigger EOS frame.
@@ -258,7 +258,7 @@ class VideoRendererImplTest : public testing::Test {
         FROM_HERE,
         base::Bind(base::ResetAndReturn(&decode_cb_), DecodeStatus::OK));
 
-    WaitForPendingRead();
+    WaitForPendingDecode();
 
     message_loop_.PostTask(
         FROM_HERE,
@@ -353,7 +353,7 @@ class VideoRendererImplTest : public testing::Test {
       EXPECT_CALL(mock_cb_, OnBufferingStateChange(BUFFERING_HAVE_ENOUGH))
           .WillOnce(RunClosure(event.GetClosure()));
       EXPECT_CALL(mock_cb_, OnEnded());
-      SatisfyPendingReadWithEndOfStream();
+      SatisfyPendingDecodeWithEndOfStream();
       event.RunAndWait();
     }
 
@@ -414,7 +414,7 @@ class VideoRendererImplTest : public testing::Test {
         QueueFrames("80 100 120 140 160");
       else
         QueueFrames("40 60 80 90");
-      SatisfyPendingRead();
+      SatisfyPendingDecode();
       event.RunAndWait();
     }
 
@@ -449,14 +449,14 @@ class VideoRendererImplTest : public testing::Test {
     CHECK(decode_cb_.is_null());
     decode_cb_ = decode_cb;
 
-    // Wake up WaitForPendingRead() if needed.
+    // Wake up WaitForPendingDecode() if needed.
     if (!wait_for_pending_decode_cb_.is_null())
       base::ResetAndReturn(&wait_for_pending_decode_cb_).Run();
 
     if (decode_results_.empty())
       return;
 
-    SatisfyPendingRead();
+    SatisfyPendingDecode();
   }
 
   void FlushRequested(const base::Closure& callback) {
@@ -464,7 +464,7 @@ class VideoRendererImplTest : public testing::Test {
     decode_results_.clear();
     if (!decode_cb_.is_null()) {
       QueueFrames("abort");
-      SatisfyPendingRead();
+      SatisfyPendingDecode();
     }
 
     message_loop_.PostTask(FROM_HERE, callback);
@@ -479,7 +479,7 @@ class VideoRendererImplTest : public testing::Test {
   VideoDecoder::DecodeCB decode_cb_;
   base::TimeDelta next_frame_timestamp_;
 
-  // Run during DecodeRequested() to unblock WaitForPendingRead().
+  // Run during DecodeRequested() to unblock WaitForPendingDecode().
   base::Closure wait_for_pending_decode_cb_;
 
   std::deque<std::pair<DecodeStatus, scoped_refptr<VideoFrame>>>
@@ -517,14 +517,14 @@ TEST_F(VideoRendererImplTest, InitializeAndStartPlayingFrom) {
 TEST_F(VideoRendererImplTest, InitializeAndEndOfStream) {
   Initialize();
   StartPlayingFrom(0);
-  WaitForPendingRead();
+  WaitForPendingDecode();
   {
     SCOPED_TRACE("Waiting for BUFFERING_HAVE_ENOUGH");
     WaitableMessageLoopEvent event;
     EXPECT_CALL(mock_cb_, OnBufferingStateChange(BUFFERING_HAVE_ENOUGH))
         .WillOnce(RunClosure(event.GetClosure()));
     EXPECT_CALL(mock_cb_, OnEnded());
-    SatisfyPendingReadWithEndOfStream();
+    SatisfyPendingDecodeWithEndOfStream();
     event.RunAndWait();
   }
   // Firing a time state changed to true should be ignored...
@@ -594,7 +594,7 @@ TEST_F(VideoRendererImplTest, DecodeError_Playing) {
   AdvanceTimeInMs(10);
 
   QueueFrames("error");
-  SatisfyPendingRead();
+  SatisfyPendingDecode();
   WaitForError(PIPELINE_ERROR_DECODE);
   Destroy();
 }
@@ -664,7 +664,7 @@ TEST_F(VideoRendererImplTest, StartPlayingFrom_LowDelay) {
   StartPlayingFrom(10);
 
   QueueFrames("20");
-  SatisfyPendingRead();
+  SatisfyPendingDecode();
 
   renderer_->OnTimeStateChanged(true);
   time_source_.StartTicking();
@@ -744,7 +744,7 @@ TEST_F(VideoRendererImplTest, RenderingStopsAfterFirstFrame) {
     StartPlayingFrom(0);
 
     EXPECT_TRUE(IsReadPending());
-    SatisfyPendingReadWithEndOfStream();
+    SatisfyPendingDecodeWithEndOfStream();
 
     event.RunAndWait();
   }
@@ -773,7 +773,7 @@ TEST_F(VideoRendererImplTest, RenderingStopsAfterOneFrameWithEOS) {
     renderer_->OnTimeStateChanged(true);
 
     EXPECT_TRUE(IsReadPending());
-    SatisfyPendingReadWithEndOfStream();
+    SatisfyPendingDecodeWithEndOfStream();
     WaitForEnded();
 
     renderer_->OnTimeStateChanged(false);
@@ -807,7 +807,7 @@ TEST_F(VideoRendererImplTest, RenderingStartedThenStopped) {
 
   // Consider the case that rendering is faster than we setup the test event.
   // In that case, when we run out of the frames, BUFFERING_HAVE_NOTHING will
-  // be called. And then during SatisfyPendingReadWithEndOfStream,
+  // be called. And then during SatisfyPendingDecodeWithEndOfStream,
   // BUFFER_HAVE_ENOUGH will be called again.
   EXPECT_CALL(mock_cb_, OnBufferingStateChange(BUFFERING_HAVE_ENOUGH))
       .Times(testing::AtMost(1));
@@ -824,8 +824,8 @@ TEST_F(VideoRendererImplTest, RenderingStartedThenStopped) {
   null_video_sink_->set_background_render(true);
   AdvanceTimeInMs(91);
   EXPECT_CALL(mock_cb_, FrameReceived(HasTimestamp(90)));
-  WaitForPendingRead();
-  SatisfyPendingReadWithEndOfStream();
+  WaitForPendingDecode();
+  SatisfyPendingDecodeWithEndOfStream();
 
   // If this wasn't background rendering mode, this would result in two frames
   // being dropped, but since we set background render to true, none should be
@@ -867,7 +867,7 @@ TEST_F(VideoRendererImplTest, UnderflowEvictionBeforeEOS) {
     event.RunAndWait();
   }
 
-  WaitForPendingRead();
+  WaitForPendingDecode();
 
   // Jump time far enough forward that no frames are valid.
   renderer_->OnTimeStateChanged(false);
@@ -875,7 +875,7 @@ TEST_F(VideoRendererImplTest, UnderflowEvictionBeforeEOS) {
   time_source_.StopTicking();
 
   // Providing the end of stream packet should remove all frames and exit.
-  SatisfyPendingReadWithEndOfStream();
+  SatisfyPendingDecodeWithEndOfStream();
   EXPECT_CALL(mock_cb_, OnBufferingStateChange(BUFFERING_HAVE_ENOUGH));
   WaitForEnded();
   Destroy();
@@ -905,8 +905,8 @@ TEST_F(VideoRendererImplTest, StartPlayingFromThenFlushThenEOS) {
   Flush();
 
   StartPlayingFrom(200);
-  WaitForPendingRead();
-  SatisfyPendingReadWithEndOfStream();
+  WaitForPendingDecode();
+  SatisfyPendingDecodeWithEndOfStream();
   EXPECT_CALL(mock_cb_, OnBufferingStateChange(BUFFERING_HAVE_ENOUGH));
   WaitForEnded();
   Destroy();
