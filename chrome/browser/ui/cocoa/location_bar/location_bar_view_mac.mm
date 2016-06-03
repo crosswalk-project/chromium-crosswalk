@@ -574,7 +574,17 @@ void LocationBarViewMac::UpdateLocationIcon() {
     if (in_dark_mode) {
       vector_icon_color = SK_ColorWHITE;
     } else {
-      vector_icon_color = OmniboxViewMac::BaseTextColorSkia(in_dark_mode);
+      security_state::SecurityStateModel::SecurityLevel security_level =
+          GetToolbarModel()->GetSecurityLevel(false);
+      if (security_level == security_state::SecurityStateModel::NONE) {
+        vector_icon_color = OmniboxViewMac::BaseTextColorSkia(in_dark_mode);
+      } else {
+        NSColor* sRGBColor =
+            OmniboxViewMac::GetSecureTextColor(security_level, in_dark_mode);
+        NSColor* deviceColor =
+            [sRGBColor colorUsingColorSpace:[NSColorSpace deviceRGBColorSpace]];
+        vector_icon_color = skia::NSDeviceColorToSkColor(deviceColor);
+      }
     }
   }
 

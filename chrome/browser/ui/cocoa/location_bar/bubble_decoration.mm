@@ -100,6 +100,26 @@ void BubbleDecoration::DrawInFrame(NSRect frame, NSView* control_view) {
     textOffset = NSMaxX(imageRect) + kIconLabelPadding;
   }
 
+  // Draw the divider and set the text color.
+  if (ui::MaterialDesignController::IsModeMaterial()) {
+    NSBezierPath* line = [NSBezierPath bezierPath];
+    [line setLineWidth:1];
+    [line moveToPoint:NSMakePoint(NSMaxX(decoration_frame) - DividerPadding(),
+                                  NSMinY(decoration_frame))];
+    [line lineToPoint:NSMakePoint(NSMaxX(decoration_frame) - DividerPadding(),
+                                  NSMaxY(decoration_frame))];
+
+    bool in_dark_mode = [[control_view window] inIncognitoModeWithSystemTheme];
+    [GetDividerColor(in_dark_mode) set];
+    [line stroke];
+
+    NSColor* text_color =
+        in_dark_mode
+            ? skia::SkColorToSRGBNSColor(kMaterialDarkModeTextColor)
+            : GetBackgroundBorderColor();
+    SetTextColor(text_color);
+  }
+
   if (label_) {
     NSRect textRect = frame;
     textRect.origin.x = textOffset;
