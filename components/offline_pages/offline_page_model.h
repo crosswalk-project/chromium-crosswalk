@@ -38,6 +38,7 @@ class TimeTicks;
 
 namespace offline_pages {
 
+static const char* const kBookmarkNamespace = "bookmark";
 static const int64_t kInvalidOfflineId = 0;
 
 struct ClientId;
