@@ -75,6 +75,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
         on_data_read_count_(0),
         on_data_sent_count_(0),
         not_expect_callback_(false),
+        on_failed_called_(false),
         send_request_headers_automatically_(true) {
     loop_.reset(new base::RunLoop);
   }
@@ -82,12 +83,14 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   ~TestDelegateBase() override {}
 
   void OnStreamReady(bool request_headers_sent) override {
+    CHECK(!on_failed_called_);
     EXPECT_EQ(send_request_headers_automatically_, request_headers_sent);
     CHECK(!not_expect_callback_);
     loop_->Quit();
   }
 
   void OnHeadersReceived(const SpdyHeaderBlock& response_headers) override {
+    CHECK(!on_failed_called_);
     CHECK(!not_expect_callback_);
 
     response_headers_ = response_headers;
@@ -95,6 +98,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   }
 
   void OnDataRead(int bytes_read) override {
+    CHECK(!on_failed_called_);
     CHECK(!not_expect_callback_);
     CHECK(!callback_.is_null());
 
@@ -105,6 +109,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   }
 
   void OnDataSent() override {
+    CHECK(!on_failed_called_);
     CHECK(!not_expect_callback_);
 
     ++on_data_sent_count_;
@@ -112,6 +117,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   }
 
   void OnTrailersReceived(const SpdyHeaderBlock& trailers) override {
+    CHECK(!on_failed_called_);
     CHECK(!not_expect_callback_);
 
     trailers_ = trailers;
@@ -119,10 +125,12 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   }
 
   void OnFailed(int error) override {
+    CHECK(!on_failed_called_);
     CHECK(!not_expect_callback_);
     CHECK_EQ(OK, error_);
     CHECK_NE(OK, error);
 
+    on_failed_called_ = true;
     error_ = error;
     loop_->Quit();
   }
@@ -193,6 +201,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   const SpdyHeaderBlock& trailers() const { return trailers_; }
   int on_data_read_count() const { return on_data_read_count_; }
   int on_data_sent_count() const { return on_data_sent_count_; }
+  bool on_failed_called() const { return on_failed_called_; }
 
  protected:
   // Quits |loop_|.
@@ -216,6 +225,7 @@ class TestDelegateBase : public BidirectionalStreamImpl::Delegate {
   // This is to ensure that delegate callback is not invoked synchronously when
   // calling into |stream_|.
   bool not_expect_callback_;
+  bool on_failed_called_;
   CompletionCallback callback_;
   bool send_request_headers_automatically_;
 
@@ -1281,6 +1291,11 @@ TEST_P(BidirectionalStreamQuicImplTest, CancelStreamAfterSendData) {
   delegate->CancelStream();
   base::MessageLoop::current()->RunUntilIdle();
 
+  // Try to send data after Cancel(), should not get called back.
+  delegate->SendData(buf, buf->size(), false);
+  base::MessageLoop::current()->RunUntilIdle();
+  EXPECT_FALSE(delegate->on_failed_called());
+
   EXPECT_EQ(0, delegate->on_data_read_count());
   EXPECT_EQ(1, delegate->on_data_sent_count());
   EXPECT_EQ(kProtoQUIC1SPDY3, delegate->GetProtocol());
@@ -1292,16 +1307,16 @@ TEST_P(BidirectionalStreamQuicImplTest, CancelStreamAfterSendData) {
 }
 
 TEST_P(BidirectionalStreamQuicImplTest, SessionClosedBeforeReadData) {
-  SetRequest("GET", "/", DEFAULT_PRIORITY);
+  SetRequest("POST", "/", DEFAULT_PRIORITY);
   size_t spdy_request_headers_frame_length;
-  AddWrite(ConstructRequestHeadersPacket(1, kFin, DEFAULT_PRIORITY,
+  AddWrite(ConstructRequestHeadersPacket(1, !kFin, DEFAULT_PRIORITY,
                                          &spdy_request_headers_frame_length));
   Initialize();
 
   BidirectionalStreamRequestInfo request;
-  request.method = "GET";
+  request.method = "POST";
   request.url = GURL("http://www.google.com/");
-  request.end_stream_on_headers = true;
+  request.end_stream_on_headers = false;
   request.priority = DEFAULT_PRIORITY;
 
   scoped_refptr<IOBuffer> read_buffer(new IOBuffer(kReadBufferSize));
@@ -1329,7 +1344,11 @@ TEST_P(BidirectionalStreamQuicImplTest, SessionClosedBeforeReadData) {
   session()->connection()->CloseConnection(
       QUIC_NO_ERROR, "test", ConnectionCloseBehavior::SILENT_CLOSE);
   delegate->WaitUntilNextCallback();  // OnFailed
+  EXPECT_TRUE(delegate->on_failed_called());
 
+  // Try to send data after OnFailed(), should not get called back.
+  scoped_refptr<StringIOBuffer> buf(new StringIOBuffer(kUploadData));
+  delegate->SendData(buf, buf->size(), false);
   base::MessageLoop::current()->RunUntilIdle();
 
   EXPECT_EQ(ERR_UNEXPECTED, delegate->ReadData(cb.callback()));
