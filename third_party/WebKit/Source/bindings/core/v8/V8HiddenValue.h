@@ -43,6 +43,7 @@ class ScriptWrappable;
     V(port1) \
     V(port2) \
     V(readableStreamReaderInResponse) \
+    V(requestInFetchEvent) \
     V(state) \
     V(stringData) \
     V(testInterfaces) \
