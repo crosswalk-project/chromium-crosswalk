@@ -22,9 +22,15 @@ CGFloat BubblePadding() {
   return ui::MaterialDesignController::IsModeMaterial() ? 7 : 3;
 }
 
+// Additional padding between the divider between the omnibox text and the
+// divider. The desired value is 8px. We get 3px by subtracting the existing
+// padding in location_bar_view from 8px.
+CGFloat DividerPadding() {
+  return ui::MaterialDesignController::IsModeMaterial() ? 2.0 : 0.0;
+}
 
 // Padding between the icon and label.
-const CGFloat kIconLabelPadding = 4.0;
+CGFloat kIconLabelPadding = 4.0;
 
 // Inset for the background.
 const CGFloat kBackgroundYInset = 4.0;
@@ -54,7 +60,8 @@ CGFloat BubbleDecoration::GetWidthForImageAndLabel(NSImage* image,
   // underestimate, so floor() seems to work better.
   const CGFloat label_width =
       std::floor([label sizeWithAttributes:attributes_].width);
-  return BubblePadding() + image_width + kIconLabelPadding + label_width;
+  return BubblePadding() + image_width + kIconLabelPadding + label_width
+      + DividerPadding();
 }
 
 NSRect BubbleDecoration::GetImageRectInFrame(NSRect frame) {
@@ -62,6 +69,7 @@ NSRect BubbleDecoration::GetImageRectInFrame(NSRect frame) {
   if (image_) {
     // Center the image vertically.
     const NSSize imageSize = [image_ size];
+
     imageRect.origin.y +=
         std::floor((NSHeight(frame) - imageSize.height) / 2.0);
     imageRect.size = imageSize;
