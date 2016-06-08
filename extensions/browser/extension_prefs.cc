@@ -306,8 +306,16 @@ T* ExtensionPrefs::ScopedUpdate<T, type_enum_value>::Create() {
     value_as_t = new T;
     extension->SetWithoutPathExpansion(key_, value_as_t);
   } else {
-    CHECK(key_value->GetType() == type_enum_value);
-    value_as_t = static_cast<T*>(key_value);
+    // It would be nice to CHECK that this doesn't happen, but since prefs can
+    // get into a mangled state, we can't really do that. Instead, handle it
+    // gracefully (by overwriting whatever was previously there).
+    if (key_value->GetType() != type_enum_value) {
+      NOTREACHED();
+      value_as_t = new T();
+      extension->SetWithoutPathExpansion(key_, value_as_t);
+    } else {
+      value_as_t = static_cast<T*>(key_value);
+    }
   }
   return value_as_t;
 }
