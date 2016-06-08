@@ -90,7 +90,7 @@ public class ChromeBackupIntegrationTest extends ChromeTabbedActivityTestBase {
     public void testSimpleRestore() throws InterruptedException {
 
         // Fake having previously gone through FRE and signed in.
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(targetContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mTargetContext);
         SharedPreferences.Editor preferenceEditor = prefs.edit();
         preferenceEditor.putBoolean(FirstRunStatus.FIRST_RUN_FLOW_COMPLETE, true);
         preferenceEditor.putBoolean(FirstRunSignInProcessor.FIRST_RUN_FLOW_SIGNIN_SETUP, true);
@@ -114,7 +114,7 @@ public class ChromeBackupIntegrationTest extends ChromeTabbedActivityTestBase {
     @MinAndroidSdkLevel(Build.VERSION_CODES.LOLLIPOP)
     public void testRestoreAccountMissing() throws InterruptedException {
         // Fake having previously gone through FRE and signed in.
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(targetContext);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(mTargetContext);
         SharedPreferences.Editor preferenceEditor = prefs.edit();
         preferenceEditor.putBoolean(FirstRunStatus.FIRST_RUN_FLOW_COMPLETE, true);
         preferenceEditor.putBoolean(FirstRunSignInProcessor.FIRST_RUN_FLOW_SIGNIN_SETUP, true);
