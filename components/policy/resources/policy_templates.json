@@ -137,7 +137,7 @@
 #   persistent IDs for all fields (but not for groups!) are needed. These are
 #   specified by the 'id' keys of each policy. NEVER CHANGE EXISTING IDs,
 #   because doing so would break the deployed wire format!
-#   For your editing convenience: highest ID currently used: 330
+#   For your editing convenience: highest ID currently used: 333
 #
 # Placeholders:
 #   The following placeholder strings are automatically substituted:
@@ -8550,6 +8550,21 @@
       'desc': '''If set to SyncDisabled or not configured, <ph name="PRODUCT_OS_NAME">$2<ex>Google Chrome OS</ex></ph> certificates are not available for ARC-apps.
 
       If set to CopyCaCerts, all ONC-installed CA certificates with <ph name="WEB_TRUSTED_BIT">Web TrustBit</ph> are available for ARC-apps.''',
+    },
+    {
+      'name': 'EnableMediaRouter',
+      'type': 'main',
+      'schema': { 'type': 'boolean' },
+      'supported_on': ['chrome.*:52-', 'chrome_os:52-', 'android:52-'],
+      'features': {
+        'dynamic_refresh': False,
+        'per_profile': True,
+      },
+      'example_value': True,
+      'id': 333,
+      'caption': '''Enables cast''',
+      'tags': [],
+      'desc': '''If this is set to true or is not set, users will be able to cast tabs, sites or the desktop from the browser. If set to false, this option will be disabled.'''
     },
   ],
   'messages': {

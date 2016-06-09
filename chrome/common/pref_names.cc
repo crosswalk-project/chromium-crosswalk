@@ -1854,6 +1854,11 @@ const char kSystemTimezoneAutomaticDetectionPolicy[] =
     "settings.resolve_device_timezone_by_geolocation_policy";
 #endif  // defined(OS_CHROMEOS)
 
+#if defined(ENABLE_MEDIA_ROUTER)
+// Pref name for the policy controlling whether to enable Media Router.
+const char kEnableMediaRouter[] = "media_router.enable_media_router";
+#endif  // defined(ENABLE_MEDIA_ROUTER)
+
 // *************** SERVICE PREFS ***************
 // These are attached to the service process.
 

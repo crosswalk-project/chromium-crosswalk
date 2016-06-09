@@ -389,7 +389,11 @@ const PolicyToPreferenceMapEntry kSimplePolicyMap[] = {
   { key::kRC4Enabled,
     ssl_config::prefs::kRC4Enabled,
     base::Value::TYPE_BOOLEAN },
-
+#if defined(ENABLE_MEDIA_ROUTER)
+  { key::kEnableMediaRouter,
+    prefs::kEnableMediaRouter,
+    base::Value::TYPE_BOOLEAN },
+#endif  // defined(ENABLE_MEDIA_ROUTER)
 #if !defined(OS_MACOSX)
   { key::kFullscreenAllowed,
     prefs::kFullscreenAllowed,
