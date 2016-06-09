@@ -124,8 +124,8 @@ bool FLAGS_quic_enable_autotune_by_default = true;
 bool FLAGS_quic_loss_recovery_use_largest_acked = true;
 
 // Only set one alarm for sending at once, either the send alarm or
-// retransmission alarm.
-bool FLAGS_quic_only_one_sending_alarm = true;
+// retransmission alarm.  Disabled because it breaks QUIC time loss detection.
+bool FLAGS_quic_only_one_sending_alarm = false;
 
 // If true, the hash of the CHLO message will be used in the proof generated for
 // an SCUP message.
