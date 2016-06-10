@@ -114,9 +114,9 @@ bool ImageTransportSurfaceOverlayMac::Initialize(
 void ImageTransportSurfaceOverlayMac::Destroy() {
   ca_layer_tree_coordinator_.reset();
   if (previous_frame_fence_) {
-    gl::ScopedSetGLToRealGLApi scoped_set_gl_api;
+    gfx::ScopedSetGLToRealGLApi scoped_set_gl_api;
     // Ensure we are using the context with which the fence was created.
-    gl::ScopedCGLSetCurrentContext scoped_set_current(fence_context_obj_);
+    gfx::ScopedCGLSetCurrentContext scoped_set_current(fence_context_obj_);
     CheckGLErrors("Before destroy fence");
     previous_frame_fence_.reset();
     CheckGLErrors("After destroy fence");
@@ -168,8 +168,8 @@ gfx::SwapResult ImageTransportSurfaceOverlayMac::SwapBuffersInternal(
 
   // If supported, use GLFence to ensure that we haven't gotten more than one
   // frame ahead of GL.
-  if (gl::GLFence::IsSupported()) {
-    gl::ScopedSetGLToRealGLApi scoped_set_gl_api;
+  if (gfx::GLFence::IsSupported()) {
+    gfx::ScopedSetGLToRealGLApi scoped_set_gl_api;
     CheckGLErrors("Before fence/flush");
 
     // If we have gotten more than one frame ahead of GL, wait for the previous
@@ -178,7 +178,7 @@ gfx::SwapResult ImageTransportSurfaceOverlayMac::SwapBuffersInternal(
       TRACE_EVENT0("gpu", "ImageTransportSurfaceOverlayMac::ClientWait");
 
       // Ensure we are using the context with which the fence was created.
-      gl::ScopedCGLSetCurrentContext scoped_set_current(fence_context_obj_);
+      gfx::ScopedCGLSetCurrentContext scoped_set_current(fence_context_obj_);
 
       // While we could call GLFence::ClientWait, this performs a busy wait on
       // Mac, leading to high CPU usage. Instead we poll with a 1ms delay. This
@@ -190,7 +190,7 @@ gfx::SwapResult ImageTransportSurfaceOverlayMac::SwapBuffersInternal(
     }
 
     // Create a fence for the current frame's work and save the context.
-    previous_frame_fence_.reset(gl::GLFence::Create());
+    previous_frame_fence_.reset(gfx::GLFence::Create());
     fence_context_obj_.reset(CGLGetCurrentContext(),
                              base::scoped_policy::RETAIN);
 
@@ -201,7 +201,7 @@ gfx::SwapResult ImageTransportSurfaceOverlayMac::SwapBuffersInternal(
   } else {
     // GLFence isn't supported - issue a glFinish on each frame to ensure
     // there is backpressure from GL.
-    gl::ScopedSetGLToRealGLApi scoped_set_gl_api;
+    gfx::ScopedSetGLToRealGLApi scoped_set_gl_api;
     TRACE_EVENT0("gpu", "ImageTransportSurfaceOverlayMac::glFinish");
     CheckGLErrors("Before finish");
     glFinish();
