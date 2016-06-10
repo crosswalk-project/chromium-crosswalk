@@ -1736,22 +1736,25 @@ AppCacheResponseReader* AppCacheStorageImpl::CreateResponseReader(
     const GURL& manifest_url,
     int64_t group_id,
     int64_t response_id) {
-  return new AppCacheResponseReader(response_id, group_id,
-                                    disk_cache()->GetWeakPtr());
+  return new AppCacheResponseReader(
+      response_id, group_id,
+      is_disabled_ ? nullptr : disk_cache()->GetWeakPtr());
 }
 
 AppCacheResponseWriter* AppCacheStorageImpl::CreateResponseWriter(
     const GURL& manifest_url,
     int64_t group_id) {
-  return new AppCacheResponseWriter(NewResponseId(), group_id,
-                                    disk_cache()->GetWeakPtr());
+  return new AppCacheResponseWriter(
+      NewResponseId(), group_id,
+      is_disabled_ ? nullptr : disk_cache()->GetWeakPtr());
 }
 
 AppCacheResponseMetadataWriter*
 AppCacheStorageImpl::CreateResponseMetadataWriter(int64_t group_id,
                                                   int64_t response_id) {
-  return new AppCacheResponseMetadataWriter(response_id, group_id,
-                                            disk_cache()->GetWeakPtr());
+  return new AppCacheResponseMetadataWriter(
+      response_id, group_id,
+      is_disabled_ ? nullptr : disk_cache()->GetWeakPtr());
 }
 
 void AppCacheStorageImpl::DoomResponses(
@@ -1816,8 +1819,7 @@ void AppCacheStorageImpl::DeleteOneResponse() {
   DCHECK(is_response_deletion_scheduled_);
   DCHECK(!deletable_response_ids_.empty());
 
-  if (!disk_cache()) {
-    DCHECK(is_disabled_);
+  if (is_disabled_) {
     deletable_response_ids_.clear();
     deleted_response_ids_.clear();
     is_response_deletion_scheduled_ = false;
@@ -1826,7 +1828,7 @@ void AppCacheStorageImpl::DeleteOneResponse() {
 
   // TODO(michaeln): add group_id to DoomEntry args
   int64_t id = deletable_response_ids_.front();
-  int rv = disk_cache_->DoomEntry(
+  int rv = disk_cache()->DoomEntry(
       id, base::Bind(&AppCacheStorageImpl::OnDeletedOneResponse,
                      base::Unretained(this)));
   if (rv != net::ERR_IO_PENDING)
@@ -1905,9 +1907,7 @@ void AppCacheStorageImpl::RunOnePendingSimpleTask() {
 
 AppCacheDiskCache* AppCacheStorageImpl::disk_cache() {
   DCHECK(IsInitTaskComplete());
-
-  if (is_disabled_)
-    return NULL;
+  DCHECK(!is_disabled_);
 
   if (!disk_cache_) {
     int rv = net::OK;
