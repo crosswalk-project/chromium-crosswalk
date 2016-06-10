@@ -425,6 +425,17 @@ class IOThread : public content::BrowserThreadDelegate {
   // Returns the callback for updating data use prefs.
   const metrics::UpdateUsagePrefCallbackType& GetMetricsDataUseForwarder();
 
+  // Returns true if the indicated proxy resolution features are
+  // enabled. These features are controlled through
+  // preferences/policy/commandline.
+  //
+  // For a description of what these features are, and how they are
+  // configured, see the comments in pref_names.cc for
+  // |kQuickCheckEnabled| and |kPacHttpsUrlStrippingEnabled
+  // respectively.
+  bool WpadQuickCheckEnabled() const;
+  bool PacHttpsUrlStrippingEnabled() const;
+
  private:
   // Provide SystemURLRequestContextGetter with access to
   // InitSystemRequestContext().
@@ -515,6 +526,8 @@ class IOThread : public content::BrowserThreadDelegate {
   BooleanPrefMember dns_client_enabled_;
 
   BooleanPrefMember quick_check_enabled_;
+
+  BooleanPrefMember pac_https_url_stripping_enabled_;
 
   // Store HTTP Auth-related policies in this thread.
   // TODO(aberent) Make the list of auth schemes a PrefMember, so that the

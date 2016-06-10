@@ -8566,6 +8566,25 @@
       'tags': [],
       'desc': '''If this is set to true or is not set, users will be able to cast tabs, sites or the desktop from the browser. If set to false, this option will be disabled.'''
     },
+    {
+      'name': 'PacHttpsUrlStrippingEnabled',
+      'type': 'main',
+      'schema': { 'type': 'boolean' },
+      'supported_on': [ 'chrome.*:52-', 'chrome_os:52-' ],
+      'features': {
+        'dynamic_refresh': False,
+        'per_profile': False,
+      },
+      'example_value': False,
+      'id': 332,
+      'caption': '''Enable PAC URL stripping (for https://)''',
+      'tags': ['system-security'],
+      'desc': '''Strips privacy and security sensitive parts of https:// URLs before passing them on to PAC scripts (Proxy Auto Config) used by <ph name="PRODUCT_NAME">$1<ex>Google Chrome</ex></ph> during proxy resolution.
+
+      When not set (or set to true) the default behavior is to strip https:// URLs before submitting them to a PAC script. In this manner the PAC script is not able to view data that is ordinarily protected by an encrypted channel (like the path and query).
+
+      When the policy is set to false, this security feature is disabled, and PAC scripts are granted the ability to view the full URL. This setting applies to all PAC scripts regardless of origin. For instance it applies to PAC scripts obtained through WPAD as well as those fetched over an insecure transport.''',
+    },
   ],
   'messages': {
     # Messages that are not associated to any policies.
