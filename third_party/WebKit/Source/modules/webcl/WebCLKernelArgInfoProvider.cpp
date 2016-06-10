@@ -5,9 +5,10 @@
 
 #include "modules/webcl/WebCLKernelArgInfoProvider.h"
 
-#include "core/webcl/WebCLException.h"
 #include "modules/webcl/WebCLKernel.h"
+#include "modules/webcl/WebCLKernelArgInfo.h"
 #include "modules/webcl/WebCLProgram.h"
+#include "wtf/text/AtomicString.h"
 
 namespace blink {
 
@@ -39,6 +40,15 @@ WebCLKernelArgInfoProvider::WebCLKernelArgInfoProvider(WebCLKernel* kernel)
 {
     ASSERT(kernel);
     ensureInfo();
+}
+
+WebCLKernelArgInfoProvider::~WebCLKernelArgInfoProvider()
+{
+}
+
+unsigned WebCLKernelArgInfoProvider::numberOfArguments()
+{
+    return m_argumentInfoVector.size();
 }
 
 void WebCLKernelArgInfoProvider::ensureInfo()

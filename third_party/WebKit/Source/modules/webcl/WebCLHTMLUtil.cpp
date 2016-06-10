@@ -5,13 +5,20 @@
 
 #include "modules/webcl/WebCLHTMLUtil.h"
 
+#include "bindings/core/v8/ExceptionState.h"
+#include "core/dom/DOMTypedArray.h"
+#include "core/fetch/ImageResource.h"
 #include "core/html/HTMLCanvasElement.h"
 #include "core/html/HTMLImageElement.h"
 #include "core/html/HTMLVideoElement.h"
 #include "core/html/ImageData.h"
 #include "core/webcl/WebCLException.h"
-#include "modules/webcl/WebCL.h"
+#include "platform/geometry/IntRect.h"
+#include "platform/geometry/IntSize.h"
+#include "platform/graphics/Image.h"
+#include "platform/graphics/ImageBuffer.h"
 #include "platform/graphics/gpu/WebGLImageConversion.h"
+#include "wtf/RefPtr.h"
 
 namespace blink {
 
@@ -137,6 +144,10 @@ PassRefPtr<Image> WebCLHTMLUtil::videoFrameToImage(HTMLVideoElement* video)
 
 WebCLHTMLUtil::WebCLHTMLUtil(unsigned capacity)
     : m_generatedImageCache(capacity)
+{
+}
+
+WebCLHTMLUtil::~WebCLHTMLUtil()
 {
 }
 

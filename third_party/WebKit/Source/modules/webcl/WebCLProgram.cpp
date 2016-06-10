@@ -5,15 +5,28 @@
 
 #include "modules/webcl/WebCLProgram.h"
 
-#include "bindings/modules/v8/V8WebCLContext.h"
+#include "bindings/core/v8/ExceptionState.h"
+#include "bindings/core/v8/ScriptState.h"
+#include "bindings/core/v8/ToV8.h"
+#include "bindings/core/v8/V8Binding.h"
 #include "core/webcl/WebCLException.h"
-#include "modules/webcl/WebCL.h"
+#include "modules/webcl/WebCLCallback.h"
+#include "modules/webcl/WebCLContext.h"
+#include "modules/webcl/WebCLDevice.h"
 #include "modules/webcl/WebCLKernel.h"
-#include "modules/webcl/WebCLOpenCL.h"
 #include "platform/ThreadSafeFunctional.h"
 #include "public/platform/Platform.h"
 #include "public/platform/WebTaskRunner.h"
+#include "public/platform/WebThread.h"
 #include "public/platform/WebTraceLocation.h"
+#include "wtf/HashSet.h"
+#include "wtf/MainThread.h"
+#include "wtf/OwnPtr.h"
+#include "wtf/WeakPtr.h"
+#include "wtf/text/AtomicString.h"
+#include "wtf/text/AtomicStringHash.h"
+#include <stdlib.h>
+#include <string.h>
 
 namespace blink {
 

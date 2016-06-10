@@ -4,17 +4,20 @@
 
 #include "bindings/modules/v8/V8WebCLCommandQueue.h"
 
+#include "bindings/core/v8/ExceptionMessages.h"
+#include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/V8ArrayBufferView.h"
 #include "bindings/core/v8/V8HTMLCanvasElement.h"
 #include "bindings/core/v8/V8HTMLImageElement.h"
 #include "bindings/core/v8/V8HTMLVideoElement.h"
 #include "bindings/core/v8/V8ImageData.h"
 #include "bindings/modules/v8/V8WebCLBuffer.h"
-#include "bindings/modules/v8/V8WebCLCallback.h"
 #include "bindings/modules/v8/V8WebCLEvent.h"
 #include "bindings/modules/v8/V8WebCLImage.h"
 #include "bindings/modules/v8/V8WebCLKernel.h"
-#include "bindings/modules/v8/V8WebCLMemoryObject.h"
+#include "core/webcl/WebCLException.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
 
 namespace blink {
 

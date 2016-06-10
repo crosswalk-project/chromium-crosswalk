@@ -5,11 +5,11 @@
 #ifndef WebCLInputChecker_h
 #define WebCLInputChecker_h
 
-#include "core/dom/DOMArrayBufferView.h"
-#include "modules/webcl/WebCLConfig.h"
+#include "wtf/Vector.h"
 
 namespace blink {
 
+class DOMArrayBufferView;
 class WebCLBuffer;
 class WebCLContext;
 class WebCLImage;

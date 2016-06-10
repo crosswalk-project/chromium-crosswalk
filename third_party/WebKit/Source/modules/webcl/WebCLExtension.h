@@ -6,15 +6,17 @@
 #ifndef WebCLExtension_h
 #define WebCLExtension_h
 
-#include "core/webcl/WebCLException.h"
-#include "modules/webcl/WebCLConfig.h"
+#include "wtf/HashSet.h"
+#include "wtf/Vector.h"
+#include "wtf/text/StringHash.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class WebCLExtension {
 public:
-    ~WebCLExtension() {}
-    WebCLExtension() {}
+    ~WebCLExtension();
+    WebCLExtension();
 
     bool enableExtension(const String& name);
     Vector<String> getSupportedExtensions();

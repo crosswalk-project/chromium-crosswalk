@@ -6,17 +6,21 @@
 #ifndef WebCLDevice_h
 #define WebCLDevice_h
 
-#include "modules/webcl/WebCLConfig.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLExtension.h"
-#include "modules/webcl/WebCLPlatform.h"
+#include "modules/webcl/WebCLOpenCL.h"
+#include "wtf/HashSet.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
+#include "wtf/Vector.h"
+#include "wtf/text/StringHash.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class ExceptionState;
-class WebCL;
-class WebCLGetInfo;
+class ScriptState;
 class WebCLPlatform;
 
 class WebCLDevice final : public RefCounted<WebCLDevice>, public ScriptWrappable {
@@ -38,7 +42,7 @@ public:
     unsigned getImage2DMaxHeight();
     unsigned getMaxWorkGroup();
     Vector<unsigned> getMaxWorkItem();
-    PassRefPtr<WebCLPlatform> getPlatform() const { return m_platform; }
+    PassRefPtr<WebCLPlatform> getPlatform() const;
     cl_device_id getDeviceId() { return m_clDeviceId; }
 
 private:

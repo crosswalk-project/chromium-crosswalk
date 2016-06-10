@@ -6,9 +6,8 @@
 #ifndef WebCLHTMLUtil_h
 #define WebCLHTMLUtil_h
 
-#include "platform/graphics/Image.h"
-#include "platform/graphics/ImageBuffer.h"
-#include "wtf/RefCounted.h"
+#include "wtf/OwnPtr.h"
+#include "wtf/PassRefPtr.h"
 #include "wtf/Vector.h"
 
 namespace blink {
@@ -17,11 +16,15 @@ class ExceptionState;
 class HTMLCanvasElement;
 class HTMLImageElement;
 class HTMLVideoElement;
+class Image;
+class ImageBuffer;
 class ImageData;
+class IntSize;
 
 class WebCLHTMLUtil {
 public:
     explicit WebCLHTMLUtil(unsigned capacity = 4);
+    ~WebCLHTMLUtil();
     static bool extractDataFromCanvas(HTMLCanvasElement*, Vector<uint8_t>& data, size_t& canvasSize, ExceptionState&);
     static bool extractDataFromImage(HTMLImageElement*, Vector<uint8_t>& data, size_t& canvasSize, ExceptionState&);
     static bool extractDataFromImageData(ImageData*, void*& hostPtr, size_t& pixelSize, ExceptionState&);

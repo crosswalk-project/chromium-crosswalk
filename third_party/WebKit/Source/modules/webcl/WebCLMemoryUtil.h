@@ -6,18 +6,18 @@
 #ifndef WebCLMemoryUtil_h
 #define WebCLMemoryUtil_h
 
-#include "core/webcl/WebCLException.h"
-#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
 #include "wtf/Vector.h"
 #include "wtf/WeakPtr.h"
 
 namespace blink {
 
+class ExceptionState;
 class WebCLBuffer;
 class WebCLCommandQueue;
 class WebCLContext;
-class WebCLMemoryObject;
 class WebCLKernel;
+class WebCLMemoryObject;
 class WebCLObject;
 class WebCLProgram;
 

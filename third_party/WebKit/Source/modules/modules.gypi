@@ -1660,6 +1660,7 @@
       'webcl/WebCLInputChecker.h',
       'webcl/WebCLKernel.cpp',
       'webcl/WebCLKernel.h',
+      'webcl/WebCLKernelArgInfo.cpp',
       'webcl/WebCLKernelArgInfo.h',
       'webcl/WebCLKernelArgInfoProvider.cpp',
       'webcl/WebCLKernelArgInfoProvider.h',

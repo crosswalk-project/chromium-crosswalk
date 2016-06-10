@@ -6,15 +6,16 @@
 #ifndef WebCLMemoryObject_h
 #define WebCLMemoryObject_h
 
-#include "modules/webcl/WebCLConfig.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLObject.h"
+#include "modules/webcl/WebCLOpenCL.h"
 #include "wtf/PassRefPtr.h"
-#include "wtf/RefCounted.h"
 
 namespace blink {
 
 class ExceptionState;
-class WebCL;
+class ScriptState;
 class WebCLContext;
 
 class WebCLMemoryObject : public WebCLObject, public ScriptWrappable {

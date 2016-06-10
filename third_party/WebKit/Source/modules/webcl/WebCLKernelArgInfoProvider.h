@@ -6,20 +6,22 @@
 #ifndef WebCLKernelArgInfoProvider_h
 #define WebCLKernelArgInfoProvider_h
 
-#include "modules/webcl/WebCLConfig.h"
-#include "modules/webcl/WebCLKernelArgInfo.h"
-#include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class WebCLKernel;
+class WebCLKernelArgInfo;
 
 class WebCLKernelArgInfoProvider {
 public:
     explicit WebCLKernelArgInfoProvider(WebCLKernel*);
+    ~WebCLKernelArgInfoProvider();
     const Vector<RefPtr<WebCLKernelArgInfo>>& argumentsInfo() { return m_argumentInfoVector; };
 
-    unsigned numberOfArguments() { return m_argumentInfoVector.size(); }
+    unsigned numberOfArguments();
     const Vector<unsigned>& requiredArguments() { return m_requiredArgumentVector; }
 
 private:

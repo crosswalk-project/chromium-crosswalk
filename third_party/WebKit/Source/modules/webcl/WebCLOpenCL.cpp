@@ -6,8 +6,6 @@
 
 #include "wtf/CPU.h"
 #include "wtf/build_config.h"
-#include <stdio.h>
-#include <string.h>
 
 #if OS(ANDROID)
 #include <dlfcn.h>

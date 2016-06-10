@@ -5,14 +5,6 @@
 #ifndef WebCLConfig_h
 #define WebCLConfig_h
 
-#include "bindings/core/v8/ScriptState.h"
-#include "bindings/core/v8/ScriptWrappable.h"
-#include "platform/Logging.h"
-#include "wtf/HashSet.h"
-#include "wtf/Vector.h"
-#include "wtf/text/StringHash.h"
-#include "wtf/text/WTFString.h"
-
 #include <CL/cl.h>
 #include <CL/cl_gl.h>
 #include <CL/cl_platform.h>

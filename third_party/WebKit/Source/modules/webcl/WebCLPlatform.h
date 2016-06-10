@@ -6,17 +6,23 @@
 #ifndef WebCLPlatform_h
 #define WebCLPlatform_h
 
-#include "modules/webcl/WebCL.h"
-#include "modules/webcl/WebCLConfig.h"
+#include "bindings/core/v8/ScriptValue.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLExtension.h"
+#include "modules/webcl/WebCLOpenCL.h"
+#include "wtf/HashSet.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
+#include "wtf/RefPtr.h"
+#include "wtf/Vector.h"
+#include "wtf/text/StringHash.h"
+#include "wtf/text/WTFString.h"
 
 namespace blink {
 
 class ExceptionState;
-class WebCLCommandQueue;
-class WebCLImage;
+class ScriptState;
+class WebCLDevice;
 
 class WebCLPlatform final : public RefCounted<WebCLPlatform>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();

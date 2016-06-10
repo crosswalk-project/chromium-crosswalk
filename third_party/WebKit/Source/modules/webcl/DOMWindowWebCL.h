@@ -7,6 +7,8 @@
 
 #include "core/frame/DOMWindowProperty.h"
 #include "platform/Supplementable.h"
+#include "platform/heap/Handle.h"
+#include "wtf/RefPtr.h"
 
 namespace blink {
 
@@ -19,6 +21,8 @@ class DOMWindowWebCL final : public GarbageCollectedFinalized<DOMWindowWebCL>, p
 public:
     static DOMWindowWebCL& from(LocalDOMWindow&);
     static WebCL* webcl(DOMWindow&);
+
+    ~DOMWindowWebCL();
 
     void willDestroyGlobalObjectInFrame() override;
     void willDetachGlobalObjectFromFrame() override;

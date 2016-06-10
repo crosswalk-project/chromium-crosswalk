@@ -6,21 +6,21 @@
 #ifndef WebCLException_h
 #define WebCLException_h
 
-#include "bindings/core/v8/ExceptionState.h"
 #include "bindings/core/v8/ScriptWrappable.h"
+#include "wtf/PassRefPtr.h"
 #include "wtf/ThreadSafeRefCounted.h"
+#include "wtf/text/WTFString.h"
 
 #define WEBCLEXCEPTIONOFFSET 0
 
 namespace blink {
 
+class ExceptionState;
+
 class CORE_EXPORT WebCLException final : public ThreadSafeRefCounted<WebCLException>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
 public:
-    static PassRefPtr<WebCLException> create(unsigned code, const String& name, const String& message)
-    {
-        return adoptRef(new WebCLException(code, name, message));
-    }
+    static PassRefPtr<WebCLException> create(unsigned code, const String& name, const String& message);
 
     enum WebCLExceptionCode {
         Success                            = WEBCLEXCEPTIONOFFSET,
@@ -133,16 +133,11 @@ public:
 
     static void throwException(int& code, ExceptionState&);
     unsigned code() const { return m_code; }
-    String name() const { return m_name.isolatedCopy(); }
-    String message() const { return m_message.isolatedCopy(); }
+    String name() const;
+    String message() const;
 
 private:
-    WebCLException(unsigned code, const String& name, const String& message)
-        : m_code(code)
-        , m_name(name.isolatedCopy())
-        , m_message(message.isolatedCopy())
-    {
-    }
+    WebCLException(unsigned code, const String& name, const String& message);
     unsigned m_code;
     String m_name;
     String m_message;

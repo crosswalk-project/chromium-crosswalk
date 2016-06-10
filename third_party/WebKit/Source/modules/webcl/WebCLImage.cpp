@@ -5,10 +5,9 @@
 
 #include "modules/webcl/WebCLImage.h"
 
+#include "bindings/core/v8/ExceptionState.h"
 #include "core/webcl/WebCLException.h"
-#include "modules/webcl/WebCL.h"
 #include "modules/webcl/WebCLContext.h"
-#include "modules/webcl/WebCLOpenCL.h"
 
 namespace blink {
 

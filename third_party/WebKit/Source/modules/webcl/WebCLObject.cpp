@@ -28,6 +28,11 @@ WebCLObject::WebCLObject()
 {
 }
 
+WeakPtr<WebCLObject> WebCLObject::createWeakPtr()
+{
+    return m_weakFactory.createWeakPtr();
+}
+
 PassRefPtr<WebCLContext> WebCLObject::context()
 {
     ASSERT(m_context);

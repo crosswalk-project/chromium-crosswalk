@@ -6,35 +6,32 @@
 #ifndef WebCL_h
 #define WebCL_h
 
-#include "modules/webcl/WebCLCallback.h"
-#include "modules/webcl/WebCLCommandQueue.h"
-#include "modules/webcl/WebCLConfig.h"
-#include "modules/webcl/WebCLContext.h"
-#include "modules/webcl/WebCLDevice.h"
-#include "modules/webcl/WebCLEvent.h"
+#include "bindings/core/v8/ScriptWrappable.h"
 #include "modules/webcl/WebCLExtension.h"
-#include "modules/webcl/WebCLImage.h"
-#include "modules/webcl/WebCLInputChecker.h"
-#include "modules/webcl/WebCLKernel.h"
-#include "modules/webcl/WebCLMemoryObject.h"
 #include "modules/webcl/WebCLOpenCL.h"
-#include "modules/webcl/WebCLPlatform.h"
-#include "modules/webcl/WebCLProgram.h"
-#include "modules/webcl/WebCLSampler.h"
-#include "wtf/OwnPtr.h"
+#include "platform/heap/Handle.h"
+#include "wtf/HashSet.h"
+#include "wtf/PassOwnPtr.h"
 #include "wtf/PassRefPtr.h"
 #include "wtf/RefCounted.h"
 #include "wtf/RefPtr.h"
-#include "wtf/Threading.h"
-
-#include <stdlib.h>
+#include "wtf/Vector.h"
+#include "wtf/WeakPtr.h"
+#include "wtf/text/StringHash.h"
+#include "wtf/text/WTFString.h"
+#include <utility>
 
 namespace blink {
 
 typedef unsigned CLenum;
 class ExceptionState;
-class ExecutionContext;
+class WebCLCallback;
+class WebCLContext;
+class WebCLDevice;
+class WebCLEvent;
 class WebCLHolder;
+class WebCLObject;
+class WebCLPlatform;
 
 class WebCL final : public RefCounted<WebCL>, public ScriptWrappable {
     DEFINE_WRAPPERTYPEINFO();
