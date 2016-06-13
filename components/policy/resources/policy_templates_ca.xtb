@@ -6,6 +6,7 @@
 <translation id="1019101089073227242">Estableix el directori de dades de l'usuari</translation>
 <translation id="1022361784792428773">ID de les extensions que l'usuari no pot instal·lar (o bé * per a totes)</translation>
 <translation id="102492767056134033">Defineix l'estat predeterminat del teclat en pantalla a la pàgina d'inici de sessió</translation>
+<translation id="1040446814317236570">Activeu la retirada de l'URL de PAC (per a https://)</translation>
 <translation id="1044878202534415707">Informa d'estadístiques del maquinari com ara l'ús de CPU o de RAM.
 
       Si la política s'estableix en "false", no s'informa de les estadístiques.
@@ -1872,7 +1873,7 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
       Si s'estableix la política SystemTimezone, substitueix SystemTimezoneAutomaticDetection i la detecció automàtica de la zona horària està totalment desactivada.</translation>
 <translation id="787125417158068494">Si s'estableix en SyncDisabled o no es configura, els certificats de <ph name="PRODUCT_OS_NAME" /> no estan disponibles per a les aplicacions ARC.
 
-      Si s'estableix en CopyCaCerts, tots els certificats de CA instal·lats mitjançant fitxers ONC amb <ph name="WEB_TRUSTED_BIT" /> estan disponibles per a les aplicacions ARC.</translation>
+      Si s'estableix en CopyCaCerts, tots els certificats de CA instal·lats amb fitxers ONC amb <ph name="WEB_TRUSTED_BIT" /> estan disponibles per a les aplicacions ARC.</translation>
 <translation id="7882585827992171421">Aquesta política només està activa en mode de venda.
 
       Determina l'identificador de l'extensió que s'ha d'utilitzar com a protector de pantalla a la pantalla d'inici de sessió. L'extensió ha de formar part de l'AppPack, que està configurat per a aquest domini a través de la política DeviceAppPack.</translation>

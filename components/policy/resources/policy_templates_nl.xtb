@@ -6,6 +6,7 @@
 <translation id="1019101089073227242">Gegevensdirectory voor gebruiker instellen</translation>
 <translation id="1022361784792428773">Id's van extensies die de gebruiker niet mag installeren (of '*' voor alle extensies)</translation>
 <translation id="102492767056134033">De standaardstatus van het schermtoetsenbord op het inlogscherm instellen</translation>
+<translation id="1040446814317236570">Verwijderen van gegevens uit PAC-URL's toestaan (voor https://)</translation>
 <translation id="1044878202534415707">Hardwarestatistieken melden, zoals CPU-/RAM-gebruik.
 
       Als het beleid is ingesteld op 'onwaar', worden de statistieken niet gemeld.
@@ -2022,7 +2023,7 @@ Geheugengegevens worden in alle gevallen aan de pagina gerapporteerd, afgezien v
       Als het beleid SystemTimezone is ingesteld, overschrijft het dit beleid. In dat geval is automatische tijdzonedetectie volledig uitgeschakeld.</translation>
 <translation id="787125417158068494">Als dit is ingesteld op SyncDisabled of niet is geconfigureerd, zijn certificaten van <ph name="PRODUCT_OS_NAME" /> niet beschikbaar voor ARC-apps.
 
-      Als dit is ingesteld op CopyCaCerts, worden alle door ONC geïnstalleerde CA-certificaten met <ph name="WEB_TRUSTED_BIT" /> beschikbaar voor ARC-apps.</translation>
+      Als dit is ingesteld op CopyCaCerts, zijn alle door ONC geïnstalleerde CA-certificaten met <ph name="WEB_TRUSTED_BIT" /> beschikbaar voor ARC-apps.</translation>
 <translation id="7882585827992171421">Dit beleid is alleen actief in de commerciële modus.
 
       Hiermee bepaal je de ID van de extensie die moet worden gebruikt als schermbeveiliging voor het inlogvenster. De extensie moet onderdeel zijn van het AppPack dat is geconfigureerd voor dit domein via het beleid DeviceAppPack.</translation>

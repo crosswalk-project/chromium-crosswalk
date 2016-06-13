@@ -6,6 +6,7 @@
 <translation id="1019101089073227242">Angi katalog for brukerdata</translation>
 <translation id="1022361784792428773">Utvidelses-ID-er brukeren skal hindres i å installere (eller * for alle)</translation>
 <translation id="102492767056134033">Angi skjermtastaturets standardtilstand på påloggingssiden</translation>
+<translation id="1040446814317236570">Slå på PAC-nettadresserydding (for https://)</translation>
 <translation id="1044878202534415707">Rapportér maskinvarestatistikk, for eksempel bruk av prosessor og minne.
 
       Hvis regelen settes til «false» (usann), rapporteres ikke statistikken.
@@ -499,7 +500,7 @@
           Denne retningslinjen tas til etterretning bare hvis retningslinjen DefaultSearchProviderEnabled er aktivert.</translation>
 <translation id="2682225790874070339">Deaktiverer Google Disk i Filer-appen for <ph name="PRODUCT_OS_NAME" /></translation>
 <translation id="268577405881275241">Aktiver proxy-tjenerfunksjonen for datakomprimering</translation>
-<translation id="2731627323327011390">Slå av bruken av sertifikater for <ph name="PRODUCT_OS_NAME" /> for ARC-apper</translation>
+<translation id="2731627323327011390">Slå av bruken av <ph name="PRODUCT_OS_NAME" />-sertifikater for ARC-apper</translation>
 <translation id="2742843273354638707">Skjul Chrome Nettmarked-appen og linken fra ny fane-siden og <ph name="PRODUCT_OS_NAME" /> OS-appvelgeren.
 
       Hvis denne regelen slås på («true»), skjules ikonene.
@@ -1988,7 +1989,7 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
       Hvis denne regelen ikke spesifiseres, har det samme effekt som om TimezoneAutomaticDetectionUsersDecide var angitt.
 
       Hvis SystemTimezone-regelen er spesifisert, overstyrer den denne regelen. I så fall er automatisk påvisning av tidssoner slått helt av.</translation>
-<translation id="787125417158068494">Hvis denne er angitt som SyncDisabled eller ikke er konfigurert, er ikke sertifikater for <ph name="PRODUCT_OS_NAME" /> tilgjengelige for ARC-apper.
+<translation id="787125417158068494">Hvis denne er angitt som SyncDisabled eller ikke er konfigurert, er ikke <ph name="PRODUCT_OS_NAME" />-sertifikater tilgjengelige for ARC-apper.
 
       Hvis denne er angitt som CopyCaCerts, er alle ONC-installerte CA-sertifikater med <ph name="WEB_TRUSTED_BIT" /> tilgjengelige for ARC-apper.</translation>
 <translation id="7882585827992171421">Denne retningslinjen er aktiv bare i detaljistmodus.

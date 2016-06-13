@@ -824,6 +824,7 @@
 <translation id="2218947405056773815">Mist! <ph name="API_NAME" /> wurde blockiert.</translation>
 <translation id="2220529011494928058">Problem melden</translation>
 <translation id="2220794966865262911">Dienst nicht verfügbar</translation>
+<translation id="2221240591176106785">Aktualisieren ohne Überprüfung aktivieren</translation>
 <translation id="2222641695352322289">Dies kann nur durch eine erneute Installation von <ph name="IDS_SHORT_PRODUCT_OS_NAME" /> rückgängig gemacht werden.</translation>
 <translation id="2224444042887712269">Inhaber dieser Einstellung ist <ph name="OWNER_EMAIL" />.</translation>
 <translation id="2224551243087462610">Ordnername bearbeiten</translation>
@@ -860,6 +861,7 @@ Nach der Erstellung eines neuen betreuten Nutzers können Sie die Einstellungen 
 <translation id="225163402930830576">Netzwerke aktualisieren</translation>
 <translation id="2251861737500412684">Overscroll-Effekt für die Bildschirmtastatur</translation>
 <translation id="225240747099314620">Kennungen für geschützte Inhalte ermöglichen (erfordert eventuell einen Neustart des Computers)</translation>
+<translation id="2254681226363050822">Zustimmen</translation>
 <translation id="2255317897038918278">Microsoft-Zeitstempeldienst</translation>
 <translation id="2258195278080713720">Neue stabile JavaScript-Funktionen</translation>
 <translation id="2260567344816042527">Google Chrome greift auf die mobile Datennutzung zurück, wenn Sie nicht mit einem anderen Netzwerk verbunden sind.</translation>
@@ -1129,6 +1131,7 @@ Ich glaube nicht, dass diese Website blockiert werden sollte.</translation>
 <translation id="2628791912475282217">Sorgt dafür, dass Chrome auf einem Mac, sofern verfügbar, das Browser-Dialogfeld über Toolkit-Views verwendet (statt des äquivalenten Cocoa-Dialogfelds).</translation>
 <translation id="2630681426381349926">Verbindung zu WLAN herstellen</translation>
 <translation id="2631006050119455616">Gespeichert</translation>
+<translation id="2631498379019108537">Eingabeoptionen in der Ablage anzeigen</translation>
 <translation id="2633199387167390344"><ph name="NAME" /> nutzt <ph name="USAGE" /> MB an Festplattenspeicher.</translation>
 <translation id="2633212996805280240">"<ph name="EXTENSION_NAME" />" entfernen?</translation>
 <translation id="263325223718984101"><ph name="PRODUCT_NAME" /> konnte die Installation nicht abschließen, wird jedoch weiterhin über das Datenträgerabbild ausgeführt.</translation>
@@ -1304,6 +1307,8 @@ Ich glaube nicht, dass diese Website blockiert werden sollte.</translation>
 <translation id="2845382757467349449">Lesezeichenleiste immer anzeigen</translation>
 <translation id="2846816712032308263">Aktiviert schnelles Schließen von Tabs und Fenstern – führt den onunload-JS-Handler eines Tabs unabhängig von der GUI aus</translation>
 <translation id="2847759467426165163">Übertragen an</translation>
+<translation id="284844301579626260">Zum Zurückkehren |<ph name="ACCELERATOR1" />|+|<ph name="ACCELERATOR2" />| drücken</translation>
+<translation id="2849362176025371110">Diagnose- und Nutzungsdaten automatisch an Google senden. Sie können dies jederzeit <ph name="BEGIN_LINK1" />in den Geräteeinstellungen ändern<ph name="END_LINK1" />. <ph name="BEGIN_LINK2" />Weitere Informationen<ph name="END_LINK2" /></translation>
 <translation id="284970761985428403"><ph name="ASCII_NAME" /> (<ph name="UNICODE_NAME" />)</translation>
 <translation id="2849936225196189499">Kritisch</translation>
 <translation id="2850124913210091882">Sichern</translation>
@@ -1849,6 +1854,7 @@ von <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="3578331450833904042">Standard – alles aufnehmen</translation>
 <translation id="3578594933904494462">Der Inhalt dieses Tabs wird geteilt.</translation>
 <translation id="357886715122934472">&lt;strong&gt;<ph name="SENDER" />&lt;/strong&gt; möchte den Drucker &lt;strong&gt;<ph name="PRINTER_NAME" />&lt;/strong&gt; für eine Gruppe freigeben, deren Inhaber Sie sind: &lt;strong&gt;<ph name="GROUP_NAME" />&lt;/strong&gt;. Falls Sie zustimmen, können alle Gruppenmitglieder diesen Drucker nutzen.</translation>
+<translation id="3580755944074305009">Laden der IPC-Optimierung für kleine Ressourcen aktivieren.</translation>
 <translation id="3581912141526548234">Erzwingen (versuchen, Hashes abzurufen, und im Erfolgsfall erzwingen)</translation>
 <translation id="3582742550193309836">Wiederholungsrate:</translation>
 <translation id="3582792037806681688">Die Mehrfachanmeldung wurde für einen Nutzer in dieser Sitzung deaktiviert.</translation>
@@ -2175,6 +2181,7 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME" /> starten?</translation>
 <translation id="4032824638713013286">Aktiviert die Cloudimportfunktion.</translation>
 <translation id="4034042927394659004">Tastenhelligkeit verringern</translation>
 <translation id="4035758313003622889">&amp;Taskmanager</translation>
+<translation id="4037102579141982963">Dieses Gerät sendet automatisch Diagnose- und Nutzungsdaten an Google. Sie können dies jederzeit <ph name="BEGIN_LINK1" />in den Geräteeinstellungen ändern<ph name="END_LINK1" />. <ph name="BEGIN_LINK2" />Weitere Informationen<ph name="END_LINK2" /></translation>
 <translation id="4037463823853863991">Aktiviert den Tab-Wechsler für Bedienungshilfen in Android</translation>
 <translation id="4043223219875055035">Melden Sie sich in Ihrem Google-Konto an, um die Synchronisierung der Einstellungen und die Bereitstellung anderer benutzerdefinierter Dienste durch Apps zu ermöglichen.</translation>
 <translation id="4044260751144303020">Aufbau für Elemente mit fester Position</translation>
@@ -2199,6 +2206,7 @@ Möchten Sie <ph name="CONTROL_PANEL_APPLET_NAME" /> starten?</translation>
 <translation id="4078738236287221428">Aggressiv</translation>
 <translation id="408098233265424160">Entfernungserkennung für Smart Lock</translation>
 <translation id="4081979157059999345">Link zur Remotepasswortverwaltung</translation>
+<translation id="4082491704293950457">Mit <ph name="APPLICATION_NAME" /> teilen</translation>
 <translation id="4084682180776658562">Lesezeichen</translation>
 <translation id="4084835346725913160"><ph name="TAB_NAME" /> schließen</translation>
 <translation id="4085298594534903246">JavaScript wurde auf dieser Seite blockiert.</translation>
@@ -2376,6 +2384,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="4348766275249686434">Fehler erfassen</translation>
 <translation id="4350019051035968019">Dieses Gerät kann nicht in der Domain registriert werden, zu der Ihr Konto gehört, weil das Gerät für die Verwaltung in einer anderen Domain gekennzeichnet wurde.</translation>
 <translation id="4354806558096370704">Aktiviert die Verwendung des nativen CUPS-Druck-Back-Ends.</translation>
+<translation id="4355925451975609675">Zum Weitergehen |<ph name="ACCELERATOR1" />|+|<ph name="ACCELERATOR2" />| drücken</translation>
 <translation id="4358697938732213860">Adresse hinzufügen</translation>
 <translation id="4359408040881008151">Wurde aufgrund der abhängigen Erweiterungen installiert</translation>
 <translation id="4361190688154226069">Zielbestimmung in Ansichten mithilfe von Rechtecken</translation>
@@ -2470,6 +2479,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="4509345063551561634">Speicherort:</translation>
 <translation id="4514542542275172126">Neuen betreuten Nutzer einrichten</translation>
 <translation id="4514914692061505365">Die Verwendung des schnellen Subzero-Übersetzers von PNaCl für alle Portable Executable-Dateien erzwingen.</translation>
+<translation id="4516641987425683031">Synchronisierte Tabs</translation>
 <translation id="4518677423782794009">Stürzt Chrome ab, werden ungewohnte Startseiten, Symbolleisten oder Anzeigen eingeblendet, die sich nicht deaktivieren lassen, oder reagiert der Browser anders als gewohnt? Möglicherweise lässt sich das Problem mit dem Chrome Software Cleaner beheben.</translation>
 <translation id="452039078290142656">unbekannte Geräte von <ph name="VENDOR_NAME" /></translation>
 <translation id="4522570452068850558">Details</translation>
@@ -3553,6 +3563,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="6110466548232134880">Die Identität von <ph name="ORGANIZATION" /> in <ph name="LOCALITY" /> wurde von <ph name="ISSUER" /> bestätigt. Informationen zur Zertifikatstransparenz wurden vom Server nicht bereitgestellt.</translation>
 <translation id="6111770213269631447">Transliteration (namaskar → নমস্কার)</translation>
 <translation id="6111974609785983504">Standardmäßig zugelassen</translation>
+<translation id="6112929985131461002">Dieses Gerät sendet automatisch Diagnose- und Nutzungsdaten an Google. <ph name="BEGIN_LINK1" />Diese Einstellung<ph name="END_LINK1" /> wird durch Ihren Administrator erzwungen. <ph name="BEGIN_LINK2" />Weitere Informationen<ph name="END_LINK2" /></translation>
 <translation id="6116921718742659598">Sprach- und Eingabeeinstellungen ändern</translation>
 <translation id="6120205520491252677">Diese Seite an Startbildschirm anheften...</translation>
 <translation id="6122081475643980456">Internetverbindung wird kontrolliert</translation>
@@ -3777,6 +3788,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="6452181791372256707">Ablehnen</translation>
 <translation id="6454421252317455908">Chinesische Eingabemethode (schnell)</translation>
 <translation id="6455348477571378046">Zertifikatstyp:</translation>
+<translation id="6456234919706689841">Ihr Administrator kann festlegen, dass Diagnose- und Nutzungsdaten von diesem Gerät an Google gesendet werden. Sie können <ph name="BEGIN_LINK1" />diese Einstellung hier aufrufen<ph name="END_LINK1" />. <ph name="BEGIN_LINK2" />Weitere Informationen<ph name="END_LINK2" /></translation>
 <translation id="645705751491738698">JavaScript weiterhin blockieren</translation>
 <translation id="6458308652667395253">JavaScript-Blockierung verwalten...</translation>
 <translation id="6459488832681039634">Auswahl suchen</translation>
@@ -4315,6 +4327,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="7287143125007575591">Zugriff verweigert</translation>
 <translation id="7288592446024861651">Lesezeichen, Verlauf, Passwörter und andere Einstellungen werden mit Ihrem Google-Konto synchronisiert, damit Sie sie auf allen Ihren Geräten nutzen können. Hier können Sie festlegen, was synchronisiert werden soll: <ph name="BEGIN_LINK" /></translation>
 <translation id="7288676996127329262"><ph name="HORIZONTAL_DPI" /> x <ph name="VERTICAL_DPI" /> dpi</translation>
+<translation id="7290242001003353852">Dieser Anmeldedienst wird von <ph name="SAML_DOMAIN" /> gehostet und greift auf Ihre Kamera zu.</translation>
 <translation id="7290594223351252791">Registrierung bestätigen</translation>
 <translation id="7295019613773647480">Betreute Nutzer aktivieren</translation>
 <translation id="7296774163727375165">Nutzungsbedingungen für <ph name="DOMAIN" /></translation>
@@ -4404,6 +4417,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="7417705661718309329">Google-Karte</translation>
 <translation id="741906494724992817">Diese App erfordert keine speziellen Berechtigungen.</translation>
 <translation id="7419631653042041064">Katalanische Tastatur</translation>
+<translation id="7420236214119624338">Erzwingt das Aktualisieren von Benutzeroberflächen ohne Überprüfung. In der Regel bedeutet die Deaktivierung dieser Markierung, dass eine Aktualisierung durch den Cache überprüft wird.</translation>
 <translation id="7421925624202799674">Seitenquelltext &amp;anzeigen</translation>
 <translation id="7422192691352527311">Einstellungen...</translation>
 <translation id="7427315641433634153">MSCHAP</translation>
