@@ -260,7 +260,7 @@ IN_PROC_BROWSER_TEST_F(RenderFrameHostManagerTest,
 
 // Same as above, but for 'noopener'
 IN_PROC_BROWSER_TEST_F(RenderFrameHostManagerTest,
-                       SwapProcessWithRelNoopenerAndTargetBlank) {
+                       SwapProcessWithRelNopenerAndTargetBlank) {
   StartEmbeddedServer();
 
   NavigateToPageWithLinks(shell());
@@ -289,16 +289,6 @@ IN_PROC_BROWSER_TEST_F(RenderFrameHostManagerTest,
   EXPECT_TRUE(ExecuteScriptAndExtractBool(
       new_shell->web_contents(),
       "window.domAutomationController.send(window.opener == null);", &success));
-  EXPECT_TRUE(success);
-
-  // Check that the referrer is set correctly.
-  std::string expected_referrer =
-      embedded_test_server()->GetURL("/click-noreferrer-links.html").spec();
-  success = false;
-  EXPECT_TRUE(ExecuteScriptAndExtractBool(
-      new_shell, "window.domAutomationController.send(document.referrer == '" +
-                     expected_referrer + "');",
-      &success));
   EXPECT_TRUE(success);
 
   // Wait for the cross-site transition in the new tab to finish.
@@ -356,16 +346,6 @@ IN_PROC_BROWSER_TEST_F(RenderFrameHostManagerTest,
   EXPECT_TRUE(ExecuteScriptAndExtractBool(
       new_shell->web_contents(),
       "window.domAutomationController.send(window.opener == null);", &success));
-  EXPECT_TRUE(success);
-
-  // Check that the referrer is set correctly.
-  std::string expected_referrer =
-      embedded_test_server()->GetURL("/click-noreferrer-links.html").spec();
-  success = false;
-  EXPECT_TRUE(ExecuteScriptAndExtractBool(
-      new_shell, "window.domAutomationController.send(document.referrer == '" +
-                     expected_referrer + "');",
-      &success));
   EXPECT_TRUE(success);
 
   // Should have a new SiteInstance.

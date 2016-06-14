@@ -958,7 +958,7 @@ void FrameLoader::load(const FrameLoadRequest& passedRequest, FrameLoadType fram
             client()->loadURLExternally(request.resourceRequest(), NavigationPolicyDownload, String(), false);
         } else {
             request.resourceRequest().setFrameType(WebURLRequest::FrameTypeAuxiliary);
-            createWindowForRequest(request, *m_frame, policy);
+            createWindowForRequest(request, *m_frame, policy, request.getShouldSendReferrer(), request.getShouldSetOpener());
         }
         return;
     }
