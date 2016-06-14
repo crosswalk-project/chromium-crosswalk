@@ -445,7 +445,6 @@ class CONTENT_EXPORT RenderViewImpl
   void ConvertViewportToWindowViaWidget(blink::WebRect* rect) override;
   gfx::RectF ElementBoundsInWindow(const blink::WebElement& element) override;
   float GetDeviceScaleFactorForTest() const override;
-  bool HasAddedInputHandler() const override;
 
   gfx::Point ConvertWindowPointToViewport(const gfx::Point& point);
 
@@ -964,8 +963,6 @@ class CONTENT_EXPORT RenderViewImpl
 
   typedef std::map<cc::SharedBitmapId, cc::SharedBitmap*> BitmapMap;
   BitmapMap disambiguation_bitmaps_;
-
-  bool has_added_input_handler_;
 
   // ---------------------------------------------------------------------------
   // ADDING NEW DATA? Please see if it fits appropriately in one of the above

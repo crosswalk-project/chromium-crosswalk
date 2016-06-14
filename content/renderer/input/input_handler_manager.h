@@ -59,9 +59,6 @@ class CONTENT_EXPORT InputHandlerManager {
                        bool enable_smooth_scrolling,
                        bool enable_wheel_gestures);
 
-  void RegisterRoutingID(int routing_id);
-  void UnregisterRoutingID(int routing_id);
-
   void ObserveWheelEventAndResultOnMainThread(
       int routing_id,
       const blink::WebMouseWheelEvent& wheel_event,
@@ -103,9 +100,6 @@ class CONTENT_EXPORT InputHandlerManager {
       const base::WeakPtr<RenderViewImpl>& render_view_impl,
       bool enable_smooth_scrolling,
       bool enable_wheel_gestures);
-
-  void RegisterRoutingIDOnCompositorThread(int routing_id);
-  void UnregisterRoutingIDOnCompositorThread(int routing_id);
 
   void ObserveWheelEventAndResultOnCompositorThread(
       int routing_id,

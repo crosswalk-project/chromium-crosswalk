@@ -151,8 +151,6 @@ class CONTENT_EXPORT RenderView : public IPC::Sender {
   // Returns the device scale factor for unit tests.
   virtual float GetDeviceScaleFactorForTest() const = 0;
 
-  virtual bool HasAddedInputHandler() const = 0;
-
  protected:
   ~RenderView() override {}
 

@@ -107,7 +107,7 @@ void InputHandlerManager::AddInputHandlerOnCompositorThread(
   std::unique_ptr<InputHandlerWrapper> wrapper(new InputHandlerWrapper(
       this, routing_id, main_task_runner, input_handler, render_view_impl,
       enable_smooth_scrolling, enable_wheel_gestures));
-  client_->RegisterRoutingID(routing_id);
+  client_->DidAddInputHandler(routing_id);
   if (synchronous_handler_proxy_client_) {
     synchronous_handler_proxy_client_->DidAddSynchronousHandlerProxy(
         routing_id, wrapper->input_handler_proxy());
@@ -121,45 +121,12 @@ void InputHandlerManager::RemoveInputHandler(int routing_id) {
 
   TRACE_EVENT0("input", "InputHandlerManager::RemoveInputHandler");
 
-  client_->UnregisterRoutingID(routing_id);
+  client_->DidRemoveInputHandler(routing_id);
   if (synchronous_handler_proxy_client_) {
     synchronous_handler_proxy_client_->DidRemoveSynchronousHandlerProxy(
         routing_id);
   }
   input_handlers_.erase(routing_id);
-}
-
-void InputHandlerManager::RegisterRoutingID(int routing_id) {
-  if (task_runner_->BelongsToCurrentThread()) {
-    RegisterRoutingIDOnCompositorThread(routing_id);
-  } else {
-    task_runner_->PostTask(
-        FROM_HERE,
-        base::Bind(&InputHandlerManager::RegisterRoutingIDOnCompositorThread,
-                   base::Unretained(this), routing_id));
-  }
-}
-
-void InputHandlerManager::RegisterRoutingIDOnCompositorThread(int routing_id) {
-  DCHECK(task_runner_->BelongsToCurrentThread());
-  client_->RegisterRoutingID(routing_id);
-}
-
-void InputHandlerManager::UnregisterRoutingID(int routing_id) {
-  if (task_runner_->BelongsToCurrentThread()) {
-    UnregisterRoutingIDOnCompositorThread(routing_id);
-  } else {
-    task_runner_->PostTask(
-        FROM_HERE,
-        base::Bind(&InputHandlerManager::UnregisterRoutingIDOnCompositorThread,
-                   base::Unretained(this), routing_id));
-  }
-}
-
-void InputHandlerManager::UnregisterRoutingIDOnCompositorThread(
-    int routing_id) {
-  DCHECK(task_runner_->BelongsToCurrentThread());
-  client_->UnregisterRoutingID(routing_id);
 }
 
 void InputHandlerManager::ObserveWheelEventAndResultOnMainThread(
