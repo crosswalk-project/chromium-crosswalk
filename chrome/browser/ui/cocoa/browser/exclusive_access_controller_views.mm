@@ -36,6 +36,9 @@ ExclusiveAccessController::~ExclusiveAccessController() {}
 
 void ExclusiveAccessController::Show() {
   if (ExclusiveAccessManager::IsSimplifiedFullscreenUIEnabled()) {
+    // Hide the backspace shortcut bubble, to avoid overlapping.
+    new_back_shortcut_bubble_.reset();
+
     views_bubble_.reset(
         new ExclusiveAccessBubbleViews(this, url_, bubble_type_));
     return;
@@ -52,6 +55,9 @@ void ExclusiveAccessController::Show() {
 }
 
 void ExclusiveAccessController::ShowNewBackShortcutBubble(bool forward) {
+  // Hide the exclusive access bubble, to avoid overlapping.
+  views_bubble_.reset();
+
   if (new_back_shortcut_bubble_)
     new_back_shortcut_bubble_->UpdateContent(forward);
   else
