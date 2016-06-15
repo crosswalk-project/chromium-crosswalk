@@ -51,6 +51,10 @@ class TestInterstitialPageDelegate : public InterstitialPageDelegate {
            "  window.domAutomationController.send("
            "      window.getSelection().toString());"
            "}"
+           "function set_selection_change_listener() {"
+           "  document.addEventListener('selectionchange',"
+           "    function() { document.title='SELECTION_CHANGED'; })"
+           "}"
            "</script>"
            "</head>"
            "<body>original body text</body>"
@@ -279,6 +283,11 @@ class InterstitialPageImplTest : public ContentBrowserTest {
                          "create_input_and_set_text('" + text + "')");
   }
 
+  bool SetSelectionChangeListener() {
+    return ExecuteScript(interstitial_->GetMainFrame(),
+                         "set_selection_change_listener()");
+  }
+
   std::string PerformCut() {
     clipboard_message_watcher_->InitWait();
     title_update_watcher_->InitWait("TEXT_CHANGED");
@@ -308,9 +317,11 @@ class InterstitialPageImplTest : public ContentBrowserTest {
   }
 
   void PerformSelectAll() {
+    title_update_watcher_->InitWait("SELECTION_CHANGED");
     RenderFrameHostImpl* rfh =
         static_cast<RenderFrameHostImpl*>(interstitial_->GetMainFrame());
     rfh->GetRenderWidgetHost()->delegate()->SelectAll();
+    title_update_watcher_->Wait();
   }
 
  private:
@@ -387,12 +398,14 @@ IN_PROC_BROWSER_TEST_F(InterstitialPageImplTest, Paste) {
 
 IN_PROC_BROWSER_TEST_F(InterstitialPageImplTest, SelectAll) {
   SetUpInterstitialPage();
+  ASSERT_TRUE(SetSelectionChangeListener());
 
   std::string input_text;
   ASSERT_TRUE(GetSelection(&input_text));
   EXPECT_EQ(std::string(), input_text);
 
   PerformSelectAll();
+
   ASSERT_TRUE(GetSelection(&input_text));
   EXPECT_EQ("original body text", input_text);
 

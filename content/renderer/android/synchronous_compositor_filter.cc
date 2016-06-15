@@ -220,8 +220,8 @@ void SynchronousCompositorFilter::SetBoundHandler(const Handler& handler) {
           handler));
 }
 
-void SynchronousCompositorFilter::DidAddInputHandler(int routing_id) {}
-void SynchronousCompositorFilter::DidRemoveInputHandler(int routing_id) {}
+void SynchronousCompositorFilter::RegisterRoutingID(int routing_id) {}
+void SynchronousCompositorFilter::UnregisterRoutingID(int routing_id) {}
 
 void SynchronousCompositorFilter::SetBoundHandlerOnCompositorThread(
     const Handler& handler) {
