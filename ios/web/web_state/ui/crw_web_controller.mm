@@ -1408,6 +1408,7 @@ const NSTimeInterval kSnapshotOverlayTransition = 0.5;
         stringWithFormat:@"__gCrWeb.setSuppressGeolocationDialogs(%d);",
                          shouldSuppressDialogs];
     [self evaluateJavaScript:kSetSuppressDialogs stringResultHandler:nil];
+    _shouldSuppressDialogsOnWindowIDInjection = NO;
   } else {
     _shouldSuppressDialogsOnWindowIDInjection = shouldSuppressDialogs;
   }
