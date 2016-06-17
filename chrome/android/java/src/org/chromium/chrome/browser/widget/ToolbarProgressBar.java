@@ -257,6 +257,7 @@ public class ToolbarProgressBar extends ClipDrawableProgressBar {
             if (mAnimatingView != null) {
                 removeCallbacks(mStartIndeterminate);
                 mAnimatingView.cancelAnimation();
+                mTargetProgress = 0;
             }
             setAlpha(0.0f);
         }
