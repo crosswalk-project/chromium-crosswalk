@@ -820,14 +820,16 @@ NSImage* LocationBarViewMac::GetKeywordImage(const base::string16& keyword) {
         GetOmniboxIcon(template_url->GetExtensionId()).AsNSImage();
   }
 
-  return ui::MaterialDesignController::IsModeMaterial()
-      ? NSImageFromImageSkiaWithColorSpace(
-            gfx::CreateVectorIcon(
-                gfx::VectorIconId::OMNIBOX_SEARCH,
-                kDefaultIconSize,
-                gfx::kGoogleBlue700),
-            base::mac::GetSRGBColorSpace())
-      : OmniboxViewMac::ImageForResource(IDR_OMNIBOX_SEARCH);
+  if (ui::MaterialDesignController::IsModeMaterial()) {
+    SkColor icon_color = IsLocationBarDark() ? kMaterialDarkVectorIconColor
+                                             : gfx::kGoogleBlue700;
+    return NSImageFromImageSkiaWithColorSpace(
+        gfx::CreateVectorIcon(gfx::VectorIconId::OMNIBOX_SEARCH,
+                              kDefaultIconSize, icon_color),
+        base::mac::GetSRGBColorSpace());
+  }
+
+  return OmniboxViewMac::ImageForResource(IDR_OMNIBOX_SEARCH);
 }
 
 void LocationBarViewMac::PostNotification(NSString* notification) {

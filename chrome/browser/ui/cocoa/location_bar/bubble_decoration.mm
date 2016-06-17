@@ -9,6 +9,7 @@
 #include "base/logging.h"
 #include "base/mac/foundation_util.h"
 #import "chrome/browser/ui/cocoa/themed_window.h"
+#include "skia/ext/skia_utils_mac.h"
 #import "ui/base/cocoa/nsview_additions.h"
 #include "ui/base/material_design/material_design_controller.h"
 
@@ -19,7 +20,7 @@ const CGFloat kRightSideMargin = 1.0;
 
 // Padding between the icon/label and bubble edges.
 CGFloat BubblePadding() {
-  return ui::MaterialDesignController::IsModeMaterial() ? 7 : 3;
+  return ui::MaterialDesignController::IsModeMaterial() ? 8.0 : 3.0;
 }
 
 // Additional padding between the divider between the omnibox text and the
@@ -60,8 +61,8 @@ CGFloat BubbleDecoration::GetWidthForImageAndLabel(NSImage* image,
   // underestimate, so floor() seems to work better.
   const CGFloat label_width =
       std::floor([label sizeWithAttributes:attributes_].width);
-  return BubblePadding() + image_width + kIconLabelPadding + label_width
-      + DividerPadding();
+  return BubblePadding() + image_width + kIconLabelPadding + label_width +
+         DividerPadding();
 }
 
 NSRect BubbleDecoration::GetImageRectInFrame(NSRect frame) {
@@ -108,6 +109,26 @@ void BubbleDecoration::DrawInFrame(NSRect frame, NSView* control_view) {
     textOffset = NSMaxX(imageRect) + kIconLabelPadding;
   }
 
+  // Draw the divider and set the text color.
+  if (ui::MaterialDesignController::IsModeMaterial()) {
+    NSBezierPath* line = [NSBezierPath bezierPath];
+    [line setLineWidth:1];
+    [line moveToPoint:NSMakePoint(NSMaxX(decoration_frame) - DividerPadding(),
+                                  NSMinY(decoration_frame))];
+    [line lineToPoint:NSMakePoint(NSMaxX(decoration_frame) - DividerPadding(),
+                                  NSMaxY(decoration_frame))];
+
+    bool in_dark_mode = [[control_view window] inIncognitoModeWithSystemTheme];
+    [GetDividerColor(in_dark_mode) set];
+    [line stroke];
+
+    NSColor* text_color =
+        in_dark_mode
+            ? skia::SkColorToCalibratedNSColor(kMaterialDarkModeTextColor)
+            : GetBackgroundBorderColor();
+    SetTextColor(text_color);
+  }
+
   if (label_) {
     NSRect textRect = frame;
     textRect.origin.x = textOffset;
@@ -122,22 +143,7 @@ void BubbleDecoration::DrawWithBackgroundInFrame(NSRect background_frame,
                                                  NSView* control_view) {
   NSRect rect = NSInsetRect(background_frame, 0, 1);
   rect.size.width -= kRightSideMargin;
-  if (ui::MaterialDesignController::IsModeMaterial()) {
-    CGFloat lineWidth = [control_view cr_lineWidth];
-    rect = NSInsetRect(rect, lineWidth / 2., lineWidth / 2.);
-    NSBezierPath* path = [NSBezierPath bezierPathWithRoundedRect:rect
-                                                         xRadius:3
-                                                         yRadius:3];
-    [path setLineWidth:lineWidth];
-    bool inDarkMode = [[control_view window] inIncognitoModeWithSystemTheme];
-    if (inDarkMode) {
-      [[NSColor whiteColor] set];
-      [path fill];
-    } else {
-      [GetBackgroundBorderColor() set];
-      [path stroke];
-    }
-  } else {
+  if (!ui::MaterialDesignController::IsModeMaterial()) {
     ui::DrawNinePartImage(
         rect, GetBubbleImageIds(), NSCompositeSourceOver, 1.0, true);
   }
