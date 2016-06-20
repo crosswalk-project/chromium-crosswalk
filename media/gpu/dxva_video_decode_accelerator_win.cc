@@ -590,6 +590,7 @@ DXVAVideoDecodeAccelerator::DXVAVideoDecodeAccelerator(
       using_angle_device_(false),
       enable_accelerated_vpx_decode_(
           gpu_preferences.enable_accelerated_vpx_decode),
+      processing_config_changed_(false),
       weak_this_factory_(this) {
   weak_ptr_ = weak_this_factory_.GetWeakPtr();
   memset(&input_stream_info_, 0, sizeof(input_stream_info_));
@@ -927,7 +928,7 @@ void DXVAVideoDecodeAccelerator::AssignPictureBuffers(
   }
 
   ProcessPendingSamples();
-  if (pending_flush_) {
+  if (pending_flush_ || processing_config_changed_) {
     decoder_thread_task_runner_->PostTask(
         FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::FlushInternal,
                               base::Unretained(this)));
@@ -1020,7 +1021,7 @@ void DXVAVideoDecodeAccelerator::WaitForOutputBuffer(int32_t picture_buffer_id,
                                PLATFORM_FAILURE, );
 
   ProcessPendingSamples();
-  if (pending_flush_) {
+  if (pending_flush_ || processing_config_changed_) {
     decoder_thread_task_runner_->PostTask(
         FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::FlushInternal,
                               base::Unretained(this)));
@@ -1040,6 +1041,19 @@ void DXVAVideoDecodeAccelerator::Flush() {
   SetState(kFlushing);
 
   pending_flush_ = true;
+
+  // If we receive a flush while processing a video stream config change,  then
+  // we treat this as a regular flush, i.e we process queued decode packets,
+  // etc.
+  // We are resetting the processing_config_changed_ flag here which means that
+  // we won't be tearing down the decoder instance and recreating it to handle
+  // the changed configuration. The expectation here is that after the decoder
+  // is drained it should be able to handle a changed configuration.
+  // TODO(ananta)
+  // If a flush is sufficient to get the decoder to process video stream config
+  // changes correctly, then we don't need to tear down the decoder instance
+  // and recreate it. Check if this is indeed the case.
+  processing_config_changed_ = false;
 
   decoder_thread_task_runner_->PostTask(
       FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::FlushInternal,
@@ -1843,7 +1857,7 @@ void DXVAVideoDecodeAccelerator::Invalidate() {
     device_manager_.Release();
     query_.Release();
   }
-
+  sent_drain_message_ = false;
   SetState(kUninitialized);
 }
 
@@ -1919,6 +1933,8 @@ void DXVAVideoDecodeAccelerator::DecodePendingInputBuffers() {
   TRACE_EVENT0("media",
                "DXVAVideoDecodeAccelerator::DecodePendingInputBuffers");
   DCHECK(decoder_thread_task_runner_->BelongsToCurrentThread());
+  DCHECK(!processing_config_changed_);
+
   State state = GetState();
   RETURN_AND_NOTIFY_ON_FAILURE((state != kUninitialized),
                                "Invalid state: " << state, ILLEGAL_STATE, );
@@ -1946,7 +1962,9 @@ void DXVAVideoDecodeAccelerator::FlushInternal() {
 
   // First drain the pending input because once the drain message is sent below,
   // the decoder will ignore further input until it's drained.
-  if (!pending_input_buffers_.empty()) {
+  // If we are processing a video configuration change, then we should just
+  // the drain the decoder.
+  if (!processing_config_changed_ && !pending_input_buffers_.empty()) {
     decoder_thread_task_runner_->PostTask(
         FROM_HERE,
         base::Bind(&DXVAVideoDecodeAccelerator::DecodePendingInputBuffers,
@@ -1974,11 +1992,18 @@ void DXVAVideoDecodeAccelerator::FlushInternal() {
   if (OutputSamplesPresent())
     return;
 
-  SetState(kFlushing);
+  if (!processing_config_changed_) {
+    SetState(kFlushing);
 
-  main_thread_task_runner_->PostTask(
-      FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::NotifyFlushDone,
-                            weak_this_factory_.GetWeakPtr()));
+    main_thread_task_runner_->PostTask(
+        FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::NotifyFlushDone,
+                              weak_this_factory_.GetWeakPtr()));
+  } else {
+    processing_config_changed_ = false;
+    main_thread_task_runner_->PostTask(
+        FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::ConfigChanged,
+                              weak_this_factory_.GetWeakPtr(), config_));
+  }
 
   SetState(kNormal);
 }
@@ -2004,11 +2029,11 @@ void DXVAVideoDecodeAccelerator::DecodeInternal(
   RETURN_AND_NOTIFY_ON_HR_FAILURE(hr, "Failed to check video stream config",
                                   PLATFORM_FAILURE, );
 
+  processing_config_changed_ = config_changed;
+
   if (config_changed) {
     pending_input_buffers_.push_back(sample);
-    main_thread_task_runner_->PostTask(
-        FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::ConfigChanged,
-                              weak_this_factory_.GetWeakPtr(), config_));
+    FlushInternal();
     return;
   }
 
@@ -2250,7 +2275,7 @@ void DXVAVideoDecodeAccelerator::CopySurfaceComplete(
       pending_output_samples_.pop_front();
   }
 
-  if (pending_flush_) {
+  if (pending_flush_ || processing_config_changed_) {
     decoder_thread_task_runner_->PostTask(
         FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::FlushInternal,
                               base::Unretained(this)));
@@ -2302,7 +2327,7 @@ void DXVAVideoDecodeAccelerator::BindPictureBufferToSample(
       pending_output_samples_.pop_front();
   }
 
-  if (pending_flush_) {
+  if (pending_flush_ || processing_config_changed_) {
     decoder_thread_task_runner_->PostTask(
         FROM_HERE, base::Bind(&DXVAVideoDecodeAccelerator::FlushInternal,
                               base::Unretained(this)));
