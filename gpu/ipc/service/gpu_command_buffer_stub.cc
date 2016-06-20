@@ -480,7 +480,7 @@ bool GpuCommandBufferStub::Initialize(
 
   gfx::GLSurface::Format surface_format = gfx::GLSurface::SURFACE_DEFAULT;
   bool offscreen = (surface_handle_ == kNullSurfaceHandle);
-  gl::GLSurface* default_surface = manager->GetDefaultOffscreenSurface();
+  gfx::GLSurface* default_surface = manager->GetDefaultOffscreenSurface();
   if (!default_surface) {
     DLOG(ERROR) << "Failed to create default offscreen surface.";
     return false;
