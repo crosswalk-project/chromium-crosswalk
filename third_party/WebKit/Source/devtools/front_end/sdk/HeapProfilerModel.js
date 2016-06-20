@@ -16,8 +16,7 @@ WebInspector.HeapProfilerModel.Events = {
     LastSeenObjectId: "LastSeenObjectId",
     AddHeapSnapshotChunk: "AddHeapSnapshotChunk",
     ReportHeapSnapshotProgress: "ReportHeapSnapshotProgress",
-    ResetProfiles: "ResetProfiles",
-    HeapXDKUpdate: "HeapXDKUpdate"
+    ResetProfiles: "ResetProfiles"
 }
 
 WebInspector.HeapProfilerModel.prototype = {
@@ -69,14 +68,6 @@ WebInspector.HeapProfilerModel.prototype = {
     resetProfiles: function()
     {
         this.dispatchEventToListeners(WebInspector.HeapProfilerModel.Events.ResetProfiles);
-    },
-
-    /**
-     * @param {string} message
-     */
-    heapXDKUpdate: function (message)
-    {
-        this.dispatchEventToListeners(WebInspector.HeapProfilerModel.Events.HeapXDKUpdate, message);
     },
 
     __proto__: WebInspector.SDKModel.prototype
@@ -138,14 +129,5 @@ WebInspector.HeapProfilerDispatcher.prototype = {
     resetProfiles: function()
     {
         this._heapProfilerModel.resetProfiles();
-    },
-
-    /**
-     * @override
-     * @param {string} message
-     */
-    heapXDKUpdate: function(message)
-    {
-        this._heapProfilerModel.heapXDKUpdate(message);
     }
 }

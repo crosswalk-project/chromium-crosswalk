@@ -7,38 +7,12 @@
 
 #include "platform/inspector_protocol/Allocator.h"
 #include "platform/v8_inspector/public/V8HeapProfilerAgent.h"
-#include <v8-profiler.h>
 
 namespace blink {
 
 class V8InspectorSessionImpl;
 
 using protocol::Maybe;
-
-class HeapProfileXDK final {
-public:
-    static PassOwnPtr<HeapProfileXDK> create(v8::HeapEventXDK* event, v8::Isolate* isolate)
-    {
-        return adoptPtr(new HeapProfileXDK(event, isolate));
-    }
-
-    String getSymbols() const;
-    String getFrames() const;
-    String getTypes() const;
-    String getChunks() const;
-    String getRetentions() const;
-    int getDuration() const;
-
-private:
-    HeapProfileXDK(v8::HeapEventXDK* event, v8::Isolate* isolate)
-        : m_event(event),
-        m_isolate(isolate)
-    {
-    }
-
-    v8::HeapEventXDK* m_event;
-    v8::Isolate* m_isolate;
-};
 
 class V8HeapProfilerAgentImpl : public V8HeapProfilerAgent {
     PROTOCOL_DISALLOW_COPY(V8HeapProfilerAgentImpl);
@@ -65,14 +39,10 @@ public:
     void addInspectedHeapObject(ErrorString*, const String16& inspectedHeapObjectId) override;
     void getHeapObjectId(ErrorString*, const String16& objectId, String16* heapSnapshotObjectId) override;
 
-    void startTrackingHeapXDK(ErrorString*, const Maybe<int>& depth, const Maybe<int>& sav, const Maybe<bool>& retentions) override;
-    void stopTrackingHeapXDK(ErrorString*, OwnPtr<protocol::HeapProfiler::HeapEventXDK>*) override;
-
     void startSampling(ErrorString*) override;
     void stopSampling(ErrorString*, OwnPtr<protocol::HeapProfiler::SamplingHeapProfile>*) override;
 
     void requestHeapStatsUpdate() override;
-    void requestHeapXDKUpdate() override;
 
 private:
     void startTrackingHeapObjectsInternal(bool trackAllocations);
