@@ -604,6 +604,7 @@ CGFloat LineWidthFromContext(CGContextRef context) {
     return;
   state_ = state;
   [self setNeedsDisplay:YES];
+  [closeButton_ setNeedsDisplay:YES];
 }
 
 - (void)setClosing:(BOOL)closing {
