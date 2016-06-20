@@ -212,7 +212,8 @@ private:
         }
 
         // 2. Notify embedder about pausing.
-        agent->client()->willEnterDebugLoop();
+        if (agent->client())
+            agent->client()->willEnterDebugLoop();
 
         // 3. Disable active objects
         WebView::willEnterModalLoop();
@@ -238,7 +239,8 @@ private:
         }
 
         // 7. Notify embedder about resuming.
-        agent->client()->didExitDebugLoop();
+        if (agent->client())
+            agent->client()->didExitDebugLoop();
 
         // 8. All views have been resumed, clear the set.
         m_frozenViews.clear();
@@ -299,9 +301,6 @@ WebDevToolsAgentImpl::WebDevToolsAgentImpl(
     bool includeViewAgents)
     : m_client(client)
     , m_webLocalFrameImpl(webLocalFrameImpl)
-#if DCHECK_IS_ON()
-    , m_hasBeenDisposed(false)
-#endif
     , m_instrumentingAgents(m_webLocalFrameImpl->frame()->instrumentingAgents())
     , m_resourceContentLoader(InspectorResourceContentLoader::create(m_webLocalFrameImpl->frame()))
     , m_overlay(overlay)
@@ -321,21 +320,7 @@ WebDevToolsAgentImpl::WebDevToolsAgentImpl(
 
 WebDevToolsAgentImpl::~WebDevToolsAgentImpl()
 {
-#if DCHECK_IS_ON()
-    DCHECK(m_hasBeenDisposed);
-#endif
-}
-
-void WebDevToolsAgentImpl::dispose()
-{
-    // Explicitly dispose of the agent before destructing to ensure
-    // same behavior (and correctness) with and without Oilpan.
-    if (attached())
-        Platform::current()->currentThread()->removeTaskObserver(this);
-#if DCHECK_IS_ON()
-    DCHECK(!m_hasBeenDisposed);
-    m_hasBeenDisposed = true;
-#endif
+    DCHECK(!m_client);
 }
 
 // static
@@ -372,10 +357,12 @@ void WebDevToolsAgentImpl::willBeDestroyed()
     DCHECK(m_inspectedFrames->root()->view());
     detach();
     m_resourceContentLoader->dispose();
+    m_client = nullptr;
 }
 
 void WebDevToolsAgentImpl::initializeSession(int sessionId, const String& hostId)
 {
+    DCHECK(m_client);
     m_session = new InspectorSession(this, m_inspectedFrames.get(), m_instrumentingAgents.get(), sessionId, false /* autoFlush */);
 
     ClientMessageLoopAdapter::ensureMainThreadDebuggerCreated(m_client);
@@ -538,17 +525,20 @@ void WebDevToolsAgentImpl::layerTreeViewChanged(WebLayerTreeView* layerTreeView)
 
 void WebDevToolsAgentImpl::enableTracing(const String& categoryFilter)
 {
-    m_client->enableTracing(categoryFilter);
+    if (m_client)
+        m_client->enableTracing(categoryFilter);
 }
 
 void WebDevToolsAgentImpl::disableTracing()
 {
-    m_client->disableTracing();
+    if (m_client)
+        m_client->disableTracing();
 }
 
 void WebDevToolsAgentImpl::setCPUThrottlingRate(double rate)
 {
-    m_client->setCPUThrottlingRate(rate);
+    if (m_client)
+        m_client->setCPUThrottlingRate(rate);
 }
 
 void WebDevToolsAgentImpl::dispatchOnInspectorBackend(int sessionId, int callId, const WebString& method, const WebString& message)
@@ -596,7 +586,8 @@ void WebDevToolsAgentImpl::failedToRequestDevTools()
 void WebDevToolsAgentImpl::sendProtocolMessage(int sessionId, int callId, const String& response, const String& state)
 {
     ASSERT(attached());
-    m_client->sendProtocolMessage(sessionId, callId, response, state);
+    if (m_client)
+        m_client->sendProtocolMessage(sessionId, callId, response, state);
 }
 
 void WebDevToolsAgentImpl::resumeStartup()
@@ -605,7 +596,8 @@ void WebDevToolsAgentImpl::resumeStartup()
     if (ClientMessageLoopAdapter::resumeForCreateWindow())
         return;
     // Otherwise, pass to the client (embedded workers do it differently).
-    m_client->resumeStartup();
+    if (m_client)
+        m_client->resumeStartup();
 }
 
 void WebDevToolsAgentImpl::profilingStarted()
@@ -636,7 +628,7 @@ void WebDevToolsAgentImpl::waitForCreateWindow(LocalFrame* frame)
 {
     if (!attached())
         return;
-    if (m_client->requestDevToolsForFrame(WebLocalFrameImpl::fromFrame(frame)))
+    if (m_client && m_client->requestDevToolsForFrame(WebLocalFrameImpl::fromFrame(frame)))
         ClientMessageLoopAdapter::pauseForCreateWindow(m_webLocalFrameImpl);
 }
 
