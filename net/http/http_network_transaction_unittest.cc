@@ -670,7 +670,7 @@ bool CheckBasicServerAuth(const AuthChallengeInfo* auth_challenge) {
   if (!auth_challenge)
     return false;
   EXPECT_FALSE(auth_challenge->is_proxy);
-  EXPECT_EQ("www.example.org:80", auth_challenge->challenger.ToString());
+  EXPECT_EQ("http://www.example.org", auth_challenge->challenger.Serialize());
   EXPECT_EQ("MyRealm1", auth_challenge->realm);
   EXPECT_EQ(kBasicAuthScheme, auth_challenge->scheme);
   return true;
@@ -680,7 +680,17 @@ bool CheckBasicProxyAuth(const AuthChallengeInfo* auth_challenge) {
   if (!auth_challenge)
     return false;
   EXPECT_TRUE(auth_challenge->is_proxy);
-  EXPECT_EQ("myproxy:70", auth_challenge->challenger.ToString());
+  EXPECT_EQ("http://myproxy:70", auth_challenge->challenger.Serialize());
+  EXPECT_EQ("MyRealm1", auth_challenge->realm);
+  EXPECT_EQ(kBasicAuthScheme, auth_challenge->scheme);
+  return true;
+}
+
+bool CheckBasicSecureProxyAuth(const AuthChallengeInfo* auth_challenge) {
+  if (!auth_challenge)
+    return false;
+  EXPECT_TRUE(auth_challenge->is_proxy);
+  EXPECT_EQ("https://myproxy:70", auth_challenge->challenger.Serialize());
   EXPECT_EQ("MyRealm1", auth_challenge->realm);
   EXPECT_EQ(kBasicAuthScheme, auth_challenge->scheme);
   return true;
@@ -690,7 +700,7 @@ bool CheckDigestServerAuth(const AuthChallengeInfo* auth_challenge) {
   if (!auth_challenge)
     return false;
   EXPECT_FALSE(auth_challenge->is_proxy);
-  EXPECT_EQ("www.example.org:80", auth_challenge->challenger.ToString());
+  EXPECT_EQ("http://www.example.org", auth_challenge->challenger.Serialize());
   EXPECT_EQ("digestive", auth_challenge->realm);
   EXPECT_EQ(kDigestAuthScheme, auth_challenge->scheme);
   return true;
@@ -701,7 +711,7 @@ bool CheckNTLMServerAuth(const AuthChallengeInfo* auth_challenge) {
   if (!auth_challenge)
     return false;
   EXPECT_FALSE(auth_challenge->is_proxy);
-  EXPECT_EQ("172.22.68.17:80", auth_challenge->challenger.ToString());
+  EXPECT_EQ("http://172.22.68.17", auth_challenge->challenger.Serialize());
   EXPECT_EQ(std::string(), auth_challenge->realm);
   EXPECT_EQ(kNtlmAuthScheme, auth_challenge->scheme);
   return true;
@@ -4408,7 +4418,7 @@ TEST_P(HttpNetworkTransactionTest, HttpsProxySpdyGetWithProxyAuth) {
   ASSERT_TRUE(response->headers.get() != NULL);
   EXPECT_EQ(407, response->headers->response_code());
   EXPECT_TRUE(response->was_fetched_via_spdy);
-  EXPECT_TRUE(CheckBasicProxyAuth(response->auth_challenge.get()));
+  EXPECT_TRUE(CheckBasicSecureProxyAuth(response->auth_challenge.get()));
 
   TestCompletionCallback callback2;
 
@@ -5102,7 +5112,7 @@ TEST_P(HttpNetworkTransactionTest, HttpsProxyAuthRetry) {
   ASSERT_FALSE(response->headers.get() == NULL);
   EXPECT_EQ(407, response->headers->response_code());
   EXPECT_TRUE(HttpVersion(1, 1) == response->headers->GetHttpVersion());
-  EXPECT_TRUE(CheckBasicProxyAuth(response->auth_challenge.get()));
+  EXPECT_TRUE(CheckBasicSecureProxyAuth(response->auth_challenge.get()));
 
   TestCompletionCallback callback2;
 
@@ -6683,8 +6693,8 @@ TEST_P(HttpNetworkTransactionTest, BasicAuthCacheAndPreauth) {
     ASSERT_TRUE(response != NULL);
     ASSERT_TRUE(response->auth_challenge.get());
     EXPECT_FALSE(response->auth_challenge->is_proxy);
-    EXPECT_EQ("www.example.org:80",
-              response->auth_challenge->challenger.ToString());
+    EXPECT_EQ("http://www.example.org",
+              response->auth_challenge->challenger.Serialize());
     EXPECT_EQ("MyRealm2", response->auth_challenge->realm);
     EXPECT_EQ(kBasicAuthScheme, response->auth_challenge->scheme);
 
@@ -7657,7 +7667,7 @@ TEST_P(HttpNetworkTransactionTest, BasicAuthSpdyProxy) {
   EXPECT_EQ(407, response->headers->response_code());
   EXPECT_TRUE(HttpVersion(1, 1) == response->headers->GetHttpVersion());
   EXPECT_TRUE(response->auth_challenge.get() != NULL);
-  EXPECT_TRUE(CheckBasicProxyAuth(response->auth_challenge.get()));
+  EXPECT_TRUE(CheckBasicSecureProxyAuth(response->auth_challenge.get()));
 
   TestCompletionCallback callback2;
 
@@ -9602,7 +9612,7 @@ TEST_P(HttpNetworkTransactionTest, ChangeAuthRealms) {
   const AuthChallengeInfo* challenge = response->auth_challenge.get();
   ASSERT_FALSE(challenge == NULL);
   EXPECT_FALSE(challenge->is_proxy);
-  EXPECT_EQ("www.example.org:80", challenge->challenger.ToString());
+  EXPECT_EQ("http://www.example.org", challenge->challenger.Serialize());
   EXPECT_EQ("first_realm", challenge->realm);
   EXPECT_EQ(kBasicAuthScheme, challenge->scheme);
 
@@ -9620,7 +9630,7 @@ TEST_P(HttpNetworkTransactionTest, ChangeAuthRealms) {
   challenge = response->auth_challenge.get();
   ASSERT_FALSE(challenge == NULL);
   EXPECT_FALSE(challenge->is_proxy);
-  EXPECT_EQ("www.example.org:80", challenge->challenger.ToString());
+  EXPECT_EQ("http://www.example.org", challenge->challenger.Serialize());
   EXPECT_EQ("second_realm", challenge->realm);
   EXPECT_EQ(kBasicAuthScheme, challenge->scheme);
 
@@ -9639,7 +9649,7 @@ TEST_P(HttpNetworkTransactionTest, ChangeAuthRealms) {
   challenge = response->auth_challenge.get();
   ASSERT_FALSE(challenge == NULL);
   EXPECT_FALSE(challenge->is_proxy);
-  EXPECT_EQ("www.example.org:80", challenge->challenger.ToString());
+  EXPECT_EQ("http://www.example.org", challenge->challenger.Serialize());
   EXPECT_EQ("first_realm", challenge->realm);
   EXPECT_EQ(kBasicAuthScheme, challenge->scheme);
 
