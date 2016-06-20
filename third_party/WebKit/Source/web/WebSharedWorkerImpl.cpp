@@ -210,6 +210,11 @@ void WebSharedWorkerImpl::resumeStartup()
         loadShadowPage();
 }
 
+WebDevToolsAgentClient::WebKitClientMessageLoop* WebSharedWorkerImpl::createClientMessageLoop()
+{
+    return m_client->createDevToolsMessageLoop();
+}
+
 // WorkerReportingProxy --------------------------------------------------------
 
 void WebSharedWorkerImpl::reportException(const String& errorMessage, int lineNumber, int columnNumber, const String& sourceURL, int exceptionId)
