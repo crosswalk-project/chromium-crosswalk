@@ -298,7 +298,7 @@ FPDF_SYSFONTINFO g_font_info = {
 };
 #endif  // defined(OS_LINUX)
 
-PDFiumEngine* g_engine_for_unsupported;
+PDFiumEngine* g_engine_for_unsupported = nullptr;
 
 void Unsupported_Handler(UNSUPPORT_INFO*, int type) {
   if (!g_engine_for_unsupported) {
@@ -1049,6 +1049,7 @@ void PDFiumEngine::OnPartialDocumentLoaded() {
 
 void PDFiumEngine::OnPendingRequestComplete() {
   if (!doc_ || !form_) {
+    DCHECK(fpdf_availability_);
     LoadDocument();
     return;
   }
@@ -2417,8 +2418,13 @@ bool PDFiumEngine::TryLoadingDoc(bool with_password,
                                  const std::string& password,
                                  bool* needs_password) {
   *needs_password = false;
-  if (doc_)
+  if (doc_) {
+    // This is probably not necessary, because it should have already been
+    // called below in the |doc_| initialization path. However, the previous
+    // call may have failed, so call it again for good measure.
+    FPDFAvail_IsDocAvail(fpdf_availability_, &download_hints_);
     return true;
+  }
 
   const char* password_cstr = nullptr;
   if (with_password) {
@@ -2431,11 +2437,16 @@ bool PDFiumEngine::TryLoadingDoc(bool with_password,
   } else {
     doc_ = FPDFAvail_GetDocument(fpdf_availability_, password_cstr);
   }
+  if (!doc_) {
+    if (FPDF_GetLastError() == FPDF_ERR_PASSWORD)
+      *needs_password = true;
+    return false;
+  }
 
-  if (!doc_ && FPDF_GetLastError() == FPDF_ERR_PASSWORD)
-    *needs_password = true;
-
-  return !!doc_;
+  // Always call FPDFAvail_IsDocAvail() so PDFium initializes internal data
+  // structures.
+  FPDFAvail_IsDocAvail(fpdf_availability_, &download_hints_);
+  return true;
 }
 
 void PDFiumEngine::GetPasswordAndLoad() {
