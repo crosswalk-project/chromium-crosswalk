@@ -37,7 +37,6 @@
 #include "wtf/Noncopyable.h"
 #include "wtf/OwnPtr.h"
 #include "wtf/PassOwnPtr.h"
-#include <v8-profiler.h>
 
 namespace v8 {
 class Isolate;
@@ -70,13 +69,9 @@ public:
     void getHeapObjectId(ErrorString*, const String16& objectId, String16* heapSnapshotObjectId) override;
     void startSampling(ErrorString*) override;
     void stopSampling(ErrorString*, OwnPtr<protocol::HeapProfiler::SamplingHeapProfile>*) override;
-    void startTrackingHeapXDK(ErrorString*, const Maybe<int>& stack_depth, const Maybe<int>& sav, const Maybe<bool>& retentions) override;
-    void stopTrackingHeapXDK(ErrorString*, OwnPtr<protocol::HeapProfiler::HeapEventXDK>*) override;
 
 private:
     class HeapStatsUpdateTask;
-    class HeapXDKStream;
-    class HeapXDKUpdateTask;
 
     InspectorHeapProfilerAgent(v8::Isolate*, V8HeapProfilerAgent*);
 
@@ -86,7 +81,6 @@ private:
 
     V8HeapProfilerAgent* m_v8HeapProfilerAgent;
     OwnPtr<HeapStatsUpdateTask> m_heapStatsUpdateTask;
-    OwnPtr<HeapXDKUpdateTask> m_heapXDKUpdateTask;
     v8::Isolate* m_isolate;
 };
 
