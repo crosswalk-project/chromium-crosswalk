@@ -176,8 +176,8 @@ bool CSPSourceList::parseSource(const UChar* begin, const UChar* end, String& sc
         return true;
     }
 
-    if (equalIgnoringCase("'unsafe-dynamic'", begin, end - begin)) {
-        addSourceUnsafeDynamic();
+    if (equalIgnoringCase("'strict-dynamic'", begin, end - begin)) {
+        addSourceStrictDynamic();
         return true;
     }
 
@@ -503,7 +503,7 @@ void CSPSourceList::addSourceUnsafeEval()
     m_allowEval = true;
 }
 
-void CSPSourceList::addSourceUnsafeDynamic()
+void CSPSourceList::addSourceStrictDynamic()
 {
     m_allowDynamic = true;
 }
