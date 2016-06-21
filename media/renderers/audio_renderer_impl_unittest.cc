@@ -754,7 +754,8 @@ TEST_F(AudioRendererImplTest, RenderingDelayedForSuspend) {
 
   // Verify the first buffer is real data.
   int frames_read = 0;
-  std::unique_ptr<AudioBus> bus = AudioBus::Create(hardware_params_);
+  std::unique_ptr<AudioBus> bus =
+      AudioBus::Create(hardware_config_.GetOutputConfig());
   EXPECT_TRUE(sink_->Render(bus.get(), 0, &frames_read));
   EXPECT_NE(0, frames_read);
   for (int i = 0; i < bus->frames(); ++i)
