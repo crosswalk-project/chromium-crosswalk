@@ -66,8 +66,8 @@ class VerifyCertificateChainPkitsTestDelegate {
     // Run all tests at the time the PKITS was published.
     der::GeneralizedTime time = {2011, 4, 15, 0, 0, 0};
 
-    return VerifyCertificateChain(input_chain, trust_store, &signature_policy,
-                                  time);
+    return VerifyCertificateChain(input_chain, {}, trust_store,
+                                  &signature_policy, time);
   }
 };
 

@@ -83,8 +83,10 @@ WARN_UNUSED_RESULT bool GetSequenceValue(const der::Input& tlv,
 
 // Parses an X.509 Certificate fully (including the TBSCertificate and
 // standard extensions), saving all the properties to |out_|.
-WARN_UNUSED_RESULT bool FullyParseCertificate(const der::Input& cert_tlv,
-                                              FullyParsedCert* out) {
+WARN_UNUSED_RESULT bool FullyParseCertificate(
+    const der::Input& cert_tlv,
+    const ParseCertificateOptions& options,
+    FullyParsedCert* out) {
   // Parse the outer Certificate.
   if (!ParseCertificate(cert_tlv, &out->tbs_certificate_tlv,
                         &out->signature_algorithm_tlv, &out->signature_value))
@@ -99,7 +101,7 @@ WARN_UNUSED_RESULT bool FullyParseCertificate(const der::Input& cert_tlv,
     return false;
 
   // Parse the TBSCertificate.
-  if (!ParseTbsCertificate(out->tbs_certificate_tlv, &out->tbs))
+  if (!ParseTbsCertificate(out->tbs_certificate_tlv, options, &out->tbs))
     return false;
 
   // Reset state relating to extensions (which may not get overwritten). This is
@@ -503,6 +505,7 @@ TrustAnchor::~TrustAnchor() {}
 std::unique_ptr<TrustAnchor> TrustAnchor::CreateFromCertificateData(
     const uint8_t* data,
     size_t length,
+    const ParseCertificateOptions& options,
     DataSource source) {
   std::unique_ptr<TrustAnchor> result(new TrustAnchor);
 
@@ -526,7 +529,7 @@ std::unique_ptr<TrustAnchor> TrustAnchor::CreateFromCertificateData(
     return nullptr;
 
   ParsedTbsCertificate tbs;
-  if (!ParseTbsCertificate(tbs_certificate_tlv, &tbs))
+  if (!ParseTbsCertificate(tbs_certificate_tlv, options, &tbs))
     return nullptr;
 
   result->name_ = tbs.subject_tlv;
@@ -586,7 +589,8 @@ bool TrustStore::IsTrustedCertificate(const der::Input& cert_der) const {
 bool TrustStore::AddTrustedCertificate(const uint8_t* data,
                                        size_t length,
                                        TrustAnchor::DataSource source) {
-  auto anchor = TrustAnchor::CreateFromCertificateData(data, length, source);
+  auto anchor =
+      TrustAnchor::CreateFromCertificateData(data, length, {}, source);
   if (!anchor)
     return false;
   anchors_.push_back(std::move(anchor));
@@ -604,6 +608,7 @@ namespace {
 // signature nor issuer name are verified. (It needn't be self-signed).
 bool VerifyCertificateChainAssumingTrustedRoot(
     const std::vector<der::Input>& certs_der,
+    const ParseCertificateOptions& options,
     // The trust store is only used for assertions.
     const TrustStore& trust_store,
     const SignaturePolicy* signature_policy,
@@ -677,7 +682,7 @@ bool VerifyCertificateChainAssumingTrustedRoot(
     // Parse the current certificate into |cert|.
     FullyParsedCert cert;
     const der::Input& cert_der = certs_der[index_into_certs_der];
-    if (!FullyParseCertificate(cert_der, &cert))
+    if (!FullyParseCertificate(cert_der, options, &cert))
       return false;
 
     // Per RFC 5280 section 6.1:
@@ -718,6 +723,7 @@ bool VerifyCertificateChainAssumingTrustedRoot(
 // responsible for verifying the subsequent chain's correctness.
 WARN_UNUSED_RESULT bool BuildSimplePathToTrustAnchor(
     const std::vector<der::Input>& certs_der,
+    const ParseCertificateOptions& options,
     const TrustStore& trust_store,
     std::vector<der::Input>* certs_der_trusted_root) {
   // Copy the input chain.
@@ -740,7 +746,7 @@ WARN_UNUSED_RESULT bool BuildSimplePathToTrustAnchor(
   ParsedTbsCertificate tbs;
   if (!ParseCertificate(certs_der.back(), &tbs_certificate_tlv,
                         &signature_algorithm_tlv, &signature_value) ||
-      !ParseTbsCertificate(tbs_certificate_tlv, &tbs)) {
+      !ParseTbsCertificate(tbs_certificate_tlv, options, &tbs)) {
     return false;
   }
 
@@ -754,19 +760,20 @@ WARN_UNUSED_RESULT bool BuildSimplePathToTrustAnchor(
 }  // namespace
 
 bool VerifyCertificateChain(const std::vector<der::Input>& certs_der,
+                            const ParseCertificateOptions& options,
                             const TrustStore& trust_store,
                             const SignaturePolicy* signature_policy,
                             const der::GeneralizedTime& time) {
   // Modify the certificate chain so that its root is a trusted certificate.
   std::vector<der::Input> certs_der_trusted_root;
-  if (!BuildSimplePathToTrustAnchor(certs_der, trust_store,
+  if (!BuildSimplePathToTrustAnchor(certs_der, options, trust_store,
                                     &certs_der_trusted_root)) {
     return false;
   }
 
   // Verify the chain.
   return VerifyCertificateChainAssumingTrustedRoot(
-      certs_der_trusted_root, trust_store, signature_policy, time);
+      certs_der_trusted_root, options, trust_store, signature_policy, time);
 }
 
 }  // namespace net

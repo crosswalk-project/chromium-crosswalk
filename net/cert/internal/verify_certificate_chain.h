@@ -22,6 +22,7 @@ namespace der {
 struct GeneralizedTime;
 }
 
+struct ParseCertificateOptions;
 class SignaturePolicy;
 
 // Represents a trust anchor (i.e. a trusted root certificate).
@@ -47,6 +48,7 @@ class NET_EXPORT TrustAnchor {
   static std::unique_ptr<TrustAnchor> CreateFromCertificateData(
       const uint8_t* data,
       size_t length,
+      const ParseCertificateOptions& options,
       DataSource source);
 
   // Returns true if the trust anchor matches |name|. In other words, returns
@@ -151,6 +153,7 @@ class NET_EXPORT TrustStore {
 //
 //   Returns true if the target certificate can be verified.
 NET_EXPORT bool VerifyCertificateChain(const std::vector<der::Input>& certs_der,
+                                       const ParseCertificateOptions& options,
                                        const TrustStore& trust_store,
                                        const SignaturePolicy* signature_policy,
                                        const der::GeneralizedTime& time)

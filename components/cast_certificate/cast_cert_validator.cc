@@ -164,6 +164,22 @@ bool HasClientAuth(const std::vector<net::der::Input>& ekus) {
   return false;
 }
 
+// Returns the parsing options used for Cast certificates.
+net::ParseCertificateOptions GetCertParsingOptions() {
+  net::ParseCertificateOptions options;
+
+  // Some cast intermediate certificates contain serial numbers that are
+  // 21 octets long, and might also not use valid DER encoding for an
+  // INTEGER (non-minimal encoding).
+  //
+  // Allow these sorts of serial numbers.
+  //
+  // TODO(eroman): At some point in the future this workaround will no longer be
+  // necessary. Should revisit this for removal in 2017 if not earlier.
+  options.allow_invalid_serial_numbers = true;
+  return options;
+}
+
 // Checks properties on the target certificate.
 //
 //   * The Key Usage must include Digital Signature
@@ -185,7 +201,8 @@ WARN_UNUSED_RESULT bool CheckTargetCertificate(
     return false;
 
   net::ParsedTbsCertificate tbs;
-  if (!net::ParseTbsCertificate(tbs_certificate_tlv, &tbs))
+  if (!net::ParseTbsCertificate(tbs_certificate_tlv, GetCertParsingOptions(),
+                                &tbs))
     return false;
 
   // Get the extensions.
@@ -273,9 +290,9 @@ bool VerifyDeviceCert(const std::vector<std::string>& certs,
 
   // Do RFC 5280 compatible certificate verification using the two Cast
   // trust anchors and Cast signature policy.
-  if (!net::VerifyCertificateChain(input_chain, CastTrustStore::Get(),
-                                   signature_policy.get(),
-                                   ConvertExplodedTime(time))) {
+  if (!net::VerifyCertificateChain(
+          input_chain, GetCertParsingOptions(), CastTrustStore::Get(),
+          signature_policy.get(), ConvertExplodedTime(time))) {
     return false;
   }
 

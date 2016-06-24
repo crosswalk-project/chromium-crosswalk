@@ -107,8 +107,8 @@ void RunTest(const char* file_name) {
 
   SimpleSignaturePolicy signature_policy(1024);
 
-  bool result =
-      VerifyCertificateChain(input_chain, trust_store, &signature_policy, time);
+  bool result = VerifyCertificateChain(input_chain, {}, trust_store,
+                                       &signature_policy, time);
 
   ASSERT_EQ(expected_result, result);
 }
@@ -229,7 +229,7 @@ TEST(VerifyCertificateChainTest, EmptyChainIsInvalid) {
   SimpleSignaturePolicy signature_policy(2048);
 
   ASSERT_FALSE(
-      VerifyCertificateChain(chain, trust_store, &signature_policy, time));
+      VerifyCertificateChain(chain, {}, trust_store, &signature_policy, time));
 }
 
 // TODO(eroman): Add test that invalidate validity dates where the day or month
