@@ -40,4 +40,8 @@ bool VideoLayer::Update() {
   return updated;
 }
 
+void VideoLayer::StopUsingProvider() {
+  provider_ = nullptr;
+}
+
 }  // namespace cc

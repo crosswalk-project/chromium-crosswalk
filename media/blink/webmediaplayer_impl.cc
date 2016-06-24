@@ -256,6 +256,10 @@ WebMediaPlayerImpl::~WebMediaPlayerImpl() {
   if (last_reported_memory_usage_)
     adjust_allocated_memory_cb_.Run(-last_reported_memory_usage_);
 
+  // Destruct compositor resources in the proper order.
+  client_->setWebLayer(nullptr);
+  if (video_weblayer_)
+    static_cast<cc::VideoLayer*>(video_weblayer_->layer())->StopUsingProvider();
   compositor_task_runner_->DeleteSoon(FROM_HERE, compositor_);
 
   media_log_->AddEvent(
@@ -990,8 +994,6 @@ void WebMediaPlayerImpl::OnMetadata(PipelineMetadata metadata) {
 
   if (hasVideo()) {
     DCHECK(!video_weblayer_);
-    scoped_refptr<cc::VideoLayer> layer =
-        cc::VideoLayer::Create(compositor_, pipeline_metadata_.video_rotation);
 
     if (pipeline_metadata_.video_rotation == VIDEO_ROTATION_90 ||
         pipeline_metadata_.video_rotation == VIDEO_ROTATION_270) {
@@ -999,7 +1001,8 @@ void WebMediaPlayerImpl::OnMetadata(PipelineMetadata metadata) {
       pipeline_metadata_.natural_size = gfx::Size(size.height(), size.width());
     }
 
-    video_weblayer_.reset(new cc_blink::WebLayerImpl(layer));
+    video_weblayer_.reset(new cc_blink::WebLayerImpl(cc::VideoLayer::Create(
+        compositor_, pipeline_metadata_.video_rotation)));
     video_weblayer_->layer()->SetContentsOpaque(opaque_);
     video_weblayer_->SetContentsOpaqueIsFixed(true);
     client_->setWebLayer(video_weblayer_.get());
