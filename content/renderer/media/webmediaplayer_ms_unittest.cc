@@ -410,6 +410,7 @@ class WebMediaPlayerMSTest
   void connectedToRemoteDevice() override {}
   void disconnectedFromRemoteDevice() override {}
   void cancelledRemotePlaybackRequest() override {}
+  void requestReload(const blink::WebURL& newUrl) override {}
 
   // Implementation of cc::VideoFrameProvider::Client
   void StopUsingProvider() override;
