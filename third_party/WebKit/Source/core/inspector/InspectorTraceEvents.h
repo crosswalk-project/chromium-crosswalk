@@ -143,7 +143,7 @@ extern const char SvgResourceInvalidated[];
 extern const char FloatDescendantChanged[];
 extern const char CountersChanged[];
 extern const char GridChanged[];
-extern const char MenuWidthChanged[];
+extern const char MenuOptionsChanged[];
 extern const char RemovedFromLayout[];
 extern const char AddedToLayout[];
 extern const char TableChanged[];
