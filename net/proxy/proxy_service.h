@@ -235,6 +235,7 @@ class NET_EXPORT ProxyService : public NetworkChangeNotifier::IPAddressObserver,
   // ResolveProxy calls.
   void ResetConfigService(
       std::unique_ptr<ProxyConfigService> new_proxy_config_service);
+  ProxyConfigService* GetProxyConfigService() const;
 
   // Returns the last configuration fetched from ProxyConfigService.
   const ProxyConfig& fetched_config() {

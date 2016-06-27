@@ -1503,6 +1503,11 @@ ProxyService::State ProxyService::ResetProxyConfig(bool reset_fetched_config) {
   return previous_state;
 }
 
+ProxyConfigService* ProxyService::GetProxyConfigService() const {
+  DCHECK(CalledOnValidThread());
+  return config_service_.get();
+}
+
 void ProxyService::ResetConfigService(
     std::unique_ptr<ProxyConfigService> new_proxy_config_service) {
   DCHECK(CalledOnValidThread());
