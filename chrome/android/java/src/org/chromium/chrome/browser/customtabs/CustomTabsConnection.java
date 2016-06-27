@@ -535,7 +535,7 @@ public class CustomTabsConnection extends ICustomTabsService.Stub {
     }
 
     @VisibleForTesting
-    void setShouldPrerenderOnCellularForSession(CustomTabsSessionToken session, boolean value) {
+    void setShouldPrerenderOnCellularForSession(IBinder session, boolean value) {
         mClientManager.setPrerenderCellularForSession(session, value);
     }
 
