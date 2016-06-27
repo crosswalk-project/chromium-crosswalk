@@ -6,7 +6,7 @@
 <translation id="1019101089073227242">Ustaw katalog danych użytkownika</translation>
 <translation id="1022361784792428773">Identyfikatory rozszerzeń, których nie może instalować użytkownik (wartość * oznacza wszystkie)</translation>
 <translation id="102492767056134033">Ustaw domyślny stan klawiatury ekranowej na ekranie logowania</translation>
-<translation id="1040446814317236570">Włącz wycinanie adresów URL PAC (na potrzeby https://)</translation>
+<translation id="1040446814317236570">Włącz wycinanie elementów adresów URL PAC (na potrzeby https://)</translation>
 <translation id="1044878202534415707">Raportuj statystki sprzętu, np. użycie procesora i pamięci RAM.
 
       Jeśli ta zasada jest wyłączona, statystyki nie będą raportowane.
@@ -313,6 +313,7 @@
 <translation id="2309390639296060546">Domyślne ustawienie geolokalizacji</translation>
 <translation id="2312134445771258233">Umożliwia skonfigurowanie stron wczytywanych po uruchomieniu. Zawartość listy „Adresy URL otwierane po uruchomieniu” jest ignorowana, chyba że wybierzesz opcję „Otwórz adresy URL z listy” w ustawieniu „Działanie po uruchomieniu”.</translation>
 <translation id="2337466621458842053">Umożliwia skonfigurowanie listy wzorcowych URL-i określających witryny, w których mogą być wyświetlane obrazy. Jeśli ta zasada nie zostanie skonfigurowana, dla wszystkich witryn będzie używana globalna wartość domyślna pochodząca z zasady „DefaultImagesSettings” (jeśli została skonfigurowana) lub z osobistej konfiguracji użytkownika.</translation>
+<translation id="2366415278352956652">Włącza przesyłanie</translation>
 <translation id="2371309782685318247">Pozwala określić w milisekundach okres wysyłania zapytań dotyczących zasad użytkownika do usługi zarządzania urządzeniem. 
 
       Ustawienie tej zasady powoduje zastąpienie wartości domyślnej wynoszącej 3 godziny. Akceptowane są wartości z zakresu od 1 800 000 (30 minut) do 86 400 000 (1 dzień). Wszelkie wartości spoza tego zakresu są zmieniane na odpowiednie wartości graniczne.
@@ -953,6 +954,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="4449545651113180484">Obróć ekran w prawo o 270 stopni</translation>
 <translation id="4467952432486360968">Blokuj pliki cookie innych firm</translation>
 <translation id="4474167089968829729">Włącz zapisywanie haseł w menedżerze haseł</translation>
+<translation id="447686899376429408">Jeśli nie skonfigurujesz tej zasady lub ustawisz dla niej wartość prawda, użytkownicy będą mogli przesyłać karty, witryny lub pulpit z przeglądarki. Jeśli ustawisz tu wartość fałsz, ta opcja zostanie wyłączona.</translation>
 <translation id="4480694116501920047">Wymuś stosowanie filtra SafeSearch</translation>
 <translation id="4482640907922304445">Powoduje pokazanie przycisku strony startowej na pasku narzędzi <ph name="PRODUCT_NAME" />. Jeśli włączysz to ustawienie, przycisk strony startowej będzie zawsze widoczny. W przypadku wyłączenia ustawienia przycisk nigdy nie jest widoczny. Jeśli ustawienie jest włączone lub wyłączone, użytkownicy nie mogą go zmienić ani zastąpić w <ph name="PRODUCT_NAME" />. W przypadku nieskonfigurowania tej zasady użytkownik będzie mógł wybrać, czy chce, aby przycisk strony startowej był pokazywany.</translation>
 <translation id="4492287494009043413">Wyłącza tworzenie zrzutów ekranu</translation>
@@ -1990,6 +1992,30 @@ Więcej opcji i szczegółowych przykładów znajdziesz na:
       Jeśli ta opcja nie zostanie ustawiona, <ph name="PRODUCT_OS_NAME" /> użyje identyfikatora konta e-mail lokalnego konta na urządzeniu jako nazwy wyświetlanej na ekranie logowania.
 
       Ta zasada jest ignorowana w przypadku zwykłych kont użytkownika.</translation>
+<translation id="8279832363395120715">Wycina poufne pod względem prywatności i bezpieczeństwa fragmenty adresów URL https:// przed przekazaniem tych adresów do skryptów PAC (Proxy Auto Config), których <ph name="PRODUCT_NAME" /> używa podczas rozpoznawania serwerów proxy.
+
+      Jeśli ustawisz wartość prawda, funkcja zabezpieczeń zostanie
+      włączona, a adresy URL https:// zostaną usunięte przed
+      przekazaniem ich do skryptów PAC. W ten sposób skrypt PAC nie
+      będzie mógł odczytać danych, które są zwykle chronione przez
+      szyfrowany kanał (np. ścieżkę lub zapytanie adresu URL).
+
+      Jeśli ustawisz wartość fałsz, funkcja zabezpieczeń zostanie wyłączona,
+      a skrypty PAC będą domyślnie mogły odczytać wszystkie składniki 
+      adresu URL https://. Dotyczy to wszystkich skryptów PAC bez względu
+      na ich pochodzenie (włączając te pobrane przez niezabezpieczony
+      kanał lub odkryte w niezabezpieczony sposób przez protokół WPAD).
+
+      Domyślne ustawienie to prawda (włączona funkcja zabezpieczeń).
+      Wyjątek stanowią firmowi użytkownicy Chrome OS, w przypadku
+      których ta zasada jest domyślnie ustawiona na fałsz.
+
+
+      Zaleca się ustawienie tej zasady na wartość prawda. Wartość fałsz
+      należy ustawić tylko wtedy, gdy występuje problem ze zgodnością
+      z istniejącymi skryptami PAC.
+
+      Planujemy usunąć ten problem w przyszłości.</translation>
 <translation id="8285435910062771358">Pełnoekranowa lupa włączona</translation>
 <translation id="8294750666104911727">Normalnie strony, które w tagu X-UA-Compatible mają wartość chrome=1, będą renderowane w <ph name="PRODUCT_FRAME_NAME" /> niezależnie od ustawienia zasady „ChromeFrameRendererSettings”.
 

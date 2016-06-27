@@ -353,6 +353,7 @@ Si cette règle n'est pas configurée, le paramètre "BlockPopups" est utilisé 
 <translation id="2337466621458842053">Permet de définir une liste de formats d'URL spécifiant les sites qui sont autorisés à afficher des images. 
 
 Si cette règle n'est pas configurée, la valeur par défaut globale est utilisée pour tous les sites à partir de la règle "DefaultImagesSetting" si elle est configurée, ou à défaut, à partir de la configuration personnelle de l'utilisateur.</translation>
+<translation id="2366415278352956652">Activer Google Cast</translation>
 <translation id="2371309782685318247">Indique la fréquence en millisecondes à laquelle le service de gestion des appareils est interrogé sur les informations concernant les règles utilisateur. 
 
        La définition de cette règle remplace la valeur par défaut de 3 heures. Les valeurs valides pour cette règle sont comprises entre 1 800 000 (30 minutes) et 86,4 millions (1 jour). Toutes les valeurs non comprises dans cette plage seront nivelées à la limite respective. 
@@ -1030,6 +1031,7 @@ Si vous désactivez cette option ou si vous ne la configurez pas, l'utilisateur 
 <translation id="4449545651113180484">Faire pivoter l'écran vers la droite de 270 degrés</translation>
 <translation id="4467952432486360968">Bloquer les cookies tiers</translation>
 <translation id="4474167089968829729">Activer l'enregistrement des mots de passe dans le gestionnaire de mots de passe</translation>
+<translation id="447686899376429408">Si vous définissez cette règle sur "true" ou si vous ne la définissez pas, les utilisateurs pourront caster des onglets, des sites ou leur bureau depuis le navigateur. Si vous la définissez sur "false", cette option sera désactivée.</translation>
 <translation id="4480694116501920047">Forcer SafeSearch</translation>
 <translation id="4482640907922304445">Affiche le bouton "Accueil" sur la barre d'outils <ph name="PRODUCT_NAME" />. 
 
@@ -2190,6 +2192,26 @@ Si ce paramètre n'est pas défini, l'utilisateur peut décider d'utiliser cette
       Si la règle n'est pas définie, le nom affiché sur l'écran de connexion de <ph name="PRODUCT_OS_NAME" /> correspond à l'identifiant de l'adresse e-mail utilisée pour le compte local de l'appareil.
 
       Cette règle est ignorée pour les comptes utilisateur classiques.</translation>
+<translation id="8279832363395120715">Cette règle permet de retirer les parties sensibles (informations confidentielles et de sécurité) des URL https:// avant de les transmettre aux scripts PAC (Proxy Auto Config) utilisés par <ph name="PRODUCT_NAME" /> pendant la résolution du proxy.
+
+      Si vous définissez cette règle sur "true", la fonctionnalité de sécurité est activée, et les informations sensibles sont retirées des URL https://
+      avant leur envoi à un script PAC. De cette manière, le script PAC
+      ne peut pas afficher des données qui sont normalement protégées
+      par un canal chiffré (comme le chemin d'accès et la requête de l'URL).
+
+      Si vous définissez cette règle sur "false", la fonctionnalité de sécurité est désactivée, et les scripts PAC
+      ont implicitement accès à tous les composants d'une URL https://.
+      Ceci s'applique à tous les scripts PAC, quelle que soit leur origine (y compris
+      ceux qui transitent sur un canal non sécurisé ou qui sont découverts de manière non sécurisée
+      via WPAD).
+
+      Cette règle est définie par défaut sur "true" (fonctionnalité de sécurité activée), sauf pour les utilisateurs de Chrome OS
+      en entreprise pour qui elle est actuellement définie sur "false".
+
+      Nous vous recommandons de définir cette règle sur "true". Ne la définissez sur
+      "false" qu'en cas de problème de compatibilité avec les scripts PAC existants.
+
+      Nous prévoyons à l'avenir de ne plus proposer la valeur "false" pour cette règle.</translation>
 <translation id="8285435910062771358">Loupe plein écran activée</translation>
 <translation id="8294750666104911727">Généralement, les pages dont la balise "X-UA-Compatible" est définie sur "chrome=1" sont rendues dans <ph name="PRODUCT_FRAME_NAME" /> indépendamment de la règle "ChromeFrameRendererSettings".
 

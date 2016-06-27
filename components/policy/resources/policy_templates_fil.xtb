@@ -345,6 +345,7 @@
 <translation id="2337466621458842053">Binibigyang-daan kang magtakda ng isang listahan ng mga pattern ng url  na tumutukoy sa mga site na pinapayagang magpakita ng mga larawan.
 
           Kung hinayaang hindi nakatakda ang patakarang ito gagamitin ang global na default na halaga para sa lahat ng site mula sa patakarang 'DefaultImagesSetting' kung nakatakda ito, o kung hindi man, ang personal na configuration ng user.</translation>
+<translation id="2366415278352956652">Ine-enable ang pag-cast</translation>
 <translation id="2371309782685318247">Tinutukoy ang tagal sa milliseconds kung kailan na-query sa serbisyo ng pamamahala sa device ang impormasyon ng patakaran ng user.
 
       Ino-override ng pagtatakda ng patakarang ito ang default na halaga na 3 oras. Ang mga wastong halaga para sa patakarang ito ay mula 1800000 (30 minuto) hanggang 86400000 (1 araw). Ididikit sa mga naaayong limitasyon ang anumang mga halagang wala sa sakop na ito.
@@ -1017,6 +1018,7 @@
 <translation id="4449545651113180484">I-rotate ang screen pakanan nang 270 degrees</translation>
 <translation id="4467952432486360968">I-block ang cookies ng third party</translation>
 <translation id="4474167089968829729">I-enable ang pagse-save ng mga password sa password manager</translation>
+<translation id="447686899376429408">Kung itinakda ito sa true o iniwang hindi nakatakda, makakapag-cast ng mga tab, site o desktop mula sa browser ang mga user. Kung itinakda sa false, madi-disable ang opsyong ito.</translation>
 <translation id="4480694116501920047">Ipuwersa ang SafeSearch</translation>
 <translation id="4482640907922304445">Ipinapakita ang button na Home sa toolbar ng  <ph name="PRODUCT_NAME" />.
 
@@ -2172,6 +2174,26 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
       Kung hindi nakatakda ang patakaran, gagamitin ng <ph name="PRODUCT_OS_NAME" /> ang ID ng email account ng account na lokal sa device bilang display name sa screen sa pag-login.
 
       Binabalewala ang patakarang ito para sa mga regular na account ng user.</translation>
+<translation id="8279832363395120715">Inii-strip ang mga sensitibong bahagi ng privacy at security ng mga URL na https:// bago ipasa ang mga ito sa mga PAC script (Proxy Auto Config) na ginagamit ng <ph name="PRODUCT_NAME" /> sa panahon ng pagresolba sa proxy.
+
+      Kapag True, naka-enable ang feature na security, at inii-strip ang mga URL na https://
+      bago isumite ang mga ito sa PAC script. Sa ganitong paraan, hindi matitingnan ng PAC
+      script ang data na ordinaryong pinoprotektahan ng isang
+      naka-encrypt na channel (gaya ng path at query ng URL).
+
+      Kapag False, naka-disable ang feature na security, at hindi tahasang binibigyan ang mga PAC script
+      ng kakayahang tingnan ang lahat ng bahagi ng isang URL na https://.
+      Nalalapat ito sa lahat ng PAC script saanman ito nagmula (kabilang
+      ang mga nakuha sa hindi secure na paglilipat o natuklasan sa WPAD
+      sa paraang hindi secure).
+
+      Ang default nito ay True (naka-enable ang feature na security), maliban sa mga user ng enterprise
+      ng Chrome OS kung saan kasalukuyan itong naka-default sa False.
+
+      Inirerekomendang itakda ito sa True. Ang tanging dahilan para itakda ito sa
+      False ay kung nagdudulot ito ng problema sa compatibility sa mga kasalukuyang PAC script.
+
+      Ang layunin ay alisin ang pag-override na ito sa hinaharap.</translation>
 <translation id="8285435910062771358">Naka-enable ang magnifier na full-screen</translation>
 <translation id="8294750666104911727">Karaniwang ire-render ang mga pahina na may X-UA-Compatible na nakatakda sa chrome=1 sa <ph name="PRODUCT_FRAME_NAME" /> hindi alintana ang patakaran sa 'ChromeFrameRendererSettings.'
 

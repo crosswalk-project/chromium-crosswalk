@@ -298,6 +298,7 @@ Questa norma viene rispettata soltanto se la norma "DefaultSearchProviderEnabled
 <translation id="2309390639296060546">Impostazione di geolocalizzazione predefinita</translation>
 <translation id="2312134445771258233">Consente di configurare le pagine che vengono caricate all'avvio. I contenuti dell'elenco "Pagine da aprire all'avvio" vengono ignorati a meno che non selezioni "Apri un elenco di URL" in "Azione all'avvio".</translation>
 <translation id="2337466621458842053">Consente di impostare un elenco di pattern URL che specificano i siti in cui è consentita la visualizzazione di immagini. Se questa norma non viene impostata, per tutti i siti verrà utilizzato il valore predefinito globale della norma "DefaultImagesSetting", se è impostata, oppure verrà utilizzata la configurazione personale dell'utente.</translation>
+<translation id="2366415278352956652">Consente di attivare la trasmissione</translation>
 <translation id="2371309782685318247">Consente di specificare il periodo in millisecondi per cui il servizio di gestione del dispositivo viene interrogato sulle informazioni relative alle norme utente.
 
       Se viene impostata questa norma, il valore predefinito di tre ore viene ignorato. L'intervallo dei valori validi per la norma va da 1800000 (30 minuti) a 86400000 (un giorno). I valori non compresi in questo intervallo verranno bloccati sul corrispettivo limite.
@@ -919,6 +920,7 @@ Questa norma viene rispettata soltanto se la norma "DefaultSearchProviderEnabled
 <translation id="4449545651113180484">Ruota lo schermo in senso orario di 270°</translation>
 <translation id="4467952432486360968">Blocca cookie di terze parti</translation>
 <translation id="4474167089968829729">Attiva il salvataggio delle password in Gestione password</translation>
+<translation id="447686899376429408">Se la norma è impostata su true o non è impostata, gli utenti possono trasmettere schede, siti o il desktop dal browser. Se la norma è impostata su false, l'opzione è disattivata.</translation>
 <translation id="4480694116501920047">Forza SafeSearch</translation>
 <translation id="4482640907922304445">Consente di visualizzare il pulsante Pagina iniziale sulla barra degli strumenti di <ph name="PRODUCT_NAME" />. Se attivi questa impostazione il pulsante Pagina iniziale verrà sempre visualizzato, in caso contrario non verrà mai visualizzato. Se questa impostazione viene attivata o disattivata, gli utenti non potranno modificarla o sostituirla in <ph name="PRODUCT_NAME" />. Se non imposti questa norma gli utenti potranno scegliere se visualizzare o meno il pulsante Pagina iniziale.</translation>
 <translation id="4492287494009043413">Disabilita l'acquisizione di screenshot</translation>
@@ -1942,6 +1944,17 @@ Se la norma non viene configurata, la modalità ad alto contrasto viene inizialm
       Se il criterio non viene impostato, <ph name="PRODUCT_OS_NAME" /> utilizzerà l'ID account email dell'account dispositivo come nome visualizzato nella schermata di accesso.
 
       Questo criterio viene ignorato per gli account utente standard.</translation>
+<translation id="8279832363395120715">Consente di rimuovere le parti importanti per la privacy e la sicurezza dagli URL https:// prima di trasmetterli agli script PAC (Proxy Auto Config) utilizzati da <ph name="PRODUCT_NAME" /> durante la risoluzione proxy.
+
+      Se la norma viene impostata su true, la funzione di sicurezza viene attivata e gli URL https:// vengono rimossi prima di essere inviati allo script PAC. In questo modo lo script PAC non può visualizzare i dati solitamente protetti tramite un canale criptato (ad esempio il percorso e la query dell'URL).
+
+      Se la norma viene impostata su false, la funzione di sicurezza viene disattivata e gli script PAC possono visualizzare tutti i componenti di un URL https://. Questa impostazione viene applicata per tutti gli script PAC, a prescindere dall'origine (sono inclusi quelli recuperati tramite un metodo di trasporto non protetto o scoperti in modo non sicuro tramite WPAD).
+
+      Il valore predefinito della norma è true (funzione di sicurezza attivata), a eccezione degli utenti aziendali di Chrome OS, per i quali al momento il valore predefinito è false.
+
+      È consigliato impostare la norma su true. L'unico motivo per impostare la norma su false è in caso di problemi di compatibilità con gli script PAC esistenti.
+
+      In futuro vogliamo rimuovere la possibilità di ignorare la norma.</translation>
 <translation id="8285435910062771358">Ingrandimento a schermo intero attivo</translation>
 <translation id="8294750666104911727">In genere le pagine con X-UA-Compatible impostato su chrome=1 saranno visualizzate in <ph name="PRODUCT_FRAME_NAME" /> nonostante la norma "£ChromeFrameRendererSettings".
 

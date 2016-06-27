@@ -348,6 +348,7 @@ Si no se establece esta política, el teclado en pantalla estará inhabilitado i
 <translation id="2337466621458842053">Permite que definas una lista de patrones de URL para especificar los sitios que pueden mostrar imágenes.
 
           Si no se establece esta política, se usará para todos los sitios el valor general predeterminado que se indique en la política DefaultImagesSetting (si se ha establecido) o el valor personalizado que haya definido el usuario (en caso contrario).</translation>
+<translation id="2366415278352956652">Habilitar el envío</translation>
 <translation id="2371309782685318247">Permite especificar el período en milisegundos en el que se solicita información sobre políticas de usuarios al servicio de administración de dispositivos.
 
       Si se establece esta política, se anula el valor predeterminado de tres horas. Los valores válidos están comprendidos entre 1.800.000 (30 minutos) y 86.400.000 (un día). Si el valor no está incluido en este intervalo, se redondeará al límite correspondiente.
@@ -550,7 +551,7 @@ Si no se establece esta política, el teclado en pantalla estará inhabilitado i
 <translation id="2801230735743888564">Permite que los usuarios jueguen al juego del huevo de pascua de dinosaurio sin conexión.
 
       Si se asigna el valor False a esta política, los usuarios no podrán jugar al juego del huevo de pascua de dinosaurio sin conexión. Si se le asigna el valor True, los usuarios podrán jugar al juego del dinosaurio. Si no se establece esta política, los usuarios no podrán jugar a este juego en el dispositivo Chrome OS registrado, aunque podrán hacerlo en otras circunstancias.</translation>
-<translation id="2805707493867224476">Permitir que todos los sitios muestren pop-ups</translation>
+<translation id="2805707493867224476">Permitir que todos los sitios muestren ventanas emergentes</translation>
 <translation id="2808013382476173118">Habilita el uso de servidores STUN cuando los clientes remotos intentan establecer conexión con este ordenador.
 
       Si se habilita esta opción, los clientes remotos podrán detectar estos ordenadores y establecer conexión con ellos aunque haya un cortafuegos que los separe.
@@ -1022,6 +1023,7 @@ Si esta política está configurada, el usuario no puede cambiarla y el acceso d
 <translation id="4449545651113180484">Girar la pantalla 270 grados hacia la derecha</translation>
 <translation id="4467952432486360968">Bloquear cookies de terceros</translation>
 <translation id="4474167089968829729">Habilitar el almacenamiento de contraseñas en el administrador de contraseñas</translation>
+<translation id="447686899376429408">Si se le asigna el valor True o no se establece, los usuarios pueden enviar pestañas, sitios web o el escritorio desde el navegador. Si se le asigna el valor False, se inhabilita esta opción.</translation>
 <translation id="4480694116501920047">Forzar SafeSearch</translation>
 <translation id="4482640907922304445">Permite que el botón para volver a la página de inicio se muestre en la barra de herramientas de <ph name="PRODUCT_NAME" />.
 
@@ -2170,6 +2172,26 @@ Si la política está establecida en False, no se informará sobre la lista de i
       Si la política no se establece, <ph name="PRODUCT_OS_NAME" /> utilizará el ID de cuenta de correo electrónico de la cuenta local del dispositivo como el nombre visible en la pantalla de inicio de sesión.
 
       Esta política no se aplica a cuentas de usuario normales.</translation>
+<translation id="8279832363395120715">Elimina las partes de las URL de tipo https:// que contienen información confidencial sobre seguridad y privacidad antes de que se transfieran a las secuencias de comandos de PAC (configuración automática de proxy) que utiliza <ph name="PRODUCT_NAME" /> durante la resolución de proxy.
+
+      Si se le asigna el valor True, se habilita la función de seguridad y las URL de tipo https:// se
+      eliminan antes de su envío a la secuencia de comandos de PAC. De esta forma, esta
+      secuencia no puede ver los datos protegidos habitualmente por un
+      canal cifrado (como la ruta y la consulta de la URL).
+
+      Si se le asigna el valor False, se inhabilita esta función de seguridad y las secuencias de comandos de PAC
+      pueden ver de forma implícita todos los componentes de la URL de tipo https://.
+      Esto se aplica a todas las secuencias de comandos de PAC, independientemente de su origen. Por ejemplo,
+      se aplica a las secuencias que proceden de un método de transporte no seguro, así como a aquellas obtenidas
+      a través de WPAD.
+
+      El valor True se asigna de forma predeterminada (función de seguridad habilitada), excepto en los usuarios de empresas que utilizan Chrome OS,
+      para los que el valor asignado de forma predeterminada es False.
+
+      Se recomienda asignar el valor True. El único motivo para asignar el valor
+      False es que produzca un problema de compatibilidad relacionado con las secuencias de comandos de PAC.
+
+      Lo ideal es eliminar esta anulación en el futuro.</translation>
 <translation id="8285435910062771358">Aumento de pantalla completa habilitado</translation>
 <translation id="8294750666104911727">Normalmente, las páginas con X-UA-Compatible establecido en chrome=1 se mostrarán en <ph name="PRODUCT_FRAME_NAME" />, independientemente de la política ChromeFrameRendererSettings.
 

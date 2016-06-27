@@ -319,6 +319,7 @@
 <translation id="2309390639296060546">Setelan geolokasi default</translation>
 <translation id="2312134445771258233">Memungkinkan Anda mengonfigurasi laman yang dimuat saat permulaan. Isi daftar 'URL yang dibuka saat permulaan' diabaikan kecuali jika Anda memilih 'Buka daftar URL' dalam 'Tindakan saat permulaan'.</translation>
 <translation id="2337466621458842053">Memungkinkan Anda menyetel daftar pola url yang menentukan situs yang diizinkan untuk menampilkan gambar. Jika kebijakan ini dibiarkan tanpa disetel, nilai global default akan digunakan untuk semua situs, baik dari kebijakan 'DefaultImagesSetting', jika disetel, maupun konfigurasi pribadi pengguna.</translation>
+<translation id="2366415278352956652">Mengaktifkan transmisi</translation>
 <translation id="2371309782685318247">Menentukan periode dalam milidetik yang mana layanan pengelolaan perangkat dimintai informasi kebijakan pengguna.
 
       Menyetel kebijakan ini akan menimpa nilai defaukt 3 jam. Nilai yang valid untuk kebijakan ini adalah dalam rentang mulai dari 1800000 (30 menit) hingga 86400000 (1 hari). Nilai yang tidak berada dalam rentang tersebut akan dikunci ke batas masing-masing.
@@ -954,6 +955,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="4449545651113180484">Putar layar searah jarum jam sebesar 270 derajat</translation>
 <translation id="4467952432486360968">Cekal cookie pihak ketiga</translation>
 <translation id="4474167089968829729">Aktifkan penyimpanan sandi di pengelola sandi</translation>
+<translation id="447686899376429408">Jika disetel ke true atau tidak disetel, pengguna dapat mentransmisi tab, situs, atau desktop dari browser. Jika disetel ke false, opsi ini akan dinonaktifkan.</translation>
 <translation id="4480694116501920047">Paksakan TelusurAman</translation>
 <translation id="4482640907922304445">Menampilkan tombol Beranda di bilah alat <ph name="PRODUCT_NAME" />. Jika Anda mengaktifkan setelan ini, tombol Beranda akan selalu ditampilkan. Jika Anda menonaktifkan setelan ini, tombol Beranda tidak akan pernah ditampilkan. Jika Anda mengaktifkan atau menonaktifkan setelan ini, pengguna tidak dapat mengubah atau menimpa setelan ini di <ph name="PRODUCT_NAME" />. Membiarkan kebijakan ini tidak disetel akan memungkinkan pengguna memilih apakah akan menampilkan tombol beranda.</translation>
 <translation id="4492287494009043413">Menonaktifkan pengambilan tangkapan layar</translation>
@@ -2001,6 +2003,26 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       Jika kebijakan dibiarkan tidak disetel, <ph name="PRODUCT_OS_NAME" /> akan menggunakan ID akun email dari akun lokal perangkat sebagai nama tampilan di layar masuk.
 
       Kebijakan ini diabaikan untuk akun pengguna reguler.</translation>
+<translation id="8279832363395120715">Menyembunyikan bagian sensitif privasi dan keamanan pada URL https:// sebelum meneruskannya ke skrip PAC (Proxy Auto Config) yang digunakan oleh <ph name="PRODUCT_NAME" /> selama resolusi proxy.
+
+      Jika disetel ke True, fitur keamanan diaktifkan, dan URL https://
+      disembunyikan sebelum mengirimnya ke skrip PAC. Dengan cara ini, skrip
+      PAC tidak dapat melihat data yang umumnya dilindungi oleh
+      saluran terenkripsi (seperti jalur dan kueri URL).
+
+      Jika disetel ke False, fitur keamanan dinonaktifkan, dan skrip PAC
+      secara implisit diberi kemampuan untuk melihat semua komponen URL
+      https://. Hal ini berlaku untuk semua skrip PAC, terlepas dari asalnya
+      (termasuk skrip yang diambil melalui transportasi tidak aman atau ditemukan
+      secara tidak aman melalui WPAD).
+
+      Setelan defaultnya adalah True (fitur keamanan aktif), kecuali untuk
+      pengguna perusahaan Chrome OS yang setelan defaultnya adalah False.
+
+      Sebaiknya disetel ke True. Satu-satunya alasan untuk menyetel ke
+      False adalah jika kebijakan ini menyebabkan masalah kompatibilitas dengan skrip PAC yang sudah ada.
+
+      Diharapkan untuk menghapus penggantian ini di masa mendatang.</translation>
 <translation id="8285435910062771358">Lup layar penuh diaktifkan</translation>
 <translation id="8294750666104911727">Umumnya laman dengan X-UA-Compatible yang disetel ke chrome=1 akan dirender di <ph name="PRODUCT_FRAME_NAME" /> terlepas dari kebijakan 'ChromeFrameRendererSettings'.
 

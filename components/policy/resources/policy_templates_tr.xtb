@@ -353,6 +353,7 @@
 <translation id="2337466621458842053">Resimleri görüntülemelerine izin verilen sitelerin belirtildiği bir URL kalıpları listesini ayarlamanıza olanak tanır.
 
           Bu politika ayarlanmadan bırakılırsa, 'DefaultImagesSetting' politikası ayarlandıysa buradaki değer, aksi takdirde kullanıcının kişisel yapılandırması tüm siteler için genel varsayılan değer olarak kullanılır.</translation>
+<translation id="2366415278352956652">Yayınlamayı etkinleştirir</translation>
 <translation id="2371309782685318247">Cihaz yönetimi hizmetinin kullanıcı politikası bilgileri için sorgulandığı süreyi milisaniye cinsinden belirtir.
 
       Bu politika ayarlandığında, 3 saat olan varsayılan değeri geçersiz kılar. Bu politikaya ilişkin geçerli değerler 1800000 (30 dakika) ile 86400000 (1 gün) aralığındadır. Bu aralıkta yer almayan değerler göreceli sınıra bağlanır.
@@ -1017,6 +1018,7 @@ politikayı geçersiz kılamaz.
 <translation id="4449545651113180484">Ekranı saat yönünde 270 derece döndür</translation>
 <translation id="4467952432486360968">Üçüncü taraf çerezlerini engelle</translation>
 <translation id="4474167089968829729">Şifrelerin, şifre yöneticisine kaydedilmesini etkinleştir</translation>
+<translation id="447686899376429408">Bu politika doğru (true) değerine ayarlanırsa veya ayarlanmadan bırakılırsa kullanıcılar sekmeleri, siteleri veya masaüstünü tarayıcıdan yayınlayabilirler. Yanlış (false) değerine ayarlanırsa bu seçenek devre dışı bırakılır.</translation>
 <translation id="4480694116501920047">Güvenli Arama'nın kullanılmasını zorunlu tut</translation>
 <translation id="4482640907922304445"><ph name="PRODUCT_NAME" /> araç çubuğunda Ana Sayfa düğmesini gösterir.
 
@@ -2166,6 +2168,29 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
       Bu politika ayarlanmadan bırakılırsa, <ph name="PRODUCT_OS_NAME" />, giriş ekranında görünen ad olarak cihaz-yerel hesabın e-posta hesap kimliğini kullanır.
 
       Bu politika normal kullanıcı hesaplarında yoksayılır.</translation>
+<translation id="8279832363395120715">https:// URL'lerini, proxy çözümlemesi sırasında <ph name="PRODUCT_NAME" /> tarafından kullanılan PAC (Proxy Otomatik Yapılandırması) komut dosyalarına geçirmeden önce URL'lerin gizlilik ve güvenlik açısından hassas bölümlerini ayırır.
+
+     Doğru (True) değerine ayarlandığında güvenlik özelliği etkinleştirilir ve
+     https:// URL'leri bir PAC komut dosyasına gönderilmeden önce ayrılır.
+     Bu şekilde, PAC komut dosyası normalde şifrelenmiş kanalla korunan
+     (URL'nin yolu ve sorgu gibi) verileri görüntüleyemez.
+
+     Politika Yanlış (False) değerine ayarlandığında, güvenlik özelliği devre dışı
+     bırakılır ve PAC komut dosyalarına https:// URL'sinin tüm bileşenlerini
+     görüntüleme izni verilir. Bu ayar, kaynağından bağımsız olarak tüm
+     PAC komut dosyaları için geçerlidir (güvenli olmayan bir aktarım üzerinden
+     getirilenlerin yanı sıra WPAD üzerinden güvenli olmayan bir şekilde
+     keşfedilenler için de geçerlidir).
+
+     Bu politika varsayılan olarak Doğru (True) değerine ayarlanır (güvenlik
+     özelliği etkindir). Bunun tek istisnası, politikanın şu anda Yanlış (False)
+     değerinde çalıştırıldığı Chrome OS kurumsal kullanıcılarıdır.
+
+     Bu politikanın Doğru (True) değerine ayarlanması önerilir. Politikanın
+     Yanlış (False) değerine ayarlanmasının tek nedeni, mevcut PAC komut
+     dosyalarıyla bir uyumluk sorununa neden olabilmesidir.
+
+     İleride bu geçersiz kılmanın kaldırılması istenmektedir.</translation>
 <translation id="8285435910062771358">Tam ekran büyüteci etkin</translation>
 <translation id="8294750666104911727">Normalde, "ChromeFrameRendererSettings" politikası ne olursa olsun, chrome=1 olarak ayarlanmış X-UA Uyumlu sayfalar <ph name="PRODUCT_FRAME_NAME" /> ile oluşturulur.
 

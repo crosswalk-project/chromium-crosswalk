@@ -353,6 +353,7 @@
 <translation id="2337466621458842053">Policyn gör att du kan ställa in en lista med adressmönster som anger webbplatser som får visa bilder.
 
           Om den här policyn inte ställs in används det globala standardvärdet för alla webbplatser, antingen från policyn DefaultImagesSetting om den är inställd, eller från användarens personliga konfiguration om den inte är det.</translation>
+<translation id="2366415278352956652">Aktiverar cast</translation>
 <translation id="2371309782685318247">Policyn anger hur ofta i millisekunder som enhetshanteringstjänsten avfrågas efter användarpolicyinformation.
 
       Om policyn anges ersätter den standardinställningen 3 timmar. Giltiga värden för policyn är från 1800000 (30 minuter) till 86400000 (1 dag). Värden utanför detta intervall ändras till närmaste gräns.
@@ -1029,6 +1030,7 @@
 <translation id="4449545651113180484">Rotera skärmen 270 grader medurs</translation>
 <translation id="4467952432486360968">Blockera cookies från tredje part</translation>
 <translation id="4474167089968829729">Aktivera lösenordshanteraren för sparade lösenord</translation>
+<translation id="447686899376429408">Om det här alternativet är inställt på sant eller inte inställt kan användarna casta flikar, webbplatser eller skrivbordet från webbläsaren. Om det är inställt på falskt går det inte att casta.</translation>
 <translation id="4480694116501920047">Tvinga fram användning av SafeSearch</translation>
 <translation id="4482640907922304445">Policyn visar knappen Startsida i verktygsfältet i <ph name="PRODUCT_NAME" />.
 
@@ -2192,6 +2194,26 @@
       Om policyn inte tillämpas använder <ph name="PRODUCT_OS_NAME" /> det lokala kontot på enhetens e-postkonto-ID som visningsnamn på inloggningsskärmen.
 
       Policyn ignoreras för vanliga användarkonton.</translation>
+<translation id="8279832363395120715">Tar bort sekretess- och säkerhetskänsliga delar av https://-adresser innan de skickas till PAC-skript (Proxy Auto Config) som används av <ph name="PRODUCT_NAME" /> under proxytolkning.
+
+      Om värdet är Sant är säkerhetsfunktionen aktiverad och https://-adresser
+      rensas innan de skickas till ett PAC-skript. Det innebär att PAC-skriptet
+      inte kan visa data som i vanliga fall skyddas av en
+      krypterad kanal (till exempel webbadressens sökväg och sökfråga).
+
+      Om värdet är Falskt är säkerhetsfunktionen inaktiverad och PAC-skript
+      kan implicit visa alla komponenter i en https://-adress.
+      Detta gäller alla PAC-skript oavsett ursprung (inklusive
+      skript som hämtas via en osäker anslutning eller upptäcks osäkert
+      via WPAD).
+
+      Standardvärdet är Sant (säkerhetsfunktionen är aktiverad), förutom för
+      företagsanvändare av Chrome OS, som har standardvärdet Falskt.
+
+      Den rekommenderade inställningen är Sant. Den enda orsaken att välja
+      Falskt är om det orsakar problem med befintliga PAC-skript.
+
+      Vi har för avsikt att ta bort åsidosättningsmöjligheten senare.</translation>
 <translation id="8285435910062771358">Helskärmsförstoraren är aktiverad</translation>
 <translation id="8294750666104911727">Normalt kommer sidor med X-UA-Compatible som är inställda på chrome=1 att renderas i <ph name="PRODUCT_FRAME_NAME" /> trots policyn ChromeFrameRendererSettings.
 

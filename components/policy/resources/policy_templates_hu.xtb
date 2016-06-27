@@ -319,6 +319,7 @@ Ha a házirend konfigurálatlanul marad, a felhasználó döntheti el, hogy kív
 <translation id="2309390639296060546">Helymeghatározás alapértelmezett beállítása</translation>
 <translation id="2312134445771258233">Lehetővé teszi az induláskor betöltött lapok beállítását. Az "Indításkor betöltendő URL-ek" listájának tartalmát figyelmen kívül hagyja, hacsak a "Teendő indításkor" részben nem az "URL-ek listájának megnyitása" lehetőséget választja.</translation>
 <translation id="2337466621458842053">Lehetővé teszi az olyan webhelyeket meghatározó URL-minták listájának összeállítását, amelyek esetében engedélyezett a képek megjelenítése. Ha ez a házirend beállítatlanul marad, akkor a globális alapértelmezett érték kerül felhasználásra valamennyi webhelyre vonatkozóan; vagy -- ha be van állítva -- a "DefaultImagesSetting" házirendből, vagy pedig a felhasználó személyes konfigurációjából.</translation>
+<translation id="2366415278352956652">Lehetővé teszi az átküldést</translation>
 <translation id="2371309782685318247">Megadja, hogy a rendszer hány ezredmásodpercenként kérdezze le a felhasználói házirendek adatait az eszközkezelési szolgáltatástól.
 
 Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órás értéket. Ennél a házirendnél az érvényes értékek 1 800 000 (30 perc) és 86 400 000 (1 nap) közöttiek. A rendszer minden olyan értéket, amely nem ebben a tartományban van, hozzáigazít a közelebbi határhoz. Ha a házirend beállítatlanul marad, akkor a(z) <ph name="PRODUCT_NAME" /> az alapértelmezés szerinti 3 órás értéket használja.</translation>
@@ -951,6 +952,7 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
 <translation id="4449545651113180484">Képernyő elforgatása 270 fokkal</translation>
 <translation id="4467952432486360968">Harmadik féltől származó cookie-k letiltása</translation>
 <translation id="4474167089968829729">Jelszavak mentésének aktiválása a jelszókezelőben</translation>
+<translation id="447686899376429408">Ha értéke igaz, vagy ha nincs beállítva, a felhasználók átküldhetnek lapokat, webhelyeket vagy az asztalt a böngészőből. Ha értéke hamis, ez a lehetőség le lesz tiltva.</translation>
 <translation id="4480694116501920047">Kényszerített Biztonságos Keresés</translation>
 <translation id="4482640907922304445">Megjeleníti a Kezdőoldal gombot az <ph name="PRODUCT_NAME" /> eszköztárán. Ha engedélyezi ezt a beállítást, a Kezdőoldal gomb mindig látható. Ha letiltja a beállítást, a Kezdőoldal gomb soha nem látható. Ha engedélyezi vagy letiltja ezt a beállítást, a felhasználók nem módosíthatják és nem írhatják felül a <ph name="PRODUCT_NAME" /> ezen beállítását. Ha a házirend nincs beállítva, a felhasználó dönthet a Kezdőoldal gomb megjelenítéséről.</translation>
 <translation id="4492287494009043413">Képernyőképek készítésének letiltása</translation>
@@ -1998,6 +2000,26 @@ Ennek a házirendnek a beállítása felülbírálja az alapértelmezett 3 órá
       Ha az irányelv nincs beállítva, akkor a(z) <ph name="PRODUCT_OS_NAME" /> az eszköz helyi fiókjának e-mail fiókazonosítóját használja a bejelentkezési képernyőn megjelenő névként.
 
       Ez az irányelv a normál felhasználói fiókok esetében nincs figyelembe véve.</translation>
+<translation id="8279832363395120715">Törli a https:// URL-ek adatvédelem és biztonság szempontjából kényes részeit, mielőtt átadná őket a <ph name="PRODUCT_NAME" /> által a proxy feloldásához használt PAC (Proxy Auto Config)-szkripteknek.
+
+      Ha igaz értékre van állítva, a biztonsági funkció aktív, és a https:// URL-ek
+      le lesznek csupaszítva a PAC-szkriptnek történő átadás előtt, így az
+      nem fogja látni azokat az adatokat, amelyeket megszokott esetben a
+      titkosított csatorna véd (ilyen például az URL elérési útja és lekérdezése).
+
+      Hamis érték esetén ez a biztonsági funkció ki van kapcsolva, a
+      PAC-szkriptek pedig láthatják a https:// URL-ek mindegyik összetevőjét.
+      Ez az összes PAC-szkriptre érvényes, eredettől függetlenül (beleértve a
+      nem biztonságos átvitel révén lekért, valamint a WPAD protokollon
+      keresztül nem biztonságos módon felfedezett szkripteket is).
+
+      Az alapértelmezett érték Igaz (a funkció engedélyezett), kivéve a Chrome 
+      OS vállalati felhasználóinál, akiknél az alapértelmezés a Hamis érték.
+
+      Azt javasoljuk, hogy a funkció legyen engedélyezve. A tiltás egy esetben
+      ajánlott: ha kompatibilitási probléma lép fel a meglévő PAC-szkriptekkel.
+
+      A jövőre nézve a cél ennek a felülbírálási lehetőségnek az eltávolítása.</translation>
 <translation id="8285435910062771358">Teljes képernyős nagyító bekapcsolása</translation>
 <translation id="8294750666104911727">Általában a chrome=1 értékre állított X-UA-Compatible metacímkével rendelkező oldalak a(z) <ph name="PRODUCT_FRAME_NAME" /> környezetben lesznek megjelenítve a „ChromeFrameRendererSettings” szabálytól függetlenül.
 

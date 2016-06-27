@@ -350,6 +350,7 @@
 <translation id="2337466621458842053">Ļauj iestatīt URL rakstu sarakstu, kurā ir norādītas vietnes, kurām ir atļauts attēlot attēlus.
 
           Ja šī politika nav iestatīta, visām vietnēm tiks izmantota globālā noklusējuma vērtība no politikas DefaultImagesSetting (ja tā ir iestatīta) vai pretējā gadījumā no lietotāja personīgās konfigurācijas.</translation>
+<translation id="2366415278352956652">Iespējo apraidi</translation>
 <translation id="2371309782685318247">Norāda laika periodu milisekundēs, kurā ierīču pārvaldības pakalpojumam tiek pieprasīta lietotāja politikas informācija.
 
       Iestatot šo politiku, tiek ignorēta noklusējuma vērtība: 3 stundas. Šīs politikas derīgās vērtības ir diapazonā no 1 800 000 (30 minūtēm) līdz 86 400 000 (1 dienai). Ja vērtība tiek iestatīta ārpus šī diapazona, tā tiek pielīdzināta attiecīgajai robežai.
@@ -1024,6 +1025,7 @@
 <translation id="4449545651113180484">Pagriezt ekrānu pulksteņrādītāju kustības virzienā par 270 grādiem</translation>
 <translation id="4467952432486360968">Bloķē trešo pušu sīkfailus</translation>
 <translation id="4474167089968829729">Iespējot paroļu saglabāšanu paroļu pārvaldniekā</translation>
+<translation id="447686899376429408">Ja šīs politikas iestatījums nav “Patiesa” vai tā nav iestatīta, lietotāji varēs apraidīt cilnes, vietnes vai darbvirsmas saturu no pārlūkprogrammas. Ja politikas iestatījums ir “Nepatiesa”, šī opcija tiks atspējota.</translation>
 <translation id="4480694116501920047">Drošas meklēšanas piespiedu izmantošana</translation>
 <translation id="4482640907922304445"><ph name="PRODUCT_NAME" /> rīkjoslā rāda pogu Sākums.
 
@@ -2185,6 +2187,26 @@
       Ja politika netiks iestatīta, <ph name="PRODUCT_OS_NAME" /> izmantos ierīces lokālā konta e-pasta konta ID kā parādāmo vārdu pieteikšanās ekrānā.
 
       Šī politika netiek ņemta vērā parastajiem lietotāju kontiem.</translation>
+<translation id="8279832363395120715">Noņem no vietrāžiem URL protokola https:// daļas, kurās ietverta neizpaužama konfidencialitātes un drošības informācija, pirms to nodošanas PAC (Proxy Auto Config — starpniekservera automātiskā konfigurēšana) skriptiem, ko <ph name="PRODUCT_NAME" /> izmanto starpniekservera atrisināšanas laikā.
+
+      Ja šīs politikas iestatījums ir “Patiesa”, drošības funkcija ir iespējota un protokola https:// daļas ir noņemtas no vietrāžiem URL
+      pirms to nodošanas PAC skriptam. Tādējādi
+      PAC skripts nevar skatīt datus, ko parasti aizsargā
+      šifrēts kanāls (piemēram, URL ceļu un vaicājumu).
+
+      Ja šīs politikas iestatījums ir “Nepatiesa”, drošības funkcija ir atspējota un PAC skriptiem ir
+      tieši piešķirta iespēja skatīt visus protokola https:// komponentus
+      vietrādī URL. Šis iestatījums attiecas uz visiem PAC skriptiem neatkarīgi no to izcelsmes (ieskaitot
+      skriptus, kas izgūti, izmantojot nedrošu pārsūtīšanu, vai atklāti nedrošā veidā,
+      izmantojot WPAD).
+
+      Šīs politikas noklusējuma iestatījums ir “Patiesa” (iespējota drošības funkcija), izņemot Chrome OS
+      korporatīvajiem lietotājiem, kuriem pašreizējais noklusējuma iestatījums ir “Nepatiesa”.
+
+      Ieteicams izmantot iestatījumu “Patiesa”. Vienīgais iemesls, lai izmantotu iestatījumu
+      “Nepatiesa”, ir saderības problēma ar esošajiem PAC skriptiem.
+
+      Ir paredzams nākotnē noņemt šo ignorēšanas iestatījumu.</translation>
 <translation id="8285435910062771358">Pilnekrāna režīma lupa ir iespējota</translation>
 <translation id="8294750666104911727">Lapas, kurās X-UA-Compatible iestatījums ir chrome=1, parasti tiek renderētas spraudnī <ph name="PRODUCT_FRAME_NAME" /> neatkarīgi no politikas ChromeFrameRendererSettings iestatījuma.
 

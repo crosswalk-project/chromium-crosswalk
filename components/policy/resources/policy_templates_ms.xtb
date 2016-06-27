@@ -353,6 +353,7 @@
 <translation id="2337466621458842053">Membolehkan anda menetapkan senarai corak url yang menentukan tapak mana yang dibenarkan untuk memaparkan imej.
 
           Jika dasar ini dibiarkan tanpa ditetapkan, nilai lalai global akan digunakan untuk semua tapak sama ada dari dasar 'DefaultImagesSetting' jika dasar ini ditetapkan atau konfigurasi peribadi pengguna tersebut jika sebaliknya.</translation>
+<translation id="2366415278352956652">Mendayakan penghantaran</translation>
 <translation id="2371309782685318247">Menetapkan tempoh dalam milisaat apabila perkhidmatan pengurusan peranti disoal untuk mendapatkan maklumat dasar pengguna.
 
       Penetapan dasar ini mengatasi nilai lalai 3 jam. Nilai sah untuk dasar ini berada dalam julat dari 1800000 (30 minit) sehingga 86400000 (1 hari). Mana-mana nilai yang tidak berada dalam julat ini akan diapit ke sempadan masing-masing.
@@ -1026,6 +1027,7 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
 <translation id="4449545651113180484">Putar skrin 270 darjah mengikut arah jam</translation>
 <translation id="4467952432486360968">Sekat kuki pihak ketiga</translation>
 <translation id="4474167089968829729">Dayakan penyimpanan kata laluan pada pengurus kata laluan</translation>
+<translation id="447686899376429408">Jika dasar ini ditetapkan kepada benar atau tidak ditetapkan, pengguna akan dapat menghantar tab, tapak atau desktop daripada penyemak imbas. Jika ditetapkan kepada palsu, pilihan ini akan dilumpuhkan.</translation>
 <translation id="4480694116501920047">SafeSearch Paksa</translation>
 <translation id="4482640907922304445">Memaparkan butang Laman Utama pada bar alat <ph name="PRODUCT_NAME" />.
 
@@ -2184,6 +2186,26 @@ Halaman yang dibuka semasa permulaan dikawal oleh dasar RestoreOnStartup.
       Jika dasar ini dibiarkan tanpa ditetapkan, <ph name="PRODUCT_OS_NAME" /> akan menggunakan ID akaun e-mel akaun setempat peranti sebagai nama paparan pada skrin log masuk.
 
       Dasar ini diabaikan untuk akaun pengguna biasa.</translation>
+<translation id="8279832363395120715">Mengeluarkan bahagian privasi dan keselamatan yang sensitif daripada URL https:// sebelum menyerahkanya kepada skrip PAC (Konfigurasi Automatik Proksi) yang digunakan oleh <ph name="PRODUCT_NAME" /> semasa penyelesaian proksi.
+
+      Apabila Benar, ciri keselamatan didayakan dan URL https://
+      dibuang sebelum menyerahkannya kepada skrip PAC. Dalam cara ini,
+      skrip PAC tidak dapat melihat data yang lazimnya dilindungi oleh
+      saluran yang disulitkan (seperti laluan dan pertanyaan URL).
+
+      Apabila Palsu, ciri keselamatan dilumpuhkan dan skrip PAC
+      diberikan dengan jelas keupayaan untuk melihat semua komponen
+      URL https://. Tindakan ini terpakai kepada semua skrip PAC tanpa
+      mengambil kira asalnya (termasuk skrip yang diambil melalui pengangkutan
+      yang tidak selamat atau ditemui secara tidak selamat menerusi WPAD).
+
+      Ciri ini ditetapkan kepada Benar secara lalai (ciri keselamatan didayakan),
+      kecuali pengguna perusahaan OS Chrome yang ditetapkan kepada Palsu secara lalai.
+
+      Anda disyorkan supaya menetapkannya kepada Benar. Satu-satunya sebab  
+      untuk menetapkannya kepada Palsu adalah jika ciri ini menyebabkan masalah keserasian dengan skrip PAC sedia ada.
+
+     Hasrat kami adalah untuk mengalih keluar pembatalan ini pada masa hadapan.</translation>
 <translation id="8285435910062771358">Penggadang skrin penuh didayakan</translation>
 <translation id="8294750666104911727">Biasanya, halaman dengan X-UA-Compatible ditetapkan kepada chrome=1 akan dipaparkan dalam <ph name="PRODUCT_FRAME_NAME" /> tanpa mengambil kira dasar 'ChromeFrameRendererSettings'.
 

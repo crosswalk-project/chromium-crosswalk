@@ -315,6 +315,7 @@ Jos tämä asetus ei ole käytössä, järjestelmäpalkissa ei näytetä suurta 
 <translation id="2309390639296060546">Maantieteellisen sijainnin oletusasetus</translation>
 <translation id="2312134445771258233">Voit määrittää käynnistettäessä avattavat sivut. Käynnistettäessä avattavat sivut -luettelo ohitetaan, jos et valitse Toiminto käynnistettäessä -asetukseksi vaihtoehtoa Avaa seuraavat sivut:.</translation>
 <translation id="2337466621458842053">Voit määrittää luettelon URL-malleja, joissa määritetään sivustot, jotka saavat näyttää kuvia. Jos tätä käytäntöä ei ole määritetty, kaikille sivustoille käytetään joko DefaultImagesSetting-käytännön yleistä oletusarvoa, jos se on asetettu, tai käyttäjän henkilökohtaisia määrityksiä.</translation>
+<translation id="2366415278352956652">Mahdollistaa suoratoiston</translation>
 <translation id="2371309782685318247">Määrittää millisekunteina aikavälin, jolla laitteen hallintapalvelulta pyydetään käyttäjäkäytäntötietoja.
 
       Tämän käytännön määrittäminen ohittaa oletusarvon (3 tuntia). Käytännölle voidaan määrittää arvoja väliltä 1800000 (30 minuuttia) – 86400000 (1 päivä). Tämän alueen ulkopuoliset arvot muutetaan lähimpään raja-arvoon.
@@ -952,6 +953,7 @@ Jos tätä asetusta ei ole määritetty, kaikentyyppisiä sovelluksia ja laajenn
 <translation id="4449545651113180484">Kierrä näyttöä 270 astetta myötäpäivään.</translation>
 <translation id="4467952432486360968">Estä kolmannen osapuolen evästeet</translation>
 <translation id="4474167089968829729">Ota käyttöön salasanojen tallentaminen salasanojen hallintaohjelmaan</translation>
+<translation id="447686899376429408">Jos käytännön arvoksi on asetettu Tosi tai sille ei aseteta mitään arvoa, käyttäjät voivat suoratoistaa selaimella välilehtiä, sivustoja tai työpöydän. Jos sen arvo on Epätosi, nämä toiminnot eivät ole käytössä.</translation>
 <translation id="4480694116501920047">Pakota SafeSearch käyttöön</translation>
 <translation id="4482640907922304445">Näyttää Etusivu-painikkeen tuotteen <ph name="PRODUCT_NAME" /> työkalurivissä. Jos otat tämän asetuksen käyttöön, Etusivu-painike näkyy aina. Jos poistat asetuksen käytöstä, Etusivu-painiketta ei näytetä. Valittuasi asetuksen käyttäjät eivät voi muuttaa tai ohittaa sitä tuotteessa <ph name="PRODUCT_NAME" />. Jos tätä käytäntöä ei ole määritetty, käyttäjä voi valita, haluaako hän Etusivu-painikkeen näkyviin työkalurivissä.</translation>
 <translation id="4492287494009043413">Estä kuvakaappauksien ottaminen</translation>
@@ -1996,6 +1998,26 @@ Jos tämä käytäntö on määritetty, kirjautumisruudussa käytetään kunkin 
 Jos tätä käytäntöä ei määritetä, <ph name="PRODUCT_OS_NAME" /> näyttää kirjautumisruudulla laitteeseen lisätyn tilin sähköpostitilin tunnuksen.
 
 Tämä käytäntö ei ole käytössä tavallisilla käyttäjätileillä.</translation>
+<translation id="8279832363395120715">Tämä karsii https://-alkuisista URL-osoitteista yksityisyyden ja tietoturvan kannalta riskialttiit osat, ennen kuin osoitteet lähetetään PAC-ohjelmille (Proxy Auto Config), joita <ph name="PRODUCT_NAME" /> käyttää välityspalvelimen selvityksen aikana.
+
+      Jos käytännön arvo on Tosi, tämä suojaustoiminto on käytössä, ja https://-
+      URL-osoitteiden osat karsitaan ennen osoitteiden lähettämistä PAC-ohjelmille.
+      Tällöin PAC-ohjelma ei näe tietoja, jotka 
+      tavallisesti ovat salattuja (esim. URL-osoitteen polku ja kysely).
+
+      Jos tämän käytännön arvo on epätosi, suojaustoiminto poistetaan käytöstä 
+      ja PAC-ohjelmilla on oikeus tarkastella koko https://-URL-osoitetta.
+      Tämä asetus koskee kaikkia PAC-ohjelmia riippumatta niiden alkuperästä,
+      myös WPAD:n kautta löydettyjä ja suojaamattomien yhteyksien kautta
+      noudettuja PAC-ohjelmia.
+
+      Käytännön oletusarvo on Tosi (suojaustoiminto käytössä), paitsi Chrome-
+      käyttöjärjestelmän yrityskäyttäjillä, joiden käytössä oletusarvo on Epätosi.
+
+      Tosi-arvon asettamista suositellaan. Epätosi-arvon asettaminen on tarpeen
+      vain silloin, kun käytäntö aiheuttaa yhteensopivuusongelman PAC-ohjelmien kanssa.
+
+      Käytännön ohittamisvaihtoehto on tarkoitus poistaa tulevaisuudessa.</translation>
 <translation id="8285435910062771358">Koko näytön suurentaja käytössä</translation>
 <translation id="8294750666104911727">Yleensä sivut, joiden X-UA-Compatible-kohdan arvoksi on asetettu chrome=1 hahmonnetaan kohteessa <ph name="PRODUCT_FRAME_NAME" /> riippumatta "ChromeFrameRendererSettings"-käytännöstä.
 

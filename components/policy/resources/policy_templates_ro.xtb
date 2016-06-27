@@ -327,6 +327,7 @@
 
       Conținutul listei „Adrese URL care se deschid la pornire” este ignorat, cu excepția cazului în care selectezi „Deschide o listă cu adrese URL” în „Acțiune la pornire”.</translation>
 <translation id="2337466621458842053">Vă permite să setați o listă de modele pentru adresele URL care specifică site-urile care au permisiunea să afișeze imagini. Dacă această politică rămâne nesetată, valoarea prestabilită la nivel global va fi folosită pentru toate site-urile, fie din politica „DefaultImagesSetting”, în cazul în care politica este setată, fie din configurația personală a utilizatorului, în caz contrar.</translation>
+<translation id="2366415278352956652">Activează proiecția</translation>
 <translation id="2371309782685318247">Această politică specifică intervalul (în milisecunde) la care serviciului de gestionare a dispozitivelor i se solicită informații legate de politica privind utilizatorii.
 
       Setarea acestei politici înlocuiește valoarea prestabilită de 3 ore. Valorile valide pentru această politică se află în intervalul 1800000 (30 de minute) - 86400000 (1 zi). Toate valorile care nu se încadrează în acest interval vor fi fixate la limita validă cea mai apropiată.
@@ -967,6 +968,7 @@
 <translation id="4449545651113180484">Rotește ecranul la 270 de grade în sensul acelor de ceasornic</translation>
 <translation id="4467952432486360968">Blochează cookie-urile terță parte</translation>
 <translation id="4474167089968829729">Activează salvarea parolelor în managerul de parole</translation>
+<translation id="447686899376429408">Dacă politica este activată sau nu este configurată, utilizatorii vor putea să proiecteze file, site-uri sau desktopul din browser. Dacă nu este activată, această opțiune va fi dezactivată.</translation>
 <translation id="4480694116501920047">Impuneți Căutarea sigură</translation>
 <translation id="4482640907922304445">Afișează butonul Pagină de pornire în bara de instrumente din <ph name="PRODUCT_NAME" />. Dacă activați această setare, butonul Pagina de pornire este întotdeauna afișat. Dacă dezactivați această setare, butonul Pagina de pornire nu este afișat. Dacă activați sau dezactivați această setare, utilizatorii nu o pot modifica sau anula în <ph name="PRODUCT_NAME" />. Dacă lăsați această politică nesetată, acest lucru va permite utilizatorului să aleagă dacă să afișeze sau nu butonul Pagină de pornire.</translation>
 <translation id="4492287494009043413">Dezactivați capturile de ecran</translation>
@@ -2021,6 +2023,25 @@ nu poate fi stabilit de utilizator din setările browserului.
       Dacă această politică nu este setată, <ph name="PRODUCT_OS_NAME" /> va utiliza codul contului de e-mail al contului local de pe gadget ca nume afișat pe ecranul de conectare.
 
       Această politică este ignorată pentru conturile de utilizator obișnuite.</translation>
+<translation id="8279832363395120715">Elimină părțile sensibile legate de confidențialitate și de securitate din adresele URL https:// înainte să le trimită la scripturile PAC (Proxy Auto Config) folosite de <ph name="PRODUCT_NAME" /> în timpul rezolvării proxy-ului.
+
+      Când politica este activată, funcția de securitate este activată, iar părțile respective sunt eliminate din adresele URL https://
+      înainte să fie trimise la un script PAC. Astfel, scriptul PAC
+      nu poate vedea datele protejate de obicei
+      de un canal criptat (cum ar fi calea și interogarea adresei URL).
+
+      Când politica este dezactivată, funcția de securitate este dezactivată, iar scripturile PAC
+      au în mod prestabilit permisiunea să vadă toate componentele unei adrese URL https://.
+      Această setare se aplică tuturor scripturilor PAC indiferent de originea lor (inclusiv
+      celor obținute printr-un transport nesigur, precum și celor descoperite într-un mod nesigur prin WPAD).
+
+      Politica este activată în mod prestabilit (funcția de securitate este activată), mai puțin în cazul utilizatorilor
+      sistemului de operare Chrome din companii pentru care în prezent politica este dezactivată în mod prestabilit.
+
+      Se recomandă activarea acesteia. Singurul motiv de a o
+      dezactiva este în cazul în care apar probleme de compatibilitate cu scripturile PAC existente.
+
+      Se dorește eliminarea acestei modificări în viitor.</translation>
 <translation id="8285435910062771358">Lupă ecran complet activată</translation>
 <translation id="8294750666104911727">În mod normal, paginile cu X-UA-Compatible setate la chrome=1 vor fi redate în <ph name="PRODUCT_FRAME_NAME" />, indiferent de politica „ChromeFrameRendererSettings”.
 

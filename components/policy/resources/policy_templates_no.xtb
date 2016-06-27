@@ -6,7 +6,7 @@
 <translation id="1019101089073227242">Angi katalog for brukerdata</translation>
 <translation id="1022361784792428773">Utvidelses-ID-er brukeren skal hindres i å installere (eller * for alle)</translation>
 <translation id="102492767056134033">Angi skjermtastaturets standardtilstand på påloggingssiden</translation>
-<translation id="1040446814317236570">Slå på PAC-nettadresserydding (for https://)</translation>
+<translation id="1040446814317236570">Slå på PAC-nettadressestripping (for https://)</translation>
 <translation id="1044878202534415707">Rapportér maskinvarestatistikk, for eksempel bruk av prosessor og minne.
 
       Hvis regelen settes til «false» (usann), rapporteres ikke statistikken.
@@ -335,6 +335,7 @@
 <translation id="2309390639296060546">Standardinnstilling for geoposisjonering</translation>
 <translation id="2312134445771258233">Lar deg konfigurere sidene som lastes inn ved oppstart. Innholdet i listen «Nettadresser som skal åpnes ved oppstart» ignoreres, med mindre du velger «Åpne en liste over nettadresser» i «Handling ved oppstart».</translation>
 <translation id="2337466621458842053">Gjør at du kan angi en liste over nettadressemønstre for nettsteder som kan vise bilder. Hvis denne retningslinjen ikke angis, blir den globale standardverdien brukt for alle nettsteder, enten fra retningslinjen DefaultImagesSetting hvis den er angitt, eller fra brukerens egen konfigurasjon hvis nevnte retningslinje ikke er angitt.</translation>
+<translation id="2366415278352956652">Slår på cast</translation>
 <translation id="2371309782685318247">Spesifiserer perioden i millisekunder – angir frekvens for hvor ofte tjenesten for enhetsadministrasjon blir kontaktet for informasjon om brukeretningslinjer.
 
       Bruk av denne retningslinjen overstyrer standardverdien på 3 timer. Gyldige verdier for denne retningslinjen strekker seg fra 1 800 000 (30 minutter) til 86 400 000 (1 dag). Verdier som ikke er innenfor dette området, blir tilpasset dette verdiområdet.
@@ -984,6 +985,7 @@
 <translation id="4449545651113180484">Rotér skjermen 270 grader med klokken</translation>
 <translation id="4467952432486360968">Blokkér tredjeparts informasjonskapsler</translation>
 <translation id="4474167089968829729">Slå på lagring av passord i passordbehandleren</translation>
+<translation id="447686899376429408">Hvis denne er angitt som sann eller ikke er angitt, kommer brukerne til å kunne caste faner, nettsteder eller skrivebordet fra nettleseren. Hvis den er angitt som usann, slås dette alternativet av.</translation>
 <translation id="4480694116501920047">Tving Sikkert Søk</translation>
 <translation id="4482640907922304445">Viser Startside-knappen i verktøylinjen til <ph name="PRODUCT_NAME" />.
 
@@ -2121,6 +2123,28 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
       Hvis innstillingen ikke angis, bruker <ph name="PRODUCT_OS_NAME" /> ID-en for e-postkontoen til enhetens lokale konto som skjermnavn på påloggingsskjermen.
 
       Denne innstillingen ignoreres for vanlige brukerkontoer.</translation>
+<translation id="8279832363395120715">Fjerner personvern- og sikkerhetsfølsomme deler av https://-nettadresser før de sendes videre til PAC-skript (Proxy Auto Config) som brukes av <ph name="PRODUCT_NAME" /> til å finne proxy-tjeneradresser.
+
+      Når den er satt til True (sann), slås sikkerhetsfunksjonen på, og https://-
+      nettadressene strippes før de sendes inn til et PAC-skript. Dermed kan ikke
+      PAC-skriptet se data som vanligvis er beskyttet av en kryptert kanal (for
+      eksempel banen og søket).
+
+      Når den er satt til False (usann),slås sikkerhetsfunksjonen av, og PAC-skript får
+      implisitt muligheten til å se alle komponentene til en https://-nettadresse. Dette
+      gjelder for alle PAC-skript, uansett opprinnelse (inkludert de som innhentes over
+      usikre transportkanaler, eller som oppdages usikkert via WPAD).
+
+      Denne er som standard True (sann) (sikkerhetsfunksjon er slått på), unntatt for
+      brukere av Chrome OS for bedrifter, som for øyeblikket har denne angitt som
+      False (usann) som standard.
+
+      Det anbefales at denne angis som True (sann). Den eneste grunnen til å angi
+      den som False (usann), er hvis den fører til kompatibilitetsproblemer med
+      eksisterende PAC-skript.
+
+
+      Det er ønskelig å fjerne denne overstyringen i fremtiden.</translation>
 <translation id="8285435910062771358">Fullskjermsforstørrelse aktivert</translation>
 <translation id="8294750666104911727">Vanligvis blir sider angitt med X-UA-Compatible til chrome=1 gjengitt i <ph name="PRODUCT_FRAME_NAME" /> uavhengig av innstillingen «ChromeFrameRendererSettings».
 

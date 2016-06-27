@@ -296,6 +296,7 @@
 <translation id="2309390639296060546">默认地理位置设置</translation>
 <translation id="2312134445771258233">允许您配置在启动时加载的页面。除非您在“启动时的操作”中选择“打开网址列表”，否则系统会忽略“启动时打开的网址”列表中的内容。</translation>
 <translation id="2337466621458842053">可让您设置网址格式的列表，这些网址格式用于指定允许显示图片的网站。在未设置此政策的情况下，如果设置了“DefaultImagesSetting”政策，那么将对该政策中的所有网站使用全局默认值，否则将对用户个人配置中的所有网站使用全局默认值。</translation>
+<translation id="2366415278352956652">启用投射</translation>
 <translation id="2371309782685318247">指定向设备管理服务查询用户政策信息的周期（以毫秒为单位）。
 
       设置此政策会替换默认值（3 小时）。此政策的有效值范围为 1800000（30 分钟）至 86400000（1 天）。任何超出此范围的值都会强制调整到相应范围内。
@@ -527,7 +528,7 @@
       如果此政策未设置，其效果等同于已启用，请参见上述说明。</translation>
 <translation id="2850122204195089673">使“统一桌面”功能可供用户使用，并使其在默认情况下处于启用状态。</translation>
 <translation id="285480231336205327">启用高反差模式</translation>
-<translation id="2872961005593481000">关闭</translation>
+<translation id="2872961005593481000">关机</translation>
 <translation id="2877225735001246144">在协商 Kerberos 身份验证时停用 CNAME 查找</translation>
 <translation id="2884728160143956392">在这些网站上允许仅限会话的 Cookie</translation>
 <translation id="2893546967669465276">将系统日志发送到管理服务器</translation>
@@ -865,7 +866,7 @@
 
       系统会在您所选的时间安排自动重启，但是如果用户当前正在使用此设备，那么设备上的自动重启最多可能延迟 24 小时。
 
-      请注意：目前，系统仅在显示登录屏幕或正在访问信息亭模式下的应用时才会启用自动重启。这在日后会有所改变，但此政策将始终适用，无论是否正在进行任何特殊类型的会话。
+      请注意：目前，系统仅在显示登录屏幕或正在访问自助服务终端应用时才会启用自动重启。这在日后会有所改变，但此政策将始终适用，无论是否正在进行任何特殊类型的会话。
 
       政策值应以秒为单位。该值不得低于 3600（1 小时）。</translation>
 <translation id="420512303455129789">将网址与布尔选项对应的字典，用于指定是允许 (true) 还是禁止 (false) 访问相应主机。
@@ -882,7 +883,7 @@
 
           此政策只在启用了“DefaultSearchProviderEnabled”政策的前提下才会生效。</translation>
 <translation id="4320376026953250541">Microsoft Windows XP SP2 或更高版本</translation>
-<translation id="4322842393287974810">允许信息亭模式下的自动启动型零延迟应用控制 <ph name="PRODUCT_OS_NAME" />版本</translation>
+<translation id="4322842393287974810">允许自动启动零延迟的自助服务终端应用控制 <ph name="PRODUCT_OS_NAME" />版本</translation>
 <translation id="4325690621216251241">向系统任务栏添加退出按钮</translation>
 <translation id="4347908978527632940">如果设为 true 且该用户是受监管用户，则其他 Android 应用可以通过内容提供方查询该用户的网络限制。
 
@@ -918,6 +919,7 @@
 <translation id="4449545651113180484">将屏幕顺时针旋转 270 度</translation>
 <translation id="4467952432486360968">阻止第三方 Cookie</translation>
 <translation id="4474167089968829729">允许将密码保存到密码管理器</translation>
+<translation id="447686899376429408">如果将此政策设置为 True 或不设置此政策，则用户将可以通过浏览器投射标签页、网站或桌面内容。如果将此政策设置为 False，则系统会停用此选项。</translation>
 <translation id="4480694116501920047">强制使用安全搜索</translation>
 <translation id="4482640907922304445">在 <ph name="PRODUCT_NAME" />的工具栏上显示“主页”按钮。如果您启用了此设置，则会始终显示“主页”按钮。如果您停用了此设置，则从不显示“主页”按钮。如果您启用或停用了此设置，用户就无法在 <ph name="PRODUCT_NAME" />中更改或替换此设置。如果未设置此政策，用户就可以选择是否显示“主页”按钮。</translation>
 <translation id="4492287494009043413">停用截取屏幕截图功能</translation>
@@ -1524,7 +1526,7 @@
 
           如果此政策未设置，系统任务栏菜单中将不会显示无障碍选项，但用户可以通过“设置”页面使无障碍选项显示在系统任务栏菜单中。</translation>
 <translation id="6766216162565713893">允许网站请求用户授予对附近蓝牙设备的访问权限</translation>
-<translation id="6770454900105963262">报告信息亭模式下的当前会话的相关信息</translation>
+<translation id="6770454900105963262">报告自助服务终端的相关信息</translation>
 <translation id="6774533686631353488">允许使用用户级本地消息传递主机（安装时没有管理员权限）。</translation>
 <translation id="6786747875388722282">扩展程序</translation>
 <translation id="6810445994095397827">在这些网站上阻止 JavaScript</translation>
@@ -1702,11 +1704,11 @@
 
       如果未设置此政策，就可以使用 SPDY 协议。</translation>
 <translation id="7384999953864505698">允许使用 QUIC 协议</translation>
-<translation id="7406651467768226499">是否允许信息亭模式下的自动启动型零延迟应用控制 <ph name="PRODUCT_OS_NAME" />版本。
+<translation id="7406651467768226499">是否允许自动启动零延迟的自助服务终端应用控制 <ph name="PRODUCT_OS_NAME" />版本。
 
-      该政策通过在清单中声明 required_platform_version 并将其用作自动更新目标版本前缀，来控制是否允许信息亭模式下的自动启动型零延迟应用控制 <ph name="PRODUCT_OS_NAME" />版本。
+      该政策通过在清单中声明 required_platform_version 并将其用作自动更新目标版本前缀，来控制是否允许自动启动零延迟的自助服务终端应用控制 <ph name="PRODUCT_OS_NAME" />版本。
 
-      如果该政策设为“true”，信息亭模式下的自动启动型零延迟应用的 required_platform_version 清单键值便会被用作自动更新目标版本前缀。
+      如果该政策设为“true”，自动启动零延迟的自助服务终端应用的 required_platform_version 清单键值便会被用作自动更新目标版本前缀。
 
       如果该政策设为“false”或未配置，required_platform_version 清单键便会被忽略，并且系统会按照常规流程进行自动更新。</translation>
 <translation id="7417972229667085380">演示模式下待机延迟时间的调整幅度（百分比）（已弃用）</translation>
@@ -1762,7 +1764,7 @@
 
       如果您设置了此政策，那么用户将无法对其进行更改或覆盖。
 
-      请注意：目前，系统仅在显示登录屏幕或正在访问信息亭模式下的应用时才会启用自动重启。这在日后会有所改变，但此政策将始终适用，无论是否正在进行任何特殊类型的会话。</translation>
+      请注意：目前，系统仅在显示登录屏幕或正在访问自助服务终端应用时才会启用自动重启。这在日后会有所改变，但此政策将始终适用，无论是否正在进行任何特殊类型的会话。</translation>
 <translation id="7701341006446125684">设置应用和扩展程序缓存大小（以字节为单位）</translation>
 <translation id="7709537117200051035">将主机名与布尔选项对应的字典，用于指定是允许 (true) 还是禁止 (false) 访问相应主机。
 
@@ -1797,7 +1799,7 @@
 <translation id="7763479091692861127"> 可用于操作系统更新的连接类型。由于操作系统更新较大，因此可能会增加连接的负荷，还可能会产生额外费用。因此在默认情况下，系统不会针对公认的昂贵连接类型（目前包括 WiMax、蓝牙和移动网络）启用操作系统更新。
 
       已识别的连接类型标识符包括“以太网”、“Wi-Fi”、“WiMax”、“蓝牙”和“移动”网络。</translation>
-<translation id="7766336524667238790">报告信息亭模式下的当前会话的相关信息，例如应用 ID 和版本。
+<translation id="7766336524667238790">报告当前自助服务终端的相关信息，例如应用 ID 和版本。
 
       如果此政策设为 false，系统将不会报告会话信息。如果此政策设为 true 或未设置，系统将报告会话信息。</translation>
 <translation id="7774768074957326919">使用系统代理设置</translation>
@@ -1956,6 +1958,17 @@
       如果未设置此策略，“<ph name="PRODUCT_OS_NAME" />”将使用设备本地帐户的电子邮件帐户 ID 作为登录屏幕上的显示名称。
 
       普通用户帐户忽略此策略。</translation>
+<translation id="8279832363395120715">先剔除 https:// 网址中的隐私和安全敏感部分，然后再将网址传递给 PAC（代理自动配置）脚本，以便 <ph name="PRODUCT_NAME" /> 在代理解析期间使用。
+
+      如果将此政策设置为 True，则系统会启用安全功能，并会先将 https:// 网址进行剔除处理，然后再将其提交给 PAC 脚本。如此一来，PAC 脚本便无法查看一般由加密渠道保护的数据（例如网址的路径和查询）。
+
+      如果将此政策设置为 False，则系统会停用安全功能，且 PAC 脚本将可暗中查看完整的 https:// 网址。此设置会应用于所有 PAC 脚本（无论这些脚本的来源为何），其中包括通过不安全的传输过程获取的 PAC 脚本，或以不安全的方式通过 WPAD 发现的 PAC 脚本。
+
+      此政策默认设置为 True（安全功能已启用），但 Chrome 操作系统企业版用户除外（对于这些用户，此政策目前默认设置为 False）。
+
+      建议您将此政策设置为 True。唯一需要将此政策设置为 False 的情况是，设置为 True 会导致与现有 PAC 脚本出现兼容性问题。
+
+      我们期望将来能够移除这项替换设置。</translation>
 <translation id="8285435910062771358">已启用全屏放大镜</translation>
 <translation id="8294750666104911727">XX-UA-Compatible 设置为chrome=1的网页通常在“<ph name="PRODUCT_FRAME_NAME" />”中进行渲染，而不考虑“ChromeFrameRendererSettings”政策。
 
@@ -2096,7 +2109,7 @@
 
       如果此政策设为false，那么用户以及任何应用和扩展程序均无法进入全屏模式。
 
-      停用全屏模式后，在所有平台（<ph name="PRODUCT_OS_NAME" />除外）上都无法使用信息亭模式。</translation>
+      停用全屏模式后，在所有平台（<ph name="PRODUCT_OS_NAME" />除外）上都无法使用自助服务终端模式。</translation>
 <translation id="8795495354632096254">解析时区时一律将 Wi-Fi 接入点发送到服务器。</translation>
 <translation id="8818173863808665831">报告设备的地理位置。
 
@@ -2150,7 +2163,7 @@
 <translation id="8955719471735800169">返回页首</translation>
 <translation id="8960850473856121830">如果有网址请求使用音频捕获设备，系统会将此列表中的网址格式与该网址的安全来源进行比对。如果找到了匹配项，系统将允许该网址使用音频捕获设备，并且不会提示用户。
 
-      请注意：在 45 版之前，只有在信息亭模式下此政策才受支持。</translation>
+      请注意：在 45 版之前，只有在自助服务终端模式下此政策才受支持。</translation>
 <translation id="8965758116018152083">如果此政策设为空字符串或未配置，<ph name="PRODUCT_OS_NAME" />将不会在用户登录期间显示自动填充选项。
       如果此政策设为表示域名的字符串，<ph name="PRODUCT_OS_NAME" />将在用户登录期间显示自动填充选项，以便用户只输入自己的用户名，而无需输入网域扩展名。用户可以覆盖此网域扩展名。</translation>
 <translation id="8970205333161758602">阻止显示 <ph name="PRODUCT_FRAME_NAME" />停止支持的提示</translation>

@@ -319,6 +319,7 @@
 <translation id="2309390639296060546">Definição de geolocalização predefinida</translation>
 <translation id="2312134445771258233">Permite-lhe configurar as páginas que são carregadas no arranque. O conteúdo da lista "URLs a abrir no aranque" é ignorado, a menos que selecione "Abrir uma lista de URLs" em "Ação no arranque".</translation>
 <translation id="2337466621458842053">Permite definir uma lista de padrões de URL que especificam os Web sites autorizados a apresentar imagens. Se esta política não for definida, será utilizado o valor global predefinido para todos os Web sites, seja a partir da política "DefaultImagesSetting", caso esteja definida, ou a partir da configuração pessoal do utilizador.</translation>
+<translation id="2366415278352956652">Ativa a transmissão</translation>
 <translation id="2371309782685318247">Especifica o período, em milissegundos, durante o qual é efetuada uma consulta ao serviço de gestão do dispositivo para obter informações sobre a política de utilizador.
 
       A definição desta política substitui o valor predefinido de 3 horas. Os valores válidos para esta política situam-se entre 1800000 (30 minutos) e 86400000 (1 dia). Qualquer valor fora deste intervalo será restringido ao respetivo limite.
@@ -953,6 +954,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="4449545651113180484">Rodar o ecrã 270 graus para a direita</translation>
 <translation id="4467952432486360968">Bloquear cookies de terceiros</translation>
 <translation id="4474167089968829729">Permitir guardar palavras-passe no gestor de palavras-passe</translation>
+<translation id="447686899376429408">Se esta política estiver definida como verdadeira ou não estiver definida, os utilizadores podem transmitir separadores, sites ou o ambiente de trabalho a partir do navegador. Se estiver definida como falsa, a opção está desativada.</translation>
 <translation id="4480694116501920047">Forçar Pesquisa Segura</translation>
 <translation id="4482640907922304445">Apresenta o botão Página Inicial na barra de ferramentas do <ph name="PRODUCT_NAME" />. Se ativar esta definição, o botão Página Inicial é sempre apresentado. Se desativar esta definição, o botão Página Inicial nunca é apresentado. Se ativar ou desativar esta definição, os utilizadores não a poderão alterar ou substituir no <ph name="PRODUCT_NAME" />. Se deixar esta política por definir, permitirá que o utilizador decida se pretende ou não apresentar o botão Página Inicial.</translation>
 <translation id="4492287494009043413">Desativar capturas de ecrã</translation>
@@ -2000,6 +2002,28 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
       Se a política ficar por definir, o <ph name="PRODUCT_OS_NAME" /> utilizará o ID da conta de email da conta local do dispositivo como o nome a apresentar no ecrã de início de sessão.
 
       Esta política é ignorada para contas de utilizador normais.</translation>
+<translation id="8279832363395120715">Remove as partes sensíveis de privacidade e de segurança de URLs https:// antes de os passar para scripts de PAC (Configuração automática do proxy) utilizados pelo <ph name="PRODUCT_NAME" /> durante a resolução de proxy.
+
+     Quando definida como Verdadeira, a funcionalidade de segurança está ativada
+     e os URLs https:// são
+      removidos antes de serem enviados para um script de PAC.
+      Desta forma, o script de PAC não consegue ver dados normalmente protegidos
+      por um canal encriptado (como o caminho e a consulta do URL).
+     
+      Quando definida como Falsa, a funcionalidade de segurança está desativada
+      e é concedida, implicitamente, aos scripts de PAC a capacidade de verem todos os
+      componentes de um URL https://. Isto aplica-se a todos os scripts de PAC,
+      independentemente da origem (incluindo os que são obtidos através de um
+      transporte não protegido ou detetados através de WPAD inseguro).
+
+      A predefinição é Verdadeira (funcionalidade de segurança ativada), exceto para
+      os utilizadores empresariais do SO Chrome, na qual a predefinição é Falsa.
+
+      Recomenda-se que a política seja definida como Verdadeira. O único motivo
+      para a definir como Falsa é se provocar problemas de incompatibilidade com
+      scripts de PAC existentes.
+
+      O objetivo é remover esta substituição no futuro.</translation>
 <translation id="8285435910062771358">Lupa em ecrã inteiro ativada</translation>
 <translation id="8294750666104911727">Normalmente, as páginas com X-UA-Compatible definido como chrome=1 serão processadas em <ph name="PRODUCT_FRAME_NAME" />, independentemente da política "ChromeFrameRendererSettings".
 

@@ -338,6 +338,7 @@ Ak je toto nastavenie zakázané alebo nie je nakonfigurované, nebudú môcť p
 <translation id="2337466621458842053">Umožňuje nastaviť zoznam vzorov webových adries určujúcich webové stránky, na ktorých sa môžu zobrazovať obrázky.
 
           Ak toto pravidlo ponecháte nenastavené, použije sa v prípade všetkých webových stránok globálna predvolená hodnota buď z pravidla „DefaultImagesSetting“ (ak je nastavené), alebo z osobnej konfigurácie používateľa.</translation>
+<translation id="2366415278352956652">Povolenie prenosu</translation>
 <translation id="2371309782685318247">Určuje interval v milisekundách, v ktorom budú službe správy zariadenia odosielané žiadosti o informácie o pravidlách pre používateľov.
 
       Nastavením tohto pravidla bude prepísaná predvolená hodnota 3 hodiny. Platné hodnoty pre toto pravidlo sa pohybujú v rozmedzí od 1 800 000 (30 minút) do 86 400 000 (1 deň). Namiesto hodnôt mimo tento rozsah bude použitá príslušná medzná hodnota.
@@ -1011,6 +1012,7 @@ Ak toto nastavenie zakážete, v okne správcu hesiel nebude možné zobraziť 
 <translation id="4449545651113180484">Otočiť obrazovku v smere hodinových ručičiek o 270 stupňov</translation>
 <translation id="4467952432486360968">Blokovať súbory cookie tretej strany</translation>
 <translation id="4474167089968829729">Povolenie ukladania hesiel do správcu hesiel</translation>
+<translation id="447686899376429408">Ak toto pravidlo nastavíte na hodnotu True alebo ho nenastavíte, používatelia nebudú môcť prenášať karty, weby ani pracovnú plochu z prehliadača. Ak ho nastavíte na hodnotu False, táto možnosť bude zakázaná.</translation>
 <translation id="4480694116501920047">Vynútenie Bezpečného vyhľadávania</translation>
 <translation id="4482640907922304445">Zobrazí tlačidlo Domovská stránka na paneli s nástrojmi prehliadača <ph name="PRODUCT_NAME" />.
 
@@ -2166,6 +2168,26 @@ Pozrite si tiež pravidlo RemoteAccessHostClientDomain.</translation>
       Ak je toto pravidlo ponechané nenastavené, systém <ph name="PRODUCT_OS_NAME" /> použije ID e-mailového účtu pre miestny účet na zariadení ako meno, ktoré zobrazí na obrazovke prihlásenia.
 
       Toto pravidlo sa v prípade bežných používateľských účtov ignoruje.</translation>
+<translation id="8279832363395120715">Umožňuje odstrániť citlivé časti webových adries s predponou https:// týkajúce sa súkromia a zabezpečenia ešte predtým, ako sa odošlú do skriptov PAC (Proxy Auto Config) používaných prehliadačom <ph name="PRODUCT_NAME" /> počas vyvolania proxy servera.
+
+      Keď toto pravidlo nastavíte na hodnotu True, daná bezpečnostná funkcia bude povolená a časti webových
+      adries s predponou https:// sa odstránia ešte predtým, ako budú odoslané do skriptov PAC. Takto nebude
+      môcť skript PAC zobraziť dáta, ktoré sú štandardne chránené šifrovaným kanálom (ako sú napríklad cesta
+      webovej adresy a dopyt).
+
+      Keď toto pravidlo nastavíte na hodnotu False, daná bezpečnostná funkcia bude zakázaná a skriptom PAC
+      bude bezvýhradne povolené zobrazovať všetky časti webových adries
+      s predponou https://. Platí to pre všetky skripty PAC bez ohľadu na ich pôvod (vrátane
+      tých, ktoré boli načítané cez nezabezpečený prenos alebo objavené nezabezpečeným spôsobom
+      prostredníctvom protokolu WPAD).
+
+      Predvolene je nastavená možnosť True (bezpečnostná funkcia je povolená), neplatí to však pre podnikových
+      používateľov systému Chrome OS, pre ktorých je predvolená možnosť False.
+
+      Pravidlo odporúčame nastaviť na možnosť True. Nastavte ho na možnosť
+      False iba vtedy, keď spôsobuje problém s kompatibilitou v prípade existujúcich skriptov PAC.
+
+      V budúcnosti by malo byť toto prepísanie odstránené.</translation>
 <translation id="8285435910062771358">Lupa v režime na celú obrazovku je povolená</translation>
 <translation id="8294750666104911727">Stránky s prvkom X-UA-Compatible nastaveným na hodnotu chrome=1 sa obvykle vykreslia v rámci služby <ph name="PRODUCT_FRAME_NAME" /> bez ohľadu na pravidlo ChromeFrameRendererSettings.
 

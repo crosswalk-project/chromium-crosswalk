@@ -319,6 +319,7 @@ Hvis kompatabilitet med en fejlbehæftet server skal opretholdes, kan denne poli
 <translation id="2309390639296060546">Standardindstilling for geoplacering</translation>
 <translation id="2312134445771258233">Giver dig mulighed for at konfigurere de sider, der indlæses ved opstart. Indholdet af listen "Webadresser, der skal åbnes ved opstart" ignoreres, medmindre du vælger "Åbn en liste over webadresser" i "Handling ved opstart".</translation>
 <translation id="2337466621458842053">Giver dig mulighed for at oprette en liste med webadressemønstre, der angiver websites, hvor billedvisning tillades. Hvis denne politik ikke er angivet, anvendes den globale standardværdi for alle websites, enten fra politikken "DefaultImagesSetting", hvis den er angivet, eller fra brugerens personlige konfiguration.</translation>
+<translation id="2366415278352956652">Aktiverer casting</translation>
 <translation id="2371309782685318247">Angiver den periode i millisekunder, hvor enhedsadministrationstjenesten forespørges om oplysninger om brugerpolitikken.
 
       Indstilling af denne politik tilsidesætter standardværdien på 3 timer. Gyldige værdier for denne politik er i intervallet 1.800.000 (30 minutter) til 86.400.000 (1 dag).
@@ -961,6 +962,7 @@ Mens selve politikken understøttes på ovenstående platforme, kan den funktion
 <translation id="4449545651113180484">Roter skærmen 270 grader med uret</translation>
 <translation id="4467952432486360968">Bloker cookies fra tredjeparter</translation>
 <translation id="4474167089968829729">Aktivér lagring af adgangskoder i adgangskodeadministratoren</translation>
+<translation id="447686899376429408">Hvis politikken er angivet som Sand eller ikke er angivet, kan brugerne caste faner, websites eller skrivebordet fra browseren. Hvis politikken er angivet som Falsk, deaktiveres denne valgmulighed.</translation>
 <translation id="4480694116501920047">Gennemtving Beskyttet Søgning</translation>
 <translation id="4482640907922304445">Viser knappen Startside på værktøjslinjen i <ph name="PRODUCT_NAME" />. Hvis du aktiverer denne indstilling, vises knappen Startside altid. Hvis du deaktiverer denne indstilling, vises knappen Startside aldrig. Hvis du aktiverer eller deaktiverer denne indstilling, kan brugerne ikke ændre eller tilsidesætte denne indstilling i <ph name="PRODUCT_NAME" />. Hvis denne politik ikke angives, kan brugeren vælge, om knappen Startside skal vises.</translation>
 <translation id="4492287494009043413">Deaktiver skærmbilleder</translation>
@@ -2011,9 +2013,24 @@ Kun hvis allowCorporateKeyUsage er angivet som "sand" for en udvidelse, kan den 
 
       Hvis denne politik er indstillet, bruger loginskærmen den angivne streng i den billedbaserede loginvælger for den tilsvarende enhedslokale konto.
 
-      Hvis politikken ikke er indstillet, bruger <ph name="PRODUCT_OS_NAME" /> den enhedslokale kontos e-mailkonto-id som det navn, der vises på loginskærmen.
+      Hvis politikken ikke er indstillet, bruger <ph name="PRODUCT_OS_NAME" /> den enhedslokale kontos e-mailkonto-id som det viste navn på loginskærmen.
 
       Denne politik ignoreres for almindelige brugerkonti.</translation>
+<translation id="8279832363395120715">Fjerner følsomme dele vedrørende personlige oplysninger og sikkerhed i webadresser af typen https://, før de overføres til PAC-scripter (Proxy Auto Config), som anvendes af <ph name="PRODUCT_NAME" /> i forbindelse med proxyopløsning.
+
+      Hvis politikken er angivet som Sand, er sikkerhedsfunktionen aktiveret, og webadresser af typen https:// fjernes,
+      før de sendes videre til et PAC-script. Dermed kan
+      PAC-scriptet ikke se data, der normalt beskyttes af en
+      krypteret kanal (som f.eks. webadressens sti og forespørgsel).
+
+      Hvis politikken er angivet som Falsk, er sikkerhedsfunktionen deaktiveret, og PAC-scripter kan implicit se alle komponenter af en webadresse af typen https://.
+      Dette gælder for alle PAC-scripter uanset oprindelse (herunder dem, der hentes via en usikker overførsel, eller som opdages via WPAD på en usikker måde).
+
+      Politikken angives som standard som Sand (sikkerhedsfunktion er aktiveret). Dette gælder dog ikke for Chrome OS-virksomhedsbrugere, hvor politikken i øjeblikket som standard er angivet som Falsk.
+
+      Vi anbefaler, at politikken angives som Sand. Politikken bør kun angives som Falsk, hvis den forårsager problemer med kompatibiliteten med eksisterende PAC-scripter.
+
+      Planen er at fjerne denne tilsidesættelse på et senere tidspunkt.</translation>
 <translation id="8285435910062771358">Lup i fuld skærm er aktiveret</translation>
 <translation id="8294750666104911727">Normalt vil sider, der er angivet med X-UAchrome=1, blive gengivet i <ph name="PRODUCT_FRAME_NAME" />, uanset politikken for 'ChromeFrameRendererSettings'.
 

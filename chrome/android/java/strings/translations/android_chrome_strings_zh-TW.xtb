@@ -3,7 +3,7 @@
 <translationbundle lang="zh-TW">
 <translation id="1040144152982955218">正在搜尋裝置… <ph name="BEGIN_LINK" />取得說明<ph name="END_LINK" /></translation>
 <translation id="1056898198331236512">警告</translation>
-<translation id="10614374240317010">永不儲存</translation>
+<translation id="10614374240317010">一律不儲存</translation>
 <translation id="1061441684050139317">Chrome 需要存取麥克風，才能與這個網站分享。</translation>
 <translation id="1080790410959514870">您即將登出由 <ph name="DOMAIN_NAME" /> 所管理的帳戶。儲存在這個裝置上的 Chrome 資料將因此遭到刪除，但這些資料仍會保留在您的 Google 帳戶中。</translation>
 <translation id="1098052486217676340">已結束</translation>
@@ -162,7 +162,7 @@
 <translation id="3029704984691124060">通關密語不符</translation>
 <translation id="3036750288708366620"><ph name="BEGIN_LINK" />取得說明<ph name="END_LINK" /></translation>
 <translation id="3063601790762993062">儲存影片</translation>
-<translation id="307329814453917357">可使用「Google 翻譯」翻譯網頁內容</translation>
+<translation id="307329814453917357">詢問是否透過 Google 翻譯功能來翻譯網頁內容</translation>
 <translation id="3089395242580810162">在無痕式分頁中開啟</translation>
 <translation id="3090193911106258841">正在存取音訊和視訊輸入</translation>
 <translation id="3117051980354074377">如要存取您在其他裝置上建立的書籤，請登入 Chrome。</translation>
@@ -283,7 +283,7 @@
 <translation id="4738836084190194332">上次同步處理時間：<ph name="WHEN" /></translation>
 <translation id="4773299976671772492">已停止</translation>
 <translation id="4797039098279997504">輕觸即可返回 <ph name="URL_OF_THE_CURRENT_TAB" /></translation>
-<translation id="4807098396393229769">信用卡持有人姓名</translation>
+<translation id="4807098396393229769">持卡人姓名</translation>
 <translation id="4816465935029283692">資料類型</translation>
 <translation id="4827948050554950725">新增信用卡</translation>
 <translation id="4836364883164334657">您與這個網站之間的連線不是私人連線。攻擊者可能會嘗試從 <ph name="DOMAIN_NAME" /> 竊取您的資訊 (例如相片、密碼、郵件和信用卡資訊)。</translation>
@@ -304,7 +304,7 @@
 <translation id="5107381076085091558">已暫停下載。</translation>
 <translation id="5118713593561876160">興趣喜好</translation>
 <translation id="5127805178023152808">同步功能已停用</translation>
-<translation id="5138299137310274655">這個網頁的內容是<ph name="SOURCE_LANGUAGE" />，需要翻譯成<ph name="TARGET_LANGUAGE" />嗎？</translation>
+<translation id="5138299137310274655">這是<ph name="SOURCE_LANGUAGE" />網頁，需要翻譯成<ph name="TARGET_LANGUAGE" />嗎？</translation>
 <translation id="5150703642582475397">合併分頁與應用程式</translation>
 <translation id="515227803646670480">清除儲存的資料</translation>
 <translation id="5156656584247937086">這是兒童帳戶</translation>
@@ -402,7 +402,7 @@
 <translation id="6165508094623778733">瞭解詳情</translation>
 <translation id="6181444274883918285">新增例外網站</translation>
 <translation id="6192792657125177640">例外</translation>
-<translation id="6232535412751077445">啟用「不追蹤」功能即表示要求將會包含在您的瀏覽流量中，其效用取決於網站是否回應要求以及如何解讀要求。
+<translation id="6232535412751077445">啟用「不追蹤」選項後，您的瀏覽流量會置入一項特定的要求，其作用則視網站是否回應要求，以及網站解讀要求的方式而定。
 
 舉例來說，部分網站可能會以顯示廣告的方式回應這類要求，而這些廣告並非根據您所造訪的其他網站紀錄而產生。許多網站仍會收集您的瀏覽資料，並將這些資料用於下列目的：提高網站安全性、在網站上提供更相關的內容、廣告和推薦項目，以及產生報告統計資料。</translation>
 <translation id="6277522088822131679">列印網頁時發生問題，請再試一次。</translation>
@@ -568,7 +568,7 @@
 <translation id="8223946939421658889">資料清除範圍：</translation>
 <translation id="8261506727792406068">刪除</translation>
 <translation id="8275818695183729150">允許 (從網址列搜尋)</translation>
-<translation id="8283853025636624853">正在同步到 <ph name="SYNC_ACCOUNT_USER_NAME" /></translation>
+<translation id="8283853025636624853">同步的帳戶：<ph name="SYNC_ACCOUNT_USER_NAME" /></translation>
 <translation id="8310344678080805313">標準分頁</translation>
 <translation id="8372893542064058268">允許特定網站執行背景同步處理作業。</translation>
 <translation id="8374821112118309944">請更新至新版 TalkBack。</translation>
@@ -581,7 +581,7 @@
 <translation id="8514577642972634246">進入無痕模式</translation>
 <translation id="8518901949365209398">這個網站使用的安全性設定強度不足 (SHA-1 簽名)，因此您的連線可能不是私人連線。</translation>
 <translation id="8525306231823319788">全螢幕</translation>
-<translation id="854522910157234410">開啟此頁</translation>
+<translation id="854522910157234410">開啟以下網頁</translation>
 <translation id="8562452229998620586">已儲存的密碼會顯示在這裡。</translation>
 <translation id="856481929701340285">切換為電腦版網站</translation>
 <translation id="857943718398505171">已允許 (建議)</translation>
@@ -609,7 +609,7 @@
 <translation id="884264119367021077">運送地址</translation>
 <translation id="8853345339104747198"><ph name="TAB_TITLE" /> (分頁)</translation>
 <translation id="885701979325669005">儲存空間</translation>
-<translation id="8901170036886848654">找不到書籤</translation>
+<translation id="8901170036886848654">找不到符合條件的書籤</translation>
 <translation id="8909135823018751308">分享…</translation>
 <translation id="8912362522468806198">Google 帳戶</translation>
 <translation id="8920114477895755567">尚未取得家長詳細資料。</translation>

@@ -345,6 +345,7 @@
 <translation id="2337466621458842053">Cho phép bạn thiết lập danh sách các mẫu url chỉ định những trang web được phép hiển thị hình ảnh.
 
           Nếu không thiết lập chính sách này, giá trị mặc định chung từ chính sách 'DefaultImagesSetting' nếu chính sách này được thiết lập hoặc từ cấu hình cá nhân của người dùng sẽ được sử dụng cho tất cả các trang web.</translation>
+<translation id="2366415278352956652">Bật truyền</translation>
 <translation id="2371309782685318247">Chỉ định khoảng thời gian tính bằng mili giây mà trong khoảng đó dịch vụ quản lý thiết bị sẽ được truy vấn về thông tin chính sách người dùng.
 
       Việc đặt chính sách này sẽ ghi đè giá trị mặc định 3 giờ. Các giá trị hợp lệ cho chính sách này nằm trong khoảng từ 1800000 (30 phút) tới 86400000 (1 ngày). Mọi giá trị không nằm trong khoảng này sẽ được gắn với ranh giới tương ứng.
@@ -1013,6 +1014,7 @@ Khi chính sách này được đặt thành false hoặc không được địn
 <translation id="4449545651113180484">Xoay màn hình 270 độ theo chiều kim đồng hồ</translation>
 <translation id="4467952432486360968">Chặn cookie của bên thứ ba</translation>
 <translation id="4474167089968829729">Bật lưu mật khẩu cho trình quản lý mật khẩu</translation>
+<translation id="447686899376429408">Nếu tùy chọn này được đặt là true hoặc không được đặt, thì người dùng có thể truyền tab, trang web hoặc màn hình từ trình duyệt. Nếu được đặt là false, tùy chọn này sẽ bị vô hiệu hóa.</translation>
 <translation id="4480694116501920047">Buộc Tìm kiếm an toàn</translation>
 <translation id="4482640907922304445">Hiển thị nút Trang chủ trên thanh công cụ của <ph name="PRODUCT_NAME" />.
 
@@ -2157,6 +2159,28 @@ Khi chính sách này được đặt thành false hoặc không được địn
       Nếu chính sách không được đặt, <ph name="PRODUCT_OS_NAME" /> sẽ sử dụng ID tài khoản email của tài khoản trong thiết bị làm tên hiển thị trên màn hình đăng nhập.
 
       Chính sách này bị bỏ qua đối với các tài khoản người dùng thông thường.</translation>
+<translation id="8279832363395120715">Xóa phần thông tin nhạy cảm trong bảo mật và quyền riêng tư của URL https:// trước khi gửi URL này tới tập lệnh PAC (Tự động định cấu hình proxy) do <ph name="PRODUCT_NAME" /> sử dụng trong quá trình phân giải proxy.
+
+      Nếu cài đặt là True, tính năng bảo mật sẽ được bật và URL https:// sẽ bị
+      xóa trước khi được gửi tới tập lệnh PAC. Theo cách này, tập lệnh PAC
+      không thể xem dữ liệu do kênh được mã hóa bảo vệ ban đầu
+      (chẳng hạn như truy vấn và đường dẫn của URL).
+
+      Nếu cài đặt là False, tính năng bảo mật sẽ bị vô hiệu hóa và tập lệnh PAC
+      sẽ được cấp cho khả năng xem tất cả thành phần của URL https://.
+      Điều này áp dụng cho tất cả tập lệnh PAC bất kể nguồn gốc là gì (bao gồm
+      các tập lệnh được tìm nạp qua chuyển tuyến không an toàn hoặc bị phát
+      hiện là không an toàn thông qua WPAD).
+
+      Cài đặt này được đặt mặc định này là True (tính năng bảo mật được bật),
+      trừ những người dùng doanh nghiệp Chrome OS có cài đặt này hiện được 
+      đặt này là False.
+
+      Chúng tôi đề xuất đặt cài đặt này là True. Lý do duy nhất để đặt cài
+      đặt này thành False là liệu điều đó có gây ra sự cố tương thích
+      với tập lệnh PAC hiện có hay không.
+
+      Chúng tôi mong muốn xóa ghi đè này trong tương lai.</translation>
 <translation id="8285435910062771358">Đã bật kính lúp toàn màn hình</translation>
 <translation id="8294750666104911727">Thông thường các trang có Tương thích với X-UA được đặt thành chrome=1 sẽ được hiển thị trong <ph name="PRODUCT_FRAME_NAME" /> bất kể chính sách 'ChromeFrameRendererSettings'.
 

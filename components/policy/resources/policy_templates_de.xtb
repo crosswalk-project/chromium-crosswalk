@@ -316,6 +316,7 @@ Diese Richtlinien sind nur aktiv, wenn der Chrome Remote Desktop-Host installier
 <translation id="2309390639296060546">Standardeinstellung für "geolocation"</translation>
 <translation id="2312134445771258233">Mit dieser Richtlinie können Sie konfigurieren, welche Seiten beim Start geladen werden. Der Inhalt der Liste "Beim Start zu öffnende URLs" wird ignoriert, sofern die Option "URL-Liste öffnen" unter "Aktion beim Start" nicht ausgewählt ist.</translation>
 <translation id="2337466621458842053">Ermöglicht Ihnen die Zusammenstellung einer Liste mit URL-Mustern, die Websites angeben, denen das Anzeigen von Bildern gestattet ist. Wenn diese Richtlinie nicht konfiguriert wird, so kommt für alle Websites entweder der globale Standardwert der Richtlinie "DefaultImagesSetting", falls konfiguriert, oder der persönlichen Konfiguration des Nutzers zum Einsatz.</translation>
+<translation id="2366415278352956652">Aktiviert Cast</translation>
 <translation id="2371309782685318247">Gibt das Intervall in Millisekunden an, in dem Informationen zu Nutzerrichtlinien vom Geräteverwaltungsdienst abgerufen werden.
 
       Durch das Festlegen dieser Richtlinie wird der Standardwert von 3 Stunden außer Kraft gesetzt. Gültige Werte für diese Richtlinie liegen im Bereich zwischen 1800000 (30 Minuten) und 86400000 (1 Tag). Alle Werte, die nicht in diesem Bereich liegen, werden auf den jeweiligen Grenzwert gesetzt.
@@ -949,6 +950,7 @@ Falls die Richtlinie nicht festgelegt wird, bleibt die Varianten-Seed-URL unver�
 <translation id="4449545651113180484">Bildschirm um 270 Grad im Uhrzeigersinn drehen</translation>
 <translation id="4467952432486360968">Drittanbieter-Cookies blockieren</translation>
 <translation id="4474167089968829729">Aktiviert das Speichern von Passwörtern im Passwortmanager</translation>
+<translation id="447686899376429408">Wenn diese Richtlinie nicht oder auf "true" festgelegt ist, können Nutzer Tabs, Websites oder den Desktop über den Browser streamen. Ist sie auf "false" festgelegt, wird diese Option deaktiviert.</translation>
 <translation id="4480694116501920047">SafeSearch erzwingen</translation>
 <translation id="4482640907922304445">Zeigt die Schaltfläche "Startseite" in der Symbolleiste von <ph name="PRODUCT_NAME" /> an. Wenn Sie diese Einstellung aktivieren, so wird die Schaltfläche "Startseite" immer angezeigt. Sollten Sie sie deaktivieren, erscheint die Schaltfläche nicht. Ist diese Einstellung aktiviert oder deaktiviert, können Nutzer sie in <ph name="PRODUCT_NAME" /> nicht ändern oder außer Kraft setzen. Ist die Richtlinie nicht konfiguriert, so kann der Nutzer selbst bestimmen, ob die Schaltfläche "Startseite" zur Verfügung stehen soll.</translation>
 <translation id="4492287494009043413">Aufnahme von Screenshots deaktivieren</translation>
@@ -1989,6 +1991,17 @@ Wenn eine Erweiterung nicht in der Liste enthalten ist oder keine Liste festgele
       Wenn diese Richtlinie nicht eingerichtet wurde, verwendet <ph name="PRODUCT_OS_NAME" /> die E-Mail-Konto-ID des entsprechenden lokalen Gerätekontos als Anzeigename auf der Anmeldeseite.
 
       Diese Richtlinie ist für reguläre Nutzerkonten nicht relevant.</translation>
+<translation id="8279832363395120715">Entfernt datenschutz- und sicherheitsrelevante Teile aus https://-URLs, bevor diese an PAC-Skripts (Proxy Auto Config) weitergeleitet werden, die von <ph name="PRODUCT_NAME" /> während der Proxy-Auflösung verwendet werden.
+
+Wird diese Richtlinie nicht festgelegt oder auf "true" gesetzt, wird für https://-URLs vor der Weiterleitung an ein PAC-Skript standardmäßig ein Stripping durchgeführt. Auf diese Weise können für das PAC-Skript keine Daten eingesehen werden, die normalerweise durch einen verschlüsselten Kanal wie Pfad und Abfrage der URL geschützt sind.
+
+Wird die Richtlinie auf "false" gesetzt, ist diese Sicherheitsfunktion deaktiviert und für PAC-Skripts können alle Komponenten einer https://-URL eingesehen werden. Diese Einstellung gilt für alle PAC-Skripts, unabhängig von ihrem Ursprung. Sie gilt beispielsweise für PAC-Skripts, die über WPAD erlangt werden, sowie für solche, die über ein unsicheres Transportprotokoll abgerufen wurden.
+
+Diese Richtlinie ist standardmäßig auf "true", also Aktivierung der Sicherheitsfunktion, eingestellt, außer für Chrome OS Enterprise-Nutzer, für die diese Richtlinie standardmäßig auf "false" eingestellt ist.
+
+Es wird empfohlen, diese Richtlinie auf "true" einzustellen. Der einzige Grund, sie auf "false" einzustellen besteht, wenn ein Kompatibilitätsproblem mit vorhandenen PAC-Skripts auftritt.
+
+Diese Außerkraftsetzung soll in Zukunft beseitigt werden.</translation>
 <translation id="8285435910062771358">Vollbildlupe aktiviert</translation>
 <translation id="8294750666104911727">Normalerweise werden Seiten, bei denen das Metatag "X-UA-Compatible" auf "chrome=1" gesetzt ist, unabhängig von der Richtlinie "ChromeFrameRendererSettings" in <ph name="PRODUCT_FRAME_NAME" /> gerendert.
 

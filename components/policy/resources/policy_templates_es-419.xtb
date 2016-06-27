@@ -6,7 +6,7 @@
 <translation id="1019101089073227242">Configurar directorio de datos de usuarios</translation>
 <translation id="1022361784792428773">ID de extensiones que el usuario no debe poder instalar (o * para incluirlas todas).</translation>
 <translation id="102492767056134033">Establecer el estado predeterminado del teclado en pantalla en la pantalla de acceso</translation>
-<translation id="1040446814317236570">Activar el recorte de URL de PAC (para https://)</translation>
+<translation id="1040446814317236570">Habilitar la eliminación de URL de PAC (para https://)</translation>
 <translation id="1044878202534415707">Informar estadísticas de hardware, como el uso de CPU/RAM
 
       Si esta política se establece en false, las estadísticas no se informarán.
@@ -308,6 +308,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
 <translation id="2309390639296060546">Configuración de geolocalización predeterminada</translation>
 <translation id="2312134445771258233">Te permite configurar las páginas que se cargan al iniciar. El contenido de la lista "Direcciones URL que se abrirán al iniciar" se ignora a menos que se haya seleccionado "Abrir una lista de direcciones URL en acción al iniciar".</translation>
 <translation id="2337466621458842053">Te permite configurar una lista de patrones de URL que especifican los sitios a los que se les permite mostrar imágenes. Si esta política no se configura, se usará el valor predeterminado global para todos los sitios, ya sea de la política "DefaultImagesSetting", si está configurada, o de otro tipo de configuración personal del usuario.</translation>
+<translation id="2366415278352956652">Permite la transmisión</translation>
 <translation id="2371309782685318247">Especifica el período en milisegundos en el que se solicita información sobre políticas de usuarios al servicio de administración de dispositivos.
 
       Si se establece esta política, se anula el valor predeterminado de tres horas. Los valores válidos están comprendidos entre 1.800.000 (30 minutos) y 86.400.000 (un día). Si el valor no está incluido en este intervalo, se redondeará al límite correspondiente.
@@ -941,6 +942,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
 <translation id="4449545651113180484">Rotar la pantalla hacia la derecha 270 grados</translation>
 <translation id="4467952432486360968">Bloquear cookies de terceros</translation>
 <translation id="4474167089968829729">Habilitar el guardado de contraseñas en el administrador de contraseñas</translation>
+<translation id="447686899376429408">Si esta política se establece como verdadera o no se establece, los usuarios podrán transmitir pestañas, sitios o el escritorio desde el navegador. Si se establece como falsa, esta opción se inhabilitará.</translation>
 <translation id="4480694116501920047">Forzar SafeSearch</translation>
 <translation id="4482640907922304445">Muestra el botón de la Página principal en la barra de herramientas de <ph name="PRODUCT_NAME" />. Si se habilita esta configuración, el botón Página principal se mostrará siempre. Si se inhabilita esta configuración, el botón Página principal no se mostrará nunca. Si se habilita o inhabilita esta configuración, los usuarios no podrán cambiarla ni anularla en <ph name="PRODUCT_NAME" />. Si esta política no se configura, el usuario podrá elegir si desea mostrar el botón.</translation>
 <translation id="4492287494009043413">Inhabilitar la toma de capturas de pantalla</translation>
@@ -1976,6 +1978,30 @@ desactivarlo).</translation>
       Si la política no se establece, <ph name="PRODUCT_OS_NAME" /> utilizará la Id. de cuenta de correo electrónico de la cuenta local del dispositivo como nombre para mostrar en la pantalla de acceso.
 
       Esta política no se aplica a las cuentas de usuario normales.</translation>
+<translation id="8279832363395120715">Recorta las partes confidenciales por motivos de seguridad y privacidad de las URL de https:// antes de enviarlas a secuencias de comandos PAC (Configuración automática de proxy) que usan <ph name="PRODUCT_NAME" /> en la resolución del proxy.
+
+      Cuando se establece como verdadera, se activa la función de seguridad, y
+      se recortan las URL de https:// antes de enviarlas a una secuencia de
+      comandos PAC. De esta forma, la secuencia de comandos PAC no puede
+      ver los datos que, por lo general, están protegidos por un canal encriptado
+      (como la ruta y la consulta de la URL).
+
+      Cuando la política se establece como falsa, esta función de seguridad se
+      inhabilita, y las secuencias de comandos PAC pueden ver todos los
+      componentes de la URL de https://. Esta configuración se aplica a todas
+      las secuencias de comandos PAC, más allá de su origen (incluye las 
+      secuencias de comandos PAC que se obtienen mediante WPAD o un
+      transporte no seguro).
+
+      De manera predeterminada, se establece como verdadera (función de
+       seguridad habilitada), excepto para los usuarios de empresa de Chrome
+      OS; para ellos, se establece como falsa de manera predeterminada.
+
+      Se recomienda que la política se establezca como verdadera. La única razón
+      para establecerla como falsa es si produce un problema de compatibilidad
+      con las secuencias de comandos PAC existentes.
+
+      La intención es quitar esta anulación en el futuro.</translation>
 <translation id="8285435910062771358">La lupa de pantalla completa está habilitada.</translation>
 <translation id="8294750666104911727">Normalmente, las páginas con X-UA-Compatible establecido en chrome=1 se mostrarán en <ph name="PRODUCT_FRAME_NAME" />, independientemente de la política "ChromeFrameRendererSettings".
 

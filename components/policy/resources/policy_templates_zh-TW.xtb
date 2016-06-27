@@ -319,6 +319,7 @@
 <translation id="2309390639296060546">預設地理位置設定</translation>
 <translation id="2312134445771258233">允許您設定起始時載入的網頁。系統會略過 [起始時開啟的網址] 網頁清單內容，除非您在 [起始動作] 中選取 [開啟網址清單]。</translation>
 <translation id="2337466621458842053">允許您設定網址模式清單，指定可以顯示圖片的網站。如果未設定這項政策，系統會從「DefaultImagesSetting」政策 (如果有設定的話) 或使用者的個人設定，將通用預設值套用至所有網站。</translation>
+<translation id="2366415278352956652">允許投放</translation>
 <translation id="2371309782685318247">以毫秒數指定對裝置管理服務詢問使用者政策資訊的時間。
 
       設定這項政策會覆寫 3 小時的預設值。本政策的有效值範圍由 1800000 (30 分鐘) 到 86400000 (1 天)。超出範圍的值會自動歸類為上限值或下限值。
@@ -950,6 +951,7 @@
 <translation id="4449545651113180484">將畫面以順時針方向旋轉 270 度</translation>
 <translation id="4467952432486360968">封鎖第三方 Cookie</translation>
 <translation id="4474167089968829729">允許將密碼儲存到密碼管理員</translation>
+<translation id="447686899376429408">如果將這項政策設為 True 或不予設定，使用者將可透過瀏覽器投放分頁、網站或桌面內容。如果設為 False，這個選項會遭到停用。</translation>
 <translation id="4480694116501920047">強制啟用安全搜尋服務</translation>
 <translation id="4482640907922304445">顯示「<ph name="PRODUCT_NAME" />」工具列上的 [首頁] 按鈕。如果您啟用這項設定，系統會顯示 [首頁] 按鈕。如果您停用這項設定，系統就不會顯示 [首頁] 按鈕。不論您啟用或停用這項設定，使用者都無法變更或覆寫「<ph name="PRODUCT_NAME" />」中的這項設定。如果您不設定這項政策，使用者就能選擇是否要顯示 [首頁] 按鈕。</translation>
 <translation id="4492287494009043413">停用螢幕畫面擷取功能</translation>
@@ -1992,6 +1994,17 @@
       如未設定這項政策，<ph name="PRODUCT_OS_NAME" /> 就會使用裝置本機帳戶的電子郵件帳戶 ID 當做登入畫面的顯示名稱。
 
       這項政策對於一般使用者帳戶無效。</translation>
+<translation id="8279832363395120715">先將 https:// 網址中攸關隱私和安全性的敏感部分去除，再轉送給 PAC (Proxy Auto Config) 指令碼，供 <ph name="PRODUCT_NAME" /> 在 Proxy 解析期間使用。
+
+      設為 True 時會啟用安全性功能，先將 https:// 網址分解再提交給 PAC 指令碼。如此一來，PAC 指令碼便無法檢視原本受加密通道保護的資料 (例如網址的路徑和查詢)。
+
+      設為 False 時會停用安全性功能，PAC 指令碼將因此獲得檢視所有 https:// 網址元素的權限。所有 PAC 指令碼都會套用這項設定，無論來源為何 (包括從不安全的傳輸過程中擷取而來的 PAC 指令碼，或是以不安全的方式透過 WPAD 找到的 PAC 指令碼)。
+
+      這項政策預設為 True (啟用安全性功能)，但 Chrome 作業系統企業使用者除外 (目前預設為 False)。
+
+      建議您將這項政策設為 True。如果設為 True 會與現有的 PAC 指令碼衝突，造成相容性問題，才需要將這項政策設為 False。
+
+      按照我們的期望，日後將移除這項覆寫機制。</translation>
 <translation id="8285435910062771358">已啟用全螢幕放大鏡</translation>
 <translation id="8294750666104911727">無論「ChromeFrameRendererSettings」政策為何，一般而言，X-UA-Compatible 設為 chrome=1 的網頁將會在 <ph name="PRODUCT_FRAME_NAME" /> 中開啟。
 

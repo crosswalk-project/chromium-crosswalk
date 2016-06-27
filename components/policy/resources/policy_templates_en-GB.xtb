@@ -349,6 +349,7 @@ The contents of the list 'URLs to open at start-up' are ignored unless you selec
 <translation id="2337466621458842053">Allows you to set a list of url patterns that specify sites which are allowed to display images.
 
           If this policy is left unset, the global default value will be used for all sites either from the 'DefaultImagesSetting' policy, if it is set, or the user's personal configuration otherwise.</translation>
+<translation id="2366415278352956652">Enables cast</translation>
 <translation id="2371309782685318247">Specifies the period in milliseconds at which the device management service is queried for user policy information.
 
       Setting this policy overrides the default value of 3 hours. Valid values for this policy are in the range from 1800000 (30 minutes) to 86400000 (1 day). Any values not in this range will be clamped to the respective boundary.
@@ -1026,6 +1027,7 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="4449545651113180484">Rotate screen clockwise by 270 degrees</translation>
 <translation id="4467952432486360968">Block third-party cookies</translation>
 <translation id="4474167089968829729">Enable saving passwords to the password manager</translation>
+<translation id="447686899376429408">If this is set to true or is not set, users will be able to cast tabs, sites or the desktop from the browser. If set to false, this option will be disabled.</translation>
 <translation id="4480694116501920047">Force SafeSearch</translation>
 <translation id="4482640907922304445">Shows the Home button on <ph name="PRODUCT_NAME" />'s toolbar.
 
@@ -2188,6 +2190,26 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
       If the policy is left not set, <ph name="PRODUCT_OS_NAME" /> will use the device-local account's email account ID as the display name on the login screen.
 
       This policy is ignored for regular user accounts.</translation>
+<translation id="8279832363395120715">Strips privacy and security sensitive parts of https:// URLs before passing them on to PAC scripts (Proxy Auto Config) used by <ph name="PRODUCT_NAME" /> during proxy resolution.
+
+      When True, the security feature is enabled and https:// URLs are
+      stripped before submitting them to a PAC script. In this manner the PAC
+      script is not able to view data that is ordinarily protected by an
+      encrypted channel (such as the URL's path and query).
+
+      When False, the security feature is disabled and PAC scripts are
+      implicitly granted the ability to view all components of an https://
+      URL. This applies to all PAC scripts regardless of origin (including
+      those fetched over an insecure transport, or discovered insecurely
+      through WPAD).
+
+      This defaults to True (security feature enabled), except for Chrome OS
+      enterprise users for which this currently defaults to False.
+
+      It is recommended that this be set to True. The only reason to set it to
+      False is if it causes a compatibility problem with existing PAC scripts.
+
+      The desire is to remove this override in the future.</translation>
 <translation id="8285435910062771358">Full-screen magnifier enabled</translation>
 <translation id="8294750666104911727">Normally pages with X-UA-Compatible set to chrome=1 will be rendered in <ph name="PRODUCT_FRAME_NAME" /> regardless of the 'ChromeFrameRendererSettings' policy.
 

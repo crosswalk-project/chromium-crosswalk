@@ -347,6 +347,7 @@
 <translation id="2337466621458842053">Võimaldab teil määrata URL-i mustrite loendi, mis määrab saidid, millel on lubatud kujutisi kuvada.
 
           Kui reeglit ei määrata, siis kasutatakse kõikide saitide puhul reegli „DefaultImagesSetting” globaalset vaikeväärtust, kui see on määratud, või kasutaja isiklikku konfigureerimist.</translation>
+<translation id="2366415278352956652">Lubab ülekandmise</translation>
 <translation id="2371309782685318247">Määrab vahemiku millisekundites, mille jooksul saadetakse seadmehaldusteenusele päring kasutaja reeglite teabe kohta.
 
       Reegli määramisel alistatakse vaikeväärtus 3 tundi. Reegli lubatud väärtused on vahemikus 1 800 000 (30 minutit) kuni 86 400 000 (1 päev). Vahemikust väljaspool olevad väärtused kohandatakse piiridesse.
@@ -1009,6 +1010,7 @@
 <translation id="4449545651113180484">Ekraani pööramine 270 kraadi päripäeva</translation>
 <translation id="4467952432486360968">Blokeeri kolmanda osapoole küpsised</translation>
 <translation id="4474167089968829729">Luba paroolide salvestamine paroolihaldurisse</translation>
+<translation id="447686899376429408">Kui see on tõene või määramata, saavad kasutajad brauseris vahelehti, saite või töölauda üle kanda. Kui see on väär, keelatakse valik.</translation>
 <translation id="4480694116501920047">Jõusta SafeSearchi kasutamine</translation>
 <translation id="4482640907922304445">Kuvab rakenduse <ph name="PRODUCT_NAME" /> tööriistaribal nuppu Kodu.
 
@@ -2163,6 +2165,27 @@
       Kui jätate reegli määramata, kasutab <ph name="PRODUCT_OS_NAME" /> sisselogimiskuval seadmepõhise konto meilikonto ID-d kuvatava nimena.
 
       Tavapäraste kasutajakontode puhul eiratakse seda reeglit.</translation>
+<translation id="8279832363395120715">Eemaldab protokolliga https:// URL-idelt privaatsed ja turvalisusega seotud tundlikud osad enne, kui need edastatakse PAC-skriptidele (puhverserveri automaatne seadistamine), mida <ph name="PRODUCT_NAME" /> kasutab puhverserveri lahendamisel.
+
+      Kui see on tõene, lubatakse turvafunktsioon ja protokolliga https:// URL-id
+      puhastatakse enne PAC-skripti saatmist. Sel moel ei saa PAC-skript
+      vaadata andmeid, mida tavaliselt kaitseb krüpteeritud kanal (nt URL-i tee
+      ja päring).
+
+      Kui see on väär, keelatakse turvafunktsioon ja PAC-skriptidele antakse
+      vaikimisi õigus vaadata protokolliga https:// URL-ide kõiki komponente.
+      See kehtib kõigi PAC-skriptide puhul päritolust olenemata (sh need,
+      mis toodi ebaturvalise transpordiga või tuvastati ebaturvaliselt WPAD-i
+      kaudu).
+
+      Vaikeseade on Tõene (turvafunktsioon on lubatud), v.a Chrome OS-i
+      ettevõtte kasutajate puhul, kelle vaikeseade on Väär.
+
+      Seade on soovitatav määrata väärtusele Tõene. See tuleks seada
+      väärtusele Väär vaid juhul, kui ilmnevad ühilduvusprobleemid
+      olemasolevate PAC-skriptidega.
+
+      Tulevikus on plaanis see alistusfunktsioon eemaldada.</translation>
 <translation id="8285435910062771358">Täisekraani luup on lubatud</translation>
 <translation id="8294750666104911727">Tavaliselt renderdatakse lehed, mille metasilt X-UA-Compatible on seatud väärtusele chrome=1 teenuses <ph name="PRODUCT_FRAME_NAME" />, olenemata reeglist „ChromeFrameRendererSettings”.
 

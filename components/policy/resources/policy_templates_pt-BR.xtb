@@ -307,6 +307,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="2309390639296060546">Configuração padrão de geolocalização</translation>
 <translation id="2312134445771258233">Permite configurar as páginas que são carregadas na inicialização. O conteúdo da lista "URLs que devem ser abertos na inicialização" é ignorado, a menos que você selecione "Abrir uma lista de URLs" em "Ação na inicialização".</translation>
 <translation id="2337466621458842053">Permite que você defina uma lista de padrões URL para especificar os sites autorizados a exibir imagens. Se esta política for deixada sem definição, o valor padrão global será utilizado para todos os sites a partir da política "DefaultImagesSetting", caso esta tenha sido definida, ou a partir das configurações pessoais do usuário, caso não tenha sido definida.</translation>
+<translation id="2366415278352956652">Permite a transmissão</translation>
 <translation id="2371309782685318247">Especifica o período em milésimos de segundos durante o qual o serviço de gerenciamento de dispositivos deve ser consultado para a obtenção de informações sobre a política do usuário.
 
       A configuração desta política substitui o valor padrão de 3 horas. Os valores válidos para esta política devem corresponder ao período entre 1.800.000 (30 minutos) e 86.400.000 (1 dia). Qualquer valor fora deste intervalo será ajustado dentro do limite mais próximo.
@@ -935,6 +936,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="4449545651113180484">Girar tela no sentido horário em 270 graus</translation>
 <translation id="4467952432486360968">Bloquear cookies de terceiros</translation>
 <translation id="4474167089968829729">Ativar salvamento de senhas no gerenciador de senhas</translation>
+<translation id="447686899376429408">Se essa política estiver definida como true ou não estiver definida, os usuários conseguirão transmitir guias, sites ou a área de trabalho a partir do navegador. Se ela for definida como false, essa opção ficará desativada.</translation>
 <translation id="4480694116501920047">Forçar SafeSearch</translation>
 <translation id="4482640907922304445">Mostra o botão "Página inicial" na barra de ferramentas de <ph name="PRODUCT_NAME" />. Se ativar esta configuração, o botão "Página inicial" será sempre exibido. Se desativar esta configuração, o botão "Página inicial" nunca será exibido. Se ativar ou desativar esta configuração, os usuários não podem alterá-la ou substituí-la em <ph name="PRODUCT_NAME" />. Deixar esta política sem definição permitirá ao usuário escolher se deseja exibir o botão "Página inicial".</translation>
 <translation id="4492287494009043413">Desativar captura de tela</translation>
@@ -1972,6 +1974,26 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
       Se a política não estiver definida, o <ph name="PRODUCT_OS_NAME" /> usará o ID da conta de e-mail da conta local de dispositivo como nome de exibição na tela de login.
 
       Esta política é ignorada para contas de usuário comuns.</translation>
+<translation id="8279832363395120715">Retira as partes de privacidade e confidenciais de URLs https:// antes de repassá-los para scripts de PAC (Config. automática de proxy) usados pelo <ph name="PRODUCT_NAME" /> durante a resolução de proxy.
+
+      Quando a política é definida como True, o recurso de segurança é ativado. e os URLs https:// são
+      removidos antes de enviá-los a um script de PAC. Dessa forma, o script de
+      PAC não pode ver os dados que geralmente são protegidos por um
+      canal criptografado (como o caminho e a consulta do URL).
+
+      Quando a política é definida como False, o recurso de segurança é desativado, e os scripts de PAC podem
+      ver todos os componentes de um URL
+      https://. Essa configuração se aplica a todos os scripts de PAC, independentemente da origem (inclusive
+      aqueles adquiridos por um transporte não seguro, ou descobertos de forma não segura
+      por meio de WPAD).
+
+      O padrão é True (recurso de segurança ativado), exceto para usuários
+      corporativos do Chrome OS, para os quais esta política tem False como padrão no momento.
+
+      Recomendamos que a política seja definida como True. A única razão para defini-la como
+      False é por ela causar um problema de compatibilidade com os scripts de PAC já existentes.
+
+      Queremos remover essa substituição no futuro.</translation>
 <translation id="8285435910062771358">Lupa de tela inteira ativada</translation>
 <translation id="8294750666104911727">Normalmente as páginas com X-UA-Compatible configuradas para chrome=1 são renderizadas no <ph name="PRODUCT_FRAME_NAME" /> independentemente da política "ChromeFrameRendererSettings".
 

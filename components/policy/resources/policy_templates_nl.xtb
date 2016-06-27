@@ -309,7 +309,7 @@
 <translation id="2204753382813641270">Automatisch verbergen van archief beheren</translation>
 <translation id="2208976000652006649">Parameters voor zoek-URL die POST gebruikt</translation>
 <translation id="2223598546285729819">Standaardinstelling voor meldingen</translation>
-<translation id="2231817271680715693">Browsergeschiedenis importeren uit standaardbrowser bij eerste uitvoering</translation>
+<translation id="2231817271680715693">Browsegeschiedenis importeren uit standaardbrowser bij eerste uitvoering</translation>
 <translation id="2236488539271255289">Niet toestaan dat sites lokaal gegevens instellen</translation>
 <translation id="2240879329269430151">Hiermee kun je instellen of websites pop-ups mogen weergeven. Het weergeven van pop-ups kan worden toegestaan voor alle websites of worden geweigerd voor alle websites.
 
@@ -343,6 +343,7 @@
 <translation id="2337466621458842053">Hiermee kun je een lijst URL-patronen instellen waarmee sites worden gespecificeerd waarop afbeeldingen kunnen worden weergegeven.
 
           Als dit beleid niet is ingesteld, wordt de algemene standaardwaarde gebruikt voor alle sites op basis van het beleid 'DefaultImagesSetting' (als dit is ingesteld) of anders op basis van de configuratie van de gebruiker.</translation>
+<translation id="2366415278352956652">Maakt casten mogelijk</translation>
 <translation id="2371309782685318247">Hiermee wordt de periode in milliseconden gespecificeerd waarna de apparaatbeheerservice wordt gevraagd informatie te verstrekken over het gebruikersbeleid.
 
       Als je dit beleid instelt, wordt de standaardwaarde van 3 uur overschreven. Geldige waarden voor dit beleid liggen tussen 1800000 (30 minuten) en 86400000 (1 dag). Alle waarden die niet binnen dit bereik vallen, worden afgerond tot de boven- of ondergrens.
@@ -1009,6 +1010,7 @@
 <translation id="4449545651113180484">Scherm 270 graden met de klok mee draaien</translation>
 <translation id="4467952432486360968">Indirecte cookies blokkeren</translation>
 <translation id="4474167089968829729">Opslaan van wachtwoorden in wachtwoordbeheer inschakelen</translation>
+<translation id="447686899376429408">Als dit is ingesteld op 'true' (waar) of niet is ingesteld, kunnen gebruikers tabbladen, sites of het bureaublad vanuit de browser casten. Als dit is ingesteld op 'false' (onwaar), is deze optie uitgeschakeld.</translation>
 <translation id="4480694116501920047">SafeSearch afdwingen</translation>
 <translation id="4482640907922304445">Hiermee wordt de knop 'Startpagina' weergegeven in de werkbalk van <ph name="PRODUCT_NAME" />.
 
@@ -2157,6 +2159,26 @@ Geheugengegevens worden in alle gevallen aan de pagina gerapporteerd, afgezien v
       Als het beleid niet wordt ingesteld, gebruikt <ph name="PRODUCT_OS_NAME" /> de e-mailaccount-ID van het lokale account van het apparaat als de weergavenaam op het aanmeldscherm.
 
       Dit beleid wordt genegeerd voor gewone gebruikersaccounts.</translation>
+<translation id="8279832363395120715">Verwijdert privacy- en beveiligingsgerelateerde gedeelten van URL's met https:// voordat deze worden doorgegeven aan PAC-scripts (Proxy Auto Config) die tijdens proxyverwerking worden gebruikt door <ph name="PRODUCT_NAME" />.
+
+      Als dit is ingesteld op 'True' (waar), wordt de beveiligingsfunctie ingeschakeld en worden deze gegevens verwijderd
+      uit URL's met https:// voordat deze worden doorgegeven aan een PAC-script. Op deze manier kan het PAC-script
+      geen gegevens bekijken die normaal worden beschermd door een
+      versleuteld kanaal (zoals het pad of de query van de URL).
+
+      Als dit is ingesteld op 'False' (onwaar), wordt de beveiligingsfunctie uitgeschakeld en krijgen PAC-scripts.
+      impliciet de mogelijkheid om alle componenten van de URL met https://
+      te bekijken. Dit is van toepassing op alle PAC-scripts, ongeacht hun herkomst (waaronder
+      de scripts die worden opgehaald via een onbeveiligd transport of die onbeveiligd worden gevonden
+      via WPAD).
+
+      Deze functie staat standaard ingesteld op 'True' (waar) (beveiligingsfunctie ingeschakeld), behalve voor
+      zakelijke gebruikers van Chrome OS voor wie deze functie momenteel standaard is ingesteld op 'False' (onwaar).
+
+      Het wordt aanbevolen deze functie in te stellen op 'True' (waar). De enige reden om dit in te stellen op
+      'False' (onwaar), is als deze functie een compatibiliteitsprobleem veroorzaakt met bestaande PAC-scripts.
+
+      We hopen deze overschrijving in de toekomst te verwijderen.</translation>
 <translation id="8285435910062771358">Vergrootglas van volledig scherm ingeschakeld</translation>
 <translation id="8294750666104911727">Normaal worden pagina's waarvoor X-UA-Compatible is ingesteld op chrome=1, weergegeven in <ph name="PRODUCT_FRAME_NAME" /> ongeacht het beleid 'ChromeFrameRendererSettings'.
 
