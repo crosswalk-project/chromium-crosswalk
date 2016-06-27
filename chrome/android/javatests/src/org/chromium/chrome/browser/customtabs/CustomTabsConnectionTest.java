@@ -463,8 +463,7 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
     @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
     public void testBanningWorks() {
         mCustomTabsConnection.ban(mContext, Process.myUid());
-        final CustomTabsSessionToken token =
-                CustomTabsSessionToken.createDummySessionTokenForTesting();
+        final ICustomTabsCallback token = new CustomTabsTestUtils.DummyCallback();
         assertTrue(mCustomTabsConnection.newSession(token));
 
         assertTrue(mCustomTabsConnection.mayLaunchUrl(token, Uri.parse(URL), null, null));
@@ -472,8 +471,10 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
             @Override
             public void run() {
                 assertSpareWebContentsNotNullAndDestroy();
-                String referrer = mCustomTabsConnection.getReferrerForSession(token).getUrl();
-                assertNull(mCustomTabsConnection.takePrerenderedUrl(token, URL, referrer));
+                String referrer = mCustomTabsConnection.getReferrerForSession(
+                        token.asBinder()).getUrl();
+                assertNull(
+                        mCustomTabsConnection.takePrerenderedUrl(token.asBinder(), URL, referrer));
             }
         });
     }
@@ -482,19 +483,19 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
     @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
     public void testBanningDisabledForCellular() {
         mCustomTabsConnection.ban(mContext, Process.myUid());
-        final CustomTabsSessionToken token =
-                CustomTabsSessionToken.createDummySessionTokenForTesting();
+        final ICustomTabsCallback token = new CustomTabsTestUtils.DummyCallback();
         assertTrue(mCustomTabsConnection.newSession(token));
-        mCustomTabsConnection.setShouldPrerenderOnCellularForSession(token, true);
+        mCustomTabsConnection.setShouldPrerenderOnCellularForSession(token.asBinder(), true);
 
         assertTrue(mCustomTabsConnection.mayLaunchUrl(token, Uri.parse(URL), null, null));
         ThreadUtils.runOnUiThreadBlocking(new Runnable() {
             @Override
             public void run() {
                 assertNull(mCustomTabsConnection.takeSpareWebContents());
-                String referrer = mCustomTabsConnection.getReferrerForSession(token).getUrl();
+                String referrer = mCustomTabsConnection.getReferrerForSession(
+                        token.asBinder()).getUrl();
                 WebContents prerender = mCustomTabsConnection.takePrerenderedUrl(
-                        token, URL, referrer);
+                        token.asBinder(), URL, referrer);
                 assertNotNull(prerender);
                 prerender.destroy();
             }
@@ -504,9 +505,9 @@ public class CustomTabsConnectionTest extends InstrumentationTestCase {
     @SmallTest
     @Restriction(RESTRICTION_TYPE_NON_LOW_END_DEVICE)
     public void testCellularPrerenderingDoesntOverrideSettings() throws Exception {
-        CustomTabsSessionToken token = CustomTabsSessionToken.createDummySessionTokenForTesting();
+        final ICustomTabsCallback token = new CustomTabsTestUtils.DummyCallback();
         assertTrue(mCustomTabsConnection.newSession(token));
-        mCustomTabsConnection.setShouldPrerenderOnCellularForSession(token, true);
+        mCustomTabsConnection.setShouldPrerenderOnCellularForSession(token.asBinder(), true);
         mCustomTabsConnection.warmup(0);
 
         // Needs the browser process to be initialized.
