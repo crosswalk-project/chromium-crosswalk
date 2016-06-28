@@ -65,6 +65,7 @@ public:
     bool isWorker() override { return false; }
     void setClientMessageLoop(PassOwnPtr<ClientMessageLoop>);
     int contextGroupId(LocalFrame*);
+    void didClearContextsForFrame(LocalFrame*);
     void contextCreated(ScriptState*, LocalFrame*, SecurityOrigin*);
     void contextWillBeDestroyed(ScriptState*);
 
