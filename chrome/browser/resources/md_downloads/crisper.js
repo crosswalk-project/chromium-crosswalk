@@ -6239,7 +6239,7 @@ cr.define('downloads', function() {
       // TODO(dbeam): this gets called way more when I observe data.by_ext_id
       // and data.by_ext_name directly. Why?
       'observeControlledBy_(controlledBy_)',
-      'observeIsDangerous_(isDangerous_, data.file_path)',
+      'observeIsDangerous_(isDangerous_, data)',
     ],
 
     ready: function() {
@@ -6406,7 +6406,13 @@ cr.define('downloads', function() {
 
     /** @private */
     observeIsDangerous_: function() {
-      if (this.data && !this.isDangerous_) {
+      if (!this.data)
+        return;
+
+      if (this.isDangerous_) {
+        this.$.url.removeAttribute('href');
+      } else {
+        this.$.url.href = assert(this.data.url);
         var filePath = encodeURIComponent(this.data.file_path);
         var scaleFactor = '?scale=' + window.devicePixelRatio + 'x';
         this.$['file-icon'].src = 'chrome://fileicon/' + filePath + scaleFactor;
