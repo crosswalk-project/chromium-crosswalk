@@ -88,7 +88,7 @@ const int kDefaultIconSize = 16;
 
 // Color of the vector graphic icons when the location bar is dark.
 // SkColorSetARGB(0xCC, 0xFF, 0xFF 0xFF);
-const SkColor kMaterialDarkVectorIconColor = 0xCCFFFFFF;
+const SkColor kMaterialDarkVectorIconColor = SK_ColorWHITE;
 
 }  // namespace
 
@@ -752,6 +752,11 @@ void LocationBarViewMac::UpdateLocationIcon() {
       vector_icon_color = OmniboxViewMac::BaseTextColorSkia(in_dark_mode);
     }
   }
+
+  // If the theme is dark, then the color should always be
+  // kMaterialDarkVectorIconColor.
+  if (in_dark_mode)
+    vector_icon_color = kMaterialDarkVectorIconColor;
 
   DCHECK(vector_icon_id != gfx::VectorIconId::VECTOR_ICON_NONE);
   NSImage* image =
