@@ -1296,7 +1296,7 @@ void AndroidVideoDecodeAccelerator::Destroy() {
     LOG(WARNING) << "Failed make GL context current for Destroy, continuing.";
 
   if (strategy_)
-    strategy_->Cleanup(have_context, output_picture_buffers_);
+    strategy_->BeginCleanup(have_context, output_picture_buffers_);
 
   // If we have an OnFrameAvailable handler, tell it that we're going away.
   if (on_frame_available_handler_) {
@@ -1328,6 +1328,9 @@ void AndroidVideoDecodeAccelerator::ActualDestroy() {
     AVDASurfaceTracker::GetInstance()->UnregisterOnDestroyingSurfaceCallback(
         on_destroying_surface_cb_);
   }
+
+  if (strategy_)
+    strategy_->EndCleanup();
 
   // We no longer care about |surface_id|, in case we did before.  It's okay
   // if we have no surface and/or weren't the owner or a waiter.
