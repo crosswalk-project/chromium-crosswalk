@@ -221,7 +221,7 @@ void LayoutBlock::styleDidChange(StyleDifference diff, const ComputedStyle* oldS
             // Remove our absolute and fixed positioned descendants from their new containing block,
             // in case containingBlock() changes by the change to the position property.
             // See styleWillChange() for other cases.
-            if (LayoutBlock* cb = containingBlock())
+            if (LayoutBlock* cb = containingBlock()) {
                 cb->removePositionedObjects(this, NewContainingBlock);
                 if (isOutOfFlowPositioned()) {
                     // Insert this object into containing block's positioned descendants list
