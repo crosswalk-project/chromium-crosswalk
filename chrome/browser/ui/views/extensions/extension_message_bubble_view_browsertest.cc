@@ -8,14 +8,23 @@
 #include "chrome/browser/ui/views/frame/browser_view.h"
 #include "chrome/browser/ui/views/toolbar/app_menu_button.h"
 #include "chrome/browser/ui/views/toolbar/browser_actions_container.h"
+#include "chrome/browser/ui/views/toolbar/toolbar_actions_bar_bubble_views.h"
 #include "chrome/browser/ui/views/toolbar/toolbar_view.h"
 #include "ui/views/bubble/bubble_dialog_delegate.h"
+#include "ui/views/controls/link.h"
+#include "ui/views/controls/link_listener.h"
+#include "ui/views/window/dialog_client_view.h"
 
 namespace {
 
 // Returns the ToolbarView for the given |browser|.
 ToolbarView* GetToolbarViewForBrowser(Browser* browser) {
   return BrowserView::GetBrowserViewForBrowser(browser)->toolbar();
+}
+
+ToolbarActionsBarBubbleViews* GetBubbleForBrowser(Browser* browser) {
+  return static_cast<ToolbarActionsBarBubbleViews*>(
+      GetToolbarViewForBrowser(browser)->browser_actions()->active_bubble());
 }
 
 // Checks that the |bubble| is using the |expected_reference_view|, and is in
@@ -53,9 +62,12 @@ class ExtensionMessageBubbleViewBrowserTest
 
  private:
   // ExtensionMessageBubbleBrowserTest:
-  void CheckBubble(Browser* browser, AnchorPosition anchor) override;
-  void CloseBubble(Browser* browser) override;
-  void CheckBubbleIsNotPresent(Browser* browser) override;
+  void CheckBubbleNative(Browser* browser, AnchorPosition anchor) override;
+  void CloseBubbleNative(Browser* browser) override;
+  void CheckBubbleIsNotPresentNative(Browser* browser) override;
+  void ClickLearnMoreButton(Browser* browser) override;
+  void ClickActionButton(Browser* browser) override;
+  void ClickDismissButton(Browser* browser) override;
 
   DISALLOW_COPY_AND_ASSIGN(ExtensionMessageBubbleViewBrowserTest);
 };
@@ -69,8 +81,9 @@ class ExtensionMessageBubbleViewBrowserTestRedesign
   }
 };
 
-void ExtensionMessageBubbleViewBrowserTest::CheckBubble(Browser* browser,
-                                                        AnchorPosition anchor) {
+void ExtensionMessageBubbleViewBrowserTest::CheckBubbleNative(
+    Browser* browser,
+    AnchorPosition anchor) {
   ToolbarView* toolbar_view = GetToolbarViewForBrowser(browser);
   BrowserActionsContainer* container = toolbar_view->browser_actions();
   views::BubbleDialogDelegateView* bubble = container->active_bubble();
@@ -87,7 +100,8 @@ void ExtensionMessageBubbleViewBrowserTest::CheckBubble(Browser* browser,
   CheckBubbleAndReferenceView(bubble, anchor_view);
 }
 
-void ExtensionMessageBubbleViewBrowserTest::CloseBubble(Browser* browser) {
+void ExtensionMessageBubbleViewBrowserTest::CloseBubbleNative(
+    Browser* browser) {
   BrowserActionsContainer* container =
       GetToolbarViewForBrowser(browser)->browser_actions();
   views::BubbleDialogDelegateView* bubble = container->active_bubble();
@@ -96,11 +110,30 @@ void ExtensionMessageBubbleViewBrowserTest::CloseBubble(Browser* browser) {
   EXPECT_EQ(nullptr, container->active_bubble());
 }
 
-void ExtensionMessageBubbleViewBrowserTest::CheckBubbleIsNotPresent(
+void ExtensionMessageBubbleViewBrowserTest::CheckBubbleIsNotPresentNative(
     Browser* browser) {
   EXPECT_EQ(
       nullptr,
       GetToolbarViewForBrowser(browser)->browser_actions()->active_bubble());
+}
+
+void ExtensionMessageBubbleViewBrowserTest::ClickLearnMoreButton(
+    Browser* browser) {
+  ToolbarActionsBarBubbleViews* bubble = GetBubbleForBrowser(browser);
+  static_cast<views::LinkListener*>(bubble)->LinkClicked(
+      const_cast<views::Link*>(bubble->learn_more_button()), 0);
+}
+
+void ExtensionMessageBubbleViewBrowserTest::ClickActionButton(
+    Browser* browser) {
+  ToolbarActionsBarBubbleViews* bubble = GetBubbleForBrowser(browser);
+  bubble->GetDialogClientView()->AcceptWindow();
+}
+
+void ExtensionMessageBubbleViewBrowserTest::ClickDismissButton(
+    Browser* browser) {
+  ToolbarActionsBarBubbleViews* bubble = GetBubbleForBrowser(browser);
+  bubble->GetDialogClientView()->CancelWindow();
 }
 
 IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTest,
@@ -156,3 +189,23 @@ IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTestRedesign,
   TestControlledSearchBubbleShown();
 }
 #endif  // defined(OS_WIN)
+
+IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTest,
+                       TestBubbleWithMultipleWindows) {
+  TestBubbleWithMultipleWindows();
+}
+
+IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTest,
+                       TestClickingLearnMoreButton) {
+  TestClickingLearnMoreButton();
+}
+
+IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTest,
+                       TestClickingActionButton) {
+  TestClickingActionButton();
+}
+
+IN_PROC_BROWSER_TEST_F(ExtensionMessageBubbleViewBrowserTest,
+                       TestClickingDismissButton) {
+  TestClickingDismissButton();
+}
