@@ -188,6 +188,9 @@ size_t RegisterChromeCrashKeys() {
     { "initrf_root_process_is_live", kSmallSize},
     { "initrf_root_proxy_is_live", kSmallSize},
 
+    // Temporary for http://crbug.com/621730
+    { "postmessage_script_info", kLargeSize },
+
     // Temporary for https://crbug.com/616149.
     { "existing_extension_pref_value_type", crash_keys::kSmallSize },
   };
