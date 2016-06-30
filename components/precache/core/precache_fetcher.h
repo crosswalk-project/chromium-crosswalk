@@ -101,9 +101,6 @@ class PrecacheFetcher {
   void Start();
 
  private:
-  friend class PrecacheFetcherTest;
-  FRIEND_TEST_ALL_PREFIXES(PrecacheFetcherTest, FetcherPoolMaxLimitReached);
-
   // Fetches the next resource or manifest URL, if any remain. Fetching is done
   // sequentially and depth-first: all resources are fetched for a manifest
   // before the next manifest is fetched. This is done to limit the length of
