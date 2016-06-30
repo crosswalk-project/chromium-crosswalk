@@ -1944,9 +1944,9 @@ Se la norma non viene configurata, la modalità ad alto contrasto viene inizialm
       Se il criterio non viene impostato, <ph name="PRODUCT_OS_NAME" /> utilizzerà l'ID account email dell'account dispositivo come nome visualizzato nella schermata di accesso.
 
       Questo criterio viene ignorato per gli account utente standard.</translation>
-<translation id="8279832363395120715">Consente di rimuovere le parti importanti per la privacy e la sicurezza dagli URL https:// prima di trasmetterli agli script PAC (Proxy Auto Config) utilizzati da <ph name="PRODUCT_NAME" /> durante la risoluzione proxy.
+<translation id="8279832363395120715">Consente di rimuovere le parti sensibili per la privacy e la sicurezza dagli URL https:// prima di trasmetterli agli script PAC (Proxy Auto Config) utilizzati da <ph name="PRODUCT_NAME" /> durante la risoluzione proxy.
 
-      Se la norma viene impostata su true, la funzione di sicurezza viene attivata e gli URL https:// vengono rimossi prima di essere inviati allo script PAC. In questo modo lo script PAC non può visualizzare i dati solitamente protetti tramite un canale criptato (ad esempio il percorso e la query dell'URL).
+      Se la norma viene impostata su true, la funzione di sicurezza viene attivata e vengono rimosse le parti sensibili dagli URL https:// prima di inviarli allo script PAC. In questo modo lo script PAC non può visualizzare i dati solitamente protetti tramite un canale criptato (ad esempio il percorso e la query dell'URL).
 
       Se la norma viene impostata su false, la funzione di sicurezza viene disattivata e gli script PAC possono visualizzare tutti i componenti di un URL https://. Questa impostazione viene applicata per tutti gli script PAC, a prescindere dall'origine (sono inclusi quelli recuperati tramite un metodo di trasporto non protetto o scoperti in modo non sicuro tramite WPAD).
 

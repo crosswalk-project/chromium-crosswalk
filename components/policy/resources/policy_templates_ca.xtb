@@ -316,6 +316,7 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 <translation id="2309390639296060546">Configuració d'ubicació geogràfica predeterminada</translation>
 <translation id="2312134445771258233">Us permet configurar les pàgines que es carreguen en iniciar. El contingut de la llista "URL que s'han d'obrir en iniciar" s'ignora tret que seleccioneu "Obre una llista d'URL" a "Acció a l'inici".</translation>
 <translation id="2337466621458842053">Us permet definir una llista de patrons d'URL que especifiquen els llocs que poden mostrar imatges. Si no es defineix aquesta política, s'utilitzarà el valor global predeterminat per a tots els llocs tant de la política "DefaultImagesSetting", si es defineix, com d'un altre tipus de configuració personal de l'usuari.</translation>
+<translation id="2366415278352956652">Activa l'emissió</translation>
 <translation id="2371309782685318247">Especifica el període en mil·lisegons en què es realitzen consultes al servei de gestió de dispositius sobre informació de la política de l'usuari.
 
       Si es defineix aquesta política, se substituirà el valor predeterminat de tres hores. Els valors vàlids per a aquesta política es troben en un interval d'1.800.000 (30 minuts) a 86.400.000 (un dia). Tots els valors que no es trobin dins d'aquest interval quedaran en els límits respectius.
@@ -945,6 +946,7 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció sobre els tipu
 <translation id="4449545651113180484">Gira la pantalla 270 graus en el sentit de les agulles del rellotge</translation>
 <translation id="4467952432486360968">Bloqueja les galetes de tercers</translation>
 <translation id="4474167089968829729">Permet que el gestor de contrasenyes desi contrasenyes</translation>
+<translation id="447686899376429408">Si s'estableix com a "true" o no s'estableix, els usuaris poden emetre pestanyes, llocs o l'escriptori des del navegador. Si s'estableix com a "false", l'opció es desactiva.</translation>
 <translation id="4480694116501920047">Força SafeSearch</translation>
 <translation id="4482640907922304445">Mostra el botó d'inici a la barra d'eines de <ph name="PRODUCT_NAME" />. Si activeu aquest paràmetre, el botó d'inici es mostrarà sempre. Si el desactiveu, el botó d'inici no es mostrarà mai. Si l'activeu o el desactiveu, els usuaris no podran canviar ni substituir aquesta configuració a <ph name="PRODUCT_NAME" />. Si no definiu aquesta política, l'usuari podrà decidir si vol que es mostri el botó d'inici.</translation>
 <translation id="4492287494009043413">Desactivació de les captures de pantalla</translation>
@@ -1995,6 +1997,26 @@ Si es defineix aquesta política, la pantalla d'inici de sessió farà servir la
 Si la política no es defineix, <ph name="PRODUCT_OS_NAME" /> farà servir l'ID del compte de correu electrònic del compte local del dispositiu com a nom visible a la pantalla d'inici de sessió.
 
 Aquesta política s'ignora en els comptes d'usuari normals.</translation>
+<translation id="8279832363395120715">Suprimeix les parts dels URL de tipus https:// que contenen informació confidencial i de seguretat abans d'enviar-los als scripts PAC (configuració automàtica de servidor intermediari) que utilitza <ph name="PRODUCT_NAME" /> durant la resolució del servidor intermediari.
+
+      Quan s'estableix com a "true", s'activa la funció de seguretat i se suprimeixen els URL de tipus https://
+      abans d'enviar-los als scripts PAC. D'aquesta manera, l'script PAC
+      no podrà veure la informació que normalment està protegida per un
+      canal encriptat (com el camí i la consulta de l'URL).
+
+      Quan s'estableix com a "false", es desactiva la funció de seguretat i, per tant, implícitament els scripts
+      poden veure tots els components d'un URL
+      de tipus https://. Aquesta opció de configuració s'aplica a tots els scripts PAC independentment de l'origen (com ara
+      els scripts obtinguts amb un mètode de transport no segur o els obtinguts de manera no segura
+      amb l'optimització WPAD).
+
+      S'estableix com a "true" de manera predeterminada (funció de seguretat activada), excepte en el cas dels usuaris d'empreses
+      que utilitzen Chrome OS, que s'estableix de manera predeterminada com a "false".
+
+      Es recomana establir-la com a "true". L'única raó per establir-la com a
+      "false" és que hi hagi problemes de compatibilitat amb els scripts PAC existents.
+
+      La voluntat és suprimir aquesta anul·lació en el futur.</translation>
 <translation id="8285435910062771358">Lupa de pantalla completa activada</translation>
 <translation id="8294750666104911727">Normalment, les pàgines compatibles amb X-UA que s'estableixen com a chrome=1 es renderitzen a <ph name="PRODUCT_FRAME_NAME" />, independentment de la política "ChromeFrameRendererSettings".
 
