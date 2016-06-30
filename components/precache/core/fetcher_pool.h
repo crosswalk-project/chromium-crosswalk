@@ -8,6 +8,7 @@
 #include <memory>
 #include <unordered_map>
 
+#include "base/gtest_prod_util.h"
 #include "base/logging.h"
 
 namespace precache {
@@ -66,6 +67,9 @@ class FetcherPool {
 
   // Returns true iff the pool can accept a new element.
   bool IsAvailable() const { return max_size_ > elements_.size(); }
+
+  // Returns the maximum size of the pool.
+  size_t max_size() const { return max_size_; }
 
  private:
   const size_t max_size_;
