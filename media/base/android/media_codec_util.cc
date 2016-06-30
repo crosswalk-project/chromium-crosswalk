@@ -66,14 +66,12 @@ static bool IsSupportedAndroidMimeType(const std::string& mime_type) {
 }
 
 static std::string GetDefaultCodecName(const std::string& mime_type,
-                                       MediaCodecDirection direction,
-                                       bool require_software_codec) {
+                                       MediaCodecDirection direction) {
   DCHECK(MediaCodecUtil::IsMediaCodecAvailable());
   JNIEnv* env = AttachCurrentThread();
   ScopedJavaLocalRef<jstring> j_mime = ConvertUTF8ToJavaString(env, mime_type);
   ScopedJavaLocalRef<jstring> j_codec_name =
-      Java_MediaCodecUtil_getDefaultCodecName(env, j_mime.obj(), direction,
-                                              require_software_codec);
+      Java_MediaCodecUtil_getDefaultCodecName(env, j_mime.obj(), direction);
   return ConvertJavaStringToUTF8(env, j_codec_name.obj());
 }
 
@@ -147,8 +145,7 @@ bool MediaCodecUtil::IsKnownUnaccelerated(const std::string& android_mime_type,
   if (!IsMediaCodecAvailable())
     return true;
 
-  std::string codec_name =
-      GetDefaultCodecName(android_mime_type, direction, false);
+  std::string codec_name = GetDefaultCodecName(android_mime_type, direction);
   DVLOG(1) << __FUNCTION__ << "Default codec for " << android_mime_type << " : "
            << codec_name << ", direction: " << direction;
   if (!codec_name.size())

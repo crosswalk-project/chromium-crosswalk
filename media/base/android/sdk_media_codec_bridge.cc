@@ -81,14 +81,13 @@ static const std::string VideoCodecToAndroidMimeType(const VideoCodec& codec) {
 
 SdkMediaCodecBridge::SdkMediaCodecBridge(const std::string& mime,
                                          bool is_secure,
-                                         MediaCodecDirection direction,
-                                         bool require_software_codec) {
+                                         MediaCodecDirection direction) {
   JNIEnv* env = AttachCurrentThread();
   CHECK(env);
   DCHECK(!mime.empty());
   ScopedJavaLocalRef<jstring> j_mime = ConvertUTF8ToJavaString(env, mime);
-  j_media_codec_.Reset(Java_MediaCodecBridge_create(
-      env, j_mime.obj(), is_secure, direction, require_software_codec));
+  j_media_codec_.Reset(
+      Java_MediaCodecBridge_create(env, j_mime.obj(), is_secure, direction));
 }
 
 SdkMediaCodecBridge::~SdkMediaCodecBridge() {
@@ -334,11 +333,6 @@ MediaCodecStatus SdkMediaCodecBridge::GetOutputBufferAddress(
   return MEDIA_CODEC_OK;
 }
 
-bool SdkMediaCodecBridge::IsSoftwareCodec() {
-  JNIEnv* env = AttachCurrentThread();
-  return Java_MediaCodecBridge_isSoftwareCodec(env, j_media_codec_.obj());
-}
-
 // static
 bool SdkMediaCodecBridge::RegisterSdkMediaCodecBridge(JNIEnv* env) {
   return RegisterNativesImpl(env);
@@ -369,7 +363,7 @@ bool AudioCodecBridge::IsKnownUnaccelerated(const AudioCodec& codec) {
 AudioCodecBridge::AudioCodecBridge(const std::string& mime)
     // Audio codec doesn't care about security level and there is no need for
     // audio encoding yet.
-    : SdkMediaCodecBridge(mime, false, MEDIA_CODEC_DECODER, false) {}
+    : SdkMediaCodecBridge(mime, false, MEDIA_CODEC_DECODER) {}
 
 bool AudioCodecBridge::ConfigureAndStart(const AudioDecoderConfig& config,
                                          bool play_audio,
@@ -615,13 +609,13 @@ bool VideoCodecBridge::IsKnownUnaccelerated(const VideoCodec& codec,
 }
 
 // static
-VideoCodecBridge* VideoCodecBridge::CreateDecoder(const VideoCodec& codec,
-                                                  bool is_secure,
-                                                  const gfx::Size& size,
-                                                  jobject surface,
-                                                  jobject media_crypto,
-                                                  bool allow_adaptive_playback,
-                                                  bool require_software_codec) {
+VideoCodecBridge* VideoCodecBridge::CreateDecoder(
+    const VideoCodec& codec,
+    bool is_secure,
+    const gfx::Size& size,
+    jobject surface,
+    jobject media_crypto,
+    bool allow_adaptive_playback) {
   if (!MediaCodecUtil::IsMediaCodecAvailable())
     return nullptr;
 
@@ -629,8 +623,8 @@ VideoCodecBridge* VideoCodecBridge::CreateDecoder(const VideoCodec& codec,
   if (mime.empty())
     return nullptr;
 
-  std::unique_ptr<VideoCodecBridge> bridge(new VideoCodecBridge(
-      mime, is_secure, MEDIA_CODEC_DECODER, require_software_codec));
+  std::unique_ptr<VideoCodecBridge> bridge(
+      new VideoCodecBridge(mime, is_secure, MEDIA_CODEC_DECODER));
   if (!bridge->media_codec())
     return nullptr;
 
@@ -664,7 +658,7 @@ VideoCodecBridge* VideoCodecBridge::CreateEncoder(const VideoCodec& codec,
     return nullptr;
 
   std::unique_ptr<VideoCodecBridge> bridge(
-      new VideoCodecBridge(mime, false, MEDIA_CODEC_ENCODER, false));
+      new VideoCodecBridge(mime, false, MEDIA_CODEC_ENCODER));
   if (!bridge->media_codec())
     return nullptr;
 
@@ -686,9 +680,8 @@ VideoCodecBridge* VideoCodecBridge::CreateEncoder(const VideoCodec& codec,
 
 VideoCodecBridge::VideoCodecBridge(const std::string& mime,
                                    bool is_secure,
-                                   MediaCodecDirection direction,
-                                   bool require_software_codec)
-    : SdkMediaCodecBridge(mime, is_secure, direction, require_software_codec),
+                                   MediaCodecDirection direction)
+    : SdkMediaCodecBridge(mime, is_secure, direction),
       adaptive_playback_supported_for_testing_(-1) {}
 
 void VideoCodecBridge::SetVideoBitrate(int bps) {

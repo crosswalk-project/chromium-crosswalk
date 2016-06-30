@@ -68,15 +68,14 @@ class MEDIA_EXPORT SdkMediaCodecBridge : public MediaCodecBridge {
                                           size_t offset,
                                           const uint8_t** addr,
                                           size_t* capacity) override;
-  bool IsSoftwareCodec() override;
 
   static bool RegisterSdkMediaCodecBridge(JNIEnv* env);
 
  protected:
   SdkMediaCodecBridge(const std::string& mime,
                       bool is_secure,
-                      MediaCodecDirection direction,
-                      bool require_software_codec);
+                      MediaCodecDirection direction);
+
 
   jobject media_codec() { return j_media_codec_.obj(); }
   MediaCodecDirection direction_;
@@ -172,8 +171,7 @@ class MEDIA_EXPORT VideoCodecBridge : public SdkMediaCodecBridge {
       jobject surface,          // Output surface, optional.
       jobject media_crypto,     // MediaCrypto object, optional.
       bool allow_adaptive_playback =
-          true,  // Should adaptive playback be allowed if supported.
-      bool require_software_codec = false);  // Require software decoder?
+          true);  // Should adaptive playback be allowed if supported.
 
   // Create, start, and return a VideoCodecBridge encoder or NULL on failure.
   static VideoCodecBridge* CreateEncoder(
@@ -204,8 +202,7 @@ class MEDIA_EXPORT VideoCodecBridge : public SdkMediaCodecBridge {
  private:
   VideoCodecBridge(const std::string& mime,
                    bool is_secure,
-                   MediaCodecDirection direction,
-                   bool require_software_codec);
+                   MediaCodecDirection direction);
 
   int adaptive_playback_supported_for_testing_;
 };
