@@ -507,7 +507,7 @@ void DownloadControllerAndroidImpl::OnDownloadUpdated(DownloadItem* item) {
           item->GetReceivedBytes(), item->GetId(), jguid.obj(),
           joriginal_url.obj(), jreferrer_url.obj(), item->HasUserGesture());
       DownloadControllerAndroid::RecordDownloadCancelReason(
-             DownloadControllerAndroid::CANCEL_REASON_NOT_CANCELED);
+          DownloadControllerAndroid::CANCEL_REASON_NOT_CANCELED);
       break;
     case DownloadItem::CANCELLED:
       Java_DownloadController_onDownloadCancelled(
@@ -592,10 +592,14 @@ void DownloadControllerAndroidImpl::DangerousDownloadValidated(
   DownloadItem* item = dlm->GetDownloadByGuid(download_guid);
   if (!item)
     return;
-  if (accept)
+  if (accept) {
     item->ValidateDangerousDownload();
-  else
+  } else {
+    DownloadControllerAndroid::RecordDownloadCancelReason(
+        DownloadControllerAndroid::
+            CANCEL_REASON_DANGEROUS_DOWNLOAD_INFOBAR_DISMISSED);
     item->Remove();
+  }
 }
 
 DownloadControllerAndroidImpl::DownloadInfoAndroid::DownloadInfoAndroid(
