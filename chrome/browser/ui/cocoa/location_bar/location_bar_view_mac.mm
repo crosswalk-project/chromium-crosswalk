@@ -121,7 +121,9 @@ const SkColor kMaterialDarkVectorIconColor = SK_ColorWHITE;
                  color:(SkColor)vectorIconColor {
   if (vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTP &&
       vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTPS_INVALID &&
-      vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID) {
+      vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID &&
+      vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTPS_INVALID_INVERT &&
+      vectorIconId != gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID_INVERT) {
     return NSImageFromImageSkiaWithColorSpace(
         gfx::CreateVectorIcon(vectorIconId, kDefaultIconSize, vectorIconColor),
         base::mac::GetSRGBColorSpace());
@@ -159,8 +161,10 @@ const SkColor kMaterialDarkVectorIconColor = SK_ColorWHITE;
       [self drawLocationBarIconHTTPForScale:scaleFactor];
       break;
     case gfx::VectorIconId::LOCATION_BAR_HTTPS_INVALID:
+    case gfx::VectorIconId::LOCATION_BAR_HTTPS_INVALID_INVERT:
       [self drawLocationBarIconHTTPSInvalidForScale:scaleFactor];
       break;
+    case gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID_INVERT:
     case gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID:
       [self drawLocationBarIconHTTPSValidForScale:scaleFactor];
       break;
