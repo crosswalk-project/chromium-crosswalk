@@ -90,7 +90,6 @@ public class CustomTabActivity extends ChromeActivity {
     // change the package name.
     private boolean mShouldOverridePackage;
 
-    private boolean mRecordedStartupUma;
     private boolean mShouldReplaceCurrentEntry;
     private boolean mHasCreatedTabEarly;
     private boolean mIsInitialStart = true;
@@ -418,17 +417,14 @@ public class CustomTabActivity extends ChromeActivity {
         super.onStartWithNative();
         setActiveContentHandler(mCustomTabContentHandler);
 
-        if (!mRecordedStartupUma) {
-            mRecordedStartupUma = true;
+        if (getSavedInstanceState() != null || !mIsInitialStart) {
+            RecordUserAction.record("CustomTabs.StartedReopened");
+        } else {
             ExternalAppId externalId =
                     IntentHandler.determineExternalIntentSource(getPackageName(), getIntent());
             RecordHistogram.recordEnumeratedHistogram("CustomTabs.ClientAppId",
                     externalId.ordinal(), ExternalAppId.INDEX_BOUNDARY.ordinal());
-        }
 
-        if (getSavedInstanceState() != null || !mIsInitialStart) {
-            RecordUserAction.record("CustomTabs.StartedReopened");
-        } else {
             RecordUserAction.record("CustomTabs.StartedInitially");
         }
         mIsInitialStart = false;
