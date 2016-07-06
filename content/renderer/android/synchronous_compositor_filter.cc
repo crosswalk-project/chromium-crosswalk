@@ -250,7 +250,8 @@ void SynchronousCompositorFilter::DidStopFlinging(int routing_id) {
 
 void SynchronousCompositorFilter::NotifyInputEventHandled(
     int routing_id,
-    blink::WebInputEvent::Type type) {}
+    blink::WebInputEvent::Type type,
+    InputEventAckState ack_result) {}
 
 void SynchronousCompositorFilter::DidAddSynchronousHandlerProxy(
     int routing_id,

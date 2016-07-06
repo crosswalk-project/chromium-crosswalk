@@ -69,7 +69,8 @@ class SynchronousCompositorFilter
   void DidStartFlinging(int routing_id) override;
   void DidStopFlinging(int routing_id) override;
   void NotifyInputEventHandled(int routing_id,
-                               blink::WebInputEvent::Type type) override;
+                               blink::WebInputEvent::Type type,
+                               InputEventAckState ack_result) override;
 
   // SynchronousInputHandlerProxyClient overrides.
   void DidAddSynchronousHandlerProxy(
