@@ -207,10 +207,6 @@ NTPSnippetsService::NTPSnippetsService(
       image_fetcher_(std::move(image_fetcher)) {
   snippets_fetcher_->SetCallback(base::Bind(
       &NTPSnippetsService::OnFetchFinished, base::Unretained(this)));
-
-  // |sync_service_| can be null in tests or if sync is disabled.
-  if (sync_service_)
-    sync_service_observer_.Add(sync_service_);
 }
 
 NTPSnippetsService::~NTPSnippetsService() {
@@ -230,6 +226,10 @@ void NTPSnippetsService::Init(bool enabled) {
 
   enabled_ = enabled;
   if (enabled_) {
+    // |sync_service_| can be null in tests or if sync is disabled.
+    if (sync_service_)
+      sync_service_observer_.Add(sync_service_);
+
     // |suggestions_service_| can be null in tests.
     if (snippets_fetcher_->UsesHostRestrictions() && suggestions_service_) {
       suggestions_service_subscription_ = suggestions_service_->AddCallback(
@@ -244,6 +244,10 @@ void NTPSnippetsService::Init(bool enabled) {
     // If we don't have any snippets yet, start a fetch.
     if (snippets_.empty())
       FetchSnippets();
+  } else {
+    // We incorrectly fetched snippets while the feature was disabled on M52.
+    // This would remove them from the prefs.
+    ClearSnippets();
   }
 
   RescheduleFetching();
@@ -265,6 +269,8 @@ void NTPSnippetsService::FetchSnippets() {
 
 void NTPSnippetsService::FetchSnippetsFromHosts(
     const std::set<std::string>& hosts) {
+  if (!enabled_)
+    return;
   snippets_fetcher_->FetchSnippetsFromHosts(hosts, application_language_code_,
                                             kMaxSnippetCount);
 }
@@ -579,7 +585,7 @@ bool NTPSnippetsService::IsSyncStateIncompatible() {
   if (!sync_service_ || !sync_service_->CanSyncStart())
     return true;
   if (!sync_service_->IsSyncActive() || !sync_service_->ConfigurationDone())
-    return false;  // Sync service is not initialized, yet not disabled.
+    return true;
   return !sync_service_->GetActiveDataTypes().Has(
       syncer::HISTORY_DELETE_DIRECTIVES);
 }
