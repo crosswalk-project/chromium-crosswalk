@@ -164,6 +164,8 @@ void EnterpriseEnrollmentHelperImpl::DoEnrollUsingToken(
 }
 
 void EnterpriseEnrollmentHelperImpl::GetDeviceAttributeUpdatePermission() {
+  // TODO(pbond): remove this LOG once http://crbug.com/586961 is fixed.
+  LOG(WARNING) << "Get device attribute update permission";
   policy::BrowserPolicyConnectorChromeOS* connector =
       g_browser_process->platform_part()->browser_policy_connector_chromeos();
   policy::DeviceCloudPolicyManagerChromeOS* policy_manager =
@@ -221,6 +223,8 @@ void EnterpriseEnrollmentHelperImpl::OnTokenFetched(
 
 void EnterpriseEnrollmentHelperImpl::OnEnrollmentFinished(
     policy::EnrollmentStatus status) {
+  // TODO(pbond): remove this LOG once http://crbug.com/586961 is fixed.
+  LOG(WARNING) << "Enrollment finished";
   ReportEnrollmentStatus(status);
   finished_ = true;
   if (status.status() == policy::EnrollmentStatus::STATUS_SUCCESS) {
@@ -234,6 +238,8 @@ void EnterpriseEnrollmentHelperImpl::OnEnrollmentFinished(
 
 void EnterpriseEnrollmentHelperImpl::OnDeviceAttributeUpdatePermission(
     bool granted) {
+  // TODO(pbond): remove this LOG once http://crbug.com/586961 is fixed.
+  LOG(WARNING) << "Device attribute update permission granted=" << granted;
   status_consumer()->OnDeviceAttributeUpdatePermission(granted);
 }
 
