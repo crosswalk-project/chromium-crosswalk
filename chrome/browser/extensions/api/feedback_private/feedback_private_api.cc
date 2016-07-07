@@ -32,6 +32,7 @@
 #include "url/url_util.h"
 
 #if defined(OS_WIN)
+#include "base/feature_list.h"
 #include "chrome/browser/safe_browsing/srt_fetcher_win.h"
 #endif
 
@@ -49,6 +50,13 @@ std::string StripFakepath(const std::string& path) {
     return path.substr(arraysize(kFakePathStr) - 1);
   return path;
 }
+
+#if defined(OS_WIN)
+// Allows enabling/disabling SRT Prompt as a Variations feature.
+constexpr base::Feature kSrtPromptOnFeedbackForm {
+  "SrtPromptOnFeedbackForm", base::FEATURE_DISABLED_BY_DEFAULT
+};
+#endif
 
 }  // namespace
 
@@ -89,14 +97,14 @@ void FeedbackPrivateAPI::RequestFeedback(
 #if defined(OS_WIN)
   // Show prompt for Software Removal Tool if the Reporter component has found
   // unwanted software, and the user has never run the cleaner before.
-  if (safe_browsing::ReporterFoundUws() &&
+  if (base::FeatureList::IsEnabled(kSrtPromptOnFeedbackForm) &&
+      safe_browsing::ReporterFoundUws() &&
       !safe_browsing::UserHasRunCleaner()) {
     RequestFeedbackForFlow(description_template, category_tag, page_url,
                            FeedbackFlow::FEEDBACK_FLOW_SHOWSRTPROMPT);
     return;
   }
 #endif
-
   RequestFeedbackForFlow(description_template, category_tag, page_url,
                          FeedbackFlow::FEEDBACK_FLOW_REGULAR);
 }
