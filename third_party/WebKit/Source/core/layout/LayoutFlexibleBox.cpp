@@ -851,8 +851,6 @@ void LayoutFlexibleBox::layoutFlexItems(bool relayoutChildren, SubtreeLayoutScop
 
     Vector<LayoutUnit, 16> childSizes;
 
-    dirtyForLayoutFromPercentageHeightDescendants(layoutScope);
-
     m_orderIterator.first();
     LayoutUnit crossAxisOffset = flowAwareBorderBefore() + flowAwarePaddingBefore();
     while (computeNextFlexLine(orderedChildren, sumFlexBaseSize, totalFlexGrow, totalFlexShrink, totalWeightedFlexShrink, sumHypotheticalMainSize, relayoutChildren)) {
@@ -1578,8 +1576,8 @@ void LayoutFlexibleBox::layoutAndPlaceChildren(LayoutUnit& crossAxisOffset, cons
             resetAutoMarginsAndLogicalTopInCrossAxis(*child);
         }
         // We may have already forced relayout for orthogonal flowing children in computeInnerFlexBaseSizeForChild.
-        bool forceChildRelayout = relayoutChildren && !childFlexBaseSizeRequiresLayout(*child);
-        if (child->isLayoutBlock() && toLayoutBlock(*child).hasPercentHeightDescendants() && m_relaidOutChildren.contains(child)) {
+        bool forceChildRelayout = relayoutChildren && !m_relaidOutChildren.contains(child);
+        if (child->isLayoutBlock() && toLayoutBlock(*child).hasPercentHeightDescendants()) {
             // Have to force another relayout even though the child is sized correctly, because
             // its descendants are not sized correctly yet. Our previous layout of the child was
             // done without an override height set. So, redo it here.
