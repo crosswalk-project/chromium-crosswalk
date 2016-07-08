@@ -1995,7 +1995,8 @@ public class ToolbarPhone extends ToolbarLayout
         // If The page is native force the use of the standard theme for the progress bar.
         if (getToolbarDataProvider() != null && getToolbarDataProvider().getTab() != null
                 && getToolbarDataProvider().getTab().isNativePage()) {
-            themeColorForProgressBar = getToolbarColorForVisualState(VisualState.NORMAL);
+            VisualState visualState = isIncognito() ? VisualState.INCOGNITO : VisualState.NORMAL;
+            themeColorForProgressBar = getToolbarColorForVisualState(visualState);
         }
 
         if (mVisualState == VisualState.BRAND_COLOR && !visualStateChanged) {
