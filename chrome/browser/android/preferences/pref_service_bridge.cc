@@ -650,6 +650,11 @@ static void ClearBrowsingData(
     filter_builder.AddRegisterableDomain(domain);
   }
 
+  if (!excluding_domains.empty()) {
+    ImportantSitesUtil::RecordMetricsForBlacklistedSites(GetOriginalProfile(),
+                                                         excluding_domains);
+  }
+
   browsing_data_remover->RemoveWithFilter(
       BrowsingDataRemover::Period(
           static_cast<BrowsingDataRemover::TimePeriod>(time_period)),
