@@ -202,7 +202,8 @@ class MediaCodecBridge {
     }
 
     @CalledByNative
-    private static MediaCodecBridge create(String mime, boolean isSecure, int direction) {
+    private static MediaCodecBridge create(
+            String mime, boolean isSecure, int direction, boolean requireSoftwareCodec) {
         MediaCodecUtil.CodecCreationInfo info = new MediaCodecUtil.CodecCreationInfo();
         try {
             if (direction == MediaCodecUtil.MEDIA_CODEC_ENCODER) {
@@ -210,7 +211,7 @@ class MediaCodecBridge {
                 info.supportsAdaptivePlayback = false;
             } else {
                 // |isSecure| only applies to video decoders.
-                info = MediaCodecUtil.createDecoder(mime, isSecure);
+                info = MediaCodecUtil.createDecoder(mime, isSecure, requireSoftwareCodec);
             }
         } catch (Exception e) {
             Log.e(TAG, "Failed to create MediaCodec: %s, isSecure: %s, direction: %d",
@@ -225,7 +226,11 @@ class MediaCodecBridge {
     @CalledByNative
     private void release() {
         try {
-            Log.w(TAG, "calling MediaCodec.release()");
+            String codecName = "unknown";
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                codecName = mMediaCodec.getName();
+            }
+            Log.w(TAG, "calling MediaCodec.release() on " + codecName);
             mMediaCodec.release();
         } catch (IllegalStateException e) {
             // The MediaCodec is stuck in a wrong state, possibly due to losing

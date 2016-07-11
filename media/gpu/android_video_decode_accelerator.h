@@ -210,6 +210,14 @@ class MEDIA_GPU_EXPORT AndroidVideoDecodeAccelerator
     // is only a hint.
     gfx::Size initial_expected_coded_size_;
 
+    // Should we allow MediaCodec to autodetect the codec type (true), or
+    // select a software decoder manually (false).  This is because fallback to
+    // software when autodetecting can sometimes hang mediaserver.
+    bool allow_autodetection_ = false;
+
+    // Should we notify AVDATimerManager when codec configuration completes?
+    bool notify_completion_ = false;
+
    protected:
     friend class base::RefCountedThreadSafe<CodecConfig>;
     virtual ~CodecConfig();
@@ -321,6 +329,12 @@ class MEDIA_GPU_EXPORT AndroidVideoDecodeAccelerator
   // how long it has been since we've done work.  Calling this with true will
   // start the timer.  Calling it with false may stop the timer.
   void ManageTimer(bool did_work);
+
+  // Safely clear |media_codec_|.  Do this instead of calling reset() / assign.
+  // Otherwise, the destructor can hang if mediaserver is in a bad state.  This
+  // will release immediately if safe, else post to a separate thread.  Either
+  // way, |media_codec_| will be null upon return.
+  void ReleaseMediaCodec();
 
   // Start the MediaCodec drain process by adding end_of_stream() buffer to the
   // encoded buffers queue. When we receive EOS from the output buffer the drain
