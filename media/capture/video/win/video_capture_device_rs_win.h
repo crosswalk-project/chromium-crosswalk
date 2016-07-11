@@ -32,7 +32,7 @@ class MEDIA_EXPORT VideoCaptureDeviceRSWin : public base::NonThreadSafe,
 
   // VideoCaptureDevice implementation.
   void AllocateAndStart(const VideoCaptureParams& params,
-                        scoped_ptr<Client> client) override;
+                        std::unique_ptr<Client> client) override;
   void StopAndDeAllocate() override;
 
   // Utiliies used by VideoCaptureDeviceFactoryWin.
@@ -63,10 +63,10 @@ class MEDIA_EXPORT VideoCaptureDeviceRSWin : public base::NonThreadSafe,
   PXCCapture::Device* capture_device_;
   PXCSenseManager* sense_manager_;
   ProfileList profiles_;
-  scoped_ptr<SenseManagerHandler> sense_manager_handler_;
+  std::unique_ptr<SenseManagerHandler> sense_manager_handler_;
 
   base::Lock lock_;  // Used to guard the below variables.
-  scoped_ptr<VideoCaptureDevice::Client> client_;
+  std::unique_ptr<VideoCaptureDevice::Client> client_;
   VideoCaptureFormat capture_format_;
   bool capturing_;
 

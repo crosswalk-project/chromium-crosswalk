@@ -198,7 +198,7 @@ bool VideoCaptureDeviceRSWin::Init() {
 
 void VideoCaptureDeviceRSWin::AllocateAndStart(
     const VideoCaptureParams& params,
-    scoped_ptr<Client> client) {
+    std::unique_ptr<Client> client) {
   DCHECK(CalledOnValidThread());
 
   base::AutoLock lock(lock_);
