@@ -124,8 +124,9 @@ class MEDIA_EXPORT AudioManagerMac : public AudioManagerBase {
   size_t basic_input_streams() const { return basic_input_streams_.size(); }
 
  protected:
-  ~AudioManagerMac() override;
+  friend class media::AudioManagerDeleter;
 
+  ~AudioManagerMac() override;
   AudioParameters GetPreferredOutputStreamParameters(
       const std::string& output_device_id,
       const AudioParameters& input_params) override;
@@ -182,6 +183,10 @@ class MEDIA_EXPORT AudioManagerMac : public AudioManagerBase {
   // Maps device IDs and their corresponding actual (I/O) buffer sizes for
   // all output streams using the specific device.
   std::map<AudioDeviceID, size_t> output_io_buffer_size_map_;
+
+  // Set to true in the destructor. Ensures that methods that touches native
+  // Core Audio APIs are not executed during shutdown.
+  bool in_shutdown_;
 
   DISALLOW_COPY_AND_ASSIGN(AudioManagerMac);
 };
