@@ -388,6 +388,7 @@
       ['OS=="android"', {
         'sources/': [
           ['include', 'fonts/linux/FontPlatformDataLinux\\.cpp$'],
+          ['include', 'fonts/linux/FontRenderStyle\\.cpp$'],
         ],
       }],
     ],
