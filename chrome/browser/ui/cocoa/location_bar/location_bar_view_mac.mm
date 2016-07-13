@@ -179,8 +179,7 @@ const SkColor kMaterialDarkVectorIconColor = SK_ColorWHITE;
 + (void)drawLocationBarIconHTTPForScale:(int)scaleFactor {
   if (scaleFactor > 1) {
     NSRect ovalRect = NSMakeRect(2.25, 1.75, 12, 12);
-    NSBezierPath* circlePath =
-        [NSBezierPath bezierPathWithOvalInRect:ovalRect];
+    NSBezierPath* circlePath = [NSBezierPath bezierPathWithOvalInRect:ovalRect];
     [circlePath setLineWidth:1.5];
     [circlePath stroke];
 
@@ -188,8 +187,7 @@ const SkColor kMaterialDarkVectorIconColor = SK_ColorWHITE;
     NSRectFill(NSMakeRect(7.5, 9.5, 1.5, 1.5));
   } else {
     NSRect ovalRect = NSMakeRect(2, 2, 12, 12);
-    NSBezierPath* circlePath =
-        [NSBezierPath bezierPathWithOvalInRect:ovalRect];
+    NSBezierPath* circlePath = [NSBezierPath bezierPathWithOvalInRect:ovalRect];
     [circlePath setLineWidth:1.5];
     [circlePath stroke];
 
@@ -745,22 +743,32 @@ void LocationBarViewMac::UpdateLocationIcon() {
   gfx::VectorIconId vector_icon_id = gfx::VectorIconId::VECTOR_ICON_NONE;
   if (ShouldShowEVBubble()) {
     vector_icon_id = gfx::VectorIconId::LOCATION_BAR_HTTPS_VALID;
-    vector_icon_color = in_dark_mode
-                            ? kMaterialDarkVectorIconColor
-                            : gfx::kGoogleGreen700;
+    vector_icon_color =
+        in_dark_mode ? kMaterialDarkVectorIconColor : gfx::kGoogleGreen700;
   } else {
     vector_icon_id = omnibox_view_->GetVectorIcon(in_dark_mode);
     if (in_dark_mode) {
       vector_icon_color = SK_ColorWHITE;
+    } else if (vector_icon_id != gfx::VectorIconId::OMNIBOX_SEARCH) {
+      security_state::SecurityStateModel::SecurityLevel security_level =
+          GetToolbarModel()->GetSecurityLevel(false);
+      if (security_level == security_state::SecurityStateModel::NONE) {
+        vector_icon_color = gfx::kChromeIconGrey;
+      } else if (vector_icon_id != gfx::VectorIconId::OMNIBOX_SEARCH &&
+            (security_level == security_state::SecurityStateModel::EV_SECURE ||
+             security_level == security_state::SecurityStateModel::SECURE)) {
+        vector_icon_color = gfx::kGoogleGreen700;
+      } else if (security_level ==
+                 security_state::SecurityStateModel::SECURITY_ERROR) {
+        vector_icon_color = gfx::kGoogleRed700;
+      } else if (security_level ==
+                 security_state::SecurityStateModel::SECURITY_WARNING){
+        vector_icon_color = gfx::kGoogleYellow700;
+      }
     } else {
       vector_icon_color = OmniboxViewMac::BaseTextColorSkia(in_dark_mode);
     }
   }
-
-  // If the theme is dark, then the color should always be
-  // kMaterialDarkVectorIconColor.
-  if (in_dark_mode)
-    vector_icon_color = kMaterialDarkVectorIconColor;
 
   DCHECK(vector_icon_id != gfx::VectorIconId::VECTOR_ICON_NONE);
   NSImage* image =
