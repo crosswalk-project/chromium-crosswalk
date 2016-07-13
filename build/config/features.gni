@@ -174,6 +174,6 @@ use_brlapi = is_chromeos
 
 # Enable WebVR support by default on Android
 # Still requires command line flag to access API
-enable_webvr = is_android
+enable_webvr = false  #is_android
 
 enable_configuration_policy = !is_ios
