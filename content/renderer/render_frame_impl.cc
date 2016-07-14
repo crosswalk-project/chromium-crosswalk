@@ -536,10 +536,11 @@ WebURLRequest CreateURLRequestForNavigation(
   }
 
   request.setHTTPMethod(WebString::fromUTF8(common_params.method));
+  request.setLoFiState(
+      static_cast<WebURLRequest::LoFiState>(common_params.lofi_state));
 
   RequestExtraData* extra_data = new RequestExtraData();
   extra_data->set_stream_override(std::move(stream_override));
-  extra_data->set_lofi_state(common_params.lofi_state);
   request.setExtraData(extra_data);
 
   // Set the ui timestamp for this navigation. Currently the timestamp here is
@@ -611,9 +612,9 @@ CommonNavigationParams MakeCommonNavigationParams(
   return CommonNavigationParams(
       request->url(), referrer, extra_data->transition_type(),
       FrameMsg_Navigate_Type::NORMAL, true, should_replace_current_entry,
-      ui_timestamp, report_type, GURL(), GURL(), extra_data->lofi_state(),
-      base::TimeTicks::Now(), request->httpMethod().latin1(),
-      GetRequestBodyForWebURLRequest(*request));
+      ui_timestamp, report_type, GURL(), GURL(),
+      static_cast<LoFiState>(request->getLoFiState()),base::TimeTicks::Now(),
+      request->httpMethod().latin1(), GetRequestBodyForWebURLRequest(*request));
 }
 
 media::Context3D GetSharedMainThreadContext3D(
@@ -4057,16 +4058,20 @@ void RenderFrameImpl::willSendRequest(
       navigation_state->start_params().transferred_request_request_id);
   extra_data->set_service_worker_provider_id(provider_id);
   extra_data->set_stream_override(std::move(stream_override));
-  if (request.getLoFiState() != WebURLRequest::LoFiUnspecified)
-    extra_data->set_lofi_state(static_cast<LoFiState>(request.getLoFiState()));
-  else if (is_main_frame_ && !navigation_state->request_committed())
-    extra_data->set_lofi_state(navigation_state->common_params().lofi_state);
-  else
-    extra_data->set_lofi_state(is_using_lofi_ ? LOFI_ON : LOFI_OFF);
   WebString error;
   extra_data->set_initiated_in_secure_context(
       frame->document().isSecureContext(error));
   request.setExtraData(extra_data);
+
+  if (request.getLoFiState() == WebURLRequest::LoFiUnspecified) {
+    if (is_main_frame_ && !navigation_state->request_committed()) {
+      request.setLoFiState(static_cast<WebURLRequest::LoFiState>(
+          navigation_state->common_params().lofi_state));
+    } else {
+      request.setLoFiState(
+          is_using_lofi_ ? WebURLRequest::LoFiOn : WebURLRequest::LoFiOff);
+    }
+  }
 
   // TODO(creis): Update prefetching to work with out-of-process iframes.
   WebFrame* top_frame = frame->top();
