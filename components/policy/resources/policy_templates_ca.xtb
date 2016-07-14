@@ -1976,7 +1976,7 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
 <translation id="8176035528522326671">Permet que un usuari empresarial només sigui un usuari multiperfil principal (comportament predeterminat per a usuaris gestionats per l'empresa)</translation>
 <translation id="8191318459035150777">Configura l'URL predeterminat de la pàgina d'inici a <ph name="PRODUCT_NAME" /> i no permet que els usuaris el canviïn.
 
-          La pàgina d'inici és la pàgina que obre el botó Inici. Les pàgines que s'obren a l'inici estan controlades per les polítiques RestoreOnStartup.
+          La pàgina d'inici és la pàgina que obre el botó d'inici. Les pàgines que s'obren a l'inici estan controlades per les polítiques RestoreOnStartup.
 
           Podeu definir com a pàgina d'inici l'URL que especifiqueu aquí o bé la pàgina Pestanya nova. Si seleccioneu la pàgina Pestanya nova, aquesta política no té cap efecte.
 
@@ -2011,7 +2011,7 @@ Aquesta política s'ignora en els comptes d'usuari normals.</translation>
       amb l'optimització WPAD).
 
       S'estableix com a "true" de manera predeterminada (funció de seguretat activada), excepte en el cas dels usuaris d'empreses
-      que utilitzen Chrome OS, que s'estableix de manera predeterminada com a "false".
+      que utilitzen Chrome OS, per als quals s'estableix de manera predeterminada com a "false".
 
       Es recomana establir-la com a "true". L'única raó per establir-la com a
       "false" és que hi hagi problemes de compatibilitat amb els scripts PAC existents.

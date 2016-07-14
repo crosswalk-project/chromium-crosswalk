@@ -58,7 +58,7 @@
 <translation id="1076818208934827215">Microsoft Internet Explorer</translation>
 <translation id="1077946062898560804">Nastaviť automatické aktualizácie pre všetkých používateľov</translation>
 <translation id="1079766198702302550">Vždy blokovať prístup ku kamere</translation>
-<translation id="1082398631555931481">Nástroj <ph name="THIRD_PARTY_TOOL_NAME" /> chce obnoviť vaše nastavenia prehliadača Chrome na predvolené hodnoty. Týmto sa obnoví domovská stránka, stránka na novej karte a vyhľadávač, zakážu sa rozšírenia a uvoľnia všetky karty. Vymažú sa tiež ďalšie dočasné údaje a údaje vyrovnávacej pamäte, ako sú napríklad súbory cookie či údaje obsahu a stránok.</translation>
+<translation id="1082398631555931481">Nástroj <ph name="THIRD_PARTY_TOOL_NAME" /> chce obnoviť vaše nastavenia prehliadača Chrome na predvolené hodnoty. Týmto sa obnoví domovská stránka, stránka na novej karte a vyhľadávač, zakážu sa rozšírenia a odopnú všetky karty. Vymažú sa tiež ďalšie dočasné údaje a údaje vyrovnávacej pamäte, ako sú napríklad súbory cookie či údaje obsahu a stránok.</translation>
 <translation id="1084824384139382525">Kopírovať adre&amp;su odkazu</translation>
 <translation id="1087119889335281750">&amp;Žiadne pravopisné návrhy</translation>
 <translation id="1090126737595388931">Na pozadí nie sú spustené žiadne aplikácie</translation>
@@ -227,7 +227,7 @@
 <translation id="1339266338863469628">Predvolené (zaznamenávať iba vás)</translation>
 <translation id="1340527397989195812">Zálohovať médiá zo zariadenia pomocou aplikácie Súbory</translation>
 <translation id="1341988552785875222">Aktuálnu tapetu nastavila aplikácia <ph name="APP_NAME" />. Je možné, že pred výberom inej tapety bude nutné aplikáciu <ph name="APP_NAME" /> odinštalovať.</translation>
-<translation id="1343517687228689568">Uvoľniť túto stránku z Úvodnej obrazovky...</translation>
+<translation id="1343517687228689568">Odopnúť túto stránku z úvodnej obrazovky…</translation>
 <translation id="1346104802985271895">Vietnamská metóda vstupu (TELEX)</translation>
 <translation id="1346748346194534595">Doprava</translation>
 <translation id="1351692861129622852">Importujú sa súbory (počet: <ph name="FILE_COUNT" />)...</translation>
@@ -536,7 +536,7 @@
 <translation id="173188813625889224">Smer</translation>
 <translation id="1731911755844941020">Posielanie požiadavky...</translation>
 <translation id="173215889708382255">Zdieľajte svoju obrazovku – <ph name="APP_NAME" /></translation>
-<translation id="1732215134274276513">Uvoľniť karty</translation>
+<translation id="1732215134274276513">Odopnúť karty</translation>
 <translation id="1737968601308870607">Nahlásiť chybu</translation>
 <translation id="1744108098763830590">stránka na pozadí</translation>
 <translation id="1747687775439512873">Zakázať sieť WiMAX</translation>
@@ -579,7 +579,7 @@
 <translation id="1803133642364907127">Extension Content Verification</translation>
 <translation id="1807938677607439181">Všetky súbory</translation>
 <translation id="1810107444790159527">Pole s ponukou</translation>
-<translation id="1812631533912615985">Uvoľniť karty</translation>
+<translation id="1812631533912615985">Odopnúť karty</translation>
 <translation id="1813278315230285598">Služby</translation>
 <translation id="18139523105317219">Názov strany EDI</translation>
 <translation id="1815083418640426271">Vložiť ako čistý text</translation>
@@ -2115,7 +2115,7 @@ z domény <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="3924145049010392604">Meta</translation>
 <translation id="3925247638945319984">Nemáte žiadne nedávno zaznamenané denníky WebRTC.</translation>
 <translation id="3925573269917483990">Kamera:</translation>
-<translation id="3925842537050977900">Uvoľniť z poličky</translation>
+<translation id="3925842537050977900">Odopnúť z poličky</translation>
 <translation id="3926002189479431949">Zmenil sa telefón združený s funkciou Smart Lock</translation>
 <translation id="3927932062596804919">Odmietnuť</translation>
 <translation id="3930521966936686665">Prehrať na zariadení:</translation>
@@ -2347,7 +2347,7 @@ Všetci používatelia sa musia odhlásiť a až potom môžu pokračovať.</tra
 <translation id="4279490309300973883">Zrkadlenie</translation>
 <translation id="4281844954008187215">Zmluvné podmienky</translation>
 <translation id="4284105660453474798">Naozaj chcete odstrániť súbor $1?</translation>
-<translation id="4285498937028063278">Uvoľniť</translation>
+<translation id="4285498937028063278">Odopnúť</translation>
 <translation id="428565720843367874">Antivírusový softvér pri skenovaní tohto súboru neočakávane zlyhal.</translation>
 <translation id="428608937826130504">8. položka na poličke</translation>
 <translation id="4287167099933143704">Zadať kľúč na odomknutie kódu PIN</translation>
@@ -4120,6 +4120,7 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="6976108581241006975">Konzola jazyka JavaScript</translation>
 <translation id="6978611942794658017">Tento súbor je navrhnutý na použitie v počítači so softvérom Windows. Nie je kompatibilný s vaším zariadením so systémom OS Chrome. Nájdite vhodnú náhradnú aplikáciu v Internetovom obchode Chrome.</translation>
 <translation id="6979158407327259162">Disk Google</translation>
+<translation id="6980462514016882061">Google môže používať vašu históriu prehliadania na prispôsobenie Vyhľadávania, reklám a ďalších služieb Google</translation>
 <translation id="6980956047710795611">Migrovať všetky údaje systému Chrome OS na nové heslo (vyžaduje sa predchádzajúce heslo)</translation>
 <translation id="6981982820502123353">Dostupnosť</translation>
 <translation id="6982896539684144327">Bola zistená tlačiareň od partnera <ph name="VENDOR_NAME" /></translation>
@@ -4512,6 +4513,7 @@ Niektoré funkcie nemusia byť k dispozícii.  Skontrolujte, či profil existuje
 <translation id="7543104066686362383">Aktivovať na tomto zariadení <ph name="IDS_SHORT_PRODUCT_NAME" /> funkcie ladenia</translation>
 <translation id="7544853251252956727">Náhodne prehrávať</translation>
 <translation id="7545288882499673859">Stratégia zahodenia pamäte pre rozšírenú správu zaťaženia</translation>
+<translation id="7545415673537747415">V časti <ph name="BEGIN_LINK" />Riadenie aktivity Google<ph name="END_LINK" /> môžete ovládať, ako bude Google používať vašu históriu prehliadania na prispôsobenie Vyhľadávania, reklám a ďalších služieb Google.</translation>
 <translation id="7547317915858803630">Upozornenie: Vaše nastavenia aplikácie <ph name="PRODUCT_NAME" /> sú uložené na sieťovom disku. Môže to viesť ku spomaleniu, chybám alebo strate údajov.</translation>
 <translation id="7547811415869834682">Holandčina</translation>
 <translation id="7548856833046333824">Limonáda</translation>
@@ -5064,7 +5066,7 @@ Prebieha výpočet času do úplného nabitia</translation>
 <translation id="8327201046748601585">{COUNT,plural, =1{1 ďalšia}few{# ďalšie}many{# ďalšej}other{# ďalších}}</translation>
 <translation id="8329978297633540474">Obyčajný text</translation>
 <translation id="8330907072332288839">Predpovede posúvania</translation>
-<translation id="8335587457941836791">Uvoľniť z poličky</translation>
+<translation id="8335587457941836791">Odopnúť z poličky</translation>
 <translation id="8335971947739877923">Exportovať...</translation>
 <translation id="8336153091935557858">Včera o <ph name="YESTERDAY_DAYTIME" /></translation>
 <translation id="8336579025507394412">Islandská klávesnica</translation>

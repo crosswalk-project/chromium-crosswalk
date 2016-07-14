@@ -2173,7 +2173,7 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
      Doğru (True) değerine ayarlandığında güvenlik özelliği etkinleştirilir ve
      https:// URL'leri bir PAC komut dosyasına gönderilmeden önce ayrılır.
      Bu şekilde, PAC komut dosyası normalde şifrelenmiş kanalla korunan
-     (URL'nin yolu ve sorgu gibi) verileri görüntüleyemez.
+     verileri (URL'nin yolu ve sorgu gibi) görüntüleyemez.
 
      Politika Yanlış (False) değerine ayarlandığında, güvenlik özelliği devre dışı
      bırakılır ve PAC komut dosyalarına https:// URL'sinin tüm bileşenlerini
@@ -2188,7 +2188,7 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
 
      Bu politikanın Doğru (True) değerine ayarlanması önerilir. Politikanın
      Yanlış (False) değerine ayarlanmasının tek nedeni, mevcut PAC komut
-     dosyalarıyla bir uyumluk sorununa neden olabilmesidir.
+     dosyalarıyla bir uyumluluk sorununa neden olabilmesidir.
 
      İleride bu geçersiz kılmanın kaldırılması istenmektedir.</translation>
 <translation id="8285435910062771358">Tam ekran büyüteci etkin</translation>

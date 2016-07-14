@@ -2193,7 +2193,7 @@ Jei plėtinio nėra sąraše arba sąrašas nenustatytas, kreipiantis į API įv
 <translation id="8279832363395120715">Perduodamos neskelbtinos https:// URL privatumo ir saugos dalys prieš pateikiant jas PAC (automatinės tarpinio serverio konfigūracijos) scenarijams, kuriuos „<ph name="PRODUCT_NAME" />“ naudoja per tarpinio serverio nustatymo procesą.
 
       Kai politika nustatyta į „True“, saugos funkcija yra įgalinta, o https:// URL
-      perduodami prie pateikiant juos į PAC scenarijų.Taip PAC scenarijus
+      perduodami prieš pateikiant juos į PAC scenarijų.Taip PAC scenarijus
       negali peržiūrėti duomenų, kurie paprastai apsaugoti naudojant
       šifruotą kanalą (pvz., URL kelią ir užklausą).
 

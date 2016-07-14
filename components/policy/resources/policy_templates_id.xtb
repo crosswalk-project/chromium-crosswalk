@@ -2003,7 +2003,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       Jika kebijakan dibiarkan tidak disetel, <ph name="PRODUCT_OS_NAME" /> akan menggunakan ID akun email dari akun lokal perangkat sebagai nama tampilan di layar masuk.
 
       Kebijakan ini diabaikan untuk akun pengguna reguler.</translation>
-<translation id="8279832363395120715">Menyembunyikan bagian sensitif privasi dan keamanan pada URL https:// sebelum meneruskannya ke skrip PAC (Proxy Auto Config) yang digunakan oleh <ph name="PRODUCT_NAME" /> selama resolusi proxy.
+<translation id="8279832363395120715">Menyembunyikan bagian sensitif terhadap privasi dan keamanan pada URL https:// sebelum meneruskannya ke skrip PAC (Proxy Auto Config) yang digunakan oleh <ph name="PRODUCT_NAME" /> selama resolusi proxy.
 
       Jika disetel ke True, fitur keamanan diaktifkan, dan URL https://
       disembunyikan sebelum mengirimnya ke skrip PAC. Dengan cara ini, skrip
@@ -2017,10 +2017,10 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
       secara tidak aman melalui WPAD).
 
       Setelan defaultnya adalah True (fitur keamanan aktif), kecuali untuk
-      pengguna perusahaan Chrome OS yang setelan defaultnya adalah False.
+      pengguna Chrome OS perusahaan yang setelan defaultnya adalah False.
 
-      Sebaiknya disetel ke True. Satu-satunya alasan untuk menyetel ke
-      False adalah jika kebijakan ini menyebabkan masalah kompatibilitas dengan skrip PAC yang sudah ada.
+      Sebaiknya disetel ke True. Hanya boleh disetel ke
+      False jika kebijakan ini menyebabkan masalah kompatibilitas dengan skrip PAC yang sudah ada.
 
       Diharapkan untuk menghapus penggantian ini di masa mendatang.</translation>
 <translation id="8285435910062771358">Lup layar penuh diaktifkan</translation>

@@ -1978,7 +1978,7 @@ desactivarlo).</translation>
       Si la política no se establece, <ph name="PRODUCT_OS_NAME" /> utilizará la Id. de cuenta de correo electrónico de la cuenta local del dispositivo como nombre para mostrar en la pantalla de acceso.
 
       Esta política no se aplica a las cuentas de usuario normales.</translation>
-<translation id="8279832363395120715">Recorta las partes confidenciales por motivos de seguridad y privacidad de las URL de https:// antes de enviarlas a secuencias de comandos PAC (Configuración automática de proxy) que usan <ph name="PRODUCT_NAME" /> en la resolución del proxy.
+<translation id="8279832363395120715">Recorta las partes confidenciales por motivos de seguridad y privacidad de las URL de https:// antes de enviarlas a secuencias de comandos PAC (Configuración automática de proxy) que usa <ph name="PRODUCT_NAME" /> en la resolución del proxy.
 
       Cuando se establece como verdadera, se activa la función de seguridad, y
       se recortan las URL de https:// antes de enviarlas a una secuencia de
@@ -1994,8 +1994,8 @@ desactivarlo).</translation>
       transporte no seguro).
 
       De manera predeterminada, se establece como verdadera (función de
-       seguridad habilitada), excepto para los usuarios de empresa de Chrome
-      OS; para ellos, se establece como falsa de manera predeterminada.
+       seguridad habilitada), excepto para los usuarios de empresa del Sistema
+      operativo Chrome; para ellos, se establece como falsa de manera predeterminada.
 
       Se recomienda que la política se establezca como verdadera. La única razón
       para establecerla como falsa es si produce un problema de compatibilidad

@@ -954,7 +954,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="4449545651113180484">Obróć ekran w prawo o 270 stopni</translation>
 <translation id="4467952432486360968">Blokuj pliki cookie innych firm</translation>
 <translation id="4474167089968829729">Włącz zapisywanie haseł w menedżerze haseł</translation>
-<translation id="447686899376429408">Jeśli nie skonfigurujesz tej zasady lub ustawisz dla niej wartość prawda, użytkownicy będą mogli przesyłać karty, witryny lub pulpit z przeglądarki. Jeśli ustawisz tu wartość fałsz, ta opcja zostanie wyłączona.</translation>
+<translation id="447686899376429408">Jeśli nie skonfigurujesz tej zasady lub ustawisz dla niej wartość prawda, użytkownicy będą mogli przesyłać karty, witryny lub pulpit z przeglądarki. Jeśli ustawisz tu wartość fałsz, ta opcja zostanie wyłączona.</translation>
 <translation id="4480694116501920047">Wymuś stosowanie filtra SafeSearch</translation>
 <translation id="4482640907922304445">Powoduje pokazanie przycisku strony startowej na pasku narzędzi <ph name="PRODUCT_NAME" />. Jeśli włączysz to ustawienie, przycisk strony startowej będzie zawsze widoczny. W przypadku wyłączenia ustawienia przycisk nigdy nie jest widoczny. Jeśli ustawienie jest włączone lub wyłączone, użytkownicy nie mogą go zmienić ani zastąpić w <ph name="PRODUCT_NAME" />. W przypadku nieskonfigurowania tej zasady użytkownik będzie mógł wybrać, czy chce, aby przycisk strony startowej był pokazywany.</translation>
 <translation id="4492287494009043413">Wyłącza tworzenie zrzutów ekranu</translation>
@@ -1992,30 +1992,30 @@ Więcej opcji i szczegółowych przykładów znajdziesz na:
       Jeśli ta opcja nie zostanie ustawiona, <ph name="PRODUCT_OS_NAME" /> użyje identyfikatora konta e-mail lokalnego konta na urządzeniu jako nazwy wyświetlanej na ekranie logowania.
 
       Ta zasada jest ignorowana w przypadku zwykłych kont użytkownika.</translation>
-<translation id="8279832363395120715">Wycina poufne pod względem prywatności i bezpieczeństwa fragmenty adresów URL https:// przed przekazaniem tych adresów do skryptów PAC (Proxy Auto Config), których <ph name="PRODUCT_NAME" /> używa podczas rozpoznawania serwerów proxy.
+<translation id="8279832363395120715">Wycina poufne pod względem prywatności i bezpieczeństwa fragmenty adresów URL https:// przed przekazaniem tych adresów do skryptów PAC (Proxy Auto Config), których <ph name="PRODUCT_NAME" /> używa podczas rozpoznawania serwerów proxy.
 
       Jeśli ustawisz wartość prawda, funkcja zabezpieczeń zostanie
-      włączona, a adresy URL https:// zostaną usunięte przed
-      przekazaniem ich do skryptów PAC. W ten sposób skrypt PAC nie
+      włączona, a fragmenty adresów URL https:// będą usuwane przed
+      przekazaniem tych adresów do skryptów PAC. w ten sposób skrypt PAC nie
       będzie mógł odczytać danych, które są zwykle chronione przez
-      szyfrowany kanał (np. ścieżkę lub zapytanie adresu URL).
+      szyfrowany kanał (np. ścieżki lub zapytania adresu URL).
 
       Jeśli ustawisz wartość fałsz, funkcja zabezpieczeń zostanie wyłączona,
-      a skrypty PAC będą domyślnie mogły odczytać wszystkie składniki 
+      a skrypty PAC będą domyślnie mogły odczytać wszystkie składniki 
       adresu URL https://. Dotyczy to wszystkich skryptów PAC bez względu
       na ich pochodzenie (włączając te pobrane przez niezabezpieczony
-      kanał lub odkryte w niezabezpieczony sposób przez protokół WPAD).
+      kanał lub odkryte w niezabezpieczony sposób przez protokół WPAD).
 
       Domyślne ustawienie to prawda (włączona funkcja zabezpieczeń).
-      Wyjątek stanowią firmowi użytkownicy Chrome OS, w przypadku
+      Wyjątek stanowią użytkownicy korporacyjni Chrome OS, w przypadku
       których ta zasada jest domyślnie ustawiona na fałsz.
 
 
       Zaleca się ustawienie tej zasady na wartość prawda. Wartość fałsz
       należy ustawić tylko wtedy, gdy występuje problem ze zgodnością
-      z istniejącymi skryptami PAC.
+      z istniejącymi skryptami PAC.
 
-      Planujemy usunąć ten problem w przyszłości.</translation>
+      Planujemy usunąć ten problem w przyszłości.</translation>
 <translation id="8285435910062771358">Pełnoekranowa lupa włączona</translation>
 <translation id="8294750666104911727">Normalnie strony, które w tagu X-UA-Compatible mają wartość chrome=1, będą renderowane w <ph name="PRODUCT_FRAME_NAME" /> niezależnie od ustawienia zasady „ChromeFrameRendererSettings”.
 

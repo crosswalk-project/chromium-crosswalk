@@ -985,7 +985,7 @@
 <translation id="4449545651113180484">Rotér skjermen 270 grader med klokken</translation>
 <translation id="4467952432486360968">Blokkér tredjeparts informasjonskapsler</translation>
 <translation id="4474167089968829729">Slå på lagring av passord i passordbehandleren</translation>
-<translation id="447686899376429408">Hvis denne er angitt som sann eller ikke er angitt, kommer brukerne til å kunne caste faner, nettsteder eller skrivebordet fra nettleseren. Hvis den er angitt som usann, slås dette alternativet av.</translation>
+<translation id="447686899376429408">Hvis denne regelen er angitt som sann eller ikke er angitt, kommer brukerne til å kunne caste faner, nettsteder eller skrivebordet fra nettleseren. Hvis den er angitt som usann, slås dette alternativet av.</translation>
 <translation id="4480694116501920047">Tving Sikkert Søk</translation>
 <translation id="4482640907922304445">Viser Startside-knappen i verktøylinjen til <ph name="PRODUCT_NAME" />.
 
@@ -2130,17 +2130,17 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
       PAC-skriptet se data som vanligvis er beskyttet av en kryptert kanal (for
       eksempel banen og søket).
 
-      Når den er satt til False (usann),slås sikkerhetsfunksjonen av, og PAC-skript får
+      Når den er satt til False (usann), slås sikkerhetsfunksjonen av, og PAC-skript får
       implisitt muligheten til å se alle komponentene til en https://-nettadresse. Dette
       gjelder for alle PAC-skript, uansett opprinnelse (inkludert de som innhentes over
       usikre transportkanaler, eller som oppdages usikkert via WPAD).
 
-      Denne er som standard True (sann) (sikkerhetsfunksjon er slått på), unntatt for
-      brukere av Chrome OS for bedrifter, som for øyeblikket har denne angitt som
-      False (usann) som standard.
+      Denne er som standard True (sann) (sikkerhetsfunksjonen er på), unntatt for
+      brukere av Chrome OS for bedrifter, som for øyeblikket har standardverdien
+      False (usann).
 
       Det anbefales at denne angis som True (sann). Den eneste grunnen til å angi
-      den som False (usann), er hvis den fører til kompatibilitetsproblemer med
+      den som False (usann) er hvis den fører til kompatibilitetsproblemer med
       eksisterende PAC-skript.
 
 
