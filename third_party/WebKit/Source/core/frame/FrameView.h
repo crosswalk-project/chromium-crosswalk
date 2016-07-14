@@ -375,7 +375,6 @@ public:
     IntPoint maximumScrollPosition() const override;
 
     // ScrollableArea interface
-    void scrollControlWasSetNeedsPaintInvalidation() override { }
     void getTickmarks(Vector<IntRect>&) const override;
     IntRect scrollableAreaBoundingBox() const override;
     bool scrollAnimatorEnabled() const override;

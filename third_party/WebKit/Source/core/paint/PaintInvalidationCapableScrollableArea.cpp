@@ -131,4 +131,9 @@ LayoutRect PaintInvalidationCapableScrollableArea::visualRectForScrollbarParts()
     return fullBounds;
 }
 
+void PaintInvalidationCapableScrollableArea::scrollControlWasSetNeedsPaintInvalidation()
+{
+    boxForScrollControlPaintInvalidation().setMayNeedPaintInvalidation();
+}
+
 } // namespace blink
