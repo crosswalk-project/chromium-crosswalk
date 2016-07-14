@@ -201,6 +201,12 @@ bool CrossProcessFrameConnector::LockMouse() {
   return false;
 }
 
+void CrossProcessFrameConnector::UnlockMouse() {
+  RenderWidgetHostViewBase* root_view = GetRootRenderWidgetHostView();
+  if (root_view)
+    root_view->UnlockMouse();
+}
+
 void CrossProcessFrameConnector::OnForwardInputEvent(
     const blink::WebInputEvent* event) {
   if (!view_)

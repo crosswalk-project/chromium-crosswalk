@@ -1688,8 +1688,7 @@ void WebContentsImpl::RenderWidgetDeleted(
       view_->RestoreFocus();
   }
 
-  if (mouse_lock_widget_ == render_widget_host)
-    mouse_lock_widget_ = nullptr;
+  CHECK(mouse_lock_widget_ != render_widget_host);
 }
 
 void WebContentsImpl::RenderWidgetGotFocus(
@@ -1878,9 +1877,16 @@ blink::WebDisplayMode WebContentsImpl::GetDisplayMode(
 void WebContentsImpl::RequestToLockMouse(
     RenderWidgetHostImpl* render_widget_host,
     bool user_gesture,
-    bool last_unlocked_by_target) {
+    bool last_unlocked_by_target,
+    bool privileged) {
   if (mouse_lock_widget_) {
     render_widget_host->GotResponseToLockMouseRequest(false);
+    return;
+  }
+
+  if (privileged) {
+    mouse_lock_widget_ = render_widget_host;
+    render_widget_host->GotResponseToLockMouseRequest(true);
     return;
   }
 
@@ -1908,6 +1914,14 @@ void WebContentsImpl::LostMouseLock(RenderWidgetHostImpl* render_widget_host) {
 
   if (delegate_)
     delegate_->LostMouseLock();
+}
+
+bool WebContentsImpl::HasMouseLock(RenderWidgetHostImpl* render_widget_host) {
+  // To verify if the mouse is locked, the mouse_lock_widget_ needs to be
+  // assigned to the widget that requested the mouse lock, and the top-level
+  // platform RenderWidgetHostView needs to hold the mouse lock from the OS.
+  return mouse_lock_widget_ == render_widget_host &&
+         GetTopLevelRenderWidgetHostView()->IsMouseLocked();
 }
 
 void WebContentsImpl::ForwardCompositorProto(
@@ -2967,8 +2981,11 @@ bool WebContentsImpl::GotResponseToLockMouseRequest(bool allowed) {
   if (GetBrowserPluginGuest())
     return GetBrowserPluginGuest()->LockMouse(allowed);
 
-  if (mouse_lock_widget_)
-    return mouse_lock_widget_->GotResponseToLockMouseRequest(allowed);
+  if (mouse_lock_widget_ &&
+      mouse_lock_widget_->GotResponseToLockMouseRequest(allowed))
+    return true;
+
+  mouse_lock_widget_ = nullptr;
   return false;
 }
 
