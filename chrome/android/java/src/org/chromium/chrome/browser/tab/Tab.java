@@ -84,6 +84,7 @@ import org.chromium.chrome.browser.tabmodel.TabModel.TabSelectionType;
 import org.chromium.chrome.browser.tabmodel.TabModelImpl;
 import org.chromium.chrome.browser.tabmodel.TabModelSelector;
 import org.chromium.chrome.browser.tabmodel.TabReparentingParams;
+import org.chromium.chrome.browser.util.ColorUtils;
 import org.chromium.components.dom_distiller.core.DomDistillerUrlUtils;
 import org.chromium.components.navigation_interception.InterceptNavigationDelegate;
 import org.chromium.components.security_state.ConnectionSecurityLevel;
@@ -1071,7 +1072,10 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
         if (isNativePage()) return mNativePage.getThemeColor();
 
         int themeColor = getDefaultThemeColor();
-        if (getWebContents() != null) themeColor = getWebContents().getThemeColor();
+        if (getWebContents() != null) {
+            themeColor = getWebContents().getThemeColor();
+            if (themeColor != 0 && !ColorUtils.isValidThemeColor(themeColor)) themeColor = 0;
+        }
 
         // Do not apply the theme color if there are any security issues on the page.
         int securityLevel = getSecurityLevel();
