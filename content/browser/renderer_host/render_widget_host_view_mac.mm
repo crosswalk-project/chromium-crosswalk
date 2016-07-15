@@ -480,6 +480,11 @@ void RenderWidgetHostViewMac::SetBeginFrameSource(
     begin_frame_source_->AddObserver(this);
 }
 
+bool RenderWidgetHostViewMac::IsAutoResizeEnabled() const {
+  NOTREACHED();
+  return false;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // cc::BeginFrameSourceBase, public:
 

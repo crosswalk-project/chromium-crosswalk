@@ -510,6 +510,7 @@ class CONTENT_EXPORT RenderWidgetHostViewMac
       const base::TimeTicks& timebase,
       const base::TimeDelta& interval) override;
   void SetBeginFrameSource(cc::BeginFrameSource* source) override;
+  bool IsAutoResizeEnabled() const override;
 
   // cc::BeginFrameObserver implementation.
   void OnBeginFrame(const cc::BeginFrameArgs& args) override;
