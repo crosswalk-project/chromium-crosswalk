@@ -4,6 +4,7 @@
 
 #include "ash/common/system/chromeos/network/tray_sms.h"
 
+#include "ash/common/metrics/user_metrics_action.h"
 #include "ash/common/system/tray/fixed_sized_scroll_view.h"
 #include "ash/common/system/tray/system_tray_bubble.h"
 #include "ash/common/system/tray/tray_constants.h"
@@ -12,6 +13,7 @@
 #include "ash/common/system/tray/tray_item_view.h"
 #include "ash/common/system/tray/tray_notification_view.h"
 #include "ash/common/system/tray/view_click_listener.h"
+#include "ash/common/wm_shell.h"
 #include "ash/system/tray/system_tray.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/strings/utf_string_conversions.h"
@@ -114,7 +116,10 @@ class TraySms::SmsMessageView : public views::View,
 
   // Overridden from ButtonListener.
   void ButtonPressed(views::Button* sender, const ui::Event& event) override {
-    owner_->RemoveMessage(index_);
+    if (owner_->RemoveMessage(index_)) {
+      WmShell::Get()->RecordUserMetricsAction(
+          UMA_STATUS_AREA_SMS_DETAILED_DISMISS_MSG);
+    }
     owner_->Update(false);
   }
 
@@ -212,7 +217,7 @@ class TraySms::SmsDetailedView : public TrayDetailsView,
         static_cast<TraySms*>(owner())->messages();
     scroll_content()->RemoveAllChildViews(true);
     for (size_t index = 0; index < messages.GetSize(); ++index) {
-      const base::DictionaryValue* message = NULL;
+      const base::DictionaryValue* message = nullptr;
       if (!messages.GetDictionary(index, &message)) {
         LOG(ERROR) << "SMS message not a dictionary at: " << index;
         continue;
@@ -262,7 +267,12 @@ class TraySms::SmsNotificationView : public TrayNotificationView {
   }
 
   // Overridden from TrayNotificationView:
-  void OnClose() override { tray_sms()->RemoveMessage(message_index_); }
+  void OnClose() override {
+    if (tray_sms()->RemoveMessage(message_index_)) {
+      WmShell::Get()->RecordUserMetricsAction(
+          UMA_STATUS_AREA_SMS_NOTIFICATION_DISMISS_MSG);
+    }
+  }
 
   void OnClickAction() override { owner()->PopupDetailedView(0, true); }
 
@@ -276,9 +286,9 @@ class TraySms::SmsNotificationView : public TrayNotificationView {
 
 TraySms::TraySms(SystemTray* system_tray)
     : SystemTrayItem(system_tray),
-      default_(NULL),
-      detailed_(NULL),
-      notification_(NULL) {
+      default_(nullptr),
+      detailed_(nullptr),
+      notification_(nullptr) {
   // TODO(armansito): SMS could be a special case for cellular that requires a
   // user (perhaps the owner) to be logged in. If that is the case, then an
   // additional check should be done before subscribing for SMS notifications.
@@ -294,25 +304,26 @@ TraySms::~TraySms() {
 }
 
 views::View* TraySms::CreateDefaultView(LoginStatus status) {
-  CHECK(default_ == NULL);
+  CHECK(default_ == nullptr);
   default_ = new SmsDefaultView(this);
   default_->SetVisible(!messages_.empty());
   return default_;
 }
 
 views::View* TraySms::CreateDetailedView(LoginStatus status) {
-  CHECK(detailed_ == NULL);
+  CHECK(detailed_ == nullptr);
   HideNotificationView();
   if (messages_.empty())
-    return NULL;
+    return nullptr;
   detailed_ = new SmsDetailedView(this);
+  WmShell::Get()->RecordUserMetricsAction(UMA_STATUS_AREA_DETAILED_SMS_VIEW);
   return detailed_;
 }
 
 views::View* TraySms::CreateNotificationView(LoginStatus status) {
-  CHECK(notification_ == NULL);
+  CHECK(notification_ == nullptr);
   if (detailed_)
-    return NULL;
+    return nullptr;
   size_t index;
   std::string number, text;
   if (GetLatestMessage(&index, &number, &text))
@@ -321,15 +332,15 @@ views::View* TraySms::CreateNotificationView(LoginStatus status) {
 }
 
 void TraySms::DestroyDefaultView() {
-  default_ = NULL;
+  default_ = nullptr;
 }
 
 void TraySms::DestroyDetailedView() {
-  detailed_ = NULL;
+  detailed_ = nullptr;
 }
 
 void TraySms::DestroyNotificationView() {
-  notification_ = NULL;
+  notification_ = nullptr;
 }
 
 void TraySms::MessageReceived(const base::DictionaryValue& message) {
@@ -379,9 +390,11 @@ bool TraySms::GetLatestMessage(size_t* index,
   return true;
 }
 
-void TraySms::RemoveMessage(size_t index) {
-  if (index < messages_.GetSize())
-    messages_.Remove(index, NULL);
+bool TraySms::RemoveMessage(size_t index) {
+  if (index >= messages_.GetSize())
+    return false;
+  messages_.Remove(index, nullptr);
+  return true;
 }
 
 void TraySms::Update(bool notify) {
