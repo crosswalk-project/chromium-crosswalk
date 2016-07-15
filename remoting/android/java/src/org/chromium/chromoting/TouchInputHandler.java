@@ -21,6 +21,7 @@ import android.view.ViewConfiguration;
  */
 public class TouchInputHandler {
     private final DesktopViewInterface mViewer;
+
     private final Context mContext;
     private final RenderData mRenderData;
     private final DesktopCanvas mDesktopCanvas;
@@ -361,8 +362,12 @@ public class TouchInputHandler {
         synchronized (mRenderData) {
             screenCenterX = (float) mRenderData.screenWidth / 2;
             screenCenterY = (float) mRenderData.screenHeight / 2;
+
+            float[] imagePoint = mapScreenPointToImagePoint(screenCenterX, screenCenterY);
+            mDesktopCanvas.setViewportPosition(imagePoint[0], imagePoint[1]);
         }
         moveCursorToScreenPoint(screenCenterX, screenCenterY);
+        mDesktopCanvas.repositionImage(true);
     }
 
     private void setInputStrategy(InputStrategyInterface inputStrategy) {
@@ -399,13 +404,8 @@ public class TouchInputHandler {
 
     /** Moves the cursor to the specified position on the screen. */
     private void moveCursorToScreenPoint(float screenX, float screenY) {
-        float[] mappedValues = {screenX, screenY};
-        synchronized (mRenderData) {
-            Matrix canvasToImage = new Matrix();
-            mRenderData.transform.invert(canvasToImage);
-            canvasToImage.mapPoints(mappedValues);
-        }
-        moveCursor((int) mappedValues[0], (int) mappedValues[1]);
+        float[] imagePoint = mapScreenPointToImagePoint(screenX, screenY);
+        moveCursor((int) imagePoint[0], (int) imagePoint[1]);
     }
 
     /** Moves the cursor to the specified position on the remote host. */
@@ -435,6 +435,18 @@ public class TouchInputHandler {
         mSuppressFling = true;
         mSwipeCompleted = true;
         return true;
+    }
+
+    /** Translates a point in screen coordinates to a location on the desktop image. */
+    private float[] mapScreenPointToImagePoint(float screenX, float screenY) {
+        float[] mappedPoints = {screenX, screenY};
+        Matrix screenToImage = new Matrix();
+        synchronized (mRenderData) {
+            mRenderData.transform.invert(screenToImage);
+        }
+        screenToImage.mapPoints(mappedPoints);
+
+        return mappedPoints;
     }
 
     /** Responds to touch events filtered by the gesture detectors. */
