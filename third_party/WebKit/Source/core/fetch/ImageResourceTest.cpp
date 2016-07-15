@@ -264,7 +264,9 @@ TEST(ImageResourceTest, ReloadIfLoFi)
 {
     KURL testURL(ParsedURLString, "http://www.test.com/cancelTest.html");
     URLTestHelpers::registerMockedURLLoad(testURL, "cancelTest.html", "text/html");
-    ImageResource* cachedImage = ImageResource::create(ResourceRequest(testURL));
+    ResourceRequest request = ResourceRequest(testURL);
+    request.setLoFiState(WebURLRequest::LoFiOn);
+    ImageResource* cachedImage = ImageResource::create(request);
     cachedImage->setStatus(Resource::Pending);
 
     MockImageResourceClient client(cachedImage);
@@ -284,11 +286,13 @@ TEST(ImageResourceTest, ReloadIfLoFi)
     ASSERT_EQ(client.imageChangedCount(), 2);
     ASSERT_TRUE(client.notifyFinishedCalled());
     ASSERT_TRUE(cachedImage->getImage()->isBitmapImage());
+    EXPECT_EQ(1, cachedImage->getImage()->width());
+    EXPECT_EQ(1, cachedImage->getImage()->height());
 
     cachedImage->reloadIfLoFi(fetcher);
     ASSERT_FALSE(cachedImage->errorOccurred());
     ASSERT_FALSE(cachedImage->resourceBuffer());
-    ASSERT_TRUE(cachedImage->hasImage());
+    ASSERT_FALSE(cachedImage->hasImage());
     ASSERT_EQ(client.imageChangedCount(), 3);
 
     cachedImage->loader()->didReceiveResponse(nullptr, WrappedResourceResponse(resourceResponse), nullptr);
