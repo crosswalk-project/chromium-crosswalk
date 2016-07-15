@@ -74,7 +74,7 @@ class UpdateView : public ash::ActionableView {
   bool PerformAction(const ui::Event& event) override {
     ash::WmShell::Get()->system_tray_delegate()->RequestRestartForUpdate();
     ash::WmShell::Get()->RecordUserMetricsAction(
-        UMA_STATUS_AREA_OS_UPDATE_DEFAULT_SELECTED);
+        ash::UMA_STATUS_AREA_OS_UPDATE_DEFAULT_SELECTED);
     return true;
   }
 
