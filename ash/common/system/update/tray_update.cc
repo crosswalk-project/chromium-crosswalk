@@ -4,6 +4,7 @@
 
 #include "ash/common/system/update/tray_update.h"
 
+#include "ash/common/metrics/user_metrics_action.h"
 #include "ash/common/system/tray/fixed_sized_image_view.h"
 #include "ash/common/system/tray/system_tray_delegate.h"
 #include "ash/common/system/tray/system_tray_notifier.h"
@@ -72,6 +73,8 @@ class UpdateView : public ash::ActionableView {
   // Overridden from ActionableView.
   bool PerformAction(const ui::Event& event) override {
     ash::WmShell::Get()->system_tray_delegate()->RequestRestartForUpdate();
+    ash::WmShell::Get()->RecordUserMetricsAction(
+        UMA_STATUS_AREA_OS_UPDATE_DEFAULT_SELECTED);
     return true;
   }
 
