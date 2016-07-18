@@ -17,6 +17,7 @@
 #include "build/build_config.h"
 #include "content/public/browser/browser_child_process_host_delegate.h"
 #include "content/public/browser/utility_process_host.h"
+#include "services/shell/public/cpp/interface_provider.h"
 
 namespace base {
 class SequencedTaskRunner;
@@ -122,6 +123,10 @@ class CONTENT_EXPORT UtilityProcessHostImpl
   // process and contains the browser's shell::InterfaceRegistry.
   const std::string child_token_;
   std::unique_ptr<MojoChildConnection> mojo_child_connection_;
+
+  // An InterfaceProvider instance used to service requests after the browser's
+  // shell connection has been torn down.
+  shell::InterfaceProvider unbound_remote_interfaces_;
 
   // Used to vend weak pointers, and should always be declared last.
   base::WeakPtrFactory<UtilityProcessHostImpl> weak_ptr_factory_;
