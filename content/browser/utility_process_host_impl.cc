@@ -243,13 +243,7 @@ shell::InterfaceRegistry* UtilityProcessHostImpl::GetInterfaceRegistry() {
 }
 
 shell::InterfaceProvider* UtilityProcessHostImpl::GetRemoteInterfaces() {
-  if (!mojo_child_connection_->connection()) {
-    // During shutdown, connection may be null. We don't care about successfully
-    // connecting to remote interfaces at this point, so we just use a dummy
-    // provider.
-    return &unbound_remote_interfaces_;
-  }
-  mojo_child_connection_->connection()->GetRemoteInterfaces();
+  return mojo_child_connection_->connection()->GetRemoteInterfaces();
 }
 
 void UtilityProcessHostImpl::SetName(const base::string16& name) {
