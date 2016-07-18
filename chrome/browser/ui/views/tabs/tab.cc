@@ -144,7 +144,8 @@ void DrawHighlight(gfx::Canvas* canvas,
 bool ShouldThemifyFaviconForUrl(const GURL& url) {
   return url.SchemeIs(content::kChromeUIScheme) &&
          url.host() != chrome::kChromeUIHelpHost &&
-         url.host() != chrome::kChromeUIUberHost;
+         url.host() != chrome::kChromeUIUberHost &&
+         url.host() != chrome::kChromeUIAppLauncherPageHost;
 }
 
 }  // namespace
