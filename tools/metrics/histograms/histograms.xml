@@ -66664,6 +66664,7 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="125" label="DBMF_INVALID_ORIGIN_ON_MODIFIED"/>
   <int value="126" label="DBMF_INVALID_ORIGIN_ON_CLOSED"/>
   <int value="127" label="WSH_INVALID_HEADER_VALUE"/>
+  <int value="130" label="MSDH_INVALID_FRAME_ID"/>
 </enum>
 
 <enum name="BadMessageReasonExtensions" type="int">
