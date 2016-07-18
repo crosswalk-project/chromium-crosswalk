@@ -47,7 +47,6 @@
 #include "content/browser/renderer_host/render_process_host_impl.h"
 #include "content/browser/renderer_host/render_view_host_impl.h"
 #include "content/browser/renderer_host/render_widget_helper.h"
-#include "content/browser/renderer_host/render_widget_host_delegate.h"
 #include "content/browser/renderer_host/render_widget_host_input_event_router.h"
 #include "content/browser/renderer_host/render_widget_host_owner_delegate.h"
 #include "content/browser/renderer_host/render_widget_host_view_base.h"
@@ -212,6 +211,8 @@ RenderWidgetHostImpl::RenderWidgetHostImpl(RenderWidgetHostDelegate* delegate,
       is_focused_(false),
       hung_renderer_delay_(
           base::TimeDelta::FromMilliseconds(kHungRendererDelayMs)),
+      hang_monitor_reason_(
+          RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_UNKNOWN),
       new_content_rendering_delay_(
           base::TimeDelta::FromMilliseconds(kNewContentRenderingDelayMs)),
       weak_factory_(this) {
@@ -538,8 +539,11 @@ void RenderWidgetHostImpl::WasShown(const ui::LatencyInfo& latency_info) {
 
   // When hidden, timeout monitoring for input events is disabled. Restore it
   // now to ensure consistent hang detection.
-  if (in_flight_event_count_)
+  if (in_flight_event_count_) {
     RestartHangMonitorTimeout();
+    hang_monitor_reason_ =
+        RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_IN_FLIGHT_EVENTS;
+  }
 
   // Always repaint on restore.
   bool needs_repainting = true;
@@ -877,9 +881,13 @@ bool RenderWidgetHostImpl::ScheduleComposite() {
   return true;
 }
 
-void RenderWidgetHostImpl::StartHangMonitorTimeout(base::TimeDelta delay) {
-  if (hang_monitor_timeout_)
-    hang_monitor_timeout_->Start(delay);
+void RenderWidgetHostImpl::StartHangMonitorTimeout(
+    base::TimeDelta delay,
+    RenderWidgetHostDelegate::RendererUnresponsiveType hang_monitor_reason) {
+  if (!hang_monitor_timeout_)
+    return;
+  hang_monitor_timeout_->Start(delay);
+  hang_monitor_reason_ = hang_monitor_reason;
 }
 
 void RenderWidgetHostImpl::RestartHangMonitorTimeout() {
@@ -893,8 +901,11 @@ void RenderWidgetHostImpl::DisableHangMonitorForTesting() {
 }
 
 void RenderWidgetHostImpl::StopHangMonitorTimeout() {
-  if (hang_monitor_timeout_)
+  if (hang_monitor_timeout_) {
     hang_monitor_timeout_->Stop();
+    hang_monitor_reason_ =
+        RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_UNKNOWN;
+  }
   RendererIsResponsive();
 }
 
@@ -1444,8 +1455,16 @@ void RenderWidgetHostImpl::RendererIsUnresponsive() {
       Source<RenderWidgetHost>(this),
       NotificationService::NoDetails());
   is_unresponsive_ = true;
+  RenderWidgetHostDelegate::RendererUnresponsiveType reason =
+      hang_monitor_reason_;
+  hang_monitor_reason_ =
+      RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_UNKNOWN;
+
   if (delegate_)
-    delegate_->RendererUnresponsive(this);
+    delegate_->RendererUnresponsive(this, reason);
+
+  // Do not add code after this since the Delegate may delete this
+  // RenderWidgetHostImpl in RendererUnresponsive.
 }
 
 void RenderWidgetHostImpl::RendererIsResponsive() {
@@ -1834,8 +1853,11 @@ InputEventAckState RenderWidgetHostImpl::FilterInputEvent(
 
 void RenderWidgetHostImpl::IncrementInFlightEventCount() {
   increment_in_flight_event_count();
-  if (!is_hidden_)
-    StartHangMonitorTimeout(hung_renderer_delay_);
+  if (!is_hidden_) {
+    StartHangMonitorTimeout(
+        hung_renderer_delay_,
+        RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_IN_FLIGHT_EVENTS);
+  }
 }
 
 void RenderWidgetHostImpl::DecrementInFlightEventCount() {
@@ -1844,8 +1866,11 @@ void RenderWidgetHostImpl::DecrementInFlightEventCount() {
     StopHangMonitorTimeout();
   } else {
     // The renderer is responsive, but there are in-flight events to wait for.
-    if (!is_hidden_)
+    if (!is_hidden_) {
       RestartHangMonitorTimeout();
+      hang_monitor_reason_ =
+          RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_IN_FLIGHT_EVENTS;
+    }
   }
 }
 

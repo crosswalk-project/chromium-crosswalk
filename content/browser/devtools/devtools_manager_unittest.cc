@@ -144,7 +144,8 @@ TEST_F(DevToolsManagerTest, NoUnresponsiveDialogInInspectedContents) {
 
   // Start with a short timeout.
   inspected_rvh->GetWidget()->StartHangMonitorTimeout(
-      TimeDelta::FromMilliseconds(10));
+      TimeDelta::FromMilliseconds(10),
+      RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_UNKNOWN);
   // Wait long enough for first timeout and see if it fired.
   base::ThreadTaskRunnerHandle::Get()->PostDelayedTask(
       FROM_HERE, base::MessageLoop::QuitWhenIdleClosure(),
@@ -156,7 +157,8 @@ TEST_F(DevToolsManagerTest, NoUnresponsiveDialogInInspectedContents) {
   client_host.Close();
   // Start with a short timeout.
   inspected_rvh->GetWidget()->StartHangMonitorTimeout(
-      TimeDelta::FromMilliseconds(10));
+      TimeDelta::FromMilliseconds(10),
+      RenderWidgetHostDelegate::RENDERER_UNRESPONSIVE_UNKNOWN);
   // Wait long enough for first timeout and see if it fired.
   base::ThreadTaskRunnerHandle::Get()->PostDelayedTask(
       FROM_HERE, base::MessageLoop::QuitWhenIdleClosure(),
