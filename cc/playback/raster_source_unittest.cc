@@ -573,7 +573,7 @@ TEST(RasterSourceTest, ImageHijackCanvasRespectsSharedCanvasTransform) {
   scoped_refptr<RasterSource> raster_source =
       recording_source->CreateRasterSource(can_use_lcd);
   SoftwareImageDecodeController controller;
-  raster_source->SetImageDecodeController(&controller);
+  raster_source->set_image_decode_controller(&controller);
 
   SkBitmap bitmap;
   bitmap.allocN32Pixels(size.width() * 0.5f, size.height() * 0.25f);
