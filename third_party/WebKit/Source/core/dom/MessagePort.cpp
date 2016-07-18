@@ -60,7 +60,7 @@ MessagePort::MessagePort(ExecutionContext& executionContext)
 
 MessagePort::~MessagePort()
 {
-    close();
+    DCHECK(!m_started || !isEntangled());
     if (m_scriptStateForConversion)
         m_scriptStateForConversion->disposePerContextData();
 }
@@ -115,7 +115,7 @@ MessagePortArray* MessagePort::toMessagePortArray(ExecutionContext* context, con
 PassOwnPtr<WebMessagePortChannel> MessagePort::disentangle()
 {
     DCHECK(m_entangledChannel);
-    m_entangledChannel->setClient(0);
+    m_entangledChannel->setClient(nullptr);
     return std::move(m_entangledChannel);
 }
 
@@ -137,6 +137,7 @@ void MessagePort::start()
     if (m_started)
         return;
 
+    m_entangledChannel->setClient(this);
     m_started = true;
     messageAvailable();
 }
@@ -144,7 +145,7 @@ void MessagePort::start()
 void MessagePort::close()
 {
     if (isEntangled())
-        m_entangledChannel->setClient(0);
+        m_entangledChannel->setClient(nullptr);
     m_closed = true;
 }
 
@@ -155,7 +156,6 @@ void MessagePort::entangle(PassOwnPtr<WebMessagePortChannel> remote)
     DCHECK(getExecutionContext());
 
     m_entangledChannel = std::move(remote);
-    m_entangledChannel->setClient(this);
 }
 
 const AtomicString& MessagePort::interfaceName() const
