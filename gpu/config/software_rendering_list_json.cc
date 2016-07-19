@@ -1317,6 +1317,24 @@ LONG_STRING_CONST(
       ]
     },
     {
+      "id": 118,
+      "description": "webgl/canvas crashy on imporperly parsed vivante driver",
+      "cr_bugs": [628059],
+      "os": {
+        "type": "android",
+        "version": {
+          "op": "<=",
+          "value": "4.4.4"
+        }
+      },
+      "gl_vendor": "Vivante.*",
+      "gl_renderer": ".*PXA.*",
+      "features": [
+        "webgl",
+        "accelerated_2d_canvas"
+      ]
+    },
+    {
       "id": 119,
       "description": "There are display issues with GPU Raster on OSX 10.9",
       "cr_bugs": [611310],
