@@ -1,3 +1,4 @@
+// Copyright (c) 2015, NVIDIA CORPORATION. All rights reserved.
 // Copyright 2013 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -20,14 +21,20 @@ import org.chromium.base.VisibleForTesting;
 import org.chromium.base.annotations.CalledByNative;
 import org.chromium.base.annotations.JNINamespace;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
 import java.net.URI;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Java counterpart of android MediaResourceGetter.
@@ -136,11 +143,140 @@ class MediaResourceGetter {
     @VisibleForTesting
     MediaMetadata extract(final Context context, final String url,
                           final String cookies, final String userAgent) {
+        if (isValidHlsUrl(url)) {
+            return doExtractHlsMetadata(url);
+        }
         if (!configure(context, url, cookies, userAgent)) {
             Log.e(TAG, "Unable to configure metadata extractor");
             return EMPTY_METADATA;
         }
         return doExtractMetadata();
+    }
+
+    @VisibleForTesting
+    boolean isValidHlsUrl(String url) {
+        URI uri;
+        try {
+            uri = URI.create(url);
+        } catch (IllegalArgumentException  e) {
+            return false;
+        }
+        String scheme = uri.getScheme();
+        return scheme != null
+                && (scheme.equalsIgnoreCase("http") || scheme.equalsIgnoreCase("https"))
+                && uri.getPath() != null && uri.getPath().endsWith(".m3u8");
+    }
+
+    @VisibleForTesting
+    List<String> getHlsMetadataRequest(String url) {
+        if (isValidHlsUrl(url)) {
+            BufferedReader reader = null;
+            List<String> lines = new ArrayList<>();
+            try {
+                HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
+                connection.setRequestMethod("GET");
+                connection.connect();
+                reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                String line = null;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    if (!line.startsWith("##") && !line.equals("#EXTM3U")) {
+                        lines.add(line);
+                    }
+                }
+                return lines;
+            } catch (IOException e) {
+                Log.e(TAG, "Cannot get hls metadata from: %s", url);
+            } finally {
+                if (reader != null) {
+                    try {
+                        reader.close();
+                    } catch (IOException e) {
+                    }
+                }
+            }
+        }
+        return null;
+    }
+
+    private MediaMetadata extractHlsPlaylist(List<String> lines, int lineOffset, int w, int h) {
+        // Calculate duration inside the playlist metadata
+        final String StreamInfoVodEnd = "#EXT-X-ENDLIST";
+        final String DurationRegex = "^#EXTINF:([0-9\\.]*?),.*?$";
+        final Pattern durationPattern = Pattern.compile(DurationRegex);
+        float duration = 0f;
+        for (int i = lineOffset; i < lines.size(); ++i) {
+            String line = lines.get(i);
+            if (line.equals(StreamInfoVodEnd)) {
+                return new MediaMetadata((int) (duration * 1000), w, h, true);
+            } else {
+                Matcher matcher = durationPattern.matcher(line);
+                if (matcher.find() && matcher.groupCount() == 1) {
+                    try {
+                        duration += Float.parseFloat(matcher.group(1));
+                    } catch (NumberFormatException e) {
+                        Log.e(TAG, "Unable to parse duration from hls stream");
+                        return EMPTY_METADATA;
+                    }
+                }
+            }
+        }
+        // Return 0 for live streams not containing "#EXT-X-ENDLIST"
+        return new MediaMetadata(0, w, h, true);
+    }
+
+    private MediaMetadata doExtractHlsMetadata(String url) {
+        final String StreamInfo = "#EXT-X-STREAM-INF:";
+        final String StreamInfoTargetDuration = "#EXT-X-TARGETDURATION:";
+        final String ResolutionRegex = "^.*?RESOLUTION=(\\d*?)x(\\d+).*?$";
+        int width = 0, height = 0;
+
+        List<String> lines = getHlsMetadataRequest(url);
+        if (lines != null && lines.size() >= 2) {
+            try {
+                final Pattern resolutionPattern = Pattern.compile(ResolutionRegex);
+
+                for (int i = 0; i < lines.size() - 1; ++i) {
+                    if (lines.get(i).startsWith(StreamInfoTargetDuration)) {
+                        // Parse simple playlist for duration, no resolution was specified
+                        return extractHlsPlaylist(lines, i + 1, 0, 0);
+                    } else if (lines.get(i).startsWith(StreamInfo)) {
+                        // Parse Variant Master Playlist
+                        // First find the resolution of stream info: 'resolution=WxH'
+                        Matcher matcher = resolutionPattern.matcher(lines.get(i));
+                        if (matcher.find() && matcher.groupCount() == 2) {
+                            try {
+                                width = Integer.parseInt(matcher.group(1), 10);
+                                height = Integer.parseInt(matcher.group(2), 10);
+                            } catch (NumberFormatException e) {
+                                Log.w(TAG, "Unable to parse resolution from text in hls stream");
+                                width = height = 0;
+                            }
+                        } else {
+                            Log.w(TAG, "Unable to parse resolution from hls stream");
+                        }
+
+                        // Parse the first playlist url to get the duration of the stream
+                        // Append url to base url if it does not start with http or https
+                        String playlistUrl = lines.get(++i);
+                        lines = getHlsMetadataRequest(playlistUrl);
+                        if (lines == null) {
+                            // Relative url, prepend the original url
+                            String rel = url.substring(0,  url.lastIndexOf("/") + 1) + playlistUrl;
+                            lines = getHlsMetadataRequest(rel);
+                            if (lines == null) {
+                                Log.e(TAG, "Cannot parse url from hls playlist: %s", playlistUrl);
+                                return EMPTY_METADATA;
+                            }
+                        }
+                        return extractHlsPlaylist(lines, 0, width, height);
+                    }
+                }
+            } catch (RuntimeException e) {
+                Log.e(TAG, "Unable to extract hls metadata", e);
+            }
+        }
+        return EMPTY_METADATA;
     }
 
     private MediaMetadata doExtractMetadata() {
@@ -237,10 +373,6 @@ class MediaResourceGetter {
                 Log.e(TAG, "Error configuring data source: %s", e);
                 return false;
             }
-        }
-        if (uri.getPath() != null && uri.getPath().endsWith(".m3u8")) {
-            // MediaMetadataRetriever does not work with HLS correctly.
-            return false;
         }
         final String host = uri.getHost();
         if (!isLoopbackAddress(host) && !isNetworkReliable(context)) {

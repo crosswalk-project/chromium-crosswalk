@@ -1,3 +1,4 @@
+// Copyright (c) 2015, NVIDIA CORPORATION. All rights reserved.
 // Copyright 2014 The Chromium Authors. All rights reserved.
 // Use of this source code is governed by a BSD-style license that can be
 // found in the LICENSE file.
@@ -18,8 +19,10 @@ import android.util.SparseArray;
 import org.chromium.content.browser.MediaResourceGetter.MediaMetadata;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -28,6 +31,7 @@ import java.util.Map;
 @SuppressLint("SdCardPath")
 public class MediaResourceGetterTest extends InstrumentationTestCase {
     private static final String TEST_HTTP_URL = "http://example.com";
+    private static final String TEST_HTTP_HLS_URL = TEST_HTTP_URL + "/file.m3u8";
     private static final String TEST_USER_AGENT = // Anything, really
             "Mozilla/5.0 (Windows NT 6.2; Win64; x64) AppleWebKit/537.36 "
             + "(KHTML, like Gecko) Chrome/32.0.1667.0 Safari/537.36";
@@ -111,6 +115,7 @@ public class MediaResourceGetterTest extends InstrumentationTestCase {
         boolean mThrowExceptionInConfigure = false;
         boolean mThrowExceptionInExtract = false;
         boolean mFileExists = false;
+        Map<String, String> mHlsMockNetworkRequest = null;
 
         // Can't use a real MediaMetadataRetriever as we have no media
         @Override
@@ -184,6 +189,18 @@ public class MediaResourceGetterTest extends InstrumentationTestCase {
         File uriToFile(String path) {
             FakeFile result = new FakeFile(path, mFileExists);
             return result;
+        }
+
+        // Can't use a real openConnection() to get the hls metadata
+        @Override
+        List<String> getHlsMetadataRequest(String url) {
+            if (mHlsMockNetworkRequest != null) {
+                String data = mHlsMockNetworkRequest.get(url);
+                if (data != null) {
+                    return Arrays.asList(data.split("\n"));
+                }
+            }
+            return null;
         }
 
         /**
@@ -614,5 +631,135 @@ public class MediaResourceGetterTest extends InstrumentationTestCase {
         assertEquals(fd, mFakeMRG.mFd);
         assertEquals(offset, mFakeMRG.mOffset);
         assertEquals(length, mFakeMRG.mLength);
+    }
+
+    @SmallTest
+    public void testHls_ValidUrl() {
+        assertTrue(mFakeMRG.isValidHlsUrl(TEST_HTTP_HLS_URL));
+        assertTrue(mFakeMRG.isValidHlsUrl("https://www.test.com/this/is/hls/file.m3u8"));
+    }
+
+    @SmallTest
+    public void testHls_InvalidUrl() {
+        assertFalse(mFakeMRG.isValidHlsUrl("https://www.test.com/this/is/another/file.m3u"));
+        assertFalse(mFakeMRG.isValidHlsUrl("http://www.test.com/this/is/another/file.m3u"));
+        assertFalse(mFakeMRG.isValidHlsUrl("www.test.com/this/is/another/file.m3u8"));
+        assertFalse(mFakeMRG.isValidHlsUrl("www.test.com/this/is/another/file.m3u"));
+        assertFalse(mFakeMRG.isValidHlsUrl(""));
+    }
+
+    @SmallTest
+    public void testExtract_UsingHls_ValidPlaylist_IsVOD() {
+        mFakeMRG.mHlsMockNetworkRequest = new HashMap<String, String>() { {
+                put(TEST_HTTP_HLS_URL,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-VERSION:3\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:10.000,\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXTINF:10.000,\n"
+                        + "http://www.test.com/segment2.ts,\n"
+                        + "#EXTINF:4.500,\n"
+                        + "http://www.test.com/segment3.ts,\n"
+                        + "#EXT-X-ENDLIST");
+            }};
+        final MediaMetadata expected = new MediaMetadata(24500, 0, 0, true);
+        assertEquals(expected, mFakeMRG.extract(mMockContext, TEST_HTTP_HLS_URL, null, null));
+    }
+
+    @SmallTest
+    public void testExtract_UsingHls_ValidPlaylist_IsLive() {
+        mFakeMRG.mHlsMockNetworkRequest = new HashMap<String, String>() { {
+                put(TEST_HTTP_HLS_URL,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-VERSION:3\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:10.000,\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXTINF:10.000,\n"
+                        + "http://www.test.com/segment2.ts,\n"
+                        + "#EXTINF:4.500,\n"
+                        + "http://www.test.com/segment3.ts,");
+            }};
+        final MediaMetadata expected = new MediaMetadata(0, 0, 0, true);
+        assertEquals(expected, mFakeMRG.extract(mMockContext, TEST_HTTP_HLS_URL, null, null));
+    }
+
+    @SmallTest
+    public void testExtract_UsingHls_ValidMasterPlaylist_ValidResolution() {
+        final String indexUrl1 = TEST_HTTP_URL + "/index1.m3u8";
+        final String indexUrl2 = TEST_HTTP_URL + "/index2.m3u8";
+        final int width = 640;
+        final int height = 360;
+        final float duration = 4.5f;
+        final String resText = width + "x" + height;
+        mFakeMRG.mHlsMockNetworkRequest = new HashMap<String, String>() { {
+                put(TEST_HTTP_HLS_URL,
+                        "#EXTM3U\n"
+                        + "#EXT-X-STREAM-INF:RESOLUTION=" + resText + ",CLOSED-CAPTIONS=NONE\n"
+                        + indexUrl1 + "\n"
+                        + "#EXT-X-STREAM-INF:RESOLUTION=704x396,CLOSED-CAPTIONS=NONE\n"
+                        + indexUrl2 + "\n");
+                put(indexUrl1,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:" + duration + ",\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXT-X-ENDLIST");
+                put(indexUrl2,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:5.500,\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXT-X-ENDLIST");
+            }};
+        MediaMetadata expected = new MediaMetadata((int) (duration * 1000), width, height, true);
+        assertEquals(expected, mFakeMRG.extract(mMockContext, TEST_HTTP_HLS_URL, null, null));
+    }
+
+    @SmallTest
+    public void testExtract_UsingHls_ValidMasterPlaylist_InValidResolution() {
+        final String indexUrl = TEST_HTTP_URL + "/index1.m3u8";
+        final float duration = 4.5f;
+        mFakeMRG.mHlsMockNetworkRequest = new HashMap<String, String>() { {
+                put(TEST_HTTP_HLS_URL,
+                        "#EXTM3U\n"
+                        + "#EXT-X-STREAM-INF:RESOLUTION=onextwo,CLOSED-CAPTIONS=NONE\n"
+                        + indexUrl + "\n");
+                put(indexUrl,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:" + duration + ",\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXT-X-ENDLIST");
+            }};
+        final MediaMetadata expected = new MediaMetadata((int) (duration * 1000), 0, 0, true);
+        assertEquals(expected, mFakeMRG.extract(mMockContext, TEST_HTTP_HLS_URL, null, null));
+    }
+
+    @SmallTest
+    public void testExtract_UsingHls_ValidMasterPlaylist_RelativeUrl() {
+        final String relativeUrl = "index1.m3u8";
+        final float duration = 4.5f;
+        mFakeMRG.mHlsMockNetworkRequest = new HashMap<String, String>() { {
+                put(TEST_HTTP_HLS_URL,
+                        "#EXTM3U\n"
+                        + "#EXT-X-STREAM-INF:PROGRAM-ID=1,BANDWIDTH=845000,CLOSED-CAPTIONS=NONE\n"
+                        + relativeUrl + "\n");
+                put(TEST_HTTP_URL + "/" + relativeUrl,
+                        "#EXTM3U\n"
+                        + "#EXT-X-TARGETDURATION:10\n"
+                        + "#EXT-X-MEDIA-SEQUENCE:1\n"
+                        + "#EXTINF:" + duration + ",\n"
+                        + "http://www.test.com/segment1.ts,\n"
+                        + "#EXT-X-ENDLIST");
+            }};
+        final MediaMetadata expected = new MediaMetadata((int) (duration * 1000), 0, 0, true);
+        assertEquals(expected, mFakeMRG.extract(mMockContext, TEST_HTTP_HLS_URL, null, null));
     }
 }
