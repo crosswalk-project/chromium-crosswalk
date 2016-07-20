@@ -39,6 +39,9 @@ config("client_config") {
   if (is_android) {
     include_dirs += [ "src/common/android/include" ]
   }
+  if (is_chromeos) {
+    defines = [ "__CHROMEOS__" ]
+  }
 }
 
 config("handler_config") {
