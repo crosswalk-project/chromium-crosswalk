@@ -54,6 +54,7 @@ source_set("ntp_snippets") {
     "//components/metrics",
     "//components/ntp_snippets/proto",
     "//components/variations",
+    "//components/variations/net",
     "//third_party/icu/",
     "//ui/gfx",
   ]
