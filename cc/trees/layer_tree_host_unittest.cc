@@ -984,8 +984,14 @@ class LayerTreeHostTestEffectTreeSync : public LayerTreeHostTest {
         node->data.is_currently_animating_opacity = true;
         break;
       case 2:
+        node->data.is_currently_animating_opacity = true;
+        break;
+      case 3:
         node->data.is_currently_animating_opacity = false;
         break;
+      case 4:
+        node->data.opacity = 0.25f;
+        node->data.is_currently_animating_opacity = true;
     }
   }
 
@@ -1000,11 +1006,19 @@ class LayerTreeHostTestEffectTreeSync : public LayerTreeHostTest {
         break;
       case 1:
         EXPECT_EQ(node->data.opacity, 0.75f);
-        impl->sync_tree()->root_layer_for_testing()->OnOpacityAnimated(0.75f);
         PostSetNeedsCommitToMainThread();
         break;
       case 2:
+        EXPECT_EQ(node->data.opacity, 0.75f);
+        impl->sync_tree()->root_layer_for_testing()->OnOpacityAnimated(0.75f);
+        PostSetNeedsCommitToMainThread();
+        break;
+      case 3:
         EXPECT_EQ(node->data.opacity, 0.5f);
+        PostSetNeedsCommitToMainThread();
+        break;
+      case 4:
+        EXPECT_EQ(node->data.opacity, 0.25f);
         EndTest();
         break;
     }
@@ -1045,6 +1059,10 @@ class LayerTreeHostTestTransformTreeSync : public LayerTreeHostTest {
       case 3:
         node->data.is_currently_animating = false;
         break;
+      case 4:
+        node->data.local = gfx::Transform();
+        node->data.is_currently_animating = true;
+        break;
     }
   }
 
@@ -1065,8 +1083,6 @@ class LayerTreeHostTestTransformTreeSync : public LayerTreeHostTest {
         break;
       case 1:
         EXPECT_EQ(node->data.local, rotate20);
-        impl->sync_tree()->root_layer_for_testing()->OnTransformAnimated(
-            rotate20);
         PostSetNeedsCommitToMainThread();
         break;
       case 2:
@@ -1077,6 +1093,10 @@ class LayerTreeHostTestTransformTreeSync : public LayerTreeHostTest {
         break;
       case 3:
         EXPECT_EQ(node->data.local, rotate10);
+        PostSetNeedsCommitToMainThread();
+        break;
+      case 4:
+        EXPECT_EQ(node->data.local, gfx::Transform());
         EndTest();
     }
   }

@@ -607,19 +607,24 @@ void LayerTreeImpl::UpdatePropertyTreeScrollingAndAnimationFromMainThread() {
   // frame to a newly-committed property tree.
   if (layer_list_.empty())
     return;
+  std::vector<int> layer_ids_to_remove;
   for (auto& layer_id_to_opacity : opacity_animations_map_) {
     const int id = layer_id_to_opacity.first;
     if (property_trees_.IsInIdToIndexMap(PropertyTrees::TreeType::EFFECT, id)) {
       EffectNode* node = property_trees_.effect_tree.Node(
           property_trees_.effect_id_to_index_map[id]);
       if (!node->data.is_currently_animating_opacity ||
-          node->data.opacity == layer_id_to_opacity.second)
+          node->data.opacity == layer_id_to_opacity.second) {
+        layer_ids_to_remove.push_back(id);
         continue;
+      }
       node->data.opacity = layer_id_to_opacity.second;
       property_trees_.effect_tree.set_needs_update(true);
     }
   }
-  opacity_animations_map_.clear();
+  for (auto id : layer_ids_to_remove)
+    opacity_animations_map_.erase(id);
+  layer_ids_to_remove.clear();
 
   for (auto& layer_id_to_transform : transform_animations_map_) {
     const int id = layer_id_to_transform.first;
@@ -628,14 +633,17 @@ void LayerTreeImpl::UpdatePropertyTreeScrollingAndAnimationFromMainThread() {
       TransformNode* node = property_trees_.transform_tree.Node(
           property_trees_.transform_id_to_index_map[id]);
       if (!node->data.is_currently_animating ||
-          node->data.local == layer_id_to_transform.second)
+          node->data.local == layer_id_to_transform.second) {
+        layer_ids_to_remove.push_back(id);
         continue;
+      }
       node->data.local = layer_id_to_transform.second;
       node->data.needs_local_transform_update = true;
       property_trees_.transform_tree.set_needs_update(true);
     }
   }
-  transform_animations_map_.clear();
+  for (auto id : layer_ids_to_remove)
+    transform_animations_map_.erase(id);
 
   LayerTreeHostCommon::CallFunctionForEveryLayer(this, [](LayerImpl* layer) {
     layer->UpdatePropertyTreeForScrollingAndAnimationIfNeeded();
@@ -1099,6 +1107,9 @@ void LayerTreeImpl::RegisterLayer(LayerImpl* layer) {
 
 void LayerTreeImpl::UnregisterLayer(LayerImpl* layer) {
   DCHECK(LayerById(layer->id()));
+  layers_that_should_push_properties_.erase(layer);
+  transform_animations_map_.erase(layer->id());
+  opacity_animations_map_.erase(layer->id());
   layer_id_map_.erase(layer->id());
 }
 
