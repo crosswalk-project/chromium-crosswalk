@@ -4187,6 +4187,9 @@ String Document::lastModified() const
 
 const KURL Document::firstPartyForCookies() const
 {
+    if (!frame())
+        return SecurityOrigin::urlWithUniqueSecurityOrigin();
+
     // TODO(mkwst): This doesn't correctly handle sandboxed documents; we want to look at their URL,
     // but we can't because we don't know what it is.
     KURL topDocumentURL = frame()->tree().top()->isLocalFrame()
