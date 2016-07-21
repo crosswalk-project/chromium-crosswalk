@@ -253,9 +253,7 @@ class ServiceWorkerURLRequestJobTest
                       expected_response, expect_valid_ssl);
   }
 
-  bool HasInflightRequests() {
-    return version_->HasInflightRequests();
-  }
+  bool HasWork() { return version_->HasWork(); }
 
   // ServiceWorkerURLRequestJob::Delegate implementation:
   void OnPrepareToRestart() override { times_prepare_to_restart_invoked_++; }
@@ -576,9 +574,9 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse) {
   }
   stream->Finalize();
 
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   base::RunLoop().RunUntilIdle();
-  EXPECT_TRUE(HasInflightRequests());
+  EXPECT_TRUE(HasWork());
   EXPECT_TRUE(request_->status().is_success());
   EXPECT_EQ(200,
             request_->response_headers()->response_code());
@@ -599,7 +597,7 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse) {
   EXPECT_FALSE(info->service_worker_ready_time().is_null());
 
   request_.reset();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
 }
 
 TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_DelayedRegistration) {
@@ -626,9 +624,9 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_DelayedRegistration) {
   }
   stream->Finalize();
 
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   base::RunLoop().RunUntilIdle();
-  EXPECT_TRUE(HasInflightRequests());
+  EXPECT_TRUE(HasWork());
   EXPECT_TRUE(request_->status().is_success());
   EXPECT_EQ(200,
             request_->response_headers()->response_code());
@@ -649,7 +647,7 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_DelayedRegistration) {
   EXPECT_FALSE(info->service_worker_ready_time().is_null());
 
   request_.reset();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
 }
 
 
@@ -675,9 +673,9 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_QuickFinalize) {
       &url_request_delegate_);
   request_->set_method("GET");
   request_->Start();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   base::RunLoop().RunUntilIdle();
-  EXPECT_TRUE(HasInflightRequests());
+  EXPECT_TRUE(HasWork());
   EXPECT_TRUE(request_->status().is_success());
   EXPECT_EQ(200,
             request_->response_headers()->response_code());
@@ -698,7 +696,7 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_QuickFinalize) {
   EXPECT_FALSE(info->service_worker_ready_time().is_null());
 
   request_.reset();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
 }
 
 TEST_F(ServiceWorkerURLRequestJobTest, StreamResponse_Flush) {
@@ -764,9 +762,9 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponseAndCancel) {
       &url_request_delegate_);
   request_->set_method("GET");
   request_->Start();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   base::RunLoop().RunUntilIdle();
-  EXPECT_TRUE(HasInflightRequests());
+  EXPECT_TRUE(HasWork());
 
   std::string expected_response;
   expected_response.reserve((sizeof(kTestData) - 1) * 1024);
@@ -776,7 +774,7 @@ TEST_F(ServiceWorkerURLRequestJobTest, StreamResponseAndCancel) {
   }
   ASSERT_TRUE(stream_context->registry()->GetStream(stream_url).get());
   request_->Cancel();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   ASSERT_FALSE(stream_context->registry()->GetStream(stream_url).get());
   for (int i = 0; i < 512; ++i) {
     expected_response += kTestData;
@@ -814,11 +812,11 @@ TEST_F(ServiceWorkerURLRequestJobTest,
       &url_request_delegate_);
   request_->set_method("GET");
   request_->Start();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   base::RunLoop().RunUntilIdle();
-  EXPECT_TRUE(HasInflightRequests());
+  EXPECT_TRUE(HasWork());
   request_->Cancel();
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
 
   scoped_refptr<Stream> stream =
       new Stream(stream_context->registry(), nullptr, stream_url);
@@ -868,7 +866,7 @@ TEST_F(ServiceWorkerURLRequestJobTest, FailFetchDispatch) {
   // We should have fallen back to network.
   EXPECT_EQ(200, request_->GetResponseCode());
   EXPECT_EQ("PASS", url_request_delegate_.response_data());
-  EXPECT_FALSE(HasInflightRequests());
+  EXPECT_FALSE(HasWork());
   ServiceWorkerProviderHost* host = helper_->context()->GetProviderHost(
       helper_->mock_render_process_id(), kProviderID);
   ASSERT_TRUE(host);
@@ -1002,9 +1000,9 @@ TEST_F(ServiceWorkerURLRequestJobTest, EarlyResponse) {
   EXPECT_FALSE(info->response_is_in_cache_storage());
   EXPECT_EQ(std::string(), info->response_cache_storage_cache_name());
 
-  EXPECT_TRUE(version_->HasInflightRequests());
+  EXPECT_TRUE(version_->HasWork());
   helper->FinishWaitUntil();
-  EXPECT_FALSE(version_->HasInflightRequests());
+  EXPECT_FALSE(version_->HasWork());
 }
 
 // Helper for controlling when to respond to a fetch event.
@@ -1066,12 +1064,12 @@ TEST_F(ServiceWorkerURLRequestJobTest, CancelRequest) {
   base::RunLoop().RunUntilIdle();
 
   // Respond to the fetch event.
-  EXPECT_TRUE(version_->HasInflightRequests());
+  EXPECT_TRUE(version_->HasWork());
   helper->Respond();
   base::RunLoop().RunUntilIdle();
 
   // The fetch event request should no longer be in-flight.
-  EXPECT_FALSE(version_->HasInflightRequests());
+  EXPECT_FALSE(version_->HasWork());
 }
 
 // TODO(kinuko): Add more tests with different response data and also for
