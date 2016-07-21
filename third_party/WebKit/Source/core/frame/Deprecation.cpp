@@ -339,7 +339,7 @@ String Deprecation::deprecationMessage(UseCounter::Feature feature)
         return "MediaStreamTrack.getSources is deprecated. See https://www.chromestatus.com/feature/4765305641369600 for more details.";
 
     case UseCounter::V8TouchEvent_InitTouchEvent_Method:
-        return replacedWillBeRemoved("'TouchEvent.initTouchEvent'", "the TouchEvent constructor", 53, "5730982598541312");
+        return replacedWillBeRemoved("'TouchEvent.initTouchEvent'", "the TouchEvent constructor", 54, "5730982598541312");
 
     case UseCounter::ObjectObserve:
         return willBeRemoved("'Object.observe'", 50, "6147094632988672");
