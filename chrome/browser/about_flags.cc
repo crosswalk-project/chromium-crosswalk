@@ -1970,6 +1970,11 @@ const FeatureEntry kFeatureEntries[] = {
      IDS_ENABLE_INTENT_PICKER_DESCRIPTION, kOsCrOS,
      SINGLE_VALUE_TYPE(switches::kEnableIntentPicker)},
 #endif  // defined(OS_CHROMEOS)
+#if defined(OS_ANDROID)
+    {"enable-web-payments", IDS_FLAGS_ENABLE_WEB_PAYMENTS_NAME,
+     IDS_FLAGS_ENABLE_WEB_PAYMENTS_DESCRIPTION, kOsAndroid,
+     FEATURE_VALUE_TYPE(features::kWebPayments)},
+#endif  // defined(OS_ANDROID)
     // NOTE: Adding new command-line switches requires adding corresponding
     // entries to enum "LoginCustomFlags" in histograms.xml. See note in
     // histograms.xml and don't forget to run AboutFlagsHistogramTest unit test.

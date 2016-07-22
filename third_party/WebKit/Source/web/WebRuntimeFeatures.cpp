@@ -200,6 +200,11 @@ void WebRuntimeFeatures::enableParseHTMLOnMainThread(bool enable)
     RuntimeEnabledFeatures::setParseHTMLOnMainThreadEnabled(enable);
 }
 
+void WebRuntimeFeatures::enablePaymentRequest(bool enable)
+{
+    RuntimeEnabledFeatures::setPaymentRequestEnabled(enable);
+}
+
 void WebRuntimeFeatures::enablePermissionsAPI(bool enable)
 {
     RuntimeEnabledFeatures::setPermissionsEnabled(enable);
