@@ -122,7 +122,7 @@ class ArcAuthService : public ArcService,
 
   // ArcBridgeService::Observer:
   void OnAuthInstanceReady() override;
-  void OnBridgeStopped() override;
+  void OnBridgeStopped(ArcBridgeService::StopReason reason) override;
 
   // AuthHost:
   // For security reason this code can be used only once and exists for specific

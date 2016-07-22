@@ -195,7 +195,8 @@ void ArcAuthService::OnAuthInstanceReady() {
       binding_.CreateInterfacePtrAndBind());
 }
 
-void ArcAuthService::OnBridgeStopped() {
+void ArcAuthService::OnBridgeStopped(ArcBridgeService::StopReason reason) {
+  // TODO(crbug.com/625923): Use |reason| to report more detailed errors.
   if (waiting_for_reply_) {
     // Using SERVICE_UNAVAILABLE instead of UNKNOWN_ERROR, since the latter
     // causes this code to not try to stop ARC, so it would retry without the
