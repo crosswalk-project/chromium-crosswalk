@@ -1420,3 +1420,7 @@ crbug.com/624709 [ Win ] virtual/gpu-rasterization/fast/images/png-with-color-pr
 crbug.com/624709 [ Win ] virtual/gpu-rasterization/fast/images/webp-color-profile-lossy.html [ Failure ]
 
 crbug.com/627782 [ Win ] svg/filters/filter-source-position.svg [ Pass Failure ]
+
+crbug.com/627754 [ Precise Debug ] virtual/scalefactor150/fast/hidpi/static/calendar-picker-appearance.html [ Failure ]
+crbug.com/627754 [ Precise Debug ] virtual/scalefactor150/fast/hidpi/static/data-suggestion-picker-appearance.html [ Failure ]
+
