@@ -275,7 +275,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
         assertNull(store.mPrefetchActiveTabTask);
 
         // Make sure the metadata file loads properly and in order.
-        store.loadState();
+        store.loadState(false /* ignoreIncognitoFiles */);
         mockObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, mockObserver.mTabCountAtStartup);
 
@@ -318,7 +318,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
         MockTabPersistentStoreObserver firstObserver = new MockTabPersistentStoreObserver();
         final TabPersistentStore firstStore = new TabPersistentStore(
                 firstSelector, 0, mAppContext, firstManager, firstObserver);
-        firstStore.loadState();
+        firstStore.loadState(false /* ignoreIncognitoFiles */);
         firstObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, firstObserver.mTabCountAtStartup);
         firstObserver.detailsReadCallback.waitForCallback(0, numExpectedTabs);
@@ -342,7 +342,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
         // Make sure that all of the Tabs appear in the new one -- even though the new file was
         // written before the first TabPersistentStore loaded any TabState files and added them to
         // the TabModels.
-        secondStore.loadState();
+        secondStore.loadState(false /* ignoreIncognitoFiles */);
         secondObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, secondObserver.mTabCountAtStartup);
 
@@ -397,7 +397,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
                 new TabPersistentStore(mockSelector, 0, mAppContext, mockManager, mockObserver);
 
         // Make sure the metadata file loads properly and in order.
-        store.loadState();
+        store.loadState(false /* ignoreIncognitoFiles */);
         mockObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, mockObserver.mTabCountAtStartup);
 
@@ -440,7 +440,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
                 new TabPersistentStore(mockSelector, 0, mAppContext, mockManager, mockObserver);
 
         // Load the TabModel metadata.
-        store.loadState();
+        store.loadState(false /* ignoreIncognitoFiles */);
         mockObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, mockObserver.mTabCountAtStartup);
         mockObserver.detailsReadCallback.waitForCallback(0, numExpectedTabs);
@@ -475,7 +475,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
 
         assertNotNull(store.mPrefetchActiveTabTask);
 
-        store.loadState();
+        store.loadState(false /* ignoreIncognitoFiles */);
         store.restoreTabs(true);
 
         ThreadUtils.runOnUiThreadBlocking(new Runnable() {
@@ -571,7 +571,7 @@ public class TabPersistentStoreTest extends NativeLibraryTestBase {
 
         // Load up the TabModel metadata.
         int numExpectedTabs = info.numRegularTabs + info.numIncognitoTabs;
-        store.loadState();
+        store.loadState(false /* ignoreIncognitoFiles */);
         mockObserver.initializedCallback.waitForCallback(0, 1);
         assertEquals(numExpectedTabs, mockObserver.mTabCountAtStartup);
         mockObserver.detailsReadCallback.waitForCallback(0, info.contents.length);

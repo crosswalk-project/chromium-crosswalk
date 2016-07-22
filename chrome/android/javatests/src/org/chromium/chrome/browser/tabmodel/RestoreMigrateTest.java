@@ -250,7 +250,7 @@ public class RestoreMigrateTest extends InstrumentationTestCase {
 
         int maxId = Math.max(getMaxId(selector0), getMaxId(selector1));
         RecordHistogram.disableForTests();
-        storeIn.loadState();
+        storeIn.loadState(false /* ignoreIncognitoFiles */);
         assertEquals("Invalid next id", maxId + 1,
                 TabIdManager.getInstance().generateValidId(Tab.INVALID_TAB_ID));
     }
@@ -280,8 +280,8 @@ public class RestoreMigrateTest extends InstrumentationTestCase {
                 selectorIn1, 1, mAppContext, null, null);
 
         RecordHistogram.disableForTests();
-        storeIn0.loadState();
-        storeIn1.loadState();
+        storeIn0.loadState(false /* ignoreIncognitoFiles */);
+        storeIn1.loadState(false /* ignoreIncognitoFiles */);
 
         assertEquals("Unexpected number of tabs to load", 6, storeIn0.getRestoredTabCount());
         assertEquals("Unexpected number of tabst o load", 3, storeIn1.getRestoredTabCount());
