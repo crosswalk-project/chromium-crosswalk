@@ -311,9 +311,10 @@ void SerializedScriptValueWriter::writeImageData(uint32_t width, uint32_t height
     doWriteImageData(width, height, pixelData, pixelDataLength);
 }
 
-void SerializedScriptValueWriter::writeImageBitmap(uint32_t width, uint32_t height, const uint8_t* pixelData, uint32_t pixelDataLength)
+void SerializedScriptValueWriter::writeImageBitmap(uint32_t width, uint32_t height, uint32_t isOriginClean, const uint8_t* pixelData, uint32_t pixelDataLength)
 {
     append(ImageBitmapTag);
+    append(isOriginClean);
     doWriteImageData(width, height, pixelData, pixelDataLength);
 }
 
@@ -1088,7 +1089,7 @@ ScriptValueSerializer::StateBase* ScriptValueSerializer::writeImageBitmap(v8::Lo
     if (imageBitmap->isNeutered())
         return handleError(DataCloneError, "An ImageBitmap is detached and could not be cloned.", next);
     OwnPtr<uint8_t[]> pixelData = imageBitmap->copyBitmapData(PremultiplyAlpha);
-    m_writer.writeImageBitmap(imageBitmap->width(), imageBitmap->height(), pixelData.get(), imageBitmap->width() * imageBitmap->height() * 4);
+    m_writer.writeImageBitmap(imageBitmap->width(), imageBitmap->height(), static_cast<uint32_t>(imageBitmap->originClean()), pixelData.get(), imageBitmap->width() * imageBitmap->height() * 4);
     return nullptr;
 }
 
@@ -1735,12 +1736,15 @@ bool SerializedScriptValueReader::readImageData(v8::Local<v8::Value>* value)
 
 bool SerializedScriptValueReader::readImageBitmap(v8::Local<v8::Value>* value)
 {
+    uint32_t isOriginClean;
+    if (!doReadUint32(&isOriginClean))
+        return false;
     ImageData* imageData = doReadImageData();
     if (!imageData)
         return false;
     ImageBitmapOptions options;
     options.setPremultiplyAlpha("none");
-    ImageBitmap* imageBitmap = ImageBitmap::create(imageData, IntRect(0, 0, imageData->width(), imageData->height()), options, true);
+    ImageBitmap* imageBitmap = ImageBitmap::create(imageData, IntRect(0, 0, imageData->width(), imageData->height()), options, true, isOriginClean);
     if (!imageBitmap)
         return false;
     *value = toV8(imageBitmap, m_scriptState->context()->Global(), isolate());
