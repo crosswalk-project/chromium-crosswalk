@@ -2980,6 +2980,10 @@ void RenderWidgetHostViewAura::SetBeginFrameSource(
     begin_frame_source_->AddObserver(this);
 }
 
+bool RenderWidgetHostViewAura::IsAutoResizeEnabled() const {
+  return host_->auto_resize_enabled();
+}
+
 void RenderWidgetHostViewAura::OnDidNavigateMainFrameToNewPage() {
   ui::GestureRecognizer::Get()->CancelActiveTouches(window_);
 }

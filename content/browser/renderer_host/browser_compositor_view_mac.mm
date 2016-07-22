@@ -445,6 +445,11 @@ void BrowserCompositorMac::SetBeginFrameSource(cc::BeginFrameSource* source) {
     begin_frame_source_->AddObserver(this);
 }
 
+bool BrowserCompositorMac::IsAutoResizeEnabled() const {
+  NOTREACHED();
+  return false;
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 // cc::BeginFrameSourceBase, public:
 
