@@ -115,20 +115,6 @@ void ImageResource::markClientsAndObserversFinished()
     Resource::markClientsAndObserversFinished();
 }
 
-void ImageResource::ensureImage()
-{
-    if (m_data && !m_image && !errorOccurred()) {
-        createImage();
-        m_image->setData(m_data, true);
-    }
-}
-
-void ImageResource::didAddClient(ResourceClient* client)
-{
-    ensureImage();
-    Resource::didAddClient(client);
-}
-
 void ImageResource::addObserver(ImageResourceObserver* observer)
 {
     willAddClientOrObserver();
@@ -138,7 +124,10 @@ void ImageResource::addObserver(ImageResourceObserver* observer)
     if (isCacheValidator())
         return;
 
-    ensureImage();
+    if (m_data && !m_image && !errorOccurred()) {
+        createImage();
+        m_image->setData(m_data, true);
+    }
 
     if (m_image && !m_image->isNull()) {
         observer->imageChanged(this);
