@@ -1359,7 +1359,7 @@ interface HTMLAnchorElement : HTMLElement
     getter ping
     getter port
     getter protocol
-    getter referrerpolicy
+    getter referrerPolicy
     getter rel
     getter rev
     getter search
@@ -1384,7 +1384,7 @@ interface HTMLAnchorElement : HTMLElement
     setter ping
     setter port
     setter protocol
-    setter referrerpolicy
+    setter referrerPolicy
     setter rel
     setter rev
     setter search
@@ -1408,7 +1408,7 @@ interface HTMLAreaElement : HTMLElement
     getter ping
     getter port
     getter protocol
-    getter referrerpolicy
+    getter referrerPolicy
     getter search
     getter shape
     getter target
@@ -1427,7 +1427,7 @@ interface HTMLAreaElement : HTMLElement
     setter ping
     setter port
     setter protocol
-    setter referrerpolicy
+    setter referrerPolicy
     setter search
     setter shape
     setter target
@@ -1951,7 +1951,7 @@ interface HTMLIFrameElement : HTMLElement
     getter marginHeight
     getter marginWidth
     getter name
-    getter referrerpolicy
+    getter referrerPolicy
     getter sandbox
     getter scrolling
     getter src
@@ -1967,7 +1967,7 @@ interface HTMLIFrameElement : HTMLElement
     setter marginHeight
     setter marginWidth
     setter name
-    setter referrerpolicy
+    setter referrerPolicy
     setter sandbox
     setter scrolling
     setter src
@@ -1989,7 +1989,7 @@ interface HTMLImageElement : HTMLElement
     getter name
     getter naturalHeight
     getter naturalWidth
-    getter referrerpolicy
+    getter referrerPolicy
     getter sizes
     getter src
     getter srcset
@@ -2009,7 +2009,7 @@ interface HTMLImageElement : HTMLElement
     setter longDesc
     setter lowsrc
     setter name
-    setter referrerpolicy
+    setter referrerPolicy
     setter sizes
     setter src
     setter srcset
