@@ -40,6 +40,7 @@ const char* kVariationNames[] = {
     "hidden_media_playing_points",
     "web_app_installed_points",
     "first_daily_engagement_points",
+    "bootstrap_points",
     "medium_engagement_boundary",
     "high_engagement_boundary",
     "max_decays_per_score",
@@ -178,6 +179,10 @@ SiteEngagementScore::SiteEngagementScore(base::Clock* clock,
                                          const GURL& origin,
                                          HostContentSettingsMap* settings_map)
     : SiteEngagementScore(clock, GetScoreDictForOrigin(settings_map, origin)) {
+  static_assert(arraysize(SiteEngagementScore::param_values) ==
+                    arraysize(kVariationNames),
+                "param_values does not match kVariationNames");
+
   origin_ = origin;
   settings_map_ = settings_map;
 }
