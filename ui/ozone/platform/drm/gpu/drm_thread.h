@@ -60,7 +60,8 @@ class DrmThread : public base::Thread {
                     gfx::BufferFormat format,
                     gfx::BufferUsage usage,
                     scoped_refptr<GbmBuffer>* buffer);
-  void CreateBufferFromFds(const gfx::Size& size,
+  void CreateBufferFromFds(gfx::AcceleratedWidget widget,
+                           const gfx::Size& size,
                            gfx::BufferFormat format,
                            std::vector<base::ScopedFD>&& fds,
                            std::vector<int> strides,

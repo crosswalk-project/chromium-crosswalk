@@ -111,6 +111,7 @@ scoped_refptr<ui::NativePixmap> GbmSurfaceFactory::CreateNativePixmap(
 }
 
 scoped_refptr<ui::NativePixmap> GbmSurfaceFactory::CreateNativePixmapFromHandle(
+    gfx::AcceleratedWidget widget,
     gfx::Size size,
     gfx::BufferFormat format,
     const gfx::NativePixmapHandle& handle) {
@@ -133,7 +134,7 @@ scoped_refptr<ui::NativePixmap> GbmSurfaceFactory::CreateNativePixmapFromHandle(
   }
 
   scoped_refptr<GbmBuffer> buffer = drm_thread_->CreateBufferFromFds(
-      size, format, std::move(scoped_fds), strides, offsets);
+      widget, size, format, std::move(scoped_fds), strides, offsets);
   if (!buffer)
     return nullptr;
   return make_scoped_refptr(new GbmPixmap(this, buffer));
