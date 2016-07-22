@@ -396,7 +396,7 @@ void ArcAuthService::OnIsSyncingChanged() {
 
   if (!disable_ui_for_testing && profile_->IsNewProfile() &&
       !profile_->GetPrefs()->HasPrefPath(prefs::kArcEnabled)) {
-    arc::ArcAuthNotification::Show();
+    ArcAuthNotification::Show(profile_);
   }
 }
 
