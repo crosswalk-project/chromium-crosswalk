@@ -889,8 +889,12 @@ bool PepperPluginInstanceImpl::Initialize(
       message_channel_->Start();
   }
 
-  if (render_frame_->render_accessibility() && LoadPdfInterface())
+  if (success &&
+      render_frame_ &&
+      render_frame_->render_accessibility() &&
+      LoadPdfInterface()) {
     plugin_pdf_interface_->EnableAccessibility(pp_instance());
+  }
 
   initialized_ = success;
   return success;
