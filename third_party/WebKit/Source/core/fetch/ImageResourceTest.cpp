@@ -305,4 +305,48 @@ TEST(ImageResourceTest, ReloadIfLoFi)
     ASSERT_TRUE(cachedImage->getImage()->isBitmapImage());
 }
 
+// Tests for pruning.
+
+TEST(ImageResourceTest, AddClientAfterPrune)
+{
+    KURL url(ParsedURLString, "http://127.0.0.1:8000/foo");
+    ImageResource* imageResource = ImageResource::create(ResourceRequest(url));
+
+    // Adds a ResourceClient but not ImageResourceObserver.
+    MockResourceClient client1(imageResource);
+
+    Vector<unsigned char> jpeg = jpegImage();
+    ResourceResponse response;
+    response.setURL(url);
+    response.setHTTPStatusCode(200);
+    response.setMimeType("image/jpeg");
+    imageResource->responseReceived(response, nullptr);
+    imageResource->appendData(reinterpret_cast<const char*>(jpeg.data()), jpeg.size());
+    imageResource->finish();
+
+    EXPECT_FALSE(imageResource->errorOccurred());
+    ASSERT_TRUE(imageResource->hasImage());
+    EXPECT_FALSE(imageResource->getImage()->isNull());
+    EXPECT_EQ(1, imageResource->getImage()->width());
+    EXPECT_EQ(1, imageResource->getImage()->height());
+    EXPECT_TRUE(client1.notifyFinishedCalled());
+
+    client1.removeAsClient();
+
+    EXPECT_FALSE(imageResource->hasClientsOrObservers());
+
+    imageResource->prune();
+
+    EXPECT_FALSE(imageResource->hasImage());
+
+    // Re-adds a ResourceClient but not ImageResourceObserver.
+    MockResourceClient client2(imageResource);
+
+    ASSERT_TRUE(imageResource->hasImage());
+    EXPECT_FALSE(imageResource->getImage()->isNull());
+    EXPECT_EQ(1, imageResource->getImage()->width());
+    EXPECT_EQ(1, imageResource->getImage()->height());
+    EXPECT_TRUE(client2.notifyFinishedCalled());
+}
+
 } // namespace blink

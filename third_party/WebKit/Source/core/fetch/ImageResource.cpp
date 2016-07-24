@@ -117,6 +117,20 @@ void ImageResource::markClientsAndObserversFinished()
     Resource::markClientsAndObserversFinished();
 }
 
+void ImageResource::ensureImage()
+{
+    if (m_data && !m_image && !errorOccurred()) {
+        createImage();
+        m_image->setData(m_data, true);
+    }
+}
+
+void ImageResource::didAddClient(ResourceClient* client)
+{
+    ensureImage();
+    Resource::didAddClient(client);
+}
+
 void ImageResource::addObserver(ImageResourceObserver* observer)
 {
     willAddClientOrObserver();
@@ -126,10 +140,7 @@ void ImageResource::addObserver(ImageResourceObserver* observer)
     if (!m_revalidatingRequest.isNull())
         return;
 
-    if (m_data && !m_image && !errorOccurred()) {
-        createImage();
-        m_image->setData(m_data, true);
-    }
+    ensureImage();
 
     if (m_image && !m_image->isNull()) {
         observer->imageChanged(this);
