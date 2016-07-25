@@ -13,6 +13,7 @@
 #include "components/arc/intent_helper/arc_intent_helper_bridge.h"
 #include "content/public/browser/browser_thread.h"
 #include "content/public/browser/navigation_handle.h"
+#include "ui/base/page_transition_types.h"
 
 namespace arc {
 
@@ -62,8 +63,22 @@ ArcNavigationThrottle::~ArcNavigationThrottle() = default;
 content::NavigationThrottle::ThrottleCheckResult
 ArcNavigationThrottle::WillStartRequest() {
   DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
-  if (!navigation_handle()->HasUserGesture())
+
+  const ui::PageTransition transition =
+      navigation_handle()->GetPageTransition();
+
+  if (!ui::PageTransitionCoreTypeIs(transition, ui::PAGE_TRANSITION_LINK)) {
+    // If this navigation event wasn't spawned by the user clicking on a link.
     return content::NavigationThrottle::PROCEED;
+  }
+
+  if (ui::PageTransitionGetQualifier(transition) != 0) {
+    // Qualifiers indicate that this navigation was the result of a click on a
+    // forward/back button, or a redirect, or typing in the URL bar, etc.  Don't
+    // pass any of those types of navigations to the intent helper (see
+    // crbug.com/630072).
+    return content::NavigationThrottle::PROCEED;
+  }
 
   const GURL& url = navigation_handle()->GetURL();
   mojom::IntentHelperInstance* bridge_instance = GetIntentHelper();
