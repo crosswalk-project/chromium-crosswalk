@@ -93,6 +93,8 @@ protected:
 
     bool loadOrRedirectSubframe(const KURL&, const AtomicString& frameName, bool replaceCurrentItem);
 
+    void disposeWidgetSoon(Widget*);
+
 private:
     // Intentionally private to prevent redundant checks when the type is
     // already HTMLFrameOwnerElement.
