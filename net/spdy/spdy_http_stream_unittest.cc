@@ -106,6 +106,25 @@ class ReadErrorUploadDataStream : public UploadDataStream {
   DISALLOW_COPY_AND_ASSIGN(ReadErrorUploadDataStream);
 };
 
+class CancelStreamCallback : public TestCompletionCallbackBase {
+ public:
+  CancelStreamCallback(SpdyHttpStream* stream)
+      : stream_(stream),
+        callback_(base::Bind(&CancelStreamCallback::CancelStream,
+                             base::Unretained(this))) {}
+
+  const CompletionCallback& callback() const { return callback_; }
+
+ private:
+  void CancelStream(int result) {
+    stream_->Cancel();
+    SetResult(result);
+  }
+
+  SpdyHttpStream* stream_;
+  CompletionCallback callback_;
+};
+
 }  // namespace
 
 class SpdyHttpStreamTest : public testing::Test,
@@ -905,8 +924,6 @@ TEST_P(SpdyHttpStreamTest, DelayedSendChunkedPostWithWindowUpdate) {
 
   upload_stream.AppendData(kUploadData, kUploadDataSize, true);
 
-  ASSERT_TRUE(callback.have_result());
-  EXPECT_EQ(OK, callback.WaitForResult());
 
   // Verify that the window size has decreased.
   ASSERT_TRUE(http_stream->stream() != nullptr);
@@ -916,6 +933,9 @@ TEST_P(SpdyHttpStreamTest, DelayedSendChunkedPostWithWindowUpdate) {
 
   // Read window update.
   base::RunLoop().RunUntilIdle();
+
+  ASSERT_TRUE(callback.have_result());
+  EXPECT_EQ(OK, callback.WaitForResult());
 
   EXPECT_EQ(static_cast<int64_t>(req->size() + chunk1->size()),
             http_stream->GetTotalSentBytes());
@@ -1049,6 +1069,49 @@ TEST_P(SpdyHttpStreamTest, DataReadErrorAsynchronous) {
 
   // Because the server has closed the connection, there shouldn't be a session
   // in the pool anymore.
+  EXPECT_FALSE(HasSpdySession(http_session_->spdy_session_pool(), key_));
+}
+
+// Regression test for https://crbug.com/622447.
+TEST_P(SpdyHttpStreamTest, RequestCallbackCancelsStream) {
+  std::unique_ptr<SpdySerializedFrame> req(
+      spdy_util_.ConstructChunkedSpdyPost(nullptr, 0));
+  std::unique_ptr<SpdySerializedFrame> chunk(
+      spdy_util_.ConstructSpdyBodyFrame(1, nullptr, 0, true));
+  std::unique_ptr<SpdySerializedFrame> rst(
+      spdy_util_.ConstructSpdyRstStream(1, RST_STREAM_CANCEL));
+  MockWrite writes[] = {CreateMockWrite(*req, 0), CreateMockWrite(*chunk, 1),
+                        CreateMockWrite(*rst, 2)};
+  MockRead reads[] = {MockRead(ASYNC, 0, 3)};
+  InitSession(reads, arraysize(reads), writes, arraysize(writes));
+
+  HttpRequestInfo request;
+  request.method = "POST";
+  request.url = GURL("http://www.example.org/");
+  ChunkedUploadDataStream upload_stream(0);
+  request.upload_data_stream = &upload_stream;
+
+  TestCompletionCallback upload_callback;
+  ASSERT_EQ(OK, upload_stream.Init(upload_callback.callback()));
+  upload_stream.AppendData("", 0, true);
+
+  BoundNetLog net_log;
+  SpdyHttpStream http_stream(session_, true);
+  ASSERT_EQ(OK, http_stream.InitializeStream(&request, DEFAULT_PRIORITY,
+                                             net_log, CompletionCallback()));
+
+  CancelStreamCallback callback(&http_stream);
+  HttpRequestHeaders headers;
+  HttpResponseInfo response;
+  // This will attempt to Write() the initial request and headers, which will
+  // complete asynchronously.
+  EXPECT_EQ(ERR_IO_PENDING,
+            http_stream.SendRequest(headers, &response, callback.callback()));
+  EXPECT_TRUE(HasSpdySession(http_session_->spdy_session_pool(), key_));
+
+  // The callback cancels |http_stream|.
+  EXPECT_EQ(OK, callback.WaitForResult());
+
   EXPECT_FALSE(HasSpdySession(http_session_->spdy_session_pool(), key_));
 }
 
