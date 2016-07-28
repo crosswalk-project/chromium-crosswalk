@@ -833,6 +833,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
      */
     @Override
     public void abort() {
+        if (mClient == null) return;
         mClient.onAbort(!mPaymentAppRunning);
         if (mPaymentAppRunning) {
             if (sObserverForTest != null) sObserverForTest.onPaymentRequestServiceUnableToAbort();
@@ -847,6 +848,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
      */
     @Override
     public void complete(int result) {
+        if (mClient == null) return;
         closeUI(PaymentComplete.FAIL != result);
     }
 
@@ -855,6 +857,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
      */
     @Override
     public void close() {
+        if (mClient == null) return;
         closeClient();
         closeUI(false);
     }
@@ -864,6 +867,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
      */
     @Override
     public void onConnectionError(MojoException e) {
+        if (mClient == null) return;
         closeClient();
         closeUI(false);
     }
