@@ -76434,6 +76434,13 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <int value="1428" label="MediaSourceAbortRemove"/>
   <int value="1429" label="MediaSourceDurationTruncatingBuffered"/>
   <int value="1430" label="AudioContextCrossOriginIframe"/>
+  <int value="1469" label="CSSValueAppearanceButtonRendered"/>
+  <int value="1470" label="CSSValueAppearanceButtonForAnchor"/>
+  <int value="1471" label="CSSValueAppearanceButtonForButton"/>
+  <int value="1472" label="CSSValueAppearanceButtonForOtherButtons"/>
+  <int value="1473" label="CSSValueAppearanceTextFieldRendered"/>
+  <int value="1474" label="CSSValueAppearanceTextFieldForSearch"/>
+  <int value="1475" label="CSSValueAppearanceTextFieldForTextField"/>
 </enum>
 
 <enum name="FetchRequestMode" type="int">
