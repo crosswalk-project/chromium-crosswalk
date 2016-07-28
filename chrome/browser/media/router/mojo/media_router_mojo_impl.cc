@@ -686,7 +686,10 @@ void MediaRouterMojoImpl::DoConnectRouteByRouteId(
 
 void MediaRouterMojoImpl::DoTerminateRoute(const MediaRoute::Id& route_id) {
   DVLOG_WITH_INSTANCE(1) << "DoTerminateRoute " << route_id;
-  media_route_provider_->TerminateRoute(route_id);
+  media_route_provider_->TerminateRoute(
+      route_id,
+      base::Bind(&MediaRouterMojoImpl::OnTerminateRouteResult,
+                 base::Unretained(this), route_id));
 }
 
 void MediaRouterMojoImpl::DoDetachRoute(const MediaRoute::Id& route_id) {
@@ -804,6 +807,18 @@ void MediaRouterMojoImpl::OnPresentationConnectionClosed(
   NotifyPresentationConnectionClose(
       route_id, mojo::PresentationConnectionCloseReasonFromMojo(reason),
       message);
+}
+
+void MediaRouterMojoImpl::OnTerminateRouteResult(
+    const MediaRoute::Id& route_id,
+    mojo::String error_text,
+    interfaces::RouteRequestResultCode result_code) {
+  if (result_code != interfaces::RouteRequestResultCode::OK) {
+    LOG(WARNING) << "Failed to terminate route " << route_id <<
+        ": result_code = " << result_code << ", " << error_text;
+  }
+  MediaRouterMojoMetrics::RecordMediaRouteProviderTerminateRoute(
+      mojo::RouteRequestResultCodeFromMojo(result_code));
 }
 
 void MediaRouterMojoImpl::DoStartObservingMediaSinks(
