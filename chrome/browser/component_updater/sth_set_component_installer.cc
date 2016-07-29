@@ -10,13 +10,13 @@
 #include "base/files/file_enumerator.h"
 #include "base/files/file_path.h"
 #include "base/files/file_util.h"
+#include "base/json/json_reader.h"
 #include "base/logging.h"
 #include "base/path_service.h"
 #include "base/strings/string_number_conversions.h"
 #include "base/values.h"
 #include "base/version.h"
 #include "components/component_updater/component_updater_paths.h"
-#include "components/safe_json/safe_json_parser.h"
 #include "content/public/browser/browser_thread.h"
 #include "crypto/sha2.h"
 #include "net/cert/ct_log_response_parser.h"
@@ -50,7 +50,7 @@ const char kSTHSetFetcherManifestName[] = "Signed Tree Heads";
 
 STHSetComponentInstallerTraits::STHSetComponentInstallerTraits(
     std::unique_ptr<net::ct::STHObserver> sth_observer)
-    : sth_observer_(std::move(sth_observer)) {}
+    : sth_observer_(std::move(sth_observer)), weak_ptr_factory_(this) {}
 
 STHSetComponentInstallerTraits::~STHSetComponentInstallerTraits() {}
 
@@ -73,13 +73,12 @@ void STHSetComponentInstallerTraits::ComponentReady(
     const base::Version& version,
     const base::FilePath& install_dir,
     std::unique_ptr<base::DictionaryValue> manifest) {
-  if (!content::BrowserThread::PostBlockingPoolTask(
-          FROM_HERE,
-          base::Bind(&STHSetComponentInstallerTraits::LoadSTHsFromDisk,
-                     base::Unretained(this), GetInstalledPath(install_dir),
-                     version))) {
-    NOTREACHED();
-  }
+  const base::Closure load_sths_closure = base::Bind(
+      &STHSetComponentInstallerTraits::LoadSTHsFromDisk,
+      weak_ptr_factory_.GetWeakPtr(), GetInstalledPath(install_dir), version);
+
+  content::BrowserThread::PostAfterStartupTask(
+      FROM_HERE, content::BrowserThread::GetBlockingPool(), load_sths_closure);
 }
 
 // Called during startup and installation before ComponentReady().
@@ -143,12 +142,18 @@ void STHSetComponentInstallerTraits::LoadSTHsFromDisk(
     }
 
     DVLOG(1) << "STH: Successfully read: " << json_sth;
-    safe_json::SafeJsonParser::Parse(
-        json_sth,
-        base::Bind(&STHSetComponentInstallerTraits::OnJsonParseSuccess,
-                   base::Unretained(this), log_id),
-        base::Bind(&STHSetComponentInstallerTraits::OnJsonParseError,
-                   base::Unretained(this), log_id));
+
+    int error_code = 0;
+    std::string error_message;
+    std::unique_ptr<base::Value> parsed_json =
+        base::JSONReader::ReadAndReturnError(json_sth, base::JSON_PARSE_RFC,
+                                             &error_code, &error_message);
+
+    if (error_code == base::JSONReader::JSON_NO_ERROR) {
+      OnJsonParseSuccess(log_id, std::move(parsed_json));
+    } else {
+      OnJsonParseError(log_id, error_message);
+    }
   }
 }
 

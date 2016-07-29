@@ -12,6 +12,7 @@
 #include <vector>
 
 #include "base/gtest_prod_util.h"
+#include "base/memory/weak_ptr.h"
 #include "components/component_updater/default_component_installer.h"
 
 namespace base {
@@ -74,6 +75,8 @@ class STHSetComponentInstallerTraits : public ComponentInstallerTraits {
   void OnJsonParseError(const std::string& log_id, const std::string& error);
 
   std::unique_ptr<net::ct::STHObserver> sth_observer_;
+
+  base::WeakPtrFactory<STHSetComponentInstallerTraits> weak_ptr_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(STHSetComponentInstallerTraits);
 };
