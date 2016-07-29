@@ -327,7 +327,9 @@ CARendererLayerTree::ContentLayer::ContentLayer(
   if (IOSurfaceGetPixelFormat(io_surface) ==
           kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange &&
       contents_rect == gfx::RectF(0, 0, 1, 1)) {
-    use_av_layer = true;
+    // Disable AVSampleBufferDisplayLayer due to reports of memory leaks.
+    // https://crbug.com/631485
+    use_av_layer = false;
   }
 }
 
