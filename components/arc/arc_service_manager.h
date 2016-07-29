@@ -21,6 +21,7 @@ namespace arc {
 
 class ArcBridgeService;
 class ArcService;
+class ArcUserDataService;
 
 // Manages creation and destruction of services that communicate with the ARC
 // instance via the ArcBridgeService.
@@ -69,6 +70,10 @@ class ArcServiceManager {
     return activity_resolver_;
   }
 
+  ArcUserDataService* arc_user_data_service() {
+    return arc_user_data_service_.get();
+  }
+
  private:
   base::ThreadChecker thread_checker_;
   scoped_refptr<base::TaskRunner> blocking_task_runner_;
@@ -77,6 +82,7 @@ class ArcServiceManager {
   std::vector<std::unique_ptr<ArcService>> services_;
   scoped_refptr<ActivityIconLoader> icon_loader_;
   scoped_refptr<LocalActivityResolver> activity_resolver_;
+  std::unique_ptr<ArcUserDataService> arc_user_data_service_;
 
   // True once the window manager service got added, barring adding any more
   // of those since OnAshStarted() might be called multiple times.

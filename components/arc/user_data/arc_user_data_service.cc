@@ -6,7 +6,6 @@
 
 #include "chromeos/cryptohome/cryptohome_parameters.h"
 #include "chromeos/dbus/dbus_thread_manager.h"
-#include "chromeos/dbus/session_manager_client.h"
 #include "components/prefs/pref_member.h"
 #include "components/signin/core/account_id/account_id.h"
 #include "components/user_manager/user_manager.h"
@@ -21,7 +20,7 @@ ArcUserDataService::ArcUserDataService(
       arc_enabled_pref_(std::move(arc_enabled_pref)),
       primary_user_account_id_(account_id) {
   arc_bridge_service()->AddObserver(this);
-  ClearIfDisabled();
+  WipeIfRequired();
 }
 
 ArcUserDataService::~ArcUserDataService() {
@@ -40,21 +39,30 @@ void ArcUserDataService::OnBridgeStopped(ArcBridgeService::StopReason reason) {
     primary_user_account_id_ = EmptyAccountId();
     return;
   }
-  ClearIfDisabled();
+  WipeIfRequired();
 }
 
-void ArcUserDataService::ClearIfDisabled() {
+void ArcUserDataService::RequireUserDataWiped(const ArcDataCallback& callback) {
+  VLOG(1) << "Require ARC user data to be wiped.";
+  arc_user_data_wipe_required_ = true;
+  callback_ = callback;
+}
+
+void ArcUserDataService::WipeIfRequired() {
   DCHECK(thread_checker_.CalledOnValidThread());
   if (arc_bridge_service()->state() != ArcBridgeService::State::STOPPED) {
-    LOG(ERROR) << "ARC instance not stopped, user data can't be cleared";
+    LOG(ERROR) << "ARC instance not stopped, user data can't be wiped";
     return;
   }
-  if (arc_enabled_pref_->GetValue())
+  if (arc_enabled_pref_->GetValue() && !arc_user_data_wipe_required_)
     return;
+  VLOG(1) << "Wipe ARC user data.";
+  arc_user_data_wipe_required_ = false;
   const cryptohome::Identification cryptohome_id(primary_user_account_id_);
   chromeos::SessionManagerClient* session_manager_client =
       chromeos::DBusThreadManager::Get()->GetSessionManagerClient();
-  session_manager_client->RemoveArcData(cryptohome_id);
+  session_manager_client->RemoveArcData(cryptohome_id, callback_);
+  callback_.Reset();
 }
 
 }  // namespace arc

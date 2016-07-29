@@ -133,6 +133,9 @@ class ArcBridgeService : public mojom::ArcBridgeHost {
   InstanceHolder<mojom::CrashCollectorInstance>* crash_collector() {
     return &crash_collector_;
   }
+  InstanceHolder<mojom::EnterpriseReportingInstance>* enterprise_reporting() {
+    return &enterprise_reporting_;
+  }
   InstanceHolder<mojom::FileSystemInstance>* file_system() {
     return &file_system_;
   }
@@ -169,6 +172,8 @@ class ArcBridgeService : public mojom::ArcBridgeHost {
       mojom::ClipboardInstancePtr clipboard_ptr) override;
   void OnCrashCollectorInstanceReady(
       mojom::CrashCollectorInstancePtr crash_collector_ptr) override;
+  void OnEnterpriseReportingInstanceReady(
+      mojom::EnterpriseReportingInstancePtr enterprise_reporting_ptr) override;
   void OnFileSystemInstanceReady(
       mojom::FileSystemInstancePtr file_system_ptr) override;
   void OnImeInstanceReady(mojom::ImeInstancePtr ime_ptr) override;
@@ -231,6 +236,7 @@ class ArcBridgeService : public mojom::ArcBridgeHost {
   InstanceHolder<mojom::BluetoothInstance> bluetooth_;
   InstanceHolder<mojom::ClipboardInstance> clipboard_;
   InstanceHolder<mojom::CrashCollectorInstance> crash_collector_;
+  InstanceHolder<mojom::EnterpriseReportingInstance> enterprise_reporting_;
   InstanceHolder<mojom::FileSystemInstance> file_system_;
   InstanceHolder<mojom::ImeInstance> ime_;
   InstanceHolder<mojom::IntentHelperInstance> intent_helper_;

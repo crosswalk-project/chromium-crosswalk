@@ -96,6 +96,11 @@ void ArcBridgeService::OnCrashCollectorInstanceReady(
   crash_collector_.OnInstanceReady(std::move(crash_collector_ptr));
 }
 
+void ArcBridgeService::OnEnterpriseReportingInstanceReady(
+    mojom::EnterpriseReportingInstancePtr enterprise_reporting_ptr) {
+  enterprise_reporting_.OnInstanceReady(std::move(enterprise_reporting_ptr));
+}
+
 void ArcBridgeService::OnFileSystemInstanceReady(
     mojom::FileSystemInstancePtr file_system_ptr) {
   DCHECK(CalledOnValidThread());
@@ -208,6 +213,7 @@ void ArcBridgeService::CloseAllChannels() {
   bluetooth_.CloseChannel();
   clipboard_.CloseChannel();
   crash_collector_.CloseChannel();
+  enterprise_reporting_.CloseChannel();
   file_system_.CloseChannel();
   ime_.CloseChannel();
   intent_helper_.CloseChannel();

@@ -99,8 +99,8 @@ void ArcServiceManager::OnPrimaryUserProfilePrepared(
     std::unique_ptr<BooleanPrefMember> arc_enabled_pref) {
   DCHECK(thread_checker_.CalledOnValidThread());
 
-  AddService(base::WrapUnique(new ArcUserDataService(
-      arc_bridge_service(), std::move(arc_enabled_pref), account_id)));
+  arc_user_data_service_.reset(new ArcUserDataService(arc_bridge_service(),
+      std::move(arc_enabled_pref), account_id));
 
   AddService(base::WrapUnique(
       new ArcNotificationManager(arc_bridge_service(), account_id)));
@@ -120,6 +120,7 @@ void ArcServiceManager::OnAshStarted() {
 void ArcServiceManager::Shutdown() {
   icon_loader_ = nullptr;
   activity_resolver_ = nullptr;
+  arc_user_data_service_ = nullptr;
   services_.clear();
 }
 
