@@ -394,7 +394,9 @@ class BluetoothDetailedView : public TrayDetailsView,
 }  // namespace tray
 
 TrayBluetooth::TrayBluetooth(SystemTray* system_tray)
-    : SystemTrayItem(system_tray), default_(NULL), detailed_(NULL) {
+    : SystemTrayItem(system_tray, UMA_BLUETOOTH),
+      default_(NULL),
+      detailed_(NULL) {
   WmShell::Get()->system_tray_notifier()->AddBluetoothObserver(this);
 }
 

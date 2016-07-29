@@ -319,7 +319,7 @@ class DisplayView : public ActionableView {
 };
 
 TrayDisplay::TrayDisplay(SystemTray* system_tray)
-    : SystemTrayItem(system_tray), default_(NULL) {
+    : SystemTrayItem(system_tray, UMA_DISPLAY), default_(nullptr) {
   Shell::GetInstance()->window_tree_host_manager()->AddObserver(this);
   UpdateDisplayInfo(NULL);
 }
