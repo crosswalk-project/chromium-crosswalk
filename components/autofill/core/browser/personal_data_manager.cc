@@ -631,7 +631,7 @@ void PersonalDataManager::UpdateServerCardBillingAddress(
 
   CreditCard* existing_credit_card = nullptr;
   for (auto it : server_credit_cards_) {
-    if (credit_card.guid() == it->guid()) {
+    if (credit_card.server_id() == it->server_id()) {
       existing_credit_card = it;
       break;
     }
