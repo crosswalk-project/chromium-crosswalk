@@ -1037,12 +1037,11 @@ bool VTVideoDecodeAccelerator::SendFrame(const Frame& frame) {
     return false;
   }
 
-  IOSurfaceRef io_surface = CVPixelBufferGetIOSurface(frame.image.get());
-
   scoped_refptr<gl::GLImageIOSurface> gl_image(
       new gl::GLImageIOSurface(frame.coded_size, GL_BGRA_EXT));
-  if (!gl_image->Initialize(io_surface, gfx::GenericSharedMemoryId(),
-                            gfx::BufferFormat::YUV_420_BIPLANAR)) {
+  if (!gl_image->InitializeWithCVPixelBuffer(
+          frame.image.get(), gfx::GenericSharedMemoryId(),
+          gfx::BufferFormat::YUV_420_BIPLANAR)) {
     NOTIFY_STATUS("Failed to initialize GLImageIOSurface", PLATFORM_FAILURE,
                   SFT_PLATFORM_ERROR);
   }
