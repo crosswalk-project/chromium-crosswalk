@@ -45,6 +45,7 @@ if (is_win) {
   content_app_sources -= [ "content_main.cc" ]
   content_app_deps += [
     "//content/public/android:jni",
+    "//device/gamepad",
     "//device/usb",
     "//device/vibration",
     "//skia",
