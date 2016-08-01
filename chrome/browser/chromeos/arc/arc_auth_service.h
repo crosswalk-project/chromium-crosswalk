@@ -152,6 +152,8 @@ class ArcAuthService : public ArcService,
 
   bool IsArcManaged() const;
   bool IsArcEnabled() const;
+
+  // This requires Arc to be allowed (|IsAllowed|)for current profile.
   void EnableArc();
   void DisableArc();
 

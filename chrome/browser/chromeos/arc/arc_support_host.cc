@@ -72,6 +72,10 @@ std::unique_ptr<extensions::NativeMessageHost> ArcSupportHost::Create() {
 ArcSupportHost::ArcSupportHost() {
   arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
   DCHECK(arc_auth_service);
+
+  if (!arc_auth_service->IsAllowed())
+    return;
+
   arc_auth_service->AddObserver(this);
 
   pref_change_registrar_.Init(g_browser_process->local_state());
@@ -91,7 +95,11 @@ void ArcSupportHost::Start(Client* client) {
   DCHECK(!client_);
   client_ = client;
 
-  Initialize();
+  if (!Initialize()) {
+    OnOptInUIClose();
+    return;
+  }
+
   SendMetricsMode();
 
   arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
@@ -100,8 +108,12 @@ void ArcSupportHost::Start(Client* client) {
                     arc_auth_service->ui_page_status());
 }
 
-void ArcSupportHost::Initialize() {
+bool ArcSupportHost::Initialize() {
   DCHECK(client_);
+  arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
+  if (!arc_auth_service->IsAllowed())
+    return false;
+
   std::unique_ptr<base::DictionaryValue> loadtime_data(
       new base::DictionaryValue());
   base::string16 device_name = ash::GetChromeOSDeviceName();
@@ -143,8 +155,6 @@ void ArcSupportHost::Initialize() {
   const std::string& country_code = base::CountryCodeForCurrentTimezone();
   loadtime_data->SetString("countryCode", country_code);
 
-  arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
-
   loadtime_data->SetBoolean(kBackupRestoreEnabled,
                             arc_auth_service->profile()->GetPrefs()->GetBoolean(
                                 prefs::kArcBackupRestoreEnabled));
@@ -162,6 +172,8 @@ void ArcSupportHost::Initialize() {
   request.SetString(kDeviceId, device_id);
   base::JSONWriter::Write(request, &request_string);
   client_->PostMessageFromNativeHost(request_string);
+
+  return true;
 }
 
 void ArcSupportHost::OnMetricsPreferenceChanged() {
@@ -170,7 +182,7 @@ void ArcSupportHost::OnMetricsPreferenceChanged() {
 
 void ArcSupportHost::SendMetricsMode() {
   arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
-  DCHECK(arc_auth_service);
+  DCHECK(arc_auth_service && arc_auth_service->IsAllowed());
   const Profile* profile = arc_auth_service->profile();
 
   const bool metrics_managed = IsMetricsReportingPolicyManaged();
@@ -229,7 +241,9 @@ void ArcSupportHost::EnableMetrics(bool is_enabled) {
 }
 
 void ArcSupportHost::EnableBackupRestore(bool is_enabled) {
-  PrefService* pref_service = arc::ArcAuthService::Get()->profile()->GetPrefs();
+  arc::ArcAuthService* arc_auth_service = arc::ArcAuthService::Get();
+  DCHECK(arc_auth_service && arc_auth_service->IsAllowed());
+  PrefService* pref_service = arc_auth_service->profile()->GetPrefs();
   pref_service->SetBoolean(prefs::kArcBackupRestoreEnabled, is_enabled);
 }
 

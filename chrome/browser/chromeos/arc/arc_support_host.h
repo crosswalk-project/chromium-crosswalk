@@ -36,8 +36,8 @@ class ArcSupportHost : public extensions::NativeMessageHost,
  private:
   ArcSupportHost();
 
+  bool Initialize();
   void OnMetricsPreferenceChanged();
-  void Initialize();
   void SendMetricsMode();
   void EnableMetrics(bool is_enabled);
   void EnableBackupRestore(bool is_enabled);
