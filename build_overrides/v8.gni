@@ -12,7 +12,10 @@ enable_correct_v8_arch = false
 # TODO: Set v8_use_external_startup_data to true on Windows and iOS to match
 # GYP.
 # iOS - http://crbug.com/545676
-v8_use_external_startup_data = !is_ios
+declare_args() {
+  # The default value here will be overridden by xwalk/build/xwalk.gni
+  v8_use_external_startup_data = !is_ios
+}
 
 # V8 extras
 # Adding V8 extras files requires API owners review
