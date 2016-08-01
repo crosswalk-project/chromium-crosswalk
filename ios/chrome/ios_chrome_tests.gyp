@@ -28,6 +28,7 @@
         '../../skia/skia.gyp:skia',
         '../../testing/gmock.gyp:gmock',
         '../../testing/gtest.gyp:gtest',
+        '../../third_party/google_toolbox_for_mac/google_toolbox_for_mac.gyp:google_toolbox_for_mac',
         '../../third_party/ocmock/ocmock.gyp:ocmock',
         '../../ui/gfx/gfx.gyp:gfx',
         '../../ui/gfx/gfx.gyp:gfx_test_support',
@@ -81,6 +82,7 @@
         'browser/update_client/ios_chrome_update_query_params_delegate_unittest.cc',
         'browser/web_resource/web_resource_util_unittest.cc',
         'common/string_util_unittest.mm',
+        'test/google_toolbox_unittest.mm',
       ],
       'actions': [
         {
