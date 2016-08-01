@@ -168,7 +168,7 @@ void ShellDelegateMus::RemoveVirtualKeyboardStateObserver(
   NOTIMPLEMENTED();
 }
 
-void ShellDelegateMus::OpenUrl(const GURL& url) {
+void ShellDelegateMus::OpenUrlFromArc(const GURL& url) {
   NOTIMPLEMENTED();
 }
 

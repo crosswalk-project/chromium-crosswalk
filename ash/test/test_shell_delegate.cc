@@ -164,7 +164,7 @@ void TestShellDelegate::RemoveVirtualKeyboardStateObserver(
   keyboard_state_observer_list_.RemoveObserver(observer);
 }
 
-void TestShellDelegate::OpenUrl(const GURL& url) {}
+void TestShellDelegate::OpenUrlFromArc(const GURL& url) {}
 
 app_list::AppListPresenter* TestShellDelegate::GetAppListPresenter() {
   if (!app_list_presenter_) {

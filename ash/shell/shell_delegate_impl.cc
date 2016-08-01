@@ -212,7 +212,7 @@ void ShellDelegateImpl::AddVirtualKeyboardStateObserver(
 void ShellDelegateImpl::RemoveVirtualKeyboardStateObserver(
     VirtualKeyboardStateObserver* observer) {}
 
-void ShellDelegateImpl::OpenUrl(const GURL& url) {}
+void ShellDelegateImpl::OpenUrlFromArc(const GURL& url) {}
 
 app_list::AppListPresenter* ShellDelegateImpl::GetAppListPresenter() {
   if (!app_list_presenter_) {
