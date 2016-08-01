@@ -1047,6 +1047,7 @@
 <translation id="467449052039111439">打开网址列表</translation>
 <translation id="4680961954980851756">启用自动填充</translation>
 <translation id="4723829699367336876">支持通过远程访问客户端穿越防火墙</translation>
+<translation id="4725528134735324213">启用 Android Backup Service</translation>
 <translation id="4733471537137819387">与集成 HTTP 身份验证相关的政策。</translation>
 <translation id="4744190513568488164"><ph name="PRODUCT_NAME" /> 可委托的服务器。
 
@@ -1872,6 +1873,13 @@
           <ph name="PROXY_HELP_URL" />。</translation>
 <translation id="7788511847830146438">根据个人资料</translation>
 <translation id="7796141075993499320">可让您设置网址格式的列表，这些网址格式用于指定允许运行插件的网站。在未设置此政策的情况下，如果设置了“DefaultPluginsSetting”政策，那么将对该政策中的所有网站使用全局默认值，否则将对用户个人配置中的所有网站使用全局默认值。</translation>
+<translation id="7801886189430766248">当此政策设为 true 时，系统会将 Android 应用数据上传到 Android 备份服务器，并且当用户重新安装兼容的应用时，系统会从这些服务器恢复 Android 应用数据。
+ 
+      当此政策设为 false 时，系统将关闭 Android Backup Service。
+
+      如果您指定了此设置，用户将无法自行更改。
+
+      如果您未指定此设置，用户将可以在 Android 设置应用中开启和关闭 Android Backup Service。</translation>
 <translation id="7818131573217430250">设置登录屏幕上高反差模式的默认状态</translation>
 <translation id="7831595031698917016">指定收到政策失效通知与从设备管理服务提取新政策之间的最大延迟（以毫秒为单位）。
 

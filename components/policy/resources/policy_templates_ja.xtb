@@ -1082,6 +1082,7 @@
 <translation id="467449052039111439">URL のリストを開く</translation>
 <translation id="4680961954980851756">自動入力を有効にする</translation>
 <translation id="4723829699367336876">リモート アクセス クライアントからのファイアウォール トラバーサルを有効にする</translation>
+<translation id="4725528134735324213">Android バックアップ サービスを有効にする</translation>
 <translation id="4733471537137819387">統合された HTTP 認証に関連するポリシーです。</translation>
 <translation id="4744190513568488164"><ph name="PRODUCT_NAME" /> が委任するサーバーです。
 
@@ -1913,6 +1914,13 @@ Active Directory ドメインに参加していない Windows インスタンス
           <ph name="PROXY_HELP_URL" /></translation>
 <translation id="7788511847830146438">プロフィール単位</translation>
 <translation id="7796141075993499320">プラグインの実行を許可するサイトを指定する URL パターンのリストを設定できます。このポリシーが未設定の場合、グローバルのデフォルト値がすべてのサイトで使用されます。グローバルのデフォルト値は「DefaultPluginsSetting」ポリシーの値か、この値が未設定の場合はユーザーの個人設定の値です。</translation>
+<translation id="7801886189430766248">このポリシーを True に設定した場合、Android アプリのデータは Android バックアップ サーバーにアップロードされ、互換性のあるアプリ用にアプリの再インストールが行われたときにサーバーから復元されます。
+
+      このポリシーを False に設定した場合、Android バックアップ サービスはオフになります。
+
+      この設定に値を指定した場合、ユーザーはその値を変更できません。
+
+      この設定に値が指定されていない場合、ユーザーは Android の設定アプリで Android バックアップ サービスのオンとオフを切り替えることができます。</translation>
 <translation id="7818131573217430250">ログイン画面でのハイコントラスト モードのデフォルト状態を設定する</translation>
 <translation id="7831595031698917016">デバイス管理サービスからポリシーの無効化を受け取ってから新しいポシリーを取得するまでの最大時間（ミリ秒単位）を指定します。
 

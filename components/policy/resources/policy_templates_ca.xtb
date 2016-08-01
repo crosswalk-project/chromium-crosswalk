@@ -46,7 +46,7 @@
       Si no es defineix aquesta política, s'utilitzarà el directori de memòria cau predeterminat i l'usuari podrà substituir-lo per la marca de la línia d'ordres "--disk-cache-dir".</translation>
 <translation id="1138294736309071213">Aquesta política només està activa en mode de venta.
 
-      Determina la durada abans no es mostri el protector de pantalla a la pantalla d'inici de sessió per als dispositius en mode de venta.
+      Determina la durada abans no es mostri l'estalvi de pantalla a la pantalla d'inici de sessió per als dispositius en mode de venta.
 
       El valor de la política s'ha d'especificar en mil·lisegons.</translation>
 <translation id="1151353063931113432">Permet les imatges en aquests llocs</translation>
@@ -480,7 +480,7 @@ Si aquesta opció està desactivada o no especificada, no apareix cap botó gran
 
       Si no configureu aquesta política, els usuaris podran triar si volen fer servir la funció del servidor intermediari de compressió de dades.</translation>
 <translation id="2587719089023392205">Estableix <ph name="PRODUCT_NAME" /> com a navegador predeterminat</translation>
-<translation id="2592091433672667839">La durada de la inactivitat abans no es mostri el protector de pantalla es mostra a la pantalla d'inici de sessió en mode de venta</translation>
+<translation id="2592091433672667839">La durada de la inactivitat abans no es mostri l'estalvi de pantalla es mostra a la pantalla d'inici de sessió en mode de venta</translation>
 <translation id="2623014935069176671">Espereu que hi hagi una activitat inicial de l'usuari.</translation>
 <translation id="262740370354162807">Activa l'enviament de documents a <ph name="CLOUD_PRINT_NAME" /></translation>
 <translation id="2633084400146331575">Activa els comentaris per veu</translation>
@@ -658,7 +658,7 @@ Cada entrada de la llista especifica un identificador, que s'utilitza internamen
       Si aquesta política s'estableix en "false", l'optimització WPAD es desactiva i <ph name="PRODUCT_NAME" /> ha d'esperar més temps els servidors WPAD basats en DNS. Si la política no s'estableix o està activada, l'optimització WPAD s'activa.
 
       Tant si la política s'estableix com si no, els usuaris no poden canviar la configuració de l'optimització WPAD.</translation>
-<translation id="3072045631333522102">Protector de pantalla per utilitzar a la pantalla d'inici de sessió en mode de venta</translation>
+<translation id="3072045631333522102">Estalvi de pantalla per utilitzar a la pantalla d'inici de sessió en mode de venta</translation>
 <translation id="3072847235228302527">Defineix els Termes i condicions d'un compte local del dispositiu</translation>
 <translation id="3096595567015595053">Llista dels connectors activats</translation>
 <translation id="3101501961102569744">Tria com vols especificar la configuració del servidor intermediari</translation>
@@ -1085,6 +1085,7 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció sobre els tipu
 <translation id="467449052039111439">Obre una llista d'URL</translation>
 <translation id="4680961954980851756">Activa l'emplenament automàtic</translation>
 <translation id="4723829699367336876">Activa que es pugui travessar el tallafoc des d'un client d'accés remot</translation>
+<translation id="4725528134735324213">Activa Android Backup Service</translation>
 <translation id="4733471537137819387">Les polítiques relacionades amb l'autenticació HTTP integrada.</translation>
 <translation id="4744190513568488164">Servidors en què <ph name="PRODUCT_NAME" /> pot delegar les credencials de l'usuari.
 
@@ -1921,6 +1922,13 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Per perfil</translation>
 <translation id="7796141075993499320">Us permet definir una llista de patrons d'URL que especifiquen els llocs en què està permès executar connectors. Si no es defineix aquesta política, s'utilitzarà el valor global predeterminat per a tots els llocs tant de la política "DefaultPluginsSetting", si es defineix, com d'un altre tipus de configuració personal de l'usuari.</translation>
+<translation id="7801886189430766248">Quan aquesta política s'estableix en "true", les dades de les aplicacions d'Android es pengen als servidors d'Android Backup per poder restaurar-les en tornar a instal·lar aplicacions compatibles.
+
+      Quan aquesta política s'estableix en "false", Android Backup Service es desactiva.
+
+      Si aquesta opció de configuració està definida, els usuaris no poden canviar-la.
+
+      Si no està definida, els usuaris poden activar i desactivar Android Backup Service a l'aplicació Configuració d'Android.</translation>
 <translation id="7818131573217430250">Estableix l'estat predeterminat del mode de contrast elevat a la pantalla d'inici de sessió</translation>
 <translation id="7831595031698917016">Especifica el retard màxim en mil·lisegons entre la recepció de la invalidació d'una política i l'obtenció de la política nova del servei de gestió del dispositiu.
 
@@ -1949,7 +1957,7 @@ Si aquesta política no es defineix o no s'activa, les ordres d'impressió faran
       Si s'estableix en CopyCaCerts, tots els certificats de CA instal·lats amb fitxers ONC amb <ph name="WEB_TRUSTED_BIT" /> estan disponibles per a les aplicacions ARC.</translation>
 <translation id="7882585827992171421">Aquesta política només està activa en mode de venda.
 
-      Determina l'identificador de l'extensió que s'ha d'utilitzar com a protector de pantalla a la pantalla d'inici de sessió. L'extensió ha de formar part de l'AppPack, que està configurat per a aquest domini a través de la política DeviceAppPack.</translation>
+      Determina l'identificador de l'extensió que s'ha d'utilitzar com a estalvi de pantalla a la pantalla d'inici de sessió. L'extensió ha de formar part de l'AppPack, que està configurat per a aquest domini a través de la política DeviceAppPack.</translation>
 <translation id="7882890448959833986">Suprimeix l'advertiment de sistema operatiu no compatible</translation>
 <translation id="7912255076272890813">Configuració dels tipus d'aplicacions i d'extensions permeses</translation>
 <translation id="7914271217607102111">Permet o denega la captura de vídeo.

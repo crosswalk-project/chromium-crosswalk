@@ -1159,6 +1159,7 @@
 <translation id="467449052039111439">Een lijst met URL's openen</translation>
 <translation id="4680961954980851756">Automatisch aanvullen inschakelen</translation>
 <translation id="4723829699367336876">Firewallpassage vanaf client voor externe toegang inschakelen</translation>
+<translation id="4725528134735324213">Android Backup Service inschakelen</translation>
 <translation id="4733471537137819387">Beleid met betrekking tot geïntegreerde HTTP-authenticatie.</translation>
 <translation id="4744190513568488164">Servers waarnaar <ph name="PRODUCT_NAME" /> mag delegeren.
 
@@ -2059,6 +2060,13 @@ Geheugengegevens worden in alle gevallen aan de pagina gerapporteerd, afgezien v
 <translation id="7796141075993499320">Hiermee kun je een lijst met URL-patronen instellen waarmee sites worden gespecificeerd waarop plug-ins mogen worden uitgevoerd.
 
           Als dit beleid niet wordt ingesteld, wordt de algemene standaardwaarde gebruikt voor alle sites, op basis van het beleid 'DefaultPluginsSetting' (als dit is ingesteld) of anders op basis van de configuratie van de gebruiker.</translation>
+<translation id="7801886189430766248">Wanneer dit beleid is ingesteld op 'waar', worden app-gegevens van Android geüpload naar Android Backup-servers en teruggezet vanaf deze servers wanneer compatibele apps opnieuw worden geïnstalleerd.
+
+      Wanneer dit beleid is ingesteld op 'onwaar', is Android Backup Service uitgeschakeld.
+
+      Als deze instelling is geconfigureerd, kunnen gebruikers de instelling niet wijzigen.
+
+      Als deze instelling niet is geconfigureerd, kunnen gebruikers Android Backup Service in- en uitschakelen in de app Android-instellingen.</translation>
 <translation id="7818131573217430250">De standaardstatus van de modus voor hoog contrast op het inlogscherm instellen</translation>
 <translation id="7831595031698917016">Specificeert de maximum vertraging in milliseconden tussen het ontvangen van een ongeldigverklaring van een beleid en het ophalen van het nieuwe beleid uit de apparaatbeheerservice.
 

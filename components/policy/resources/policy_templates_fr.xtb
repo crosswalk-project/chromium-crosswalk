@@ -1169,6 +1169,7 @@ Si vous désactivez ce paramètre, il est impossible d'ajouter, de supprimer ou 
 <translation id="467449052039111439">Ouvrir une liste d'URL</translation>
 <translation id="4680961954980851756">Activer la saisie automatique</translation>
 <translation id="4723829699367336876">Activer la traversée de pare-feu depuis le client d'accès à distance</translation>
+<translation id="4725528134735324213">Activer Android Backup Service</translation>
 <translation id="4733471537137819387">Stratégies liées à l'authentification HTTP intégrée</translation>
 <translation id="4744190513568488164">Serveurs susceptibles d'être utilisés par <ph name="PRODUCT_NAME" />
 
@@ -2081,6 +2082,13 @@ Si cette règle n'est pas configurée, la règle "AllowImages" est utilisée, et
 <translation id="7796141075993499320">Permet de définir une liste de formats d'URL spécifiant les sites qui sont autorisés à exécuter des plug-ins. 
 
 Si cette règle n'est pas configurée, la valeur par défaut globale est utilisée pour tous les sites à partir de la règle "DefaultPluginsSetting", si elle est définie, ou à défaut, à partir de la configuration personnelle de l'utilisateur.</translation>
+<translation id="7801886189430766248">Lorsque cette règle est définie sur "True", les données des applications Android sont sauvegardées via Android Backup Service. Elles sont ensuite restaurées au moment de la réinstallation des applications (valable pour les applications compatibles uniquement).
+
+      Lorsque cette règle est définie sur "False", Android Backup Service est désactivé.
+
+      Si ce paramètre est configuré, les utilisateurs ne peuvent pas le modifier eux-mêmes.
+
+      Si ce paramètre n'est pas configuré, les utilisateurs ne peuvent pas activer ni désactiver Android Backup Service dans l'application Paramètres de leur appareil Android.</translation>
 <translation id="7818131573217430250">Définir l'état par défaut du mode Contraste élevé sur l'écran de connexion</translation>
 <translation id="7831595031698917016">Spécifie le délai maximal en millisecondes entre la réception du rejet d'une règle et la récupération de la nouvelle règle auprès du service de gestion de l'appareil.
 

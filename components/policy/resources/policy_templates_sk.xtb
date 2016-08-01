@@ -1146,6 +1146,7 @@ Ak toto nastavenie zakážete, v okne správcu hesiel nebude možné zobraziť 
 <translation id="467449052039111439">Otvoriť zoznam webových adries</translation>
 <translation id="4680961954980851756">Povoliť automatické dopĺňanie</translation>
 <translation id="4723829699367336876">Povoliť prechod cez bránu firewall v smere od klienta vzdialeného prístupu</translation>
+<translation id="4725528134735324213">Povolenie služby Android Backup Service</translation>
 <translation id="4733471537137819387">Pravidlá týkajúce sa integrovaného overenia pomocou protokolu HTTP</translation>
 <translation id="4744190513568488164">Servery, na ktoré môže <ph name="PRODUCT_NAME" /> delegovať poverenia.
 
@@ -2054,6 +2055,13 @@ Pozrite si tiež pravidlo RemoteAccessHostClientDomain.</translation>
 <translation id="7796141075993499320">Umožňuje nastaviť zoznam vzorov webových adries určujúcich webové stránky, ktoré môžu spúšťať doplnky.
 
           Ak toto pravidlo ponecháte nenastavené, použije sa v prípade všetkých webových stránok globálna predvolená hodnota buď z pravidla „DefaultPluginsSetting“ (ak je nastavené), alebo z osobnej konfigurácie používateľa.</translation>
+<translation id="7801886189430766248">Keď toto pravidlo nastavíte na hodnotu True, údaje aplikácií pre Android sa nahrajú na severy služby Android Backup a pri opätovnej inštalácii kompatibiliných aplikácií ich z nich obnoví.
+
+      Keď ho nastavíte na hodnotu False, služba Android Backup Service bude vypnutá.
+
+      Ak toto nastavenie nakonfigurujete, používatelia ho nebudú môcť zmeniť.
+
+      Ak ho ponecháte nenastavené, používatelia budú môcť službu Android Backup Service zapnúť a vypnúť v aplikácii Nastavenia systému Android.</translation>
 <translation id="7818131573217430250">Nastaviť predvolený stav režimu vysokého kontrastu na prihlasovacej obrazovke</translation>
 <translation id="7831595031698917016">Určuje maximálne oneskorenie v milisekundách medzi prijatím zrušenia platnosti pravidla a načítaním nového pravidla zo služby správy zariadenia.
 

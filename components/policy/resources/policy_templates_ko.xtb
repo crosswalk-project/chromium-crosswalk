@@ -1153,6 +1153,7 @@
 <translation id="467449052039111439">URL 목록 열기</translation>
 <translation id="4680961954980851756">자동완성 사용</translation>
 <translation id="4723829699367336876">원격 액세스 클라이언트의 방화벽 통과 허용</translation>
+<translation id="4725528134735324213">Android Backup Service 사용</translation>
 <translation id="4733471537137819387">통합 HTTP 인증과 관련된 정책입니다.</translation>
 <translation id="4744190513568488164"><ph name="PRODUCT_NAME" />이(가) 위임할 수 있는 서버입니다.
 
@@ -2065,6 +2066,13 @@
 <translation id="7796141075993499320">플러그인 실행이 허용되는 사이트를 지정하는 URL 패턴 목록을 설정할 수 있습니다.
 
           이 정책을 설정하지 않은 경우 'DefaultPluginsSetting' 정책이 설정되면 해당 정책의, 그렇지 않으면 사용자 개인 설정의 전체 기본값이 모든 사이트에서 사용됩니다.</translation>
+<translation id="7801886189430766248">이 정책이 true로 설정된 경우 Android 앱 데이터가 Android Backup 서버에 업로드되고 호환 앱에 맞도록 앱을 재설치하여 이 서버에서 복원됩니다.
+
+      이 정책이 false로 설정된 경우 Android Backup Service가 사용 중지됩니다.
+
+      이 설정이 적용되면 사용자는 변경할 수 없습니다.
+
+      이 설정이 적용되지 않으면 사용자는 Android 설정 앱에서 Android Backup Service를 사용 설정/사용 중지할 수 있습니다.</translation>
 <translation id="7818131573217430250">로그인 화면에서 고대비 모드의 기본 상태를 설정</translation>
 <translation id="7831595031698917016">정책 무효화를 받은 뒤 기기 관리 서비스로부터 새 정책을 가져오는 시간 사이의 최대 지연 시간을 밀리초로 지정합니다.
 

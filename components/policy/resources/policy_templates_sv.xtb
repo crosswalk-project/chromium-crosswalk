@@ -1166,6 +1166,7 @@
 <translation id="467449052039111439">Öppna följande sidor</translation>
 <translation id="4680961954980851756">Aktivera Autofyll</translation>
 <translation id="4723829699367336876">Aktivera brandväggspassage från fjärråtkomstklient</translation>
+<translation id="4725528134735324213">Aktivera säkerhetskopieringstjänsten för Android</translation>
 <translation id="4733471537137819387">Policyer som gäller integrerad HTTP-autentisering</translation>
 <translation id="4744190513568488164">Servrar som <ph name="PRODUCT_NAME" /> kan delegera till.
 
@@ -2081,6 +2082,13 @@
 <translation id="7796141075993499320">Policyn gör att du kan ange en lista med webbadressmönster som får köra plugin-program.
 
           Om den här policyn inte anges används det globala standardvärdet för alla webbplatser. Standardvärdet hämtas från policyn DefaultPluginsSetting om den har angetts eller från användarens personliga konfiguration om den inte har det.</translation>
+<translation id="7801886189430766248">När principen är inställd på sant laddas Android-appdata upp till Android-servrarna för säkerhetskopiering och återställs från dem när kompatibla appar återinstalleras.
+
+      När principen är inställd på falskt stängs säkerhetskopieringstjänsten för Android av.
+
+      Om inställningen konfigureras kan användarna inte ändra den själva.
+
+      Om inställningen inte konfigureras kan användare aktivera och inaktivera säkerhetskopieringstjänsten i appen Inställningar på Android.</translation>
 <translation id="7818131573217430250">Ange standardtillståndet för högkontrastläget på inloggningsskärmen</translation>
 <translation id="7831595031698917016">Anger den längsta fördröjningen i millisekunder mellan att en ogiltigförklaring av policyn tas emot och att den nya policyn hämtas från tjänsten för enhetshantering.
 

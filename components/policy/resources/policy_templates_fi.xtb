@@ -1083,6 +1083,7 @@ Jos tätä asetusta ei ole määritetty, kaikentyyppisiä sovelluksia ja laajenn
 <translation id="467449052039111439">Avaa seuraavat sivut:</translation>
 <translation id="4680961954980851756">Ota automaattinen täyttö käyttöön</translation>
 <translation id="4723829699367336876">Ota käyttöön palomuurin siirto etäasiakkaasta</translation>
+<translation id="4725528134735324213">Ota käyttöön Android Backup Service</translation>
 <translation id="4733471537137819387">Integroituun HTTP-todennukseen liittyvät käytännöt.</translation>
 <translation id="4744190513568488164">Palvelimet, joille <ph name="PRODUCT_NAME" /> voi siirtää käyttöoikeustietoja.
 
@@ -1911,6 +1912,13 @@ Jos tätä käytäntöä ei ole määritetty, käytetään oletusarvoa (32).</tr
           <ph name="PROXY_HELP_URL" /></translation>
 <translation id="7788511847830146438">Profiilikohtainen</translation>
 <translation id="7796141075993499320">Voit määrittää luettelon URL-malleja, joissa määritetään sivustot, jotka saavat suorittaa laajennuksia. Jos tätä käytäntöä ei ole määritetty, kaikille sivustoille käytetään joko DefaultPluginsSetting-käytännön yleistä oletusarvoa, jos se on asetettu, tai käyttäjän henkilökohtaisia määrityksiä.</translation>
+<translation id="7801886189430766248">Jos tämän käytännön arvo on Tosi, Android-sovellusten tiedot varmuuskopioidaan Android Backup ‑palvelimille ja voidaan palauttaa yhteensopivien sovellusten uudelleenasentamisen yhteydessä.
+
+      Jos käytännön arvo on Epätosi, Android Backup Service ei ole käytössä.
+
+      Jos käytännölle on määritetty arvo, käyttäjät eivät voi itse muuttaa sitä.
+
+      Jos käytännölle ei ole määritetty arvoa, käyttäjät voivat ottaa Android Backup Servicen käyttöön ja poistaa sen käytöstä Android-asetuksissa.</translation>
 <translation id="7818131573217430250">Aseta suuri kontrasti -tilan oletustila kirjautumisnäytössä</translation>
 <translation id="7831595031698917016">Määrittää millisekunneissa enimmäisviiveen käytännön kumoamisen ja uuden käytännön noutamisen välillä. Uusi käytäntö noudetaan laitteen hallintapalvelusta.
 

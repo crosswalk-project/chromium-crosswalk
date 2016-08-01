@@ -1152,6 +1152,7 @@
 <translation id="467449052039111439">Atvērt vietrāžu URL sarakstu</translation>
 <translation id="4680961954980851756">Iespējo automātisko aizpildi</translation>
 <translation id="4723829699367336876">Ugunsmūra apvada iespējošana no attālās piekļuves klienta</translation>
+<translation id="4725528134735324213">Iespējot pakalpojumu Android Backup Service</translation>
 <translation id="4733471537137819387">Ar integrēto HTTP autentifikāciju saistītās politikas</translation>
 <translation id="4744190513568488164">Serveri, kuriem pārlūks <ph name="PRODUCT_NAME" /> var uzticēt informāciju
 
@@ -2065,6 +2066,13 @@
 <translation id="7796141075993499320">Ļauj iestatīt URL rakstu sarakstu, kurā ir norādītas vietnes, kurām ir atļauts izpildīt spraudņus.
 
           Ja šī politika nav iestatīta, visām vietnēm tiks izmantota globālā noklusējuma vērtība no politikas DefaultPluginsSetting (ja tā ir iestatīta) vai pretējā gadījumā no lietotāja personīgās konfigurācijas.</translation>
+<translation id="7801886189430766248">Ja šai politikai ir iestatīta vērtība “Patiess”, Android lietotņu dati tiek augšupielādēti Android dublēšanas serveros un tiek atjaunoti no tiem, atkārtoti instalējot saderīgās lietotnes.
+
+      Ja šai politikai ir iestatīta vērtība “Nepatiesa”, pakalpojums Android Backup Service tiks izslēgts.
+
+      Ja šis iestatījums ir konfigurēts, lietotāji paši nevar to mainīt.
+
+      Ja šis iestatījums nav konfigurēts, lietotāji Android lietotnē Iestatījumi var ieslēgt un izslēgt pakalpojumu Android Backup Service.</translation>
 <translation id="7818131573217430250">Augsta kontrasta režīma noklusējuma stāvokļa iestatīšana pieteikšanās ekrānā</translation>
 <translation id="7831595031698917016">Norāda maksimālo aizkavi (milisekundēs) no atzinuma saņemšanas par politikas nederīgumu līdz jaunas politikas ienesei no ierīču pārvaldības pakalpojuma.
 

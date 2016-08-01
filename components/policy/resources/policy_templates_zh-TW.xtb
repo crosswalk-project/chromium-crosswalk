@@ -1080,6 +1080,7 @@
 <translation id="467449052039111439">開啟網址清單</translation>
 <translation id="4680961954980851756">啟用自動填入</translation>
 <translation id="4723829699367336876">允許遠端存取用戶端穿越防火牆</translation>
+<translation id="4725528134735324213">啟用 Android 備份服務</translation>
 <translation id="4733471537137819387">與整合 HTTP 驗證相關的政策。</translation>
 <translation id="4744190513568488164"><ph name="PRODUCT_NAME" /> 要委派的目標伺服器。
 
@@ -1905,6 +1906,13 @@
           <ph name="PROXY_HELP_URL" />。</translation>
 <translation id="7788511847830146438">根據設定檔</translation>
 <translation id="7796141075993499320">允許您設定網址模式清單，指定可以執行外掛程式的網站。如果未設定這項政策，系統會從「DefaultPluginsSetting」政策 (如果有設定的話) 或使用者的個人設定，將通用預設值套用至所有網站。</translation>
+<translation id="7801886189430766248">將這項政策設為 true 時，系統會將 Android 應用程式資料上傳到 Android 備份伺服器。一旦重新安裝相容的應用程式，系統就會從 Android 備份伺服器還原 Android 應用程式資料。
+
+      將這項政策設為 false 時，Android 備份服務會遭到停用。
+
+      如果設定這項政策，使用者將無法自行變更。
+
+      如果未設定這項政策，使用者則可在 Android 設定應用程式中開啟/關閉 Android 備份服務。</translation>
 <translation id="7818131573217430250">設定高反差模式在登入畫面的預設狀態</translation>
 <translation id="7831595031698917016">指定從接收無效政策到向裝置管理服務擷取新政策的最長延遲時間 (以毫秒數為單位)。
 

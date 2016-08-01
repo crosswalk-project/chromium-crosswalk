@@ -1086,6 +1086,7 @@ Zwykle ta zasada jest wyłączona w celu ochrony przed phishingiem. W przypadku 
 <translation id="467449052039111439">Otwórz adresy URL z listy</translation>
 <translation id="4680961954980851756">Włącz autouzupełnianie</translation>
 <translation id="4723829699367336876">Włącz omijanie zapory sieciowej przez klienta dostępu zdalnego</translation>
+<translation id="4725528134735324213">Włącz Android Backup Service</translation>
 <translation id="4733471537137819387">Zasady dotyczące zintegrowanego uwierzytelniania HTTP.</translation>
 <translation id="4744190513568488164">Serwery, którym <ph name="PRODUCT_NAME" /> może przekazywać dane logowania.
 
@@ -1906,6 +1907,13 @@ Więcej opcji i szczegółowych przykładów znajdziesz na:
           <ph name="PROXY_HELP_URL" /></translation>
 <translation id="7788511847830146438">Według profilu</translation>
 <translation id="7796141075993499320">Umożliwia skonfigurowanie listy wzorcowych URL-i określających witryny, w których mogą być uruchamiane wtyczki. Jeśli ta zasada nie zostanie skonfigurowana, dla wszystkich witryn będzie używana globalna wartość domyślna pochodząca z zasady „DefaultPluginsSetting” (jeśli została skonfigurowana) lub z osobistej konfiguracji użytkownika.</translation>
+<translation id="7801886189430766248">Gdy ta zasada jest włączona, dane aplikacji na Androida są przesyłane na serwery usługi Android Backup i przywracane stamtąd po ponownym zainstalowaniu zgodnych aplikacji.
+
+      Wyłączenie tej zasady powoduje wyłączenie Android Backup Service.
+
+      Jeśli zasada jest skonfigurowana, użytkownicy nie mogą zmienić tego ustawienia.
+
+      Jeśli nie jest skonfigurowana, użytkownicy mogą włączać i wyłączać Android Backup Service w aplikacji Ustawienia na Androidzie.</translation>
 <translation id="7818131573217430250">Ustaw domyślny stan trybu wysokiego kontrastu na ekranie logowania</translation>
 <translation id="7831595031698917016">Określa maksymalne opóźnienie w milisekundach między otrzymaniem unieważnienia zasady a pobraniem nowej z usługi zarządzania urządzeniem.
 

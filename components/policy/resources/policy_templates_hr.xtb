@@ -1082,6 +1082,7 @@
 <translation id="467449052039111439">Otvori popis URL-ova</translation>
 <translation id="4680961954980851756">Omogući Automatsko popunjavanje</translation>
 <translation id="4723829699367336876">Omogući prijelaz vatrozida iz klijenta za daljinski pristup</translation>
+<translation id="4725528134735324213">Omogući Androidovu uslugu sigurnosnog kopiranja</translation>
 <translation id="4733471537137819387">Pravila koja se odnose na integriranu HTTP autentifikaciju.</translation>
 <translation id="4744190513568488164">Poslužitelji koje <ph name="PRODUCT_NAME" /> može ovlastiti.
 
@@ -1911,6 +1912,13 @@
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Po profilu</translation>
 <translation id="7796141075993499320">Omogućuje postavljanje popisa uzoraka URL-ova koji određuju web-lokacije koje smiju pokretati dodatke. Ako ovo pravilo nije postavljeno, upotrebljavat će se globalna zadana vrijednost za sve web-lokacije iz pravila "DefaultPluginsSetting" ako je postavljeno, odnosno iz osobne konfiguracije korisnika ako nije.</translation>
+<translation id="7801886189430766248">Kada se to pravilo postavi na True, podaci Android aplikacija prenose se na Androidove poslužitelje za sigurnosne kopije i vraćaju s njih nakon ponovnog instaliranja kompatibilnih aplikacija.
+
+      Kad se to pravilo postavi na False, Androidova usluga za sigurnosno kopiranje bit će isključena.
+
+      Ako se ta postavka konfigurira, korisnici je ne mogu promijeniti.
+
+      Ako se ne konfigurira, korisnici mogu uključiti i isključiti Androidovu uslugu za sigurnosno kopiranje u Androidovoj aplikaciji Postavke.</translation>
 <translation id="7818131573217430250">Postavljanje zadanog stanja načina visokog kontrasta na zaslonu za prijavu</translation>
 <translation id="7831595031698917016">Određuje maksimalnu odgodu u milisekundama od primitka poništenja valjanosti pravila do dohvaćanja novog pravila s usluge upravljanja uređajem.
 

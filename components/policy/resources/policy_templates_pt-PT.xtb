@@ -1086,6 +1086,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="467449052039111439">Abrir uma lista de URLs</translation>
 <translation id="4680961954980851756">Ativar Preenchimento Automático</translation>
 <translation id="4723829699367336876">Ativar firewall transversal do cliente de acesso remoto</translation>
+<translation id="4725528134735324213">Ativar o Android Backup Service</translation>
 <translation id="4733471537137819387">Políticas relacionadas com a autenticação HTTP integrada</translation>
 <translation id="4744190513568488164">Os servidores para os quais o <ph name="PRODUCT_NAME" /> poderá delegar.
 
@@ -1916,6 +1917,13 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Por Perfil</translation>
 <translation id="7796141075993499320">Permite definir uma lista de padrões de URL que especificam os Web sites autorizados a executar plug-ins. Se esta política não for definida, será utilizado o valor global predefinido para todos os Web sites, seja a partir da política "DefaultPluginsSetting", caso esteja definida, ou a partir da configuração pessoal do utilizador.</translation>
+<translation id="7801886189430766248">Quando esta política está definida como verdadeira, os dados de aplicações Android são carregados para os servidores do Android Backup Service e restaurados a partir dos mesmos após a reinstalação de aplicações compatíveis.
+
+      Quando esta política está definida como falsa, o Android Backup Service é desativado.
+
+      Se esta definição estiver configurada, os utilizadores não a podem alterar.
+
+      Se esta definição não estiver configurada, os utilizadores podem ativar e desativar o Android Backup Service na aplicação Definições do Android.</translation>
 <translation id="7818131573217430250">Predefinir o estado do modo de alto contraste no ecrã de início de sessão</translation>
 <translation id="7831595031698917016">Especifica o atraso máximo em milissegundos entre a receção de uma invalidação de uma política e a obtenção da nova política do serviço de gestão do dispositivo.
 

@@ -1156,6 +1156,7 @@ Si esta política está configurada, el usuario no puede cambiarla y el acceso d
 <translation id="467449052039111439">Abrir una lista de URLs</translation>
 <translation id="4680961954980851756">Habilitar Autocompletar</translation>
 <translation id="4723829699367336876">Habilita que se pueda pasar a través de un cortafuegos desde un host de acceso remoto.</translation>
+<translation id="4725528134735324213">Habilitar Android Backup Service</translation>
 <translation id="4733471537137819387">Políticas relacionadas con la autenticación HTTP integrada</translation>
 <translation id="4744190513568488164">Permite indicar los servidores en los que <ph name="PRODUCT_NAME" /> puede delegar las credenciales de usuarios.
 
@@ -2061,6 +2062,13 @@ Si se asigna el valor false a la política, no se proporcionará información so
 <translation id="7796141075993499320">Permite establecer una lista de patrones de URL que especifiquen sitios que puedan ejecutar complementos.
 
           Si no se establece esta política, se usará para todos los sitios el valor general predeterminado que se indique en la política DefaultPluginsSetting (si se ha establecido) o el valor personalizado que haya definido el usuario (en caso contrario).</translation>
+<translation id="7801886189430766248">Si a esta política se le asigna el valor true, los datos de las aplicaciones de Android se suben a los servidores de Android Backup y se restauran al volver a descargar aplicaciones compatibles.
+
+      Si a esta política se le asigna el valor false, Android Backup Service se desactiva.
+
+      Si se configura esta opción, los usuarios no pueden cambiarla.
+
+      Si no se configura esta opción, los usuarios pueden activar o desactivar Android Backup Service en la aplicación Ajustes de Android.</translation>
 <translation id="7818131573217430250">Establecer el estado predeterminado del modo de contraste alto en la pantalla de inicio de sesión</translation>
 <translation id="7831595031698917016">Especifica el retraso máximo en milisegundos entre la recepción de la invalidación de una política y la recuperación de la nueva política del servicio de administración del dispositivo.
 

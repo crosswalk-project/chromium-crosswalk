@@ -1162,6 +1162,7 @@ politikayı geçersiz kılamaz.
 <translation id="467449052039111439">URL listesi aç</translation>
 <translation id="4680961954980851756">Otomatik Doldurmayı etkinleştir</translation>
 <translation id="4723829699367336876">Uzaktan erişim istemcisinden güvenlik duvarı geçişini etkinleştir</translation>
+<translation id="4725528134735324213">Android Backup Service'ı etkinleştir</translation>
 <translation id="4733471537137819387">Entegre HTTP kimlik doğrulaması ile ilgili politikalar.</translation>
 <translation id="4744190513568488164"><ph name="PRODUCT_NAME" /> ürününün yetki verebileceği sunucular.
 
@@ -2065,6 +2066,13 @@ Ayrıca, RemoteAccessHostClientDomain konusuna bakın.</translation>
 <translation id="7796141075993499320">Eklentileri çalıştırmalarına izin verilen sitelerin belirtildiği bir URL kalıpları listesi ayarlamanıza olanak tanır.
 
           Bu politika ayarlanmadan bırakılırsa, 'DefaultPluginsSetting' politikası ayarlandıysa buradaki değer, aksi takdirde kullanıcının kişisel yapılandırması tüm siteler için genel varsayılan değer olarak kullanılır.</translation>
+<translation id="7801886189430766248">Bu politika doğru (true) değerine ayarlandığında, Android uygulama verileri Android Backup sunucularına yüklenir ve uyumlu uygulamaların yeniden yüklenmelerinin ardından buradan geri yüklenir.
+
+      Bu politika yanlış (false) değerine ayarlandığında, Android Backup Service kapatılır.
+
+      Bu ayar yapılandırılırsa kullanıcılar ayarı kendileri değiştiremez.
+
+      Bu ayar yapılandırılmazsa kullanıcılar Android Backup Service'ı Android Ayarları uygulamasından açıp kapatabilir.</translation>
 <translation id="7818131573217430250">Giriş ekranında yüksek kontrast modunun varsayılan durumunu ayarla</translation>
 <translation id="7831595031698917016">Bir politika iptalinin alınmasıyla cihaz yönetimi hizmetinden yeni politikanın getirilmesi arasındaki maksimum gecikmeyi milisaniye olarak belirtir.
 

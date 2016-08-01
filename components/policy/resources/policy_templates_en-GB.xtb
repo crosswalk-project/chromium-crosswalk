@@ -1163,6 +1163,7 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="467449052039111439">Open a list of URLs</translation>
 <translation id="4680961954980851756">Enable AutoFill</translation>
 <translation id="4723829699367336876">Enable firewall traversal from remote access client</translation>
+<translation id="4725528134735324213">Enable Android Backup Service</translation>
 <translation id="4733471537137819387">Policies related to integrated HTTP authentication.</translation>
 <translation id="4744190513568488164">Servers that <ph name="PRODUCT_NAME" /> may delegate to.
 
@@ -2077,6 +2078,13 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
 <translation id="7796141075993499320">Allows you to set a list of url patterns that specify sites which are allowed to run plug-ins.
 
           If this policy is left unset the global default value will be used for all sites either from the 'DefaultPlug-insSetting' policy, if it is set, or the user's personal configuration otherwise.</translation>
+<translation id="7801886189430766248">When this policy is set to true, Android app data is uploaded to Android Backup servers and restored from them upon app re-installations for compatible apps.
+
+      When this policy is set to false, Android Backup Service will be switched off.
+
+      If this setting is configured then users are not able change it themselves.
+
+      If this setting is not configured then users are able to turn Android Backup Service on and off in the Android Settings app.</translation>
 <translation id="7818131573217430250">Set the default state of high contrast mode on the login screen</translation>
 <translation id="7831595031698917016">Specifies the maximum delay in milliseconds between receiving a policy invalidation and fetching the new policy from the device management service.
 

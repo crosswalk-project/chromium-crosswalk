@@ -1099,6 +1099,7 @@
 <translation id="467449052039111439">Deschide o listă de adrese URL</translation>
 <translation id="4680961954980851756">Activează completarea automată</translation>
 <translation id="4723829699367336876">Activează trecerea prin firewall de la clientul cu acces la distanță</translation>
+<translation id="4725528134735324213">Activează Android Backup Service</translation>
 <translation id="4733471537137819387">Politici referitoare la autentificarea integrată HTTP.</translation>
 <translation id="4744190513568488164">Servere spre care <ph name="PRODUCT_NAME" /> poate delega.
 
@@ -1934,6 +1935,13 @@ nu poate fi stabilit de utilizator din setările browserului.
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Per profil</translation>
 <translation id="7796141075993499320">Vă permite să setați o listă cu modele pentru adresele URL ce specifică site-urile care au permisiunea de a rula pluginuri. Dacă această politică nu este setată, valoarea prestabilită la nivel global va fi folosită pentru toate site-urile, fie din politica „DefaultPluginsSetting”, în cazul în care aceasta este setată, fie din configurația personală a utilizatorului, în caz contrar.</translation>
+<translation id="7801886189430766248">Dacă această politică este activată, datele aplicațiilor Android sunt încărcate pe serverele Android Backup Service și vor fi restabilite de pe acestea la reinstalarea aplicațiilor, pentru aplicațiile compatibile.
+
+      Când această politică este dezactivată, Android Backup Service va fi dezactivat.
+
+      Dacă această setare este configurată, utilizatorii nu o vor putea modifica.
+
+      Dacă această setare nu este configurată, utilizatorii pot activa și dezactiva Android Backup Service în aplicația Setări Android.</translation>
 <translation id="7818131573217430250">Setați modul de contrast ridicat pe ecranul de conectare ca stare prestabilită</translation>
 <translation id="7831595031698917016">Specifică întârzierea maximă în milisecunde de la primirea unei invalidări a politicii și până la preluarea politicii noi de la serviciul de gestionare a dispozitivului.
 

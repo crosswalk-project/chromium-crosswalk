@@ -1122,6 +1122,7 @@
 <translation id="467449052039111439">Åpne en liste over nettadresser</translation>
 <translation id="4680961954980851756">Aktiver Autofyll</translation>
 <translation id="4723829699367336876">Aktiver kryssing av brannmur fra ekstern tilgangsklient</translation>
+<translation id="4725528134735324213">Slå på Android Backup Service</translation>
 <translation id="4733471537137819387">Retningslinjer knyttet til integrert HTTP-autentisering.</translation>
 <translation id="4744190513568488164">Tjenere <ph name="PRODUCT_NAME" /> kan delegere til.
 
@@ -2023,6 +2024,13 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
 <translation id="7796141075993499320">Gjør at du kan angi en liste over nettadressemønstre som spesifiserer hvilke nettsteder som får kjøre programtillegg.
 
           Hvis denne retningslinjen ikke angis, brukes den globale verdien for alle nettsteder, enten fra retningslinjenDefaultPluginsSetting hvis den er angitt, eller fra brukerens egen konfigurasjon hvis den nevnte innstillingen ikke er angitt.</translation>
+<translation id="7801886189430766248">Når denne regelen er satt til true (sann), lastes Android-appdata opp til Android Backup Service og gjenopprettes derfra når kompatible apper installeres på nytt.
+
+      Når denne regelen settes til false (usann), blir Android Backup Service slått av.
+
+      Hvis denne regelen er konfigurert, kan ikke brukerne endre den selv.
+
+      Hvis denne regelen ikke er konfigurert, kan brukerne slå Android Backup Service av og på i appen for Android-innstillinger.</translation>
 <translation id="7818131573217430250">Angi standard tilstand for høykontrastsmodus på påloggingssiden</translation>
 <translation id="7831595031698917016">Angir maksverdien for forsinkelse mellom mottak av en opphevet innstilling og henting av den nye innstillingen fra tjenesten for enhetsadministrasjon i milisekunder.
 

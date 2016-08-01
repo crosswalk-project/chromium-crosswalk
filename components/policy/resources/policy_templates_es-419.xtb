@@ -1078,6 +1078,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
 <translation id="467449052039111439">Abrir una lista de direcciones URL</translation>
 <translation id="4680961954980851756">Habilitar Autocompletar</translation>
 <translation id="4723829699367336876">Habilitar el cruce seguro de firewall desde clientes de acceso remoto</translation>
+<translation id="4725528134735324213">Habilitar Android Backup Service</translation>
 <translation id="4733471537137819387">Políticas relacionadas con la autenticación de HTTP integrada</translation>
 <translation id="4744190513568488164">Servidores a los que <ph name="PRODUCT_NAME" /> puede delegar las credenciales de usuarios
 
@@ -1895,6 +1896,13 @@ desactivarlo).</translation>
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Por perfil</translation>
 <translation id="7796141075993499320">Te permite configurar una lista de patrones de URL que especifican los sitios que están autorizados a ejecutar complementos. Si esta política no se configura, se usará el valor global predeterminado para todos los sitios ya sea de la política "DefaultPluginsSetting", si está configurada, o de otro tipo de configuración personal del usuario.</translation>
+<translation id="7801886189430766248">Cuando esta política se establece como verdadera, los datos de la app de Android se cargan en los servidores de Android Backup y se restauran desde ellos cuando se vuelven a instalar apps compatibles.
+
+      Cuando esta política se establece como falsa, Android Backup Service se desactiva.
+
+      Si se establece esta configuración, los usuarios no pueden cambiarla.
+
+      Si esta configuración no se establece, los usuarios pueden activar y desactivar Android Backup Service en la app de Configuración de Android.</translation>
 <translation id="7818131573217430250">Establece el estado predeterminado del modo de contraste alto en la pantalla de acceso.</translation>
 <translation id="7831595031698917016">Especifica la demora máxima en milisegundos entre la recepción de la invalidación de una política y la recuperación de la nueva política del servicio de administración del dispositivo.
 

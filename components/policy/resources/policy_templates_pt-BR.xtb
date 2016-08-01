@@ -1075,6 +1075,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="467449052039111439">Abrir uma lista de URLs</translation>
 <translation id="4680961954980851756">Ativar Preenchimento automático</translation>
 <translation id="4723829699367336876">Habilitar passagem de firewall a partir do cliente de acesso remoto</translation>
+<translation id="4725528134735324213">Ativar o Android Backup Service</translation>
 <translation id="4733471537137819387">Políticas relacionadas à autenticação integrada de HTTP.</translation>
 <translation id="4744190513568488164">Servidores que podem receber delegações do <ph name="PRODUCT_NAME" />.
 
@@ -1892,6 +1893,13 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
           <ph name="PROXY_HELP_URL" />.</translation>
 <translation id="7788511847830146438">Por perfil</translation>
 <translation id="7796141075993499320">Permite que você defina uma lista de padrões de URL que especificam sites com permissão para executar plug-ins. Se esta política for deixada sem definição, o valor padrão global será utilizado para todos os sites a partir da política "DefaultPluginsSetting", caso esta tenha sido definida, ou a partir das configurações pessoais do usuário, caso não tenha sido definida.</translation>
+<translation id="7801886189430766248">Quando essa política é definida como true, é feito upload dos dados de apps do Android para os servidores do Android Backup. Esses dados são restaurados a partir desses servidores após reinstalações de apps compatíveis.
+
+      Quando essa política é definida como false, o Android Backup Service é desativado.
+
+      Se essa definição for configurada, os usuários não conseguirão alterá-la.
+
+      Se essa definição não for configurada, os usuários poderão ativar e desativar o Android Backup Service no app Config. do Android.</translation>
 <translation id="7818131573217430250">Definir o estado padrão do modo de alto contraste na tela de login</translation>
 <translation id="7831595031698917016">Especifica o atraso máximo, em milissegundos, entre o recebimento da invalidação de uma política e a busca pela nova política no serviço de gerenciamento de dispositivos.
 
