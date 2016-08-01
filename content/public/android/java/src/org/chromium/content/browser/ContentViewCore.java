@@ -1507,6 +1507,7 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
         GamepadList.onAttachedToWindow(mContext);
         mAccessibilityManager.addAccessibilityStateChangeListener(this);
         mSystemCaptioningBridge.addListener(this);
+        mImeAdapter.onViewAttachedToWindow();
     }
 
     /**
