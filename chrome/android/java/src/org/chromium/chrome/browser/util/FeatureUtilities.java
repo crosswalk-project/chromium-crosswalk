@@ -26,7 +26,6 @@ import org.chromium.base.VisibleForTesting;
 import org.chromium.chrome.browser.AppLinkHandler;
 import org.chromium.chrome.browser.ChromeApplication;
 import org.chromium.chrome.browser.ChromeSwitches;
-import org.chromium.chrome.browser.ChromeVersionInfo;
 import org.chromium.chrome.browser.preferences.ChromePreferenceManager;
 import org.chromium.chrome.browser.tabmodel.DocumentModeAssassin;
 import org.chromium.sync.signin.AccountManagerHelper;
@@ -182,8 +181,7 @@ public class FeatureUtilities {
     }
 
     private static boolean isHerbDisallowed(Context context) {
-        return isDocumentMode(context) || ChromeVersionInfo.isStableBuild()
-                || ChromeVersionInfo.isBetaBuild() || DeviceFormFactor.isTablet(context);
+        return isDocumentMode(context);
     }
 
     /**
