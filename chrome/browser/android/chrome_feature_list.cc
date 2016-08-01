@@ -31,6 +31,7 @@ const base::Feature* kFeaturesExposedToJava[] = {
     &features::kCredentialManagementAPI,
     &features::kSimplifiedFullscreenUI,
     &features::kWebPayments,
+    &kAllBookmarksFeature,
     &kAndroidPayIntegrationV1,
     &kImportantSitesInCBD,
     &kMediaStyleNotification,
@@ -48,6 +49,9 @@ const base::Feature* kFeaturesExposedToJava[] = {
 };
 
 }  // namespace
+
+const base::Feature kAllBookmarksFeature{"AllBookmarks",
+                                         base::FEATURE_ENABLED_BY_DEFAULT};
 
 const base::Feature kImportantSitesInCBD{"ImportantSitesInCBD",
                                          base::FEATURE_DISABLED_BY_DEFAULT};
