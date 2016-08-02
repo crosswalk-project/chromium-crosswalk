@@ -1158,6 +1158,7 @@ public class AwContents implements SmartClipProvider,
         // hardware resources.
         if (mIsAttachedToWindow) {
             Log.w(TAG, "WebView.destroy() called while WebView is still attached to window.");
+            mCurrentFunctor.onDetachedFromWindow();
             nativeOnDetachedFromWindow(mNativeAwContents);
         }
         mIsDestroyed = true;
