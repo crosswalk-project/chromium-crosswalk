@@ -578,7 +578,7 @@ HRESULT FontFileStream::RuntimeClassInitialize(HANDLE handle) {
   }
 
   data_.Initialize(base::File(duplicate_handle));
-  if (!data_.IsValid()) {
+  if (!data_.IsValid())
     return E_FAIL;
   return S_OK;
 }
