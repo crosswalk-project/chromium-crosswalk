@@ -816,7 +816,6 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     @Override
     public void onDismiss() {
         disconnectFromClientWithDebugMessage("Dialog dismissed");
-        closeUI(false);
     }
 
     private void disconnectFromClientWithDebugMessage(String debugMessage) {
@@ -827,6 +826,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         Log.d(TAG, debugMessage);
         if (mClient != null) mClient.onError(reason);
         closeClient();
+        closeUI(false);
     }
 
     @Override
