@@ -107,7 +107,6 @@ void PushMessagingPermissionContext::DecidePushPermission(
     const BrowserPermissionCallback& callback,
     blink::mojom::PermissionStatus notification_status) {
   DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
-  DCHECK_NE(notification_status, blink::mojom::PermissionStatus::ASK);
 
   ContentSetting push_content_setting =
       HostContentSettingsMapFactory::GetForProfile(profile_)
@@ -123,7 +122,7 @@ void PushMessagingPermissionContext::DecidePushPermission(
     return;
   }
 
-  if (notification_status == blink::mojom::PermissionStatus::DENIED) {
+  if (notification_status != blink::mojom::PermissionStatus::GRANTED) {
     DVLOG(1) << "Notification permission has not been granted.";
     NotifyPermissionSet(id, requesting_origin, embedding_origin, callback,
                         false /* persist */, CONTENT_SETTING_BLOCK);
