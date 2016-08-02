@@ -164,6 +164,11 @@ TEST_F(PushMessagingPermissionContextTest, DecidePushPermission) {
   BrowserPermissionCallback callback = base::Bind(DoNothing);
 
   context.DecidePushPermission(request_id, GURL(kOriginA), GURL(kOriginA),
+                               callback, blink::mojom::PermissionStatus::ASK);
+  EXPECT_FALSE(context.was_persisted());
+  EXPECT_FALSE(context.was_granted());
+
+  context.DecidePushPermission(request_id, GURL(kOriginA), GURL(kOriginA),
                                callback,
                                blink::mojom::PermissionStatus::DENIED);
   EXPECT_FALSE(context.was_persisted());
