@@ -1618,7 +1618,7 @@ class WaylandRemoteShell : public ash::ShellObserver,
     const display::Display& primary =
         ash::Shell::GetInstance()->display_manager()->GetDisplayForId(
             display_id_);
-    SendConfigure_DEPRECATED();
+    SendConfigure_DEPRECATED(primary);
   }
   void OnMaximizeModeStarted() override {
     layout_mode_ = ZWP_REMOTE_SHELL_V1_LAYOUT_MODE_TABLET;
