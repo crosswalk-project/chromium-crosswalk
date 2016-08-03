@@ -150,6 +150,9 @@ bool ArcSupportHost::Initialize() {
   loadtime_data->SetString(
       "textBackupRestore",
       l10n_util::GetStringUTF16(IDS_ARC_OPT_IN_DIALOG_BACKUP_RESTORE));
+  loadtime_data->SetString(
+      "serverError",
+      l10n_util::GetStringUTF16(IDS_ARC_SERVER_COMMUNICATION_ERROR));
 
   const std::string& app_locale = g_browser_process->GetApplicationLocale();
   const std::string& country_code = base::CountryCodeForCurrentTimezone();
