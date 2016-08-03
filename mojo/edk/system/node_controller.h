@@ -277,8 +277,6 @@ class NodeController : public ports::NodeDelegate,
   // Guards |incoming_messages_|.
   base::Lock messages_lock_;
   std::queue<ports::ScopedMessage> incoming_messages_;
-  // Flag to fast-path checking |incoming_messages_|.
-  AtomicFlag incoming_messages_flag_;
 
   // Guards |shutdown_callback_|.
   base::Lock shutdown_lock_;
