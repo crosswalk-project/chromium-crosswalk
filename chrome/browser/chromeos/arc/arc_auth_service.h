@@ -38,6 +38,7 @@ namespace arc {
 
 class ArcAndroidManagementChecker;
 class ArcAuthContext;
+enum class ProvisioningResult : int;
 
 // This class proxies the request from the client to fetch an auth code from
 // LSO.
@@ -140,6 +141,8 @@ class ArcAuthService : public ArcService,
   // user.
   void GetIsAccountManaged(
       const GetIsAccountManagedCallback& callback) override;
+
+  void OnSignInFailedInternal(ProvisioningResult result);
 
   // Called from Arc support platform app to start LSO.
   void StartLso();
