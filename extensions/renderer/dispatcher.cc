@@ -996,7 +996,6 @@ void Dispatcher::OnActivateExtension(const std::string& extension_id) {
   const Extension* extension =
       RendererExtensionRegistry::Get()->GetByID(extension_id);
   if (!extension) {
-    NOTREACHED();
     // Extension was activated but was never loaded. This probably means that
     // the renderer failed to load it (or the browser failed to tell us when it
     // did). Failures shouldn't happen, but instead of crashing there (which
@@ -1092,11 +1091,8 @@ void Dispatcher::OnLoaded(
     //    Dispatcher is attached to a RenderThread. Presumably there is a
     //    mismatch there. In theory one would think it's possible for the
     //    browser to figure this out itself - but again, cost/benefit.
-    if (!extension_registry->Insert(extension)) {
-      // TODO(devlin): This may be fixed by crbug.com/528026. Monitor, and
-      // consider making this a release CHECK.
-      NOTREACHED();
-    }
+    if (!extension_registry->Contains(extension->id()))
+      extension_registry->Insert(extension);
   }
 
   // Update the available bindings for all contexts. These may have changed if
@@ -1158,12 +1154,8 @@ void Dispatcher::OnTransferBlobs(const std::vector<std::string>& blob_uuids) {
 void Dispatcher::OnUnloaded(const std::string& id) {
   // See comment in OnLoaded for why it would be nice, but perhaps incorrect,
   // to CHECK here rather than guarding.
-  // TODO(devlin): This may be fixed by crbug.com/528026. Monitor, and
-  // consider making this a release CHECK.
-  if (!RendererExtensionRegistry::Get()->Remove(id)) {
-    NOTREACHED();
+  if (!RendererExtensionRegistry::Get()->Remove(id))
     return;
-  }
 
   active_extension_ids_.erase(id);
 

@@ -65,7 +65,6 @@ class ExtensionSystem;
 class ExtensionUpdater;
 class ExternalInstallManager;
 class OneShotEvent;
-class RendererStartupHelper;
 class SharedModuleService;
 class UpdateObserver;
 }  // namespace extensions
@@ -711,10 +710,6 @@ class ExtensionService
 
   // The SharedModuleService used to check for import dependencies.
   std::unique_ptr<extensions::SharedModuleService> shared_module_service_;
-
-  // The associated RendererStartupHelper. Guaranteed to outlive the
-  // ExtensionSystem, and thus us.
-  extensions::RendererStartupHelper* renderer_helper_;
 
   base::ObserverList<extensions::UpdateObserver, true> update_observers_;
 
