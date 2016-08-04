@@ -156,14 +156,14 @@ public class NewTabPageAdapterTest {
     public void testSnippetLoadingBlock() {
         NewTabPageAdapter ntpa = new NewTabPageAdapter(mNewTabPageManager, null, mSnippetsBridge);
 
-        List<SnippetArticleListItem> snippets = createDummySnippets();
+        List<SnippetArticle> snippets = createDummySnippets();
 
         // By default, state is DisabledReason.NONE, so we can load snippets
         mSnippetsObserver.onSnippetsReceived(snippets);
         assertEquals(3 + snippets.size(), ntpa.getItemCount());
 
         // If we have snippets, we should not load the new list.
-        snippets.add(new SnippetArticleListItem("https://site.com/url1", "title1", "pub1", "txt1",
+        snippets.add(new SnippetArticle("https://site.com/url1", "title1", "pub1", "txt1",
                 "https://site.com/url1", "https://amp.site.com/url1", null, 0, 0, 0));
         mSnippetsObserver.onSnippetsReceived(snippets);
         assertEquals(3 + snippets.size() - 1, ntpa.getItemCount());
