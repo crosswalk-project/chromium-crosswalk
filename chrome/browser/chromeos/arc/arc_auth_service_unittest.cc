@@ -299,9 +299,11 @@ TEST_F(ArcAuthServiceTest, SignInStatus) {
   // Report failure.
   auth_service()->OnSignInFailed(
       mojom::ArcSignInFailureReason::GMS_NETWORK_ERROR);
-  EXPECT_FALSE(prefs->GetBoolean(prefs::kArcSignedIn));
-  EXPECT_EQ(ArcAuthService::State::STOPPED, auth_service()->state());
-  EXPECT_EQ(ArcBridgeService::State::STOPPED, bridge_service()->state());
+  // On error, UI to send feedback is showing. In that case,
+  // the ARC is still necessary to run on background for gathering the logs.
+  EXPECT_TRUE(prefs->GetBoolean(prefs::kArcSignedIn));
+  EXPECT_EQ(ArcAuthService::State::ACTIVE, auth_service()->state());
+  EXPECT_EQ(ArcBridgeService::State::READY, bridge_service()->state());
 
   // Correctly stop service.
   auth_service()->Shutdown();
