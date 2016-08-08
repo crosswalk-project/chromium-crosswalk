@@ -62,7 +62,7 @@ class InstanceHolder {
 
   // Called when the channel is closed.
   void CloseChannel() {
-    if (!ptr_)
+    if (!raw_ptr_)
       return;
 
     ptr_.reset();

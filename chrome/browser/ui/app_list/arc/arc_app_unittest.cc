@@ -297,6 +297,8 @@ class ArcAppModelBuilderTest : public AppListTestBase {
 
   Profile* profile() { return profile_.get(); }
 
+  ArcAppTest* arc_test() { return &arc_test_; }
+
   const std::vector<arc::mojom::AppInfo>& fake_apps() const {
     return arc_test_.fake_apps();
   }
@@ -307,10 +309,6 @@ class ArcAppModelBuilderTest : public AppListTestBase {
 
   const std::vector<arc::mojom::ShortcutInfo>& fake_shortcuts() const {
     return arc_test_.fake_shortcuts();
-  }
-
-  arc::FakeArcBridgeService* bridge_service() {
-    return arc_test_.bridge_service();
   }
 
   arc::FakeAppInstance* app_instance() {
@@ -328,7 +326,6 @@ class ArcAppModelBuilderTest : public AppListTestBase {
 
 TEST_F(ArcAppModelBuilderTest, ArcPackagePref) {
   ValidateHavePackages(std::vector<arc::mojom::ArcPackageInfo>());
-  bridge_service()->SetReady();
   app_instance()->SendRefreshPackageList(fake_packages());
   ValidateHavePackages(fake_packages());
 
@@ -352,14 +349,12 @@ TEST_F(ArcAppModelBuilderTest, RefreshAllOnReady) {
   // There should already have been one call, when the interface was
   // registered.
   EXPECT_EQ(1, app_instance()->refresh_app_list_count());
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   EXPECT_EQ(2, app_instance()->refresh_app_list_count());
 }
 
 TEST_F(ArcAppModelBuilderTest, RefreshAllFillsContent) {
   ValidateHaveApps(std::vector<arc::mojom::AppInfo>());
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(fake_apps());
   ValidateHaveApps(fake_apps());
@@ -367,7 +362,6 @@ TEST_F(ArcAppModelBuilderTest, RefreshAllFillsContent) {
 
 TEST_F(ArcAppModelBuilderTest, InstallShortcut) {
   ValidateHaveApps(std::vector<arc::mojom::AppInfo>());
-  bridge_service()->SetReady();
 
   app_instance()->SendInstallShortcuts(fake_shortcuts());
   ValidateHaveShortcuts(fake_shortcuts());
@@ -375,7 +369,6 @@ TEST_F(ArcAppModelBuilderTest, InstallShortcut) {
 
 TEST_F(ArcAppModelBuilderTest, RefreshAllPreservesShortcut) {
   ValidateHaveApps(std::vector<arc::mojom::AppInfo>());
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(fake_apps());
   ValidateHaveApps(fake_apps());
@@ -390,7 +383,6 @@ TEST_F(ArcAppModelBuilderTest, RefreshAllPreservesShortcut) {
 
 TEST_F(ArcAppModelBuilderTest, MultipleRefreshAll) {
   ValidateHaveApps(std::vector<arc::mojom::AppInfo>());
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   // Send info about all fake apps except last.
   std::vector<arc::mojom::AppInfo> apps1(fake_apps().begin(),
@@ -425,7 +417,6 @@ TEST_F(ArcAppModelBuilderTest, StopStartServicePreserveApps) {
   ArcAppListPrefs* prefs = ArcAppListPrefs::Get(profile_.get());
   ASSERT_NE(nullptr, prefs);
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   EXPECT_EQ(0u, GetArcItemCount());
   EXPECT_EQ(0u, prefs->GetAppIds().size());
@@ -436,14 +427,11 @@ TEST_F(ArcAppModelBuilderTest, StopStartServicePreserveApps) {
   ValidateAppReadyState(fake_apps(), true);
 
   // Stopping service does not delete items. It makes them non-ready.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   // Ids should be the same.
   EXPECT_EQ(ids, prefs->GetAppIds());
   ValidateAppReadyState(fake_apps(), false);
 
-  // Setting service ready does not change anything because RefreshAppList is
-  // not called.
-  bridge_service()->SetReady();
   // Ids should be the same.
   EXPECT_EQ(ids, prefs->GetAppIds());
   ValidateAppReadyState(fake_apps(), false);
@@ -458,7 +446,6 @@ TEST_F(ArcAppModelBuilderTest, StopStartServicePreserveShortcuts) {
   ArcAppListPrefs* prefs = ArcAppListPrefs::Get(profile_.get());
   ASSERT_NE(nullptr, prefs);
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   EXPECT_EQ(0u, GetArcItemCount());
   EXPECT_EQ(0u, prefs->GetAppIds().size());
@@ -469,14 +456,11 @@ TEST_F(ArcAppModelBuilderTest, StopStartServicePreserveShortcuts) {
   ValidateShortcutReadyState(fake_shortcuts(), true);
 
   // Stopping service does not delete items. It makes them non-ready.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   // Ids should be the same.
   EXPECT_EQ(ids, prefs->GetAppIds());
   ValidateShortcutReadyState(fake_shortcuts(), false);
 
-  // Setting service ready does not change anything because RefreshAppList is
-  // not called.
-  bridge_service()->SetReady();
   // Ids should be the same.
   EXPECT_EQ(ids, prefs->GetAppIds());
   ValidateShortcutReadyState(fake_shortcuts(), false);
@@ -493,14 +477,13 @@ TEST_F(ArcAppModelBuilderTest, RestartPreserveApps) {
   ASSERT_NE(nullptr, prefs);
 
   // Start from scratch and fill with apps.
-  bridge_service()->SetReady();
   app_instance()->SendRefreshAppList(fake_apps());
   std::vector<std::string> ids = prefs->GetAppIds();
   EXPECT_EQ(fake_apps().size(), ids.size());
   ValidateAppReadyState(fake_apps(), true);
 
   // This recreates model and ARC apps will be read from prefs.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   CreateBuilder();
   ValidateAppReadyState(fake_apps(), false);
 }
@@ -510,14 +493,13 @@ TEST_F(ArcAppModelBuilderTest, RestartPreserveShortcuts) {
   ASSERT_NE(nullptr, prefs);
 
   // Start from scratch and install shortcuts.
-  bridge_service()->SetReady();
   app_instance()->SendInstallShortcuts(fake_shortcuts());
   std::vector<std::string> ids = prefs->GetAppIds();
   EXPECT_EQ(fake_apps().size(), ids.size());
   ValidateShortcutReadyState(fake_shortcuts(), true);
 
   // This recreates model and ARC apps and shortcuts will be read from prefs.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   CreateBuilder();
   ValidateShortcutReadyState(fake_shortcuts(), false);
 }
@@ -526,7 +508,6 @@ TEST_F(ArcAppModelBuilderTest, LaunchApps) {
   // Disable attempts to dismiss app launcher view.
   ChromeAppListItem::OverrideAppListControllerDelegateForTesting(controller());
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(fake_apps());
 
@@ -538,11 +519,8 @@ TEST_F(ArcAppModelBuilderTest, LaunchApps) {
   ASSERT_NE(nullptr, item_first);
   ASSERT_NE(nullptr, item_last);
   item_first->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
   item_last->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
   item_first->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
 
   const ScopedVector<arc::FakeAppInstance::Request>& launch_requests =
       app_instance()->launch_requests();
@@ -552,7 +530,7 @@ TEST_F(ArcAppModelBuilderTest, LaunchApps) {
   EXPECT_EQ(true, launch_requests[2]->IsForApp(app_first));
 
   // Test an attempt to launch of a not-ready app.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   item_first = FindArcItem(ArcAppTest::GetAppId(app_first));
   ASSERT_NE(nullptr, item_first);
   size_t launch_request_count_before = app_instance()->launch_requests().size();
@@ -566,7 +544,6 @@ TEST_F(ArcAppModelBuilderTest, LaunchShortcuts) {
   // Disable attempts to dismiss app launcher view.
   ChromeAppListItem::OverrideAppListControllerDelegateForTesting(controller());
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendInstallShortcuts(fake_shortcuts());
 
@@ -578,11 +555,8 @@ TEST_F(ArcAppModelBuilderTest, LaunchShortcuts) {
   ASSERT_NE(nullptr, item_first);
   ASSERT_NE(nullptr, item_last);
   item_first->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
   item_last->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
   item_first->Activate(0);
-  app_instance()->WaitForIncomingMethodCall();
 
   const ScopedVector<mojo::String>& launch_intents =
       app_instance()->launch_intents();
@@ -592,7 +566,7 @@ TEST_F(ArcAppModelBuilderTest, LaunchShortcuts) {
   EXPECT_EQ(true, app_first.intent_uri == *launch_intents[2]);
 
   // Test an attempt to launch of a not-ready shortcut.
-  bridge_service()->SetStopped();
+  arc_test()->StopArcInstance();
   item_first = FindArcItem(ArcAppTest::GetAppId(app_first));
   ASSERT_NE(nullptr, item_first);
   size_t launch_request_count_before = app_instance()->launch_intents().size();
@@ -606,7 +580,6 @@ TEST_F(ArcAppModelBuilderTest, RequestIcons) {
   // Make sure we are on UI thread.
   ASSERT_TRUE(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(fake_apps());
 
@@ -633,9 +606,6 @@ TEST_F(ArcAppModelBuilderTest, RequestIcons) {
   // (especially when running under Valgrind), they might not get
   // delivered on time. Wait for the remaining tasks individually.
   const size_t expected_size = scale_factors.size() * fake_apps().size();
-  while (app_instance()->icon_requests().size() < expected_size) {
-    app_instance()->WaitForIncomingMethodCall();
-  }
 
   // At this moment we should receive all requests for icon loading.
   const ScopedVector<arc::FakeAppInstance::IconRequest>& icon_requests =
@@ -666,7 +636,6 @@ TEST_F(ArcAppModelBuilderTest, RequestShortcutIcons) {
   // Make sure we are on UI thread.
   ASSERT_TRUE(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  bridge_service()->SetReady();
   const arc::mojom::ShortcutInfo& shortcut = fake_shortcuts()[0];
   app_instance()->SendInstallShortcut(shortcut);
 
@@ -726,7 +695,6 @@ TEST_F(ArcAppModelBuilderTest, InstallIcon) {
   // Make sure we are on UI thread.
   ASSERT_TRUE(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(std::vector<arc::mojom::AppInfo>(
       fake_apps().begin(), fake_apps().begin() + 1));
@@ -777,7 +745,6 @@ TEST_F(ArcAppModelBuilderTest, RemoveAppCleanUpFolder) {
   // Make sure we are on UI thread.
   ASSERT_TRUE(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(std::vector<arc::mojom::AppInfo>(
       fake_apps().begin(), fake_apps().begin() + 1));
@@ -815,7 +782,6 @@ TEST_F(ArcAppModelBuilderTest, LastLaunchTime) {
   // Make sure we are on UI thread.
   ASSERT_TRUE(content::BrowserThread::CurrentlyOn(content::BrowserThread::UI));
 
-  bridge_service()->SetReady();
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(std::vector<arc::mojom::AppInfo>(
       fake_apps().begin(), fake_apps().begin() + 2));
@@ -862,7 +828,9 @@ TEST_F(ArcAppModelBuilderTest, IconLoader) {
   const arc::mojom::AppInfo& app = fake_apps()[0];
   const std::string app_id = ArcAppTest::GetAppId(app);
 
-  bridge_service()->SetReady();
+  ArcAppListPrefs* prefs = ArcAppListPrefs::Get(profile_.get());
+  ASSERT_NE(nullptr, prefs);
+
   app_instance()->RefreshAppList();
   app_instance()->SendRefreshAppList(std::vector<arc::mojom::AppInfo>(
       fake_apps().begin(), fake_apps().begin() + 1));
@@ -919,8 +887,6 @@ TEST_F(ArcAppModelBuilderTest, AppLauncher) {
   EXPECT_FALSE(launcher1.app_launched());
   EXPECT_TRUE(prefs->HasObserver(&launcher1));
 
-  bridge_service()->SetReady();
-
   ArcAppLauncher launcher3(profile(), id3, true);
   EXPECT_FALSE(launcher1.app_launched());
   EXPECT_TRUE(prefs->HasObserver(&launcher1));
@@ -934,7 +900,6 @@ TEST_F(ArcAppModelBuilderTest, AppLauncher) {
   app_instance()->SendRefreshAppList(apps);
 
   EXPECT_TRUE(launcher1.app_launched());
-  app_instance()->WaitForIncomingMethodCall();
   ASSERT_EQ(1u, app_instance()->launch_requests().size());
   EXPECT_TRUE(app_instance()->launch_requests()[0]->IsForApp(app1));
   EXPECT_FALSE(launcher3.app_launched());
@@ -943,7 +908,6 @@ TEST_F(ArcAppModelBuilderTest, AppLauncher) {
 
   ArcAppLauncher launcher2(profile(), id2, true);
   EXPECT_TRUE(launcher2.app_launched());
-  app_instance()->WaitForIncomingMethodCall();
   EXPECT_FALSE(prefs->HasObserver(&launcher2));
   ASSERT_EQ(2u, app_instance()->launch_requests().size());
   EXPECT_TRUE(app_instance()->launch_requests()[1]->IsForApp(app2));

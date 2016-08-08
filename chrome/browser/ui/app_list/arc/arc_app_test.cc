@@ -110,24 +110,21 @@ void ArcAppTest::SetUp(Profile* profile) {
   DCHECK(arc_app_list_pref_);
 
   app_instance_.reset(new arc::FakeAppInstance(arc_app_list_pref_));
-  arc::mojom::AppInstancePtr instance;
-  app_instance_->Bind(mojo::GetProxy(&instance));
-  bridge_service_->OnAppInstanceReady(std::move(instance));
-  app_instance_->WaitForOnAppInstanceReady();
-
-  // Check initial conditions.
-  EXPECT_EQ(bridge_service_.get(), arc::ArcBridgeService::Get());
-  EXPECT_TRUE(!arc::ArcBridgeService::Get()->available());
-  EXPECT_EQ(arc::ArcBridgeService::State::STOPPED,
-            arc::ArcBridgeService::Get()->state());
-
-  // At this point we should have ArcAppListPrefs as observer of service.
-  EXPECT_TRUE(bridge_service_->HasObserver(arc_app_list_pref_));
-  bridge_service()->SetReady();
+  bridge_service_->app()->SetInstance(app_instance_.get());
 }
 
 void ArcAppTest::TearDown() {
   auth_service_.reset();
+}
+
+void ArcAppTest::StopArcInstance() {
+  bridge_service_->app()->CloseChannel();
+}
+
+void ArcAppTest::RestartArcInstance() {
+  bridge_service_->app()->CloseChannel();
+  app_instance_.reset(new arc::FakeAppInstance(arc_app_list_pref_));
+  bridge_service_->app()->SetInstance(app_instance_.get());
 }
 
 void ArcAppTest::CreateUserAndLogin() {

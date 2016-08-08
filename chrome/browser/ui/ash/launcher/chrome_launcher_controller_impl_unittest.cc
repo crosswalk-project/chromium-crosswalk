@@ -79,7 +79,6 @@
 #include "chromeos/chromeos_switches.h"
 #include "components/arc/common/app.mojom.h"
 #include "components/arc/test/fake_app_instance.h"
-#include "components/arc/test/fake_arc_bridge_service.h"
 #include "components/exo/shell_surface.h"
 #include "components/signin/core/account_id/account_id.h"
 #include "components/syncable_prefs/testing_pref_service_syncable.h"
@@ -1781,7 +1780,7 @@ TEST_F(ChromeLauncherControllerImplTest, ArcDeferredLaunch) {
 
   SendListOfArcApps();
 
-  arc_test_.bridge_service()->SetStopped();
+  arc_test_.StopArcInstance();
 
   EXPECT_EQ(0, launcher_controller_->GetShelfIDForAppID(arc_app_id1));
   EXPECT_EQ(0, launcher_controller_->GetShelfIDForAppID(arc_app_id2));
@@ -1817,7 +1816,7 @@ TEST_F(ChromeLauncherControllerImplTest, ArcDeferredLaunch) {
   EXPECT_EQ(shelf_id_app_3,
             launcher_controller_->GetShelfIDForAppID(arc_app_id3));
 
-  arc_test_.bridge_service()->SetReady();
+  arc_test_.RestartArcInstance();
   SendListOfArcApps();
 
   base::RunLoop().RunUntilIdle();
@@ -1858,7 +1857,7 @@ TEST_F(ChromeLauncherControllerImplTest, ArcRunningApp) {
   // Stopping bridge removes apps.
   arc_test_.app_instance()->SendTaskCreated(3, arc_test_.fake_apps()[0]);
   EXPECT_NE(0, launcher_controller_->GetShelfIDForAppID(arc_app_id));
-  arc_test_.bridge_service()->SetStopped();
+  arc_test_.StopArcInstance();
   base::RunLoop().RunUntilIdle();
   EXPECT_EQ(0, launcher_controller_->GetShelfIDForAppID(arc_app_id));
 }
