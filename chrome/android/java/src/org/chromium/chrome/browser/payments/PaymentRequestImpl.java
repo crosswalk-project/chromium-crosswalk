@@ -150,6 +150,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     private AddressEditor mAddressEditor;
     private CardEditor mCardEditor;
     private ContactEditor mContactEditor;
+    private boolean mHasRecordedAbortReason;
 
     /**
      * Builds the PaymentRequest service implementation.
@@ -229,12 +230,16 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
 
         if (mMethodData != null) {
             disconnectFromClientWithDebugMessage("PaymentRequest.show() called more than once.");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return;
         }
 
         mMethodData = getValidatedMethodData(methodData, mCardEditor);
         if (mMethodData == null) {
             disconnectFromClientWithDebugMessage("Invalid payment methods or data");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return;
         }
 
@@ -244,6 +249,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
             disconnectFromClientWithDebugMessage("Requested payment methods are not supported",
                     PaymentErrorReason.NOT_SUPPORTED);
             if (sObserverForTest != null) sObserverForTest.onPaymentRequestServiceShowFailed();
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_NO_SUPPORTED_PAYMENT_METHOD);
             return;
         }
 
@@ -434,6 +441,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         if (mUI == null) {
             disconnectFromClientWithDebugMessage(
                     "PaymentRequestUpdateEvent.updateWith() called without PaymentRequest.show()");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return;
         }
 
@@ -444,6 +453,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         if (mUiShippingOptions.isEmpty() && !mMerchantNeedsShippingAddress) {
             disconnectFromClientWithDebugMessage("Merchant indicates inability to ship although "
                     + "originally indicated that can ship anywhere");
+            recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_OTHER);
             return;
         }
 
@@ -472,11 +482,15 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     private boolean parseAndValidateDetailsOrDisconnectFromClient(PaymentDetails details) {
         if (details == null) {
             disconnectFromClientWithDebugMessage("Payment details required");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
         if (!hasAllPaymentItemFields(details.total)) {
             disconnectFromClientWithDebugMessage("Invalid total");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
@@ -486,12 +500,16 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
 
         if (!formatter.isValidAmountCurrencyCode(details.total.amount.currency)) {
             disconnectFromClientWithDebugMessage("Invalid total amount currency");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
         if (!formatter.isValidAmountValue(details.total.amount.value)
                 || details.total.amount.value.startsWith("-")) {
             disconnectFromClientWithDebugMessage("Invalid total amount value");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
@@ -502,6 +520,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
                 formatter);
         if (uiLineItems == null) {
             disconnectFromClientWithDebugMessage("Invalid line items");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
@@ -513,6 +533,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
                 formatter);
         if (mUiShippingOptions == null) {
             disconnectFromClientWithDebugMessage("Invalid shipping options");
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_INVALID_DATA_FROM_RENDERER);
             return false;
         }
 
@@ -818,6 +840,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     @Override
     public void onDismiss() {
         disconnectFromClientWithDebugMessage("Dialog dismissed");
+        closeUI(false);
+        recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_ABORTED_BY_USER);
     }
 
     private void disconnectFromClientWithDebugMessage(String debugMessage) {
@@ -848,6 +872,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         } else {
             closeClient();
             closeUI(false);
+            recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_ABORTED_BY_MERCHANT);
         }
     }
 
@@ -869,6 +894,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         if (mClient == null) return;
         closeClient();
         closeUI(false);
+        recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_MOJO_RENDERER_CLOSING);
     }
 
     /**
@@ -879,6 +905,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         if (mClient == null) return;
         closeClient();
         closeUI(false);
+        recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_MOJO_CONNECTION_ERROR);
     }
 
     /**
@@ -912,6 +939,8 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
             disconnectFromClientWithDebugMessage("Requested payment methods have no instruments",
                     PaymentErrorReason.NOT_SUPPORTED);
             if (sObserverForTest != null) sObserverForTest.onPaymentRequestServiceShowFailed();
+            recordAbortReasonHistogram(
+                    PaymentRequestMetrics.ABORT_REASON_NO_MATCHING_PAYMENT_METHOD);
             return;
         }
 
@@ -1073,5 +1102,20 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     private void recordSuccessFunnelHistograms(String funnelPart) {
         RecordHistogram.recordBooleanHistogram(
                 "PaymentRequest.CheckoutFunnel." + funnelPart, true);
+    }
+
+    /**
+     * Adds an entry to the aborted Payment Request histogram in the bucket corresponding to the
+     * reason for aborting. Only records the initial reason for aborting, as some closing code calls
+     * other closing code that can log too.
+     */
+    private void recordAbortReasonHistogram(int abortReason) {
+        assert abortReason < PaymentRequestMetrics.ABORT_REASON_MAX;
+        if (mHasRecordedAbortReason) return;
+
+        mHasRecordedAbortReason = true;
+        RecordHistogram.recordEnumeratedHistogram(
+                "PaymentRequest.CheckoutFunnel.Aborted", abortReason,
+                PaymentRequestMetrics.ABORT_REASON_MAX);
     }
 }
