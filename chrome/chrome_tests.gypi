@@ -1479,6 +1479,7 @@
       'browser/sync/test/integration/migration_test.cc',
       'browser/sync/test/integration/single_client_app_list_sync_test.cc',
       'browser/sync/test/integration/single_client_apps_sync_test.cc',
+      'browser/sync/test/integration/single_client_arc_package_sync_test.cc',
       'browser/sync/test/integration/single_client_bookmarks_sync_test.cc',
       'browser/sync/test/integration/single_client_dictionary_sync_test.cc',
       'browser/sync/test/integration/single_client_directory_sync_test.cc',
@@ -1498,6 +1499,7 @@
       'browser/sync/test/integration/sync_exponential_backoff_test.cc',
       'browser/sync/test/integration/two_client_app_list_sync_test.cc',
       'browser/sync/test/integration/two_client_apps_sync_test.cc',
+      'browser/sync/test/integration/two_client_arc_package_sync_test.cc',
       'browser/sync/test/integration/two_client_autofill_sync_test.cc',
       'browser/sync/test/integration/two_client_bookmarks_sync_test.cc',
       'browser/sync/test/integration/two_client_dictionary_sync_test.cc',
@@ -1569,6 +1571,8 @@
       'browser/sync/test/integration/sync_app_helper.h',
       'browser/sync/test/integration/sync_app_list_helper.cc',
       'browser/sync/test/integration/sync_app_list_helper.h',
+      'browser/sync/test/integration/sync_arc_package_helper.cc',
+      'browser/sync/test/integration/sync_arc_package_helper.h',
       'browser/sync/test/integration/sync_datatype_helper.cc',
       'browser/sync/test/integration/sync_datatype_helper.h',
       'browser/sync/test/integration/sync_extension_helper.cc',
@@ -2904,10 +2908,18 @@
         ['chromeos==0', {
           # Note: this list is duplicated in the GN build.
           'sources!': [
+	    'browser/sync/test/integration/sync_arc_package_helper.cc',
+            'browser/sync/test/integration/sync_arc_package_helper.h',
             'browser/sync/test/integration/wifi_credentials_helper.cc',
             'browser/sync/test/integration/wifi_credentials_helper.h',
             # 'browser/sync/test/integration/wifi_credentials_helper_chromeos.cc',
             # 'browser/sync/test/integration/wifi_credentials_helper_chromeos.h',
+          ],
+        }],
+	['chromeos==1', {
+          'dependencies': [
+	    '../components/components.gyp:arc',
+            '../components/components.gyp:arc_test_support',
           ],
         }],
         ['enable_app_list==1', {
@@ -3009,7 +3021,9 @@
         ['chromeos == 0', {
           'sources!': [
             # Note: this list is duplicated in the GN build.
+	    "browser/sync/test/integration/single_client_arc_package_sync_test.cc",
             'browser/sync/test/integration/single_client_wifi_credentials_sync_test.cc',
+	    "browser/sync/test/integration/two_client_arc_package_sync_test.cc",
             'browser/sync/test/integration/two_client_wifi_credentials_sync_test.cc',
           ],
         }],
