@@ -366,6 +366,7 @@
       'browser/net/ftp_browsertest.cc',
       'browser/net/load_timing_browsertest.cc',
       'browser/net/nss_context_chromeos_browsertest.cc',
+      "browser/net/spdyproxy/chrome_data_use_group_browsertest.cc",
       'browser/net/predictor_browsertest.cc',
       'browser/net/proxy_browsertest.cc',
       'browser/net/sdch_browsertest.cc',
