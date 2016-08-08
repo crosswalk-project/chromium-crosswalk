@@ -37,6 +37,7 @@ bool PathProvider(int key, base::FilePath* result) {
         return false;
 #else
       cur = cur.Append(FILE_PATH_LITERAL("locales"));
+      cur = cur.Append(FILE_PATH_LITERAL("xwalk"));
 #endif
       create_dir = true;
       break;
