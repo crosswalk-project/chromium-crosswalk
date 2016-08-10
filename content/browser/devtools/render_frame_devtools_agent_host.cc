@@ -499,19 +499,7 @@ void RenderFrameDevToolsAgentHost::OnClientAttached() {
     return;
 
   frame_trace_recorder_.reset(new DevToolsFrameTraceRecorder());
-#if defined(OS_ANDROID)
-  power_save_blocker_.reset(new device::PowerSaveBlocker(
-      device::PowerSaveBlocker::kPowerSaveBlockPreventDisplaySleep,
-      device::PowerSaveBlocker::kReasonOther, "DevTools",
-      BrowserThread::GetMessageLoopProxyForThread(BrowserThread::UI),
-      BrowserThread::GetMessageLoopProxyForThread(BrowserThread::FILE)));
-  if (web_contents()->GetNativeView()) {
-    view_weak_factory_.reset(new base::WeakPtrFactory<ui::ViewAndroid>(
-        web_contents()->GetNativeView()));
-    power_save_blocker_->InitDisplaySleepBlocker(
-        view_weak_factory_->GetWeakPtr());
-  }
-#endif
+  CreatePowerSaveBlocker();
 
   // TODO(kaznacheev): Move this call back to DevToolsManager when
   // extensions::ProcessManager no longer relies on this notification.
@@ -664,6 +652,22 @@ void RenderFrameDevToolsAgentHost::DestroyOnRenderFrameGone() {
   Release();
 }
 
+void RenderFrameDevToolsAgentHost::CreatePowerSaveBlocker() {
+#if defined(OS_ANDROID)
+  power_save_blocker_.reset(new device::PowerSaveBlocker(
+      device::PowerSaveBlocker::kPowerSaveBlockPreventDisplaySleep,
+      device::PowerSaveBlocker::kReasonOther, "DevTools",
+      BrowserThread::GetMessageLoopProxyForThread(BrowserThread::UI),
+      BrowserThread::GetMessageLoopProxyForThread(BrowserThread::FILE)));
+  if (web_contents()->GetNativeView()) {
+    view_weak_factory_.reset(new base::WeakPtrFactory<ui::ViewAndroid>(
+        web_contents()->GetNativeView()));
+    power_save_blocker_->InitDisplaySleepBlocker(
+        view_weak_factory_->GetWeakPtr());
+  }
+#endif
+}
+
 void RenderFrameDevToolsAgentHost::RenderProcessGone(
     base::TerminationStatus status) {
   switch(status) {
@@ -760,6 +764,16 @@ void RenderFrameDevToolsAgentHost::DidFailProvisionalLoad(
 void RenderFrameDevToolsAgentHost::WebContentsDestroyed() {
 #if defined(OS_ANDROID)
   view_weak_factory_.reset();
+#endif
+}
+
+void RenderFrameDevToolsAgentHost::WasShown() {
+  CreatePowerSaveBlocker();
+}
+
+void RenderFrameDevToolsAgentHost::WasHidden() {
+#if defined(OS_ANDROID)
+  power_save_blocker_.reset();
 #endif
 }
 
