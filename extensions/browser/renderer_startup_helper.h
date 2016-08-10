@@ -47,14 +47,14 @@ class RendererStartupHelper : public KeyedService,
 
   // Sends a message to the specified |process| activating the given extension
   // once the process is initialized.
-  void ActivateExtensionInProcess(const std::string& id,
+  void ActivateExtensionInProcess(const Extension& extension,
                                   content::RenderProcessHost* process);
 
   // Sends a message to all initialized processes to [un]load the given
   // extension. We have explicit calls for these (rather than using an
   // ExtensionRegistryObserver) because this needs to happen before other
   // initialization which might rely on the renderers being notified.
-  void OnExtensionUnloaded(const std::string& id);
+  void OnExtensionUnloaded(const Extension& extension);
   void OnExtensionLoaded(const Extension& extension);
 
  private:
