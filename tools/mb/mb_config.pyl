@@ -623,9 +623,12 @@
       'WinClang64 (dbg)': 'win_clang_debug_bot',
     },
 
+    'official.android': {
+      'blimp-engine': '//build/args/bots/official.android/blimp-engine.gn',
+    },
+
     'official.desktop': {
-      'blimp-engine': '//build/args/bots/official.desktop/blimp-engine.gn',
-      'mac64': 'gyp_official',
+      'mac64': 'gn_official',
       'precise64': 'gn_official',
 
       # Currently the official bots set mini_installer_official_deps=1
