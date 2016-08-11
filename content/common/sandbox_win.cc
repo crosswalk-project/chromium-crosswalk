@@ -410,8 +410,9 @@ sandbox::ResultCode AddPolicyForSandboxedProcess(
 
   result = policy->SetAlternateDesktop(true);
   if (result != sandbox::SBOX_ALL_OK) {
+    // Ignore the result of setting the alternate desktop.
     DLOG(WARNING) << "Failed to apply desktop security to the renderer";
-    return result;
+    result = sandbox::SBOX_ALL_OK;
   }
 
   return result;
