@@ -79,6 +79,7 @@
 #include "content/common/frame_messages.h"
 #include "content/common/input_messages.h"
 #include "content/common/page_messages.h"
+#include "content/common/page_state_serialization.h"
 #include "content/common/site_isolation_policy.h"
 #include "content/common/ssl_status_serialization.h"
 #include "content/common/view_messages.h"
@@ -4469,6 +4470,21 @@ void WebContentsImpl::UpdateStateForFrame(RenderFrameHost* render_frame_host,
 
   if (page_state == frame_entry->page_state())
     return;  // Nothing to update.
+
+  // The document_sequence_number and item_sequence_number recorded in the
+  // FrameNavigationEntry should not differ from the one coming with the update,
+  // since it must come from the same document. Do not update it if a difference
+  // is detected, as this indicates that |frame_entry| is not the correct one.
+  ExplodedPageState exploded_state;
+  if (!DecodePageState(page_state.ToEncodedData(), &exploded_state))
+    return;
+
+  if (exploded_state.top.document_sequence_number !=
+          frame_entry->document_sequence_number() ||
+      exploded_state.top.item_sequence_number !=
+          frame_entry->item_sequence_number()) {
+    return;
+  }
 
   frame_entry->set_page_state(page_state);
   controller_.NotifyEntryChanged(entry);
