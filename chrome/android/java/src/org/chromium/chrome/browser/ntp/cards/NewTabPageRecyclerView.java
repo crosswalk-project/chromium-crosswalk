@@ -6,6 +6,7 @@ package org.chromium.chrome.browser.ntp.cards;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.graphics.Region;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -18,6 +19,7 @@ import android.view.inputmethod.InputConnection;
 import org.chromium.base.Log;
 import org.chromium.chrome.R;
 import org.chromium.chrome.browser.ntp.snippets.SnippetHeaderViewHolder;
+import org.chromium.chrome.browser.util.ViewUtils;
 
 /**
  * Simple wrapper on top of a RecyclerView that will acquire focus when tapped.  Ensures the
@@ -320,5 +322,11 @@ public class NewTabPageRecyclerView extends RecyclerView {
                               start + peekingCard.getHeight() / 2,
                               start + peekingCard.getHeight() / 2);
         }
+    }
+
+    @Override
+    public boolean gatherTransparentRegion(Region region) {
+        ViewUtils.gatherTransparentRegionsForOpaqueView(this, region);
+        return true;
     }
 }
