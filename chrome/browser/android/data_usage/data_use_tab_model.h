@@ -221,7 +221,6 @@ class DataUseTabModel {
  private:
   friend class DataUseTabModelTest;
   friend class ExternalDataUseObserverTest;
-  friend class ExternalDataUseReporterTest;
   friend class TabDataUseEntryTest;
   friend class TestDataUseTabModel;
   FRIEND_TEST_ALL_PREFIXES(DataUseTabModelTest,
