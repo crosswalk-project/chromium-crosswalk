@@ -10,6 +10,7 @@
 #include "chrome/browser/chromeos/login/users/scoped_user_manager_enabler.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/app_list/arc/arc_app_list_prefs.h"
+#include "chrome/browser/ui/app_list/arc/arc_app_list_prefs_factory.h"
 #include "chromeos/chromeos_switches.h"
 #include "components/arc/arc_bridge_service.h"
 #include "components/arc/test/fake_app_instance.h"
@@ -98,6 +99,13 @@ void ArcAppTest::SetUp(Profile* profile) {
     fake_shortcuts_.push_back(shortcutInfo);
   }
 
+  // A valid |arc_app_list_prefs_| is needed for the Arc bridge service and the
+  // Arc auth service.
+  arc_app_list_pref_ = ArcAppListPrefs::Get(profile_);
+  if (!arc_app_list_pref_) {
+    ArcAppListPrefsFactory::GetInstance()->RecreateServiceInstanceForTesting(
+        profile_);
+  }
   bridge_service_.reset(new arc::FakeArcBridgeService());
 
   auth_service_.reset(new arc::ArcAuthService(bridge_service_.get()));
