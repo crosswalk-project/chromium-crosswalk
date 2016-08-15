@@ -23,6 +23,8 @@ extern const base::Feature kArcMemoryManagement;
 extern const base::Feature kAutomaticTabDiscarding;
 #endif  // defined(OS_WIN) || defined(OS_MACOSX)
 
+extern const base::Feature kBackspaceGoesBackFeature;
+
 extern const base::Feature kBlockSmallContent;
 
 extern const base::Feature kBrowserHangFixesExperiment;
