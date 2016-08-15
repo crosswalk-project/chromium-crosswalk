@@ -992,7 +992,6 @@
       尽管上述平台均支持此政策，但此政策启用的功能在其中的少数平台上可能无法使用。并非所有已弃用的网络平台功能都可重新启用。只有下面明确列出的功能才能在限定的时间（具体因功能而异）内重新发挥功效。字符串标记的常用格式为 [已弃用功能的名称]_EffectiveUntil[yyyymmdd]。要了解更改网络平台功能的意图，请访问 https://bit.ly/blinkintents。
       </translation>
 <translation id="4442582539341804154">当设备进入待机或暂停状态时启用锁定</translation>
-<translation id="4445684791305970001">停用开发者工具和 JavaScript 控制台。如果您启用了此设置，用户就无法再访问开发者工具和查看网站元素了。用于启动开发者工具和 JavaScript 控制台的任何键盘快捷键以及任何菜单或右键菜单条目都会停用。如果停用或未设置此选项，用户就可以使用开发者工具和 JavaScript 控制台。</translation>
 <translation id="4449545651113180484">将屏幕顺时针旋转 270 度</translation>
 <translation id="4467952432486360968">阻止第三方 Cookie</translation>
 <translation id="4474167089968829729">允许将密码保存到密码管理器</translation>
@@ -1210,6 +1209,13 @@
       指定后，系统将会向用来提取变体种子的网址中添加一个名为“restrict”的查询参数。此参数的值就是此政策中指定的值。
 
       如果未指定，则不会修改变体种子网址。</translation>
+<translation id="5563853101694018649">停用开发者工具和 JavaScript 控制台。
+
+      如果您启用此设置，用户将无法访问开发者工具，并且无法再检查网站元素。用于打开开发者工具或 JavaScript 控制台的所有键盘快捷键、菜单项和上下文菜单项都将被停用。
+
+      如果此选项设为停用或未设置，将允许用户使用开发者工具和 JavaScript 控制台。
+
+      对于能够运行 Android 应用的 <ph name="PRODUCT_OS_NAME" />设备，此政策还控制对 Android 开发者选项的访问。如果此政策设为 true，用户将无法访问开发者选项。如果此政策设为 false 或未设置，用户只需在 Android 设置应用中连续点按 7 次版本号，即可访问开发者选项。</translation>
 <translation id="556941986578702361">控制 <ph name="PRODUCT_OS_NAME" />任务栏是否自动隐藏。
 
       如果此策略设置为“AlwaysAutoHideShelf”，任务栏将始终自动隐藏。

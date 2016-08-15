@@ -1093,11 +1093,6 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
       Walaupun dasar ini sendiri disokong pada platform di atas, ciri yang didayakannya mungkin tersedia pada lagi kurang platform. Bukan semua ciri Platform Web yang ditamatkan boleh didayakan semula. Hanya ciri yang disenaraikan dengan jelas di bawah ini boleh didayakan semula untuk tempoh yang terhad, yang berbeza bagi setiap ciri. Format umum bagi tanda rentetan ialah [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Sebagai rujukan, anda boleh dapati tujuan di sebalik perubahan ciri Platform Web di https://bit.ly/blinkintents.
       </translation>
 <translation id="4442582539341804154">Dayakan kunci apabila peranti melahu atau digantung</translation>
-<translation id="4445684791305970001">Melumpuhkan Alat Pembangun dan konsol JavaScript.
-
-      Jika anda mendayakan tetapan ini, Alat Pembangun tidak boleh diakses dan elemen tapak web tidak lagi boleh diperiksa. Sebarang pintasan papan kekunci dan mana-mana menu atau masukan menu konteks untuk membuka Alat Pembangun atau Konsol JavaScript akan dilumpuhkan.
-
-      Menetapkan pilihan ini kepada dilumpuhkan atau membiarkannya tanpa ditetapkan, akan membolehkan pengguna menggunakan Alat Pembangun dan konsol JavaScript.</translation>
 <translation id="4449545651113180484">Putar skrin 270 darjah mengikut arah jam</translation>
 <translation id="4467952432486360968">Sekat kuki pihak ketiga</translation>
 <translation id="4474167089968829729">Dayakan penyimpanan kata laluan pada pengurus kata laluan</translation>
@@ -1356,6 +1351,13 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
       Jika ditetapkan, parameter pertanyaan yang dipanggil 'hadkan' akan ditambahkan kepada URL yang digunakan untuk mengambil benih Variasi. Nilai yang dinyatakan dalam dasar ini akan menjadi nilai parameter.
 
       Jika tidak ditetapkan, URL benih Variasi tidak akan diubah suai.</translation>
+<translation id="5563853101694018649">Melumpuhkan Alatan Pembangun dan konsol JavaScript.
+
+      Jika anda mendayakan tetapan ini, Alatan Pembangun tidak dapat diakses dan elemen tapak web tidak dapat disemak lagi. Mana-mana pintasan papan kekunci dan mana-mana entri menu atau menu konteks untuk membuka Alatan Pembangun atau Konsol JavaScript akan dilumpuhkan.
+
+      Apabila pilihan ini dilumpuhkan atau dibiarkan tidak ditetapkan, pengguna akan dibenarkan untuk menggunakan Alatan Pembangun dan konsol JavaScript.
+
+      Untuk peranti <ph name="PRODUCT_OS_NAME" /> yang berupaya menjalankan apl Android, dasar ini turut mengawal akses kepada Pilihan Pembangun Android. Jika anda menetapkan dasar ini kepada benar, pengguna tidak dapat mengakses Pilihan Pembangun. Jika anda menetapkan dasar ini kepada palsu atau membiarkannya tidak ditetapkan, pengguna boleh mengakses Pilihan Pembangun dengan mengetik nombor binaan sebanyak tujuh kali dalam apl tetapan Android.</translation>
 <translation id="556941986578702361">Mengawal penyembunyian automatik rak <ph name="PRODUCT_OS_NAME" />.
 
       Jika dasar ini ditetapkan kepada 'AlwaysAutoHideShelf', rak akan sentiasa disembunyikan secara automatik.
@@ -2075,13 +2077,13 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
 <translation id="7796141075993499320">Membolehkan anda menentukan senarai pola url yang dibenarkan untuk menjalankan pemalam.
 
           Jika dasar ini dibiarkan tanpa ditetapkan, nilai lalai global akan digunakan untuk semua tapak sama ada dari dasar 'DefaultPluginsSetting' jika ia ditetapkan atau konfigurasi peribadi pengguna jika sebaliknya.</translation>
-<translation id="7801886189430766248">Apabila dasar ini ditetapkan kepada benar, data apl Android dimuat naik ke pelayan Sandaran Android dan dipulihkan daripadanya semasa pemasangan semula apl untuk apl yang serasi.
+<translation id="7801886189430766248">Apabila dasar ini ditetapkan kepada benar, data apl Android dimuat naik ke pelayan Android Backup dan dipulihkan daripadanya semasa pemasangan semula apl untuk apl yang serasi.
 
-      Apabila dasar ini ditetapkan kepada palsu, Perkhidmatan Sandaran Android akan dimatikan.
+      Apabila dasar ini ditetapkan kepada palsu, Android Backup Service akan dimatikan.
 
       Jika tetapan ini dikonfigurasikan, maka pengguna tidak akan dapat mengubahnya sendiri.
 
-      Jika tetapan ini tidak dikonfigurasikan, maka pengguna akan dapat menghidupkan dan mematikan Perkhidmatan Sandaran Android dalam apl Tetapan Android.</translation>
+      Jika tetapan ini tidak dikonfigurasikan, maka pengguna akan dapat menghidupkan dan mematikan Android Backup Service dalam apl Tetapan Android.</translation>
 <translation id="7818131573217430250">Tetapkan keadaan lalai mod kontras tinggi pada skrin log masuk</translation>
 <translation id="7831595031698917016">Menentukan kelewatan maksimum dalam milisaat antara menerima pentaksahan dan mengambil dasar baharu dari perkhidmatan pengurusan peranti.
 

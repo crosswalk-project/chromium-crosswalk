@@ -1075,11 +1075,6 @@
       Reegel on küll toetatud ülalnimetatud platvormidel, kuid lubatud funktsioon ei pruugi olla saadaval kõikidel platvormidel. Kõiki katkestatud toega veebiplatvormi funktsioone ei saa uuesti lubada. Piiratud ajaks saab lubada ainult allnimetatud funktsioone ja iga funktsiooni ajalimiit on erinev. Stringimärgendi üldine vorming on [DeprecatedFeatureName]_EffectiveUntil[yyyymmdd]. Veebiplatvormi funktsiooni muudatuste eesmärgi kohta leiate lisateavet aadressilt https://bit.ly/blinkintents.
       </translation>
 <translation id="4442582539341804154">Luba lukustamine, kui seade on ootel või peatatud</translation>
-<translation id="4445684791305970001">Keelab arendaja tööriistad ja JavaScripti konsooli.
-
-      Seade lubamisel ei saa arendaja tööriistu kasutada ega veebisaitide elemente uurida. Kõik klaviatuuri otseteed ning arendaja tööriistade ja JavaScripti konsooli avamise käsud menüüdes ja kontekstimenüüdes keelatakse.
-
-      Kui keelate valiku või jätate selle määramata, siis saab arendaja tööriistu ja JavaScripti konsooli kasutada.</translation>
 <translation id="4449545651113180484">Ekraani pööramine 270 kraadi päripäeva</translation>
 <translation id="4467952432486360968">Blokeeri kolmanda osapoole küpsised</translation>
 <translation id="4474167089968829729">Luba paroolide salvestamine paroolihaldurisse</translation>
@@ -1338,6 +1333,13 @@
       Kui see on määratud, lisatakse päringu parameeter „restrict” URL-ile, mida kasutatakse variatsioonide lähteväärtuse toomiseks. Parameetri väärtus on selles reeglis määratud väärtus.
 
       Kui seda ei määrata, siis variatsioonide lähteväärtuse URL-i ei muudeta.</translation>
+<translation id="5563853101694018649">Keelab arendaja tööriistad ja JavaScripti konsooli.
+
+      Kui selle seade lubate, ei pääse kasutajad arendaja tööriistadele juurde ja veebisaidi elemente ei saa enam kontrollida. Kõik klaviatuuri otseteed ja menüüde või kontekstimenüüde sisestused arendaja tööriistade või JavaScripi konsooli avamiseks keelatakse.
+
+      Kui keelate selle valiku või ei määra seda, lubatakse arendaja tööriistade ja JavaScripti konsooli kasutamine.
+
+      Teenuse <ph name="PRODUCT_OS_NAME" /> seadmetes, milles saab käitada Androidi rakendusi, juhib see reegel ka juurdepääsu Androidi arendaja valikutele. Kui määrate selle reegli väärtuseks Tõene, ei pääse kasutajad arendaja valikutele juurde. Kui määrate selle reegli väärtuseks Väär või jätate selle määramata, pääsevad kasutajad arendaja valikutele juurde, puudutades Androidi seadete rakenduses seitse korda järgu numbrit.</translation>
 <translation id="556941986578702361">Seadistage hoidla <ph name="PRODUCT_OS_NAME" /> automaatne peitmine.
 
       Kui reegel on seatud väärtusele „AlwaysAutoHideShelf”, peidetakse hoidla alati automaatselt.

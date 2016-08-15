@@ -1090,11 +1090,6 @@ Jei nustatyta kaip „Netiesa“ arba nenustatyta, kreipiantis į API įvyks kla
       Politika palaikoma anksčiau nurodytose platformose, tačiau įgalinama funkcija gali būti pasiekiama mažiau platformų. Ne visas nebenaudojamas žiniatinklio platformos funkcijas galima įgalinti. Tik šiame sąraše pateiktas funkcijas galima laikinai (atsižvelgiant į funkciją) įgalinti. Bendra eilutės žymos forma [NebeteikiamosFunkcijosPavadinimas]_GaliojaIki[yyyymmdd]. Informacijos apie žiniatinklio platformos funkcijos pakeitimus galite gauti apsilankę adresu https://bit.ly/blinkintents.
       </translation>
 <translation id="4442582539341804154">Įgalinti užraktą, kai įrenginys nenaudojamas arba laikinai sustabdytas</translation>
-<translation id="4445684791305970001">Neleidžiami kūrėjo įrankiai ir „JavaScript“ pultas.
-
-      Jei įgalinsite šį nustatymą, daugiau nebus galima pasiekti kūrėjo įrankių ir patikrinti svetainės elementų. Bus neleidžiami visi spartieji klavišai ir meniu ar kontekstinių meniu įrašai, skirti kūrėjo įrankiams ar „JavaScript“ konsolei atidaryti.
-
-      Neleidus šios parinkties ar jos nenustačius, naudotojas (-a) galės naudoti kūrėjo įrankius ir „JavaScript“ konsolę.</translation>
 <translation id="4449545651113180484">Sukti ekraną pagal laikrodžio rodyklę 270 laipsnių kampu</translation>
 <translation id="4467952432486360968">Blokuoti trečiosios šalies slapukus</translation>
 <translation id="4474167089968829729">Įgalinti slaptažodžių saugojimą slaptažodžių tvarkytuvėje</translation>
@@ -1356,6 +1351,13 @@ Jei nustatyta kaip „Netiesa“ arba nenustatyta, kreipiantis į API įvyks kla
       Jei jis nurodytas, prie pateikiant variantų pirminę reikšmę naudojamo URL bus pridėtas URL parametras „restrict“. Parametro vertė bus šioje politikoje nustatyta vertė.
 
       Jei ši politika nenustatyta, variantų pirminės reikšmės URL keičiamas nebus.</translation>
+<translation id="5563853101694018649">Išjungiami kūrėjo įrankiai ir „JavaScript“ pultas.
+
+      Jei įgalinsite šį nustatymą, nebus galima pasiekti kūrėjo įrankių, o svetainės elementų nebebus galima tikrinti. Bus išjungti visi spartieji klavišai, meniu ar kontekstinio meniu įrašai, skirti atidaryti kūrėjo įrankius ar „JavaScript“ pultą.
+
+      Išjungus šį nustatymą arba jo nenustačius, naudotojui bus leidžiama naudoti kūrėjo įrankius ir „JavaScript“ pultą.
+
+      „<ph name="PRODUCT_OS_NAME" />“ įrenginiuose, kuriuose galima paleisti „Android“ programas, pagal šią politiką valdoma ir prieiga prie „Android“ kūrėjo parinkčių. Jei nustatysite šią politiką į „true“, naudotojai negalės pasiekti Kūrėjo parinkčių. Jei nustatysite šią politiką į „false“ ar paliksite ją nenustatytą, naudotojai galės pasiekti Kūrėjo parinktis septynis kartus palietę „Android“ nustatymų programos versijos numerį.</translation>
 <translation id="556941986578702361">Valdomas automatinis „<ph name="PRODUCT_OS_NAME" />“ lentynos paslėpimas.
 
       Jei ši politika nustatyta kaip „Visada automatiškai paslėpti lentyną“, lentyna visada automatiškai paslepiama.
@@ -2081,7 +2083,7 @@ Jei nustatyta kaip „Netiesa“ arba nenustatyta, kreipiantis į API įvyks kla
           Nenustačius šios politikos visose svetainėse bus naudojama visuotinė numatytoji vertė iš politikos „Numatytasis papildinių nustatymas“ (jei nustatyta) ar naudotojo asmeninės konfigūracijos.</translation>
 <translation id="7801886189430766248">Kai ši politika nustatyta kaip „true“, „Android“ programos duomenys įkeliami į „Android“ atsarginių kopijų serverius ir pakartotinai diegiant suderinamas programas yra atkuriami iš šių serverių.
 
-      Kai ši politika nustatyta kaip „false“, „Android“ atsarginių kopijų kūrimo paslauga bus išjungta.
+      Kai ši politika nustatyta kaip „false“, „Android“ atsarginių kopijų kūrimo paslauga yra išjungta.
 
       Jei šis nustatymas sukonfigūruotas, naudotojai negali pakeisti jo patys.
 

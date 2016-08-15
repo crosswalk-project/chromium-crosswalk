@@ -1025,7 +1025,6 @@
       雖然以上平台支援政策本身，但這些平台不一定全部支援透過政策啟用的功能。部分已淘汰的網路平台功能無法重新啟用，只有下方明確列出者可在限定時間內啟用，啟用時限則視功能而異。字串標記的通用格式是 &lt;已淘汰的功能名稱&gt;_EffectiveUntil&lt;yyyymmdd&gt;。如需參考資訊，請前往 https://bit.ly/blinkintents 查看網路平台功能變更的意義。
       </translation>
 <translation id="4442582539341804154">裝置閒置或暫停時啟用鎖定</translation>
-<translation id="4445684791305970001">停用「開發人員工具」和 JavaScript 控制台。如果您啟用這項設定，系統就無法存取「開發人員工具」且無法查看網站元素。此外，也會停用任何用來開啟「開發人員工具」和 JavaScript 控制台的鍵盤快速鍵、選單或內容選單項目。如果您停用或未設定這個選項，使用者即可使用「開發人員工具」和 JavaScript 控制台。</translation>
 <translation id="4449545651113180484">將畫面以順時針方向旋轉 270 度</translation>
 <translation id="4467952432486360968">封鎖第三方 Cookie</translation>
 <translation id="4474167089968829729">允許將密碼儲存到密碼管理員</translation>
@@ -1243,6 +1242,13 @@
       如果指定這項政策，系統在連結變異版本種子的擷取網址時，會加入「restrict」這個查詢參數。參數值即為這項政策中指定的值。
 
       如果未指定這項政策，則系統不會修改變異版本種子網址。</translation>
+<translation id="5563853101694018649">停用開發人員工具和 JavaScript 控制台。
+
+      如果啟用這項設定，就無法再存取開發人員工具，也無法再檢查網站元素。凡是用於開啟開發人員工具或 JavaScript 控制台的鍵盤快速鍵、選單或內容選單項目都會遭到停用。
+
+      如果停用或未設定這個選項，使用者即可使用開發人員工具和 JavaScript 控制台。
+
+      對於可執行 Android 應用程式的 <ph name="PRODUCT_OS_NAME" /> 裝置，也可以使用這項政策控制 Android 開發人員選項存取權。如果將這項政策設為 true，使用者就無法存取開發人員選項。如果將這項政策設為 false 或不予設定，使用者只要在 Android 設定應用程式中輕觸版本號碼七次，即可存取開發人員選項。</translation>
 <translation id="556941986578702361">設定 <ph name="PRODUCT_OS_NAME" /> 檔案櫃的自動隱藏功能。
 
       如果您將這項政策設為「AlwaysAutoHideShelf」，檔案櫃就會一律自動隱藏。

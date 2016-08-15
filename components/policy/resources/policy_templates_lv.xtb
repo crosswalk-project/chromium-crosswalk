@@ -1079,11 +1079,6 @@
       Lai gan šī politika ir atbalstīta iepriekš minētajās platformās, ne visas iespējotās funkcijas var būt pieejamas visās platformās. Ne visas novecojušās tīmekļa platformas funkcijas var iespējot atkārtoti. Var iespējot tikai tālāk norādītās funkcijas, un katrai funkcijai ir atšķirīgs derīguma laiks. Virknes taga vispārīgais formāts ir [NovecojušāsFunkcijasNosaukums]_SpēkāLīdz[ggggmmdd]. Ja vēlaties uzzināt vairāk, vietnē https://bit.ly/blinkintents ir minēti iemesli, kādēļ tīmekļa platformas funkcijās ir veiktas izmaiņas.
       </translation>
 <translation id="4442582539341804154">Bloķēšanas iespējošana, ja ierīce pāriet dīkstāvē vai tās darbība tiek apturēta</translation>
-<translation id="4445684791305970001">Atspējo izstrādātāju rīkus un JavaScript konsoli.
-
-      Ja šis iestatījums ir iespējots, nevar piekļūt izstrādātāju rīkiem un vairs nevar pārbaudīt vietņu elementus. Tiks atspējoti visi īsinājumtaustiņi un visi izvēļņu vai kontekstizvēlņu ieraksti, ar kuriem tiek atvērti izstrādātāju rīki vai JavaScript konsole.
-
-      Ja šis iestatījums ir atspējots vai nav iestatīts, izstrādātāju rīkus un JavaScript konsoli varēs lietot.</translation>
 <translation id="4449545651113180484">Pagriezt ekrānu pulksteņrādītāju kustības virzienā par 270 grādiem</translation>
 <translation id="4467952432486360968">Bloķē trešo pušu sīkfailus</translation>
 <translation id="4474167089968829729">Iespējot paroļu saglabāšanu paroļu pārvaldniekā</translation>
@@ -1346,6 +1341,13 @@
       Ja ir norādīta šīs politikas vērtība, vietrādim URL, kas tiek izmantots variantu sākotnējās vērtības iegūšanai, tiks pievienots vaicājuma parametrs “restrict”. Parametra vērtība būs šīs politikas norādītā vērtība.
 
       Ja šīs politikas vērtība nav norādīta, variantu sākotnējās vērtības URL netiks modificēts.</translation>
+<translation id="5563853101694018649">Atspējo izstrādātāju rīkus un JavaScript konsoli.
+
+      Ja iespējosiet šo iestatījumu, lietotājs vairs nevarēs piekļūt izstrādātāju rīkiem un pārbaudīt vietņu elementus. Tiks atspējoti visi īsinājumtaustiņi un izvēļņu vai kontekstizvēļņu opcijas, kas paredzētas izstrādātāju rīku vai JavaScript konsoles atvēršanai.
+
+      Ja šī opcija tiks atspējota vai netiks iestatīta, lietotājs varēs izmantot izstrādātāju rīkus un JavaScript konsoli.
+
+      <ph name="PRODUCT_OS_NAME" /> ierīcēs, kurās var palaist Android lietotnes, ar šo politiku tiek pārvaldīta arī piekļuve Android izstrādātājiem paredzētajām opcijām. Ja politikai tiek iestatīta vērtība “Patiesa”, lietotāji nevar piekļūt izstrādātājiem paredzētajām opcijām. Ja politikai tiek iestatīta vērtība “Nepatiesa” vai netiek iestatīta nekāda vērtība, lietotāji var piekļūt izstrādātājiem paredzētajām opcijām, septiņas reizes pieskaroties versijas numuram Android lietotnē Iestatījumi.</translation>
 <translation id="556941986578702361">Kontrolējiet <ph name="PRODUCT_OS_NAME" /> plaukta automātisko slēpšanu.
 
       Ja šai politikai tiks izvēlēts iestatījums “AlwaysAutoHideShelf”, plaukts vienmēr tiks automātiski slēpts.

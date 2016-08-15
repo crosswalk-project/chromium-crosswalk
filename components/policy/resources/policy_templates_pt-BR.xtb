@@ -1020,7 +1020,6 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
       Embora a política seja compatível com as plataformas acima, o recurso que ela ativa pode estar disponível em menos plataformas, Nem todos os recursos de uso suspenso da plataforma Web podem ser reativados. Apenas aqueles explicitamente listados abaixo podem ser reativados por um período de tempo limitado, e isso difere de acordo com o recurso. O formato geral da tag de string será [NomeDoRecursoDeUsoSuspenso]_EffectiveUntil[aaaammdd]. Como referência, é possível verificar o objeto por trás das alterações do recurso da plataforma Web em https://bit.ly/blinkintents.
       </translation>
 <translation id="4442582539341804154">Ativar o bloqueio quando o dispositivo entrar no modo ocioso ou suspenso</translation>
-<translation id="4445684791305970001">Desativa as Ferramentas do desenvolvedor e o console JavaScript. Se ativar esta configuração, as Ferramentas do desenvolvedor não podem ser acessadas ​​e elementos de websites não poderão mais ser inspecionados. Quaisquer entradas para abrir as Ferramentas do desenvolvedor ou o Console de JavaScript em atalhos de teclado, menus ou menus de contextos serão desativadas. Definir esta opção como desativada ou deixá-la sem definição permitirá a utilização das Ferramentas do desenvolvedor e do console JavaScript.</translation>
 <translation id="4449545651113180484">Girar tela no sentido horário em 270 graus</translation>
 <translation id="4467952432486360968">Bloquear cookies de terceiros</translation>
 <translation id="4474167089968829729">Ativar salvamento de senhas no gerenciador de senhas</translation>
@@ -1230,6 +1229,13 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
       Se especificada, a política adicionará um parâmetro de consulta chamado "restrict" ao URL usado para buscar o termo-semente "Variações". O valor do parâmetro será o valor especificado nesta política.
 
       Se não for especificada, a política não modificará o URL do termo-semente "Variações".</translation>
+<translation id="5563853101694018649">Desativa as Ferramentas de desenvolvedor e o Console JavaScript.
+
+      Se você ativar essa configuração, as Ferramentas de desenvolvedor não poderão ser acessadas, e os elementos de websites não poderão mais ser inspecionados. Todos os atalhos do teclado e todas as entradas de menu ou menu de contexto para abrir as Ferramentas de desenvolvedor ou o Console JavaScript serão desativados.
+
+      Se esta opção for definida como desativada ou não for definida, a utilização das Ferramentas do desenvolvedor e do Console JavaScript não será permitida.
+
+      Em dispositivos <ph name="PRODUCT_OS_NAME" /> com capacidade de executar apps Android, esta política também controla o acesso a Opções do desenvolvedor Android. Se você definir esta política como "true", os usuários não poderão acessar as Opções do desenvolvedor. Se você definir esta política como "false" ou deixá-la sem definição, os usuários poderão acessar as Opções do desenvolvedor tocando sete vezes no número da versão no app Config. do Android.</translation>
 <translation id="556941986578702361">Controla a ocultação automática da estante do <ph name="PRODUCT_OS_NAME" />.
 
       Se esta política estiver definida como "AlwaysAutoHideShelf", a estante sempre será ocultada automaticamente.

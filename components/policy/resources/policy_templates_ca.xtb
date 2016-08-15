@@ -1030,7 +1030,6 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció sobre els tipu
       Tot i que la política s'admet en les plataformes anteriors, pot ser que la funció que activi no estigui disponible en totes les plataformes. No totes les funcions obsoletes de la plataforma web es poden tornar a activar; només les que s'indiquin explícitament a continuació durant un període de temps limitat, que varia segons la funció. El format general de l'etiqueta de cadena és el següent: [FuncióObsoleta]_EffectiveUntil[aaaammdd]. Com a referència, podeu consultar la finalitat dels canvis de la funció de la plataforma web a la pàgina https://bit.ly/blinkintents.
       </translation>
 <translation id="4442582539341804154">Activació del bloqueig quan el dispositiu està inactiu o se suspèn</translation>
-<translation id="4445684791305970001">Desactiva les eines per a desenvolupador i la consola de JavaScript. Si activeu aquest paràmetre, no es podrà accedir a les eines per a desenvolupadors i no es podran inspeccionar més els elements del lloc web. Les tecles de drecera i les entrades dels menús o dels menús contextuals per obrir les eines per a desenvolupadors es desactivaran. Si es desactiva o no es defineix aquesta opció, es podran utilitzar les eines per a desenvolupadors i la consola de JavaScript.</translation>
 <translation id="4449545651113180484">Gira la pantalla 270 graus en el sentit de les agulles del rellotge</translation>
 <translation id="4467952432486360968">Bloqueja les galetes de tercers</translation>
 <translation id="4474167089968829729">Permet que el gestor de contrasenyes desi contrasenyes</translation>
@@ -1248,6 +1247,13 @@ Si no es configura aquesta opció, no s'aplicarà cap restricció sobre els tipu
       Si s'especifica, afegirà un paràmetre de consulta anomenat "restrict" a l'URL utilitzat per obtenir el valor seed de les variacions. El valor del paràmetre serà el valor especificat en aquesta política.
 
       Si no s'especifica, no modificarà l'URL del valor seed de les variacions.</translation>
+<translation id="5563853101694018649">Desactiva les Eines per a desenvolupadors i la Consola de JavaScript.
+
+      Si actives aquesta opció de configuració, no es podrà accedir a les Eines per a desenvolupadors ni es podran inspeccionar elements dels llocs webs. Es desactivaran també totes les tecles de drecera i les entrades dels menús o menús contextuals que obren les Eines per a desenvolupadors o la Consola de JavaScript.
+
+      Si no actives aquesta opció o la deixes sense configurar, podràs utilitzar les Eines per a desenvolupadors i la Consola de JavaScript.
+
+      Per als dispositius <ph name="PRODUCT_OS_NAME" /> compatibles amb aplicacions Android, aquesta política també regula l'accés a les Opcions per a desenvolupadors d'Android. Si aquesta política s'estableix com a certa, els usuaris no podran accedir a les Opcions per a desenvolupadors. Si s'estableix com a falsa o no s'estableix, els usuaris podran accedir a les Opcions per a desenvolupadors tocant set vegades el número de compilació a l'aplicació de configuració d'Android.</translation>
 <translation id="556941986578702361">Controla l'ocultació automàtica del prestatge de <ph name="PRODUCT_OS_NAME" />.
 
 Si aquesta política es defineix com a "AlwaysAutoHideShelf", el prestatge s'amagarà sempre automàticament.

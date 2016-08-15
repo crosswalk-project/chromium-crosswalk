@@ -505,7 +505,7 @@
 <translation id="1681120471812444678">设置以添加打印机…</translation>
 <translation id="1682324559341535203">注册<ph name="DEVICE_TYPE" /></translation>
 <translation id="1682548588986054654">打开新的隐身窗口</translation>
-<translation id="168328519870909584"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的现有攻击程序可能会试图通过在您的设备上安装危险应用来窃取或删除您的信息（例如：照片、密码、通讯内容和信用卡信息）。</translation>
+<translation id="168328519870909584"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的现有攻击者可能会试图通过在您的设备上安装危险应用来窃取或删除您的信息（如照片、密码、通讯内容和信用卡信息）。</translation>
 <translation id="1685141618403317602">取消注册</translation>
 <translation id="1685944703056982650">鼠标指针例外情况</translation>
 <translation id="1691063574428301566">您的计算机会在更新完成后重新启动。</translation>
@@ -740,7 +740,7 @@
 <translation id="2074527029802029717">取消固定标签页</translation>
 <translation id="2075594581020578008"><ph name="IDS_SHORT_PRODUCT_NAME" /> 浏览器</translation>
 <translation id="2076269580855484719">隐藏此插件</translation>
-<translation id="2077084898869955643">自动向Google报告可能出现的安全事件详情。<ph name="PRIVACY_PAGE_LINK" /></translation>
+<translation id="2077084898869955643">自动向 Google 报告可能出现的安全事件详情。<ph name="PRIVACY_PAGE_LINK" /></translation>
 <translation id="2078019350989722914">退出前提示 (<ph name="KEY_EQUIVALENT" />)</translation>
 <translation id="2079053412993822885">如果您删除了自己的某个证书，则不能再用该证书标识自己的身份。</translation>
 <translation id="2079545284768500474">撤消</translation>
@@ -1414,7 +1414,7 @@
 <translation id="2956763290572484660"><ph name="COOKIES" /> 个 Cookie</translation>
 <translation id="2959614062380389916">已被管理员禁用</translation>
 <translation id="2960393411257968125">密码管理器自动填充同步凭据的方式。</translation>
-<translation id="29611076221683977">目前<ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" />上的攻击程序可能会试图在您的Mac上安装危险程序来窃取或删除您信息（例如：照片、密码、通讯内容和信用卡信息）。</translation>
+<translation id="29611076221683977">攻击者可能会试图通过 <ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 在您的 Mac 上安装危险程序，以窃取或删除您的信息（如照片、密码、通讯内容和信用卡信息）。</translation>
 <translation id="2961695502793809356">点击可前进，按住可查看历史记录</translation>
 <translation id="296216853343927883">在上下文菜单中显示 Google 品牌标识</translation>
 <translation id="2963151496262057773">以下插件没有响应：<ph name="PLUGIN_NAME" />。是否要停止使用该插件？</translation>
@@ -2234,7 +2234,7 @@
 <translation id="406070391919917862">后台应用</translation>
 <translation id="4062251648694601778">尽情享受<ph name="SHORT_PRODUCT_NAME" />设备给您带来的便利吧！如有任何问题，只需点击状态栏中的“?”，即可获得帮助。</translation>
 <translation id="4065876735068446555">您正在使用的网络 (<ph name="NETWORK_ID" />) 可能需要您访问其登录页面。</translation>
-<translation id="4068506536726151626">此网页包含来自以下网站的元素，这些网站正在跟踪您的位置：</translation>
+<translation id="4068506536726151626">此网页包含来自以下网站的元素，这些网站正在追踪您的位置：</translation>
 <translation id="4070370845051020638">粤语输入法</translation>
 <translation id="4071770069230198275"><ph name="PROFILE_NAME" />：登录错误</translation>
 <translation id="4072248638558688893">泰米尔语键盘（注音）</translation>
@@ -3085,7 +3085,7 @@
 <translation id="5334142896108694079">脚本缓存</translation>
 <translation id="533433379391851622">正确版本应为“<ph name="EXPECTED_VERSION" />”，但实际版本为“<ph name="NEW_ID" />”。</translation>
 <translation id="5334844597069022743">查看源代码</translation>
-<translation id="5337705430875057403"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的攻击程序可能会诱骗您做一些危险的事情，如安装软件或泄露您的个人信息（例如密码、电话号码或信用卡信息）。</translation>
+<translation id="5337705430875057403"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的攻击者可能会诱骗您做一些危险的事情，如安装软件或泄露您的个人信息（如密码、电话号码或信用卡信息）。</translation>
 <translation id="5337771866151525739">由第三方安装。</translation>
 <translation id="5338503421962489998">本地存储</translation>
 <translation id="5340217413897845242">栏中第 6 项</translation>
@@ -3601,7 +3601,7 @@
 <translation id="6071181508177083058">确认密码</translation>
 <translation id="6074825444536523002">Google 表单</translation>
 <translation id="6075731018162044558">糟糕！系统无法为此设备获得长期的 API 访问令牌。</translation>
-<translation id="6075880972317537864"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" />上的攻击程序可能会试图骗取您的信息（例如：密码、通讯内容或信用卡信息）。</translation>
+<translation id="6075880972317537864"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的攻击者可能会试图骗取您的信息（如密码、通讯内容或信用卡信息）。</translation>
 <translation id="6075907793831890935">与名为“<ph name="HOSTNAME" />”的设备交换数据</translation>
 <translation id="607776788151925847">正在取消注册…</translation>
 <translation id="6079696972035130497">无限制</translation>
@@ -4214,7 +4214,7 @@
 <translation id="6990778048354947307">黑暗主题</translation>
 <translation id="6991128190741664836">以后再说</translation>
 <translation id="6991665348624301627">选择目标打印机</translation>
-<translation id="699220179437400583">自动向Google报告可能出现的安全事件详情</translation>
+<translation id="699220179437400583">自动向 Google 报告可能出现的安全事件详情</translation>
 <translation id="6993929801679678186">显示自动填充预测内容</translation>
 <translation id="6998711733709403587">已选择 <ph name="SELCTED_FOLDERS_COUNT" /> 个文件夹</translation>
 <translation id="6998872712520806535">{NUM_PAGES,plural, =1{以下页面已停止响应。您可以等待该页面恢复响应，也可以将其关闭。}other{以下页面已停止响应。您可以等待这些页面恢复响应，也可以将其关闭。}}</translation>
@@ -4626,7 +4626,7 @@
 <translation id="7582844466922312471">移动数据</translation>
 <translation id="7583242026904249212"><ph name="DOMAIN" /> 希望您的设备通过 Google 的身份验证，以确定是否能对受保护的媒体使用增强播放功能。<ph name="LEARN_MORE" />。</translation>
 <translation id="7584802760054545466">正在连接至<ph name="NETWORK_ID" /></translation>
-<translation id="7586312264284919041">您要翻译该网页吗？</translation>
+<translation id="7586312264284919041">您是否要翻译该网页？</translation>
 <translation id="7586498138629385861">Chrome应用处于打开状态时，Chrome将持续运行。</translation>
 <translation id="7587108133605326224">波罗的海周边语言</translation>
 <translation id="7589461650300748890">注意！</translation>
@@ -5071,7 +5071,7 @@
 <translation id="8226222018808695353">已被禁止</translation>
 <translation id="8226742006292257240">以下是一个分配给您计算机的、随机生成的 TPM 密码：</translation>
 <translation id="822964464349305906"><ph name="TYPE_1" />、<ph name="TYPE_2" /></translation>
-<translation id="8230421197304563332">目前<ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" />上的攻击程序可能会试图在您的计算机上安装危险程序来窃取或删除您的信息（例如：照片、密码、通讯内容和信用卡信息）。</translation>
+<translation id="8230421197304563332">攻击者可能会试图通过 <ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 在您的计算机上安装危险程序，以窃取或删除您的信息（如照片、密码、通讯内容和信用卡信息）。</translation>
 <translation id="8233254008506535819">包含在“清除浏览数据”对话框中将重要网站加入白名单的选项。</translation>
 <translation id="8236231079192337250">专门搜索打印机驱动程序的“Chrome 网上应用店扩展程序列表”应用</translation>
 <translation id="8238649969398088015">帮助提示</translation>
@@ -5643,7 +5643,7 @@
 <translation id="9037008143807155145">https://www.google.com/calendar/render?cid=%s</translation>
 <translation id="9039663905644212491">PEAP</translation>
 <translation id="9039890312082871605">将所有标签页静音</translation>
-<translation id="9040185888511745258"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" />上的攻击程序可能会试图骗您安装有损浏览体验（例如，更改您的主页或在您访问的网站上显示额外的广告）的程序。</translation>
+<translation id="9040185888511745258"><ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> 上的攻击者可能会试图骗您安装有损浏览体验的程序（例如更改您的主页或在您访问的网站上显示额外的广告）。</translation>
 <translation id="9040421302519041149">对此网络的访问受保护。</translation>
 <translation id="9041603713188951722">在窗口中显示设置</translation>
 <translation id="904451693890288097">请输入“<ph name="DEVICE_NAME" />”的配对密钥：</translation>
