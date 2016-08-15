@@ -1156,7 +1156,7 @@ public class ContextualSearchManager implements ContextualSearchManagementDelega
 
     @Override
     public void onSelectionChanged(String selection) {
-        if (!mActivity.getFullscreenManager().isOverlayVideoMode()) {
+        if (!isOverlayVideoMode()) {
             mSelectionController.handleSelectionChanged(selection);
             mSearchPanel.updateTopControlsState(TopControlsState.BOTH, true);
         }
@@ -1164,7 +1164,7 @@ public class ContextualSearchManager implements ContextualSearchManagementDelega
 
     @Override
     public void onSelectionEvent(int eventType, float posXPix, float posYPix) {
-        if (!mActivity.getFullscreenManager().isOverlayVideoMode()) {
+        if (!isOverlayVideoMode()) {
             mSelectionController.handleSelectionEvent(eventType, posXPix, posYPix);
         }
     }
@@ -1172,9 +1172,14 @@ public class ContextualSearchManager implements ContextualSearchManagementDelega
     @Override
     public void showUnhandledTapUIIfNeeded(final int x, final int y) {
         mDidBasePageLoadJustStart = false;
-        if (!mActivity.getFullscreenManager().isOverlayVideoMode()) {
+        if (!isOverlayVideoMode()) {
             mSelectionController.handleShowUnhandledTapUIIfNeeded(x, y);
         }
+    }
+
+    private boolean isOverlayVideoMode() {
+        return mActivity.getFullscreenManager() != null
+                && mActivity.getFullscreenManager().isOverlayVideoMode();
     }
 
     // ============================================================================================
