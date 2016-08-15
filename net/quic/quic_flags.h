@@ -26,6 +26,7 @@ NET_EXPORT_PRIVATE extern bool FLAGS_quic_require_fix;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_supports_push_promise;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_supports_push_promise;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_cede_correctly;
+NET_EXPORT_PRIVATE extern bool FLAGS_quic_least_unacked_packet_number_length;
 NET_EXPORT_PRIVATE extern bool
     FLAGS_quic_crypto_server_config_default_has_chacha20;
 NET_EXPORT_PRIVATE extern bool FLAGS_quic_reply_to_rej;

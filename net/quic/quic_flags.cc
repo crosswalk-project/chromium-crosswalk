@@ -138,6 +138,10 @@ bool FLAGS_quic_no_shlo_listener = true;
 // socket, are always sent once the socket gets unblocked
 bool FLAGS_quic_always_write_queued_retransmissions = true;
 
+// Use GetLeastUnacked when updating the packet number length, instead of
+// GetLeastPacketAwaitedByPeer.
+bool FLAGS_quic_least_unacked_packet_number_length = true;
+
 // Adds a RATE connection option to do rate based sending.
 bool FLAGS_quic_rate_based_sending = true;
 
