@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.78",
+  "version": "8.79",
   "entries": [
     {
       "id": 1,
@@ -1890,6 +1890,19 @@ LONG_STRING_CONST(
       "gl_renderer": "Adreno \\(TM\\) 5.*",
       "disabled_extensions": [
         "GL_EXT_multisampled_render_to_texture"
+      ]
+    },
+    {
+      "id": 176,
+      "description": "glClear does not work on Acer Predator GT-810",
+      "cr_bugs": [633634],
+      "os": {
+        "type": "android"
+      },
+      "gl_vendor": "Intel",
+      "gl_renderer": ".*Atom.*x5/x7.*",
+      "features": [
+        "gl_clear_broken"
       ]
     }
   ]
