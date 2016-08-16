@@ -574,12 +574,6 @@ void WebNotificationTray::ExecuteCommand(int command_id, int event_flags) {
   message_center()->EnterQuietModeWithExpire(expires_in);
 }
 
-void WebNotificationTray::ButtonPressed(views::Button* sender,
-                                        const ui::Event& event) {
-  DCHECK_EQ(button_, sender);
-  PerformAction(event);
-}
-
 void WebNotificationTray::OnMessageCenterTrayChanged() {
   // Do not update the tray contents directly. Multiple change events can happen
   // consecutively, and calling Update in the middle of those events will show

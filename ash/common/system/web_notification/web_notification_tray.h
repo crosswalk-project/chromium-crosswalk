@@ -53,7 +53,6 @@ class ASH_EXPORT WebNotificationTray
     : public TrayBackgroundView,
       public views::TrayBubbleView::Delegate,
       public message_center::MessageCenterTrayDelegate,
-      public views::ButtonListener,
       public base::SupportsWeakPtr<WebNotificationTray>,
       public ui::SimpleMenuModel::Delegate {
  public:
@@ -110,9 +109,6 @@ class ASH_EXPORT WebNotificationTray
       views::Widget* bubble_widget,
       views::Widget::InitParams* params) const override;
   void HideBubble(const views::TrayBubbleView* bubble_view) override;
-
-  // Overridden from ButtonListener.
-  void ButtonPressed(views::Button* sender, const ui::Event& event) override;
 
   // Overridden from MessageCenterTrayDelegate.
   void OnMessageCenterTrayChanged() override;
