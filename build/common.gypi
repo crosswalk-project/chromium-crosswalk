@@ -551,7 +551,7 @@
 
       # Enable printing with print preview. It does not imply
       # enable_basic_printing. It's possible to build Chrome with preview only.
-      'enable_print_preview%': 1,
+      'enable_print_preview%': 0,
 
       # For CLD2, the size of the tables that should be included in the build
       # See third_party/cld_2/cld_2.gyp for more information.
