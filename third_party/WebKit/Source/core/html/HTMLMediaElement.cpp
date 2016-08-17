@@ -2285,6 +2285,7 @@ void HTMLMediaElement::setMuted(bool muted)
         return;
 
     bool wasAutoplayingMuted = !paused() && m_muted && isLockedPendingUserGesture();
+    bool wasPendingAutoplayMuted = m_autoplayVisibilityObserver && paused() && m_muted && isLockedPendingUserGesture();
 
     if (UserGestureIndicator::processingUserGesture())
         unlockUserGesture();
@@ -2310,6 +2311,13 @@ void HTMLMediaElement::setMuted(bool muted)
         } else {
             recordAutoplayUnmuteStatus(AutoplayUnmuteActionSuccess);
         }
+    }
+
+    // If an element was a candidate for autoplay muted but not visible, it will
+    // have a visibility observer ready to start its playback.
+    if (wasPendingAutoplayMuted) {
+        m_autoplayVisibilityObserver->stop();
+        m_autoplayVisibilityObserver = nullptr;
     }
 }
 
