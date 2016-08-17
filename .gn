@@ -318,4 +318,5 @@ exec_script_whitelist = [
   "//ui/views/mus/BUILD.gn",
   "//v8/test/cctest/BUILD.gn",
   "//v8/test/unittests/BUILD.gn",
+  "//xwalk/build/version.gni",
 ]
