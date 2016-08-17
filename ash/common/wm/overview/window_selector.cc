@@ -379,6 +379,7 @@ void WindowSelector::Init(const WindowList& windows) {
 // may cause other, unrelated classes, (ie PanelLayoutManager) to make indirect
 // calls to restoring_minimized_windows() on a partially destructed object.
 void WindowSelector::Shutdown() {
+  is_shut_down_ = true;
   ResetFocusRestoreWindow(true);
   RemoveAllObservers();
 
