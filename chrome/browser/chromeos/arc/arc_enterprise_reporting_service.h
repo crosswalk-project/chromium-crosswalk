@@ -33,6 +33,9 @@ class ArcEnterpriseReportingService
   void ReportManagementState(mojom::ManagementState state) override;
 
  private:
+  // DBus callback, restarts ARC after ARC user data wipe.
+  void RestartArc(bool success);
+
   base::ThreadChecker thread_checker_;
 
   mojo::Binding<mojom::EnterpriseReportingHost> binding_;
