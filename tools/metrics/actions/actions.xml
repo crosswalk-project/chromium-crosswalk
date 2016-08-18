@@ -13434,6 +13434,20 @@ should be able to be added at any place in this file.
   </description>
 </action>
 
+<action name="Signin_Impression_FromNTPContentSuggestions">
+  <owner>gogerald@chromium.org</owner>
+  <description>
+    Recorded when showing sign in card in the snippets new tab page.
+  </description>
+</action>
+
+<action name="Signin_Impression_FromPasswordBubble">
+  <owner>gogerald@chromium.org</owner>
+  <description>
+    Recorded when showing sign in entry in the saving password bubble.
+  </description>
+</action>
+
 <action name="Signin_Impression_FromRecentTabs">
   <owner>gogerald@chromium.org</owner>
   <description>
@@ -13493,6 +13507,11 @@ should be able to be added at any place in this file.
     Recorded on sign in start from access point
     signin_metrics::AccessPoint::ACCESS_POINT_APPS_PAGE_LINK.
   </description>
+</action>
+
+<action name="Signin_Signin_FromAutofillDropdown">
+  <owner>Please list the metric's owners. Add more owner tags as needed.</owner>
+  <description>Please enter the description of the metric.</description>
 </action>
 
 <action name="Signin_Signin_FromAvatarBubbleSignin">
@@ -13572,6 +13591,14 @@ should be able to be added at any place in this file.
   <description>
     Recorded on sign in start from access point
     signin_metrics::AccessPoint::ACCESS_POINT_NTP_LINK.
+  </description>
+</action>
+
+<action name="Signin_Signin_FromNTPContentSuggestions">
+  <owner>gogerald@chromium.org</owner>
+  <description>
+    Recorded on sign in start from access point
+    signin_metrics::AccessPoint::ACCESS_POINT_NTP_CONTENT_SUGGESTIONS.
   </description>
 </action>
 

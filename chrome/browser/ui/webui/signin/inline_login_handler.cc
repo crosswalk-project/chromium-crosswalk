@@ -173,6 +173,14 @@ void InlineLoginHandler::RecordSigninUserActionForAccessPoint(
       content::RecordAction(
           base::UserMetricsAction("Signin_Signin_FromPasswordBubble"));
       break;
+    case signin_metrics::AccessPoint::ACCESS_POINT_AUTOFILL_DROPDOWN:
+      content::RecordAction(
+          base::UserMetricsAction("Signin_Signin_FromAutofillDropdown"));
+      break;
+    case signin_metrics::AccessPoint::ACCESS_POINT_NTP_CONTENT_SUGGESTIONS:
+      content::RecordAction(
+          base::UserMetricsAction("Signin_Signin_FromNTPContentSuggestions"));
+      break;
     case signin_metrics::AccessPoint::ACCESS_POINT_MAX:
       NOTREACHED();
       break;

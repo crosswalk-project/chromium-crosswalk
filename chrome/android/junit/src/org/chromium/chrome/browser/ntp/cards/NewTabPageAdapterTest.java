@@ -10,6 +10,7 @@ import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
 
 import org.chromium.base.metrics.RecordHistogram;
+import org.chromium.base.metrics.RecordUserAction;
 import org.chromium.base.test.util.Feature;
 import org.chromium.chrome.browser.ntp.NewTabPageView.NewTabPageManager;
 import org.chromium.chrome.browser.ntp.snippets.DisabledReason;
@@ -43,6 +44,7 @@ public class NewTabPageAdapterTest {
     @Before
     public void setUp() {
         RecordHistogram.disableForTests();
+        RecordUserAction.disableForTests();
         mNewTabPageManager = mock(NewTabPageManager.class);
         mSnippetsObserver = null;
         mSnippetsBridge = mock(SnippetsBridge.class);
