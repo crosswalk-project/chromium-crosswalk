@@ -2214,6 +2214,7 @@ const NSTimeInterval kSnapshotOverlayTransition = 0.5;
         // FinishPageLoad, passing the exact same URL.
         self.webStateImpl->GetRequestTracker()->FinishPageLoad(
             _URLOnStartLoading, false);
+        _webStateImpl->SetIsLoading(false);
       }
       [_delegate webLoadCancelled:_URLOnStartLoading];
       break;
