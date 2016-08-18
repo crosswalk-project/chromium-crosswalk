@@ -325,7 +325,6 @@ WebNotificationTray::WebNotificationTray(WmShelf* shelf,
   tray_container()->AddChildView(counter_.get());
 
   SetContentsBackground();
-  tray_container()->SetBorder(views::Border::NullBorder());
   message_center_tray_.reset(new message_center::MessageCenterTray(
       this, message_center::MessageCenter::Get()));
   popup_alignment_delegate_.reset(new AshPopupAlignmentDelegate(shelf));
@@ -457,7 +456,6 @@ void WebNotificationTray::SetShelfAlignment(ShelfAlignment alignment) {
   if (alignment == shelf_alignment())
     return;
   TrayBackgroundView::SetShelfAlignment(alignment);
-  tray_container()->SetBorder(views::Border::NullBorder());
   // Destroy any existing bubble so that it will be rebuilt correctly.
   message_center_tray_->HideMessageCenterBubble();
   message_center_tray_->HidePopupBubble();
