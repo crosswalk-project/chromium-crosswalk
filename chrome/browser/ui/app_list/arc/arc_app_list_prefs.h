@@ -64,6 +64,7 @@ class ArcAppListPrefs
             bool ready,
             bool showInLauncher,
             bool shortcut,
+            bool launchable,
             arc::mojom::OrientationLock orientation_lock);
     ~AppInfo();
 
@@ -79,6 +80,7 @@ class ArcAppListPrefs
     bool ready;
     bool showInLauncher;
     bool shortcut;
+    bool launchable;
     arc::mojom::OrientationLock orientation_lock;
   };
 
@@ -242,7 +244,8 @@ class ArcAppListPrefs
               mojo::Array<uint8_t> icon_png_data);
   void OnTaskCreated(int32_t task_id,
                      const mojo::String& package_name,
-                     const mojo::String& activity) override;
+                     const mojo::String& activity,
+                     const mojo::String& name) override;
   void OnTaskDestroyed(int32_t task_id) override;
   void OnTaskSetActive(int32_t task_id) override;
   void OnNotificationsEnabledChanged(const mojo::String& package_name,
@@ -263,6 +266,7 @@ class ArcAppListPrefs
                          const bool sticky,
                          const bool notifications_enabled,
                          const bool shortcut,
+                         const bool launchable,
                          arc::mojom::OrientationLock orientation_lock);
   void DisableAllApps();
   void RemoveAllApps();
@@ -281,6 +285,12 @@ class ArcAppListPrefs
   void OnIconInstalled(const std::string& app_id,
                        ui::ScaleFactor scale_factor,
                        bool install_succeed);
+
+  // This checks if app is not registered yet and in this case creates
+  // non-launchable app entry.
+  void MayAddNonLaunchableApp(const std::string& name,
+                              const std::string& package_name,
+                              const std::string& activity);
 
   Profile* const profile_;
 
