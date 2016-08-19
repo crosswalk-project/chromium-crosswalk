@@ -23,6 +23,9 @@ class FlashDOMHandler;
 
 namespace chrome {
 void AttemptRestart();
+namespace android {
+class ExternalDataUseObserverBridge;
+}
 }
 
 namespace chrome_browser {
@@ -78,6 +81,7 @@ class ChromeMetricsServiceAccessor : public metrics::MetricsServiceAccessor {
   friend class BrowserProcessImpl;
   friend void chrome::AttemptRestart();
   friend void chrome_browser::SetupPreReadFieldTrial();
+  friend class chrome::android::ExternalDataUseObserverBridge;
   friend class ChromeMetricsServicesManagerClient;
   friend class ChromeRenderMessageFilter;
   friend class DataReductionProxyChromeSettings;
