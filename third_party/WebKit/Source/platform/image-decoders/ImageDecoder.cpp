@@ -21,6 +21,7 @@
 #include "platform/image-decoders/ImageDecoder.h"
 
 #include "platform/PlatformInstrumentation.h"
+#include "platform/image-decoders/FastSharedBufferReader.h"
 #include "platform/image-decoders/bmp/BMPImageDecoder.h"
 #include "platform/image-decoders/gif/GIFImageDecoder.h"
 #include "platform/image-decoders/ico/ICOImageDecoder.h"
@@ -80,12 +81,16 @@ inline bool matchesBMPSignature(const char* contents)
     return !memcmp(contents, "BM", 2);
 }
 
+namespace {
+
+// This needs to be updated if we ever add a matches*Signature() which requires more characters.
+constexpr size_t kLongestSignatureLength = sizeof("RIFF????WEBPVP") - 1;
+
+} // anonymous ns
+
 std::unique_ptr<ImageDecoder> ImageDecoder::create(const char* contents, size_t length, AlphaOption alphaOption, GammaAndColorProfileOption colorOptions)
 {
-    const size_t longestSignatureLength = sizeof("RIFF????WEBPVP") - 1;
-    ASSERT(longestSignatureLength == 14);
-
-    if (length < longestSignatureLength)
+    if (length < kLongestSignatureLength)
         return nullptr;
 
     size_t maxDecodedBytes = Platform::current() ? Platform::current()->maxDecodedImageBytes() : noDecodedImageByteLimit;
@@ -113,16 +118,17 @@ std::unique_ptr<ImageDecoder> ImageDecoder::create(const char* contents, size_t 
 
 std::unique_ptr<ImageDecoder> ImageDecoder::create(const SharedBuffer& data, AlphaOption alphaOption, GammaAndColorProfileOption colorOptions)
 {
-    const char* contents;
-    const size_t length = data.getSomeData<size_t>(contents);
-    return create(contents, length, alphaOption, colorOptions);
+    RefPtr<SegmentReader> reader = SegmentReader::createFromSharedBuffer(const_cast<SharedBuffer*>(&data));
+    return create(*reader, alphaOption, colorOptions);
 }
 
 std::unique_ptr<ImageDecoder> ImageDecoder::create(const SegmentReader& data, AlphaOption alphaOption, GammaAndColorProfileOption colorOptions)
 {
-    const char* contents;
-    const size_t length = data.getSomeData(contents, 0);
-    return create(contents, length, alphaOption, colorOptions);
+    const FastSharedBufferReader fastReader(const_cast<SegmentReader*>(&data));
+    char buffer[kLongestSignatureLength];
+    const size_t len = std::min(kLongestSignatureLength, data.size());
+
+    return create(fastReader.getConsecutiveData(0, len, buffer), len,  alphaOption, colorOptions);
 }
 
 size_t ImageDecoder::frameCount()
