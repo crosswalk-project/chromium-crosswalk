@@ -32,14 +32,10 @@ namespace blink {
 
 ScopedPageLoadDeferrer::ScopedPageLoadDeferrer(Page* exclusion)
 {
-    for (const Page* page : Page::ordinaryPages()) {
+    for (Page* page : Page::ordinaryPages()) {
         if (page == exclusion || page->defersLoading())
             continue;
-
-        if (!page->mainFrame()->isLocalFrame())
-            continue;
-
-        m_deferredFrames.append(page->deprecatedLocalMainFrame());
+        m_deferredPages.append(page);
     }
 
     setDefersLoading(true);
@@ -54,10 +50,9 @@ ScopedPageLoadDeferrer::~ScopedPageLoadDeferrer()
 
 void ScopedPageLoadDeferrer::setDefersLoading(bool isDeferred)
 {
-    for (const auto& frame : m_deferredFrames) {
-        if (Page* page = frame->page())
-            page->setDefersLoading(isDeferred);
-    }
+
+    for (const auto& page : m_deferredPages)
+        page->setDefersLoading(isDeferred);
 }
 
 } // namespace blink
