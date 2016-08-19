@@ -13,6 +13,7 @@ import android.os.Process;
 import android.provider.Settings;
 import android.text.TextUtils;
 
+import org.chromium.base.ApiCompatibilityUtils;
 import org.chromium.base.ThreadUtils;
 import org.chromium.base.VisibleForTesting;
 import org.chromium.base.annotations.SuppressFBWarnings;
@@ -47,7 +48,8 @@ public class LocationUtils {
     }
 
     private boolean hasPermission(Context context, String name) {
-        return context.checkPermission(name, Process.myPid(), Process.myUid())
+        return ApiCompatibilityUtils.checkPermission(
+                context, name, Process.myPid(), Process.myUid())
                 == PackageManager.PERMISSION_GRANTED;
     }
 
