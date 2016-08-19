@@ -842,7 +842,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     @Override
     public void onDismiss() {
         disconnectFromClientWithDebugMessage("Dialog dismissed");
-        closeUI(false);
+        closeUI(true);
         recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_ABORTED_BY_USER);
     }
 
@@ -854,7 +854,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
         Log.d(TAG, debugMessage);
         if (mClient != null) mClient.onError(reason);
         closeClient();
-        closeUI(false);
+        closeUI(true);
     }
 
     @Override
@@ -873,7 +873,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
             if (sObserverForTest != null) sObserverForTest.onPaymentRequestServiceUnableToAbort();
         } else {
             closeClient();
-            closeUI(false);
+            closeUI(true);
             recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_ABORTED_BY_MERCHANT);
         }
     }
@@ -895,7 +895,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     public void close() {
         if (mClient == null) return;
         closeClient();
-        closeUI(false);
+        closeUI(true);
         recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_MOJO_RENDERER_CLOSING);
     }
 
@@ -906,7 +906,7 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
     public void onConnectionError(MojoException e) {
         if (mClient == null) return;
         closeClient();
-        closeUI(false);
+        closeUI(true);
         recordAbortReasonHistogram(PaymentRequestMetrics.ABORT_REASON_MOJO_CONNECTION_ERROR);
     }
 
@@ -1065,6 +1065,14 @@ public class PaymentRequestImpl implements PaymentRequest, PaymentRequestUI.Clie
 
     /**
      * Closes the UI. If the client is still connected, then it's notified of UI hiding.
+     *
+     * @param immediateClose If true, then UI immediately closes. If false, the UI shows the error
+     *                       message "There was an error processing your order." This message
+     *                       implies that the merchant attempted to process the order, failed, and
+     *                       called complete("fail") to notify the user. Therefore, this parameter
+     *                       may be "false" only when called from
+     *                       PaymentRequestImpl.complete(int result) method. All other callers
+     *                       should always pass "true."
      */
     private void closeUI(boolean immediateClose) {
         if (mUI != null) {
