@@ -14,6 +14,7 @@
 #include "ash/common/shell_observer.h"
 #include "ash/common/wm/background_animator.h"
 #include "ash/common/wm/dock/docked_window_layout_manager_observer.h"
+#include "ash/common/wm/window_state.h"
 #include "ash/common/wm/workspace/workspace_types.h"
 #include "ash/shelf/shelf.h"
 #include "ash/snap_to_pixel_layout_manager.h"
@@ -320,6 +321,10 @@ class ASH_EXPORT ShelfLayoutManager
   // deleted too.
   aura::Window* root_window_;
 
+  ash::wm::WindowState::FullscreenShelfMode GetShelfModeForFullscreen() const;
+
+  int GetShelfInsetsForAutoHide() const;
+
   // True when inside UpdateBoundsAndOpacity() method. Used to prevent calling
   // UpdateBoundsAndOpacity() again from SetChildBounds().
   bool updating_bounds_;
@@ -391,6 +396,10 @@ class ASH_EXPORT ShelfLayoutManager
 
   // The show hide animation duration override or 0 for default.
   int duration_override_in_ms_;
+
+  // The flag to enforce invisible shelf (as in MD-experiemntal).
+  // TODO(oshima): Remove this when MD immersive is launched.
+  bool invisible_auto_hide_shelf_ = false;
 
   std::unique_ptr<RootWindowControllerObserverImpl>
       root_window_controller_observer_;
