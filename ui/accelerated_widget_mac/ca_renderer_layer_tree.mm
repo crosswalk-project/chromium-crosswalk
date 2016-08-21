@@ -10,6 +10,7 @@
 #include <GLES2/gl2extchromium.h>
 
 #include "base/command_line.h"
+#include "base/mac/mac_util.h"
 #include "base/mac/sdk_forward_declarations.h"
 #include "base/trace_event/trace_event.h"
 #include "third_party/skia/include/core/SkColor.h"
@@ -327,7 +328,11 @@ CARendererLayerTree::ContentLayer::ContentLayer(
   if (IOSurfaceGetPixelFormat(io_surface) ==
           kCVPixelFormatType_420YpCbCr8BiPlanarVideoRange &&
       contents_rect == gfx::RectF(0, 0, 1, 1)) {
-    use_av_layer = true;
+    // Disable AVSampleBufferDisplayLayer on <10.11 due to reports of memory
+    // leaks on 10.9.
+    // https://crbug.com/631485
+    if (base::mac::IsOSElCapitanOrLater())
+      use_av_layer = true;
   }
 }
 
