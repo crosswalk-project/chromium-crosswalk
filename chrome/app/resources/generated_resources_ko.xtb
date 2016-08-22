@@ -80,7 +80,7 @@
 <translation id="1110753181581583968">{NUM_DOWNLOAD,plural, =1{계속 다운로드}other{계속 다운로드}}</translation>
 <translation id="1110772031432362678">네트워크를 찾을 수 없습니다.</translation>
 <translation id="1114202307280046356">다이아몬드</translation>
-<translation id="1114335938027186412">컴퓨터에 TPM(신뢰할 수 있는 플랫폼 모듈) 보안 기기가 있습니다. 이 기기는 Chrome OS에서 여러 중요한 보안 기능을 구현하는 데 사용됩니다. 자세히 알아보려면 Chromebook 도움말 센터의 다음 페이지를 방문하세요. https://support.google.com/chromebook/?p=tpm</translation>
+<translation id="1114335938027186412">컴퓨터에 TPM(신뢰할 수 있는 플랫폼 모듈) 보안 기기가 있습니다. 이 기기는 Chrome OS에서 여러 중요한 보안 기능을 구현하는 데 사용됩니다. 자세히 알아보려면 Chromebook 고객센터의 다음 페이지를 방문하세요. https://support.google.com/chromebook/?p=tpm</translation>
 <translation id="1114901192629963971">현재 네트워크에서 비밀번호를 확인할 수 없습니다. 다른 네트워크를 선택하세요.</translation>
 <translation id="1115018219887494029">Chromebook용 Smart Lock(베타)</translation>
 <translation id="1115248033204311258">호스팅된 앱 생성 시 Mac에서 앱 shim을 생성합니다.</translation>
@@ -462,7 +462,7 @@
 <translation id="1616206807336925449">이 확장 프로그램은 특별한 권한이 필요하지 않습니다.</translation>
 <translation id="1617097702943948177">임시 저장소:</translation>
 <translation id="161821681072026592">선택한 계정의 비밀번호 입력</translation>
-<translation id="1618268899808219593">도움말 센터(H)</translation>
+<translation id="1618268899808219593">고객센터(H)</translation>
 <translation id="1620510694547887537">카메라</translation>
 <translation id="1624026626836496796">이 작업은 한 번만 수행하면 되며 사용자 인증 정보는 저장되지 않습니다.</translation>
 <translation id="1627276047960621195">파일 설명자</translation>
@@ -1481,7 +1481,7 @@
 
 관리 대상 사용자를 생성해도 Google 계정이 생성되지 않으며, 사용자의 북마크, 탐색 기록 및 기타 환경설정은 Chrome 동기화를 통해 다른 기기에 동기화되지 않습니다. 새로운 관리 대상 사용자를 만든 후에는 언제 어떤 기기를 사용하든 <ph name="BEGIN_MANAGE_LINK" /><ph name="DISPLAY_LINK" /><ph name="END_MANAGE_LINK" /> 페이지에서 설정을 관리할 수 있습니다.
 
-자세한 내용은 <ph name="BEGIN_LINK" />도움말 센터<ph name="END_LINK" />를 참조하세요.</translation>
+자세한 내용은 <ph name="BEGIN_LINK" />고객센터<ph name="END_LINK" />를 참조하세요.</translation>
 <translation id="3031417829280473749">X 요원</translation>
 <translation id="3031557471081358569">가져올 항목 선택:</translation>
 <translation id="3033332627063280038">캐시 제어 stale-while-revalidate directive의 실험적 구현을 사용할 수 있습니다. 이는 서버가 대기 시간을 개선하기 위해 일부 리소스가 백그라운드에서 재확인될 수 있음을 지정할 수 있도록 허용합니다.</translation>
@@ -2752,6 +2752,7 @@
 <translation id="4853020600495124913">새 창에서 열기(&amp;N)</translation>
 <translation id="485316830061041779">독일어</translation>
 <translation id="4856478137399998590">모바일 데이터 서비스가 활성화되었으며 사용할 준비가 되었습니다.</translation>
+<translation id="4857958313965051829">Android <ph name="BEGIN_LINK" />환경설정<ph name="END_LINK" /> 관리</translation>
 <translation id="4858913220355269194">축구왕</translation>
 <translation id="4860565041166337978">해당하는 경우 시스템 다운로드 관리자가 다운로드를 처리할 수 있도록 허용합니다.</translation>
 <translation id="48607902311828362">비행 모드</translation>
@@ -3412,7 +3413,7 @@
 <translation id="5752162773804266219"><ph name="DEVICE_TYPE" />이(가) 내 음성에 반응하고 안정적이고 쉽게 음성 검색에 액세스할 수 있도록 Google에 내 음성을 등록해야 합니다.</translation>
 <translation id="5752453871435543420">Chrome OS 클라우드 백업</translation>
 <translation id="5754903485544371559">애플리케이션 폴더에 추가...</translation>
-<translation id="5756163054456765343">도움말 센터(H)</translation>
+<translation id="5756163054456765343">고객센터(H)</translation>
 <translation id="5756666464756035725">헝가리어 QWERTY</translation>
 <translation id="5757567991662509396">Android 맞춤법 검사기를 사용하도록 설정합니다.</translation>
 <translation id="5758879179008762764">입력한 검색주소창 검색어의 검색결과를 미리 가져오고, 미리 가져오기 검색어뿐만 아니라 임의의 검색어를 커밋하기 위해 사전 렌더링된 검색 기반 페이지를 재사용합니다.</translation>
@@ -3746,6 +3747,7 @@
 <translation id="6251924700383757765">개인정보취급방침</translation>
 <translation id="6253586523465486793">당겨서 새로고침에서 비검증 새로고침을 트리거하도록 강제합니다(일반적으로 플래그가 사용 중지된 경우 일반적인 캐시 검증 새로고침을 의미함).</translation>
 <translation id="6254503684448816922">키 손상</translation>
+<translation id="6256079118265363670">Chromebook에서 Google Play 스토어 사용</translation>
 <translation id="6259104249628300056">로컬 네트워크의 기기 검색</translation>
 <translation id="6263082573641595914">Microsoft CA Version</translation>
 <translation id="6263284346895336537">중요하지 않음</translation>
