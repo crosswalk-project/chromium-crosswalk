@@ -51,6 +51,10 @@ const int kMinHeightForGpuRasteredTile = 256;
 // of using the same tile size.
 const int kTileRoundUp = 64;
 
+// Round GPU default tile sizes to a multiple of 32. This helps prevent
+// rounding errors during compositing.
+const int kGpuDefaultTileRoundUp = 32;
+
 // For performance reasons and to support compressed tile textures, tile
 // width and height should be an even multiple of 4 in size.
 const int kTileMinimalAlignment = 4;
@@ -738,6 +742,13 @@ gfx::Size PictureLayerImpl::CalculateTileSize(
     // Grow default sizes to account for overlapping border texels.
     default_tile_width += 2 * PictureLayerTiling::kBorderTexels;
     default_tile_height += 2 * PictureLayerTiling::kBorderTexels;
+
+    // Round GPU default tile sizes to a multiple of kGpuDefaultTileAlignment.
+    // This helps prevent rounding errors in our CA path. crbug.com/632274
+    default_tile_width =
+        MathUtil::UncheckedRoundUp(default_tile_width, kGpuDefaultTileRoundUp);
+    default_tile_height =
+        MathUtil::UncheckedRoundUp(default_tile_height, kGpuDefaultTileRoundUp);
 
     default_tile_height =
         std::max(default_tile_height, kMinHeightForGpuRasteredTile);
