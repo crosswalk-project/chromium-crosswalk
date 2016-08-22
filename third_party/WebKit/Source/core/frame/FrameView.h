@@ -139,7 +139,7 @@ public:
     void countObjectsNeedingLayout(unsigned& needsLayoutObjects, unsigned& totalObjects, bool& isPartial);
 
     bool needsLayout() const;
-    void checkDoesNotNeedLayout() const;
+    bool checkDoesNotNeedLayout() const;
     void setNeedsLayout();
 
     void setNeedsUpdateWidgetGeometries() { m_needsUpdateWidgetGeometries = true; }
@@ -768,7 +768,7 @@ private:
     LayoutBox& boxForScrollControlPaintInvalidation() const override;
     LayoutScrollbarPart* resizer() const override { return nullptr; }
 
-    void checkLayoutInvalidationIsAllowed() const;
+    bool checkLayoutInvalidationIsAllowed() const;
 
     LayoutSize m_size;
 

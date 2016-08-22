@@ -123,7 +123,10 @@ void FramePainter::paintContents(GraphicsContext& context, const GlobalPaintFlag
         return;
     }
 
-    frameView().checkDoesNotNeedLayout();
+    // TODO(crbug.com/590856): It's still broken when we choose not to crash when the check fails.
+    if (!frameView().checkDoesNotNeedLayout())
+        return;
+
     ASSERT(document->lifecycle().state() >= DocumentLifecycle::CompositingClean);
 
     TRACE_EVENT1("devtools.timeline", "Paint", "data", InspectorPaintEvent::data(layoutView, LayoutRect(rect), 0));

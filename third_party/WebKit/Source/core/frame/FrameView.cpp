@@ -114,6 +114,20 @@
 #include "wtf/TemporaryChange.h"
 #include <memory>
 
+// Change the the following line to "#if 0" to disable crash on unexpected
+// dirty layout (crbug.com/590856) when dcheck is off.
+#if 0
+#define CHECK_FOR_DIRTY_LAYOUT CHECK
+#else
+#define CHECK_FOR_DIRTY_LAYOUT(arg) \
+do { \
+    if (!(arg)) { \
+        NOTREACHED(); \
+        return false; \
+    } \
+} while (false)
+#endif
+
 namespace blink {
 
 using namespace HTMLNames;
@@ -1826,38 +1840,40 @@ void FrameView::layoutOrthogonalWritingModeRoots()
     }
 }
 
-void FrameView::checkLayoutInvalidationIsAllowed() const
+bool FrameView::checkLayoutInvalidationIsAllowed() const
 {
-    CHECK(!m_inPluginUpdate);
+    CHECK_FOR_DIRTY_LAYOUT(!m_inPluginUpdate);
 
     if (!m_frame->document())
-        return;
+        return true;
 
     // TODO(crbug.com/442939): These are hacks to support embedded SVG. This is called from
     // FrameView::forceLayoutParentViewIfNeeded() and the dirty layout will be cleaned up immediately.
     // This is for the parent view of the view containing the embedded SVG.
     if (m_inForcedLayoutByChildEmbeddedReplacedContent)
-        return;
+        return true;
     // This is for the view containing the embedded SVG.
     if (embeddedReplacedContent()) {
         if (const LayoutObject* ownerLayoutObject = m_frame->ownerLayoutObject()) {
             if (LocalFrame* frame = ownerLayoutObject->frame()) {
                 if (frame->view()->m_inForcedLayoutByChildEmbeddedReplacedContent)
-                    return;
+                    return true;
             }
         }
     }
 
-    CHECK(lifecycle().stateAllowsLayoutInvalidation());
+    CHECK_FOR_DIRTY_LAYOUT(lifecycle().stateAllowsLayoutInvalidation());
 
     if (m_allowsLayoutInvalidationAfterLayoutClean)
-        return;
+        return true;
 
     // If we are updating all lifecycle phases beyond LayoutClean, we don't expect dirty layout after LayoutClean.
     if (FrameView* rootFrameView = m_frame->localFrameRoot()->view()) {
         if (rootFrameView->m_currentUpdateLifecyclePhasesTargetState > DocumentLifecycle::LayoutClean)
-            CHECK(lifecycle().state() < DocumentLifecycle::LayoutClean);
+            CHECK_FOR_DIRTY_LAYOUT(lifecycle().state() < DocumentLifecycle::LayoutClean);
     }
+
+    return true;
 }
 
 void FrameView::scheduleRelayout()
@@ -1866,9 +1882,9 @@ void FrameView::scheduleRelayout()
 
     if (!m_layoutSchedulingEnabled)
         return;
-
-    checkLayoutInvalidationIsAllowed();
-
+    // TODO(crbug.com/590856): It's still broken when we choose not to crash when the check fails.
+    if (!checkLayoutInvalidationIsAllowed())
+        return;
     if (!needsLayout())
         return;
     if (!m_frame->document()->shouldScheduleLayout())
@@ -1889,7 +1905,9 @@ void FrameView::scheduleRelayoutOfSubtree(LayoutObject* relayoutRoot)
 {
     DCHECK(m_frame->view() == this);
 
-    checkLayoutInvalidationIsAllowed();
+    // TODO(crbug.com/590856): It's still broken when we choose not to crash when the check fails.
+    if (!checkLayoutInvalidationIsAllowed())
+        return;
 
     // FIXME: Should this call shouldScheduleLayout instead?
     if (!m_frame->document()->isActive())
@@ -1939,20 +1957,23 @@ bool FrameView::needsLayout() const
         || isSubtreeLayout();
 }
 
-NOINLINE void FrameView::checkDoesNotNeedLayout() const
+NOINLINE bool FrameView::checkDoesNotNeedLayout() const
 {
-    CHECK(!layoutPending());
-    CHECK(layoutViewItem().isNull() || !layoutViewItem().needsLayout());
-    CHECK(!isSubtreeLayout());
+    CHECK_FOR_DIRTY_LAYOUT(!layoutPending());
+    CHECK_FOR_DIRTY_LAYOUT(layoutViewItem().isNull() || !layoutViewItem().needsLayout());
+    CHECK_FOR_DIRTY_LAYOUT(!isSubtreeLayout());
+    return true;
 }
 
 void FrameView::setNeedsLayout()
 {
-    checkLayoutInvalidationIsAllowed();
-
     LayoutViewItem layoutViewItem = this->layoutViewItem();
-    if (!layoutViewItem.isNull())
-        layoutViewItem.setNeedsLayout(LayoutInvalidationReason::Unknown);
+    if (layoutViewItem.isNull())
+        return;
+    // TODO(crbug.com/590856): It's still broken if we choose not to crash when the check fails.
+    if (!checkLayoutInvalidationIsAllowed())
+        return;
+    layoutViewItem.setNeedsLayout(LayoutInvalidationReason::Unknown);
 }
 
 bool FrameView::isTransparent() const
