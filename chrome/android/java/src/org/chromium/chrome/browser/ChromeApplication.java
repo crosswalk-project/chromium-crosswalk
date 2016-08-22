@@ -54,6 +54,7 @@ import org.chromium.chrome.browser.identity.UniqueIdentificationGeneratorFactory
 import org.chromium.chrome.browser.identity.UuidBasedUniqueIdentificationGenerator;
 import org.chromium.chrome.browser.init.InvalidStartupDialog;
 import org.chromium.chrome.browser.invalidation.UniqueIdInvalidationClientNameGenerator;
+import org.chromium.chrome.browser.locale.LocaleManager;
 import org.chromium.chrome.browser.metrics.UmaUtils;
 import org.chromium.chrome.browser.metrics.VariationsSession;
 import org.chromium.chrome.browser.multiwindow.MultiWindowUtils;
@@ -692,6 +693,13 @@ public class ChromeApplication extends ContentApplication {
      */
     public GSAHelper createGsaHelper() {
         return new GSAHelper();
+    }
+
+    /**
+     * @return An instance of {@link LocaleManager} that handles customized locale related logic.
+     */
+    public LocaleManager createLocaleManager() {
+        return new LocaleManager();
     }
 
    /**

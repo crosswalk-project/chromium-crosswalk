@@ -29,6 +29,7 @@ import org.chromium.base.metrics.RecordHistogram;
 import org.chromium.chrome.browser.bookmarkswidget.BookmarkWidgetProvider;
 import org.chromium.chrome.browser.crash.CrashFileManager;
 import org.chromium.chrome.browser.crash.MinidumpUploadService;
+import org.chromium.chrome.browser.locale.LocaleManager;
 import org.chromium.chrome.browser.media.MediaCaptureNotificationService;
 import org.chromium.chrome.browser.metrics.LaunchMetrics;
 import org.chromium.chrome.browser.metrics.UmaUtils;
@@ -64,6 +65,7 @@ public class DeferredStartupHandler {
 
     private boolean mDeferredStartupComplete;
     private final Context mAppContext;
+    private final LocaleManager mLocaleManager;
 
     /**
      * This class is an application specific object that handles the deferred startup.
@@ -75,6 +77,7 @@ public class DeferredStartupHandler {
 
     private DeferredStartupHandler() {
         mAppContext = ContextUtils.getApplicationContext();
+        mLocaleManager = ((ChromeApplication) mAppContext).createLocaleManager();
     }
 
     /**
@@ -92,6 +95,7 @@ public class DeferredStartupHandler {
         RecordHistogram.recordLongTimesHistogram("UMA.Debug.EnableCrashUpload.DeferredStartUptime",
                 startDeferredStartupTime - UmaUtils.getMainEntryPointTime(),
                 TimeUnit.MILLISECONDS);
+        mLocaleManager.recordStartupMetrics();
 
         // Punt all tasks that may block the UI thread off onto a background thread.
         new AsyncTask<Void, Void, Void>() {
