@@ -274,6 +274,11 @@ public class ChromeLauncherActivity extends Activity
             return false;
         }
 
+        // Don't open explicitly opted out intents in custom tabs.
+        if (CustomTabsIntent.shouldAlwaysUseBrowserUI(intent)) {
+            return false;
+        }
+
         // Don't reroute Chrome Intents.
         Context context = ContextUtils.getApplicationContext();
         if (TextUtils.equals(context.getPackageName(),
@@ -377,7 +382,9 @@ public class ChromeLauncherActivity extends Activity
      * @return Whether the intent is for launching a Custom Tab.
      */
     public static boolean isCustomTabIntent(Intent intent) {
-        if (intent == null || !intent.hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
+        if (intent == null
+                || CustomTabsIntent.shouldAlwaysUseBrowserUI(intent)
+                || !intent.hasExtra(CustomTabsIntent.EXTRA_SESSION)) {
             return false;
         }
         return IntentHandler.getUrlFromIntent(intent) != null;
