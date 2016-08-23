@@ -1094,11 +1094,6 @@ void ArcBluetoothBridge::RegisterForGattNotification(
     return;
   }
 
-  if (characteristic->IsNotifying()) {
-    callback.Run(mojom::BluetoothGattStatus::GATT_SUCCESS);
-    return;
-  }
-
   characteristic->StartNotifySession(
       base::Bind(&ArcBluetoothBridge::OnGattNotifyStartDone,
                  weak_factory_.GetWeakPtr(), callback,
@@ -1118,11 +1113,6 @@ void ArcBluetoothBridge::DeregisterForGattNotification(
 
   if (!characteristic) {
     LOG(WARNING) << __func__ << " Characteristic is not existed.";
-    return;
-  }
-
-  if (!characteristic->IsNotifying()) {
-    callback.Run(mojom::BluetoothGattStatus::GATT_SUCCESS);
     return;
   }
 
