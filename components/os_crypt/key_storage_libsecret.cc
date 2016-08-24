@@ -11,7 +11,7 @@
 
 namespace {
 
-#if defined(OFFICIAL_BUILD)
+#if defined(GOOGLE_CHROME_BUILD)
 const char kKeyStorageEntryName[] = "Chrome Safe Storage";
 #else
 const char kKeyStorageEntryName[] = "Chromium Safe Storage";
