@@ -343,6 +343,9 @@ void TabSpecificContentSettings::OnContentBlockedWithDetail(
     if (type == CONTENT_SETTINGS_TYPE_MIXEDSCRIPT) {
       content_settings::RecordMixedScriptAction(
           content_settings::MIXED_SCRIPT_ACTION_DISPLAYED_SHIELD);
+    } else if (type == CONTENT_SETTINGS_TYPE_PLUGINS) {
+      content_settings::RecordPluginsAction(
+          content_settings::PLUGINS_ACTION_DISPLAYED_BLOCKED_ICON_IN_OMNIBOX);
     }
   }
 }
@@ -766,6 +769,11 @@ void TabSpecificContentSettings::DidNavigateMainFrame(
     blocked_plugin_names_.clear();
     GeolocationDidNavigate(details);
     MidiDidNavigate(details);
+
+    if (web_contents()->GetVisibleURL().SchemeIsHTTPOrHTTPS()) {
+      content_settings::RecordPluginsAction(
+          content_settings::PLUGINS_ACTION_TOTAL_NAVIGATIONS);
+    }
   }
 }
 
