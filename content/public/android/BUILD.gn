@@ -159,7 +159,6 @@ android_library("content_java") {
     "java/src/org/chromium/content/browser/crypto/CipherFactory.java",
     "java/src/org/chromium/content/browser/framehost/NavigationControllerImpl.java",
     "java/src/org/chromium/content/browser/input/AnimationIntervalProvider.java",
-    "java/src/org/chromium/content/browser/input/CardboardVRDevice.java",
     "java/src/org/chromium/content/browser/input/ChromiumBaseInputConnection.java",
     "java/src/org/chromium/content/browser/input/CursorAnchorInfoController.java",
     "java/src/org/chromium/content/browser/input/DateTimeChooserAndroid.java",
@@ -211,6 +210,7 @@ android_library("content_java") {
 
   if (enable_webvr) {
     deps += [ "//third_party/cardboard-java:cardboard-java" ]
+    java_files += [ "java-optional/src/org/chromium/content/browser/input/CardboardVRDevice.java" ]
   }
 }
 
@@ -295,7 +295,7 @@ generate_jni("content_jni_headers") {
   jni_package = "content"
 
   if (enable_webvr) {
-    sources += [ "//content/public/android/java/src/org/chromium/content/browser/input/CardboardVRDevice.java" ]
+    sources += [ "//content/public/android/java-optional/src/org/chromium/content/browser/input/CardboardVRDevice.java" ]
     public_deps = [
       "//third_party/cardboard-java:cardboard-java",
     ]
