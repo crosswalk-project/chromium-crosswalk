@@ -611,7 +611,7 @@ void V8DebuggerAgentImpl::getFunctionDetails(ErrorString* errorString, const Str
 
     v8::Local<v8::Value> scopesValue;
     v8::Local<v8::Array> scopes;
-    if (m_debugger->functionScopes(function).ToLocal(&scopesValue) && scopesValue->IsArray()) {
+    if (m_debugger->functionScopes(scope.context(), function).ToLocal(&scopesValue) && scopesValue->IsArray()) {
         scopes = scopesValue.As<v8::Array>();
         if (!scope.injectedScript()->wrapPropertyInArray(errorString, scopes, toV8StringInternalized(m_isolate, "object"), scope.objectGroupName()))
             return;
@@ -647,7 +647,7 @@ void V8DebuggerAgentImpl::getGeneratorObjectDetails(ErrorString* errorString, co
     v8::Local<v8::Object> object = scope.object().As<v8::Object>();
 
     v8::Local<v8::Object> detailsObject;
-    v8::Local<v8::Value> detailsValue = debugger().generatorObjectDetails(object);
+    v8::Local<v8::Value> detailsValue = debugger().generatorObjectDetails(scope.context(), object);
     if (hasInternalError(errorString, !detailsValue->IsObject() || !detailsValue->ToObject(scope.context()).ToLocal(&detailsObject)))
         return;
 

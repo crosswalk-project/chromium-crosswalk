@@ -1114,6 +1114,8 @@
       'v8_inspector/V8StringUtil.h',
       'v8_inspector/public/V8ConsoleTypes.h',
       'v8_inspector/public/V8ContentSearchUtil.h',
+      'v8_inspector/V8ValueCopier.cpp',
+      'v8_inspector/V8ValueCopier.h',
       'v8_inspector/public/V8ContextInfo.h',
       'v8_inspector/public/V8Debugger.h',
       'v8_inspector/public/V8DebuggerClient.h',
