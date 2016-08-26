@@ -113,7 +113,6 @@ MultibufferDataSource::MultibufferDataSource(
       total_bytes_(kPositionNotSpecified),
       streaming_(false),
       loading_(false),
-      failed_(false),
       render_task_runner_(task_runner),
       url_index_(url_index),
       frame_(frame),
@@ -186,7 +185,6 @@ void MultibufferDataSource::OnRedirect(
     const scoped_refptr<UrlData>& destination) {
   if (!destination) {
     // A failure occured.
-    failed_ = true;
     if (!init_cb_.is_null()) {
       render_task_runner_->PostTask(
           FROM_HERE,
@@ -258,7 +256,8 @@ bool MultibufferDataSource::DidPassCORSAccessCheck() const {
   // If init_cb is set, we initialization is not finished yet.
   if (!init_cb_.is_null())
     return false;
-  if (failed_)
+  // Loader will be false if there was a failure.
+  if (!reader_)
     return false;
   return true;
 }
