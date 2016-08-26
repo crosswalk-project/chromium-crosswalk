@@ -654,8 +654,11 @@ v8::MaybeLocal<v8::Value> V8DebuggerImpl::functionScopes(v8::Local<v8::Context> 
     v8::Local<v8::Value> argv[] = { function };
     v8::Local<v8::Value> scopesValue;
     if (!callDebuggerMethod("getFunctionScopes", 1, argv).ToLocal(&scopesValue))
-        return v8::MaybeLocal<v8::Value>();
-    return copyValueFromDebuggerContext(m_isolate, debuggerContext(), context, scopesValue);
+        return v8::Local<v8::Value>::New(m_isolate, v8::Undefined(m_isolate));
+    v8::Local<v8::Value> result;
+    if (!copyValueFromDebuggerContext(m_isolate, debuggerContext(), context, scopesValue).ToLocal(&result))
+        return v8::Local<v8::Value>::New(m_isolate, v8::Undefined(m_isolate));
+    return result;
 }
 
 v8::MaybeLocal<v8::Array> V8DebuggerImpl::internalProperties(v8::Local<v8::Context> context, v8::Local<v8::Value> value)
@@ -668,8 +671,8 @@ v8::MaybeLocal<v8::Array> V8DebuggerImpl::internalProperties(v8::Local<v8::Conte
     if (value->IsMap() || value->IsWeakMap() || value->IsSet() || value->IsWeakSet() || value->IsSetIterator() || value->IsMapIterator()) {
         v8::Local<v8::Value> entries = collectionEntries(context, v8::Local<v8::Object>::Cast(value));
         if (entries->IsArray()) {
-            properties->Set(properties->Length(), v8InternalizedString("[[Entries]]"));
-            properties->Set(properties->Length(), entries);
+            createDataProperty(context, properties, properties->Length(), v8InternalizedString("[[Entries]]"));
+            createDataProperty(context, properties, properties->Length(), entries);
         }
     }
     return properties;
@@ -684,8 +687,11 @@ v8::Local<v8::Value> V8DebuggerImpl::generatorObjectDetails(v8::Local<v8::Contex
     v8::Local<v8::Value> argv[] = { object };
     v8::Local<v8::Value> objectDetails;
     if (!callDebuggerMethod("getGeneratorObjectDetails", 1, argv).ToLocal(&objectDetails))
-        return v8::Local<v8::Value>();
-    return copyValueFromDebuggerContext(m_isolate, debuggerContext(), context, objectDetails).ToLocalChecked();
+        return v8::Local<v8::Value>::New(m_isolate, v8::Undefined(m_isolate));
+    v8::Local<v8::Value> result;
+    if (!copyValueFromDebuggerContext(m_isolate, debuggerContext(), context, objectDetails).ToLocal(&result))
+        return v8::Local<v8::Value>::New(m_isolate, v8::Undefined(m_isolate));
+    return result;
 }
 
 v8::Local<v8::Value> V8DebuggerImpl::collectionEntries(v8::Local<v8::Context> context, v8::Local<v8::Object> object)

@@ -45,6 +45,7 @@
 #include "platform/v8_inspector/V8InspectorSessionImpl.h"
 #include "platform/v8_inspector/V8StackTraceImpl.h"
 #include "platform/v8_inspector/V8StringUtil.h"
+#include "platform/v8_inspector/V8ValueCopier.h"
 #include "platform/v8_inspector/public/V8Debugger.h"
 #include "platform/v8_inspector/public/V8DebuggerClient.h"
 #include "platform/v8_inspector/public/V8ToProtocolValue.h"
@@ -166,7 +167,7 @@ std::unique_ptr<protocol::Runtime::RemoteObject> InjectedScript::wrapObject(Erro
     return remoteObject;
 }
 
-bool InjectedScript::wrapObjectProperty(ErrorString* errorString, v8::Local<v8::Object> object, v8::Local<v8::Value> key, const String16& groupName, bool forceValueType, bool generatePreview) const
+bool InjectedScript::wrapObjectProperty(ErrorString* errorString, v8::Local<v8::Object> object, v8::Local<v8::Name> key, const String16& groupName, bool forceValueType, bool generatePreview) const
 {
     v8::Local<v8::Value> property;
     if (hasInternalError(errorString, !object->Get(m_context->context(), key).ToLocal(&property)))
@@ -174,7 +175,7 @@ bool InjectedScript::wrapObjectProperty(ErrorString* errorString, v8::Local<v8::
     v8::Local<v8::Value> wrappedProperty;
     if (!wrapValue(errorString, property, groupName, forceValueType, generatePreview).ToLocal(&wrappedProperty))
         return false;
-    v8::Maybe<bool> success = object->Set(m_context->context(), key, wrappedProperty);
+    v8::Maybe<bool> success = createDataProperty(m_context->context(), object, key, wrappedProperty);
     if (hasInternalError(errorString, success.IsNothing() || !success.FromJust()))
         return false;
     return true;

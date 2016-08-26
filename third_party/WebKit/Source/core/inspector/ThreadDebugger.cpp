@@ -169,19 +169,37 @@ static void returnDataCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
     info.GetReturnValue().Set(info.Data());
 }
 
-void ThreadDebugger::createFunctionProperty(v8::Local<v8::Context> context, v8::Local<v8::Object> object, const char* name, v8::FunctionCallback callback, const char* description)
+static v8::Maybe<bool> createDataProperty(v8::Local<v8::Context> context, v8::Local<v8::Object> object, v8::Local<v8::Name> key, v8::Local<v8::Value> value)
+{
+    v8::TryCatch tryCatch(context->GetIsolate());
+    v8::Isolate::DisallowJavascriptExecutionScope throwJs(context->GetIsolate(), v8::Isolate::DisallowJavascriptExecutionScope::THROW_ON_FAILURE);
+    return object->CreateDataProperty(context, key, value);
+}
+
+static void createFunctionPropertyWithData(v8::Local<v8::Context> context, v8::Local<v8::Object> object, const char* name, v8::FunctionCallback callback, v8::Local<v8::Value> data, const char* description)
 {
     v8::Local<v8::String> funcName = v8String(context->GetIsolate(), name);
     v8::Local<v8::Function> func;
-    if (!v8::Function::New(context, callback, v8::External::New(context->GetIsolate(), this), 0, v8::ConstructorBehavior::kThrow).ToLocal(&func))
+    if (!v8::Function::New(context, callback, data, 0, v8::ConstructorBehavior::kThrow).ToLocal(&func))
         return;
     func->SetName(funcName);
     v8::Local<v8::String> returnValue = v8String(context->GetIsolate(), description);
     v8::Local<v8::Function> toStringFunction;
     if (v8::Function::New(context, returnDataCallback, returnValue, 0, v8::ConstructorBehavior::kThrow).ToLocal(&toStringFunction))
-        func->Set(v8String(context->GetIsolate(), "toString"), toStringFunction);
-    if (!object->Set(context, funcName, func).FromMaybe(false))
-        return;
+        createDataProperty(context, func, v8String(context->GetIsolate(), "toString"), toStringFunction);
+    createDataProperty(context, object, funcName, func);
+}
+
+void ThreadDebugger::createFunctionProperty(v8::Local<v8::Context> context, v8::Local<v8::Object> object, const char* name, v8::FunctionCallback callback, const char* description)
+{
+    createFunctionPropertyWithData(context, object, name, callback, v8::External::New(context->GetIsolate(), this), description);
+}
+
+v8::Maybe<bool> ThreadDebugger::createDataPropertyInArray(v8::Local<v8::Context> context, v8::Local<v8::Array> array, int index, v8::Local<v8::Value> value)
+{
+    v8::TryCatch tryCatch(context->GetIsolate());
+    v8::Isolate::DisallowJavascriptExecutionScope throwJs(context->GetIsolate(), v8::Isolate::DisallowJavascriptExecutionScope::THROW_ON_FAILURE);
+    return array->CreateDataProperty(context, index, value);
 }
 
 void ThreadDebugger::installAdditionalCommandLineAPI(v8::Local<v8::Context> context, v8::Local<v8::Object> object)
@@ -307,23 +325,24 @@ void ThreadDebugger::getEventListenersCallback(const v8::FunctionCallbackInfo<v8
     AtomicString currentEventType;
     v8::Local<v8::Array> listeners;
     size_t outputIndex = 0;
+    v8::Local<v8::Context> context = isolate->GetCurrentContext();
     for (auto& info : listenerInfo) {
         if (currentEventType != info.eventType) {
             currentEventType = info.eventType;
             listeners = v8::Array::New(isolate);
             outputIndex = 0;
-            result->Set(v8String(isolate, currentEventType), listeners);
+            createDataProperty(context, result, v8String(isolate, currentEventType), listeners);
         }
 
         v8::Local<v8::Object> listenerObject = v8::Object::New(isolate);
-        listenerObject->Set(v8String(isolate, "listener"), info.handler);
-        listenerObject->Set(v8String(isolate, "useCapture"), v8::Boolean::New(isolate, info.useCapture));
-        listenerObject->Set(v8String(isolate, "passive"), v8::Boolean::New(isolate, info.passive));
-        listenerObject->Set(v8String(isolate, "type"), v8String(isolate, currentEventType));
+        createDataProperty(context, listenerObject, v8String(isolate, "listener"), info.handler);
+        createDataProperty(context, listenerObject, v8String(isolate, "useCapture"), v8::Boolean::New(isolate, info.useCapture));
+        createDataProperty(context, listenerObject, v8String(isolate, "passive"), v8::Boolean::New(isolate, info.passive));
+        createDataProperty(context, listenerObject, v8String(isolate, "type"), v8String(isolate, currentEventType));
         v8::Local<v8::Function> removeFunction;
         if (info.removeFunction.ToLocal(&removeFunction))
-            listenerObject->Set(v8String(isolate, "remove"), removeFunction);
-        listeners->Set(outputIndex++, listenerObject);
+            createDataProperty(context, listenerObject, v8String(isolate, "remove"), removeFunction);
+        createDataPropertyInArray(context, listeners, outputIndex++, listenerObject);
     }
     info.GetReturnValue().Set(result);
 }

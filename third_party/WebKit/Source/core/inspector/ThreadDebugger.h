@@ -60,6 +60,7 @@ public:
 
 protected:
     void createFunctionProperty(v8::Local<v8::Context>, v8::Local<v8::Object>, const char* name, v8::FunctionCallback, const char* description);
+    static v8::Maybe<bool> createDataPropertyInArray(v8::Local<v8::Context>, v8::Local<v8::Array>, int index, v8::Local<v8::Value>);
     void onTimer(Timer<ThreadDebugger>*);
 
     v8::Isolate* m_isolate;
