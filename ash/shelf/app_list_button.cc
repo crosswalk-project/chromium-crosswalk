@@ -181,12 +181,12 @@ void AppListButton::PaintAppListButton(gfx::Canvas* canvas,
 
   if (Shell::GetInstance()->GetAppListTargetVisibility() ||
       draw_background_as_active_) {
-    background_image_id = IDR_AURA_NOTIFICATION_BACKGROUND_PRESSED;
+    background_image_id = IDR_AURA_LAUNCHER_BACKGROUND_PRESSED;
   } else {
     if (shelf_view_->shelf()->shelf_widget()->GetDimsShelf()) {
-      background_image_id = IDR_AURA_NOTIFICATION_BACKGROUND_ON_BLACK;
+      background_image_id = IDR_AURA_LAUNCHER_BACKGROUND_ON_BLACK;
     } else {
-      background_image_id = IDR_AURA_NOTIFICATION_BACKGROUND_NORMAL;
+      background_image_id = IDR_AURA_LAUNCHER_BACKGROUND_NORMAL;
     }
   }
 
