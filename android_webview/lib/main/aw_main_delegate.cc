@@ -63,16 +63,6 @@ AwMainDelegate::~AwMainDelegate() {
 bool AwMainDelegate::BasicStartupComplete(int* exit_code) {
   content::SetContentClient(&content_client_);
 
-  content::RegisterMediaUrlInterceptor(new AwMediaUrlInterceptor());
-
-  BrowserViewRenderer::CalculateTileMemoryPolicy();
-
-  // WebView apps can override WebView#computeScroll to achieve custom
-  // scroll/fling. As a result, fling animations may not be ticked, potentially
-  // confusing the tap suppression controller. Simply disable it for WebView.
-  ui::GestureConfiguration::GetInstance()
-      ->set_fling_touchscreen_tap_suppression_enabled(false);
-
   base::CommandLine* cl = base::CommandLine::ForCurrentProcess();
   cl->AppendSwitch(cc::switches::kEnableBeginFrameScheduling);
 
@@ -119,6 +109,15 @@ bool AwMainDelegate::BasicStartupComplete(int* exit_code) {
 
   if (cl->GetSwitchValueASCII(switches::kProcessType).empty()) {
     // Browser process (no type specified).
+
+    content::RegisterMediaUrlInterceptor(new AwMediaUrlInterceptor());
+    BrowserViewRenderer::CalculateTileMemoryPolicy();
+    // WebView apps can override WebView#computeScroll to achieve custom
+    // scroll/fling. As a result, fling animations may not be ticked,
+    // potentially
+    // confusing the tap suppression controller. Simply disable it for WebView
+    ui::GestureConfiguration::GetInstance()
+        ->set_fling_touchscreen_tap_suppression_enabled(false);
 
     base::android::RegisterApkAssetWithGlobalDescriptors(
         kV8NativesDataDescriptor,
