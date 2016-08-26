@@ -498,8 +498,7 @@ bool RenderWidgetHostViewAndroid::HasFocus() const {
 }
 
 bool RenderWidgetHostViewAndroid::IsSurfaceAvailableForCopy() const {
-  return !using_browser_compositor_ ||
-         (HasValidFrame() && surface_factory_.get());
+  return !using_browser_compositor_ || HasValidFrame();
 }
 
 void RenderWidgetHostViewAndroid::Show() {
@@ -910,7 +909,7 @@ void RenderWidgetHostViewAndroid::CopyFromCompositingSurface(
 
   if (!src_subrect_in_pixel.IsEmpty())
     request->set_area(src_subrect_in_pixel);
-  surface_factory_->RequestCopyOfSurface(surface_id_, std::move(request));
+  layer->RequestCopyOfOutput(std::move(request));
 }
 
 void RenderWidgetHostViewAndroid::CopyFromCompositingSurfaceToVideoFrame(
