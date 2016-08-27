@@ -203,6 +203,7 @@
         '../google_apis/google_apis.gyp:google_apis',
         '../url/url.gyp:url_lib',
         'data_reduction_proxy_proto',
+	'data_reduction_proxy_version_header',
       ],
       'include_dirs': [
         '..',
