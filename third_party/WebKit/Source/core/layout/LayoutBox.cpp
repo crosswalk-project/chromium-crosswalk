@@ -1025,7 +1025,7 @@ bool LayoutBox::mapScrollingContentsRectToBoxSpace(LayoutRect& rect, ApplyOverfl
     if (!hasClipRelatedProperty())
         return true;
 
-    if (applyOverflowClip == ApplyNonScrollOverflowClip && scrollsOverflow())
+    if (applyOverflowClip == ApplyNonScrollOverflowClip)
         return true;
 
     if (hasOverflowClip()) {
