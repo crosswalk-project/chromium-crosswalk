@@ -104,8 +104,7 @@ std::string PinStorage::PinSecret() const {
 }
 
 bool PinStorage::IsPinAuthenticationAvailable() const {
-  return IsPinSet() && unlock_attempt_count() < kMaximumUnlockAttempts &&
-         HasStrongAuth() && TimeSinceLastStrongAuth() < kStrongAuthTimeout;
+  return false;
 }
 
 bool PinStorage::TryAuthenticatePin(const std::string& pin) {
