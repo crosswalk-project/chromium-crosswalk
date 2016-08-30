@@ -62,6 +62,7 @@ public:
         DrawingPaintPhaseLast = DrawingFirst + PaintPhaseMax,
         BoxDecorationBackground,
         Caret,
+        DragCaret,
         ColumnRules,
         DebugDrawing,
         DebugRedFill,

@@ -16,7 +16,6 @@
 #include "core/paint/PaintInfo.h"
 #include "core/paint/PaintLayer.h"
 #include "core/testing/DummyPageHolder.h"
-#include "platform/graphics/paint/DrawingRecorder.h"
 #include "platform/graphics/paint/PaintController.h"
 #include "testing/gtest/include/gtest/gtest.h"
 #include "wtf/PassRefPtr.h"
@@ -116,7 +115,6 @@ TEST_F(FrameSelectionTest, PaintCaretShouldNotLayout)
     std::unique_ptr<PaintController> paintController = PaintController::create();
     {
         GraphicsContext context(*paintController);
-        DrawingRecorder drawingRecorder(context, *dummyPageHolder().frameView().layoutView(), DisplayItem::Caret, LayoutRect::infiniteIntRect());
         selection().paintCaret(context, LayoutPoint());
     }
     paintController->commitNewDisplayItems();

@@ -1232,7 +1232,7 @@ bool LayoutObject::compositedScrollsWithRespectTo(const LayoutBoxModelObject& pa
     return paintInvalidationContainer.usesCompositedScrolling() && this != &paintInvalidationContainer;
 }
 
-void LayoutObject::invalidatePaintRectangle(const LayoutRect& dirtyRect) const
+void LayoutObject::invalidatePaintRectangle(const LayoutRect& dirtyRect, DisplayItemClient* displayItemClient) const
 {
     RELEASE_ASSERT(isRooted());
 
@@ -1255,7 +1255,10 @@ void LayoutObject::invalidatePaintRectangle(const LayoutRect& dirtyRect) const
     invalidatePaintUsingContainer(paintInvalidationContainer, dirtyRectOnBacking, PaintInvalidationRectangle);
 
     slowSetPaintingLayerNeedsRepaint();
-    invalidateDisplayItemClients(PaintInvalidationRectangle);
+    if (displayItemClient)
+        invalidateDisplayItemClient(*displayItemClient, PaintInvalidationRectangle);
+    else
+        invalidateDisplayItemClients(PaintInvalidationRectangle);
 }
 
 void LayoutObject::invalidateTreeIfNeeded(const PaintInvalidationState& paintInvalidationState)
