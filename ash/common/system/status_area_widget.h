@@ -65,7 +65,7 @@ class ASH_EXPORT StatusAreaWidget : public views::Widget,
   OverviewButtonTray* overview_button_tray() { return overview_button_tray_; }
 
 #if defined(OS_CHROMEOS)
-  ImeMenuTray* ime_menu_tray_for_testing() { return ime_menu_tray_; }
+  ImeMenuTray* ime_menu_tray() { return ime_menu_tray_; }
 #endif
 
   WmShelf* wm_shelf() { return wm_shelf_; }
