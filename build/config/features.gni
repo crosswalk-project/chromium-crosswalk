@@ -116,8 +116,9 @@ declare_args() {
   # enable_basic_printing. It's possible to build Chrome with preview only.
   enable_print_preview = !is_android && !is_chromecast && !is_ios
 
-  # Whether or not to use external popup menu.
-  use_external_popup_menu = is_android || is_mac
+  # Enable WebVR support by default on Android
+  # Still requires command line flag to access API
+  enable_webvr = is_android
 }
 
 # Additional dependent variables -----------------------------------------------
@@ -168,10 +169,6 @@ enable_chromevox_next = false
 
 # Use brlapi from brltty for braille display support.
 use_brlapi = is_chromeos
-
-# Enable WebVR support by default on Android
-# Still requires command line flag to access API
-enable_webvr = is_android
 
 enable_configuration_policy = !is_ios
 
