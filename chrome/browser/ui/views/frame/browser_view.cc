@@ -168,6 +168,7 @@
 #endif
 
 #if defined(OS_WIN)
+#include "base/win/windows_version.h"
 #include "chrome/browser/win/jumplist.h"
 #include "ui/gfx/color_palette.h"
 #include "ui/native_theme/native_theme_dark_win.h"
@@ -544,7 +545,8 @@ void BrowserView::Paint1pxHorizontalLine(gfx::Canvas* canvas,
 }
 
 void BrowserView::InitStatusBubble() {
-  status_bubble_.reset(new StatusBubbleViews(contents_web_view_));
+  status_bubble_.reset(
+      new StatusBubbleViews(contents_web_view_, HasClientEdge()));
   contents_web_view_->SetStatusBubble(status_bubble_.get());
 }
 
@@ -606,6 +608,15 @@ bool BrowserView::IsGuestSession() const {
 
 bool BrowserView::IsRegularOrGuestSession() const {
   return profiles::IsRegularOrGuestSession(browser_.get());
+}
+
+bool BrowserView::HasClientEdge() const {
+#if defined(OS_WIN)
+  return base::win::GetVersion() < base::win::VERSION_WIN10 ||
+         !frame_->ShouldUseNativeFrame();
+#else
+  return true;
+#endif
 }
 
 bool BrowserView::GetAccelerator(int cmd_id,
