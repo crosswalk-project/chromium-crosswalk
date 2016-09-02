@@ -173,12 +173,12 @@ public abstract class StatusListItem implements NewTabPageListItem {
             case DisabledReason.EXPLICITLY_DISABLED:
                 Log.wtf(TAG, "FATAL: Attempted to create a status card while the feature should be "
                         + "off.");
-                return null;
+                return new NoSnippets(adapter);
 
             default:
                 Log.wtf(TAG, "FATAL: Attempted to create a status card for an unknown value: %d",
                         disabledReason);
-                return null;
+                return new NoSnippets(adapter);
         }
     }
 
