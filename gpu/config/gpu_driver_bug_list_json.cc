@@ -19,7 +19,7 @@ const char kGpuDriverBugListJson[] = LONG_STRING_CONST(
 {
   "name": "gpu driver bug list",
   // Please update the version number whenever you change this file.
-  "version": "8.80",
+  "version": "8.81",
   "entries": [
     {
       "id": 1,
@@ -1845,15 +1845,6 @@ LONG_STRING_CONST(
       "id": 172,
       "description": "Limited enabling of Chromium GL_INTEL_framebuffer_CMAA",
       "cr_bugs": [535198],
-      "exceptions" : [
-        {
-          "os": {
-            "type" : "chromeos"
-          },
-          "vendor_id": "0x8086",
-          "device_id": ["0x1616"]
-        }
-      ],
       "features": [
         "disable_framebuffer_cmaa"
       ]
