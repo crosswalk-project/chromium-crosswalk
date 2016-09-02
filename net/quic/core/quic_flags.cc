@@ -165,3 +165,8 @@ bool FLAGS_quic_simple_packet_number_length_2 = true;
 
 // If true, disables QUIC version less than 32.
 bool FLAGS_quic_disable_pre_32 = true;
+
+// If true, set a QUIC connection's last_sent_for_timeout_ to the send time of
+// the first packet sent after receiving a packet, even if the sent packet is
+// a retransmission
+bool FLAGS_quic_better_last_send_for_timeout = true;
