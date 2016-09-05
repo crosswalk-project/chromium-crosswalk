@@ -1223,21 +1223,9 @@ void LayoutBox::clearExtraInlineAndBlockOffests()
         gExtraBlockOffsetMap->remove(this);
 }
 
-static LayoutUnit borderPaddingWidthForBoxSizing(const LayoutBox* box)
-{
-    // This excludes intrinsic padding on cells. It includes width from collapsed borders.
-    return box->computedCSSPaddingStart() + box->computedCSSPaddingEnd() + box->borderStart() + box->borderEnd();
-}
-
-static LayoutUnit borderPaddingHeightForBoxSizing(const LayoutBox* box)
-{
-    // This excludes intrinsic padding on cells. It includes height from collapsed borders.
-    return box->computedCSSPaddingBefore() + box->computedCSSPaddingAfter() + box->borderBefore() + box->borderAfter();
-}
-
 LayoutUnit LayoutBox::adjustBorderBoxLogicalWidthForBoxSizing(float width) const
 {
-    LayoutUnit bordersPlusPadding = borderPaddingWidthForBoxSizing(this);
+    LayoutUnit bordersPlusPadding = borderAndPaddingLogicalWidth();
     LayoutUnit result(width);
     if (style()->boxSizing() == BoxSizingContentBox)
         return result + bordersPlusPadding;
@@ -1246,7 +1234,7 @@ LayoutUnit LayoutBox::adjustBorderBoxLogicalWidthForBoxSizing(float width) const
 
 LayoutUnit LayoutBox::adjustBorderBoxLogicalHeightForBoxSizing(float height) const
 {
-    LayoutUnit bordersPlusPadding = borderPaddingHeightForBoxSizing(this);
+    LayoutUnit bordersPlusPadding = borderAndPaddingLogicalHeight();
     LayoutUnit result(height);
     if (style()->boxSizing() == BoxSizingContentBox)
         return result + bordersPlusPadding;
@@ -1257,7 +1245,7 @@ LayoutUnit LayoutBox::adjustContentBoxLogicalWidthForBoxSizing(float width) cons
 {
     LayoutUnit result(width);
     if (style()->boxSizing() == BoxSizingBorderBox)
-        result -= borderPaddingWidthForBoxSizing(this);
+        result -= borderAndPaddingLogicalWidth();
     return std::max(LayoutUnit(), result);
 }
 
@@ -1265,7 +1253,7 @@ LayoutUnit LayoutBox::adjustContentBoxLogicalHeightForBoxSizing(float height) co
 {
     LayoutUnit result(height);
     if (style()->boxSizing() == BoxSizingBorderBox)
-        result -= borderPaddingHeightForBoxSizing(this);
+        result -= borderAndPaddingLogicalHeight();
     return std::max(LayoutUnit(), result);
 }
 
@@ -2813,10 +2801,6 @@ LayoutUnit LayoutBox::computePercentageLogicalHeight(const Length& height) const
         availableHeight = overrideContainingBlockContentLogicalHeight();
     } else if (cb->isGridItem() && cb->hasOverrideLogicalContentHeight()) {
         availableHeight = cb->overrideLogicalContentHeight();
-    } else if (cbstyle.logicalHeight().isFixed()) {
-        LayoutUnit contentBoxHeight = cb->adjustContentBoxLogicalHeightForBoxSizing(cbstyle.logicalHeight().value());
-        availableHeight = cb->constrainContentBoxLogicalHeightByMinMax(
-            contentBoxHeight - cb->scrollbarLogicalHeight(), LayoutUnit(-1)).clampNegativeToZero();
     } else if (cb->isTableCell()) {
         if (!skippedAutoHeightContainingBlock) {
             // Table cells violate what the CSS spec says to do with heights. Basically we
@@ -2838,6 +2822,9 @@ LayoutUnit LayoutBox::computePercentageLogicalHeight(const Length& height) const
             availableHeight = cb->overrideLogicalContentHeight();
             includeBorderPadding = true;
         }
+    } else if (cbstyle.logicalHeight().isFixed()) {
+        LayoutUnit contentBoxHeight = cb->adjustContentBoxLogicalHeightForBoxSizing(LayoutUnit(cbstyle.logicalHeight().value()));
+        availableHeight = std::max(LayoutUnit(), cb->constrainContentBoxLogicalHeightByMinMax(contentBoxHeight - cb->scrollbarLogicalHeight(), LayoutUnit(-1)));
     } else if (cbstyle.logicalHeight().hasPercent() && !isOutOfFlowPositionedWithSpecifiedHeight) {
         // We need to recur and compute the percentage height for our containing block.
         LayoutUnit heightWithScrollbar = cb->computePercentageLogicalHeight(cbstyle.logicalHeight());
@@ -2870,8 +2857,10 @@ LayoutUnit LayoutBox::computePercentageLogicalHeight(const Length& height) const
 
     LayoutUnit result = valueForLength(height, availableHeight);
     if (includeBorderPadding) {
-        // TODO(rhogan) crbug.com/467378: Doing this for content inside tables cells is wrong, it should fill
-        // whatever height the cell makes available.
+        // FIXME: Table cells should default to box-sizing: border-box so we can avoid this hack.
+        // It is necessary to use the border-box to match WinIE's broken
+        // box model. This is essential for sizing inside
+        // table cells using percentage heights.
         result -= borderAndPaddingLogicalHeight();
         return std::max(LayoutUnit(), result);
     }
