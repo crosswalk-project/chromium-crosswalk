@@ -125,10 +125,7 @@ component("gl") {
   configs += [ "//build/config:precompiled_headers" ]
   defines = [ "GL_IMPLEMENTATION" ]
 
-  include_dirs = [
-    "//third_party/swiftshader/include",
-    "//third_party/mesa/src/include",
-  ]
+  include_dirs = [ "//third_party/mesa/src/include" ]
 
   all_dependent_configs = [ ":gl_config" ]
 
@@ -238,6 +235,10 @@ component("gl") {
 
     libs = [ "dwmapi.lib" ]
     ldflags = [ "/DELAYLOAD:dwmapi.dll" ]
+
+    if (is_official_build) {
+      include_dirs += [ "//third_party/swiftshader/include" ]
+    }
 
     data_deps = [
       "//third_party/angle:libEGL",
