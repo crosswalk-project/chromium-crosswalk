@@ -1139,6 +1139,9 @@ int HttpStreamFactoryImpl::Job::DoInitConnectionComplete(int result) {
         result == OK) {
     ProxyClientSocket* proxy_socket =
       static_cast<ProxyClientSocket*>(connection_->socket());
+    // http://crbug.com/642354
+    if (!proxy_socket->IsConnected())
+      return ERR_CONNECTION_CLOSED;
     if (proxy_socket->IsUsingSpdy()) {
       was_npn_negotiated_ = true;
       protocol_negotiated_ = proxy_socket->GetProtocolNegotiated();
