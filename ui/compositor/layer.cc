@@ -28,6 +28,7 @@
 #include "ui/compositor/compositor_switches.h"
 #include "ui/compositor/dip_util.h"
 #include "ui/compositor/layer_animator.h"
+#include "ui/compositor/layer_observer.h"
 #include "ui/compositor/paint_context.h"
 #include "ui/gfx/animation/animation.h"
 #include "ui/gfx/canvas.h"
@@ -99,6 +100,8 @@ Layer::Layer(LayerType type)
 }
 
 Layer::~Layer() {
+  FOR_EACH_OBSERVER(LayerObserver, observer_list_, LayerDestroyed(this));
+
   // Destroying the animator may cause observers to use the layer (and
   // indirectly the WebLayer). Destroy the animator first so that the WebLayer
   // is still around.
@@ -149,6 +152,14 @@ void Layer::ResetCompositor() {
     ResetCompositorForAnimatorsInTree(compositor_);
     compositor_ = nullptr;
   }
+}
+
+void Layer::AddObserver(LayerObserver* observer) {
+  observer_list_.AddObserver(observer);
+}
+
+void Layer::RemoveObserver(LayerObserver* observer) {
+  observer_list_.RemoveObserver(observer);
 }
 
 void Layer::Add(Layer* child) {
@@ -606,6 +617,8 @@ void Layer::SetShowSurface(
 
   frame_size_in_dip_ = frame_size_in_dip;
   RecomputeDrawsContentAndUVRect();
+
+  FOR_EACH_OBSERVER(LayerObserver, observer_list_, SurfaceChanged(this));
 }
 
 void Layer::SetShowSolidColorContent() {
@@ -751,9 +764,8 @@ void Layer::OnDeviceScaleFactorChanged(float device_scale_factor) {
 
 void Layer::OnDelegatedFrameDamage(const gfx::Rect& damage_rect_in_dip) {
   DCHECK(surface_layer_.get());
-  if (!delegate_)
-    return;
-  delegate_->OnDelegatedFrameDamage(damage_rect_in_dip);
+  if (delegate_)
+    delegate_->OnDelegatedFrameDamage(damage_rect_in_dip);
 }
 
 void Layer::SetScrollable(Layer* parent_clip_layer,
@@ -809,6 +821,8 @@ scoped_refptr<cc::DisplayItemList> Layer::PaintContentsToDisplayList(
         PaintContext(display_list.get(), device_scale_factor_, invalidation));
   }
   display_list->Finalize();
+  FOR_EACH_OBSERVER(LayerObserver, observer_list_,
+                    DidPaintLayer(this, invalidation));
   return display_list;
 }
 
