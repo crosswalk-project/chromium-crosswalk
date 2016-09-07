@@ -41,7 +41,7 @@ class ArcDownloadsWatcherService
   void StartWatchingDownloads();
   void StopWatchingDownloads();
 
-  void OnDownloadsChanged(mojo::Array<mojo::String> paths);
+  void OnDownloadsChanged(const std::vector<base::FilePath>& paths);
 
   std::unique_ptr<DownloadsWatcher> watcher_;
 
