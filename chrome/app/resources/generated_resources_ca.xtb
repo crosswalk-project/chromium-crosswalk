@@ -404,7 +404,6 @@
 <translation id="1530838837447122178">Obre la configuració del ratolí i del ratolí tàctil</translation>
 <translation id="1531004739673299060">Finestra de l'aplicació</translation>
 <translation id="1531865825384516080">Enviament d'informes dels URL a SafeSearch</translation>
-<translation id="1532687502998799885">El PIN ha de tenir 4 dígits com a mínim:</translation>
 <translation id="1532697124104874386">Activa o desactiva la implementació intel·ligent del teclat virtual.</translation>
 <translation id="1533897085022183721">Menys de <ph name="MINUTES" />.</translation>
 <translation id="1533920822694388968">Alineació de TV</translation>
@@ -1239,7 +1238,6 @@ No crec que calgui bloquejar aquest lloc.</translation>
 <translation id="2691385045260836588">Model</translation>
 <translation id="2694026874607847549">Una galeta</translation>
 <translation id="2696862700756109583">Excepcions de pantalla completa</translation>
-<translation id="2698107135105227384">PIN de configuració</translation>
 <translation id="2702540957532124911">Teclat:</translation>
 <translation id="2704142793323512908">Suprimeix també les teves dades existents d'aquest dispositiu</translation>
 <translation id="2704184184447774363">Signatura de documents de Microsoft</translation>
@@ -1318,7 +1316,6 @@ No crec que calgui bloquejar aquest lloc.</translation>
 <translation id="2799223571221894425">Reinicia</translation>
 <translation id="2800537048826676660">Utilitza aquest idioma per revisar l'ortografia</translation>
 <translation id="2801702994096586034">Servidor 3</translation>
-<translation id="2803375539583399270">Introdueix el PIN</translation>
 <translation id="2803887722080936828"><ph name="BEGIN_H3" />Funcions de depuració<ph name="END_H3" />
     <ph name="BR" />
     Podeu activar les funcions de depuració als dispositius Chrome OS per tal d'instal·lar-hi i de provar-hi el codi personalitzat. Podreu fer el següent:<ph name="BR" />
@@ -1543,7 +1540,6 @@ Per obtenir més informació sobre els usuaris supervisats, consulteu el <ph nam
 <translation id="3058212636943679650">Si mai necessiteu recuperar el sistema operatiu del vostre equip, necessitareu una targeta SD o un llapis de memòria USB de recuperació.</translation>
 <translation id="305932878998873762">La memòria cau senzilla per a HTTP és una memòria cau nova que utilitza el sistema de fitxers per assignar l'espai en disc.</translation>
 <translation id="3062606427884046423">Utilitza les notificacions de l'estil multimèdia d'Android a les notificacions multimèdia de Chrome.</translation>
-<translation id="3063224679438508013">Inicia automàticament l'aplicació per prendre notes</translation>
 <translation id="3063844757726132584">Accediu a totes les vostres aplicacions des d'aquest pràctic menú. Jugueu, participeu en xats de vídeo, escolteu música, editeu documents o baixeu més aplicacions.</translation>
 <translation id="3064388234319122767">Transliteració (zdravo → здраво)</translation>
 <translation id="3065041951436100775">Suggeriments sobre el tancament sobtat de la pestanya</translation>
@@ -1893,7 +1889,6 @@ Del domini <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="3512284449647229026">Les pàgines que no es puguin carregar quan el navegador estigui fora de línia només es tornaran a carregar automàticament si la seva pestanya és visible.</translation>
 <translation id="3512410469020716447">{NUM_DOWNLOAD,plural, =1{Cancel·la la baixada}other{Cancel·la les baixades}}</translation>
 <translation id="3512810056947640266">URL (opcional):</translation>
-<translation id="3517839692979918726"><ph name="APP_NAME" /> vol compartir el contingut de la vostra pantalla. Trieu el que vulgueu compartir.</translation>
 <translation id="3518086201899641494">Notificacions sobre portals captius</translation>
 <translation id="3519867315646775981">Transliteració (shalom ← שלום)</translation>
 <translation id="3522159121915794564">Permet que els usuaris activin la recopilació de cadenes de certificats TLS/SSL no vàlides.</translation>
@@ -2009,7 +2004,6 @@ Del domini <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="3654045516529121250">Consultar la configuració d'accessibilitat</translation>
 <translation id="3654092442379740616">Error de sincronització: <ph name="PRODUCT_NAME" /> no està actualitzat i necessita una actualització.</translation>
 <translation id="3655712721956801464">{NUM_FILES,plural, =1{Té accés permanent a un fitxer.}other{Té accés permanent a # fitxers.}}</translation>
-<translation id="3656059567098593256"><ph name="APP_NAME" /> vol compartir el contingut de la vostra pantalla amb <ph name="TARGET_NAME" />. Trieu el que vulgueu compartir.</translation>
 <translation id="3657468915905674858">Activa el bloqueig de Win32k per a PPAPI.</translation>
 <translation id="3660234220361471169">No és de confiança</translation>
 <translation id="3665589677786828986">Chrome ha detectat que un altre programa ha malmès alguns dels paràmetres de configuració i els ha restablert als valors predeterminats originals.</translation>
@@ -2303,7 +2297,7 @@ Del domini <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="4071770069230198275"><ph name="PROFILE_NAME" />: error d'inici de sessió</translation>
 <translation id="4072248638558688893">Teclat tàmil (fonètic)</translation>
 <translation id="4074900173531346617">Certificat del signant del correu electrònic</translation>
-<translation id="4074945132384537841">Permet concedir i suprimir l'accés a funcions mitjançant la capçalera HTTP Funció-Política.</translation>
+<translation id="4074945132384537841">Permet concedir i suprimir l'accés a funcions mitjançant la capçalera HTTP Feature-Policy.</translation>
 <translation id="4075084141581903552">L'inici de sessió automàtic està disponible amb <ph name="EMAIL_ADDRESS" /></translation>
 <translation id="4078738236287221428">Agressiva</translation>
 <translation id="408098233265424160">Detecció de proximitat de Smart Lock</translation>
@@ -2427,7 +2421,6 @@ Tots els usuaris han de tancar la sessió per continuar.</translation>
 <translation id="4249373718504745892">S'ha bloquejat l'accés d'aquesta pàgina a la càmera i al micròfon</translation>
 <translation id="4250229828105606438">Captura de pantalla</translation>
 <translation id="4250680216510889253">No</translation>
-<translation id="4253168017788158739">Nota</translation>
 <translation id="4254813446494774748">Idioma de la traducció:</translation>
 <translation id="425573743389990240">Velocitat de descàrrega de la bateria en watts (un valor negatiu significa que la bateria s'està carregant)</translation>
 <translation id="4256316378292851214">De&amp;sa el vídeo com a...</translation>
@@ -2507,7 +2500,6 @@ Premeu qualsevol tecla per continuar explorant.</translation>
 <translation id="4365673000813822030">La sincronització ha deixat de funcionar.</translation>
 <translation id="4366509400410520531">Permès pel vostre usuari</translation>
 <translation id="4367782753568896354">No hem pogut instal·lar:</translation>
-<translation id="436904870295243580">Cerca més aplicacions per prendre notes</translation>
 <translation id="4370975561335139969">El correu electrònic i la contrasenya indicats no coincideixen</translation>
 <translation id="437184764829821926">Configuració avançada de tipus de lletra</translation>
 <translation id="4372884569765913867">1 x 1</translation>
@@ -3383,6 +3375,7 @@ Premeu qualsevol tecla per continuar explorant.</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT" />)</translation>
 <translation id="5592595402373377407">Encara no hi ha prou dades disponibles.</translation>
 <translation id="5595485650161345191">Edita l'adreça</translation>
+<translation id="5601503069213153581">PIN</translation>
 <translation id="5604324414379907186">Mostra la barra d'adreces d'interès</translation>
 <translation id="5605623530403479164">Altres motors de cerca</translation>
 <translation id="5605716740717446121">La vostra targeta SIM es desactivarà de manera permanent si no podeu introduir la clau de desbloqueig del PIN (PUK) correcta. Nombre d'intents restants: <ph name="TRIES_COUNT" /></translation>
@@ -3658,7 +3651,6 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="5991049340509704927">Amplia</translation>
 <translation id="5991774521050363748">Activa els dissenys personalitzats per a les notificacions web. Tindran millores subtils en el disseny que d'altra manera no són possibles.</translation>
 <translation id="5993332328670040093">Ja no es mesurarà el vostre ús de dades.</translation>
-<translation id="6001799583597751002">Els PIN no coincideixen:</translation>
 <translation id="6003177993629630467">És possible que <ph name="PRODUCT_NAME" /> no pugui actualitzar-se tot sol.</translation>
 <translation id="6003294706906016758">Activa el marc d'estil de l'aplicació web per a aplicacions allotjades</translation>
 <translation id="600424552813877586">L'aplicació no és vàlida.</translation>
@@ -3977,7 +3969,7 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="6450876761651513209">Canvieu la configuració relacionada amb la privadesa.</translation>
 <translation id="6451180435462401570">Gestiona els dispositius Cloud Print</translation>
 <translation id="6451650035642342749">Neteja la configuració d'obertura automàtica</translation>
-<translation id="6451689256222386810">Si has oblidat la frase de contrasenya o vols canviar aquesta configuració, <ph name="BEGIN_LINK" />restableix la sincronització<ph name="END_LINK" />.</translation>
+<translation id="6451689256222386810">Si has oblidat la frase de contrasenya o vols canviar aquesta opció, <ph name="BEGIN_LINK" />restableix la sincronització<ph name="END_LINK" />.</translation>
 <translation id="6452181791372256707">Rebutja</translation>
 <translation id="6455348477571378046">Tipus de certificat:</translation>
 <translation id="645705751491738698">Continua bloquejant JavaScript</translation>
@@ -4442,7 +4434,6 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="7126604456862387217">"&lt;b&gt;<ph name="SEARCH_STRING" />&lt;/b&gt;": &lt;em&gt;cerca a Drive&lt;/em&gt;</translation>
 <translation id="7127980134843952133">Historial de baixades</translation>
 <translation id="7129050975168763580">Nombre de pàgines</translation>
-<translation id="7129280790850525688">Introdueix la teva contrasenya per configurar el bloqueig de pantalla.</translation>
 <translation id="7130666834200497454">Per garantir la seguretat del dispositiu <ph name="DEVICE_TYPE" />, Smart Lock per a Chromebook necessita que el telèfon tingui configurat un bloqueig de pantalla per tal de desbloquejar-lo. Ja heu protegit el telèfon? Feu clic a Torna-ho a comprovar per verificar-ho i per continuar amb la configuració.</translation>
 <translation id="7131040479572660648">Llegir les dades dels llocs <ph name="WEBSITE_1" />, <ph name="WEBSITE_2" /> i <ph name="WEBSITE_3" /></translation>
 <translation id="713122686776214250">Afegeix la pà&amp;gina...</translation>
@@ -4837,7 +4828,6 @@ Assegureu-vos que no es pugui accedir a informació confidencial.</translation>
 <translation id="7709152031285164251">Error: <ph name="INTERRUPT_REASON" /></translation>
 <translation id="7709980197120276510">En fer clic a Continua, accepteu les <ph name="LEGAL_DOC_LINK_TEXT_1" />, les <ph name="LEGAL_DOC_LINK_TEXT_2" />, les <ph name="LEGAL_DOC_LINK_TEXT_3" />, les <ph name="LEGAL_DOC_LINK_TEXT_4" /> i la <ph name="LEGAL_DOC_LINK_TEXT_5" />.</translation>
 <translation id="7712140766624186755">Demana per política</translation>
-<translation id="7712196439824268605">Aquest PIN és fàcil d'endevinar:</translation>
 <translation id="7713320380037170544">Permet que tots els llocs utilitzin els missatges exclusius del sistema per accedir als dispositius MIDI</translation>
 <translation id="7714464543167945231">Certificat</translation>
 <translation id="7716020873543636594">Fes clic automàticament quan s'aturi el punter del ratolí</translation>
@@ -5121,7 +5111,6 @@ Deseu el fitxer de clau en una ubicació segura. El necessitareu per crear versi
 <translation id="8116190140324504026">Més informació...</translation>
 <translation id="8116483400482790018">Diccionari ortogràfic personalitzat</translation>
 <translation id="8116972784401310538">&amp;Gestor d'adreces d'interès</translation>
-<translation id="8117838550640702864">Configuració de les notes</translation>
 <translation id="8117957376775388318">Mètode d'introducció de dayi</translation>
 <translation id="8118860139461251237">Gestionar les baixades</translation>
 <translation id="8119631488458759651">elimina aquest lloc</translation>
