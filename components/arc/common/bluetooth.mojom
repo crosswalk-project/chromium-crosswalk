@@ -317,6 +317,9 @@ interface BluetoothHost {
                                    bool confirm,
                                    array<uint8> value)
       => (BluetoothGattStatus status);
+
+  [MinVersion=2] OpenBluetoothSocket@29()
+      => (handle sock);
 };
 
 // Next Method ID: 17

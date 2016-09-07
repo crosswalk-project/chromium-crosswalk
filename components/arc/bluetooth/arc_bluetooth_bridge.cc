@@ -4,8 +4,10 @@
 
 #include "components/arc/bluetooth/arc_bluetooth_bridge.h"
 
+#include <bluetooth/bluetooth.h>
 #include <fcntl.h>
 #include <stddef.h>
+#include <sys/socket.h>
 
 #include <iomanip>
 #include <string>
@@ -25,6 +27,8 @@
 #include "device/bluetooth/bluetooth_gatt_notify_session.h"
 #include "device/bluetooth/bluetooth_local_gatt_characteristic.h"
 #include "device/bluetooth/bluetooth_local_gatt_descriptor.h"
+#include "mojo/edk/embedder/embedder.h"
+#include "mojo/edk/embedder/scoped_platform_handle.h"
 
 using device::BluetoothAdapter;
 using device::BluetoothAdapterFactory;
@@ -1340,6 +1344,29 @@ void ArcBluetoothBridge::SendIndication(
     bool confirm,
     mojo::Array<uint8_t> value,
     const SendIndicationCallback& callback) {}
+
+void ArcBluetoothBridge::OpenBluetoothSocket(
+    const OpenBluetoothSocketCallback& callback) {
+  base::ScopedFD sock(socket(AF_BLUETOOTH, SOCK_STREAM, BTPROTO_RFCOMM));
+  if (!sock.is_valid()) {
+    LOG(ERROR) << "Failed to open socket.";
+    callback.Run(mojo::ScopedHandle());
+    return;
+  }
+  mojo::edk::ScopedPlatformHandle platform_handle{
+      mojo::edk::PlatformHandle(sock.release())};
+  MojoHandle wrapped_handle;
+  MojoResult wrap_result = mojo::edk::CreatePlatformHandleWrapper(
+      std::move(platform_handle), &wrapped_handle);
+  if (wrap_result != MOJO_RESULT_OK) {
+    LOG(ERROR) << "Failed to wrap handles. Closing: " << wrap_result;
+    callback.Run(mojo::ScopedHandle());
+    return;
+  }
+  mojo::ScopedHandle scoped_handle{mojo::Handle(wrapped_handle)};
+
+  callback.Run(std::move(scoped_handle));
+}
 
 void ArcBluetoothBridge::OnDiscoveryError() {
   LOG(WARNING) << "failed to change discovery state";

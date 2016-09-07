@@ -262,6 +262,9 @@ class ArcBluetoothBridge
                       mojo::Array<uint8_t> value,
                       const SendIndicationCallback& callback) override;
 
+  void OpenBluetoothSocket(
+      const OpenBluetoothSocketCallback& callback) override;
+
   // Chrome observer callbacks
   void OnPoweredOn(
       const base::Callback<void(mojom::BluetoothAdapterState)>& callback) const;
