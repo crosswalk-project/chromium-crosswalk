@@ -447,11 +447,7 @@ void RequestCoordinator::OfflinerDoneCallback(const SavePageRequest& request,
     // aborted cases to treat this way (eg, for Render Process Killed).
     SavePageRequest updated_request(request);
     AbortRequestAttempt(&updated_request);
-    SavePageStatus notify_status =
-        (status == Offliner::RequestStatus::FOREGROUND_CANCELED)
-            ? SavePageStatus::FOREGROUND_CANCELED
-            : SavePageStatus::PRERENDER_CANCELED;
-    NotifyCompleted(updated_request, notify_status);
+    NotifyChanged(updated_request);
   } else if (status == Offliner::RequestStatus::SAVED) {
     // Remove the request from the queue if it succeeded.
     RemoveAttemptedRequest(request, SavePageStatus::SUCCESS);
