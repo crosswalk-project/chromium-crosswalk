@@ -191,7 +191,7 @@ void ChromeLauncherControllerUserSwitchObserver::AddUser(Profile* profile) {
 ChromeLauncherControllerImpl::ChromeLauncherControllerImpl(
     Profile* profile,
     ash::ShelfModel* model)
-    : model_(model), profile_(profile) {
+    : model_(model), profile_(profile), weak_ptr_factory_(this) {
   if (!profile_) {
     // If no profile was passed, we take the currently active profile and use it
     // as the owner of the current desktop.
@@ -1214,7 +1214,7 @@ void ChromeLauncherControllerImpl::ScheduleUpdateAppLaunchersFromPref() {
   base::ThreadTaskRunnerHandle::Get()->PostTask(
       FROM_HERE,
       base::Bind(&ChromeLauncherControllerImpl::UpdateAppLaunchersFromPref,
-                 base::Unretained(this)));
+                 weak_ptr_factory_.GetWeakPtr()));
 }
 
 void ChromeLauncherControllerImpl::UpdateAppLaunchersFromPref() {

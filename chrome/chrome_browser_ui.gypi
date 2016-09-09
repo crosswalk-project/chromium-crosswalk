@@ -765,6 +765,8 @@
       'browser/ui/app_list/arc/arc_app_model_builder.h',
       'browser/ui/app_list/arc/arc_app_utils.cc',
       'browser/ui/app_list/arc/arc_app_utils.h',
+      'browser/ui/app_list/arc/arc_default_app_list.cc',
+      'browser/ui/app_list/arc/arc_default_app_list.h',
       'browser/ui/app_list/arc/arc_package_syncable_service.cc',
       'browser/ui/app_list/arc/arc_package_syncable_service.h',
       'browser/ui/app_list/arc/arc_package_syncable_service_factory.cc',

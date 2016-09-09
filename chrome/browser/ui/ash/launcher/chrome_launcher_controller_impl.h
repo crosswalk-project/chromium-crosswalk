@@ -15,6 +15,7 @@
 #include "ash/shelf/shelf_delegate.h"
 #include "base/compiler_specific.h"
 #include "base/macros.h"
+#include "base/memory/weak_ptr.h"
 #include "build/build_config.h"
 #include "chrome/browser/ui/app_icon_loader.h"
 #include "chrome/browser/ui/app_list/app_list_syncable_service.h"
@@ -372,6 +373,8 @@ class ChromeLauncherControllerImpl
   typedef std::vector<std::string> RunningAppListIds;
   typedef std::map<std::string, RunningAppListIds> RunningAppListIdMap;
   RunningAppListIdMap last_used_running_application_order_;
+
+  base::WeakPtrFactory<ChromeLauncherControllerImpl> weak_ptr_factory_;
 
   DISALLOW_COPY_AND_ASSIGN(ChromeLauncherControllerImpl);
 };

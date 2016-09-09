@@ -59,6 +59,10 @@ class ArcAppTest {
     return fake_apps_;
   }
 
+  const std::vector<arc::mojom::AppInfo>& fake_default_apps() const {
+    return fake_default_apps_;
+  }
+
   const std::vector<arc::mojom::ShortcutInfo>& fake_shortcuts() const {
     return fake_shortcuts_;
   }
@@ -87,6 +91,7 @@ class ArcAppTest {
   std::unique_ptr<arc::ArcAuthService> auth_service_;
   std::unique_ptr<chromeos::ScopedUserManagerEnabler> user_manager_enabler_;
   std::vector<arc::mojom::AppInfo> fake_apps_;
+  std::vector<arc::mojom::AppInfo> fake_default_apps_;
   std::vector<arc::mojom::ArcPackageInfo> fake_packages_;
   std::vector<arc::mojom::ShortcutInfo> fake_shortcuts_;
 
