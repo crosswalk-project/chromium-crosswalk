@@ -102,6 +102,7 @@ public:
     BLINK_EXPORT static void enablePresentationAPI(bool);
     BLINK_EXPORT static void enablePushMessaging(bool);
     BLINK_EXPORT static void enableReducedReferrerGranularity(bool);
+    BLINK_EXPORT static void enableReloadwithoutSubResourceCacheRevalidation(bool);
     BLINK_EXPORT static void enableRenderingPipelineThrottling(bool);
     BLINK_EXPORT static void enableScriptedSpeech(bool);
     BLINK_EXPORT static void enableScrollAnchoring(bool);
