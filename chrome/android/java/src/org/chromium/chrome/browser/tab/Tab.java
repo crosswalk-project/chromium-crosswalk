@@ -1625,6 +1625,7 @@ public class Tab implements ViewGroup.OnHierarchyChangeListener,
 
         reparentingParams.finalizeTabReparenting();
         mIsDetachedForReparenting = false;
+        mIsTabStateDirty = true;
 
         for (TabObserver observer : mObservers) {
             observer.onReparentingFinished(this);
