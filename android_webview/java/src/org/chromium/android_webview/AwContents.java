@@ -374,8 +374,8 @@ public class AwContents implements SmartClipProvider,
 
         @Override
         public void run() {
-            nativeDestroy(mNativeAwContents);
             mHasRun = true;
+            nativeDestroy(mNativeAwContents);
         }
 
         // TODO(boliu): Generalize this as a CleanupReference feature.
