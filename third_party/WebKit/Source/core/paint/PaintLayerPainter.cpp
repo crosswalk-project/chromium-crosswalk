@@ -486,6 +486,8 @@ PaintLayerPainter::PaintResult PaintLayerPainter::paintLayerWithTransform(Graphi
                 if (m_paintLayer.layoutObject()->isPositioned() && clipRectForFragment.isClippedByClipCss())
                     UseCounter::count(m_paintLayer.layoutObject()->document(), UseCounter::ClipCssOfPositionedElement);
                 clipRecorder.emplace(context, *parentLayer->layoutObject(), DisplayItem::ClipLayerParent, clipRectForFragment, &paintingInfo, fragment.paginationOffset, paintFlags);
+                if (m_paintLayer.layoutObject()->isFixedPositioned())
+                    UseCounter::count(m_paintLayer.layoutObject()->document(), UseCounter::ClipCssOfFixedPositionElement);
             }
         }
         if (paintFragmentByApplyingTransform(context, paintingInfo, paintFlags, fragment.paginationOffset) == MayBeClippedByPaintDirtyRect)
