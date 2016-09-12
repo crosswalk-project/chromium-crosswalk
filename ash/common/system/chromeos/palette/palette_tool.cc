@@ -24,7 +24,6 @@ void PaletteTool::RegisterToolInstances(PaletteToolManager* tool_manager) {
   tool_manager->AddTool(base::MakeUnique<LaserPointerMode>(tool_manager));
   if (ArePaletteExperimentalFeaturesEnabled())
     tool_manager->AddTool(base::MakeUnique<MagnifierMode>(tool_manager));
-  tool_manager->AddTool(base::MakeUnique<LaserPointerMode>(tool_manager));
 }
 
 PaletteTool::PaletteTool(Delegate* delegate) : delegate_(delegate) {}
