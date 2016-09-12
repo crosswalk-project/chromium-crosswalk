@@ -158,6 +158,7 @@ mojom("arc_bindings") {
   ]
 
   deps = [
+    "//mojo/common:common_custom_types",
     "//ui/gfx/geometry/mojo",
   ]
 }
