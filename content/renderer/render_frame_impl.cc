@@ -4509,8 +4509,15 @@ void RenderFrameImpl::RemoveObserver(RenderFrameObserver* observer) {
 
 void RenderFrameImpl::OnStop() {
   DCHECK(frame_);
+
+  // The stopLoading call may run script, which may cause this frame to be
+  // detached/deleted.  If that happens, return immediately.
+  base::WeakPtr<RenderFrameImpl> weak_this = weak_factory_.GetWeakPtr();
   frame_->stopLoading();
-  if (!frame_->parent())
+  if (!weak_this)
+    return;
+
+  if (frame_ && !frame_->parent())
     FOR_EACH_OBSERVER(RenderViewObserver, render_view_->observers_, OnStop());
 
   FOR_EACH_OBSERVER(RenderFrameObserver, observers_, OnStop());
