@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="hr">
+<translation id="1007441141628883408">Omogućuje ažuriranja komponenti za sve komponente u proizvodu <ph name="PRODUCT_NAME" /> kada pravilo nije postavljeno ili je postavljeno na True.
+
+      Ako se postavi na False, ažuriranje komponenti je onemogućeno. No neke su komponente izuzete od tog pravila i dalje će se ažurirati, a to su komponente koje ne sadrže izvršni kôd, koje bitno ne mijenjaju ponašanje preglednika ili koje su važne za sigurnost.
+      Primjeri takvih komponenti uključuju popise opozvanih certifikata i podatke sigurnog pregledavanja. </translation>
 <translation id="101438888985615157">Zakreni zaslon 180 stupnjeva</translation>
 <translation id="1017967144265860778">Upravljanje napajanjem na zaslonu za prijavu</translation>
 <translation id="1019101089073227242">Postavi imenik korisničkih podataka</translation>
@@ -132,6 +136,7 @@
       ne mogu upotrebljavati ARC.</translation>
 <translation id="1561424797596341174">Nadjačavanja pravila za međuverzije za otklanjanje pogrešaka hosta daljinskog pristupa</translation>
 <translation id="1583248206450240930">Upotrijebi <ph name="PRODUCT_FRAME_NAME" /> kao zadano</translation>
+<translation id="1606958238518590302">Kada se pravilo postavi na True, korisnici ne mogu zapisivati na vanjske uređaje za pohranu.</translation>
 <translation id="1608755754295374538">URL-ovi koji će dobiti pristup uređajima za snimanje zvuka bez postavljanja upita</translation>
 <translation id="1617235075406854669">Omogući brisanje povijesti preglednika i preuzimanja</translation>
 <translation id="1617384279878333801">Omogućivanje dodavanja osobe u upravitelju profila</translation>
@@ -836,6 +841,7 @@
 <translation id="3780152581321609624">Uključi nestandardni port u Kerberos SPN-u</translation>
 <translation id="3788662722837364290">Postavke upravljanja napajanjem kada korisnik postane neaktivan</translation>
 <translation id="3793095274466276777">Konfigurira zadane provjere preglednika u proizvodu <ph name="PRODUCT_NAME" /> i sprječava korisnike da ih promijene. Ako omogućite ovu postavku, <ph name="PRODUCT_NAME" /> će prilikom svakog pokretanja provjeriti je li zadani preglednik i automatski se registrirati ako je moguće. Ako je ova postavka onemogućena, <ph name="PRODUCT_NAME" /> neće nikad provjeravati je li zadani preglednik i onemogućit će korisničke kontrole za postavljanje ove opcije. Ako ova postavka nije podešena, korisnik će moći odrediti je li <ph name="PRODUCT_NAME" /> zadani preglednik i trebaju li korisničke obavijesti biti prikazane kada to nije slučaj.</translation>
+<translation id="379659290574555063">Postupaj s vanjskim uređajima za pohranu kao da su samo za čitanje.</translation>
 <translation id="3800626789999016379">Konfigurira direktorij koji će <ph name="PRODUCT_NAME" /> upotrebljavati za preuzimanje datoteka.
 
       Ako postavite to pravilo, preglednik <ph name="PRODUCT_NAME" /> upotrebljavat će navedeni direktorij bez obzira je li ga je korisnik naveo ili je označio okvir da se mjesto preuzimanja treba svaki put ponovo navesti.
@@ -1676,6 +1682,7 @@
           Ako se ta postavka onemogući ili ne postavi, hostovi se mogu dijeliti putem bilo kojeg računa.
 
           Pogledajte i RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Omogući ažuriranje komponenti u proizvodu <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Jesu li potrebne mrežne OCSP/CRL provjere za lokalna pouzdana sidra</translation>
 <translation id="7003334574344702284">Ako je omogućeno, ovo pravilo prisilno uvozi spremljene zaporke iz prethodno zadanog preglednika. Ako je omogućeno, ovo pravilo također utječe na dijaloški okvir za uvoz. Ako je onemogućeno, spremljene se zaporke ne uvoze. Ako nije postavljeno, korisniku može biti postavljen upit želi li uvesti zaporke ili do uvoza može doći automatski.</translation>
 <translation id="7003746348783715221">Postavke za <ph name="PRODUCT_NAME" /></translation>

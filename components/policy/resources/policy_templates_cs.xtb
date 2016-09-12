@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="cs">
+<translation id="1007441141628883408">Pokud tato zásada není nastavena nebo je nastavena na hodnotu True, povoluje aktualizace všech komponent v prohlížeči <ph name="PRODUCT_NAME" />.
+
+      Pokud je nastavena na hodnotu False, jsou aktualizace komponent zakázány. Na některé komponenty se však tato zásada nevztahuje: aktualizace komponent, které neobsahují spustitelný kód, nemění významně chování prohlížeče nebo jsou nezbytně nutné z důvodu bezpečnosti zakázány nebudou.
+      Mezi takové komponenty patří například seznamy zneplatněných certifikátů a údaje Bezpečného prohlížení. </translation>
 <translation id="101438888985615157">Otočit obrazovku o 180 stupňů</translation>
 <translation id="1017967144265860778">Správa možností napájení na přihlašovací obrazovce</translation>
 <translation id="1019101089073227242">Nastavit adresář uživatelských dat</translation>
@@ -124,6 +128,7 @@ Pokud je tato zásada nastavena na hodnotu false nebo ponechána bez nastavení,
 Pokud je toto nastavení zakázáno nebo není nakonfigurováno, firemní uživatelé rozšíření ARC nebudou moci používat.</translation>
 <translation id="1561424797596341174">Přepsání zásad pro ladicí sestavení hostitele vzdáleného přístupu</translation>
 <translation id="1583248206450240930">Ve výchozím nastavení používat plugin <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">Když je tato zásada nastavena na hodnotu True, uživatelé nemohou nic zapisovat do externích úložných zařízení.</translation>
 <translation id="1608755754295374538">Adresy URL, kterým bude udělen přístup pro záznam zvuku bez zobrazení výzvy</translation>
 <translation id="1617235075406854669">Aktivovat smazání historie prohlížeče a stahování</translation>
 <translation id="1617384279878333801">Povolit přidání uživatele ve správci profilů</translation>
@@ -856,6 +861,7 @@ Pokud je toto nastavení ponecháno nenakonfigurované, nebudou ohledně přijat
       Pokud je toto nastavení deaktivováno, <ph name="PRODUCT_NAME" /> nebude kontrolovat, zda je výchozím prohlížečem, a deaktivuje uživatelské ovládací prvky pro nastavení této možnosti.
 
       Pokud toto nastavení není nakonfigurováno, může uživatel v prohlížeči <ph name="PRODUCT_NAME" /> určit, zda jej chce nastavit jako výchozí prohlížeč a zda se má zobrazit oznámení v případě, že jím není.</translation>
+<translation id="379659290574555063">Zacházet s externími úložnými zařízeními, jako by byla pouze pro čtení</translation>
 <translation id="3800626789999016379">Slouží ke konfiguraci adresáře, do kterého bude prohlížeč <ph name="PRODUCT_NAME" /> stahovat soubory.
 
       Pokud tuto zásadu nastavíte, použije <ph name="PRODUCT_NAME" /> zadaný adresář i v případě, že uživatel zadal jiný adresář nebo zvolil, že chce pokaždé zobrazit výzvu k zadání umístění stahovaného souboru.
@@ -1748,6 +1754,7 @@ Je-li toto nastavení zapnuto, hostitelé smějí být sdíleni jen prostřednic
 Je-li toto nastavení vypnuto nebo není-li nastaveno, hostitele lze sdílet prostřednictvím libovolného účtu.
 
 Přečtěte si také o zásadě RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Povoluje aktualizace komponent v prohlížeči <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Určuje, zda jsou online kontroly OCSP/CRL vyžadovány pro místní kotvy důvěryhodnosti.</translation>
 <translation id="7003334574344702284">Je-li tato zásada aktivovaná, vynucuje import uložených hesel z předchozího výchozího prohlížeče. Aktivace této zásady má také vliv na dialogové okno importu.
 

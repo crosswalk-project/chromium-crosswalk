@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="hu">
+<translation id="1007441141628883408">Engedélyezi a komponensek frissítését minden komponens esetén a(z) <ph name="PRODUCT_NAME" /> termékben, ha a beállítás nincs megadva, vagy ha a beállítás Igaz.
+
+      Ha a beállítás Hamis, a komponensek frissítése ki van kapcsolva. Egyes komponensek azonban mentesülnek a házirend alól: az olyan komponensek frissítései, amelyek nem tartalmaznak végrehajtható kódot, nem változtatják meg jelentősen a böngésző viselkedését, vagy kiemelkedően fontosak a komponens biztonsága érdekében, nem lesznek kikapcsolva.
+      Ilyen komponensek például a tanúsítványok visszavonási listái és a biztonságos böngészési adatok. </translation>
 <translation id="101438888985615157">Képernyő elforgatása 180 fokkal</translation>
 <translation id="1017967144265860778">Energiagazdálkodás a bejelentkezési képernyőn</translation>
 <translation id="1019101089073227242">Felhasználói adatok könyvtárának beállítása</translation>
@@ -132,6 +136,7 @@
       felhasználók nem használhatják az ARC szolgáltatást.</translation>
 <translation id="1561424797596341174">A házirend felülírja a távoli elérésű gazdagép hibakeresés végzésére szolgáló buildjeit</translation>
 <translation id="1583248206450240930">A <ph name="PRODUCT_FRAME_NAME" /> használata alapértelmezés szerint</translation>
+<translation id="1606958238518590302">Ha a házirend beállítása igaz, akkor a felhasználók nem írhatnak semmit a külső tárolóeszközökre.</translation>
 <translation id="1608755754295374538">Azon URL-ek, amelyek rákérdezés nélkül hozzáférést kapnak a hangrögzítő eszközökhöz</translation>
 <translation id="1617235075406854669">Böngészési és letöltési előzmények törlésének engedélyezése</translation>
 <translation id="1617384279878333801">Engedélyezi a személyek hozzáadását a profilkezelőben</translation>
@@ -841,6 +846,7 @@
 <translation id="3780152581321609624">A Kerberos SPN tartalmazza a nem szabványos portot</translation>
 <translation id="3788662722837364290">Energiagazdálkodási beállítások olyankor, amikor a felhasználó tétlen</translation>
 <translation id="3793095274466276777">Beállítja a <ph name="PRODUCT_NAME" /> alapértelmezett böngésző-ellenőrzéseit, és megakadályozza, hogy a felhasználók megváltoztassák ezeket. Ha engedélyezi ezt a beállítást, a <ph name="PRODUCT_NAME" /> mindig ellenőrzi induláskor, hogy alapértelmezett böngésző-e, és automatikusan regisztrálja magát, ha lehetséges. Ha ez a beállítás le van tiltva, a <ph name="PRODUCT_NAME" /> soha nem fogja ellenőrizni, hogy alapértelmezett böngésző-e, és letiltja a felhasználók számára a beállítás lehetőségét. Ha ez a beállítás nincs megadva, a <ph name="PRODUCT_NAME" /> elérhetővé teszi a választást a felhasználó számára, hogy ez legyen-e az alapértelmezett böngésző, és hogy mutasson-e felhasználói értesítéseket, ha nem az.</translation>
+<translation id="379659290574555063">Külső tárolóeszközök kezelése csak olvashatóként.</translation>
 <translation id="3800626789999016379">Beállítja a(z) <ph name="PRODUCT_NAME" /> által a fájlok letöltéséhez használt mappát.
 
       Ha beállítja ezt a házirendet, a(z) <ph name="PRODUCT_NAME" /> a megadott mappát fogja használni attól függetlenül, hogy a felhasználó kiválasztott-e egyet, vagy engedélyezte-e azt a jelölőt, amely alapján a rendszer minden alkalommal megkérdezi a letöltés helyét.
@@ -1679,6 +1685,7 @@
           Ha a beállítás le van tiltva vagy nincs megadva, a gazdagépeket bármely fiókkal meg lehet osztani.
 
           Lásd még a RemoteAccessHostClientDomain házirendet.</translation>
+<translation id="6979510692034647325">Engedélyezi a komponensek frissítéseit a(z) <ph name="PRODUCT_NAME" /> termékben.</translation>
 <translation id="6997592395211691850">Szükség van-e online OCSP- vagy CRL-ellenőrzésekre a helyi megbízhatósági kapcsolatok alapjainál</translation>
 <translation id="7003334574344702284">Ez a házirend engedélyezése esetén kikényszeríti a mentett jelszavak importálását a jelenlegi alapértelmezett böngészőből. Bekapcsolása esetén a házirend az importálás párbeszédpanelére is hatással van. Letiltása esetén a mentett jelszavak importálása nem történik meg. Ha nincs beállítva, akkor előfordulhat, hogy a rendszer a felhasználótól kérdezi meg, hogy megtörténjen-e az importálás, vagy hogy lehet-e automatikus az importálás.</translation>
 <translation id="7003746348783715221">A <ph name="PRODUCT_NAME" /> beállításai</translation>

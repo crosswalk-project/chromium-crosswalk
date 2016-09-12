@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="et">
+<translation id="1007441141628883408">Kui reegel ei ole määratud on seatud väärtusele Tõene, on rakenduse <ph name="PRODUCT_NAME" /> kõigi komponentide värskendamine lubatud.
+
+      Kui see on seatud väärtusele Väär, keelatakse komponentide värskendused. Reegel ei kehti aga teatud komponentide puhul: see ei keela komponendi värskendamist, kui see ei sisalda käivitatavat koodi, ei muuda brauseri käitumist märkimisväärselt või on turvalisuse seisukohalt kriitiline.
+      Need komponendid on näiteks sertifikaaditühistusloendid ja ohutu sirvimise andmed. </translation>
 <translation id="101438888985615157">Ekraani pööramine 180 kraadi</translation>
 <translation id="1017967144265860778">Toitehaldus sisselogimiskuval</translation>
 <translation id="1019101089073227242">Kasutaja andmete kataloogi määramine</translation>
@@ -134,6 +138,7 @@
       kasutajad ARC-d kasutada.</translation>
 <translation id="1561424797596341174">Kaugjuurdepääsu hosti silumisjärkude reeglite alistused</translation>
 <translation id="1583248206450240930">Kasuta vaikimisi rakendust <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">Kui reegel seatakse väärtusele Tõene, ei saa kasutajad välistele salvestusseadmetele kirjutada.</translation>
 <translation id="1608755754295374538">URL-id, millele antakse ilma küsimata juurdepääs helijäädvustusseadmetele</translation>
 <translation id="1617235075406854669">Brauseri ja allalaadimiste ajaloo kustutamise lubamine</translation>
 <translation id="1617384279878333801">Inimese profiilihalduris lisamise lubamine</translation>
@@ -873,6 +878,7 @@
 <translation id="3780152581321609624">Kaasa Kerberose SPN-i mittestandardne port</translation>
 <translation id="3788662722837364290">Toitehalduse seaded, kui kasutaja on tegevusetu</translation>
 <translation id="3793095274466276777">Seadistab vaikebrauseri kontrolli rakenduses <ph name="PRODUCT_NAME" /> ja takistab kasutajaid neid muutmast. Kui lubate seade, kontrollib <ph name="PRODUCT_NAME" /> käivitamisel alati, kas ta on vaikebrauser, ja võimalusel registreerib end ise. Kui keelate seade, ei kontrolli <ph name="PRODUCT_NAME" /> kunagi, kas ta on vaikebrauser, ja kasutajal keelatakse valiku seadmine. Kui te ei määra seadet, võimaldab <ph name="PRODUCT_NAME" /> kasutajal valida, kas see on vaikebrauser ja kas vastasel korral näidatakse kasutajale teatist.</translation>
+<translation id="379659290574555063">Kohtleb väliseid salvestusseadmeid kirjutuskaitstuna.</translation>
 <translation id="3800626789999016379">Seadistab kataloogi, mida <ph name="PRODUCT_NAME" /> kasutab failide allalaadimiseks.
 
       Kui määrate selle reegli, kasutab <ph name="PRODUCT_NAME" /> kataloogi olenemata sellest, kas kasutaja on selle määranud või on lubanud märgistuse, mis küsib iga kord allalaadimise asukohta.
@@ -1791,6 +1797,7 @@
 
 
           Vt ka reeglit RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Lubab komponentide värskendamise rakenduses <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Kas OCSP/CRL-i onlain-kontroll on vajalikud kohalike usaldusvõtmete puhul või mitte</translation>
 <translation id="7003334574344702284">Reegli lubamisel imporditakse salvestatud paroolid eelmisest vaikebrauserist. Lubamisel mõjutab reegel ka importimisdialoogi.
 

@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="zh-TW">
+<translation id="1007441141628883408">未設定或設為 True 時，允許更新 <ph name="PRODUCT_NAME" /> 的所有元件。
+
+      如果設為 False，則禁止更新元件。不過，部分元件不受這項政策規範：只要元件更新不含可執行的程式碼、不大幅變更瀏覽器的行為，或是對元件安全性至關重要，就不會遭到禁止。
+      這類元件的範例包括憑證撤銷清單和安全瀏覽資料。 </translation>
 <translation id="101438888985615157">將畫面旋轉 180 度</translation>
 <translation id="1017967144265860778">位於登入畫面中的電源管理設定</translation>
 <translation id="1019101089073227242">設定使用者資料目錄</translation>
@@ -132,6 +136,7 @@
       無法使用 ARC。</translation>
 <translation id="1561424797596341174">針對遠端存取主機的偵錯版本覆寫政策</translation>
 <translation id="1583248206450240930">根據預設使用 <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">將這項政策設為 True 時，使用者無法對外部儲存裝置寫入任何內容。</translation>
 <translation id="1608755754295374538">系統會直接授權存取音訊擷取裝置而不需提示的網址</translation>
 <translation id="1617235075406854669">啟用刪除瀏覽器和下載紀錄</translation>
 <translation id="1617384279878333801">允許在設定檔管理員中新增使用者</translation>
@@ -837,6 +842,7 @@
 <translation id="3780152581321609624">Kerberos SPN 包含非標準通訊埠</translation>
 <translation id="3788662722837364290">使用者進入閒置狀態時的電源管理設定</translation>
 <translation id="3793095274466276777">設定 <ph name="PRODUCT_NAME" /> 中的預設瀏覽器檢查功能並禁止使用者變更。如果您啟用這項設定，<ph name="PRODUCT_NAME" /> 會一律在起始時檢查是否為預設瀏覽器，並在情況許可下自動登錄。如果您停用這項設定，<ph name="PRODUCT_NAME" /> 就永遠不會檢查是否為預設瀏覽器，且會停用使用者控制這項設定的選項。如果您尚未設定這項設定，<ph name="PRODUCT_NAME" /> 會允許使用者控制是否為預設瀏覽器，並在不是預設瀏覽器時，允許使用者控制是否要顯示使用者通知。</translation>
+<translation id="379659290574555063">以唯讀模式處理外部儲存裝置。</translation>
 <translation id="3800626789999016379">設定 <ph name="PRODUCT_NAME" /> 下載檔案時所使用的目錄。
 
       如果設定這項政策，無論使用者是否指定政策或啟用每次均提示下載位置的標記，<ph name="PRODUCT_NAME" /> 都會使用您所提供的目錄。
@@ -1670,6 +1676,7 @@
           如果停用或未設定這項政策，則可使用任何帳戶分享主機。
 
           另請參閱 RemoteAccessHostClientDomain。</translation>
+<translation id="6979510692034647325">允許更新 <ph name="PRODUCT_NAME" /> 的元件。</translation>
 <translation id="6997592395211691850">是否需要為本機信任錨點執行線上 OCSP/CRL 檢查。</translation>
 <translation id="7003334574344702284">如果啟用這項政策，則會強制從之前的預設瀏覽器匯入儲存的密碼，並影響匯入對話方塊。如果停用這項政策，則不會匯入儲存的密碼。如果未設定這項政策，系統會自動匯入儲存的密碼，或詢問使用者是否要匯入儲存的密碼。</translation>
 <translation id="7003746348783715221"><ph name="PRODUCT_NAME" /> 偏好設定</translation>

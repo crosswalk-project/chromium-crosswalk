@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="nl">
+<translation id="1007441141628883408">Hiermee schakel je onderdelenupdates voor alle onderdelen in <ph name="PRODUCT_NAME" /> in wanneer de optie niet is ingesteld of is ingesteld op Waar (True).
+
+      Als deze optie is ingesteld op Onwaar (False), zijn de updates voor onderdelen uitgeschakeld. Bepaalde onderdelen worden echter uitgesloten van dit beleid: updates voor onderdelen worden niet uitgeschakeld als deze geen uitvoerbare code bevatten, het gedrag van de browser niet aanzienlijk veranderen of essentieel zijn voor de beveiliging.
+      Voorbeelden van dergelijk onderdelen zijn Certificate Revocation Lists en de Safe Browsing-gegevens. </translation>
 <translation id="101438888985615157">Scherm 180 graden draaien</translation>
 <translation id="1017967144265860778">Energiebeheer op het inlogscherm</translation>
 <translation id="1019101089073227242">Gegevensdirectory voor gebruiker instellen</translation>
@@ -129,6 +133,7 @@
      Als deze instelling is uitgeschakeld of niet is geconfigureerd, kunnen zakelijke gebruikers ARC niet gebruiken.</translation>
 <translation id="1561424797596341174">Beleid overschrijft Debug-builds van de host voor externe toegang</translation>
 <translation id="1583248206450240930"><ph name="PRODUCT_FRAME_NAME" /> standaard gebruiken</translation>
+<translation id="1606958238518590302">Wanneer dit beleid is ingesteld op Waar, kunnen gebruikers geen gegevens naar externe opslagapparaten schrijven.</translation>
 <translation id="1608755754295374538">URL's die zonder prompt toegang krijgen tot apparaten voor het vastleggen van audio</translation>
 <translation id="1617235075406854669">Verwijderen van browser- en downloadgeschiedenis inschakelen</translation>
 <translation id="1617384279878333801">'Persoon toevoegen in profielbeheer' toestaan</translation>
@@ -883,6 +888,7 @@
       Als deze instelling is uitgeschakeld, controleert <ph name="PRODUCT_NAME" /> nooit of dit programma de standaardbrowser is en worden gebruikersopties voor het instellen van de standaardbrowser uitgeschakeld.
 
       Als deze instelling niet is ingeschakeld, kan de gebruiker in <ph name="PRODUCT_NAME" /> bepalen of dit programma de standaardbrowser is, en of er een melding aan de gebruiker moet worden weergegeven wanneer dit niet het geval is.</translation>
+<translation id="379659290574555063">Externe opslagapparaten behandelen als alleen-lezen.</translation>
 <translation id="3800626789999016379">Hiermee configureer je de directory die <ph name="PRODUCT_NAME" /> gebruikt voor het downloaden van bestanden.
 
       Als je dit beleid instelt, gebruikt <ph name="PRODUCT_NAME" /> deze directory, ongeacht of de gebruiker een directory heeft gespecificeerd of heeft aangegeven telkens te willen worden gevraagd wat de downloadlocatie moet zijn.
@@ -1792,6 +1798,7 @@ Geheugengegevens worden in alle gevallen aan de pagina gerapporteerd, afgezien v
           Als deze instelling is uitgeschakeld of niet is ingesteld, kunnen hosts worden gedeeld met elk account.
 
           Bekijk ook RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Hiermee schakel je onderdelenupdates in <ph name="PRODUCT_NAME" /> in.</translation>
 <translation id="6997592395211691850">Of online OCSP/CRL-controles zijn vereist voor lokale vertrouwensankers</translation>
 <translation id="7003334574344702284">Indien ingeschakeld, wordt met dit beleid afgedwongen dat de opgeslagen wachtwoorden worden geïmporteerd uit de vorige standaardbrowser. Als het beleid is ingeschakeld, is dit ook van invloed op het dialoogvenster voor importeren.
 

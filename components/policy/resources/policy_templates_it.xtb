@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="it">
+<translation id="1007441141628883408">Se non impostata o impostata su true, consente gli aggiornamenti di tutti i componenti di <ph name="PRODUCT_NAME" />.
+
+      Se impostata su false, gli aggiornamenti dei componenti vengono disattivati. Tuttavia, alcuni componenti sono esclusi da questa norma: gli aggiornamenti dei componenti che non contengono codice eseguibile, che non alterano in modo significativo il comportamento del browser o che sono importanti per la sicurezza non vengono disattivati.
+      Esempi di tali componenti sono gli elenchi di revoche di certificati e i dati di Navigazione sicura. </translation>
 <translation id="101438888985615157">Ruota lo schermo di 180°</translation>
 <translation id="1017967144265860778">Gestione dell'alimentazione nella schermata di accesso</translation>
 <translation id="1019101089073227242">Imposta directory dati utente</translation>
@@ -125,6 +129,7 @@ Se la norma non viene impostata, la modalità ad alto contrasto viene disattivat
 Se l'impostazione è disattivata o non è stata configurata, gli utenti aziendali non potranno utilizzare ARC.</translation>
 <translation id="1561424797596341174">La norma sostituisce le build di debug dell'host di accesso remoto</translation>
 <translation id="1583248206450240930">Utilizza <ph name="PRODUCT_FRAME_NAME" /> per impostazione predefinita</translation>
+<translation id="1606958238518590302">Se la norma è impostata su true, gli utenti non possono scrivere su dispositivi di archiviazione esterni.</translation>
 <translation id="1608755754295374538">URL a cui verrà concesso l'accesso ai dispositivi di acquisizione audio senza richieste</translation>
 <translation id="1617235075406854669">Attiva eliminazione cronologia del browser e dei download</translation>
 <translation id="1617384279878333801">Attiva la funzione Aggiungi persona in Profile Manager</translation>
@@ -819,6 +824,7 @@ Questa norma viene rispettata soltanto se viene attivata la norma "DefaultSearch
 <translation id="3780152581321609624">Includi porta non standard in Kerberos SPN</translation>
 <translation id="3788662722837364290">Impostazioni di gestione dell'alimentazione quando l'utente diventa inattivo</translation>
 <translation id="3793095274466276777">Configura i controlli del browser predefinito in <ph name="PRODUCT_NAME" /> e impedisce agli utenti di modificarli. Se attivi questa impostazione, all'avvio <ph name="PRODUCT_NAME" /> verifica sempre di essere il browser predefinito e, se possibile, si registra automaticamente. Se l'impostazione è disattivata, <ph name="PRODUCT_NAME" /> non potrà mai verificare di essere il browser predefinitoe disattiva i controlli utente per rendere attiva l'opzione. Se l'impostazione non è configurata, <ph name="PRODUCT_NAME" /> consente all'utente di controllare se il browser predefinito è impostato e, in caso contrario, se devono essere visualizzate le notifiche per gli utenti.</translation>
+<translation id="379659290574555063">Considera i dispositivi di archiviazione esterni come di sola lettura.</translation>
 <translation id="3800626789999016379">Consente di configurare la directory che <ph name="PRODUCT_NAME" /> utilizza per il download dei file.
 
       Se la norma viene impostata, <ph name="PRODUCT_NAME" /> utilizza la directory fornita, indipendentemente dal fatto che l'utente ne abbia specificata una o abbia attivato il flag da attivare ogni volta per il percorso di download.
@@ -1632,6 +1638,7 @@ Se attivi questa impostazione, gli host potranno essere condivisi solo utilizzan
 Se disattivi o non definisci questa impostazione, gli host potranno essere condivisi da qualsiasi account.
 
 Vedi anche RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Consenti gli aggiornamenti dei componenti in <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Se i controlli OCSP/CRL online sono obbligatori o meno per i trust anchor locali</translation>
 <translation id="7003334574344702284">Se è attiva, questa norma impone l'importazione delle password salvate dal browser predefinito precedente. Se la norma è attiva incide anche sulla finestra di dialogo di importazione. Se non è attiva, le password salvate non vengono importate. Se non viene impostata, all'utente potrebbe essere chiesto se desidera effettuare l'importazione, oppure l'importazione potrebbe avvenire automaticamente.</translation>
 <translation id="7003746348783715221">Preferenze di <ph name="PRODUCT_NAME" /></translation>

@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="ja">
+<translation id="1007441141628883408">設定されていない場合、または True に設定されている場合、<ph name="PRODUCT_NAME" /> のすべてのコンポーネントでコンポーネントの更新が有効になります。
+
+      False に設定されている場合、コンポーネントの更新は無効になります。ただし、一部のコンポーネントはこのポリシーの対象外です。実行可能コードを含まないコンポーネント、ブラウザの動作を著しく改変しないコンポーネント、セキュリティ上重要なコンポーネントの更新は無効になりません。
+      そのようなコンポーネントの例として、証明書取り消しリストやセーフ ブラウジング データが挙げられます。 </translation>
 <translation id="101438888985615157">画面を 180 度回転</translation>
 <translation id="1017967144265860778">ログイン画面の電源管理</translation>
 <translation id="1019101089073227242">ユーザー データ ディレクトリを設定する</translation>
@@ -133,6 +137,7 @@
       使用できません。</translation>
 <translation id="1561424797596341174">リモート アクセス ホストの Debug ビルドでのポリシー オーバーライド</translation>
 <translation id="1583248206450240930">デフォルトで <ph name="PRODUCT_FRAME_NAME" /> を使用する</translation>
+<translation id="1606958238518590302">このポリシーが true に設定されている場合、ユーザーは外部ストレージ デバイスへの書き込みを行えません。</translation>
 <translation id="1608755754295374538">ユーザー確認なしで音声キャプチャ デバイスへのアクセスが許可される URL</translation>
 <translation id="1617235075406854669">閲覧とダウンロードの履歴を削除可能にする</translation>
 <translation id="1617384279878333801">プロフィール マネージャでユーザーを追加することを有効にする</translation>
@@ -835,6 +840,7 @@
 <translation id="3780152581321609624">Kerberos SPN に非標準ポートを含める</translation>
 <translation id="3788662722837364290">ユーザーがアイドル状態になったときの電源管理設定</translation>
 <translation id="3793095274466276777"><ph name="PRODUCT_NAME" /> での既定のブラウザのチェックを設定し、ユーザーがこの設定を変更できないようにします。この設定を有効にすると、<ph name="PRODUCT_NAME" /> が既定のブラウザであるかどうかを常に起動時にチェックし、必要に応じて自動登録します。この設定を無効にすると、<ph name="PRODUCT_NAME" /> が既定のブラウザであるかどうかをチェックせずに、このオプションを設定するユーザー コントロールを無効にします。この設定を設定しないと、<ph name="PRODUCT_NAME" /> が既定のブラウザであるかどうか、既定でない場合にユーザー通知を表示すべきかどうかをユーザーが管理できます。</translation>
+<translation id="379659290574555063">外部ストレージ デバイスを読み取り専用にする。</translation>
 <translation id="3800626789999016379">ファイルをダウンロードするときに <ph name="PRODUCT_NAME" /> が使用するディレクトリを設定します。
 
       このポリシーを設定した場合は、ユーザーがディレクトリを指定していたり毎回ダウンロード先の場所を確認するよう指定していたりしても、ここで指定したディレクトリが <ph name="PRODUCT_NAME" /> で使用されます。
@@ -1673,6 +1679,7 @@ Active Directory ドメインに参加していない Windows インスタンス
           この設定を無効にした場合または設定しない場合、どのアカウントでもホストを共有できます。
 
           RemoteAccessHostClientDomain も参考にしてください。</translation>
+<translation id="6979510692034647325"><ph name="PRODUCT_NAME" /> でコンポーネントの更新を有効にする。</translation>
 <translation id="6997592395211691850">ローカルの信頼済みアンカーにオンラインの OCSP/CRL チェックが必要かどうかを示します</translation>
 <translation id="7003334574344702284">このポリシーを有効にすると、以前の既定のブラウザで保存されたパスワードがインポートされます。有効にすると、このポリシーはインポート ダイアログにも影響します。無効にすると、保存されたパスワードはインポートされません。このポリシーが未設定の場合、インポートするかどうかをユーザーに尋ねるか、自動的にインポートされます。</translation>
 <translation id="7003746348783715221"><ph name="PRODUCT_NAME" /> の設定</translation>

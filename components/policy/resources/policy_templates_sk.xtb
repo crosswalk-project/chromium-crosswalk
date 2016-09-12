@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="sk">
+<translation id="1007441141628883408">Keď toto pravidlo nenastavíte alebo nastavíte na možnosť True, umožňuje aktualizovať všetky komponenty prehliadača <ph name="PRODUCT_NAME" />.
+
+      Ak ho nastavíte na možnosť False, aktualizácie komponentov budú zakázané. Na niektoré komponenty sa však toto pravidlo nevzťahuje: aktualizácie komponentov, ktoré neobsahujú spustiteľný kód, podstatne nemenia správanie prehliadača alebo ktoré sú nevyhnutné z hľadiska zabezpečenia, nebudú zakázané.
+      Medzi príklady takýchto komponentov patria zoznamy zrušených certifikátov a údaje bezpečného prehliadania. </translation>
 <translation id="101438888985615157">Otočiť obrazovku o 180 stupňov</translation>
 <translation id="1017967144265860778">Správa možností napájania na prihlasovacej obrazovke</translation>
 <translation id="1019101089073227242">Nastaviť adresár používateľských údajov</translation>
@@ -129,6 +133,7 @@
 Ak je toto nastavenie zakázané alebo nie je nakonfigurované, nebudú môcť podnikoví používatelia používať funkciu ARC.</translation>
 <translation id="1561424797596341174">Prepísania pravidiel pre zostavy ladenia používané hostiteľom vzdialeného prístupu</translation>
 <translation id="1583248206450240930">Používať v predvolenom nastavení doplnok <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">Ak je toto pravidlo nastavené na možnosť True, používatelia nemôžu zapisovať na externé úložné zariadenia.</translation>
 <translation id="1608755754295374538">Webové adresy, ktorým bude udelený prístup k zariadeniam na zachytávanie zvuku bez zobrazenia výzvy</translation>
 <translation id="1617235075406854669">Povoliť odstránenie histórie prehliadača a sťahovania</translation>
 <translation id="1617384279878333801">Povoliť pridanie osoby pomocou správcu profilov</translation>
@@ -875,6 +880,7 @@ Ak toto nastavenie zakážete, v okne správcu hesiel nebude možné zobraziť 
 <translation id="3780152581321609624">Do hlavného názvu služby protokolu Kerberos zahrnúť neštandardný port</translation>
 <translation id="3788662722837364290">Nastavenia správy spotreby energie, keď je používateľ nečinný</translation>
 <translation id="3793095274466276777">Slúži na konfiguráciu kontroly predvoleného prehliadača v prehliadači <ph name="PRODUCT_NAME" /> a bráni používateľom toto nastavenie zmeniť. Ak toto nastavenie povolíte, prehliadač <ph name="PRODUCT_NAME" /> pri spustení vždy skontroluje, či je predvoleným prehliadačom, a ak to bude možné, automaticky sa registruje. Ak je toto nastavenie zakázané, prehliadač <ph name="PRODUCT_NAME" /> nebude kontrolovať, či je predvoleným prehliadačom, a zakáže používateľské ovládacie prvky na nastavenie tejto možnosti. Ak toto nastavenie nebolo nakonfigurované, prehliadač <ph name="PRODUCT_NAME" /> umožní používateľovi určiť, či ho chce nastaviť ako predvolený prehliadač a či sa v prípade, ak ním nie je, majú používateľovi zobraziť upozornenia.</translation>
+<translation id="379659290574555063">Považovať externé úložné zariadenia za položky iba na čítanie</translation>
 <translation id="3800626789999016379">Umožňuje nakonfigurovať adresár, ktorý bude prehliadač <ph name="PRODUCT_NAME" /> používať na sťahovanie súborov.
 
       Ak nastavíte toto pravidlo, prehliadač <ph name="PRODUCT_NAME" /> bude používať zadaný adresár bez ohľadu na to, či používateľ určil takýto adresár alebo povolil príznak na zobrazenie výzvy na zadanie umiestnenia pre stiahnuté položky pri každom sťahovaní.
@@ -1790,6 +1796,7 @@ Ak je toto nastavenie povolené, hostiteľov je možné zdieľať iba pomocou ú
 Ak je toto nastavenie zakázané alebo nie je nastavené, hostiteľov je možné zdieľať pomocou ľubovoľného účtu.
 
 Pozrite si tiež pravidlo RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Umožňuje aktualizácie komponentov v prehliadači <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Toto pravidlo určuje, či sa pre miestne dôveryhodné ukotvenia vyžadujú kontroly OCSP/CRL online</translation>
 <translation id="7003334574344702284">Ak je toto pravidlo povolené, uložené heslá sú importované z predchádzajúceho predvoleného prehliadača. Povolenie tohto pravidla má vplyv aj na dialógové okno importu.
 

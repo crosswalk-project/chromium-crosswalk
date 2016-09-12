@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="ro">
+<translation id="1007441141628883408">Când nu este configurată sau este activată, permite actualizările componentelor pentru toate componentele din <ph name="PRODUCT_NAME" />.
+
+      Dacă este dezactivată, actualizările componentelor sunt dezactivate. Totuși, anumite componente nu se supun acestei politici: nu vor fi dezactivate actualizările oricărei componente care nu conține un cod executabil sau care nu schimbă semnificativ comportamentul browserului ori care este critică pentru securitatea sa.
+      Exemplele de asemenea componente includ listele de revocare a certificatelor și datele de navigare sigură. </translation>
 <translation id="101438888985615157">Rotește ecranul la 180 de grade</translation>
 <translation id="1017967144265860778">Gestionarea consumului de energie pe ecranul de conectare</translation>
 <translation id="1019101089073227242">Setează directorul pentru datele utilizatorului</translation>
@@ -133,6 +137,7 @@
       nu pot folosi ARC.</translation>
 <translation id="1561424797596341174">Suprascrieri de politici pentru versiunile de depanare ale gazdei de acces la distanță</translation>
 <translation id="1583248206450240930">Utilizează <ph name="PRODUCT_FRAME_NAME" /> în mod prestabilit</translation>
+<translation id="1606958238518590302">Când această politică este activată, utilizatorii nu pot scrie nimic pe dispozitivele de stocare externe.</translation>
 <translation id="1608755754295374538">Adresele URL cărora li se va acorda acces automat la dispozitivele de capturare a conținutului audio</translation>
 <translation id="1617235075406854669">Permite ștergerea istoricului browserului și a istoricului descărcărilor</translation>
 <translation id="1617384279878333801">Activează adăugarea persoanelor în managerul de profiluri</translation>
@@ -853,6 +858,7 @@
       Dacă această setare este dezactivată, <ph name="PRODUCT_NAME" /> nu va verifica niciodată dacă este browserul prestabilit și va dezactiva comenzile utilizatorului pentru setarea acestei opțiuni.
 
       Dacă această setare nu este configurată, <ph name="PRODUCT_NAME" /> va permite utilizatorului să stabilească dacă acesta este browserul prestabilit și dacă trebuie afișate notificări pentru utilizator atunci când nu este.</translation>
+<translation id="379659290574555063">Dispozitivele de stocare externă sunt tratate ca „numai în citire”.</translation>
 <translation id="3800626789999016379">Configurează directorul pe care <ph name="PRODUCT_NAME" /> îl va folosi pentru a descărca fișierele.
 
       Dacă configurezi această politică, <ph name="PRODUCT_NAME" /> va folosi directorul indicat, indiferent dacă utilizatorul a specificat unul sau a activat semnalizatorul care îi solicită locația de descărcare de fiecare dată.
@@ -1696,6 +1702,7 @@
           Dacă această setare este dezactivată sau neconfigurată, gazdele pot fi accesate folosind orice cont.
 
           Vezi și RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Permite actualizările componentelor în <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Dacă verificările OCSP/CRL online sunt necesare sau nu pentru ancorele de încredere locale</translation>
 <translation id="7003334574344702284">Dacă este activată, această politică forțează importarea parolelor salvate din browserul prestabilit anterior. Dacă este activată, această politică afectează, de asemenea, caseta de dialog de importare. Dacă este dezactivată, parolele salvate nu sunt importate. În cazul în care nu este setată, utilizatorul poate fi întrebat dacă dorește importarea sau aceasta poate avea loc în mod automat.</translation>
 <translation id="7003746348783715221">Preferințe <ph name="PRODUCT_NAME" /></translation>

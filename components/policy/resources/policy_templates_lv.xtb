@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="lv">
+<translation id="1007441141628883408">Iespējo komponentu atjauninājumus visiem <ph name="PRODUCT_NAME" /> komponentiem, ja šī politika nav iestatīta vai tās iestatījums ir “Patiesa”.
+
+      Ja šīs politikas iestatījums ir “Nepatiesa”, komponentu atjauninājumi ir atspējoti. Tomēr uz dažiem komponentiem šī politika neattiecas: netiks atspējoti atjauninājumi jebkuram komponentam, kas nesatur izpildāmu kodu, būtiski nemaina pārlūka darbību vai ir kritiski nepieciešams.
+      Šādu komponentu piemēri: sertifikātu atsaukšanas saraksti un drošas pārlūkošanas dati. </translation>
 <translation id="101438888985615157">Pagriezt ekrānu par 180 grādiem</translation>
 <translation id="1017967144265860778">Barošanas pārvaldība pieteikšanās ekrānā</translation>
 <translation id="1019101089073227242">Iestata lietotāja datu direktoriju</translation>
@@ -134,6 +138,7 @@
       nevar izmantot ARC.</translation>
 <translation id="1561424797596341174">Politikas ignorēšana attālās piekļuves saimniekdatora atkļūdošanas versijām</translation>
 <translation id="1583248206450240930">Pēc noklusējuma lietot <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">Ja šī politika ir iestatīta kā patiesa, lietotāji nevar neko rakstīt ārējās atmiņas ierīcēs.</translation>
 <translation id="1608755754295374538">Vietrāži URL, kuriem tiks nodrošināta piekļuve audio tveršanas ierīcēm bez uzvednes parādīšanas.</translation>
 <translation id="1617235075406854669">Iespējot pārlūka un lejupielādes vēstures dzēšanu</translation>
 <translation id="1617384279878333801">Personas pievienošanas iespējošana profilu pārvaldniekā</translation>
@@ -889,6 +894,7 @@
       Ja šis iestatījums ir atspējots, <ph name="PRODUCT_NAME" /> nekad nepārbauda, vai tas ir noklusējuma pārlūks, un lietotājam tiek atspējota iespēja iestatīt šo opciju.
 
       Ja šis iestatījums nav iestatīts, <ph name="PRODUCT_NAME" /> ļauj lietotājam noteikt, vai tas ir noklusējuma pārlūks un, ja tas nav, vai jāparāda lietotāja paziņojumi.</translation>
+<translation id="379659290574555063">Izmanto ārējās atmiņas ierīces kā tikai lasāmas.</translation>
 <translation id="3800626789999016379">Tiek konfigurēts direktorijs, kas pārlūkā <ph name="PRODUCT_NAME" /> tiek lietots failu lejupielādei.
 
       Ja šī politika ir iestatīta, pārlūkā <ph name="PRODUCT_NAME" /> tiek lietots norādītais direktorijs neatkarīgi no tā, vai lietotājs ir norādījis direktoriju vai iespējojis karodziņu, lai ikreiz tiktu pieprasīts norādīt lejupielādes vietu.
@@ -1796,6 +1802,7 @@
           Ja šī politika ir atspējota vai nav iestatīta, saimniekdatorus var koplietot, izmantojot jebkuru kontu.
 
           Skatiet arī politiku RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Iespējo <ph name="PRODUCT_NAME" /> komponentu atjauninājumus.</translation>
 <translation id="6997592395211691850">Vai lokāliem uzticamības enkuriem ir nepieciešama OCSP/CRL pārbaude</translation>
 <translation id="7003334574344702284">Šī politika (ja tā ir iespējota) liek importēt saglabātās paroles no iepriekšējā noklusējuma pārlūka. Ja šī politika ir iespējota, tā arī maina importēšanas dialoglodziņu.
 

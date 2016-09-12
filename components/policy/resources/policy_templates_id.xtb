@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="id">
+<translation id="1007441141628883408">Mengaktifkan pembaruan komponen untuk semua komponen di <ph name="PRODUCT_NAME" /> jika belum disetel atau sudah disetel ke True.
+
+      Jika disetel ke False, pembaruan untuk komponen akan dinonaktifkan. Namun, beberapa komponen akan dikecualikan dari kebijakan ini: pembaruan untuk komponen apa pun yang tidak berisi kode yang dapat dieksekusi atau tidak mengubah perilaku browser secara signifikan, maupun yang bersifat kritis untuk keamanannya tidak akan dinonaktifkan.
+      Contoh komponen tersebut mencakup daftar pencabutan sertifikat dan data penjelajahan aman. </translation>
 <translation id="101438888985615157">Putar layar sebesar 180 derajat</translation>
 <translation id="1017967144265860778">Pengelolaan daya di layar masuk</translation>
 <translation id="1019101089073227242">Menyetel direktori data pengguna</translation>
@@ -132,6 +136,7 @@
       tidak dapat menggunakan ARC.</translation>
 <translation id="1561424797596341174">Penggantian kebijakan untuk versi Debug host akses jarak jauh</translation>
 <translation id="1583248206450240930">Gunakan <ph name="PRODUCT_FRAME_NAME" /> jika tidak diubah</translation>
+<translation id="1606958238518590302">Jika kebijakan ini diatur ke true, pengguna tidak akan dapat menuliskan apa pun pada perangkat penyimpanan eksternal.</translation>
 <translation id="1608755754295374538">URL yang akan diberi akses ke perangkat perekam audio tanpa peringatan</translation>
 <translation id="1617235075406854669">Aktifkan penghapusan riwayat unduhan atau browser</translation>
 <translation id="1617384279878333801">Mengaktifkan tambahkan orang di pengelola profil</translation>
@@ -841,6 +846,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
 <translation id="3780152581321609624">Sertakan port non-standar di SPN Kerberos</translation>
 <translation id="3788662722837364290">Setelan pengelolaan daya saat pengguna sedang menganggur</translation>
 <translation id="3793095274466276777">Mengonfigurasi pemeriksaan browser default di <ph name="PRODUCT_NAME" /> dan mencegah pengguna mengubahnya. Jika Anda mengaktifkan setelan ini, <ph name="PRODUCT_NAME" /> akan selalu memeriksa saat permulaan apakah itu browser default dan mendaftar sendiri secara otomatis jika memungkinkan. Jika setelan ini dinonaktifkan, <ph name="PRODUCT_NAME" /> tidak akan memeriksa apakah itu browser default dan akan menonaktifkan kontrol pengguna untuk setelan opsi ini. Jika setelan ini tidak disetel, <ph name="PRODUCT_NAME" /> akan mengizinkan pengguna mengontrol apakah itu browser default dan apakah pemberitahuan pengguna harus ditampilkan ketika tidak muncul.</translation>
+<translation id="379659290574555063">Memperlakukan perangkat penyimpanan eksternal sebagai hanya baca.</translation>
 <translation id="3800626789999016379">Mengonfigurasi direktori yang akan digunakan oleh <ph name="PRODUCT_NAME" /> untuk mengunduh file.
 
       Jika Anda menyetel kebijakan ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang diberikan terlepas apakah pengguna telah menetapkan satu tanda atau mengaktifkan tanda untuk dimintai lokasi unduhan setiap saat.
@@ -1679,6 +1685,7 @@ Pengguna dapat memasang item dari URL apa pun yang cocok dengan item dalam dafta
           Jika setelan ini dinonaktifkan atau tidak disetel, host dapat dibagikan menggunakan akun apa pun.
 
           Lihat juga RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Mengaktifkan pembaruan komponen di <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Meskipun OCSP/CRL sedang online dibutuhkan tautan lokal yang dipercaya ataupun tidak</translation>
 <translation id="7003334574344702284">Kebijakan ini memaksa sandi tersimpan untuk diimpor dari browser default sebelumnya, jika diaktifkan. Jika diaktifkan, kebijakan ini juga memengaruhi dialog impor. Jika dinonaktifkan, sandi yang disimpan tidak diimpor. Jika tidak disetel, pengguna mungkin ditanya apakah akan mengimpor, atau pengimporan dapat terjadi secara otomatis.</translation>
 <translation id="7003746348783715221">Preferensi <ph name="PRODUCT_NAME" /></translation>

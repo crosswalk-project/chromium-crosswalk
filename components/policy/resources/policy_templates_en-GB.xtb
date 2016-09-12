@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="en-GB">
+<translation id="1007441141628883408">Enables component updates for all components in <ph name="PRODUCT_NAME" /> when unset or set to True.
+
+      If set to False, updates to components are disabled. However, some components are exempt from this policy: updates to any component that does not contain executable code, or does not significantly alter the behaviour of the browser, or is critical for its security will not be disabled.
+      Examples of such components include the certificate revocation lists and safe browsing data. </translation>
 <translation id="101438888985615157">Rotate screen by 180 degrees</translation>
 <translation id="1017967144265860778">Power management on the login screen</translation>
 <translation id="1019101089073227242">Set user data directory</translation>
@@ -134,6 +138,7 @@
       unable to use ARC.</translation>
 <translation id="1561424797596341174">Policy overrides for Debug builds of the remote access host</translation>
 <translation id="1583248206450240930">Use <ph name="PRODUCT_FRAME_NAME" /> by default</translation>
+<translation id="1606958238518590302">When this policy is set to true, users cannot write anything to external storage devices.</translation>
 <translation id="1608755754295374538">URLs that will be granted access to audio capture devices without prompt</translation>
 <translation id="1617235075406854669">Enable deleting browser and download history</translation>
 <translation id="1617384279878333801">Enable add person in profile manager</translation>
@@ -888,6 +893,7 @@ If you enable this setting, <ph name="PRODUCT_NAME" /> will always check on star
 If this setting is disabled, <ph name="PRODUCT_NAME" /> will never check if it is the default browser and will disable user controls for setting this option.
 
 If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to control whether it is the default browser and whether user notifications should be shown when it isn't.</translation>
+<translation id="379659290574555063">Treat external storage devices as read-only.</translation>
 <translation id="3800626789999016379">Configures the directory that <ph name="PRODUCT_NAME" /> will use for downloading files.
 
       If you set this policy, <ph name="PRODUCT_NAME" /> will use the provided directory regardless of whether the user has specified one or enabled the flag to be prompted for download location every time.
@@ -1805,6 +1811,7 @@ If this setting is not set, <ph name="PRODUCT_NAME" /> will allow the user to co
           If this setting is disabled or not set, then hosts can be shared using any account.
 
           See also RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Enables component updates in <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Whether online OCSP/CRL checks are required for local trust anchors</translation>
 <translation id="7003334574344702284">This policy forces the saved passwords to be imported from the previous default browser, if enabled. If enabled, this policy also affects the import dialogue.
 

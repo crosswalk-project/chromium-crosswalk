@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="pt-PT">
+<translation id="1007441141628883408">Ativa as atualizações de componentes para todos os componentes no <ph name="PRODUCT_NAME" /> quando não estão definidas ou estão definidas como Verdadeiro.
+
+      Se estiverem definidas como Falso, as atualizações de componentes são desativadas. Contudo, alguns componentes estão isentos desta política: as atualizações de quaisquer componentes que não contenham código executável, que não alterem significativamente o comportamento do navegador ou que sejam essenciais para a respetiva segurança não são desativadas.
+      Alguns exemplos desses componentes incluem os dados da navegação segura e as listas de revogação de certificados. </translation>
 <translation id="101438888985615157">Rodar o ecrã 180 graus</translation>
 <translation id="1017967144265860778">Gestão de energia no ecrã de início de sessão</translation>
 <translation id="1019101089073227242">Definir diretório de dados do utilizador</translation>
@@ -132,6 +136,7 @@
       não podem utilizar o ARC.</translation>
 <translation id="1561424797596341174">Substituições da política para compilações de Depuração do anfitrião de acesso remoto</translation>
 <translation id="1583248206450240930">Utilizar o <ph name="PRODUCT_FRAME_NAME" /> por predefinição</translation>
+<translation id="1606958238518590302">Quando esta política está definida como verdadeira, os utilizadores não conseguem escrever nos dispositivos de armazenamento externo.</translation>
 <translation id="1608755754295374538">URLs aos quais será concedido acesso a dispositivos de captura de áudio imediatamente</translation>
 <translation id="1617235075406854669">Ativar a eliminação do histórico de transferências e do navegador</translation>
 <translation id="1617384279878333801">Ativar adicionar pessoa no gestor de perfis</translation>
@@ -840,6 +845,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
 <translation id="3780152581321609624">Incluir porta não padrão no SPN do Kerberos</translation>
 <translation id="3788662722837364290">Definições de gestão de energia quando o utilizador fica inativo</translation>
 <translation id="3793095274466276777">Configura o navegador predefinido, verifica o <ph name="PRODUCT_NAME" /> e impede que os utilizadores as alterem. Se ativar esta definição, o <ph name="PRODUCT_NAME" /> verificará sempre, durante o arranque, se é o navegador predefinido e registar-se-á automaticamente, se possível. Se esta definição estiver desativada, o <ph name="PRODUCT_NAME" /> nunca verificará se é o navegador predefinido e desativará os controlos dos utilizadors para definirem esta opção. Se a opção não for definida, o <ph name="PRODUCT_NAME" /> permitirá que os utilizadores controlem se é o navegador predefinido e se deverão ser mostradas as notificações de utilizador caso não o seja.</translation>
+<translation id="379659290574555063">Tratar os dispositivos de armazenamento externo como só de leitura.</translation>
 <translation id="3800626789999016379">Configura o diretório que o <ph name="PRODUCT_NAME" /> irá utilizar para transferir ficheiros.
 
       Se definir esta política, o <ph name="PRODUCT_NAME" /> utilizar o diretório fornecido, independentemente de o utilizador ter especificado um diretório ou ativado o sinalizador para que seja sempre pedida a localização da transferência.
@@ -1679,6 +1685,7 @@ Se esta definição estiver desativada, os utilizadores não podem ativar o prox
           Se esta definição estiver desativada ou por definir, é possível partilhar os anfitriões através de qualquer conta.
 
           Consulte também RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Ativa as atualizações de componentes no <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Se são necessárias verificações de OCSP/CRL online para âncoras fidedignas locais</translation>
 <translation id="7003334574344702284">Se esta política estiver ativada, força a importação de palavras-passe guardadas a partir do anterior navegador predefinido e também afeta a caixa de diálogo de importação. Se estiver desativada, as palavras-passe não são importadas. Se não estiver definida, o utilizador poderá ser questionado se pretende importá-las ou a importação poderá ocorrer automaticamente.</translation>
 <translation id="7003746348783715221">Preferências do <ph name="PRODUCT_NAME" /></translation>

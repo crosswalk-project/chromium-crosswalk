@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="fil">
+<translation id="1007441141628883408">Ine-enable ang mga pag-update ng bahagi para sa lahat ng bahagi sa <ph name="PRODUCT_NAME" /> kapag hindi nakatakda o nakatakda sa True.
+
+      Kung nakatakda sa False, idi-disable ang mga pag-update sa mga bahagi. Gayunpaman, nakabukod mula sa patakarang ito ang ilang bahagi: ang mga pag-update sa anumang bahagi na hindi naglalaman ng executable code, o hindi binabago ang pagkilos ng browser, o mahalaga para sa seguridad nito ay hindi idi-disable.
+      Kabilang sa mga halimbawa ng naturang mga bahagi ang mga listahan ng pagpapawalang-bisa ng certification at data ng ligtas na pagba-browse. </translation>
 <translation id="101438888985615157">I-rotate ang screen nang 180 degrees</translation>
 <translation id="1017967144265860778">Pamamahala ng power sa screen sa pag-log in</translation>
 <translation id="1019101089073227242">Itakda ang direktoryo ng data ng user</translation>
@@ -134,6 +138,7 @@
       mga user ng enterprise ang ARC.</translation>
 <translation id="1561424797596341174">Mga pag-override ng patakaran para sa Mga build sa pag-debug ng host ng malayuang access</translation>
 <translation id="1583248206450240930">Gamitin ang <ph name="PRODUCT_FRAME_NAME" /> bilang default</translation>
+<translation id="1606958238518590302">Kapag nakatakda sa true ang patakarang ito, hindi makakapag-write ang mga user ng kahit ano sa external na storage ng mga device.</translation>
 <translation id="1608755754295374538">Mga URL na mabibigyan ng access sa mga device na nakakakuha ng audio nang walang prompt</translation>
 <translation id="1617235075406854669">Paganahin ang pagtatanggal ng browser at kasaysayan ng pag-download</translation>
 <translation id="1617384279878333801">I-enable ang magdagdag ng tao sa profile manager</translation>
@@ -878,6 +883,7 @@
 <translation id="3780152581321609624">Isama sa Kerberos SPN ang port na hindi karaniwan</translation>
 <translation id="3788662722837364290">Mga setting ng pamamahala ng power kapag naging idle ang user</translation>
 <translation id="3793095274466276777">Kino-configure ang default na mga pagsusuri ng browser sa <ph name="PRODUCT_NAME" /> at pinipigilan ang mga user sa pagbabago ng mga ito. Kung pinagana mo ang setting na ito, palaging titingnan ng <ph name="PRODUCT_NAME" /> ang startup kahit na default na browser ito at awtomatikong irerehistro ang sarili nito kung posible. Kung hindi pinagana ang setting na ito, hindi kailanmang titingnan ng <ph name="PRODUCT_NAME" /> kung ito ang default na browser at hindi papaganahin ang mga kontrol ng user para sa pagtatakda ng pagpipiliang ito. Kung hindi nakatakda ang setting na ito, papayagan ng <ph name="PRODUCT_NAME" /> ang user na kontrolin kahit na ito ay default na browser at kahit na dapat maipakita ang mga notification ng user kapag hindi ito ipinapakita.</translation>
+<translation id="379659290574555063">Itinuturing ang mga external na storage ng device bilang read-only.</translation>
 <translation id="3800626789999016379">Kino-configure ang direktoryong gagamitin ng <ph name="PRODUCT_NAME" /> para sa pagda-download ng mga file.
 
       Kung itatakda mo ang patakarang ito, gagamitin ng <ph name="PRODUCT_NAME" /> ang ibinigay na direktoryo, tumukoy man ang user ng isa o na-enable niya ang flag upang ma-prompt para sa lokasyon ng download sa bawat pagkakataon.
@@ -1795,6 +1801,7 @@ lumagpas na sa partikular na haba ng panahon ang oras na hindi ito nagamit.
           Kung idi-disable o hindi itatakda ang setting na ito, maibabahagi ang mga host gamit ang anumang account.
 
           Tingnan din ang RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Ine-enable ang mga pag-update ng bahagi sa <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Kung kinakailangan ang mga online na pagsusuri sa OCSP/CRL para sa mga lokal na pinagkakatiwalaang anchor</translation>
 <translation id="7003334574344702284">Pinupwersa ng patakarang ito na ma-import mula sa nakaraang default na browser ang mga naka-save na password kung pinagana. Kung pinagana, naaapektuhan rin ng patakarang ito ang dialog ng import.
 

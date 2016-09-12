@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="vi">
+<translation id="1007441141628883408">Bật cập nhật thành phần cho tất cả các thành phần trong <ph name="PRODUCT_NAME" /> khi chưa được đặt hoặc đã được đặt thành True.
+
+      Nếu được đặt thành False, tùy chọn cập nhật thành phần bị tắt. Tuy nhiên, một số thành phần được loại trừ khỏi chính sách này: các bản cập nhật cho bất kỳ thành phần nào không chứa mã thực thi hoặc không làm thay đổi đáng kể hoạt động của trình duyệt hay có ý nghĩa quan trọng đối với tính bảo mật của trình duyệt sẽ không bị tắt.
+      Ví dụ về các thành phần như vậy gồm có danh sách thu hồi chứng chỉ và dữ liệu duyệt web an toàn. </translation>
 <translation id="101438888985615157">Xoay màn hình 180 độ</translation>
 <translation id="1017967144265860778">Quản lý nguồn trên màn hình đăng nhập</translation>
 <translation id="1019101089073227242">Thiết lập thư mục dữ liệu người dùng</translation>
@@ -134,6 +138,7 @@
       doanh nghiệp sẽ không thể sử dụng ARC.</translation>
 <translation id="1561424797596341174">Chính sách ghi đè dành cho bản dựng Gỡ lỗi của máy chủ truy cập từ xa</translation>
 <translation id="1583248206450240930">Sử dụng <ph name="PRODUCT_FRAME_NAME" /> theo mặc định</translation>
+<translation id="1606958238518590302">Khi chính sách này được đặt thành true, người dùng không thể ghi bất kỳ nội dung gì vào thiết bị lưu trữ bên ngoài.</translation>
 <translation id="1608755754295374538">Các URL sẽ được cấp quyền truy cập thiết bị ghi âm mà không cần phải hiển thị lời nhắc</translation>
 <translation id="1617235075406854669">Bật xóa lịch sử trình duyệt và lịch sử tải xuống</translation>
 <translation id="1617384279878333801">Bật tính năng thêm người trong trình quản lý hồ sơ</translation>
@@ -877,6 +882,7 @@ Khi chính sách này được đặt thành false hoặc không được địn
 <translation id="3780152581321609624">Bao gồm cổng không chuẩn trong  Kerberos SPN</translation>
 <translation id="3788662722837364290">Cài đặt quản lý nguồn khi người dùng không sử dụng</translation>
 <translation id="3793095274466276777">Định cấu hình kiểm tra trình duyệt mặc định trong <ph name="PRODUCT_NAME" /> và ngăn người dùng thay đổi cấu hình này. Nếu bạn bật cài đặt này, <ph name="PRODUCT_NAME" /> sẽ luôn kiểm tra khi khởi động để xem đó có phải là trình duyệt mặc định không và tự động đăng ký chính nó nếu có thể. Nếu bạn tắt cài đặt này, <ph name="PRODUCT_NAME" /> sẽ không bao giờ kiểm tra xem đó có phải là trình duyệt mặc định không và vô hiệu hóa kiểm soát của người dùng để đặt tùy chọn này. Nếu cài đặt này không được thiết lập, <ph name="PRODUCT_NAME" /> sẽ cho phép người dùng kiểm soát xem đó có phải là trình duyệt mặc định không và có nên hiển thị thông báo cho người dùng hay không khi không phải là trình duyệt mặc định.</translation>
+<translation id="379659290574555063">Coi thiết bị lưu trữ bên ngoài là thiết bị chỉ đọc.</translation>
 <translation id="3800626789999016379">Định cấu hình thư mục mà <ph name="PRODUCT_NAME" /> sẽ sử dụng để tải xuống tệp.
 
       Nếu bạn đặt chính sách này, <ph name="PRODUCT_NAME" /> sẽ sử dụng thư mục được cung cấp bất kể người dùng đã chỉ định một thư mục hay đã bật cờ để được nhắc vị trí cho mỗi lần tải xuống.
@@ -1787,6 +1793,7 @@ Khi chính sách này được đặt thành false hoặc không được địn
           Nếu cài đặt này bị tắt hoặc không được đặt thì máy chủ có thể được chia sẻ bằng cách sử dụng bất kỳ tài khoản nào.
 
           Đồng thời, hãy xem RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Bật cập nhật thành phần trong <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Có bắt buộc kiểm tra OCSP/CRL trực tuyến cho mẩu neo tin cậy nội bộ hay không</translation>
 <translation id="7003334574344702284">Chính sách này nếu được bật sẽ buộc mật khẩu đã lưu phải được nhập từ trình duyệt mặc định trước đó. Nếu được bật, chính sách này cũng ảnh hưởng đến hộp thoại nhập.
 

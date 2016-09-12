@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="zh-CN">
+<translation id="1007441141628883408">如果此政策未设置或设为 true，则允许更新 <ph name="PRODUCT_NAME" /> 中的所有组件。
+
+      如果此政策设为 false，则禁止更新组件。不过，部分组件不受此政策限制：只要组件更新不含可执行的代码、不明显改变浏览器的行为，或对浏览器的安全性至关重要，系统就不会禁止此类组件更新。
+      此类组件包括证书撤消列表和安全浏览数据。 </translation>
 <translation id="101438888985615157">将屏幕旋转 180 度</translation>
 <translation id="1017967144265860778">登录屏幕的电源管理设置</translation>
 <translation id="1019101089073227242">设置用户数据目录</translation>
@@ -124,6 +128,7 @@
 如果停用或未配置此设置，那么企业用户将无法使用 ARC。</translation>
 <translation id="1561424797596341174">覆盖与远程访问主机的调试版本号相关的政策</translation>
 <translation id="1583248206450240930">默认情况下使用“<ph name="PRODUCT_FRAME_NAME" />”</translation>
+<translation id="1606958238518590302">如果此政策设为 true，则用户无法向外部存储设备写入任何内容。</translation>
 <translation id="1608755754295374538">无需提示用户即可使用音频捕获设备的网址</translation>
 <translation id="1617235075406854669">允许删除浏览器历史记录和下载记录</translation>
 <translation id="1617384279878333801">允许通过个人资料管理器添加用户</translation>
@@ -815,6 +820,7 @@
 <translation id="3780152581321609624">在 Kerberos SPN 中加入非标准端口</translation>
 <translation id="3788662722837364290">设备闲置时的电源管理设置</translation>
 <translation id="3793095274466276777">在“<ph name="PRODUCT_NAME" />”中配置默认浏览器检查，并禁止用户更改此设置。如果您启用了此设置，则“<ph name="PRODUCT_NAME" />”在启动时总是会检查自己是否为默认浏览器，并会自动注册（如果可以）。如果此设置已停用，则“<ph name="PRODUCT_NAME" />”永远不会检查自己是否为默认浏览器，并会禁止用户设置此选项。如果此设置未配置，则“<ph name="PRODUCT_NAME" />”会让用户控制是否将它设为默认浏览器，并控制是否在它不是默认浏览器的情况下显示用户通知。</translation>
+<translation id="379659290574555063">以只读模式处理外部存储设备。</translation>
 <translation id="3800626789999016379">配置 <ph name="PRODUCT_NAME" /> 将用于下载文件的目录。
 
       如果您设置了此政策，那么无论用户是指定了一个目录，还是启用了要求在每次下载文件时都提示指定下载位置的项，<ph name="PRODUCT_NAME" /> 都将使用通过此政策提供的目录。
@@ -1632,6 +1638,7 @@
 如果停用或未配置此设置，则可以使用任何帐户共享主机。
 
 另请参阅 RemoteAccessHostClientDomain。</translation>
+<translation id="6979510692034647325">允许更新 <ph name="PRODUCT_NAME" /> 中的组件。</translation>
 <translation id="6997592395211691850">是否需要为本地信任锚执行在线 OCSP/CRL 检查</translation>
 <translation id="7003334574344702284">如果启用此政策，就会强制从先前的默认浏览器导入已保存的密码，还会影响导入对话框。如果停用此政策，就不会导入已保存的密码。如果未设置此政策，系统就会询问用户是否导入已保存的密码，或者系统自动进行导入。</translation>
 <translation id="7003746348783715221">“<ph name="PRODUCT_NAME" />”偏好设置</translation>

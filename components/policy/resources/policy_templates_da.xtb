@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="da">
+<translation id="1007441141628883408">Aktiverer komponentopdateringer for alle komponenter i <ph name="PRODUCT_NAME" />, hvis politikken ikke er angivet eller er angivet som Sand.
+
+      Hvis den er angivet til Falsk, deaktiveres opdateringer af komponenter. Visse komponenter er dog fritaget fra denne politik. Opdateringer til en komponent, som ikke indeholder eksekverbar kode, som ikke ændrer browserens adfærd markant, eller som er afgørende for sikkerheden, deaktiveres ikke.
+      Eksempler på sådanne komponenter omfatter lister over tilbagekaldte certifikater og data for beskyttet browsing. </translation>
 <translation id="101438888985615157">Roter skærmen 180 grader</translation>
 <translation id="1017967144265860778">Strømstyring på loginskærmen</translation>
 <translation id="1019101089073227242">Angiv brugerdatamappe</translation>
@@ -132,6 +136,7 @@
       virksomhedsbrugere ikke bruge ARC.</translation>
 <translation id="1561424797596341174">Tilsidesættelser af politik for fejlretningsbuilds på hosten til fjernadgang</translation>
 <translation id="1583248206450240930">Brug <ph name="PRODUCT_FRAME_NAME" /> som standard</translation>
+<translation id="1606958238518590302">Når denne politik er angivet til Sand, kan brugerne ikke skrive noget til eksterne lagerenheder.</translation>
 <translation id="1608755754295374538">Webadresser, der får adgang til lydoptagelsesenheder, uden at du skal give tilladelse hertil</translation>
 <translation id="1617235075406854669">Aktivér sletning af browser- og downloadhistorik</translation>
 <translation id="1617384279878333801">Aktivér funktionen Tilføj person i profiladministratoren</translation>
@@ -850,6 +855,7 @@ Hvis du aktiverer denne indstilling, tjekker <ph name="PRODUCT_NAME" /> altid ve
 Hvis denne indstilling deaktiveres, tjekker <ph name="PRODUCT_NAME" /> aldrig se om den er standardbrowseren, og deaktivere brugerens kontrol over denne indstilling. 
 
 Hvis denne indstilling ikke er angivet, vil <ph name="PRODUCT_NAME" /> tillade brugere at tjekke, om den er standardbrowseren, og om der skal vises underretninger til brugeren, når den ikke er det.</translation>
+<translation id="379659290574555063">Eksterne lagerenheder behandles som skrivebeskyttet.</translation>
 <translation id="3800626789999016379">Konfigurerer den mappe, som <ph name="PRODUCT_NAME" /> bruger til at downloade filer.
 
       Hvis du angiver denne politik, vil <ph name="PRODUCT_NAME" /> bruge den angivne mappe, uanset om brugeren har angivet en eller aktiveret flaget for at blive bedt om en downloadplacering hver gang.
@@ -1689,6 +1695,7 @@ Kun hvis allowCorporateKeyUsage er angivet som "sand" for en udvidelse, kan den 
           Hvis indstillingen er deaktiveret eller ikke er angivet, kan enhver konto bruges til at dele hosts.
 
           Se også RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Aktiverer komponentopdateringer i <ph name="PRODUCT_NAME" /> .</translation>
 <translation id="6997592395211691850">Om der kræves online OCSP/CRL-kontroller for lokale tillidsankere</translation>
 <translation id="7003334574344702284">Denne politik tvinger import af gemte adgangskoder fra den tidligere standardbrowser, hvis den er aktiveret. Hvis denne politik er aktiveret, påvirker den også dialogboksen for import. Hvis den er deaktiveret, importeres de gemte adgangskoder ikke. Hvis den ikke er angivet, kan brugeren blive spurgt, om der skal importeres, ellers sker importen automatisk.</translation>
 <translation id="7003746348783715221">Præferencer for <ph name="PRODUCT_NAME" /></translation>

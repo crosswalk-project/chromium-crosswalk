@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="es">
+<translation id="1007441141628883408">Habilita las actualizaciones de todos los componentes en <ph name="PRODUCT_NAME" /> cuando no se establece la política o si se le asigna el valor True.
+
+      Si se le asigna el valor False, las actualizaciones de los componentes se inhabilitarán. Sin embargo, algunos componentes quedan exentos de esta política: no se inhabilitarán las actualizaciones de cualquier componente que no contenga ningún código ejecutable, que no influya en el funcionamiento del navegador de forma significativa o que afecte gravemente a su seguridad.
+      Entre los ejemplos de estos componentes se incluyen las listas de revocación de certificados y los datos de navegación seguros. </translation>
 <translation id="101438888985615157">Girar la pantalla 180 grados</translation>
 <translation id="1017967144265860778">Administración de energía en la pantalla de inicio de sesión</translation>
 <translation id="1019101089073227242">Establecer directorio de datos de usuarios</translation>
@@ -130,6 +134,7 @@ Si esta política está establecida en "false" o no está establecida, se inhabi
       podrán utilizar ARC.</translation>
 <translation id="1561424797596341174">La política anula las compilaciones de depuración del host de acceso remoto.</translation>
 <translation id="1583248206450240930">Utilizar <ph name="PRODUCT_FRAME_NAME" /> de forma predeterminada</translation>
+<translation id="1606958238518590302">Si se asigna el valor True a esta política, los usuarios no podrán escribir nada en dispositivos de almacenamiento externo.</translation>
 <translation id="1608755754295374538">URLs a las que se concederá acceso a dispositivos de captura de audio sin confirmación</translation>
 <translation id="1617235075406854669">Habilitar eliminación de historial de navegación y de descargas</translation>
 <translation id="1617384279878333801">Habilitar la opción para añadir usuarios en el administrador de perfiles</translation>
@@ -888,6 +893,7 @@ Si se inhabilita o no se configura esta opción, los usuarios podrán decidir si
       Si inhabilitas esta opción, nunca se comprobará si <ph name="PRODUCT_NAME" /> es el navegador predeterminado y se inhabilitará el control de los usuarios sobre la configuración de esta opción.
 
       Si no se configura esta opción, los usuarios de <ph name="PRODUCT_NAME" /> podrán decidir si quieren que este sea el navegador predeterminado y si deben aparecer notificaciones cuando no lo sea.</translation>
+<translation id="379659290574555063">Usa los dispositivos de almacenamiento externo como dispositivos de solo lectura.</translation>
 <translation id="3800626789999016379">Configura el directorio que <ph name="PRODUCT_NAME" /> utilizará para descargar archivos.
 
       Si se establece esta política, <ph name="PRODUCT_NAME" /> utilizará el directorio proporcionado independientemente de que el usuario haya especificado un directorio o habilitado el indicador para seleccionar siempre la ubicación de la descarga.
@@ -1793,6 +1799,7 @@ Si no se establece esta política, las opciones de accesibilidad no aparecerán 
           Si esta configuración se inhabilita o no se establece, los hosts se pueden compartir utilizando cualquier cuenta.
 
           Consulta también RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Habilita las actualizaciones de componentes en <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Permite establecer si es necesario realizar comprobaciones de OCSP/CRL online para los anclajes de veracidad locales</translation>
 <translation id="7003334574344702284">Si se habilita, esta política fuerza la importación de las contraseñas guardadas desde el navegador predeterminado actual. Si está habilitada, esta política también afecta al cuadro de diálogo de importación.
 

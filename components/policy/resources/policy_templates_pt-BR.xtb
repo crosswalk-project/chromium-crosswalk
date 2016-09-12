@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="pt-BR">
+<translation id="1007441141628883408">Ativa atualizações de componentes para todos os componentes no <ph name="PRODUCT_NAME" /> quando esta política não é definida ou é definida como True.
+
+      Se a política é definida como False, as atualizações dos componentes são desativadas. Entretanto, alguns componentes são isentos desta política: atualizações para quaisquer componentes que não contenham código executável ou não alterem significativamente o comportamento do navegador, ou que sejam essenciais para a segurança não serão desativadas.
+      Entre os exemplos desses componentes estão as listas de revogação de certificado e os dados de navegação segura. </translation>
 <translation id="101438888985615157">Girar a tela em 180 graus</translation>
 <translation id="1017967144265860778">Gerenciamento de energia na tela de login</translation>
 <translation id="1019101089073227242">Definir diretório de dados do usuário</translation>
@@ -128,6 +132,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
       conseguirão usar o ARC.</translation>
 <translation id="1561424797596341174">A política modifica as versões de depuração do host de acesso remoto</translation>
 <translation id="1583248206450240930">Usar o <ph name="PRODUCT_FRAME_NAME" /> por padrão</translation>
+<translation id="1606958238518590302">Quando esta política é definida como true, os usuários não podem gravar nada em dispositivos de armazenamento externo.</translation>
 <translation id="1608755754295374538">URLs que terão acesso a dispositivos de captura de áudio sem solicitação</translation>
 <translation id="1617235075406854669">Ativar exclusão do histórico do navegador e de downloads</translation>
 <translation id="1617384279878333801">Ativar a adição de pessoa no gerenciador de perfil</translation>
@@ -830,6 +835,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
 <translation id="3780152581321609624">Incluir porta não padrão no SPN Kerberos</translation>
 <translation id="3788662722837364290">Configurações de gerenciamento de energia quando o usuário se torna inativo</translation>
 <translation id="3793095274466276777">Configura as verificações do navegador padrão no <ph name="PRODUCT_NAME" /> e impede que os usuários as modifiquem. Se você ativar essa configuração, o <ph name="PRODUCT_NAME" /> sempre verificará, na inicialização, se ele é o navegador padrão e automaticamente se registrará, se possível. Se essa configuração for desativada, o <ph name="PRODUCT_NAME" /> nunca verificará se ele é o navegador padrão e desativará controles do usuário para configurar essa opção. Se essa configuração não for definida, o <ph name="PRODUCT_NAME" /> permitirá ao usuário controlar se ele é o navegador padrão e se as notificações do usuário devem ser exibidas quando não forem exibidas.</translation>
+<translation id="379659290574555063">Tratar dispositivos de armazenamento externo como somente leitura.</translation>
 <translation id="3800626789999016379">Configura o diretório que o <ph name="PRODUCT_NAME" /> usará para fazer o download de arquivos.
 
       Se você definir esta política, o <ph name="PRODUCT_NAME" /> usará o diretório fornecido, independentemente de o usuário ter especificado um ou ter definido que a sinalização deve ser sempre solicitada para o local do download.
@@ -1656,6 +1662,7 @@ Se esta política não for definida, 'AllowPlugins' será usada, e o usuário po
           Se esta configuração for desativada ou não for definida, os hosts poderão ser compartilhados usando qualquer conta.
 
           Consulte também RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Ativa atualizações de componentes no <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Define se as verificações de OCSP/CRL on-line são obrigatórias para âncoras de confiança local</translation>
 <translation id="7003334574344702284">Se ativada, esta política força a importação de senhas a partir do navegador padrão anterior. Se ativada, esta política também afeta a caixa de diálogo de importação. Se desativada, as senhas salvas não são importadas. Se não for definida, o usuário pode ser solicitado a responder se deseja importar ou permitir a importação automática.</translation>
 <translation id="7003746348783715221">Preferências do <ph name="PRODUCT_NAME" /></translation>

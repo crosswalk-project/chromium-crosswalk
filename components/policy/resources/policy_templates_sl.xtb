@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="sl">
+<translation id="1007441141628883408">Omogoča posodobitve komponent za vse komponente v izdelku <ph name="PRODUCT_NAME" />, če pravilnik ni nastavljen ali je omogočen.
+
+      Če pravilnik ni vklopljen, so posodobitve komponent onemogočene. Vendar pa so nekatere komponente izvzete iz tega pravilnika: onemogočene niso posodobitve komponent, ki ne vsebujejo izvedljive kode, ki bistveno ne spreminjajo delovanja brskalnika ali ki so pomembne za varnost brskalnika.
+      Primera takih komponent so na primer seznami ukinjenih potrdil in podatki o varnem brskanju. </translation>
 <translation id="101438888985615157">Sukanje zaslona za 180 stopinj</translation>
 <translation id="1017967144265860778">Upravljanje porabe na zaslonu za prijavo</translation>
 <translation id="1019101089073227242">Nastavitev imenika za uporabniške podatke</translation>
@@ -134,6 +138,7 @@ Vrednost prilagoditve mora biti 100 % ali več.</translation>
       okoljih ne bodo mogli uporabljati ARC-ja.</translation>
 <translation id="1561424797596341174">Preglasitve pravilnika za delovne različice gostitelja za oddaljeni dostop, namenjene odpravljanju napak</translation>
 <translation id="1583248206450240930">Privzeto uporabi <ph name="PRODUCT_FRAME_NAME" /></translation>
+<translation id="1606958238518590302">Če je ta pravilnik omogočen, uporabniki ne morejo pisati na zunanje naprave za shranjevanje.</translation>
 <translation id="1608755754295374538">URL-ji, ki jim bo brez poziva dovoljen dostop do naprav za zajem zvoka</translation>
 <translation id="1617235075406854669">Omogočanje brisanja zgodovine brskalnika in prenosov</translation>
 <translation id="1617384279878333801">Omogočanje dodajanja oseb v upravitelju profilov</translation>
@@ -888,6 +893,7 @@ napravi konfiguriran tako, da pri samodejni prijavi ni zakasnitve, naprava pa ni
       Če jo onemogočite, <ph name="PRODUCT_NAME" /> ne bo nikoli preveril, ali je privzeti brskalnik, in uporabniki ne bodo mogli nastaviti te možnosti.
 
       Če ta možnost ni nastavljena, bo <ph name="PRODUCT_NAME" /> uporabniku dovolil, da nadzira, ali je privzeti brskalnik in ali naj bodo prikazana obvestila, če ni.</translation>
+<translation id="379659290574555063">Zunanje naprave za shranjevanje naj bodo samo za branje.</translation>
 <translation id="3800626789999016379">Konfigurira imenik, ki ga bo <ph name="PRODUCT_NAME" /> uporabljal za prenašanje datotek.
 
       Če ta pravilnik nastavite, bo <ph name="PRODUCT_NAME" /> uporabljal navedeni imenik ne glede na to, ali ga je uporabnik določil ali omogočil zastavico za vsakokraten poziv za mesto prenosa.
@@ -1806,6 +1812,7 @@ URL-ji, ki uporabljajo sheme s tega seznama, se ne bodo naložili in dostop do n
           Če je ta nastavitev onemogočena ali ni nastavljena, je gostitelje mogoče dati v skupno rabo z uporabo poljubnega računa.
 
           Glejte tudi pravilnik RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Omogoča posodobitve komponent v izdelku <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Ali so potrebna spletna preverjanja OCSP/CRL za lokalna sidra zaupanja?</translation>
 <translation id="7003334574344702284">Če je pravilnik omogočen, se shranjena gesla uvozijo iz prejšnjega privzetega brskalnika. Če je pravilnik omogočen, vpliva tudi na pogovorno okno za uvoz.
 

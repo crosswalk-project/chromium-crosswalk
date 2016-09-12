@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="lt">
+<translation id="1007441141628883408">Įgalinami visų „<ph name="PRODUCT_NAME" />“ komponentų naujiniai, kai nenustatyta arba nustatyta vertė „True“.
+
+      Jei nustatyta vertė „False“, komponentų naujiniai bus išjungti. Tačiau kai kuriems komponentams ši politika netaikoma: komponentų, kuriuose nėra vykdomojo kodo, kurie nežymiai pakeičia naršyklės veikimą arba kurie yra labai svarbūs jos saugai, nėra išjungiami.
+      Tokių komponentų pavyzdžiai yra sertifikatų anuliavimo sąrašai ir saugaus naršymo duomenys. </translation>
 <translation id="101438888985615157">Pasukti ekraną 180 laipsnių kampu</translation>
 <translation id="1017967144265860778">Energijos valdymas prisijungimo ekrane</translation>
 <translation id="1019101089073227242">Nustatyti naudotojo duomenų katalogą</translation>
@@ -134,6 +138,7 @@
       negali naudoti ARC.</translation>
 <translation id="1561424797596341174">Nuotolinės prieigos prieglobos derinimo versijų politikos pakeitimai</translation>
 <translation id="1583248206450240930">Naudoti „<ph name="PRODUCT_FRAME_NAME" />“ pagal numatytuosius nustatymus</translation>
+<translation id="1606958238518590302">Kai ši politika nustatyta į „True“, naudotojai negali nieko įrašyti į išorinius saugyklos įrenginius.</translation>
 <translation id="1608755754295374538">URL, kuriems bus suteikta prieiga prie garso užfiksavimo įrenginių be paraginimo</translation>
 <translation id="1617235075406854669">Įgalinti naršyklės ištrynimą ir atsisiuntimo istoriją</translation>
 <translation id="1617384279878333801">Asmens pridėjimo profilių tvarkymo priemonėje įgalinimas</translation>
@@ -889,6 +894,7 @@ Jei nustatyta kaip „Netiesa“ arba nenustatyta, kreipiantis į API įvyks kla
       Jei šio nustatymo neleisite, „<ph name="PRODUCT_NAME" />“ niekada netikrins, ar ji yra numatytoji naršyklė, o naudotojams bus neleidžiama naudoti šios parinkties nustatymo valdiklių.
 
       Nenustačius šio nustatymo „<ph name="PRODUCT_NAME" />“ leis naudotojui valdyti numatytosios naršyklės parinktis ir nurodyti, ar turi būti pateikti naudotojui skirti pranešimai, jei naršyklė nėra numatytoji.</translation>
+<translation id="379659290574555063">Laikyti išorinius saugyklos įrenginius kaip tik skaitomus.</translation>
 <translation id="3800626789999016379">Konfigūruojamas katalogas, kurį „<ph name="PRODUCT_NAME" />“ naudos failams atsisiųsti.
 
       Jei nustatysite šią politiką, „<ph name="PRODUCT_NAME" />“ naudos nurodytą katalogą, nesvarbu, ar naudotojas jį nurodė, ar įgalino žymą kiekvieną kartą raginti nurodyti atsisiuntimo vietą.
@@ -1807,6 +1813,7 @@ Jei nustatyta kaip „Netiesa“ arba nenustatyta, kreipiantis į API įvyks kla
           Jei šis nustatymas išjungtas arba nenustatytas, tada prieglobas galima bendrinti naudojant bet kurią paskyrą.
 
           Taip pat žr. „RemoteAccessHostClientDomain“.</translation>
+<translation id="6979510692034647325">Įgalinami „<ph name="PRODUCT_NAME" />“ komponentų naujiniai.</translation>
 <translation id="6997592395211691850">Ar internetinės OCSP / CRL patikros reikalingos vietiniams patikimiems prieraišams</translation>
 <translation id="7003334574344702284">Pagal šią politiką priverstinai importuojami išsaugoti slaptažodžiai iš ankstesnės numatytosios naršyklės (jei įgalinta). Be to, jei įgalinta, ši politika turi įtakos importavimo dialogo langui.
 

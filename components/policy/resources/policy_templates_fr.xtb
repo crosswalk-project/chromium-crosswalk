@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="fr">
+<translation id="1007441141628883408">Active la mise à jour de tous les composants de <ph name="PRODUCT_NAME" /> en cas d'absence de réglage ou de réglage sur "True".
+
+      En cas de réglage sur "False", la mise à jour des composants est désactivée. Toutefois, certains composants échappent à cette règle : les mises à jour des composants sans code exécutable, qui n'affectent pas de façon significative le comportement du navigateur ou qui sont essentiels à la sécurité du navigateur ne seront pas désactivées.
+      Ces composants peuvent inclure les listes de révocation de certificats et les données de navigation sécurisée. </translation>
 <translation id="101438888985615157">Faire pivoter l'écran de 180 degrés</translation>
 <translation id="1017967144265860778">Gestion de l'alimentation sur l'écran de connexion</translation>
 <translation id="1019101089073227242">Définir le répertoire de données utilisateur</translation>
@@ -135,6 +139,7 @@ Si cette règle n'est pas configurée, la valeur par défaut globale sera utilis
       ne peuvent pas utiliser ARC.</translation>
 <translation id="1561424797596341174">Remplacements de règle pour les versions de débogage de l'hôte distant</translation>
 <translation id="1583248206450240930">Utiliser <ph name="PRODUCT_FRAME_NAME" /> par défaut</translation>
+<translation id="1606958238518590302">Lorsque la règle est définie sur "True", les utilisateurs ne peuvent pas écrire sur les appareils de stockage externe.</translation>
 <translation id="1608755754295374538">URL autorisées à accéder aux appareils de capture audio sans avis préalable</translation>
 <translation id="1617235075406854669">Activer la suppression de l'historique du navigateur et de l'historique des téléchargements</translation>
 <translation id="1617384279878333801">Autoriser l'ajout de personnes dans le gestionnaire de profils</translation>
@@ -892,6 +897,7 @@ Si elle n'est pas configurée, l'utilisateur peut être invité à effectuer l'i
       Si ce paramètre est désactivé, <ph name="PRODUCT_NAME" /> ne vérifiera jamais s'il s'agit du navigateur par défaut et désactivera les contrôles utilisateur pour définir cette option.
 
       Si ce paramètre n'est pas défini, <ph name="PRODUCT_NAME" /> autorisera l'utilisateur à déterminer s'il s'agit du navigateur par défaut et si des notifications aux utilisateurs doivent être affichées dans le cas contraire.</translation>
+<translation id="379659290574555063">Traitez les appareils de stockage externe en lecture seule.</translation>
 <translation id="3800626789999016379">Configure le répertoire que <ph name="PRODUCT_NAME" /> utilise pour télécharger les fichiers.
 
       Si vous définissez cette règle, <ph name="PRODUCT_NAME" /> utilise le répertoire fourni, que l'utilisateur en ait spécifié un ou non, ou qu'il ait ou non activé l'indicateur permettant d'être invité à renseigner l'emplacement du téléchargement à chaque fois.
@@ -1815,6 +1821,7 @@ Cette règle n'est prise en compte que si la règle "DefaultSearchProviderEnable
           Si ce paramètre est désactivé ou s'il n'est pas défini, les hôtes peuvent être partagés à l'aide de n'importe quel compte.
 
           Voir aussi la règle "RemoteAccessHostClientDomain".</translation>
+<translation id="6979510692034647325">Permet la mise à jour des composants de <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Définit si les vérifications en ligne OCSP/CRL sont requises pour les ancres d'approbation locales.</translation>
 <translation id="7003334574344702284">Lorsqu'elle est activée, cette règle force l'importation des mots de passe enregistrés à partir du navigateur par défaut précédent. Si elle est activée, cette politique affecte également la boîte de dialogue d'importation. 
 

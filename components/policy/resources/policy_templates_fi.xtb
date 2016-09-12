@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="fi">
+<translation id="1007441141628883408"><ph name="PRODUCT_NAME" /> sallii kaikkien siinä käytettävien osien päivityksen, kun tämän käytännön arvo on Tosi tai sitä ei ole määritetty.
+
+      Jos tämän käytännön arvo on Epätosi, osien päivittäminen poistetaan käytöstä. Tämä käytäntö ei kuitenkaan koske kaikkia osia: päivitys sallitaan, jos osa ei sisällä suoritettavaa koodia, muuta selaimen toimintaa merkittävästi tai jos osa on selaimen suojauksen kannalta kriittinen.
+      Tällaisia osia ovat esimerkiksi varmenteiden peruutusluettelot ja selaussuojan tiedot. </translation>
 <translation id="101438888985615157">Kierrä näyttöä 180 astetta.</translation>
 <translation id="1017967144265860778">Virran hallinta kirjautumisruudulla</translation>
 <translation id="1019101089073227242">Aseta käyttäjätietojen hakemisto</translation>
@@ -132,6 +136,7 @@
       yrityskäyttäjät eivät voi käyttää ARC:tä.</translation>
 <translation id="1561424797596341174">Käytäntöjen ohitus etäkäytön isännän vianetsintäversioissa</translation>
 <translation id="1583248206450240930">Käytä tuotetta <ph name="PRODUCT_FRAME_NAME" /> oletuksena</translation>
+<translation id="1606958238518590302">Kun tämän käytännön arvo on Tosi, käyttäjät eivät voi kirjoittaa mitään tietoja ulkoisille tallennustilalaitteille.</translation>
 <translation id="1608755754295374538">URL-osoitteet, joille on myönnetty pääsy äänikaappauslaitteisiin ilman erillisen luvan pyytämistä</translation>
 <translation id="1617235075406854669">Salli selaus- ja lataushistorian poistaminen</translation>
 <translation id="1617384279878333801">Salli profiilien luominen käyttäjäprofiilien hallinnassa</translation>
@@ -836,6 +841,7 @@ Jos tätä asetusta ei ole määritetty, kaikentyyppisiä sovelluksia ja laajenn
 <translation id="3780152581321609624">Lisää standardista poikkeava portti Kerberos-SPN:ään</translation>
 <translation id="3788662722837364290">Virransäästöasetukset laitteen ollessa käyttämättä</translation>
 <translation id="3793095274466276777">Määrittää oletusselaimen tarkistukset tuotteelle <ph name="PRODUCT_NAME" /> ja estää käyttäjiä muuttamasta niitä. Jos otat tämän asetuksen käyttöön, <ph name="PRODUCT_NAME" /> tarkistaa aina käynnistettäessä, onko se oletusselain, ja rekisteröi itsensä automaattisesti, jos mahdollista. Jos tämä asetus on pois käytöstä, <ph name="PRODUCT_NAME" /> ei koskaan tarkista, onko se oletusselain eikä anna käyttäjän muuttaa asetusta. Jos asetusta ei ole määritetty, <ph name="PRODUCT_NAME" /> antaa käyttäjän valita, onko tuote oletusselain ja näytetäänkö käyttäjälle ilmoitus, jos tuote ei ole oletusselain.</translation>
+<translation id="379659290574555063">Käytä ulkoisia tallennustilalaitteita vain luku ‑tilassa</translation>
 <translation id="3800626789999016379">Määrittää hakemiston, johon <ph name="PRODUCT_NAME" /> tallentaa ladattuja tiedostoja.
 
       Jos määrität tämän käytännön, <ph name="PRODUCT_NAME" /> käyttää annettua hakemistoa huolimatta siitä, onko käyttäjä määrittänyt hakemiston tai asettanut sovelluksen kysymään aina latausten tallennussijaintia.
@@ -1674,6 +1680,7 @@ Jos tätä käytäntöä ei ole määritetty, käytetään oletusarvoa (32).</tr
           Jos tämä asetus on poistettu käytöstä tai sitä ei ole määritetty, isäntiä voi jakaa kaikilla tileillä.
 
           Katso myös RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Ota käyttöön osien päivitykset tuotteessa <ph name="PRODUCT_NAME" /></translation>
 <translation id="6997592395211691850">Vaaditaanko paikallisilta luottamusankkureilta verkossa suoritettavat OCSP/CRL-tarkistukset vai ei</translation>
 <translation id="7003334574344702284">Tämä käytäntö pakottaa tallennettujen salasanojen tuonnin nykyisestä oletusselaimesta. Jos käytäntö on käytössä, käytäntö vaikuttaa myös tuonti-ikkunaan. Jos käytäntö ei ole käytössä, tallennettuja salasanoja ei tuoda. Jos käytäntöä ei ole määritetty, käyttäjiltä voidaan kysyä, haluavatko he tuoda salasanat, tai ne voidaan tuoda automaattisesti.</translation>
 <translation id="7003746348783715221">Tuotteen <ph name="PRODUCT_NAME" /> asetukset</translation>

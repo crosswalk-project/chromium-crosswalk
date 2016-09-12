@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="no">
+<translation id="1007441141628883408">Slår på komponentoppdateringer for alle komponenter i <ph name="PRODUCT_NAME" /> når regelen ikke er angitt eller er angitt som «True» (sann).
+
+      Hvis regelen er angitt som «False» (usann), slås komponentoppdateringene av. Enkelte komponenter er imidlertid unntatt fra denne regelen og slås ikke av. Dette gjelder oppdateringer av komponenter som er avgjørende for sikkerheten, eller som ikke inneholder kjørbar kode eller endrer nettleserens atferd betydelig.
+      Slike komponenter kan for eksempel være Safe Browsing-data og lister over tilbaketrekking av sertifikater. </translation>
 <translation id="101438888985615157">Rotér skjermen 180 grader</translation>
 <translation id="1017967144265860778">Strømstyring på påloggingssiden</translation>
 <translation id="1019101089073227242">Angi katalog for brukerdata</translation>
@@ -134,6 +138,7 @@
       ikke bruke ARC.</translation>
 <translation id="1561424797596341174">Overstyring av regler for delversjoner for feilsøking på fjerntilgangsverten</translation>
 <translation id="1583248206450240930">Bruk <ph name="PRODUCT_FRAME_NAME" /> som standard</translation>
+<translation id="1606958238518590302">Når denne regelen er angitt som «True» (sann), kan ikke brukere skrive noe til eksterne lagringsenheter.</translation>
 <translation id="1608755754295374538">Nettadresser som uten forespørsel blir gitt tilgang til enheter med lydopptak</translation>
 <translation id="1617235075406854669">Gjør det mulig å slette nettleser- og nedlastingslogg</translation>
 <translation id="1617384279878333801">Slå på «Legg til person» i profilbehandlingen</translation>
@@ -863,6 +868,7 @@
 <translation id="3780152581321609624">Inkluder ikke-standardisert port i SPN for Kerberos</translation>
 <translation id="3788662722837364290">Innstillinger for strømstyring når brukeren er inaktiv</translation>
 <translation id="3793095274466276777">Konfigurerer standard nettleserkontroller i <ph name="PRODUCT_NAME" /> og hindrer brukere i å endre dem. Hvis du aktiverer denne innstillingen, sjekker <ph name="PRODUCT_NAME" /> alltid ved oppstart om den er standardnettleser, og registrerer seg selv automatisk om mulig. Hvis denne innstillingen er deaktivert, sjekker <ph name="PRODUCT_NAME" /> aldri om den er standardnettleser, og deaktiverer brukerstyrt kontroll av dette alternativet. Hvis denne innstillingen ikke er angitt, lar <ph name="PRODUCT_NAME" /> brukeren kontrollere om den er standardnettleser, og hvorvidt brukervarslinger skal vises når den ikke er det.</translation>
+<translation id="379659290574555063">Behandle eksterne lagringsenheter som skrivebeskyttet.</translation>
 <translation id="3800626789999016379">Konfigurerer katalogen <ph name="PRODUCT_NAME" /> bruker for å laste ned filer. 
 
       Hvis du angir denne regelen, bruker <ph name="PRODUCT_NAME" /> den oppgitte katalogen uansett om brukeren har angitt en annen katalog eller slått på flagget for å velge lagringsplass for hver nedlasting.
@@ -1759,6 +1765,7 @@ Minneinformasjon blir uansett rapportert til siden, uavhengig av verdien for alt
           Hvis denne innstillingen er slått av eller ikke spesifisert, kan verter deles med en hvilken som helst konto.
 
           Se også RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Slår på komponentoppdateringer i <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Hvorvidt OCSP/CRL-sjekker på nettet er påkrevd for lokale klareringsankere</translation>
 <translation id="7003334574344702284">Denne retningslinjen tvinger import av de lagrede passordene fra forrige standardnettleser hvis den er aktivert. Hvis den er aktivert, påvirker retningslinjen også importeringsdialogen.
 

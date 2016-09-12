@@ -1,6 +1,11 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="ms">
+<translation id="1007441141628883408">Mendayakan kemas kini komponen untuk semua komponen dalam <ph name="PRODUCT_NAME" /> apabila tidak ditetapkan atau ditetapkan kepada Benar.
+
+      Jika ditetapkan kepada Palsu, kemas kini kepada komponen akan dilumpuhkan. Walau bagaimanapun, sesetengah komponen dikecualikan daripada dasar ini: kemas kini kepada mana-mana komponen yang tidak mengandungi kod boleh laksana atau tidak mengubah gelagat penyemak imbas dengan ketara atau yang penting untuk keselamatannya tidak akan dilumpuhkan.
+
+Contoh komponen seperti itu termasuk senarai pembatalan sijil dan data semakan imbas selamat. </translation>
 <translation id="101438888985615157">Putar skrin 180 darjah</translation>
 <translation id="1017967144265860778">Pengurusan kuasa pada skrin log masuk</translation>
 <translation id="1019101089073227242">Tetapkan direktori data pengguna</translation>
@@ -134,6 +139,7 @@
       perusahaan tidak dapat menggunakan ARC.</translation>
 <translation id="1561424797596341174">Pembatalan dasar untuk binaan Nyahpepijat bagi hos akses jauh</translation>
 <translation id="1583248206450240930">Gunakan <ph name="PRODUCT_FRAME_NAME" /> secara lalai</translation>
+<translation id="1606958238518590302">Apabila dasar ini ditetapkan kepada benar, pengguna tidak boleh menulis apa-apa pada peranti storan luar.</translation>
 <translation id="1608755754295374538">URL yang akan diberikan akses kepada peranti tangkapan audio tanpa gesaan</translation>
 <translation id="1617235075406854669">Dayakan pemadaman sejarah penyemak imbas dan muat turun</translation>
 <translation id="1617384279878333801">Dayakan tambah orang dalam pengurus profil</translation>
@@ -891,6 +897,7 @@ chrome.enterprise.platformKeysPrivate.challengeUserKey().
       Jika tetapan ini dilumpuhkan, <ph name="PRODUCT_NAME" /> tidak akan sesekali memeriksa jika ia adalah penyemak imbas lalai dan akan melumpuhkan kawalan pengguna untuk menetapkan pilihan ini.
 
       Jika tetapan ini tidak ditetapkan, <ph name="PRODUCT_NAME" /> akan membenarkan pengguna untuk mengawal sama ada ia adalah penyemak imbas lalai dan sama ada pemberitahuan pengguna perlu dipaparkan apabila ia tidak perlu.</translation>
+<translation id="379659290574555063">Kendalikan peranti storan luaran sebagai baca sahaja.</translation>
 <translation id="3800626789999016379">Mengkonfigurasi direktori yang <ph name="PRODUCT_NAME" /> akan gunakan untuk memuat turun fail.
 
       Jika anda menetapkan dasar ini, <ph name="PRODUCT_NAME" /> akan menggunakan direktori yang disediakan tidak kira sama ada pengguna telah menetapkan satu direktori atau mendayakan bendera untuk digesa bagi lokasi muat turun pada setiap kali.
@@ -1808,6 +1815,7 @@ Jika dasar ini dibiarkan tidak ditetapkan, papan kekunci pada skrin dilumpuhkan 
           Jika tetapan ini dilumpuhkan atau tidak ditetapkan, maka hos boleh dikongsi dengan menggunakan mana-mana akaun.
 
           Lihat juga RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Mendayakan kemas kini komponen dalam <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Sama ada semakan OCSP/CRL dalam talian diperlukan untuk pengukuhan kepercayaan setempat</translation>
 <translation id="7003334574344702284">Dasar ini memaksa kata laluan yang disimpan diimport dari pelayar lalai sebelumnya jika didayakan. Jika didayakan, dasar ini juga memberi kesan pada dialog import.
 

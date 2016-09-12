@@ -1,6 +1,10 @@
 <?xml version="1.0" ?>
 <!DOCTYPE translationbundle>
 <translationbundle lang="es-419">
+<translation id="1007441141628883408">Habilita actualizaciones para todos los componentes en <ph name="PRODUCT_NAME" /> cuando no se establece o se establece como verdadera.
+
+      Si se establece como falsa, se inhabilitan las actualizaciones de los componentes. Sin embargo, algunos componentes no están contemplados en esta política: no se inhabilitarán las actualizaciones de cualquier componente que no contenga un código ejecutable, no modifique el comportamiento del navegador de forma significativa o sea fundamental para la seguridad.
+      Entre estos componentes, se incluyen las listas de revocación de certificados y los datos de navegación segura. </translation>
 <translation id="101438888985615157">Rotar la pantalla 180 grados</translation>
 <translation id="1017967144265860778">Administración de energía en la pantalla de acceso</translation>
 <translation id="1019101089073227242">Configurar directorio de datos de usuarios</translation>
@@ -131,6 +135,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
       no podrán usar ARC.</translation>
 <translation id="1561424797596341174">Anulaciones de políticas en compilaciones de depuración del host de acceso remoto</translation>
 <translation id="1583248206450240930">Utilizar <ph name="PRODUCT_FRAME_NAME" /> de manera predeterminada</translation>
+<translation id="1606958238518590302">Cuando esta política se establece como verdadera, los usuarios no pueden escribir nada en los dispositivos de almacenamiento externo.</translation>
 <translation id="1608755754295374538">Las URL que recibirán acceso a dispositivos de captura de audio sin solicitarlo</translation>
 <translation id="1617235075406854669">Habilita la eliminación del historial de descargas y del navegador.</translation>
 <translation id="1617384279878333801">Habilitar opción para agregar persona al administrador de perfiles</translation>
@@ -828,6 +833,7 @@ Si esta política no se configura, se utilizará 'Permitir complementos' y el us
 <translation id="3780152581321609624">Incluir puerto no estándar en el SPN de Kerberos</translation>
 <translation id="3788662722837364290">Configuración de la administración de energía cuando el usuario está inactivo</translation>
 <translation id="3793095274466276777">Configura los controles del navegador predeterminado en <ph name="PRODUCT_NAME" /> y evita que los usuarios los cambien. Si se habilita esta configuración, <ph name="PRODUCT_NAME" /> siempre comprobará al iniciarse si es el navegador predeterminado y se registrará automáticamente en caso de ser posible. Si esta opción está inhabilitada, <ph name="PRODUCT_NAME" /> nunca verificará si es el navegador predeterminado e inhabilitará los controles de usuario para poder configurar esta opción. Si no se ha establecido esta configuración, <ph name="PRODUCT_NAME" /> permitirá al usuario controlar si es el navegador predeterminado y si las notificaciones para el usuario deben mostrarse cuando no lo es.</translation>
+<translation id="379659290574555063">Tratar los dispositivos de almacenamiento externo como de solo lectura</translation>
 <translation id="3800626789999016379">Configura el directorio que <ph name="PRODUCT_NAME" /> usará para descargar archivos.
 
       Si estableces esta política, <ph name="PRODUCT_NAME" /> usará el directorio proporcionado, sin importar si el usuario especificó uno o si habilitó que la marca solicite una ubicación de descarga cada vez.
@@ -1663,6 +1669,7 @@ desactivarlo).</translation>
           Si esta configuración está inhabilitada o no está establecida, los hosts pueden compartirse utilizando cualquier cuenta.
 
           Consulta también la política RemoteAccessHostClientDomain.</translation>
+<translation id="6979510692034647325">Habilita las actualizaciones de componentes en <ph name="PRODUCT_NAME" />.</translation>
 <translation id="6997592395211691850">Establecer si es necesario realizar comprobaciones de OCSP/CRL en línea para los anclajes de confianza locales</translation>
 <translation id="7003334574344702284">Esta política, si se habilita, fuerza la importación de las contraseñas guardadas del navegador predeterminado anterior. Si se la habilita, esta política también afecta el cuadro de diálogo de importación. Si se la inhabilita, no se importan las contraseñas guardadas. Si no se configura, se le puede preguntar al usuario si desea importar las contraseñas guardadas o la importación puede realizarse de forma automática.</translation>
 <translation id="7003746348783715221">Preferencias de <ph name="PRODUCT_NAME" /></translation>
