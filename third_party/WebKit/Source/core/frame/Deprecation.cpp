@@ -55,6 +55,11 @@ String dopplerWillBeRemoved(const char* feature, int milestone, const char* deta
     return String::format("%s is deprecated and will be removed in %s. It has no effect as the Web Audio doppler effects have already been removed internally. See https://www.chromestatus.com/features/%s for more details.", feature, milestoneString(milestone), details);
 }
 
+String replacedWillBeRemoved(const char* feature, const char* replacement, int milestone, const char* details)
+{
+    return String::format("%s is deprecated and will be removed in %s. Please use %s instead. See https://www.chromestatus.com/features/%s for more details.", feature, milestoneString(milestone), replacement, details);
+}
+
 } // anonymous namespace
 
 namespace blink {
