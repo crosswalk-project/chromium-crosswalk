@@ -1304,6 +1304,10 @@ public:
         UsbDeviceReset = 1534,
 
         ClipCssOfFixedPositionElement = 1552,
+        RTCPeerConnectionCreateOfferOptionsOfferToReceive = 1553,
+        DragAndDropScrollStart = 1554,
+        PresentationConnectionListConnectionAvailableEventListener = 1555,
+        WebAudioAutoplayCrossOriginIframe = 1556,
         // Add new features immediately above this line. Don't change assigned
         // numbers of any item, and don't reuse removed slots.
         // Also, run update_use_counter_feature_enum.py in chromium/src/tools/metrics/histograms/
