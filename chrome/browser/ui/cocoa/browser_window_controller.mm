@@ -1877,13 +1877,15 @@ willAnimateFromState:(BookmarkBar::State)oldState
     (ExclusiveAccessContext::TabFullscreenState)state {
   DCHECK([self isInAnyFullscreenMode]);
   if (state == ExclusiveAccessContext::STATE_ENTER_TAB_FULLSCREEN) {
-    [self adjustUIForSlidingFullscreenStyle:fullscreen_mac::OMNIBOX_TABS_NONE];
+    [self adjustUIForSlidingFullscreenStyle:FullscreenSlidingStyle::
+                                                OMNIBOX_TABS_NONE];
     return;
   }
 
   [self adjustUIForSlidingFullscreenStyle:
-            shouldShowFullscreenToolbar_ ? fullscreen_mac::OMNIBOX_TABS_PRESENT
-                                         : fullscreen_mac::OMNIBOX_TABS_HIDDEN];
+            shouldShowFullscreenToolbar_
+                ? FullscreenSlidingStyle::OMNIBOX_TABS_PRESENT
+                : FullscreenSlidingStyle::OMNIBOX_TABS_HIDDEN];
 }
 
 - (void)updateFullscreenExitBubble {
@@ -1907,8 +1909,9 @@ willAnimateFromState:(BookmarkBar::State)oldState
 
   shouldShowFullscreenToolbar_ = visible;
   [self adjustUIForSlidingFullscreenStyle:
-            shouldShowFullscreenToolbar_ ? fullscreen_mac::OMNIBOX_TABS_PRESENT
-                                         : fullscreen_mac::OMNIBOX_TABS_HIDDEN];
+            shouldShowFullscreenToolbar_
+                ? FullscreenSlidingStyle::OMNIBOX_TABS_PRESENT
+                : FullscreenSlidingStyle::OMNIBOX_TABS_HIDDEN];
 }
 
 - (BOOL)isInAnyFullscreenMode {
@@ -1991,7 +1994,7 @@ willAnimateFromState:(BookmarkBar::State)oldState
     // If enabled, show the overlay if necessary (and if the fullscreen
     // toolbar is hidden).
     if (barVisibilityUpdatesEnabled_) {
-      [fullscreenToolbarController_ ensureOverlayShownWithAnimation:animate];
+      [fullscreenToolbarController_ lockBarVisibilityWithAnimation:animate];
     }
   }
 }
@@ -2004,7 +2007,7 @@ willAnimateFromState:(BookmarkBar::State)oldState
     // toolbar is hidden).
     if (barVisibilityUpdatesEnabled_ &&
         ![barVisibilityLocks_ count]) {
-      [fullscreenToolbarController_ ensureOverlayHiddenWithAnimation:animate];
+      [fullscreenToolbarController_ releaseBarVisibilityWithAnimation:animate];
     }
   }
 }
