@@ -293,7 +293,6 @@ public class DownloadManagerService extends BroadcastReceiver implements
     }
 
     public void setDownloadManagerDelegate(DownloadManagerDelegate downloadManagerDelegate) {
-        mDownloadManagerDelegate = downloadManagerDelegate;
     }
 
     public DownloadNotifier getDownloadNotifier() {
