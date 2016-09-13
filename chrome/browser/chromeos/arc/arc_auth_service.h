@@ -12,6 +12,7 @@
 #include "base/macros.h"
 #include "base/memory/weak_ptr.h"
 #include "base/observer_list.h"
+#include "base/timer/timer.h"
 #include "chrome/browser/chromeos/arc/arc_android_management_checker_delegate.h"
 #include "chrome/browser/chromeos/arc/arc_auth_context_delegate.h"
 #include "components/arc/arc_bridge_service.h"
@@ -212,6 +213,7 @@ class ArcAuthService : public ArcService,
   void CheckAndroidManagement(bool background_mode);
   void StartArcIfSignedIn();
   void OnArcDataRemoved(bool success);
+  void OnArcSignInTimeout();
 
   // Unowned pointer. Keeps current profile.
   Profile* profile_ = nullptr;
@@ -231,7 +233,7 @@ class ArcAuthService : public ArcService,
   base::string16 ui_page_status_;
   bool clear_required_ = false;
   bool reenable_arc_ = false;
-  bool waiting_for_reply_ = false;
+  base::OneShotTimer arc_sign_in_timer_;
 
   std::unique_ptr<ArcAuthContext> context_;
   std::unique_ptr<ArcAndroidManagementChecker> android_management_checker_;
