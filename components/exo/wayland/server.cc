@@ -1634,11 +1634,6 @@ class WaylandRemoteShell : public ash::ShellObserver,
   }
 
   // Overridden from ash::ShellObserver:
-  void OnDisplayWorkAreaInsetsChanged() override {
-    const display::Display primary =
-        display::Screen::GetScreen()->GetPrimaryDisplay();
-    SendConfigure_DEPRECATED(primary);
-  }
   void OnMaximizeModeStarted() override {
     layout_mode_ = ZWP_REMOTE_SHELL_V1_LAYOUT_MODE_TABLET;
     SendLayoutModeChange_DEPRECATED();

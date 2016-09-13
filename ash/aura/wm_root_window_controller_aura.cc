@@ -17,6 +17,10 @@
 #include "ash/wm/workspace_controller.h"
 #include "ui/aura/window.h"
 #include "ui/aura/window_property.h"
+
+#include "ui/aura/window_tree_host.h"
+#include "ui/display/screen.h"
+
 #include "ui/events/event_targeter.h"
 #include "ui/events/event_utils.h"
 
@@ -35,10 +39,12 @@ WmRootWindowControllerAura::WmRootWindowControllerAura(
   root_window_controller_->GetRootWindow()->SetProperty(
       kWmRootWindowControllerKey, this);
   WmShell::Get()->AddShellObserver(this);
+  display::Screen::GetScreen()->AddObserver(this);
 }
 
 WmRootWindowControllerAura::~WmRootWindowControllerAura() {
   WmShell::Get()->RemoveShellObserver(this);
+  display::Screen::GetScreen()->RemoveObserver(this);
 }
 
 // static
@@ -124,11 +130,6 @@ void WmRootWindowControllerAura::RemoveObserver(
   observers_.RemoveObserver(observer);
 }
 
-void WmRootWindowControllerAura::OnDisplayWorkAreaInsetsChanged() {
-  FOR_EACH_OBSERVER(WmRootWindowControllerObserver, observers_,
-                    OnWorkAreaChanged());
-}
-
 void WmRootWindowControllerAura::OnFullscreenStateChanged(
     bool is_fullscreen,
     WmWindow* root_window) {
@@ -148,6 +149,19 @@ void WmRootWindowControllerAura::OnShelfAlignmentChanged(
 
   FOR_EACH_OBSERVER(WmRootWindowControllerObserver, observers_,
                     OnShelfAlignmentChanged());
+}
+
+void WmRootWindowControllerAura::OnDisplayAdded(
+    const display::Display& display) {}
+
+void WmRootWindowControllerAura::OnDisplayRemoved(
+    const display::Display& display) {}
+
+void WmRootWindowControllerAura::OnDisplayMetricsChanged(
+    const display::Display& display,
+    uint32_t metrics) {
+  FOR_EACH_OBSERVER(WmRootWindowControllerObserver, observers_,
+                    OnWorkAreaChanged());
 }
 
 }  // namespace ash

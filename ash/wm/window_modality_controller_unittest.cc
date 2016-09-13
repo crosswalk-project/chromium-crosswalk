@@ -322,7 +322,7 @@ TEST_F(WindowModalityControllerTest, ChangeCapture) {
 TEST_F(WindowModalityControllerTest, ReleaseCapture) {
   // Create a window hierachy like this:
   //                            w0
-  //            /               |              \
+  //            /               |              \  
   //           w1     <------   w3              w2
   //            |    (modal to)
   //           w11
