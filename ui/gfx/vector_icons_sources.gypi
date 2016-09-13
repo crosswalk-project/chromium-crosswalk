@@ -223,6 +223,7 @@
       'vector_icons/tab_usb_connected.icon',
       'vector_icons/tablet.icon',
       'vector_icons/translate.icon',
+      'vector_icons/user_account_avatar.icon',
       'vector_icons/videocam.icon',
       'vector_icons/warning.icon',
       'vector_icons/warning_badge.icon',

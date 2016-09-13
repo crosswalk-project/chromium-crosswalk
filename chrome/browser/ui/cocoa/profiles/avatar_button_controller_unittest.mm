@@ -22,6 +22,7 @@
 #include "grit/theme_resources.h"
 #import "testing/gtest_mac.h"
 #include "ui/base/l10n/l10n_util.h"
+#include "ui/base/material_design/material_design_controller.h"
 #include "ui/base/resource/resource_bundle.h"
 
 // Defined in the AvatarButtonController implementation.
@@ -107,9 +108,15 @@ TEST_F(AvatarButtonControllerTest, ProfileButtonWithErrorShown) {
   ASSERT_FALSE([view() isHidden]);
   EXPECT_NSEQ(@"Person 1", [button() title]);
 
-  // If the button has an authentication error, it should display an error icon.
-  int errorWidth = ui::ResourceBundle::GetSharedInstance().GetNativeImageNamed(
-      IDR_ICON_PROFILES_AVATAR_BUTTON_ERROR).Width();
+  // If the button has an authentication error, it should display an error
+  // icon. If in the MD, the icon size should be 16.
+  int errorWidth =
+      ui::MaterialDesignController::IsModeMaterial()
+          ? 16
+          : ui::ResourceBundle::GetSharedInstance()
+                .GetNativeImageNamed(IDR_ICON_PROFILES_AVATAR_BUTTON_ERROR)
+                .Width();
+
   EXPECT_EQ(errorWidth, [button() image].size.width);
 }
 
