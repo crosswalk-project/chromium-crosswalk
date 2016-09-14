@@ -17,6 +17,7 @@ static_library("arc") {
     "audio/arc_audio_bridge.h",
     "bluetooth/arc_bluetooth_bridge.cc",
     "bluetooth/arc_bluetooth_bridge.h",
+    "bluetooth/bluetooth_struct_traits.h",
     "bluetooth/bluetooth_type_converters.cc",
     "bluetooth/bluetooth_type_converters.h",
     "clipboard/arc_clipboard_bridge.cc",
