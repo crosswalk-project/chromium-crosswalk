@@ -113,6 +113,7 @@
         '..',
       ],
       'dependencies': [
+        'arc_mojo_bindings',
         '../skia/skia.gyp:skia',
       ],
       'sources': [
@@ -155,6 +156,7 @@
         'mojom_typemaps': [
           'arc/common/app.typemap',
           'arc/common/bluetooth.typemap',
+          '../mojo/common/common_custom_types.typemap',
         ],
       },
       'sources': [
@@ -186,7 +188,10 @@
         'arc/common/app_struct_traits.cc',
       ],
       'includes': [ '../mojo/mojom_bindings_generator.gypi' ],
-      'dependencies': [ '../ui/gfx/gfx.gyp:gfx_geometry' ],
+      'dependencies': [
+        '../ui/gfx/gfx.gyp:gfx_geometry',
+        '../mojo/mojo_base.gyp:mojo_common_custom_types_mojom',
+      ],
     },
     {
       # GN version: //components/arc:arc_standalone_service
