@@ -549,6 +549,7 @@ class CONTENT_EXPORT RenderFrameImpl
       const blink::WebSecurityOrigin& origin,
       blink::WebNotificationPermissionCallback* callback) override;
   void didChangeSelection(bool is_empty_selection) override;
+  bool handleCurrentKeyboardEvent() override;
   blink::WebColorChooser* createColorChooser(
       blink::WebColorChooserClient* client,
       const blink::WebColor& initial_color,

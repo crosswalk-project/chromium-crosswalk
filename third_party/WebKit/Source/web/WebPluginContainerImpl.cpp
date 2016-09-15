@@ -92,6 +92,7 @@
 #include "public/web/WebDOMMessageEvent.h"
 #include "public/web/WebDocument.h"
 #include "public/web/WebElement.h"
+#include "public/web/WebFrameClient.h"
 #include "public/web/WebInputEvent.h"
 #include "public/web/WebPlugin.h"
 #include "public/web/WebPrintParams.h"
@@ -100,6 +101,7 @@
 #include "web/ChromeClientImpl.h"
 #include "web/WebDataSourceImpl.h"
 #include "web/WebInputEventConversion.h"
+#include "web/WebLocalFrameImpl.h"
 #include "web/WebViewImpl.h"
 #include "wtf/Assertions.h"
 
@@ -801,9 +803,9 @@ void WebPluginContainerImpl::handleKeyboardEvent(KeyboardEvent* event)
     }
 
     // Give the client a chance to issue edit comamnds.
-    WebViewImpl* view = WebViewImpl::fromPage(m_element->document().frame()->page());
-    if (m_webPlugin->supportsEditCommands() && view->client())
-        view->client()->handleCurrentKeyboardEvent();
+    WebLocalFrameImpl* webFrame = WebLocalFrameImpl::fromFrame(m_element->document().frame());
+    if (m_webPlugin->supportsEditCommands())
+        webFrame->client()->handleCurrentKeyboardEvent();
 
     WebCursorInfo cursorInfo;
     if (m_webPlugin->handleInputEvent(webEvent, cursorInfo) != WebInputEventResult::NotHandled)
