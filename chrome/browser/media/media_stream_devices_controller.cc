@@ -165,8 +165,7 @@ MediaStreamDevicesController::MediaStreamDevicesController(
     const content::MediaResponseCallback& callback)
     : web_contents_(web_contents),
       request_(request),
-      callback_(callback),
-      persist_(true) {
+      callback_(callback) {
   if (request_.request_type == content::MEDIA_OPEN_DEVICE_PEPPER_ONLY) {
     MediaPermissionRequestLogger::LogRequest(
         web_contents, request.render_process_id, request.render_frame_id,
@@ -269,7 +268,7 @@ MediaStreamDevicesController::GetPermissionTypeForContentSettingsType(
 }
 
 void MediaStreamDevicesController::ForcePermissionDeniedTemporarily() {
-  base::AutoReset<bool> persist_permissions(&persist_, false);
+  set_persist(false);
   // TODO(tsergeant): Determine whether it is appropriate to record permission
   // action metrics here, as this is a different sort of user action.
   RunCallback(CONTENT_SETTING_BLOCK,
@@ -337,6 +336,10 @@ void MediaStreamDevicesController::GroupedRequestFinished(bool audio_accepted,
               GetNewSetting(CONTENT_SETTINGS_TYPE_MEDIASTREAM_CAMERA,
                             old_video_setting_, video_setting),
               content::MEDIA_DEVICE_PERMISSION_DENIED);
+}
+
+bool MediaStreamDevicesController::ShouldShowPersistenceToggle() const {
+  return PermissionUtil::ShouldShowPersistenceToggle();
 }
 
 void MediaStreamDevicesController::Cancelled() {
