@@ -234,17 +234,7 @@ void HTMLFormElement::submitImplicitly(Event* event, bool fromImplicitSubmission
         }
     }
     if (fromImplicitSubmissionTrigger && submissionTriggerCount == 1)
-        prepareForSubmission(event);
-}
-
-// FIXME: Consolidate this and similar code in FormSubmission.cpp.
-static inline HTMLFormControlElement* submitElementFromEvent(const Event* event)
-{
-    for (Node* node = event->target()->toNode(); node; node = node->parentOrShadowHostNode()) {
-        if (node->isElementNode() && toElement(node)->isFormControlElement())
-            return toHTMLFormControlElement(node);
-    }
-    return 0;
+        prepareForSubmission(event, nullptr);
 }
 
 bool HTMLFormElement::validateInteractively()
@@ -290,7 +280,7 @@ bool HTMLFormElement::validateInteractively()
     return false;
 }
 
-void HTMLFormElement::prepareForSubmission(Event* event)
+void HTMLFormElement::prepareForSubmission(Event* event, HTMLFormControlElement* submitButton)
 {
     LocalFrame* frame = document().frame();
     if (!frame || m_isSubmitting || m_inUserJSSubmitEvent)
@@ -303,8 +293,7 @@ void HTMLFormElement::prepareForSubmission(Event* event)
 
     bool skipValidation = !document().page() || noValidate();
     DCHECK(event);
-    HTMLFormControlElement* submitElement = submitElementFromEvent(event);
-    if (submitElement && submitElement->formNoValidate())
+    if (submitButton && submitButton->formNoValidate())
         skipValidation = true;
 
     UseCounter::count(document(), UseCounter::FormSubmissionStarted);
@@ -320,7 +309,7 @@ void HTMLFormElement::prepareForSubmission(Event* event)
     }
     if (shouldSubmit) {
         m_plannedNavigation = nullptr;
-        submit(event, true);
+        submit(event, submitButton);
     }
     if (!m_plannedNavigation)
         return;
@@ -331,7 +320,7 @@ void HTMLFormElement::prepareForSubmission(Event* event)
 
 void HTMLFormElement::submitFromJavaScript()
 {
-    submit(0, false);
+    submit(nullptr, nullptr);
 }
 
 void HTMLFormElement::submitDialog(FormSubmission* formSubmission)
@@ -344,7 +333,7 @@ void HTMLFormElement::submitDialog(FormSubmission* formSubmission)
     }
 }
 
-void HTMLFormElement::submit(Event* event, bool activateSubmitButton)
+void HTMLFormElement::submit(Event* event, HTMLFormControlElement* submitButton)
 {
     FrameView* view = document().view();
     LocalFrame* frame = document().frame();
@@ -365,27 +354,24 @@ void HTMLFormElement::submit(Event* event, bool activateSubmitButton)
     EventQueueScope scopeForDialogClose;
     AutoReset<bool> submitScope(&m_isSubmitting, true);
 
-    HTMLFormControlElement* firstSuccessfulSubmitButton = nullptr;
-    bool needButtonActivation = activateSubmitButton; // do we need to activate a submit button?
-
-    const FormAssociatedElement::List& elements = associatedElements();
-    for (unsigned i = 0; i < elements.size(); ++i) {
-        FormAssociatedElement* associatedElement = elements[i];
-        if (!associatedElement->isFormControlElement())
-            continue;
-        if (needButtonActivation) {
+    if (event && !submitButton) {
+        // In a case of implicit submission without a submit button, 'submit'
+        // event handler might add a submit button. We search for a submit
+        // button again.
+        // TODO(tkent): Do we really need to activate such submit button?
+        for (const auto& associatedElement : associatedElements()) {
+            if (!associatedElement->isFormControlElement())
+                continue;
             HTMLFormControlElement* control = toHTMLFormControlElement(associatedElement);
-            if (control->isActivatedSubmit())
-                needButtonActivation = false;
-            else if (firstSuccessfulSubmitButton == 0 && control->isSuccessfulSubmitButton())
-                firstSuccessfulSubmitButton = control;
+            DCHECK(!control->isActivatedSubmit());
+            if (control->isSuccessfulSubmitButton()) {
+                submitButton = control;
+                break;
+            }
         }
     }
 
-    if (needButtonActivation && firstSuccessfulSubmitButton)
-        firstSuccessfulSubmitButton->setActivatedSubmit(true);
-
-    FormSubmission* formSubmission = FormSubmission::create(this, m_attributes, event);
+    FormSubmission* formSubmission = FormSubmission::create(this, m_attributes, event, submitButton);
     if (formSubmission->method() == FormSubmission::DialogMethod) {
         submitDialog(formSubmission);
     } else if (m_inUserJSSubmitEvent) {
@@ -397,9 +383,6 @@ void HTMLFormElement::submit(Event* event, bool activateSubmitButton)
         // protocol.
         scheduleFormSubmission(formSubmission);
     }
-
-    if (needButtonActivation && firstSuccessfulSubmitButton)
-        firstSuccessfulSubmitButton->setActivatedSubmit(false);
 }
 
 void HTMLFormElement::scheduleFormSubmission(FormSubmission* submission)
