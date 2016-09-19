@@ -208,6 +208,7 @@ split_static_library("browser") {
     "//ui/events:events_base",
     "//ui/gfx",
     "//ui/gfx/geometry",
+    "//ui/gl:gl_features",
     "//ui/message_center",
     "//ui/resources",
     "//ui/shell_dialogs",
