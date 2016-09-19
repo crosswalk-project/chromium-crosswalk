@@ -3055,6 +3055,13 @@ LayoutUnit LayoutBox::availableLogicalHeightUsing(const Length& h, AvailableLogi
         return logicalHeight() - borderAndPaddingLogicalHeight();
     }
 
+    if (isFlexItem()) {
+        LayoutFlexibleBox& flexBox = toLayoutFlexibleBox(*parent());
+        LayoutUnit stretchedHeight = flexBox.childLogicalHeightForPercentageResolution(*this);
+        if (stretchedHeight != LayoutUnit(-1))
+            return stretchedHeight;
+    }
+
     if (h.hasPercent() && isOutOfFlowPositioned()) {
         // FIXME: This is wrong if the containingBlock has a perpendicular writing mode.
         LayoutUnit availableHeight = containingBlockLogicalHeightForPositioned(containingBlock());
