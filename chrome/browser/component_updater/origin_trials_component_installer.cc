@@ -60,7 +60,7 @@ bool OriginTrialsComponentInstallerTraits::
 }
 
 bool OriginTrialsComponentInstallerTraits::RequiresNetworkEncryption() const {
-  return true;
+  return false;
 }
 
 bool OriginTrialsComponentInstallerTraits::OnCustomInstall(
