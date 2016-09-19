@@ -744,7 +744,7 @@
 <translation id="2018352199541442911">很抱歉，系統目前不支援您的外部儲存裝置。</translation>
 <translation id="2019718679933488176">在新分頁中開啟音效(&amp;O)</translation>
 <translation id="2021833227920703473">在總覽模式中使用穩定視窗順序</translation>
-<translation id="2023167225947895179">PIN 可能不難猜到</translation>
+<translation id="2023167225947895179">你所輸入的 PIN 碼可能很容易被別人猜到</translation>
 <translation id="202352106777823113">下載時間過長，網路已中止下載。</translation>
 <translation id="2025632980034333559"><ph name="APP_NAME" /> 當機了，請按一下這個提示框來重新載入擴充功能。</translation>
 <translation id="2028531481946156667">無法開始格式化程序。</translation>
@@ -756,7 +756,7 @@
 <translation id="204497730941176055">Microsoft 憑證範本名稱</translation>
 <translation id="2045969484888636535">繼續封鎖 Cookie</translation>
 <translation id="204622017488417136">您的裝置將還原至上一個安裝的 Chrome 版本，且所有使用者帳戶和本機資料都會遭到移除。這項操作無法復原。</translation>
-<translation id="204777864658259259">PIN 或密碼不正確。</translation>
+<translation id="204777864658259259">你所輸入的 PIN 碼或密碼不正確。</translation>
 <translation id="2048182445208425546">存取您的網路流量</translation>
 <translation id="2049137146490122801">您的管理員已停用您裝置上本機檔案的存取權。</translation>
 <translation id="204914487372604757">建立捷徑</translation>
@@ -1860,7 +1860,7 @@
 <translation id="3465566417615315331">點選您的相片</translation>
 <translation id="3466147780910026086">正在掃描您的媒體裝置...</translation>
 <translation id="3467267818798281173">啟用 Google 拼字建議功能</translation>
-<translation id="3467789682390027873">PIN 或密碼</translation>
+<translation id="3467789682390027873">PIN 碼或密碼</translation>
 <translation id="3468522857997926824">已將 <ph name="FILE_COUNT" /> 張相片備份到 <ph name="BEGIN_LINK" />Google 雲端硬碟<ph name="END_LINK" /></translation>
 <translation id="3470442499439619530">移除這個使用者</translation>
 <translation id="3470502288861289375">複製中...</translation>
@@ -2811,7 +2811,7 @@
 <translation id="4827948050554950725">新增信用卡</translation>
 <translation id="4828493911650550108">允許應用程式和服務掃描 Wi-Fi 網路和藍牙裝置，提升定位準確度。</translation>
 <translation id="4828937774870308359">澳洲式</translation>
-<translation id="4829768588131278040">設定 PIN</translation>
+<translation id="4829768588131278040">設定 PIN 碼</translation>
 <translation id="4830573902900904548">您的 <ph name="DEVICE_TYPE" /> 無法透過 <ph name="NETWORK_NAME" /> 連線至網際網路，請選擇其他網路。<ph name="LEARN_MORE_LINK_START" />瞭解詳情<ph name="LEARN_MORE_LINK_END" /></translation>
 <translation id="4830663122372455572"><ph name="ORGANIZATION" /> (所在地：<ph name="LOCALITY" />) 的身分已通過 <ph name="ISSUER" /> 驗證，且伺服器提供了有效的 Certificate Transparency 資訊。</translation>
 <translation id="4834912470034578916">為網路通知啟用自訂版面配置。</translation>
@@ -3473,6 +3473,7 @@
 <translation id="5719603411793408026">預設搜尋引擎</translation>
 <translation id="572328651809341494">最近開啟的分頁</translation>
 <translation id="5723508132121499792">沒有執行中的背景應用程式</translation>
+<translation id="572392919096807438">記住我的決定</translation>
 <translation id="5725124651280963564">登入 <ph name="TOKEN_NAME" /> 即可產生供 <ph name="HOST_NAME" /> 使用的金鑰。</translation>
 <translation id="5725199926572598591">DirectWrite</translation>
 <translation id="572525680133754531">在合成「轉譯圖層」周圍呈現邊框，有助於偵錯和解析圖層合成。</translation>
@@ -4115,7 +4116,6 @@
 <translation id="6630752851777525409">「<ph name="EXTENSION_NAME" />」要求永久存取可代您驗證其自身的憑證。</translation>
 <translation id="6637362044401670482">啟用虛擬鍵盤捲動邊界支援。</translation>
 <translation id="6639554308659482635">SQLite 記憶體使用量</translation>
-<translation id="6643016212128521049">清除</translation>
 <translation id="6647228709620733774">Netscape 憑證授權撤銷網址</translation>
 <translation id="6647838571840953560">目前使用<ph name="CHANNEL_NAME" />版</translation>
 <translation id="6649018507441623493">請稍候...</translation>
@@ -4396,7 +4396,7 @@
 <translation id="7047998246166230966">指標裝置</translation>
 <translation id="7048141481140415714">按下 Ctrl+Alt+Shift+8 鍵即可切換 TouchView 最大化模式。</translation>
 <translation id="7051943809462976355">正在搜尋滑鼠...</translation>
-<translation id="7052215492372573690">PIN 至少需有 4 碼</translation>
+<translation id="7052215492372573690">PIN 碼至少需有 4 碼</translation>
 <translation id="7052237160939977163">傳送效能追蹤資料</translation>
 <translation id="7052633198403197513">F1 鍵</translation>
 <translation id="7052914147756339792">設定桌布...</translation>
@@ -5125,7 +5125,7 @@
 <translation id="8090234456044969073">讀取最常造訪的網站清單</translation>
 <translation id="8091655032047076676">實驗性</translation>
 <translation id="8094917007353911263">目前使用的網路可能會要求您造訪 <ph name="BEGIN_BOLD" /><ph name="LOGIN_URL" /><ph name="END_BOLD" />。</translation>
-<translation id="80974698889265265">PIN 不符</translation>
+<translation id="80974698889265265">PIN 碼不符</translation>
 <translation id="8098975406164436557">使用這個手機為您的 <ph name="DEVICE_TYPE" /> 解鎖？</translation>
 <translation id="810066391692572978">檔案使用不受支援的功能。</translation>
 <translation id="8101987792947961127">必須在下次重新啟動時執行 Powerwash</translation>

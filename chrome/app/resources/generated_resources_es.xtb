@@ -492,7 +492,7 @@
 <translation id="1644574205037202324">Historial</translation>
 <translation id="1645228020260124617"><ph name="PRECENTAGE" />%</translation>
 <translation id="1645870377513700713">Habilita las notificaciones nativas.</translation>
-<translation id="1646102270785326155">Una vez que se haya quitado este usuario, todos los archivos y datos asociados a él se eliminarán de forma permanente. $1 puede iniciar sesión más tarde.</translation>
+<translation id="1646102270785326155">Una vez que se haya quitado este usuario, todos los archivos y datos asociados a él se eliminarán de forma permanente. $1 igualmente puede iniciar sesión más tarde.</translation>
 <translation id="1646136617204068573">Teclado húngaro</translation>
 <translation id="1646982517418478057">Introduce una contraseña para cifrar este certificado</translation>
 <translation id="164729547906544836">Teclado tamil (itrans)</translation>
@@ -611,7 +611,7 @@
 <translation id="1801298019027379214">PIN incorrecto. Inténtalo de nuevo. Intentos restantes: <ph name="TRIES_COUNT" />.</translation>
 <translation id="1801827354178857021">Periodo</translation>
 <translation id="1803133642364907127">Verificación de contenido de extensión</translation>
-<translation id="1803678881841855883">La función de navegación segura de Google <ph name="BEGIN_LINK" />detectó software malicioso<ph name="END_LINK" /> recientemente en <ph name="SITE" />. En ocasiones, los sitios web que suelen ser seguros contienen software malicioso. Este contenido procede de <ph name="SUBRESOURCE_HOST" />, un conocido distribuidor de software malicioso. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" />.</translation>
+<translation id="1803678881841855883">La función de navegación segura de Google <ph name="BEGIN_LINK" />detectó software malicioso<ph name="END_LINK" /> recientemente en <ph name="SITE" />. En ocasiones, los sitios web que suelen ser seguros contienen software malicioso. Este contenido procede de <ph name="SUBRESOURCE_HOST" />, un conocido distribuidor de este tipo de software. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="1807938677607439181">Todos los archivos</translation>
 <translation id="1810107444790159527">Cuadro de lista</translation>
 <translation id="1810764548349082891">No hay vistas previas disponibles</translation>
@@ -1071,7 +1071,7 @@ No creo que este sitio deba bloquearse</translation>
 <translation id="2454247629720664989">Palabra clave</translation>
 <translation id="2454955809499635160">Inicia sesión en Chrome para ver las pestañas de todos los dispositivos.</translation>
 <translation id="2457246892030921239"><ph name="APP_NAME" /> quiere copiar archivos de <ph name="VOLUME_NAME" />.</translation>
-<translation id="2460160116472764928">La función de navegación segura de Google <ph name="BEGIN_LINK" />detectó software malicioso<ph name="END_LINK" /> recientemente en <ph name="SITE" />. En ocasiones, los sitios web que suelen ser seguros contienen software malicioso. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" />.</translation>
+<translation id="2460160116472764928">La función de navegación segura de Google <ph name="BEGIN_LINK" />detectó software malicioso<ph name="END_LINK" /> recientemente en <ph name="SITE" />. En ocasiones, los sitios web que suelen ser seguros contienen software malicioso. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="2462724976360937186">ID de clave de la entidad emisora de certificados</translation>
 <translation id="2467815441875554965">Búsqueda contextual</translation>
 <translation id="2469890184320718637">El texto se procesa con campos de distancia con signos en lugar de con máscaras alfa de mapa de bits.</translation>
@@ -2469,7 +2469,7 @@ Todos los usuarios deben cerrar sesión para continuar.</translation>
 <translation id="4289540628985791613">Descripción general</translation>
 <translation id="4291779358799919071">Capacidad</translation>
 <translation id="4293409159363387562">Recuperar de todas formas</translation>
-<translation id="4295944351946828969">La función de navegación segura de Google <ph name="BEGIN_LINK" />encontró programas dañinos<ph name="END_LINK" /> recientemente en <ph name="SITE" />. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" />.</translation>
+<translation id="4295944351946828969">La función de navegación segura de Google <ph name="BEGIN_LINK" />encontró programas dañinos<ph name="END_LINK" /> recientemente en <ph name="SITE" />. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="4296575653627536209">Añadir usuario supervisado</translation>
 <translation id="4297391862525234515">La estantería se minimiza al hacer clic</translation>
 <translation id="42981349822642051">Ampliar</translation>
@@ -3475,6 +3475,7 @@ Pulsa cualquier tecla para seguir con la exploración.</translation>
 <translation id="5719603411793408026">Motores de búsqueda predeterminados</translation>
 <translation id="572328651809341494">Pestañas recientes</translation>
 <translation id="5723508132121499792">No se están ejecutando aplicaciones en segundo plano.</translation>
+<translation id="572392919096807438">Recordar mi decisión</translation>
 <translation id="5725124651280963564">Inicia sesión en <ph name="TOKEN_NAME" /> para generar una clave para <ph name="HOST_NAME" />.</translation>
 <translation id="5725199926572598591">DirectWrite</translation>
 <translation id="572525680133754531">Muestra un borde alrededor de las capas procesadas compuestas para facilitar la depuración y el estudio de la composición de capas.</translation>
@@ -3747,7 +3748,7 @@ Exponente público (<ph name="PUBLIC_EXPONENT_NUM_BITS" /> bits):
 <translation id="6110466548232134880"><ph name="ISSUER" /> ha verificado la identidad de <ph name="ORGANIZATION" /> en <ph name="LOCALITY" />. El servidor no ha proporcionado información de Transparencia de certificados.</translation>
 <translation id="6111770213269631447">Transliteración (namaskar → নমস্কার)</translation>
 <translation id="6111974609785983504">Permitido de forma predeterminada</translation>
-<translation id="6112952769866305444">Cambiar persona (<ph name="PROFILE_NAME" />, <ph name="USERNAME" />)</translation>
+<translation id="6112952769866305444">Editar persona (<ph name="PROFILE_NAME" />, <ph name="USERNAME" />)</translation>
 <translation id="6116921718742659598">Cambiar configuración de idioma y de introducción de texto</translation>
 <translation id="6120205520491252677">Fijar esta página en la pantalla de inicio...</translation>
 <translation id="6122081475643980456">Tu conexión a Internet está siendo controlada</translation>
@@ -4117,7 +4118,6 @@ Exponente público (<ph name="PUBLIC_EXPONENT_NUM_BITS" /> bits):
 <translation id="6630752851777525409"><ph name="EXTENSION_NAME" /> desea acceder de forma permanente a un certificado parar autenticarse en tu nombre.</translation>
 <translation id="6637362044401670482">Habilita la compatibilidad de desplazamiento con rebote del teclado virtual.</translation>
 <translation id="6639554308659482635">Memoria de SQLite</translation>
-<translation id="6643016212128521049">Eliminar</translation>
 <translation id="6647228709620733774">URL de revocación de la entidad emisora de certificados de Netscape</translation>
 <translation id="6647838571840953560">Actualmente en <ph name="CHANNEL_NAME" /></translation>
 <translation id="6649018507441623493">Un segundo...</translation>
@@ -4325,7 +4325,7 @@ Exponente público (<ph name="PUBLIC_EXPONENT_NUM_BITS" /> bits):
 <translation id="6970230597523682626">Búlgaro</translation>
 <translation id="6970480684834282392">Tipo de inicio</translation>
 <translation id="6970856801391541997">Imprimir páginas específicas</translation>
-<translation id="6972754398087986839">Para empezar</translation>
+<translation id="6972754398087986839">Empezar</translation>
 <translation id="6972929256216826630">Permitir que todos los sitios descarguen varios archivos automáticamente</translation>
 <translation id="6973630695168034713">Carpetas</translation>
 <translation id="6974053822202609517">De derecha a izquierda</translation>
@@ -4825,7 +4825,7 @@ Exponente público (<ph name="PUBLIC_EXPONENT_NUM_BITS" /> bits):
 <translation id="7649070708921625228">Ayuda</translation>
 <translation id="7650511557061837441">"<ph name="TRIGGERING_EXTENSION_NAME" />" quiere eliminar "<ph name="EXTENSION_NAME" />".</translation>
 <translation id="7650701856438921772"><ph name="PRODUCT_NAME" /> se muestra en este idioma.</translation>
-<translation id="7652808307838961528">Cambiar persona (<ph name="PROFILE_NAME" />)</translation>
+<translation id="7652808307838961528">Editar persona (<ph name="PROFILE_NAME" />)</translation>
 <translation id="7654941827281939388">Esta cuenta ya se está utilizando en este ordenador.</translation>
 <translation id="7658239707568436148">Cancelar</translation>
 <translation id="7659584679870740384">No tienes autorización para utilizar este dispositivo. Ponte en contacto con el administrador para obtener permiso de inicio de sesión.</translation>
@@ -5088,7 +5088,7 @@ Guarda tu archivo de clave en un lugar seguro, ya que lo necesitarás para crear
 <translation id="8028620363061701162">Permite que las páginas sin conexión se carguen en segundo plano</translation>
 <translation id="8028993641010258682">Tamaño</translation>
 <translation id="8030169304546394654">Desconectado</translation>
-<translation id="803030522067524905">La función de navegación segura de Google detectó phishing recientemente en <ph name="SITE" />. Los sitios web de phishing imitan el aspecto de otros sitios web para engañarte. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" />.</translation>
+<translation id="803030522067524905">La función de navegación segura de Google detectó phishing recientemente en <ph name="SITE" />. Los sitios web de phishing imitan el aspecto de otros sitios web para engañarte. <ph name="BEGIN_LEARN_MORE_LINK" />Más información<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="8030656706657716245">Añadir impresora</translation>
 <translation id="8031722894461705849">Teclado de eslovaco</translation>
 <translation id="8032244173881942855">No se puede enviar la pestaña.</translation>

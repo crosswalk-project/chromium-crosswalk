@@ -608,7 +608,7 @@
 <translation id="1801298019027379214">Falsche PIN, bitte versuchen Sie es erneut. Verbleibende Versuche: <ph name="TRIES_COUNT" /></translation>
 <translation id="1801827354178857021">Zeitraum</translation>
 <translation id="1803133642364907127">Inhaltsprüfung für Erweiterungen</translation>
-<translation id="1803678881841855883">Google Safe Browsing hat kürzlich <ph name="BEGIN_LINK" />Malware<ph name="END_LINK" /> auf <ph name="SITE" /> gefunden. Websites, die in der Regel sicher sind, können gelegentlich mit Malware infiziert sein. Der schädliche Inhalt stammt von <ph name="SUBRESOURCE_HOST" />, einem unbekannten Verteiler von Malware. <ph name="BEGIN_LEARN_MORE_LINK" />Weitere Informationen<ph name="END_LEARN_MORE_LINK" /></translation>
+<translation id="1803678881841855883">Google Safe Browsing hat kürzlich <ph name="BEGIN_LINK" />Malware<ph name="END_LINK" /> auf <ph name="SITE" /> gefunden. Websites, die in der Regel sicher sind, können gelegentlich mit Malware infiziert sein. Der schädliche Inhalt stammt von <ph name="SUBRESOURCE_HOST" />, einem bekannten Verteiler von Malware. <ph name="BEGIN_LEARN_MORE_LINK" />Weitere Informationen<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="1807938677607439181">Alle Dateien</translation>
 <translation id="1810107444790159527">Listenfeld</translation>
 <translation id="1810764548349082891">Keine Vorschau verfügbar</translation>
@@ -3469,6 +3469,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="5719603411793408026">Standardsuchmaschinen</translation>
 <translation id="572328651809341494">Zuletzt geöffnete Tabs</translation>
 <translation id="5723508132121499792">Es werden keine Apps im Hintergrund ausgeführt.</translation>
+<translation id="572392919096807438">Meine Entscheidung speichern</translation>
 <translation id="5725124651280963564">Melden Sie sich in <ph name="TOKEN_NAME" /> an, um einen Schlüssel für <ph name="HOST_NAME" /> zu generieren.</translation>
 <translation id="5725199926572598591">DirectWrite</translation>
 <translation id="572525680133754531">Zeigt einen Rahmen um zusammengesetzte Render-Ebenen an, um das Debugging zu unterstützen und die Zusammensetzung der Ebenen zu analysieren</translation>
@@ -4112,7 +4113,6 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="6630752851777525409"><ph name="EXTENSION_NAME" /> fordert ständigen Zugriff auf ein Zertifikat an, um sich in Ihrem Namen zu authentifizieren.</translation>
 <translation id="6637362044401670482">Dies aktiviert die Unterstützung des Overscroll-Effekts für die Bildschirmtastatur.</translation>
 <translation id="6639554308659482635">SQLite-Speicher</translation>
-<translation id="6643016212128521049">Löschen</translation>
 <translation id="6647228709620733774">URL zum Zurückrufen der Zertifizierungsstelle von Netscape-Zertifikaten</translation>
 <translation id="6647838571840953560">Derzeit auf <ph name="CHANNEL_NAME" /></translation>
 <translation id="6649018507441623493">Bitte warten...</translation>
@@ -4186,7 +4186,7 @@ Drücken Sie eine beliebige Taste, um fortzufahren.</translation>
 <translation id="6745592621698551453">Jetzt aktualisieren</translation>
 <translation id="6745994589677103306">Nicht starten</translation>
 <translation id="6746124502594467657">Nach unten</translation>
-<translation id="674632704103926902">Ziehen von Tabs aktivieren</translation>
+<translation id="674632704103926902">Antippen und Ziehen aktivieren</translation>
 <translation id="6746392203843147041">Lauter</translation>
 <translation id="6748140994595080445">Legen Sie fest, wie <ph name="APP_NAME" /> Sprachen verarbeitet und anzeigt.</translation>
 <translation id="6748465660675848252">Sie können den Vorgang fortsetzen, allerdings werden nur Ihre synchronisierten Daten und Einstellungen wiederhergestellt. Alle lokalen Daten gehen verloren.</translation>
@@ -5085,7 +5085,7 @@ Speichern Sie Ihre Schlüsseldatei an einem sicheren Ort. Sie benötigen die Dat
 <translation id="8028620363061701162">Ermöglicht das Laden von Offlineseiten im Hintergrund</translation>
 <translation id="8028993641010258682">Größe</translation>
 <translation id="8030169304546394654">Verbindung getrennt</translation>
-<translation id="803030522067524905">Google Safe Browsing hat kürzlich Phising auf <ph name="SITE" /> gefunden. Phishing-Websites täuschen die Nutzer, indem sie sich als andere Websites ausgeben. <ph name="BEGIN_LEARN_MORE_LINK" />Weitere Informationen<ph name="END_LEARN_MORE_LINK" /></translation>
+<translation id="803030522067524905">Google Safe Browsing hat kürzlich Phishing auf <ph name="SITE" /> gefunden. Phishing-Websites täuschen die Nutzer, indem sie sich als andere Websites ausgeben. <ph name="BEGIN_LEARN_MORE_LINK" />Weitere Informationen<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="8030656706657716245">Drucker hinzufügen</translation>
 <translation id="8031722894461705849">Slowakische Tastatur</translation>
 <translation id="8032244173881942855">Tab kann nicht gestreamt werden.</translation>

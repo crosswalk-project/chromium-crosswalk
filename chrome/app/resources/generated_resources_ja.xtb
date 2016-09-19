@@ -612,7 +612,7 @@
 <translation id="1801298019027379214">PIN が正しくありません。もう一度入力してください。あと <ph name="TRIES_COUNT" /> 回入力できます。</translation>
 <translation id="1801827354178857021">期間</translation>
 <translation id="1803133642364907127">拡張機能のコンテンツの確認</translation>
-<translation id="1803678881841855883"><ph name="SITE" /> では最近、Google セーフ ブラウジングにより、<ph name="BEGIN_LINK" />不正なソフトウェアが検出<ph name="END_LINK" />されました。通常は安全なウェブサイトであっても、不正なソフトウェアに感染している場合があります。今回の悪意のあるコンテンツは、不正なソフトウェアの既知の配布元である「<ph name="SUBRESOURCE_HOST" />」からもたらされました。<ph name="BEGIN_LEARN_MORE_LINK" />詳細<ph name="END_LEARN_MORE_LINK" /></translation>
+<translation id="1803678881841855883"><ph name="SITE" /> では最近、Google セーフ ブラウジングにより、<ph name="BEGIN_LINK" />不正なソフトウェアが検出<ph name="END_LINK" />されました。通常は安全なウェブサイトであっても、不正なソフトウェアに感染している場合があります。今回の悪意のあるコンテンツは、不正なソフトウェアの既知の配布元である「<ph name="SUBRESOURCE_HOST" />」から送られてきました。<ph name="BEGIN_LEARN_MORE_LINK" />詳細<ph name="END_LEARN_MORE_LINK" /></translation>
 <translation id="1807938677607439181">すべてのファイル</translation>
 <translation id="1810107444790159527">リスト ボックス</translation>
 <translation id="1810764548349082891">プレビュー機能はご利用いただけません</translation>
@@ -3479,6 +3479,7 @@
 <translation id="5719603411793408026">既定の検索エンジン</translation>
 <translation id="572328651809341494">最近使ったタブ</translation>
 <translation id="5723508132121499792">実行中のバックグラウンド アプリはありません</translation>
+<translation id="572392919096807438">この選択を保存</translation>
 <translation id="5725124651280963564"><ph name="HOST_NAME" /> 用のキーを生成するには <ph name="TOKEN_NAME" /> にログインしてください。</translation>
 <translation id="5725199926572598591">DirectWrite</translation>
 <translation id="572525680133754531">レイヤ合成のデバッグや調査を実施できるように、合成された表示レイヤの周りに境界線を表示します。</translation>
@@ -4122,7 +4123,6 @@
 <translation id="6630752851777525409"><ph name="EXTENSION_NAME" /> が、自身を自動的に認証できるよう、証明書への恒久的なアクセス許可を求めています。</translation>
 <translation id="6637362044401670482">仮想キーボードのオーバースクロールのサポートを有効にします。</translation>
 <translation id="6639554308659482635">SQLite メモリ</translation>
-<translation id="6643016212128521049">クリア</translation>
 <translation id="6647228709620733774">Netscape 認証局取り消し URL</translation>
 <translation id="6647838571840953560">現在のチャンネルは <ph name="CHANNEL_NAME" /> です</translation>
 <translation id="6649018507441623493">お待ちください…</translation>
