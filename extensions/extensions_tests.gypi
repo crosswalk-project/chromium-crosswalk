@@ -75,6 +75,7 @@
       'browser/api/web_request/web_request_time_tracker_unittest.cc',
       'browser/app_window/app_window_geometry_cache_unittest.cc',
       'browser/computed_hashes_unittest.cc',
+      'browser/content_hash_fetcher_unittest.cc',
       'browser/content_hash_tree_unittest.cc',
       'browser/error_map_unittest.cc',
       'browser/event_listener_map_unittest.cc',
