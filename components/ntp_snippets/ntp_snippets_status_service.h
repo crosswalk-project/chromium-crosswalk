@@ -45,8 +45,6 @@ class NTPSnippetsStatusService : public SigninManagerBase::Observer {
   DisabledReason disabled_reason() const { return disabled_reason_; }
 
  private:
-  FRIEND_TEST_ALL_PREFIXES(NTPSnippetsStatusServiceTest,
-                           SigninStateCompatibility);
   FRIEND_TEST_ALL_PREFIXES(NTPSnippetsStatusServiceTest, DisabledViaPref);
 
   // SigninManagerBase::Observer implementation
