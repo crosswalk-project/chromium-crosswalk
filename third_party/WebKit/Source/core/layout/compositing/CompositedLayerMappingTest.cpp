@@ -45,10 +45,10 @@ protected:
         return graphicsLayer->m_previousInterestRect;
     }
 
-    bool shouldPaintBackgroundOntoScrollingContentsLayer(const char* elementId)
+    bool canPaintBackgroundOntoScrollingContentsLayer(const char* elementId)
     {
         CompositedLayerMapping* mapping = toLayoutBlock(getLayoutObjectByElementId(elementId))->layer()->compositedLayerMapping();
-        return mapping->shouldPaintBackgroundOntoScrollingContentsLayer();
+        return mapping->canPaintBackgroundOntoScrollingContentsLayer();
     }
 
 private:
@@ -650,13 +650,32 @@ TEST_F(CompositedLayerMappingTest, ShouldPaintBackgroundOntoScrollingContentsLay
         );
 
     // First scroller cannot paint background into scrolling contents layer because it has a negative z-index child.
-    EXPECT_FALSE(shouldPaintBackgroundOntoScrollingContentsLayer("scroller1"));
+    EXPECT_FALSE(canPaintBackgroundOntoScrollingContentsLayer("scroller1"));
 
     // Second scroller cannot paint background into scrolling contents layer because it has a content-box clip without local attachment.
-    EXPECT_FALSE(shouldPaintBackgroundOntoScrollingContentsLayer("scroller2"));
+    EXPECT_FALSE(canPaintBackgroundOntoScrollingContentsLayer("scroller2"));
 
     // Third scroller can paint background into scrolling contents layer.
-    EXPECT_TRUE(shouldPaintBackgroundOntoScrollingContentsLayer("scroller3"));
+    EXPECT_TRUE(canPaintBackgroundOntoScrollingContentsLayer("scroller3"));
+}
+
+TEST_F(CompositedLayerMappingTest, BackgroundPaintedIntoGraphicsLayerIfNotCompositedScrolling)
+{
+    document().frame()->settings()->setPreferCompositingToLCDTextEnabled(true);
+    setBodyInnerHTML(
+        "<div id='container' style='overflow: scroll; width: 300px; height: 300px; border-radius: 5px; background: white local; will-change: transform;'>"
+        "    <div style='background-color: blue; width: 2000px; height: 2000px;'></div>"
+        "</div>");
+
+    PaintLayer* layer = toLayoutBlock(getLayoutObjectByElementId("container"))->layer();
+    EXPECT_TRUE(canPaintBackgroundOntoScrollingContentsLayer("container"));
+
+    // We currently don't use composited scrolling when the container has a border-radius
+    // so even though we can paint the background onto the scrolling contents layer we
+    // don't have a scrolling contents layer to paint into in this case.
+    CompositedLayerMapping* mapping = layer->compositedLayerMapping();
+    EXPECT_FALSE(mapping->hasScrollingLayer());
+    EXPECT_FALSE(mapping->backgroundPaintsOntoScrollingContentsLayer());
 }
 
 } // namespace blink

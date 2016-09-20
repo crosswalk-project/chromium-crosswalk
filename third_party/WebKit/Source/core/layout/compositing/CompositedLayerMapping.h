@@ -225,7 +225,7 @@ public:
     // the background can scroll with the content). When the background is also
     // opaque this allows us to composite the scroller even on low DPI as we can
     // draw with subpixel anti-aliasing.
-    bool shouldPaintBackgroundOntoScrollingContentsLayer() const;
+    bool canPaintBackgroundOntoScrollingContentsLayer() const;
     bool backgroundPaintsOntoScrollingContentsLayer() { return m_backgroundPaintsOntoScrollingContentsLayer; }
 
 private:

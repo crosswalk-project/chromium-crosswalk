@@ -297,7 +297,12 @@ void CompositedLayerMapping::updateIsRootForIsolatedGroup()
 
 void CompositedLayerMapping::updateBackgroundPaintsOntoScrollingContentsLayer()
 {
-    bool shouldPaintOntoScrollingContentsLayer = shouldPaintBackgroundOntoScrollingContentsLayer();
+    // We can only paint the background onto the scrolling contents layer if
+    // it would be visually correct and we are using composited scrolling meaning we
+    // have a scrolling contents layer to paint it into.
+    bool shouldPaintOntoScrollingContentsLayer =
+        canPaintBackgroundOntoScrollingContentsLayer()
+        && m_owningLayer.getScrollableArea()->usesCompositedScrolling();
     if (shouldPaintOntoScrollingContentsLayer != backgroundPaintsOntoScrollingContentsLayer()) {
         m_backgroundPaintsOntoScrollingContentsLayer = shouldPaintOntoScrollingContentsLayer;
         // If the background is no longer painted onto the scrolling contents
@@ -2587,7 +2592,7 @@ bool CompositedLayerMapping::invalidateLayerIfNoPrecedingEntry(size_t indexToCle
     return false;
 }
 
-bool CompositedLayerMapping::shouldPaintBackgroundOntoScrollingContentsLayer() const
+bool CompositedLayerMapping::canPaintBackgroundOntoScrollingContentsLayer() const
 {
     // TODO(flackr): Add support for painting locally attached background images. https://crbug.com/625882
     const FillLayer& backgroundLayer = m_owningLayer.layoutObject()->style()->backgroundLayers();
