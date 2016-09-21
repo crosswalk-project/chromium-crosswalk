@@ -18,6 +18,7 @@
 #include "content/public/browser/navigation_handle.h"
 #include "net/base/registry_controlled_domains/registry_controlled_domain.h"
 #include "ui/base/page_transition_types.h"
+#include "url/gurl.h"
 
 namespace arc {
 
@@ -49,6 +50,27 @@ mojom::IntentHelperInstance* GetIntentHelper() {
     return nullptr;
   }
   return intent_helper_instance;
+}
+
+// Compares the host name of the referrer and target URL to decide whether
+// the navigation needs to be overriden.
+bool ShouldOverrideUrlLoading(const GURL& previous_url,
+                              const GURL& current_url) {
+  // When the navigation is initiated in a web page where sending a referrer
+  // is disabled, |previous_url| can be empty. In this case, we should open
+  // it in the desktop browser.
+  if (!previous_url.is_valid() || previous_url.is_empty())
+    return false;
+
+  // Also check |current_url| just in case.
+  if (!current_url.is_valid() || current_url.is_empty()) {
+    DVLOG(1) << "Unexpected URL: " << current_url << ", opening it in Chrome.";
+    return false;
+  }
+
+  return !net::registry_controlled_domains::SameDomainOrHost(
+      current_url, previous_url,
+      net::registry_controlled_domains::INCLUDE_PRIVATE_REGISTRIES);
 }
 
 }  // namespace
@@ -118,7 +140,9 @@ ArcNavigationThrottle::HandleRequest() {
     return content::NavigationThrottle::PROCEED;
   }
 
-  if (!ShouldOverrideUrlLoading(navigation_handle()))
+  const GURL previous_url = navigation_handle()->GetReferrer().url;
+  const GURL current_url = navigation_handle()->GetURL();
+  if (!ShouldOverrideUrlLoading(previous_url, current_url))
     return content::NavigationThrottle::PROCEED;
 
   arc::ArcServiceManager* arc_service_manager = arc::ArcServiceManager::Get();
@@ -279,13 +303,11 @@ void ArcNavigationThrottle::OnIntentPickerClosed(
                             static_cast<int>(CloseReason::SIZE));
 }
 
-bool ArcNavigationThrottle::ShouldOverrideUrlLoading(
-    content::NavigationHandle* navigation_handle) {
-  GURL previous_url = navigation_handle->GetReferrer().url;
-  GURL current_url = navigation_handle->GetURL();
-  return !net::registry_controlled_domains::SameDomainOrHost(
-      current_url, previous_url,
-      net::registry_controlled_domains::INCLUDE_PRIVATE_REGISTRIES);
+// static
+bool ArcNavigationThrottle::ShouldOverrideUrlLoadingForTesting(
+    const GURL& previous_url,
+    const GURL& current_url) {
+  return ShouldOverrideUrlLoading(previous_url, current_url);
 }
 
 }  // namespace arc
