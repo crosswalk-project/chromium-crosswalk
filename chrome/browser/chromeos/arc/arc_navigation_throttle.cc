@@ -34,26 +34,6 @@ scoped_refptr<ActivityIconLoader> GetIconLoader() {
   return arc_service_manager ? arc_service_manager->icon_loader() : nullptr;
 }
 
-mojom::IntentHelperInstance* GetIntentHelper() {
-  DCHECK_CURRENTLY_ON(content::BrowserThread::UI);
-  ArcBridgeService* bridge_service = ArcBridgeService::Get();
-  if (!bridge_service) {
-    VLOG(1) << "ARC bridge is not ready.";
-    return nullptr;
-  }
-  mojom::IntentHelperInstance* intent_helper_instance =
-      bridge_service->intent_helper()->instance();
-  if (!intent_helper_instance) {
-    VLOG(1) << "ARC intent helper instance is not ready.";
-    return nullptr;
-  }
-  if (bridge_service->intent_helper()->version() < kMinInstanceVersion) {
-    VLOG(1) << "ARC intent helper instance is too old.";
-    return nullptr;
-  }
-  return intent_helper_instance;
-}
-
 // Compares the host name of the referrer and target URL to decide whether
 // the navigation needs to be overriden.
 bool ShouldOverrideUrlLoading(const GURL& previous_url,
@@ -157,7 +137,8 @@ ArcNavigationThrottle::HandleRequest() {
     return content::NavigationThrottle::PROCEED;
   }
 
-  mojom::IntentHelperInstance* bridge_instance = GetIntentHelper();
+  mojom::IntentHelperInstance* bridge_instance =
+      arc::ArcIntentHelperBridge::GetIntentHelperInstance(kMinInstanceVersion);
   if (!bridge_instance)
     return content::NavigationThrottle::PROCEED;
   bridge_instance->RequestUrlHandlerList(
@@ -262,7 +243,8 @@ void ArcNavigationThrottle::OnIntentPickerClosed(
 
   previous_user_action_ = close_reason;
 
-  mojom::IntentHelperInstance* bridge = GetIntentHelper();
+  mojom::IntentHelperInstance* bridge =
+      arc::ArcIntentHelperBridge::GetIntentHelperInstance(kMinInstanceVersion);
   if (!bridge || selected_app_index >= handlers.size()) {
     close_reason = CloseReason::ERROR;
   }
