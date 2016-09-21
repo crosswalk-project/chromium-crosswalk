@@ -62,6 +62,9 @@ crbug.com/598051 svg/zoom/page/zoom-foreignObject.svg [ Skip ]
 
 crbug.com/601669 [ Win ] svg/as-image/svg-nested.html [ Crash Pass ]
 
+crbug.com/644059 fast/images/image-zoom-to-25.html [ NeedsRebaseline ]
+crbug.com/644059 virtual/gpu-rasterization/fast/images/image-zoom-to-25.html [ NeedsRebaseline ]
+
 crbug.com/619103 fast/repaint/background-resize-width.html [ Failure ]
 crbug.com/619103 fast/repaint/hover-invalidation-table.html [ Failure ]
 crbug.com/619103 fast/repaint/selected-replaced.html [ Failure ]
