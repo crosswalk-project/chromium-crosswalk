@@ -140,6 +140,10 @@ source_set("chromeos") {
                         ".",
                         "//chrome")
   sources += [
+    "arc/arc_external_protocol_dialog.cc",
+    "arc/arc_external_protocol_dialog.h",
+    "arc/page_transition_util.cc",
+    "arc/page_transition_util.h",
     "chrome_interface_factory.cc",
     "chrome_interface_factory.h",
   ]
