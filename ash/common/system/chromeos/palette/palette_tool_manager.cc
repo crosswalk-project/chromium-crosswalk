@@ -9,6 +9,7 @@
 #include "ash/common/system/chromeos/palette/palette_tool.h"
 #include "base/bind.h"
 #include "base/metrics/histogram_macros.h"
+#include "ui/gfx/vector_icons_public.h"
 
 namespace ash {
 
