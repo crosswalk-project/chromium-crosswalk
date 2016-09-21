@@ -22,7 +22,6 @@ import org.chromium.chrome.browser.ChromeSwitches;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.UrlConstants;
 import org.chromium.chrome.browser.tab.Tab;
-import org.chromium.chrome.browser.tab.TabRedirectHandler;
 import org.chromium.chrome.browser.util.IntentUtils;
 import org.chromium.chrome.browser.util.UrlUtilities;
 import org.chromium.chrome.browser.webapps.ChromeWebApkHost;
@@ -205,13 +204,8 @@ public class ExternalNavigationHandler {
         // http://crbug/331571 : Do not override a navigation started from user typing.
         // http://crbug/424029 : Need to stay in Chrome for an intent heading explicitly to Chrome.
         if (params.getRedirectHandler() != null) {
-            TabRedirectHandler handler = params.getRedirectHandler();
-            if (handler.isFromCustomTabIntent()) {
-                // http://crbug.com/613667 : Custom tabs forbids external navigation for the first
-                // url, unless the first url is a redirect.
-                if (!params.isRedirect()) return OverrideUrlLoadingResult.NO_OVERRIDE;
-            } else if (handler.shouldStayInChrome(isExternalProtocol)
-                    || handler.shouldNotOverrideUrlLoading()) {
+            if (params.getRedirectHandler().shouldStayInChrome(isExternalProtocol)
+                    || params.getRedirectHandler().shouldNotOverrideUrlLoading()) {
                 return OverrideUrlLoadingResult.NO_OVERRIDE;
             }
         }
