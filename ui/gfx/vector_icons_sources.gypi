@@ -115,6 +115,8 @@
       'vector_icons/palette_mode_laser_pointer.icon',
       'vector_icons/palette_mode_magnify.1x.icon',
       'vector_icons/palette_mode_magnify.icon',
+      'vector_icons/palette_tray_icon_capture_region.1x.icon',
+      'vector_icons/palette_tray_icon_capture_region.icon',
       'vector_icons/palette_tray_icon_default.1x.icon',
       'vector_icons/palette_tray_icon_default.icon',
       'vector_icons/palette_tray_icon_laser_pointer.1x.icon',
