@@ -125,7 +125,7 @@ void HTMLLinkElement::parseAttribute(const QualifiedName& name, const AtomicStri
     } else {
         if (name == titleAttr) {
             if (LinkStyle* link = linkStyle())
-                link->setSheetTitle(value);
+                link->setSheetTitle(value, StyleEngine::UpdateActiveSheets);
         }
 
         HTMLElement::parseAttribute(name, oldValue, value);
@@ -474,7 +474,7 @@ void LinkStyle::setCSSStyleSheet(const String& href, const KURL& baseURL, const 
         m_sheet = CSSStyleSheet::create(restoredSheet, m_owner);
         m_sheet->setMediaQueries(MediaQuerySet::create(m_owner->media()));
         if (m_owner->isInDocumentTree())
-            m_sheet->setTitle(m_owner->title());
+            setSheetTitle(m_owner->title());
         setCrossOriginStylesheetStatus(m_sheet.get());
 
         m_loading = false;
@@ -496,7 +496,7 @@ void LinkStyle::setCSSStyleSheet(const String& href, const KURL& baseURL, const 
     m_sheet = CSSStyleSheet::create(styleSheet, m_owner);
     m_sheet->setMediaQueries(MediaQuerySet::create(m_owner->media()));
     if (m_owner->isInDocumentTree())
-        m_sheet->setTitle(m_owner->title());
+        setSheetTitle(m_owner->title());
     setCrossOriginStylesheetStatus(m_sheet.get());
 
     styleSheet->parseAuthorStyleSheet(cachedStyleSheet, m_owner->document().getSecurityOrigin());
@@ -662,7 +662,7 @@ void LinkStyle::process()
 
         String title = m_owner->title();
         if (!title.isEmpty() && !m_owner->isAlternate() && m_disabledState != EnabledViaScript && m_owner->isInDocumentTree())
-            document().styleEngine().setPreferredStylesheetSetNameIfNotSet(title);
+            document().styleEngine().setPreferredStylesheetSetNameIfNotSet(title, StyleEngine::DontUpdateActiveSheets);
 
         bool mediaQueryMatches = true;
         LocalFrame* frame = loadingFrame();
@@ -710,10 +710,20 @@ void LinkStyle::process()
     }
 }
 
-void LinkStyle::setSheetTitle(const String& title)
+void LinkStyle::setSheetTitle(const String& title, StyleEngine::ActiveSheetsUpdate updateActiveSheets)
 {
-    if (m_sheet && m_owner->isInDocumentTree())
+    if (!m_owner->isInDocumentTree() || !m_owner->relAttribute().isStyleSheet())
+        return;
+
+    if (m_sheet)
         m_sheet->setTitle(title);
+
+    if (title.isEmpty() || !isUnset() || m_owner->isAlternate())
+        return;
+
+    KURL href = m_owner->getNonEmptyURLAttribute(hrefAttr);
+    if (href.isValid() && !href.isEmpty())
+        document().styleEngine().setPreferredStylesheetSetNameIfNotSet(title, updateActiveSheets);
 }
 
 void LinkStyle::ownerRemoved()
