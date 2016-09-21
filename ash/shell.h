@@ -93,6 +93,7 @@ class FirstRunHelper;
 class GPUSupport;
 class HighContrastController;
 class ImmersiveHandlerFactoryAsh;
+class LaserPointerController;
 class LinkHandlerModelFactory;
 class LocaleNotificationController;
 class LockStateController;
@@ -302,6 +303,12 @@ class ASH_EXPORT Shell : public SystemModalContainerEventFilterDelegate,
   TouchTransformerController* touch_transformer_controller() {
     return touch_transformer_controller_.get();
   }
+  LaserPointerController* laser_pointer_controller() {
+    return laser_pointer_controller_.get();
+  }
+  PartialMagnificationController* partial_magnification_controller() {
+    return partial_magnification_controller_.get();
+  }
 #endif  // defined(OS_CHROMEOS)
   ScreenshotController* screenshot_controller() {
     return screenshot_controller_.get();
@@ -324,10 +331,6 @@ class ASH_EXPORT Shell : public SystemModalContainerEventFilterDelegate,
 
   MagnificationController* magnification_controller() {
     return magnification_controller_.get();
-  }
-
-  PartialMagnificationController* partial_magnification_controller() {
-    return partial_magnification_controller_.get();
   }
 
   AutoclickController* autoclick_controller() {
@@ -509,8 +512,6 @@ class ASH_EXPORT Shell : public SystemModalContainerEventFilterDelegate,
   std::unique_ptr<WindowTreeHostManager> window_tree_host_manager_;
   std::unique_ptr<HighContrastController> high_contrast_controller_;
   std::unique_ptr<MagnificationController> magnification_controller_;
-  std::unique_ptr<PartialMagnificationController>
-      partial_magnification_controller_;
   std::unique_ptr<AutoclickController> autoclick_controller_;
   std::unique_ptr<aura::client::FocusClient> focus_client_;
 
@@ -572,6 +573,10 @@ class ASH_EXPORT Shell : public SystemModalContainerEventFilterDelegate,
   std::unique_ptr<ui::EventHandler> magnifier_key_scroll_handler_;
   std::unique_ptr<ui::EventHandler> speech_feedback_handler_;
   std::unique_ptr<StylusMetricsRecorder> stylus_metrics_recorder_;
+
+  std::unique_ptr<LaserPointerController> laser_pointer_controller_;
+  std::unique_ptr<PartialMagnificationController>
+      partial_magnification_controller_;
 #endif  // defined(OS_CHROMEOS)
 
   // |native_cursor_manager_| is owned by |cursor_manager_|, but we keep a

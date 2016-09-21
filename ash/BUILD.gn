@@ -124,6 +124,17 @@ component("ash") {
     data = [
       "display/test_data/",
     ]
+
+    sources += [
+      "laser/laser_pointer_controller.cc",
+      "laser/laser_pointer_controller.h",
+      "laser/laser_pointer_points.cc",
+      "laser/laser_pointer_points.h",
+      "laser/laser_pointer_view.cc",
+      "laser/laser_pointer_view.h",
+      "magnifier/partial_magnification_controller.cc",
+      "magnifier/partial_magnification_controller.h",
+    ]
   } else {
     sources -= [
       "accelerators/key_hold_detector.cc",
@@ -237,6 +248,13 @@ static_library("test_support") {
     deps += [
       "//chromeos",
       "//ui/display",
+    ]
+
+    sources += [
+      "laser/laser_pointer_controller_test_api.cc",
+      "laser/laser_pointer_controller_test_api.h",
+      "laser/laser_pointer_points_test_api.cc",
+      "laser/laser_pointer_points_test_api.h",
     ]
   }
 }
@@ -420,7 +438,6 @@ test("ash_unittests") {
       # Can't resize on Windows Ash. http://crbug.com/165962
       "autoclick/autoclick_unittest.cc",
       "magnifier/magnification_controller_unittest.cc",
-      "magnifier/partial_magnification_controller_unittest.cc",
       "sticky_keys/sticky_keys_overlay_unittest.cc",
       "virtual_keyboard_controller_unittest.cc",
       "wm/workspace/workspace_window_resizer_unittest.cc",
@@ -433,7 +450,11 @@ test("ash_unittests") {
     sources -= [ "host/ash_window_tree_host_x11_unittest.cc" ]
   }
   if (is_chromeos) {
-    sources += [ "first_run/first_run_helper_unittest.cc" ]
+    sources += [
+      "first_run/first_run_helper_unittest.cc",
+      "laser/laser_pointer_controller_unittest.cc",
+      "magnifier/partial_magnification_controller_unittest.cc"
+    ]
     deps += [
       "//chromeos",
       "//chromeos:power_manager_proto",
