@@ -19,8 +19,8 @@ namespace autofill {
 void SetNotBlacklistedMessage(TestPasswordGenerationAgent* generation_agent,
                               const char* form_str) {
   autofill::PasswordForm form;
-  form.origin =
-      GURL(base::StringPrintf("data:text/html;charset=utf-8,%s", form_str));
+  form.origin = form_util::StripAuthAndParams(
+      GURL(base::StringPrintf("data:text/html;charset=utf-8,%s", form_str)));
   AutofillMsg_FormNotBlacklisted msg(0, form);
   static_cast<IPC::Listener*>(generation_agent)->OnMessageReceived(msg);
 }
@@ -42,7 +42,8 @@ void SetAccountCreationFormsDetectedMessage(
 
   std::vector<autofill::PasswordFormGenerationData> forms;
   forms.push_back(autofill::PasswordFormGenerationData{
-      form_data.name, form_data.action, form_data.fields[field_index]});
+      form_data.name, form_util::StripAuthAndParams(form_data.action),
+      form_data.fields[field_index]});
   AutofillMsg_FoundFormsEligibleForGeneration msg(0, forms);
   static_cast<IPC::Listener*>(generation_agent)->OnMessageReceived(msg);
 }
