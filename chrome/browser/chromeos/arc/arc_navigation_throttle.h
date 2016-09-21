@@ -21,6 +21,7 @@ class GURL;
 
 namespace content {
 class NavigationHandle;
+class WebContents;
 }  // namespace content
 
 namespace arc {
@@ -48,7 +49,7 @@ class ArcNavigationThrottle : public content::NavigationThrottle {
 
   using NameAndIcon = std::pair<std::string, gfx::Image>;
   using ShowIntentPickerCallback =
-      base::Callback<void(content::NavigationHandle* handle,
+      base::Callback<void(content::WebContents* web_contents,
                           const std::vector<NameAndIcon>& app_info,
                           const base::Callback<void(size_t, CloseReason)>& cb)>;
   ArcNavigationThrottle(content::NavigationHandle* navigation_handle,
