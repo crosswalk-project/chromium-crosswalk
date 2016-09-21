@@ -9,6 +9,7 @@
 #include "ash/common/system/tray/hover_highlight_view.h"
 #include "ash/common/system/tray/view_click_listener.h"
 #include "base/strings/string16.h"
+#include "base/time/time.h"
 #include "ui/gfx/vector_icons_public.h"
 
 namespace ash {
@@ -37,6 +38,10 @@ class CommonPaletteTool : public PaletteTool, public ash::ViewClickListener {
 
  private:
   HoverHighlightView* highlight_view_ = nullptr;
+
+  // start_time_ is initialized when the tool becomes active.
+  // Used for recording UMA metrics.
+  base::TimeTicks start_time_;
 
   DISALLOW_COPY_AND_ASSIGN(CommonPaletteTool);
 };

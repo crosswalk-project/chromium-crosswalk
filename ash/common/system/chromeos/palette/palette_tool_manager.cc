@@ -8,7 +8,7 @@
 
 #include "ash/common/system/chromeos/palette/palette_tool.h"
 #include "base/bind.h"
-#include "ui/gfx/vector_icons_public.h"
+#include "base/metrics/histogram_macros.h"
 
 namespace ash {
 
@@ -38,8 +38,11 @@ void PaletteToolManager::ActivateTool(PaletteToolId tool_id) {
   if (new_tool == previous_tool)
     return;
 
-  if (previous_tool)
+  if (previous_tool) {
     previous_tool->OnDisable();
+    RecordPaletteModeCancellation(PaletteToolIdToPaletteModeCancelType(
+        previous_tool->GetToolId(), true /*is_switched*/));
+  }
 
   active_tools_[new_tool->GetGroup()] = new_tool;
   new_tool->OnEnable();
@@ -115,6 +118,15 @@ void PaletteToolManager::HidePalette() {
 
 WmWindow* PaletteToolManager::GetWindow() {
   return delegate_->GetWindow();
+}
+
+void PaletteToolManager::RecordPaletteOptionsUsage(PaletteTrayOptions option) {
+  return delegate_->RecordPaletteOptionsUsage(option);
+}
+
+void PaletteToolManager::RecordPaletteModeCancellation(
+    PaletteModeCancelType type) {
+  return delegate_->RecordPaletteModeCancellation(type);
 }
 
 PaletteTool* PaletteToolManager::FindToolById(PaletteToolId tool_id) {
