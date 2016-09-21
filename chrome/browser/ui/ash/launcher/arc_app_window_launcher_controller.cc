@@ -86,6 +86,18 @@ blink::WebScreenOrientationLockType BlinkOrientationLockFromMojom(
   }
 }
 
+int GetWindowTaskId(aura::Window* window) {
+  const std::string window_app_id = exo::ShellSurface::GetApplicationId(window);
+  if (window_app_id.empty())
+    return -1;
+
+  int task_id = -1;
+  if (sscanf(window_app_id.c_str(), "org.chromium.arc.%d", &task_id) != 1)
+    return -1;
+
+  return task_id;
+}
+
 }  // namespace
 
 class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
@@ -298,7 +310,19 @@ void ArcAppWindowLauncherController::OnWindowInitialized(aura::Window* window) {
 void ArcAppWindowLauncherController::OnWindowVisibilityChanging(
     aura::Window* window,
     bool visible) {
-  // The application id property should be set at this time.
+  // Attach window to multi-user manager now to let it manage visibility state
+  // of the Arc window correctly.
+  if (GetWindowTaskId(window) > 0) {
+    chrome::MultiUserWindowManager::GetInstance()->SetWindowOwner(
+        window,
+        user_manager::UserManager::Get()->GetPrimaryUser()->GetAccountId());
+  }
+
+  // The application id property should be set at this time. It is important to
+  // have window->IsVisible set to true before attaching to a controller because
+  // the window is registered in multi-user manager and this manager may
+  // consider this new window as hidden for current profile. Multi-user manager
+  // uses OnWindowVisibilityChanging event to update window state.
   if (visible && observed_profile_ == owner()->GetProfile())
     AttachControllerToWindowIfNeeded(window);
 }
@@ -339,15 +363,8 @@ void ArcAppWindowLauncherController::AttachControllerToWindowsIfNeeded() {
 
 void ArcAppWindowLauncherController::AttachControllerToWindowIfNeeded(
     aura::Window* window) {
-  const std::string window_app_id = exo::ShellSurface::GetApplicationId(window);
-  if (window_app_id.empty())
-    return;
-
-  int task_id = -1;
-  if (sscanf(window_app_id.c_str(), "org.chromium.arc.%d", &task_id) != 1)
-    return;
-
-  if (!task_id)
+  const int task_id = GetWindowTaskId(window);
+  if (task_id <= 0)
     return;
 
   // We need to add the observer after exo started observing shell
@@ -374,9 +391,6 @@ void ArcAppWindowLauncherController::AttachControllerToWindowIfNeeded(
   RegisterApp(app_window.get());
   DCHECK(app_window->controller());
   ash::SetShelfIDForWindow(app_window->shelf_id(), window);
-  chrome::MultiUserWindowManager::GetInstance()->SetWindowOwner(
-      window,
-      user_manager::UserManager::Get()->GetPrimaryUser()->GetAccountId());
   if (ash::WmShell::Get()
           ->maximize_mode_controller()
           ->IsMaximizeModeWindowManagerEnabled()) {
