@@ -104,8 +104,9 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
  public:
   AppWindow(int task_id,
             const std::string app_id,
+            views::Widget* widget,
             ArcAppWindowLauncherController* owner)
-      : task_id_(task_id), app_id_(app_id), owner_(owner) {}
+      : task_id_(task_id), app_id_(app_id), widget_(widget), owner_(owner) {}
   ~AppWindow() {}
 
   void SetController(ArcAppWindowLauncherItemController* controller) {
@@ -130,16 +131,13 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
 
   views::Widget* widget() const { return widget_; }
 
-  void set_widget(views::Widget* widget) { widget_ = widget; }
-
   ArcAppWindowLauncherItemController* controller() { return controller_; }
 
   const std::string app_id() { return app_id_; }
 
   // ui::BaseWindow:
   bool IsActive() const override {
-    return widget_ && widget_->IsActive() &&
-           owner_->active_task_id_ == task_id_;
+    return widget_->IsActive() && owner_->active_task_id_ == task_id_;
   }
 
   bool IsMaximized() const override {
@@ -158,7 +156,7 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
   }
 
   gfx::NativeWindow GetNativeWindow() const override {
-    return widget_ ? widget_->GetNativeWindow() : nullptr;
+    return widget_->GetNativeWindow();
   }
 
   gfx::Rect GetRestoredBounds() const override {
@@ -176,9 +174,7 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
     return gfx::Rect();
   }
 
-  void Show() override {
-    // TODO(khmel): support window minimizing.
-  }
+  void Show() override { widget_->Show(); }
 
   void ShowInactive() override { NOTREACHED(); }
 
@@ -186,16 +182,13 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
 
   void Close() override { arc::CloseTask(task_id_); }
 
-  void Activate() override { arc::SetTaskActive(task_id_); }
+  void Activate() override { widget_->Activate(); }
 
   void Deactivate() override { NOTREACHED(); }
 
   void Maximize() override { NOTREACHED(); }
 
-  void Minimize() override {
-    if (widget_)
-      widget_->Minimize();
-  }
+  void Minimize() override { widget_->Minimize(); }
 
   void Restore() override { NOTREACHED(); }
 
@@ -229,10 +222,10 @@ class ArcAppWindowLauncherController::AppWindow : public ui::BaseWindow {
   std::string app_id_;
   FullScreenMode fullscreen_mode_ = FullScreenMode::NOT_DEFINED;
   // Unowned pointers
+  views::Widget* const widget_;
   ArcAppWindowLauncherController* owner_;
   ArcAppWindowLauncherItemController* controller_ = nullptr;
   // Unowned pointer, represents host Arc window.
-  views::Widget* widget_ = nullptr;
 
   arc::mojom::OrientationLock requested_orientation_lock_ =
       arc::mojom::OrientationLock::NONE;
@@ -307,7 +300,7 @@ void ArcAppWindowLauncherController::OnWindowInitialized(aura::Window* window) {
   window->AddObserver(this);
 }
 
-void ArcAppWindowLauncherController::OnWindowVisibilityChanging(
+void ArcAppWindowLauncherController::OnWindowVisibilityChanged(
     aura::Window* window,
     bool visible) {
   // Attach window to multi-user manager now to let it manage visibility state
@@ -386,8 +379,10 @@ void ArcAppWindowLauncherController::AttachControllerToWindowIfNeeded(
 
   const std::string& app_id = it->second;
 
-  std::unique_ptr<AppWindow> app_window(new AppWindow(task_id, app_id, this));
-  app_window->set_widget(views::Widget::GetWidgetForNativeWindow(window));
+  views::Widget* widget = views::Widget::GetWidgetForNativeWindow(window);
+  DCHECK(widget);
+  std::unique_ptr<AppWindow> app_window(
+      new AppWindow(task_id, app_id, widget, this));
   RegisterApp(app_window.get());
   DCHECK(app_window->controller());
   ash::SetShelfIDForWindow(app_window->shelf_id(), window);
