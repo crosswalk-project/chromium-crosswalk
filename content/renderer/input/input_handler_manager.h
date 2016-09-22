@@ -11,6 +11,7 @@
 #include "content/common/content_export.h"
 #include "content/common/input/input_event_ack_state.h"
 #include "content/renderer/render_view_impl.h"
+#include "ui/events/blink/scoped_web_input_event.h"
 
 namespace base {
 class SingleThreadTaskRunner;
@@ -94,6 +95,12 @@ class CONTENT_EXPORT InputHandlerManager {
 
   // Called from the compositor's thread.
   void DidAnimateForInput();
+
+  // Called from the compositor's thread.
+  void DispatchNonBlockingEventToMainThread(
+      int routing_id,
+      ui::ScopedWebInputEvent event,
+      const ui::LatencyInfo& latency_info);
 
  private:
   // Called from the compositor's thread.
