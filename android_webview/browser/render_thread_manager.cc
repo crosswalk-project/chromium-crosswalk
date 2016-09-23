@@ -296,9 +296,8 @@ void RenderThreadManager::DrawGL(AwDrawGLInfo* draw_info) {
   ScopedAllowGL allow_gl;
   if (!hardware_renderer_ && draw_info->mode == AwDrawGLInfo::kModeDraw &&
       !IsInsideHardwareRelease() && HasFrameForHardwareRendererOnRT()) {
-    hardware_renderer_.reset(new HardwareRenderer(this));
-    hardware_renderer_->SetBackingFrameBufferObject(
-        state_restore.framebuffer_binding_ext());
+    hardware_renderer_.reset(
+        new HardwareRenderer(this, state_restore.framebuffer_binding_ext()));
     hardware_renderer_->CommitFrame();
   }
 

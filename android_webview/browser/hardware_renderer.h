@@ -31,7 +31,7 @@ class SurfacesInstance;
 
 class HardwareRenderer : public cc::SurfaceFactoryClient {
  public:
-  explicit HardwareRenderer(RenderThreadManager* state);
+  HardwareRenderer(RenderThreadManager* state, int framebuffer_binding_ext);
   ~HardwareRenderer() override;
 
   void DrawGL(AwDrawGLInfo* draw_info, const ScopedAppGLStateRestore& gl_state);

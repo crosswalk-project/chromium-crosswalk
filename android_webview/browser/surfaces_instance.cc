@@ -32,15 +32,19 @@ SurfacesInstance* g_surfaces_instance = nullptr;
 }  // namespace
 
 // static
-scoped_refptr<SurfacesInstance> SurfacesInstance::GetOrCreateInstance() {
-  if (g_surfaces_instance)
+scoped_refptr<SurfacesInstance> SurfacesInstance::GetOrCreateInstance(
+    int framebuffer_binding_ext) {
+  if (g_surfaces_instance) {
+    g_surfaces_instance->SetBackingFrameBufferObject(framebuffer_binding_ext);
     return make_scoped_refptr(g_surfaces_instance);
-  return make_scoped_refptr(new SurfacesInstance);
+  }
+  return make_scoped_refptr(new SurfacesInstance(framebuffer_binding_ext));
 }
 
-SurfacesInstance::SurfacesInstance()
+SurfacesInstance::SurfacesInstance(int framebuffer_binding_ext)
   : next_surface_id_namespace_(1u),
     gl_surface_(new AwGLSurface) {
+  gl_surface_->SetBackingFrameBufferObject(framebuffer_binding_ext);
   cc::RendererSettings settings;
 
   // Should be kept in sync with compositor_impl_android.cc.

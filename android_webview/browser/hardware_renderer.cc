@@ -23,10 +23,11 @@
 
 namespace android_webview {
 
-HardwareRenderer::HardwareRenderer(RenderThreadManager* state)
+HardwareRenderer::HardwareRenderer(RenderThreadManager* state,
+                                   int framebuffer_binding_ext)
     : render_thread_manager_(state),
       last_egl_context_(eglGetCurrentContext()),
-      surfaces_(SurfacesInstance::GetOrCreateInstance()),
+      surfaces_(SurfacesInstance::GetOrCreateInstance(framebuffer_binding_ext)),
       surface_id_allocator_(surfaces_->CreateSurfaceIdAllocator()),
       last_committed_output_surface_id_(0u),
       last_submitted_output_surface_id_(0u) {

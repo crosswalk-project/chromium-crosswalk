@@ -36,7 +36,8 @@ class SurfacesInstance : public base::RefCounted<SurfacesInstance>,
                          public cc::DisplayClient,
                          public cc::SurfaceFactoryClient {
  public:
-  static scoped_refptr<SurfacesInstance> GetOrCreateInstance();
+  static scoped_refptr<SurfacesInstance> GetOrCreateInstance(
+      int framebuffer_binding_ext);
 
   std::unique_ptr<cc::SurfaceIdAllocator> CreateSurfaceIdAllocator();
   cc::SurfaceManager* GetSurfaceManager();
@@ -55,7 +56,7 @@ class SurfacesInstance : public base::RefCounted<SurfacesInstance>,
  private:
   friend class base::RefCounted<SurfacesInstance>;
 
-  SurfacesInstance();
+  explicit SurfacesInstance(int framebuffer_binding_ext);
   ~SurfacesInstance() override;
 
   // cc::DisplayClient overrides.
