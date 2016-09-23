@@ -538,8 +538,8 @@ PepperPluginInstanceImpl::PepperPluginInstanceImpl(
   memset(&current_print_settings_, 0, sizeof(current_print_settings_));
   module_->InstanceCreated(this);
 
-  if (render_frame) {  // NULL in tests
-    render_frame->PepperInstanceCreated(this);
+  if (render_frame_) {  // NULL in tests or if the frame has been destroyed.
+    render_frame_->PepperInstanceCreated(this);
     view_data_.is_page_visible = !render_frame_->GetRenderWidget()->is_hidden();
 
     // Set the initial focus.
