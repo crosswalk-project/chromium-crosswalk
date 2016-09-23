@@ -407,6 +407,7 @@ public class ThreadedInputConnection extends BaseInputConnection
      */
     @Override
     public boolean beginBatchEdit() {
+        assertOnImeThread();
         if (DEBUG_LOGS) Log.w(TAG, "beginBatchEdit [%b]", (mNumNestedBatchEdits == 0));
         mNumNestedBatchEdits++;
         if (mNumNestedBatchEdits == 1) {
@@ -420,6 +421,7 @@ public class ThreadedInputConnection extends BaseInputConnection
      */
     @Override
     public boolean endBatchEdit() {
+        assertOnImeThread();
         if (mNumNestedBatchEdits == 0) return false;
         --mNumNestedBatchEdits;
         if (DEBUG_LOGS) Log.w(TAG, "endBatchEdit [%b]", (mNumNestedBatchEdits == 0));
