@@ -446,6 +446,7 @@ public:
         QuotedKeyframesRule = 572,
         SrcsetDroppedCandidate = 573,
         WindowPostMessage = 574,
+        WindowPostMessageWithLegacyTargetOriginArgument = 575,
         RenderRuby = 576,
         ScriptElementWithInvalidTypeHasSrc = 578,
         XMLHttpRequestSynchronousInNonWorkerOutsideBeforeUnload = 581,
