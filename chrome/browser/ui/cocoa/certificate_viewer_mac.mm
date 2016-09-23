@@ -68,7 +68,7 @@ void MaybeConstrainPanelSizeForSierraBug() {
 #endif
 
   // It's also not required when running on El Capitan or earlier.
-  if (base::mac::IsAtMostOS10_11() || g_real_certificate_panel_setframe)
+  if (base::mac::IsOSElCapitanOrEarlier() || g_real_certificate_panel_setframe)
     return;
 
   const SEL kSetFrame = @selector(setFrame:display:animate:);
