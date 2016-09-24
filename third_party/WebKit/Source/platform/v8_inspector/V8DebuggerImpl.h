@@ -120,6 +120,7 @@ public:
     void enableStackCapturingIfNeeded();
     void disableStackCapturingIfNeeded();
     V8ConsoleMessageStorage* ensureConsoleMessageStorage(int contextGroupId);
+    bool hasConsoleMessageStorage(int contextGroupId);
 
     // V8Debugger implementation
     std::unique_ptr<V8InspectorSession> connect(int contextGroupId, protocol::FrontendChannel*, V8InspectorSessionClient*, const String16* state) override;

@@ -115,7 +115,8 @@ InjectedScript::~InjectedScript()
 void InjectedScript::getProperties(ErrorString* errorString, v8::Local<v8::Object> object, const String16& groupName, bool ownProperties, bool accessorPropertiesOnly, bool generatePreview, std::unique_ptr<Array<PropertyDescriptor>>* properties, Maybe<protocol::Runtime::ExceptionDetails>* exceptionDetails)
 {
     v8::HandleScope handles(m_context->isolate());
-    V8FunctionCall function(m_context->debugger(), m_context->context(), v8Value(), "getProperties");
+    v8::Local<v8::Context> context = m_context->context();
+    V8FunctionCall function(m_context->debugger(), context, v8Value(), "getProperties");
     function.appendArgument(object);
     function.appendArgument(groupName);
     function.appendArgument(ownProperties);
@@ -131,7 +132,7 @@ void InjectedScript::getProperties(ErrorString* errorString, v8::Local<v8::Objec
         return;
     }
 
-    std::unique_ptr<protocol::Value> protocolValue = toProtocolValue(function.context(), resultValue);
+    std::unique_ptr<protocol::Value> protocolValue = toProtocolValue(context, resultValue);
     if (hasInternalError(errorString, !protocolValue))
         return;
     protocol::ErrorSupport errors(errorString);
@@ -158,10 +159,11 @@ std::unique_ptr<protocol::Runtime::RemoteObject> InjectedScript::wrapObject(Erro
 {
     v8::HandleScope handles(m_context->isolate());
     v8::Local<v8::Value> wrappedObject;
+    v8::Local<v8::Context> context = m_context->context();
     if (!wrapValue(errorString, value, groupName, forceValueType, generatePreview).ToLocal(&wrappedObject))
         return nullptr;
     protocol::ErrorSupport errors;
-    std::unique_ptr<protocol::Runtime::RemoteObject> remoteObject = protocol::Runtime::RemoteObject::parse(toProtocolValue(m_context->context(), wrappedObject).get(), &errors);
+    std::unique_ptr<protocol::Runtime::RemoteObject> remoteObject = protocol::Runtime::RemoteObject::parse(toProtocolValue(context, wrappedObject).get(), &errors);
     if (!remoteObject)
         *errorString = "Object has too long reference chain";
     return remoteObject;
@@ -170,12 +172,13 @@ std::unique_ptr<protocol::Runtime::RemoteObject> InjectedScript::wrapObject(Erro
 bool InjectedScript::wrapObjectProperty(ErrorString* errorString, v8::Local<v8::Object> object, v8::Local<v8::Name> key, const String16& groupName, bool forceValueType, bool generatePreview) const
 {
     v8::Local<v8::Value> property;
-    if (hasInternalError(errorString, !object->Get(m_context->context(), key).ToLocal(&property)))
+    v8::Local<v8::Context> context = m_context->context();
+    if (hasInternalError(errorString, !object->Get(context, key).ToLocal(&property)))
         return false;
     v8::Local<v8::Value> wrappedProperty;
     if (!wrapValue(errorString, property, groupName, forceValueType, generatePreview).ToLocal(&wrappedProperty))
         return false;
-    v8::Maybe<bool> success = createDataProperty(m_context->context(), object, key, wrappedProperty);
+    v8::Maybe<bool> success = createDataProperty(context, object, key, wrappedProperty);
     if (hasInternalError(errorString, success.IsNothing() || !success.FromJust()))
         return false;
     return true;
@@ -226,7 +229,8 @@ v8::MaybeLocal<v8::Value> InjectedScript::wrapValue(ErrorString* errorString, v8
 std::unique_ptr<protocol::Runtime::RemoteObject> InjectedScript::wrapTable(v8::Local<v8::Value> table, v8::Local<v8::Value> columns) const
 {
     v8::HandleScope handles(m_context->isolate());
-    V8FunctionCall function(m_context->debugger(), m_context->context(), v8Value(), "wrapTable");
+    v8::Local<v8::Context> context = m_context->context();
+    V8FunctionCall function(m_context->debugger(), context, v8Value(), "wrapTable");
     function.appendArgument(canAccessInspectedWindow());
     function.appendArgument(table);
     if (columns.IsEmpty())
@@ -238,7 +242,7 @@ std::unique_ptr<protocol::Runtime::RemoteObject> InjectedScript::wrapTable(v8::L
     if (hadException)
         return nullptr;
     protocol::ErrorSupport errors;
-    return protocol::Runtime::RemoteObject::parse(toProtocolValue(m_context->context(), r).get(), &errors);
+    return protocol::Runtime::RemoteObject::parse(toProtocolValue(context, r).get(), &errors);
 }
 
 bool InjectedScript::findObject(ErrorString* errorString, const RemoteObjectId& objectId, v8::Local<v8::Value>* outObject) const

@@ -809,6 +809,12 @@ V8ConsoleMessageStorage* V8DebuggerImpl::ensureConsoleMessageStorage(int context
     return storageIt->second.get();
 }
 
+bool V8DebuggerImpl::hasConsoleMessageStorage(int contextGroupId)
+{
+    ConsoleStorageMap::iterator storageIt = m_consoleStorageMap.find(contextGroupId);
+    return storageIt != m_consoleStorageMap.end();
+}
+
 std::unique_ptr<V8StackTrace> V8DebuggerImpl::createStackTrace(v8::Local<v8::StackTrace> stackTrace)
 {
     int contextGroupId = m_isolate->InContext() ? getGroupId(m_isolate->GetCurrentContext()) : 0;

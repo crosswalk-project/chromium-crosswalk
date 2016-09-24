@@ -95,14 +95,17 @@ void V8ConsoleAgentImpl::reportAllMessages()
         m_frontend.messageAdded(std::move(expired));
         m_frontend.flush();
     }
-    for (const auto& message : storage->messages())
-        reportMessage(message.get(), false);
+    for (const auto& message : storage->messages()) {
+        if (!reportMessage(message.get(), false))
+            return;
+    }
 }
 
-void V8ConsoleAgentImpl::reportMessage(V8ConsoleMessage* message, bool generatePreview)
+bool V8ConsoleAgentImpl::reportMessage(V8ConsoleMessage* message, bool generatePreview)
 {
     m_frontend.messageAdded(message->buildInspectorObject(m_session, generatePreview));
     m_frontend.flush();
+    return m_session->debugger()->hasConsoleMessageStorage(m_session->contextGroupId());
 }
 
 } // namespace blink
