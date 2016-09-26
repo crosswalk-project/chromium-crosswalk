@@ -668,6 +668,17 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventSuccess) {
   EXPECT_TRUE(IsRegisteredKeepAliveEqualTo(true));
   ASSERT_TRUE(RunScript("resultQueue.pop()", &script_result));
   EXPECT_EQ("testdata", script_result);
+
+  // Check that we record this case in UMA.
+  GetHistogramTester()->ExpectUniqueSample(
+      "PushMessaging.DeliveryStatus.FindServiceWorker",
+      0 /* SERVICE_WORKER_OK */, 1);
+  GetHistogramTester()->ExpectUniqueSample(
+      "PushMessaging.DeliveryStatus.ServiceWorkerEvent",
+      0 /* SERVICE_WORKER_OK */, 1);
+  GetHistogramTester()->ExpectUniqueSample(
+      "PushMessaging.DeliveryStatus",
+       content::PUSH_DELIVERY_STATUS_SUCCESS, 1);
 }
 
 IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventWithoutPayload) {
@@ -737,6 +748,16 @@ IN_PROC_BROWSER_TEST_F(PushMessagingBrowserTest, PushEventNoServiceWorker) {
   callback.WaitUntilSatisfied();
   EXPECT_TRUE(IsRegisteredKeepAliveEqualTo(false));
   EXPECT_EQ(app_identifier.app_id(), callback.app_id());
+
+  // Check that we record this case in UMA.
+  GetHistogramTester()->ExpectUniqueSample(
+      "PushMessaging.DeliveryStatus.FindServiceWorker",
+      5 /* SERVICE_WORKER_ERROR_NOT_FOUND */, 1);
+  GetHistogramTester()->ExpectTotalCount(
+      "PushMessaging.DeliveryStatus.ServiceWorkerEvent", 0);
+  GetHistogramTester()->ExpectUniqueSample(
+      "PushMessaging.DeliveryStatus",
+      content::PUSH_DELIVERY_STATUS_NO_SERVICE_WORKER, 1);
 
   // No push data should have been received.
   ASSERT_TRUE(RunScript("resultQueue.popImmediately()", &script_result));
