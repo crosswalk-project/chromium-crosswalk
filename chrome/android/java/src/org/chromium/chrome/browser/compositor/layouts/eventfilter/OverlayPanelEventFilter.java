@@ -158,18 +158,21 @@ public class OverlayPanelEventFilter extends GestureEventFilter {
 
     @Override
     public boolean onInterceptTouchEventInternal(MotionEvent e, boolean isKeyboardShowing) {
-        if (!mPanel.isShowing()) return false;
-
-        boolean isTouchInsidePanel =
-                mPanel.isCoordinateInsideOverlayPanel(e.getX() * mPxToDp, e.getY() * mPxToDp);
-
-        if (isTouchInsidePanel
+        if (mPanel.isShowing()
+                && (mPanel.isCoordinateInsideOverlayPanel(e.getX() * mPxToDp, e.getY() * mPxToDp)
                 // When the Panel is opened, all events should be forwarded to the Panel,
                 // even those who are not inside the Panel. This is to prevent any events
                 // being forward to the base page when the Panel is expanded.
-                || mPanel.isPanelOpened()) {
+                || mPanel.isPanelOpened())) {
             return super.onInterceptTouchEventInternal(e, isKeyboardShowing);
         }
+
+        // The event filter will have been recording events before the event target was
+        // determined. Clear this cache if the panel is not showing to prevent sending
+        // motion events that would start a target's stream with something other than
+        // ACTION_DOWN.
+        mRecordedEvents.clear();
+        reset();
 
         return false;
     }
