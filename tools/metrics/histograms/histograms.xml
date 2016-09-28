@@ -6880,6 +6880,35 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   </summary>
 </histogram>
 
+<histogram name="ContentSettings.ExceptionSchemeFile.HasPath"
+    enum="BooleanHasPath">
+  <owner>alexmos@chromium.org</owner>
+  <summary>
+    Records how often a content settings exception for the file: scheme has a
+    non-empty path. Recorded once per exception at browser start.
+  </summary>
+</histogram>
+
+<histogram name="ContentSettings.ExceptionSchemeFile.Type.WithoutPath"
+    enum="ContentType">
+  <owner>alexmos@chromium.org</owner>
+  <summary>
+    Count of how often a specific content type has a content settings exception
+    defined for a file: scheme with no path (i.e., wildcard path). Recorded once
+    per exception at browser start.
+  </summary>
+</histogram>
+
+<histogram name="ContentSettings.ExceptionSchemeFile.Type.WithPath"
+    enum="ContentType">
+  <owner>alexmos@chromium.org</owner>
+  <summary>
+    Count of how often a specific content type has a content settings exception
+    defined for a file: scheme with a valid, non-empty path. Recorded once per
+    exception at browser start.
+  </summary>
+</histogram>
+
 <histogram name="ContentSettings.LastSettingParsed" enum="LastSettingParsed">
   <obsolete>
     Deprecated 2015-10-05 in Issue 433475. Histogram was used temorarily for
@@ -70589,6 +70618,11 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
 <enum name="BooleanHasDistilledData" type="int">
   <int value="0" label="No distilled data"/>
   <int value="1" label="Has distilled data"/>
+</enum>
+
+<enum name="BooleanHasPath" type="int">
+  <int value="0" label="No path"/>
+  <int value="1" label="Has path"/>
 </enum>
 
 <enum name="BooleanHasSeekPenalty" type="int">
