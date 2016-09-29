@@ -453,7 +453,7 @@ public class NewTabPage
         @Override
         public void navigateToDownloadManager() {
             if (mIsDestroyed) return;
-            assert ChromeFeatureList.isEnabled("DownloadsUi");
+            assert DownloadUtils.isDownloadHomeEnabled();
             RecordUserAction.record("MobileNTPSwitchToDownloadManager");
             DownloadUtils.showDownloadManager(mActivity, mTab);
         }

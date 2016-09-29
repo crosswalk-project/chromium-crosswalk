@@ -25,6 +25,7 @@ import org.chromium.base.ThreadUtils;
 import org.chromium.base.VisibleForTesting;
 import org.chromium.chrome.browser.ChromeApplication;
 import org.chromium.chrome.browser.ChromeSwitches;
+import org.chromium.chrome.browser.download.DownloadUtils;
 import org.chromium.chrome.browser.instantapps.InstantAppsHandler;
 import org.chromium.chrome.browser.preferences.ChromePreferenceManager;
 import org.chromium.chrome.browser.tabmodel.DocumentModeAssassin;
@@ -193,6 +194,7 @@ public class FeatureUtilities {
      */
     public static void cacheNativeFlags(ChromeApplication application) {
         cacheHerbFlavor();
+        DownloadUtils.cacheIsDownloadHomeEnabled();
         InstantAppsHandler.getInstance(application).cacheInstantAppsEnabled(
                 application.getApplicationContext());
         ChromeWebApkHost.cacheEnabledStateForNextLaunch();
