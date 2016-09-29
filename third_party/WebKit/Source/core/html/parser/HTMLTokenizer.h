@@ -27,7 +27,6 @@
 #ifndef HTMLTokenizer_h
 #define HTMLTokenizer_h
 
-#include "core/CoreExport.h"
 #include "core/html/parser/HTMLParserOptions.h"
 #include "core/html/parser/HTMLToken.h"
 #include "core/html/parser/InputStreamPreprocessor.h"
@@ -37,7 +36,7 @@
 
 namespace blink {
 
-class CORE_EXPORT HTMLTokenizer {
+class HTMLTokenizer {
     WTF_MAKE_NONCOPYABLE(HTMLTokenizer);
     USING_FAST_MALLOC(HTMLTokenizer);
 public:
