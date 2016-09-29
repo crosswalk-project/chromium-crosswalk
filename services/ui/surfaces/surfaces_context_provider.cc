@@ -26,7 +26,8 @@
 namespace ui {
 
 SurfacesContextProvider::SurfacesContextProvider(gfx::AcceleratedWidget widget)
-    : delegate_(nullptr), widget_(widget) {
+    : delegate_(nullptr), widget_(widget),
+      task_runner_(base::ThreadTaskRunnerHandle::Get()) {
   GpuServiceInternal* service = GpuServiceInternal::GetInstance();
   gpu::CommandBufferProxyImpl* shared_command_buffer = nullptr;
   gpu::GpuStreamId stream_id = gpu::GpuStreamId::GPU_STREAM_DEFAULT;
@@ -40,11 +41,9 @@ SurfacesContextProvider::SurfacesContextProvider(gfx::AcceleratedWidget widget)
   attributes.bind_generates_resource = false;
   attributes.lose_context_when_out_of_memory = true;
   GURL active_url;
-  scoped_refptr<base::SingleThreadTaskRunner> task_runner =
-      base::ThreadTaskRunnerHandle::Get();
   command_buffer_proxy_impl_ = gpu::CommandBufferProxyImpl::Create(
       service->gpu_channel_local(), widget, shared_command_buffer, stream_id,
-      stream_priority, attributes, active_url, task_runner);
+      stream_priority, attributes, active_url, task_runner_);
   command_buffer_proxy_impl_->SetSwapBuffersCompletionCallback(
       base::Bind(&SurfacesContextProvider::OnGpuSwapBuffersCompleted,
                  base::Unretained(this)));
@@ -91,7 +90,7 @@ bool SurfacesContextProvider::BindToCurrentThread() {
       bind_generates_resource, lose_context_when_out_of_memory,
       support_client_side_arrays, gpu_control));
   cache_controller_.reset(
-      new cc::ContextCacheController(implementation_.get()));
+      new cc::ContextCacheController(implementation_.get(), task_runner_));
   return implementation_->Initialize(
       default_limits.start_transfer_buffer_size,
       default_limits.min_transfer_buffer_size,
