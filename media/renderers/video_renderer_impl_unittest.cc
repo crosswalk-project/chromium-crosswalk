@@ -914,7 +914,8 @@ TEST_F(VideoRendererImplTest, UnderflowEvictionBeforeEOS) {
 }
 
 // Tests the case where underflow evicts all frames in the HAVE_ENOUGH state.
-TEST_F(VideoRendererImplTest, UnderflowEvictionWhileHaveEnough) {
+// Note: Disabled for merge into M54 since it is flaky there.
+TEST_F(VideoRendererImplTest, DISABLED_UnderflowEvictionWhileHaveEnough) {
   Initialize();
   QueueFrames("0 30 60 90 100");
 
