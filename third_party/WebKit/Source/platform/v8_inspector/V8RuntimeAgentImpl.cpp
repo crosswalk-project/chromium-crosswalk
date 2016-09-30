@@ -96,7 +96,10 @@ private:
         ProtocolPromiseHandler<Callback>* handler = static_cast<ProtocolPromiseHandler<Callback>*>(info.Data().As<v8::External>()->Value());
         DCHECK(handler);
         v8::Local<v8::Value> value = info.Length() > 0 ? info[0] : v8::Local<v8::Value>::Cast(v8::Undefined(info.GetIsolate()));
-        handler->m_callback->sendSuccess(handler->wrapObject(value), Maybe<protocol::Runtime::ExceptionDetails>());
+        std::unique_ptr<protocol::Runtime::RemoteObject> wrappedValue(handler->wrapObject(value));
+        if (!wrappedValue)
+            return;
+        handler->m_callback->sendSuccess(std::move(wrappedValue), Maybe<protocol::Runtime::ExceptionDetails>());
     }
 
     static void catchCallback(const v8::FunctionCallbackInfo<v8::Value>& info)
@@ -105,19 +108,22 @@ private:
         DCHECK(handler);
         v8::Local<v8::Value> value = info.Length() > 0 ? info[0] : v8::Local<v8::Value>::Cast(v8::Undefined(info.GetIsolate()));
 
+        std::unique_ptr<protocol::Runtime::RemoteObject> wrappedValue(handler->wrapObject(value));
+        if (!wrappedValue)
+            return;
         std::unique_ptr<V8StackTraceImpl> stack = handler->m_inspector->debugger()->captureStackTrace(true);
         std::unique_ptr<protocol::Runtime::ExceptionDetails> exceptionDetails = protocol::Runtime::ExceptionDetails::create()
             .setExceptionId(handler->m_inspector->nextExceptionId())
             .setText("Uncaught (in promise)")
             .setLineNumber(stack && !stack->isEmpty() ? stack->topLineNumber() : 0)
             .setColumnNumber(stack && !stack->isEmpty() ? stack->topColumnNumber() : 0)
-            .setException(handler->wrapObject(value))
+            .setException(wrappedValue->clone())
             .build();
         if (stack)
             exceptionDetails->setStackTrace(stack->buildInspectorObjectImpl());
         if (stack && !stack->isEmpty())
             exceptionDetails->setScriptId(stack->topScriptId());
-        handler->m_callback->sendSuccess(handler->wrapObject(value), std::move(exceptionDetails));
+        handler->m_callback->sendSuccess(std::move(wrappedValue), std::move(exceptionDetails));
     }
 
     ProtocolPromiseHandler(V8InspectorImpl* inspector, int contextGroupId, int executionContextId, const String16& objectGroup, bool returnByValue, bool generatePreview, std::unique_ptr<Callback> callback)
