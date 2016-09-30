@@ -1710,6 +1710,8 @@ void ShelfView::ShelfItemChanged(int model_index, const ShelfItem& old_item) {
     new_view->SetBoundsRect(old_view->bounds());
     if (overflow_button_ && overflow_button_->visible())
       AnimateToIdealBounds();
+    else
+      bounds_animator_->AnimateViewTo(new_view, old_ideal_bounds);
     return;
   }
 
