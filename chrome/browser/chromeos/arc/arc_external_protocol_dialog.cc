@@ -163,7 +163,9 @@ bool RunArcExternalProtocolDialog(const GURL& url,
                                   int routing_id,
                                   ui::PageTransition page_transition,
                                   bool has_user_gesture) {
-  if (ShouldIgnoreNavigation(page_transition))
+  // Try to forward <form> submissions to ARC when possible.
+  constexpr bool kAllowFormSubmit = true;
+  if (ShouldIgnoreNavigation(page_transition, kAllowFormSubmit))
     return false;
 
   mojom::IntentHelperInstance* intent_helper = GetIntentHelper();
