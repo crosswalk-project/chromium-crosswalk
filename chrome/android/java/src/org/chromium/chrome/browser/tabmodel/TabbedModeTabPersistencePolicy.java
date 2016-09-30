@@ -375,7 +375,7 @@ public class TabbedModeTabPersistencePolicy implements TabPersistencePolicy {
             if (mDestroyed) return null;
 
             mTabFileNames = getOrCreateStateDirectory().list();
-            String thumbnailDirectory = PathUtils.getThumbnailCacheDirectory(mContext);
+            String thumbnailDirectory = PathUtils.getThumbnailCacheDirectory(null);
             mThumbnailFileNames = new File(thumbnailDirectory).list();
 
             mOtherTabIds = new SparseBooleanArray();
