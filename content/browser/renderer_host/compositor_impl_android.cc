@@ -656,7 +656,7 @@ void CompositorImpl::OnGpuChannelEstablished(
       break;
     case ui::ContextProviderFactory::GpuChannelHostResult::
         FAILURE_GPU_PROCESS_INITIALIZATION_FAILED:
-      HandlePendingCompositorFrameSinkRequest();
+      HandlePendingOutputSurfaceRequest();
       break;
     case ui::ContextProviderFactory::GpuChannelHostResult::SUCCESS:
       // We don't need the context anymore if we are invisible.
