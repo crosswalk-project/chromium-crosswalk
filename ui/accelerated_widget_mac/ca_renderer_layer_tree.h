@@ -14,6 +14,7 @@
 
 #include "base/mac/scoped_cftyperef.h"
 #include "base/mac/scoped_nsobject.h"
+#include "base/memory/ref_counted.h"
 #include "ui/accelerated_widget_mac/accelerated_widget_mac_export.h"
 #include "ui/gfx/geometry/rect.h"
 #include "ui/gfx/geometry/rect_f.h"
@@ -32,7 +33,8 @@ struct CARendererLayerParams;
 // https://docs.google.com/document/d/1DtSN9zzvCF44_FQPM7ie01UxGHagQ66zfF5L9HnigQY/edit?usp=sharing
 class ACCELERATED_WIDGET_MAC_EXPORT CARendererLayerTree {
  public:
-  CARendererLayerTree(bool allow_av_sample_buffer_display_layer);
+  CARendererLayerTree(bool allow_av_sample_buffer_display_layer,
+                      bool allow_solid_color_layers);
 
   // This will remove all CALayers from this tree from their superlayer.
   ~CARendererLayerTree();
@@ -58,7 +60,11 @@ class ACCELERATED_WIDGET_MAC_EXPORT CARendererLayerTree {
   bool CommitFullscreenLowPowerLayer(
       AVSampleBufferDisplayLayer* fullscreen_low_power_layer);
 
+  // Returns the contents used for a given solid color.
+  id ContentsForSolidColorForTesting(unsigned int color);
+
  private:
+  class SolidColorContents;
   struct RootLayer;
   struct ClipAndSortingLayer;
   struct TransformLayer;
@@ -161,6 +167,7 @@ class ACCELERATED_WIDGET_MAC_EXPORT CARendererLayerTree {
     // their use count.
     const gfx::ScopedInUseIOSurface io_surface;
     const base::ScopedCFTypeRef<CVPixelBufferRef> cv_pixel_buffer;
+    scoped_refptr<SolidColorContents> solid_color_contents;
     gfx::RectF contents_rect;
     gfx::Rect rect;
     unsigned background_color = 0;
@@ -184,6 +191,7 @@ class ACCELERATED_WIDGET_MAC_EXPORT CARendererLayerTree {
   float scale_factor_ = 1;
   bool has_committed_ = false;
   const bool allow_av_sample_buffer_display_layer_ = true;
+  const bool allow_solid_color_layers_ = true;
 
  private:
   DISALLOW_COPY_AND_ASSIGN(CARendererLayerTree);
