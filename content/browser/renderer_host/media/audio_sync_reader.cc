@@ -107,8 +107,7 @@ AudioSyncReader::~AudioSyncReader() {
 
 // media::AudioOutputController::SyncReader implementations.
 void AudioSyncReader::UpdatePendingBytes(uint32_t bytes,
-                                         uint32_t frames_skipped,
-                                         const media::StreamPosition& device_position) {
+                                         uint32_t frames_skipped) {
   // Increase the number of skipped frames stored in shared memory. We don't
   // send it over the socket since sending more than 4 bytes might lead to being
   // descheduled. The reading side will zero it when consumed.
@@ -121,7 +120,6 @@ void AudioSyncReader::UpdatePendingBytes(uint32_t bytes,
   output_bus_->Zero();
 
   socket_->Send(&bytes, sizeof(bytes));
-  socket_->Send(&device_position, sizeof(device_position));
   ++buffer_index_;
 }
 
