@@ -1637,6 +1637,7 @@ Sjekk e-posten din på <ph name="ACCOUNT_EMAIL" /> for instruksjoner om dette og
 <translation id="3177048931975664371">Klikk for å skjule passord</translation>
 <translation id="3177909033752230686">Språket siden er på:</translation>
 <translation id="3180365125572747493">Skriv inn et passord for å kryptere denne sertifikatfilen.</translation>
+<translation id="3182749001423093222">Stavekontroll</translation>
 <translation id="3183139917765991655">Profile Importer</translation>
 <translation id="3184560914950696195">Kunne ikke lagre til $1. Redigerte bilder blir lagret i Nedlastinger-mappen.</translation>
 <translation id="3187212781151025377">Hebraisk tastatur</translation>
@@ -1827,6 +1828,7 @@ Fra <ph name="DOWNLOAD_DOMAIN" /></translation>
 <translation id="343467364461911375">Noen innholdstjenester bruker maskinidentifikatorer for å identifisere deg før du får tilgang til beskyttet innhold.</translation>
 <translation id="3435738964857648380">Sikkerhet</translation>
 <translation id="3435896845095436175">Slå på</translation>
+<translation id="3436038974659740746">Egendefinert staving</translation>
 <translation id="3438633801274389918">Ninja</translation>
 <translation id="3439153939049640737">Tillat alltid at <ph name="HOST" /> bruker mikrofonen din</translation>
 <translation id="3439282137581679399">Slår på svartelisten for tillatelser. Dette alternativet blokkerer tillatelser for svartelistede nettsteder for Safe Browsing-brukere.</translation>
@@ -2773,7 +2775,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="4784330909746505604">PowerPoint-presentasjon</translation>
 <translation id="4785040501822872973">Denne datamaskinen starter på nytt om <ph name="LOGOUT_TIME_LEFT" /> sekunder.
 Trykk på en tast for å fortsette økten.</translation>
-<translation id="4790972063719531840">Send diagnostikk og bruksdata automatisk til Google</translation>
+<translation id="4790972063719531840">Send automatisk diagnostikk og bruksdata til Google</translation>
 <translation id="4791148004876134991">Endrer hva som skjer når du trykker på «Cmd» + «`» og en Chrome-app blir aktiv. Når dette er slått på, kan du veksle mellom Chrome-apper ved å trykke på «Cmd» + «`» i et nettleservindu, og det blas i så fall ikke mellom nettleservinduer så lenge en Chrome-app er aktiv.</translation>
 <translation id="4792711294155034829">&amp;Rapporter et problem</translation>
 <translation id="479280082949089240">Denne siden har lagret informasjonskapsler på datamaskinen</translation>
@@ -3190,7 +3192,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="5333958554630697967">Slår på eksperimentelle nettplattformfunksjoner som er under utvikling.</translation>
 <translation id="5334142896108694079">Skriptbuffer</translation>
 <translation id="533433379391851622">Den forventede versjonen var «<ph name="EXPECTED_VERSION" />», men den faktiske versjonen var «<ph name="NEW_ID" />».</translation>
-<translation id="5334844597069022743">Vis kilden</translation>
+<translation id="5334844597069022743">Se kilden</translation>
 <translation id="5337705430875057403">Angripere på <ph name="BEGIN_BOLD" /><ph name="SITE" /><ph name="END_BOLD" /> prøver kanskje å lure deg til å gjøre farlige ting som å installere programvare eller avsløre personopplysningene dine (for eksempel passord, telefonnumre eller kredittkortinformasjon).</translation>
 <translation id="5337771866151525739">Installert av en tredjepart.</translation>
 <translation id="5338503421962489998">Lokal lagring</translation>
@@ -3386,6 +3388,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="5583640892426849032">Tilbake-tasten</translation>
 <translation id="5584537427775243893">Importerer</translation>
 <translation id="5585118885427931890">Kan ikke opprette bokmerkemappe.</translation>
+<translation id="558563010977877295">Åpne en bestemt side eller et sett med sider</translation>
 <translation id="5585912436068747822">Formateringen mislyktes</translation>
 <translation id="5588033542900357244">(<ph name="RATING_COUNT" />)</translation>
 <translation id="5592595402373377407">Nok data er ikke tilgjengelig ennå.</translation>
@@ -3600,6 +3603,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="5877064549588274448">Kanalen ble endret. Start enheten på nytt for å aktivere endringene.</translation>
 <translation id="5880247576487732437">Token er tilgjengelig</translation>
 <translation id="588258955323874662">Fullskjerm</translation>
+<translation id="5882919346125742463">Kjente nettverk</translation>
 <translation id="5884474295213649357">Denne fanen er koblet til en USB-enhet.</translation>
 <translation id="5885324376209859881">Administrer medieinnstillingene</translation>
 <translation id="5889282057229379085">Maksimalt antall mellomliggende sertifiseringsinstanser: <ph name="NUM_INTERMEDIATE_CA" /></translation>
@@ -4364,7 +4368,7 @@ Trykk på en tast for å fortsette økten.</translation>
 <translation id="7009420427128923703">Maksimalt antall vinduer i oversikten som kan bruke masker.</translation>
 <translation id="7010160495478792664">Maskinvareakselerert videodekoding der dette er tilgjengelig.</translation>
 <translation id="7010400591230614821">Aggressiv frigivelsesstrategi for faner</translation>
-<translation id="701080569351381435">Vis kilde</translation>
+<translation id="701080569351381435">Se kilde</translation>
 <translation id="7012435537548305893">Slår på appliste i fullskjerm i berøringsmodus.</translation>
 <translation id="7013485839273047434">Last ned flere utvidelser</translation>
 <translation id="7014174261166285193">Installeringen mislyktes.</translation>
@@ -5309,6 +5313,7 @@ Oppbevar nøkkelfilen på et trygt sted. Du får bruk for den når du skal oppre
 <translation id="8352772353338965963">Legg til en konto for multipålogging. Alle påloggede kontoer kan brukes uten passord, så denne funksjonen burde bare brukes med pålitelige kontoer.</translation>
 <translation id="8353683614194668312">Den får følgende tilgang:</translation>
 <translation id="8354560714384889844">Toolkit-Views-basert Appinformasjon-dialogboks.</translation>
+<translation id="8356197132883132838"><ph name="TITLE" /> – <ph name="COUNT" /></translation>
 <translation id="8356258244599961364">Dette språket har ingen inndatametoder.</translation>
 <translation id="8357224663288891423">Hurtigtaster for utvidelser og apper</translation>
 <translation id="8357698472719914638">ALLTID</translation>
