@@ -70,7 +70,6 @@ WASAPIAudioOutputStream::WASAPIAudioOutputStream(AudioManagerWin* manager,
       share_mode_(GetShareMode()),
       num_written_frames_(0),
       source_(NULL),
-      hns_units_to_perf_count_(0.0),
       audio_bus_(AudioBus::Create(params)) {
   DCHECK(manager_);
 
@@ -127,14 +126,6 @@ WASAPIAudioOutputStream::WASAPIAudioOutputStream(AudioManagerWin* manager,
   // Create the event which will be set in Stop() when capturing shall stop.
   stop_render_event_.Set(CreateEvent(NULL, FALSE, FALSE, NULL));
   DCHECK(stop_render_event_.IsValid());
-
-  LARGE_INTEGER performance_frequency;
-  if (QueryPerformanceFrequency(&performance_frequency)) {
-    hns_units_to_perf_count_ =
-        (static_cast<double>(performance_frequency.QuadPart) / 10000000.0);
-  } else {
-    DLOG(ERROR) << "High-resolution performance counters are not supported.";
-  }
 }
 
 WASAPIAudioOutputStream::~WASAPIAudioOutputStream() {
@@ -519,11 +510,8 @@ bool WASAPIAudioOutputStream::RenderAudioFromSource(UINT64 device_frequency) {
     // can typically be utilized by an acoustic echo-control (AEC)
     // unit at the render side.
     UINT64 position = 0;
-    UINT64 qpc_position = 0;
     uint32_t audio_delay_bytes = 0;
-    StreamPosition device_position = { 0, 0 };
-
-    hr = audio_clock_->GetPosition(&position, &qpc_position);
+    hr = audio_clock_->GetPosition(&position, NULL);
     if (SUCCEEDED(hr)) {
       // Stream position of the sample that is currently playing
       // through the speaker.
@@ -540,22 +528,13 @@ bool WASAPIAudioOutputStream::RenderAudioFromSource(UINT64 device_frequency) {
       // render client using the OnMoreData() callback.
       audio_delay_bytes = (pos_last_sample_written_frames -
           pos_sample_playing_frames) *  format_.Format.nBlockAlign;
-      if (hns_units_to_perf_count_) {
-        device_position.frames = pos_sample_playing_frames;
-        device_position.ticks = 
-            base::TimeTicks::FromQPCValue(
-                qpc_position * hns_units_to_perf_count_).ToInternalValue();
-      }
     }
 
     // Read a data packet from the registered client source and
     // deliver a delay estimate in the same callback to the client.
 
     int frames_filled =
-        source_->OnMoreData(audio_bus_.get(),
-                            audio_delay_bytes,
-                            0,
-                            device_position);
+        source_->OnMoreData(audio_bus_.get(), audio_delay_bytes, 0);
     uint32_t num_filled_bytes = frames_filled * format_.Format.nBlockAlign;
     DCHECK_LE(num_filled_bytes, packet_size_bytes_);
 

@@ -24,5 +24,4 @@
 
 interface AudioDestinationNode : AudioNode {
     readonly attribute unsigned long maxChannelCount;
-    readonly attribute AudioTimestamp devicePosition;
 };
