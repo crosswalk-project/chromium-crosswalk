@@ -131,12 +131,8 @@ unsigned long AudioDestination::maxChannelCount()
     return static_cast<float>(Platform::current()->audioHardwareOutputChannels());
 }
 
-void AudioDestination::render(const WebVector<float*>& sourceData,
-                              const WebVector<float*>& audioData,
-                              size_t numberOfFrames,
-                              const StreamPosition& position)
+void AudioDestination::render(const WebVector<float*>& sourceData, const WebVector<float*>& audioData, size_t numberOfFrames)
 {
-    m_device_position = position;
     bool isNumberOfChannelsGood = audioData.size() == m_numberOfOutputChannels;
     if (!isNumberOfChannelsGood) {
         ASSERT_NOT_REACHED();
@@ -172,7 +168,7 @@ void AudioDestination::provideInput(AudioBus* bus, size_t framesToProcess)
         sourceBus = m_inputBus.get();
     }
 
-    m_callback.render(sourceBus, bus, framesToProcess, m_device_position);
+    m_callback.render(sourceBus, bus, framesToProcess);
 }
 
 } // namespace blink

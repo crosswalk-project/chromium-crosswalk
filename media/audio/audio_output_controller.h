@@ -91,8 +91,7 @@ class MEDIA_EXPORT AudioOutputController
     // source can handle this appropriately depending on the type of source. An
     // ordinary file playout would ignore this.
     virtual void UpdatePendingBytes(uint32_t bytes,
-                                    uint32_t frames_skipped,
-                                    const StreamPosition& position) = 0;
+                                    uint32_t frames_skipped) = 0;
 
     // Attempts to completely fill |dest|, zeroing |dest| if the request can not
     // be fulfilled (due to timeout).
@@ -164,8 +163,7 @@ class MEDIA_EXPORT AudioOutputController
   // AudioSourceCallback implementation.
   int OnMoreData(AudioBus* dest,
                  uint32_t total_bytes_delay,
-                 uint32_t frames_skipped,
-                 const StreamPosition& device_position) override;
+                 uint32_t frames_skipped) override;
   void OnError(AudioOutputStream* stream) override;
 
   // AudioDeviceListener implementation.  When called AudioOutputController will
