@@ -370,7 +370,7 @@ public:
 
     // Notifies the WebView that a drag has terminated.
     virtual void dragSourceEndedAt(
-        const WebPoint& clientPoint, const WebPoint& screenPoint,
+        const WebPoint& pointInViewport, const WebPoint& screenPoint,
         WebDragOperation operation) = 0;
 
     // Notfies the WebView that the system drag and drop operation has ended.
@@ -380,17 +380,17 @@ public:
     // something on the WebView.
     virtual WebDragOperation dragTargetDragEnter(
         const WebDragData&,
-        const WebPoint& clientPoint, const WebPoint& screenPoint,
+        const WebPoint& pointInViewport, const WebPoint& screenPoint,
         WebDragOperationsMask operationsAllowed,
         int modifiers) = 0;
     virtual WebDragOperation dragTargetDragOver(
-        const WebPoint& clientPoint, const WebPoint& screenPoint,
+        const WebPoint& pointInViewport, const WebPoint& screenPoint,
         WebDragOperationsMask operationsAllowed,
         int modifiers) = 0;
     virtual void dragTargetDragLeave() = 0;
     virtual void dragTargetDrop(
         const WebDragData&,
-        const WebPoint& clientPoint, const WebPoint& screenPoint,
+        const WebPoint& pointInViewport, const WebPoint& screenPoint,
         int modifiers) = 0;
 
     // Retrieves a list of spelling markers.
