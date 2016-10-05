@@ -18,8 +18,6 @@
 
 namespace media {
 
-struct StreamPosition;
-
 // AudioRendererSink is an interface representing the end-point for
 // rendered audio.  An implementation is expected to
 // periodically call Render() on a callback object.
@@ -27,20 +25,14 @@ struct StreamPosition;
 class AudioRendererSink
     : public base::RefCountedThreadSafe<media::AudioRendererSink> {
  public:
-  class MEDIA_EXPORT RenderCallback {
+  class RenderCallback {
    public:
     // Attempts to completely fill all channels of |dest|, returns actual
     // number of frames filled. |frames_skipped| contains the number of frames
     // the consumer has skipped, if any.
     virtual int Render(AudioBus* dest,
                        uint32_t frames_delayed,
-                       uint32_t frames_skipped);
-    // An alternate version which provides also device stream position,
-    // by default it just invokes the above method.
-    virtual int Render(AudioBus* dest,
-                       uint32_t audio_delay_milliseconds,
-                       uint32_t frames_skipped,
-                       const StreamPosition& device_position);
+                       uint32_t frames_skipped) = 0;
 
     // Signals an error has occurred.
     virtual void OnRenderError() = 0;
