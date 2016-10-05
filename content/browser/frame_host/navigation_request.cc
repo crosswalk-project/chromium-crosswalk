@@ -248,7 +248,8 @@ void NavigationRequest::CreateNavigationHandle(int pending_nav_entry_id) {
       !browser_initiated_,
       false,  // is_synchronous
       false,  // is_srcdoc
-      common_params_.navigation_start, pending_nav_entry_id);
+      common_params_.navigation_start, pending_nav_entry_id,
+      false);  // started_in_context_menu
 }
 
 void NavigationRequest::TransferNavigationHandleOwnership(

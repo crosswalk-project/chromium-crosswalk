@@ -42,11 +42,11 @@ std::unique_ptr<NavigationHandleImpl> NavigationHandleImpl::Create(
     bool is_synchronous,
     bool is_srcdoc,
     const base::TimeTicks& navigation_start,
-    int pending_nav_entry_id) {
-  return std::unique_ptr<NavigationHandleImpl>(
-      new NavigationHandleImpl(url, frame_tree_node, is_renderer_initiated,
-                               is_synchronous, is_srcdoc, navigation_start,
-                               pending_nav_entry_id));
+    int pending_nav_entry_id,
+    bool started_from_context_menu) {
+  return std::unique_ptr<NavigationHandleImpl>(new NavigationHandleImpl(
+      url, frame_tree_node, is_renderer_initiated, is_synchronous, is_srcdoc,
+      navigation_start, pending_nav_entry_id, started_from_context_menu));
 }
 
 NavigationHandleImpl::NavigationHandleImpl(
@@ -56,7 +56,8 @@ NavigationHandleImpl::NavigationHandleImpl(
     bool is_synchronous,
     bool is_srcdoc,
     const base::TimeTicks& navigation_start,
-    int pending_nav_entry_id)
+    int pending_nav_entry_id,
+    bool started_from_context_menu)
     : url_(url),
       has_user_gesture_(false),
       transition_(ui::PAGE_TRANSITION_LINK),
@@ -74,7 +75,8 @@ NavigationHandleImpl::NavigationHandleImpl(
       next_index_(0),
       navigation_start_(navigation_start),
       pending_nav_entry_id_(pending_nav_entry_id),
-      request_context_type_(REQUEST_CONTEXT_TYPE_UNSPECIFIED) {
+      request_context_type_(REQUEST_CONTEXT_TYPE_UNSPECIFIED),
+      started_from_context_menu_(started_from_context_menu) {
   DCHECK(!navigation_start.is_null());
   GetDelegate()->DidStartNavigation(this);
 
@@ -569,6 +571,10 @@ void NavigationHandleImpl::RegisterNavigationThrottles() {
                       throttles_to_register.end());
     throttles_to_register.weak_clear();
   }
+}
+
+bool NavigationHandleImpl::WasStartedFromContextMenu() const {
+  return started_from_context_menu_;
 }
 
 }  // namespace content

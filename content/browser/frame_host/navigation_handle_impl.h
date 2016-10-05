@@ -74,7 +74,8 @@ class CONTENT_EXPORT NavigationHandleImpl : public NavigationHandle {
       bool is_synchronous,
       bool is_srcdoc,
       const base::TimeTicks& navigation_start,
-      int pending_nav_entry_id);
+      int pending_nav_entry_id,
+      bool started_from_context_menu);
   ~NavigationHandleImpl() override;
 
   // NavigationHandle implementation:
@@ -117,6 +118,7 @@ class CONTENT_EXPORT NavigationHandleImpl : public NavigationHandle {
       bool new_is_external_protocol) override;
   NavigationThrottle::ThrottleCheckResult CallWillProcessResponseForTesting(
       RenderFrameHost* render_frame_host) override;
+  bool WasStartedFromContextMenu() const override;
 
   NavigationData* GetNavigationData() override;
 
@@ -249,7 +251,8 @@ class CONTENT_EXPORT NavigationHandleImpl : public NavigationHandle {
                        bool is_synchronous,
                        bool is_srcdoc,
                        const base::TimeTicks& navigation_start,
-                       int pending_nav_entry_id);
+                       int pending_nav_entry_id,
+                       bool started_from_context_menu);
 
   NavigationThrottle::ThrottleCheckResult CheckWillStartRequest();
   NavigationThrottle::ThrottleCheckResult CheckWillRedirectRequest();
@@ -318,6 +321,9 @@ class CONTENT_EXPORT NavigationHandleImpl : public NavigationHandle {
 
   // Embedder data tied to this navigation.
   std::unique_ptr<NavigationData> navigation_data_;
+
+  // False by default unless the navigation started within a context menu.
+  bool started_from_context_menu_;
 
   DISALLOW_COPY_AND_ASSIGN(NavigationHandleImpl);
 };

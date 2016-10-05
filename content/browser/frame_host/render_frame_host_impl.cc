@@ -1207,7 +1207,8 @@ void RenderFrameHostImpl::OnDidCommitProvisionalLoad(const IPC::Message& msg) {
         is_renderer_initiated,
         true,  // is_synchronous
         validated_params.is_srcdoc, base::TimeTicks::Now(),
-        entry_id_for_data_nav);
+        entry_id_for_data_nav,
+        false);  // started_from_context_menu
     // PlzNavigate
     if (IsBrowserSideNavigationEnabled()) {
       // PlzNavigate: synchronous loads happen in the renderer, and the browser

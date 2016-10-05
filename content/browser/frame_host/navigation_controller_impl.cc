@@ -775,6 +775,7 @@ void NavigationControllerImpl::LoadURLWithParams(const LoadURLParams& params) {
       break;
   };
 
+  entry->set_started_from_context_menu(params.started_from_context_menu);
   LoadEntry(std::move(entry));
 }
 

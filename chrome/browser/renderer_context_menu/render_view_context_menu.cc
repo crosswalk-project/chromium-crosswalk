@@ -1674,13 +1674,13 @@ void RenderViewContextMenu::ExecuteCommand(int id, int event_flags) {
       break;
 
     case IDC_CONTENT_CONTEXT_OPENLINKNEWWINDOW:
-      OpenURL(params_.link_url, GetDocumentURL(params_), NEW_WINDOW,
-              ui::PAGE_TRANSITION_LINK);
+      OpenURLWithExtraHeaders(params_.link_url, GetDocumentURL(params_),
+              NEW_WINDOW, ui::PAGE_TRANSITION_LINK, "", true);
       break;
 
     case IDC_CONTENT_CONTEXT_OPENLINKOFFTHERECORD:
-      OpenURL(params_.link_url, GURL(), OFF_THE_RECORD,
-              ui::PAGE_TRANSITION_LINK);
+      OpenURLWithExtraHeaders(params_.link_url, GURL(),
+              OFF_THE_RECORD, ui::PAGE_TRANSITION_LINK, "", true);
       break;
 
     case IDC_CONTENT_CONTEXT_SAVELINKAS:
@@ -1717,7 +1717,7 @@ void RenderViewContextMenu::ExecuteCommand(int id, int event_flags) {
       OpenURLWithExtraHeaders(
           params_.src_url, GetDocumentURL(params_), NEW_BACKGROUND_TAB,
           ui::PAGE_TRANSITION_LINK,
-          data_reduction_proxy::kDataReductionPassThroughHeader);
+          data_reduction_proxy::kDataReductionPassThroughHeader, false);
       break;
 
     case IDC_CONTENT_CONTEXT_LOAD_ORIGINAL_IMAGE:
@@ -2119,11 +2119,10 @@ bool RenderViewContextMenu::IsRouteMediaEnabled() const {
 
 void RenderViewContextMenu::ExecOpenLinkNewTab() {
   Browser* browser = chrome::FindBrowserWithWebContents(source_web_contents_);
-  OpenURL(params_.link_url,
-          GetDocumentURL(params_),
+  OpenURLWithExtraHeaders(params_.link_url, GetDocumentURL(params_),
           (!browser || browser->is_app()) ? NEW_FOREGROUND_TAB
                                           : NEW_BACKGROUND_TAB,
-          ui::PAGE_TRANSITION_LINK);
+          ui::PAGE_TRANSITION_LINK, "", true);
 }
 
 void RenderViewContextMenu::ExecProtocolHandler(int event_flags,
