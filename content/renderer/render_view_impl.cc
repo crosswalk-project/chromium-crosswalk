@@ -2024,7 +2024,7 @@ void RenderViewImpl::resetInputMethod() {
 }
 
 blink::WebRect RenderViewImpl::rootWindowRect() {
-  return RenderWidget::RootWindowRect();
+  return RenderWidget::windowRect();
 }
 
 blink::WebScreenInfo RenderViewImpl::screenInfo() {
