@@ -157,6 +157,11 @@ void LayoutSVGRoot::layout()
     // (hence no one is interested in viewport size changes).
     m_isLayoutSizeChanged = svg->hasRelativeLengths() && (selfNeedsLayout() || oldSize != size());
 
+    // The scale of one or more of the SVG elements may have changed, so mark
+    // the entire subtree as needing paint invalidation checking.
+    if (m_isLayoutSizeChanged)
+        setMayNeedPaintInvalidationSubtree();
+
     SVGLayoutSupport::layoutChildren(firstChild(), false, m_didScreenScaleFactorChange, m_isLayoutSizeChanged);
 
     if (m_needsBoundariesOrTransformUpdate) {
