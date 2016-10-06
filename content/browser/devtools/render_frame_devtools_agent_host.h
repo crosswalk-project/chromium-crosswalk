@@ -155,6 +155,8 @@ class CONTENT_EXPORT RenderFrameDevToolsAgentHost
   void OnRequestNewWindow(RenderFrameHost* sender, int new_routing_id);
   void DestroyOnRenderFrameGone();
 
+  bool CheckConsistency();
+
   void CreatePowerSaveBlocker();
 
   class FrameHostHolder;
@@ -186,6 +188,7 @@ class CONTENT_EXPORT RenderFrameDevToolsAgentHost
   std::unique_ptr<base::WeakPtrFactory<ui::ViewAndroid>> view_weak_factory_;
 #endif
   std::unique_ptr<DevToolsProtocolHandler> protocol_handler_;
+  RenderFrameHostImpl* handlers_frame_host_;
   bool current_frame_crashed_;
 
   // PlzNavigate
