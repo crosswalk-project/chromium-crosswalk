@@ -2691,7 +2691,7 @@ bool ResourceDispatcherHostImpl::ShouldServiceRequest(
       headers.GetHeader("Origin", &origin_string) && origin_string != "null";
   if (has_origin) {
     GURL origin(origin_string);
-    if (!policy->CanCommitURL(child_id, origin)) {
+    if (!policy->CanSetAsOriginHeader(child_id, origin)) {
       VLOG(1) << "Killed renderer for illegal origin: " << origin_string;
       bad_message::ReceivedBadMessage(filter, bad_message::RDH_ILLEGAL_ORIGIN);
       return false;
