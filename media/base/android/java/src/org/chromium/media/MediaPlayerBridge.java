@@ -35,11 +35,17 @@ import java.util.HashMap;
 */
 @JNINamespace("media")
 public class MediaPlayerBridge {
-
+    /**
+    * Give the host application a chance to take over MeidaPlayer.
+    */
     public static class ResourceLoadingFilter {
         public boolean shouldOverrideResourceLoading(
                 MediaPlayer mediaPlayer, Context context, Uri uri) {
             return false;
+        }
+
+        public MediaPlayer getExternalMediaPlayer() {
+            return null;
         }
     }
 
@@ -80,7 +86,8 @@ public class MediaPlayerBridge {
 
     protected MediaPlayer getLocalPlayer() {
         if (mPlayer == null) {
-            mPlayer = new MediaPlayer();
+            mPlayer = sResourceLoadFilter.getExternalMediaPlayer();
+            if (mPlayer == null) mPlayer = new MediaPlayer();
         }
         return mPlayer;
     }
@@ -202,9 +209,9 @@ public class MediaPlayerBridge {
             headersMap.put("allow-cross-domain-redirect", "false");
         }
         try {
-            if (sResourceLoadFilter != null &&
-                    sResourceLoadFilter.shouldOverrideResourceLoading(
-                            getLocalPlayer(), context, uri)) {
+            if (sResourceLoadFilter != null
+                    && sResourceLoadFilter.shouldOverrideResourceLoading(
+                               getLocalPlayer(), context, uri)) {
                 return true;
             }
             getLocalPlayer().setDataSource(context, uri, headersMap);
