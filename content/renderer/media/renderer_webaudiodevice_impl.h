@@ -89,8 +89,6 @@ class RendererWebAudioDeviceImpl
   // period of silence. We do this on android to save battery consumption.
   base::CancelableClosure start_null_audio_sink_callback_;
 
-  media::StreamPosition device_position_;
-
   // Security origin, used to check permissions for |output_device_|.
   url::Origin security_origin_;
 
