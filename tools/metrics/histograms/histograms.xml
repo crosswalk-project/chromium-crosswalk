@@ -17362,6 +17362,15 @@ http://cs/file:chrome/histograms.xml - but prefer this file for new entries.
   <summary>The result of FileSystemOriginDatabase initialization.</summary>
 </histogram>
 
+<histogram name="FileSystem.OriginFailedCanCommitURL" enum="BooleanHit">
+  <owner>nick@chromium.org</owner>
+  <summary>
+    Logged when we fail the permission validation of the filesystem URL origin,
+    from ChildProcessSecurityPolicy::HasPermissionsForFileSystemFile. This is
+    not expected to happen in normal operation.
+  </summary>
+</histogram>
+
 <histogram name="FileSystem.PersistentOriginsCount">
   <owner>tzik@chromium.org</owner>
   <summary>
