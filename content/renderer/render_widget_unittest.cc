@@ -374,11 +374,11 @@ class PopupRenderWidget : public RenderWidget {
   explicit PopupRenderWidget(CompositorDependencies* compositor_deps)
       : RenderWidget(compositor_deps,
                      blink::WebPopupTypePage,
-                     ScreenInfo(),
+                     blink::WebScreenInfo(),
                      false,
                      false,
                      false) {
-    webwidget_internal_ = &mock_webwidget_;
+    webwidget_ = &mock_webwidget_;
     // A RenderWidget is not fully initialized until it has a routing ID.
     SetRoutingID(1);
     did_show_ = true;
@@ -393,7 +393,7 @@ class PopupRenderWidget : public RenderWidget {
       const blink::WebDeviceEmulationParams&) override {}
 
  protected:
-  ~PopupRenderWidget() override { webwidget_internal_ = nullptr; }
+  ~PopupRenderWidget() override { webwidget_ = nullptr; }
 
   bool Send(IPC::Message* msg) override {
     sink_.OnMessageReceived(*msg);
