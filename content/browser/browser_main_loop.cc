@@ -753,13 +753,10 @@ int BrowserMainLoop::PreCreateThreads() {
 #if defined(USE_X11) && !defined(OS_CHROMEOS)
   // PreCreateThreads is called before CreateStartupTasks which starts the gpu
   // process.
-  bool enable_transparent_visuals =
-      !GpuDataManagerImpl::GetInstance()->IsDriverBugWorkaroundActive(
-          gpu::DISABLE_TRANSPARENT_VISUALS);
+  bool enable_transparent_visuals = false;
 
   // Prevent this flag to be turned off later since it is only used here.
-  if (!enable_transparent_visuals &&
-      !GpuDataManagerImpl::GetInstance()->IsCompleteGpuInfoAvailable()) {
+  if (!GpuDataManagerImpl::GetInstance()->IsCompleteGpuInfoAvailable()) {
     base::CommandLine::ForCurrentProcess()->AppendSwitch(
         "disable_transparent_visuals");
   }
