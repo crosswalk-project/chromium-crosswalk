@@ -519,6 +519,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_Basic) {
 
        EXPECT_CRDOWNLOAD},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 1: Save_As Safe
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
        DownloadFileType::NOT_DANGEROUS, "http://example.com/foo.txt",
@@ -527,6 +528,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_Basic) {
        FILE_PATH_LITERAL("foo.txt"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_CRDOWNLOAD},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 2: Automatic Dangerous
        AUTOMATIC, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_FILE,
@@ -556,6 +558,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_Basic) {
   RunTestCasesWithActiveItem(kBasicTestCases, arraysize(kBasicTestCases));
 }
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
 TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_CancelSaveAs) {
   const DownloadTestCase kCancelSaveAsTestCases[] = {
       {// 0: Save_As Safe, Cancelled.
@@ -571,6 +574,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_CancelSaveAs) {
   RunTestCasesWithActiveItem(kCancelSaveAsTestCases,
                              arraysize(kCancelSaveAsTestCases));
 }
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
 // The SafeBrowsing check is performed early. Make sure that a download item
 // that has been marked as DANGEROUS_URL behaves correctly.
@@ -585,6 +589,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DangerousUrl) {
 
        EXPECT_UNCONFIRMED},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 1: Save As Dangerous URL
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_URL,
        DownloadFileType::NOT_DANGEROUS, "http://phishing.example.com/foo.txt",
@@ -593,6 +598,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DangerousUrl) {
        FILE_PATH_LITERAL("foo.txt"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_UNCONFIRMED},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 2: Forced Dangerous URL
        FORCED, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_URL,
@@ -615,6 +621,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DangerousUrl) {
 
        EXPECT_UNCONFIRMED},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 4: Save As Dangerous URL + Dangerous file
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_URL,
        DownloadFileType::NOT_DANGEROUS, "http://phishing.example.com/foo.html",
@@ -623,6 +630,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DangerousUrl) {
        FILE_PATH_LITERAL("foo.html"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_UNCONFIRMED},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 5: Forced Dangerous URL + Dangerous file
        FORCED, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_URL,
@@ -664,6 +672,8 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_MaybeDangerousContent) {
 
        EXPECT_UNCONFIRMED},
 
+
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 2: Save As Maybe dangerous content
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_MAYBE_DANGEROUS_CONTENT,
        DownloadFileType::NOT_DANGEROUS, "http://phishing.example.com/foo.crx",
@@ -672,6 +682,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_MaybeDangerousContent) {
        FILE_PATH_LITERAL("foo.crx"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_UNCONFIRMED},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 3: Forced Maybe dangerous content
        FORCED, content::DOWNLOAD_DANGER_TYPE_MAYBE_DANGEROUS_CONTENT,
@@ -699,6 +710,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_MaybeDangerousContent) {
                              arraysize(kSafeBrowsingTestCases));
 }
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
 // Test whether the last saved directory is used for 'Save As' downloads.
 TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_LastSavePath) {
   const DownloadTestCase kLastSavePathTestCasesPre[] = {
@@ -787,6 +799,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_LastSavePath) {
                                arraysize(kLastSavePathTestCasesVirtual));
   }
 }
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
 // These tests are run with the default downloads folder set to a virtual
 // directory.
@@ -814,6 +827,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DefaultVirtual) {
     RunTestCasesWithActiveItem(&kAutomaticDownloadToVirtualDir, 1);
   }
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
   {
     SCOPED_TRACE(testing::Message() << "Save As to virtual directory");
     const DownloadTestCase kSaveAsToVirtualDir = {
@@ -858,6 +872,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_DefaultVirtual) {
             GetPathInDownloadDir(FILE_PATH_LITERAL("foo-x.txt")))));
     RunTestCasesWithActiveItem(&kSaveAsToLocalDir, 1);
   }
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
   {
     SCOPED_TRACE(testing::Message() << "Forced safe download");
@@ -889,13 +904,16 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_InactiveDownload) {
 
        EXPECT_CRDOWNLOAD},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {SAVE_AS, content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
        DownloadFileType::NOT_DANGEROUS, "http://example.com/foo.txt",
        "text/plain", FILE_PATH_LITERAL(""),
 
        FILE_PATH_LITERAL("foo.txt"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
-       EXPECT_CRDOWNLOAD}};
+       EXPECT_CRDOWNLOAD}
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
+  };
 
   for (size_t i = 0; i < arraysize(kInactiveTestCases); ++i) {
     SCOPED_TRACE(testing::Message() << "Running test case " << i);
@@ -985,6 +1003,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_VisitedReferrer) {
 
        EXPECT_UNCONFIRMED},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 2: Safe because the user is being prompted.
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
        DownloadFileType::NOT_DANGEROUS,
@@ -994,6 +1013,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_VisitedReferrer) {
        FILE_PATH_LITERAL("foo.crx"), DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_CRDOWNLOAD},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 3: Safe because of forced path.
        FORCED, content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
@@ -1149,6 +1169,7 @@ TEST_F(DownloadTargetDeterminerTest, TransitionType) {
   }
 }
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
 // These test cases are run with "Prompt for download" user preference set to
 // true.
 TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_PromptAlways) {
@@ -1190,6 +1211,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_PromptAlways) {
   RunTestCasesWithActiveItem(kPromptingTestCases,
                              arraysize(kPromptingTestCases));
 }
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
 #if defined(ENABLE_EXTENSIONS)
 // These test cases are run with "Prompt for download" user preference set to
@@ -1282,6 +1304,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_NotifyExtensionsSafe) {
 
        EXPECT_CRDOWNLOAD},
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
       {// 1: Save_As Safe
        SAVE_AS, content::DOWNLOAD_DANGER_TYPE_NOT_DANGEROUS,
        DownloadFileType::NOT_DANGEROUS, "http://example.com/foo.txt",
@@ -1291,6 +1314,7 @@ TEST_F(DownloadTargetDeterminerTest, TargetDeterminer_NotifyExtensionsSafe) {
        DownloadItem::TARGET_DISPOSITION_PROMPT,
 
        EXPECT_CRDOWNLOAD},
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
       {// 2: Automatic Dangerous
        AUTOMATIC, content::DOWNLOAD_DANGER_TYPE_DANGEROUS_FILE,
@@ -1406,6 +1430,7 @@ TEST_F(DownloadTargetDeterminerTest,
   RunTestCase(test_case, base::FilePath(), item.get());
 }
 
+#if !BUILDFLAG(ANDROID_JAVA_UI)
 // Test that relative paths returned by extensions are always relative to the
 // default downloads path.
 TEST_F(DownloadTargetDeterminerTest,
@@ -1443,6 +1468,7 @@ TEST_F(DownloadTargetDeterminerTest,
           ScheduleCallback(full_overridden_path)));
   RunTestCase(test_case, base::FilePath(), item.get());
 }
+#endif  // !BUILDFLAG(ANDROID_JAVA_UI)
 
 TEST_F(DownloadTargetDeterminerTest,
        TargetDeterminer_InitialVirtualPathUnsafe) {
