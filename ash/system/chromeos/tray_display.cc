@@ -153,7 +153,7 @@ const char TrayDisplay::kNotificationId[] = "chrome://settings/display";
 
 class DisplayView : public ActionableView {
  public:
-  explicit DisplayView() {
+  explicit DisplayView(SystemTrayItem* owner) : ActionableView(owner) {
     SetLayoutManager(new views::BoxLayout(views::BoxLayout::kHorizontal,
                                           kTrayPopupPaddingHorizontal, 0,
                                           kTrayPopupPaddingBetweenItems));
@@ -301,6 +301,7 @@ class DisplayView : public ActionableView {
     if (OpenSettings()) {
       WmShell::Get()->RecordUserMetricsAction(
           UMA_STATUS_AREA_DISPLAY_DEFAULT_SHOW_SETTINGS);
+      CloseSystemBubble();
     }
     return true;
   }
@@ -436,7 +437,7 @@ void TrayDisplay::CreateOrUpdateNotification(
 
 views::View* TrayDisplay::CreateDefaultView(LoginStatus status) {
   DCHECK(default_ == NULL);
-  default_ = new DisplayView();
+  default_ = new DisplayView(this);
   return default_;
 }
 

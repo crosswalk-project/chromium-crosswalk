@@ -7,6 +7,7 @@
 #include <utility>
 #include <vector>
 
+#include "ash/common/shelf/shelf_layout_manager.h"
 #include "ash/common/shelf/wm_shelf.h"
 #include "ash/common/shell_window_ids.h"
 #include "ash/common/system/status_area_widget.h"
@@ -145,6 +146,10 @@ class WebNotificationTrayTest : public test::AshTestBase {
   static std::unique_ptr<views::Widget> CreateTestWidget() {
     return AshTestBase::CreateTestWidget(
         nullptr, kShellWindowId_DefaultContainer, gfx::Rect(1, 2, 3, 4));
+  }
+
+  static void UpdateAutoHideStateNow() {
+    GetPrimaryShelf()->shelf_layout_manager()->UpdateAutoHideStateNow();
   }
 
  private:
@@ -370,6 +375,7 @@ TEST_F(WebNotificationTrayTest, MAYBE_PopupAndAutoHideShelf) {
   TestItem* test_item = new TestItem;
   GetSystemTray()->AddTrayItem(test_item);
   GetSystemTray()->ShowDefaultView(BUBBLE_CREATE_NEW);
+  UpdateAutoHideStateNow();
 
   EXPECT_EQ(SHELF_AUTO_HIDE_SHOWN, shelf->GetAutoHideState());
   EXPECT_TRUE(GetTray()->IsPopupVisible());

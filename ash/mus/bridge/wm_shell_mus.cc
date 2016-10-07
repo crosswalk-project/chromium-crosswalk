@@ -8,6 +8,7 @@
 
 #include "ash/common/accelerators/accelerator_controller.h"
 #include "ash/common/display/display_info.h"
+#include "ash/common/key_event_watcher.h"
 #include "ash/common/keyboard/keyboard_ui.h"
 #include "ash/common/session/session_state_delegate.h"
 #include "ash/common/shell_delegate.h"
@@ -347,6 +348,12 @@ std::unique_ptr<ImmersiveFullscreenController>
 WmShellMus::CreateImmersiveFullscreenController() {
   // TODO(sky): port ImmersiveFullscreenController, http://crbug.com/548435.
   return nullptr;
+}
+
+std::unique_ptr<KeyEventWatcher> WmShellMus::CreateKeyEventWatcher() {
+  // TODO: needs implementation for mus, http://crbug.com/649600.
+  NOTIMPLEMENTED();
+  return std::unique_ptr<KeyEventWatcher>();
 }
 
 void WmShellMus::OnOverviewModeStarting() {

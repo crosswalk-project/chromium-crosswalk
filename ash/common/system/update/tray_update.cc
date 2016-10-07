@@ -80,7 +80,8 @@ SkColor IconColorForUpdateSeverity(UpdateInfo::UpdateSeverity severity,
 
 class UpdateView : public ActionableView {
  public:
-  explicit UpdateView(const UpdateInfo& info) {
+  UpdateView(SystemTrayItem* owner, const UpdateInfo& info)
+      : ActionableView(owner) {
     SetLayoutManager(new views::BoxLayout(views::BoxLayout::kHorizontal,
                                           kTrayPopupPaddingHorizontal, 0,
                                           kTrayPopupPaddingBetweenItems));
@@ -115,6 +116,7 @@ class UpdateView : public ActionableView {
     WmShell::Get()->system_tray_delegate()->RequestRestartForUpdate();
     WmShell::Get()->RecordUserMetricsAction(
         UMA_STATUS_AREA_OS_UPDATE_DEFAULT_SELECTED);
+    CloseSystemBubble();
     return true;
   }
 
@@ -141,7 +143,7 @@ bool TrayUpdate::GetInitialVisibility() {
 views::View* TrayUpdate::CreateDefaultView(LoginStatus status) {
   UpdateInfo info;
   WmShell::Get()->system_tray_delegate()->GetSystemUpdateInfo(&info);
-  return info.update_required ? new UpdateView(info) : nullptr;
+  return info.update_required ? new UpdateView(this, info) : nullptr;
 }
 
 void TrayUpdate::OnUpdateRecommended(const UpdateInfo& info) {

@@ -25,8 +25,6 @@ class TrayItemMore : public ActionableView {
   TrayItemMore(SystemTrayItem* owner, bool show_more);
   ~TrayItemMore() override;
 
-  SystemTrayItem* owner() const { return owner_; }
-
   void SetLabel(const base::string16& label);
   void SetImage(const gfx::ImageSkia& image_skia);
   void SetAccessibleName(const base::string16& name);
@@ -45,7 +43,6 @@ class TrayItemMore : public ActionableView {
   void Layout() override;
   void GetAccessibleState(ui::AXViewState* state) override;
 
-  SystemTrayItem* owner_;
   // True if |more_| should be shown.
   bool show_more_;
   views::ImageView* icon_;

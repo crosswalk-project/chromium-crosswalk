@@ -360,6 +360,7 @@ class BluetoothDetailedView : public TrayDetailsView,
       TransitionToDefaultView();
     } else if (sender == manage_devices_) {
       delegate->ManageBluetoothDevices();
+      owner()->system_tray()->CloseSystemBubble();
     } else if (sender == enable_bluetooth_) {
       WmShell::Get()->RecordUserMetricsAction(
           delegate->GetBluetoothEnabled() ? UMA_STATUS_AREA_BLUETOOTH_DISABLED

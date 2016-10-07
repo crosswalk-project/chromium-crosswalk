@@ -381,7 +381,7 @@ void NetworkStateListDetailedView::ButtonPressed(views::Button* sender,
 
   // If the info bubble was visible, close it when some other item is clicked.
   ResetInfoBubble();
-
+  bool close_bubble = false;
   NetworkStateHandler* handler = NetworkHandler::Get()->network_state_handler();
   SystemTrayDelegate* delegate = WmShell::Get()->system_tray_delegate();
   if (sender == button_wifi_) {
@@ -398,17 +398,23 @@ void NetworkStateListDetailedView::ButtonPressed(views::Button* sender,
         list_type_ == LIST_TYPE_VPN ? UMA_STATUS_AREA_VPN_SETTINGS_CLICKED
                                     : UMA_STATUS_AREA_NETWORK_SETTINGS_CLICKED);
     delegate->ShowNetworkSettingsForGuid("");
+    close_bubble = true;
   } else if (sender == proxy_settings_) {
     delegate->ChangeProxySettings();
+    close_bubble = true;
   } else if (sender == other_mobile_) {
     delegate->ShowOtherNetworkDialog(shill::kTypeCellular);
+    close_bubble = true;
   } else if (sender == other_wifi_) {
     WmShell::Get()->RecordUserMetricsAction(
         UMA_STATUS_AREA_NETWORK_JOIN_OTHER_CLICKED);
     delegate->ShowOtherNetworkDialog(shill::kTypeWifi);
+    close_bubble = true;
   } else {
     NOTREACHED();
   }
+  if (close_bubble && owner()->system_tray())
+    owner()->system_tray()->CloseSystemBubble();
 }
 
 void NetworkStateListDetailedView::OnViewClicked(views::View* sender) {
@@ -444,6 +450,7 @@ void NetworkStateListDetailedView::OnViewClicked(views::View* sender) {
             : UMA_STATUS_AREA_CONNECT_TO_CONFIGURED_NETWORK);
     ui::NetworkConnect::Get()->ConnectToNetwork(service_path);
   }
+  owner()->system_tray()->CloseSystemBubble();
 }
 
 // Create UI components.
