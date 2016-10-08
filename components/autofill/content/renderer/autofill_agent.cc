@@ -281,6 +281,7 @@ void AutofillAgent::FireHostSubmitEvents(const FormData& form_data,
 }
 
 void AutofillAgent::Shutdown() {
+  binding_.Close();
   legacy_.Shutdown();
   weak_ptr_factory_.InvalidateWeakPtrs();
 }
