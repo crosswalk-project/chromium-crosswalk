@@ -60,6 +60,7 @@ void InspectorEmulationAgent::disable(ErrorString*)
     ErrorString error;
     setScriptExecutionDisabled(&error, false);
     setTouchEmulationEnabled(&error, false, protocol::Maybe<String>());
+    setCPUThrottlingRate(&error, 1);
     setEmulatedMedia(&error, String());
 }
 
