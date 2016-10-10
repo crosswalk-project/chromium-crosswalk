@@ -1153,7 +1153,6 @@ void PasswordAutofillAgent::WillSubmitForm(const blink::WebFormElement& form) {
 }
 
 void PasswordAutofillAgent::OnDestruct() {
-  binding_.Close();
   base::ThreadTaskRunnerHandle::Get()->DeleteSoon(FROM_HERE, this);
 }
 
