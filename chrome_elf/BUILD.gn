@@ -47,10 +47,10 @@ shared_library("chrome_elf") {
     ":chrome_elf_security",
     ":constants",
     ":hook_util",
+    ":nt_registry",
     "//base",
     "//build/config/sanitizers:deps",
     "//chrome/install_static:install_static_util",
-    "//chrome_elf/nt_registry:nt_registry",
     "//components/crash/content/app",
     "//components/crash/core/common",
     "//content/public/common:result_codes",
@@ -87,7 +87,7 @@ source_set("chrome_elf_security") {
   ]
   deps = [
     ":constants",
-    "//chrome_elf/nt_registry:nt_registry",
+    ":nt_registry",
   ]
 }
 
@@ -138,8 +138,8 @@ static_library("blacklist") {
   deps = [
     ":constants",
     ":hook_util",
+    ":nt_registry",
     "//chrome/install_static:install_static_util",
-    "//chrome_elf/nt_registry:nt_registry",
 
     # Still uses base/win/pe_image.h
     "//base",
@@ -157,6 +157,18 @@ static_library("hook_util") {
   ]
 }
 
+# This target contains utility functions which must only depend on
+# kernel32. Please don't add dependencies on other system libraries.
+static_library("nt_registry") {
+  sources = [
+    "../sandbox/win/src/nt_internals.h",
+    "nt_registry/nt_registry.cc",
+    "nt_registry/nt_registry.h",
+  ]
+
+  libs = [ "kernel32.lib" ]
+}
+
 ##------------------------------------------------------------------------------
 ## tests
 ##------------------------------------------------------------------------------
@@ -167,6 +179,7 @@ test("chrome_elf_unittests") {
     "blacklist/test/blacklist_test.cc",
     "chrome_elf_util_unittest.cc",
     "elf_imports_unittest.cc",
+    "nt_registry/nt_registry_unittest.cc",
     "run_all_unittests.cc",
   ]
   include_dirs = [ "$target_gen_dir" ]
@@ -176,12 +189,12 @@ test("chrome_elf_unittests") {
     ":chrome_elf_security",
     ":constants",
     ":hook_util",
+    ":nt_registry",
     "//base",
     "//base/test:test_support",
     "//chrome",
     "//chrome/common:version_header",
     "//chrome/install_static:install_static_util",
-    "//chrome_elf/nt_registry:nt_registry",
     "//sandbox",
     "//testing/gtest",
   ]
@@ -220,10 +233,10 @@ shared_library("blacklist_test_main_dll") {
   ]
   deps = [
     ":blacklist",
+    ":nt_registry",
     "//base",
     "//build/config/sanitizers:deps",
     "//chrome/install_static:install_static_util",
-    "//chrome_elf/nt_registry:nt_registry",
   ]
   ldflags = [
     "/NODEFAULTLIB:user32.lib",
