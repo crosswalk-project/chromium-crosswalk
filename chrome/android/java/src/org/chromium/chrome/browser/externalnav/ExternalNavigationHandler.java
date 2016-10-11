@@ -22,6 +22,7 @@ import org.chromium.chrome.browser.ChromeSwitches;
 import org.chromium.chrome.browser.IntentHandler;
 import org.chromium.chrome.browser.UrlConstants;
 import org.chromium.chrome.browser.tab.Tab;
+import org.chromium.chrome.browser.tab.TabRedirectHandler;
 import org.chromium.chrome.browser.util.IntentUtils;
 import org.chromium.chrome.browser.util.UrlUtilities;
 import org.chromium.chrome.browser.webapps.ChromeWebApkHost;
@@ -204,8 +205,9 @@ public class ExternalNavigationHandler {
         // http://crbug/331571 : Do not override a navigation started from user typing.
         // http://crbug/424029 : Need to stay in Chrome for an intent heading explicitly to Chrome.
         if (params.getRedirectHandler() != null) {
-            if (params.getRedirectHandler().shouldStayInChrome(isExternalProtocol)
-                    || params.getRedirectHandler().shouldNotOverrideUrlLoading()) {
+            TabRedirectHandler handler = params.getRedirectHandler();
+            if (handler.shouldStayInChrome(isExternalProtocol)
+                    || handler.shouldNotOverrideUrlLoading()) {
                 return OverrideUrlLoadingResult.NO_OVERRIDE;
             }
         }
@@ -423,8 +425,10 @@ public class ExternalNavigationHandler {
                 // The user has explicitly chosen Chrome over other intent handlers, so stay in
                 // Chrome unless there was a new intent handler after redirection or Chrome cannot
                 // handle it any more.
+                // Custom tabs are an exception to this rule, since at no point, the user sees an
+                // intent picker and "picking Chrome" is handled inside the support library.
                 if (params.getRedirectHandler() != null && incomingIntentRedirect) {
-                    if (!isExternalProtocol
+                    if (!isExternalProtocol && !params.getRedirectHandler().isFromCustomTabIntent()
                             && !params.getRedirectHandler().hasNewResolver(intent)) {
                         return OverrideUrlLoadingResult.NO_OVERRIDE;
                     }

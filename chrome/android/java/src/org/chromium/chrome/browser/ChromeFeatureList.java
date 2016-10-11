@@ -39,6 +39,7 @@ public abstract class ChromeFeatureList {
     public static final String WEB_PAYMENTS = "WebPayments";
     public static final String SYSTEM_DOWNLOAD_MANAGER = "SystemDownloadManager";
     public static final String TAB_REPARENTING = "TabReparenting";
+    public static final String CCT_EXTERNAL_LINK_HANDLING = "CCTExternalLinkHandling";
 
     private static native boolean nativeIsEnabled(String featureName);
 }

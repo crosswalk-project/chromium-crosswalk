@@ -50,6 +50,7 @@ const base::Feature* kFeaturesExposedToJava[] = {
     &kSpecialLocaleWrapper,
     &kSystemDownloadManager,
     &kTabReparenting,
+    &kCCTExternalLinkHandling,
     &offline_pages::kOfflinePagesBackgroundLoadingFeature,
     &offline_pages::kBackgroundLoaderForDownloadsFeature,
     &offline_pages::kOfflinePagesCTFeature,  // See crbug.com/620421.
@@ -101,6 +102,9 @@ const base::Feature kSystemDownloadManager{"SystemDownloadManager",
 const base::Feature kTabReparenting {
   "TabReparenting", base::FEATURE_ENABLED_BY_DEFAULT
 };
+
+const base::Feature kCCTExternalLinkHandling{"CCTExternalLinkHandling",
+                                    base::FEATURE_ENABLED_BY_DEFAULT};
 
 static jboolean IsEnabled(JNIEnv* env,
                           const JavaParamRef<jclass>& clazz,

@@ -56,6 +56,11 @@ public class CustomTabIntentDataProvider {
     public static final String EXTRA_IS_OPENED_BY_CHROME =
             "org.chromium.chrome.browser.customtabs.IS_OPENED_BY_CHROME";
 
+    //TODO(yusufo): Move this to CustomTabsIntent.
+    /** Signals custom tabs to favor sending initial urls to external handler apps if possible. */
+    public static final String EXTRA_SEND_TO_EXTERNAL_DEFAULT_HANDLER =
+            "android.support.customtabs.extra.SEND_TO_EXTERNAL_HANDLER";
+
     private static final int MAX_CUSTOM_MENU_ITEMS = 5;
     private static final String ANIMATION_BUNDLE_PREFIX =
             Build.VERSION.SDK_INT >= Build.VERSION_CODES.M ? "android:activity." : "android:";
