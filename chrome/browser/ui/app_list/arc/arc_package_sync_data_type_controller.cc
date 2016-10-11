@@ -4,12 +4,13 @@
 
 #include "chrome/browser/ui/app_list/arc/arc_package_sync_data_type_controller.h"
 
+#include "chrome/browser/chromeos/arc/arc_auth_service.h"
 #include "chrome/browser/profiles/profile.h"
 #include "chrome/browser/ui/app_list/arc/arc_app_list_prefs.h"
 #include "chrome/common/pref_names.h"
-#include "components/arc/common/app.mojom.h"
-#include "components/arc/instance_holder.h"
+#include "components/arc/arc_bridge_service.h"
 #include "components/prefs/pref_service.h"
+#include "components/sync/driver/pref_names.h"
 #include "components/sync/driver/sync_client.h"
 #include "components/sync/driver/sync_prefs.h"
 #include "components/sync/driver/sync_service.h"
@@ -17,6 +18,16 @@
 
 // ArcPackage sync service is controlled by apps checkbox in sync settings. Arc
 // apps and regular Chrome apps have same user control.
+namespace {
+
+// Indicates whether ARC is enabled on this machine.
+bool IsArcEnabled(Profile* profile) {
+  return arc::ArcAuthService::IsAllowedForProfile(profile) &&
+      profile->GetPrefs()->GetBoolean(prefs::kArcEnabled);
+}
+
+}  // namespace
+
 ArcPackageSyncDataTypeController::ArcPackageSyncDataTypeController(
     syncer::ModelType type,
     const base::Closure& error_callback,
@@ -32,45 +43,51 @@ ArcPackageSyncDataTypeController::ArcPackageSyncDataTypeController(
       sync_client_(sync_client) {
   pref_registrar_.Init(profile_->GetPrefs());
   pref_registrar_.Add(
-      sync_driver::SyncPrefs::GetPrefNameForDataType(type),
-      base::Bind(&ArcPackageSyncDataTypeController::OnArcAppsSyncPrefChanged,
-                 base::Unretained(this)));
-  pref_registrar_.Add(
       prefs::kArcEnabled,
       base::Bind(&ArcPackageSyncDataTypeController::OnArcEnabledPrefChanged,
                  base::Unretained(this)));
+
+  arc::ArcBridgeService* arc_bridge_service = arc::ArcBridgeService::Get();
+  if (arc_bridge_service)
+    arc_bridge_service->app()->AddObserver(this);
 }
 
-ArcPackageSyncDataTypeController::~ArcPackageSyncDataTypeController() {}
+ArcPackageSyncDataTypeController::~ArcPackageSyncDataTypeController() {
+  arc::ArcBridgeService* arc_bridge_service = arc::ArcBridgeService::Get();
+  if (arc_bridge_service)
+    arc_bridge_service->app()->RemoveObserver(this);
+}
 
 bool ArcPackageSyncDataTypeController::ReadyForStart() const {
-  ArcAppListPrefs* prefs = ArcAppListPrefs::Get(profile_);
-  return profile_->GetPrefs()->GetBoolean(
-             sync_driver::SyncPrefs::GetPrefNameForDataType(type())) &&
-         prefs && prefs->app_instance_holder()->instance();
+  DCHECK(ui_thread()->BelongsToCurrentThread());
+  return IsArcEnabled(profile_) && ShouldSyncArc();
 }
 
-void ArcPackageSyncDataTypeController::OnArcAppsSyncPrefChanged() {
-  DCHECK(ui_thread()->BelongsToCurrentThread());
-
-  if (!ReadyForStart()) {
-    // If apps sync in advanced sync settings is turned off then generate an
-    // unrecoverable error.
-    if (state() != NOT_RUNNING && state() != STOPPING) {
-      syncer::SyncError error(
-          FROM_HERE, syncer::SyncError::DATATYPE_POLICY_ERROR,
-          "Arc package sync is now disabled by user.", type());
-      OnSingleDataTypeUnrecoverableError(error);
-    }
+void ArcPackageSyncDataTypeController::OnInstanceReady() {
+  // model_normal_start_ is true by default. Normally,
+  // ArcPackageSyncDataTypeController::StartModels() gets called before Arc is
+  // ready. But in integration test, the order can be either way. If
+  // OnInstanceReady comes before ArcPackageSyncDataTypeController
+  // ::StartModels(), this function is no-op and waits for StartModels() to be
+  // called.
+  if (model_normal_start_)
     return;
-  }
-  sync_driver::SyncService* sync_service = sync_client_->GetSyncService();
-  DCHECK(sync_service);
-  sync_service->ReenableDatatype(type());
+
+  model_normal_start_ = true;
+  OnModelLoaded();
+}
+
+bool ArcPackageSyncDataTypeController::StartModels() {
+  DCHECK_EQ(state(), MODEL_STARTING);
+  ArcAppListPrefs* prefs = ArcAppListPrefs::Get(profile_);
+  model_normal_start_ = prefs && prefs->app_instance_holder()->instance();
+  return model_normal_start_;
 }
 
 void ArcPackageSyncDataTypeController::OnArcEnabledPrefChanged() {
-  if (!profile_->GetPrefs()->GetBoolean(prefs::kArcEnabled)) {
+  DCHECK(ui_thread()->BelongsToCurrentThread());
+
+  if (!ReadyForStart()) {
     // If enable Arc in settings is turned off then generate an unrecoverable
     // error.
     if (state() != NOT_RUNNING && state() != STOPPING) {
@@ -80,5 +97,19 @@ void ArcPackageSyncDataTypeController::OnArcEnabledPrefChanged() {
           type());
       OnSingleDataTypeUnrecoverableError(error);
     }
+    return;
   }
+  EnableDataType();
+}
+
+void ArcPackageSyncDataTypeController::EnableDataType() {
+  sync_driver::SyncService* sync_service = sync_client_->GetSyncService();
+  DCHECK(sync_service);
+  sync_service->ReenableDatatype(type());
+}
+
+bool ArcPackageSyncDataTypeController::ShouldSyncArc() const {
+  sync_driver::SyncService* sync_service = sync_client_->GetSyncService();
+  DCHECK(sync_service);
+  return sync_service->GetPreferredDataTypes().Has(type());
 }
