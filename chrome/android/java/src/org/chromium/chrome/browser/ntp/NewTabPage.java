@@ -638,6 +638,11 @@ public class NewTabPage
         public void removeContextMenuCloseCallback(Callback<Menu> callback) {
             mActivity.removeContextMenuCloseCallback(callback);
         }
+
+        @Override
+        public void closeContextMenu() {
+            mActivity.closeContextMenu();
+        }
     };
 
     /**

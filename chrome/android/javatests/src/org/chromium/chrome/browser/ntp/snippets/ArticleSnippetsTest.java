@@ -343,5 +343,10 @@ public class ArticleSnippetsTest extends ChromeActivityTestCaseBase<ChromeActivi
         public void onLearnMoreClicked() {
             throw new UnsupportedOperationException();
         }
+
+        @Override
+        public void closeContextMenu() {
+            throw new UnsupportedOperationException();
+        }
     }
 }

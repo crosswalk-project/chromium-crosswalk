@@ -274,6 +274,11 @@ public class NewTabPageView extends FrameLayout
         void removeContextMenuCloseCallback(Callback<Menu> callback);
 
         /**
+         * Makes the {@link Activity} close any open context menu.
+         */
+        void closeContextMenu();
+
+        /**
          * Handles clicks on the "learn more" link in the footer.
          */
         void onLearnMoreClicked();
@@ -1166,6 +1171,9 @@ public class NewTabPageView extends FrameLayout
         // layout pass, which means that the new style will only be visible after layout happens
         // again. We prefer updating here to avoid having to require that additional layout pass.
         mUiConfig.updateDisplayStyle();
+
+        // Close the Context Menu as it may have moved (https://crbug.com/642688).
+        mManager.closeContextMenu();
     }
 
     private int getVerticalScroll() {
