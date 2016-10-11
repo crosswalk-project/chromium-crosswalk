@@ -1250,6 +1250,18 @@ LONG_STRING_CONST(
       "features": [
         "accelerated_vpx_decode"
       ]
+    },
+    {
+      "id": 123,
+      "description": "Accelerated VPx decoding is hanging on some videos.",
+      "cr_bugs": [654111],
+      "os": {
+        "type": "win"
+      },
+      "vendor_id": "0x8086",
+      "features": [
+        "accelerated_vpx_decode"
+      ]
     }
   ]
 }
