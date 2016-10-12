@@ -10,7 +10,6 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
@@ -854,8 +853,7 @@ public class ChromeTabbedActivity extends ChromeActivity implements OverviewMode
                 newIntent.putExtra(Browser.EXTRA_APPLICATION_ID, getPackageName());
                 newIntent.putExtra(
                         CustomTabIntentDataProvider.EXTRA_IS_OPENED_BY_CHROME, true);
-                ChromeLauncherActivity.updateHerbIntent(ChromeTabbedActivity.this,
-                        newIntent, Uri.parse(IntentHandler.getUrlFromIntent(newIntent)));
+                ChromeLauncherActivity.updateHerbIntent(ChromeTabbedActivity.this, newIntent);
 
                 // Launch the Activity on top of this task.
                 int updatedFlags = newIntent.getFlags();
