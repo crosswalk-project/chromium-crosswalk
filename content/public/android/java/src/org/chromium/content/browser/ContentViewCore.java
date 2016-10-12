@@ -3160,7 +3160,8 @@ public class ContentViewCore implements AccessibilityStateChangeListener, Screen
 
         if (event.getAction() == DragEvent.ACTION_DRAG_STARTED) {
             // TODO(hush): support dragging more than just text.
-            return mimeTypes.length > 0 && nativeIsTouchDragDropEnabled(mNativeContentViewCore);
+            return mimeTypes != null && mimeTypes.length > 0 &&
+                    nativeIsTouchDragDropEnabled(mNativeContentViewCore);
         }
 
         StringBuilder content = new StringBuilder("");
