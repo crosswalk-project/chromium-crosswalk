@@ -62,8 +62,9 @@ CARendererLayerTree* CALayerTreeCoordinator::GetPendingCARendererLayerTree() {
                    "specified, but not both.";
   }
   if (!pending_ca_renderer_layer_tree_)
-    pending_ca_renderer_layer_tree_.reset(new CARendererLayerTree(
-        allow_av_sample_buffer_display_layer_, base::mac::IsOSSierraOrLater()));
+    pending_ca_renderer_layer_tree_.reset(
+        new CARendererLayerTree(allow_av_sample_buffer_display_layer_,
+                                !base::mac::IsOSSierraOrLater()));
   return pending_ca_renderer_layer_tree_.get();
 }
 
