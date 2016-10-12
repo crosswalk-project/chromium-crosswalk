@@ -139,18 +139,15 @@ public class CustomTabDelegateFactory extends TabDelegateFactory {
         }
     }
 
-    private final boolean mShouldHideTopControls;
-    private final boolean mIsOpenedByChrome;
-
-    private ExternalNavigationDelegateImpl mNavigationDelegate;
+    private CustomTabNavigationDelegate mNavigationDelegate;
     private ExternalNavigationHandler mNavigationHandler;
+    private boolean mShouldHideTopControls;
 
     /**
      * @param shouldHideTopControls Whether or not the top controls may auto-hide.
      */
-    public CustomTabDelegateFactory(boolean shouldHideTopControls, boolean isOpenedByChrome) {
+    public CustomTabDelegateFactory(boolean shouldHideTopControls) {
         mShouldHideTopControls = shouldHideTopControls;
-        mIsOpenedByChrome = isOpenedByChrome;
     }
 
     @Override
@@ -170,11 +167,7 @@ public class CustomTabDelegateFactory extends TabDelegateFactory {
 
     @Override
     public InterceptNavigationDelegateImpl createInterceptNavigationDelegate(Tab tab) {
-        if (mIsOpenedByChrome) {
-            mNavigationDelegate = new ExternalNavigationDelegateImpl(tab);
-        } else {
-            mNavigationDelegate = new CustomTabNavigationDelegate(tab, tab.getAppAssociatedWith());
-        }
+        mNavigationDelegate = new CustomTabNavigationDelegate(tab, tab.getAppAssociatedWith());
         mNavigationHandler = new ExternalNavigationHandler(mNavigationDelegate);
         return new InterceptNavigationDelegateImpl(mNavigationHandler, tab);
     }
@@ -197,7 +190,7 @@ public class CustomTabDelegateFactory extends TabDelegateFactory {
      * @return The {@link CustomTabNavigationDelegate} in this tab. For test purpose only.
      */
     @VisibleForTesting
-    ExternalNavigationDelegateImpl getExternalNavigationDelegate() {
+    CustomTabNavigationDelegate getExternalNavigationDelegate() {
         return mNavigationDelegate;
     }
 
