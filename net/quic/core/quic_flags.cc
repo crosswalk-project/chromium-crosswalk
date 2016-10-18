@@ -146,7 +146,7 @@ bool FLAGS_quic_limit_frame_gaps_in_buffer = false;
 
 // If true, v33 QUIC client uses 1 bit to specify 8-byte connection id in public
 // flag.
-bool FLAGS_quic_remove_v33_hacks = true;
+bool FLAGS_quic_remove_v33_hacks = false;
 
 // If true, use the CHLO packet size, not message size when determining how
 // large a REJ can be.
