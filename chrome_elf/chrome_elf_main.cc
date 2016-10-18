@@ -84,6 +84,13 @@ void DisableSetUnhandledExceptionFilter() {
 
 }  // namespace
 
+// This function is a temporary workaround for https://crbug.com/655788. We
+// need to come up with a better way to initialize crash reporting that can
+// happen inside DllMain().
+void SignalInitializeCrashReporting() {
+  InitializeCrashReportingForProcess();
+}
+
 void SignalChromeElf() {
   blacklist::ResetBeacon();
 }
@@ -110,11 +117,6 @@ extern "C" __declspec(dllexport) void SetMetricsClientId(
 
 BOOL APIENTRY DllMain(HMODULE module, DWORD reason, LPVOID reserved) {
   if (reason == DLL_PROCESS_ATTACH) {
-    InitializeCrashReportingForProcess();
-    // CRT on initialization installs an exception filter which calls
-    // TerminateProcess. We need to hook CRT's attempt to set an exception
-    // handler and ignore it. Don't do this when ASan is present, or ASan will
-    // fail to install its own unhandled exception filter.
 #if !defined(ADDRESS_SANITIZER)
     DisableSetUnhandledExceptionFilter();
 #endif
