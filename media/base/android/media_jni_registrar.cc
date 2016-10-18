@@ -15,6 +15,9 @@
 #include "media/base/android/media_player_bridge.h"
 #include "media/base/android/media_player_listener.h"
 #include "media/base/android/sdk_media_codec_bridge.h"
+#include "media/base/android/webaudio_media_codec_bridge.h"
+#include "media/capture/video/android/video_capture_device_android.h"
+#include "media/capture/video/android/video_capture_device_factory_android.h"
 
 namespace media {
 
@@ -26,6 +29,8 @@ static base::android::RegistrationMethod kMediaRegisteredMethods[] = {
     {"MediaPlayerListener", MediaPlayerListener::RegisterMediaPlayerListener},
     {"SdkMediaCodecBridge", SdkMediaCodecBridge::RegisterSdkMediaCodecBridge},
     {"MediaCodecUtil", MediaCodecUtil::RegisterMediaCodecUtil},
+    {"WebAudioMediaCodecBridge",
+     WebAudioMediaCodecBridge::RegisterWebAudioMediaCodecBridge},
 };
 
 bool RegisterJni(JNIEnv* env) {

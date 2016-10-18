@@ -105,6 +105,10 @@
 #include "third_party/WebKit/public/platform/modules/device_orientation/WebDeviceOrientationListener.h"
 #include "url/gurl.h"
 
+#if defined(OS_ANDROID)
+#include "content/renderer/media/android/audio_decoder_android.h"
+#endif
+
 #if defined(OS_MACOSX)
 #include "content/common/mac/font_descriptor.h"
 #include "content/common/mac/font_loader.h"
@@ -774,6 +778,17 @@ WebAudioDevice* RendererBlinkPlatformImpl::createAudioDevice(
       params, callback, session_id, static_cast<url::Origin>(security_origin));
 }
 
+#if defined(OS_ANDROID)
+bool RendererBlinkPlatformImpl::loadAudioResource(
+    blink::WebAudioBus* destination_bus,
+    const char* audio_file_data,
+    size_t data_size) {
+  return DecodeAudioFileData(destination_bus,
+                             audio_file_data,
+                             data_size,
+                             thread_safe_sender_);
+}
+#else
 bool RendererBlinkPlatformImpl::loadAudioResource(
     blink::WebAudioBus* destination_bus,
     const char* audio_file_data,
@@ -781,6 +796,7 @@ bool RendererBlinkPlatformImpl::loadAudioResource(
   return DecodeAudioFileData(
       destination_bus, audio_file_data, data_size);
 }
+#endif  // defined(OS_ANDROID)
 
 //------------------------------------------------------------------------------
 

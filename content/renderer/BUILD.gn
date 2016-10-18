@@ -118,6 +118,8 @@ source_set("renderer") {
   }
 
   if (is_android) {
+    sources -= [ "media/audio_decoder.cc" ]
+
     # Add back the Linux file which Android shares.
     set_sources_assignment_filter([])
     sources += [ "render_view_linux.cc" ]
