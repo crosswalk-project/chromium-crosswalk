@@ -32,8 +32,7 @@ void WebAudioMediaCodecBridge::RunWebAudioMediaCodec(
     base::FileDescriptor pcm_output,
     uint32_t data_size,
     base::Closure on_decode_finished_cb) {
-  WebAudioMediaCodecBridge bridge(
-      encoded_audio_handle, pcm_output, data_size);
+  WebAudioMediaCodecBridge bridge(encoded_audio_handle, pcm_output, data_size);
 
   bridge.DecodeInMemoryAudioFile();
   on_decode_finished_cb.Run();
@@ -52,26 +51,23 @@ WebAudioMediaCodecBridge::WebAudioMediaCodecBridge(
 
 WebAudioMediaCodecBridge::~WebAudioMediaCodecBridge() {
   if (close(pcm_output_)) {
-    DVLOG(1) << "Couldn't close output fd " << pcm_output_
-             << ": " << strerror(errno);
+    DVLOG(1) << "Couldn't close output fd " << pcm_output_ << ": "
+             << strerror(errno);
   }
 }
 
-int WebAudioMediaCodecBridge::SaveEncodedAudioToFile(
-    JNIEnv* env,
-    jobject context) {
+int WebAudioMediaCodecBridge::SaveEncodedAudioToFile(JNIEnv* env,
+                                                     jobject context) {
   // Create a temporary file where we can save the encoded audio data.
-  std::string temporaryFile =
-      base::android::ConvertJavaStringToUTF8(
-          env,
-          Java_WebAudioMediaCodecBridge_createTempFile(env, context).obj());
+  std::string temporaryFile = base::android::ConvertJavaStringToUTF8(
+      env, Java_WebAudioMediaCodecBridge_createTempFile(env, context).obj());
 
   // Open the file and unlink it, so that it will be actually removed
   // when we close the file.
   base::ScopedFD fd(open(temporaryFile.c_str(), O_RDWR));
   if (unlink(temporaryFile.c_str())) {
-    VLOG(0) << "Couldn't unlink temp file " << temporaryFile
-            << ": " << strerror(errno);
+    VLOG(0) << "Couldn't unlink temp file " << temporaryFile << ": "
+            << strerror(errno);
   }
 
   if (!fd.is_valid()) {
@@ -87,8 +83,8 @@ int WebAudioMediaCodecBridge::SaveEncodedAudioToFile(
     return -1;
   }
 
-  if (static_cast<uint32_t>(write(fd.get(), encoded_data.memory(), data_size_))
-      != data_size_) {
+  if (static_cast<uint32_t>(
+          write(fd.get(), encoded_data.memory(), data_size_)) != data_size_) {
     VLOG(0) << "Failed to write all audio data to temp file!";
     return -1;
   }
@@ -110,11 +106,7 @@ bool WebAudioMediaCodecBridge::DecodeInMemoryAudioFile() {
     return false;
 
   jboolean decoded = Java_WebAudioMediaCodecBridge_decodeAudioFile(
-      env,
-      context,
-      reinterpret_cast<intptr_t>(this),
-      sourceFd,
-      data_size_);
+      env, context, reinterpret_cast<intptr_t>(this), sourceFd, data_size_);
 
   close(sourceFd);
 
@@ -132,19 +124,17 @@ void WebAudioMediaCodecBridge::InitializeDestination(
   // Send information about this audio file: number of channels,
   // sample rate (Hz), and the number of frames.
   struct WebAudioMediaCodecInfo info = {
-    static_cast<unsigned long>(channel_count),
-    static_cast<unsigned long>(sample_rate),
-    // The number of frames is the duration of the file
-    // (in microseconds) times the sample rate.
-    static_cast<unsigned long>(
-        0.5 + (duration_microsec * 0.000001 *
-               sample_rate))
-  };
+      static_cast<unsigned long>(channel_count),
+      static_cast<unsigned long>(sample_rate),
+      // The number of frames is the duration of the file
+      // (in microseconds) times the sample rate.
+      static_cast<unsigned long>(0.5 +
+                                 (duration_microsec * 0.000001 * sample_rate))};
 
   DVLOG(1) << "InitializeDestination:"
            << "  channel count = " << channel_count
-           << "  rate = " << sample_rate
-           << "  duration = " << duration_microsec << " microsec";
+           << "  rate = " << sample_rate << "  duration = " << duration_microsec
+           << " microsec";
 
   HANDLE_EINTR(write(pcm_output_, &info, sizeof(info)));
 }
@@ -159,8 +149,7 @@ void WebAudioMediaCodecBridge::OnChunkDecoded(
   if (buf_size <= 0 || !buf)
     return;
 
-  int8_t* buffer =
-      static_cast<int8_t*>(env->GetDirectBufferAddress(buf));
+  int8_t* buffer = static_cast<int8_t*>(env->GetDirectBufferAddress(buf));
   size_t count = static_cast<size_t>(buf_size);
   std::vector<int16_t> decoded_data;
 
@@ -170,7 +159,7 @@ void WebAudioMediaCodecBridge::OnChunkDecoded(
     // the number of channels in the file, only send one channel (the
     // first).
     int16_t* data = static_cast<int16_t*>(env->GetDirectBufferAddress(buf));
-    int frame_count  = buf_size / sizeof(*data) / 2;
+    int frame_count = buf_size / sizeof(*data) / 2;
 
     decoded_data.resize(frame_count);
     for (int k = 0; k < frame_count; ++k) {
@@ -185,9 +174,8 @@ void WebAudioMediaCodecBridge::OnChunkDecoded(
   // Write out the data to the pipe in small chunks if necessary.
   while (count > 0) {
     int bytes_to_write = (count >= PIPE_BUF) ? PIPE_BUF : count;
-    ssize_t bytes_written = HANDLE_EINTR(write(pcm_output_,
-                                               buffer,
-                                               bytes_to_write));
+    ssize_t bytes_written =
+        HANDLE_EINTR(write(pcm_output_, buffer, bytes_to_write));
     if (bytes_written == -1)
       break;
     count -= bytes_written;
@@ -199,4 +187,4 @@ bool WebAudioMediaCodecBridge::RegisterWebAudioMediaCodecBridge(JNIEnv* env) {
   return RegisterNativesImpl(env);
 }
 
-} // namespace
+}  // namespace

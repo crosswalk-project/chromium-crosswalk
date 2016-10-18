@@ -17,4 +17,4 @@ struct WebAudioMediaCodecInfo {
 };
 
 }  // namespace media
-#endif // MEDIA_BASE_ANDROID_WEBAUDIO_MEDIA_CODEC_INFO_H_
+#endif  // MEDIA_BASE_ANDROID_WEBAUDIO_MEDIA_CODEC_INFO_H_

@@ -33,9 +33,8 @@ class WebAudioMediaCodecBridge {
 
     @SuppressWarnings("deprecation")
     @CalledByNative
-    private static boolean decodeAudioFile(Context ctx, long nativeMediaCodecBridge,
-            int inputFD, long dataSize) {
-
+    private static boolean decodeAudioFile(
+            Context ctx, long nativeMediaCodecBridge, int inputFD, long dataSize) {
         if (dataSize < 0 || dataSize > 0x7fffffff) return false;
 
         MediaExtractor extractor = new MediaExtractor();
@@ -201,14 +200,12 @@ class WebAudioMediaCodecBridge {
                     }
 
                     try {
-                        codec.queueInputBuffer(inputBufIndex,
-                                0, /* offset */
-                                sampleSize,
-                                presentationTimeMicroSec,
+                        codec.queueInputBuffer(inputBufIndex, 0, /* offset */
+                                sampleSize, presentationTimeMicroSec,
                                 sawInputEOS ? MediaCodec.BUFFER_FLAG_END_OF_STREAM : 0);
                     } catch (Exception e) {
-                        Log.w(TAG, "queueInputBuffer(%d, 0, %d, %d, %d) failed.",
-                                inputBufIndex, sampleSize, presentationTimeMicroSec,
+                        Log.w(TAG, "queueInputBuffer(%d, 0, %d, %d, %d) failed.", inputBufIndex,
+                                sampleSize, presentationTimeMicroSec,
                                 (sawInputEOS ? MediaCodec.BUFFER_FLAG_END_OF_STREAM : 0), e);
                         decodedSuccessfully = false;
                         break;
@@ -244,16 +241,14 @@ class WebAudioMediaCodecBridge {
                     Log.d(TAG, "Final:  Rate: %d Channels: %d Mime: %s Duration: %d microsec",
                             sampleRate, inputChannelCount, mime, durationMicroseconds);
 
-                    nativeInitializeDestination(nativeMediaCodecBridge,
-                                                inputChannelCount,
-                                                sampleRate,
-                                                durationMicroseconds);
+                    nativeInitializeDestination(nativeMediaCodecBridge, inputChannelCount,
+                            sampleRate, durationMicroseconds);
                     destinationInitialized = true;
                 }
 
                 if (destinationInitialized && info.size > 0) {
-                    nativeOnChunkDecoded(nativeMediaCodecBridge, buf, info.size,
-                                         inputChannelCount, outputChannelCount);
+                    nativeOnChunkDecoded(nativeMediaCodecBridge, buf, info.size, inputChannelCount,
+                            outputChannelCount);
                 }
 
                 buf.clear();
@@ -281,13 +276,9 @@ class WebAudioMediaCodecBridge {
         return decodedSuccessfully;
     }
 
-    private static native void nativeOnChunkDecoded(
-            long nativeWebAudioMediaCodecBridge, ByteBuffer buf, int size,
-            int inputChannelCount, int outputChannelCount);
+    private static native void nativeOnChunkDecoded(long nativeWebAudioMediaCodecBridge,
+            ByteBuffer buf, int size, int inputChannelCount, int outputChannelCount);
 
-    private static native void nativeInitializeDestination(
-            long nativeWebAudioMediaCodecBridge,
-            int inputChannelCount,
-            int sampleRate,
-            long durationMicroseconds);
+    private static native void nativeInitializeDestination(long nativeWebAudioMediaCodecBridge,
+            int inputChannelCount, int sampleRate, long durationMicroseconds);
 }
