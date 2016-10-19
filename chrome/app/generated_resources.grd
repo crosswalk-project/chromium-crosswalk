@@ -6855,6 +6855,12 @@ Keep your key file in a safe place. You will need it to create new versions of y
       <message name="IDS_FLAGS_ENABLE_GROUPED_HISTORY_DESCRIPTION" desc="Description of the 'group by domain' feature on chrome://history">
         Group history by website domain (i.e. google.com) on chrome://history.
       </message>
+      <message name="IDS_FLAGS_ENABLE_ENUMERATING_AUDIO_DEVICES_NAME" desc="Name of the flag to experimentally enable enumerating audio devices on ChromeOS.">
+        Experimentally enable enumerating audio devices.
+      </message>
+      <message name="IDS_FLAGS_ENABLE_ENUMERATING_AUDIO_DEVICES_DESCRIPTION" desc="Description of the flag that experimentally enables enumerating audio devices on ChromeOS.">
+        Experimentally enable the use of enumerating audio devices.
+      </message>
 
       <!-- WebRTC logs -->
       <message name="IDS_WEBRTC_LOGS_TITLE" desc="Title for the chrome://webrtc-logs page.">

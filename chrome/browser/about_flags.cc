@@ -69,6 +69,7 @@
 #include "content/public/common/features.h"
 #include "gin/public/gin_features.h"
 #include "grit/components_strings.h"
+#include "media/audio/audio_features.h"
 #include "media/base/media_switches.h"
 #include "media/midi/midi_switches.h"
 #include "ui/base/l10n/l10n_util.h"
@@ -2079,6 +2080,12 @@ const FeatureEntry kFeatureEntries[] = {
     {"enable-feature-policy", IDS_FLAGS_FEATURE_POLICY_NAME,
      IDS_FLAGS_FEATURE_POLICY_DESCRIPTION, kOsAll,
      FEATURE_VALUE_TYPE(features::kFeaturePolicy)},
+#if defined(OS_CHROMEOS)
+    {"enumerate-audio-devices", IDS_FLAGS_ENABLE_ENUMERATING_AUDIO_DEVICES_NAME,
+     IDS_FLAGS_ENABLE_ENUMERATING_AUDIO_DEVICES_DESCRIPTION, kOsCrOS,
+     FEATURE_VALUE_TYPE(features::kEnumerateAudioDevices)},
+#endif  // OS_CHROMEOS
+
     // NOTE: Adding new command-line switches requires adding corresponding
     // entries to enum "LoginCustomFlags" in histograms.xml. See note in
     // histograms.xml and don't forget to run AboutFlagsHistogramTest unit test.
