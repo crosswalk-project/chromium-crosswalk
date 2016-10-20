@@ -4160,7 +4160,7 @@ TEST_F(HttpNetworkTransactionTest, NonPermanentGenerateAuthTokenError) {
       new HttpNetworkTransaction(DEFAULT_PRIORITY, session.get()));
 
   TestCompletionCallback callback;
-  int rv = trans->Start(&request, callback.callback(), NetLogWithSource());
+  int rv = trans->Start(&request, callback.callback(), BoundNetLog());
   EXPECT_THAT(callback.GetResult(rv), IsOk());
 
   const HttpResponseInfo* response = trans->GetResponseInfo();
@@ -12078,8 +12078,7 @@ TEST_F(HttpNetworkTransactionTest, GenerateAuthToken) {
       std::unique_ptr<HttpAuthHandlerMock> second_handler =
           base::MakeUnique<HttpAuthHandlerMock>();
       second_handler->InitFromChallenge(&tokenizer, HttpAuth::AUTH_SERVER,
-                                        empty_ssl_info, origin,
-                                        NetLogWithSource());
+                                        empty_ssl_info, origin, BoundNetLog());
       second_handler->SetGenerateExpectation(true, OK);
       auth_factory->AddMockHandler(second_handler.release(),
                                    HttpAuth::AUTH_SERVER);
