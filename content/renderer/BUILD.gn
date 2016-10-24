@@ -122,8 +122,6 @@ source_set("renderer") {
     set_sources_assignment_filter([])
     sources += [ "render_view_linux.cc" ]
 
-    sources -= [ "media/audio_decoder.cc" ]
-
     deps += [
       "//third_party/android_tools:cpu_features",
       "//third_party/libphonenumber",
