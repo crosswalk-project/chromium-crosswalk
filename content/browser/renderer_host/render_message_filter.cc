@@ -86,6 +86,7 @@
 
 #if defined(OS_ANDROID)
 #include "content/browser/media/android/media_throttler.h"
+#include "media/base/android/webaudio_media_codec_bridge.h"
 #endif
 
 #if defined(OS_MACOSX)
@@ -120,7 +121,14 @@ void NoOpCacheStorageErrorCallback(
     std::unique_ptr<CacheStorageCacheHandle> cache_handle,
     CacheStorageError error) {}
 
-}  // namespace
+}
+
+#if defined(OS_ANDROID)
+void CloseWebAudioFileDescriptor(int fd) {
+  if (close(fd))
+    VLOG(1) << "Couldn't close output webaudio fd: " << strerror(errno);
+}
+#endif  // namespace
 
 RenderMessageFilter::RenderMessageFilter(
     int render_process_id,
@@ -221,6 +229,9 @@ bool RenderMessageFilter::OnMessageReceived(const IPC::Message& message) {
                         OnPreCacheFontCharacters)
 #endif
     IPC_MESSAGE_HANDLER(ViewHostMsg_MediaLogEvents, OnMediaLogEvents)
+#if defined(OS_ANDROID)
+    IPC_MESSAGE_HANDLER(ViewHostMsg_RunWebAudioMediaCodec, OnWebAudioMediaCodec)
+#endif
     IPC_MESSAGE_UNHANDLED(handled = false)
   IPC_END_MESSAGE_MAP()
 
@@ -609,6 +620,32 @@ void RenderMessageFilter::OnMediaLogEvents(
   if (media_internals_)
     media_internals_->OnMediaEvents(render_process_id_, events);
 }
+
+#if defined(OS_ANDROID)
+void RenderMessageFilter::OnWebAudioMediaCodec(
+    base::SharedMemoryHandle encoded_data_handle,
+    base::FileDescriptor pcm_output,
+    uint32_t data_size) {
+  if (!MediaThrottler::GetInstance()->RequestDecoderResources()) {
+    base::WorkerPool::PostTask(
+        FROM_HERE,
+        base::Bind(&CloseWebAudioFileDescriptor, pcm_output.fd),
+        true);
+    VLOG(1) << "Cannot decode audio data due to throttling";
+  } else {
+    // Let a WorkerPool handle this request since the WebAudio
+    // MediaCodec bridge is slow and can block while sending the data to
+    // the renderer.
+    base::WorkerPool::PostTask(
+        FROM_HERE,
+        base::Bind(&media::WebAudioMediaCodecBridge::RunWebAudioMediaCodec,
+                   encoded_data_handle, pcm_output, data_size,
+                   base::Bind(&MediaThrottler::OnDecodeRequestFinished,
+                              base::Unretained(MediaThrottler::GetInstance()))),
+        true);
+  }
+}
+#endif
 
 void RenderMessageFilter::OnAllocateGpuMemoryBuffer(gfx::GpuMemoryBufferId id,
                                                     uint32_t width,
