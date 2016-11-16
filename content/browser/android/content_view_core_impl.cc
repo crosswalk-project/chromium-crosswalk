@@ -1436,7 +1436,7 @@ jint ContentViewCoreImpl::GetCurrentRenderProcessId(
 
 void ContentViewCoreImpl::SetBackgroundColor(JNIEnv* env, jobject jobj,
     jint color) {
-    root_layer_->SetBackgroundColor(color);
+    view_.GetLayer()->SetBackgroundColor(color);
 }
 
 void ContentViewCoreImpl::SetBackgroundOpaque(JNIEnv* env,
