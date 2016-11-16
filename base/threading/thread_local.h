@@ -116,7 +116,7 @@ template <typename Type>
   public:
    ThreadLocalPointer() {}
 
-   ~ThreadLocalPointer() { slot_.Free(); }
+   ~ThreadLocalPointer() {}
 
    Type* Get() {
      return static_cast<Type*>(slot_.Get());
